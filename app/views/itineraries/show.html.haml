@@ -1,0 +1,56 @@
+#moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
+  #header_container
+    = image_tag "white_logo.png", style: "float:left;"
+    = image_tag "white_tagline.png", style: "float:left;"
+    %a{href: "#"}
+      = image_tag "white_anon_user.png", style: "float:right;", html: { border: "0" }
+    %ul.menu_top
+      %li.menu_link= link_to 'LAUNCH', "#"
+      %li.menu_link= link_to 'BUILD', "#"
+      %li.menu_link= link_to 'DREAM', "#"
+  #photo_left_right
+    %a{href: "#"}
+      = image_tag "blank.png", html: { height: "400", width: "160" }
+    = image_tag 'blank.png', html: { height: "400", width: "600"}
+    %a{href: "#"}
+      = image_tag 'blank.png', html: {height: "400", width: "160"}
+  #caption
+    %a{href: "#"}
+      = image_tag 'down_bubble.png', html: { height: "24", src: "down_bubble.png", style: "position:absolute;margin-top:22px; margin-left:13px;float:left;", width: "24" }
+    %strong= @data.title
+    |
+    %i= @data.duration
+    %span{style: "float:right;font-size:12px;padding-right:13px"}= "\"#{@data.subtitle}\""
+/
+  <div id="persistent_header">
+  x
+  </div>
+#body_container
+  #overview
+    #map-data{ data: {markers: @marker_coordinates} }
+    #map{ style: "border:0; float:right; width: 450px; height: 350px"}
+    #summary_content
+      Summary
+    #dashboard_content
+      Dashboard
+  .body_on
+    #itinerary
+      Fly in
+      Bariloche
+      Villa Catedral
+      Refugio Frey
+      
+      Days
+      Fly out
+  .body.off
+    #itinerary
+      Fly in
+      Bariloche
+      Villa Catedral
+      Refugio Frey
+
+      Days
+      Fly out
+#footer
+  #footer_content
+    Text

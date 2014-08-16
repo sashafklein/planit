@@ -23,10 +23,14 @@ gem "unicorn"
 
 gem "haml-rails"
 
+gem 'geocoder'
+
 group :development do
   gem "foreman"
   gem "spring"
   gem "spring-commands-rspec"
+  gem 'binding_of_caller'
+  gem 'better_errors'
 end
 
 group :development, :test do
