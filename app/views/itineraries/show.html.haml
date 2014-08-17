@@ -27,8 +27,9 @@
   </div>
 #body_container
   #overview
-    #map-data{ data: {markers: @marker_coordinates} }
-    #map{ style: "border:0; float:right; width: 450px; height: 350px"}
+    #map-list{ data: { list: 'john-muir-trail' } }
+    .map-data{ id: "#{@slugged_title}-data", data: {markers: @marker_coordinates} }
+    .map{ id: "#{@slugged_title}-map" }
     #summary_content
       Summary
     #dashboard_content

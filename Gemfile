@@ -22,7 +22,6 @@ gem "uglifier"
 gem "unicorn"
 
 gem "haml-rails"
-
 gem 'geocoder'
 
 group :development do

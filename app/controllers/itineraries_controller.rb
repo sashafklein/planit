@@ -4,6 +4,7 @@ class ItinerariesController < ApplicationController
 
   def show
     @marker_coordinates = @data.map_locations.map{ |loc| coords_from(loc) }.join('+')
+    @slugged_title = params[:id]
   end
 
   def jmt
