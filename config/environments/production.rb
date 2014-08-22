@@ -21,7 +21,7 @@ Rails.application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.static_cache_control = "public, max-age=#{1.year.to_i}"
+  # config.static_cache_control = "public, max-age=#{1.year.to_i}"
 
   # Enable deflate / gzip compression of controller-generated responses
   config.middleware.use Rack::Deflater
