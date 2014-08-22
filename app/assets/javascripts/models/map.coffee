@@ -27,10 +27,31 @@ class Map
     map.addLayer(@mapnik)
     map.addLayer(@markers)
     window.m = map
+
+# NIKO'S HACKY CENTERING 
+
+    max_lat = -90
+    min_lat = 90
+    max_lon = -180
+    min_lon = 180
+    average_lat = 0
+    average_lon = 0
     for pair in @markerCoordinates()
       coords = pair.split(":")
       pos = new OpenLayers.LonLat(coords[1], coords[0]).transform( @fromProjection, @toProjection )
       @markers.addMarker(new OpenLayers.Marker pos, @icon() )
-      map.setCenter(pos, 8)
+      # map.setCenter(pos, 8)
+      if coords[0] > max_lat
+        max_lat = parseFloat(coords[0])
+      if coords[0] < min_lat
+        min_lat = parseFloat(coords[0])
+      if coords[1] > max_lon
+        max_lon = parseFloat(coords[1])
+      if coords[1] < min_lon
+        min_lon = parseFloat(coords[1])
+    average_lat = ( parseFloat(max_lat) + parseFloat(min_lat) ) / 2
+    average_lon = ( parseFloat(max_lon) + parseFloat(min_lon) ) / 2
+    center_pos = new OpenLayers.LonLat(average_lon, average_lat).transform( @fromProjection, @toProjection)
+    map.setCenter(center_pos, 8)
 
 window.Map = Map
