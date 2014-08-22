@@ -1,13 +1,21 @@
 $ ->
 
   $(window).scroll ->
-    if ( $(@).scrollTop() > 1 )  
-      $('persistent_header').addClass("sticky")
+    if ( $(@).scrollTop() > 470 )  
+      $('.persistent-header').addClass("sticky")
     else
-      $('persistent_header').removeClass("sticky")
+      $('.persistent-header').removeClass("sticky")
 
-  if $('itineraries itineraries-show')
+  if $('.itineraries.itineraries-show').length
     for mapName in $('#map-list').data('list').split('+')
       map = new Map(mapName)
-      window.map = map
       map.paint()
+
+  addAndRemoveOnHover = (selector, className='active') ->
+    $(selector).hover(
+      -> $(@).addClass className,
+      -> $(@).removeClass className 
+    )
+
+  addAndRemoveOnHover('.content-tab')
+  addAndRemoveOnHover('.timeline-wrap-build')    

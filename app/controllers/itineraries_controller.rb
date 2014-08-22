@@ -7,6 +7,9 @@ class ItinerariesController < ApplicationController
     @slugged_title = params[:id]
   end
 
+  def new
+  end
+
   def jmt
     redirect_to itinerary_path('john-muir-trail')
   end

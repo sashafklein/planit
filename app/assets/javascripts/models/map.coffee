@@ -7,7 +7,7 @@ class Map
     @mapnik = new OpenLayers.Layer.OSM()
     @markers = new OpenLayers.Layer.Markers("Markers")
 
-  icon: -> new OpenLayers.Icon("http://www.wheatonbible.org/Content/10713/Icons/map-marker.png")
+  icon: -> new OpenLayers.Icon("/assets/timeline-cluster-pin.png")
 
   map: -> 
     options = 
@@ -18,8 +18,7 @@ class Map
   markerCoordinates: -> $("\##{@mapId}-data").data('markers').split('+')
   styles: -> 
     new OpenLayers.Style 
-      'pointRadius': 10
-      'fillColor': '#ccc'
+      'pointRadius': 30
 
   paint: ->
     map = @map()

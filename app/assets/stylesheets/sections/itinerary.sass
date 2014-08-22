@@ -1,17 +1,47 @@
 body
   margin: 0
 
-#moneyshot
-  background-repeat: no-repeat
-  background-position: center
-  max-width: 1260px
-  min-width: 940px
-  height: 540px
-  margin-left: auto
-  margin-right: auto
-  text-align: center
+// TOP TO BOTTOM
 
-#header_container
+// MENU STUFF
+
+.persistent-header
+  -webkit-background-clip: border-box
+  -webkit-background-origin: padding-box
+  -webkit-background-size: auto
+  // -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 15px 4px
+  background-attachment: scroll
+  background-clip: border-box
+  background-color: #fff
+  background-image: none
+  background-origin: padding-box
+  background-size: auto
+  color: #000
+  display: block
+  height: 69px
+  opacity: 1
+  padding-bottom: 0px
+  padding-left: 0px
+  padding-right: 0px
+  padding-top: 0px
+  position: fixed
+  top: 0px
+  visibility: hidden
+  width: 100%
+  min-width: 940px
+  z-index: 16777271
+.sticky
+  transition-delay: 0s
+  transition-duration: 0.2s
+  transition-property: opacity
+  transition-timing-function: ease
+  visibility: visible
+  -webkit-transition-delay: 0s
+  -webkit-transition-duration: 0.2s
+  -webkit-transition-property: opacity
+  -webkit-transition-timing-function: ease
+
+.header-container
   width: 920px
   height: 71px
   overflow: hidden
@@ -23,7 +53,7 @@ body
   color: #fff
   -webkit-font-smoothing: antialiased
 
-.menu_link
+.menu-link
   -webkit-font-smoothing: antialiased
   float: right
   height: 71px
@@ -46,7 +76,7 @@ body
   a:hover
     text-decoration: underline
 
-.menu_top
+.menu-top
   float: right
   list-style-type: none
   margin: 0
@@ -58,21 +88,47 @@ a
   text-decoration: none
   border: 0
 
-#photo_left_right
-  a
-    border: 0px
-  img
-    float: left
+// TITLE STUFF
+
+.moneyshot
+  background-repeat: no-repeat
+  background-position: center
+  max-width: 1260px
+  min-width: 940px
+  height: 540px
+  margin-left: auto
+  margin-right: auto
+  text-align: center
+
+.topmap
+  background-repeat: no-repeat
+  background-position: center
+  max-width: 1260px
+  min-width: 940px
+  height: 540px
+  margin-left: auto
+  margin-right: auto
+  text-align: center
+
+.photo-left-right
+  height: 400px
   width: 920px
-  white-space: nowrap
   margin-left: auto
   margin-right: auto
   margin-top: 0
   margin-bottom: 0
   padding: 0
+  white-space: nowrap
   overflow: hidden
+  img
+    height: 400px
+    width: 600px
+  a
+    border: 0px
+    img
+      width: 160px
 
-#caption
+.moneyshot-caption
   width: 920px
   height: 69px
   margin-left: auto
@@ -89,11 +145,15 @@ a
   text-align: left
   color: #fff
   -webkit-font-smoothing: antialiased
+  img
+    position: absolute
+    float: left
+    padding-top: 6px
   strong
     font-size: 22px
     font-weight: normal
     padding: 13px
-    margin-left: 35px
+    margin-left: 45px
   i
     font-size: 12px
     font-weight: normal
@@ -101,109 +161,385 @@ a
     vertical-align: top
     padding: 13px
 
-#body_container
+// OVERVIEW
+
+.body-container
   max-width: 1260px
   min-width: 940px
   margin-left: auto
   margin-right: auto
   text-align: center
 
-#summary_content
-  width: 430px
-  height: 90px
-  background-color: #eee
-  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  font-size: 14px
-  font-weight: normal
-  color: #000
-  padding: 10px
-  -webkit-font-smoothing: antialiased
-
-#dashboard_content
-  width: 430px
-  height: 300px
-  background-color: #eee
-  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  font-size: 14px
-  font-weight: normal
-  color: #000
-  margin-top: 20px
-  padding: 10px
-  -webkit-font-smoothing: antialiased
-
-#itinerary
-  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  font-size: 14px
-  font-weight: normal
-  color: #000
-  padding: 10px
-  -webkit-font-smoothing: antialiased
-
-#overview
+.overview
   width: 920px
   overflow: hidden
   margin-left: auto
   margin-right: auto
-  margin-top: 30px
-  margin-bottom: 30px
+  margin-top: 0px
+  margin-bottom: 0px
+  padding-top: 30px
+  padding-bottom: 30px
+  background-position: left
+  background-repeat: repeat-y
+  background-image: url('timeline-line.png')
 
-#persistent_header
-  -webkit-background-clip: border-box
-  -webkit-background-origin: padding-box
-  -webkit-background-size: auto
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 15px 4px
-  -webkit-transition-delay: 0s
-  -webkit-transition-duration: 0.2s
-  -webkit-transition-property: opacity
-  -webkit-transition-timing-function: ease
-  background-attachment: scroll
-  background-clip: border-box
-  background-color: #fff
-  background-image: none
-  background-origin: padding-box
-  background-size: auto
-  color: #000
-  display: block
-  font-size: 13px
-  height: 40px
-  left: 0px
-  line-height: 18px
-  opacity: 1
-  padding-bottom: 10px
-  padding-left: 0px
-  padding-right: 0px
-  padding-top: 10px
-  position: fixed
-  top: 0px
-  transition-delay: 0s
-  transition-duration: 0.2s
-  transition-property: opacity
-  transition-timing-function: ease
-  visibility: hidden
-  width: 100%
-  min-width: 940px
-  z-index: 15
+.summary-content
+  width: 450px
+  height: 120px
+  background-color: #eee
+  -webkit-font-smoothing: antialiased
+  .user-circular
+    float: left
+    position: absolute
+    border-radius: 50%
+    -webkit-border-radius: 50%
+    -moz-border-radius: 50%
+    background-position: center center
+    background-repeat: no-repeat
+    margin: 11px
+    width: 32px
+    height: 32px
+  .summary-text
+    font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 14px
+    font-weight: normal
+    color: #000
+    padding: 18px
+    margin-left: 45px
+    text-align: left
 
-#summary_map
+.dashboard-wrap
+  width: 450px
+  height: 310px
+  background-color: #eee
+  margin-top: 20px
+  white-space: nowrap
+  .dashboard-content
+    float: left
+    background-color: #dedede
+    width: 143px
+    margin-top: 5px
+    margin-left: 5px
+    border-width: 1px 0 0 1px
+    border-style: solid
+    border-color: #cdcdcd
+    font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 14px
+    font-weight: normal
+    color: #000
+    padding: 5px
+    -webkit-font-smoothing: antialiased
+
+.ratings
+  width: 120px
+  height: 24px
+  background-position: left
+  background-repeat: repeat-x
+  border: 0px
+  margin-left: auto
+  margin-right: auto
+  margin-top: 5px
+  padding: 0
+  overflow: hidden
+  text-align: left
+  white-space: nowrap
+  img
+    border: 0px
+    margin: 0px
+    padding: 0px
+    display: inline-block
+
+
+.summary-map
   float: right
   width: 450px
   height: 450px
 
-.body_on
-  width: 100%
-  background-color: #eee
+// MAIN ITINERARY CONTENT
 
-.body_off
+.body-on
+  width: 100%
+  background-color: #f9f9f9
+
+.body-off
   width: 100%
   background-color: #fff
 
-#footer
+.timeline-wrap
+  width: 920px
+  margin-left: auto
+  margin-right: auto
+  background-position: left
+  padding-top: 10px
+  padding-bottom: 20px
+  background-repeat: repeat-y
+  background-image: url('timeline-line.png')
+
+.timeline-travel
+  width: 100%
+  text-align: left
+  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  font-size: 15px
+  font-weight: normal
+  color: #000
+  -webkit-font-smoothing: antialiased
+  padding-left: 65px
+  padding-top: 10px
+  padding-bottom: 10px
+  background-image: url('timeline-car.png')
+  background-repeat: no-repeat
+  background-position: left
+    
+.timeline-cluster
+  width: 100%
+  text-align: left
+  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  font-size: 21px
+  font-weight: normal
+  color: #000
+  -webkit-font-smoothing: antialiased
+  padding-left: 65px
+  padding-top: 0px
+  padding-bottom: 10px
+  background-repeat: no-repeat 
+  background-position: left
+  b
+    font-size: 12px
+    font-weight: bold
+    text-transform: uppercase
+.cluster-A
+  background-image: url('timeline-cluster-pin-A.png')
+.cluster-B
+  background-image: url('timeline-cluster-pin-B.png')
+.cluster-C
+  background-image: url('timeline-cluster-pin-C.png')
+.cluster-D
+  background-image: url('timeline-cluster-pin-D.png')
+  
+.timeline-end
+  clear: both
+
+.itinerary-cluster-wrap-on
+  width: 855px
+  margin-left: 65px
+  margin-right: 25px
+  margin-top: 0px
+  margin-bottom: 0px
+  padding: 20px
+  background-color: #fff
+
+.itinerary-cluster-wrap-off
+  width: 855px
+  margin-left: 65px
+  margin-right: 25px
+  margin-top: 0px
+  margin-bottom: 0px
+  padding: 20px
+  background-color: #eee
+
+.cluster-moneyshot
+  width: 100%
+  height: 150px
+  background-repeat: no-repeat
+  background-position: center center
+  .cluster-caption
+    float: left
+    position: absolute
+    background: rgb(0, 0, 0)
+    /* fallback color
+    background: rgba(0, 0, 0, 0.85)
+    text-align: left
+    font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    color: #fff
+    line-height: 25px
+    vertical-align: baseline
+    padding: 10px
+    margin: 10px
+    -webkit-font-smoothing: antialiased
+
+.itinerary-content-wrap
+  width: 855px
+  height: 172px
+  margin-left: 65px
+  margin-right: 25px
+  margin-top: 0px
+  margin-bottom: 0px
+  padding: 10px
+  white-space: nowrap
+  overflow: hidden
+.itinerary-content-wrap-onA
+  background-color: #f3f3f3
+.itinerary-content-wrap-onB
+  background-color: #fff 
+.itinerary-content-wrap-offA
+  background-color: #e9e9e9
+.itinerary-content-wrap-offB
+  background-color: #eee
+
+.content-tab-wrap
+  height: 250px
+  width: 200px
+  display: block
+  float: left
+
+.content-tab
+  padding-right: 10px
+  padding-left: 10px
+  padding-top: 10px
+  text-align: center
+  font-family: "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+  font-size: 12px
+  font-weight: normal
+  color: #000
+  img
+    width: 180px
+    height: 120px
+    border: 0px
+    margin: 0px
+
+  &.active
+    display: block
+    position: absolute
+    background: #333
+    color: #fff
+    // background: #fcc
+    // background: rgba(255, 255, 200, 0.9)
+    height: 330px
+    width: 200px
+    border-bottom: 3px solid #222
+    z-index: 100
+
+.content-tab-more-info
+  margin-top: 8px
+  width: 180px
+  height: 140px
+  font-size: 10px
+  text-align: left
+  font-family: avenir, arial
+  position:relative
+  display: inherit
+  overflow-x: auto
+  white-space: normal
+  word-wrap: normal
+
+.content-tab-get-more
+  margin-top: 8px
+  width: 180px
+  height: 20px
+  font-size: 10px
+  text-align: left
+  font-family: avenir, arial
+  position:relative
+  display: inherit
+  overflow: hidden
+  white-space: normal
+  word-wrap: normal
+  a
+    color: #fff
+
+.content-tab-title-info
+// inherit
+  width: 180px
+  word-wrap: normal
+
+.itinerary-content-date
+  margin-left: 0px
+  margin-top: -27px
+  float:left
+  width: 55px
+  height: 55px
+  position: absolute
+  background-repeat: no-repeat
+  background-position: left
+.itinerary-content-date-1
+  background-image: url('timeline_date_1.png')
+.itinerary-content-date-2
+  background-image: url('timeline_date_2.png')
+.itinerary-content-date-3
+  background-image: url('timeline_date_3.png')
+.itinerary-content-date-4
+  background-image: url('timeline_date_4.png')
+.itinerary-content-date-5
+  background-image: url('timeline_date_5.png')
+.itinerary-content-date-6
+  background-image: url('timeline_date_6.png')
+.itinerary-content-date-7
+  background-image: url('timeline_date_7.png')
+.itinerary-content-date-8
+  background-image: url('timeline_date_8.png')
+.itinerary-content-date-9
+  background-image: url('timeline_date_9.png')
+.itinerary-content-date-10
+  background-image: url('timeline_date_10.png')
+.itinerary-content-date-11
+  background-image: url('timeline_date_11.png')
+.itinerary-content-date-12
+  background-image: url('timeline_date_12.png')
+.itinerary-content-date-13
+  background-image: url('timeline_date_13.png')
+.itinerary-content-date-14
+  background-image: url('timeline_date_14.png')
+.itinerary-content-date-15
+  background-image: url('timeline_date_15.png')
+.itinerary-content-date-16
+  background-image: url('timeline_date_16.png')
+.itinerary-content-date-17
+  background-image: url('timeline_date_17.png')
+.itinerary-content-date-18
+  background-image: url('timeline_date_18.png')
+.itinerary-content-date-19
+  background-image: url('timeline_date_19.png')
+.itinerary-content-date-20
+  background-image: url('timeline_date_20.png')
+.itinerary-content-date-21
+  background-image: url('timeline_date_21.png')
+
+.itinerary-content-time
+  margin-left: 0px
+  margin-top: 55px
+  float:left
+  width: 55px
+  height: 55px
+  position: absolute
+  background-repeat: no-repeat
+  background-position: left
+.itinerary-content-time-allday
+  background-image: url('timeline_allday.png')
+.itinerary-content-time-dawn
+  background-image: url('timeline_dawn.png')
+.itinerary-content-time-morning
+  background-image: url('timeline_morning.png')
+.itinerary-content-time-late-morning
+  background-image: url('timeline_late_morning.png')
+.itinerary-content-time-day
+  background-image: url('timeline_day.png')
+.itinerary-content-time-afternoon
+  background-image: url('timeline_afternoon.png')
+.itinerary-content-time-evening
+  background-image: url('timeline_evening.png')
+.itinerary-content-time-night
+  background-image: url('timeline_night.png')
+
+.tab-sleep
+  margin-left: 153px
+  margin-top: -27px
+  width: 55px
+  height: 55px
+  position: absolute
+  background-repeat: no-repeat
+  background-position: left
+  background-image: url('tab_sleep.png')
+
+// BOTTOM OF PAGE
+
+.footer
   width: 100%
   background-color: #000
   padding-top: 25px
   padding-bottom: 50px
+  margin-top: 10px
 
-#footer_content
+.footer-content
   width: 920px
   margin: auto
   font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
@@ -216,4 +552,154 @@ a
   border: 0 
   float: right
   width: 450px
-  height: 350px
+  height: 450px
+
+// BUILD MODE
+
+.just-added-build
+  width: 200px
+  height: 140px
+
+
+.build-search
+  width: 920px
+  height: 69px
+  margin-left: auto
+  margin-right: auto
+  margin-top: 400px
+  margin-bottom: 0
+  white-space: nowrap
+  overflow: hidden
+  background: rgb(0, 0, 0)
+  /* fallback color
+  background: rgba(0, 0, 0, 0.7)
+  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  line-height: 69px
+  vertical-align: baseline
+  text-align: left
+  color: #fff
+  -webkit-font-smoothing: antialiased
+  img
+    position: absolute
+    float: left
+    padding-top: 6px
+  input
+    display: inline-block
+    font-size: 12px
+    font-weight: normal
+    padding: 6px 6px 6px 12px
+    margin-left: 70px
+    height: 30px
+    width: 350px
+    margin-top: 18px
+    margin-bottom: 23px
+    margin-right: 0px
+    background: #222
+    color: #fff
+    border: 1px solid #666
+  strong
+    font-size: 12px
+    font-weight: bold
+    padding: 13px
+
+.timeline-wrap-build
+  width: 920px
+  margin-left: auto
+  margin-right: auto
+  background-position: left
+  padding-top: 0px
+  padding-bottom: 0px
+  background-repeat: repeat-y
+  background-image: url('timeline-line.png')
+  border-bottom: #999 dashed 1px
+  &.active
+    background-color: #ffffc8
+
+.itinerary-build-content-wrap
+  width: 855px
+  height: 150px
+  margin-left: 65px
+  margin-right: 25px
+  margin-top: 0px
+  margin-bottom: 0px
+  padding: 5px
+  overflow: hidden
+
+.itinerary-build-content-pin
+  margin-left: 0px
+  margin-top: 50px
+  float:left
+  width: 55px
+  height: 55px
+  position: absolute
+  background-repeat: no-repeat
+  background-position: left
+  background-image: url('timeline-cluster-pin.png')
+
+.content-tab-wrap-build
+  height: 140px
+  width: 500px
+  display: block
+  float: left
+
+.content-tab-build
+  padding-right: 10px
+  padding-left: 10px
+  padding-top: 10px
+  height: 140px
+  float: left
+  overflow-y: hidden
+  text-align: center
+  font-family: "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+  font-size: 12px
+  font-weight: normal
+  color: #000
+  background: #fff
+  img
+    width: 180px
+    height: 120px
+    border: 0px
+    margin: 0px
+
+.content-tab-more-info-build
+  float: left
+  margin-left: 10px
+  margin-top: -1px
+  width: 180px
+  height: 140px
+  font-size: 14px
+  text-align: left
+  font-family: avenir, arial
+  strong
+    font-size: 18px
+    font-weight: bold
+    background: #fff
+    padding: 0px 5px 0px 5px
+  a
+    color: #000
+
+.itinerary-build-travel-q-pin
+  width: 100%
+  text-align: left
+  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  font-size: 15px
+  font-weight: normal
+  color: #000
+  -webkit-font-smoothing: antialiased
+  padding-left: 80px
+  padding-top: 10px
+  padding-bottom: 10px
+  background-image: url('timeline-car.png')
+  background-repeat: no-repeat
+  background-position: left
+  background-color: #f9f9f9
+
+.menu-link-build
+  color: #000
+  a
+    color: #000
+  a:hover
+    color: #000
+    text-decoration: underline
+
+
