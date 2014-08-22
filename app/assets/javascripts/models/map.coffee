@@ -7,7 +7,9 @@ class Map
     @mapnik = new OpenLayers.Layer.OSM()
     @markers = new OpenLayers.Layer.Markers("Markers")
 
-  icon: -> new OpenLayers.Icon("/assets/timeline-cluster-pin.png")
+  icon_size = new OpenLayers.Size(55,55)
+  icon_offset = new OpenLayers.Pixel(-(icon_size.w/2), -icon_size.h)
+  icon: -> new OpenLayers.Icon("/assets/timeline-cluster-pin.png", icon_size, icon_offset)
 
   map: -> 
     options = 
