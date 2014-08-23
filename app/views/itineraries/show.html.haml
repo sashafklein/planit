@@ -1,274 +1,266 @@
-.moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
-  .header-container
-    = image_tag "white_logo.png", style: "float:left;"
-    = image_tag "white_tagline.png", style: "float:left;"
-    %a{href: "#"}
-      = image_tag "white_anon_user.png", style: "float:right;", html: { border: "0" }
-    %ul.menu-top
-      %li.menu-link= link_to 'LAUNCH', itinerary_path('john-muir-trail')
-      %li.menu-link= link_to 'BUILD', new_itinerary_path
-      %li.menu-link= link_to 'DREAM', "#"
-  .photo-left-right
-    %a{href: "#"}
-      = image_tag "blank.png"
-    = image_tag 'blank.png', html: { width: "600" }
-    %a{href: "#"}
-      = image_tag 'blank.png'
-  .moneyshot-caption
-    %a{href: "#"}
-      = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
-    %strong= @data.title
-    |
-    %i= @data.duration
-    %span{style: "float:right;font-size:12px;padding-right:13px"}= "\"#{@data.subtitle}\""
-.persistent-header
-  .header-container
-    = image_tag "black_logo.png", style: "float:left;"
-    %a{href: "#"}
-      = image_tag "black_anon_user.png", style: "float:right;", html: { border: "0" }
-    %ul.menu-top
-      %li.menu-link.menu-link-build= link_to 'LAUNCH', itinerary_path('john-muir-trail')  
-      %li.menu-link.menu-link-build= link_to 'BUILD', new_itinerary_path
-      %li.menu-link.menu-link-build= link_to 'DREAM', "#"
+.printable-content
+  .initial-header
+    .header-container
+      .logo-container
+        = image_tag "white_logo.png", style: "float:left;"
+        = image_tag "white_tagline.png", style: "float:left;"
+      .user-icon
+        %a{href: "#"}
+          = image_tag "white_anon_user.png", style: "float:right;", html: { border: "0" }
+      %ul.menu-top
+        %li.menu-link= link_to 'LAUNCH', itinerary_path('john-muir-trail')
+        %li.menu-link= link_to 'BUILD', new_itinerary_path
+        %li.menu-link= link_to 'DREAM', "#"
+  .moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
+    .photo-left-right
+      .photo-left-right-control.left
+        %a{href: "#"}
+          = image_tag "blank.png"
+      .photo-left-right-control.center
+        = image_tag 'blank.png'
+      .photo-left-right-control.right
+        %a{href: "#"}
+          = image_tag 'blank.png'
+    .title-and-caption-wrap
+      .title-and-caption-content
+        %a{href: "#"}
+          = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
+        .moneyshot-title
+          = @data.title
+        |
+        .moneyshot-duration= @data.duration
+        .moneyshot-caption= "\"#{@data.subtitle}\""
+  .persistent-header
+    .header-container
+      .logo-container
+        = image_tag "black_logo.png"
+      .header-title
+        = @data.title
+      .user-icon
+        %a{href: "#"}
+          = image_tag "black_anon_user.png"
+      %ul.menu-top
+        %li.menu-link.menu-link-build= link_to 'LAUNCH', itinerary_path('john-muir-trail')  
+        %li.menu-link.menu-link-build= link_to 'BUILD', new_itinerary_path
+        %li.menu-link.menu-link-build= link_to 'DREAM', "#"
 
-.body-container
+  .body-container
 
-  .overview
-    #map-list{ data: { list: 'john-muir-trail' } }
-    .map-data{ id: "#{@slugged_title}-data", data: {markers: @marker_coordinates} }
-    .map{ id: "#{@slugged_title}-map" }
-    .summary-content
-      .user-circular{ style: "background-image:url(#{image_path 'niko_user.png'})"}
-      .summary-text
-        %b
-          = "by #{@data.trailblazer}, #{@data.trailblaze_date}"
-        %br
-        Following in the footsteps of ___, trekked from Happy Isles to Whitney Portal through hail, snow, thunderstorms, fog, and glorious sunshine across 220 miles of wilderness.
-
-    .dashboard-wrap
-      .dashboard-content
-        .ratings{ style: "background-image:url(#{image_path 'money_off.png'})"}
-          %img{ src: "#{image_path 'money_on.png'}"}
-        %br trip "persona"
-        %br trip tags
-      .dashboard-content
-        .ratings{ style: "background-image:url(#{image_path 'star_off.png'})"}
-          %img{ src: "#{image_path 'star_on.png'}"}
-        %br
-        %br [*][*][*][*][ ]
-        %br author ratings
-        %br trip trends
-      .dashboard-content
-        .ratings{ style: "background-image:url(#{image_path 'fruit_off.png'})"}
-          %img{ src: "#{image_path 'fruit_on.png'}"}
-        %br
-        %br [o][o][o][o][ ]
-        %br trip "completion"
-        %br trip photo count
-
-  .body-off
-    .timeline-wrap
-      .timeline-travel
-        Drive to Yosemite Valley
-  .body-on
-    .timeline-wrap
-      .timeline-cluster.cluster-A
-        %b Days 1-3:
-        Yosemite Valley to Tuolumne Meadows
-      .itinerary-cluster-wrap-on
-        .cluster-moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
-          .cluster-caption
-            From the Valley to the Meadows
-      .itinerary-content-date.itinerary-content-date-1
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-onA
-        .content-tab-wrap
-          .content-tab
-            %a{href: "#"}
-            = image_tag "http://theegetawaygal.com/wp-content/uploads/2014/04/Yosemite_N.P._Vernal_Falls_Rainbow.jpg"
-            .content-tab-title-info Vernal Fall
-        .content-tab-wrap
-          .content-tab
-            %a{href: "#"}
-            = image_tag "http://www.dkulczyk.com/wp-content/uploads/2012/08/vernal-falls-in-morning-light.jpg"
-            .content-tab-title-info Nevada Fall
-            .content-tab-more-info
-              Top of Nevada Fall
-              Distance: 5.4 mi (8.7 km) round trip (via Mist Trail)
-              Elevation gain: 2000 ft (610 m)
-              Difficulty: Strenuous
-              Time: 5-6 hours
-            .content-tab-get-more
-              Source: 
-              %a{href: "#"} Tripadvisor
-        .content-tab-wrap
-          .content-tab
-            %a{href: "#"}
-            = image_tag "http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Half_Dome10.jpg/250px-Half_Dome10.jpg"
-            .content-tab-title-info Half Dome
-            // http://en.wikipedia.org/wiki/Half_Dome
-            // http://www.tripadvisor.com/Attraction_Review-g61000-d139183-Reviews-Half_Dome-Yosemite_National_Park_California.html
-        .content-tab-wrap
-          .content-tab
-            .tab-sleep
-            %a{href: "#"}
-            = image_tag "http://opadventureteam.com/wp-content/uploads/2013/07/IMG_0348-640x480.jpg"
-            .content-tab-title-info  Clouds' Rest Junction
-            // http://www.everytrail.com/guide/clouds-rest
-      .itinerary-content-date.itinerary-content-date-2
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-onB
-        .content-tab-wrap
-          .content-tab
-            %a{href: "#"}
-            = image_tag "http://tedmuller.us/Outdoor/Hiking/2012/2012img/Aug28/31.jpg"
-            .content-tab-title-info  Columbia Finger
-        .content-tab-wrap
-          .content-tab
-            %a{href: "#"}
-            = image_tag "http://farm1.staticflickr.com/93/261136266_368254059b.jpg"
-            .content-tab-title-info  Sunrise Meadow
-        .content-tab-wrap
-          .content-tab
-            .tab-sleep
-            %a{href: "#"}
-            = image_tag "http://www.americansouthwest.net/california/photographs700/upper-cathedral1.jpg"
-            .content-tab-title-info  Upper Cathedral Lake
-      .itinerary-content-date.itinerary-content-date-3
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-onA
-        .content-tab-wrap
-          .content-tab
-            %a{href: "#"}
-            = image_tag "http://upload.wikimedia.org/wikipedia/commons/7/76/Cathedral_Peak_and_Lake_in_Yosemite.jpg"
-            .content-tab-title-info  Lower Cathedral Lake
-        .content-tab-wrap
-          .content-tab
-            %a{href: "#"}
-            = image_tag "http://www.summitpost.org/images/original/743279.JPG"
-            .content-tab-title-info  Tuolumne Lodge Cascades
-        .content-tab-wrap
-          .content-tab
-            .tab-sleep
-            %a{href: "#"}
-            = image_tag "http://upload.wikimedia.org/wikipedia/commons/a/a3/Tuolumne_Meadows_Sunset.jpg"
-            .content-tab-title-info  Tuolumne Meadows
-  .body.off
-    .timeline-wrap
-      .timeline-cluster.cluster-B
-        %b Days 4-6:
-        Tuolumne Meadows to Mammoth Lakes Region
-      .itinerary-cluster-wrap-off
-        .itinerary-content
-          .cluster-moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
+    .overview
+      #map-list{ data: { list: 'john-muir-trail' } }
+      .map-data{ id: "#{@slugged_title}-data", data: {markers: @marker_coordinates} }
+      .map{ id: "#{@slugged_title}-map" }
+      .summary-wrap
+        .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
+        .summary-author
+          = "#{@data.trailblazer}, #{@data.trailblaze_date}"
+        .summary-content
+          = @data.summary_text
+    .body-off
+      .timeline-wrap
+        .timeline-travel
+          Drive to Yosemite Valley
+    .body-on
+      .timeline-wrap
+        .timeline-cluster.cluster-A
+          %b Days 1-3:
+          Yosemite Valley to Tuolumne Meadows
+        .itinerary-cluster-wrap-on
+          .cluster-map-expandible{ style: "background-image: url('#{image_path @data.moneyshot}')" }
             .cluster-caption
-              First Pass, into the Rain
-      .itinerary-content-date.itinerary-content-date-4
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-offA
-        .itinerary-content
-          Day 4: Tuolumne Meadows > Donahue Pass
-      .itinerary-content-date.itinerary-content-date-5
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-offB
-        .itinerary-content
-          Day 5: Donahue Pass > Thousand Island Lake > Garnet Lake
-      .itinerary-content-date.itinerary-content-date-6
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-offA
-        .itinerary-content
-          Day 6: Garnet Lake > Devil's Postpile > Red's Meadow (Mammoth Lakes)
-  .body-on
-    .timeline-wrap
-      .timeline-cluster.cluster-C
-        %b Days 7-11:
-        Red's Meadow to Muir Trail Ranch
-      .itinerary-cluster-wrap-on
-        .itinerary-content
-          .cluster-moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
-            .cluster-caption
-              Storm-chasing and Hot Springs
-      .itinerary-content-date.itinerary-content-date-7
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-onA
-        .itinerary-content
-          Day 7: Red's Meadow > Purple Lake > Virginia Lake
-      .itinerary-content-date.itinerary-content-date-8
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-onB
-        .itinerary-content
-          Day 8: Virginia Lake > Silver Pass > Lake Edison (Vermillion Valley Ranch)
-      .itinerary-content-date.itinerary-content-date-9
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-onA
-        .itinerary-content
-          Day 9: Mono Hot Springs (rest day)
-      .itinerary-content-date.itinerary-content-date-10
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-onB
-        .itinerary-content
-          Day 10: Bear Creek Valley > Marie Lake
-      .itinerary-content-date.itinerary-content-date-11
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-onA
-        .itinerary-content
-          Day 11: Marie Lake > Selden Pass > Muir Trail Ranch
-  .body-off
-    .timeline-wrap
-      .timeline-cluster.cluster-D
-        %b Days 12-19:
-        Muir Trail Ranch to Mt Whitney
-      .itinerary-cluster-wrap-off
-        .itinerary-content
-          .cluster-moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
-            .cluster-caption
-              The final leg & ascent of Whitney
-      .itinerary-content-date.itinerary-content-date-12
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-offA
-        .itinerary-content
-          Day 12: Muir Trail Ranch > Evolution Meadow
-      .itinerary-content-date.itinerary-content-date-13
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-offB
-        .itinerary-content
-          Day 13: Evolution Meadow > Muir Pass > Black Giant
-      .itinerary-content-date.itinerary-content-date-14
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-offA
-        .itinerary-content
-          Day 14: Black Giant > LeConte Canyon > Deer Meadow before Palisade Lakes
-      .itinerary-content-date.itinerary-content-date-15
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-offB
-        .itinerary-content
-          Day 15: Deer Meadow > Golden Staircase > Mather Pass > Lake Marjorie
-      .itinerary-content-date.itinerary-content-date-16
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-offA
-        .itinerary-content
-          Day 16: Lake Marjorie > Pinchot Pass > Arrowhead Lake
-      .itinerary-content-date.itinerary-content-date-17
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-offB
-        .itinerary-content
-          Day 17: Arrowhead Lake > Rae Lakes > Glen Pass > Center Peak
-      .itinerary-content-date.itinerary-content-date-18
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-offA
-        .itinerary-content
-          Day 18: Center Peak > Forester Pass > Guitar Lake
-      .itinerary-content-date.itinerary-content-date-19
-      .itinerary-content-time.itinerary-content-time-late-morning
-      .itinerary-content-wrap.itinerary-content-wrap-offB
-        .itinerary-content
-          Day 19: Guitar Lake (2am) > Mt Whitney > Whitney Portal
-  .body-off
-    .timeline-wrap
-      .timeline-travel
-        Drive from Lone Pine to Yosemite Valley, Home
-      .timeline-end
+              From the Valley to the Meadows
+        .itinerary-content-date.itinerary-content-date-1
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-onA
+          .content-tab-wrap
+            .content-tab
+              %a{href: "#"}
+              = image_tag "http://theegetawaygal.com/wp-content/uploads/2014/04/Yosemite_N.P._Vernal_Falls_Rainbow.jpg"
+              .content-tab-title-info Vernal Fall
+          .content-tab-wrap
+            .content-tab
+              %a{href: "#"}
+              = image_tag "http://www.dkulczyk.com/wp-content/uploads/2012/08/vernal-falls-in-morning-light.jpg"
+              .content-tab-title-info Nevada Fall
+              .content-tab-more-info
+                Top of Nevada Fall
+                Distance: 5.4 mi (8.7 km) round trip (via Mist Trail)
+                Elevation gain: 2000 ft (610 m)
+                Difficulty: Strenuous
+                Time: 5-6 hours
+              .content-tab-get-more
+                Source: 
+                %a{href: "#"} Tripadvisor
+          .content-tab-wrap
+            .content-tab
+              %a{href: "#"}
+              = image_tag "http://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Half_Dome10.jpg/250px-Half_Dome10.jpg"
+              .content-tab-title-info Half Dome
+              // http://en.wikipedia.org/wiki/Half_Dome
+              // http://www.tripadvisor.com/Attraction_Review-g61000-d139183-Reviews-Half_Dome-Yosemite_National_Park_California.html
+          .content-tab-wrap
+            .content-tab
+              .tab-sleep
+              %a{href: "#"}
+              = image_tag "http://opadventureteam.com/wp-content/uploads/2013/07/IMG_0348-640x480.jpg"
+              .content-tab-title-info  Clouds' Rest Junction
+              // http://www.everytrail.com/guide/clouds-rest
+        .itinerary-content-date.itinerary-content-date-2
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-onB
+          .content-tab-wrap
+            .content-tab
+              %a{href: "#"}
+              = image_tag "http://tedmuller.us/Outdoor/Hiking/2012/2012img/Aug28/31.jpg"
+              .content-tab-title-info  Columbia Finger
+          .content-tab-wrap
+            .content-tab
+              %a{href: "#"}
+              = image_tag "http://farm1.staticflickr.com/93/261136266_368254059b.jpg"
+              .content-tab-title-info  Sunrise Meadow
+          .content-tab-wrap
+            .content-tab
+              .tab-sleep
+              %a{href: "#"}
+              = image_tag "http://www.americansouthwest.net/california/photographs700/upper-cathedral1.jpg"
+              .content-tab-title-info  Upper Cathedral Lake
+        .itinerary-content-date.itinerary-content-date-3
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-onA
+          .content-tab-wrap
+            .content-tab
+              %a{href: "#"}
+              = image_tag "http://upload.wikimedia.org/wikipedia/commons/7/76/Cathedral_Peak_and_Lake_in_Yosemite.jpg"
+              .content-tab-title-info  Lower Cathedral Lake
+          .content-tab-wrap
+            .content-tab
+              %a{href: "#"}
+              = image_tag "http://www.summitpost.org/images/original/743279.JPG"
+              .content-tab-title-info  Tuolumne Lodge Cascades
+          .content-tab-wrap
+            .content-tab
+              .tab-sleep
+              %a{href: "#"}
+              = image_tag "http://upload.wikimedia.org/wikipedia/commons/a/a3/Tuolumne_Meadows_Sunset.jpg"
+              .content-tab-title-info  Tuolumne Meadows
+    .body.off
+      .timeline-wrap
+        .timeline-cluster.cluster-B
+          %b Days 4-6:
+          Tuolumne Meadows to Mammoth Lakes Region
+        .itinerary-cluster-wrap-off
+          .itinerary-content
+            .cluster-moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
+              .cluster-caption
+                First Pass, into the Rain
+        .itinerary-content-date.itinerary-content-date-4
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-offA
+          .itinerary-content
+            Day 4: Tuolumne Meadows > Donahue Pass
+        .itinerary-content-date.itinerary-content-date-5
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-offB
+          .itinerary-content
+            Day 5: Donahue Pass > Thousand Island Lake > Garnet Lake
+        .itinerary-content-date.itinerary-content-date-6
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-offA
+          .itinerary-content
+            Day 6: Garnet Lake > Devil's Postpile > Red's Meadow (Mammoth Lakes)
+    .body-on
+      .timeline-wrap
+        .timeline-cluster.cluster-C
+          %b Days 7-11:
+          Red's Meadow to Muir Trail Ranch
+        .itinerary-cluster-wrap-on
+          .itinerary-content
+            .cluster-moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
+              .cluster-caption
+                Storm-chasing and Hot Springs
+        .itinerary-content-date.itinerary-content-date-7
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-onA
+          .itinerary-content
+            Day 7: Red's Meadow > Purple Lake > Virginia Lake
+        .itinerary-content-date.itinerary-content-date-8
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-onB
+          .itinerary-content
+            Day 8: Virginia Lake > Silver Pass > Lake Edison (Vermillion Valley Ranch)
+        .itinerary-content-date.itinerary-content-date-9
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-onA
+          .itinerary-content
+            Day 9: Mono Hot Springs (rest day)
+        .itinerary-content-date.itinerary-content-date-10
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-onB
+          .itinerary-content
+            Day 10: Bear Creek Valley > Marie Lake
+        .itinerary-content-date.itinerary-content-date-11
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-onA
+          .itinerary-content
+            Day 11: Marie Lake > Selden Pass > Muir Trail Ranch
+    .body-off
+      .timeline-wrap
+        .timeline-cluster.cluster-D
+          %b Days 12-19:
+          Muir Trail Ranch to Mt Whitney
+        .itinerary-cluster-wrap-off
+          .itinerary-content
+            .cluster-moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
+              .cluster-caption
+                The final leg & ascent of Whitney
+        .itinerary-content-date.itinerary-content-date-12
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-offA
+          .itinerary-content
+            Day 12: Muir Trail Ranch > Evolution Meadow
+        .itinerary-content-date.itinerary-content-date-13
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-offB
+          .itinerary-content
+            Day 13: Evolution Meadow > Muir Pass > Black Giant
+        .itinerary-content-date.itinerary-content-date-14
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-offA
+          .itinerary-content
+            Day 14: Black Giant > LeConte Canyon > Deer Meadow before Palisade Lakes
+        .itinerary-content-date.itinerary-content-date-15
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-offB
+          .itinerary-content
+            Day 15: Deer Meadow > Golden Staircase > Mather Pass > Lake Marjorie
+        .itinerary-content-date.itinerary-content-date-16
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-offA
+          .itinerary-content
+            Day 16: Lake Marjorie > Pinchot Pass > Arrowhead Lake
+        .itinerary-content-date.itinerary-content-date-17
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-offB
+          .itinerary-content
+            Day 17: Arrowhead Lake > Rae Lakes > Glen Pass > Center Peak
+        .itinerary-content-date.itinerary-content-date-18
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-offA
+          .itinerary-content
+            Day 18: Center Peak > Forester Pass > Guitar Lake
+        .itinerary-content-date.itinerary-content-date-19
+        .itinerary-content-time.itinerary-content-time-late-morning
+        .itinerary-content-wrap.itinerary-content-wrap-offB
+          .itinerary-content
+            Day 19: Guitar Lake (2am) > Mt Whitney > Whitney Portal
+    .body-off
+      .timeline-wrap
+        .timeline-travel
+          Drive from Lone Pine to Yosemite Valley, Home
+        .timeline-end
 
-.footer
-  .footer-content
-    Text
+  .footer
+    .footer-content
+      Text
+
+.printable-message

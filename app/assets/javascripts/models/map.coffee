@@ -40,7 +40,6 @@ class Map
       coords = pair.split(":")
       pos = new OpenLayers.LonLat(coords[1], coords[0]).transform( @fromProjection, @toProjection )
       @markers.addMarker(new OpenLayers.Marker pos, @icon() )
-      # map.setCenter(pos, 8)
       if coords[0] > max_lat
         max_lat = parseFloat(coords[0])
       if coords[0] < min_lat
@@ -53,5 +52,13 @@ class Map
     average_lon = ( parseFloat(max_lon) + parseFloat(min_lon) ) / 2
     center_pos = new OpenLayers.LonLat(average_lon, average_lat).transform( @fromProjection, @toProjection)
     map.setCenter(center_pos, 8)
+    map.setOptions(restrictedExtent: map.getExtent())
+# NEED TO ADD FUNCTION TO GET US TO AUTO-ZOOM... UNCLEAR WHAT OPENLAYERS HAS FOR THIS, LOOKED UP
+# ALSO WANT TO AUTOCALC INCLUDING PIN SIZES
 
 window.Map = Map
+
+->
+
+  $addLivePin ->
+    window.document.getElementbyId('')
