@@ -53,6 +53,7 @@ class Map
     center_pos = new OpenLayers.LonLat(average_lon, average_lat).transform( @fromProjection, @toProjection)
     map.setCenter(center_pos, 8)
     map.setOptions(restrictedExtent: map.getExtent())
+    
 # NEED TO ADD FUNCTION TO GET US TO AUTO-ZOOM... UNCLEAR WHAT OPENLAYERS HAS FOR THIS, LOOKED UP
 # ALSO WANT TO AUTOCALC INCLUDING PIN SIZES
 
