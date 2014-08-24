@@ -3,7 +3,7 @@ class ItinerariesController < ApplicationController
   before_action :load_yaml_data, only: [:show]
 
   def show
-    @marker_coordinates = @data.map_locations.map{ |loc| coords_from(loc) }.join('+')
+    @marker_coordinates = @data.map_locations.map{ |loc| coords_from(loc) }.compact.join('+')
     @slugged_title = params[:id]
   end
 
@@ -29,7 +29,12 @@ class ItinerariesController < ApplicationController
   end
 
   def coords_from(address)
-    loc = Geocoder.search(address).first.data["geometry"]["location"]
-    [ loc['lat'], loc['lng'] ].join(":")
+    first_one = Geocoder.search(address).first
+    if first_one
+      loc = first_one.data["geometry"]["location"]
+      [ loc['lat'], loc['lng'] ].join(":")
+    else
+      nil
+    end
   end
 end

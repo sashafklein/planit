@@ -1,0 +1,82 @@
+.new_div{ style: "text-align:left"}
+- body_wrap_status = false
+- body_zebra_status = false
+- prior_day = 0
+- tabs_in_line = 0
+- lines_in_day = 1
+- total_line_count =0
+- which_cluster = 0
+- current_time_of_day = 0
+- @data.items.each do |item|
+  - if item['start_end'].present?
+    = "#{item['start_end']} in #{item['name']}"
+    %br
+  - else
+    - if which_cluster < item['parent_cluster']
+      - if item['travel_type'].present?
+        = "New cluster started w/ travel, shift from #{which_cluster} to #{item['parent_cluster']}"
+      - else
+        = "New cluster from #{which_cluster} to #{item['parent_cluster']}"
+      - lines_in_day = 1
+      - tabs_in_line = 0
+      - current_time_of_day = 0
+      %br
+      - which_cluster = item['parent_cluster']
+    - if item['parent_day'] > prior_day
+      - if item['has_tab']
+        = "New day from #{prior_day} to #{item['parent_day']}"
+        - prior_day = item['parent_day']
+        - tabs_in_line = 0
+        - lines_in_day = 1
+        %br
+      - else
+        = "New day from #{prior_day} to #{item['parent_day']}"
+        - prior_day = item['parent_day']
+        %br
+    - if item['has_tab']        
+      - if item['time_of_day'].present?
+        - if current_time_of_day < item['time_of_day']
+          - tabs_in_line = tabs_in_line + 1
+          = "Break line for new time of day #{item['time_of_day']} and print item #{tabs_in_line} in line #{lines_in_day} (total #{total_line_count} lines)"
+          - current_time_of_day = item['time_of_day']
+          %br
+        - elsif current_time_of_day == item['time_of_day']
+          - if tabs_in_line < 4
+            - tabs_in_line = tabs_in_line + 1
+            = "Print timed item for #{item['time_of_day']} time of day, item #{tabs_in_line} in line #{lines_in_day} (total #{total_line_count} lines)"
+            %br
+          - else
+            - tabs_in_line = 1
+            = "Print timed item in new same-timed line (#{item['time_of_day']} time of day for #{tabs_in_line} tab in line #{lines_in_day} (total #{total_line_count} lines)"
+            %br
+      - else
+        - if current_time_of_day > 0
+          - current_time_of_day = current_time_of_day + 1
+          - tabs_in_line = tabs_in_line + 1
+          - lines_in_day = lines_in_day + 1
+          = "Print new timed line with item #{tabs_in_line} in line #{lines_in_day} (total #{total_line_count} lines)"
+          %br
+        - elsif tabs_in_line < 4
+          - tabs_in_line = tabs_in_line + 1
+          = "Print timeless item #{tabs_in_line} in line #{lines_in_day} (total #{total_line_count} lines)"
+          %br
+        - else
+          - tabs_in_line = 1
+          - lines_in_day = lines_in_day + 1
+          = "Print timeless item #{tabs_in_line} in line #{lines_in_day} (total #{total_line_count} lines)"
+          - tabs_in_line = tabs_in_line + 1
+          %br
+    - else 
+      - if item['lodging']
+        - if tabs_in_line == 0
+          = "No day items but stayed at/in #{item['name']} at #{item['address']}"
+          %br
+        - else
+          = "Tabless lodging at/in #{item['name']} at #{item['address']}"
+          %br
+      - elsif item ['travel_type'].present?
+        = "In-cluster travel to #{item['name']}"
+        %br
+      - else
+        = "Tabless item not travel not lodging #{item['name']} at #{item['address']}"
+        %br
