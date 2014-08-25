@@ -1,6 +1,88 @@
-          .cluster-map-expandible{ style: "background-image: url('#{image_path @data.moneyshot}')" }
-            .cluster-caption
-              From the Valley to the Meadows
+.printable-content
+  .initial-header
+    .header-container
+      .logo-container
+        = image_tag "white_logo.png", style: "float:left;"
+        = image_tag "white_tagline.png", style: "float:left;", id: "tagline"
+      .user-icon
+        %a{href: "#"}
+          = image_tag "white_anon_user.png", style: "float:right;", html: { border: "0" }
+      %ul.menu-top
+        %li.menu-link= link_to 'LAUNCH', itinerary_path('john-muir-trail')
+        %li.menu-link= link_to 'BUILD', new_itinerary_path
+        %li.menu-link= link_to 'DREAM', "#"
+  .moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
+    .photo-left-right
+      .photo-left-right-control.left
+        %a{href: "#"}
+          = image_tag "blank.png"
+      .photo-left-right-control.center
+        = image_tag 'blank.png'
+      .photo-left-right-control.right
+        %a{href: "#"}
+          = image_tag 'blank.png'
+    .title-and-caption-wrap
+      .title-and-caption-content
+        %a{href: "#"}
+          = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
+        .moneyshot-title
+          = @data.title
+        |
+        .moneyshot-duration= @data.duration
+        .moneyshot-caption= "\"#{@data.subtitle}\""
+  .persistent-header
+    .header-container
+      .logo-container
+        = image_tag "black_logo.png"
+      .header-title
+        = @data.title
+      .user-icon
+        %a{href: "#"}
+          = image_tag "black_anon_user.png"
+      %ul.menu-top
+        %li.menu-link.menu-link-build= link_to 'LAUNCH', itinerary_path('john-muir-trail')  
+        %li.menu-link.menu-link-build= link_to 'BUILD', new_itinerary_path
+        %li.menu-link.menu-link-build= link_to 'DREAM', "#"
+
+  .body-container
+
+    .overview
+      .summary-map
+        #map-overview{ style: 'height: 450px'}
+        / #map-list{ data: { list: 'john-muir-trail' } }
+        / .map-data{ id: "#{@slugged_title}-data", data: {markers: @marker_coordinates} }
+        / .map{ id: "#{@slugged_title}-map" }
+      .summary-wrap
+        .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
+        .summary-author
+          = "#{@data.trailblazer}, #{@data.trailblaze_date}"
+        .summary-content
+          = @data.summary_text
+  
+
+- @data.legs.each do |leg|
+  - if leg['arrival']
+    = "Arrive by #{leg['arrival']['method']}"
+  - leg['days'].compact.each do |day|
+    - day['items'].in_groups_of(4).each_with_index do |day_group, index|
+      / This zebra_class method is in itinerary_helper
+      .row{ class: zebra_class(index) }
+        - day_group.compact.each do |item|
+          = item['name']
+          = item['address']
+    THATS A DAY
+    %br
+  THATS A LEG
+  %br
+  = "-----"
+  %br
+
+  .body-off
+    .timeline-wrap
+      .timeline-travel
+    .cluster-map-expandible{ style: "background-image: url('#{image_path @data.moneyshot}')" }
+      .cluster-caption
+        From the Valley to the Meadows
         .itinerary-content-date.itinerary-content-date-1
         .itinerary-content-time.itinerary-content-time-late-morning
         .itinerary-content-wrap.itinerary-content-wrap-onA
@@ -190,3 +272,9 @@
         .timeline-travel
           Drive from Lone Pine to Yosemite Valley, Home
         .timeline-end
+
+  .footer
+    .footer-content
+      Text
+
+.printable-message

@@ -216,6 +216,10 @@ body
     &.off-view
       visibility: hidden
       cursor: auto
+  
+  #tagline
+    &.off-view
+      visibility: hidden
 
   .title-and-caption-wrap
     width: 920px
@@ -282,7 +286,11 @@ body
     margin-left: auto
     margin-right: auto
     text-align: center
-
+    &.odd_class
+      background-color: #fff
+    &.even_class
+      background-color: #f9f9f9
+  
   .overview
     width: 920px
     overflow: hidden
@@ -377,21 +385,12 @@ body
       padding: 0px
       display: inline-block
 
-
   .summary-map
     float: right
     width: 450px
     height: 450px
 
   // MAIN ITINERARY CONTENT
-
-  .body-on
-    width: 100%
-    background-color: #f9f9f9
-
-  .body-off
-    width: 100%
-    background-color: #fff
 
   .timeline-wrap
     width: 920px
@@ -403,7 +402,7 @@ body
     background-repeat: repeat-y
     background-image: image-url('timeline-line.png')
 
-  .timeline-travel
+  .travel-info
     width: 100%
     text-align: left
     font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
@@ -412,13 +411,10 @@ body
     color: #000
     -webkit-font-smoothing: antialiased
     padding-left: 65px
-    padding-top: 10px
-    padding-bottom: 10px
-    background-image: image-url('timeline-car.png')
-    background-repeat: no-repeat
-    background-position: left
-      
-  .timeline-cluster
+    padding-top: 0px
+    padding-bottom: 0px
+
+  .cluster-info
     width: 100%
     text-align: left
     font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
@@ -429,45 +425,59 @@ body
     padding-left: 65px
     padding-top: 0px
     padding-bottom: 10px
-    background-repeat: no-repeat 
-    background-position: left center
     b
       font-size: 12px
       font-weight: bold
       text-transform: uppercase
-  .cluster-A
-    background-image: image-url('timeline-cluster-pin-A.png')
-  .cluster-B
-    background-image: image-url('timeline-cluster-pin-B.png')
-  .cluster-C
-    background-image: image-url('timeline-cluster-pin-C.png')
-  .cluster-D
-    background-image: image-url('timeline-cluster-pin-D.png')
-  .cluster-E
-    background-image: image-url('timeline-cluster-pin-D.png')
-  .cluster-F
-    background-image: image-url('timeline-cluster-pin-D.png')
+
+  .timeline-travel
+    margin-left: 0px
+    margin-top: -17px
+    float:left
+    width: 55px
+    height: 55px
+    position: absolute
+    background-repeat: no-repeat
+    background-position: left
+    &.car
+      background-image: image-url('timeline-car.png')      
+  
+  .timeline-cluster
+    margin-left: 11px
+    margin-top: -9px
+    float:left
+    width: 55px
+    height: 55px
+    position: absolute
+    background-repeat: no-repeat
+    background-position: left
+    &.no1
+      background-image: image-url('timeline-cluster-pin-A.png')
+    &.no2
+      background-image: image-url('timeline-cluster-pin-B.png')
+    &.no3
+      background-image: image-url('timeline-cluster-pin-C.png')
+    &.no4
+      background-image: image-url('timeline-cluster-pin-D.png')
+    &.no5
+      background-image: image-url('timeline-cluster-pin-D.png')
+    &.no6
+      background-image: image-url('timeline-cluster-pin-D.png')
     
   .timeline-end
-    clear: both
+    clear:  both
 
-  .itinerary-cluster-wrap-on
+  .itinerary-cluster-wrap
     width: 855px
     margin-left: 65px
     margin-right: 25px
     margin-top: 0px
     margin-bottom: 0px
     padding: 20px
-    background-color: #fff
-
-  .itinerary-cluster-wrap-off
-    width: 855px
-    margin-left: 65px
-    margin-right: 25px
-    margin-top: 0px
-    margin-bottom: 0px
-    padding: 20px
-    background-color: #eee
+    &.odd_class
+      background: #dddddd
+    &.even_class
+      background: #ffffff
 
   .cluster-map-expandible
     width: 100%
@@ -478,7 +488,6 @@ body
       float: left
       position: absolute
       background: rgb(0, 0, 0)
-      /* fallback color
       background: rgba(0, 0, 0, 0.85)
       text-align: left
       font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
@@ -491,7 +500,7 @@ body
     &.clicked
       height: 250px
 
-  .itinerary-content-wrap
+  .itinerary-content-row
     width: 855px
     height: 172px
     margin-left: 65px
@@ -501,14 +510,12 @@ body
     padding: 10px
     white-space: nowrap
     overflow: hidden
-  .itinerary-content-wrap-onA
-    background-color: #f3f3f3
-  .itinerary-content-wrap-onB
-    background-color: #fff 
-  .itinerary-content-wrap-offA
-    background-color: #e9e9e9
-  .itinerary-content-wrap-offB
-    background-color: #eee
+    &.odd_class
+      background: rgb(245, 245, 245)
+      background: rgba(0, 0, 0, 0.05)
+    &.even_class
+      background: rgb(240, 240, 240)
+      background: rgba(0, 0, 0, 0.08)
 
   .content-tab-wrap
     height: 250px
@@ -585,48 +592,48 @@ body
     position: absolute
     background-repeat: no-repeat
     background-position: left
-  .itinerary-content-date-1
-    background-image: image-url('timeline_date_1.png')
-  .itinerary-content-date-2
-    background-image: image-url('timeline_date_2.png')
-  .itinerary-content-date-3
-    background-image: image-url('timeline_date_3.png')
-  .itinerary-content-date-4
-    background-image: image-url('timeline_date_4.png')
-  .itinerary-content-date-5
-    background-image: image-url('timeline_date_5.png')
-  .itinerary-content-date-6
-    background-image: image-url('timeline_date_6.png')
-  .itinerary-content-date-7
-    background-image: image-url('timeline_date_7.png')
-  .itinerary-content-date-8
-    background-image: image-url('timeline_date_8.png')
-  .itinerary-content-date-9
-    background-image: image-url('timeline_date_9.png')
-  .itinerary-content-date-10
-    background-image: image-url('timeline_date_10.png')
-  .itinerary-content-date-11
-    background-image: image-url('timeline_date_11.png')
-  .itinerary-content-date-12
-    background-image: image-url('timeline_date_12.png')
-  .itinerary-content-date-13
-    background-image: image-url('timeline_date_13.png')
-  .itinerary-content-date-14
-    background-image: image-url('timeline_date_14.png')
-  .itinerary-content-date-15
-    background-image: image-url('timeline_date_15.png')
-  .itinerary-content-date-16
-    background-image: image-url('timeline_date_16.png')
-  .itinerary-content-date-17
-    background-image: image-url('timeline_date_17.png')
-  .itinerary-content-date-18
-    background-image: image-url('timeline_date_18.png')
-  .itinerary-content-date-19
-    background-image: image-url('timeline_date_19.png')
-  .itinerary-content-date-20
-    background-image: image-url('timeline_date_20.png')
-  .itinerary-content-date-21
-    background-image: image-url('timeline_date_21.png')
+    &.no1
+      background-image: image-url('timeline_date_1.png')
+    &.no2
+      background-image: image-url('timeline_date_2.png')
+    &.no3
+      background-image: image-url('timeline_date_3.png')
+    &.no4
+      background-image: image-url('timeline_date_4.png')
+    &.no5
+      background-image: image-url('timeline_date_5.png')
+    &.no6
+      background-image: image-url('timeline_date_6.png')
+    &.no7
+      background-image: image-url('timeline_date_7.png')
+    &.no8
+      background-image: image-url('timeline_date_8.png')
+    &.no9
+      background-image: image-url('timeline_date_9.png')
+    &.no10
+      background-image: image-url('timeline_date_10.png')
+    &.no11
+      background-image: image-url('timeline_date_11.png')
+    &.no12
+      background-image: image-url('timeline_date_12.png')
+    &.no13
+      background-image: image-url('timeline_date_13.png')
+    &.no14
+      background-image: image-url('timeline_date_14.png')
+    &.no15
+      background-image: image-url('timeline_date_15.png')
+    &.no16
+      background-image: image-url('timeline_date_16.png')
+    &.no17
+      background-image: image-url('timeline_date_17.png')
+    &.no18
+      background-image: image-url('timeline_date_18.png')
+    &.no19
+      background-image: image-url('timeline_date_19.png')
+    &.no20
+      background-image: image-url('timeline_date_20.png')
+    &.no21
+      background-image: image-url('timeline_date_21.png')
 
   .itinerary-content-time
     margin-left: 0px
@@ -637,22 +644,22 @@ body
     position: absolute
     background-repeat: no-repeat
     background-position: left
-  .itinerary-content-time-allday
-    background-image: image-url('timeline_allday.png')
-  .itinerary-content-time-dawn
-    background-image: image-url('timeline_dawn.png')
-  .itinerary-content-time-morning
-    background-image: image-url('timeline_morning.png')
-  .itinerary-content-time-late-morning
-    background-image: image-url('timeline_late_morning.png')
-  .itinerary-content-time-day
-    background-image: image-url('timeline_day.png')
-  .itinerary-content-time-afternoon
-    background-image: image-url('timeline_afternoon.png')
-  .itinerary-content-time-evening
-    background-image: image-url('timeline_evening.png')
-  .itinerary-content-time-night
-    background-image: image-url('timeline_night.png')
+    &.allday
+      background-image: image-url('timeline_allday.png')
+    &.dawn
+      background-image: image-url('timeline_dawn.png')
+    &.morning
+      background-image: image-url('timeline_morning.png')
+    &.late-morning
+      background-image: image-url('timeline_late_morning.png')
+    &.day
+      background-image: image-url('timeline_day.png')
+    &.afternoon
+      background-image: image-url('timeline_afternoon.png')
+    &.evening
+      background-image: image-url('timeline_evening.png')
+    &.night
+      background-image: image-url('timeline_night.png')
 
   .tab-sleep
     margin-left: 153px

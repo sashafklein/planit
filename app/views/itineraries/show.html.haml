@@ -1,157 +1,110 @@
-/ .printable-content
-/   .initial-header
-/     .header-container
-/       .logo-container
-/         = image_tag "white_logo.png", style: "float:left;"
-/         = image_tag "white_tagline.png", style: "float:left;"
-/       .user-icon
-/         %a{href: "#"}
-/           = image_tag "white_anon_user.png", style: "float:right;", html: { border: "0" }
-/       %ul.menu-top
-/         %li.menu-link= link_to 'LAUNCH', itinerary_path('john-muir-trail')
-/         %li.menu-link= link_to 'BUILD', new_itinerary_path
-/         %li.menu-link= link_to 'DREAM', "#"
-/   .moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
-/     .photo-left-right
-/       .photo-left-right-control.left
-/         %a{href: "#"}
-/           = image_tag "blank.png"
-/       .photo-left-right-control.center
-/         = image_tag 'blank.png'
-/       .photo-left-right-control.right
-/         %a{href: "#"}
-/           = image_tag 'blank.png'
-/     .title-and-caption-wrap
-/       .title-and-caption-content
-/         %a{href: "#"}
-/           = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
-/         .moneyshot-title
-/           = @data.title
-/         |
-/         .moneyshot-duration= @data.duration
-/         .moneyshot-caption= "\"#{@data.subtitle}\""
-/   .persistent-header
-/     .header-container
-/       .logo-container
-/         = image_tag "black_logo.png"
-/       .header-title
-/         = @data.title
-/       .user-icon
-/         %a{href: "#"}
-/           = image_tag "black_anon_user.png"
-/       %ul.menu-top
-/         %li.menu-link.menu-link-build= link_to 'LAUNCH', itinerary_path('john-muir-trail')  
-/         %li.menu-link.menu-link-build= link_to 'BUILD', new_itinerary_path
-/         %li.menu-link.menu-link-build= link_to 'DREAM', "#"
+.printable-content
+  .initial-header
+    .header-container
+      .logo-container
+        = image_tag "white_logo.png", style: "float:left;"
+        = image_tag "white_tagline.png", style: "float:left;", id: "tagline"
+      .user-icon
+        %a{href: "#"}
+          = image_tag "white_anon_user.png", style: "float:right;", html: { border: "0" }
+      %ul.menu-top
+        %li.menu-link= link_to 'LAUNCH', itinerary_path('john-muir-trail')
+        %li.menu-link= link_to 'BUILD', new_itinerary_path
+        %li.menu-link= link_to 'DREAM', "#"
+  .moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
+    .photo-left-right
+      .photo-left-right-control.left
+        %a{href: "#"}
+          = image_tag "blank.png"
+      .photo-left-right-control.center
+        = image_tag 'blank.png'
+      .photo-left-right-control.right
+        %a{href: "#"}
+          = image_tag 'blank.png'
+    .title-and-caption-wrap
+      .title-and-caption-content
+        %a{href: "#"}
+          = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
+        .moneyshot-title
+          = @data.title
+        |
+        .moneyshot-duration= @data.duration
+        .moneyshot-caption= "\"#{@data.subtitle}\""
+  .persistent-header
+    .header-container
+      .logo-container
+        = image_tag "black_logo.png"
+      .header-title
+        = @data.title
+      .user-icon
+        %a{href: "#"}
+          = image_tag "black_anon_user.png"
+      %ul.menu-top
+        %li.menu-link.menu-link-build= link_to 'LAUNCH', itinerary_path('john-muir-trail')  
+        %li.menu-link.menu-link-build= link_to 'BUILD', new_itinerary_path
+        %li.menu-link.menu-link-build= link_to 'DREAM', "#"
 
-/   .body-container
+  .body-container
 
-/     .overview
-/       / #map-list{ data: { list: 'john-muir-trail' } }
-/       / .map-data{ id: "#{@slugged_title}-data", data: {markers: @marker_coordinates} }
-/       / .map{ id: "#{@slugged_title}-map" }
-/       .summary-wrap
-/         .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
-/         .summary-author
-/           = "#{@data.trailblazer}, #{@data.trailblaze_date}"
-/         .summary-content
-/           = @data.summary_text
-/         / .body-off
-/         /   .timeline-wrap
-/         /     .timeline-travel{ class: item['travel_type'] }
-/         / = "#{travel_verb(item['travel_type'])} to #{item['name']}"
-.new_div{ style: "text-align:left"}
-- body_wrap_status = false
-- body_zebra_status = false
-- prior_day = 0
-- tabs_in_line = 0
-- lines_in_day = 1
-- total_line_count =0
-- which_cluster = 0
-- current_time_of_day = 0
-- @data.items.each do |item|
-  - if item['start_end'].present?
-    = "#{item['start_end']} in #{item['name']}"
-    %br
-  - else
-    - if which_cluster < item['parent_cluster']
-      - if item['travel_type'].present?
-        = "New cluster started w/ travel, shift from #{which_cluster} to #{item['parent_cluster']}"
-      - else
-        = "New cluster from #{which_cluster} to #{item['parent_cluster']}"
-      - lines_in_day = 1
-      - tabs_in_line = 0
-      - current_time_of_day = 0
-      %br
-      - which_cluster = item['parent_cluster']
-    - if item['parent_day'] > prior_day
-      - if item['has_tab']
-        = "New day from #{prior_day} to #{item['parent_day']}"
-        - prior_day = item['parent_day']
-        - tabs_in_line = 0
-        - lines_in_day = 1
-        %br
-      - else
-        = "New day from #{prior_day} to #{item['parent_day']}"
-        - prior_day = item['parent_day']
-        %br
-    - if item['has_tab']        
-      - if item['time_of_day'].present?
-        - if current_time_of_day < item['time_of_day']
-          - tabs_in_line = tabs_in_line + 1
-          = "- New line"
-          %br
-          - total_line_count = total_line_count + 1
-          = "-- Print timed item for #{item['time_of_day']} time of day, item #{tabs_in_line} in line #{lines_in_day} (total #{total_line_count} lines)"
-          - current_time_of_day = item['time_of_day']
-          %br
-        - elsif current_time_of_day == item['time_of_day']
-          - if tabs_in_line < 4
-            - tabs_in_line = tabs_in_line + 1
-            = "-- Print timed item for #{item['time_of_day']} time of day, item #{tabs_in_line} in line #{lines_in_day} (total #{total_line_count} lines)"
-            %br
-          - else
-            - tabs_in_line = 1
-            = "- New line"
-            %br
-            - total_line_count = total_line_count + 1
-            = "-- Print timed item in new same-timed line (#{item['time_of_day']} time of day for #{tabs_in_line} tab in line #{lines_in_day} (total #{total_line_count} lines)"
-            %br
-      - else
-        - if current_time_of_day > 0
-          - current_time_of_day = current_time_of_day + 1
-          - tabs_in_line = tabs_in_line + 1
-          - lines_in_day = lines_in_day + 1
-          = "-- Print new timed line with item #{tabs_in_line} in line #{lines_in_day} (total #{total_line_count} lines)"
-          %br
-        - elsif tabs_in_line < 4
-          - tabs_in_line = tabs_in_line + 1
-          = "-- Print timeless item #{tabs_in_line} in line #{lines_in_day} (total #{total_line_count} lines)"
-          %br
-        - else
-          - tabs_in_line = 1
-          - lines_in_day = lines_in_day + 1
-          - total_line_count = total_line_count + 1
-          = "-- Print timeless item #{tabs_in_line} in line #{lines_in_day} (total #{total_line_count} lines)"
-          - tabs_in_line = tabs_in_line + 1
-          %br
-    - else 
-      - if item['lodging']
-        - if tabs_in_line == 0
-          = "No day items but stayed at/in #{item['name']} at #{item['address']}"
-          %br
-        - else
-          = "Tabless lodging at/in #{item['name']} at #{item['address']}"
-          %br
-      - elsif item ['travel_type'].present?
-        = "In-cluster travel to #{item['name']}"
-        %br
-      - else
-        = "Tabless item not travel not lodging #{item['name']} at #{item['address']}"
-        %br
+    .overview
+      .summary-map
+        #map-overview{ style: 'height: 450px'}
+        / #map-list{ data: { list: 'john-muir-trail' } }
+        / .map-data{ id: "#{@slugged_title}-data", data: {markers: @marker_coordinates} }
+        / .map{ id: "#{@slugged_title}-map" }
+      .summary-wrap
+        .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
+        .summary-author
+          = "#{@data.trailblazer}, #{@data.trailblaze_date}"
+        .summary-content
+          = @data.summary_text
+  
+  - @data.legs.each_with_index do |leg, index|
+    - if leg['arrival']
+      .body-container
+        .timeline-wrap
+          .timeline-travel{ class: leg['arrival']['method']}
+          .travel-info
+            = "Arrive by #{leg['arrival']['method']}"
+    .body-container{ class: zebra_class(index) }
+      .timeline-wrap
+        .timeline-cluster{ class: "no#{index + 1}" }
+        .cluster-info
+          %b Days HOW MANY: 
+          NAME
+        .itinerary-cluster-wrap{ class: zebra_class(index) }
+          .cluster-map-expandible
+            / #map-summary{ style: 'height: 500px'}
+            .cluster-caption
+              From {leg['days']['item'].first['name']} to {leg['name'].last}
+        - leg['days'].compact.each_with_index do |day, index|
+          .itinerary-content-date{ class: "no#{index + 1}" }
+          - day['items'].in_groups_of(4).each_with_index do |day_group, index|
+            .itinerary-content-time.afternoon
+            / .itinerary-content-time{ class: day_group }
+            .itinerary-content-row{ class: zebra_class(index) }
+              - day_group.compact.each do |item|
+                .content-tab-wrap
+                  .content-tab
+                    %a{href: "#"}
+                    = image_tag item['tab_image']
+                  .content-tab-title-info 
+                    = item['name']
+                  .content-tab-more-info
+                    = item['notes']
+                  .content-tab-get-more
+                    = "Source:"
+                    %a{href: item['source_url']} item['source']
 
-/   .footer
-/     .footer-content
-/       Text
+  .body-container
+    .timeline-wrap
+      .timeline-travel.car
+      .travel-info
+        Drive from Lone Pine to Yosemite Valley, Home
+      .timeline-end
 
-/ .printable-message
+  .footer
+    .footer-content
+      Text
+
+.printable-message
