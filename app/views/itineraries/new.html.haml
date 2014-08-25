@@ -1,98 +1,15 @@
-  .header-container
-    = image_tag "black_logo.png", style: "float:left;"
-    = image_tag "black_tagline.png", style: "float:left;"
-    %a{href: "#"}
-      = image_tag "black_anon_user.png", style: "float:right;", html: { border: "0" }
-    %ul.menu-top
-      %li.menu-link.menu-link-build= link_to 'LAUNCH', itinerary_path('john-muir-trail')  
-      %li.menu-link.menu-link-build= link_to 'BUILD', new_itinerary_path
-      %li.menu-link.menu-link-build= link_to 'DREAM', "#"
 
-  .build-search
-    %a{href: "#"}
-      = image_tag 'up_bubble.png', html: { height: "55", width: "55" }
-    %input{value: "Starting from . . ."}
-    %strong ENTER ADDRESS
-    %strong MARK WITH PIN
+%form{ action: "#{uri_text(L.baselocation)}", method: "get" }
 
-.persistent-header
-  .header-container
-    = image_tag "black_logo.png", style: "float:left;"
-    %a{href: "#"}
-      = image_tag "black_anon_user.png", style: "float:right;", html: { border: "0" }
-    %ul.menu-top
-      %li.menu-link.menu-link-build= link_to 'LAUNCH', itinerary_path('john-muir-trail')  
-      %li.menu-link.menu-link-build= link_to 'BUILD', new_itinerary_path
-      %li.menu-link.menu-link-build= link_to 'DREAM', "#"
+%form{ action: "https://api.foursquare.com/v2/venues/search?query=#{query_text(L.query)}&ll=#{locale[0]},#{locale[1]}&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819", method: "get" }
 
-.body-container
+  %input{ type: "text", name: "baselocation", id: "baselocation", placeholder: "Enter a locale" }
+  %input{ type: "text", name: "query", id: "query", placeholder: "Enter a destination"}
+  %button{ id: "search" }
+  %textarea{ id: "result", style: "height: 500px" }
 
-  .body-off
-    .timeline-wrap
-  .body-on
-    .timeline-wrap-build.timeline-wrap-build-onA.active
-      .itinerary-build-content-pin
-      .itinerary-build-content-wrap
-        .content-tab-wrap-build
-          .content-tab-build
-            %a{href: "#"}
-            = image_tag "http://www.dkulczyk.com/wp-content/uploads/2012/08/vernal-falls-in-morning-light.jpg"
-          .content-tab-more-info-build
-            %strong Top of Nevada Fall
-            %br Distance: 5.4 mi
-            Address A
-            %br Address B
-            Source: 
-            %a{href: "#"} Tripadvisor
-    .timeline-wrap-build.timeline-wrap-build-onB
-      .itinerary-build-content-pin
-      .itinerary-build-content-wrap
-        .content-tab-wrap-build
-          .content-tab-build
-            %a{href: "#"}
-            = image_tag "http://www.dkulczyk.com/wp-content/uploads/2012/08/vernal-falls-in-morning-light.jpg"
-          .content-tab-more-info-build
-            %strong Top of Nevada Fall
-            %br Distance: 5.4 mi
-            Address A
-            %br Address B
-            Source: 
-            %a{href: "#"} Tripadvisor
-    .timeline-wrap-build.timeline-wrap-build-onA
-      .itinerary-build-content-pin
-      .itinerary-build-content-wrap
-        .content-tab-wrap-build
-          .content-tab-build
-            %a{href: "#"}
-            = image_tag "http://www.dkulczyk.com/wp-content/uploads/2012/08/vernal-falls-in-morning-light.jpg"
-          .content-tab-more-info-build
-            %strong Top of Nevada Fall
-            %br Distance: 5.4 mi
-            Address A
-            %br Address B
-            Source: 
-            %a{href: "#"} Tripadvisor
-    .timeline-wrap-build.timeline-wrap-build-onA
-      .itinerary-build-travel-q-pin
-        Unknown travel (5.4mi) -- suggest options?
-      .itinerary-build-travel-q-wrap
-    .timeline-wrap-build.timeline-wrap-build-onA
-      .itinerary-build-content-pin
-      .itinerary-build-content-wrap
-        .content-tab-wrap-build
-          .content-tab-build
-            %a{href: "#"}
-            = image_tag "http://www.dkulczyk.com/wp-content/uploads/2012/08/vernal-falls-in-morning-light.jpg"
-          .content-tab-more-info-build
-            %strong Top of Nevada Fall
-            %br Distance: 5.4 mi
-            Address A
-            %br Address B
-            Source: 
-            %a{href: "#"} Tripadvisor
-  .body-off
-  .timeline-end
-
-.footer
-  .footer-content
-    Text
+- getAPI()
+  - query_text = L.'#query').val()
+  - getJSON("https://api.foursquare.com/v2/venues/search?query=" + query_text + "&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819", function(json)
+  - console.log(json)
+- L.('#search').click(getAPI)

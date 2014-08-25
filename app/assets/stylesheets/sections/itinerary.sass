@@ -184,7 +184,6 @@ body
 
   .photo-left-right
     height: 471px
-    width: 920px
     margin-left: auto
     margin-right: auto
     margin-top: 0
@@ -207,11 +206,12 @@ body
     &.right
       width: 100px
       background-image: image-url('photo_right.png')
+      background: #000
       &.active
         background-image: image-url('photo_right_on.png')
         cursor: pointer
     &.center
-      width: 720px
+      width: 100%
       background-image: none
     &.off-view
       visibility: hidden
@@ -286,9 +286,9 @@ body
     margin-left: auto
     margin-right: auto
     text-align: center
-    &.odd_class
+    &.odd
       background-color: #fff
-    &.even_class
+    &.even
       background-color: #f9f9f9
   
   .overview
@@ -320,9 +320,10 @@ body
     -moz-border-radius: 50%
     background-position: center center
     background-repeat: no-repeat
-    margin: 11px
-    width: 32px
-    height: 32px
+    border: 4px solid #333
+    margin: 7px
+    width: 40px
+    height: 40px
 
   .summary-author
     -webkit-font-smoothing: antialiased
@@ -460,9 +461,13 @@ body
     &.no4
       background-image: image-url('timeline-cluster-pin-D.png')
     &.no5
-      background-image: image-url('timeline-cluster-pin-D.png')
+      background-image: image-url('timeline-cluster-pin-E.png')
     &.no6
-      background-image: image-url('timeline-cluster-pin-D.png')
+      background-image: image-url('timeline-cluster-pin-F.png')
+    &.no7
+      background-image: image-url('timeline-cluster-pin-G.png')
+    &.no8
+      background-image: image-url('timeline-cluster-pin-H.png')
     
   .timeline-end
     clear:  both
@@ -474,9 +479,9 @@ body
     margin-top: 0px
     margin-bottom: 0px
     padding: 20px
-    &.odd_class
+    &.odd
       background: #dddddd
-    &.even_class
+    &.even
       background: #ffffff
 
   .cluster-map-expandible
@@ -510,10 +515,10 @@ body
     padding: 10px
     white-space: nowrap
     overflow: hidden
-    &.odd_class
+    &.odd
       background: rgb(245, 245, 245)
       background: rgba(0, 0, 0, 0.05)
-    &.even_class
+    &.even
       background: rgb(240, 240, 240)
       background: rgba(0, 0, 0, 0.08)
 

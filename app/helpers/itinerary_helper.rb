@@ -13,9 +13,10 @@ module ItineraryHelper
 
   def zebra_class(index)
     if index.odd?
-      'odd_class'
+      'odd'
     else
-      'even_class'
+      'even'
     end
   end
+
 end

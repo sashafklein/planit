@@ -57,7 +57,7 @@
       .summary-wrap
         .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
         .summary-author
-          = "#{@data.trailblazer}, #{@data.trailblaze_date}"
+          = "#{@data.author}, #{@data.trailblaze_date}"
         .summary-content
           = @data.summary_text
   
@@ -72,19 +72,20 @@
       .timeline-wrap
         .timeline-cluster{ class: "no#{index + 1}" }
         .cluster-info
-          %b Days HOW MANY: 
-          NAME
+          %b 
+            = "Day #{leg['days'].first['items'].first['parent_day']} to #{leg['days'].compact.last['items'].first['parent_day']}:"
+          = leg['name']
         .itinerary-cluster-wrap{ class: zebra_class(index) }
           .cluster-map-expandible
             / #map-summary{ style: 'height: 500px'}
             .cluster-caption
-              From {leg['days']['item'].first['name']} to {leg['name'].last}
+              = "From #{leg['days'].first['items'].first['name']} to #{leg['days'].compact.last['items'].last['name']}"
         - leg['days'].compact.each_with_index do |day, index|
-          .itinerary-content-date{ class: "no#{index + 1}" }
-          - day['items'].in_groups_of(4).each_with_index do |day_group, index|
+          .itinerary-content-date{ class: "no#{day['items'][0]['parent_day']}" }
+          - day['items'].select{ |i| i['has_tab'] }.in_groups_of(4).each_with_index do |day_group, index|
             .itinerary-content-time.afternoon
             / .itinerary-content-time{ class: day_group }
-            .itinerary-content-row{ class: zebra_class(index) }
+            .itinerary-content-row{ class: zebra_class(day['items'][0]['parent_day']) }
               - day_group.compact.each do |item|
                 .content-tab-wrap
                   .content-tab
@@ -98,12 +99,12 @@
                     = "Source:"
                     %a{href: item['source_url']} item['source']
 
-  .body-container
-    .timeline-wrap
-      .timeline-travel.car
-      .travel-info
-        Drive from Lone Pine to Yosemite Valley, Home
-      .timeline-end
+    - if leg['departure']
+      .body-container
+        .timeline-wrap
+          .timeline-travel{ class: leg['departure']['method']}
+          .travel-info
+            = "Depart by #{leg['departure']['method']}"
 
   .footer
     .footer-content
