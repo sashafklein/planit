@@ -31,6 +31,26 @@ $ ->
     else
       $('.photo-left-right-control').removeClass("off-view")
 
+# ON-HOVER AND ON-CLICK EVENTS
+
+  addAndRemoveOnHover = (selector, className='active') ->
+    $(selector).hover(
+      -> $(@).addClass className,
+      -> $(@).removeClass className 
+    )
+
+  addAndRemoveOnHover('.header-title')
+  addAndRemoveOnHover('.photo-left-right-control.left')
+  addAndRemoveOnHover('.photo-left-right-control.right')
+  addAndRemoveOnHover('.content-tab')
+  addAndRemoveOnHover('.timeline-wrap-build')    
+
+  changeElementOnClick = (selector, className='clicked') ->
+    $(selector).click( -> $(@).toggleClass className )
+
+  changeElementOnClick('.cluster-map-expandible')
+
+
   # if $('.itineraries.itineraries-show').length
   #   for mapName in $('#map-list').data('list').split('+')
   #     map = new Map(mapName)
@@ -51,19 +71,3 @@ $ ->
     maxZoom: 18
   }).addTo(map)
 
-  addAndRemoveOnHover = (selector, className='active') ->
-    $(selector).hover(
-      -> $(@).addClass className,
-      -> $(@).removeClass className 
-    )
-
-  addAndRemoveOnHover('.header-title')
-  addAndRemoveOnHover('.photo-left-right-control.left')
-  addAndRemoveOnHover('.photo-left-right-control.right')
-  addAndRemoveOnHover('.content-tab')
-  addAndRemoveOnHover('.timeline-wrap-build')    
-
-  changeElementOnClick = (selector, className='clicked') ->
-    $(selector).click( -> $(@).toggleClass className )
-
-  changeElementOnClick('.cluster-map-expandible')

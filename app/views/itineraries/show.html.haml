@@ -1,4 +1,14 @@
-/ connect summary map, fix sub-maps, link map pins, total days vs leg indices, leg days, leg names, leg captions, travel within days (mono), unlisted lodging (backpackers), unlisted gps items (trailhead), permits/visas as separate line but not cluster?, tab names wordwrap?, tab icons if applicable (sleep, food, etc), trip departure, most importantly an app to skeleton out the database via API calls from a list of names
+/ connect summary map
+/ allow for data-driven infinite sub-maps
+/link map pins
+/ travel within days (mono),
+/ display of unlisted lodging (backpackers), 
+/ display? of unlisted gps items (trailhead), 
+/ permits/visas as separate line but not cluster?,
+/ tab icons if applicable (sleep, food, etc),
+/ trip departure,
+/ make a "print" page
+/ most importantly an app to skeleton out the database via API calls from a list of names
 
 .printable-content
   .initial-header
@@ -14,15 +24,7 @@
         %li.menu-link= link_to 'BUILD', new_itinerary_path
         %li.menu-link= link_to 'DREAM', "#"
   .moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
-    .photo-left-right
-      .photo-left-right-control.left
-        %a{href: "#"}
-          = image_tag "blank.png"
-      .photo-left-right-control.center
-        = image_tag 'blank.png'
-      .photo-left-right-control.right
-        %a{href: "#"}
-          = image_tag 'blank.png'
+    .clickable-moneyshot
     .title-and-caption-wrap
       .title-and-caption-content
         %a{href: "#"}
@@ -80,6 +82,7 @@
             / #map-summary{ style: 'height: 500px'}
             .cluster-caption
               = "From #{leg['days'].first['items'].first['name']} to #{leg['days'].compact.last['items'].last['name']}"
+            / #map-leg1{ style: 'height: 450px'}    
         - leg['days'].compact.each_with_index do |day, index|
           .itinerary-content-date{ class: "no#{day['items'][0]['parent_day']}" }
           - day['items'].select{ |i| i['has_tab'] }.in_groups_of(4).each_with_index do |day_group, index|
@@ -90,7 +93,10 @@
                 .content-tab-wrap
                   .content-tab
                     %a{href: "#"}
-                    = image_tag item['tab_image']
+                    - if item['tab_image']
+                      = image_tag item['tab_image']
+                    - else
+                      = image_tag "tab_stand_in.png"
                     %br 
                     = item['name']
                   .content-tab-more-info
@@ -108,6 +114,7 @@
 
   .footer
     .footer-content
-      Text
+      This project is being tested privately among friends and family -- please share any feedback you have with us via 
+      %a{ href: "mailto:planit@longhou.se" } planit@longhou.se
 
 .printable-message
