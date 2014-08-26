@@ -16,14 +16,14 @@
       .logo-container
         = image_tag "white_logo.png", style: "float:left;"
         = image_tag "white_tagline.png", style: "float:left;", id: "tagline"
-      .user-icon
+      .user-icon.white
         %a{href: "#"}
           = image_tag "white_anon_user.png", style: "float:right;", html: { border: "0" }
       %ul.menu-top
-        %li.menu-link= link_to 'LAUNCH', itinerary_path('john-muir-trail')
-        %li.menu-link= link_to 'BUILD', new_itinerary_path
-        %li.menu-link= link_to 'DREAM', "#"
-  .moneyshot{ style: "background-image: url('#{image_path @data.moneyshot}')" }
+        %li.menu-link.white= link_to 'LAUNCH', itinerary_path('john-muir-trail')
+        %li.menu-link.white= link_to 'BUILD', new_itinerary_path
+        %li.menu-link.white= link_to 'DREAM', "#"
+  .moneyshot{ style: "background-image: url('#{image_path @data.moneyshots[0]['url']}')" }
     .clickable-moneyshot
     .title-and-caption-wrap
       .title-and-caption-content
@@ -33,7 +33,7 @@
           = @data.title
         |
         .moneyshot-duration= @data.duration
-        .moneyshot-caption= "\"#{@data.subtitle}\""
+        .moneyshot-caption= "\"#{@data.moneyshots[0]['subtitle']}\""
   .persistent-header
     .header-container
       .logo-container
@@ -44,9 +44,9 @@
         %a{href: "#"}
           = image_tag "black_anon_user.png"
       %ul.menu-top
-        %li.menu-link.menu-link-build= link_to 'LAUNCH', itinerary_path('john-muir-trail')  
-        %li.menu-link.menu-link-build= link_to 'BUILD', new_itinerary_path
-        %li.menu-link.menu-link-build= link_to 'DREAM', "#"
+        %li.menu-link.black= link_to 'LAUNCH', itinerary_path('john-muir-trail')  
+        %li.menu-link.black= link_to 'BUILD', new_itinerary_path
+        %li.menu-link.black= link_to 'DREAM', "#"
 
   .body-container
 
@@ -84,7 +84,9 @@
               = "From #{leg['days'].first['items'].first['name']} to #{leg['days'].compact.last['items'].last['name']}"
             / #map-leg1{ style: 'height: 450px'}    
         - leg['days'].compact.each_with_index do |day, index|
-          .itinerary-content-date{ class: "no#{day['items'][0]['parent_day']}" }
+          - day['items'].select{ |i| i['has_tab'] }.each do 
+            / for now okay... later we want to add back lodging, travel, visa/ticketing etcs
+            .itinerary-content-date{ class: "no#{day['items'][0]['parent_day']}" }
           - day['items'].select{ |i| i['has_tab'] }.in_groups_of(4).each_with_index do |day_group, index|
             .itinerary-content-time.afternoon
             / .itinerary-content-time{ class: day_group }
@@ -97,13 +99,19 @@
                       = image_tag item['tab_image']
                     - else
                       = image_tag "tab_stand_in.png"
-                    %br 
-                    = item['name']
-                  .content-tab-more-info
-                    = item['notes']
-                  .content-tab-get-more
-                    = "Source:"
-                    %a{href: item['source_url']} item['source']
+                    .content-tab-title
+                      = item['name']
+                    - if item['notes']
+                      .content-tab-more-info
+                        = item['notes']
+                    - if item['source']
+                      .content-tab-get-more
+                        %b Source:
+                        %a{href: item['source_url']} #{item['source']}
+                    - elsif item['source_url']
+                      .content-tab-get-more
+                        %b Source:
+                        %a{href: item['source_url']} #{item['source_url']}
 
     - if leg['departure']
       .body-container

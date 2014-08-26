@@ -38,18 +38,28 @@ $ ->
       -> $(@).addClass className,
       -> $(@).removeClass className 
     )
-
   addAndRemoveOnHover('.header-title')
-  addAndRemoveOnHover('.photo-left-right-control.left')
-  addAndRemoveOnHover('.photo-left-right-control.right')
   addAndRemoveOnHover('.content-tab')
+  addAndRemoveOnHover('.content-tab-title')
   addAndRemoveOnHover('.timeline-wrap-build')    
+  addAndRemoveOnHover('.menu-link.black')    
+  addAndRemoveOnHover('.menu-link.white')  
+  addAndRemoveOnHover('.user-icon')    
 
-  changeElementOnClick = (selector, className='clicked') ->
+  toggleElementOnClick = (selector, className='clicked') ->
     $(selector).click( -> $(@).toggleClass className )
+  # toggleElementOnClick('.cluster-map-expandible')
 
-  changeElementOnClick('.cluster-map-expandible')
+  # cycleImageOnClick = (selector, className='clicked') ->
 
+  #   moneyshotNumber = $john-muir-trail.data.moneyshots.length
+  #   $(selector).click( 
+  #     -> alert(moneyshotNumber)
+  #     # -> $(@).removeClass classNameEdited 
+  #   )
+  # # .moneyshot{ style: "background-image: url('#{image_path @data.moneyshots[0]['url']}')" }
+
+  # cycleElementOnClick('.moneyshot')
 
   # if $('.itineraries.itineraries-show').length
   #   for mapName in $('#map-list').data('list').split('+')
@@ -70,4 +80,6 @@ $ ->
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 18
   }).addTo(map)
+
+
 

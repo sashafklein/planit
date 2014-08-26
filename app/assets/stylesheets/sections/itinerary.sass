@@ -6,6 +6,8 @@ body
   // TOP TO BOTTOM
 
   // MENU STUFF
+  .leaflet-control-container
+    visibility:hidden
 
   .printable-content
     visibility: visible
@@ -121,6 +123,13 @@ body
     a
       img
         border: 0
+    &.black
+      background: none
+    &.white
+      background: none
+      &.active
+        padding-top: 14px
+        background: black
 
   .menu-link
     -webkit-font-smoothing: antialiased
@@ -132,20 +141,39 @@ body
     list-style-type: none
     margin-bottom: 0px
     margin-left: 0px
-    margin-right: 40px
+    margin-right: 25px
     margin-top: 0px
     padding-bottom: 0px
-    padding-left: 0px
-    padding-right: 0px
+    padding-left: 15px
+    padding-right: 15px
     padding-top: 0px
     text-align: center
     text-transform: uppercase
     vertical-align: baseline
-    width: 65px
-    a:hover
-      border-bottom: 3px solid #fff
-      text-decoration: none
+    &.white
       color: #fff
+      background: none
+      a
+        color: #fff
+      a:hover
+        color: #fff
+        border-bottom: 3px solid #fff
+        text-decoration: none
+      &.active
+        padding-top: 14px
+        background: black
+    &.black
+      color: #000
+      background: none
+      a
+        color: #000
+      a:hover
+        color: #000
+        border-bottom: 3px solid #000
+        text-decoration: none
+      &.active
+        background: rbg (255, 255, 255)
+        background: rbga (255, 255, 255, 0.5)
 
   .menu-top
     float: right
@@ -162,6 +190,7 @@ body
   // TITLE STUFF
 
   .moneyshot
+    background-color: #ccc
     background-repeat: no-repeat
     background-position: center
     background-size: cover
@@ -489,7 +518,7 @@ body
       background: rgba(0, 0, 0, 0.08)
 
   .content-tab-wrap
-    height: 250px
+    min-height: 250px
     width: 200px
     display: block
     float: left
@@ -501,8 +530,6 @@ body
     padding-top: 10px
     text-align: center
     font-family: "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
-    font-size: 12px
-    line-height: 12px
     font-weight: normal
     color: #000
     white-space: normal
@@ -511,22 +538,42 @@ body
       width: 180px
       height: 120px
       border: 0px
-      margin: 0px 0px 5px 0px
+      margin: 0px 0px 0px 0px
     &.active
       display: block
       position: absolute
       background: #333
       color: #fff
-      height: 330px
       width: 200px
+      padding: 10px
       border-bottom: 3px solid #222
       z-index: 100
 
-  .content-tab-more-info
-    margin-top: 8px
+  .content-tab-title
+    margin: 0px
+    padding: 0px
     width: 180px
-    height: 140px
-    font-size: 10px
+    font-size: 12px
+    line-height: 12px
+    text-align: center
+    font-family: "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+    position:relative
+    display: inherit
+    text-transform: capitalize
+    overflow-x: auto
+    overflow-y: hidden
+    white-space: normal
+    word-wrap: normal
+    max-height: 13px
+    &.active
+      max-height: 100px
+
+  .content-tab-more-info
+    margin-top: 15px
+    width: 180px
+    max-height: 350px
+    font-size: 11px
+    line-height: 12px
     text-align: left
     font-family: avenir, arial
     position:relative
@@ -536,17 +583,18 @@ body
     word-wrap: normal
 
   .content-tab-get-more
-    margin-top: 8px
+    margin-top: 10px
     width: 180px
-    height: 20px
-    font-size: 10px
+    font-size: 11px
+    line-height: 12px
     text-align: left
-    font-family: avenir, arial
+    font-family: "Myriad W01", "Helvetica Neue", avenir, arial
     position:relative
     display: inherit
     overflow: hidden
-    white-space: normal
-    word-wrap: normal
+    white-space: none 
+    word-wrap: break-word
+    max-height: 100px
     a
       color: #fff
 
@@ -852,15 +900,6 @@ body
     background-repeat: no-repeat
     background-position: left
     background-color: #f9f9f9
-
-  .menu-link-build
-    color: #000
-    a
-      color: #000
-    a:hover
-      color: #000
-      border-bottom: 3px solid #000
-      text-decoration: none
 
 
 
