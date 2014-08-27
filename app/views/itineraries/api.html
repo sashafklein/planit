@@ -1,0 +1,15 @@
+
+%form{ action: "#{uri_text(L.baselocation)}", method: "get" }
+
+%form{ action: "https://api.foursquare.com/v2/venues/search?query=#{query_text(L.query)}&ll=#{locale[0]},#{locale[1]}&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819", method: "get" }
+
+  %input{ type: "text", name: "baselocation", id: "baselocation", placeholder: "Enter a locale" }
+  %input{ type: "text", name: "query", id: "query", placeholder: "Enter a destination"}
+  %button{ id: "search" }
+  %textarea{ id: "result", style: "height: 500px" }
+
+- getAPI()
+  - query_text = L.'#query').val()
+  - getJSON("https://api.foursquare.com/v2/venues/search?query=" + query_text + "&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819", function(json)
+  - console.log(json)
+- L.('#search').click(getAPI)

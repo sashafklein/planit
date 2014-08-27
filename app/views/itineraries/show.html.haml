@@ -10,122 +10,126 @@
 / make a "print" page
 / most importantly an app to skeleton out the database via API calls from a list of names
 
-.printable-content
-  .initial-header
-    .header-container
-      .logo-container
-        = image_tag "white_logo.png", style: "float:left;"
-        = image_tag "white_tagline.png", style: "float:left;", id: "tagline"
-      .user-icon.white
-        %a{href: "#"}
-          = image_tag "white_anon_user.png", style: "float:right;", html: { border: "0" }
-      %ul.menu-top
-        %li.menu-link.white= link_to 'LAUNCH', itinerary_path('john-muir-trail')
-        %li.menu-link.white= link_to 'BUILD', new_itinerary_path
-        %li.menu-link.white= link_to 'DREAM', "#"
-  .moneyshot{ style: "background-image: url('#{image_path @data.moneyshots[0]['url']}')" }
-    .clickable-moneyshot
-    .title-and-caption-wrap
-      .title-and-caption-content
-        %a{href: "#"}
-          = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
-        .moneyshot-title
-          = @data.title
-        |
-        .moneyshot-duration= @data.duration
-        .moneyshot-caption= "\"#{@data.moneyshots[0]['subtitle']}\""
-  .persistent-header
-    .header-container
-      .logo-container
-        = image_tag "black_logo.png"
-      .header-title
+/ .printable-content
+.initial-header
+  .header-container
+    .logo-container
+      = image_tag "white_logo.png", style: "float:left;"
+      = image_tag "white_tagline.png", style: "float:left;", id: "tagline"
+    .user-icon.white
+      %a{href: "#"}
+        = image_tag "white_anon_user.png", style: "float:right;", html: { border: "0" }
+    %ul.menu-top
+      %li.menu-link.white= link_to 'LAUNCH', itinerary_path('john-muir-trail')
+      %li.menu-link.white= link_to 'BUILD', new_itinerary_path
+      %li.menu-link.white= link_to 'DREAM', "#"
+.moneyshot{ style: "background-image: url('#{image_path @data.moneyshots[0]['url']}')" }
+  .clickable-moneyshot
+  .title-and-caption-wrap
+    .title-and-caption-content
+      %a{href: "#"}
+        = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
+      .moneyshot-title
         = @data.title
-      .user-icon
-        %a{href: "#"}
-          = image_tag "black_anon_user.png"
-      %ul.menu-top
-        %li.menu-link.black= link_to 'LAUNCH', itinerary_path('john-muir-trail')  
-        %li.menu-link.black= link_to 'BUILD', new_itinerary_path
-        %li.menu-link.black= link_to 'DREAM', "#"
+      |
+      .moneyshot-duration= @data.duration
+      .moneyshot-caption= "\"#{@data.moneyshots[0]['subtitle']}\""
+.persistent-header
+  .header-container
+    .logo-container
+      = image_tag "black_logo.png"
+    .header-title
+      = @data.title
+    .user-icon
+      %a{href: "#"}
+        = image_tag "black_anon_user.png"
+    %ul.menu-top
+      %li.menu-link.black= link_to 'LAUNCH', itinerary_path('john-muir-trail')  
+      %li.menu-link.black= link_to 'BUILD', new_itinerary_path
+      %li.menu-link.black= link_to 'DREAM', "#"
 
-  .body-container
+.body-container
 
-    .overview
-      .summary-map
-        #map-overview{ style: 'height: 450px'}
-        / #map-list{ data: { list: 'john-muir-trail' } }
-        / .map-data{ id: "#{@slugged_title}-data", data: {markers: @marker_coordinates} }
-        / .map{ id: "#{@slugged_title}-map" }
-      .summary-wrap
-        .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
-        .summary-author
-          = "#{@data.author}, #{@data.trailblaze_date}"
-        .summary-content
-          = @data.summary_text
-  
-  - @data.legs.each_with_index do |leg, index|
-    - if leg['arrival']
-      .body-container
-        .timeline-wrap
-          .timeline-travel{ class: leg['arrival']['method']}
-          .travel-info
-            = "Arrive by #{leg['arrival']['method']}"
-    .body-container{ class: zebra_class(index) }
+  .overview
+    .summary-map
+      #map-overview{ style: 'height: 450px'}
+      / #map-list{ data: { list: 'john-muir-trail' } }
+      / .map-data{ id: "#{@slugged_title}-data", data: {markers: @marker_coordinates} }
+      / .map{ id: "#{@slugged_title}-map" }
+    .summary-wrap
+      .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
+      .summary-author
+        = "#{@data.author}, #{@data.trailblaze_date}"
+      .summary-content
+        = @data.summary_text
+
+- @data.legs.each_with_index do |leg, index|
+  - if leg['arrival']
+    .body-container
       .timeline-wrap
-        .timeline-cluster{ class: "no#{index + 1}" }
-        .cluster-info
-          %b 
-            = "Day #{leg['days'].first['items'].first['parent_day']} to #{leg['days'].compact.last['items'].first['parent_day']}:"
-          = leg['name']
-        .itinerary-cluster-wrap{ class: zebra_class(index) }
-          .cluster-map-expandible
-            / #map-summary{ style: 'height: 500px'}
-            .cluster-caption
-              = "From #{leg['days'].first['items'].first['name']} to #{leg['days'].compact.last['items'].last['name']}"
-            / #map-leg1{ style: 'height: 450px'}    
-        - leg['days'].compact.each_with_index do |day, index|
-          - day['items'].select{ |i| i['has_tab'] }.each do 
-            / for now okay... later we want to add back lodging, travel, visa/ticketing etcs
-            .itinerary-content-date{ class: "no#{day['items'][0]['parent_day']}" }
-          - day['items'].select{ |i| i['has_tab'] }.in_groups_of(4).each_with_index do |day_group, index|
-            .itinerary-content-time.afternoon
-            / .itinerary-content-time{ class: day_group }
-            .itinerary-content-row{ class: zebra_class(day['items'][0]['parent_day']) }
-              - day_group.compact.each do |item|
-                .content-tab-wrap
-                  .content-tab
-                    %a{href: "#"}
-                    - if item['tab_image']
-                      = image_tag item['tab_image']
+        .timeline-travel{ class: leg['arrival']['method']}
+        .travel-info
+          = "Arrive by #{leg['arrival']['method']}"
+  .body-container{ class: zebra_class(index) }
+    .timeline-wrap
+      .timeline-cluster{ class: "no#{index + 1}" }
+      .cluster-info
+        %b 
+          = "Day #{leg['days'].first['items'].first['parent_day']} to #{leg['days'].compact.last['items'].first['parent_day']}:"
+        = leg['name']
+      .itinerary-cluster-wrap{ class: zebra_class(index) }
+        .cluster-map-expandible
+          / #map-summary{ style: 'height: 500px'}
+          .cluster-caption
+            = "From #{leg['days'].first['items'].first['name']} to #{leg['days'].compact.last['items'].last['name']}"
+          / #map-leg1{ style: 'height: 450px'}    
+      - leg['days'].compact.each_with_index do |day, index|
+        - day['items'].select{ |i| i['has_tab'] }.each do 
+          / for now okay... later we want to add back lodging, travel, visa/ticketing etcs
+          .itinerary-content-date{ class: "no#{day['items'][0]['parent_day']}" }
+        - day['items'].select{ |i| i['has_tab'] }.in_groups_of(4).each_with_index do |day_group, index|
+          .itinerary-content-time.afternoon
+          / .itinerary-content-time{ class: day_group }
+          .itinerary-content-row{ class: zebra_class(day['items'][0]['parent_day']) }
+            - day_group.compact.each do |item|
+              .content-tab-wrap
+                .content-tab
+                  %a{href: "#"}
+                  - if item['tab_image']
+                    - if item['image_referral']
+                      %a{href: item['image_referral']}
+                        = image_tag item['tab_image']
                     - else
-                      = image_tag "tab_stand_in.png"
-                    .content-tab-title
-                      - if item['name']
-                        = item['name']
-                      - else
-                        %br
-                    - if item['notes']
-                      .content-tab-more-info
-                        = item['notes']
-                    - if item['source']
-                      .content-tab-get-more
-                        %b Source:
-                        %a{href: item['source_url']} #{item['source']}
-                    - elsif item['source_url']
-                      .content-tab-get-more
-                        %b Source:
-                        %a{href: item['source_url']} #{item['source_url']}
+                      = image_tag item['tab_image']
+                  - else
+                    = image_tag "tab_stand_in.png"
+                  .content-tab-title
+                    - if item['name']
+                      = item['name']
+                    - else
+                      %br
+                  - if item['notes']
+                    .content-tab-more-info
+                      = item['notes']
+                  - if item['source']
+                    .content-tab-get-more
+                      %b Source:
+                      %a{href: item['source_url']} #{item['source']}
+                  - elsif item['source_url']
+                    .content-tab-get-more
+                      %b Source:
+                      %a{href: item['source_url']} #{item['source_url']}
 
-    - if leg['departure']
-      .body-container
-        .timeline-wrap
-          .timeline-travel{ class: leg['departure']['method']}
-          .travel-info
-            = "Depart by #{leg['departure']['method']}"
+  - if leg['departure']
+    .body-container
+      .timeline-wrap
+        .timeline-travel{ class: leg['departure']['method']}
+        .travel-info
+          = "Depart by #{leg['departure']['method']}"
 
-  .footer
-    .footer-content
-      This project is being tested privately among friends and family -- please share any feedback you have with us via 
-      %a{ href: "mailto:planit@longhou.se" } planit@longhou.se
+.footer
+  .footer-content
+    This project is being tested privately among friends and family -- please share any feedback you have with us via 
+    %a{ href: "mailto:planit@longhou.se" } planit@longhou.se
 
-.printable-message
+/ .printable-message
