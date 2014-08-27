@@ -50,6 +50,7 @@
 
 .body-container
 
+<<<<<<< HEAD
   .overview
     .summary-map
       #map-overview{ style: 'height: 450px'}
@@ -66,6 +67,28 @@
 - @data.legs.each_with_index do |leg, index|
   - if leg['arrival']
     .body-container
+=======
+    .overview
+      .summary-map
+        #map-overview{ style: 'height: 450px'}
+        %leg_map{ coordinates: @marker_coordinates, map_id: 'map-overview'}
+      .summary-wrap
+        .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
+        .summary-author
+          = "#{@data.author}, #{@data.trailblaze_date}"
+        .summary-content
+          = @data.summary_text
+  
+  - @data.legs.each_with_index do |leg, index|
+    %leg_map{ coordinates: '48:12+42:15', map_id: 'map1' }
+    - if leg['arrival']
+      .body-container
+        .timeline-wrap
+          .timeline-travel{ class: leg['arrival']['method']}
+          .travel-info
+            = "Arrive by #{leg['arrival']['method']}"
+    .body-container{ class: zebra_class(index) }
+>>>>>>> 3c99a1f679980eb7c9e6fb611c9c568f0b72c877
       .timeline-wrap
         .timeline-travel{ class: leg['arrival']['method']}
         .travel-info
