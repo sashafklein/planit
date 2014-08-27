@@ -16,13 +16,13 @@ mod.controller 'ItinerariesCtrl.new', ($scope, Flash, $http) ->
       .error (res) ->
         Flash.error(response)
 
-    $s.getPhoto = (res) ->
-      $http.get("https://api.foursquare.com/v2/venues/#{res.response.venues[0].id}/photos")
-        .success (res) ->
-          Flash.success("Success photos!")
-          console.log(res)
-        .error (res) ->
-          Flash.error(response)
+    # $s.getPhoto = (res) ->
+    #   $http.get("https://api.foursquare.com/v2/venues/#{res.response.venues[0].id}/photos")
+    #     .success (res) ->
+    #       Flash.success("Success photos!")
+    #       console.log(res)
+    #     .error (res) ->
+    #       Flash.error(response)
 
     $s.parseToYaml = (res) ->
       venue = res.response.venues[0]

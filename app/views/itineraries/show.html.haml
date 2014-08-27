@@ -81,7 +81,6 @@
             .leg-map-container{ id: "mapLeg#{index}" }
               %leg_map{ coordinates: '37.753084:-122.431484', map_id: "mapLeg#{index}" }
               / %leg_map{ coordinates: leg['items'].map{ |i| "#{i['lat']}:#{i['lon']}" }, map_id: "mapLeg#{index}" }
-
         - leg['days'].compact.each_with_index do |day, index|
           - day['items'].select{ |i| i['has_tab'] }.each do 
             / for now okay... later we want to add back lodging, travel, visa/ticketing etcs
