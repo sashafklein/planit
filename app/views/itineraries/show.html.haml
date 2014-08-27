@@ -100,7 +100,10 @@
                     - else
                       = image_tag "tab_stand_in.png"
                     .content-tab-title
-                      = item['name']
+                      - if item['name']
+                        = item['name']
+                      - else
+                        %br
                     - if item['notes']
                       .content-tab-more-info
                         = item['notes']

@@ -48,7 +48,7 @@ $ ->
 
   toggleElementOnClick = (selector, className='clicked') ->
     $(selector).click( -> $(@).toggleClass className )
-  # toggleElementOnClick('.cluster-map-expandible')
+  toggleElementOnClick('.cluster-map-expandible')
 
   # cycleImageOnClick = (selector, className='clicked') ->
 
