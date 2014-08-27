@@ -33,10 +33,11 @@ angular.module("Common").directive 'legMap', (Map, F) ->
     mapId = s.mapId || "map#{_.random(10000)}"
 
     icon = L.icon
-      iconUrl: '/assets/pin_sm_red_19x22.png'
-      iconSize:     [19, 22]
+      iconUrl: '/assets/pin_sm_red_19x22.png',  
+      iconSize:     [19, 22],
+      iconAnchor:   [8, 22],
+      popupAnchor:  [-3, -76] 
       # shadowSize:   [50, 64], // size of the shadow
-      # iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
       # shadowAnchor: [4, 62],  // the same for the shadow
       # popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 

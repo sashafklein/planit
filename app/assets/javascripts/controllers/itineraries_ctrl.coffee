@@ -11,8 +11,18 @@ mod.controller 'ItinerariesCtrl.new', ($scope, Flash, $http) ->
         Flash.success("Success!")
         console.log(res)
         $s.output = $s.parseToYaml(res)
+        $s.photos = $s.getPhoto(res)
+        $s.outputfull = JSON.stringify(res)
       .error (res) ->
         Flash.error(response)
+
+    $s.getPhoto = (res) ->
+      $http.get("https://api.foursquare.com/v2/venues/#{res.response.venues[0].id}/photos")
+        .success (res) ->
+          Flash.success("Success photos!")
+          console.log(res)
+        .error (res) ->
+          Flash.error(response)
 
     $s.parseToYaml = (res) ->
       venue = res.response.venues[0]
@@ -23,7 +33,9 @@ mod.controller 'ItinerariesCtrl.new', ($scope, Flash, $http) ->
         "          -"
         "  name: #{venue.name}"
         "  address: #{venue.location.address}, #{venue.location.city}, #{venue.location.state}"
+        "  lat: #{venue.location.lat}"
+        "  lon: #{venue.location.lng}"
         "  website: #{venue.url}"
         "  source: "
-        "  source_url: "
+        "  source_url: "  
       ].join("\n          ")

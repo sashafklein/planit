@@ -6,6 +6,7 @@
 .yml-creator{ ng_controller: 'ItinerariesCtrl.new' }
 
   %input{ type: "text", name: "baselocation", id: "baselocation", placeholder: "Enter a locale", ng_model: 'locale' }
-  %input{ type: "text", name: "query", id: "query", placeholder: "Enter a destination", ng_model: 'destination'}
-  %button{ id: "search", ng_click: 'search()', ng_on_enter_key: 'search()' } Search
-  %textarea{ id: "result", style: "height: 500px", ng_bind: 'output'}
+  %input{ type: "text", name: "query", id: "query", placeholder: "Enter a destination", ng_model: 'destination', ng_on_enter_key: 'search()'}
+  %button{ id: "search", ng_click: 'search()' } Search
+  %textarea{ id: "result", style: "height: 200px", ng_bind: 'output'}
+  %textarea{ id: "response-in-full", style: "height: 200px", ng_bind: 'outputfull'}
