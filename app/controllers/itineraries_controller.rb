@@ -14,6 +14,12 @@ class ItinerariesController < ApplicationController
     redirect_to itinerary_path('john-muir-trail')
   end
 
+  def welcome
+  end
+
+  def print
+  end
+
 
   private
 

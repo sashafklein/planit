@@ -4,10 +4,11 @@
 #= require itinerary
 #= require common/common
 #= require_tree ./models
+#= require_tree ./controllers
 
 # http://clintberry.com/2013/modular-angularjs-application-design/
 
-planitModules = ['Common', 'Models']
+planitModules = ['Common', 'Models', 'Controllers']
 
 otherModules = []
 
