@@ -53,9 +53,7 @@
     .overview
       .summary-map
         #map-overview{ style: 'height: 450px'}
-        / #map-list{ data: { list: 'john-muir-trail' } }
-        / .map-data{ id: "#{@slugged_title}-data", data: {markers: @marker_coordinates} }
-        / .map{ id: "#{@slugged_title}-map" }
+        %leg_map{ coordinates: @marker_coordinates, map_id: 'map-overview'}
       .summary-wrap
         .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
         .summary-author
@@ -64,6 +62,7 @@
           = @data.summary_text
   
   - @data.legs.each_with_index do |leg, index|
+    %leg_map{ coordinates: '48:12+42:15', map_id: 'map1' }
     - if leg['arrival']
       .body-container
         .timeline-wrap
