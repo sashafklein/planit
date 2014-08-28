@@ -1,42 +1,57 @@
 mod = angular.module('Controllers')
-mod.controller 'ItinerariesCtrl.new', ($scope, Flash, $http) ->
+mod.controller 'ItinerariesCtrl.new', ($scope, Flash, $http, $q) ->
   $s = $scope
 
   $s.search = ->
     return unless $s.locale && $s.destination
-    baseFsPath = "https://api.foursquare.com/v2/venues/search?query="
-    fsAuth = "MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819"
-    $http.get("#{baseFsPath}?query=#{$s.destination}&near=#{$s.locale}&oauth_token=#{fsAuth}")
+    
+    $s._fetchVenue().then( $s._fetchPhoto ).then( $s._parseToYaml )
+
+
+  # PRIVATE INTERFACE
+
+
+  $s._fsAuth = "MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819"
+  $s._baseFsPath = "https://api.foursquare.com/v2/venues/"
+
+
+  $s._fetchVenue = ->
+    path = "#{$s._baseFsPath}search?query=#{$s.destination}&near=#{$s.locale}&oauth_token=#{$s._fsAuth}"
+    $http.get(path)
       .success (res) ->
         Flash.success("Success!")
-        console.log(res)
-        $s.output = $s.parseToYaml(res)
-        # $s.photos = $s.getPhoto(res)
-        $s.outputfull = JSON.stringify(res)
+        $s.venue = res.response.venues[0]
       .error (res) ->
-        Flash.error(response)
+        Flash.error("Response: #{JSON.stringify res}")
+    
+  $s._fetchPhoto = ->
+    return false unless $s.venue
 
-    $s.parseToYaml = (res) ->
-      venue = res.response.venues[0]
-      venueid = res.response.venues[0].id
-      photo_url = $http.get("https://api.foursquare.com/v2/venues/#{venueid}/photos?oauth_token=#{fsAuth}")
-        .success (response2) -> 
-          $s.photofull = JSON.stringify(response2)
-          console.log(response2)
-        .error (response2) ->
-          Flash.error("RESPONSE IS: #{JSON.stringify response}")  
-      if !venue
-        window.response = res
-        return Flash.error("Venue is empty! Access full response by typing 'res' in console.")
-      [
-        "          -"
-        "  name: #{venue.name}"
-        "  address: #{venue.location.address}, #{venue.location.city}, #{venue.location.state}"
-        "  lat: #{venue.location.lat}"
-        "  lon: #{venue.location.lng}"
-        "  website: #{venue.url}"
-        # "  tab_image: #{photo_url.response[0].photos[0].prefix}180x120#{photo_url.response[0].photos[0].suffix}"
-        "  source: Foursquare"
-        "  source_url: http://foursquare.com/v/#{venue.id}"
-        # ?ref=CLIENT_ID"  
-      ].join("\n          ")
+    $http.get("#{$s._baseFsPath}#{$s.venue.id}/photos?oauth_token=#{$s._fsAuth}")
+      .success (res) -> 
+        firstPhoto = res.response.photos.items[0]
+        if !firstPhoto 
+          Flash.error("No photos! Response: #{JSON.stringify res}")
+        photoSize = '300x500' # arbitrary
+        prefix = firstPhoto.prefix
+        suffix = firstPhoto.suffix
+        $s.photo = "#{prefix}#{photoSize}#{suffix}"
+      .error (res) -> 
+        Flash.error("Photo response: #{JSON.stringify res}")  
+
+  $s._parseToYaml =  ->
+    if !$s.venue || ! $s.photo
+      Flash.error("Error! Venue #{JSON.stringify $s.venue}, Photo #{JSON.stringify $s.photo}")
+      return false
+
+    $s.output = [
+      "          -"
+      "  name: #{$s.venue.name}"
+      "  address: #{$s.venue.location.address}, #{$s.venue.location.city}, #{$s.venue.location.state}"
+      "  lat: #{$s.venue.location.lat}"
+      "  lon: #{$s.venue.location.lng}"
+      "  website: #{$s.venue.url}"
+      "  tab_image: #{$s.photo}"
+      "  source: Foursquare"
+      "  source_url: http://foursquare.com/v/#{$s.venue.id}"
+    ].join("\n          ")
