@@ -52,8 +52,8 @@
   .overview
     .summary-map
       #map-overview{ style: 'height: 450px'}
-      - overview_coordinates = @data.legs.compact.map{ |l| l['days'].compact.map{ |d| d['items'].compact.map{ |i| "#{i['lat']}:#{i['lon']}" }}}.join("+")
-      %leg_map{ coordinates: overview_coordinates, map_id: 'map-overview'}
+      / Overview coordinates is in the itinerary helper
+      %leg_map{ coordinates: overview_coordinates(@data), map_id: 'map-overview'}
     .summary-wrap
       .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
       .summary-author
@@ -73,17 +73,17 @@
         .timeline-cluster{ class: "no#{index + 1}" }
         .cluster-info
           %b 
-            = "Day #{leg['days'].first['items'].first['parent_day']} to #{leg['days'].compact.last['items'].first['parent_day']}:"
+            / In Itinerary helper
+            = "Day #{leg_start(leg)['parent_day']} to #{leg_end(leg)['parent_day']}:"
           = leg['name']
         .itinerary-cluster-wrap{ class: zebra_class(index) }
           .cluster-map-expandible
             .cluster-caption{ style: "z-index: 200"}
-              = "From #{leg['days'].first['items'].first['name']} to #{leg['days'].compact.last['items'].last['name']}"
+              = "From #{leg_start(leg)['name']} to #{leg_end(leg)['name']}"
             .leg-map-container{ id: "mapLeg#{index}" }
               / %leg_map{ coordinates: '37.753084:-122.431484', map_id: "mapLeg#{index}" }
-              - leg_coordinates = leg['days'].compact.map{ |d| d['items'].compact.map{ |i| "#{i['lat']}:#{i['lon']}" }}.join("+")
-              %leg_map{ coordinates: leg_coordinates, map_id: "mapLeg#{index}" }
-        - leg['days'].compact.each_with_index do |day, index|
+              %leg_map{ coordinates: leg_coordinates(leg), map_id: "mapLeg#{index}" }
+        - days(leg).each_with_index do |day, index|
           - day['items'].select{ |i| i['has_tab'] }.each do 
             / for now okay... later we want to add back lodging, travel, visa/ticketing etcs
             .itinerary-content-date{ class: "no#{day['items'][0]['parent_day']}" }

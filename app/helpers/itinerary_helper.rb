@@ -19,4 +19,37 @@ module ItineraryHelper
     end
   end
 
+  def overview_coordinates(data)
+    legs(data).map{ |leg| leg_coordinates(leg) }.join("+")
+  end
+
+  def leg_start(leg)
+    days(leg).first['items'].first
+  end
+
+  def leg_end(leg)
+    days(leg).last['items'].first
+  end
+
+  def leg_coordinates(leg)
+    days(leg).map{ |d| day_coordinates(d) }.join("+")
+  end
+
+  def day_coordinates(day)
+    day['items'].compact
+      .map{ |i| coordinate(i) }
+      .join("+")
+  end
+
+  def days(leg)
+    leg['days'].compact
+  end
+
+  def coordinate(item)
+    "#{item['lat']}:#{item['lon']}"
+  end
+
+  def legs(data)
+    data.legs.compact
+  end
 end
