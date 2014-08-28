@@ -17,6 +17,7 @@ angular.module("Common").directive 'legMap', (Map, F) ->
     height: '@'
     zoom: '@'
     scrollWheelZoom: '@'
+    doubleClickZoom: '@'
     zoomControl: '@'
     mapId: '@'
 
@@ -29,8 +30,9 @@ angular.module("Common").directive 'legMap', (Map, F) ->
 
     width = s.width || '450px'
     height = s.height || '450px'
-    zoom = s.zoom || 8
+    zoom = s.zoom || 18
     scrollWheelZoom = s.scrollWheelZoom || false
+    doubleClickZoom = s.doubleClickZoom || false
     zoomControl = s.zoomControl || false
     mapId = s.mapId || "map#{_.random(10000)}"
 
@@ -51,7 +53,7 @@ angular.module("Common").directive 'legMap', (Map, F) ->
       lons = _(s.points).map (point) -> point.lon
       F.average( [_.min(lons), _.max(lons)] )
 
-    s.legMap = L.map(mapId, { scrollWheelZoom: scrollWheelZoom, zoomControl: zoomControl } ).setView([centerLat(), centerLon()], zoom)
+    s.legMap = L.map(mapId, { scrollWheelZoom: scrollWheelZoom, doubleClickZoom: doubleClickZoom, zoomControl: zoomControl } ).setView([centerLat(), centerLon()], zoom)
     
     L.tileLayer(Map.tiles(), {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -61,16 +63,18 @@ angular.module("Common").directive 'legMap', (Map, F) ->
 
     new L.Control.Zoom({ position: 'topright' }).addTo(s.legMap);
 
-    for point in s.points
+    s.legMap.featureLayer = for point in s.points
       L.marker([point.lat, point.lon], { icon: icon }).addTo(s.legMap).bindPopup("#{point.lat}:#{point.lon}")
 
-    # featureLayer = for point in s.points
-    #   L.marker([point.lat, point.lon], { icon: icon }).addTo(s.legMap)
+    bounds = new L.LatLngBounds(s.points)
+    s.legMap.fitBounds(bounds)
 
-    # # for point in s.points
-    # #   alert("#{point.lat}+{point.lon}")
+    s.legMap.featureLayer.on "ready", (e) ->
+      line = []
+      @eachLayer (marker) ->
+        line.push marker.getLatLng()
+        return
 
-    # featureLayer.on "ready", ->
-    #   map.fitBounds featureLayer.getBounds()
-    #   return
-
+      polyline_options = color: "#000"
+      polyline = L.polyline(line, polyline_options).addTo(map)
+      return

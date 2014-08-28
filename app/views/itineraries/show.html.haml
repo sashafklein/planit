@@ -1,14 +1,11 @@
-/ connect summary map
-/ allow for data-driven infinite sub-maps
 /link map pins
 / travel within days (mono),
 / display of unlisted lodging (backpackers), 
 / display? of unlisted gps items (trailhead), 
 / permits/visas as separate line but not cluster?,
 / tab icons if applicable (sleep, food, etc),
-/ trip departure,
 / make a "print" page
-/ most importantly an app to skeleton out the database via API calls from a list of names
+/ multiple API calls from a list of names
 
 / .printable-content
 .initial-header
@@ -32,7 +29,7 @@
       .moneyshot-title
         = @data.title
       |
-      .moneyshot-duration= @data.legs.length
+      .moneyshot-duration= "#{@data.legs.length} legs / #{leg_end(@data.legs.compact.last)['parent_day']} days"
       .moneyshot-caption= "\"#{@data.moneyshots[0]['subtitle']}\""
 .persistent-header
   .header-container
@@ -104,6 +101,10 @@
                         = item['name']
                       - else
                         %br
+                    - if item['local_name']
+                      - if item['local_name'].downcase != item['name'].downcase
+                        .content-tab-more-name
+                          = item['local_name']
                     - if item['notes']
                       .content-tab-more-info
                         = item['notes']

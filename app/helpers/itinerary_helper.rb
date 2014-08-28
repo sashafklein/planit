@@ -28,7 +28,7 @@ module ItineraryHelper
   end
 
   def leg_end(leg)
-    days(leg).last['items'].first
+    days(leg).last['items'].last
   end
 
   def leg_coordinates(leg)
