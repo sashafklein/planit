@@ -11,21 +11,20 @@ mod.controller 'ItinerariesCtrl.new', ($scope, Flash, $http) ->
         Flash.success("Success!")
         console.log(res)
         $s.output = $s.parseToYaml(res)
-        $s.photos = $s.getPhoto(res)
+        # $s.photos = $s.getPhoto(res)
         $s.outputfull = JSON.stringify(res)
       .error (res) ->
         Flash.error(response)
 
-    # $s.getPhoto = (res) ->
-    #   $http.get("https://api.foursquare.com/v2/venues/#{res.response.venues[0].id}/photos")
-    #     .success (res) ->
-    #       Flash.success("Success photos!")
-    #       console.log(res)
-    #     .error (res) ->
-    #       Flash.error(response)
-
     $s.parseToYaml = (res) ->
       venue = res.response.venues[0]
+      venueid = res.response.venues[0].id
+      photo_url = $http.get("https://api.foursquare.com/v2/venues/#{venueid}/photos?oauth_token=#{fsAuth}")
+        .success (response2) -> 
+          $s.photofull = JSON.stringify(response2)
+          console.log(response2)
+        .error (response2) ->
+          Flash.error("RESPONSE IS: #{JSON.stringify response}")  
       if !venue
         window.response = res
         return Flash.error("Venue is empty! Access full response by typing 'res' in console.")
@@ -36,6 +35,8 @@ mod.controller 'ItinerariesCtrl.new', ($scope, Flash, $http) ->
         "  lat: #{venue.location.lat}"
         "  lon: #{venue.location.lng}"
         "  website: #{venue.url}"
-        "  source: "
-        "  source_url: "  
+        # "  tab_image: #{photo_url.response[0].photos[0].prefix}180x120#{photo_url.response[0].photos[0].suffix}"
+        "  source: Foursquare"
+        "  source_url: http://foursquare.com/v/#{venue.id}"
+        # ?ref=CLIENT_ID"  
       ].join("\n          ")

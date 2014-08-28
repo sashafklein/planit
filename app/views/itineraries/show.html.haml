@@ -32,7 +32,7 @@
       .moneyshot-title
         = @data.title
       |
-      .moneyshot-duration= @data.duration
+      .moneyshot-duration= @data.legs.length
       .moneyshot-caption= "\"#{@data.moneyshots[0]['subtitle']}\""
 .persistent-header
   .header-container
@@ -52,7 +52,8 @@
   .overview
     .summary-map
       #map-overview{ style: 'height: 450px'}
-      %leg_map{ coordinates: @marker_coordinates, map_id: 'map-overview'}
+      - overview_coordinates = @data.legs.compact.map{ |l| l['days'].compact.map{ |d| d['items'].compact.map{ |i| "#{i['lat']}:#{i['lon']}" }}}.join("+")
+      %leg_map{ coordinates: overview_coordinates, map_id: 'map-overview'}
     .summary-wrap
       .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
       .summary-author
@@ -79,8 +80,9 @@
             .cluster-caption{ style: "z-index: 200"}
               = "From #{leg['days'].first['items'].first['name']} to #{leg['days'].compact.last['items'].last['name']}"
             .leg-map-container{ id: "mapLeg#{index}" }
-              %leg_map{ coordinates: '37.753084:-122.431484', map_id: "mapLeg#{index}" }
-              / %leg_map{ coordinates: leg['items'].map{ |i| "#{i['lat']}:#{i['lon']}" }, map_id: "mapLeg#{index}" }
+              / %leg_map{ coordinates: '37.753084:-122.431484', map_id: "mapLeg#{index}" }
+              - leg_coordinates = leg['days'].compact.map{ |d| d['items'].compact.map{ |i| "#{i['lat']}:#{i['lon']}" }}.join("+")
+              %leg_map{ coordinates: leg_coordinates, map_id: "mapLeg#{index}" }
         - leg['days'].compact.each_with_index do |day, index|
           - day['items'].select{ |i| i['has_tab'] }.each do 
             / for now okay... later we want to add back lodging, travel, visa/ticketing etcs
@@ -94,11 +96,7 @@
                   .content-tab
                     %a{href: "#"}
                     - if item['tab_image']
-                      - if item['image_referral']
-                        %a{href: item['image_referral']}
-                          = image_tag item['tab_image']
-                      - else
-                        = image_tag item['tab_image']
+                      = image_tag item['tab_image']
                     - else
                       = image_tag "tab_stand_in.png"
                     .content-tab-title
@@ -117,6 +115,10 @@
                       .content-tab-get-more
                         %b Source:
                         %a{href: item['source_url']} #{item['source_url']}
+                    / - if item['image_referral']
+                    /   .content-tab-get-more
+                    /     %b Photo:
+                    /     %a{href: item['image_referral']} Credit
 
     - if leg['departure']
       .body-container
