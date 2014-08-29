@@ -45,6 +45,7 @@ $ ->
   addAndRemoveOnHover('.menu-link.black')    
   addAndRemoveOnHover('.menu-link.white')  
   addAndRemoveOnHover('.user-icon')    
+  addAndRemoveOnHover('.exit-view')    
 
   toggleElementOnDoubleClick = (selector, className='clicked') ->
     $(selector).dblclick( -> $(@).toggleClass className )

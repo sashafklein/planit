@@ -12,6 +12,7 @@ angular.module("Common").directive 'legMap', (Map, F) ->
   replace: true
   template: "<div><div ng_transclude=true ></div></div>"
   scope:
+    type: '@'
     coordinates: '@'
     width: '@'
     height: '@'
@@ -23,6 +24,11 @@ angular.module("Common").directive 'legMap', (Map, F) ->
     icon: '@'
 
   link: (s, elem) ->
+    acceptedMapTypes = ['leg', 'overview', 'detail']
+
+    # return unless _.contains(acceptedMapTypes, s.type)
+
+
     s.points = []
 
     _(s.coordinates.split('+')).map (string) ->

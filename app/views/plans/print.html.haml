@@ -1,128 +1,146 @@
-.printable-content
+.exit-view
+  %a{href: plan_path} Exit Print View
+.logo-container.print
+  = image_tag "white_logo.png"
+  = image_tag "white_tagline.png", id: "tagline"
+=image_tag "#{image_path @data.moneyshots[0]['url']}", style: "width: 750px", html: { border: "0" }
+.moneyshot-caption.print= "\"#{@data.moneyshots[0]['subtitle']}\""
+.title-and-caption-wrap.print
+  .moneyshot-title.print
+    = @data.title
+  |
+  .moneyshot-duration.print= "#{@data.legs.length} legs / #{leg_end(@data.legs.compact.last)['parent_day']} days"
 
-.initial-header
-  .header-container
-    .logo-container
-      = image_tag "white_logo.png", style: "float:left;"
-      = image_tag "white_tagline.png", style: "float:left;", id: "tagline"
-    .user-icon.white
-      %a{href: "#"}
-        = image_tag "white_anon_user.png", style: "float:right;", html: { border: "0" }
-    %ul.menu-top
-      %li.menu-link.white= link_to 'LAUNCH', print_plan_path
-      %li.menu-link.white= link_to 'BUILD', new_plan_path
-      %li.menu-link.white= link_to 'DREAM', "#"
-.moneyshot{ style: "background-image: url('#{image_path @data.moneyshots[0]['url']}')" }
-  .clickable-moneyshot
-  .title-and-caption-wrap
-    .title-and-caption-content
-      %a{href: "#"}
-        = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
-      .moneyshot-title
-        = @data.title
-      |
-      .moneyshot-duration= "#{@data.legs.length} legs / #{leg_end(@data.legs.compact.last)['parent_day']} days"
-      .moneyshot-caption= "\"#{@data.moneyshots[0]['subtitle']}\""
-.persistent-header
-  .header-container
-    .logo-container
-      = image_tag "black_logo.png"
-    .header-title
-      = @data.title
-    .user-icon
-      %a{href: "#"}
-        = image_tag "black_anon_user.png"
-    %ul.menu-top
-      %li.menu-link.black= link_to 'LAUNCH', plan_path('john-muir-trail')  
-      %li.menu-link.black= link_to 'BUILD', new_plan_path
-      %li.menu-link.black= link_to 'DREAM', "#"
+.break-page
+// break page
 
-.body-container
-  .overview
-    .summary-map
-      #map-overview{ style: 'height: 450px'}
-      / Overview coordinates is in the plan helper
-      %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data), map_id: 'map-overview'}
-    .summary-wrap
-      .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
-      .summary-author
-        = "#{@data.author}, #{@data.trailblaze_date}"
-      .summary-content
-        = @data.summary_text
+.print-page-header
+  = image_tag "black_logo_only.png"
+  %strong
+    = "#{@data.title}:"
+  .cluster-info.print
+    Overview
+
+#map-overview{ style: 'height: 750px; width: 750px; margin-top: 15px;'}
+/ Overview coordinates is in the plan helper
+%leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data), map_id: 'map-overview'}
+
+.break-page
+// break page
+
+.print-page-header
+  = image_tag "black_logo_only.png"
+  %strong
+    = "#{@data.title}:"
+  .cluster-info.print
+    Summary, Tips & Reminders
+
+.summary-author.print
+  = "#{@data.author}, #{@data.trailblaze_date}"
+.summary-content.print
+  = @data.summary_text
+
+Tips
+Reminders
+
+.break-page
+// break page
+
+.print-page-header
+  = image_tag "black_logo_only.png"
+  %strong
+    = "#{@data.title}:"
+  .cluster-info.print
+    Transit & Transportation
+
+Flights
+
+
+.break-page
+// break page
+
+.print-page-header
+  = image_tag "black_logo_only.png"
+  %strong
+    = "#{@data.title}:"
+  .cluster-info.print
+    Accomodations
+
+Lodging by unique item
+
+- @data.legs.each_with_index do |leg, index|
+  .break-page
+  // break page
+  .print-page-header
+    = image_tag "black_logo_only.png"
+    .timeline-cluster.print{ class: "no#{index + 1}" }
+    %strong
+      = "#{@data.title}"
+    .cluster-info.print
+      = leg['name']
+      %b= " (Day #{leg_start(leg)['parent_day']} to #{leg_end(leg)['parent_day']})"
+  .leg-map-container.print{ id: "mapLeg#{index}" }
+    .cluster-caption{ style: "z-index: 200"}
+      = "From #{leg_start(leg)['name']} to #{leg_end(leg)['name']}"
+    %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), map_id: "mapLeg#{index}" }
   
-  - @data.legs.each_with_index do |leg, index|
-    - if leg['arrival']
-      .body-container
-        .timeline-wrap
-          .timeline-travel{ class: leg['arrival']['method']}
-          .travel-info
-            = "Arrive by #{leg['arrival']['method']}"
-    .body-container{ class: zebra_class(index) }
-      .timeline-wrap
-        .timeline-cluster{ class: "no#{index + 1}" }
-        .cluster-info
-          %b 
-            / In plan helper
-            = "Day #{leg_start(leg)['parent_day']} to #{leg_end(leg)['parent_day']}:"
-          = leg['name']
-        .plan-cluster-wrap{ class: zebra_class(index) }
-          .cluster-map-expandible
-            .cluster-caption{ style: "z-index: 200"}
-              = "From #{leg_start(leg)['name']} to #{leg_end(leg)['name']}"
-            .leg-map-container{ id: "mapLeg#{index}" }
-              / %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: '37.753084:-122.431484', map_id: "mapLeg#{index}" }
-              %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), map_id: "mapLeg#{index}" }
-        - days(leg).each_with_index do |day, index|
-          - day['items'].select{ |i| i['has_tab'] }.each do 
-            / for now okay... later we want to add back lodging, travel, visa/ticketing etcs
-            .plan-content-date{ class: "no#{day['items'][0]['parent_day']}" }
-          - day['items'].select{ |i| i['has_tab'] }.in_groups_of(4).each_with_index do |day_group, index|
-            .plan-content-time.afternoon
-            / .plan-content-time{ class: day_group }
-            .plan-content-row{ class: zebra_class(day['items'][0]['parent_day']) }
-              - day_group.compact.each do |item|
-                .content-tab-wrap
-                  .content-tab
-                    %a{href: "#"}
-                    - if item['tab_image']
-                      = image_tag item['tab_image']
-                    - else
-                      = image_tag "tab_stand_in.png"
-                    .content-tab-title
-                      - if item['name']
-                        = item['name']
-                      - else
-                        %br
-                    - if item['local_name']
-                      - if item['local_name'].downcase != item['name'].downcase
-                        .content-tab-more-name
-                          = item['local_name']
-                    - if item['notes']
-                      .content-tab-more-info
-                        = item['notes']
-                    - if item['source']
-                      .content-tab-get-more
-                        %b Source:
-                        %a{href: item['source_url']} #{item['source']}
-                    - elsif item['source_url']
-                      .content-tab-get-more
-                        %b Source:
-                        %a{href: item['source_url']} #{item['source_url']}
-                    / - if item['image_referral']
-                    /   .content-tab-get-more
-                    /     %b Photo:
-                    /     %a{href: item['image_referral']} Credit
+  .print-end
+  .break-page
+  // break page
 
-    - if leg['departure']
-      .body-container
-        .timeline-wrap
-          .timeline-travel{ class: leg['departure']['method']}
-          .travel-info
-            = "Depart by #{leg['departure']['method']}"
+  .print-page-header
+    = image_tag "black_logo_only.png"
+    .timeline-cluster.print{ class: "no#{index + 1}" }
+    %strong
+      = "#{@data.title}"
+    .cluster-info.print
+      = leg['name']
+      %b= " (Day #{leg_start(leg)['parent_day']} to #{leg_end(leg)['parent_day']})"
+  - if leg['arrival']
+    = "Arrive by #{leg['arrival']['method']}"
+  - days(leg).each_with_index do |day, index|
+    - day['items'].select{ |i| i['has_tab'] }.each do |item, index|
+      .content-tab-wrap.print
+        .content-tab-print.icons
+          .plan-content-time.afternoon.print
+          / .plan-content-time.print{ class: day_group }
+        .content-tab-print.image
+          .content-tab-timestamp
+            - if day['time_of_day']
+              = "#{day['time_of_day']}, "  
+            - if @data.start_date
+              - d = @data.start_date + item['parent_day'].days
+              = d.strftime("%b %d, %Y")
+          - if item['tab_image']
+            = image_tag item['tab_image'], {style: "height: 120px; width: 180px;"}
+        .content-tab-print.info
+          .content-tab-title.print
+            - if item['name']
+              %b= item['name']
+            - if item['local_name']
+              - if item['local_name'].downcase != item['name'].downcase
+                = " (#{item['local_name']})"
+          - if item['notes']
+            .content-tab-more-info.print
+              = item['notes']
+          - if item['source']
+            .content-tab-get-more.print
+              %b Source:
+              = item['source']
+        .content-tab-print.map
+          .content-tab-timestamp
+            = item['local_name']
+          - if item['lat'] && item['lon']
+            .item-map-container{id: "mapLeg#{item['name']}"}
+              %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: coordinate(item), map_id: "mapLeg#{item['name']}" }
+
+  - if leg['departure']
+    .timeline-travel{ class: leg['departure']['method']}
+    .travel-info
+      = "Depart by #{leg['departure']['method']}"
+  .print-end
 
 .footer
   .footer-content
     This project is being tested privately among friends and family -- please share any feedback you have with us via 
     %a{ href: "mailto:planit@longhou.se" } planit@longhou.se
-
-.printable-message
