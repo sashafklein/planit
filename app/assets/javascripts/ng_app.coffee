@@ -1,5 +1,4 @@
 #= require_self
-#= require angular.min
 #= require angular-resource.min
 #= require angular-route.min
 #= require underscore-min
@@ -11,9 +10,16 @@
 
 # http://clintberry.com/2013/modular-angularjs-application-design/
 
-planitModules = ['Common', 'Models', 'Controllers']
+planitModules = [
+  'Common'
+  'Models'
+  'Controllers'
+]
 
-otherModules = []
+otherModules = [
+  "ngRoute"
+  "ui.bootstrap"
+]
 
 for module in planitModules
     angular.module(module, [])
