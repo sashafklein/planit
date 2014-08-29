@@ -46,9 +46,9 @@ $ ->
   addAndRemoveOnHover('.menu-link.white')  
   addAndRemoveOnHover('.user-icon')    
 
-  toggleElementOnClick = (selector, className='clicked') ->
-    $(selector).click( -> $(@).toggleClass className )
-  toggleElementOnClick('.cluster-map-expandible')
+  toggleElementOnDoubleClick = (selector, className='clicked') ->
+    $(selector).dblclick( -> $(@).toggleClass className )
+  toggleElementOnDoubleClick('.cluster-map-expandible')
 
   # cycleImageOnClick = (selector, className='clicked') ->
 

@@ -38,9 +38,9 @@ angular.module("Common").directive 'legMap', (Map, F) ->
 
     icon = L.icon
       iconUrl: '/assets/pin_sm_red_19x22.png',  
-      # iconAnchor:   [8, 22],
-      # popupAnchor:  [-3, -76],
-      iconSize:     [19, 22]
+      iconSize:     [19, 22],
+      iconAnchor:   [8, 22],
+      popupAnchor:  [1, -15]
       # shadowSize:   [50, 64], // size of the shadow
       # shadowAnchor: [4, 62],  // the same for the shadow
       # popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
@@ -69,12 +69,4 @@ angular.module("Common").directive 'legMap', (Map, F) ->
     bounds = new L.LatLngBounds(s.points)
     s.legMap.fitBounds(bounds)
 
-    s.legMap.featureLayer.on "ready", (e) ->
-      line = []
-      @eachLayer (marker) ->
-        line.push marker.getLatLng()
-        return
-
-      polyline_options = color: "#000"
-      polyline = L.polyline(line, polyline_options).addTo(map)
-      return
+    polyline = L.polyline(s.points, {color: 'red', opacity: '0.4', dashArray: '1, 0, 5'}).addTo(s.legMap);

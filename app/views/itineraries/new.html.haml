@@ -1,13 +1,8 @@
-/ .footer
-/   .footer-content
-/     This project is being tested privately among friends and family -- please share any feedback you have with us via 
-/     %a{ href: "mailto:planit@longhou.se" } planit@longhou.se
-
 .yml-creator{ ng_controller: 'ItinerariesCtrl.new' }
 
   %input{ type: "text", name: "baselocation", id: "baselocation", placeholder: "Enter a locale", ng_model: 'locale' }
   %input{ type: "text", name: "query", id: "query", placeholder: "Enter a destination", ng_model: 'destination', ng_on_enter_key: 'search()'}
   %button{ id: "search", ng_click: 'search()' } Search
+  %img{ src: "blank.png", id: "photo", ng_src: '{{photo}}' }
   %textarea{ id: "result", style: "height: 200px", ng_bind: 'output'}
   %textarea{ id: "response-in-full", style: "height: 200px", ng_bind: 'outputfull'}
-  / %img{ src: "blank.png", id: "photo", ng_src: 'photo' }

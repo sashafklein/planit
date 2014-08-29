@@ -60,6 +60,8 @@ mod.controller 'ItinerariesCtrl.new', ($scope, Flash, $http, $q) ->
       "      notes: "
       "      address: #{$s.venue.location.address}, #{$s.venue.location.city}, #{$s.venue.location.state}"
       "      phone: #{$s.venue.contact.phone}"
+      "      category: #{$s.venue.categories.name}"
+      "      category_type: #{$s.venue.contact.phone}"
       "      lat: #{$s.venue.location.lat}"
       "      lon: #{$s.venue.location.lng}"
       "      website: #{$s.venue.url}"
