@@ -1,10 +1,8 @@
 class ItinerariesController < ApplicationController
   
-  before_action :load_yaml_data, only: [:show]
+  before_action :load_yaml_data, only: [:show, :print]
 
   def show
-    @marker_coordinates = @data.map_locations.map{ |loc| coords_from(loc) }.compact.join('+')
-    @slugged_title = params[:id]
   end
 
   def new
@@ -31,6 +29,8 @@ class ItinerariesController < ApplicationController
       redirect_to root_path
     else
       @data = OpenStruct.new YAML.load_file( file_path )
+      @marker_coordinates = @data.map_locations.map{ |loc| coords_from(loc) }.compact.join('+')
+      @slugged_title = params[:id]
     end
   end
 
