@@ -4,7 +4,7 @@
 #    Without these, the map functions with defaults
 #
 # HAML Usage:
-# %leg_map{ coordinates: 'lat:lon+lat:lon+lat:lon' }
+# %leg_map{ coordinates: 'lat:lon+lat:lon+lat:lon', icon:  }
 
 angular.module("Common").directive 'legMap', (Map, F) ->
   restrict: 'E'
@@ -20,6 +20,7 @@ angular.module("Common").directive 'legMap', (Map, F) ->
     doubleClickZoom: '@'
     zoomControl: '@'
     mapId: '@'
+    icon: '@'
 
   link: (s, elem) ->
     s.points = []
@@ -37,7 +38,7 @@ angular.module("Common").directive 'legMap', (Map, F) ->
     mapId = s.mapId || "map#{_.random(10000)}"
 
     icon = L.icon
-      iconUrl: '/assets/pin_sm_red_19x22.png',  
+      iconUrl: s.icon,  
       iconSize:     [19, 22],
       iconAnchor:   [8, 22],
       popupAnchor:  [1, -15]
