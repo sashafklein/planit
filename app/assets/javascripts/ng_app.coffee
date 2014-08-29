@@ -1,4 +1,7 @@
 #= require_self
+#= require angular.min
+#= require angular-resource.min
+#= require angular-route.min
 #= require underscore-min
 #= require ui-bootstrap-tpls.min
 #= require itinerary
