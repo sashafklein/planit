@@ -1,4 +1,4 @@
-class ItinerariesController < ApplicationController
+class PlansController < ApplicationController
   
   before_action :load_yaml_data, only: [:show, :print]
 
@@ -9,7 +9,7 @@ class ItinerariesController < ApplicationController
   end
 
   def jmt
-    redirect_to itinerary_path('john-muir-trail')
+    redirect_to plan_path('john-muir-trail')
   end
 
   def welcome
@@ -22,10 +22,10 @@ class ItinerariesController < ApplicationController
   private
 
   def load_yaml_data
-    file_path = File.join(Rails.root, 'app', 'models', 'itineraries', 'yaml', "#{params[:id]}.yml")
+    file_path = File.join(Rails.root, 'app', 'models', 'plans', 'yaml', "#{params[:id]}.yml")
 
     if !File.exists? file_path
-      flash[:error] = "No itinerary exists by that name."
+      flash[:error] = "No plan exists by that name."
       redirect_to root_path
     else
       @data = OpenStruct.new YAML.load_file( file_path )

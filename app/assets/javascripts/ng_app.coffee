@@ -3,7 +3,7 @@
 #= require angular-route.min
 #= require underscore-min
 #= require ui-bootstrap-tpls.min
-#= require itinerary
+#= require plan
 #= require common/common
 #= require_tree ./models
 #= require_tree ./controllers

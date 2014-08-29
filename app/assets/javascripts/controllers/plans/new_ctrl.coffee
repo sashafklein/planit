@@ -1,5 +1,5 @@
 mod = angular.module('Controllers')
-mod.controller 'ItinerariesCtrl.new', ($scope, Flash, $http, $q) ->
+mod.controller 'Plans.NewCtrl', ($scope, Flash, $http, $q) ->
   $s = $scope
 
   $s.search = ->

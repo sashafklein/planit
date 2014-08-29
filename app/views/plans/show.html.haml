@@ -1,5 +1,13 @@
-.printable-content
+/link map pins
+/ travel within days (mono),
+/ display of unlisted lodging (backpackers), 
+/ display? of unlisted gps items (trailhead), 
+/ permits/visas as separate line but not cluster?,
+/ tab icons if applicable (sleep, food, etc),
+/ make a "print" page
+/ multiple API calls from a list of names
 
+/ .printable-content
 .initial-header
   .header-container
     .logo-container
@@ -9,8 +17,8 @@
       %a{href: "#"}
         = image_tag "white_anon_user.png", style: "float:right;", html: { border: "0" }
     %ul.menu-top
-      %li.menu-link.white= link_to 'LAUNCH', print_itinerary_path
-      %li.menu-link.white= link_to 'BUILD', new_itinerary_path
+      %li.menu-link.white= link_to 'LAUNCH', print_plan_path
+      %li.menu-link.white= link_to 'BUILD', new_plan_path
       %li.menu-link.white= link_to 'DREAM', "#"
 .moneyshot{ style: "background-image: url('#{image_path @data.moneyshots[0]['url']}')" }
   .clickable-moneyshot
@@ -33,15 +41,15 @@
       %a{href: "#"}
         = image_tag "black_anon_user.png"
     %ul.menu-top
-      %li.menu-link.black= link_to 'LAUNCH', itinerary_path('john-muir-trail')  
-      %li.menu-link.black= link_to 'BUILD', new_itinerary_path
+      %li.menu-link.black= link_to 'LAUNCH', plan_path('john-muir-trail')  
+      %li.menu-link.black= link_to 'BUILD', new_plan_path
       %li.menu-link.black= link_to 'DREAM', "#"
 
 .body-container
   .overview
     .summary-map
       #map-overview{ style: 'height: 450px'}
-      / Overview coordinates is in the itinerary helper
+      / Overview coordinates is in the plan helper
       %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data), map_id: 'map-overview'}
     .summary-wrap
       .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
@@ -62,10 +70,10 @@
         .timeline-cluster{ class: "no#{index + 1}" }
         .cluster-info
           %b 
-            / In Itinerary helper
+            / In plan helper
             = "Day #{leg_start(leg)['parent_day']} to #{leg_end(leg)['parent_day']}:"
           = leg['name']
-        .itinerary-cluster-wrap{ class: zebra_class(index) }
+        .plan-cluster-wrap{ class: zebra_class(index) }
           .cluster-map-expandible
             .cluster-caption{ style: "z-index: 200"}
               = "From #{leg_start(leg)['name']} to #{leg_end(leg)['name']}"
@@ -75,11 +83,11 @@
         - days(leg).each_with_index do |day, index|
           - day['items'].select{ |i| i['has_tab'] }.each do 
             / for now okay... later we want to add back lodging, travel, visa/ticketing etcs
-            .itinerary-content-date{ class: "no#{day['items'][0]['parent_day']}" }
+            .plan-content-date{ class: "no#{day['items'][0]['parent_day']}" }
           - day['items'].select{ |i| i['has_tab'] }.in_groups_of(4).each_with_index do |day_group, index|
-            .itinerary-content-time.afternoon
-            / .itinerary-content-time{ class: day_group }
-            .itinerary-content-row{ class: zebra_class(day['items'][0]['parent_day']) }
+            .plan-content-time.afternoon
+            / .plan-content-time{ class: day_group }
+            .plan-content-row{ class: zebra_class(day['items'][0]['parent_day']) }
               - day_group.compact.each do |item|
                 .content-tab-wrap
                   .content-tab
@@ -125,4 +133,4 @@
     This project is being tested privately among friends and family -- please share any feedback you have with us via 
     %a{ href: "mailto:planit@longhou.se" } planit@longhou.se
 
-.printable-message
+/ .printable-message

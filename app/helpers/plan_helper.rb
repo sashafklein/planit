@@ -1,4 +1,4 @@
-module ItineraryHelper
+module PlanHelper
   def in_next_cluster?(current_cluster, item)
     current_cluster < item['parent_cluster']
   end
