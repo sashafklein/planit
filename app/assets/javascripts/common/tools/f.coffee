@@ -1,5 +1,7 @@
 angular.module('Common').factory 'F', () ->
-  average: (array) ->
-    total = _(array).reduce (sum, element) -> 
-      sum + element
-    total / array.length
+  
+  avg: (array) -> @sum(array) / array.length
+
+  avgOfExtremes: (array) -> @avg( [_.min(array), _.max(array)] )
+
+  sum: (array) -> _(array).reduce( (sum, element) -> sum + element )

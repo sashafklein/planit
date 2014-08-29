@@ -45,13 +45,9 @@ angular.module("Common").directive 'legMap', (Map, F) ->
       # shadowAnchor: [4, 62],  // the same for the shadow
       # popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 
-    centerLat = -> 
-      lats = _(s.points).map (point) -> point.lat
-      F.average( [_.min(lats), _.max(lats)] )
+    centerLat = -> F.avgOfExtremes( _.pluck(s.points, 'lat') )
 
-    centerLon = -> 
-      lons = _(s.points).map (point) -> point.lon
-      F.average( [_.min(lons), _.max(lons)] )
+    centerLon = -> F.avgOfExtremes( _.pluck(s.points, 'lon') )
 
     s.legMap = L.map(mapId, { scrollWheelZoom: scrollWheelZoom, doubleClickZoom: doubleClickZoom, zoomControl: zoomControl } ).setView([centerLat(), centerLon()], zoom)
     
