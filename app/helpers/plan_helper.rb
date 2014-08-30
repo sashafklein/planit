@@ -52,4 +52,10 @@ module PlanHelper
   def legs(data)
     data.legs.compact
   end
+
+  def display_date(data, item)
+    d = data.start_date + item['parent_day'].days
+    d.strftime("%b %d, %Y")
+  end
+
 end

@@ -77,9 +77,9 @@
           .cluster-map-expandible
             .cluster-caption{ style: "z-index: 200"}
               = "From #{leg_start(leg)['name']} to #{leg_end(leg)['name']}"
-            .leg-map-container{ id: "mapLeg#{index}" }
-              / %map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: '37.753084:-122.431484', map_id: "mapLeg#{index}" }
-              %map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), map_id: "mapLeg#{index}" }
+            .map-container{ id: "map#{index}" }
+              / %map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: '37.753084:-122.431484', map_id: "map#{index}" }
+              %map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), map_id: "map#{index}" }
         - days(leg).each_with_index do |day, index|
           - day['items'].select{ |i| i['has_tab'] }.each do 
             / for now okay... later we want to add back lodging, travel, visa/ticketing etcs

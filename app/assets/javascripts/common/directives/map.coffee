@@ -4,7 +4,7 @@
 #    Without these, the map functions with defaults
 #
 # HAML Usage:
-# %leg_map{ coordinates: 'lat:lon+lat:lon+lat:lon', icon:  }
+# %map{ coordinates: 'lat:lon+lat:lon+lat:lon', icon:  }
 
 angular.module("Common").directive 'map', (MapOptions, F) ->
   restrict: 'E'
@@ -24,7 +24,8 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
   link: (s, elem) ->
     acceptedMapTypes = ['leg', 'detail']
     s.type = 'leg' unless _.contains(acceptedMapTypes, s.type)
-    s.zoomLevel = -> if s.type == 'leg' then 18 else 15
+    s.zoomLevel = -> if s.type == 'leg' then 18 else 17
+
 
     s.points = []
 
@@ -56,6 +57,6 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
     unless s.type == 'detail'
       bounds = new L.LatLngBounds(s.points)
       s.map.fitBounds(bounds)
+      new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
 
     polyline = L.polyline(s.points, {color: 'red', opacity: '0.4', dashArray: '1, 0, 5'}).addTo(s.map);
-    new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
