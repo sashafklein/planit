@@ -23,7 +23,7 @@
 
 #map-overview{ style: 'height: 750px; width: 750px; '}
 / Overview coordinates is in the plan helper
-%leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data), map_id: 'map-overview'}
+%map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data), map_id: 'map-overview'}
 
 .break-page
 // break page
@@ -79,10 +79,8 @@ Lodging by unique item
     .cluster-info
       = leg['name']
       %b= " (Day #{leg_start(leg)['parent_day']} to #{leg_end(leg)['parent_day']})"
-  .leg-map-container{ id: "mapLeg#{index}" }
-    .cluster-caption{ style: "z-index: 200"}
-      = "From #{leg_start(leg)['name']} to #{leg_end(leg)['name']}"
-    %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), map_id: "mapLeg#{index}" }
+  .map-container{ id: "map#{index}" }
+  %map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), map_id: "map#{index}" }
   
   .print-end
   .break-page
@@ -100,7 +98,16 @@ Lodging by unique item
     = "Arrive by #{leg['arrival']['method']}"
     .print-end
   - days(leg).each_with_index do |day, index|
-    %br NEW DAY
+    .content-tab-wrap
+      .content-tab-print.time
+        .plan-content-time.afternoon
+        / .plan-content-time{ class: day_group }
+        .content-tab-timestamp
+          - if day['time_of_day']
+            = "#{day['time_of_day']}, "  
+          - if @data.start_date
+            - d = @data.start_date + day['items'][0]['parent_day'].days
+            = d.strftime("%b %d, %Y")
     - day['items'].each_with_index do |item, index|
       .content-tab-wrap
         .content-tab-print.time
@@ -129,12 +136,15 @@ Lodging by unique item
               = item['category']
           - if item['notes']
             .content-tab-more-info
+              %b Notes:
               = item['notes']
           - if item['website']
             .content-tab-more-info
+              %b Website:
               = item['website']
           - if item['phone']
             .content-tab-more-info
+              %b Phone:
               = item['phone']
           - if item['source']
             .content-tab-get-more
@@ -145,11 +155,9 @@ Lodging by unique item
             - if item['local_name']
               - if item['local_name'].downcase != item['name'].downcase
                 = " (#{item['local_name']})"
-              - else
-                = "-"
           - if item['lat'] && item['lon']
-            .item-map-container{id: "mapLeg#{item['parent_cluster']}_#{item['parent_day']}_#{index}"}
-              %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: coordinate(item), map_id: "mapLeg#{item['parent_cluster']}_#{item['parent_day']}_#{index}" }
+            .item-map-container{id: "map#{item['parent_cluster']}_#{item['parent_day']}_#{index}"}
+              %map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: coordinate(item), map_id: "map#{item['parent_cluster']}_#{item['parent_day']}_#{index}", type: "detail" }
           - else
             = image_tag "no_map_180x180.png", {style: "height: 180px; width: 180px"}
           - if item['address']
