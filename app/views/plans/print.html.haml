@@ -3,7 +3,7 @@
 .logo-container
   = image_tag "white_logo.png"
   = image_tag "white_tagline.png", id: "tagline"
-=image_tag "#{image_path @data.moneyshots[0]['url']}", style: "width: 750px", html: { border: "0" }
+=image_tag "#{image_path @data.moneyshots[0]['url']}", style: "width: 750px; max-height: 750px", html: { border: "0" }
 .moneyshot-caption= "\"#{@data.moneyshots[0]['subtitle']}\""
 .print-page-header
   %strong
