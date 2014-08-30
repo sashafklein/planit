@@ -21,9 +21,7 @@
   .print-header-subtitle
     Overview
 
-#map-overview{ style: 'height: 750px; width: 750px; '}
-/ Overview coordinates is in the plan helper
-%map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data), map_id: 'map-overview', type: 'print'}
+%map{ style: 'height: 750px; width: 750px', icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data), type: 'print'}
 
 .break-page
 // break page
@@ -79,8 +77,7 @@ Lodging by unique item
     .print-header-subtitle
       = leg['name']
       %b= " (Day #{leg_start(leg)['parent_day']} to #{leg_end(leg)['parent_day']})"
-  .map-container{ id: "map#{index}" }
-  %map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), map_id: "map#{index}", type: 'print' }
+  %map.map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), type: 'print' }
   
   .print-end
   .break-page
@@ -154,8 +151,7 @@ Lodging by unique item
             .content-tab-timestamp
               = " (#{item['local_name']})"
           - if item['lat'] && item['lon']
-            .item-map-container{id: "map#{item['parent_cluster']}_#{item['parent_day']}_#{index}"}
-              %map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: coordinate(item), map_id: "map#{item['parent_cluster']}_#{item['parent_day']}_#{index}", type: "detail" }
+            %map.item-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: coordinate(item), type: "detail" }
           - else
             = image_tag "no_map_180x180.png", {style: "height: 180px; width: 180px"}
           - if item['address']

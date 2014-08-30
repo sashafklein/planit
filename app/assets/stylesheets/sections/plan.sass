@@ -1,6 +1,12 @@
 body
   margin: 0
 
+.ng-map-div
+  .leaflet-control-attribution
+    background: none
+    a
+      color: gray
+
 .plans-show
 
   @media screen
@@ -290,7 +296,9 @@ body
         background-color: #fff
       &.even
         background-color: #f9f9f9
-    
+    .overview-map
+      height: 450px
+
     .overview
       width: 920px
       overflow: hidden
@@ -492,6 +500,8 @@ body
       background-repeat: no-repeat
       background-position: center center
       overflow: hidden
+      .cluster-map
+        height: 450px
       .cluster-caption
         float: left
         position: absolute
