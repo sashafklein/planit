@@ -54,8 +54,7 @@ module PlanHelper
   end
 
   def display_date(data, item)
-    d = data.start_date + item['parent_day'].days
-    d.strftime("%b %d, %Y")
+    data.start_date + item['parent_day'].days
   end
 
 end

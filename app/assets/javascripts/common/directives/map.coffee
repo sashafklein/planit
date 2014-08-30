@@ -22,7 +22,7 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
     icon: '@'
 
   link: (s, elem) ->
-    acceptedMapTypes = ['leg', 'detail']
+    acceptedMapTypes = ['leg', 'detail', 'print']
     s.type = 'leg' unless _.contains(acceptedMapTypes, s.type)
     s.zoomLevel = -> if s.type == 'leg' then 18 else 17
 
@@ -54,7 +54,12 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
     s.map.featureLayer = for point in s.points
       L.marker([point.lat, point.lon], { icon: icon }).addTo(s.map).bindPopup("#{point.lat}:#{point.lon}")
 
-    unless s.type == 'detail'
+    if s.type == 'print'
+      bounds = new L.LatLngBounds(s.points)
+      s.map.fitBounds(bounds)
+    else if s.type == 'detail'
+      showAttribution = false
+    else
       bounds = new L.LatLngBounds(s.points)
       s.map.fitBounds(bounds)
       new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
