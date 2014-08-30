@@ -1,8 +1,14 @@
 .yml-creator{ ng_controller: 'Plans.NewCtrl' }
 
-  %input{ type: "text", name: "baselocation", id: "baselocation", placeholder: "Enter a locale", ng_model: 'locale', ng_on_enter_key: 'search()' }
-  %input{ type: "text", name: "query", id: "query", placeholder: "Enter a destination", ng_model: 'destination', ng_on_enter_key: 'search()'}
-  %button{ id: "search", ng_click: 'search()' } Search
-  %img{ src: "blank.png", id: "photo", ng_src: '{{photo}}' }
-  %textarea{ id: "result", style: "height: 200px", ng_bind: 'output'}
-  %textarea{ id: "response-in-full", style: "height: 200px", ng_bind: 'outputfull'}
+  .input
+    %input{ type: "text", name: "baselocation", id: "baselocation", placeholder: "Enter a locale", ng_model: 'locale', ng_on_enter_key: 'search()' }
+    %input{ type: "text", name: "query", id: "query", placeholder: "Enter a destination", ng_model: 'destination', ng_on_enter_key: 'search()'}
+    %button{ id: "search", ng_click: 'search()' } Search
+    %br
+    %textarea{ ng_model: 'csv', ng_on_enter_key: 'batchFetch()', placeholder: 'Enter CSV' }
+    %button{ ng_click: 'batchFetch()' } Destination,Locale,Day,Lodging(T/F),Travel(T/f)
+
+  .output
+    %img{ src: "blank.png", id: "photo", ng_src: '{{photo}}' }
+    %textarea{ id: "result", style: "height: 200px", ng_bind: 'output'}
+    %textarea{ id: "response-in-full", style: "height: 200px", ng_bind: 'outputfull'}

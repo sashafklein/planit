@@ -1,112 +1,103 @@
 mod = angular.module('Controllers')
 mod.controller 'Plans.NewCtrl', ($scope, Flash, $http, $q) ->
+  
+  #### SETUP
   $s = $scope
-
-  $s.search = ->
-    return unless $s.locale && $s.destination
-    
-    $s._fetchVenue().then( $s._fetchPhoto ).then( $s._parseToYaml )
-
-
-  # PRIVATE INTERFACE
-
-
+  $s.output = ''
   $s._fsAuth = "MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819"
   $s._baseFsPath = "https://api.foursquare.com/v2/venues/"
 
 
-  $s._fetchVenue = ->
-    # path = "#{$s._baseFsPath}search?query=#{$s.destination}&near=#{$s.locale}&oauth_token=#{$s._fsAuth}"
-    path = "#{$s._baseFsPath}explore?query=#{$s.destination}&near=#{$s.locale}&oauth_token=#{$s._fsAuth}"
-    $http.get(path)
+  #### PUBLIC INTERFACE
+
+  $s.batchFetch = ->
+    return unless $s.csv
+    $s.output = ''
+    for row in $s._rows($s.csv)
+      $s._addToOutput(row)
+
+  $s.search = ->
+    return unless $s.locale && $s.destination
+    $s.output = ''
+    $s._addToOutput({ locale: $s.locale, destination: $s.destination })
+
+
+  #### PRIVATE INTERFACE
+
+  $s._addToOutput = (row) ->
+    venue = null
+    photo = ''
+    $s._getVenue(row.destination, row.locale)
       .success (res) ->
-        Flash.success("Success!")
-        # $s.venue = res.response.venues[0]
-        $s.venue = res.response.groups[0].items[0].venue
-        $s.outputfull = JSON.stringify res
-      .error (res) ->
-        Flash.error("Search Error! Response: #{JSON.stringify res}")
-    
-  $s._fetchPhoto = ->
-    return false unless $s.venue
+        venue = res.response.groups[0].items[0].venue
+      .then ->
+        $s._getPhoto(venue).success (res) -> $s.photo = photo = $s._photoUrl(res)
+      .then ->
+        $s.output += $s._yamlify(venue, row, photo) 
 
-    $http.get("#{$s._baseFsPath}#{$s.venue.id}/photos?oauth_token=#{$s._fsAuth}")
-      .success (res) -> 
-        firstPhoto = res.response.photos.items[0]
-        if !firstPhoto 
-          Flash.error("Photo Error! No photos! Response: #{JSON.stringify res}")
-        if firstPhoto == undefined
-          Flash.error("Photo Error! No photos! Response: undefined")
-          $s.photo = ""
-        else
-          photoSize = '180x120' # arbitrary
-          prefix = firstPhoto.prefix
-          suffix = firstPhoto.suffix
-          $s.photo = "#{prefix}#{photoSize}#{suffix}"
-      .error (res) -> 
-        Flash.error("Photo Error! Photo #{JSON.stringify res}")  
+  $s._getVenue = (destination, locale) ->
+    $http.get "#{$s._baseFsPath}explore?query=#{destination}&near=#{locale}&oauth_token=#{$s._fsAuth}"
 
-  $s._parseToYaml =  ->
-    if !$s.venue
-      Flash.error("YAML Parse Error! Venue! #{JSON.stringify $s.venue}")
+  $s._getPhoto = (venue) ->
+    $http.get "#{$s._baseFsPath}#{venue.id}/photos?oauth_token=#{$s._fsAuth}" 
+
+  $s._photoUrl = (res) ->
+    photo = res.response.photos.items[0]
+    photoSize = '180x120' # arbitrary
+    "#{photo.prefix}#{photoSize}#{photo.suffix}"
+
+  $s._rows = (csv) ->
+    rows = []
+    split = csv.split(",")
+
+    while split.length > 0
+      rows.push { 
+        destination: split.shift()
+        locale: split.shift() || ''
+        day: split.shift() || ''
+        lodging: split.shift() || ''
+        travel: split.shift() || ''
+      } 
+
+    rows
+
+  $s._addToYaml = -> $s.output += $s._yamlify($s.venue)
+
+  $s._yamlify = (venue, row, photo) ->
+    unless venue
+      Flash.error("YAML Parse Error! Venue! #{JSON.stringify venue}")
       return false
-    
+
     now = new Date
-
-    $s.output = [
-      # "\n      -"
-      # "  items:"
-      # "    -"
-      # "      name: #{$s.destination}"
-      # "      local_name: #{$s.venue.name}"
-      # "      notes: "
-      # "      address: #{$s.venue.location.address}, #{$s.venue.location.city}, #{$s.venue.location.state}"
-
-      "\n           phone: #{$s.venue.contact.phone}"
-      "      street_address: #{$s.venue.location.address}"
-      "      city: #{$s.venue.location.city}"
-      "      state: #{$s.venue.location.state}"
-      "      country: #{$s.venue.location.country}"
-      "      cross_street: #{$s.venue.location.crossStreet}"
-      "      category: #{$s.venue.categories[0].name}"
-      "      price_tier: #{$s.venue.price?.tier?}"
-      "      rating: #{$s.venue.rating}"
-      "      rating_signals: #{$s.venue.ratingSignals}"
+    [
+      "\n      -"
+      "  items:"
+      "    -"
+      "      name: #{row.destination}"
+      "      local_name: #{venue.name}"
+      "      notes: "
+      "      address: #{venue.location.address}, #{venue.location.city}, #{venue.location.state}"
+      "      phone: #{venue.contact.phone}"
+      "      street_address: #{venue.location.address}"
+      "      city: #{venue.location.city}"
+      "      state: #{venue.location.state}"
+      "      country: #{venue.location.country}"
+      "      cross_street: #{venue.location.crossStreet}"
+      "      category: #{venue.categories[0].name}"
+      "      price_tier: #{venue.price?.tier?}"
+      "      rating: #{venue.rating}"
+      "      rating_signals: #{venue.ratingSignals}"
       "      date_of_API_pull: #{now}"
-
-      # "      lat: #{$s.venue.location.lat}"
-      # "      lon: #{$s.venue.location.lng}"
-      # "      website: #{$s.venue.url}"
-      # "      tab_image: #{$s.photo}"
-      # "      source: Foursquare"
-      # "      source_url: http://foursquare.com/v/#{$s.venue.id}"
-      # "      travel_type: "
-      # "      has_tab: true"
-      # "      lodging: false"
-      # "      time_of_day: "
-      # "      parent_day: 1"
-      # "      parent_cluster: 1"
-    ].join("\n      ")
-    # $s.output = [
-    #   "\n      -"
-    #   "  items:"
-    #   "    -"
-    #   "      name: #{$s.destination}"
-    #   "      local_name: #{$s.venue.name}"
-    #   "      notes: "
-    #   "      address: #{$s.venue.location.address}, #{$s.venue.location.city}, #{$s.venue.location.state}"
-    #   "      phone: #{$s.venue.contact.phone}"
-    #   "      category: #{$s.venue.categories[0].name}"
-    #   "      lat: #{$s.venue.location.lat}"
-    #   "      lon: #{$s.venue.location.lng}"
-    #   "      website: #{$s.venue.url}"
-    #   "      tab_image: #{$s.photo}"
-    #   "      source: Foursquare"
-    #   "      source_url: http://foursquare.com/v/#{$s.venue.id}"
-    #   "      travel_type: "
-    #   "      has_tab: true"
-    #   "      lodging: false"
-    #   "      time_of_day: "
-    #   "      parent_day: 1"
-    #   "      parent_cluster: 1"
-    # ].join("\n      ")
+      "      lat: #{venue.location.lat}"
+      "      lon: #{venue.location.lng}"
+      "      website: #{venue.url}"
+      "      tab_image: #{photo || ''}"
+      "      source: Foursquare"
+      "      source_url: http://foursquare.com/v/#{venue.id}"
+      "      travel_type: #{row.travel || ''}"
+      "      has_tab: true"
+      "      lodging: #{row.lodging || ''}"
+      "      time_of_day: "
+      "      parent_day: #{row.day || ''}"
+      "      parent_cluster: 1"
+    ].join("\n      ").replace('undefined', '')
