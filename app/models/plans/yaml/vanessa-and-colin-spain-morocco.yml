@@ -13,66 +13,12 @@ author: Vanessa Wu
 author_icon: 
 trailblaze_date: 
 summary_text: 
-start_date: 
+start_date: 2013-09-08
 
 #high fidelity graphics
 
 transit-wrap:
-  -
-    type: flight
-    from: LAX
-    to: YYZ
-    departure date: 9/7
-    departure time: 11:25am
-    arrival date: 
-    arrival time: 7:07pm
-    departure terminal: 2
-    arrival terminal: 1
-    confirmation: 
-  -
-    type: flight
-    from: YYZ
-    to: MAD
-    departure date: 9/7
-    departure time: 9:45pm
-    arrival date: 
-    arrival time: 11:10am
-    departure terminal: 1
-    arrival terminal: 1
-    confirmation: 
-  -
-    type: flight
-    from: MAD
-    to: RAK
-    departure date: 9/8
-    departure time: 1:30pm
-    arrival date: 
-    arrival time: 3:45pm
-    departure terminal: 1
-    arrival terminal: 
-    confirmation: 
-  -
-    type: flight
-    from: BCN
-    to: YYZ
-    departure date: 9/22
-    departure time: 11:55am
-    arrival date: 
-    arrival time: 2:50pm
-    departure terminal: 1
-    arrival terminal: 1
-    confirmation: 
-  -
-    type: flight
-    from: LAX
-    to: YYZ
-    departure date: 9/7
-    departure time: 6:10pm
-    arrival date: 
-    arrival time: 8:30pm
-    departure terminal: 1
-    arrival terminal: 2
-    confirmation: 
+
 
 moneyshots:
   -
@@ -88,6 +34,43 @@ legs:
   -
     arrival: 
       method: 'flight'
+      legs:
+        -
+          method: flight
+          from: LAX
+          to: YYZ
+          vessel: AC786
+          departure_date: 2013-09-07
+          departure_time: 11:25am
+          arrival_date: 
+          arrival_time: 7:07pm
+          departure_terminal: 2
+          arrival_terminal: 1
+          confirmation: 
+        -
+          method: flight
+          from: YYZ
+          to: MAD
+          vessel: AC836
+          departure_date: 2013-09-07
+          departure_time: 9:45pm
+          arrival_date: 
+          arrival_time: 11:10am
+          departure_terminal: 1
+          arrival_terminal: 1
+          confirmation: 
+        -
+          method: flight
+          from: MAD
+          to: RAK
+          vessel: FR7752
+          departure_date: 2013-09-08
+          departure_time: 1:30pm
+          arrival_date: 
+          arrival_time: 3:45pm
+          departure_terminal: 1
+          arrival_terminal: 
+          confirmation:       
     name: Morocco
     days: 
       -
@@ -654,6 +637,33 @@ legs:
             time_of_day: 
             parent_day: 10
             parent_cluster: 1
+          -
+            name: FEZ->GRO
+            travel_data: 
+              method: flight
+              from: FEZ
+              to: GRO
+              vessel: FR9017
+              departure_date: 2013-09-15
+              departure_time: 12:00pm
+              arrival_date: 
+              arrival_time: 3:00pm
+              confirmation: 
+            local_name: Aéroport Fès-Saiss / مطار فاس سايس الدولي (FEZ)
+            notes: 
+            address: Oulad Tayeb, Fès, Région de Fès-Boulemane
+            lat: 33.94320803852744
+            lon: -4.982437548985619
+            website: http://www.onda.ma
+            tab_image: https://irs3.4sqi.net/img/general/180x120/BQBBSS4VG0YSYAKJEV51SEEIL3TQNYK0G1VRHMKQV3Q2DOEA.jpg
+            source: Foursquare
+            source_url: http://foursquare.com/v/4c446ab3f0bdd13a9680c9cc
+            travel_type: air
+            has_tab: true
+            lodging: false
+            time_of_day: 
+            parent_day: 10
+            parent_cluster: 1
   -  
     name: Catalonia
     days:
@@ -888,6 +898,33 @@ legs:
             time_of_day: 
             parent_day: 13
             parent_cluster: 2
+    departure:
+      method: 'flight'
+      legs:
+        -
+          method: flight
+          from: BCN
+          to: YYZ
+          vessel: AC815
+          departure_date: 2013-09-22
+          departure_time: 11:55am
+          arrival_date: 
+          arrival_time: 2:50pm
+          departure_terminal: 1
+          arrival_terminal: 1
+          confirmation: 
+        -
+          method: flight
+          from: LAX
+          to: YYZ
+          vessel: AC793
+          departure_date: 2013-09-22
+          departure_time: 6:10pm
+          arrival_date: 
+          arrival_time: 8:30pm
+          departure_terminal: 1
+          arrival_terminal: 2
+          confirmation: 
 
 map_locations:
   - 3976 23rd St, San Francisco, CA

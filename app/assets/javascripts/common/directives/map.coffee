@@ -59,12 +59,12 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
 
       if s.type == 'print'
         s.bounds = new L.LatLngBounds(s.points)
-        s.map.fitBounds(bounds)
+        s.map.fitBounds(s.bounds)
       else if s.type == 'detail'
         showAttribution = false
       else
         s.bounds = new L.LatLngBounds(s.points)
-        s.map.fitBounds(bounds)
+        s.map.fitBounds(s.bounds)
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
 
       polyline = L.polyline(s.points, {color: 'red', opacity: '0.4', dashArray: '1, 0, 5'}).addTo(s.map);

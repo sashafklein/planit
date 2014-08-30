@@ -450,8 +450,18 @@ body
       position: absolute
       background-repeat: no-repeat
       background-position: left
-      &.car
-        background-image: image-url('timeline-car.png')      
+    &.car
+      background-image: image-url('travel-by-car.png')      
+    &.taxi
+      background-image: image-url('travel-by-taxi.png')      
+    &.bus
+      background-image: image-url('travel-by-bus.png')      
+    &.flight
+      background-image: image-url('travel-by-flight.png')      
+    &.train
+      background-image: image-url('travel-by-train.png')      
+    &.boat
+      background-image: image-url('travel-by-boat.png')      
     
     .timeline-cluster
       margin-left: 11px
@@ -463,22 +473,22 @@ body
       background-repeat: no-repeat
       background-position: left
       &.no1
-        background-image: image-url('timeline-cluster-pin-A.png')
+        background-image: image-url('timeline-cluster-pin-1.png')
       &.no2
-        background-image: image-url('timeline-cluster-pin-B.png')
+        background-image: image-url('timeline-cluster-pin-2.png')
       &.no3
-        background-image: image-url('timeline-cluster-pin-C.png')
+        background-image: image-url('timeline-cluster-pin-3.png')
       &.no4
-        background-image: image-url('timeline-cluster-pin-D.png')
+        background-image: image-url('timeline-cluster-pin-4.png')
       &.no5
-        background-image: image-url('timeline-cluster-pin-E.png')
+        background-image: image-url('timeline-cluster-pin-5.png')
       &.no6
-        background-image: image-url('timeline-cluster-pin-F.png')
+        background-image: image-url('timeline-cluster-pin-6.png')
       &.no7
-        background-image: image-url('timeline-cluster-pin-G.png')
+        background-image: image-url('timeline-cluster-pin-7.png')
       &.no8
-        background-image: image-url('timeline-cluster-pin-H.png')
-      
+        background-image: image-url('timeline-cluster-pin-8.png')      
+
     .timeline-end
       clear:  both
 
@@ -1132,13 +1142,11 @@ body.plans-print
     word-wrap: normal
     overflow-x: auto
     img
-      width: 180px
-      height: 120px
       border: 0px
       margin: 0px 0px 0px 0px
     &.time
-      padding-top: 12px
       width: 65px
+      text-align: center
     &.location
       width: 190px
     &.info
@@ -1147,6 +1155,9 @@ body.plans-print
     &.image
       padding-top: 12px
       width: 190px
+      img
+        width: 180px
+        height: 120px
     &.date
       padding-top: 12px
       font-size: 12px
@@ -1220,163 +1231,14 @@ body.plans-print
     overflow-x: auto
     a
       color: #000
-
-  .plan-content-time
-    background-repeat: no-repeat
-    background-position: center
-    margin: -22px 0px 0px 0px
-    width: 55px
-    height: 55px
-    &.allday
-      background-image: image-url('timeline_allday.png')
-    &.dawn
-      background-image: image-url('timeline_dawn.png')
-    &.morning
-      background-image: image-url('timeline_morning.png')
-    &.late-morning
-      background-image: image-url('timeline_late_morning.png')
-    &.day
-      background-image: image-url('timeline_day.png')
-    &.afternoon
-      background-image: image-url('timeline_afternoon.png')
-    &.evening
-      background-image: image-url('timeline_evening.png')
-    &.night
-      background-image: image-url('timeline_night.png')
-
-  .plan-content-date
-    margin-left: 12px
-    margin-top: -20px
-    width: 55px
-    height: 55px
-    background-repeat: no-repeat
-    background-position: left
-    &.no1
-      background-image: image-url('timeline_date_1.png')
-    &.no2
-      background-image: image-url('timeline_date_2.png')
-    &.no3
-      background-image: image-url('timeline_date_3.png')
-    &.no4
-      background-image: image-url('timeline_date_4.png')
-    &.no5
-      background-image: image-url('timeline_date_5.png')
-    &.no6
-      background-image: image-url('timeline_date_6.png')
-    &.no7
-      background-image: image-url('timeline_date_7.png')
-    &.no8
-      background-image: image-url('timeline_date_8.png')
-    &.no9
-      background-image: image-url('timeline_date_9.png')
-    &.no10
-      background-image: image-url('timeline_date_10.png')
-    &.no11
-      background-image: image-url('timeline_date_11.png')
-    &.no12
-      background-image: image-url('timeline_date_12.png')
-    &.no13
-      background-image: image-url('timeline_date_13.png')
-    &.no14
-      background-image: image-url('timeline_date_14.png')
-    &.no15
-      background-image: image-url('timeline_date_15.png')
-    &.no16
-      background-image: image-url('timeline_date_16.png')
-    &.no17
-      background-image: image-url('timeline_date_17.png')
-    &.no18
-      background-image: image-url('timeline_date_18.png')
-    &.no19
-      background-image: image-url('timeline_date_19.png')
-    &.no20
-      background-image: image-url('timeline_date_20.png')
-    &.no21
-      background-image: image-url('timeline_date_21.png')
-    &.no22
-      background-image: image-url('timeline_date_22.png')
-    &.no23
-      background-image: image-url('timeline_date_23.png')
-    &.no24
-      background-image: image-url('timeline_date_24.png')
-    &.no25
-      background-image: image-url('timeline_date_25.png')
-    &.no26
-      background-image: image-url('timeline_date_26.png')
-    &.no27
-      background-image: image-url('timeline_date_27.png')
-    &.no28
-      background-image: image-url('timeline_date_28.png')
-    &.no29
-      background-image: image-url('timeline_date_29.png')
-    &.no30
-      background-image: image-url('timeline_date_30.png')
-    // &.no31
-    //   background-image: image-url('timeline_date_31.png')
-    // &.no32
-    //   background-image: image-url('timeline_date_32.png')
-    // &.no33
-    //   background-image: image-url('timeline_date_33.png')
-    // &.no34
-    //   background-image: image-url('timeline_date_34.png')
-    // &.no35
-    //   background-image: image-url('timeline_date_35.png')
-    // &.no36
-    //   background-image: image-url('timeline_date_36.png')
-    // &.no37
-    //   background-image: image-url('timeline_date_37.png')
-    // &.no38
-    //   background-image: image-url('timeline_date_38.png')
-    // &.no39
-    //   background-image: image-url('timeline_date_39.png')
-    // &.no40
-    //   background-image: image-url('timeline_date_40.png')
-    // &.no41
-    //   background-image: image-url('timeline_date_41.png')
-    // &.no42
-    //   background-image: image-url('timeline_date_42.png')
-    // &.no43
-    //   background-image: image-url('timeline_date_43.png')
-    // &.no44
-    //   background-image: image-url('timeline_date_44.png')
-    // &.no45
-    //   background-image: image-url('timeline_date_45.png')
   
   .timeline-cluster
     margin-left: 11px
-    margin-top: 10px
+    margin-top: 20px
     float:left
-    width: 55px
-    height: 55px
     position: absolute
-    background-repeat: no-repeat
-    background-position: left
-    &.no1
-      background-image: image-url('timeline-cluster-pin-A.png')
-    &.no2
-      background-image: image-url('timeline-cluster-pin-B.png')
-    &.no3
-      background-image: image-url('timeline-cluster-pin-C.png')
-    &.no4
-      background-image: image-url('timeline-cluster-pin-D.png')
-    &.no5
-      background-image: image-url('timeline-cluster-pin-E.png')
-    &.no6
-      background-image: image-url('timeline-cluster-pin-F.png')
-    &.no7
-      background-image: image-url('timeline-cluster-pin-G.png')
-    &.no8
-      background-image: image-url('timeline-cluster-pin-H.png')
+    z-index: 10000
       
-  .timeline-travel
-    background-repeat: no-repeat
-    background-position: center
-    margin: -15px 0px 0px 0px
-    width: 55px
-    height: 55px
-    &.car
-      background-image: image-url('timeline-car.png')      
-
   .break-page
     visibility: hidden
     page-break-after: always

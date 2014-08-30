@@ -37,7 +37,7 @@
   = "#{@data.author}, #{@data.trailblaze_date}"
 .summary-content
   = @data.summary_text
-
+  
 Tips
 Reminders
 
@@ -51,8 +51,38 @@ Reminders
   .print-header-subtitle
     Transit & Transportation
 
-Flights
-
+- @data.legs.each_with_index do |leg, index|
+  - if leg['arrival']
+    - if leg['arrival']['legs']
+      - leg['arrival']['legs'].each_with_index do |travel_info, index|
+        .content-tab-wrap
+          .content-tab-print.time
+            =image_tag "travel-by-#{leg['arrival']['method']}.png"
+          .content-tab-print.info
+            = print_flight(travel_info, index)
+    - else
+      .content-tab-wrap
+        .content-tab-print.time
+          =image_tag "travel-by-#{leg['arrival']['method']}.png"
+        .content-tab-print.info
+          = "#{leg['arrival']['method']} on #{leg_start(leg)['parent_day']}"
+  / - days(leg).each_with_index do |day, index|
+  /   - items(day).select{ |i| i['travel_data'] }.each_with_index do |travel_info, index|
+  /     = print_flight(travel_info, index)
+  - if leg['departure']
+    - if leg['departure']['legs']
+      - leg['departure']['legs'].each_with_index do |travel_info, index|
+        .content-tab-wrap
+          .content-tab-print.time
+            =image_tag "travel-by-#{travel_info['method']}.png"
+          .content-tab-print.info
+            = print_flight(travel_info, index)
+    - else
+      .content-tab-wrap
+        .content-tab-print.time
+          =image_tag "travel-by-#{leg['departure']['method']}.png"
+        .content-tab-print.info
+          = "#{leg['departure']['method']} on #{leg_end(leg)['parent_day']}"
 
 .break-page
 // break page
@@ -64,14 +94,26 @@ Flights
   .print-header-subtitle
     Accomodations
 
-Lodging by unique item
+/ - @data.legs.each_with_index do |leg, index|
+
+/   - days(leg).each_with_index do |day, index|
+
+/     - items(day).select{ |i| i['lodging'] }.each_with_index do |item, index|
+/       .content-tab-wrap
+/         .content-tab-print.time
+/           = "Days 1-3"
+/         .content-tab-print.info
+/           = item['name']
+
+// BY SECTION
 
 - @data.legs.each_with_index do |leg, index|
   .break-page
   // break page
   .print-page-header
     = image_tag "black_logo_only.png"
-    .timeline-cluster{ class: "no#{index + 1}" }
+    .timeline-cluster
+      = image_tag "timeline-cluster-pin-#{index + 1}.png"
     %strong
       = "#{@data.title}"
     .print-header-subtitle
@@ -85,7 +127,8 @@ Lodging by unique item
 
   .print-page-header
     = image_tag "black_logo_only.png"
-    .timeline-cluster{ class: "no#{index + 1}" }
+    .timeline-cluster
+      = image_tag "timeline-cluster-pin-#{index + 1}.png"
     %strong
       = "#{@data.title}"
     .print-header-subtitle
@@ -94,14 +137,14 @@ Lodging by unique item
   - if leg['arrival']
     .content-tab-wrap
       .content-tab-print.time
-        .timeline-travel{class: leg['arrival']['method']}
+        =image_tag "travel-by-#{leg['arrival']['method']}.png"
       .content-tab-print.travel
         = "Arrive by "
         %b= "#{leg['arrival']['method']}"
   - days(leg).each_with_index do |day, index|
     .content-tab-wrap
       .content-tab-print.time
-        .plan-content-date{ class: "no#{day['items'][0]['parent_day']}" }
+        =image_tag "timeline_date_#{day['items'][0]['parent_day']}.png"
       .content-tab-print.date
         %b= "Day #{day['items'][0]['parent_day']}"
         - if @data.start_date
@@ -109,7 +152,10 @@ Lodging by unique item
     - day['items'].each_with_index do |item, index|
       .content-tab-wrap
         .content-tab-print.time
-          .plan-content-time.afternoon
+          - if day['time_of_day']             
+            =image_tag "timeline_#{day['time_of_day']}.png"
+          - else
+            =image_tag "timeline_afternoon.png"
           / .plan-content-time{ class: day_group }
           .content-tab-timestamp
             - if day['time_of_day']
@@ -121,7 +167,7 @@ Lodging by unique item
             - if item['name']
               %b= item['name']
           - if item['tab_image']
-            = image_tag item['tab_image'], {style: "height: 120px; width: 180px;"}
+            = image_tag item['tab_image']
         .content-tab-print.info
           - if item['lodging']
             .content-tab-more-info
@@ -161,7 +207,7 @@ Lodging by unique item
   - if leg['departure']
     .content-tab-wrap
       .content-tab-print.time
-        .timeline-travel{class: leg['departure']['method']}
+        =image_tag "travel-by-#{leg['departure']['method']}.png"
       .content-tab-print.travel
         = "Depart by "
         %b= "#{leg['departure']['method']}"

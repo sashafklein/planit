@@ -57,4 +57,25 @@ module PlanHelper
     data.start_date + item['parent_day'].days
   end
 
+  def print_flight(travel_info, index)
+    if travel_info['departure_date']
+      "#{travel_info['departure_date'].strftime('%b %d, %Y')}: "
+    else
+      "#{index}: "
+    end
+    if travel_info['departure_time']
+      "#{travel_info['departure_time']}"
+    end
+    "#{travel_info['type']} #{travel_info['vessel']} from #{travel_info['from']} to #{travel_info['to']}"
+    if travel_info['departure_terminal']
+      " (T#{travel_info['departure_terminal']})"
+    end
+    if travel_info['arrival_terminal']
+      " (T#{travel_info['arrival_terminal']})"
+    end
+    if travel_info['confirmation'] 
+      "| Confirmation code #{travel_info['confirmation']}"
+    end
+  end
+
 end
