@@ -1,3 +1,6 @@
+.exit-view
+  %a{href: "#"} Exit Import View
+
 .yml-creator{ ng_controller: 'Plans.NewCtrl' }
 
   .input
@@ -9,6 +12,6 @@
     %button{ ng_click: 'batchFetch()' } Destination,Locale,Day,Lodging(T/F),Travel(T/f)
 
   .output
-    %img{ src: "blank.png", id: "photo", ng_src: '{{photo}}' }
     %textarea{ id: "result", style: "height: 200px", ng_bind: 'output'}
     %textarea{ id: "response-in-full", style: "height: 200px", ng_bind: 'outputfull'}
+    %img{ %src: image_path("blank.png"), id: "photo", ng_src: '{{photo}}', style: "position:fixed; top:50px; right:50px" }
