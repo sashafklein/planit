@@ -44,22 +44,21 @@ mod.controller 'Plans.NewCtrl', ($scope, Flash, $http, $q) ->
   $s._photoUrl = (res) ->
     photo = res.response.photos.items[0]
     photoSize = '180x120' # arbitrary
+    return '' unless photo
     "#{photo.prefix}#{photoSize}#{photo.suffix}"
 
   $s._rows = (csv) ->
-    rows = []
-    split = csv.split(",")
+    csvRows = csv.split("\n")
 
-    while split.length > 0
-      rows.push { 
-        destination: split.shift()
-        locale: split.shift() || ''
-        day: split.shift() || ''
-        lodging: split.shift() || ''
-        travel: split.shift() || ''
-      } 
-
-    rows
+    _(csvRows).map (row) ->
+      split = row.split(',')
+      {
+        destination: split[0]
+        locale: split[1] || ''
+        day: split[2] || ''
+        lodging: split[3] || ''
+        travel: split[4] || ''
+      }
 
   $s._addToYaml = -> $s.output += $s._yamlify($s.venue)
 
@@ -76,20 +75,20 @@ mod.controller 'Plans.NewCtrl', ($scope, Flash, $http, $q) ->
       "      name: #{row.destination}"
       "      local_name: #{venue.name}"
       "      notes: "
-      "      address: #{venue.location.address}, #{venue.location.city}, #{venue.location.state}"
+      "      address: #{venue.location?.address}, #{venue.location?.city}, #{venue.location?.state}"
       "      phone: #{venue.contact.phone}"
-      "      street_address: #{venue.location.address}"
-      "      city: #{venue.location.city}"
-      "      state: #{venue.location.state}"
-      "      country: #{venue.location.country}"
-      "      cross_street: #{venue.location.crossStreet}"
-      "      category: #{venue.categories[0].name}"
+      "      street_address: #{venue.location?.address}"
+      "      city: #{venue.location?.city}"
+      "      state: #{venue.location?.state}"
+      "      country: #{venue.location?.country}"
+      "      cross_street: #{venue.location?.crossStreet}"
+      "      category: #{venue.categories[0]?.name}"
       "      price_tier: #{venue.price?.tier?}"
       "      rating: #{venue.rating}"
       "      rating_signals: #{venue.ratingSignals}"
       "      date_of_API_pull: #{now}"
-      "      lat: #{venue.location.lat}"
-      "      lon: #{venue.location.lng}"
+      "      lat: #{venue.location?.lat}"
+      "      lon: #{venue.location?.lng}"
       "      website: #{venue.url}"
       "      tab_image: #{photo || ''}"
       "      source: Foursquare"
