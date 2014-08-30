@@ -27,7 +27,7 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
     link: (s, elem) ->
       acceptedMapTypes = ['leg', 'detail', 'print']
       s.type = 'leg' unless _.contains(acceptedMapTypes, s.type)
-      s.zoomLevel = -> if s.type == 'leg' then 18 else 17
+      s.zoomLevel = -> if s.type == 'leg' then 18 else 16
 
       s.points = []
 
