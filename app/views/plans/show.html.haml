@@ -50,7 +50,7 @@
     .summary-map
       #map-overview{ style: 'height: 450px'}
       / Overview coordinates is in the plan helper
-      %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data), map_id: 'map-overview'}
+      %map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data), map_id: 'map-overview'}
     .summary-wrap
       .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
       .summary-author
@@ -78,8 +78,8 @@
             .cluster-caption{ style: "z-index: 200"}
               = "From #{leg_start(leg)['name']} to #{leg_end(leg)['name']}"
             .leg-map-container{ id: "mapLeg#{index}" }
-              / %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: '37.753084:-122.431484', map_id: "mapLeg#{index}" }
-              %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), map_id: "mapLeg#{index}" }
+              / %map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: '37.753084:-122.431484', map_id: "mapLeg#{index}" }
+              %map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), map_id: "mapLeg#{index}" }
         - days(leg).each_with_index do |day, index|
           - day['items'].select{ |i| i['has_tab'] }.each do 
             / for now okay... later we want to add back lodging, travel, visa/ticketing etcs
