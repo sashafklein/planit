@@ -1,15 +1,15 @@
 .exit-view
   %a{href: plan_path} Exit Print View
-.logo-container.print
+.logo-container
   = image_tag "white_logo.png"
   = image_tag "white_tagline.png", id: "tagline"
 =image_tag "#{image_path @data.moneyshots[0]['url']}", style: "width: 750px", html: { border: "0" }
-.moneyshot-caption.print= "\"#{@data.moneyshots[0]['subtitle']}\""
-.title-and-caption-wrap.print
-  .moneyshot-title.print
+.moneyshot-caption= "\"#{@data.moneyshots[0]['subtitle']}\""
+.title-and-caption-wrap
+  .moneyshot-title
     = @data.title
   |
-  .moneyshot-duration.print= "#{@data.legs.length} legs / #{leg_end(@data.legs.compact.last)['parent_day']} days"
+  .moneyshot-duration= "#{@data.legs.length} legs / #{leg_end(@data.legs.compact.last)['parent_day']} days"
 
 .break-page
 // break page
@@ -18,10 +18,10 @@
   = image_tag "black_logo_only.png"
   %strong
     = "#{@data.title}:"
-  .cluster-info.print
+  .cluster-info
     Overview
 
-#map-overview{ style: 'height: 750px; width: 750px; margin-top: 15px;'}
+#map-overview{ style: 'height: 750px; width: 750px; '}
 / Overview coordinates is in the plan helper
 %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data), map_id: 'map-overview'}
 
@@ -32,12 +32,12 @@
   = image_tag "black_logo_only.png"
   %strong
     = "#{@data.title}:"
-  .cluster-info.print
+  .cluster-info
     Summary, Tips & Reminders
 
-.summary-author.print
+.summary-author
   = "#{@data.author}, #{@data.trailblaze_date}"
-.summary-content.print
+.summary-content
   = @data.summary_text
 
 Tips
@@ -50,7 +50,7 @@ Reminders
   = image_tag "black_logo_only.png"
   %strong
     = "#{@data.title}:"
-  .cluster-info.print
+  .cluster-info
     Transit & Transportation
 
 Flights
@@ -63,7 +63,7 @@ Flights
   = image_tag "black_logo_only.png"
   %strong
     = "#{@data.title}:"
-  .cluster-info.print
+  .cluster-info
     Accomodations
 
 Lodging by unique item
@@ -73,13 +73,13 @@ Lodging by unique item
   // break page
   .print-page-header
     = image_tag "black_logo_only.png"
-    .timeline-cluster.print{ class: "no#{index + 1}" }
+    .timeline-cluster{ class: "no#{index + 1}" }
     %strong
       = "#{@data.title}"
-    .cluster-info.print
+    .cluster-info
       = leg['name']
       %b= " (Day #{leg_start(leg)['parent_day']} to #{leg_end(leg)['parent_day']})"
-  .leg-map-container.print{ id: "mapLeg#{index}" }
+  .leg-map-container{ id: "mapLeg#{index}" }
     .cluster-caption{ style: "z-index: 200"}
       = "From #{leg_start(leg)['name']} to #{leg_end(leg)['name']}"
     %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), map_id: "mapLeg#{index}" }
@@ -90,49 +90,71 @@ Lodging by unique item
 
   .print-page-header
     = image_tag "black_logo_only.png"
-    .timeline-cluster.print{ class: "no#{index + 1}" }
+    .timeline-cluster{ class: "no#{index + 1}" }
     %strong
       = "#{@data.title}"
-    .cluster-info.print
+    .cluster-info
       = leg['name']
       %b= " (Day #{leg_start(leg)['parent_day']} to #{leg_end(leg)['parent_day']})"
   - if leg['arrival']
     = "Arrive by #{leg['arrival']['method']}"
+    .print-end
   - days(leg).each_with_index do |day, index|
-    - day['items'].select{ |i| i['has_tab'] }.each do |item, index|
-      .content-tab-wrap.print
-        .content-tab-print.icons
-          .plan-content-time.afternoon.print
-          / .plan-content-time.print{ class: day_group }
-        .content-tab-print.image
+    %br NEW DAY
+    - day['items'].each_with_index do |item, index|
+      .content-tab-wrap
+        .content-tab-print.time
+          .plan-content-time.afternoon
+          / .plan-content-time{ class: day_group }
           .content-tab-timestamp
             - if day['time_of_day']
               = "#{day['time_of_day']}, "  
             - if @data.start_date
               - d = @data.start_date + item['parent_day'].days
               = d.strftime("%b %d, %Y")
+        .content-tab-print.image
+          .content-tab-title
+            - if item['name']
+              %b= item['name']
           - if item['tab_image']
             = image_tag item['tab_image'], {style: "height: 120px; width: 180px;"}
         .content-tab-print.info
-          .content-tab-title.print
-            - if item['name']
-              %b= item['name']
+          - if item['lodging']
+            .content-tab-more-info
+              Stay the night (
+              - if @data.start_date
+                = "#{d.strftime ("%m/%d/%Y")} )"
+          - if item['category']
+            .content-tab-more-info
+              = item['category']
+          - if item['notes']
+            .content-tab-more-info
+              = item['notes']
+          - if item['website']
+            .content-tab-more-info
+              = item['website']
+          - if item['phone']
+            .content-tab-more-info
+              = item['phone']
+          - if item['source']
+            .content-tab-get-more
+              %b= "#{item['source']}"
+              ="#{item['source_url']}"
+        .content-tab-print.location
+          .content-tab-timestamp
             - if item['local_name']
               - if item['local_name'].downcase != item['name'].downcase
                 = " (#{item['local_name']})"
-          - if item['notes']
-            .content-tab-more-info.print
-              = item['notes']
-          - if item['source']
-            .content-tab-get-more.print
-              %b Source:
-              = item['source']
-        .content-tab-print.map
-          .content-tab-timestamp
-            = item['local_name']
+              - else
+                = "-"
           - if item['lat'] && item['lon']
-            .item-map-container{id: "mapLeg#{item['name']}"}
-              %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: coordinate(item), map_id: "mapLeg#{item['name']}" }
+            .item-map-container{id: "mapLeg#{item['parent_cluster']}_#{item['parent_day']}_#{index}"}
+              %leg_map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: coordinate(item), map_id: "mapLeg#{item['parent_cluster']}_#{item['parent_day']}_#{index}" }
+          - else
+            = image_tag "no_map_180x180.png", {style: "height: 180px; width: 180px"}
+          - if item['address']
+            .content-tab-more-info
+              = item['address']
 
   - if leg['departure']
     .timeline-travel{ class: leg['departure']['method']}
@@ -142,5 +164,4 @@ Lodging by unique item
 
 .footer
   .footer-content
-    This project is being tested privately among friends and family -- please share any feedback you have with us via 
-    %a{ href: "mailto:planit@longhou.se" } planit@longhou.se
+    Print Version

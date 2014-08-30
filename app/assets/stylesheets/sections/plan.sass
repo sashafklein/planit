@@ -432,14 +432,6 @@ body
         font-size: 12px
         font-weight: bold
         text-transform: uppercase
-      &.print
-        line-height: 21px
-        padding-left: 68px
-        padding-top: 0px
-        padding-bottom: 10px
-        margin-top: -11px
-        background-repeat: no-repeat 
-        background-position: left center
 
     .timeline-travel
       margin-left: 0px
@@ -479,9 +471,6 @@ body
       &.no8
         background-image: image-url('timeline-cluster-pin-H.png')
       
-    .print-end
-      clear:  both
-
     .timeline-end
       clear:  both
 
@@ -523,9 +512,6 @@ body
 
     .leg-map-container
       height: 450px
-      &.print
-        height: 750px
-        width: 750px
 
     .item-map-container
       height: 180px
@@ -553,12 +539,6 @@ body
       width: 200px
       display: block
       float: left
-      &.print
-        width: 750px
-        text-align: left
-        white-space: nowrap
-        min-height: 12px
-        border-bottom: 1px #ccc solid
 
     .content-tab
       float: left
@@ -587,31 +567,6 @@ body
         border-bottom: 3px solid #222
         z-index: 100
 
-    .content-tab-print
-      padding-right: 10px
-      padding-left: 10px
-      padding-top: 10px
-      text-align: left
-      vertical-align: top
-      font-family: "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
-      font-weight: normal
-      color: #000
-      white-space: normal
-      float: left
-      word-wrap: normal
-      img
-        width: 180px
-        height: 120px
-        border: 0px
-        margin: 0px 0px 0px 0px
-      &.icons
-      &.map
-        width: 200px
-      &.image
-        width: 200px
-      &.info      
-        text-align: left
-
     .content-tab-timestamp
       margin: 0px 0px 12px 0px
       padding: 0px
@@ -627,10 +582,6 @@ body
       white-space: normal
       word-wrap: normal
       max-height: 13px
-      &.print
-        width: 100%
-        text-align: left
-        max-height: 1000px
 
     .content-tab-title
       margin: 0px 0px 12px 0px
@@ -650,11 +601,6 @@ body
       max-height: 13px
       &.active
         max-height: 100px
-      &.print
-        width: 100%
-        text-align: left
-        max-height: 1000px
-        max-width: 350px
 
     .content-tab-more-name
       margin-top: 10px
@@ -671,12 +617,6 @@ body
       overflow-x: auto
       white-space: normal
       word-wrap: normal
-      &.print
-        margin-top: 0px
-        margin-bottom: 5px
-        max-height: 1000px
-        width: 100%
-        max-width: 350px
 
     .content-tab-more-info
       margin-top: 10px
@@ -692,12 +632,6 @@ body
       overflow-x: auto
       white-space: normal
       word-wrap: normal
-      &.print
-        margin-top: 0px
-        margin-bottom: 5px
-        max-height: 1000px
-        width: 100%
-        max-width: 350px
 
     .content-tab-get-more
       margin-top: 10px
@@ -714,14 +648,6 @@ body
       max-height: 100px
       a
         color: #fff
-      &.print
-        margin-top: 0px
-        margin-bottom: 5px
-        max-height: 1000px
-        width: 100%
-        white-space: word-wrap
-        overflow-x: auto
-        max-width: 350px
 
     .plan-content-date
       margin-left: 12px
@@ -832,14 +758,6 @@ body
       position: absolute
       background-repeat: no-repeat
       background-position: left
-      &.print
-        position: relative
-        display: block
-        background-repeat: no-repeat
-        background-position: center
-        margin: -22px 0px 0px 0px
-        width: 55px
-        height: 55px
       &.allday
         background-image: image-url('timeline_allday.png')
       &.dawn
@@ -1039,9 +957,6 @@ body
 
     // MENU STUFF
 
-    .break-page
-      page-break-after: always
-
     .printable-message:before
       display: block
       content: "Thank you for using PlanIt -- we're excited to have you print and share your plans, but would recommend you enter 'print mode' to either export as PDF or print a physical copy, as the formatting and data-inclusion are optimized for printing.  If you have any questions or feedback contact us at feedback@plan.it."
@@ -1051,78 +966,6 @@ body
       font-style: italic
 
 .plans-print
-
-  .initial-header
-    -webkit-background-clip: border-box
-    -webkit-background-origin: padding-box
-    -webkit-background-size: auto
-    // -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 15px 4px
-    background-attachment: scroll
-    background-clip: border-box
-    background-image: none
-    background-origin: padding-box
-    background-size: auto
-    display: block
-    height: 71px
-    opacity: 1
-    padding: 0px
-    visibility: visible
-    width: 100%
-    min-width: 940px
-    z-index: 16777269
-    position: absolute
-    float: left
-    margin: 0
-
-  .logo-container
-    visibility: visible
-    display: inline-block
-    float: left
-    padding: 15px 0 0 25px
-    float: left
-    position: absolute
-    display: initial
-    z-index: 16777269
-    img
-      float: left
-
-  .title-and-caption-wrap
-    margin: 15px 0 25px 0px
-    position: relative
-    background: #eee
-    display: block
-    width: 750px
-    height: 69px
-    margin-left: auto
-    margin-right: auto
-    margin-top: 0
-    margin-bottom: 0
-    white-space: nowrap
-    overflow: hidden
-    background: rgb(0, 0, 0)
-    background: rgba(0, 0, 0, 0.7)
-    font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
-    line-height: 69px
-    vertical-align: baseline
-    text-align: left
-    color: #fff
-    -webkit-font-smoothing: antialiased
-
-  .break-page
-    visibility: hidden
-
-  .print-page-header
-    padding: 15px
-    font-size: 32px
-    line-height: 71px
-    font-weight: normal
-    color: #000
-    background: #e0e0e0
-    strong
-      margin-left: 15px
-      font-weight: bold
-    img
-      float: left
 
   .exit-view
     position: fixed
@@ -1142,6 +985,63 @@ body
     &.active
       background: #f60
 
+  .initial-header
+    -webkit-background-clip: border-box
+    -webkit-background-origin: padding-box
+    -webkit-background-size: auto
+    // -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 15px 4px
+    background-attachment: scroll
+    background-clip: border-box
+    background-image: none
+    background-origin: padding-box
+    background-size: auto
+    display: block
+    height: 71px
+    opacity: 1
+    padding: 0px
+    visibility: visible
+    z-index: 16777269
+    position: absolute
+    float: left
+    margin: 0
+
+  .logo-container
+    visibility: visible
+    display: inline-block
+    float: left
+    padding: 15px 0 0 25px
+    float: left
+    position: absolute
+    display: initial
+    z-index: 16777269
+    img
+      float: left
+
+  .title-and-caption-wrap
+    margin: 25px 0 15px 0
+    padding: 15px
+    position: relative
+    display: block
+    white-space: nowrap
+    overflow: hidden
+    background: #e0e0e0
+    vertical-align: baseline
+    text-align: left
+    color: #fff
+
+  .print-page-header
+    padding: 15px
+    font-size: 32px
+    line-height: 71px
+    font-weight: normal
+    color: #000
+    background: #e0e0e0
+    strong
+      margin-left: 15px
+      font-weight: bold
+    img
+      float: left
+
   .moneyshot-title
     display: inline-block
     line-height: 69px
@@ -1150,6 +1050,7 @@ body
     font-size: 32px
     font-weight: bold
     color: #000
+    -webkit-font-smoothing: antialiased
 
   .moneyshot-duration
     display: inline-block
@@ -1162,11 +1063,184 @@ body
 
   .moneyshot-caption
     display: inline-block
-    float: right
     font-size: 12px
     padding-right: 13px 
     color: #333
-    width: 100%
+    width: 750px
     text-align: right
     position: relative
 
+  .cluster-info
+    text-align: left
+    font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 21px
+    font-weight: normal
+    color: #000
+    -webkit-font-smoothing: antialiased
+    line-height: 21px
+    padding-left: 68px
+    padding-top: 0px
+    padding-bottom: 10px
+    margin-top: -11px
+    background-repeat: no-repeat 
+    background-position: left center
+    b
+      font-size: 12px
+      font-weight: bold
+      text-transform: uppercase
+
+  .leg-map-container
+    height: 750px
+    width: 750px
+
+  .content-tab-wrap
+    display: inline-block
+    width: 750px
+    text-align: left
+    white-space: nowrap
+    border-bottom: 1px #ccc solid
+    margin: 10px 0 0 0 
+
+  .content-tab-print
+    padding-right: 0px
+    padding-left: 10px
+    padding-top: 12px
+    padding-bottom: 8px
+    text-align: left
+    vertical-align: top
+    font-family: "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+    font-size: 12px
+    line-height: 12px
+    font-weight: normal
+    color: #000
+    white-space: normal
+    float: left
+    word-wrap: normal
+    overflow-x: auto
+    img
+      width: 180px
+      height: 120px
+      border: 0px
+      margin: 0px 0px 0px 0px
+    &.time
+      width: 65px
+    &.location
+      width: 190px
+    &.info
+      width: 305px
+    &.image
+      width: 190px
+
+  .content-tab-timestamp
+    text-align: center
+
+  .content-tab-title
+    width: 100%
+    margin: 0px 0px 12px 0px
+    padding: 0px
+    font-size: 12px
+    line-height: 12px
+    text-align: left
+    font-family: "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+    position: relative
+    display: inherit
+    text-transform: capitalize
+    overflow-x: auto
+    overflow-y: hidden
+    white-space: normal
+    word-wrap: normal
+    max-height: 13px
+
+  .content-tab-more-name
+    width: 100%
+    margin-top: 0px
+    margin-bottom: 5px
+    font-size: 11px
+    line-height: 12px
+    text-align: left
+    font-family: "Myriad W01", "Helvetica Neue", avenir, arial
+    font-style: italic
+    position:relative
+    display: inherit
+    overflow-x: auto
+    white-space: normal
+    word-wrap: normal
+
+  .content-tab-more-info
+    width: 100%
+    margin-top: 0px
+    margin-bottom: 5px
+    font-size: 11px
+    line-height: 12px
+    text-align: left
+    font-family: "Myriad W01", "Helvetica Neue", avenir, arial
+    position: relative
+    display: inherit
+    overflow-x: auto
+    white-space: normal
+    word-wrap: normal
+
+  .content-tab-get-more
+    width: 100%
+    margin-top: 0px
+    margin-bottom: 5px
+    font-size: 11px
+    line-height: 12px
+    text-align: left
+    font-family: "Myriad W01", "Helvetica Neue", avenir, arial
+    position: relative
+    display: inherit
+    white-space: word-wrap
+    word-wrap: break-word
+    overflow-x: auto
+    a
+      color: #000
+
+  .plan-content-time
+    background-repeat: no-repeat
+    background-position: center
+    margin: -22px 0px 0px 0px
+    width: 55px
+    height: 55px
+    &.allday
+      background-image: image-url('timeline_allday.png')
+    &.dawn
+      background-image: image-url('timeline_dawn.png')
+    &.morning
+      background-image: image-url('timeline_morning.png')
+    &.late-morning
+      background-image: image-url('timeline_late_morning.png')
+    &.day
+      background-image: image-url('timeline_day.png')
+    &.afternoon
+      background-image: image-url('timeline_afternoon.png')
+    &.evening
+      background-image: image-url('timeline_evening.png')
+    &.night
+      background-image: image-url('timeline_night.png')
+
+  .break-page
+    visibility: hidden
+    page-break-after: always
+
+  .print-end
+    clear:  both
+
+  .footer
+    with: 750px
+    background: #e0e0e0
+    padding: 25px 0 50px 0
+    margin: 10px 0 0 0
+
+  .footer-content
+    margin: auto
+    font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 14px
+    font-weight: normal
+    color: #000
+    -webkit-font-smoothing: antialiased
+
+  @media print 
+
+    .exit-view
+      visibility:hidden
