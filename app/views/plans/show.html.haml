@@ -17,9 +17,11 @@
       %a{href: "#"}
         = image_tag "white_anon_user.png", style: "float:right;", html: { border: "0" }
     %ul.menu-top
-      %li.menu-link.white= link_to 'LAUNCH', print_plan_path
-      %li.menu-link.white= link_to 'BUILD', new_plan_path
-      %li.menu-link.white= link_to 'DREAM', "#"
+      %li.menu-link.white= link_to 'PRINT', print_plan_path
+      %li.menu-link.white= link_to 'IMPORT NEW', new_plan_path
+      / %li.menu-link.white= link_to 'LAUNCH', print_plan_path
+      / %li.menu-link.white= link_to 'BUILD', new_plan_path
+      / %li.menu-link.white= link_to 'DREAM', "#"
 .moneyshot{ style: "background-image: url('#{image_path @data.moneyshots[0]['url']}')" }
   .clickable-moneyshot
   .title-and-caption-wrap
@@ -41,18 +43,20 @@
       %a{href: "#"}
         = image_tag "black_anon_user.png"
     %ul.menu-top
-      %li.menu-link.black= link_to 'LAUNCH', plan_path('john-muir-trail')  
-      %li.menu-link.black= link_to 'BUILD', new_plan_path
-      %li.menu-link.black= link_to 'DREAM', "#"
+      %li.menu-link.black= link_to 'PRINT', print_plan_path 
+      %li.menu-link.black= link_to 'IMPORT NEW', new_plan_path
 
 .body-container
   .overview
     .summary-map
       %map.overview-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data) }
     .summary-wrap
-      .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
+      - if @data.author_icon
+        .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
       .summary-author
-        = "#{@data.author}, #{@data.trailblaze_date}"
+        = @data.author
+        - if @data.trailblaze_date
+          = ", #{@data.trailblaze_date}"
       .summary-content
         = @data.summary_text
   
@@ -75,7 +79,7 @@
           .cluster-map-expandible
             %map.cluster-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg) }
               .cluster-caption
-                = "From #{leg_start(leg)['name']} to #{leg_end(leg)['name']}"
+                = "From #{first_leg_locale(leg)['name']} to #{last_leg_locale(leg)['name']}"
         - days(leg).each_with_index do |day, index|
           - day['items'].select{ |i| i['has_tab'] }.each do 
             / for now okay... later we want to add back lodging, travel, visa/ticketing etcs
@@ -126,7 +130,21 @@
 
 .footer
   .footer-content
-    This project is being tested privately among friends and family -- please share any feedback you have with us via 
-    %a{ href: "mailto:planit@longhou.se" } planit@longhou.se
+    This is a 
+    %b Planit
+    = "web-view of '#{@data.title}', a trip authored by #{@data.author}"
+    .footer-section
+      Unless otherwise noted, all images, graphics, and content are the exclusive copyright of Planit and its users, which may freely share access to their private travel plans
+    .footer-section
+      All images are attributed to source, as reported by our users
+    .footer-section
+      All maps are deployed with 
+      %a{href: "http://leafletjs.com/"}= "Leaflet"
+      which is a free tool, and contain
+      %a{href: "http://leafletjs.com/"}= "Mapbox"
+      map tiles
+    .footer-section
+      This project is being tested privately among friends and family -- please share any feedback you have with us via 
+      %a{href: "mailto:planit@longhou.se"}= "planit@longhou.se"
 
 / .printable-message

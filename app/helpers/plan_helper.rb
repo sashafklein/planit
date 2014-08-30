@@ -23,6 +23,16 @@ module PlanHelper
     legs(data).map{ |leg| leg_coordinates(leg) }.join("+")
   end
 
+  def first_leg_locale(leg)
+    days(leg).first['items'].first
+    # filter out airports / bus terminals / ports etc
+  end
+
+  def last_leg_locale(leg)
+    days(leg).last['items'].last
+    # filter out airports / bus terminals / ports etc
+  end
+
   def leg_start(leg)
     days(leg).first['items'].first
   end
@@ -45,6 +55,10 @@ module PlanHelper
     leg['days'].compact
   end
 
+  def items(day)
+    day['items'].compact
+  end
+
   def coordinate(item)
     "#{item['lat']}:#{item['lon']}"
   end
@@ -57,25 +71,101 @@ module PlanHelper
     data.start_date + item['parent_day'].days
   end
 
-  def print_flight(travel_info, index)
-    if travel_info['departure_date']
-      "#{travel_info['departure_date'].strftime('%b %d, %Y')}: "
+  def has_lodging(day)
+    day['items'].any?{ |i| i['lodging']}
+    # flawed model, finds "no lodging" for travel days, end of trip
+  end
+
+  def print_lodging(lodging_item, index)
+    string = ''
+    string += "<b>#{lodging_item['name'].titleize}</b>"
+    string += " (Day #{lodging_item['parent_day']})"
+    string += lodging_location(lodging_item)
+    # string += travel_departure_time(travel_info) || ''
+    # string += "#{travel_info['type']} #{travel_info['vessel']} from <b>#{travel_info['from']}</b>"
+    # string += departure_terminal(travel_info) || ''
+    # string += " to <b>#{travel_info['to']}</b>"
+    # string += arrival_terminal(travel_info) || ''
+    # string += confirmation_info(travel_info) || ''
+    string.html_safe
+  end
+
+  def print_travel(travel_info, index)
+    string = ''
+    string += travel_departure_date(travel_info, index)
+    string += travel_departure_time(travel_info) || ''
+    string += travel_vessel(travel_info) || ''
+    string += travel_from(travel_info) || ''
+    string += departure_terminal(travel_info) || ''
+    string += travel_to(travel_info) || ''
+    string += arrival_terminal(travel_info) || ''
+    string += arrival_time(travel_info) || ''
+    string += confirmation_info(travel_info) || ''
+    string.html_safe
+  end
+
+  # Below methods can't be called outside this file
+  private 
+  
+  def lodging_location(info)
+    if info['street_address'] && info['city'] && info['state']
+      ", #{info['street_address']}, #{info['city']}, #{info['state']}"
+    elsif info['street_address'] && info['city']
+      ", #{info['street_address']}, #{info['city']}"
+    elsif info['street_address'] && info['state']
+      ", #{info['street_address']}, #{info['state']}"
+    elsif info['address']
+      ", #{info['address']}"
     else
-      "#{index}: "
-    end
-    if travel_info['departure_time']
-      "#{travel_info['departure_time']}"
-    end
-    "#{travel_info['type']} #{travel_info['vessel']} from #{travel_info['from']} to #{travel_info['to']}"
-    if travel_info['departure_terminal']
-      " (T#{travel_info['departure_terminal']})"
-    end
-    if travel_info['arrival_terminal']
-      " (T#{travel_info['arrival_terminal']})"
-    end
-    if travel_info['confirmation'] 
-      "| Confirmation code #{travel_info['confirmation']}"
+      ""
     end
   end
 
+  def travel_departure_date(info, index)
+    if info['departure_date']
+      "<b>#{info['departure_date'].strftime('%b %d, %Y')}:</b> "
+    else
+      "#{index + 1}: "
+    end
+  end
+
+  def arrival_time(info)
+    if info['arrival_date'] == info['departure_date']
+      ", arriving at #{info['arrival_time']}"
+    elsif info['arrival_date'] == (info['departure_date'] + 1)
+      ", arriving <b>next day</b> at #{info['arrival_time']}"
+    elsif info['arrival_date'] 
+      ", arriving on <b>#{info['arrival_date'].strftime('%b %d, %Y')}</b> at #{info['arrival_time']}"      
+    else
+      ", arriving at #{info['arrival_time']}"
+    end
+  end
+
+  def travel_to(info)
+    " to <b>#{info['to']}</b>" if info['to']
+  end
+
+  def travel_from(info)
+    " from <b>#{info['from']}</b>" if info['from']
+  end
+
+  def travel_vessel(info)
+    " #{info['method']} #{info['vessel']}" if info['vessel']
+  end
+
+  def travel_departure_time(info)
+    "#{info['departure_time']}" if info['departure_time']
+  end
+
+  def departure_terminal(info)
+    " (T#{info['departure_terminal']})" if info['departure_terminal']
+  end
+
+  def arrival_terminal(info)
+    " (T#{info['arrival_terminal']})" if info['arrival_terminal']
+  end
+
+  def confirmation_info(info)
+    "| Confirmation code #{info['confirmation']}" if info['confirmation']
+  end
 end

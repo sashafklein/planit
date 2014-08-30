@@ -33,13 +33,13 @@
   .print-header-subtitle
     Summary, Tips & Reminders
 
-.summary-author
-  = "#{@data.author}, #{@data.trailblaze_date}"
-.summary-content
-  = @data.summary_text
-  
-Tips
-Reminders
+- if @data.tips
+  - @data.tips.each do |tip|
+    .content-tab-wrap
+      .content-tab-print.time
+        = "-"
+      .content-tab-print.tips
+        = tip.html_safe
 
 .break-page
 // break page
@@ -53,35 +53,39 @@ Reminders
 
 - @data.legs.each_with_index do |leg, index|
   - if leg['arrival']
-    - if leg['arrival']['legs']
-      - leg['arrival']['legs'].each_with_index do |travel_info, index|
+    - if leg['arrival']['travel_data']
+      - leg['arrival']['travel_data'].each_with_index do |travel_info, index|
         .content-tab-wrap
           .content-tab-print.time
             =image_tag "travel-by-#{leg['arrival']['method']}.png"
-          .content-tab-print.info
-            = print_flight(travel_info, index)
+          .content-tab-print.travel
+            = print_travel(travel_info, index)
     - else
       .content-tab-wrap
         .content-tab-print.time
           =image_tag "travel-by-#{leg['arrival']['method']}.png"
-        .content-tab-print.info
+        .content-tab-print.travel
           = "#{leg['arrival']['method']} on #{leg_start(leg)['parent_day']}"
-  / - days(leg).each_with_index do |day, index|
-  /   - items(day).select{ |i| i['travel_data'] }.each_with_index do |travel_info, index|
-  /     = print_flight(travel_info, index)
+  - days(leg).each_with_index do |day, index|
+    - items(day).select{ |i| i['travel_data'] }.each_with_index do |travel_item, index|
+      .content-tab-wrap
+        .content-tab-print.time
+          =image_tag "travel-by-#{travel_item['travel_data']['method']}.png"
+        .content-tab-print.travel
+          = print_travel(travel_item['travel_data'], index)
   - if leg['departure']
-    - if leg['departure']['legs']
-      - leg['departure']['legs'].each_with_index do |travel_info, index|
+    - if leg['departure']['travel_data']
+      - leg['departure']['travel_data'].each_with_index do |travel_info, index|
         .content-tab-wrap
           .content-tab-print.time
             =image_tag "travel-by-#{travel_info['method']}.png"
-          .content-tab-print.info
-            = print_flight(travel_info, index)
+          .content-tab-print.travel
+            = print_travel(travel_info, index)
     - else
       .content-tab-wrap
         .content-tab-print.time
           =image_tag "travel-by-#{leg['departure']['method']}.png"
-        .content-tab-print.info
+        .content-tab-print.travel
           = "#{leg['departure']['method']} on #{leg_end(leg)['parent_day']}"
 
 .break-page
@@ -94,16 +98,28 @@ Reminders
   .print-header-subtitle
     Accomodations
 
-/ - @data.legs.each_with_index do |leg, index|
+- @data.legs.each_with_index do |leg, index|
+  - days(leg).each_with_index do |day, index|
+    / - if has_lodging(day)    
+    - items(day).select{ |i| i['lodging'] }.each_with_index do |lodging_item, index|
+      .content-tab-wrap
+        .content-tab-print.time
+          - if lodging_item['category']
+            =image_tag "lodging-is-#{lodging_item['category'].downcase}.png"  
+          - else
+            =image_tag "lodging-is-hotel.png"  
+        .content-tab-print.travel
+          = print_lodging(lodging_item, index)
+          - if lodging_item['notes']
+            %span{style: "display:block; font-style:italic"} #{lodging_item['notes']}
+    / - else
+    /   .content-tab-wrap
+    /     .content-tab-print.time
+    /       =image_tag "lodging-is-blank.png"  
+    /     .content-tab-print.travel
+    /       = "No housing listed for day #{day['items'][0]['parent_day']}"
 
-/   - days(leg).each_with_index do |day, index|
-
-/     - items(day).select{ |i| i['lodging'] }.each_with_index do |item, index|
-/       .content-tab-wrap
-/         .content-tab-print.time
-/           = "Days 1-3"
-/         .content-tab-print.info
-/           = item['name']
+// WAY TO CONSOLIDATE DAYS?
 
 // BY SECTION
 
@@ -141,6 +157,10 @@ Reminders
       .content-tab-print.travel
         = "Arrive by "
         %b= "#{leg['arrival']['method']}"
+        - if leg['arrival']['travel_data']
+          = " - "
+          = print_travel(leg['arrival']['travel_data'].last, '0')
+
   - days(leg).each_with_index do |day, index|
     .content-tab-wrap
       .content-tab-print.time
@@ -168,6 +188,8 @@ Reminders
               %b= item['name']
           - if item['tab_image']
             = image_tag item['tab_image']
+            %span{style: "display: block; font-size: 8px"}
+              %a{href: item['tab_image'], style: "color: #000"}= "@#{item['source']}"
         .content-tab-print.info
           - if item['lodging']
             .content-tab-more-info
@@ -175,7 +197,7 @@ Reminders
                 = "Stay the night (#{display_date(@data, item).strftime ("%m/%d/%Y")})"
           - if item['category']
             .content-tab-more-info
-              = item['category']
+              = item['category'].titleize
           - if item['notes']
             .content-tab-more-info
               %b Notes:
@@ -190,8 +212,8 @@ Reminders
               = item['phone']
           - if item['source']
             .content-tab-get-more
-              %b= "#{item['source']}"
-              ="#{item['source_url']}"
+              %b= item['source']
+              = item['source_url']
         .content-tab-print.location
           - if item['local_name'] && item['local_name'].downcase != item['name'].downcase
             .content-tab-timestamp
@@ -211,10 +233,29 @@ Reminders
       .content-tab-print.travel
         = "Depart by "
         %b= "#{leg['departure']['method']}"
+        - if leg['departure']['travel_data']
+          = " - "
+          = print_travel(leg['departure']['travel_data'].first, '0')
+
   .print-end
 
 .break-page
 
 .footer
   .footer-content
-    Print version message
+    This is a 
+    %b Planit
+    = "print-copy of '#{@data.title}', a trip authored by #{@data.author}"
+    .footer-section
+      Unless otherwise noted, all images, graphics, and content are the exclusive copyright of Planit and its users, which may freely share access to their private travel plans
+    .footer-section
+      All images are attributed to source, as reported by our users
+    .footer-section
+      All maps are deployed with 
+      %a{href: "http://leafletjs.com/"}= "Leaflet"
+      which is a free tool, and contain
+      %a{href: "http://leafletjs.com/"}= "Mapbox"
+      map tiles
+    .footer-section
+      This project is being tested privately among friends and family -- please share any feedback you have with us via 
+      %a{href: "mailto:planit@longhou.se"}= "planit@longhou.se"

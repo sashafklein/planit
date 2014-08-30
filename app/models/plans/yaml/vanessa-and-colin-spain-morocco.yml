@@ -11,14 +11,13 @@
 title: Spain and Morocco
 author: Vanessa Wu
 author_icon: 
-trailblaze_date: 
+trailblaze_date:
 summary_text: 
 start_date: 2013-09-08
 
 #high fidelity graphics
 
 transit-wrap:
-
 
 moneyshots:
   -
@@ -34,7 +33,7 @@ legs:
   -
     arrival: 
       method: 'flight'
-      legs:
+      travel_data:
         -
           method: flight
           from: LAX
@@ -42,7 +41,7 @@ legs:
           vessel: AC786
           departure_date: 2013-09-07
           departure_time: 11:25am
-          arrival_date: 
+          arrival_date: 2013-09-07
           arrival_time: 7:07pm
           departure_terminal: 2
           arrival_terminal: 1
@@ -54,7 +53,7 @@ legs:
           vessel: AC836
           departure_date: 2013-09-07
           departure_time: 9:45pm
-          arrival_date: 
+          arrival_date: 2013-09-08
           arrival_time: 11:10am
           departure_terminal: 1
           arrival_terminal: 1
@@ -66,7 +65,7 @@ legs:
           vessel: FR7752
           departure_date: 2013-09-08
           departure_time: 1:30pm
-          arrival_date: 
+          arrival_date: 2013-09-08
           arrival_time: 3:45pm
           departure_terminal: 1
           arrival_terminal: 
@@ -87,7 +86,7 @@ legs:
             source: Foursquare
             source_url: http://foursquare.com/v/4ba60c31f964a520173039e3
             travel_type: air
-            has_tab: true
+            has_tab: false
             lodging: false
             time_of_day: 
             parent_day: 1
@@ -115,7 +114,7 @@ legs:
             source: Foursquare
             source_url: http://foursquare.com/v/4d2046ee5acaa35d2d98c635
             travel_type: 
-            has_tab: true
+            has_tab: false
             lodging: true
             time_of_day: 
             parent_day: 1
@@ -197,6 +196,34 @@ legs:
             parent_cluster: 1
       -
         items:
+          -
+            name: downtown marrakesh
+            local_name: Marrakech
+            notes: 
+            address: undefined, undefined, Marrakech-Tensift-El Haouz
+            phone: undefined
+            street_address: undefined
+            city: undefined
+            state: Marrakech-Tensift-El Haouz
+            country: Morocco
+            cross_street: undefined
+            category: Town
+            price_tier: false
+            rating: 8.9
+            rating_signals: 193
+            date_of_API_pull: Sat Aug 30 2014 15:05:20 GMT-0700 (PDT)
+            lat: 31.627075222995078
+            lon: -7.988948822021484
+            website: undefined
+            tab_image: https://irs0.4sqi.net/img/general/180x120/7J2gHORzhWUZ0uc8D6hzQGM9u9lGFFwrjPNpeQ8sMyM.jpg
+            source: Foursquare
+            source_url: http://foursquare.com/v/4e3c3013b0fb875af850b714
+            travel_type: 
+            has_tab: true
+            lodging: false
+            time_of_day: 
+            parent_day: 3
+            parent_cluster: 1
           -
             name: Riad Aguerzame
             local_name: Riad Aguerzame
@@ -491,7 +518,7 @@ legs:
             has_tab: true
             lodging: true
             time_of_day: 
-            parent_day: 6
+            parent_day: 7
             parent_cluster: 1
       -
         items:
@@ -510,7 +537,7 @@ legs:
             has_tab: true
             lodging: false
             time_of_day: 
-            parent_day: 7
+            parent_day: 8
             parent_cluster: 1
           -
             name: Ziz Valley
@@ -527,7 +554,7 @@ legs:
             has_tab: true
             lodging: false
             time_of_day: 
-            parent_day: 7
+            parent_day: 8
             parent_cluster: 1
           -
             name: midelt
@@ -544,10 +571,8 @@ legs:
             has_tab: true
             lodging: false
             time_of_day: 
-            parent_day: 7
+            parent_day: 8
             parent_cluster: 1
-      -
-        items:
           -
             name: Riad Maison Bleue
             local_name: Riad Maison Bleue
@@ -632,40 +657,39 @@ legs:
             source: Foursquare
             source_url: http://foursquare.com/v/4c446ab3f0bdd13a9680c9cc
             travel_type: air
-            has_tab: true
+            has_tab: false
             lodging: false
             time_of_day: 
             parent_day: 10
             parent_cluster: 1
-          -
-            name: FEZ->GRO
-            travel_data: 
-              method: flight
-              from: FEZ
-              to: GRO
-              vessel: FR9017
-              departure_date: 2013-09-15
-              departure_time: 12:00pm
-              arrival_date: 
-              arrival_time: 3:00pm
-              confirmation: 
-            local_name: Aéroport Fès-Saiss / مطار فاس سايس الدولي (FEZ)
-            notes: 
-            address: Oulad Tayeb, Fès, Région de Fès-Boulemane
-            lat: 33.94320803852744
-            lon: -4.982437548985619
-            website: http://www.onda.ma
-            tab_image: https://irs3.4sqi.net/img/general/180x120/BQBBSS4VG0YSYAKJEV51SEEIL3TQNYK0G1VRHMKQV3Q2DOEA.jpg
-            source: Foursquare
-            source_url: http://foursquare.com/v/4c446ab3f0bdd13a9680c9cc
-            travel_type: air
-            has_tab: true
-            lodging: false
-            time_of_day: 
-            parent_day: 10
-            parent_cluster: 1
+    departure:
+      method: flight
+      travel_data: 
+        -
+          method: flight
+          from: FEZ
+          to: GRO
+          vessel: FR9017
+          departure_date: 2013-09-15
+          departure_time: 12:00pm
+          arrival_date: 
+          arrival_time: 3:00pm
+          confirmation: 
   -  
     name: Catalonia
+    arrival:
+      method: flight
+      travel_data: 
+        -
+          method: flight
+          from: FEZ
+          to: GRO
+          vessel: FR9017
+          departure_date: 2013-09-15
+          departure_time: 12:00pm
+          arrival_date: 
+          arrival_time: 3:00pm
+          confirmation: 
     days:
       -
         items:
@@ -681,7 +705,7 @@ legs:
             source: Foursquare
             source_url: http://foursquare.com/v/4b29b751f964a520cea224e3
             travel_type: air
-            has_tab: true
+            has_tab: false
             lodging: false
             time_of_day: 
             parent_day: 10
@@ -706,6 +730,34 @@ legs:
       -
         items:
           -
+            name: Cadaques
+            local_name: Cadaqués
+            notes: 
+            address: undefined, Girona, Catalonia
+            phone: undefined
+            street_address: undefined
+            city: Girona
+            state: Catalonia
+            country: Spain
+            cross_street: undefined
+            category: Village
+            price_tier: false
+            rating: 9.4
+            rating_signals: 146
+            date_of_API_pull: Sat Aug 30 2014 14:59:00 GMT-0700 (PDT)
+            lat: 42.288909712265415
+            lon: 3.277463023161176
+            website: http://www.cadaques.cat
+            tab_image: https://irs2.4sqi.net/img/general/180x120/wdnQKQ_C2hGDHJ9KEdhaegy0JnWfd83AcAf0yjqQdVM.jpg
+            source: Foursquare
+            source_url: http://foursquare.com/v/4c097855340720a1b4d98493
+            travel_type: 
+            has_tab: true
+            lodging: false
+            time_of_day: 
+            parent_day: 11
+            parent_cluster: 1
+          -
             name: dali museum
             local_name: Fundació Gala-Salvador Dalí
             notes: 
@@ -720,7 +772,7 @@ legs:
             has_tab: true
             lodging: false
             time_of_day: 
-            parent_day: 10
+            parent_day: 11
             parent_cluster: 2
           -
             name: Begur
@@ -737,7 +789,7 @@ legs:
             has_tab: true
             lodging: false
             time_of_day: 
-            parent_day: 10
+            parent_day: 11
             parent_cluster: 2
           -
             name: Tossa del Mar
@@ -754,7 +806,7 @@ legs:
             has_tab: true
             lodging: false
             time_of_day: 
-            parent_day: 10
+            parent_day: 11
             parent_cluster: 2
       -
         items:
@@ -773,7 +825,7 @@ legs:
             has_tab: true
             lodging: false
             time_of_day: 
-            parent_day: 11
+            parent_day: 12
             parent_cluster: 2
           -
             name: Las Ramblas
@@ -790,7 +842,7 @@ legs:
             has_tab: true
             lodging: false
             time_of_day: 
-            parent_day: 11
+            parent_day: 12
             parent_cluster: 2
           -
             name: Deco Apartments
@@ -807,7 +859,7 @@ legs:
             has_tab: true
             lodging: true
             time_of_day: 
-            parent_day: 11
+            parent_day: 12
             parent_cluster: 2
       -
         items:
@@ -826,7 +878,7 @@ legs:
             has_tab: true
             lodging: false
             time_of_day: 
-            parent_day: 12
+            parent_day: 13
             parent_cluster: 2
           -
             name: Casa Batllo
@@ -843,7 +895,7 @@ legs:
             has_tab: true
             lodging: false
             time_of_day: 
-            parent_day: 12
+            parent_day: 13
             parent_cluster: 2
           -
             name: Parc Guell
@@ -860,7 +912,7 @@ legs:
             has_tab: true
             lodging: false
             time_of_day: 
-            parent_day: 12
+            parent_day: 13
             parent_cluster: 2
           -
             name: Deco Apartments
@@ -877,7 +929,7 @@ legs:
             has_tab: true
             lodging: true
             time_of_day: 
-            parent_day: 12
+            parent_day: 13
             parent_cluster: 2
       -
         items:
@@ -893,14 +945,14 @@ legs:
             source: Foursquare
             source_url: http://foursquare.com/v/4b7980a2f964a5202bfd2ee3
             travel_type: air
-            has_tab: true
+            has_tab: false
             lodging: false
             time_of_day: 
-            parent_day: 13
+            parent_day: 14
             parent_cluster: 2
     departure:
       method: 'flight'
-      legs:
+      travel_data:
         -
           method: flight
           from: BCN
