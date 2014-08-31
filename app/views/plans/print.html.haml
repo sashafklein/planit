@@ -111,7 +111,7 @@
         .content-tab-print.travel
           = print_lodging(lodging_item, index)
           - if lodging_item['notes']
-            %span{style: "display:block; font-style:italic"} #{lodging_item['notes']}
+            %span{style: "display:block; font-style:italic"} #{lodging_item['notes'].html_safe}
     / - else
     /   .content-tab-wrap
     /     .content-tab-print.time
@@ -201,7 +201,7 @@
           - if item['notes']
             .content-tab-more-info
               %b Notes:
-              = item['notes']
+              = item['notes'].html_safe
           - if item['website']
             .content-tab-more-info
               %b Website:

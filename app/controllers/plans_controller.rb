@@ -29,18 +29,8 @@ class PlansController < ApplicationController
       redirect_to root_path
     else
       @data = OpenStruct.new YAML.load_file( file_path )
-      @marker_coordinates = @data.map_locations.map{ |loc| coords_from(loc) }.compact.join('+')
       @slugged_title = params[:id]
     end
   end
 
-  def coords_from(address)
-    first_one = Geocoder.search(address).first
-    if first_one
-      loc = first_one.data["geometry"]["location"]
-      [ loc['lat'], loc['lng'] ].join(":")
-    else
-      nil
-    end
-  end
 end

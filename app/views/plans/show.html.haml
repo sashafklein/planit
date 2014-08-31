@@ -32,7 +32,9 @@
         = @data.title
       |
       .moneyshot-duration= "#{@data.legs.length} legs / #{leg_end(@data.legs.compact.last)['parent_day']} days"
-      .moneyshot-caption= "\"#{@data.moneyshots[0]['subtitle']}\""
+      .moneyshot-caption
+        = "\"#{@data.moneyshots[0]['subtitle']}\""
+        %a{href: @data.moneyshots[0]['source_url']}= "@#{@data.moneyshots[0]['source']}"
 .persistent-header
   .header-container
     .logo-container
@@ -84,7 +86,7 @@
           - day['items'].select{ |i| i['has_tab'] }.each do 
             / for now okay... later we want to add back lodging, travel, visa/ticketing etcs
             .plan-content-date{ class: "no#{day['items'][0]['parent_day']}" }
-          - day['items'].select{ |i| i['has_tab'] }.in_groups_of(4).each_with_index do |day_group, index|
+          - day['items'].select{ |i| i['has_tab'] && i['parent_day'] }.in_groups_of(4).each_with_index do |day_group, index|
             .plan-content-time.afternoon
             / .plan-content-time{ class: day_group }
             .plan-content-row{ class: zebra_class(day['items'][0]['parent_day']) }
@@ -116,10 +118,6 @@
                       .content-tab-get-more
                         %b Source:
                         %a{href: item['source_url']} #{item['source_url']}
-                    / - if item['image_referral']
-                    /   .content-tab-get-more
-                    /     %b Photo:
-                    /     %a{href: item['image_referral']} Credit
 
     - if leg['departure']
       .body-container
@@ -127,6 +125,48 @@
           .timeline-travel{ class: leg['departure']['method']}
           .travel-info
             = "Depart by #{leg['departure']['method']}"
+
+  - @data.bucketed.each_with_index do |leg, index|
+    .body-container{ class: zebra_class(index) }
+      .timeline-wrap
+        .timeline-bucketlist
+        .cluster-info
+          %b 
+          Trip-wide Bucket List
+        .plan-cluster-wrap{ class: zebra_class(index) }
+          .cluster-map-expandible
+            %map.cluster-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg) }
+        - days(leg).each_with_index do |day, index|
+          - day['items'].select{ |i| i['has_tab'] }.in_groups_of(4).each_with_index do |day_group, index|
+            .plan-content-row
+              - day_group.compact.each do |item|
+                .content-tab-wrap
+                  .content-tab
+                    %a{href: "#"}
+                    - if item['tab_image']
+                      = image_tag item['tab_image']
+                    - else
+                      = image_tag "tab_stand_in.png"
+                    .content-tab-title
+                      - if item['name']
+                        = item['name']
+                      - else
+                        %br
+                    - if item['local_name']
+                      - if item['local_name'].downcase != item['name'].downcase
+                        .content-tab-more-name
+                          = item['local_name']
+                    - if item['notes']
+                      .content-tab-more-info
+                        = item['notes'].html_safe
+                    - if item['source']
+                      .content-tab-get-more
+                        %b Source:
+                        %a{href: item['source_url']} #{item['source']}
+                    - elsif item['source_url']
+                      .content-tab-get-more
+                        %b Source:
+                        %a{href: item['source_url']} #{item['source_url']}
 
 .footer
   .footer-content
