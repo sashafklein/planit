@@ -19,54 +19,6 @@ module PlanHelper
     end
   end
 
-  def overview_coordinates(data)
-    legs(data).map{ |leg| leg_coordinates(leg) }.join("+")
-  end
-
-  def first_leg_locale(leg)
-    days(leg).first['items'].first
-    # filter out airports / bus terminals / ports etc
-  end
-
-  def last_leg_locale(leg)
-    days(leg).last['items'].last
-    # filter out airports / bus terminals / ports etc
-  end
-
-  def leg_start(leg)
-    days(leg).first['items'].first
-  end
-
-  def leg_end(leg)
-    days(leg).last['items'].last
-  end
-
-  def leg_coordinates(leg)
-    days(leg).map{ |d| day_coordinates(d) }.join("+")
-  end
-
-  def day_coordinates(day)
-    day['items'].compact
-      .map{ |i| coordinate(i) }
-      .join("+")
-  end
-
-  def days(leg)
-    leg['days'].compact
-  end
-
-  def items(day)
-    day['items'].compact
-  end
-
-  def coordinate(item)
-    "#{item['lat']}:#{item['lon']}"
-  end
-
-  def legs(data)
-    data.legs.compact
-  end
-
   def display_date(data, item)
     data.start_date + item['parent_day'].days
   end

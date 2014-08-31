@@ -8,9 +8,10 @@
     %input{ type: "text", name: "query", id: "query", placeholder: "Enter a destination", ng_model: 'destination', ng_on_enter_key: 'search()'}
     %button{ id: "search", ng_click: 'search()' } Search
     %br
-    %textarea{ ng_model: 'csv'}
+    %textarea{ ng_model: 'csv', style: 'height: 200px' }
     %button{ ng_click: 'batchFetch()' } Batch Fetch
-    
+  
+  .errors{ ng_if: 'errors.length', style: 'background: rgb(172, 140, 140); padding: 5px'} {{ errors }}
   .output
     %textarea{ id: "result", style: "height: 200px", ng_bind: 'output'}
     %textarea{ id: "response-in-full", style: "height: 200px", ng_bind: 'outputfull'}

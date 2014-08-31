@@ -17,26 +17,25 @@
       / %li.menu-link.white= link_to 'LAUNCH', print_plan_path
       / %li.menu-link.white= link_to 'BUILD', new_plan_path
       / %li.menu-link.white= link_to 'DREAM', "#"
-.moneyshot{ style: "background-image: url('#{image_path @data.moneyshots[0]['url']}')" }
+.moneyshot{ style: "background-image: url('#{image_path @plan.moneyshot['url']}')" }
   .clickable-moneyshot
   .title-and-caption-wrap
     .title-and-caption-content
       %a{href: "#"}
         = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
       .moneyshot-title
-        = @data.title
+        = @plan.title
       |
-      .moneyshot-duration= "#{@data.legs.length} legs / #{leg_end(@data.legs.compact.last)['parent_day']} days"
+      .moneyshot-duration= "#{@plan.legs.length} legs / #{@plan.last_day} days"
       .moneyshot-caption
-        = "\"#{@data.moneyshots[0]['subtitle']}\""
-        - if @data.moneyshots[0]['source']
-          %a{href: @data.moneyshots[0]['source_url']}= "@#{@data.moneyshots[0]['source']}"
+        = "\"#{@plan.moneyshot['subtitle']}\""
+        %a{href: @plan.moneyshot['source_url']}= "@#{@plan.moneyshot['source']}"
 .persistent-header
   .header-container
     .logo-container
       = image_tag "black_logo.png"
     .header-title
-      = @data.title
+      = @plan.title
     .user-icon
       %a{href: "#"}
         = image_tag "black_anon_user.png"
@@ -47,83 +46,80 @@
 .body-container
   .overview
     .summary-map
-      %map.overview-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data) }
+      %map.overview-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.overview_coordinates }
     .summary-wrap
-      - if @data.author_icon
-        .user-circular{ style: "background-image:url(#{image_path @data.author_icon})"}
+      - if @plan.author_icon
+        .user-circular{ style: "background-image:url(#{image_path @plan.author_icon})"}
       .summary-author
-        = @data.author
-        - if @data.trailblaze_date
-          = ", #{@data.trailblaze_date}"
+        = @plan.author
+        - if @plan.trailblaze_date
+          = ", #{@plan.trailblaze_date}"
       .summary-content
-        = @data.summary_text
+        = @plan.summary_text
   
-  - @data.legs.each_with_index do |leg, index|
-    - if leg['arrival']
-      .body-container
-        .timeline-wrap
-          .timeline-travel{ class: leg['arrival']['method']}
-          .travel-info
-            = "Arrive by #{leg['arrival']['method']}"
+  - @plan.legs.each_with_index do |leg, index|
+    .body-container
+      .timeline-wrap
+        .timeline-travel{ class: leg.arrival_method }
+        .travel-info
+          = "Arrive by #{leg.arrival_method}"
     .body-container{ class: zebra_class(index) }
       .timeline-wrap
         .timeline-cluster{ class: "no#{index + 1}" }
         .cluster-info
           %b 
             / In plan helper
-            = "Day #{leg_start(leg)['parent_day']} to #{leg_end(leg)['parent_day']}:"
-          = leg['name']
+            = "Day #{leg.first_day} to #{leg.last_day}:"
+          = leg.name
         .plan-cluster-wrap{ class: zebra_class(index) }
           .cluster-map-expandible
-            %map.cluster-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg) }
+            %map.cluster-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg.coordinates }
               .cluster-caption
-                = "From #{first_leg_locale(leg)['name']} to #{last_leg_locale(leg)['name']}"
-        - days(leg).each_with_index do |day, index|
-          - day['items'].select{ |i| i['has_tab'] }.each do 
+                = "From #{leg.first_locale.name} to #{leg.last_locale.name}"
+        - leg.days.each_with_index do |day, index|
+          - day.items.select(&:has_tab).each do 
             / for now okay... later we want to add back lodging, travel, visa/ticketing etcs
-            .plan-content-date{ class: "no#{day['items'][0]['parent_day']}" }
-          - day['items'].select{ |i| i['has_tab'] && i['parent_day'] }.in_groups_of(4).each_with_index do |day_group, index|
+            .plan-content-date{ class: "no#{day.day_in_trip}" }
+          - day.non_bucketed_items_with_tabs.in_groups_of(4).each_with_index do |day_group, index|
             .plan-content-time.afternoon
             / .plan-content-time{ class: day_group }
-            .plan-content-row{ class: zebra_class(day['items'][0]['parent_day']) }
+            .plan-content-row{ class: zebra_class(day.day_in_trip) }
               - day_group.compact.each do |item|
                 .content-tab-wrap
                   .content-tab
                     %a{href: "#"}
-                    - if item['tab_image']
-                      = image_tag item['tab_image']
+                    - if item.tab_image
+                      = image_tag item.tab_image
                     - else
                       = image_tag "tab_stand_in.png"
                     .content-tab-title
-                      - if item['name']
-                        = item['name']
+                      - if item.name
+                        = item.name
                       - else
                         %br
-                    - if item['local_name']
-                      - if item['local_name'].downcase != item['name'].downcase
-                        .content-tab-more-name
-                          = item['local_name']
-                    - if item['notes']
+                    - if item.local_name && item.local_name_unique?
+                      .content-tab-more-name
+                        = item.local_name
+                    - if item.notes
                       .content-tab-more-info
-                        = item['notes']
-                    - if item['source']
+                        = item.notes
+                    - if item.source && item.source_url
                       .content-tab-get-more
                         %b Source:
-                        %a{href: item['source_url']} #{item['source']}
-                    - elsif item['source_url']
+                        %a{href: item.source_url} #{item.source}
+                    - elsif item.source_url
                       .content-tab-get-more
                         %b Source:
-                        %a{href: item['source_url']} #{item['source_url']}
+                        %a{href: item.source_url} #{item.source_url}
 
-    - if leg['departure']
-      .body-container
-        .timeline-wrap
-          .timeline-travel{ class: leg['departure']['method']}
-          .travel-info
-            = "Depart by #{leg['departure']['method']}"
+    .body-container
+      .timeline-wrap
+        .timeline-travel{ class: leg.departure_method}
+        .travel-info
+          = "Depart by #{leg.departure_method}"
 
-  - if @data.bucketed
-    - @data.bucketed.each_with_index do |leg, index|
+  - if @plan.bucketed
+    - @plan.bucketed.each_with_index do |leg, index|
       .body-container{ class: zebra_class(index) }
         .timeline-wrap
           .timeline-bucketlist
@@ -133,43 +129,42 @@
           .plan-cluster-wrap{ class: zebra_class(index) }
             .cluster-map-expandible
               %map.cluster-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg) }
-          - days(leg).each_with_index do |day, index|
-            - day['items'].select{ |i| i['has_tab'] }.in_groups_of(4).each_with_index do |day_group, index|
+          - leg.days.each_with_index do |day, index|
+            - day.items.select(&:has_tab).in_groups_of(4).each_with_index do |day_group, index|
               .plan-content-row
                 - day_group.compact.each do |item|
                   .content-tab-wrap
                     .content-tab
                       %a{href: "#"}
-                      - if item['tab_image']
-                        = image_tag item['tab_image']
+                      - if item.tab_image
+                        = image_tag item.tab_image
                       - else
                         = image_tag "tab_stand_in.png"
                       .content-tab-title
-                        - if item['name']
-                          = item['name']
+                        - if item.name
+                          = item.name
                         - else
                           %br
-                      - if item['local_name']
-                        - if item['local_name'].downcase != item['name'].downcase
-                          .content-tab-more-name
-                            = item['local_name']
-                      - if item['notes']
+                      - if item.local_name && item.local_name_unique?
+                        .content-tab-more-name
+                          = item.local_name
+                      - if item.notes
                         .content-tab-more-info
-                          = item['notes'].html_safe
-                      - if item['source']
+                          = item.notes.html_safe
+                      - if item.source && item.source_url
                         .content-tab-get-more
                           %b Source:
-                          %a{href: item['source_url']} #{item['source']}
-                      - elsif item['source_url']
+                          %a{href: item.source_url} #{item.source}
+                      - elsif item.source_url
                         .content-tab-get-more
                           %b Source:
-                          %a{href: item['source_url']} #{item['source_url']}
+                          %a{href: item.source_url} #{item.source_url}
 
 .footer
   .footer-content
     This is a 
     %b Planit
-    = "web-view of '#{@data.title}', a trip authored by #{@data.author}"
+    = "web-view of '#{@plan.title}', a trip authored by #{@plan.author}"
     .footer-section
       Unless otherwise noted, all images, graphics, and content are the exclusive copyright of Planit and its users, which may freely share access to their private travel plans
     .footer-section
