@@ -6,4 +6,9 @@ Rails.application.routes.draw do
   end
 
   get '/', to: 'plans#jmt'
+
+  namespace :api do
+    namespace :v1 do
+    end
+  end
 end

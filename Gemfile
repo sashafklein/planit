@@ -23,6 +23,7 @@ gem "unicorn"
 
 gem "haml-rails"
 gem 'geocoder'
+gem 'rest_client'
 
 group :development do
   gem "foreman"

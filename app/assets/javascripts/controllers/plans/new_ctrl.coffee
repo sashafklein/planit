@@ -12,15 +12,20 @@ mod.controller 'Plans.NewCtrl', ($scope, Flash, $http, $q) ->
 
   $s.batchFetch = ->
     return unless $s.csv
-    $s.output = ''
-    for row in $s._rows($s.csv)
-      $s._addToOutput(row)
-
-  $s.search = ->
-    return unless $s.locale && $s.destination
-    $s.output = ''
-    $s._addToOutput({ locale: $s.locale, destination: $s.destination })
-
+    $s.output = ""
+    $s.csv.split("\n").reduce ((promise, row) ->
+      venue = null
+      promise.then(->
+        split = row.split(",")
+        $s._getVenue split[0], split[1]
+      ).then((response) ->
+        venue = response.data.response.groups[0].items[0].venue
+        $s._getPhoto venue
+      ).then((response) ->
+        photo = $s._photoUrl(response.data)
+        $s.output += $s._yamlify(venue, row, photo)
+      )
+    ), $q.when()
 
   #### PRIVATE INTERFACE
 
@@ -35,11 +40,13 @@ mod.controller 'Plans.NewCtrl', ($scope, Flash, $http, $q) ->
       .then ->
         $s.output += $s._yamlify(venue, row, photo) 
 
+  $s._getFullVenue = (destination, locale) ->
+
   $s._getVenue = (destination, locale) ->
-    $http.get "#{$s._baseFsPath}explore?query=#{destination}&near=#{locale}&oauth_token=#{$s._fsAuth}"
+    $http.get("#{$s._baseFsPath}explore?query=#{destination}&near=#{locale}&oauth_token=#{$s._fsAuth}")
 
   $s._getPhoto = (venue) ->
-    $http.get "#{$s._baseFsPath}#{venue.id}/photos?oauth_token=#{$s._fsAuth}" 
+    $http.get("#{$s._baseFsPath}#{venue.id}/photos?oauth_token=#{$s._fsAuth}")
 
   $s._photoUrl = (res) ->
     photo = res.response.photos.items[0]
@@ -58,6 +65,7 @@ mod.controller 'Plans.NewCtrl', ($scope, Flash, $http, $q) ->
         day: split[2] || ''
         lodging: split[3] || ''
         travel: split[4] || ''
+        meal: split[5] || ''
       }
 
   $s._addToYaml = -> $s.output += $s._yamlify($s.venue)
@@ -69,14 +77,12 @@ mod.controller 'Plans.NewCtrl', ($scope, Flash, $http, $q) ->
 
     now = new Date
     [
-      "\n      -"
-      "  items:"
-      "    -"
+      "\n          -"
       "      name: #{row.destination}"
       "      local_name: #{venue.name}"
       "      notes: "
       "      address: #{venue.location?.address}, #{venue.location?.city}, #{venue.location?.state}"
-      "      phone: #{venue.contact.phone}"
+      "      phone: #{venue.contact?.phone}"
       "      street_address: #{venue.location?.address}"
       "      city: #{venue.location?.city}"
       "      state: #{venue.location?.state}"
@@ -96,7 +102,8 @@ mod.controller 'Plans.NewCtrl', ($scope, Flash, $http, $q) ->
       "      travel_type: #{row.travel || ''}"
       "      has_tab: true"
       "      lodging: #{row.lodging || ''}"
+      "      meal: #{row.meal || ''}"
       "      time_of_day: "
       "      parent_day: #{row.day || ''}"
       "      parent_cluster: 1"
-    ].join("\n      ").replace('undefined', '')
+    ].join("\n      ").replace(/\, undefined/g, '').replace(/undefined/g, '').replace(/\: \&/g, '').replace(/\: \,/g, '')

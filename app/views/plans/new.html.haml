@@ -8,9 +8,9 @@
     %input{ type: "text", name: "query", id: "query", placeholder: "Enter a destination", ng_model: 'destination', ng_on_enter_key: 'search()'}
     %button{ id: "search", ng_click: 'search()' } Search
     %br
-    %textarea{ ng_model: 'csv', ng_on_enter_key: 'batchFetch()', placeholder: 'Enter CSV' }
-    %button{ ng_click: 'batchFetch()' } Destination,Locale,Day,Lodging(T/F),Travel(T/f)
-
+    %textarea{ ng_model: 'csv'}
+    %button{ ng_click: 'batchFetch()' } Batch Fetch
+    
   .output
     %textarea{ id: "result", style: "height: 200px", ng_bind: 'output'}
     %textarea{ id: "response-in-full", style: "height: 200px", ng_bind: 'outputfull'}

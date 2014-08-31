@@ -18,7 +18,6 @@ class PlansController < ApplicationController
   def print
   end
 
-
   private
 
   def load_yaml_data
@@ -32,5 +31,4 @@ class PlansController < ApplicationController
       @slugged_title = params[:id]
     end
   end
-
 end
