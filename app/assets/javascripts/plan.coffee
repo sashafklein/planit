@@ -46,10 +46,15 @@ $ ->
   addAndRemoveOnHover('.menu-link.white')  
   addAndRemoveOnHover('.user-icon')    
   addAndRemoveOnHover('.exit-view')    
+  addAndRemoveOnHover('.flash-alert')    
 
   toggleElementOnDoubleClick = (selector, className='clicked') ->
     $(selector).dblclick( -> $(@).toggleClass className )
   toggleElementOnDoubleClick('.cluster-map-expandible')
+
+  toggleElementOnClick = (selector, className='clicked') ->
+    $(selector).click( -> $(@).toggleClass className )
+  toggleElementOnClick('.flash-alert')
 
   # cycleImageOnClick = (selector, className='clicked') ->
 

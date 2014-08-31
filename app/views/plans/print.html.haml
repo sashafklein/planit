@@ -21,7 +21,7 @@
   .print-header-subtitle
     Overview
 
-%map{ style: 'height: 750px; width: 750px', icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data), type: 'print'}
+%map{ style: 'height: 750px; width: 750px', icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data), type: "print#{@data.maptype || ''}"}
 
 .break-page
 // break page
@@ -111,7 +111,7 @@
         .content-tab-print.travel
           = print_lodging(lodging_item, index)
           - if lodging_item['notes']
-            %span{style: "display:block; font-style:italic"} #{lodging_item['notes'].html_safe}
+            %span{style: "display:block; font-style:italic; padding-top: 7px;"} #{lodging_item['notes'].html_safe}
     / - else
     /   .content-tab-wrap
     /     .content-tab-print.time
@@ -135,7 +135,7 @@
     .print-header-subtitle
       = leg['name']
       %b= " (Day #{leg_start(leg)['parent_day']} to #{leg_end(leg)['parent_day']})"
-  %map.map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), type: 'print' }
+  %map.map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), type: "print#{@data.maptype || ''}" }
   
   .print-end
   .break-page
@@ -161,21 +161,49 @@
           = " - "
           = print_travel(leg['arrival']['travel_data'].last, '0')
 
-  - days(leg).each_with_index do |day, index|
+  - days(leg).each_with_index do |day, day_index|
     .content-tab-wrap
       .content-tab-print.time
         =image_tag "timeline_date_#{day['items'][0]['parent_day']}.png"
-      .content-tab-print.date
+      .content-tab-print.day-log
         %b= "Day #{day['items'][0]['parent_day']}"
         - if @data.start_date
           = ": #{display_date(@data, day['items'][0]).strftime('%b %d, %Y')}"
+        %br= " "
+        - if day_index != 0
+          .day-log.item
+            = "(0) "
+            %b= leg['days'][day_index-1]['items'].last['name'].titleize
+            - if day['items'][0]['lat'] && day['items'][0]['lon'] && leg['days'][day_index-1]['items'].last['lat'] && leg['days'][day_index-1]['items'].last['lon']
+              (0.0 miles)
+        - day['items'].each_with_index do |item, index|
+          .day-log.item
+            = "(#{index + 1}) "
+            - if item['name']          
+              %b= item['name'].titleize
+            - else
+              %i= "Un-named"
+            - if day_index != 0
+              - if day['items'][index-1]['lat'] && day['items'][index-1]['lon'] && item['lat'] && item['lon']
+                = "(#{distance_calc(day['items'][index-1]['lat'],day['items'][index-1]['lon'],item['lat'],item['lon'],1)} miles)"
+            - else
+              - if index == 0
+                (0.0 miles)
+              - elsif day['items'][index-1]['lat'] && day['items'][index-1]['lon'] && item['lat'] && item['lon']
+                = "(#{distance_calc(day['items'][index-1]['lat'],day['items'][index-1]['lon'],item['lat'],item['lon'],1)} miles)"
+
+      .content-tab-print.day-map
+        - if day_index != 0 && day['items'][index-1]
+          %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: "#{coordinate(day['items'][index-1])}+#{day_coordinates(day)}", type: 'print' }
+        - else
+          %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: day_coordinates(day), type: 'print' }
     - day['items'].each_with_index do |item, index|
       .content-tab-wrap
         .content-tab-print.time
           - if day['time_of_day']             
             =image_tag "timeline_#{day['time_of_day']}.png"
           - else
-            =image_tag "timeline_afternoon.png"
+            =image_tag "timeline-cluster-pin.png"
           / .plan-content-time{ class: day_group }
           .content-tab-timestamp
             - if day['time_of_day']
@@ -188,8 +216,9 @@
               %b= item['name']
           - if item['tab_image']
             = image_tag item['tab_image']
-            %span{style: "display: block; font-size: 8px"}
-              %a{href: item['tab_image'], style: "color: #000"}= "@#{item['source']}"
+            - if item['source']
+              %span{style: "display: block; font-size: 8px"}
+                %a{href: item['tab_image'], style: "color: #000"}= "@#{item['source']}"
         .content-tab-print.info
           - if item['lodging']
             .content-tab-more-info
