@@ -33,6 +33,11 @@ module PlanHelper
     data.start_date + item.parent_day.days
   end
 
+  def category(lodging_item)
+    cat = lodging_item.category || 'hotel'
+    cat.downcase
+  end
+
   def print_lodging(lodging_item, index)
     string = ''
     string += "<b>#{lodging_item.name.titleize}</b>"
@@ -61,6 +66,34 @@ module PlanHelper
     string.html_safe
   end
 
+  def travel_info(info, index)
+    content_tag :div, class: 'content-tab-wrap' do 
+      content_tag :div, class: 'content-tab-print time' do
+        image_tag "travel-by-#{info['method']}.png"
+      end
+      content_tag :div, class: 'travel' do
+        print_travel(info, index)
+      end
+    end
+  end
+
+  def distance(day_index, item_index, item, day)
+    if day_index != 0 # Not first day
+      if item_index == 0
+        dist = Distance.item(item, day.previous(day_index).items.last, 1)
+      else
+        dist = Distance.item(item, item.previous(item_index), 1)
+      end
+    elsif item_index != 0 # Not first item
+      dist = Distance.item(item, item.previous(item_index), 1)
+    end
+    dist ? "(#{dist} miles)" : ''
+  end
+
+  def timeline_cluster_image(day)
+    input = day.time_of_day ? "_#{day.time_of_day}" : '-cluster-pin'
+    "timeline#{input}.png"
+  end
 
   # Below methods can't be called outside this file
   private 

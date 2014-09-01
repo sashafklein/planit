@@ -1,119 +1,21 @@
-.exit-view
-  %a{href: plan_path} Exit Print View
-.logo-container
-  = image_tag "white_logo.png"
-  = image_tag "white_tagline.png", id: "tagline"
-=image_tag "#{image_path @plan.moneyshot['url']}", style: "width: 750px; max-height: 750px", html: { border: "0" }
-.moneyshot-caption
-  = "\"#{@plan.moneyshot['subtitle']}\""
-  %a{href: @plan.moneyshot['source_url']}= "@#{@plan.moneyshot['source']}"
-
-.print-page-header
-  %strong
-    = @plan.title
-  .print-header-subtitle
-    = "#{@plan.legs.length} legs / #{@plan.last_day} days"
-
-.break-page
-// break page
-
-.print-page-header
-  = image_tag "black_logo_only.png"
-  %strong
-    = "#{@plan.title}:"
-  .print-header-subtitle
-    Overview
-
-%map{ style: 'height: 750px; width: 750px', icon: map_icon, coordinates: @plan.overview_coordinates, type: "print#{@plan.maptype || ''}"}
-
-.break-page
-// break page
-
-.print-page-header
-  = image_tag "black_logo_only.png"
-  %strong
-    = "#{@plan.title}:"
-  .print-header-subtitle
-    Summary, Tips & Reminders
-
-- if @plan.tips
-  - @plan.tips.each do |tip|
-    .content-tab-wrap
-      .content-tab-print.time
-        = "-"
-      .content-tab-print.tips
-        = tip.html_safe
-
-.break-page
-// break page
-
-.print-page-header
-  = image_tag "black_logo_only.png"
-  %strong
-    = "#{@plan.title}:"
-  .print-header-subtitle
-    Transit & Transportation
+= render 'print_header'
 
 - @plan.legs.each_with_index do |leg, index|
-  - if leg.arrival 
-    - if leg.arrival_method
-      - leg.arrival['travel_data'].each_with_index do |travel_info, index|
-        .content-tab-wrap
-          .content-tab-print.time
-            =image_tag "travel-by-#{leg.arrival_method}.png"
-          .content-tab-print.travel
-            = print_travel(travel_info, index)
-    - else
-      .content-tab-wrap
-        .content-tab-print.time
-          =image_tag "travel-by-#{leg.arrival_method}.png"
-        .content-tab-print.travel
-          = "#{leg.arrival_method} on #{leg.first_day}"
-  - leg.days.each_with_index do |day, index|
-    - day.items.select(&:travel_data).each_with_index do |travel_item, index|
-      .content-tab-wrap
-        .content-tab-print.time
-          =image_tag "travel-by-#{travel_item.travel_data['method']}.png"
-        .content-tab-print.travel
-          = print_travel(travel_item.travel_data, index)
-  - if leg.departure
-    - if leg.departure['travel_data']
-      - leg.departure['travel_data'].each_with_index do |travel_info, index|
-        .content-tab-wrap
-          .content-tab-print.time
-            =image_tag "travel-by-#{travel_info['method']}.png"
-          .content-tab-print.travel
-            = print_travel(travel_info, index)
-    - else
-      .content-tab-wrap
-        .content-tab-print.time
-          =image_tag "travel-by-#{leg.departure['method']}.png"
-        .content-tab-print.travel
-          = "#{leg.departure['method']} on #{leg.last_day}"
+  = render partial: 'legs/print_travel', locals: { leg: leg } 
 
 .break-page
-// break page
-
 .print-page-header
   = image_tag "black_logo_only.png"
-  %strong
-    = "#{@plan.title}:"
-  .print-header-subtitle
-    Accomodations
+  %strong= "#{@plan.title}:"
+  .print-header-subtitle Accomodations
 
-- @plan.legs.each_with_index do |leg, index|
-  - leg.days.each_with_index do |day, index|
-    - day.items.select(&:lodging).each_with_index do |lodging_item, index|
-      .content-tab-wrap
-        .content-tab-print.time
-          - if lodging_item.category
-            =image_tag "lodging-is-#{lodging_item.category.downcase}.png"  
-          - else
-            =image_tag "lodging-is-hotel.png"  
-        .content-tab-print.travel
-          = print_lodging(lodging_item, index)
-          - if lodging_item.notes
-            %span{style: "display:block; font-style:italic; padding-top: 7px;"} #{lodging_item.notes.html_safe}
+- @plan.flat_items.select(&:lodging).each_with_index do |lodging_item, index|
+  .content-tab-wrap
+    .content-tab-print.time= image_tag "lodging-is-#{category(lodging_item).downcase}.png"  
+    .content-tab-print.travel
+      = print_lodging(lodging_item, index)
+      - if lodging_item.notes
+        %span.lodging-notes= lodging_item.notes.html_safe
     / - else
     /   .content-tab-wrap
     /     .content-tab-print.time
@@ -127,17 +29,14 @@
 
 - @plan.legs.each_with_index do |leg, index|
   .break-page
-  // break page
   .print-page-header
     = image_tag "black_logo_only.png"
-    .timeline-cluster
-      = image_tag "timeline-cluster-pin-#{index + 1}.png"
-    %strong
-      = "#{@plan.title}"
+    .timeline-cluster= image_tag "timeline-cluster-pin-#{index + 1}.png"
+    %strong= "#{@plan.title}"
     .print-header-subtitle
       = leg.name
       %b= " (Day #{leg.first_day} to #{leg.last_day})"
-  %map.map-container{ icon: map_icon, coordinates: leg.coordinates, type: "print#{@plan.maptype || ''}" }
+  %map.map-container{ icon: map_icon, coordinates: leg.coordinates, type: "print#{@plan.maptype}" }
   
   .print-end
   .break-page
@@ -145,17 +44,14 @@
 
   .print-page-header
     = image_tag "black_logo_only.png"
-    .timeline-cluster
-      = image_tag "timeline-cluster-pin-#{index + 1}.png"
-    %strong
-      = "#{@plan.title}"
+    .timeline-cluster= image_tag "timeline-cluster-pin-#{index + 1}.png"
+    %strong= "#{@plan.title}"
     .print-header-subtitle
       = leg.name
       %b= " (Day #{leg.first_day} to #{leg.last_day})"
   - if leg.arrival
     .content-tab-wrap
-      .content-tab-print.time
-        =image_tag "travel-by-#{leg.arrival_method}.png"
+      .content-tab-print.time= image_tag "travel-by-#{leg.arrival_method}.png"
       .content-tab-print.travel
         = "Arrive by "
         %b= "#{leg.arrival_method}"
@@ -164,109 +60,12 @@
           = print_travel(leg.arrival['travel_data'].last, '0')
 
   - leg.days.each_with_index do |day, day_index|
-    .content-tab-wrap
-      .content-tab-print.time
-        =image_tag "timeline_date_#{day.day_in_trip}.png"
-      .content-tab-print.day-log
-        %b= "Day #{day.day_in_trip}"
-        - if @plan.start_date
-          = ": #{display_date(@plan, day.items.first).strftime('%b %d, %Y')}"
-        %br= " "
-        - if day_index != 0
-          .day-log.item
-            = "(0) "
-            %b= day.previous(day_index).items.last.name.titleize
-        - day.items.each_with_index do |item, index|
-          .day-log.item
-            = "(#{index + 1}) "
-            - if item.name         
-              %b= item.name.titleize
-            - else
-              %i= "Un-named"
-            - if day_index != 0 && index == 0 && distance = Distance.item(item, day.previous(day_index).items.last, 1)
-              = "(#{distance} miles)"
-            - elsif day_index != 0 && distance = Distance.item(item, item.previous(index), 1)
-              = "(#{distance} miles)"
-            - elsif day_index == 0 && index != 0 && distance = Distance.item(item, item.previous(index), 1)
-              = "(#{distance} miles)"
-            - else
-              = ""
-
-      .content-tab-print.day-map
-        - if previous_lodging = day.previous_lodging(day_index)
-          %map.day-map-container{ icon: map_icon, coordinates: "#{previous_lodging.coordinate}+#{day.coordinates}", type: 'print' }
-        - else
-          %map.day-map-container{ icon: map_icon, coordinates: day.coordinates, type: 'print' }
-    - day.items.each_with_index do |item, index|
-      .content-tab-wrap
-        .content-tab-print.time
-          - if day.time_of_day             
-            =image_tag "timeline_#{day.time_of_day}.png"
-          - else
-            =image_tag "timeline-cluster-pin.png"
-          / .plan-content-time{ class: day_group }
-          .content-tab-timestamp
-            - if day.time_of_day
-              = "#{day.time_of_day}, "  
-            - if @plan.start_date
-              = display_date(@plan, item).strftime("%b %d, %Y")
-        .content-tab-print.image
-          .content-tab-title
-            - if item.name
-              %b= item.name
-          - if item.tab_image
-            = image_tag item.tab_image
-            - if item.source
-              %span{style: "display: block; font-size: 8px"}
-                %a{href: item.tab_image, style: "color: #000"}= "@#{item.source}"
-        .content-tab-print.info
-          - if item.lodging
-            .content-tab-more-info
-              - if @plan.start_date
-                = "Stay the night (#{display_date(@plan, item).strftime ("%m/%d/%Y")})"
-          - if item.category
-            .content-tab-more-info
-              = item.category.titleize
-          - if item.notes
-            .content-tab-more-info
-              %b Notes:
-              = item.notes.html_safe
-          - if item.website
-            .content-tab-more-info
-              %b Website:
-              = item.website
-          - if item.international_phone
-            .content-tab-more-info
-              %b Int'l Phone:
-              = item.international_phone
-          - if item.local_phone
-            .content-tab-more-info
-              %b Phone:
-              = item.local_phone
-          - if item.phone
-            .content-tab-more-info
-              %b Phone:
-              = item.phone
-          - if item.source
-            .content-tab-get-more
-              %b= item.source
-              = item.source_url
-        .content-tab-print.location
-          - if item.local_name && item.local_name_unique?
-            .content-tab-timestamp
-              = " (#{item.local_name})"
-          - if item.lat && item.lon
-            %map.item-map-container{ icon: map_icon, coordinates: item.coordinate, type: "detail" }
-          - else
-            = image_tag "no_map_180x180.png", {style: "height: 180px; width: 180px"}
-          - if item.address
-            .content-tab-more-info
-              = item.address
+    = render partial: 'days/print_day', locals: { day: day, index: day_index }
 
   - if leg.departure
     .content-tab-wrap
       .content-tab-print.time
-        =image_tag "travel-by-#{leg.departure['method']}.png"
+        = image_tag "travel-by-#{leg.departure['method']}.png"
       .content-tab-print.travel
         = "Depart by "
         %b= "#{leg.departure['method']}"

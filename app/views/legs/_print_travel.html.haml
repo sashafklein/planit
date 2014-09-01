@@ -1,0 +1,10 @@
+- if leg.arrival && leg.arrival['travel_data']
+  - leg.arrival['travel_data'].each_with_index do |info, index|
+    = travel_info(info, index)
+
+- leg.flat_items.select(&:travel_data).map(&:travel_data).each_with_index do |info, index|
+  = travel_info(travel_data, index)
+
+- if leg.departure && leg.departure['travel_data']
+  - leg.departure['travel_data'].each_with_index do |info, index|
+    = travel_info(info, index)      

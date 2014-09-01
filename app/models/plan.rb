@@ -29,6 +29,10 @@ class Plan
     @bucketed ||= false
   end
 
+  def flat_items
+    legs.map(&:flat_items).flatten
+  end
+
   private
 
   def defaults

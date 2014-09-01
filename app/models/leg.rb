@@ -63,6 +63,10 @@ class Leg
     sites.last
   end
 
+  def flat_items
+    days.map(&:items).flatten
+  end
+
   private
 
   def defaults

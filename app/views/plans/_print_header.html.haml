@@ -1,0 +1,54 @@
+.exit-view
+  %a{href: plan_path} Exit Print View
+.logo-container
+  = image_tag "white_logo.png"
+  = image_tag "white_tagline.png", id: "tagline"
+=image_tag "#{image_path @plan.moneyshot['url']}", style: "width: 750px; max-height: 750px", html: { border: "0" }
+.moneyshot-caption
+  = "\"#{@plan.moneyshot['subtitle']}\""
+  %a{href: @plan.moneyshot['source_url']}= "@#{@plan.moneyshot['source']}"
+
+.print-page-header
+  %strong
+    = @plan.title
+  .print-header-subtitle
+    = "#{@plan.legs.length} legs / #{@plan.last_day} days"
+
+.break-page
+
+.print-page-header
+  = image_tag "black_logo_only.png"
+  %strong
+    = "#{@plan.title}:"
+  .print-header-subtitle
+    Overview
+
+%map.print-overview{ icon: map_icon, coordinates: @plan.overview_coordinates, type: "print#{@plan.maptype || ''}"}
+
+.break-page
+// break page
+
+.print-page-header
+  = image_tag "black_logo_only.png"
+  %strong
+    = "#{@plan.title}:"
+  .print-header-subtitle
+    Summary, Tips & Reminders
+
+- if @plan.tips
+  - @plan.tips.each do |tip|
+    .content-tab-wrap
+      .content-tab-print.time
+        = "-"
+      .content-tab-print.tips
+        = tip.html_safe
+
+.break-page
+// break page
+
+.print-page-header
+  = image_tag "black_logo_only.png"
+  %strong
+    = "#{@plan.title}:"
+  .print-header-subtitle
+    Transit & Transportation

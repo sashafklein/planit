@@ -18,6 +18,7 @@ class Item
   end
 
   def coordinate
+    return false unless lat && lon
     [lat, lon].join(":")
   end
 

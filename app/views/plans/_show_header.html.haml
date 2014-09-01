@@ -1,0 +1,14 @@
+.initial-header
+  .header-container
+    .logo-container
+      = image_tag "white_logo.png", style: "float:left;"
+      = image_tag "white_tagline.png", style: "float:left;", id: "tagline"
+    .user-icon.white
+      %a{href: "#"}
+        = image_tag "white_anon_user.png", style: "float:right;", html: { border: "0" }
+    %ul.menu-top
+      %li.menu-link.white= link_to 'PRINT', print_plan_path
+      / %li.menu-link.white= link_to 'IMPORT NEW', new_plan_path
+      / %li.menu-link.white= link_to 'LAUNCH', print_plan_path
+      / %li.menu-link.white= link_to 'BUILD', new_plan_path
+      / %li.menu-link.white= link_to 'DREAM', "#"
