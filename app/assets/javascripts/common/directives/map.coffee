@@ -25,7 +25,7 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
       icon: '@'
 
     link: (s, elem) ->
-      acceptedMapTypes = ['leg', 'detail', 'print', 'printdense']
+      acceptedMapTypes = ['leg', 'detail', 'print', 'printdense', 'legdense']
       s.type = 'leg' unless _.contains(acceptedMapTypes, s.type)
       s.zoomLevel = -> if s.type == 'leg' then 18 else 16
 
@@ -67,7 +67,7 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
         s.map.fitBounds(s.bounds)
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
 
-      unless _(['detail', 'printdense']).contains s.type
+      unless _(['detail', 'printdense', 'legdense']).contains s.type
         polyline = L.polyline(s.points, {color: 'red', opacity: '0.4', dashArray: '1, 0, 5'}).addTo(s.map);
 
   }

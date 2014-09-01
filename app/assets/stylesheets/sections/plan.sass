@@ -576,25 +576,48 @@ body
       background-repeat: no-repeat
       background-position: center center
       overflow: hidden
-      .cluster-map
-        height: 450px
-      .cluster-caption
-        float: left
-        position: absolute
-        background: rgb(0, 0, 0)
-        background: rgba(0, 0, 0, 0.55)
-        text-align: left
-        font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
-        color: #fff
-        line-height: 25px
-        vertical-align: baseline
-        text-transform: capitalize
-        padding: 10px
-        margin: 10px
-        z-index: 200
-        -webkit-font-smoothing: antialiased
       &.clicked
         height: 450px
+
+    .cluster-map
+      height: 450px
+    .cluster-caption
+      float: left
+      position: absolute
+      background: rgb(0, 0, 0)
+      background: rgba(0, 0, 0, 0.55)
+      text-align: left
+      font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      color: #fff
+      line-height: 25px
+      vertical-align: baseline
+      text-transform: capitalize
+      padding: 10px
+      margin: 10px
+      z-index: 200
+      -webkit-font-smoothing: antialiased
+    .cluster-expansion
+      float: left
+      position: absolute
+      background: rgb(255, 255, 255)
+      background: rgba(255, 255, 255, 0.55)
+      text-align: center
+      font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      color: #000
+      line-height: 25px
+      vertical-align: baseline
+      text-transform: capitalize
+      padding: 10px
+      margin-top: 95px
+      width: 815px
+      z-index: 200
+      -webkit-font-smoothing: antialiased
+      &.clicked
+        visibility: hidden
+        display: none !important
+      &.active
+        background: #f60
+        color: #fff
 
     .map-container
       height: 450px
@@ -1123,7 +1146,7 @@ body.plans-print
   .moneyshot-caption
     display: inline-block
     font-size: 12px
-    padding-right: 13px 
+    padding: 0px 
     margin: 0 0 25px 0
     color: #333
     width: 750px

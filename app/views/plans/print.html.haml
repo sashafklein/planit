@@ -4,7 +4,10 @@
   = image_tag "white_logo.png"
   = image_tag "white_tagline.png", id: "tagline"
 =image_tag "#{image_path @plan.moneyshot['url']}", style: "width: 750px; max-height: 750px", html: { border: "0" }
-.moneyshot-caption= "\"#{@plan.moneyshot['subtitle']}\""
+.moneyshot-caption
+  = "\"#{@plan.moneyshot['subtitle']}\""
+  %a{href: @plan.moneyshot['source_url']}= "@#{@plan.moneyshot['source']}"
+
 .print-page-header
   %strong
     = @plan.title
@@ -52,19 +55,20 @@
     Transit & Transportation
 
 - @plan.legs.each_with_index do |leg, index|
-  - if leg.arrival && leg.arrival_method
-    - leg.arrival['travel_data'].each_with_index do |travel_info, index|
+  - if leg.arrival 
+    - if leg.arrival_method
+      - leg.arrival['travel_data'].each_with_index do |travel_info, index|
+        .content-tab-wrap
+          .content-tab-print.time
+            =image_tag "travel-by-#{leg.arrival_method}.png"
+          .content-tab-print.travel
+            = print_travel(travel_info, index)
+    - else
       .content-tab-wrap
         .content-tab-print.time
           =image_tag "travel-by-#{leg.arrival_method}.png"
         .content-tab-print.travel
-          = print_travel(travel_info, index)
-  - else
-    .content-tab-wrap
-      .content-tab-print.time
-        =image_tag "travel-by-#{leg.arrival_method}.png"
-      .content-tab-print.travel
-        = "#{leg.arrival_method} on #{leg.first_day}"
+          = "#{leg.arrival_method} on #{leg.first_day}"
   - leg.days.each_with_index do |day, index|
     - day.items.select(&:travel_data).each_with_index do |travel_item, index|
       .content-tab-wrap
@@ -192,7 +196,7 @@
 
       .content-tab-print.day-map
         - if day.should_be_mapped(day_index, index)
-          %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: "#{day.previous_lodging.coordinate}+#{day.coordinates}", type: 'print' }
+          %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: "#{day.previous_lodging(day_index).coordinate}+#{day.coordinates}", type: 'print' }
         - else
           %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: day.coordinates, type: 'print' }
     - day.items.each_with_index do |item, index|

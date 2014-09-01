@@ -41,7 +41,7 @@ class Day
     day_index != 0 && items[item_index-1]
   end
 
-  def previous_lodging
+  def previous_lodging(day_index)
     leg.days[day_index - 1].items.select(&:lodging).last
   end
 

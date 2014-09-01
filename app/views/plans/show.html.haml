@@ -29,7 +29,7 @@
       .moneyshot-duration= "#{@plan.legs.length} legs / #{@plan.last_day} days"
       .moneyshot-caption
         = "\"#{@plan.moneyshot['subtitle']}\""
-        %a{href: @plan.moneyshot['source_url']}= "@#{@plan.moneyshot['source']}"
+        %a{href: @plan.moneyshot['source_url']}= "@#{@plan.moneyshot['source']}" if @plan.moneyshot['source']
 .persistent-header
   .header-container
     .logo-container
@@ -46,7 +46,7 @@
 .body-container
   .overview
     .summary-map
-      %map.overview-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.overview_coordinates }
+      %map.overview-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.overview_coordinates, type: "leg#{@plan.maptype || ''}" }
     .summary-wrap
       - if @plan.author_icon
         .user-circular{ style: "background-image:url(#{image_path @plan.author_icon})"}
@@ -58,24 +58,29 @@
         = @plan.summary_text
   
   - @plan.legs.each_with_index do |leg, index|
-    .body-container
-      .timeline-wrap
-        .timeline-travel{ class: leg.arrival_method }
-        .travel-info
-          = "Arrive by #{leg.arrival_method}"
+    - if leg.arrival
+      .body-container
+        .timeline-wrap
+          .timeline-travel{ class: leg.arrival_method }
+          .travel-info
+            = "Arrive by #{leg.arrival_method}"
     .body-container{ class: zebra_class(index) }
       .timeline-wrap
         .timeline-cluster{ class: "no#{index + 1}" }
         .cluster-info
           %b 
             / In plan helper
-            = "Day #{leg.first_day} to #{leg.last_day}:"
-          = leg.name
+            = "Day #{leg.first_day} to #{leg.last_day}"
+            = ":" unless leg.only_leg
+          = leg.name unless leg.only_leg
         .plan-cluster-wrap{ class: zebra_class(index) }
           .cluster-map-expandible
-            %map.cluster-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg.coordinates }
-              .cluster-caption
-                = "From #{leg.first_locale.name} to #{leg.last_locale.name}"
+            %map.cluster-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg.coordinates, type: "leg#{@plan.maptype || ''}" }
+              - unless leg.only_leg
+                .cluster-caption
+                  = leg.caption
+              .cluster-expansion
+                Double Click to Expand
         - leg.days.each_with_index do |day, index|
           - day.items.select(&:has_tab).each do 
             / for now okay... later we want to add back lodging, travel, visa/ticketing etcs
@@ -112,14 +117,15 @@
                         %b Source:
                         %a{href: item.source_url} #{item.source_url}
 
-    .body-container
-      .timeline-wrap
-        .timeline-travel{ class: leg.departure_method}
-        .travel-info
-          = "Depart by #{leg.departure_method}"
+    - if leg.departure
+      .body-container
+        .timeline-wrap
+          .timeline-travel{ class: leg.departure_method}
+          .travel-info
+            = "Depart by #{leg.departure_method}"
 
-  - if @plan.bucketed
-    - @plan.bucketed.each_with_index do |leg, index|
+  - if @plan.bucket
+    - @plan.bucket.each_with_index do |leg, index|
       .body-container{ class: zebra_class(index) }
         .timeline-wrap
           .timeline-bucketlist
@@ -128,7 +134,9 @@
             Trip-wide Bucket List
           .plan-cluster-wrap{ class: zebra_class(index) }
             .cluster-map-expandible
-              %map.cluster-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg) }
+              %map.cluster-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg.coordinates, type: "leg#{@plan.maptype || ''}" }
+                .cluster-expansion
+                  Double Click to Expand
           - leg.days.each_with_index do |day, index|
             - day.items.select(&:has_tab).in_groups_of(4).each_with_index do |day_group, index|
               .plan-content-row

@@ -17,6 +17,14 @@ class Leg
     end
   end
 
+  def only_leg
+    plan.legs.count == 1
+  end
+
+  def caption
+    "From #{first_locale.name} to #{last_locale.name}"
+  end
+
   def last_day
     days.last.last_item.parent_day
   end
@@ -54,7 +62,11 @@ class Leg
   private
 
   def defaults
-    { departure: false, arrival: false }
+    { 
+      departure: false, 
+      arrival: false,
+      travel_data: []
+    }
   end
 
   def sites

@@ -22,16 +22,11 @@ class Item
   end
 
   def local_name_unique?
-    return '' unless name && local_name
-    local_name.downcase != name.downcase
-  end
-
-  def local_name
-    @local_name ||= ''
-  end
-
-  def name
-    @name ||= ''
+    if name && local_name
+      local_name.downcase != name.downcase
+    else
+      true
+    end
   end
 
   private
@@ -43,7 +38,15 @@ class Item
       city: false, 
       state: false, 
       phone: false,
-      category: false 
+      category: false,
+      travel_type: false,
+      has_tab: false,
+      tab_image: false,
+      website: false,
+      source: false,
+      notes: false,
+      name: '',
+      local_name: false
     }
   end
 end

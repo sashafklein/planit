@@ -47,10 +47,15 @@ $ ->
   addAndRemoveOnHover('.user-icon')    
   addAndRemoveOnHover('.exit-view')    
   addAndRemoveOnHover('.flash-alert')    
+  addAndRemoveOnHover('.cluster-expansion')    
 
-  toggleElementOnDoubleClick = (selector, className='clicked') ->
-    $(selector).dblclick( -> $(@).toggleClass className )
-  toggleElementOnDoubleClick('.cluster-map-expandible')
+  toggleElementOnDoubleClick = (selector, carrywith, className='clicked') ->
+    $(selector).dblclick( -> 
+      $("div#{carrywith}").addClass className if carrywith
+      $(@).toggleClass className 
+    )
+  toggleElementOnDoubleClick('.cluster-map-expandible', '.cluster-expansion')
+  toggleElementOnDoubleClick('.cluster-expansion', false)
 
   toggleElementOnClick = (selector, className='clicked') ->
     $(selector).click( -> $(@).toggleClass className )
