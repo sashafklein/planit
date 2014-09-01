@@ -43,6 +43,8 @@ class Item
       city: false, 
       state: false, 
       phone: false,
+      local_phone: false,
+      international_phone: false,
       category: false,
       travel_type: false,
       has_tab: false,

@@ -236,6 +236,14 @@
             .content-tab-more-info
               %b Website:
               = item.website
+          - if item.international_phone
+            .content-tab-more-info
+              %b Int'l Phone:
+              = item.international_phone
+          - if item.local_phone
+            .content-tab-more-info
+              %b Phone:
+              = item.local_phone
           - if item.phone
             .content-tab-more-info
               %b Phone:
