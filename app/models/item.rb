@@ -8,7 +8,7 @@ class Item
 
   def initialize(hash, day)
     @day = day
-    set_as_instance_variables hash
+    set_as_instance_variables( hash, defaults )
   end
   
   def self.serialize(item_array, day)
@@ -32,5 +32,18 @@ class Item
 
   def name
     @name ||= ''
+  end
+
+  private
+
+  def defaults
+    { 
+      travel_data: false, 
+      street_address: false, 
+      city: false, 
+      state: false, 
+      phone: false,
+      category: false 
+    }
   end
 end

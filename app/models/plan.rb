@@ -8,7 +8,7 @@ class Plan
   def initialize(yaml)
     @legs = Leg.serialize(yaml.delete('legs').compact, self)
 
-    set_as_instance_variables yaml
+    set_as_instance_variables( yaml, defaults )
   end
 
   def moneyshot
@@ -25,5 +25,11 @@ class Plan
 
   def bucketed
     @bucketed ||= false
+  end
+
+  private
+
+  def defaults
+    { maptype: '', tips: [] }  
   end
 end

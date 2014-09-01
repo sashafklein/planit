@@ -3,13 +3,13 @@
 .logo-container
   = image_tag "white_logo.png"
   = image_tag "white_tagline.png", id: "tagline"
-=image_tag "#{image_path @data.moneyshots[0]['url']}", style: "width: 750px; max-height: 750px", html: { border: "0" }
-.moneyshot-caption= "\"#{@data.moneyshots[0]['subtitle']}\""
+=image_tag "#{image_path @plan.moneyshot['url']}", style: "width: 750px; max-height: 750px", html: { border: "0" }
+.moneyshot-caption= "\"#{@plan.moneyshot['subtitle']}\""
 .print-page-header
   %strong
-    = @data.title
+    = @plan.title
   .print-header-subtitle
-    = "#{@data.legs.length} legs / #{leg_end(@data.legs.compact.last)['parent_day']} days"
+    = "#{@plan.legs.length} legs / #{@plan.last_day} days"
 
 .break-page
 // break page
@@ -17,11 +17,11 @@
 .print-page-header
   = image_tag "black_logo_only.png"
   %strong
-    = "#{@data.title}:"
+    = "#{@plan.title}:"
   .print-header-subtitle
     Overview
 
-%map{ style: 'height: 750px; width: 750px', icon: image_path('pin_sm_red_19x22.png'), coordinates: overview_coordinates(@data), type: "print#{@data.maptype || ''}"}
+%map{ style: 'height: 750px; width: 750px', icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.overview_coordinates, type: "print#{@plan.maptype || ''}"}
 
 .break-page
 // break page
@@ -29,12 +29,12 @@
 .print-page-header
   = image_tag "black_logo_only.png"
   %strong
-    = "#{@data.title}:"
+    = "#{@plan.title}:"
   .print-header-subtitle
     Summary, Tips & Reminders
 
-- if @data.tips
-  - @data.tips.each do |tip|
+- if @plan.tips
+  - @plan.tips.each do |tip|
     .content-tab-wrap
       .content-tab-print.time
         = "-"
@@ -47,35 +47,34 @@
 .print-page-header
   = image_tag "black_logo_only.png"
   %strong
-    = "#{@data.title}:"
+    = "#{@plan.title}:"
   .print-header-subtitle
     Transit & Transportation
 
-- @data.legs.each_with_index do |leg, index|
-  - if leg['arrival']
-    - if leg['arrival']['travel_data']
-      - leg['arrival']['travel_data'].each_with_index do |travel_info, index|
-        .content-tab-wrap
-          .content-tab-print.time
-            =image_tag "travel-by-#{leg['arrival']['method']}.png"
-          .content-tab-print.travel
-            = print_travel(travel_info, index)
-    - else
+- @plan.legs.each_with_index do |leg, index|
+  - if leg.arrival && leg.arrival_method
+    - leg.arrival['travel_data'].each_with_index do |travel_info, index|
       .content-tab-wrap
         .content-tab-print.time
-          =image_tag "travel-by-#{leg['arrival']['method']}.png"
+          =image_tag "travel-by-#{leg.arrival_method}.png"
         .content-tab-print.travel
-          = "#{leg['arrival']['method']} on #{leg_start(leg)['parent_day']}"
-  - days(leg).each_with_index do |day, index|
-    - items(day).select{ |i| i['travel_data'] }.each_with_index do |travel_item, index|
+          = print_travel(travel_info, index)
+  - else
+    .content-tab-wrap
+      .content-tab-print.time
+        =image_tag "travel-by-#{leg.arrival_method}.png"
+      .content-tab-print.travel
+        = "#{leg.arrival_method} on #{leg.first_day}"
+  - leg.days.each_with_index do |day, index|
+    - day.items.select(&:travel_data).each_with_index do |travel_item, index|
       .content-tab-wrap
         .content-tab-print.time
-          =image_tag "travel-by-#{travel_item['travel_data']['method']}.png"
+          =image_tag "travel-by-#{travel_item.travel_data['method']}.png"
         .content-tab-print.travel
-          = print_travel(travel_item['travel_data'], index)
-  - if leg['departure']
-    - if leg['departure']['travel_data']
-      - leg['departure']['travel_data'].each_with_index do |travel_info, index|
+          = print_travel(travel_item.travel_data, index)
+  - if leg.departure
+    - if leg.departure['travel_data']
+      - leg.departure['travel_data'].each_with_index do |travel_info, index|
         .content-tab-wrap
           .content-tab-print.time
             =image_tag "travel-by-#{travel_info['method']}.png"
@@ -84,9 +83,9 @@
     - else
       .content-tab-wrap
         .content-tab-print.time
-          =image_tag "travel-by-#{leg['departure']['method']}.png"
+          =image_tag "travel-by-#{leg.departure['method']}.png"
         .content-tab-print.travel
-          = "#{leg['departure']['method']} on #{leg_end(leg)['parent_day']}"
+          = "#{leg.departure['method']} on #{leg.last_day}"
 
 .break-page
 // break page
@@ -94,24 +93,24 @@
 .print-page-header
   = image_tag "black_logo_only.png"
   %strong
-    = "#{@data.title}:"
+    = "#{@plan.title}:"
   .print-header-subtitle
     Accomodations
 
-- @data.legs.each_with_index do |leg, index|
-  - days(leg).each_with_index do |day, index|
+- @plan.legs.each_with_index do |leg, index|
+  - leg.days.each_with_index do |day, index|
     / - if has_lodging(day)    
-    - items(day).select{ |i| i['lodging'] }.each_with_index do |lodging_item, index|
+    - day.items.select(&:lodging).each_with_index do |lodging_item, index|
       .content-tab-wrap
         .content-tab-print.time
-          - if lodging_item['category']
-            =image_tag "lodging-is-#{lodging_item['category'].downcase}.png"  
+          - if lodging_item.category
+            =image_tag "lodging-is-#{lodging_item.category.downcase}.png"  
           - else
             =image_tag "lodging-is-hotel.png"  
         .content-tab-print.travel
           = print_lodging(lodging_item, index)
-          - if lodging_item['notes']
-            %span{style: "display:block; font-style:italic; padding-top: 7px;"} #{lodging_item['notes'].html_safe}
+          - if lodging_item.notes
+            %span{style: "display:block; font-style:italic; padding-top: 7px;"} #{lodging_item.notes.html_safe}
     / - else
     /   .content-tab-wrap
     /     .content-tab-print.time
@@ -123,7 +122,7 @@
 
 // BY SECTION
 
-- @data.legs.each_with_index do |leg, index|
+- @plan.legs.each_with_index do |leg, index|
   .break-page
   // break page
   .print-page-header
@@ -131,11 +130,11 @@
     .timeline-cluster
       = image_tag "timeline-cluster-pin-#{index + 1}.png"
     %strong
-      = "#{@data.title}"
+      = "#{@plan.title}"
     .print-header-subtitle
-      = leg['name']
-      %b= " (Day #{leg_start(leg)['parent_day']} to #{leg_end(leg)['parent_day']})"
-  %map.map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg_coordinates(leg), type: "print#{@data.maptype || ''}" }
+      = leg.name
+      %b= " (Day #{leg.first_day} to #{leg.last_day})"
+  %map.map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg.coordinates, type: "print#{@plan.maptype || ''}" }
   
   .print-end
   .break-page
@@ -146,125 +145,124 @@
     .timeline-cluster
       = image_tag "timeline-cluster-pin-#{index + 1}.png"
     %strong
-      = "#{@data.title}"
+      = "#{@plan.title}"
     .print-header-subtitle
-      = leg['name']
-      %b= " (Day #{leg_start(leg)['parent_day']} to #{leg_end(leg)['parent_day']})"
-  - if leg['arrival']
+      = leg.name
+      %b= " (Day #{leg.first_day} to #{leg.last_day})"
+  - if leg.arrival
     .content-tab-wrap
       .content-tab-print.time
-        =image_tag "travel-by-#{leg['arrival']['method']}.png"
+        =image_tag "travel-by-#{leg.arrival_method}.png"
       .content-tab-print.travel
         = "Arrive by "
-        %b= "#{leg['arrival']['method']}"
-        - if leg['arrival']['travel_data']
+        %b= "#{leg.arrival_method}"
+        - if leg.arrival['travel_data']
           = " - "
-          = print_travel(leg['arrival']['travel_data'].last, '0')
+          = print_travel(leg.arrival['travel_data'].last, '0')
 
-  - days(leg).each_with_index do |day, day_index|
+  - leg.days.each_with_index do |day, day_index|
     .content-tab-wrap
       .content-tab-print.time
-        =image_tag "timeline_date_#{day['items'][0]['parent_day']}.png"
+        =image_tag "timeline_date_#{day.day_in_trip}.png"
       .content-tab-print.day-log
-        %b= "Day #{day['items'][0]['parent_day']}"
-        - if @data.start_date
-          = ": #{display_date(@data, day['items'][0]).strftime('%b %d, %Y')}"
+        %b= "Day #{day.day_in_trip}"
+        - if @plan.start_date
+          = ": #{display_date(@plan, day.items.first).strftime('%b %d, %Y')}"
         %br= " "
         - if day_index != 0
           .day-log.item
             = "(0) "
-            %b= leg['days'][day_index-1]['items'].last['name'].titleize
-            - if day['items'][0]['lat'] && day['items'][0]['lon'] && leg['days'][day_index-1]['items'].last['lat'] && leg['days'][day_index-1]['items'].last['lon']
-              (0.0 miles)
-        - day['items'].each_with_index do |item, index|
+            %b= leg.days[day_index-1].items.last.name.titleize
+            (0.0 miles)
+        - day.items.each_with_index do |item, index|
           .day-log.item
             = "(#{index + 1}) "
-            - if item['name']          
-              %b= item['name'].titleize
+            - if item.name         
+              %b= item.name.titleize
             - else
               %i= "Un-named"
             - if day_index != 0
-              - if day['items'][index-1]['lat'] && day['items'][index-1]['lon'] && item['lat'] && item['lon']
-                = "(#{distance_calc(day['items'][index-1]['lat'],day['items'][index-1]['lon'],item['lat'],item['lon'],1)} miles)"
+              - if distance = Distance.day(day, leg.days[index - 1], 1)
+                = "(#{distance} miles)"
             - else
               - if index == 0
                 (0.0 miles)
-              - elsif day['items'][index-1]['lat'] && day['items'][index-1]['lon'] && item['lat'] && item['lon']
-                = "(#{distance_calc(day['items'][index-1]['lat'],day['items'][index-1]['lon'],item['lat'],item['lon'],1)} miles)"
+              - elsif distance = Distance.item(item, day.items[index - 1], 1)
+                = "(#{distance} miles)"
 
       .content-tab-print.day-map
-        - if day_index != 0 && day['items'][index-1]
-          %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: "#{coordinate(day['items'][index-1])}+#{day_coordinates(day)}", type: 'print' }
+        - if day.should_be_mapped(day_index, index)
+          %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: "#{day.previous_lodging.coordinate}+#{day.coordinates}", type: 'print' }
         - else
-          %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: day_coordinates(day), type: 'print' }
-    - day['items'].each_with_index do |item, index|
+          %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: day.coordinates, type: 'print' }
+    - day.items.each_with_index do |item, index|
       .content-tab-wrap
         .content-tab-print.time
-          - if day['time_of_day']             
-            =image_tag "timeline_#{day['time_of_day']}.png"
+          - if day.time_of_day             
+            =image_tag "timeline_#{day.time_of_day}.png"
           - else
             =image_tag "timeline-cluster-pin.png"
           / .plan-content-time{ class: day_group }
           .content-tab-timestamp
-            - if day['time_of_day']
-              = "#{day['time_of_day']}, "  
-            - if @data.start_date
-              = display_date(@data, item).strftime("%b %d, %Y")
+            - if day.time_of_day
+              = "#{day.time_of_day}, "  
+            - if @plan.start_date
+              = display_date(@plan, item).strftime("%b %d, %Y")
         .content-tab-print.image
           .content-tab-title
-            - if item['name']
-              %b= item['name']
-          - if item['tab_image']
-            = image_tag item['tab_image']
-            - if item['source']
+            - if item.name
+              %b= item.name
+          - if item.tab_image
+            = image_tag item.tab_image
+            - if item.source
               %span{style: "display: block; font-size: 8px"}
-                %a{href: item['tab_image'], style: "color: #000"}= "@#{item['source']}"
+                %a{href: item.tab_image, style: "color: #000"}= "@#{item.source}"
         .content-tab-print.info
-          - if item['lodging']
+          - if item.lodging
             .content-tab-more-info
-              - if @data.start_date
-                = "Stay the night (#{display_date(@data, item).strftime ("%m/%d/%Y")})"
-          - if item['category']
+              - if @plan.start_date
+                = "Stay the night (#{display_date(@plan, item).strftime ("%m/%d/%Y")})"
+          - if item.category
             .content-tab-more-info
-              = item['category'].titleize
-          - if item['notes']
+              = item.category.titleize
+          - if item.notes
             .content-tab-more-info
               %b Notes:
-              = item['notes'].html_safe
-          - if item['website']
+              = item.notes.html_safe
+          - if item.website
             .content-tab-more-info
               %b Website:
-              = item['website']
-          - if item['phone']
+              = item.website
+          - if item.phone
             .content-tab-more-info
               %b Phone:
-              = item['phone']
-          - if item['source']
+              = item.phone
+          - if item.source
             .content-tab-get-more
-              %b= item['source']
-              = item['source_url']
+              %b= item.source
+              = item.source_url
         .content-tab-print.location
-          - if item['local_name'] && item['local_name'].downcase != item['name'].downcase
+          - if item.local_name && item.local_name_unique?
             .content-tab-timestamp
-              = " (#{item['local_name']})"
-          - if item['lat'] && item['lon']
-            %map.item-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: coordinate(item), type: "detail" }
+              = " (#{item.local_name})"
+          - if item.lat && item.lon
+            %map.item-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: item.coordinate, type: "detail" }
           - else
             = image_tag "no_map_180x180.png", {style: "height: 180px; width: 180px"}
-          - if item['address']
+          - if item.address
             .content-tab-more-info
-              = item['address']
+              = item.address
 
-  - if leg['departure']
+  - if leg.departure
     .content-tab-wrap
       .content-tab-print.time
-        =image_tag "travel-by-#{leg['departure']['method']}.png"
+        =image_tag "travel-by-#{leg.departure['method']}.png"
       .content-tab-print.travel
         = "Depart by "
-        %b= "#{leg['departure']['method']}"
-        - if leg['departure']['travel_data']
+        %b= "#{leg.departure['method']}"
+        - if leg.departure['travel_data']
           = " - "
-          = print_travel(leg['departure']['travel_data'].first, '0')
+          = print_travel(leg.departure['travel_data'].first, '0')
 
   .print-end
 
@@ -274,7 +272,7 @@
   .footer-content
     This is a 
     %b Planit
-    = "print-copy of '#{@data.title}', a trip authored by #{@data.author}"
+    = "print-copy of '#{@plan.title}', a trip authored by #{@plan.author}"
     .footer-section
       Unless otherwise noted, all images, graphics, and content are the exclusive copyright of Planit and its users, which may freely share access to their private travel plans
     .footer-section
