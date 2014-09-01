@@ -45,6 +45,11 @@ class Day
     leg.days[day_index - 1].items.select(&:lodging).last
   end
 
+  def previous(index)
+    return nil if index == 0
+    leg.days[index-1]
+  end
+
   private
 
   def defaults

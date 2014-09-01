@@ -29,6 +29,11 @@ class Item
     end
   end
 
+  def previous(index)
+    return nil if index == 0
+    day.items[index - 1]
+  end
+
   private
 
   def defaults

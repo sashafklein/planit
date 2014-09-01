@@ -34,7 +34,7 @@ class Distance
          Math.cos(lat2_rad) * (Math.sin(dlon_rad/2))**2
     c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a))
    
-    RMILES * c
+    (RMILES * c).round(rounding)
   end
 
   private

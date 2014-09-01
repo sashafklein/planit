@@ -64,8 +64,7 @@ class Leg
   def defaults
     { 
       departure: false, 
-      arrival: false,
-      travel_data: []
+      arrival: false
     }
   end
 

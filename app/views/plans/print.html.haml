@@ -176,8 +176,7 @@
         - if day_index != 0
           .day-log.item
             = "(0) "
-            %b= leg.days[day_index-1].items.last.name.titleize
-            (0.0 miles)
+            %b= day.previous(day_index).items.last.name.titleize
         - day.items.each_with_index do |item, index|
           .day-log.item
             = "(#{index + 1}) "
@@ -185,15 +184,14 @@
               %b= item.name.titleize
             - else
               %i= "Un-named"
-            - if day_index != 0
-              - if distance = Distance.day(day, leg.days[index - 1], 1)
-                = "(#{distance} miles)"
+            - if day_index != 0 && index == 0 && distance = Distance.item(item, day.previous(day_index).items.last, 1)
+              = "(#{distance} miles)"
+            - elsif day_index != 0 && distance = Distance.item(item, item.previous(index), 1)
+              = "(#{distance} miles)"
+            - elsif day_index == 0 && index != 0 && distance = Distance.item(item, item.previous(index), 1)
+              = "(#{distance} miles)"
             - else
-              - if index == 0
-                (0.0 miles)
-              - elsif distance = Distance.item(day.items[0], day.items[index - 1], 1)
-                = "(#{distance} miles)"
-                - raise
+              = ""
 
       .content-tab-print.day-map
         - if previous_lodging = day.previous_lodging(day_index)
