@@ -1,17 +1,6 @@
 module PlanHelper
-  def in_next_cluster?(current_cluster, item)
-    current_cluster < item['parent_cluster']
-  end
-
-  def traveling?(item)
-    item['travel_type'].present?
-  end
-
-  def in_next_day?(item, prior_day)
-    item['parent_day'] > prior_day
-  end
-
-  def zebra_class(index)
+  def zebra_class(index, bucket=false)
+    return '' if bucket
     if index.odd?
       'odd'
     else
@@ -19,13 +8,29 @@ module PlanHelper
     end
   end
 
-  def display_date(data, item)
-    data.start_date + item.parent_day.days
+  def cluster_name(leg, bucket=false)
+    if bucket
+      "Trip-wide Bucket List"
+    else
+      name = "Day #{leg.first_day} to #{leg.last_day}"
+      name += ":" unless leg.only_leg
+    end
   end
 
-  def has_lodging(day)
-    day['items'].any?{ |i| i['lodging']}
-    # flawed model, finds "no lodging" for travel days, end of trip
+  def timeline_cluster_class(bucket, index)
+    if bucket
+      'timeline-bucketlist'
+    else
+      "timeline-cluster no#{index+1}"
+    end
+  end
+
+  def map_icon
+    image_path('pin_sm_red_19x22.png')
+  end
+
+  def display_date(data, item)
+    data.start_date + item.parent_day.days
   end
 
   def print_lodging(lodging_item, index)

@@ -1,0 +1,27 @@
+- if leg.arrival
+  .body-container
+    .timeline-wrap
+      .timeline-travel{ class: leg.arrival_method }
+      .travel-info= "Arrive by #{leg.arrival_method}"
+
+.body-container{ class: zebra_class(index) }
+  .timeline-wrap
+    %div{ class: timeline_cluster_class(bucket, index) }
+    .cluster-info
+      %b= cluster_name(leg, bucket)
+      = leg.name unless leg.only_leg || bucket
+
+    .plan-cluster-wrap{ class: zebra_class(index) }
+      .cluster-map-expandible
+        %map.cluster-map{ icon: map_icon, coordinates: leg.coordinates, type: "leg#{leg.plan.maptype}" }
+          - unless leg.only_leg || bucket
+            .cluster-caption= leg.caption
+          .cluster-expansion Double Click to Expand
+    - leg.days.each_with_index do |day, index|
+      = render partial: 'days/day', locals: { day: day, index: index, bucket: bucket }
+
+- if leg.departure && !bucket
+  .body-container
+    .timeline-wrap
+      .timeline-travel{ class: leg.departure_method }
+      .travel-info= "Depart by #{leg.departure_method}"

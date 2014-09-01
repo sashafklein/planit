@@ -24,7 +24,7 @@
   .print-header-subtitle
     Overview
 
-%map{ style: 'height: 750px; width: 750px', icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.overview_coordinates, type: "print#{@plan.maptype || ''}"}
+%map{ style: 'height: 750px; width: 750px', icon: map_icon, coordinates: @plan.overview_coordinates, type: "print#{@plan.maptype || ''}"}
 
 .break-page
 // break page
@@ -103,7 +103,6 @@
 
 - @plan.legs.each_with_index do |leg, index|
   - leg.days.each_with_index do |day, index|
-    / - if has_lodging(day)    
     - day.items.select(&:lodging).each_with_index do |lodging_item, index|
       .content-tab-wrap
         .content-tab-print.time
@@ -138,7 +137,7 @@
     .print-header-subtitle
       = leg.name
       %b= " (Day #{leg.first_day} to #{leg.last_day})"
-  %map.map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: leg.coordinates, type: "print#{@plan.maptype || ''}" }
+  %map.map-container{ icon: map_icon, coordinates: leg.coordinates, type: "print#{@plan.maptype || ''}" }
   
   .print-end
   .break-page
@@ -195,9 +194,9 @@
 
       .content-tab-print.day-map
         - if previous_lodging = day.previous_lodging(day_index)
-          %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: "#{previous_lodging.coordinate}+#{day.coordinates}", type: 'print' }
+          %map.day-map-container{ icon: map_icon, coordinates: "#{previous_lodging.coordinate}+#{day.coordinates}", type: 'print' }
         - else
-          %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: day.coordinates, type: 'print' }
+          %map.day-map-container{ icon: map_icon, coordinates: day.coordinates, type: 'print' }
     - day.items.each_with_index do |item, index|
       .content-tab-wrap
         .content-tab-print.time
@@ -257,7 +256,7 @@
             .content-tab-timestamp
               = " (#{item.local_name})"
           - if item.lat && item.lon
-            %map.item-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: item.coordinate, type: "detail" }
+            %map.item-map-container{ icon: map_icon, coordinates: item.coordinate, type: "detail" }
           - else
             = image_tag "no_map_180x180.png", {style: "height: 180px; width: 180px"}
           - if item.address

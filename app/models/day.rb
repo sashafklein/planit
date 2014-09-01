@@ -33,8 +33,8 @@ class Day
     items.first.parent_day
   end
 
-  def non_bucketed_items_with_tabs
-    items.select(&:has_tab).select(&:parent_day)
+  def items_with_tabs
+    items.select(&:has_tab)
   end
 
   def should_be_mapped(day_index, item_index)
@@ -48,6 +48,10 @@ class Day
   def previous(index)
     return nil if index == 0
     leg.days[index-1]
+  end
+
+  def has_lodging
+    items.any?(&:lodging)
   end
 
   private

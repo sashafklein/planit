@@ -48,11 +48,11 @@ class Item
       category: false,
       travel_type: false,
       has_tab: false,
-      tab_image: false,
+      tab_image: "tab_stand_in.png",
       website: false,
       source: false,
       notes: false,
-      name: '',
+      name: '<br>'.html_safe,
       local_name: false
     }
   end
