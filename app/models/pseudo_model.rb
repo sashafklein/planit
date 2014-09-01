@@ -1,5 +1,5 @@
 module PseudoModel
-  def set_as_instance_variables(hash, always_hash={})
+  def set_as_instance_variables(hash, default_hash={})
     hash.keys.each do |k|
       instance_variable_set("@#{k}", hash.delete(k))
       singleton_class.class_eval do 
@@ -7,7 +7,7 @@ module PseudoModel
       end
     end
 
-    always_hash.each do |k, v|
+    default_hash.each do |k, v|
       unless respond_to?(k)
         create_method(k) { v }
       end
