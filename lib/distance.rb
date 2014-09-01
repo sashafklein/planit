@@ -20,18 +20,20 @@ class Distance
   end
 
   def self.item_dist(item1, item2, rounding)
+
     dtor = Math::PI/180
+
     r = 3959
     # r = 6378.14*1000
-    # This will calculate in meters. To get KM, remove "*1000" on line 3. To get miles, change line 3 to "r = 3959". I'll post the whole GPX parse code in a few days.
+    # CHANGED ALREADY -- This will calculate in meters. To get KM, remove "*1000" on line 3. To get miles, change line 3 to "r = 3959". I'll post the whole GPX parse code in a few days.
    
     rlat1 = item1.lat * dtor 
     rlon1 = item1.lon * dtor 
     rlat2 = item2.lat * dtor 
     rlon2 = item2.lon * dtor 
    
-    dlon = rlon1 - rlon2
-    dlat = rlat1 - rlat2
+    dlon = rlon2 - rlon1
+    dlat = rlat2 - rlat1
    
     a = power(Math::sin(dlat/2), 2) + Math::cos(rlat1) * Math::cos(rlat2) * power(Math::sin(dlon/2), 2)
     c = 2 * Math::atan2(Math::sqrt(a), Math::sqrt(1-a))

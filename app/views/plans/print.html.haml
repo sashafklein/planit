@@ -191,12 +191,13 @@
             - else
               - if index == 0
                 (0.0 miles)
-              - elsif distance = Distance.item(item, day.items[index - 1], 1)
+              - elsif distance = Distance.item(day.items[0], day.items[index - 1], 1)
                 = "(#{distance} miles)"
+                - raise
 
       .content-tab-print.day-map
-        - if day.should_be_mapped(day_index, index)
-          %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: "#{day.previous_lodging(day_index).coordinate}+#{day.coordinates}", type: 'print' }
+        - if previous_lodging = day.previous_lodging(day_index)
+          %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: "#{previous_lodging.coordinate}+#{day.coordinates}", type: 'print' }
         - else
           %map.day-map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: day.coordinates, type: 'print' }
     - day.items.each_with_index do |item, index|
