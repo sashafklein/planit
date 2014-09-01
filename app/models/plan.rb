@@ -34,6 +34,7 @@ class Plan
   def defaults
     { 
       maptype: '',
+      start_date: false,
       tips: []
     }  
   end

@@ -22,7 +22,11 @@ class Leg
   end
 
   def caption
-    "From #{first_locale.name} to #{last_locale.name}"
+    if first_locale.city && last_locale.city && first_locale != last_locale
+      "From #{first_locale.city} to #{last_locale.city}"
+    else
+      "From #{first_locale.name} to #{last_locale.name}"      
+    end
   end
 
   def last_day
@@ -63,6 +67,7 @@ class Leg
 
   def defaults
     { 
+      name: '',
       departure: false, 
       arrival: false
     }

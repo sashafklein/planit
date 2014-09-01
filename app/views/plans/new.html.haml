@@ -1,18 +1,33 @@
 .exit-view
   %a{href: "#"} Exit Import View
 
-.yml-creator{ ng_controller: 'Plans.NewCtrl' }
+.errors{ ng_if: 'errors.length', style: 'background: rgb(172, 140, 140); padding: 5px'} {{ errors }}
 
-  .input
-    %input{ type: "text", name: "baselocation", id: "baselocation", placeholder: "Enter a locale", ng_model: 'locale', ng_on_enter_key: 'search()' }
-    %input{ type: "text", name: "query", id: "query", placeholder: "Enter a destination", ng_model: 'destination', ng_on_enter_key: 'search()'}
-    %button{ id: "search", ng_click: 'search()' } Search
-    %br
-    %textarea{ ng_model: 'csv', style: 'height: 200px' }
-    %button{ ng_click: 'batchFetch()' } Batch Fetch
-  
-  .errors{ ng_if: 'errors.length', style: 'background: rgb(172, 140, 140); padding: 5px'} {{ errors }}
-  .output
-    %textarea{ id: "result", style: "height: 200px", ng_bind: 'output'}
-    %textarea{ id: "response-in-full", style: "height: 200px", ng_bind: 'outputfull'}
-    %img{ src: image_path("blank.png"), id: "photo", ng_src: '{{photo}}', style: "position:fixed; top:50px; right:50px" }
+.wrapper
+
+  .API-wrapper{ ng_controller: 'Plans.NewCtrl' }
+
+    .API-selector
+      %select{ id: "API", ng_model: 'API' }
+        %option{ value: "foursquare" }= 'Foursquare'
+        %option{ value: "google"}= 'Google'
+        %option{ value: "none"}= 'None'
+    
+    .input-area
+      / %input{ type: "text", name: "query", id: "query", placeholder: "Enter a destination", ng_model: 'destination', ng_on_enter_key: 'search()'}
+      / %input{ type: "text", name: "baselocation", id: "baselocation", placeholder: "located in/near (to focus search)", ng_model: 'locale', ng_on_enter_key: 'search()' }
+      / %button{ id: "search", ng_click: 'search()' } Search
+    
+      %textarea{ ng_model: 'csv', class: 'input-text', placeholder: "Enter single or multiple lines, formatted in order* with comma-separation:\n\nDestination, Near/in, Trip Day #, Lodging? ('true' or blank), Meal? ('breakfast', 'lunch', or 'dinner'), Notes, Time of Day (military style '00:00') \n\nAs an example:\n\nFairmont Hotel, SF CA, 1, true,\nKnead Patisserie, San Francisco CA,,breakfast, <- CORRECT\nKnead, Patisserie, San Francisco, CA, breakfast, <--INCORRECT\n\nLeave all commas", rows: '12' }
+      %button{ ng_click: 'batchFetch()' } Batch Fetch
+          
+      .output_area
+        %textarea{ id: "result", class: 'output-text', ng_bind: 'output', placeholder: "YML results\n\nReminder on comma format (no line breaks):\n\n(1) Destination\n(2) Near/in\n(3) Trip Day #\n(4) Lodging? ('true' or blank)\n(5) Meal? ('breakfast', 'lunch', or 'dinner')\n(6) Notes\n(7) Time of Day (military style '00:00')", rows: '100'}
+      
+      End  
+
+  .img-wrapper
+    %img{ src: image_path("tab_stand_in.png"), id: "photo", ng_src: '{{photo}}' }
+
+
+      
