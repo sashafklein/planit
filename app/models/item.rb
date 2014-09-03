@@ -40,6 +40,7 @@ class Item
   def defaults
     { 
       travel_data: false, 
+      address: false,
       street_address: false, 
       city: false, 
       state: false, 
@@ -50,8 +51,10 @@ class Item
       travel_type: false,
       has_tab: false,
       tab_image: "tab_stand_in.png",
+      lodging: false,
       website: false,
       source: false,
+      source_url: false,
       notes: false,
       name: '<br>'.html_safe,
       local_name: false
