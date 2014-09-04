@@ -4,7 +4,7 @@
   .clickable-moneyshot
   .title-and-caption-wrap
     .title-and-caption-content
-      %a{href: "#"}
+      %a{href: "#content_begins"}
         = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
       .moneyshot-title
         = @plan.title
@@ -20,8 +20,7 @@
     .header-title
       = @plan.title
     .user-icon
-      %a{href: "#"}
-        = image_tag "black_anon_user.png"
+      = image_tag "black_anon_user.png"
     %ul.menu-top
       %li.menu-link.black= link_to 'PRINT', print_plan_path 
       %li.menu-link.black{ id: "min_max"}= 'DETAIL'
@@ -41,6 +40,7 @@
       .summary-content
         = @plan.summary_text
   
+  #content_begins
   - @plan.legs.each_with_index do |leg, index|
     = render partial: 'legs/leg', locals: { leg: leg, index: index, bucket: false }
 

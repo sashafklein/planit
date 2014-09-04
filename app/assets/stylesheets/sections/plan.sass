@@ -534,6 +534,10 @@ body
 
     // MAIN PLAN CONTENT
 
+    #content_begins
+      margin-top: -75px
+      position: absolute
+
     .timeline-wrap
       width: 920px
       margin-left: auto
@@ -849,75 +853,91 @@ body
       word-wrap: break-word
       max-height: 100px
 
-    .plan-content-date
-      margin-left: 12px
-      margin-top: -30px
+    .plan-content-wing
+      margin-left: 33px
+      margin-top: -12px
       float:left
       width: 55px
       height: 55px
       position: absolute
       background-repeat: no-repeat
       background-position: left
-      &.no1
-        background-image: image-url('timeline_date_1.png')
-      &.no2
-        background-image: image-url('timeline_date_2.png')
-      &.no3
-        background-image: image-url('timeline_date_3.png')
-      &.no4
-        background-image: image-url('timeline_date_4.png')
-      &.no5
-        background-image: image-url('timeline_date_5.png')
-      &.no6
-        background-image: image-url('timeline_date_6.png')
-      &.no7
-        background-image: image-url('timeline_date_7.png')
-      &.no8
-        background-image: image-url('timeline_date_8.png')
-      &.no9
-        background-image: image-url('timeline_date_9.png')
-      &.no10
-        background-image: image-url('timeline_date_10.png')
-      &.no11
-        background-image: image-url('timeline_date_11.png')
-      &.no12
-        background-image: image-url('timeline_date_12.png')
-      &.no13
-        background-image: image-url('timeline_date_13.png')
-      &.no14
-        background-image: image-url('timeline_date_14.png')
-      &.no15
-        background-image: image-url('timeline_date_15.png')
-      &.no16
-        background-image: image-url('timeline_date_16.png')
-      &.no17
-        background-image: image-url('timeline_date_17.png')
-      &.no18
-        background-image: image-url('timeline_date_18.png')
-      &.no19
-        background-image: image-url('timeline_date_19.png')
-      &.no20
-        background-image: image-url('timeline_date_20.png')
-      &.no21
-        background-image: image-url('timeline_date_21.png')
-      &.no22
-        background-image: image-url('timeline_date_22.png')
-      &.no23
-        background-image: image-url('timeline_date_23.png')
-      &.no24
-        background-image: image-url('timeline_date_24.png')
-      &.no25
-        background-image: image-url('timeline_date_25.png')
-      &.no26
-        background-image: image-url('timeline_date_26.png')
-      &.no27
-        background-image: image-url('timeline_date_27.png')
-      &.no28
-        background-image: image-url('timeline_date_28.png')
-      &.no29
-        background-image: image-url('timeline_date_29.png')
-      &.no30
-        background-image: image-url('timeline_date_30.png')
+      z-index: 1
+      &.odd
+        background-image: image-url('tab_wing_odd_sm.png')
+      &.even
+        background-image: image-url('tab_wing_even_sm.png')
+
+    .plan-content-date
+      margin-top: -22px
+      float:left
+      width: 55px
+      height: 55px
+      position: absolute
+      z-index: 2
+      background-repeat: no-repeat
+      background-position: left
+
+      // &.no1
+      //   background-image: image-url('timeline_date_1.png')
+      // &.no2
+      //   background-image: image-url('timeline_date_2.png')
+      // &.no3
+      //   background-image: image-url('timeline_date_3.png')
+      // &.no4
+      //   background-image: image-url('timeline_date_4.png')
+      // &.no5
+      //   background-image: image-url('timeline_date_5.png')
+      // &.no6
+      //   background-image: image-url('timeline_date_6.png')
+      // &.no7
+      //   background-image: image-url('timeline_date_7.png')
+      // &.no8
+      //   background-image: image-url('timeline_date_8.png')
+      // &.no9
+      //   background-image: image-url('timeline_date_9.png')
+      // &.no10
+      //   background-image: image-url('timeline_date_10.png')
+      // &.no11
+      //   background-image: image-url('timeline_date_11.png')
+      // &.no12
+      //   background-image: image-url('timeline_date_12.png')
+      // &.no13
+      //   background-image: image-url('timeline_date_13.png')
+      // &.no14
+      //   background-image: image-url('timeline_date_14.png')
+      // &.no15
+      //   background-image: image-url('timeline_date_15.png')
+      // &.no16
+      //   background-image: image-url('timeline_date_16.png')
+      // &.no17
+      //   background-image: image-url('timeline_date_17.png')
+      // &.no18
+      //   background-image: image-url('timeline_date_18.png')
+      // &.no19
+      //   background-image: image-url('timeline_date_19.png')
+      // &.no20
+      //   background-image: image-url('timeline_date_20.png')
+      // &.no21
+      //   background-image: image-url('timeline_date_21.png')
+      // &.no22
+      //   background-image: image-url('timeline_date_22.png')
+      // &.no23
+      //   background-image: image-url('timeline_date_23.png')
+      // &.no24
+      //   background-image: image-url('timeline_date_24.png')
+      // &.no25
+      //   background-image: image-url('timeline_date_25.png')
+      // &.no26
+      //   background-image: image-url('timeline_date_26.png')
+      // &.no27
+      //   background-image: image-url('timeline_date_27.png')
+      // &.no28
+      //   background-image: image-url('timeline_date_28.png')
+      // &.no29
+      //   background-image: image-url('timeline_date_29.png')
+      // &.no30
+      //   background-image: image-url('timeline_date_30.png')
       // &.no31
       //   background-image: image-url('timeline_date_31.png')
       // &.no32
