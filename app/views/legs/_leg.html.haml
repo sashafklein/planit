@@ -18,6 +18,7 @@
             .cluster-caption= leg.caption
           .cluster-expansion Double Click to Expand
     - leg.days.each_with_index do |day, index|
+      .plan-content-date{ class: "no#{day.day_in_trip}"}
       = render partial: 'days/day', locals: { day: day, index: index, bucket: bucket }
 
 - if leg.departure && !bucket
