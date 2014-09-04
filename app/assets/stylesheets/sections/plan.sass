@@ -298,6 +298,16 @@ body
         a
           display: inline-block
           color: #000
+        &.clicked
+          background: #f60
+          color: #fff
+          padding-top: 14px
+          &.active
+            background: #f60
+            padding-top: 14px
+            color: #fff
+          a:hover
+            color: #fff
         a:hover
           color: #000
           // border-bottom: 3px solid #000
@@ -649,6 +659,7 @@ body
 
     .cluster-map
       height: 450px
+
     .cluster-caption
       float: left
       position: absolute
@@ -664,6 +675,7 @@ body
       margin: 10px
       z-index: 200
       -webkit-font-smoothing: antialiased
+
     .cluster-expansion
       float: left
       position: absolute
@@ -696,7 +708,7 @@ body
 
     .plan-content-row
       width: 855px
-      height: 168px
+      min-height: 168px       
       margin-left: 65px
       margin-right: 25px
       margin-top: 0px
@@ -704,6 +716,9 @@ body
       padding: 10px
       white-space: nowrap
       overflow: hidden
+      &.clicked
+        height: 168px
+        max-height: 168px
       &.odd
         background: rgb(245, 245, 245)
         background: rgba(0, 0, 0, 0.05)
@@ -712,7 +727,7 @@ body
         background: rgba(0, 0, 0, 0.08)
 
     .content-tab-wrap
-      min-height: 250px
+      min-height: 168px
       width: 200px
       display: block
       float: left
@@ -720,29 +735,39 @@ body
     .content-tab
       float: left
       display: block
-      padding-right: 10px
-      padding-left: 10px
-      padding-top: 10px
+      padding: 10px
       text-align: left
       font-family: "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
       font-weight: normal
       color: #000
       white-space: normal
       word-wrap: normal
+      border-bottom: 1px solid #999
+      a
+        color: #000
       img
         width: 180px
         height: 120px
         border: 0px
         margin: 0px 0px 0px 0px
       &.active
-        display: block
-        position: absolute
         background: #333
         color: #fff
         width: 200px
-        padding: 10px
-        border-bottom: 3px solid #222
-        z-index: 100
+        border-bottom: 1px solid #222
+        a
+          color: #fff
+      &.clicked
+        &.active
+          display: block
+          position: absolute
+          background: #333
+          color: #fff
+          width: 200px
+          border-bottom: 3px solid #222
+          z-index: 100
+          a
+            color: #fff
 
     .content-tab-timestamp
       margin: 0px 0px 12px 0px
@@ -823,8 +848,6 @@ body
       white-space: none 
       word-wrap: break-word
       max-height: 100px
-      a
-        color: #fff
 
     .plan-content-date
       margin-left: 12px
@@ -965,6 +988,7 @@ body
     // BOTTOM OF PAGE
 
     .footer
+      min-width: 940px
       width: 100%
       background: #000
       padding: 25px 0 50px 0

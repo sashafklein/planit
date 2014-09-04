@@ -57,9 +57,13 @@ $ ->
   toggleElementOnDoubleClick('.cluster-map-expandible', '.cluster-expansion')
   toggleElementOnDoubleClick('.cluster-expansion', false)
 
-  toggleElementOnClick = (selector, className='clicked') ->
-    $(selector).click( -> $(@).toggleClass className )
-  toggleElementOnClick('.flash-alert')
+  toggleElementOnClick = (selector, carrywith, carrywith2, className='clicked') ->
+    $(selector).click( -> 
+      $("div#{carrywith}").toggleClass className if carrywith
+      $("div#{carrywith2}").toggleClass className if carrywith2
+      $(@).toggleClass className )
+  toggleElementOnClick('.flash-alert', false, false)
+  toggleElementOnClick('#min_max', '.plan-content-row', '.content-tab')
 
   # cycleImageOnClick = (selector, className='clicked') ->
 

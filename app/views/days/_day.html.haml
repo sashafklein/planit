@@ -3,10 +3,10 @@
   - unless bucket
     .plan-content-time.afternoon
   
-  .plan-content-row{ class: zebra_class(day.day_in_trip, bucket) }
+  .plan-content-row.clicked{ class: zebra_class(day.day_in_trip, bucket) }
     - day_group.compact.each do |item|
       .content-tab-wrap
-        .content-tab
+        .content-tab.clicked
           %a{href: "#"}
           = image_tag item.tab_image
           .content-tab-title= item.name

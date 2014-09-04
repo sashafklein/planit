@@ -71,7 +71,7 @@ module PlanHelper
       content_tag :div, class: 'content-tab-print time' do
         image_tag "travel-by-#{info['method']}.png"
       end
-      content_tag :div, class: 'travel' do
+      content_tag :div, class: 'content-tab-print travel' do
         print_travel(info, index)
       end
     end
