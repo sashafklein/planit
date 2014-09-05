@@ -6,7 +6,6 @@
     .title-and-caption-content
       %a{href: "#content_begins"}
         = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
-        = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
       .moneyshot-title
         = @plan.title
       |
@@ -24,7 +23,7 @@
       = image_tag "black_anon_user.png"
     %ul.menu-top
       %li.menu-link.black= link_to 'PRINT', print_plan_path 
-      %li.menu-link.black{ id: "min_max"}= 'DETAIL'
+      %li.menu-link.black.clicked{ id: "min_max"}= 'DETAIL'
       / %li.menu-link.black= link_to 'IMPORT NEW', new_plan_path
 
 .body-container

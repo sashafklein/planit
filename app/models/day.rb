@@ -25,6 +25,10 @@ class Day
     items.first
   end
 
+  # def next_item
+  #   ??
+  # end
+
   def coordinates
     items.map(&:coordinate).join("+")
   end

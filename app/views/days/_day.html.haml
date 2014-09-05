@@ -3,10 +3,10 @@
   - unless bucket
     .plan-content-time.afternoon
   
-  .plan-content-row.clicked{ class: zebra_class(day.day_in_trip, bucket) }
+  .plan-content-row{ class: zebra_class(day.day_in_trip, bucket) }
     - day_group.compact.each do |item|
       .content-tab-wrap
-        .content-tab.clicked
+        .content-tab
           %a{href: "#"}
           = image_tag item.tab_image
           .content-tab-title= item.name
@@ -22,3 +22,13 @@
             .content-tab-get-more
               %b Source:
               = link_to item.source_url, item.source_url
+        / - if index == 0 && item.prior_item_noTabOK['travel_data']
+        /   .travel-tag.to
+        /     = image_tag "transit-by-#{item.prior_item_noTabOK['travel_data']['method']}.png"
+        /   .travel-tag-get-more.clicked
+        /     = "From #{item.prior_item_noTabOK['travel_data']['from']} to #{item.prior_item_noTabOK['travel_data']['to']} by #{item.prior_item_noTabOK['travel_data']['method']}"
+        / - if item.next_item_noTabOK['travel_data']
+        /   .travel-tag.from
+        /     = image_tag "transit-by-car.png"
+        /   .travel-tag-get-more.clicked
+        /     = "From #{item.next_item_noTabOK['travel_data']['from']} to #{item.next_item_noTabOK['travel_data']['to']} by #{item.next_item_noTabOK['travel_data']['method']}"

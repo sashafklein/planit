@@ -33,21 +33,23 @@ $ ->
 
 # ON-HOVER AND ON-CLICK EVENTS
 
-  addAndRemoveOnHover = (selector, className='active') ->
-    $(selector).hover(
-      -> $(@).addClass className,
-      -> $(@).removeClass className 
+  addAndRemoveOnHover = (selector, carrywith, carrywith2, className='active') ->
+    $(selector).hover( ->
+      $("div#{carrywith}").toggleClass className if carrywith
+      $("div#{carrywith2}").toggleClass className if carrywith2
+      $(@).toggleClass className
     )
-  addAndRemoveOnHover('.header-title')
-  addAndRemoveOnHover('.content-tab')
-  addAndRemoveOnHover('.content-tab-title')
-  addAndRemoveOnHover('.timeline-wrap-build')    
-  addAndRemoveOnHover('.menu-link.black')    
-  addAndRemoveOnHover('.menu-link.white')  
-  addAndRemoveOnHover('.user-icon')    
-  addAndRemoveOnHover('.exit-view')    
-  addAndRemoveOnHover('.flash-alert')    
-  addAndRemoveOnHover('.cluster-expansion')    
+  addAndRemoveOnHover('.header-title', false, false)
+  addAndRemoveOnHover('.content-tab', false, false)
+  addAndRemoveOnHover('.content-tab-title', false, false)
+  addAndRemoveOnHover('.timeline-wrap-build', false, false)    
+  addAndRemoveOnHover('.menu-link.black', false, false)    
+  addAndRemoveOnHover('.menu-link.white', false, false)  
+  addAndRemoveOnHover('.user-icon', false, false)    
+  addAndRemoveOnHover('.exit-view', false, false)    
+  addAndRemoveOnHover('.flash-alert', false, false)    
+  addAndRemoveOnHover('.cluster-expansion', false, false)    
+  addAndRemoveOnHover('.travel-tag', ".travel-tag-get-more", false)    
 
   toggleElementOnDoubleClick = (selector, carrywith, className='clicked') ->
     $(selector).dblclick( -> 
@@ -57,13 +59,14 @@ $ ->
   toggleElementOnDoubleClick('.cluster-map-expandible', '.cluster-expansion')
   toggleElementOnDoubleClick('.cluster-expansion', false)
 
-  toggleElementOnClick = (selector, carrywith, carrywith2, className='clicked') ->
+  toggleElementOnClick = (selector, carrywith, carrywith2, carrywith3, className='clicked') ->
     $(selector).click( -> 
       $("div#{carrywith}").toggleClass className if carrywith
       $("div#{carrywith2}").toggleClass className if carrywith2
+      $("div#{carrywith3}").toggleClass className if carrywith3
       $(@).toggleClass className )
   toggleElementOnClick('.flash-alert', false, false)
-  toggleElementOnClick('#min_max', '.plan-content-row', '.content-tab')
+  toggleElementOnClick('#min_max', '.plan-content-row', '.content-tab', '.travel-tag-get-more')
 
   # cycleImageOnClick = (selector, className='clicked') ->
 

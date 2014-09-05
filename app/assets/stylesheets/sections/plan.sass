@@ -303,7 +303,7 @@ body
           color: #fff
           padding-top: 14px
           &.active
-            background: #f60
+            background: #f90
             padding-top: 14px
             color: #fff
           a:hover
@@ -720,7 +720,7 @@ body
       margin-right: 25px
       margin-top: 0px
       margin-bottom: 0px
-      padding: 10px
+      padding: 10px 10px 0px 10px
       white-space: nowrap
       overflow: hidden
       &.clicked
@@ -856,6 +856,53 @@ body
       word-wrap: break-word
       max-height: 100px
 
+    .travel-tag
+      margin-top: 55px
+      float:left
+      width: 26px
+      height: 26px
+      position: absolute
+      border-radius: 50%
+      border: 3px solid #000
+      -webkit-border-radius: 50%
+      -moz-border-radius: 50%
+      z-index: 2000
+      &.to
+        margin-left: -3px
+      &.from
+        margin-left: 177px
+      &.active
+        border: 3px solid #fff
+
+    .travel-tag-get-more
+      z-index: 1999
+      display: none
+      visibility: hidden
+      margin-top: 57px
+      margin-left: 200px
+      padding: 5px
+      position: absolute
+      font-size: 11px
+      line-height: 12px
+      text-align: left
+      font-family: "Myriad W01", "Helvetica Neue", avenir, arial
+      color: #999
+      &.clicked
+        visibility: visible
+        display: block
+        position: relative
+        margin: 0px
+        float: left
+        padding: 10px
+        &.active
+          background: rgba(255, 255, 255, 0.0)
+          color: #000
+      &.active
+        background: #fff
+        visibility: visible
+        display: block
+        color: #000
+
     .plan-content-wing
       margin-left: 33px
       margin-top: -12px
@@ -872,14 +919,12 @@ body
         background-image: image-url('tab_wing_even_sm.png')
 
     .plan-content-date
-      margin-top: -22px
       float:left
+      margin-top: -22px
       width: 55px
       height: 55px
       position: absolute
       z-index: 2
-      background-repeat: no-repeat
-      background-position: left
 
       // &.no1
       //   background-image: image-url('timeline_date_1.png')
