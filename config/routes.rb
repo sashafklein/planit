@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :bookmarklets, only: [:show]
-      resources :items, only: [:create]
+      resources :items, only: [:create], action: 'options', constraints: {:method => 'OPTIONS'}
     end
   end
 end
