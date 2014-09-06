@@ -26,8 +26,10 @@ mod.controller 'Plans.NewCtrl', ($scope, Flash, $http, $q) ->
       $s._googleFetch()
     else if $s.API == 'none'
       $s._noneFetch()
-    else
+    else if $s.API == 'KML'
       $s._noneFetch()
+    else
+      $s._foursquareFetch()
 
   #### PRIVATE INTERFACE
 
