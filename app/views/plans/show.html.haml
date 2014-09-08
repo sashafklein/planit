@@ -39,6 +39,13 @@
           = ", #{@plan.trailblaze_date}"
       .summary-content
         = @plan.summary_text
+      - @plan.legs.each_with_index do |leg, index|
+        .summary-toc
+          .toc-cluster-tag
+            = image_tag "timeline-cluster-pin-#{index+1}.png"
+          .toc-cluster-info
+            %b= cluster_name(leg, @plan.bucket)
+            = leg.name.titleize unless leg.only_leg || @plan.bucket
   
   #content_begins
   - @plan.legs.each_with_index do |leg, index|

@@ -1,12 +1,12 @@
 - day.items_with_tabs.in_groups_of(4).each_with_index do |day_group, index|
   
-  - unless bucket
-    .plan-content-time.afternoon
+  / - unless bucket
+  /   .plan-content-time.afternoon
   
   .plan-content-row{ class: zebra_class(day.day_in_trip, bucket) }
     - day_group.compact.each do |item|
       .content-tab-wrap
-        .content-tab
+        .content-tab{ class: item.is_down? }
           %a{href: "#"}
           = image_tag item.tab_image
           .content-tab-title= item.name
@@ -22,6 +22,9 @@
             .content-tab-get-more
               %b Source:
               = link_to item.source_url, item.source_url
+        - if item.show_icon 
+          .icon-tag= image_tag "icon_#{item.show_icon}.png"
+
         / - if index == 0 && item.prior_item_noTabOK['travel_data']
         /   .travel-tag.to
         /     = image_tag "transit-by-#{item.prior_item_noTabOK['travel_data']['method']}.png"

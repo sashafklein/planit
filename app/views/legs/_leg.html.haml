@@ -2,7 +2,7 @@
   .body-container
     .timeline-wrap
       .timeline-travel{ class: leg.arrival_method }
-      .travel-info= "Arrive by #{leg.arrival_method}"
+      .travel-info= leg.show_arrival
 
 .body-container{ class: zebra_class(index) }
   .timeline-wrap
@@ -29,4 +29,4 @@
   .body-container
     .timeline-wrap
       .timeline-travel{ class: leg.departure_method }
-      .travel-info= "Depart by #{leg.departure_method}"
+      .travel-info= leg.show_departure

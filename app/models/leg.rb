@@ -10,6 +10,10 @@ class Leg
     set_as_instance_variables( hash, defaults )
     # , that_thing: 'default_value'
   end
+
+  def leg_TOC(leg, index)
+    
+  end
   
   def self.serialize(leg_array, plan)
     leg_array.map do |leg|
@@ -41,12 +45,44 @@ class Leg
     days.map(&:coordinates).join("+")
   end
 
+  def arrival_data
+    arrival ? arrival['travel_data'] : ''
+  end
+
+  def departure_data
+    departure ? departure['travel_data'] : ''
+  end
+
+  def arrival_to
+    arrival_data ? arrival_data.last['to'] : ''
+  end
+
+  def departure_from
+    departure_data ? departure_data.first['from'] : ''
+  end
+
   def arrival_method
     arrival ? arrival['method'] : ''
   end
 
   def departure_method
     departure ? departure['method'] : ''
+  end
+
+  def show_arrival
+    if arrival_to
+      "Arrive by #{arrival_method} to #{arrival_to}"
+    else
+      "Arrive by #{arrival_method}"
+    end
+  end
+
+  def show_departure
+    if departure_from
+      "Departure by #{departure_method} from #{departure_from}"
+    else
+      "Departure by #{departure_method}"
+    end
   end
 
   def start
