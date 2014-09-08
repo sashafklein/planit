@@ -6,21 +6,27 @@
 
 .body-container{ class: zebra_class(index) }
   .timeline-wrap
+    .plan-content-date-state-leg
+      leg
     %div{ class: timeline_cluster_class(bucket, index) }
     .cluster-info
-      %b= cluster_name(leg, bucket)
       = leg.name.titleize unless leg.only_leg || bucket
+      = "("
+      %b= cluster_name(leg, bucket)
+      = ")"
 
     .plan-cluster-wrap{ class: zebra_class(index) }
       .cluster-map-expandible
         %map.cluster-map{ icon: map_icon, coordinates: leg.coordinates, type: "leg#{leg.plan.maptype}" }
           - unless leg.only_leg || bucket
-            .cluster-caption= leg.caption
+            .cluster-caption= leg.caption(index).html_safe
           .cluster-expansion Double Click to Expand
     - leg.days.each_with_index do |day, index|
       - if day.items_with_tabs.length > 0
+        .plan-content-date-state-day
+          day
         .plan-content-date
-          %a{href: "#"} 
+          %a{href: "#"}
             = image_tag "timeline_date_#{day.day_in_trip}.png"
         .plan-content-wing{ class: zebra_class(day.day_in_trip)}
         = render partial: 'days/day', locals: { day: day, index: index, bucket: bucket }

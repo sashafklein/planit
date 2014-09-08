@@ -31,4 +31,5 @@ class PlansController < ApplicationController
       @slugged_title = params[:id]
     end
   end
+
 end

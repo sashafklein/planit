@@ -13,7 +13,6 @@ module PlanHelper
       "Trip-wide Bucket List"
     else
       name = "Day #{leg.first_day} to #{leg.last_day}"
-      name += ":" unless leg.only_leg
     end
   end
 
@@ -34,8 +33,12 @@ module PlanHelper
   end
 
   def category(lodging_item)
-    cat = lodging_item.category || 'hotel'
-    cat.downcase
+    if lodging_item.category != ''
+      cat = lodging_item.category || 'hotel'
+      cat.downcase
+    else
+      cat = 'hotel'
+    end
   end
 
   def print_lodging(lodging_item, index)
@@ -43,12 +46,6 @@ module PlanHelper
     string += "<b>#{lodging_item.name.titleize}</b>"
     string += " (Day #{lodging_item.parent_day})"
     string += lodging_location(lodging_item)
-    # string += travel_departure_time(travel_info) || ''
-    # string += "#{travel_info['type']} #{travel_info['vessel']} from <b>#{travel_info['from']}</b>"
-    # string += departure_terminal(travel_info) || ''
-    # string += " to <b>#{travel_info['to']}</b>"
-    # string += arrival_terminal(travel_info) || ''
-    # string += confirmation_info(travel_info) || ''
     string.html_safe
   end
 
@@ -116,7 +113,7 @@ module PlanHelper
     if info['departure_date']
       "<b>#{info['departure_date'].strftime('%b %d, %Y')}:</b> "
     else
-      "#{index + 1}: "
+      "#{index.to_i + 1}: "
     end
   end
 
@@ -160,3 +157,15 @@ module PlanHelper
     "| Confirmation code #{info['confirmation']}" if info['confirmation']
   end
 end
+
+# def defaults
+#   { 
+#     name: '',
+#     departure_date: false, 
+#     departure_time: false, 
+#     departure: false, 
+#     arrival_date: false,
+#     arrival_time: false,
+#     arrival: false
+#   }
+# end

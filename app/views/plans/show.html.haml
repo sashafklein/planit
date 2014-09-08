@@ -9,7 +9,7 @@
       .moneyshot-title
         = @plan.title
       |
-      .moneyshot-duration= "#{@plan.legs.length} legs / #{@plan.last_day} days"
+      .moneyshot-duration= "#{@plan.last_day} days"
       .moneyshot-caption
         = "\"#{@plan.moneyshot['subtitle']}\""
         %a{href: @plan.moneyshot['source_url']}= "@#{@plan.moneyshot['source']}" if @plan.moneyshot['source']

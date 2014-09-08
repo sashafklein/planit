@@ -25,12 +25,36 @@ class Leg
     plan.legs.count == 1
   end
 
-  def caption
-    if first_locale.city && last_locale.city && first_locale != last_locale
-      "From #{first_locale.city} to #{last_locale.city}"
-    else
-      "From #{first_locale.name} to #{last_locale.name}"      
+  def baseAZ(num)
+    # temp variable for converting base
+    temp = num
+
+    # the base 26 (az) number
+    az = ''
+
+    while temp > 0
+
+      # get the remainder and convert to a letter
+      num26 = temp % 26
+      temp /= 26
+
+      # offset for lack of "0"
+      temp -= 1 if num26 == 0
+
+      az = (num26).to_s(26).tr('0-9a-p', 'ZA-Y') + az
     end
+
+    return az
+  end
+
+  def caption(index)
+    "<b>day #{first_day} - #{last_day}</b>: overview"
+    # : leg \"#{baseAZ(index+1)}\"
+    # if first_locale.city && last_locale.city && first_locale != last_locale
+    #   "From #{first_locale.city} to #{last_locale.city}"
+    # else
+    #   "From #{first_locale.name} to #{last_locale.name}"      
+    # end
   end
 
   def last_day

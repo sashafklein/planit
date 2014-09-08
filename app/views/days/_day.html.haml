@@ -10,8 +10,8 @@
           %a{href: "#"}
           = image_tag item.tab_image
           .content-tab-title= item.name
-          - if item.local_name && item.local_name_unique?
-            .content-tab-more-name= item.local_name
+          / - if item.local_name && item.local_name_unique?
+          /   .content-tab-more-name= item.local_name
           - if item.notes
             .content-tab-more-info= item.notes.html_safe
           - if item.source && item.source_url

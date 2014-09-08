@@ -27,7 +27,7 @@ mod.controller 'Plans.NewCtrl', ($scope, Flash, $http, $q) ->
     else if $s.API == 'none'
       $s._noneFetch()
     else if $s.API == 'KML'
-      $s._noneFetch()
+      $s._KMLconvert()
     else
       $s._foursquareFetch()
 
@@ -260,5 +260,7 @@ mod.controller 'Plans.NewCtrl', ($scope, Flash, $http, $q) ->
       "      parent_day: #{row.day || ''}"
     ].join("\n      ")
 
+  $s._KMLconvert = () ->
 
+    
   
