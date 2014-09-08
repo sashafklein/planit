@@ -37,6 +37,7 @@ $ ->
     $(selector).hover( ->
       $("div#{carrywith}").toggleClass className if carrywith
       $("div#{carrywith2}").toggleClass className if carrywith2
+      $("id#{carrywith3}").toggleClass className if carrywith2
       $(@).toggleClass className
     )
   addAndRemoveOnHover('.header-title', false, false)

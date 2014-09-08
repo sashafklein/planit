@@ -6,9 +6,12 @@
   .plan-content-row{ class: zebra_class(day.day_in_trip, bucket) }
     - day_group.compact.each do |item|
       .content-tab-wrap
-        .content-tab{ class: item.is_down? }
-          %a{href: "#"}
-          = image_tag item.tab_image
+        .content-tab
+          - if item.show_icon 
+            .icon-tag= image_tag "icon_#{item.show_icon}.png"
+          .content-tab-image{ class: item.is_down? }
+            %a{href: "#"}
+              = image_tag item.tab_image
           .content-tab-title= item.name
           / - if item.local_name && item.local_name_unique?
           /   .content-tab-more-name= item.local_name
@@ -22,8 +25,6 @@
             .content-tab-get-more
               %b Source:
               = link_to item.source_url, item.source_url
-        - if item.show_icon 
-          .icon-tag= image_tag "icon_#{item.show_icon}.png"
 
         / - if index == 0 && item.prior_item_noTabOK['travel_data']
         /   .travel-tag.to

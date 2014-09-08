@@ -8,7 +8,9 @@
   .timeline-wrap
     .plan-content-date-state-leg
       leg
-    %div{ class: timeline_cluster_class(bucket, index) }
+    .timeline-cluster
+      .timeline-point-link{ id: "leg_#{index.to_i+1}"}
+      = image_tag "timeline-cluster-pin-#{index.to_i+1}.png"
     .cluster-info
       = leg.name.titleize unless leg.only_leg || bucket
       = "("
@@ -26,8 +28,8 @@
         .plan-content-date-state-day
           day
         .plan-content-date
-          %a{href: "#"}
-            = image_tag "timeline_date_#{day.day_in_trip}.png"
+          .timeline-point-link{ id: "day_#{day.day_in_trip}"}
+          = image_tag "timeline_date_#{day.day_in_trip}.png"
         .plan-content-wing{ class: zebra_class(day.day_in_trip)}
         = render partial: 'days/day', locals: { day: day, index: index, bucket: bucket }
 
