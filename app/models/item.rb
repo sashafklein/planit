@@ -55,6 +55,8 @@ class Item
       show_bar_icon
     elsif category.downcase == 'hotel bar'
       show_bar_icon
+    elsif planit_mark != ''
+      starred
     end
   end
 
