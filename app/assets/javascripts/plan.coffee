@@ -41,9 +41,8 @@ $ ->
       $(@).toggleClass className
     )
   addAndRemoveOnHover('.header-title', false, false)
-  addAndRemoveOnHover('.content-tab', false, false)
+  addAndRemoveOnHover('.content-tab', '.content-tab-title', false)
   addAndRemoveOnHover('.tab-row-wrap', false, false)
-  addAndRemoveOnHover('.content-tab-title', false, false)
   addAndRemoveOnHover('.timeline-wrap-build', false, false)    
   addAndRemoveOnHover('.menu-link.black', false, false)    
   addAndRemoveOnHover('.menu-link.white', false, false)  
@@ -61,14 +60,16 @@ $ ->
   toggleElementOnDoubleClick('.cluster-map-expandible', '.cluster-expansion')
   toggleElementOnDoubleClick('.cluster-expansion', false)
 
-  toggleElementOnClick = (selector, carrywith, carrywith2, carrywith3, className='clicked') ->
+  toggleElementOnClick = (selector, carrywith, carrywith2, carrywith3, carrywith4, carrywith5, className='clicked') ->
     $(selector).click( -> 
       $("div#{carrywith}").toggleClass className if carrywith
       $("div#{carrywith2}").toggleClass className if carrywith2
       $("div#{carrywith3}").toggleClass className if carrywith3
+      $("div#{carrywith4}").toggleClass className if carrywith4
+      $("div#{carrywith5}").toggleClass className if carrywith5
       $(@).toggleClass className )
   toggleElementOnClick('.flash-alert', false, false)
-  toggleElementOnClick('#min_max', '.plan-content-row', '.content-tab', '.tab-row-wrap')
+  toggleElementOnClick('#min_max', '.plan-content-row', '.content-tab', '.tab-row-wrap', '.travel-tag-get-more', '.content-tab-title')
   # toggleElementOnClick('#min_max', '.plan-content-row', '.content-tab', '.travel-tag-get-more')
 
   # cycleImageOnClick = (selector, className='clicked') ->

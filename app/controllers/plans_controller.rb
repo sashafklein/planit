@@ -18,9 +18,6 @@ class PlansController < ApplicationController
   def print
   end
 
-  def dayby
-  end
-
   private
 
   def load_yaml_data
