@@ -1,0 +1,20 @@
+.content-tab-wrap.dayby
+  .content-tab.clicked.dayby
+    .content-tab-referent
+      = (row_index*3)+item_index+1
+    - if item.show_icon 
+      .icon-tag.dayby= image_tag "icon_#{item.show_icon}.png"
+    .content-tab-image.dayby{ class: item.is_down? }
+      %a{href: "#"}
+        = image_tag item.tab_image
+    .content-tab-title= item.name
+    - if item.notes
+      .content-tab-more-info= item.notes.html_safe
+    - if item.source && item.source_url
+      .content-tab-get-more
+        %b Source:
+        = link_to item.source, item.source_url
+    - elsif item.source_url
+      .content-tab-get-more
+        %b Source:
+        = link_to item.source_url, item.source_url

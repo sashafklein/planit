@@ -17,12 +17,13 @@
       %b= cluster_name(leg, bucket)
       = ")"
 
-    .plan-cluster-wrap{ class: zebra_class(index) }
-      .cluster-map-expandible
-        %map.cluster-map{ icon: map_icon, coordinates: leg.coordinates, type: "leg#{leg.plan.maptype}" }
-          - unless leg.only_leg || bucket
-            .cluster-caption= leg.caption(index).html_safe
-          .cluster-expansion Double Click to Expand
+    .leg-map-onoff{ class: "dayby"}
+      .plan-cluster-wrap{ class: zebra_class(index) }
+        .cluster-map-expandible
+          %map.cluster-map{ icon: map_icon, coordinates: leg.coordinates, type: "leg#{leg.plan.maptype}" }
+            - unless leg.only_leg || bucket
+              .cluster-caption= leg.caption(index).html_safe
+            .cluster-expansion Double Click to Expand
     - leg.days.each_with_index do |day, index|
       - if day.items_with_tabs.length > 0
         .plan-content-date-state-day

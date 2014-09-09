@@ -1,10 +1,23 @@
 module PlanHelper
   def zebra_class(index, bucket=false)
     return '' if bucket
-    if index.odd?
-      'odd'
+    if index
+      if index.odd?
+        'odd'
+      else
+        'even'
+      end
+    end
+  end
+# This above one was a problem with a single leg & bucket list (Paris Ideas) so I added if index ->
+
+  def day_map_size(items_with_tabs) 
+    if items_with_tabs <= 2
+      "small-size"
+    elsif items_with_tabs <= 4
+      "mid-size"
     else
-      'even'
+      "full-size"
     end
   end
 
