@@ -27,7 +27,7 @@ class PlansController < ApplicationController
       flash[:error] = "No plan exists by that name."
       redirect_to root_path
     else
-      @plan = Plan.new YAML.load_file( file_path )
+      @plan = PseudoPlan.new YAML.load_file( file_path )
       @slugged_title = params[:id]
     end
   end

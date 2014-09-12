@@ -1,4 +1,4 @@
-class Plan
+class PseudoPlan
 
   include PseudoModel
 
@@ -6,9 +6,9 @@ class Plan
   delegate :last_day, to: :last_leg
 
   def initialize(yaml)
-    @legs = Leg.serialize(yaml.delete('legs').compact, self)
+    @legs = PseudoLeg.serialize(yaml.delete('legs').compact, self)
     if yaml['bucketed']
-      @bucket = Leg.serialize(yaml.delete('bucketed').compact, self)
+      @bucket = PseudoLeg.serialize(yaml.delete('bucketed').compact, self)
     end
     set_as_instance_variables( yaml, defaults )
   end

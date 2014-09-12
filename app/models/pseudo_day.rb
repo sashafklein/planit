@@ -1,4 +1,4 @@
-class Day
+class PseudoDay
 
   include PseudoModel
 
@@ -7,7 +7,7 @@ class Day
 
   def initialize(hash, leg)
     @leg = leg
-    @items = Item.serialize(hash.delete('items').compact, self)
+    @items = PseudoItem.serialize(hash.delete('items').compact, self)
     set_as_instance_variables({}, defaults)
   end
 

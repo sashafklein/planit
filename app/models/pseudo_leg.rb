@@ -1,4 +1,4 @@
-class Leg
+class PseudoLeg
 
   include PseudoModel
 
@@ -6,7 +6,7 @@ class Leg
 
   def initialize(hash, plan)
     @plan = plan
-    @days = Day.serialize( hash.delete('days').compact, self )
+    @days = PseudoDay.serialize( hash.delete('days').compact, self )
     set_as_instance_variables( hash, defaults )
     # , that_thing: 'default_value'
   end
