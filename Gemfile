@@ -24,6 +24,7 @@ gem "unicorn"
 gem "haml-rails"
 gem 'geocoder'
 gem 'rest_client'
+gem 'devise'
 
 group :development do
   gem "foreman"

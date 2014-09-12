@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :plans, only: [:show, :new] do
     get :jmt, on: :collection
     get :welcome, on: :collection
