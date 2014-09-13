@@ -4,6 +4,8 @@ class CreateItems < ActiveRecord::Migration
       t.integer :leg_id
       t.integer :day_id
       t.integer :location_id
+      t.string  :mark
+      t.string :category
       t.boolean :lodging
       t.boolean :meal
       t.text :notes

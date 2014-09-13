@@ -10,7 +10,7 @@
   %strong= "#{@plan.title}:"
   .print-header-subtitle Accomodations
 
-- @plan.flat_items.select(&:lodging).each_with_index do |lodging_item, index|
+- @plan.items.with_lodging.each_with_index do |lodging_item, index|
   .content-tab-wrap
     .content-tab-print.time= image_tag "lodging-is-#{category(lodging_item)}.png"  
     .content-tab-print.travel

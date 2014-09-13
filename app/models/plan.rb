@@ -1,27 +1,26 @@
 class Plan < ActiveRecord::Base
 
   belongs_to :user
+  has_many :legs
+  has_many :days, through: :legs
+  has_many :items, through: :legs
 
-  delegate :last_day, to: :last_leg
+  delegate :last_day, :departure, to: :last_leg
+  delegate :arrival, to: :first_leg
 
-  def moneyshot
-    moneyshots.first
+  def first_leg
+    legs.first
   end
 
   def last_leg
     legs.last
   end
 
+  def moneyshot
+    moneyshots.first
+  end
+
   def overview_coordinates
     legs.map(&:coordinates).join("+")
   end
-
-  def bucketed
-    @bucketed ||= false
-  end
-
-  def flat_items
-    legs.map(&:flat_items).flatten
-  end
-
 end

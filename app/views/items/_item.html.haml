@@ -10,7 +10,7 @@
         = image_tag "transit_to.png"
       .transit.from
         = image_tag "transit_from.png"
-    .content-tab-image.dayby.large{ class: item.is_down? }
+    .content-tab-image.dayby{ class: "#{item.mark?('down') ? 'down' : ''}" }
       %a{href: "#"}
         = image_tag item.tab_image
     .content-tab-title= item.name
