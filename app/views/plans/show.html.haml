@@ -1,6 +1,18 @@
 = render 'show_header'
 
-.moneyshot{ style: "background-image: url('#{image_path @plan.moneyshot['url']}')" }
+/ %map.money-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.overview_coordinates, type: "leg#{@plan.maptype || ''}" }
+/   .title-and-caption-wrap
+/     .title-and-caption-content
+/       %a{href: "#content_begins"}
+/         = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
+/       .moneyshot-title
+/         = @plan.title
+/       |
+/       .moneyshot-duration= "#{@plan.last_day} days"
+/       .moneyshot-caption
+/         = "\"#{@plan.moneyshot['subtitle']}\""
+/         %a{href: @plan.moneyshot['source_url']}= "@#{@plan.moneyshot['source']}" if @plan.moneyshot['source']
+.moneyshot.onview{ style: "background-image: url('#{image_path @plan.moneyshot['url']}')" }
   .clickable-moneyshot
   .title-and-caption-wrap
     .title-and-caption-content
@@ -26,30 +38,18 @@
       %li.menu-link.black{ id: "min_max"}= 'DETAIL'
 
 .body-container
-  .overview
-    .summary-map
-      %map.overview-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.overview_coordinates, type: "leg#{@plan.maptype || ''}" }
-    .summary-wrap
-      - if @plan.author_icon
-        .user-circular{ style: "background-image:url(#{image_path @plan.author_icon})"}
-      .summary-author
-        = @plan.author
-        - if @plan.trailblaze_date
-          = ", #{@plan.trailblaze_date}"
-      .summary-content
-        = @plan.summary_text
-      .summary-toc-title
-        Itinerary Overview:
-      - @plan.legs.each_with_index do |leg, index|
-        .summary-toc
-          .toc-cluster-tag
-            %a{ href: "#leg_#{index.to_i+1}"}
-              = image_tag "timeline-cluster-pin-#{index+1}.png"
-          .toc-cluster-info
-            %a{ href: "#leg_#{index.to_i+1}"}
-              %b= "#{cluster_name(leg, @plan.bucket)}:"
-              = leg.name.titleize unless leg.only_leg || @plan.bucket
-  
+
+  // OVERVIEW MAP & AUTHORNOTE
+  .overview.onview
+    = render partial: 'overview/overview', locals: { bucket: false }
+
+  // HIGHLIGHTS
+  .highlights-wrap.onview
+    = render partial: 'highlights/highlight', locals: { bucket: false }
+
+  // ROTATING GALLERY?
+
+  // DAY BY DAY DETAIL  
   #content_begins
   - @plan.legs.each_with_index do |leg, index|
     = render partial: 'legs/leg', locals: { leg: leg, index: index, bucket: false }
@@ -57,6 +57,9 @@
   - if @plan.bucket
     - @plan.bucket.each_with_index do |leg, index|
       = render partial: 'legs/leg', locals: { leg: leg, index: index, bucket: true }
+
+  / = render partial: 'narrative/narrative', locals { leg: leg, index: index, bucket: true }
+
 .footer
   .footer-content
     This is a 

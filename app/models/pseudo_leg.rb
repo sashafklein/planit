@@ -12,7 +12,32 @@ class PseudoLeg
   end
 
   def leg_TOC(leg, index)
-    
+  end
+  
+  def center_city
+    # API query performed (when? perhaps whenever lge info in the database is changed?) to find the City for this lat.lon pair
+  end
+
+  def day_nights
+    # count days in a leg, unless another leg holds them w/ housing <= e.g. morning in X but night in Y counts toward Y
+    # return array of days in that leg?
+  end
+
+  def combined_day_nights
+    # return array of days in the legs which share lat/lon
+    # e.g. 1, 3, 4, 5, 6, 7, 8
+    # print in view as adjacent numbers abbreviated and joined w/ dash + separated by comma e.g. "1, 3-8"
+    # sorted in view by .length -- e.g. 7 days in Tokyo <= combined_day_nights.length center_city
+  end
+
+  def combined_with
+    # return which other legs to combine w/ this one (how?)
+  end
+
+  def is_repeat?
+    # simple function to say to the map not to reprint the leg?
+    #   if distance_to_this_leg < 50
+    # What is the logic?  Similar center coordinate measured by distance radius?  With what permitted variability?
   end
   
   def self.serialize(leg_array, plan)
@@ -23,28 +48,6 @@ class PseudoLeg
 
   def only_leg
     plan.legs.count == 1
-  end
-
-  def baseAZ(num)
-    # temp variable for converting base
-    temp = num
-
-    # the base 26 (az) number
-    az = ''
-
-    while temp > 0
-
-      # get the remainder and convert to a letter
-      num26 = temp % 26
-      temp /= 26
-
-      # offset for lack of "0"
-      temp -= 1 if num26 == 0
-
-      az = (num26).to_s(26).tr('0-9a-p', 'ZA-Y') + az
-    end
-
-    return az
   end
 
   def caption(index)
@@ -69,6 +72,20 @@ class PseudoLeg
     days.map(&:coordinates).join("+")
   end
 
+  def center_coordinate
+    [lat_avg, lon_avg].join(":")
+  end
+
+  def lat_avg
+    arr = days.map(&:lat_avg)
+    arr.inject{ |sum, el| sum + el }.to_f / arr.size
+  end
+  
+  def lon_avg
+    arr = days.map(&:lon_avg)
+    arr.inject{ |sum, el| sum + el }.to_f / arr.size
+  end
+  
   def arrival_data
     arrival ? arrival['travel_data'] : ''
   end

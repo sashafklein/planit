@@ -22,7 +22,8 @@ class PseudoPlan
   end
 
   def overview_coordinates
-    legs.map(&:coordinates).join("+")
+    legs.map(&:center_coordinate).join("+")
+    # legs.map(&:coordinates).join("+")
   end
 
   def bucketed

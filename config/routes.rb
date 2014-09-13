@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     get :jmt, on: :collection
     get :welcome, on: :collection
     get :print, on: :member
+    get :mobile, on: :member
   end
 
   get '/', to: 'plans#jmt'

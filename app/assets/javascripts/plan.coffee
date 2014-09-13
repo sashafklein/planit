@@ -33,24 +33,28 @@ $ ->
 
 # ON-HOVER AND ON-CLICK EVENTS
 
-  addAndRemoveOnHover = (selector, carrywith, carrywith2, className='active') ->
+  addAndRemoveOnHover = (selector, carrywith1, carrywith2, carrywith3, carrywith4, carrywith5, className='active') ->
     $(selector).hover( ->
-      $("div#{carrywith}").toggleClass className if carrywith
-      $("div#{carrywith2}").toggleClass className if carrywith2
-      $("id#{carrywith3}").toggleClass className if carrywith2
       $(@).toggleClass className
+      $("div#{carrywith1}").toggleClass className if carrywith1
+      $("div#{carrywith2}").toggleClass className if carrywith2
+      $("div#{carrywith3}").toggleClass className if carrywith3
+      $("div#{carrywith4}").toggleClass className if carrywith4
+      $("div#{carrywith5}").toggleClass className if carrywith5
     )
-  addAndRemoveOnHover('.header-title', false, false)
-  addAndRemoveOnHover('.content-tab', '.content-tab-title', false)
-  addAndRemoveOnHover('.tab-row-wrap', false, false)
-  addAndRemoveOnHover('.timeline-wrap-build', false, false)    
-  addAndRemoveOnHover('.menu-link.black', false, false)    
-  addAndRemoveOnHover('.menu-link.white', false, false)  
-  addAndRemoveOnHover('.user-icon', false, false)    
-  addAndRemoveOnHover('.exit-view', false, false)    
-  addAndRemoveOnHover('.flash-alert', false, false)    
-  addAndRemoveOnHover('.cluster-expansion', false, false)    
-  addAndRemoveOnHover('.travel-tag', ".travel-tag-get-more", false)    
+  addAndRemoveOnHover('.header-title', false, false, false, false)
+  addAndRemoveOnHover('.day-map-icon-tab', '.day-map-icon', false, false, false)
+  addAndRemoveOnHover('.leg-map-icon-tab', '.leg-map-icon', false, false, false)
+  addAndRemoveOnHover('.content-tab', '.content-tab-title', '.transit.to', '.transit.from', false)
+  addAndRemoveOnHover('.tab-row-wrap', false, false, false, false)
+  addAndRemoveOnHover('.timeline-wrap-build', false, false, false, false)    
+  addAndRemoveOnHover('.menu-link.black', false, false, false, false)    
+  addAndRemoveOnHover('.menu-link.white', false, false, false, false)  
+  addAndRemoveOnHover('.user-icon', false, false, false, false)    
+  addAndRemoveOnHover('.exit-view', false, false, false, false)    
+  addAndRemoveOnHover('.flash-alert', false, false, false, false)    
+  addAndRemoveOnHover('.cluster-expansion', false, false, false, false)    
+  addAndRemoveOnHover('.travel-tag', ".travel-tag-get-more", false, false, false)    
 
   toggleElementOnDoubleClick = (selector, carrywith, className='clicked') ->
     $(selector).dblclick( -> 
@@ -60,9 +64,9 @@ $ ->
   toggleElementOnDoubleClick('.cluster-map-expandible', '.cluster-expansion')
   toggleElementOnDoubleClick('.cluster-expansion', false)
 
-  toggleElementOnClick = (selector, carrywith, carrywith2, carrywith3, carrywith4, carrywith5, className='clicked') ->
+  toggleElementOnClick = (selector, carrywith1, carrywith2, carrywith3, carrywith4, carrywith5, className='clicked') ->
     $(selector).click( -> 
-      $("div#{carrywith}").toggleClass className if carrywith
+      $("div#{carrywith1}").toggleClass className if carrywith1
       $("div#{carrywith2}").toggleClass className if carrywith2
       $("div#{carrywith3}").toggleClass className if carrywith3
       $("div#{carrywith4}").toggleClass className if carrywith4

@@ -25,7 +25,7 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
       icon: '@'
 
     link: (s, elem) ->
-      acceptedMapTypes = ['leg', 'detail', 'print', 'printdense', 'legdense']
+      acceptedMapTypes = ['leg', 'day', 'daydense', 'detail', 'print', 'printdense', 'legdense']
       s.type = 'leg' unless _.contains(acceptedMapTypes, s.type)
       s.zoomLevel = -> if s.type == 'leg' then 18 else 16
 
@@ -54,8 +54,43 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
       
       L.tileLayer(MapOptions.tiles(), MapOptions.tileOptions(s.type != 'detail')).addTo(s.map)
 
-      s.map.featureLayer = for point in s.points
-        L.marker([point.lat, point.lon], { icon: icon }).addTo(s.map).bindPopup("#{point.lat}:#{point.lon}")
+      if s.type == 'leg' || s.type == 'legdense'
+        # s.map.backgroundLayer = for point in s.points
+        #   L.marker([point.lat, point.lon], { 
+        #     icon: L.icon {
+        #       iconUrl: '/assets/map_dot_5x5.png'
+        #       iconSize: [5, 5]
+        #       iconAnchor: [2, 2]
+        #       })
+        #   }).addTo(s.map)
+        s.map.featureLayer = for point in s.points
+          L.marker([point.lat, point.lon], { 
+            icon: L.divIcon({
+              # // Specify a class name we can refer to in CSS.
+              className: 'leg-map-icon',
+              # // Define what HTML goes in each marker.
+              html: "<span class='leg-map-icon-tab'><img src='/assets/leg-map-icon-tip-red.png'>5-10</span>",
+              # // Set a markers width and height.
+              iconSize: [40, 32]
+              iconAnchor: [20, 32]
+              })
+          }).addTo(s.map)
+      else if s.type == 'day' || s.type == 'day'
+        s.map.featureLayer = for point in s.points
+          L.marker([point.lat, point.lon], { 
+            icon: L.divIcon({
+              # // Specify a class name we can refer to in CSS.
+              className: 'day-map-icon',
+              # // Define what HTML goes in each marker.
+              html: "<div class='day-map-icon-tab'><img src='/assets/day-map-icon-tip-dark.png'>J</div>",
+              # // Set a markers width and height.
+              iconSize: [18, 24]
+              iconAnchor: [9, 24]
+              })
+          }).addTo(s.map).bindPopup("#{point.lat}:#{point.lon}")
+      else
+        s.map.featureLayer = for point in s.points
+          L.marker([point.lat, point.lon], { icon: icon }).addTo(s.map).bindPopup("#{point.lat}:#{point.lon}")
 
       if s.type == 'print'
         s.bounds = new L.LatLngBounds(s.points)
@@ -67,7 +102,7 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
         s.map.fitBounds(s.bounds)
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
 
-      unless _(['detail', 'printdense', 'legdense']).contains s.type
-        polyline = L.polyline(s.points, {color: 'red', opacity: '0.4', dashArray: '1, 0, 5'}).addTo(s.map);
+      unless _(['detail', 'day', 'daydense', 'printdense', 'legdense']).contains s.type
+        polyline = L.polyline(s.points, {color: 'red', opacity: '0.4', dashArray: '6, 10'}).addTo(s.map);
 
   }

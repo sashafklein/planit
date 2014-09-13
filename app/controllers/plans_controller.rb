@@ -1,6 +1,6 @@
 class PlansController < ApplicationController
   
-  before_action :load_yaml_data, only: [:show, :print, :dayby]
+  before_action :load_yaml_data, only: [:show, :print, :mobile]
 
   def show
   end
@@ -16,6 +16,9 @@ class PlansController < ApplicationController
   end
 
   def print
+  end
+
+  def mobile
   end
 
   private

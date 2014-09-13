@@ -25,12 +25,22 @@ class PseudoDay
     items.first
   end
 
-  # def next_item
-  #   ??
-  # end
-
   def coordinates
     items.map(&:coordinate).join("+")
+  end
+
+  def center_coordinate
+    [lat_avg, lon_avg].join(":")
+  end
+
+  def lat_avg
+    arr = items.map(&:lat)
+    arr.inject{ |sum, el| sum + el }.to_f / arr.size
+  end
+
+  def lon_avg
+    arr = items.map(&:lon)
+    arr.inject{ |sum, el| sum + el }.to_f / arr.size
   end
 
   def day_in_trip
@@ -39,6 +49,18 @@ class PseudoDay
 
   def items_with_tabs
     items.select(&:has_tab)
+  end
+
+  def items_with_stars
+    items.select{ |item| item.planit_mark == "star"}
+  end
+
+  def items_with_ups
+    items.select{ |item| item.planit_mark == "up"}
+  end
+
+  def items_with_downs
+    items.select{ |item| item.planit_mark == "down"}
   end
 
   def should_be_mapped(day_index, item_index)

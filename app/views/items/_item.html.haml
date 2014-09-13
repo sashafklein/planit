@@ -1,9 +1,15 @@
 .content-tab-wrap.dayby
   .content-tab.clicked.dayby
     .content-tab-referent
-      = (row_index*3)+item_index+1
+      = baseAZ((row_index*3)+item_index+1)
     - if item.show_icon 
       .icon-tag.dayby= image_tag "icon_#{item.show_icon}.png"
+    / CHANGE BELOW ONCE WE IDENTIFY METHODOLOGY FOR TRAVEL
+    - if item.travel_data 
+      .transit.to
+        = image_tag "transit_to.png"
+      .transit.from
+        = image_tag "transit_from.png"
     .content-tab-image.dayby{ class: item.is_down? }
       %a{href: "#"}
         = image_tag item.tab_image

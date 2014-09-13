@@ -22,40 +22,123 @@ class PseudoItem
     [lat, lon].join(":")
   end
 
-  def show_icon
-    if lodging && category.downcase == 'hotel'
-      show_lodging_icon
+  def is_lodging?
+    if lodging 
+      return true
+    elsif category.downcase == 'hotel'
+      return true
+    elsif lodging && category.downcase == 'bed & breakfast'
+      return true
     elsif lodging && category.downcase == 'apartment'
-      show_lodging_icon
+      return true
     elsif lodging && category.downcase == 'house'
-      show_lodging_icon
+      return true
+    elsif lodging && category.downcase == 'resort'
+      return true
     elsif lodging && category == ''
-      show_lodging_icon
-    elsif lodging && category.downcase == 'campsite'
-      show_camping_icon
-    elsif category == 'restaurant'
-      show_food_icon
+      return true
+    else
+      return false
+    end
+  end
+
+  def is_camping?
+    if lodging && category.downcase == 'campsite'
+      return true
+    elsif category.downcase == 'campsite'
+      return true
+    else
+      return false
+    end
+  end
+
+  def is_food?
+    if category.downcase['restaurant']
+      return true
+    elsif category.downcase == 'deli / bodega'
+      return true
     elsif meal
-      show_food_icon
-    elsif category.downcase == 'coffee'
-      show_coffeetea_icon
-    elsif category.downcase == 'café'
-      show_coffeetea_icon
-    elsif category.downcase == 'tea'
-      show_coffeetea_icon
-    elsif category.downcase == 'coffeeshop'
-      show_coffeetea_icon
-    elsif category.downcase == 'teashop'
-      show_coffeetea_icon
-    elsif category.downcase == 'coffee shop'
-      show_coffeetea_icon
-    elsif category.downcase == 'tea shop'
-      show_coffeetea_icon
-    elsif category.downcase == 'bar'
-      show_bar_icon
+      return true
+    else
+      return false
+    end
+  end
+
+  def is_relax?
+    categories = ['spa', 'hotel spa', 'hotel pool', 'bath', 'hotel bath']
+    if categories.include?(category.downcase) || (category.downcase == 'resort' && !lodging)
+      true
+    else 
+      false
+    end
+  end
+
+  def is_bar?
+    if category.downcase == 'bar'
+      return true
     elsif category.downcase == 'hotel bar'
-      show_bar_icon
-    elsif planit_mark != ''
+      return true
+    else
+      return false
+    end
+  end
+
+  def is_coffeetea?
+    if category.downcase == 'coffee'
+      return true
+    elsif category.downcase == 'café'
+      return true
+    elsif category.downcase == 'tea'
+      return true
+    elsif category.downcase == 'coffeeshop'
+      return true
+    elsif category.downcase == 'teashop'
+      return true
+    elsif category.downcase == 'coffee shop'
+      return true
+    elsif category.downcase == 'tea shop'
+      return true
+    else
+      return false
+    end
+  end
+
+  def is_sight?
+    if is_coffeetea? 
+      return false
+    elsif is_lodging? 
+      return false
+    elsif is_camping? 
+      return false
+    elsif is_food? 
+      return false
+    elsif is_bar? 
+      return false
+    elsif is_relax? 
+      return false
+    else 
+      return true
+    end
+  end
+
+  def show_icon
+    if category
+      if is_lodging? 
+        show_lodging_icon
+      elsif is_camping?
+        show_camping_icon 
+      elsif is_food?
+        show_food_icon 
+      elsif is_coffeetea?
+        show_coffeetea_icon 
+      elsif is_bar?
+        show_bar_icon
+      elsif is_relax?
+        show_relax_icon
+      elsif planit_mark != ''
+        show_sight_icon
+      end
+    else
       starred
     end
   end
@@ -76,6 +159,14 @@ class PseudoItem
     if planit_mark == "down"
       "down"
     end
+  end
+
+  def show_sight_icon
+    "sight" + starred
+  end
+
+  def show_relax_icon
+    "relax" + starred
   end
 
   def show_lodging_icon
@@ -119,14 +210,16 @@ class PseudoItem
       address: false,
       street_address: false, 
       city: false, 
+      county: false, 
       state: false, 
+      country: false, 
       phone: false,
       local_phone: false,
       international_phone: false,
       category: '',
       travel_type: false,
       has_tab: false,
-      planit_mark: '',
+      planit_mark: false,
       tab_image: "tab_stand_in.png",
       lodging: false,
       website: false,

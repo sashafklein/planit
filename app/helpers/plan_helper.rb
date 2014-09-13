@@ -87,7 +87,7 @@ module PlanHelper
     end
   end
 
-  def distance(day_index, item_index, item, day)
+  def print_distance(day_index, item_index, item, day)
     if day_index != 0 # Not first day
       if item_index == 0
         dist = Distance.item(item, day.previous(day_index).items.last, 1)
@@ -169,6 +169,29 @@ module PlanHelper
   def confirmation_info(info)
     "| Confirmation code #{info['confirmation']}" if info['confirmation']
   end
+
+  def baseAZ(num)
+    # temp variable for converting base
+    temp = num
+
+    # the base 26 (az) number
+    az = ''
+
+    while temp > 0
+
+      # get the remainder and convert to a letter
+      num26 = temp % 26
+      temp /= 26
+
+      # offset for lack of "0"
+      temp -= 1 if num26 == 0
+
+      az = (num26).to_s(26).tr('0-9a-p', 'ZA-Y') + az
+    end
+
+    return az
+  end
+
 end
 
 # def defaults

@@ -16,7 +16,7 @@
           %b= item.name.titleize
         - else
           %i= "Un-named"
-        = distance(index, item_index, item, day)
+        = print_distance(index, item_index, item, day)
 
   .content-tab-print.day-map
     - if previous_lodging = day.previous_lodging(index)
