@@ -1,6 +1,6 @@
 class Item < ActiveRecord::Base
   
-  before_save { category.downcase! }
+  before_save { category.downcase! if category }
   
   belongs_to :location
   belongs_to :day
@@ -11,12 +11,12 @@ class Item < ActiveRecord::Base
   has_one :arrival, class_name: 'Travel', foreign_key: 'destination_id'
   has_one :departure, class_name: 'Travel', foreign_key: 'origin_id'
 
-  default_scope { order('order ASC') }
+  default_scope { order('"order" ASC') }
 
   scope :with_tabs,     ->        { where(show_tab: true) }
   scope :with_lodging,  ->        { where(lodging: true) }
   scope :sites,         ->        { where(lodging: false, meal: false) }
-  scope :with_mark,     -> (mark) { |mark| where(planit_mark: mark) }
+  scope :with_mark,     -> (mark) { where(planit_mark: mark) }
   scope :marked_up,     ->        { with_mark('up') }
   scope :marked_down,   ->        { with_mark('up') }
   scope :starred,       ->        { with_mark('star') }

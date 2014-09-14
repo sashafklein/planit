@@ -3,7 +3,7 @@ class CreateDays < ActiveRecord::Migration
     create_table :days do |t|
       t.integer :leg_id
       t.integer :order
-      t.text :note
+      t.text :notes
 
       t.timestamps
     end

@@ -10,6 +10,8 @@ class Leg < ActiveRecord::Base
   delegate :arrival, to: :first_item
   delegate :departure, to: :last_item
 
+  default_scope { order('"order" ASC') }
+
   def items
     Item.where(day_id: days.pluck(:id))
   end

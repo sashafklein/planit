@@ -3,7 +3,7 @@ class CreateLegs < ActiveRecord::Migration
     create_table :legs do |t|
       t.string :name
       t.integer :order
-      t.boolean :bucket
+      t.boolean :bucket, default: false
       t.text :notes
       t.integer :plan_id
 

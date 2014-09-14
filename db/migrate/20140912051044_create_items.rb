@@ -4,8 +4,11 @@ class CreateItems < ActiveRecord::Migration
       t.integer :leg_id
       t.integer :day_id
       t.integer :location_id
+      t.integer :order
       t.string  :mark
       t.string :category
+      t.string :source
+      t.string :source_url
       t.boolean :lodging
       t.boolean :meal
       t.text :notes
@@ -20,5 +23,6 @@ class CreateItems < ActiveRecord::Migration
     add_index :items, :location_id
     add_index :items, :arrival_id
     add_index :items, :departure_id
+    add_index :items, :order
   end
 end

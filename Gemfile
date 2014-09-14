@@ -25,6 +25,7 @@ gem "haml-rails"
 gem 'geocoder'
 gem 'rest_client'
 gem 'devise'
+gem 'friendly_id', '~> 5.0.0'
 
 group :development do
   gem "foreman"

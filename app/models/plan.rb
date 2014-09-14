@@ -1,5 +1,8 @@
 class Plan < ActiveRecord::Base
 
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   belongs_to :user
   has_many :legs
   has_many :days, through: :legs
@@ -7,6 +10,10 @@ class Plan < ActiveRecord::Base
 
   delegate :last_day, :departure, to: :last_leg
   delegate :arrival, to: :first_leg
+
+  def moneyshots
+    []
+  end
 
   def first_leg
     legs.first

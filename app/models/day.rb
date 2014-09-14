@@ -3,7 +3,7 @@ class Day < ActiveRecord::Base
   belongs_to :leg
   has_many :items
 
-  default_scope { order('order DESC') }
+  default_scope { order('"order" DESC') }
 
   delegate :plan, to: :leg
   delegate :user, to: :plan
