@@ -1,41 +1,49 @@
 - if leg.arrival
   .body-container
-    .timeline-wrap
-      .timeline-travel{ class: leg.arrival_method }
-      .travel-info= leg.show_arrival
+    .container.timeline
+      .one.column
+        = image_tag("blank.png", :width => '100%', :height => '1')
+      %div{ class: "fifteen columns" }
+        .timeline-travel{ class: leg.arrival_method }
+        .travel-info= leg.show_arrival
+        .plan-content-wing{ class: 'travel' }
 
 .body-container{ class: zebra_class(index) }
-  .timeline-wrap
-    .plan-content-date-state-leg
-      leg
-    .timeline-cluster
-      .timeline-point-link{ id: "leg_#{index.to_i+1}"}
-      = image_tag "timeline-cluster-pin-#{index.to_i+1}.png"
-    .cluster-info
-      = leg.name.titleize unless leg.only_leg || bucket
-      = "("
-      %b= cluster_name(leg, bucket)
-      = ")"
+  .container.timeline
+    .row-wrap-20px
 
-    .leg-map-onoff{ class: "dayby"}
-      .plan-cluster-wrap{ class: zebra_class(index) }
-        .cluster-map-expandible
-          %map.cluster-map{ icon: map_icon, coordinates: leg.coordinates, type: "leg#{leg.plan.maptype}" }
-            - unless leg.only_leg || bucket
-              .cluster-caption= leg.caption(index).html_safe
-            .cluster-expansion Double Click to Expand
-    - leg.days.each_with_index do |day, index|
-      - if day.items_with_tabs.length > 0
-        .plan-content-date-state-day
-          day
-        .plan-content-date
-          .timeline-point-link{ id: "day_#{day.day_in_trip}"}
-          = image_tag "timeline_date_#{day.day_in_trip}.png"
-        .plan-content-wing{ class: zebra_class(day.day_in_trip)}
-        = render partial: 'days/day', locals: { day: day, index: index, bucket: bucket }
+      / Leg Announce
+      %div{ class: 'sixteen columns' }
+        / .cluster-info
+        /   = leg.name.titleize unless leg.only_leg || bucket
+        /   = "("
+        /   %b= cluster_name(leg, bucket)
+        /   = ")"
+        /   .timeline-cluster
+        /     .timeline-point-link{ id: "leg_#{index.to_i+1}"}
+        /     = image_tag "timeline-cluster-pin-#{index.to_i+1}.png"
+        /   .plan-content-date-state-leg
+        /     leg
+        .leg-map-onoff{ class: "dayby"}
+          .plan-cluster-wrap{ class: zebra_class(index) }
+            .cluster-map-expandible
+              %map.cluster-map{ icon: map_icon, coordinates: leg.coordinates, type: "leg#{leg.plan.maptype}" }
+                - unless leg.only_leg || bucket
+                  .cluster-caption= leg.caption(index).html_safe
+                .cluster-expansion Double Click to Expand
+
+  / Day by Day
+  - leg.days.each_with_index do |day, index|
+    .container.timeline
+      .row-wrap-20px
+        - if day.items_with_tabs.length > 0
+          = render partial: 'days/day', locals: { day: day, index: index, bucket: bucket }
 
 - if leg.departure && !bucket
   .body-container
-    .timeline-wrap
-      .timeline-travel{ class: leg.departure_method }
-      .travel-info= leg.show_departure
+    .container.timeline
+      .one.column
+        = image_tag("blank.png", :width => '100%', :height => '1')
+      %div{ class: "fifteen columns" }
+        .timeline-travel{ class: leg.departure_method }
+        .travel-info= leg.show_departure

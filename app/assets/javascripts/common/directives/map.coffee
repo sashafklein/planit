@@ -54,6 +54,15 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
       
       L.tileLayer(MapOptions.tiles(), MapOptions.tileOptions(s.type != 'detail')).addTo(s.map)
 
+      Popup = L.popup({
+        closeButton: false
+        offset: [5, 3]
+        closeOnClick: false
+        className: 'leg-map-icon-tab'
+        })
+
+      divIconContent = 'Test'
+
       if s.type == 'leg' || s.type == 'legdense'
         # s.map.backgroundLayer = for point in s.points
         #   L.marker([point.lat, point.lon], { 
@@ -69,12 +78,17 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
               # // Specify a class name we can refer to in CSS.
               className: 'leg-map-icon',
               # // Define what HTML goes in each marker.
-              html: "<span class='leg-map-icon-tab'><img src='/assets/leg-map-icon-tip-red.png'>5-10</span>",
+              html: "<span class='leg-map-icon-tab'><img src='/assets/leg-map-icon-tip-red.png'>#{divIconContent}</span>",
               # // Set a markers width and height.
-              iconSize: [40, 32]
-              iconAnchor: [20, 32]
+              iconSize: null,
+              riseOnHover: true,
+              riseOffset: 250,
+              # zIndexOffset: 0,
+              title: 'test',
+              alt: 'test2'
               })
           }).addTo(s.map)
+
       else if s.type == 'day' || s.type == 'day'
         s.map.featureLayer = for point in s.points
           L.marker([point.lat, point.lon], { 
@@ -86,6 +100,8 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
               # // Set a markers width and height.
               iconSize: [18, 24]
               iconAnchor: [9, 24]
+              # riseOnHover: true
+              # riseOffset: 250
               })
           }).addTo(s.map).bindPopup("#{point.lat}:#{point.lon}")
       else
@@ -104,5 +120,13 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
 
       unless _(['detail', 'day', 'daydense', 'printdense', 'legdense']).contains s.type
         polyline = L.polyline(s.points, {color: 'red', opacity: '0.4', dashArray: '6, 10'}).addTo(s.map);
+
+      this.featureLayer = (marker) ->
+        marker.on "mouseover", ->
+          marker.setZIndexOffset(2000)
+        return
+        marker.on "mouseout", ->
+          marker.setZIndexOffset(7)
+        return
 
   }

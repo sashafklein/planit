@@ -1,51 +1,16 @@
-= render 'show_header'
-
-/ %map.money-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.overview_coordinates, type: "leg#{@plan.maptype || ''}" }
-/   .title-and-caption-wrap
-/     .title-and-caption-content
-/       %a{href: "#content_begins"}
-/         = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
-/       .moneyshot-title
-/         = @plan.title
-/       |
-/       .moneyshot-duration= "#{@plan.last_day} days"
-/       .moneyshot-caption
-/         = "\"#{@plan.moneyshot['subtitle']}\""
-/         %a{href: @plan.moneyshot['source_url']}= "@#{@plan.moneyshot['source']}" if @plan.moneyshot['source']
 .moneyshot.onview{ style: "background-image: url('#{image_path @plan.moneyshot['url']}')" }
-  .clickable-moneyshot
-  .title-and-caption-wrap
-    .title-and-caption-content
-      %a{href: "#content_begins"}
-        = image_tag 'down_bubble.png', html: { height: "55", src: "down_bubble.png", width: "55" }
-      .moneyshot-title
-        = @plan.title
-      |
-      .moneyshot-duration= "#{@plan.last_day} days"
-      .moneyshot-caption
-        = "\"#{@plan.moneyshot['subtitle']}\""
-        %a{href: @plan.moneyshot['source_url']}= "@#{@plan.moneyshot['source']}" if @plan.moneyshot['source']
-.persistent-header
-  .header-container
-    .logo-container
-      = image_tag "black_logo.png"
-    .header-title
-      = @plan.title
-    .user-icon
-      = image_tag "black_anon_user.png"
-    %ul.menu-top
-      %li.menu-link.black= link_to 'PRINT', print_plan_path 
-      %li.menu-link.black{ id: "min_max"}= 'DETAIL'
-
+  = render 'show/moneyshot'
+= render 'show/initheader'
+= render 'show/persistent'
 .body-container
 
   // OVERVIEW MAP & AUTHORNOTE
   .overview.onview
-    = render partial: 'overview/overview', locals: { bucket: false }
+    = render partial: 'show/overview', locals: { bucket: false }
 
   // HIGHLIGHTS
-  .highlights-wrap.onview
-    = render partial: 'highlights/highlight', locals: { bucket: false }
+  .highlights.onview
+    = render partial: 'show/highlight', locals: { bucket: false }
 
   // ROTATING GALLERY?
 
@@ -61,22 +26,6 @@
   / = render partial: 'narrative/narrative', locals { leg: leg, index: index, bucket: true }
 
 .footer
-  .footer-content
-    This is a 
-    %b Planit
-    = "web-view of '#{@plan.title}', a trip authored by #{@plan.author}"
-    .footer-section
-      Unless otherwise noted, all images, graphics, and content are the exclusive copyright of Planit and its users, which may freely share access to their private travel plans
-    .footer-section
-      All images are attributed to source, as reported by our users
-    .footer-section
-      All maps are deployed with 
-      %a{href: "http://leafletjs.com/"}= "Leaflet"
-      which is a free tool, and contain
-      %a{href: "http://leafletjs.com/"}= "Mapbox"
-      map tiles
-    .footer-section
-      This project is being tested privately among friends and family -- please share any feedback you have with us via 
-      %a{href: "mailto:planit@longhou.se"}= "planit@longhou.se"
+  = render partial: 'show/footer'
 
 / .printable-message

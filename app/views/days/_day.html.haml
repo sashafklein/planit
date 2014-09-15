@@ -1,4 +1,22 @@
-.plan-content-row{ class: zebra_class(day.day_in_trip, bucket) }
+.one.column
+  = image_tag("blank.png", :width => '100%', :height => '1')
+
+/ .plan-content-row{ class: zebra_class(day.day_in_trip, bucket) }
+%div{ class: "eight columns #{zebra_class(day.day_in_trip, bucket)}-day" }
+  .plan-content-date-state-day
+    day
+  .plan-content-date
+    .timeline-point-link{ id: "day_#{day.day_in_trip}"}
+    = image_tag "timeline_date_#{day.day_in_trip}.png"
+  .plan-content-wing{ class: zebra_class(day.day_in_trip)}
+  .tab-column-wrap
+    - day.items_with_tabs.in_groups_of(1).each_with_index do |day_group, row_index|
+      .tab-row-wrap.large.clicked.dayby
+        - day_group.compact.each_with_index do |item, item_index|
+          = render partial: 'items/item', locals: { item: item, row_index: row_index, item_index: item_index }
+
+/ Day Map
+%div{ class: "seven columns #{zebra_class(day.day_in_trip, bucket)}-day" }
   .day-map-container{ class: day_map_size(day.items_with_tabs.compact.length), class: "dayby" }
     .day-map
       - if previous_lodging = day.previous_lodging(index)
@@ -7,8 +25,3 @@
       - else
         %map.cluster-map{ icon: map_icon, coordinates: day.coordinates, type: "day#{day.plan.maptype}" }
           .day-caption= "Day #{day.day_in_trip} Overview"
-  .tab-column-wrap{ style: "width: #{3*133}px"}
-    - day.items_with_tabs.in_groups_of(3).each_with_index do |day_group, row_index|
-      .tab-row-wrap.clicked.dayby
-        - day_group.compact.each_with_index do |item, item_index|
-          = render partial: 'items/item', locals: { item: item, row_index: row_index, item_index: item_index }
