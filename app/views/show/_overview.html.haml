@@ -1,0 +1,33 @@
+.container.timeline
+
+  %div{ class: 'eight columns' }
+    .summary-wrap.authornote
+      .summary-content
+        = @plan.summary_text
+      - if @plan.author_icon
+        .user-circular{ style: "background-image:url(#{@plan.author_icon})"}
+      .summary-author
+        = "<b>#{@plan.author}</b>#{", #{@plan.trailblaze_date}" if @plan.trailblaze_date}".html_safe
+    .summary-wrap.toc
+      .summary-toc-title
+        Itinerary Overview:
+      / - @plan.legs.each_with_index do |leg, index|
+      .summary-toc
+        / .toc-cluster-tag
+        /   .leg-map-icon-tab{style: "line-height: 20px"}
+        /     12-15
+        .toc-cluster-info
+          %br= "7 days (8 nights) in Tokyo"
+          %br= "4 days (5 nights) in Kyoto"
+          %br= "2 days in Matsumoto & Takayama"
+          %br= "1 day in Kurashiki"
+          %br= "1 day in Hakone"
+          / %a{ href: "#leg_#{index.to_i+1}"}
+          /   %b= "#{cluster_name(leg, @plan.bucket)}:"
+          /   = leg.name.titleize unless leg.only_leg || @plan.bucket 
+
+  %div{ class: 'eight columns' }
+    .summary-map
+      %map.overview-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.overview_coordinates, type: "leg#{@plan.maptype || ''}" }
+        .summary-map-caption= "day-by-day itinerary"
+
