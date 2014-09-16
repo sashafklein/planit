@@ -43,8 +43,8 @@ $ ->
       $("div#{carrywith5}").toggleClass className if carrywith5
     )
   addAndRemoveOnHover('.header-title', false, false, false, false)
-  addAndRemoveOnHover('.day-map-icon-tab', '.day-map-icon', false, false, false)
-  addAndRemoveOnHover('.leg-map-icon-tab', '.leg-map-icon', false, false, false)
+  addAndRemoveOnHover('.day-map-icon', '.day-map-icon-wrap', false, false, false)
+  addAndRemoveOnHover('.leg-map-icon', '.leg-map-icon-wrap', false, false, false)
   addAndRemoveOnHover('.content-tab', false, false, false, false)
   addAndRemoveOnHover('.tab-row-wrap', false, false, false, false)
   addAndRemoveOnHover('.timeline-wrap-build', false, false, false, false)    
