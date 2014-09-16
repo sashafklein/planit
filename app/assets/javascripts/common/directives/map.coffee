@@ -25,7 +25,7 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
       icon: '@'
 
     link: (s, elem) ->
-      acceptedMapTypes = ['leg', 'day', 'daydense', 'detail', 'print', 'printdense', 'legdense']
+      acceptedMapTypes = ['allitems', 'allitemsdense', 'leg', 'day', 'daydense', 'detail', 'print', 'printdense', 'legdense']
       s.type = 'leg' unless _.contains(acceptedMapTypes, s.type)
       s.zoomLevel = -> if s.type == 'leg' then 18 else 16
 
@@ -87,7 +87,7 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
               title: 'test',
               alt: 'test2'
               })
-          }).addTo(s.map)
+          }).addTo(s.map).bindPopup("#{point.name}")
 
       else if s.type == 'day' || s.type == 'day'
         s.map.featureLayer = for point in s.points
@@ -103,7 +103,7 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
               # riseOnHover: true
               # riseOffset: 250
               })
-          }).addTo(s.map).bindPopup("#{point.lat}:#{point.lon}")
+          }).addTo(s.map)
       else
         s.map.featureLayer = for point in s.points
           L.marker([point.lat, point.lon], { icon: icon }).addTo(s.map).bindPopup("#{point.lat}:#{point.lon}")

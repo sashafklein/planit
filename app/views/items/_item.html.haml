@@ -3,7 +3,7 @@
     .content-tab-referent
       = baseAZ((row_index)+item_index+1)
     - if item.show_icon 
-      .icon-tag.dayby= image_tag "icon_#{item.show_icon}.png"
+      .icon-tag.dayby.large= image_tag "icon_#{item.show_icon}.png"
     / CHANGE BELOW ONCE WE IDENTIFY METHODOLOGY FOR TRAVEL
     - if item.travel_data 
       .transit.to
@@ -14,8 +14,32 @@
       %a{href: "#"}
         = image_tag item.tab_image
     .content-tab-title= item.name
+
     - if item.notes
       .content-tab-more-info= item.notes.html_safe
+
+    - if item.recoby || item.downby
+      .content-tab-recosby
+        - if item.recoby 
+          - item.recoby.each do |recoby|
+            .social
+              %span.updown.recoby= recoby['name']
+              - if recoby['notes']
+                .notes.recoby
+                  = "\"#{recoby['notes']}\""
+                  %b.notch= " "
+        - if item.downby 
+          - item.downby.each do |downby|
+            .social
+              %span.updown.downby= downby['name']
+              - if downby['notes']
+                .notes.downby
+                  = "\"#{downby['notes']}\""
+                  %b.notch
+
+    - if item.rating
+      .content-tab-more-info= "#{item.rating}/10 (#{item.source})"
+
     - if item.source && item.source_url
       .content-tab-get-more
         %b Source:

@@ -151,7 +151,19 @@ class PseudoItem
     elsif planit_mark == "down"
       "_down"
     else
-      ""
+      friends_recos?
+    end
+  end
+
+  def friends_recos?
+    if downby && recoby
+      "_up"
+    elsif recoby
+      "_star"
+    elsif downby
+      "_down"
+    else
+      ''
     end
   end
 
@@ -225,6 +237,9 @@ class PseudoItem
       website: false,
       source: false,
       source_url: false,
+      rating: false,
+      downby: false,
+      recoby: false,
       notes: false,
       meal: false,
       name: '<br>'.html_safe,

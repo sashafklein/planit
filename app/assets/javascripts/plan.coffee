@@ -45,7 +45,7 @@ $ ->
   addAndRemoveOnHover('.header-title', false, false, false, false)
   addAndRemoveOnHover('.day-map-icon-tab', '.day-map-icon', false, false, false)
   addAndRemoveOnHover('.leg-map-icon-tab', '.leg-map-icon', false, false, false)
-  addAndRemoveOnHover('.content-tab', '.content-tab-title', '.transit.to', '.transit.from', false)
+  addAndRemoveOnHover('.content-tab', false, false, false, false)
   addAndRemoveOnHover('.tab-row-wrap', false, false, false, false)
   addAndRemoveOnHover('.timeline-wrap-build', false, false, false, false)    
   addAndRemoveOnHover('.menu-link.black', false, false, false, false)    

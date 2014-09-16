@@ -1,0 +1,18 @@
+= render 'show/initheader', { :color => 'black', :start => 'blocked' }
+/ = render 'show/persistent'
+
+.blank-margin
+  .container
+    .one-third.column.searchbar-wrap
+      %input.searchbar{ placeholder: "Add Destination" }
+      .searchresults
+        Test
+    .two-thirds.column
+      %map.map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.all_coordinates, type: "allitems#{@plan.maptype || ''}" }
+
+
+
+.footer
+  = render partial: 'show/footer'
+
+/ .printable-message

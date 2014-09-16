@@ -26,6 +26,11 @@ class PseudoPlan
     # legs.map(&:coordinates).join("+")
   end
 
+  def all_coordinates
+    legs.map(&:coordinates).join("+")
+    # legs.map(&:coordinates).join("+")
+  end
+
   def bucketed
     @bucketed ||= false
   end

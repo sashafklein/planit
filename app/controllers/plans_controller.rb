@@ -1,11 +1,14 @@
 class PlansController < ApplicationController
   
-  before_action :load_yaml_data, only: [:show, :print, :mobile]
+  before_action :load_yaml_data, only: [:show, :print, :mobile, :new2]
 
   def show
   end
 
   def new
+  end
+
+  def new2
   end
 
   def jmt
