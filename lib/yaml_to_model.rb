@@ -112,31 +112,45 @@ class YamlToModel
         order: index
       )
       @@logger << ".......Created item: #{persisted_item.id} - #{persisted_item.location.name}"
+      travel_from_yaml!(persisted_item, yaml_item)
       image = persisted_item.images.create!(
         url: yaml_item['tab_image'],
         source: yaml_item['source']
       )
       @@logger << ".........Created image: #{image.id} - #{persisted_location.name}"
-      from_id = (Leg.find_by_id(persisted_leg.id - 1) ? Leg.find_by_id(persisted_leg.id - 1).items.last.id : nil)
-      next_id = nil
-      if index == 0 && yaml_leg['arrival'] && yaml_leg['arrival']['travel_data']
-        yaml_leg['arrival']['travel_data'].reverse.each do |trip_leg|
-          travel = Travel.create!(
-            mode: trip_leg['method'],
-            from_id: from_id,
-            to_id: persisted_item.id,
-            departs_at: "#{trip_leg['departure_date'].to_s} {trip_leg['departure_time'].to_s}",
-            arrives_at: "#{trip_leg['arrival_date'].to_s} {trip_leg['arrival_time'].to_s}",
-            vessel: trip_leg['vessel'],
-            confirmation_code: trip_leg['confirmation'],
-            departure_terminal: trip_leg['departure_terminal'],
-            arrival_terminal: trip_leg['arrival_terminal'],
+      
+    end
+  end
+
+  def travel_from_yaml!(persisted_item, yaml_item)
+    ['origin', 'destination'].each do |travel_type|
+      if yaml_item[travel_type]
+
+        next_id = nil
+        travel_items = yaml_item[travel_type].reverse
+
+        travel_items.each do |t_item, index|
+          hash = {
+            mode: t_item['method'],
+            departs_at: t_item['departs_at'],
+            arrives_at: t_item['arrives_at'],
+            vessel: t_item['vessel'],
+            confirmation_code: t_item['confirmation'],
+            departure_terminal: t_item['departure_terminal'],
+            arrival_terminal: t_item['arrival_terminal'],
             next_step_id: next_id
-          )
+          }
+
+          if index == 0
+            travel = persisted_item.send(travel_type).create!(hash)
+          else
+            travel = Travel.create!(hash)
+          end
+
           next_id = travel.id
         end
+        @@logger << ".........Created travel #{travel_type == 'origin' ? 'from' : 'to'} #{persisted_item.name} -- #{travel_items.count} pieces"
       end
-      @@logger << ".........Created travel: From #{Item.find_by_id(from_id).location.name} to #{persisted_item.location.name}"
     end
   end
 end
