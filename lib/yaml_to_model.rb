@@ -77,11 +77,11 @@ class YamlToModel
     yaml_leg['days'].compact.each_with_index do |yaml_day, index|
       persisted_day = persisted_leg.days.create!(order: index, notes: yaml_day['notes'])
       @@logger << ".....Created day for leg #{persisted_leg.id}: #{persisted_day.id}"
-      items_from_yaml!(yaml_day, persisted_day, persisted_leg)
+      items_from_yaml!(yaml_day, persisted_day, persisted_leg, yaml_leg)
     end
   end
 
-  def items_from_yaml!(yaml_day, persisted_day, persisted_leg)
+  def items_from_yaml!(yaml_day, persisted_day, persisted_leg, yaml_leg)
     @@logger << "...Creating items"
     yaml_day['items'].compact.each_with_index do |yaml_item, index|
       persisted_location = Location.create!(
@@ -108,7 +108,8 @@ class YamlToModel
         meal: yaml_item['meal'],
         location_id: persisted_location.id,
         source: yaml_item['source'],
-        source_url: yaml_item['source_url']
+        source_url: yaml_item['source_url'],
+        order: index
       )
       @@logger << ".......Created item: #{persisted_item.id} - #{persisted_item.location.name}"
       image = persisted_item.images.create!(
@@ -116,6 +117,26 @@ class YamlToModel
         source: yaml_item['source']
       )
       @@logger << ".........Created image: #{image.id} - #{persisted_location.name}"
+      from_id = (Leg.find_by_id(persisted_leg.id - 1) ? Leg.find_by_id(persisted_leg.id - 1).items.last.id : nil)
+      next_id = nil
+      if index == 0 && yaml_leg['arrival'] && yaml_leg['arrival']['travel_data']
+        yaml_leg['arrival']['travel_data'].reverse.each do |trip_leg|
+          travel = Travel.create!(
+            mode: trip_leg['method'],
+            from_id: from_id,
+            to_id: persisted_item.id,
+            departs_at: "#{trip_leg['departure_date'].to_s} {trip_leg['departure_time'].to_s}",
+            arrives_at: "#{trip_leg['arrival_date'].to_s} {trip_leg['arrival_time'].to_s}",
+            vessel: trip_leg['vessel'],
+            confirmation_code: trip_leg['confirmation'],
+            departure_terminal: trip_leg['departure_terminal'],
+            arrival_terminal: trip_leg['arrival_terminal'],
+            next_step_id: next_id
+          )
+          next_id = travel.id
+        end
+      end
+      @@logger << ".........Created travel: From #{Item.find_by_id(from_id).location.name} to #{persisted_item.location.name}"
     end
   end
 end
