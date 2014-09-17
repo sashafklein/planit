@@ -8,12 +8,11 @@ class Plan < ActiveRecord::Base
   has_many :days, through: :legs
   has_many :items, through: :legs
 
+  has_many :moneyshots, class_name: 'Image', as: :imageable
+  has_many :images, as: :imageable
+
   delegate :last_day, :departure, to: :last_leg
   delegate :arrival, to: :first_leg
-
-  def moneyshots
-    []
-  end
 
   def first_leg
     legs.first

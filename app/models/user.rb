@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
 
   has_many :plans
 
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   def name
     "#{first_name} #{last_name}"
   end

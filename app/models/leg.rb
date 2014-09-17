@@ -97,9 +97,7 @@ class Leg < ActiveRecord::Base
     sites.last
   end
 
-
   private
-
 
   def siblings
     plan.legs

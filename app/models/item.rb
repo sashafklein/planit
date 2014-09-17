@@ -4,6 +4,8 @@ class Item < ActiveRecord::Base
   
   belongs_to :location
   belongs_to :day
+  
+  has_many :images, as: :imageable
 
   delegate :leg, to: :day
   delegate :plan, to: :leg
