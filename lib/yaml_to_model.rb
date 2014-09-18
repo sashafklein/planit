@@ -123,33 +123,34 @@ class YamlToModel
   end
 
   def travel_from_yaml!(persisted_item, yaml_item)
-    ['origin', 'destination'].each do |travel_type|
+    ['arrival', 'departure'].each do |travel_type|
       if yaml_item[travel_type]
 
+        type = travel_type == 'arrival' ? 'origin' : 'destination'
         next_id = nil
         travel_items = yaml_item[travel_type].reverse
 
-        travel_items.each do |t_item, index|
+        travel_items.each do |travel_item, index|
           hash = {
-            mode: t_item['method'],
-            departs_at: t_item['departs_at'],
-            arrives_at: t_item['arrives_at'],
-            vessel: t_item['vessel'],
-            confirmation_code: t_item['confirmation'],
-            departure_terminal: t_item['departure_terminal'],
-            arrival_terminal: t_item['arrival_terminal'],
+            mode: travel_item['method'],
+            departs_at: travel_item['departs_at'],
+            arrives_at: travel_item['arrives_at'],
+            vessel: travel_item['vessel'],
+            confirmation_code: travel_item['confirmation'],
+            departure_terminal: travel_item['departure_terminal'],
+            arrival_terminal: travel_item['arrival_terminal'],
             next_step_id: next_id
           }
 
           if index == 0
-            travel = persisted_item.send(travel_type).create!(hash)
+            travel = persisted_item.send(type).create!(hash)
           else
             travel = Travel.create!(hash)
           end
 
           next_id = travel.id
         end
-        @@logger << ".........Created travel #{travel_type == 'origin' ? 'from' : 'to'} #{persisted_item.name} -- #{travel_items.count} pieces"
+        @@logger << ".........Created travel #{type == 'origin' ? 'from' : 'to'} #{persisted_item.location.name} -- #{travel_items.count} pieces"
       end
     end
   end

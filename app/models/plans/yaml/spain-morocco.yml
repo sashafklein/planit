@@ -33,45 +33,6 @@ moneyshots:
 
 legs:
   -
-    arrival: 
-      method: 'flight'
-      travel_data:
-        -
-          method: flight
-          from: LAX
-          to: YYZ
-          vessel: AC786
-          departure_date: 2013-09-07
-          departure_time: 11:25am
-          arrival_date: 2013-09-07
-          arrival_time: 7:07pm
-          departure_terminal: 2
-          arrival_terminal: 1
-          confirmation: 
-        -
-          method: flight
-          from: YYZ
-          to: MAD
-          vessel: AC836
-          departure_date: 2013-09-07
-          departure_time: 9:45pm
-          arrival_date: 2013-09-08
-          arrival_time: 11:10am
-          departure_terminal: 1
-          arrival_terminal: 1
-          confirmation: 
-        -
-          method: flight
-          from: MAD
-          to: RAK
-          vessel: FR7752
-          departure_date: 2013-09-08
-          departure_time: 1:30pm
-          arrival_date: 2013-09-08
-          arrival_time: 3:45pm
-          departure_terminal: 1
-          arrival_terminal: 
-          confirmation:      
     name: Morocco
     days: 
       -
@@ -91,6 +52,43 @@ legs:
             has_tab: false
             lodging: false
             parent_day: 1
+            arrival: 
+              -
+                method: flight
+                from: LAX
+                to: YYZ
+                vessel: AC786
+                departure_date: 2013-09-07
+                departure_time: 11:25am
+                arrival_date: 2013-09-07
+                arrival_time: 7:07pm
+                departure_terminal: 2
+                arrival_terminal: 1
+                confirmation: 
+              -
+                method: flight
+                from: YYZ
+                to: MAD
+                vessel: AC836
+                departure_date: 2013-09-07
+                departure_time: 9:45pm
+                arrival_date: 2013-09-08
+                arrival_time: 11:10am
+                departure_terminal: 1
+                arrival_terminal: 1
+                confirmation: 
+              -
+                method: flight
+                from: MAD
+                to: RAK
+                vessel: FR7752
+                departure_date: 2013-09-08
+                departure_time: 1:30pm
+                arrival_date: 2013-09-08
+                arrival_time: 3:45pm
+                departure_terminal: 1
+                arrival_terminal: 
+                confirmation:      
           -
             name: Riad Aguerzame
             local_name: Riad Aguerzame
@@ -610,34 +608,19 @@ legs:
             has_tab: false
             lodging: false
             parent_day: 10
-    departure:
-      method: flight
-      travel_data: 
-        -
-          method: flight
-          from: FEZ
-          to: GRO
-          vessel: FR9017
-          departure_date: 2013-09-15
-          departure_time: 12:00pm
-          arrival_date: 
-          arrival_time: 3:00pm
-          confirmation: 
+            departure:
+              -
+                method: flight
+                from: FEZ
+                to: GRO
+                vessel: FR9017
+                departure_date: 2013-09-15
+                departure_time: 12:00pm
+                arrival_date: 
+                arrival_time: 3:00pm
+                confirmation: 
   -  
     name: Catalonia
-    arrival:
-      method: flight
-      travel_data: 
-        -
-          method: flight
-          from: FEZ
-          to: GRO
-          vessel: FR9017
-          departure_date: 2013-09-15
-          departure_time: 12:00pm
-          arrival_date: 
-          arrival_time: 3:00pm
-          confirmation: 
     days:
       -
         items:
@@ -645,7 +628,7 @@ legs:
             name: GRO
             local_name: Aeroport de Girona-Costa Brava (GRO)
             notes: 
-            address: Carretera Aeroport, s/n, Vilobí d'Onyar, Catalonia
+            address: "Carretera Aeroport, s/n, Vilobí d'Onyar, Catalonia"
             lat: 41.898124543813736
             lon: 2.76631236076355
             website: 
@@ -656,6 +639,17 @@ legs:
             has_tab: false
             lodging: false
             parent_day: 10
+            arrival:
+              -
+                method: flight
+                from: FEZ
+                to: GRO
+                vessel: FR9017
+                departure_date: 2013-09-15
+                departure_time: 12:00pm
+                arrival_date: 
+                arrival_time: 3:00pm
+                confirmation: 
           -
             name: hotel calina
             local_name: Hotel Calina
@@ -872,33 +866,31 @@ legs:
             has_tab: false
             lodging: false
             parent_day: 14
-    departure:
-      method: 'flight'
-      travel_data:
-        -
-          method: flight
-          from: BCN
-          to: YYZ
-          vessel: AC815
-          departure_date: 2013-09-22
-          departure_time: 11:55am
-          arrival_date: 
-          arrival_time: 2:50pm
-          departure_terminal: 1
-          arrival_terminal: 1
-          confirmation: 
-        -
-          method: flight
-          from: LAX
-          to: YYZ
-          vessel: AC793
-          departure_date: 2013-09-22
-          departure_time: 6:10pm
-          arrival_date: 
-          arrival_time: 8:30pm
-          departure_terminal: 1
-          arrival_terminal: 2
-          confirmation: 
+            departure:
+              -
+                method: flight
+                from: BCN
+                to: YYZ
+                vessel: AC815
+                departure_date: 2013-09-22
+                departure_time: 11:55am
+                arrival_date: 
+                arrival_time: 2:50pm
+                departure_terminal: 1
+                arrival_terminal: 1
+                confirmation: 
+              -
+                method: flight
+                from: LAX
+                to: YYZ
+                vessel: AC793
+                departure_date: 2013-09-22
+                departure_time: 6:10pm
+                arrival_date: 
+                arrival_time: 8:30pm
+                departure_terminal: 1
+                arrival_terminal: 2
+                confirmation: 
 
 map_locations:
   - 3976 23rd St, San Francisco, CA
