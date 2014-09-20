@@ -36,7 +36,7 @@
   - leg.days.each_with_index do |day, index|
     .container.timeline
       .row-wrap-20px
-        - if day.items_with_tabs.length > 0
+        - if day.items.with_tabs.length > 0
           = render partial: 'days/day', locals: { day: day, index: index, bucket: bucket }
 
 - if leg.departure && !bucket

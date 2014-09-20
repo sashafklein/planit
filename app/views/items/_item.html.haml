@@ -5,14 +5,14 @@
     - if item.show_icon 
       .icon-tag.dayby.large= image_tag "icon_#{item.show_icon}.png"
     / CHANGE BELOW ONCE WE IDENTIFY METHODOLOGY FOR TRAVEL
-    - if item.travel_data 
+    - if item.arrival || item.departure 
       .transit.to
         = image_tag "transit_to.png"
       .transit.from
         = image_tag "transit_from.png"
     .content-tab-image.dayby{ class: "#{item.mark?('down') ? 'down' : ''}" }
       %a{href: "#"}
-        = image_tag item.tab_image
+        = image_tag item.image.url
     .content-tab-title= item.name
 
     - if item.notes

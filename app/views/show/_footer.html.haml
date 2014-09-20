@@ -7,7 +7,7 @@
       This is a 
       %b= "Planit"
       = "web-view of '#{@plan.title}', a trip authored by"
-      %a{href: "#"}= "#{@plan.author}"
+      %a{href: "#"}= "#{@plan.user.name}"
 
   %div{ class: 'one-third column' }
     .footer-title

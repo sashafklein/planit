@@ -10,8 +10,10 @@ class Icon
     if is_lodging 
       if lodging_categories.include? category
         lodging_icon
-      elsif camp_categores.include? category
+      elsif camp_categories.include? category
         camping_icon
+      else 
+        false
       end
     elsif food_categories.include?(category) || is_meal
       food_icon
@@ -20,7 +22,9 @@ class Icon
     elsif bar_categories.include?(category)
       bar_icon
     elsif planit_mark != ''
-      starred
+      planit_mark
+    else
+      false
     end
   end
 
@@ -46,28 +50,23 @@ class Icon
     ['coffee', 'café', 'tea', 'coffeeshop', 'teashop', 'coffee shop', 'tea shop']
   end
 
-  def starred
-    return '' if planit_mark.blank?
-    "_#{planit_mark}"
-  end
-
   def lodging_icon
-    "hotel#{starred}"
+    "hotel_#{planit_mark}"
   end
 
   def camping_icon
-    "campsite#{starred}"
+    "campsite_#{planit_mark}"
   end
 
   def food_icon
-    "food#{starred}"
+    "food_#{planit_mark}"
   end
 
   def bar_icon
-    "bar#{starred}"
+    "bar_#{planit_mark}"
   end
 
   def coffee_tea_icon
-    "coffeetea#{starred}"
+    "coffeetea_#{planit_mark}"
   end
 end

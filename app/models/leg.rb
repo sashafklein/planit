@@ -67,14 +67,6 @@ class Leg < ActiveRecord::Base
     # end
   end
 
-  def last_day
-    last_day.day_in_trip
-  end
-
-  def first_day
-    first_day.day_in_trip
-  end
-
   def coordinates
     days.map(&:coordinates).join("+")
   end

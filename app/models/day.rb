@@ -41,6 +41,10 @@ class Day < ActiveRecord::Base
     order == 0
   end
 
+  def place_in_trip
+    plan.days.index(self) + 1
+  end
+
   private
 
   def siblings

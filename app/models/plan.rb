@@ -29,4 +29,16 @@ class Plan < ActiveRecord::Base
   def overview_coordinates
     legs.map(&:coordinates).join("+")
   end
+
+  def trailblaze_date
+    starts_at.strftime('%b %Y')
+  end
+
+  def maptype
+    '' #todo
+  end
+
+  def bucket
+    legs.where(name: nil).first #todo -- majorly incomplete
+  end
 end

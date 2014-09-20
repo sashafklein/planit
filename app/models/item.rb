@@ -9,16 +9,17 @@ class Item < ActiveRecord::Base
 
   delegate :leg, to: :day
   delegate :plan, to: :leg
+  delegate :name, :local_name, :coordinate, to: :location
 
-  has_one :arrival, class_name: 'Travel', foreign_key: 'destination_id'
-  has_one :departure, class_name: 'Travel', foreign_key: 'origin_id'
+  has_one :arrival, class_name: 'Travel', foreign_key: 'to_id'
+  has_one :departure, class_name: 'Travel', foreign_key: 'from_id'
 
   default_scope { order('"order" ASC') }
 
   scope :with_tabs,     ->        { where(show_tab: true) }
   scope :with_lodging,  ->        { where(lodging: true) }
   scope :sites,         ->        { where(lodging: false, meal: false) }
-  scope :with_mark,     -> (mark) { where(planit_mark: mark) }
+  scope :with_mark,     -> (mark) { where(mark: mark) }
   scope :marked_up,     ->        { with_mark('up') }
   scope :marked_down,   ->        { with_mark('up') }
   scope :starred,       ->        { with_mark('star') }
@@ -36,7 +37,7 @@ class Item < ActiveRecord::Base
   end
 
   def show_icon
-    Icon.new(category, lodging, meal, mark).filename
+    @show_icon ||= Icon.new(category, lodging, meal, mark).filename
   end
 
   def mark?(test_mark)
@@ -46,6 +47,22 @@ class Item < ActiveRecord::Base
   def previous(index)
     return nil if index == 0
     siblings.find_by_order(order - 1)
+  end
+
+  def image
+    images.first
+  end
+
+  def recoby
+    nil #todo -- make a column or two
+  end
+
+  def downby
+    nil #todo -- make a column or two
+  end
+
+  def rating
+    nil #todo -- make a column or two
   end
 
   private

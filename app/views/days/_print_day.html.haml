@@ -36,10 +36,10 @@
       .content-tab-title
         - if item.name
           %b= item.name
-      - if item.tab_image
-        = image_tag item.tab_image
+      - if item.image
+        = image_tag item.image
         - if item.source
-          %span{style: "display: block; font-size: 8px"}= link_to "@#{item.source}", item.tab_image, style: "color: #000"
+          %span{style: "display: block; font-size: 8px"}= link_to "@#{item.source}", item.image, style: "color: #000"
     .content-tab-print.info
       - if item.lodging && @plan.start_date
         .content-tab-more-info

@@ -1,13 +1,13 @@
 .container.timeline
 
-  %div{ class: 'eight columns' }
+  .eight.columns
     .summary-wrap.authornote
       .summary-content
-        = @plan.summary_text
-      - if @plan.author_icon
+        = @plan.description
+      - if @plan.user.icon
         .user-circular{ style: "background-image:url(#{@plan.author_icon})"}
       .summary-author
-        = "<b>#{@plan.author}</b>#{", #{@plan.trailblaze_date}" if @plan.trailblaze_date}".html_safe
+        = "<b>#{@plan.user.name}</b>#{", #{@plan.trailblaze_date}" if @plan.trailblaze_date}".html_safe
     .summary-wrap.toc
       .summary-toc-title
         Itinerary Overview:
@@ -26,7 +26,7 @@
           /   %b= "#{cluster_name(leg, @plan.bucket)}:"
           /   = leg.name.titleize unless leg.only_leg || @plan.bucket 
 
-  %div{ class: 'eight columns' }
+  .eight.columns
     .summary-map
       %map.overview-map{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.overview_coordinates, type: "leg#{@plan.maptype || ''}" }
         .summary-map-caption= "day-by-day itinerary"

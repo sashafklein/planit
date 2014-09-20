@@ -1,6 +1,6 @@
 class PlansController < ApplicationController
   
-  before_action :load_yaml_data, only: [:show, :print, :mobile, :new2]
+  before_action :load_plan, only: [:show, :print, :mobile]
 
   def show
   end
@@ -12,7 +12,7 @@ class PlansController < ApplicationController
   end
 
   def jmt
-    redirect_to plan_path('john-muir-trail')
+    redirect_to plan_path("john-muir-trail-north-south")
   end
 
   def welcome
@@ -26,16 +26,9 @@ class PlansController < ApplicationController
 
   private
 
-  def load_yaml_data
-    file_path = File.join(Rails.root, 'app', 'models', 'plans', 'yaml', "#{params[:id]}.yml")
-
-    if !File.exists? file_path
-      flash[:error] = "No plan exists by that name."
-      redirect_to root_path
-    else
-      @plan = PseudoPlan.new YAML.load_file( file_path )
-      @slugged_title = params[:id]
-    end
+  def load_plan
+    @plan = Plan.includes(legs: [{ days: [{ items: :location }] }] )
+                .friendly.find(params[:id])
   end
 
 end

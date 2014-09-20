@@ -26,6 +26,7 @@ gem 'geocoder'
 gem 'rest_client'
 gem 'devise'
 gem 'friendly_id', '~> 5.0.0'
+gem 'rack-mini-profiler'
 
 group :development do
   gem "foreman"
@@ -33,6 +34,7 @@ group :development do
   gem "spring-commands-rspec"
   gem 'binding_of_caller'
   gem 'better_errors'
+  gem 'bullet'
 end
 
 group :development, :test do

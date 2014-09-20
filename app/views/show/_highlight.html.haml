@@ -11,14 +11,14 @@
         %ul
           - @plan.legs.each do |leg|
             - leg.days.each do |day|
-              - day.items_with_stars.each do |item|
+              - day.items.starred.each do |item|
                 - if item.is_sight?
                   %li= link_to "<b>#{item.name.titleize}</b>#{", " unless item.category == ''}#{item.category.titleize}#{" in " unless item.country || item.city == false || item.city == nil}#{" in " unless item.country == false || item.country == nil}#{item.city.titleize unless item.city == false || item.city == nil}#{item.country.titleize unless item.city || item.country == false || item.country == nil}".html_safe, print_plan_path
       .highlight-content.ups
         %ul
           - @plan.legs.each do |leg|
             - leg.days.each do |day|
-              - day.items_with_ups.each do |item|
+              - day.items.marked_up.each do |item|
                 - if item.is_sight?
                   %li= link_to "<b>#{item.name.titleize}</b>#{", " unless item.category == ''}#{item.category.titleize}#{" in " unless item.country || item.city == false || item.city == nil}#{" in " unless item.country == false || item.country == nil}#{item.city.titleize unless item.city == false || item.city == nil}#{item.country.titleize unless item.city || item.country == false || item.country == nil}".html_safe, print_plan_path
       .highlight-content.toplist
@@ -34,14 +34,14 @@
         %ul
           - @plan.legs.each do |leg|
             - leg.days.each do |day|
-              - day.items_with_stars.each do |item|
+              - day.items.starred.each do |item|
                 - if item.is_food? || item.is_coffeetea? || item.is_bar?
                   %li= link_to "<b>#{item.name.titleize}</b>#{", " unless item.category == ''}#{item.category.titleize}".html_safe, print_plan_path
       .highlight-content.ups
         %ul
           - @plan.legs.each do |leg|
             - leg.days.each do |day|
-              - day.items_with_ups.each do |item|
+              - day.items.marked_up.each do |item|
                 - if item.is_food? || item.is_coffeetea? || item.is_bar?
                   %li= link_to "<b>#{item.name.titleize}</b>#{", " unless item.category == ''}#{item.category.titleize}".html_safe, print_plan_path
       .highlight-content.toplist
@@ -57,14 +57,14 @@
         %ul
           - @plan.legs.each do |leg|
             - leg.days.each do |day|
-              - day.items_with_stars.each do |item|
+              - day.items.starred.each do |item|
                 - if item.is_lodging? || item.is_camping? || item.is_relax?
                   %li= link_to "<b>#{item.name.titleize}</b>#{", " unless item.category == ''}#{item.category.titleize}#{" in " unless item.city == false}#{item.city.titleize unless item.city == false}".html_safe, print_plan_path
       .highlight-content.ups
         %ul
           - @plan.legs.each do |leg|
             - leg.days.each do |day|
-              - day.items_with_ups.each do |item|
+              - day.items.marked_up.each do |item|
                 - if item.is_lodging? || item.is_camping? || item.is_relax?
                   %li= link_to "<b>#{item.name.titleize}</b>#{", " unless item.category == ''}#{item.category.titleize}#{" in " unless item.city == false}#{item.city.titleize unless item.city == false}".html_safe, print_plan_path
       .highlight-content.toplist
