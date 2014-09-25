@@ -52,7 +52,10 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
 
       s.map = L.map(id, { scrollWheelZoom: scrollWheelZoom, doubleClickZoom: doubleClickZoom, zoomControl: zoomControl } ).setView([centerLat(), centerLon()], zoom)
       
-      L.tileLayer(MapOptions.tiles(), MapOptions.tileOptions(s.type != 'detail')).addTo(s.map)
+      # L.tileLayer(MapOptions.tiles(), MapOptions.tileOptions(s.type != 'detail')).addTo(s.map)
+      L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
+        attribution: "&copy; <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a>"
+      ).addTo(s.map)
 
       Popup = L.popup({
         closeButton: false
@@ -110,12 +113,12 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
 
       if s.type == 'print'
         s.bounds = new L.LatLngBounds(s.points)
-        s.map.fitBounds(s.bounds)
+        s.map.fitBounds(s.bounds, { padding: [15, 15] } )
       else if s.type == 'detail'
         showAttribution = false
       else
         s.bounds = new L.LatLngBounds(s.points)
-        s.map.fitBounds(s.bounds)
+        s.map.fitBounds(s.bounds, { padding: [15, 15] } )
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
 
       unless _(['detail', 'day', 'daydense', 'printdense', 'legdense']).contains s.type

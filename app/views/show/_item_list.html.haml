@@ -1,0 +1,18 @@
+.item-list-row
+  .item-list-icon
+    - if item.show_icon_norate
+      .item-list-icon-box= image_tag "icon_#{item.show_icon_norate}_sm.png"
+  .item-list-name
+    = item.name.titleize
+  .item-list-tags
+    - if item.recoby || item.downby
+      %span.item-list-tag= "friends"
+    - if item.is_food?
+      %span.item-list-tag= "menu"
+    %span.item-list-tag= "photos"
+    - if item.is_bar? || item.is_food? || item.is_coffeetea?
+      %span.item-list-tag= "Yelp"
+  / .item-list-image
+  /   .item-list-image-box{ class: item.is_down? }
+  /     %a{href: "#"}
+  /       = image_tag item.tab_image

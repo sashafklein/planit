@@ -122,24 +122,34 @@ class PseudoItem
   end
 
   def show_icon
-    if category
-      if is_lodging? 
-        show_lodging_icon
-      elsif is_camping?
-        show_camping_icon 
-      elsif is_food?
-        show_food_icon 
-      elsif is_coffeetea?
-        show_coffeetea_icon 
-      elsif is_bar?
-        show_bar_icon
-      elsif is_relax?
-        show_relax_icon
-      elsif planit_mark != ''
-        show_sight_icon
-      end
+    if show_icon_norate && starred
+      show_icon_norate + starred
+    elsif show_icon_norate
+      show_icon_norate
     else
       starred
+    end
+  end
+
+  def show_icon_norate
+    if category
+      if is_lodging? 
+        "lodging"
+      elsif is_camping?
+        "campsite" 
+      elsif is_food?
+        "food" 
+      elsif is_coffeetea?
+        "coffeetea" 
+      elsif is_bar?
+        "bar"
+      elsif is_relax?
+        "relax"
+      elsif planit_mark != ''
+        "sight"
+      end
+    else
+      ""
     end
   end
 
@@ -171,34 +181,6 @@ class PseudoItem
     if planit_mark == "down"
       "down"
     end
-  end
-
-  def show_sight_icon
-    "sight" + starred
-  end
-
-  def show_relax_icon
-    "relax" + starred
-  end
-
-  def show_lodging_icon
-    "hotel" + starred
-  end
-
-  def show_camping_icon
-    "campsite" + starred
-  end
-
-  def show_food_icon
-    "food" + starred
-  end
-
-  def show_bar_icon
-    "bar" + starred
-  end
-
-  def show_coffeetea_icon
-    "coffeetea" + starred
   end
 
   def local_name_unique?

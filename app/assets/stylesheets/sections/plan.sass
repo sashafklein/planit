@@ -557,6 +557,37 @@ body
     .overview-map
       height: 450px
 
+    .timeline-day-pin
+      text-align: center
+      width: 30px
+      background: #444
+      border-bottom: #222 solid 1px
+      -webkit-font-smoothing: antialiased
+      font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-size: 15px
+      font-weight: bold
+      line-height: 16px
+      padding: 6px 0
+      color: #fff
+      white-space: nowrap
+      margin-left: auto
+      margin-right: auto
+      vertial-align: baseline
+      img
+        position: absolute
+        margin-top: 20px
+        margin-left: auto
+        margin-right: auto
+        left: 0
+        right: 0
+        content: image-url('leg-map-icon-tip-gray.png')
+      &:hover
+        background: #000
+        border-bottom: #000 solid 1px
+        // z-index: 12000 !important
+        img
+          content: image-url('leg-map-icon-tip-black.png')
+
     .leg-map-icon
       text-align: center
       height: 36px
@@ -898,15 +929,15 @@ body
       margin-top: -75px
       position: absolute
 
-    .timeline-wrap
-      width: 920px
-      margin-left: auto
-      margin-right: auto
-      background-position: left
-      padding-top: 15px
-      padding-bottom: 15px
-      background-repeat: repeat-y
-      background-image: image-url('timeline-line.png')
+    // .timeline-wrap
+    //   width: 920px
+    //   margin-left: auto
+    //   margin-right: auto
+    //   background-position: left
+    //   padding-top: 15px
+    //   padding-bottom: 15px
+    //   background-repeat: repeat-y
+    //   background-image: image-url('timeline-line.png')
 
     .travel-info
       height: 21px
@@ -1149,6 +1180,7 @@ body
 
     .tab-column-wrap
       float: left
+      width: 100%
       padding: 10px
 
     .tab-row-wrap
@@ -1267,6 +1299,8 @@ body
           width: 200px
           a
             color: #fff
+          .content-tab-referent
+            background: #f60
           .transit.to
             img
               content: image-url('transit_to_hover.png')
@@ -1423,7 +1457,7 @@ body
       .social
         .notes
           position: absolute
-          float: left
+          bottom: 21px
           visibility: hidden
           display: none
           margin: 0
@@ -1435,13 +1469,13 @@ body
             background: #742e16
             .notch
               position: absolute
-              top: -5px
+              bottom: -5px
               left: 5px
               margin: 0
-              border-top: 0
+              border-bottom: 0
               border-left: 5px solid transparent
               border-right: 5px solid transparent
-              border-bottom: 5px solid #742e16
+              border-top: 5px solid #742e16
               padding: 0
               width: 0
               height: 0
@@ -1456,13 +1490,13 @@ body
             background: #184500
             .notch
               position: absolute
-              top: -5px
+              bottom: -5px
               left: 5px
               margin: 0
-              border-top: 0
+              border-bottom: 0
               border-left: 5px solid transparent
               border-right: 5px solid transparent
-              border-bottom: 5px solid #184500
+              border-top: 5px solid #184500
               padding: 0
               width: 0
               height: 0
@@ -1597,9 +1631,71 @@ body
         background-image: image-url('tab_wing_white_xsm.png')
         margin-top: -33px
 
+    // NEW LIST VIEW
+    .item-list-row
+      width: 100%
+      float: left
+      padding: 5px
+      color: #333
+      border-bottom: 1px solid #fff
+      &:hover
+        color: #fff
+        background: #333
+    .item-list-icon
+      float: left
+      vertical-align: middle
+      padding-right: 5px
+    .item-list-image
+      float: left
+      vertical-align: middle
+    .item-list-name
+      padding: 0 5px
+      float: left
+      vertical-align: baseline
+      font-family: "Myriad W01", "Helvetica Neue", avenir, arial
+      font-size: 15px
+      line-height: 20px
+      font-weight: bold
+      overflow: hidden
+    .item-list-icon-box
+      width: 20px
+      height: 20px
+      overflow: hidden
+    .item-list-image-box
+      img
+        width: 54px
+        height: 36px
+    .item-list-tags 
+    .item-list-tag
+      font-size: 10px
+      padding: 1px 3px
+      border-radius: 3px
+      -webkit-border-radius: 3px
+      -moz-border-radius: 3px
+      overflow: hidden
+      width: auto
+      color: #333
+      border: 1px solid #eee
+      border-bottom: 1px solid #999
+      background: #ccc
+      &.recoby
+        color: #fff
+        line-height: 11px
+        white-space: nowrap
+        border: 1px solid #6aa749
+        border-bottom: 1px solid #184500
+        background: #4e9013
+      &.downby
+        color: #fff
+        line-height: 11px
+        white-space: nowrap
+        border: 1px solid #b05637
+        border-bottom: 1px solid #742e16
+        background: #93310e
+
     .plan-content-date
       float:left
-      margin-top: -16px
+      margin-top: -15px
       margin-left: -60px
       width: 55px
       height: 55px
