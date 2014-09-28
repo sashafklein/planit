@@ -11,6 +11,18 @@ module PlanHelper
     link_to all.html_safe, print_plan_path(plan)
   end
 
+  def info_tab(item, options={})
+    raise unless options[:test_attr]
+    defaults = { bold_attr: options[:test_attr], show_attr: options[:test_attr], bold: nil, div: 'content-tab-more-info', show_bold: true }
+    opts = options.merge(defaults)
+    if item.send opts[:test_attr]
+      content_tag :div, class: opts[:div] do
+        content_tag :b do opts[:bold] || item.send(opts[:bold_attr]) end if opts[:show_bold]
+        item.send(opts[:show_attr])
+      end
+    end
+  end
+
   def zebra_class(index, bucket=false)
     return '' if bucket
     if index
@@ -102,18 +114,18 @@ module PlanHelper
   def print_distance(day_index, item_index, item, day)
     if day_index != 0 # Not first day
       if item_index == 0
-        dist = Distance.item(item, day.previous(day_index).items.last, 1)
+        dist = Distance.item(item, day.previous.items.last, 1)
       else
-        dist = Distance.item(item, item.previous(item_index), 1)
+        dist = Distance.item(item, item.previous, 1)
       end
     elsif item_index != 0 # Not first item
-      dist = Distance.item(item, item.previous(item_index), 1)
+      dist = Distance.item(item, item.previous, 1)
     end
     dist ? "(#{dist} miles)" : ''
   end
 
   def timeline_cluster_image(day)
-    input = day.time_of_day ? "_#{day.time_of_day}" : '-cluster-pin'
+    input = '-cluster-pin' # day.time_of_day ? "_#{day.time_of_day}" : '-cluster-pin'
     "timeline#{input}.png"
   end
 

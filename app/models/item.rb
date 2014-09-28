@@ -9,7 +9,7 @@ class Item < ActiveRecord::Base
 
   delegate :leg, to: :day
   delegate :plan, to: :leg
-  delegate :name, :local_name, :coordinate, to: :location
+  delegate :name, :local_name, :coordinate, :url, :phone, :local_name_unique?, :street_address, to: :location
   delegate :full, :lodging, to: :location, prefix: true
 
   has_one :arrival, class_name: 'Travel', foreign_key: 'to_id'
@@ -45,8 +45,7 @@ class Item < ActiveRecord::Base
     mark == test_mark
   end
 
-  def previous(index)
-    return nil if index == 0
+  def previous
     siblings.find_by_order(order - 1)
   end
 

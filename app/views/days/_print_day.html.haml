@@ -8,7 +8,7 @@
     - if index != 0
       .day-log.item
         = "(0) "
-        %b= day.previous(index).items.last.name.titleize
+        %b= day.previous.items.last.name.titleize
     - day.items.each_with_index do |item, item_index|
       .day-log.item
         = "(#{item_index + 1}) "
@@ -19,7 +19,7 @@
         = print_distance(index, item_index, item, day)
 
   .content-tab-print.day-map
-    - if previous_lodging = day.previous_lodging(index)
+    - if previous_lodging = day.previous_lodging
       %map.day-map-container{ icon: map_icon, coordinates: "#{previous_lodging.coordinate}+#{day.coordinates}", type: 'print' }
     - else
       %map.day-map-container{ icon: map_icon, coordinates: day.coordinates, type: 'print' }
@@ -29,7 +29,7 @@
     .content-tab-print.time
       = image_tag timeline_cluster_image(day)
       .content-tab-timestamp
-        = "#{day.time_of_day}, " if day.time_of_day
+        / = "#{day.time_of_day}, " if day.time_of_day
         = display_date(@plan, item).strftime("%b %d, %Y") if @plan.starts_at
           
     .content-tab-print.image
@@ -44,6 +44,7 @@
       - if item.lodging && @plan.starts_at
         .content-tab-more-info
           = "Stay the night (#{display_date(@plan, item).strftime ("%m/%d/%Y")})"
+      = info_tab(item, { test_attr: :category })
       - if item.category
         .content-tab-more-info
           = item.category.titleize
@@ -51,18 +52,18 @@
         .content-tab-more-info
           %b Notes:
           = item.notes.html_safe
-      - if item.website
+      - if item.url
         .content-tab-more-info
           %b Website:
-          = item.website
-      - if item.international_phone
-        .content-tab-more-info
-          %b Int'l Phone:
-          = item.international_phone
-      - if item.local_phone
-        .content-tab-more-info
-          %b Phone:
-          = item.local_phone
+          = item.url
+      / - if item.international_phone
+      /   .content-tab-more-info
+      /     %b Int'l Phone:
+      /     = item.international_phone
+      / - if item.local_phone
+      /   .content-tab-more-info
+      /     %b Phone:
+      /     = item.local_phone
       - if item.phone
         .content-tab-more-info
           %b Phone:
@@ -79,6 +80,6 @@
         %map.item-map-container{ icon: map_icon, coordinates: item.coordinate, type: "detail" }
       - else
         = image_tag "no_map_180x180.png", {style: "height: 180px; width: 180px"}
-      - if item.address
+      - if item.street_address
         .content-tab-more-info
-          = item.address
+          = item.street_address

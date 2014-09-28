@@ -24,7 +24,7 @@
 %div{ class: "seven columns #{zebra_class(day.place_in_trip, bucket)}-day" }
   .day-map-container{ class: day_map_size(day.items.with_tabs.length), class: "dayby" }
     .day-map
-      - if previous_lodging = day.previous_lodging(index)
+      - if previous_lodging = day.previous_lodging
         %map.cluster-map{ icon: map_icon, coordinates: "#{previous_lodging.coordinate}+#{day.coordinates}", type: "day#{day.plan.maptype}" }
           .day-caption= "Day #{day.place_in_trip} Overview"
       - else

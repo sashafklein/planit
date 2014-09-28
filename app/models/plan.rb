@@ -41,4 +41,8 @@ class Plan < ActiveRecord::Base
   def bucket
     legs.where(name: nil).first #todo -- majorly incomplete
   end
+
+  def total_days
+    days.count
+  end
 end

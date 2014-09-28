@@ -3,7 +3,7 @@ class Day < ActiveRecord::Base
   belongs_to :leg
   has_many :items
 
-  default_scope { order('"order" ASC') }
+  default_scope { order('leg_id ASC').order('"order" ASC') }
 
   delegate :plan, to: :leg
   delegate :user, to: :plan
@@ -23,7 +23,7 @@ class Day < ActiveRecord::Base
     !first_in_leg? && items.find_by_order(item_index-1)
   end
 
-  def previous_lodging(day_index)
+  def previous_lodging
     return nil unless previous
     previous.items.with_lodging.last
   end
@@ -42,7 +42,7 @@ class Day < ActiveRecord::Base
   end
 
   def place_in_trip
-    @place ||= plan.days.index(self) + 1
+    @place ||= plan.days.index(self)
   end
 
   private
