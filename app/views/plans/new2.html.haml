@@ -1,18 +1,30 @@
-= render 'show/initheader', { :color => 'black', :start => 'blocked' }
-/ = render 'show/persistent'
+/ = render 'show/initheader', { :color => 'white', :start => '' }
+/ / = render 'show/persistent'
 
-.blank-margin
-  .container
-    .one-third.column.searchbar-wrap
-      %input.searchbar{ placeholder: "Add Destination" }
-      .searchresults
-        Test
-    .two-thirds.column
-      %map.map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.all_coordinates, type: "allitems#{@plan.maptype || ''}" }
+/ load js to maximize map window
+
+/ function thirty_pc() {
+/     var height = $(window).height();
+/     var thirtypc = (30 * height) / 100;
+/     thirtypc = parseInt(thirtypc) + 'px';
+/     $("div").css('height',thirtypc);
+/ }
+
+/ $(document).ready(function() {
+/     thirty_pc();
+/     $(window).bind('resize', thirty_pc);
+/ });
+
+
+.searchbar-wrap
+  %input.searchbar{ placeholder: "Add Destination" }
+  .searchresults
+    Test
+%map.map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.all_coordinates, type: "mega" }
 
 
 
-.footer
-  = render partial: 'show/footer'
+/ .footer
+/   = render partial: 'show/footer'
 
 / .printable-message

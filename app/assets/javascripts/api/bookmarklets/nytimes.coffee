@@ -42,9 +42,12 @@
       cleanOrNull = (html) -> if html then deTag(html) else null
 
       # pull_date = today
-      published1 = byClass('dateline').innerHTML
-      published2 = published1.split(': ')[1]
-      published = published2
+      if byClass('dateline')
+        published1 = byClass('dateline').innerHTML
+        published2 = published1.split(': ')[1]
+        published = published2
+      else 
+        published = ''
       
       if byClass('story-heading')
         locale1 = byClass('story-heading').innerHTML
@@ -65,7 +68,12 @@
       locale = locale2
 
       # BULLSHIT FOR JUST ONE INSTANCE OF ARTICLEBODY
-      sections1 = byClassMultiple('articleBody')
+      if byClassMultiple('articleBody') 
+        sections1 = byClassMultiple('articleBody')
+      else if byClassMultiple('story-body-text')
+        sections1 = byClassMultiple('story-body-text')
+      else
+        sections1 = ''
       # sections2 = sections1.innerHTML
       # sections3 = trim sections2
       
@@ -98,13 +106,13 @@
 
       planitDiv.appendChild( planitTitle )
 
-      planitDivSub1 = document.createElement( 'div' )
-      planitDivSub1.appendChild( document.createTextNode(locale) )  
-      planitDiv.appendChild( planitDivSub1 )
+      # planitDivSub1 = document.createElement( 'div' )
+      # planitDivSub1.appendChild( document.createTextNode(locale) )  
+      # planitDiv.appendChild( planitDivSub1 )
 
-      planitDivSub2 = document.createElement( 'div' )
-      planitDivSub2.appendChild( document.createTextNode(published) )  
-      planitDiv.appendChild( planitDivSub2 )
+      # planitDivSub2 = document.createElement( 'div' )
+      # planitDivSub2.appendChild( document.createTextNode(published) )  
+      # planitDiv.appendChild( planitDivSub2 )
 
       sectionIndex = 0
       sectionsText = ""

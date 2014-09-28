@@ -116,6 +116,13 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
         s.map.fitBounds(s.bounds, { padding: [15, 15] } )
       else if s.type == 'detail'
         showAttribution = false
+      else if s.type == 'mega'
+        s.bounds = new L.LatLngBounds(s.points)
+        s.map.fitBounds(s.bounds, { 
+          paddingTopLeft: [85, 350],
+          paddingBottomRight: [15, 350]
+        } )
+        new L.Control.Zoom({ position: 'bottomright' }).addTo(s.map)
       else
         s.bounds = new L.LatLngBounds(s.points)
         s.map.fitBounds(s.bounds, { padding: [15, 15] } )
