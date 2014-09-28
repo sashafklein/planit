@@ -6,6 +6,7 @@ class CreatePlans < ActiveRecord::Migration
       t.text :description
       t.integer :duration
       t.text :notes
+      t.text :tips, array: true, default: []
       t.string :permission, default: 'public'
       t.float :rating
       t.datetime :starts_at

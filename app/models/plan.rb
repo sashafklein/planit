@@ -31,7 +31,7 @@ class Plan < ActiveRecord::Base
   end
 
   def trailblaze_date
-    starts_at.strftime('%b %Y')
+    starts_at ? starts_at.strftime('%b %Y') : nil
   end
 
   def maptype

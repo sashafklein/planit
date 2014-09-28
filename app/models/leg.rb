@@ -7,8 +7,8 @@ class Leg < ActiveRecord::Base
   delegate :first_item, to: :first_day
   delegate :last_item, to: :last_day
 
-  delegate :arrival, to: :first_item
-  delegate :departure, to: :last_item
+  delegate :arrival, :show_arrival, to: :first_item
+  delegate :departure, :show_departure, to: :last_item
 
   default_scope { order('"order" ASC') }
 

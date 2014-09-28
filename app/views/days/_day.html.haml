@@ -16,10 +16,9 @@
       = image_tag "leg-map-icon-tip-black.png"
   .plan-content-wing{ class: zebra_class(day.place_in_trip)}
   .tab-column-wrap
-    - day.items.with_tabs.in_groups_of(1).each_with_index do |day_group, row_index|
+    - day.items.with_tabs.each_with_index do |item, item_index|
       .tab-row-wrap.large.clicked.dayby
-        - day_group.each_with_index do |item, item_index|
-          = render partial: 'items/item', locals: { item: item, row_index: row_index, item_index: item_index }
+        = render partial: 'items/item', locals: { item: item, row_index: item_index, item_index: item_index }
 
 / Day Map
 %div{ class: "seven columns #{zebra_class(day.place_in_trip, bucket)}-day" }

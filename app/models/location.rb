@@ -15,4 +15,16 @@ class Location < ActiveRecord::Base
     return true unless name && local_name
     local_name.downcase != name.downcase
   end
+
+  def full
+    string = ''
+    string += city.titleize unless city.blank?
+    string += country.titleize unless country.blank?
+    string
+  end
+
+  def lodging
+    return '' unless street_address || city || state
+    [street_address, city, state].compact.join(", ")
+  end
 end

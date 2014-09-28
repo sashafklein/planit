@@ -3,7 +3,7 @@ class Day < ActiveRecord::Base
   belongs_to :leg
   has_many :items
 
-  default_scope { order('"order" DESC') }
+  default_scope { order('"order" ASC') }
 
   delegate :plan, to: :leg
   delegate :user, to: :plan
@@ -42,7 +42,7 @@ class Day < ActiveRecord::Base
   end
 
   def place_in_trip
-    plan.days.index(self) + 1
+    @place ||= plan.days.index(self) + 1
   end
 
   private

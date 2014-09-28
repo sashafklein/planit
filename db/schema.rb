@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 20140914145633) do
     t.string   "street_address"
     t.string   "cross_street"
     t.string   "phone"
+    t.string   "country"
     t.string   "state"
     t.string   "city"
     t.float    "lat"
@@ -131,6 +132,7 @@ ActiveRecord::Schema.define(version: 20140914145633) do
     t.text     "description"
     t.integer  "duration"
     t.text     "notes"
+    t.text     "tips",        default: [],                    array: true
     t.string   "permission",  default: "public"
     t.float    "rating"
     t.datetime "starts_at"

@@ -22,12 +22,14 @@ class YamlToModel
   end
 
   def to_model!
+    plan = nil
     user = user_from_yaml!
     slug_from_title = yaml['title'].split(' ').map(&:downcase).join('-')
-    unless Plan.find_by_slug(slug_from_title)
+    unless plan = Plan.find_by_slug(slug_from_title)
       plan = plan_from_yaml!(user)
       legs_from_yaml!(plan)
     end
+    plan
   end
 
   private
@@ -41,18 +43,15 @@ class YamlToModel
 
   def plan_from_yaml!(user)
     plan = Plan.create!(
-      title: yaml['title'],
-      user: user,
-      starts_at: yaml['start_date'],
-      description: yaml['summary_text']
+      auto_hash(yaml, %w(title tips), {starts_at: 'start_date', description: 'summary_text'}).merge({
+        user: user
+      })
     )
     @@logger << "...Created plan: #{plan.slug}"
     yaml['moneyshots'].each do |yaml_image|
       uploader_id = user.name == yaml_image['source'] ? user.id : nil
       image = plan.moneyshots.create!(
-        url: yaml_image['url'],
-        subtitle: yaml_image['subtitle'],
-        uploader_id: uploader_id
+        auto_hash(yaml_image, %w(url subtitle)).merge({ uploader_id: uploader_id })
       )
       @@logger << ".....Created moneyshot: #{image.id} for plan #{plan.slug}"
     end
@@ -63,9 +62,7 @@ class YamlToModel
     @@logger << "...Creating legs"
     yaml['legs'].compact.each_with_index do |yaml_leg, index|
       persisted_leg = persisted_plan.legs.create!(
-        name: yaml_leg['name'],
-        order: index,
-        notes: yaml_leg['notes']
+        auto_hash(yaml_leg, %w(name notes)).merge({ order: index })
       )
       @@logger << ".....Created leg: #{persisted_leg.name} - #{persisted_leg.id}"
       days_from_yaml!(yaml_leg, persisted_leg)
@@ -83,39 +80,32 @@ class YamlToModel
 
   def items_from_yaml!(yaml_day, persisted_day, persisted_leg, yaml_leg)
     @@logger << "...Creating items"
+
     yaml_day['items'].compact.each_with_index do |yaml_item, index|
-      persisted_location = Location.create!(
-        name: yaml_item['name'],
-        local_name: yaml_item['local_name'],
-        genre: yaml_item['category'],
-        city: yaml_item['city'],
-        state: yaml_item['state'],
-        lat: yaml_item['lat'],
-        lon: yaml_item['lon'],
-        phone: yaml_item['phone'],
-        street_address: yaml_item['street_address'],
-        url: yaml_item['website']
+      persisted_location = Location.where(name: yaml_item['name']).first_or_create!(
+        auto_hash(
+          yaml_item, 
+          %w(local_name city country state lat lon phone street_address), 
+          { genre: 'category', url: 'website'}
+        )
       )
       @@logger << ".....Created location: #{persisted_location.name}"
       persisted_item = persisted_day.items.create!(
-        leg_id: persisted_leg.id,
-        day_id: persisted_day.id,
-        mark: yaml_item['planit_mark'],
-        category: yaml_item['category'],
-        notes: yaml_item['notes'],
-        show_tab: yaml_item['has_tab'],
-        lodging: yaml_item['lodging'],
-        meal: yaml_item['meal'],
-        location_id: persisted_location.id,
-        source: yaml_item['source'],
-        source_url: yaml_item['source_url'],
-        order: index
+        auto_hash(
+          yaml_item, 
+          %w(category notes lodging meal source source_url), 
+          { mark: 'planit_mark', show_tab: 'has_tab'}
+        ).merge({
+            leg_id: persisted_leg.id,
+            day_id: persisted_day.id,
+            location_id: persisted_location.id,
+            order: index
+          })
       )
       @@logger << ".......Created item: #{persisted_item.id} - #{persisted_item.location.name}"
       travel_from_yaml!(persisted_item, yaml_item)
-      image = persisted_item.images.create!(
-        url: yaml_item['tab_image'],
-        source: yaml_item['source']
+      image = persisted_item.images.create!( 
+        auto_hash(yaml_item, %w(source), {url: 'tab_image'})
       )
       @@logger << ".........Created image: #{image.id} - #{persisted_location.name}"
       
@@ -126,32 +116,36 @@ class YamlToModel
     ['arrival', 'departure'].each do |travel_type|
       if yaml_item[travel_type]
 
-        type = travel_type == 'arrival' ? 'origin' : 'destination'
         next_id = nil
+        source_type = travel_type == 'arrival' ? 'to' : 'from'
         travel_items = yaml_item[travel_type].reverse
 
-        travel_items.each do |travel_item, index|
-          hash = {
-            mode: travel_item['method'],
-            departs_at: travel_item['departs_at'],
-            arrives_at: travel_item['arrives_at'],
-            vessel: travel_item['vessel'],
-            confirmation_code: travel_item['confirmation'],
-            departure_terminal: travel_item['departure_terminal'],
-            arrival_terminal: travel_item['arrival_terminal'],
+        travel_items.each_with_index do |travel_item, index|
+          hash = auto_hash(travel_item, %w(departs_at arrives_at vessel departure_terminal arrival_terminal), {mode: 'method', confirmation_code: 'confirmation'}).merge({
             next_step_id: next_id
-          }
+          })
 
           if index == 0
-            travel = persisted_item.send(type).create!(hash)
+            travel = Travel.create!(hash.merge(source_type => persisted_item))
           else
             travel = Travel.create!(hash)
           end
 
           next_id = travel.id
         end
-        @@logger << ".........Created travel #{type == 'origin' ? 'from' : 'to'} #{persisted_item.location.name} -- #{travel_items.count} pieces"
+        @@logger << ".........Created travel #{source_type} #{persisted_item.location.name} -- #{travel_items.count} pieces"
       end
     end
+  end
+
+  def auto_hash(yaml_hash, attributes, rename_hash={})
+    h = {}
+    attributes.each do |att|
+      h[att] = yaml_hash[att]
+    end
+    rename_hash.each do |key, yaml_key|
+      h[key.to_s] = yaml_hash[yaml_key]
+    end
+    h
   end
 end

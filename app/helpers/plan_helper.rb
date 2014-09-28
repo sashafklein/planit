@@ -1,4 +1,16 @@
 module PlanHelper
+
+  def link_to_print(item, plan)
+    subtitle = ''
+    subtitle += ", #{item.category.titleize}" unless item.category.blank?
+    subtitle += " in #{item.location_full}"
+    
+    name = content_tag :b do item.name.titleize end
+    all = content_tag :p  do name + subtitle    end
+
+    link_to all.html_safe, print_plan_path(plan)
+  end
+
   def zebra_class(index, bucket=false)
     return '' if bucket
     if index
@@ -54,11 +66,11 @@ module PlanHelper
     end
   end
 
-  def print_lodging(lodging_item, index)
+  def print_lodging(item, index)
     string = ''
-    string += "<b>#{lodging_item.name.titleize}</b>"
-    string += " (Day #{lodging_item.parent_day})"
-    string += lodging_location(lodging_item)
+    string += "<b>#{item.name.titleize}</b>"
+    string += " (Day #{item.day.place_in_trip})"
+    string += ", #{item.location_lodging}"
     string.html_safe
   end
 
@@ -107,20 +119,6 @@ module PlanHelper
 
   # Below methods can't be called outside this file
   private 
-  
-  def lodging_location(info)
-    if info.street_address && info.city && info.state
-      ", #{info.street_address}, #{info.city}, #{info.state}"
-    elsif info.street_address && info.city
-      ", #{info.street_address}, #{info.city}"
-    elsif info.street_address && info.state
-      ", #{info.street_address}, #{info.state}"
-    elsif info.address
-      ", #{info.address}"
-    else
-      ""
-    end
-  end
 
   def travel_departure_date(info, index)
     if info['departure_date']

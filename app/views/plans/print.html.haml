@@ -52,13 +52,12 @@
       %b= " (Day #{leg.first_day} to #{leg.last_day})"
   - if leg.arrival
     .content-tab-wrap
-      .content-tab-print.time= image_tag "travel-by-#{leg.arrival_method}.png"
+      .content-tab-print.time= image_tag "travel-by-#{leg.arrival.mode}.png"
       .content-tab-print.travel
         = "Arrive by "
-        %b= "#{leg.arrival_method}"
-        - if leg.arrival['travel_data']
-          = " - "
-          = print_travel(leg.arrival['travel_data'].last, '0')
+        %b= "#{leg.arrival.mode}"
+        = " - "
+        = print_travel(leg.arrival.terminus, '0')
 
   - leg.days.each_with_index do |day, day_index|
     = render partial: 'days/print_day', locals: { day: day, index: day_index }

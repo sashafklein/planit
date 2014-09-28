@@ -14,20 +14,4 @@ class Travel < ActiveRecord::Base
   def origin
     previous_step ? previous_step.origin : from
   end
-  
-  def show_arrival
-    if arrival_to
-      "Arrive by #{arrival_method} to #{arrival_to}"
-    else
-      "Arrive by #{arrival_method}"
-    end
-  end
-
-  def show_departure
-    if departure_from
-      "Departure by #{departure_method} from #{departure_from}"
-    else
-      "Departure by #{departure_method}"
-    end
-  end
 end

@@ -10,6 +10,7 @@ class Item < ActiveRecord::Base
   delegate :leg, to: :day
   delegate :plan, to: :leg
   delegate :name, :local_name, :coordinate, to: :location
+  delegate :full, :lodging, to: :location, prefix: true
 
   has_one :arrival, class_name: 'Travel', foreign_key: 'to_id'
   has_one :departure, class_name: 'Travel', foreign_key: 'from_id'
@@ -63,6 +64,22 @@ class Item < ActiveRecord::Base
 
   def rating
     nil #todo -- make a column or two
+  end
+
+  def show_arrival
+    "Arrive by #{arrival.mode} to #{name}"
+  end
+
+  def show_departure
+    "Depart by #{departure.mode} to #{name}"
+  end
+
+  def is?(category_type)
+    categories.include?(category_type.to_s)
+  end
+
+  def categories
+    @categories ||= CategorySet.new(self).list
   end
 
   private

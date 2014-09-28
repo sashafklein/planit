@@ -5,13 +5,14 @@ class Distance
 
   def self.day(day1, day2, rounding=1)
     return unless day1 && day2
-    day1_item = day1.items.first
-    day2_item = day2.items.last
+    day1_item = day1.items.first.location
+    day2_item = day2.items.last.location
 
     item(day1_item, day2_item, rounding)
   end
 
   def self.item(item1, item2, rounding=1)
+    item1, item2 = item1.location, item2.location unless item1.class == "Location" && item2.class == 'Location'
     return false unless have_lat_lon(item1, item2)
 
     item_dist(item1, item2, rounding)

@@ -7,6 +7,7 @@ class CreateLocations < ActiveRecord::Migration
       t.string :street_address
       t.string :cross_street
       t.string :phone
+      t.string :country
       t.string :state
       t.string :city
       t.float :lat

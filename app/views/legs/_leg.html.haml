@@ -4,7 +4,7 @@
       .one.column
         = image_tag("blank.png", :width => '100%', :height => '1')
       %div{ class: "fifteen columns" }
-        .timeline-travel{ class: leg.arrival_method }
+        .timeline-travel{ class: leg.arrival.mode }
         .travel-info= leg.show_arrival
         .plan-content-wing{ class: 'travel' }
 
@@ -45,5 +45,5 @@
       .one.column
         = image_tag("blank.png", :width => '100%', :height => '1')
       %div{ class: "fifteen columns" }
-        .timeline-travel{ class: leg.departure_method }
+        .timeline-travel{ class: leg.departure.mode }
         .travel-info= leg.show_departure

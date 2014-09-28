@@ -1,8 +1,8 @@
 .content-tab-wrap
-  .content-tab-print.time= image_tag "timeline_date_#{day.day_in_trip}.png"
+  .content-tab-print.time= image_tag "timeline_date_#{day.place_in_trip}.png"
   .content-tab-print.day-log
-    %b= "Day #{day.day_in_trip}"
-    - if @plan.start_date
+    %b= "Day #{day.place_in_trip}"
+    - if @plan.starts_at
       = ": #{display_date(@plan, day.items.first).strftime('%b %d, %Y')}"
     %br= " "
     - if index != 0
@@ -30,7 +30,7 @@
       = image_tag timeline_cluster_image(day)
       .content-tab-timestamp
         = "#{day.time_of_day}, " if day.time_of_day
-        = display_date(@plan, item).strftime("%b %d, %Y") if @plan.start_date
+        = display_date(@plan, item).strftime("%b %d, %Y") if @plan.starts_at
           
     .content-tab-print.image
       .content-tab-title
@@ -41,7 +41,7 @@
         - if item.source
           %span{style: "display: block; font-size: 8px"}= link_to "@#{item.source}", item.image, style: "color: #000"
     .content-tab-print.info
-      - if item.lodging && @plan.start_date
+      - if item.lodging && @plan.starts_at
         .content-tab-more-info
           = "Stay the night (#{display_date(@plan, item).strftime ("%m/%d/%Y")})"
       - if item.category
