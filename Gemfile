@@ -27,6 +27,9 @@ gem 'rest_client'
 gem 'devise'
 gem 'friendly_id', '~> 5.0.0'
 gem 'rack-mini-profiler'
+gem 'active_model_serializers'
+gem 'bower-rails'
+gem 'angular-rails-templates'
 
 group :development do
   gem "foreman"
@@ -44,6 +47,8 @@ group :development, :test do
   gem "factory_girl_rails"
   gem "pry-rails"
   gem "rspec-rails", "~> 2.14.0"
+
+  gem 'jasmine'
 end
 
 group :test do

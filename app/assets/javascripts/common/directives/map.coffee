@@ -6,7 +6,7 @@
 # HAML Usage:
 # %map{ coordinates: 'lat:lon+lat:lon+lat:lon', icon:  }
 
-angular.module("Common").directive 'map', (MapOptions, F) ->
+angular.module("Common").directive 'map', (MapOptions, F, API, Path) ->
   uniqueId = 1
   return {
     restrict: 'E'
@@ -23,8 +23,17 @@ angular.module("Common").directive 'map', (MapOptions, F) ->
       doubleClickZoom: '@'
       zoomControl: '@'
       icon: '@'
+      dayId: '@'
 
     link: (s, elem) ->
+
+      if s.dayId
+        API.get("days/#{s.dayId}/map")
+          .success (response) ->
+            console.log response
+          .error (response) ->
+            console.log response
+
       acceptedMapTypes = ['allitems', 'allitemsdense', 'leg', 'day', 'daydense', 'detail', 'print', 'printdense', 'legdense']
       s.type = 'leg' unless _.contains(acceptedMapTypes, s.type)
       s.zoomLevel = -> if s.type == 'leg' then 18 else 16

@@ -14,6 +14,14 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :bookmarklets, only: [:show]
       resources :items, only: [:create], action: 'options', constraints: {:method => 'OPTIONS'}
+      
+      resources :legs, only: [] do
+        get :map, on: :member
+      end
+      
+      resources :days, only: [] do
+        get :map, on: :member
+      end
     end
   end
 end

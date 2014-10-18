@@ -16,4 +16,9 @@ class User < ActiveRecord::Base
   def icon
     false
   end
+
+  def bucket_plan
+    bucket = plans.where(bucket: true).first_or_create(name: "#{name} Bucket")
+
+  end
 end

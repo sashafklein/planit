@@ -9,7 +9,7 @@ class ApiController < ApplicationController
     error(403, 'Permission Denied!')
   end
 
-  def error(status, message = 'Something went wrong', meta = {})
+  def error(status=500, message = 'Something went wrong', meta = {})
     response = {
       response_type: "ERROR",
       message: message,
