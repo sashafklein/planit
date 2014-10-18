@@ -50,7 +50,7 @@ body
     visibility: hidden
     display: none !important
 
-.transparent-header
+.initial-header
   position: fixed
   top: 0px
   padding: 0
@@ -61,6 +61,11 @@ body
   opacity: 1
   visibility: visible
   z-index: 16777269
+  &.transparent
+  &.white
+    background: #fff
+  &.black
+    background: #000
   &.blocked
     background: #fff
 
@@ -237,6 +242,8 @@ body
     //   &.onview
     //     visibility: visible
     //     display: block
+    .body
+      background: #ccc
 
     .map-container
       min-height: 180px
@@ -434,6 +441,11 @@ body
 
     // MENU STUFF
 
+    .new-show-spacer
+      visibility: visible
+      height: 71px
+      backround: #f60
+
     .printable-content
       visibility: visible
 
@@ -442,6 +454,29 @@ body
 
     #min_max
       cursor: pointer
+
+    // TAB STUFF
+
+    .new-tab 
+      display: block
+      margin: 10px 0 10px 0
+      background-color: #f3f3f3
+      border: 1px solid #c4c7ca
+      border-bottom-color: #b7babe
+      padding: 0.75em 0.75em 0.9em
+      position: relative
+      text-align: left
+      -webkit-border-radius: 0.25em
+      -moz-border-radius: 0.25em
+      border-radius: 0.25em
+      -webkit-box-shadow: #ecedee 0 -0.1875em 0 inset,rgba(0,0,0,0.04) 0 0.11111em 0
+      -moz-box-shadow: #ecedee 0 -0.1875em 0 inset,rgba(0,0,0,0.04) 0 0.11111em 0
+      box-shadow: #ecedee 0 -0.1875em 0 inset,rgba(0,0,0,0.04) 0 0.11111em 0
+      &:hover
+        background-color: #e3e3e3
+        -webkit-box-shadow: #dcddde 0 -0.1875em 0 inset,rgba(0,0,0,0.04) 0 0.11111em 0
+        -moz-box-shadow: #dcddde 0 -0.1875em 0 inset,rgba(0,0,0,0.04) 0 0.11111em 0
+        box-shadow: #dcddde 0 -0.1875em 0 inset,rgba(0,0,0,0.04) 0 0.11111em 0
 
     // TITLE STUFF
 
@@ -1248,6 +1283,11 @@ body
           min-height: 124px
           width: 139px
 
+    .new-content-tab-image
+      img
+        width: 195px
+        height: 130px
+
     .content-tab
       float: left
       display: block
@@ -1409,6 +1449,29 @@ body
       width: 100%
       &.active
         max-height: 100px
+      &.clicked
+        max-height: 100px
+
+    .new-content-tab-title
+      margin: 6px 0px 6px 0px
+      padding: 0px
+      font-size: 12px
+      line-height: 12px
+      text-align: center
+      font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+      font-weight: bold
+      position: relative
+      display: inherit
+      text-transform: capitalize
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+      word-wrap: normal
+      max-height: 12px
+      width: 100%
+      &.active
+        max-height: 100px
+        white-space: normal
       &.clicked
         max-height: 100px
 

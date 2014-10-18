@@ -1,10 +1,11 @@
-.transparent-header{ class: start }
+- classes = start + " " + background
+.initial-header{ class: classes }
   .container
     %div{ class: 'sixteen columns' }
       .header-container
         .logo-container
-          = image_tag "#{color}_logo.png", style: "float:left;"
-          / = image_tag "white_tagline.png", style: "float:left;", id: "tagline"
+          = image_tag "logo_only_#{color}.png", style: "float:left; width: 42px; height: 50px; margin: 10px 10px 10px 0"
+          = image_tag "logo_name_only_#{color}.png", style: "float:left; width: 86px; height: 50px; margin: 10px 10px 10px 0"
         .user-icon{ class: color }
           = image_tag "#{color}_anon_user.png", style: "float:right;", html: { border: "0" }
         %ul.menu-top

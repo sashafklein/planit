@@ -1,32 +1,51 @@
-.moneyshot.onview{ style: "background-image: url('#{image_path @plan.moneyshot['url']}')" }
-  = render 'show/moneyshot'
-= render 'show/initheader', { :color => 'white', :start => '' }
-= render 'show/persistent'
+
+= render 'show/initheader', { :background => 'white', :color => 'black', :start => '' }
+/ = render 'show/persistent', { :transition => '0' }
+
+.new-show-spacer
 
 .body-container
 
-  // OVERVIEW MAP & AUTHORNOTE
-  .overview.onview
-    = render partial: 'show/overview', locals: { bucket: false }
-
-  // HIGHLIGHTS
-  .highlights.onview
-    = render partial: 'show/highlight', locals: { bucket: false }
-
-  // ROTATING GALLERY?
-
-  // DAY BY DAY DETAIL  
+  .clear
   #content_begins
-  - @plan.legs.each_with_index do |leg, index|
-    = render partial: 'legs/leg', locals: { leg: leg, index: index, bucket: false }
-
-  - if @plan.bucket
-    - @plan.bucket.each_with_index do |leg, index|
-      = render partial: 'legs/leg', locals: { leg: leg, index: index, bucket: true }
-
-  / = render partial: 'narrative/narrative', locals { leg: leg, index: index, bucket: true }
+  .container
+    - @plan.legs.each_with_index do |leg, index|
+      - leg.days.each_with_index do |day, index|
+        - day.items.with_tabs.each_with_index do |item, item_index|
+          = render partial: 'items/item_tab', locals: { item: item, row_index: item_index, item_index: item_index }
+    - if @plan.bucket
+      - @plan.bucket.each_with_index do |leg, index|
+        - leg.days.each_with_index do |day, index|
+          - day.items.with_tabs.each_with_index do |item, item_index|
+            = render partial: 'items/item_tab', locals: { item: item, row_index: item_index, item_index: item_index }
 
 .footer
   = render partial: 'show/footer'
 
-/ .printable-message
+/ / load js to maximize map window
+
+/ / function thirty_pc() {
+/ /     var height = $(window).height();
+/ /     var thirtypc = (30 * height) / 100;
+/ /     thirtypc = parseInt(thirtypc) + 'px';
+/ /     $("div").css('height',thirtypc);
+/ / }
+
+/ / $(document).ready(function() {
+/ /     thirty_pc();
+/ /     $(window).bind('resize', thirty_pc);
+/ / });
+
+
+/ .searchbar-wrap
+/   %input.searchbar{ placeholder: "Add Destination" }
+/   .searchresults
+/     Test
+/ %map.map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.all_coordinates, type: "mega" }
+
+
+
+/ / .footer
+/ /   = render partial: 'show/footer'
+
+/ / .printable-message

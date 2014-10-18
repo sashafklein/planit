@@ -1,30 +1,32 @@
-/ = render 'show/initheader', { :color => 'white', :start => '' }
-/ / = render 'show/persistent'
+.moneyshot.onview{ style: "background-image: url('#{image_path @plan.moneyshot['url']}')" }
+  = render 'show/moneyshot'
+= render 'show/initheader', { :color => 'white', :start => '' }
+= render 'show/persistent'
 
-/ load js to maximize map window
+.body-container
 
-/ function thirty_pc() {
-/     var height = $(window).height();
-/     var thirtypc = (30 * height) / 100;
-/     thirtypc = parseInt(thirtypc) + 'px';
-/     $("div").css('height',thirtypc);
-/ }
+  // OVERVIEW MAP & AUTHORNOTE
+  .overview.onview
+    = render partial: 'show/overview', locals: { bucket: false }
 
-/ $(document).ready(function() {
-/     thirty_pc();
-/     $(window).bind('resize', thirty_pc);
-/ });
+  // HIGHLIGHTS
+  .highlights.onview
+    = render partial: 'show/highlight', locals: { bucket: false }
 
+  // ROTATING GALLERY?
 
-.searchbar-wrap
-  %input.searchbar{ placeholder: "Add Destination" }
-  .searchresults
-    Test
-%map.map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.all_coordinates, type: "mega" }
+  // DAY BY DAY DETAIL  
+  #content_begins
+  - @plan.legs.each_with_index do |leg, index|
+    = render partial: 'legs/leg', locals: { leg: leg, index: index, bucket: false }
 
+  - if @plan.bucket
+    - @plan.bucket.each_with_index do |leg, index|
+      = render partial: 'legs/leg', locals: { leg: leg, index: index, bucket: true }
 
+  / = render partial: 'narrative/narrative', locals { leg: leg, index: index, bucket: true }
 
-/ .footer
-/   = render partial: 'show/footer'
+.footer
+  = render partial: 'show/footer'
 
 / .printable-message
