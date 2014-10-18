@@ -43,11 +43,4 @@ class Api::V1::BookmarkletsController < ApiController
     web_url = web_url.split('www.')[1] if web_url.include? 'www.'
     web_url.split('.')[0] + '.coffee'
   end
-
-  def cors_set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
-    headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization, Token, Data-Type, X-Requested-With'
-    headers['Access-Control-Max-Age'] = "1728000"
-  end
 end

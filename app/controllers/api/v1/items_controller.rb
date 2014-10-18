@@ -1,15 +1,20 @@
 class Api::V1::ItemsController < ApiController
   
-  before_filter :find_user
+  before_filter :load_user
 
   def create
-    plan = @user.bucket_plan
+    completed_params = FourSquareCompleter.new(params[:item]).complete
+    @user.items.create(completed_params)
   end
 
   private
 
-  def find_user
+  def load_user
     @user = User.friendly.find(params[:user_id])
     error(404, "User not found") unless @user
+  end
+
+  def item_params
+    params.require(:item)
   end
 end

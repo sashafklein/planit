@@ -29,18 +29,15 @@ gem 'devise'
 gem 'friendly_id', '~> 5.0.0'
 gem 'rack-mini-profiler'
 gem 'active_model_serializers'
-gem 'rails-assets'
-gem 'angular-rails-templates'
 
-group :assets do
-  gem 'rails-assets-angular'
-  gem 'rails-assets-angular-resource'
-  gem 'rails-assets-angular-route'
-  gem 'rails-assets-angular-mocks'
-  gem 'rails-assets-active-support'
-  gem 'rails-assets-async'
-  gem 'rails-assets-lodash'
-end
+gem 'rails-assets-angular'
+gem 'rails-assets-angular-resource'
+gem 'rails-assets-angular-route'
+gem 'rails-assets-angular-mocks'
+gem 'rails-assets-active-support'
+gem 'rails-assets-async'
+gem 'rails-assets-lodash'
+gem 'rails-assets-leaflet'
 
 group :development do
   gem "foreman"
