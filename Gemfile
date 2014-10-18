@@ -1,4 +1,5 @@
 source "https://rubygems.org"
+source 'https://rails-assets.org'
 
 ruby "2.1.2"
 
@@ -28,8 +29,18 @@ gem 'devise'
 gem 'friendly_id', '~> 5.0.0'
 gem 'rack-mini-profiler'
 gem 'active_model_serializers'
-gem 'bower-rails'
+gem 'rails-assets'
 gem 'angular-rails-templates'
+
+group :assets do
+  gem 'rails-assets-angular'
+  gem 'rails-assets-angular-resource'
+  gem 'rails-assets-angular-route'
+  gem 'rails-assets-angular-mocks'
+  gem 'rails-assets-active-support'
+  gem 'rails-assets-async'
+  gem 'rails-assets-lodash'
+end
 
 group :development do
   gem "foreman"

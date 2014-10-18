@@ -12,7 +12,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :bookmarklets, only: [:show]
+      resources :bookmarklets, only: [:show] do
+        match '/base' => 'bookmarklets#base', on: :collection, via: [:options, :get]
+        match '/save_item' => 'bookmarklets#save_item', on: :collection, via: [:options, :post]
+      end
+
       resources :items, only: [:create], action: 'options', constraints: {:method => 'OPTIONS'}
       
       resources :legs, only: [] do

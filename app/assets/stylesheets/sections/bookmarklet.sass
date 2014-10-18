@@ -1,0 +1,360 @@
+#planit-bookmarklet
+  #planit-dropdown
+    position: fixed
+    height: 75px
+    width: 100%
+    top: 0px
+    left: 0px
+    background: #fff
+    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+    -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+    -o-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+    z-index: 2147483644
+    font-family: open sans, avenir, calibri !important
+    -webkit-transition: top 3s ease-in-out
+    -moz-transition: top 3s ease-in-out
+    -o-transition: top 3s ease-in-out
+    transition: top 3s ease-in-out
+
+  #planit-close-btn
+    width: 15px
+    height: 15px
+    background: #ccc
+    position: fixed
+    top: 8px
+    right: 3px
+    border: #ddd solid 1px
+    border-bottom: #999 solid 1px
+    font-size: 10px
+    line-height: 13px
+    text-align: center
+    -webkit-border-radius: 2px
+    -moz-border-radius: 2px
+    -o-border-radius: 2px
+    border-radius: 2px
+    cursor: pointer
+
+  #planit-topper
+    width: 100%
+    height: 5px
+    background: #152678
+
+  #planit-wrapper
+    margin: 0 auto
+    min-width: 200px
+    max-width: 1060px
+    padding: 0 10px
+    height: 70px
+    overflow: hidden
+
+  #planit-logo
+    height: 70px
+    float: left
+    img
+      margin: 10px 0
+
+  #planit-logo-name
+    height: 70px
+    margin-left: 10px
+    float: left
+
+  #planit-dropdown-title
+    height: 70px
+    margin-left: 10px
+    float: left
+    line-height: 70px
+    font-size: 21px
+    color: rgba(248, 56, 96, 1)
+
+  #planit-logo-name img
+    margin: 10px 0
+
+  #planit-inputs
+    height: 70px
+    float: right
+    line-height: 70px
+
+  .planit-input
+    padding: 5px 8px
+    border: 1px solid #a4a4a4
+    border-bottom: 1px solid #fff
+    -webkit-border-radius: 3px
+    -moz-border-radius: 3px
+    -o-border-radius: 3px
+    border-radius: 3px
+    -webkit-box-shadow: 0px 1px 0px #a4a4a4
+    -moz-box-shadow: 0px 1px 0px #a4a4a4
+    -o-box-shadow: 0px 1px 0px #a4a4a4
+    box-shadow: 0px 1px 0px #a4a4a4
+    display: inline-block
+    font-size: 12px !important
+    font-family: open sans
+    color: black !important
+    margin: 0
+    &.saved-add-note
+      width: 150px
+      float: left
+      padding: 3px 5px
+
+  .planit-button
+    display: inline
+    padding: 5px 8px
+    -webkit-border-radius: 4px
+    -moz-border-radius: 4px
+    -o-border-radius: 4px
+    border-radius: 4px
+    text-align: center !important
+    font-size: 12px !important
+    font-weight: bold !important
+    text-decoration: none !important
+    -moz-transform: translate3d(0px, 0px, 0px)
+    -o-transform: translate3d(0px, 0px, 0px)
+    -webkit-transform: translate3d(0px, 0px, 0px)
+    -ms-transform: translate3d(0px, 0px, 0px)
+    transform: translate3d(0px, 0px, 0px)
+    cursor: pointer
+    &.neon
+      color: #efd1d5 !important
+      -webkit-box-shadow: 0px 1px 0px #942633
+      -moz-box-shadow: 0px 1px 0px #942633
+      -o-box-shadow: 0px 1px 0px #942633
+      box-shadow: 0px 1px 0px #942633
+      background: rgb(238, 66, 86)
+      background: -moz-linear-gradient(top, rgba(238, 66, 86, 1) 0%, rgba(212, 56, 96, 1) 100%)
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(238, 66, 86, 1)), color-stop(100%, rgba(212, 56, 96, 1)))
+      background: -webkit-linear-gradient(top, rgba(238, 66, 86, 1) 0%, rgba(212, 56, 96, 1) 100%)
+      background: -o-linear-gradient(top, rgba(238, 66, 86, 1) 0%, rgba(212, 56, 96, 1) 100%)
+      background: -ms-linear-gradient(top, rgba(238, 66, 86, 1) 0%, rgba(212, 56, 96, 1) 100%)
+      background: linear-gradient(top, rgba(238, 66, 86, 1) 0%, rgba(212, 56, 96, 1) 100%)
+      border: 1px solid #f58793
+      border-bottom: 1px solid #761826
+      &.enabled
+        &:hover
+          background: rgb(248, 56, 96)
+          background: -moz-linear-gradient(top, rgba(248, 56, 96, 1) 0%, rgba(238, 66, 86, 1) 100%)
+          background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(248, 56, 96, 1)), color-stop(100%, rgba(238, 66, 86, 1)))
+          background: -webkit-linear-gradient(top, rgba(248, 56, 96, 1) 0%, rgba(238, 66, 86, 1) 100%)
+          background: -o-linear-gradient(top, rgba(248, 56, 96, 1) 0%, rgba(238, 66, 86, 1) 100%)
+          background: -ms-linear-gradient(top, rgba(248, 56, 96, 1) 0%, rgba(238, 66, 86, 1) 100%)
+          background: linear-gradient(top, rgba(248, 56, 96, 1) 0%, rgba(238, 66, 86, 1) 100%)
+          border: 1px solid #ffb0b9
+          border-bottom: 1px solid #761826
+        &:active
+          background: rgb(208, 46, 66)
+          background: -moz-linear-gradient(top, rgba(208, 46, 66, 1) 0%, rgba(218, 56, 76, 1) 100%)
+          background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(208, 46, 66, 1)), color-stop(100%, rgba(218, 56, 76, 1)))
+          background: -webkit-linear-gradient(top, rgba(208, 46, 66, 1) 0%, rgba(218, 56, 76, 1) 100%)
+          background: -o-linear-gradient(top, rgba(208, 46, 66, 1) 0%, rgba(218, 56, 76, 1) 100%)
+          background: -ms-linear-gradient(top, rgba(208, 46, 66, 1) 0%, rgba(218, 56, 76, 1) 100%)
+          background: linear-gradient(top, rgba(208, 46, 66, 1) 0%, rgba(218, 56, 76, 1) 100%)
+          border: 1px solid #d13245
+          border-bottom: 1px solid #541119
+        color: #fff !important
+    &.blue
+      color: #98a4de !important
+      -webkit-box-shadow: 0px 1px 0px #050b28
+      -moz-box-shadow: 0px 1px 0px #050b28
+      -o-box-shadow: 0px 1px 0px #050b28
+      box-shadow: 0px 1px 0px #050b28
+      background: rgb(28, 48, 147)
+      background: -moz-linear-gradient(top, rgba(28, 48, 147, 1) 0%, rgba(14, 30, 113, 1) 100%)
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(28, 48, 147, 1)), color-stop(100%, rgba(14, 30, 113, 1)))
+      background: -webkit-linear-gradient(top, rgba(28, 48, 147, 1) 0%, rgba(14, 30, 113, 1) 100%)
+      background: -o-linear-gradient(top, rgba(28, 48, 147, 1) 0%, rgba(14, 30, 113, 1) 100%)
+      background: -ms-linear-gradient(top, rgba(28, 48, 147, 1) 0%, rgba(14, 30, 113, 1) 100%)
+      background: linear-gradient(top, rgba(28, 48, 147, 1) 0%, rgba(14, 30, 113, 1) 100%)
+      border: 1px solid #4659b6
+      border-bottom: 1px solid #050b28
+      &.enabled
+        &:hover
+          background: rgb(40, 60, 165)
+          background: -moz-linear-gradient(top, rgba(40, 60, 165, 1) 0%, rgba(28, 48, 147, 1) 100%)
+          background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(40, 60, 165, 1)), color-stop(100%, rgba(28, 48, 147, 1)))
+          background: -webkit-linear-gradient(top, rgba(40, 60, 165, 1) 0%, rgba(28, 48, 147, 1) 100%)
+          background: -o-linear-gradient(top, rgba(40, 60, 165, 1) 0%, rgba(28, 48, 147, 1) 100%)
+          background: -ms-linear-gradient(top, rgba(40, 60, 165, 1) 0%, rgba(28, 48, 147, 1) 100%)
+          background: linear-gradient(top, rgba(40, 60, 165, 1) 0%, rgba(28, 48, 147, 1) 100%)
+          border: 1px solid #98a4de
+          border-bottom: 1px solid #222e6e
+        &:active
+          background: rgb(12, 35, 130)
+          background: -moz-linear-gradient(top, rgba(12, 35, 130, 1) 0%, rgba(15, 30, 140, 1) 100%)
+          background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(12, 35, 130, 1)), color-stop(100%, rgba(15, 30, 140, 1)))
+          background: -webkit-linear-gradient(top, rgba(12, 35, 130, 1) 0%, rgba(15, 30, 140, 1) 100%)
+          background: -o-linear-gradient(top, rgba(12, 35, 130, 1) 0%, rgba(15, 30, 140, 1) 100%)
+          background: -ms-linear-gradient(top, rgba(12, 35, 130, 1) 0%, rgba(15, 30, 140, 1) 100%)
+          background: linear-gradient(top, rgba(12, 35, 130, 1) 0%, rgba(15, 30, 140, 1) 100%)
+          border: 1px solid #3d51b4
+          border-bottom: 1px solid #0e1641
+        color: #fff !important
+    &.white
+      color: #aaa !important
+      -webkit-box-shadow: 0px 1px 0px #777
+      -moz-box-shadow: 0px 1px 0px #777
+      -o-box-shadow: 0px 1px 0px #777
+      box-shadow: 0px 1px 0px #777
+      background: rgb(230, 230, 230)
+      background: -moz-linear-gradient(top, rgba(230, 230, 230, 1) 0%, rgba(220, 220, 220, 1) 100%)
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(230, 230, 230, 1)), color-stop(100%, rgba(220, 220, 220, 1)))
+      background: -webkit-linear-gradient(top, rgba(230, 230, 230, 1) 0%, rgba(220, 220, 220, 1) 100%)
+      background: -o-linear-gradient(top, rgba(230, 230, 230, 1) 0%, rgba(220, 220, 220, 1) 100%)
+      background: -ms-linear-gradient(top, rgba(230, 230, 230, 1) 0%, rgba(220, 220, 220, 1) 100%)
+      background: linear-gradient(top, rgba(230, 230, 230, 1) 0%, rgba(220, 220, 220, 1) 100%)
+      border: 1px solid #ffffff
+      border-bottom: 1px solid #999999
+      &.enabled
+        &:hover
+          background: rgb(248, 56, 96)
+          background: -moz-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(230, 230, 230, 1) 100%)
+          background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(250, 250, 250, 1)), color-stop(100%, rgba(230, 230, 230, 1)))
+          background: -webkit-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(230, 230, 230, 1) 100%)
+          background: -o-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(230, 230, 230, 1) 100%)
+          background: -ms-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(230, 230, 230, 1) 100%)
+          background: linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(230, 230, 230, 1) 100%)
+          border: 1px solid #ffffff
+          border-bottom: 1px solid #aaaaaa
+        &:active
+          background: rgb(208, 46, 66)
+          background: -moz-linear-gradient(top, rgba(210, 210, 210, 1) 0%, rgba(220, 220, 220, 1) 100%)
+          background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(210, 210, 210, 1)), color-stop(100%, rgba(220, 220, 220, 1)))
+          background: -webkit-linear-gradient(top, rgba(210, 210, 210, 1) 0%, rgba(220, 220, 220, 1) 100%)
+          background: -o-linear-gradient(top, rgba(210, 210, 210, 1) 0%, rgba(220, 220, 220, 1) 100%)
+          background: -ms-linear-gradient(top, rgba(210, 210, 210, 1) 0%, rgba(220, 220, 220, 1) 100%)
+          background: linear-gradient(top, rgba(210, 210, 210, 1) 0%, rgba(220, 220, 220, 1) 100%)
+          border: 1px solid #ccc
+          border-bottom: 1px solid #999
+        color: #000 !important
+    &.right
+      position: absolute
+      right: 10px
+    &.left!
+
+  .centered
+    margin: auto 0
+
+  #saved-message-flash
+    display: none
+    #planit-saved-msg
+      font-family: open sans, avenir, calibri !important
+      visibility: visible
+      position: fixed
+      top: 22px
+      right: 25px
+      padding: 10px
+      text-align: center
+      font-size: 12px
+      line-height: 13px
+      background: rgba(248, 56, 96, 1)
+      border-bottom: #a30 solid 1px
+      -webkit-border-radius: 4px
+      -moz-border-radius: 4px
+      -o-border-radius: 4px
+      border-radius: 4px
+      overflow: hidden
+      z-index: 2147483646
+      color: #fff
+      -webkit-transition: top 3s ease-in-out
+      -moz-transition: top 3s ease-in-out
+      -o-transition: top 3s ease-in-out
+      transition: top 3s ease-in-out
+      -webkit-box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4)
+      -moz-box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4)
+      -o-box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4)
+      box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4)
+      img
+        border: 0
+
+    .planit-saved-demo-title
+      font-weight: bold
+      text-align: center
+      width: 180px
+      color: #000
+      margin: 0px
+      border: 0px
+      padding: 8px 0
+
+    .planit-saved-demo-details
+      text-align: left
+      padding: 0
+      width: 180px
+      color: #000
+      background: #fff
+      margin: 0px
+      border: 0px
+
+    .planit-saved-demo-title:hover, .planit-saved-demo-details:hover
+      background: #ccc
+      cursor: text
+
+    .planit-saved-link
+      text-decoration: none
+      color: #fff !important
+
+    #planit-saved-logo
+      height: 38px
+      margin: -5px 0 0 0
+      position: fixed
+      top: 12px
+      right: 18px
+      z-index: 2147483647
+      img
+        border: 0
+
+    #planit-saved-demo
+      display: block
+      margin: 10px 0 0 0
+      background-color: #fff
+      border: 1px solid #c4c7ca
+      border-bottom-color: #b7babe
+      padding: 0.75em 0.75em 0.9em
+      position: relative
+      text-align: left
+      -webkit-border-radius: 0.25em
+      -moz-border-radius: 0.25em
+      border-radius: 0.25em
+      -webkit-box-shadow: #ecedee 0 -0.1875em 0 inset, rgba(0, 0, 0, 0.04) 0 0.11111em 0
+      -moz-box-shadow: #ecedee 0 -0.1875em 0 inset, rgba(0, 0, 0, 0.04) 0 0.11111em 0
+      box-shadow: #ecedee 0 -0.1875em 0 inset, rgba(0, 0, 0, 0.04) 0 0.11111em 0
+
+    #planit-saved-add-note
+      margin: 10px 0 10px 0
+      width: 180px
+
+    #add-another-flash
+      display: none
+      .add-another
+        visibility: visible
+        position: fixed
+        height: 70px
+        width: 100%
+        top: 5px
+        left: 0px
+        z-index: 2147483645
+        font-family: open sans, avenir, calibri !important
+        -webkit-transition: top 3s ease-in-out
+        -moz-transition: top 3s ease-in-out
+        -o-transition: top 3s ease-in-out
+        transition: top 3s ease-in-out
+        background: rgb(255, 255, 255)
+        background: rgba(255, 255, 255, 0.9)
+        text-align: center
+        line-height: 70px
+
+      .add-another-button-wrap
+        height: 70px
+        margin-left: 52px
+        float: left
+
+      .add-another-arrow
+        height: 70px
+        margin-right: 145px
+        float: right
+
+    .breakline!
+
+    .img-container
+      width: 180px
+      height: 120px
+      margin: 0
+      overflow: hidden

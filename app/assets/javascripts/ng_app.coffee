@@ -1,6 +1,4 @@
 #= require_self
-#= require underscore-min
-#= require ui-bootstrap-tpls.min
 #= require plan
 #= require common/common
 #= require_tree ./models
@@ -16,7 +14,6 @@ planitModules = [
 
 otherModules = [
   "ngRoute"
-  "ui.bootstrap"
 ]
 
 for module in planitModules

@@ -15,6 +15,9 @@ Bundler.require(*Rails.groups)
 
 module Planit
   class Application < Rails::Application
+
+    config.action_controller.asset_host = ENV['ASSET_PATH']
+
     config.i18n.enforce_available_locales = true
 
     config.active_record.default_timezone = :utc

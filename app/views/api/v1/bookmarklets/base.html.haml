@@ -1,0 +1,49 @@
+= stylesheet_link_tag 'sections/bookmarklet'
+
+#planit-bookmarklet
+  #manual-dropdown
+    #planit-dropdown
+      #planit-close-btn x
+      #planit-topper
+      #planit-wrapper
+        #planit-logo
+          %img{height: "50", src: image_url("logo_only_black.png"), width: "42"}/
+        #planit-logo-name
+          %img{height: "50", src: image_url("logo_name_only_black.png"), width: "86"}/
+        #planit-dropdown-title
+          Keeper
+        #planit-inputs
+          %form#planit-form
+            %input#planit-name.planit-input{placeholder: "Desitination Name"}/
+            %input#planit-address.planit-input{placeholder: "Address, City State & Country"}/
+            %input#planit-notes.planit-input{placeholder: "Add Notes"}/
+            %a#planit-click-save.planit-button.neon.disabled{target: "-blank"} SAVE
+
+  #add-another-flash
+    .add-another
+      #planit-wrapper
+        .add-another-arrow
+          \->
+        .add-another-button-wrap
+          %a#planit-click-add-another.planit-button.blue.enabled{target: "-blank"} ADD ANOTHER ITEM ON THIS PAGE
+
+  #saved-message-flash
+    #planit-saved-logo
+      %img{height: "38", src: image_url("logo_only_black.png"), width: "32"}/
+    #planit-saved-msg
+      Saved to
+      = succeed "!" do
+        %a.planit-saved-link{href: "#"}
+          your
+          %strong planit
+      %form#planit-saved-form
+        #planit-saved-demo
+          .img-container
+            %img{height: "120", src: "https://irs3.4sqi.net/img/general/180x120/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg", width: "180"}/
+          .breakline
+            %input#planit-name.planit-saved-demo-title{value: "Dwelltime"}/
+          .breakline
+            %input#planit-address.planit-saved-demo-details{value: "364 Broadway, Cambridge, MA 02139"}/
+        #planit-saved-add-note
+          %input#planit-name.planit-input.saved-add-note{placeholder: "Note-to-Self?"}/
+          %a#planit-add-note.planit-button.white.right.disabled{target: "-blank"} ADD
