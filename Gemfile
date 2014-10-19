@@ -55,8 +55,6 @@ group :development, :test do
   gem "factory_girl_rails"
   gem "pry-rails"
   gem "rspec-rails", "~> 2.14.0"
-
-  gem 'jasmine'
 end
 
 group :test do
@@ -67,6 +65,9 @@ group :test do
   gem "shoulda-matchers", require: false
   gem "timecop"
   gem "webmock"
+
+  gem 'vcr'
+  gem 'jasmine'
 end
 
 group :staging, :production do

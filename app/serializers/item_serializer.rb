@@ -1,8 +1,11 @@
 class ItemSerializer < ActiveModel::Serializer
-  attributes :id, :lat, :lon, :name
+  attributes :id, :lat, :lon, :name, :image
 
-  delegate :lat, :lon, :name, to: :location
+  def image
+    object.images.first
+  end
+
   def location
-    object.location
+    LocationSerializer.new(object.location)
   end
 end

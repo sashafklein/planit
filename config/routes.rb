@@ -17,7 +17,9 @@ Rails.application.routes.draw do
         match '/save_item' => 'bookmarklets#save_item', on: :collection, via: [:options, :post]
       end
 
-      resources :items, only: [:create], action: 'options', constraints: {:method => 'OPTIONS'}
+      resources :items, only: [] do
+        match '/create' => 'items#create', on: :collection, via: [:options, :post]
+      end
       
       resources :legs, only: [] do
         get :map, on: :member

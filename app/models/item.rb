@@ -4,8 +4,10 @@ class Item < ActiveRecord::Base
   
   belongs_to :location
   belongs_to :day
+  belongs_to :user
   
   has_many :images, as: :imageable
+  belongs_to :group, polymorphic: true
 
   delegate :leg, to: :day
   delegate :plan, to: :leg
@@ -35,6 +37,15 @@ class Item < ActiveRecord::Base
 
   def self.center_coordinate
     Location.center_coordinate(locations)
+  end
+
+  def self.from_flat_hash!(params)
+    return unless params
+    location_keys = %w(name local_name postal_code street_address cross_street phone country state city lat lon url).map(&:to_sym)
+    location = Location.where(params.select{ |k| location_keys.include?(k) }).first_or_create!
+    new_item = create!( params.reject{ |k| location_keys.include?(k) || k == :photo }.merge(location_id: location.id) )
+    new_item.images.where(url: params[:photo]).first_or_create! if params[:photo]
+    new_item
   end
 
   def show_icon

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140914145633) do
+ActiveRecord::Schema.define(version: 20141019005610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,14 +86,20 @@ ActiveRecord::Schema.define(version: 20140914145633) do
     t.boolean  "show_tab"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "groupable_type"
+    t.integer  "groupable_id"
   end
 
   add_index "items", ["arrival_id"], name: "index_items_on_arrival_id", using: :btree
   add_index "items", ["day_id"], name: "index_items_on_day_id", using: :btree
   add_index "items", ["departure_id"], name: "index_items_on_departure_id", using: :btree
+  add_index "items", ["groupable_id"], name: "index_items_on_groupable_id", using: :btree
+  add_index "items", ["groupable_type"], name: "index_items_on_groupable_type", using: :btree
   add_index "items", ["leg_id"], name: "index_items_on_leg_id", using: :btree
   add_index "items", ["location_id"], name: "index_items_on_location_id", using: :btree
   add_index "items", ["order"], name: "index_items_on_order", using: :btree
+  add_index "items", ["user_id"], name: "index_items_on_user_id", using: :btree
 
   create_table "legs", force: true do |t|
     t.string   "name"

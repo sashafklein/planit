@@ -18,8 +18,7 @@ class FourSquareCompleter
   private
 
   def sufficient_to_fetch?
-    (params[:locality] || (params[:lat] && params[:lon])) &&
-      ((params[:name]) || params(:street_address))
+    (params[:locality] || (params[:lat] && params[:lon])) && params[:name]
   end
 
   def complete?
@@ -74,6 +73,7 @@ class FourSquareCompleter
     params[:city] ||= venue['location']['city']
     params[:category] ||= venue['categories'][0]['name']
     params[:meal] ||= params[:category].present? && params[:category].downcase.include?('restaurant')
+    params[:lodging] ||= params[:category].present? && params[:category].downcase.include?('hotel')
     params
   end
 

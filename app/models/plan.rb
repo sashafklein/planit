@@ -6,7 +6,7 @@ class Plan < ActiveRecord::Base
   belongs_to :user
   has_many :legs
   has_many :days, through: :legs
-  has_many :items, through: :legs
+  has_many :items, as: :groupable
 
   has_many :moneyshots, class_name: 'Image', as: :imageable
   has_many :images, as: :imageable

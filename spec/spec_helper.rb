@@ -5,6 +5,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require "rspec/rails"
 require "shoulda/matchers"
 require "webmock/rspec"
+require 'vcr'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |file| require file }
 
@@ -23,6 +24,14 @@ RSpec.configure do |config|
   config.order = "random"
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.use_transactional_fixtures = false
+end
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+  c.hook_into :webmock
+  c.allow_http_connections_when_no_cassette = true
+  c.configure_rspec_metadata!
+  c.ignore_hosts '127.0.0.1', 'localhost:3000'
 end
 
 ActiveRecord::Migration.maintain_test_schema!
