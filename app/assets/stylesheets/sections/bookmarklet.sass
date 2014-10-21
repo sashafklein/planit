@@ -76,26 +76,30 @@
     line-height: 70px
 
   .planit-input
-    padding: 5px 8px
-    border: 1px solid #a4a4a4
-    border-bottom: 1px solid #fff
+    padding: 5px 8px !important
+    border: 1px solid #a4a4a4 !important
+    border-bottom: 1px solid #fff !important
     -webkit-border-radius: 3px
     -moz-border-radius: 3px
     -o-border-radius: 3px
-    border-radius: 3px
+    border-radius: 3px !important
     -webkit-box-shadow: 0px 1px 0px #a4a4a4
     -moz-box-shadow: 0px 1px 0px #a4a4a4
     -o-box-shadow: 0px 1px 0px #a4a4a4
     box-shadow: 0px 1px 0px #a4a4a4
     display: inline-block
     font-size: 12px !important
-    font-family: open sans
+    font-family: open sans, avenir, calibri !important
+    font-style: normal !important
     color: black !important
-    margin: 0
-    &.saved-add-note
-      width: 150px
+    height: 26px !important
+    line-height: 16px !important
+    margin: 0 !important
+    &#saved-add-note
+      width: 180px !important
       float: left
-      padding: 3px 5px
+      height: 26px !important
+      padding: 3px 5px !important
 
   .planit-button
     display: inline
@@ -239,7 +243,7 @@
       font-family: open sans, avenir, calibri !important
       visibility: visible
       position: fixed
-      top: 22px
+      top: 82px
       right: 25px
       padding: 10px
       text-align: center
@@ -266,7 +270,8 @@
         border: 0
 
     .planit-saved-demo-title
-      font-weight: bold
+      font-family: open sans, avenir, calibri !important
+      font-weight: bold !important
       text-align: center
       width: 180px
       color: #000
@@ -275,6 +280,7 @@
       padding: 8px 0
 
     .planit-saved-demo-details
+      font-family: open sans, avenir, calibri !important
       text-align: left
       padding: 0
       width: 180px
@@ -295,13 +301,32 @@
       height: 38px
       margin: -5px 0 0 0
       position: fixed
-      top: 12px
-      right: 18px
+      top: 72px
+      right: 218px
       z-index: 2147483647
       img
         border: 0
 
-    #planit-saved-demo
+    #planit-saved-close-btn
+      width: 15px
+      height: 15px
+      background: #ccc
+      position: fixed
+      top: 78px
+      right: 33px
+      border: #ddd solid 1px
+      border-bottom: #999 solid 1px
+      font-size: 10px
+      line-height: 13px
+      text-align: center
+      -webkit-border-radius: 2px
+      -moz-border-radius: 2px
+      -o-border-radius: 2px
+      border-radius: 2px
+      cursor: pointer
+      z-index: 2147483647
+
+      #planit-saved-demo
       display: block
       margin: 10px 0 0 0
       background-color: #fff
@@ -358,3 +383,9 @@
       height: 120px
       margin: 0
       overflow: hidden
+      background: #ccc
+      img 
+        box-shadow: rgba(0,0,0,0.75) 0 0 3px inset
+        moz-box-shadow: rgba(0,0,0,0.75) 0 0 3px inset
+        webkit-box-shadow: rgba(0,0,0,0.75) 0 0 3px inset
+        o-box-shadow: rgba(0,0,0,0.75) 0 0 3px inset

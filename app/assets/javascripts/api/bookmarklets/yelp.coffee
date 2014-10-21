@@ -21,111 +21,93 @@ lon = ""
 
 # meat of it
 
-siteName = "TripAdvisor"
+siteName = "Yelp"
 ratingsBase = "5"
 
 nameOptionArray = [
-  ['h1#HEADING', (selector) ->
-    trim(deTag(bySelector(selector)))
+  ['h1.biz-page-title', (selector) ->
+    trim(bySelector(selector))
   ]
 ]
 name = chooseOption(nameOptionArray)
 
 addressOptionArray = [
-  ["span.street-address", (selector) ->
+  ["span[itemprop='streetAddress']", (selector) ->
     bySelector(selector)
   ]
 ]
 streetAddress = chooseOption(addressOptionArray)
 
 localityOptionArray = [
-  ["span[property='v:locality']", (selector) ->
+  ["span[itemprop='addressLocality']", (selector) ->
     bySelector(selector)
   ]
 ]
 locality = chooseOption(localityOptionArray)
 
 regionOptionArray = [
-  ["span[property='v:region']", (selector) ->
+  ["span[itemprop='addressRegion']", (selector) ->
     bySelector(selector)
   ]
 ]
 region = chooseOption(regionOptionArray)
 
 postalCodeOptionArray = [
-  ["span[property='v:postal-code']", (selector) ->
+  ["span[itemprop='postalCode']", (selector) ->
     bySelector(selector)
   ]
 ]
 postalCode = chooseOption(postalCodeOptionArray)
 
-countryOptionArray = [
-  ["span[property='v:country-name']", (selector) ->
-    bySelector(selector)
-  ]
-]
-country = chooseOption(countryOptionArray)
-
 phoneOptionArray = [
-  ["div.phoneNumber", (selector) ->
+  ["span.biz-phone", (selector) ->
     trim(bySelector(selector))
   ]
 ]
 phone = chooseOption(phoneOptionArray)
 
 latLonOptionArray = [
-  ["div.STATIC_MAP:visible", (selector) ->
-    latLonElement = ifSelector(selector).find("img").attr("src").split("center=")[1].split("&")[0]
-    latLonElement.replace("%2C", ',')    
-  ],
-  ["div#STATIC_MAP:visible", (selector) ->
-    latLonElement = ifSelector(selector).find("img").attr("src").split("center=")[1].split("&")[0]
-    latLonElement.replace("%2C", ',')    
+  ["div.mapbox-map:visible", (selector) ->
+    if $(selector) && $(selector).length
+      latLonElement = $(selector).find("img").attr("src").split("center=")[1].split("&")[0]
+      latLonElement.replace("%2C", ',')    
   ]
 ]
 if chooseOption(latLonOptionArray) && chooseOption(latLonOptionArray).length
   lat = chooseOption(latLonOptionArray).split(",")[0]
   lon = chooseOption(latLonOptionArray).split(",")[1]
 
-# NEEDSFOLLOWUP
-#images
 imageOptionArray = [
-  ["img.heroPhotoImg:visible", (selector) ->
+  ["img.photo-box-img:visible", (selector) ->
     $(selector).attr("src")
-  ],
-  ["div.photo_slideshow:visible", (selector) ->
-    $(selector).find("img").attr("src")
-  ],
-  ["img#HERO_PHOTO:visible", (selector) ->
-    $(selector).attr("src")
+    # NEEDSFOLLOWUP
+    # cycle through all images with class?
   ]
 ]
 imageList.push( { url: chooseOption(imageOptionArray), source: document.URL, credit: siteName } )
 image = chooseOption(imageOptionArray)
 
-ratingInfoOptionArray = [
-  ["img.rating_no_fill", (selector) ->
-    $(selector).attr('content')
-  ]
-]
-rating = chooseOption(ratingInfoOptionArray)
-
-rankingInfoOptionArray = [
-  ["b.rank_text", (selector) ->
-    rankingElement = bySelector(selector)
-    rankingElement.split("Ranked #")[1]
-  ]
-]
-ranking = chooseOption(rankingInfoOptionArray)
-
 priceInfoOptionArray = [
-  ["b:contains('Price range:')", (selector) ->
-    $(selector).next().html()
+  ["span[itemprop='priceRange']", (selector) ->
+    trim(bySelector(selector))
   ]
 ]
 priceInfo = chooseOption(priceInfoOptionArray)
 
-category = document.URL.split("tripadvisor.com/")[1].split("_Review")[0]
+ratingInfoOptionArray = [
+  ["i.star-img", (selector) ->
+    $(selector).attr('title').split(" star")[0]
+  ]
+]
+rating = chooseOption(ratingInfoOptionArray)
+
+categoryInfoOptionArray = [
+  ["span.category-str-list", (selector) ->
+    trim(deTag(bySelector(selector)))
+  ]
+]
+if chooseOption(categoryInfoOptionArray) && chooseOption(categoryInfoOptionArray).length
+  category = chooseOption(categoryInfoOptionArray).split(', ')
 
 return {
   name: name

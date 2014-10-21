@@ -14,7 +14,7 @@
           Keeper
         #planit-inputs
           %form#planit-form
-            %input#planit-name.planit-input{placeholder: "Desitination Name"}/
+            %input#planit-name.planit-input{placeholder: "Destination Name"}/
             %input#planit-address.planit-input{placeholder: "Address, City State & Country"}/
             %input#planit-notes.planit-input{placeholder: "Add Notes"}/
             %a#planit-click-save.planit-button.neon.disabled{target: "-blank"} SAVE
@@ -28,22 +28,23 @@
           %a#planit-click-add-another.planit-button.blue.enabled{target: "-blank"} ADD ANOTHER ITEM ON THIS PAGE
 
   #saved-message-flash
-    #planit-saved-logo
-      %img{height: "38", src: image_url("logo_only_black.png"), width: "32"}/
+    #planit-saved-close-btn x
+    / #planit-saved-logo
+    /   %img{height: "38", src: image_url("logo_only_black.png"), width: "32"}/
     #planit-saved-msg
       Saved to
       = succeed "!" do
-        %a.planit-saved-link{href: "#"}
+        %a.planit-saved-link
           your
           %strong planit
       %form#planit-saved-form
         #planit-saved-demo
           .img-container
-            %img{height: "120", src: "https://irs3.4sqi.net/img/general/180x120/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg", width: "180"}/
+            %img{height: "120", src: image_url("tab_stand_in.png"), width: "180"}/
           .breakline
-            %input#planit-name.planit-saved-demo-title{value: "Dwelltime"}/
+            %input#planit-name.planit-saved-demo-title{value: "VENUE_NAME"}/
           .breakline
-            %input#planit-address.planit-saved-demo-details{value: "364 Broadway, Cambridge, MA 02139"}/
+            %input#planit-address.planit-saved-demo-details{value: "VENUE_ADDRESS_COMPUTED"}/
         #planit-saved-add-note
-          %input#planit-name.planit-input.saved-add-note{placeholder: "Note-to-Self?"}/
-          %a#planit-add-note.planit-button.white.right.disabled{target: "-blank"} ADD
+          %input#planit-note.planit-input#saved-add-note{placeholder: "Note-to-Self?"}/
+          / %a#planit-add-note.planit-button.white.right.disabled{target: "-blank"} ADD
