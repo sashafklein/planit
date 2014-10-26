@@ -15,7 +15,7 @@ priceInfoOptionArray = [
 ]
 priceInfo = chooseOption(priceInfoOptionArray)
 
-category = 'hotel'
+category.push 'hotel'
 
 ratingOptionArray = [
   ["span.score", (selector) ->
@@ -52,25 +52,19 @@ fullAddressOptionArray = [
   ]
 ]
 if chooseOption(fullAddressOptionArray) && chooseOption(fullAddressOptionArray).length
-  fullAddress = chooseOption(fullAddressOptionArray).split(", ")
-  testCountry = fullAddress.pop()
-  if testCountry == country
-    locality = testCountry
-    streetAddress = fullAddress.pop()
-  else
-    region = testCountry
-    locality = fullAddress.pop()
-    streetAddress = fullAddress.join(", ")
+  fullAddress = chooseOption(fullAddressOptionArray)
+  streetAddress = fullAddress.split(", #{locality}, ")[0]
+  region = fullAddress.split(", #{country}")[0].split(", #{locality}, ")[1]
 
-imageList = []
-if $("ul.slides") && $("ul.slides").length
-  for image in $("ul.slides").find("img")
-    imageList.push( { url: $(image).attr("src"), source: document.URL, credit: siteName } )
-  image = imageList[0].url
-  
+imageContainerArray = ["ul.slides"]
+getImages(imageContainerArray)
+if imageList && imageList.length
+  photoToUse = imageList[0].url
+
 return {
   name: name
-  street_address: streetAddress
+  streetAddress: streetAddress
+  fullAddress: fullAddress
   locality: locality
   region: region
   postalCode: postalCode

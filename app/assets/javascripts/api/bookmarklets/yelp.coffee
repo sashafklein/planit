@@ -1,26 +1,3 @@
-#start clean
-name = ""
-streetAddress = ""
-locality = ""
-region = ""
-country = ""
-postalCode = ""
-country = ""
-phone = ""
-website = ""
-category = []
-priceInfo = ""
-sourceNotes = ""
-ranking = ""
-rating = ""
-imageList = []
-photoToUse = "blank.gif"
-siteName = ""
-lat = ""
-lon = ""
-
-# meat of it
-
 siteName = "Yelp"
 ratingsBase = "5"
 
@@ -77,15 +54,10 @@ if chooseOption(latLonOptionArray) && chooseOption(latLonOptionArray).length
   lat = chooseOption(latLonOptionArray).split(",")[0]
   lon = chooseOption(latLonOptionArray).split(",")[1]
 
-imageOptionArray = [
-  ["img.photo-box-img:visible", (selector) ->
-    $(selector).attr("src")
-    # NEEDSFOLLOWUP
-    # cycle through all images with class?
-  ]
-]
-imageList.push( { url: chooseOption(imageOptionArray), source: document.URL, credit: siteName } )
-image = chooseOption(imageOptionArray)
+imageContainer = ["div.showcase-photos"]
+getGalleryImages(imageContainer)
+if imageList && imageList.length
+  photoToUse = imageList[0].url
 
 priceInfoOptionArray = [
   ["span[itemprop='priceRange']", (selector) ->
@@ -111,7 +83,8 @@ if chooseOption(categoryInfoOptionArray) && chooseOption(categoryInfoOptionArray
 
 return {
   name: name
-  street_address: streetAddress
+  fullAddress: fullAddress
+  streetAddress: streetAddress
   locality: locality
   region: region
   postalCode: postalCode

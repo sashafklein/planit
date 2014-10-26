@@ -1,50 +1,62 @@
 = stylesheet_link_tag 'sections/bookmarklet'
 
 #planit-bookmarklet
-  #manual-dropdown
-    #planit-dropdown
-      #planit-close-btn x
-      #planit-topper
-      #planit-wrapper
-        #planit-logo
-          %img{height: "50", src: image_url("logo_only_black.png"), width: "42"}/
-        #planit-logo-name
-          %img{height: "50", src: image_url("logo_name_only_black.png"), width: "86"}/
-        #planit-dropdown-title
-          Keeper
-        #planit-inputs
-          %form#planit-form
-            %input#planit-name.planit-input{placeholder: "Destination Name"}/
-            %input#planit-address.planit-input{placeholder: "Address, City State & Country"}/
-            %input#planit-notes.planit-input{placeholder: "Add Notes"}/
-            %a#planit-click-save.planit-button.neon.disabled{target: "-blank"} SAVE
 
-  #add-another-flash
-    .add-another
-      #planit-wrapper
-        .add-another-arrow
-          \->
-        .add-another-button-wrap
-          %a#planit-click-add-another.planit-button.blue.enabled{target: "-blank"} ADD ANOTHER ITEM ON THIS PAGE
+  #planit-manual
+    #planit-close-btn x
+    #planit-topper
+    #planit-horizontal-wrapper
+      #planit-logo
+        %img{height: "50", src: image_url("logo_only_black.png"), width: "42"}/
+      #planit-logo-name
+        %img{height: "50", src: image_url("logo_name_only_black.png"), width: "86"}/
+      #planit-dropdown-title
+        Keeper
+      #planit-inputs
+        %form#planit-form
+          %input#planit-name.planit-input{placeholder: "Destination Name"}/
+          %input#planit-address.planit-input{placeholder: "Address, City State & Country"}/
+          %input#planit-notes.planit-input{placeholder: "Add Notes"}/
+          %a#planit-click-save.planit-button.neon.disabled{target: "-blank"} SAVE
 
-  #saved-message-flash
-    #planit-saved-close-btn x
-    / #planit-saved-logo
-    /   %img{height: "38", src: image_url("logo_only_black.png"), width: "32"}/
-    #planit-saved-msg
-      Saved to
-      = succeed "!" do
-        %a.planit-saved-link
-          your
-          %strong planit
-      %form#planit-saved-form
-        #planit-saved-demo
-          .img-container
-            %img{height: "120", src: image_url("tab_stand_in.png"), width: "180"}/
-          .breakline
-            %input#planit-name.planit-saved-demo-title{value: "VENUE_NAME"}/
-          .breakline
-            %input#planit-address.planit-saved-demo-details{value: "VENUE_ADDRESS_COMPUTED"}/
-        #planit-saved-add-note
-          %input#planit-note.planit-input#saved-add-note{placeholder: "Note-to-Self?"}/
-          / %a#planit-add-note.planit-button.white.right.disabled{target: "-blank"} ADD
+  #planit-wrapper
+    #planit-wrapper-shadow
+
+      #planit-wrapper-content
+
+        #planit-loading
+          Working on it ;-)
+
+        #planit-error
+          Error.  Bummer ;-(
+
+        #planit-success
+          #test-environment
+            %form#planit-saved-form
+              #planit-saved-demo
+                .planit-img-container
+                  #planit-imageCount 
+                    imageCount
+                  %img{height: "120", src: "", width: "180"}/
+                .breakline
+                  %input#planit-name.planit-saved-demo-title.saved-check-results{placeholder: "name"}/
+                .breakline
+                  %input#planit-fullAddress.planit-saved-demo-details.saved-check-results{placeholder: "fullAddress"}/
+                  %input#planit-streetAddress.planit-saved-demo-details.saved-check-results{placeholder: "streetAddress"}/
+                  %input#planit-locality.planit-saved-demo-details.saved-check-results{placeholder: "locality"}/
+                  %input#planit-region.planit-saved-demo-details.saved-check-results{placeholder: "region"}/
+                  %input#planit-country.planit-saved-demo-details.saved-check-results{placeholder: "country"}/
+                  %input#planit-postalCode.planit-saved-demo-details.saved-check-results{placeholder: "postalCode"}/
+                  %input#planit-phone.planit-saved-demo-details.saved-check-results{placeholder: "phone"}/
+                  %input#planit-website.planit-saved-demo-details.saved-check-results{placeholder: "website"}/
+                  %input#planit-category.planit-saved-demo-details.saved-check-results{placeholder: "cateogry"}/
+                  %input#planit-priceInfo.planit-saved-demo-details.saved-check-results{placeholder: "priceInfo"}/
+                  %input#planit-sourceNotes.planit-saved-demo-details.saved-check-results{placeholder: "sourceNotes"}/
+                  %input#planit-ranking.planit-saved-demo-details.saved-check-results{placeholder: "ranking"}/
+                  %input#planit-rating.planit-saved-demo-details.saved-check-results{placeholder: "rating"}/
+                  %input#planit-lat.planit-saved-demo-details.saved-check-results{placeholder: "lat"}/
+                  %input#planit-lon.planit-saved-demo-details.saved-check-results{placeholder: "lon"}/
+
+      #planit-noteWrap
+        %input#planit-note.planit-input#planit-addNote{placeholder: "Note-to-Self?"}/
+

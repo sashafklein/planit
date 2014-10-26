@@ -1,0 +1,70 @@
+Generalizeable:
+____
+
+Info Sections
+
+story-info
+____
+
+Name
+
+h1
+itemprop='name'
+#/. page_title, title, name
+____
+
+Address <- filter out name, telephone, website, email
+
+<address>
+
+itemprop=
+.
+#
+
+adr
+address
+location
+propertyAddress
+
+____
+
+Lat Lon
+
+#/. mapbox
+data-lat
+data-lon
+src or href /-75.53358,10.41373,15/
+
+#/. static_map
+
+src or href
+http://maps.google.com/
+center= [X,X] & or "
+ll= [X,X] & or "
+| [X,X] & or "
+____
+
+Image-containers = []
+
+gallery
+ul.slides
+large-image-wrapper
+large-image-viewport
+screen-gallery
+flex-viewport
+hero
+
+____
+
+NYTimes price-containing parentheses \(([^)]*?\$.*?)\)
+
+NYTimes numbered day-sections
+/\d+\.\s./ period
+\n\d+\)\s.*?\n parentheses
+
+/((?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó,']+(?=(?:\s|\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ])(?:(?:\s|\-?)(?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó',]+)+\s\(.*?[,;]\s(?=\d+).*?\)|\s\(\d+.*?\,\s(?=\d+).*?\))/g
+
+ÄäÀàÁáÂâÃãÅåǍǎĄąĂăÆæÇçĆćĈĉČčĎđĐďðÈèÉéÊêËëĚěĘęĜĝĢģĤĥÌìÍíÎîÏïĴĵĶķĹĺĻļŁłĽľÑñŃńŇňÖöÒòÓóÔôÕõŐőØøŒœŔŕŘřẞßŚśŜŝŞşŠšŤťŢţÞþÜüÙùÚúÛûŰűŨũŲųŮůŴŵÝýŸÿŶŷŹźŽžŻż
+
+äàáçèéëìíöòó
+ÄÀÁÇÈÉëÌÍÖÒÓ

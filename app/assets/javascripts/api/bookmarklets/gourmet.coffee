@@ -1,48 +1,24 @@
-#start clean
-name = ""
-streetAddress = ""
-locality = ""
-region = ""
-country = ""
-postalCode = ""
-country = ""
-phone = ""
-website = ""
-category = []
-priceInfo = ""
-sourceNotes = ""
-ranking = ""
-rating = ""
-imageList = []
-photoToUse = "blank.gif"
-siteName = ""
-lat = ""
-lon = ""
-
-# meat of it
-
 siteName = "Gourmet"
 ratingsBase = ""
 # NO APPARENT RATINGS
 
-nameOptionArray = [
+infoOptionArray = [
+  ['div#articletext', (selector) ->
+    $(selector)
+  ],
   ['div.item-text', (selector) ->
-    $(selector).find("strong").find("em").html()
+    $(selector)
   ]
 ]
-name = chooseOption(nameOptionArray)
-
-addressOptionArray = [
-  ['div.item-text', (selector) ->
-    $(selector).find("strong").find("em").next()
-    # NEEDFOLLOWUP
-  ]
-]
-address = chooseOption(addressOptionArray)
-streetAdress = address.split(", ")[0]
-locality = address.split(", ")[1]
-phone = address.split("(")[1].split(";")[0]
-website = address.find("a").attr("href")
+if chooseOption(infoOptionArray) && chooseOption(infoOptionArray).length 
+  articleBody = chooseOption(infoOptionArray).html()
+  infoLine = articleBody.split("<strong>")[1]
+  if infoLine && infoLine.length
+    name = deTag(infoLine.split("</strong>")[0])
+    streetAddress = infoLine.split("</strong>")[1].split(",")[0]
+    locality = infoLine.split(", ")[1].split("(")[0]
+    phone = infoLine.split("(")[1].split(";")[0]
+    website = infoLine.split('href="')[1].split('"')[0]
 
 return {
   name: name

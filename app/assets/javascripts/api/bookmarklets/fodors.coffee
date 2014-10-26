@@ -1,39 +1,16 @@
-#start clean
-name = ""
-streetAddress = ""
-locality = ""
-region = ""
-country = ""
-postalCode = ""
-country = ""
-phone = ""
-website = ""
-category = []
-priceInfo = ""
-sourceNotes = ""
-ranking = ""
-rating = ""
-imageList = []
-photoToUse = "blank.gif"
-siteName = ""
-lat = ""
-lon = ""
-
-# meat of it
-
 siteName = "Fodors"
 ratingsBase = "1"
 # FODOR'S CHOICE IS BINARY
 
+setBack(".header-wrapper")
+
 nameOptionArray = [
   ['h1.poi-title', (selector) ->
-    trim(bySelector(selector))
+    bySelector(selector)
   ]
 ]
 name = chooseOption(nameOptionArray)
 
-# address
-# $("h1.poi-title").next() <- just street address
 addressOptionArray = [
   ["p.poi-info-title:contains('Address:')", (selector) ->
     $(selector).next().html()

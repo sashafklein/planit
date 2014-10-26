@@ -1,35 +1,13 @@
-#start clean
-name = ""
-streetAddress = ""
-locality = ""
-region = ""
-country = ""
-postalCode = ""
-country = ""
-phone = ""
-website = ""
-category = []
-priceInfo = ""
-sourceNotes = ""
-ranking = ""
-rating = ""
-imageList = []
-photoToUse = "blank.gif"
-siteName = ""
-lat = ""
-lon = ""
-
-# meat of it
-
 siteName = "TripAdvisor"
 ratingsBase = "5"
 
 nameOptionArray = [
-  ['h1#HEADING', (selector) ->
-    trim(deTag(bySelector(selector)))
+  ["h1#HEADING", (selector) ->
+    bySelector(selector)
   ]
 ]
-name = chooseOption(nameOptionArray)
+nameElement = chooseOption(nameOptionArray)
+name = nameElement.replace(/(\r\n|\n|\r)/gm, '')
 
 addressOptionArray = [
   ["span.street-address", (selector) ->
@@ -75,11 +53,11 @@ phone = chooseOption(phoneOptionArray)
 
 latLonOptionArray = [
   ["div.STATIC_MAP:visible", (selector) ->
-    latLonElement = ifSelector(selector).find("img").attr("src").split("center=")[1].split("&")[0]
+    latLonElement = $(selector).find("img").attr("src").split("center=")[1].split("&")[0]
     latLonElement.replace("%2C", ',')    
   ],
   ["div#STATIC_MAP:visible", (selector) ->
-    latLonElement = ifSelector(selector).find("img").attr("src").split("center=")[1].split("&")[0]
+    latLonElement = $(selector).find("img").attr("src").split("center=")[1].split("&")[0]
     latLonElement.replace("%2C", ',')    
   ]
 ]
@@ -89,19 +67,29 @@ if chooseOption(latLonOptionArray) && chooseOption(latLonOptionArray).length
 
 # NEEDSFOLLOWUP
 #images
-imageOptionArray = [
-  ["img.heroPhotoImg:visible", (selector) ->
-    $(selector).attr("src")
+
+imageListElement = []
+imageList = []
+imagesOptionArray = [
+  ["div.sizedThumb_container", (selector) ->
+    for image in $(selector).find("img")
+      imageListElement.push( { url: $(image).attr("src"), source: document.URL, credit: siteName } )
+    return imageListElement
   ],
-  ["div.photo_slideshow:visible", (selector) ->
-    $(selector).find("img").attr("src")
+  ["div.photo_slideshow", (selector) ->
+    for image in $(selector).find("img")
+      imageListElement.push( { url: $(image).attr("src"), source: document.URL, credit: siteName } )
+    return imageListElement
   ],
-  ["img#HERO_PHOTO:visible", (selector) ->
-    $(selector).attr("src")
+  ["div.photoGrid.photoBx", (selector) ->
+    for image in $(selector).find("img")
+      imageListElement.push( { url: $(image).attr("src"), source: document.URL, credit: siteName } )
+    return imageListElement
   ]
 ]
-imageList.push( { url: chooseOption(imageOptionArray), source: document.URL, credit: siteName } )
-image = chooseOption(imageOptionArray)
+imageList = chooseOption(imagesOptionArray)
+if imageList && imageList.length
+  photoToUse = imageList[0].url
 
 ratingInfoOptionArray = [
   ["img.rating_no_fill", (selector) ->
@@ -113,7 +101,9 @@ rating = chooseOption(ratingInfoOptionArray)
 rankingInfoOptionArray = [
   ["b.rank_text", (selector) ->
     rankingElement = bySelector(selector)
-    rankingElement.split("Ranked #")[1]
+    if rankingElement && rankingElement.length && rankingElement.indexOf("Ranked #") != "-1"
+      rankingElement.split("Ranked #")[1]
+    else null
   ]
 ]
 ranking = chooseOption(rankingInfoOptionArray)
@@ -125,11 +115,12 @@ priceInfoOptionArray = [
 ]
 priceInfo = chooseOption(priceInfoOptionArray)
 
-category = document.URL.split("tripadvisor.com/")[1].split("_Review")[0]
+category.push document.URL.split("tripadvisor.com/")[1].split("_Review")[0]
 
 return {
   name: name
-  street_address: streetAddress
+  fullAddress: fullAddress
+  streetAddress: streetAddress
   locality: locality
   region: region
   postalCode: postalCode

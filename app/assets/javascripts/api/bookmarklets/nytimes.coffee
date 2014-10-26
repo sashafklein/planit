@@ -1,210 +1,245 @@
-((e, a, g, h, f, c, b, d) ->
-  if not (f = e.jQuery) or g > f.fn.jquery or h(f)
-    c = a.createElement("script")
-    c.type = "text/javascript"
-    c.src = "http://ajax.googleapis.com/ajax/libs/jquery/" + g + "/jquery.min.js"
-    c.onload = c.onreadystatechange = ->
-      if not b and (not (d = @readyState) or d is "loaded" or d is "complete")
-        h (f = e.jQuery).noConflict(1), b = 1
-        f(c).remove()
-      return
+siteName = "NYTimes"
+ratingsBase = ""
+path = document.URL
 
-    a.documentElement.childNodes[0].appendChild c
-  return
-) window, document, "1.3.2", ($, L) ->
+pageList = []
+splitByOptions = [["36 Hours in ", "1"], ["36 Hours at the ", "1"], ["36 Hours on ", "1"], ["36 Hours | ", "1"]]
 
-  path = window.location.href
-  if path.indexOf("nytimes.com") is -1
-    alert "You must be on NYTimes to use this tool."
-  else
-    # if confirm("Do you want to submit item to Planit?")
-    try
-      # photoById = (id) -> 
-      #   element = document.getElementById(id)
-      #   if element then element.src else ''
+if ( path.indexOf("/travel/") != -1 && path.indexOf("journeys-36-hours") != -1 ) || ( path.indexOf("/travel/") != -1 && path.indexOf("hours.html") != -1 )
+  # ~2003 & 2010 instance without detail box
 
-      byId = (id) -> document.getElementById(id)
+  locationBest = splitBy("h1", splitByOptions)
+  # NEEDSFOLLOWUP DATEPUBLISHED
+  console.log locationBest
 
-      byClass = (className) ->
-        els = document.getElementsByClassName(className)
-        if els.length then els[0] else ''
+  groupArray = []
 
-      byClassMultiple = (className) ->
-        els = document.getElementsByClassName(className)
-        if els.length then els else byClass(className)
+  focusArea = textSelector("#area-main") || textSelector("#article")
 
-      # photoByClass = (className) -> byClass(className).src
-
-      deTag = (html) -> html.replace(/<(?:.|\n)*?>/gm, '')
-
-      trim = (html) -> html.replace(/^\s+|\s+$/g, '')
-
-      cleanOrNull = (html) -> if html then deTag(html) else null
-
-      # pull_date = today
-      if byClass('dateline')
-        published1 = byClass('dateline').innerHTML
-        published2 = published1.split(': ')[1]
-        published = published2
+  if focusArea && focusArea.length
+    days = []
+    if focusArea.indexOf("Friday") != -1 && focusArea.indexOf("Saturday") != -1 && focusArea.indexOf("Sunday") != -1
+      if focusArea.indexOf("IF YOU GO") != -1 || focusArea.indexOf("THE BASICS") != -1
+        days.push focusArea.split(/\nFriday\n/)[1].split(/\nSaturday\n/)[0]
+        days.push focusArea.split(/\nSaturday\n/)[1].split(/\nSunday\n/)[0]
+        days.push focusArea.split(/\nSunday\n/)[1].split(/\nTHE\sBASICS\n|\nIF\sYOU\sGO\n/i)[0]
       else 
-        published = ''
-      
-      if byClass('story-heading')
-        locale1 = byClass('story-heading').innerHTML
-      else if byClass('articleHeadline')
-        locale1 = byClass('articleHeadline').innerHTML
-      else
-        locale1 = 'NEEDS LOCALE'
-      # locale2 = locale1.split('36 Hours | ')[1]
-      if locale1.indexOf('36 Hours in ') != -1
-        locale2 = locale1.split('36 Hours in ')[1]
-      else if locale1.indexOf('36 Hours | ') != -1
-        locale2 = locale1.split('36 Hours | ')[1]
-      else if locale1.indexOf(': ') != -1
-        locale3 = locale1.split(': ')[0]
-        locale2 = locale3.split('<nyt_headline version="1.0" type=" ">')[1]
-      else
-        locale2 = 'NEEDS LOCALE'
-      locale = locale2
+        days.push focusArea 
 
-      # BULLSHIT FOR JUST ONE INSTANCE OF ARTICLEBODY
-      if byClassMultiple('articleBody') 
-        sections1 = byClassMultiple('articleBody')
-      else if byClassMultiple('story-body-text')
-        sections1 = byClassMultiple('story-body-text')
-      else
-        sections1 = ''
-      # sections2 = sections1.innerHTML
-      # sections3 = trim sections2
-      
-      planitTitle = document.createElement( 'div' )
-      # TITLE STYLING
-      planitTitle.style.borderBottom = "2px solid black"
-      planitTitle.style.padding = '0px'
-      planitTitle.style.paddingBottom = '5px'
-      planitTitle.style.width = '100%'
-      planitTitle.style.fontFamily = 'trebuchet ms'
-      planitTitle.style.fontSize = '15px'
-      planitTitle.style.fontWeight = 'bold'
+      dayNumber = 0
+      for day in days
+        dayNumber = dayNumber + 1
+        groupTimeArray = day.match(/\n\d?\d?:?\d?\d\s[ap]\.[m]\.|\n[N][o][o][n]/g)
+        groupSectionArray = day.split(/\n\d?\d?:?\d?\d\s[ap]\.[m]\.|\n[N][o][o][n]/g)
+        groupSectionArray = groupSectionArray.filter( (n) -> n != '' ) 
+        if groupTimeArray && groupSectionArray && groupTimeArray.length == groupSectionArray.length
+          i = 0
+          while i < groupTimeArray.length
+            time = trim( groupTimeArray[i] )
+            content = groupSectionArray[i]
+            groupArray.push [ time, content ]
+            i++
+          for group in groupArray
+            groupActivities = group[1].match(/(((?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó,']+(?=(?:\s|\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ]))?(?:(?:\s|\-?)(?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó',]+)+\s\([^$><";,]+?(?:[;,]\s[^;),]+?)?[;,]\s\d+[^)]+?\)|\s\([^$><";,]+?(?:[;,]\s[^;),><"]+?)?[;,]\s\d+[^)]+?\))/g) || ''
+            for activity in groupActivities
+              sourceDay = dayNumber
+              sourceTime = trim(group[0])
+              sourceIndex = group[1].match(/\n(\d+)\)\s.*\n/)[1] || null
+              sourceGroup = group[1].match(/\n\d+\)\s(.*)\n/)[1] || null
+              if isArray( activity.match(/(.*?)\s\(/) ) then name = activity.match(/(.*?)\s\(/)[1] else null
+              if isArray( activity.match(/\((.*?)[,;]\s(?=\d+).*?\)/) ) then streetAddress = activity.match(/\((.*?)[,;]\s(?=\d+).*?\)/)[1] else null
+              if isArray( activity.match(/\(.*?[,;]\s((?=\d+).*?)(?:[;,]|\))/) ) then phone = activity.match(/\(.*?[,;]\s((?=\d+).*?)(?:[;,]|\))/)[1] else null
+              website = ''
+              pageList.push { 
+                sourceDay: sourceDay
+                sourceTime: sourceTime
+                sourceIndex: sourceIndex
+                sourceGroup: sourceGroup
+                name: name
+                streetAddress: streetAddress
+                locality: locationBest
+                phone: phone
+                website: website
+              }
+              sourceDay = null
+              sourceTime = null
+              sourceIndex = null
+              sourceGroup = null
+              name = null
+              streetAddress = null
+              locality = null
+              phone = null
+              website = null
 
-      planitTitle.innerHTML = 'Saved to Planit'
+    if focusArea.indexOf("IF YOU GO") != -1 || focusArea.indexOf("THE BASICS") != -1
+      endDetail = focusArea.split(/\nTHE\sBASICS\n|\nIF\sYOU\sGO\n/i)[1]
+      endActivities = endDetail.match(/(((?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó,']+(?=(?:\s|\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ]))?(?:(?:\s|\-?)(?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó',]+)+\s\([^$><";,]+?(?:[;,]\s[^;),]+?)?[;,]\s\d+[^)]+?\)|\s\([^$><";,]+?(?:[;,]\s[^;),><"]+?)?[;,]\s\d+[^)]+?\))/g) || ''
+      for activity in endActivities
+        if isArray( activity.match(/(.*?)\s\(/) ) then name = activity.match(/(.*?)\s\(/)[1] else null
+        if isArray( activity.match(/\((.*?)[,;]\s(?=\d+).*?\)/) ) then streetAddress = activity.match(/\((.*?)[,;]\s(?=\d+).*?\)/)[1] else null
+        if isArray( activity.match(/\(.*?[,;]\s((?=\d+).*?)(?:[;,]|\))/) ) then phone = activity.match(/\(.*?[,;]\s((?=\d+).*?)(?:[;,]|\))/)[1] else null
+        website = ''
+        pageList.push { 
+          sourceGroup: "Destination Details" 
+          name: name
+          streetAddress: streetAddress
+          locality: locationBest
+          phone: phone
+          website: website
+        }
+        name = null
+        streetAddress = null
+        locality = null
+        phone = null
+        website = null
 
-      planitDiv = document.createElement( 'div' )
-      # CONTAINER STYLING
-      planitDiv.style.position = "fixed"
-      planitDiv.style.right = '80px'
-      planitDiv.style.top = '40px'
-      planitDiv.style.padding = '20px'
-      planitDiv.style.width = '250px'
-      planitDiv.style.background = '#fff'
-      planitDiv.style.fontFamily = 'trebuchet ms'
-      planitDiv.style.fontSize = '11px'
-      planitDiv.style.border = "1px solid #ccc"
-      planitDiv.style.borderBottom = "2px solid #000"
-      planitDiv.style.borderRight = "2px solid #000"
-      planitDiv.style.zIndex = '2147483647'
+if path.indexOf("things-to-do-in-36-hours") != -1
+  # ~2014 instance with detail box
 
-      planitDiv.appendChild( planitTitle )
+  locationBest = splitBy("h1", splitByOptions)
+  console.log locationBest
 
-      # planitDivSub1 = document.createElement( 'div' )
-      # planitDivSub1.appendChild( document.createTextNode(locale) )  
-      # planitDiv.appendChild( planitDivSub1 )
+  detailBox = null
+  detailBox = getSubSelector(".story-footer", ".story-info")
 
-      # planitDivSub2 = document.createElement( 'div' )
-      # planitDivSub2.appendChild( document.createTextNode(published) )  
-      # planitDiv.appendChild( planitDivSub2 )
+  detailBoxItems = detailBox.find("p")
+  for item in detailBoxItems
+    item = $(item)
+    strong = item.find("strong")
+    for strongItem in strong
+      strongItem = $(strongItem)
+      listNumber = item.html().match(/(\d+)\.\s./) || null
+      if listNumber && listNumber.length
+        listNumber = listNumber[1]
+        # what if there are two list numbers at once e.g. http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html
+        name = strongItem.html().replace(/\d+\./, "") || ''
+        if item.html().indexOf(",") != -1 && item.html().indexOf(";") != -1
+          fullAddress = item.html().split(",")[1].split(";")[0] || ''
+        website = item.find("a").attr("href") || ''
+        pageList.push( { 
+          listNumber: listNumber
+          name: name
+          fullAddress: fullAddress
+          website: website
+          sourceNotes: "test"
+        } )
 
-      sectionIndex = 0
-      sectionsText = ""
-      while sectionIndex < sections1.length
-        sectionContent = sections1[sectionIndex].innerHTML
-        sectionsText += " "+sectionContent
-        sectionIndex++
-      
-      sentences = sectionsText.split('. ')
-      # sectionInfo1 = sectionContent.split('(')[1]
-      # sectionInfo2 = sectionInfo1.split(')')[0]
-      planitDiv.appendChild( document.createTextNode( sentences.length ) )
+window.pageList = pageList
 
-      document.body.appendChild( planitDiv )
+  # if byClass('dateline')
+  #   published1 = byClass('dateline').innerHTML
+  #   published2 = published1.split(': ')[1]
+  #   published = published2
+  # else 
+  #   published = ''
 
-      # photo1 = photoById("HERO_PHOTO")
-      # photo2 = photoByClass("photo_image")
-      # photo3 = photoByClass("heroPhotoImg")
+  # if byClass('story-heading')
+  #   locale1 = byClass('story-heading').innerHTML
+  # else if byClass('articleHeadline')
+  #   locale1 = byClass('articleHeadline').innerHTML
+  # else
+  #   locale1 = 'NEEDS LOCALE'
+  # # locale2 = locale1.split('36 Hours | ')[1]
+  # if locale1.indexOf('36 Hours in ') != -1
+  #   locale2 = locale1.split('36 Hours in ')[1]
+  # else if locale1.indexOf('36 Hours | ') != -1
+  #   locale2 = locale1.split('36 Hours | ')[1]
+  # else if locale1.indexOf(': ') != -1
+  #   locale3 = locale1.split(': ')[0]
+  #   locale2 = locale3.split('<nyt_headline version="1.0" type=" ">')[1]
+  # else
+  #   locale2 = 'NEEDS LOCALE'
+  # locale = locale2
 
-      # name_start = deTag byId("HEADING").innerHTML
-      # name = if name_start then trim(name_start) else ''
+  # # BULLSHIT FOR JUST ONE INSTANCE OF ARTICLEBODY
+  # if byClassMultiple('articleBody') 
+  #   sections1 = byClassMultiple('articleBody')
+  # else if byClassMultiple('story-body-text')
+  #   sections1 = byClassMultiple('story-body-text')
+  # else
+  #   sections1 = ''
+  # # sections2 = sections1.innerHTML
+  # # sections3 = trim sections2
 
-      # latLonImage = byId("STATIC_MAP")?.getElementsByTagName('img')?[0] || null
-      # latLon = if latLonImage then latLonImage.src.split("center=")[1].split('&zoom')[0] else ''
-      # lat = if latLon then latLon.split(',')[0] else ''
-      # lon = if latLon then latLon.split(',')[1] else ''
-      # # May not return latLon now b/c of error "nil" exception
+  # sectionIndex = 0
+  # sectionsText = ""
+  # while sectionIndex < sections1.length
+  #   sectionContent = sections1[sectionIndex].innerHTML
+  #   sectionsText += " "+sectionContent
+  #   sectionIndex++
 
-      # address = byClass("street-address").innerHTML
+  # sentences = sectionsText.split('. ')
+  # # sectionInfo1 = sectionContent.split('(')[1]
+  # # sectionInfo2 = sectionInfo1.split(')')[0]
 
-      # locality = cleanOrNull(byClass('locality').innerHTML)
+nameList = []
+i = 0
+while i < pageList.length
+  nameList.push pageList[i].name
+  i++
+window.nameList = nameList
 
-      # city = if locality then locality.split(', ')[0] else ''
-      # state_start = if locality then locality.split(', ')[1] else ''
-      # state = if state_start then state_start.split(' ')[0] else ''
-      # postal_code = if locality then locality.split(' ')[3] else ''
-      # county = if city && state then '' else locality
+addressList = []
+i = 0
+while i < pageList.length
+  addressList.push pageList[i].streetAddress
+  i++
+window.addressList = addressList
 
-      # country = cleanOrNull(byClass('country-name').innerHTML)
+phoneList = []
+i = 0
+while i < pageList.length
+  phoneList.push pageList[i].phone
+  i++
+window.phoneList = phoneList
 
-      # phone_start = cleanOrNull(byClass('fl phoneNumber').innerHTML)
-      # phone = if phone_start then phone_start else ''
+# highlight = (container, array, color) -> 
+#   replacement = $(container).html()
+#   for itemName in array
+#     newValue = '<span style="background: '+color+'">'+itemName+'</span>'
+#     regExFind = new RegExp(itemName, "g")
+#     replacement = replacement.replace( regExFind, newValue )
+#   $(container).replaceWith(replacement)
+# highlight("#area-main", nameList, '#f58793')
 
-      # photoToUse = photo1 || photo2 || photo3
+# highlight = (container, array, color) -> 
+#   for item in array
+#     newValue = '<span style="background: '+color+'">'+item+'</span>'
+#     regExFind = new RegExp(item, "g")
+#     textNodes = $(container).contents().filter -> 
+#       @nodeType is 3
+#     console.log textNodes.text()
+#     # for textNode in textNodes
+#     #   original = textNode.text()
+#     #   console.log original
+#     #   replacement = original.replace(regExFind, newValue)
+#     #   textNode.text().replaceWith(replacement)
 
-      # alert [
-      #     "#{published}"
-      #     "#{locale}"
-      #     "#{sections}"
-      #     # sections.each_with_index do |section_inner, index|
-      #     #   "#{index}: #{section_inner}"
-      # ].join('\n')
+# highlight( phoneList, '#eee')
+# highlight( addressList, '#eee')
 
-      # alert [
-      #   "          -\n"
-      #   "name: #{name}\n"
-      #   "street_address: #{address}\n"
-      #   "city: #{city}\n"
-      #   "county: #{county}\n"
-      #   "state: #{state}\n"
-      #   "postal_code: #{postal_code}\n"
-      #   "country: #{country}\n"
-      #   "phone: #{phone}\n"
-      #   "tab_image: #{photoToUse}\n"
-      #   "has_tab: true\n"
-      #   "image_credit: TripAdvisor\n"
-      #   "source: TripAdvisor\n"
-      #   "source_url: #{document.URL}\n"
-      #   "lat: #{lat}\n"
-      #   "lon: #{lon}\n"
-      #   "parent_day: \n"
-      # ].join('            ')
-
-      # $.post "HOSTNAME/api/v1/items",
-      #   question:
-      #     data: 
-      #       name: name
-      #       street_address: address
-      #       locality: locality
-      #       country: country
-      #       phone: phone
-      #       tab_image: photoToUse
-      #       has_tab: true
-      #       image_credit: 'TripAdvisor'
-      #       source: 'TripAdvisor'
-      #       source_url: document.URL
-      #       lat: lat
-      #       lon: lon
-      #       parent_day: null
-      #     user_id: "USER_ID"
-
-      # # alert "Item submitted to Planit!"
-    catch err
-      # Post to an error path?
-      alert "Something went wrong! Please let us know. Error: #{err}"
+# return {
+#   name: name
+#   fullAddress: fullAddress
+#   streetAddress: streetAddress
+#   locality: locality
+#   region: region
+#   postalCode: postalCode
+#   country: country
+#   phone: phone
+#   website: website
+#   category: category
+#   priceInfo: priceInfo
+#   sourceNotes: sourceNotes
+#   rating: rating
+#   ranking: ranking
+#   images: imageList
+#   tab_image: photoToUse
+#   image_credit: siteName
+#   source: siteName
+#   source_url: document.URL
+#   lat: lat
+#   lon: lon
+#   has_tab: true
+#   parent_day: null
+# }

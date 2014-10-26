@@ -1,26 +1,3 @@
-#start clean
-name = ""
-streetAddress = ""
-locality = ""
-region = ""
-country = ""
-postalCode = ""
-country = ""
-phone = ""
-website = ""
-category = []
-priceInfo = ""
-sourceNotes = ""
-ranking = ""
-rating = ""
-imageList = []
-photoToUse = "blank.gif"
-siteName = ""
-lat = ""
-lon = ""
-
-# meat of it
-
 siteName = "Bon Apetit"
 ratingsBase = ""
 # NO APPARENT RATINGS

@@ -1,27 +1,15 @@
 #planit-bookmarklet
-  #planit-dropdown
-    position: fixed
-    height: 75px
-    width: 100%
-    top: 0px
-    left: 0px
-    background: #fff
-    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
-    -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
-    -o-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
-    z-index: 2147483644
-    font-family: open sans, avenir, calibri !important
-    -webkit-transition: top 3s ease-in-out
-    -moz-transition: top 3s ease-in-out
-    -o-transition: top 3s ease-in-out
-    transition: top 3s ease-in-out
+  margin: 0 !important
+
+  form
+    padding: 0 !important
+    margin: 0 !important
 
   #planit-close-btn
     width: 15px
     height: 15px
     background: #ccc
-    position: fixed
+    position: absolute
     top: 8px
     right: 3px
     border: #ddd solid 1px
@@ -35,12 +23,32 @@
     border-radius: 2px
     cursor: pointer
 
+  #planit-manual
+    display: none
+    margin: 0 !important
+    position: fixed
+    height: 75px
+    width: 100%
+    top: 0px
+    left: 0px
+    background: #fff
+    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+    -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+    -o-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
+    z-index: 2147483644
+    font-family: open sans, avenir, calibri !important
+    box-sizing: border-box
+    ms-box-sizing: border-box
+    webkit-box-sizing: border-box
+    moz-box-sizing: border-box
+
   #planit-topper
     width: 100%
     height: 5px
     background: #152678
 
-  #planit-wrapper
+  #planit-horizontal-wrapper
     margin: 0 auto
     min-width: 200px
     max-width: 1060px
@@ -87,6 +95,10 @@
     -moz-box-shadow: 0px 1px 0px #a4a4a4
     -o-box-shadow: 0px 1px 0px #a4a4a4
     box-shadow: 0px 1px 0px #a4a4a4
+    box-sizing: border-box
+    ms-box-sizing: border-box
+    webkit-box-sizing: border-box
+    moz-box-sizing: border-box
     display: inline-block
     font-size: 12px !important
     font-family: open sans, avenir, calibri !important
@@ -95,11 +107,24 @@
     height: 26px !important
     line-height: 16px !important
     margin: 0 !important
-    &#saved-add-note
-      width: 180px !important
-      float: left
+    &.saved-check-results
+      input::-webkit-input-placeholder
+        opacity: 1
+        color: #fff
+      input:-moz-placeholder
+        opacity: 1
+        color: #fff  
+      input::-moz-placeholder
+        opacity: 1
+        color: #fff  
+      input:-ms-input-placeholder
+        opacity: 1
+        color: #fff  
+    &#planit-addNote
+      width: 210px !important
       height: 26px !important
       padding: 3px 5px !important
+      opacity: 1 !important
 
   .planit-button
     display: inline
@@ -237,15 +262,41 @@
   .centered
     margin: auto 0
 
-  #saved-message-flash
+  #planit-wrapper
     display: none
-    #planit-saved-msg
-      font-family: open sans, avenir, calibri !important
+    visibility: visible
+    position: fixed
+    top: 22px
+    right: 25px
+    margin: 0 !important
+    min-height: 300px
+    z-index: 2147483646
+
+    #planit-success, #planit-loading, #planit-error
+      display: none 
       visibility: visible
-      position: fixed
-      top: 82px
-      right: 25px
-      padding: 10px
+
+    #planit-wrapper-shadow
+      padding: 10px !important
+      margin: 0 !important
+      background: rgba(127, 127, 127, 0.5)
+      border: 0
+      -webkit-border-radius: 4px
+      -moz-border-radius: 4px
+      -o-border-radius: 4px
+      border-radius: 4px
+      overflow: hidden !important
+      z-index: 2147483646
+      box-sizing: border-box
+      ms-box-sizing: border-box
+      webkit-box-sizing: border-box
+      moz-box-sizing: border-box
+
+    #planit-wrapper-content
+      font-family: open sans, avenir, calibri !important
+      margin: 0 !important
+      padding: 15px 15px 18px 15px !important
+      width: 210px !important
       text-align: center
       font-size: 12px
       line-height: 13px
@@ -255,17 +306,18 @@
       -moz-border-radius: 4px
       -o-border-radius: 4px
       border-radius: 4px
-      overflow: hidden
+      overflow: hidden !important
       z-index: 2147483646
       color: #fff
-      -webkit-transition: top 3s ease-in-out
-      -moz-transition: top 3s ease-in-out
-      -o-transition: top 3s ease-in-out
-      transition: top 3s ease-in-out
-      -webkit-box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4)
-      -moz-box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4)
-      -o-box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4)
-      box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4)
+      -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4)
+      -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4)
+      -o-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4)
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4)
+      box-shadow: rgb(228, 40, 78) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.0392157) 0px 1.77776002883911px 0px 0px
+      box-sizing: border-box
+      ms-box-sizing: border-box
+      webkit-box-sizing: border-box
+      moz-box-sizing: border-box
       img
         border: 0
 
@@ -274,24 +326,33 @@
       font-weight: bold !important
       text-align: center
       width: 180px
-      color: #000
+      color: #fff !important
+      background: rgba(248, 56, 96, 1) !important
       margin: 0px
       border: 0px
       padding: 8px 0
+      text-overflow: ellipsis
 
     .planit-saved-demo-details
       font-family: open sans, avenir, calibri !important
       text-align: left
       padding: 0
       width: 180px
-      color: #000
-      background: #fff
+      color: #fff !important
+      background: rgba(248, 56, 96, 1) !important
+      // background: #fff !important
       margin: 0px
       border: 0px
+      text-overflow: ellipsis
 
     .planit-saved-demo-title:hover, .planit-saved-demo-details:hover
-      background: #ccc
+      background: #fff !important
+      color: #000 !important
       cursor: text
+      box-shadow: rgba(0,0,0,0.75) 0 0 1px inset
+      moz-box-shadow: rgba(0,0,0,0.75) 0 0 1px inset
+      webkit-box-shadow: rgba(0,0,0,0.75) 0 0 1px inset
+      o-box-shadow: rgba(0,0,0,0.75) 0 0 1px inset
 
     .planit-saved-link
       text-decoration: none
@@ -311,9 +372,7 @@
       width: 15px
       height: 15px
       background: #ccc
-      position: fixed
-      top: 78px
-      right: 33px
+      position: absolute
       border: #ddd solid 1px
       border-bottom: #999 solid 1px
       font-size: 10px
@@ -342,9 +401,12 @@
       -moz-box-shadow: #ecedee 0 -0.1875em 0 inset, rgba(0, 0, 0, 0.04) 0 0.11111em 0
       box-shadow: #ecedee 0 -0.1875em 0 inset, rgba(0, 0, 0, 0.04) 0 0.11111em 0
 
-    #planit-saved-add-note
-      margin: 10px 0 10px 0
-      width: 180px
+    #planit-noteWrap
+      display: none
+      visibility: visible
+      z-index: 2147483646
+      width: 210px
+      margin: 10px 0 0 0
 
     #add-another-flash
       display: none
@@ -355,12 +417,8 @@
         width: 100%
         top: 5px
         left: 0px
-        z-index: 2147483645
+        z-index: 2147483645 !important
         font-family: open sans, avenir, calibri !important
-        -webkit-transition: top 3s ease-in-out
-        -moz-transition: top 3s ease-in-out
-        -o-transition: top 3s ease-in-out
-        transition: top 3s ease-in-out
         background: rgb(255, 255, 255)
         background: rgba(255, 255, 255, 0.9)
         text-align: center
@@ -376,9 +434,24 @@
         margin-right: 145px
         float: right
 
+      #test-environment
+        display: none
+        visibility: hidden
+
+      #planit-saved-in-image
+        position: absolute
+
+      #planit-imageCount
+        position: absolute !important
+        left: 45% !important
+        top: 50px !important
+        background: #fff !important
+        padding: 3px !important
+        color: #000 !important
+
     .breakline!
 
-    .img-container
+    .planit-img-container
       width: 180px
       height: 120px
       margin: 0
