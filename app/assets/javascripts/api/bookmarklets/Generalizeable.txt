@@ -60,9 +60,12 @@ convert p's, br's to
 unescape
 remove all tags except images, a href ".", strong, bold
 
+URI('http://www.example.com').host.match(/[^\.]+\.\w+$/).to_s
 
 Link preceding a parenthetical
 (?:\<[a][^>]*?href\=['"](.*?[.].*?)['"][^>]*?\>)([^()<>]*?)(?:\<\/[a]\>)(?:\<[^>]*?\>)*?\s\(
+
+((?:\<[a][^>]*?href\=['"](.*?)['"][^>]*?\>)?((?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó,']+(?=(?:\s|\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ]))?(?:(?:\s|\-?)(?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó',]+)+(?:\<\/[a]\>)?\s\([^$><";,]+?(?:[;,]\s[^;),]+?)?[;,]\s\d+[^)]+?\)|\s\([^$><";,]+?(?:[;,]\s[^;),><"]+?)?[;,]\s\d+[^)]+?\))
 
 NYTimes price-containing parentheses \(([^)]*?\$.*?)\)
 
