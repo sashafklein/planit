@@ -59,14 +59,11 @@ module Services
     end
 
     def trim(html)
-      html = html.replace(/(\r\n|\n|\r)/, '')
-          .replace(/( {2,})/, ' ')
-          .replace(/^\s+|\s+$/, '')
-          .replace(/\s+/, ' ')
-          .replace(/(\t)/, '')
-          # aren't the below done by unescape?
-          # .replace(/&amp;/, "&")
-          # .replace(/&nbsp;/, ' ')
+      html = html.gsub(/(\r\n|\n|\r)/, '')
+          .gsub(/( {2,})/, ' ')
+          .gsub(/^\s+|\s+$/, '')
+          .gsub(/\s+/, ' ')
+          .gsub(/(\t)/, '')
       URI.unescape(html)
     end
   end
