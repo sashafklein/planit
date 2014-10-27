@@ -19,9 +19,9 @@ if path.indexOf("/travel/") != -1 && path.indexOf("journeys-36-hours") != -1
     days = []
     if focusArea.indexOf("Friday") != -1 && focusArea.indexOf("Saturday") != -1 && focusArea.indexOf("Sunday") != -1
       if focusArea.indexOf("IF YOU GO") != -1 || focusArea.indexOf("THE BASICS") != -1
-        days.push focusArea.split(/\nFriday\n/)[1].split(/\nSaturday\n/)[0]
-        days.push focusArea.split(/\nSaturday\n/)[1].split(/\nSunday\n/)[0]
-        days.push focusArea.split(/\nSunday\n/)[1].split(/\nTHE\sBASICS\n|\nIF\sYOU\sGO\n/i)[0]
+        days.push focusArea.split(/\n\s*?Friday\s*?\n/)[1].split(/\n\s*?Saturday\s*?\n/)[0]
+        days.push focusArea.split(/\n\s*?Saturday\s*?\n/)[1].split(/\n\s*?Sunday\s*?\n/)[0]
+        days.push focusArea.split(/\n\s*?Sunday\s*?\n/)[1].split(/\n\s*?THE\sBASICS\s*?\n|\n\s*?IF\sYOU\sGO\s*?\n/i)[0]
       else 
         days.push focusArea 
 
