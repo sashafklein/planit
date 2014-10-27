@@ -5,16 +5,15 @@ path = document.URL
 pageList = []
 splitByOptions = [["36 Hours in ", "1"], ["36 Hours at the ", "1"], ["36 Hours on ", "1"], ["36 Hours | ", "1"]]
 
-if ( path.indexOf("/travel/") != -1 && path.indexOf("journeys-36-hours") != -1 ) || ( path.indexOf("/travel/") != -1 && path.indexOf("hours.html") != -1 )
-  # ~2003 & 2010 instance without detail box
+# ~2003 instance without detail box
+if path.indexOf("/travel/") != -1 && path.indexOf("journeys-36-hours") != -1
 
   locationBest = splitBy("h1", splitByOptions)
   # NEEDSFOLLOWUP DATEPUBLISHED
-  console.log locationBest
 
   groupArray = []
 
-  focusArea = textSelector("#area-main") || textSelector("#article")
+  focusArea = textSelector("#area-main")
 
   if focusArea && focusArea.length
     days = []
@@ -73,6 +72,99 @@ if ( path.indexOf("/travel/") != -1 && path.indexOf("journeys-36-hours") != -1 )
 
     if focusArea.indexOf("IF YOU GO") != -1 || focusArea.indexOf("THE BASICS") != -1
       endDetail = focusArea.split(/\nTHE\sBASICS\n|\nIF\sYOU\sGO\n/i)[1]
+      endActivities = endDetail.match(/(((?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó,']+(?=(?:\s|\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ]))?(?:(?:\s|\-?)(?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó',]+)+\s\([^$><";,]+?(?:[;,]\s[^;),]+?)?[;,]\s\d+[^)]+?\)|\s\([^$><";,]+?(?:[;,]\s[^;),><"]+?)?[;,]\s\d+[^)]+?\))/g) || ''
+      for activity in endActivities
+        if isArray( activity.match(/(.*?)\s\(/) ) then name = activity.match(/(.*?)\s\(/)[1] else null
+        if isArray( activity.match(/\((.*?)[,;]\s(?=\d+).*?\)/) ) then streetAddress = activity.match(/\((.*?)[,;]\s(?=\d+).*?\)/)[1] else null
+        if isArray( activity.match(/\(.*?[,;]\s((?=\d+).*?)(?:[;,]|\))/) ) then phone = activity.match(/\(.*?[,;]\s((?=\d+).*?)(?:[;,]|\))/)[1] else null
+        website = ''
+        pageList.push { 
+          sourceGroup: "Destination Details" 
+          name: name
+          streetAddress: streetAddress
+          locality: locationBest
+          phone: phone
+          website: website
+        }
+        name = null
+        streetAddress = null
+        locality = null
+        phone = null
+        website = null
+
+# ~2010 instance without detail box
+if path.indexOf("/travel/") != -1 && path.indexOf("hours.html") != -1
+
+  locationBest = splitBy("h1", splitByOptions)
+  # NEEDSFOLLOWUP DATEPUBLISHED
+
+  groupArray = []
+
+  focusArea = textSelector("#article")
+
+  if focusArea && focusArea.length
+    days = [] 
+    if focusArea.indexOf("Friday") != -1 && focusArea.indexOf("Saturday") != -1 && focusArea.indexOf("Sunday") != -1
+    # if focusArea.indexOf(/\nFriday\n/g) != -1 && focusArea.indexOf(/\nSaturday\n/g) != -1 && focusArea.indexOf(/\nSunday\n/g) != -1
+    #   if focusArea.indexOf(/\nIF YOU GO\n/gi) != -1 || focusArea.indexOf(/\nTHE BASICS\n/gi) != -1
+      console.log "FriSatSun"
+      if focusArea.indexOf("IF YOU GO") != -1 || focusArea.indexOf("THE BASICS") != -1
+      #   days.push focusArea.split(/\nFriday\n/)[1].split(/\nSaturday\n/)[0]
+      #   days.push focusArea.split(/\nSaturday\n/)[1].split(/\nSunday\n/)[0]
+      #   days.push focusArea.split(/\nSunday\n/)[1].split(/\nTHE\sBASICS\n|\nIF\sYOU\sGO\n/i)[0]
+      # else 
+        days.push focusArea 
+
+      console.log days
+
+      dayNumber = 0
+      for day in days
+        dayNumber = dayNumber + 1
+        if day.indexOf(/\n\d?\d?:?\d?\d\s[ap]\.[m]\./g) != -1
+          groupTimeArray = day.match(/\n\d?\d?:?\d?\d\s[ap]\.[m]\.|\n[N][o][o][n]/g)
+          groupSectionArray = day.split(/\n\d?\d?:?\d?\d\s[ap]\.[m]\.|\n[N][o][o][n]/g)
+          groupSectionArray = groupSectionArray.filter( (n) -> n != '' ) 
+        if groupTimeArray && groupSectionArray && groupTimeArray.length == groupSectionArray.length
+          i = 0
+          while i < groupTimeArray.length
+            time = trim( groupTimeArray[i] )
+            content = groupSectionArray[i]
+            groupArray.push [ time, content ]
+            i++
+          for group in groupArray
+            groupActivities = group[1].match(/(((?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó,']+(?=(?:\s|\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ]))?(?:(?:\s|\-?)(?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó',]+)+\s\([^$><";,]+?(?:[;,]\s[^;),]+?)?[;,]\s\d+[^)]+?\)|\s\([^$><";,]+?(?:[;,]\s[^;),><"]+?)?[;,]\s\d+[^)]+?\))/g) || ''
+            for activity in groupActivities
+              sourceDay = dayNumber
+              sourceTime = trim(group[0])
+              sourceIndex = group[1].match(/\n(\d+)\)\s.*\n/)[1] || null
+              sourceGroup = group[1].match(/\n\d+\)\s(.*)\n/)[1] || null
+              if isArray( activity.match(/(.*?)\s\(/) ) then name = activity.match(/(.*?)\s\(/)[1] else null
+              if isArray( activity.match(/\((.*?)[,;]\s(?=\d+).*?\)/) ) then streetAddress = activity.match(/\((.*?)[,;]\s(?=\d+).*?\)/)[1] else null
+              if isArray( activity.match(/\(.*?[,;]\s((?=\d+).*?)(?:[;,]|\))/) ) then phone = activity.match(/\(.*?[,;]\s((?=\d+).*?)(?:[;,]|\))/)[1] else null
+              website = ''
+              pageList.push { 
+                sourceDay: sourceDay
+                sourceTime: sourceTime
+                sourceIndex: sourceIndex
+                sourceGroup: sourceGroup
+                name: name
+                streetAddress: streetAddress
+                locality: locationBest
+                phone: phone
+                website: website
+              }
+              sourceDay = null
+              sourceTime = null
+              sourceIndex = null
+              sourceGroup = null
+              name = null
+              streetAddress = null
+              locality = null
+              phone = null
+              website = null
+
+    if focusArea.indexOf("/\nIF YOU GO\n/gi") != -1 || focusArea.indexOf("/\nTHE BASICS\n/gi") != -1
+      endDetail = focusArea.split(/\nTHE BASICS\n|\nIF YOU GO\n/i)[1]
       endActivities = endDetail.match(/(((?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó,']+(?=(?:\s|\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ]))?(?:(?:\s|\-?)(?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó',]+)+\s\([^$><";,]+?(?:[;,]\s[^;),]+?)?[;,]\s\d+[^)]+?\)|\s\([^$><";,]+?(?:[;,]\s[^;),><"]+?)?[;,]\s\d+[^)]+?\))/g) || ''
       for activity in endActivities
         if isArray( activity.match(/(.*?)\s\(/) ) then name = activity.match(/(.*?)\s\(/)[1] else null
