@@ -8,10 +8,11 @@ module ScraperHelper
   end
 
   def expectations
-    File.read( file_path('rb') )
+    YAML.load_file( file_path('yml') ).map(&:symbolize_keys)
   end
 
   def file_path(ending)
     File.join('spec', 'support', 'pages', @base_domain, "#{@base_name}.#{ending}")
   end
+  
 end

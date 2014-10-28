@@ -8,8 +8,10 @@ module Scrapers
     end
 
     def data
+      @location_best = split_by('h1', [["36 Hours in ", 1], ["36 Hours at the ", 1], ["36 Hours on ", 1], ["36 Hours | ", 1]])
+
       if no_detail_box
-        @location_best = split_by('h1', [["36 Hours in ", 1], ["36 Hours at the ", 1], ["36 Hours on ", 1], ["36 Hours | ", 1]])
+
         if focus_area
           set_days
           set_basics
@@ -20,7 +22,7 @@ module Scrapers
           end
 
           group_array.each do |group|
-            activities = group[:content].scan(caps_before_parenths_with_details_regex) || ''
+            activities = group[:content].scan(caps_before_parens_with_details_regex) || ''
             if activities && activities.length && activities.kind_of?(Array)
               activities.each do |activity|
 
@@ -44,7 +46,7 @@ module Scrapers
             end
           end
           if set_basics && set_basics.length
-            activities = set_basics.scan(caps_before_parenths_with_details_regex) || ''
+            activities = set_basics.scan(caps_before_parens_with_details_regex) || ''
             if activities && activities.length && activities.kind_of?(Array)
               activities.each do |activity|
 
@@ -65,9 +67,16 @@ module Scrapers
           end
         end
         
-
       elsif has_detail_box
+        binding.pry    
+
+        if focus_area
+          set_days
+          set_detail_box
+        end
+
       end
+  
       @data_array
     end
 
@@ -75,16 +84,21 @@ module Scrapers
 
     def set_days
       if %w(Friday Saturday Sunday).all?{ |weekend_day| focus_area.include?(weekend_day) }
-        @days << focus_area.split( within_whitespace("Friday") )[1].split( within_whitespace("Saturday") )[0]
-        @days << focus_area.split( within_whitespace("Saturday") )[1].split( within_whitespace("Sunday") )[0]
-        @days << focus_area.split( within_whitespace("Sunday") )[1].split(/\n\s*?THE\sBASICS\s*?\n|\n\s*?IF\sYOU\sGO\s*?\n/)[0]
+        @days << focus_area.split(/#{within_broken_whitespace("Friday")}/)[1].split(/#{within_whitespace("Saturday")}/)[0]
+        @days << focus_area.split(/#{within_broken_whitespace("Saturday")}/)[1].split(/#{within_whitespace("Sunday")}/)[0]
+        @days << focus_area.split(/#{within_broken_whitespace("Sunday")}/)[1].split(/#{within_whitespace("THE BASICS")}|#{within_whitespace("IF YOU GO")}/)[0]
       else
         @days << focus_area
       end
     end
     def set_basics
       if focus_area.include?("THE BASICS") || focus_area.include?("IF YOU GO")
-        @endDetail = focus_area.split(/\n\s*?THE\sBASICS\s*?\n|\n\s*?IF\sYOU\sGO\s*?\n/)[1]
+        @endDetail = focus_area.split(/#{within_broken_whitespace("THE BASICS")}|#{within_whitespace("IF YOU GO")}/)[1]
+      end
+    end
+    def set_detail_box
+      if focus_area.include?("THE BASICS") || focus_area.include?("IF YOU GO")
+        @endDetail = focus_area.split(/#{within_broken_whitespace("THE BASICS")}|#{within_whitespace("IF YOU GO")}/)[1]
       end
     end
 
@@ -102,8 +116,9 @@ module Scrapers
     end
 
     def add_times_and_contents_to_group_array(day, day_number)
-      group_time_array = day.scan(time_of_day_regex).flatten
-      group_section_array = day.split(time_of_day_split_regex).reject(&:blank?) # blank? returns false on '', so we're rejecting empty strings
+
+      group_time_array = day.scan(time_on_own_line_regex).flatten
+      group_section_array = day.split(time_on_own_line_split_regex).reject(&:blank?) # blank? returns false on '', so we're rejecting empty strings
 
       if group_time_array.length == group_section_array.length
         0.upto(group_time_array.length - 1).each do |i|
@@ -124,18 +139,54 @@ module Scrapers
       end
     end
 
-    # REGEX DEFINITIONS
-    def time_of_day_regex
-      /\n\s*?(?:(\d?\d?:?\d?\d\s[ap]\.[m]\.|Noon))/
+    # REGEX COMPONENTS REMEMBER DOUBLE ALL BACKSLASH
+    def quote_thread
+      '"'
     end
-    def time_of_day_split_regex
-      /\n\s*?(?:\d?\d?:?\d?\d\s[ap]\.[m]\.|Noon)/
+    def breakline_thread #incomplete thread
+      "(?:\\n|\\<(?:\\/?[p]|br)(?:\\s[^>]*?)?\\>)"
     end
-    def caps_before_parenths_with_details_regex
-      /(?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó,']+(?=(?:\s|\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ])(?:(?:\s|\-?)(?:[S][t]\a?\.\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó',]+)+\s\([^$><";,]+?(?:[;,]\s[^;),]+?)?[;,]\s\d+[^)]+?\)|\s\([^$><";,]+?(?:[;,]\s[^;),><"]+?)?[;,]\s\d+[^)]+?\)/
+    def within_broken_whitespace(string)
+      "(?:#{breakline_thread}\\s*?#{string}\\s*?#{breakline_thread})"
     end
     def within_whitespace(string)
-      /\n\s*?#{string}\s*?\n/
+      "(?:\\s*?#{string}\\s*?)"
+    end
+    def time_thread
+      "(?:\\d?\\d?:?\\d?\\d\\s?[ap]\\.?[m]\\.?)"
+    end
+    def title_cased_thread
+      "(?:[S][t]\\a?\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó,']+(?=(?:\\s|\\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ])(?:(?:\\s|\\-?)(?:[S][t]\\a?\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó',]+)+"
+    end
+    def details_in_parens_thread
+      "(?:[^$><#{quote_thread};,]+?(?:[;,]\\s[^;),><#{quote_thread}]+?)?[;,]\\s\\d+[^)]+?)"
+    end
+    def strong_or_not_thread(string)
+      "(?:(?:\<(?:b|strong)(\\s[^>]*?)?\\>)?\\s*?#{string}\\s*?(?:\\<\\/(?:b|strong)\\>|#{string}))"
+    end
+    def strong_open_thread
+      within_whitespace( "(?:\\<(?:b|strong)(?:\\s[^>]*?)?\\>)(?=(?:.|\\n)*?(?:\\<\\/(?:b|strong)\\>))") 
+    end
+    def strong_close_thread
+      within_whitespace( "(?:\\<\\/(?:b|strong)\\>)") 
+    end
+
+    # REGEX DEFINITIONS
+    def time_on_own_line_regex
+      %r!#{breakline_thread}\s*?#{strong_open_thread}?(?:(#{time_thread}|Noon))!
+    end
+    def time_on_own_line_split_regex
+      %r!#{breakline_thread}\s*?#{strong_open_thread}?(?:#{time_thread}|Noon)!
+    end
+    def index_and_time_regex
+      %r!#{breakline_thread}#{strong_open_thread}?\d+#{strong_close_thread}?#{strong_open_thread}?\.#{strong_close_thread}?#{strong_open_thread}?[^<>]*?\s[|]#{strong_open_thread}?\s*?(?:#{time_thread}|Noon)!
+    end
+    def caps_before_parens_with_details_regex
+      %r!#{title_cased_thread}\s\(#{details_in_parens_thread}\)|\(#{details_in_parens_thread}\)!
+    end
+    def strong_detail_box_details_regex
+      %r!#{strong_open_thread}\d+#{strong_or_not_thread(".")}(?:\s)!
+      # \<(?:b|strong)(\s[^>]*?)?\>\d+(?:\<(?:b|strong)(\s[^>]*?)?\>\.\<\/(?:b|strong)\>|.)(?:\sand\s\d+(?:\<(?:b|strong)(\s[^>]*?)?\>\.\<\/(?:b|strong)\>|.))?\s[^<]*?\<\/(?:b|strong)\>.*?\<\/p\>
     end
 
   end
