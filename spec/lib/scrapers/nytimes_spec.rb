@@ -6,6 +6,20 @@ module Scrapers
 
     include ScraperHelper
 
+    describe "cartagena" do
+
+      before do 
+        @base_name = 'cartagena'
+        @base_domain = 'nytimes'
+        @url = 'http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0'
+      end
+
+      it "parses the page correctly" do
+        # binding.pry
+        expect(scraper.data).to eq expectations
+      end
+    end
+
     describe "amelia island" do
 
       before do 
@@ -18,19 +32,6 @@ module Scrapers
         expect(scraper.data).to eq expectations
       end
     end
-
-    # describe "cartagena" do
-
-    #   before do 
-    #     @base_name = 'cartagena'
-    #     @base_domain = 'nytimes'
-    #     @url = 'http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0'
-    #   end
-
-    #   it "parses the page correctly" do
-    #     expect(scraper.data).to eq expectations
-    #   end
-    # end
 
   end
 end 
