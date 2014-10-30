@@ -63,8 +63,6 @@ module Scrapers
       end
 
       def section_data(section, section_index)
-        binding.pry
-        # NIKO CURRENT WORK - ACCOMODATE STRONGS
         { 
           order: section.scan(index_and_title_regex_find_index).flatten.first,
           time: section.scan(time_on_own_line_regex_find_time).flatten.first, 
@@ -78,8 +76,9 @@ module Scrapers
       end
 
       def activity_data(activity, activity_index)
+        # binding.pry
         {
-          name: activity.scan(before_parens_regex_find_name).flatten.first,
+          name: de_tag( activity.scan(before_parens_regex_find_name).flatten.first ),
           street_address: activity.scan(after_parens_regex_find_address).flatten.first,
           phone: activity.scan(after_separator_regex_find_phone).flatten.first,
           website: activity.scan(a_regex_find_href).flatten.first,

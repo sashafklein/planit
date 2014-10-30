@@ -15,8 +15,10 @@ module CssOperators
   end
 
   def split(node, splitter, index)
-    split_array = node.inner_html.split( splitter )
-    split_array[index]
+    if node && node.length > 0
+      split_array = node.inner_html.split( splitter )
+      split_array[index]
+    end
   end
 
   def text_selector(selector)
@@ -32,15 +34,19 @@ module CssOperators
   end
     
   def de_tag(html)
-    html.gsub(/<(?:.|\n)*?>/, '')
+    if html && html.length > 0
+      html.gsub(/<(?:.|\n)*?>/, '')
+    end
   end
 
   def trim(html)
-    html = html.gsub(/(\r\n|\n|\r)/, '')
-        .gsub(/( {2,})/, ' ')
-        .gsub(/^\s+|\s+$/, '')
-        .gsub(/\s+/, ' ')
-        .gsub(/(\t)/, '')
-    URI.unescape(html)
+    if html && html.length > 0
+      html = html.gsub(/(\r\n|\n|\r)/, '')
+          .gsub(/( {2,})/, ' ')
+          .gsub(/^\s+|\s+$/, '')
+          .gsub(/\s+/, ' ')
+          .gsub(/(\t)/, '')
+      URI.unescape(html)
+    end
   end
 end

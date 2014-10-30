@@ -23,11 +23,15 @@ module Services
 
     def data
       return @data if @data.length > 0
+      
+      # WE NEED SOME FORM OF NILSINK HERE IF GROUPS TURN UP NIL
+      # undefined method `each_with_index' for nil:NilClass
 
       itinerary_group.each_with_index do |itinerary, itinerary_index|
         leg_group(itinerary).each_with_index do |leg, leg_index|
           day_group(leg).each_with_index do |day, day_index|
             section_group(day).each_with_index do |section, section_index|
+              # binding.pry
               activity_group(section).each_with_index do |activity, activity_index|
                 item = full_item([
                   activity_data(activity, activity_index), 
@@ -47,6 +51,7 @@ module Services
       general_group.each_with_index do |general, general_index|
         @data << full_item([general_data(general, general_index)])
       end
+      # binding.pry
       @data
     end
 
@@ -70,6 +75,8 @@ module Services
     def section_data(section, section_index);       {};                 end
     def activity_group(section);                    [];                 end
     def activity_data(activity, activity_index);    {};                 end
+    def general_group;                              [];                 end
+    def general_data(general, general_index);       {};                 end
 
     def full_item(datas_array)
       progressive_merge(datas_array)
@@ -87,15 +94,28 @@ module Services
       @scrape_container = css(selector) if selector
     end
 
+    def illegal_content # DOUBLE \\
+      content_array = [
+        "\\<div [^>]*class\\=\\'[^\\s']*ad\\s[^']*\\'\\>.*?\\<\\/div\\>",
+        "\\<\\!\\-\\-.*?\\-\\-\\>",
+        "\\<script(?:\\s|\\>).*?\\<\\/script\\>",
+        "\\<style(?:\\s|\\>).*?\\<\\/style\\>",
+        "\\<figure(?:\\s|\\>).*?\\<\\/figure\\>",
+        "\\<div\\s[^>]*?(?:g\\-type\\_Inset|g\\-aiAbs)[^>]*?\\>.*?\\<\\/div\\>",
+        "\\<meta\\s.*?\\>",
+        "\\<[^<>]*?data-description\\=\\'[^<>]*?\\'[^<>]*?\\>",
+      ]
+    end
+
     def scrape_content
       return @scrape_content if @scrape_content
       @scrape_content = CGI.unescape( scrape_container(@scrape_target).first.inner_html )
-        .gsub(/\n/, '')
-        .gsub(/\"/, "'")
-        .gsub(/\<\!\-\-.*?\-\-\>/, '')
-        .gsub(/\<script\s.*?\<\/script\>/, '')
-        .gsub(/\<meta\s.*?\>/, '')
-        .gsub(/\<[^<>]*?data-description\=\'[^<>]*?\'[^<>]*?\>/, '')
+      @scrape_content = @scrape_content.gsub(/\n/, '')
+      @scrape_content = @scrape_content.gsub(/\"/, "'")
+      0.upto(illegal_content.length - 1).each do |i|
+        @scrape_content = @scrape_content.gsub(%r!#{illegal_content[i]}!, '')
+      end
+      return @scrape_content
     end
 
   end

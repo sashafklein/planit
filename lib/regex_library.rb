@@ -1,6 +1,19 @@
 module RegexLibrary
 
     # REGEX COMPONENTS REMEMBER DOUBLE ALL BACKSLASH
+    def lowercase_destination_class
+      destinations = [
+        "bookstore",
+        "restaurant",
+        "cafe",
+        "café",
+        "gallery",
+        "lounge",
+        "hotel",
+      ]
+      insert = destinations.join("|")
+      "(?:#{insert})"
+    end
     def quote_thread
       '"'
     end
@@ -16,8 +29,31 @@ module RegexLibrary
     def time_thread
       "(?:\\d?\\d?:?\\d?\\d\\s?[ap]\\.?[m]\\.?)"
     end
+    def title_case_st_sta
+      "(?:[S][t]\\a?\\.\\s)"
+    end
+    def title_or_upper_case_word
+      "(?:[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó'’]+)"
+      # "(?:[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó'’]+)"
+    end
+    def title_case_word
+      "(?:[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó'’]+)"
+      # "(?:[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó'’]+)"
+    end
+    def space_or_dash
+      "(?:\\s|\\-\\-?\\-?)"
+    end
+    def comma_space_or_dash
+      "(?:(?:\\,\\s)|\\s|\\-\\-?\\-?)"
+    end
     def title_cased_thread
-      "(?:[S][t]\\a?\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó,']+(?=(?:\\s|\\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ])(?:(?:\\s|\\-?)(?:[S][t]\\a?\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó',]+)+"
+      "(?:(?:#{title_case_st_sta}#{title_case_word}|#{title_case_word})(?:(?:#{comma_space_or_dash}(?:#{title_case_st_sta}#{title_case_word}|#{title_case_word}))+)?)"
+      # "(?:[S][t]\\a?\\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó,']+(?=(?:\\s|\\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ])(?:(?:\\s|\\-?)(?:[S][t]\\a?\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó',]+)+"
+    end
+    def title_or_upper_cased_thread
+      "(?:(?:#{title_case_st_sta}#{title_or_upper_case_word}|#{title_or_upper_case_word})(?:#{comma_space_or_dash}(?:#{title_case_st_sta}#{title_or_upper_case_word}|#{title_or_upper_case_word}))*)"
+      # "(?:(?:#{title_case_st_sta}#{title_or_upper_case_word}|#{title_or_upper_case_word})(?:(?:#{comma_space_or_dash}(?:#{title_case_st_sta}#{title_or_upper_case_word}|#{title_or_upper_case_word}))+)?)"
+      # "(?:[S][t]\\a?\\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó,']+(?=(?:\\s|\\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ])(?:(?:\\s|\\-?)(?:[S][t]\\a?\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó',]+)+"
     end
     def details_in_parens_thread
       "(?:[^$><#{quote_thread};,]+?(?:[;,]\\s[^;),><#{quote_thread}]+?)?[;,]\\s\\d+[^)]+?)"
@@ -72,7 +108,7 @@ module RegexLibrary
 
     # COMPLETE REGEX DEFINITIONS
     def before_parens_regex_find_name
-      %r!\s*(.*?)\s\(!
+      %r!\s*(.*?)\s\s?\(!
     end
     def after_parens_regex_find_address
       %r!\((.*?)[,;]\s(?=\d+).*?\)!
@@ -84,16 +120,16 @@ module RegexLibrary
       %r!#{breakline_thread}#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}(?:#{time_thread}|Noon)#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}#{breakline_thread}!
     end
     def time_on_own_line_regex_find_time
-      %r!#{breakline_thread}#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}((?:#{time_thread}|Noon))#{tag_free_whitespace}#{breakline_thread}!
+      %r!#{breakline_thread}#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}((?:#{time_thread}|Noon))#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}#{breakline_thread}!
     end
     def index_and_title_regex
-      %r!#{breakline_thread}#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}\d+\)#{ok_tags_space}#{no_tags}\s*#{breakline_thread}!
+      %r!#{breakline_thread}#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}#{ok_tags}\d+\)#{ok_tags_space}#{ok_tags}#{no_tags}#{ok_tags}\s*#{breakline_thread}!
     end
     def index_and_title_regex_find_title
-      %r!#{breakline_thread}#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}\d+\)#{ok_tags_space}\s*(#{no_tags})\s*#{breakline_thread}!
+      %r!#{breakline_thread}#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}#{ok_tags}\d+\)#{ok_tags_space}#{ok_tags}\s*(#{no_tags})#{ok_tags}\s*#{breakline_thread}!
     end
     def index_and_title_regex_find_index
-      %r!#{breakline_thread}#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}(\d+)\)#{ok_tags_space}#{no_tags}\s*#{breakline_thread}!
+      %r!#{breakline_thread}#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}#{ok_tags}(\d+)\)#{ok_tags_space}#{ok_tags}#{no_tags}#{ok_tags}\s*#{breakline_thread}!
     end
     def strong_index_title_and_time_on_own_line_regex
       %r!#{breakline_thread}#{strong_open_thread}?\d+#{ok_tags}\.#{ok_tags_space}#{no_tags}#{ok_tags_space}[|]#{ok_tags_space}(?:#{time_thread}|Noon)#{ok_tags_space}#{breakline_thread}!
@@ -108,40 +144,35 @@ module RegexLibrary
       %r!#{breakline_thread}#{strong_open_thread}?(\d+)#{ok_tags}\.#{ok_tags_space}#{no_tags}#{ok_tags_space}[|]#{ok_tags_space}(?:#{time_thread}|Noon)#{ok_tags_space}#{breakline_thread}!
     end
     def titlecase_before_parens_with_details_regex
-      %r!#{title_cased_thread}\s\(#{details_in_parens_thread}\)|\(#{details_in_parens_thread}\)!
+      %r!#{ok_tags}#{title_or_upper_cased_thread}\s?#{ok_tags}\s?#{lowercase_destination_class}?#{ok_tags}\s\s?\(#{details_in_parens_thread}\)|\(#{details_in_parens_thread}\)!
     end
     def p_strong_details_regex
-      %r!#{breakline_thread}#{strong_open_thread}#{ok_tags}\d+(?:#{ok_tags}\.#{ok_tags_space}and#{ok_tags_space}\d+)?#{ok_tags}\.#{ok_tags}\s#{ok_tags}#{no_tags}[,;]#{strong_close_thread}.*?#{breakline_thread}!
+      %r!#{breakline_thread}#{strong_open_thread}#{ok_tags}\d+(?:#{ok_tags}\.#{ok_tags_space}and#{ok_tags_space}\d+)?#{ok_tags}\.#{ok_tags}\s#{ok_tags}#{no_tags}[,;|]#{no_tags}#{strong_close_thread}.*?#{breakline_thread}!
     end
     def p_strong_details_double_index_regex
       %r!#{breakline_thread}#{strong_open_thread}#{ok_tags}\d+#{ok_tags}\.#{ok_tags_space}and#{ok_tags_space}\d+#{ok_tags}\.#{ok_tags}\s!
     end
-    def p_strong_details_double_index_regex_find_first
-      %r!#{breakline_thread}#{strong_open_thread}#{ok_tags}(\d+)#{ok_tags}\.#{ok_tags_space}and#{ok_tags_space}\d+#{ok_tags}\.#{ok_tags}\s!
-    end
-    def p_strong_details_double_index_regex_find_second
-      %r!#{breakline_thread}#{strong_open_thread}#{ok_tags}\d+#{ok_tags}\.#{ok_tags_space}and#{ok_tags_space}(\d+)#{ok_tags}\.#{ok_tags}\s!
-    end
-    def p_strong_details_regex_find_index
-      %r!#{breakline_thread}#{strong_open_thread}#{ok_tags}(\d+(?:#{ok_tags}\.#{ok_tags_space}and#{ok_tags_space}\d+)?)#{ok_tags}\.#{ok_tags}\s#{ok_tags}#{no_tags}[,;]#{strong_close_thread}.*?#{breakline_thread}!
+    # def p_strong_details_double_index_regex_find_first
+    #   %r!#{breakline_thread}#{strong_open_thread}#{ok_tags}(\d+)#{ok_tags}\.#{ok_tags_space}and#{ok_tags_space}\d+#{ok_tags}\.#{ok_tags}\s!
+    # end
+    # def p_strong_details_double_index_regex_find_second
+    #   %r!#{breakline_thread}#{strong_open_thread}#{ok_tags}\d+#{ok_tags}\.#{ok_tags_space}and#{ok_tags_space}(\d+)#{ok_tags}\.#{ok_tags}\s!
+    # end
+    def p_strong_details_regex_find_index #first of 2
+      %r!#{breakline_thread}#{strong_open_thread}#{ok_tags}(\d+)(?:#{ok_tags}\.#{ok_tags_space}and#{ok_tags_space}\d+)?#{ok_tags}\.#{ok_tags}\s#{ok_tags}#{no_tags}[,;]#{no_tags}#{strong_close_thread}.*?#{breakline_thread}!
     end
     def strong_details_regex_find_activity
       %r!(?:#{strong_open_thread}#{ok_tags}\d+(?:#{ok_tags}\.#{ok_tags_space}and#{ok_tags_space}\d+)?#{ok_tags}\.#{ok_tags}\s#{ok_tags}|#{strong_open_thread})?([^<>]*?#{strong_close_thread}[^<>]*#{a_href_thread}?)\.! #(?:#{strong_open_thread}|#{breakline_thread})
     end
-    def strong_details_regex_find_name_address_website
-      %r!(?:#{strong_open_thread}#{ok_tags}\d+(?:#{ok_tags}\.#{ok_tags_space}and#{ok_tags_space}\d+)?#{ok_tags}\.#{ok_tags}\s#{ok_tags})?([^<>]*?)\,#{strong_close_thread}([^<>]*)#{a_href_thread}?\.! #(?:#{strong_open_thread}|#{breakline_thread})
+    def strong_details_regex_find_address_phone
+      %r!(?:#{strong_open_thread}#{ok_tags}\d+(?:#{ok_tags}\.#{ok_tags_space}and#{ok_tags_space}\d+)?#{ok_tags}\.#{ok_tags}\s#{ok_tags})?[^<>]*?[,;]#{strong_close_thread}([^<>;]*)[;]?[^<>]*#{a_href_thread}?! #(?:#{strong_open_thread}|#{breakline_thread})
+    end
+    def strong_details_regex_find_name
+      %r!(?:#{strong_open_thread}#{ok_tags}\d+(?:#{ok_tags}\.#{ok_tags_space}and#{ok_tags_space}\d+)?#{ok_tags}\.#{ok_tags}\s#{ok_tags})?(?:\s*?([^<>]*)\s*?)[,;]#{strong_close_thread}[^<>]*#{a_href_thread}?! #(?:#{strong_open_thread}|#{breakline_thread})
     end
     def a_regex_find_href
       %r!#{a_find_href_thread}!
     end
-    # def day_section_split(*list)
-    #   item_array = []
-    #   for item in list
-    #     item_array << "#{case_desensitize(item)}"
-    #   end
-    #   insert = item_array.join("|")
-    #   %r!#{within_broken_strong_optional("(?:#{insert})")}!
-    # end
     def day_section_start_regex(list)
       insert = case_desensitize_array(Array(list))
       %r!#{within_broken_strong_optional("(?:#{insert})")}.*!
@@ -157,10 +188,14 @@ module RegexLibrary
     def regex_split_without_loss(string_or_array, split_term)
       add_back = string_or_array.scan(split_term).flatten
       add_to = string_or_array.split(split_term).reject(&:blank?)
-      0.upto(add_to.length - 1).each do |i|
-        add_to[i] = add_back[i] + add_to[i]
+      if add_back && add_to && add_back.length >0 && add_to.length > 0
+        0.upto(add_to.length - 1).each do |i|
+          add_to[i] = add_back[i] + add_to[i]
+        end
+        return add_to
+      else
+        return nil
       end
-      return add_to
     end
 
 end
