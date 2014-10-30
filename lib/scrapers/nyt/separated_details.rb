@@ -95,9 +95,11 @@ module Scrapers
       end
 
       def has_map_data?
-        if page
-      #   return false unless ["the basics", "the details", "if you go"].any?{ |legend_group| downcased.include?(legend_group) }
-      #   true
+        if page.css("script").include?("NYTG_MAP_DATA")
+          true
+        else
+          false
+        end
       end
 
     end

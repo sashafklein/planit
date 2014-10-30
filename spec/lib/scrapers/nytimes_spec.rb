@@ -6,6 +6,19 @@ module Scrapers
 
     include ScraperHelper
 
+    describe "berkeley" do
+
+      before do 
+        @base_name = 'berkeley'
+        @url = 'http://www.nytimes.com/2014/10/12/travel/things-to-do-in-36-hours-in-berkeley-calif.html'
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect(scraper.data).to eq expectations
+      end
+    end
+
     describe "cartagena" do
 
       before do 
