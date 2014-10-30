@@ -68,7 +68,7 @@ module Scrapers
           order: section.scan(index_and_title_regex_find_index).flatten.first,
           time: section.scan(time_on_own_line_regex_find_time).flatten.first, 
           section_title: trim( section.scan(index_and_title_regex_find_title).flatten.first ),
-          content: trim( de_tag ( section ) ),
+          content: trim( de_tag ( section.split(index_and_title_regex)[1] ) ),
         }
       end
       
