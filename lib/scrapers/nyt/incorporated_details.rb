@@ -32,7 +32,7 @@ module Scrapers
           website: general.scan(a_regex_find_href).flatten.first,
           general_title: trim( scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go"])).flatten.first.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
           general_number: general_index + 1,
-        }.merge(global_data)
+        }.merge(global_data).merge(itinerary_data(nil, nil))
       end
 
       def itinerary_data(itinerary, itinerary_index)
@@ -63,6 +63,8 @@ module Scrapers
       end
 
       def section_data(section, section_index)
+        binding.pry
+        # NIKO CURRENT WORK - ACCOMODATE STRONGS
         { 
           order: section.scan(index_and_title_regex_find_index).flatten.first,
           time: section.scan(time_on_own_line_regex_find_time).flatten.first, 

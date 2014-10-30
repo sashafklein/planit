@@ -15,4 +15,9 @@ module ScraperHelper
     File.join('spec', 'support', 'pages', @base_domain, "#{@base_name}.#{ending}")
   end
   
+  def get_domain(url)
+    full_domain = URI(url).host.match(/[^\.]+\.\w+$/).to_s
+    no_extension = full_domain.split(".")[0]
+  end
+
 end

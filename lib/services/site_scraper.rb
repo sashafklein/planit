@@ -97,5 +97,6 @@ module Services
         .gsub(/\<meta\s.*?\>/, '')
         .gsub(/\<[^<>]*?data-description\=\'[^<>]*?\'[^<>]*?\>/, '')
     end
+
   end
 end

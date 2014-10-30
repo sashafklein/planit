@@ -81,7 +81,7 @@ module RegexLibrary
       %r!\(.*?[,;]\s((?=\d+).*?)(?:[;,]|\))!
     end
     def time_on_own_line_regex
-      %r!#{breakline_thread}#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}(?:#{time_thread}|Noon)#{tag_free_whitespace}#{breakline_thread}!
+      %r!#{breakline_thread}#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}(?:#{time_thread}|Noon)#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}#{breakline_thread}!
     end
     def time_on_own_line_regex_find_time
       %r!#{breakline_thread}#{tag_free_whitespace}#{ok_tags}#{tag_free_whitespace}((?:#{time_thread}|Noon))#{tag_free_whitespace}#{breakline_thread}!
