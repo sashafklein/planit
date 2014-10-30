@@ -39,7 +39,6 @@ module Scrapers
               for activity in line_activities_array
                 activities << activity
               end
-              binding.pry
             end
           end
           # add_activities_to_data_array(activities)

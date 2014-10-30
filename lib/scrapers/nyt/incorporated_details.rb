@@ -51,7 +51,6 @@ module Scrapers
       end
 
       def day_data(day, day_index)
-        # number = scrape_for_day_number_in_day
         { 
           day_number: day_index + 1,
           day_title: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
@@ -73,7 +72,7 @@ module Scrapers
       end
       
       def activity_group(section)
-        section.scan(titlecase_before_parens_with_details_regex).reject(&:blank?) # blank? returns false on '', so we're rejecting empty strings
+        section.scan(titlecase_before_parens_with_details_regex).reject(&:blank?)
       end
 
       def activity_data(activity, activity_index)

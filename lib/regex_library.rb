@@ -154,4 +154,13 @@ module RegexLibrary
       %r!#{within_broken_strong_optional("(?:.*?)")}(.*)!
     end
 
+    def regex_split_without_loss(string_or_array, split_term)
+      add_back = string_or_array.scan(split_term).flatten
+      add_to = string_or_array.split(split_term).reject(&:blank?)
+      0.upto(add_to.length - 1).each do |i|
+        add_to[i] = add_back[i] + add_to[i]
+      end
+      return add_to
+    end
+
 end

@@ -15,7 +15,6 @@ module Scrapers
       end
 
       it "parses the page correctly" do
-        # binding.pry
         expect(scraper.data).to eq expectations
       end
     end
