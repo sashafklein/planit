@@ -58,14 +58,20 @@ module Scrapers
         if has_legend?
           activity_details_container = scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go"])).flatten.first
           activity_group_array = activity_details_container.scan(p_strong_details_regex)
-          for group_to_test in activity_group_array
-            group_index = group_to_test.scan(p_strong_details_regex_find_index).flatten.first
-            if group_index == section_relevant_index
-              return group_to_test.scan(strong_details_regex_find_activity).flatten
-            end
-          end
-          return []
+        elsif has_map_data?
+          # MAP DATA
+          # JSON PARSE
+          # CREATE INDEXED ACTIVITY DATA LIST W/ RELEVANCE
+          # ALSO WILL NEED TO SEARCH SECTIONS FOR TEXT MATCHES, UGH (E.G. ELMWOOD CAFE)
+          activity_group_array = []
         end
+        for group_to_test in activity_group_array
+          group_index = group_to_test.scan(p_strong_details_regex_find_index).flatten.first
+          if group_index == section_relevant_index
+            return group_to_test.scan(strong_details_regex_find_activity).flatten
+          end
+        end
+        return []
       end
 
       def activity_data(activity, activity_index)
@@ -95,10 +101,15 @@ module Scrapers
       end
 
       def has_map_data?
-        if page.css("script").include?("NYTG_MAP_DATA")
-          true
-        else
-          false
+        for script in page.css("script")
+          script_html = script.inner_html.gsub(/\n/, '')
+          binding.pry
+          if script_html.scan(nytimes_map_data_regex).length > 0
+            @map_data = script_html.scan(nytimes_map_data_regex).flatten.first
+            return false
+          else
+            return false
+          end
         end
       end
 

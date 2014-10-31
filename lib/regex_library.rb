@@ -184,6 +184,9 @@ module RegexLibrary
     def day_section_cut_regex_find_section
       %r!#{within_broken_strong_optional("(?:.*?)")}(.*)!
     end
+    def nytimes_map_data_regex
+      %r!\<script(?:\s|\>).*?(var \= NYTG_MAP_DATA.*?)\<\/script\>!
+    end
 
     def regex_split_without_loss(string_or_array, split_term)
       add_back = string_or_array.scan(split_term).flatten
