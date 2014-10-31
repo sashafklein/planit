@@ -1,13 +1,11 @@
 module Scrapers
-  module Nyt
+  class Nytimes < Services::SiteScraper
 
-    # PAGE SETUP
-
-    class SeparatedDetails < Nytimes
-      def initialize(url, page)
-        super(url, page)
-        @scrape_target = %w(#area-main #article article)
-      end
+    attr_accessor :section_array, :days
+    def initialize(url, page)
+      super(url, page)
+      @scrape_target = %w(#area-main #article article)
+    end
 
       def global_data
         { 
@@ -55,33 +53,15 @@ module Scrapers
       
       def activity_group(section)
         section_relevant_index = section.scan(strong_index_title_and_time_on_own_line_regex_find_index).flatten.first
-        # activity_group_array = []
-        # if has_legend?
-        #   activity_details_container = scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go"])).flatten.first
-        #   activity_group_array = activity_details_container.scan(p_strong_details_regex)
-        # elsif has_map_data?
-        #   binding.pry
-        #   # MAP DATA
-        #   # JSON PARSE
-        #   # require 'json'
-        #   # value = '{"val":"test","val1":"test1","val2":"test2"}'
-        #   # puts JSON.parse(value) 
-        #   # CREATE INDEXED ACTIVITY DATA LIST W/ RELEVANCE
-        #   # ALSO WILL NEED TO SEARCH SECTIONS FOR TEXT MATCHES, UGH (E.G. ELMWOOD CAFE)
-        # end
-        # for group_to_test in activity_group_array
-        #   group_index = group_to_test.scan(p_strong_details_regex_find_index).flatten.first
-        #   if group_index == section_relevant_index
-        #     return group_to_test.scan(strong_details_regex_find_activity).flatten
-        #   end
-        # end
-        # return []
         if has_legend?
           activity_details_container = scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go"])).flatten.first
           activity_group_array = activity_details_container.scan(p_strong_details_regex)
         elsif has_map_data?
           # MAP DATA
           # JSON PARSE
+          # require 'json'
+          # value = '{"val":"test","val1":"test1","val2":"test2"}'
+          # puts JSON.parse(value) 
           # CREATE INDEXED ACTIVITY DATA LIST W/ RELEVANCE
           # ALSO WILL NEED TO SEARCH SECTIONS FOR TEXT MATCHES, UGH (E.G. ELMWOOD CAFE)
           activity_group_array = []
@@ -121,21 +101,12 @@ module Scrapers
         true
       end
 
-      # def has_map_data?
-      #   for script in find_scripts_inner_html(page)
-      #     # binding.pry
-      #     if script.first.scan(nytimes_map_data_regex).length > 0
-      #       @map_data = script.scan(nytimes_map_data_regex).flatten.first
-      #       return true
-      #     end
-      #   end
-      #   return false
-      # end
       def has_map_data?
+        binding.pry
         for script in page.css("script")
           script_html = script.inner_html.gsub(/\n/, '')
-          binding.pry
           if script_html.scan(nytimes_map_data_regex).length > 0
+            binding.pry
             @map_data = script_html.scan(nytimes_map_data_regex).flatten.first
             return false
           else
@@ -147,4 +118,3 @@ module Scrapers
     end
   end
 end
-

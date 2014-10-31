@@ -1,4 +1,9 @@
 module CssOperators
+
+  def find_scripts_inner_html(page_to_search)
+    page_to_search.inner_html.scan(/<script(?:\s[^>]*)?\>(?:\s*\n\s*)?((?:\n|.)*?)(?:\s*\n\s*)?\<\/script\>/)
+  end
+
   def split_by(selectors, split_array)
     Array(selectors).each do |selector|
       

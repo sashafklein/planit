@@ -26,12 +26,12 @@ module Services
       
       # WE NEED SOME FORM OF NILSINK HERE IF GROUPS TURN UP NIL
       # undefined method `each_with_index' for nil:NilClass
+      # binding.pry
 
       itinerary_group.each_with_index do |itinerary, itinerary_index|
         leg_group(itinerary).each_with_index do |leg, leg_index|
           day_group(leg).each_with_index do |day, day_index|
             section_group(day).each_with_index do |section, section_index|
-              # binding.pry
               activity_group(section).each_with_index do |activity, activity_index|
                 item = full_item([
                   activity_data(activity, activity_index), 
@@ -95,7 +95,7 @@ module Services
     end
 
     def illegal_content # DOUBLE \\
-      content_array = [
+      illegal_content_array = [
         "\\<div [^>]*class\\=\\'[^\\s']*ad\\s[^']*\\'\\>.*?\\<\\/div\\>",
         "\\<\\!\\-\\-.*?\\-\\-\\>",
         "\\<script(?:\\s|\\>).*?\\<\\/script\\>",
@@ -104,6 +104,10 @@ module Services
         "\\<div\\s[^>]*?(?:g\\-type\\_Inset|g\\-aiAbs)[^>]*?\\>.*?\\<\\/div\\>",
         "\\<meta\\s.*?\\>",
         "\\<[^<>]*?data-description\\=\\'[^<>]*?\\'[^<>]*?\\>",
+        "\\<header(?:\\s|\\>).*?\\<\\/header\\>",
+        "\\<nav(?:\\s|\\>).*?\\<\\/nav\\>",
+        "\\<form(?:\\s|\\>).*?\\<\\/form\\>",
+        # "\\<[^<>]*?story-meta\\=\\'[^<>]*?\\'[^<>]*?\\>",
       ]
     end
 
