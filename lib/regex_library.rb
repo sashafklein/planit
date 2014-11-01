@@ -84,15 +84,57 @@ module RegexLibrary
       "(?:(?:\\<(?:b|strong)(\\s[^>]*?)?\\>)?\\s*?#{string}\\s*?(?:\\<\\/(?:b|strong)\\>|#{string}))"
     end
 
-    def within_broken_strong_optional(string)
-      "(?:#{breakline_thread}#{strong_open_thread}?\\s*?#{string}\\s*?#{strong_close_thread}?#{breakline_thread})"
+    def optional_strong_or_hnum_within_breakline_optional(string)
+      threads = [
+        "(?:",
+        "#{breakline_thread}",
+        "#{any_spaces}",
+        "(?:",
+        "#{b_or_strong_open_thread}?",
+        "|",
+        "#{hnum_open_thread}?",
+        ")",
+        "#{any_spaces}",
+        "#{string}",
+        "#{any_spaces}",
+        "(?:",
+        "#{b_or_strong_close_thread}?",
+        "|",
+        "#{hnum_close_thread}?",
+        ")",
+        "#{any_spaces}",
+        "#{breakline_thread}",
+        ")",
+      ]
+      threads.join
     end
 
-    def strong_open_thread
+    def optional_strong_within_breakline(string)
+      "(?:#{breakline_thread}#{b_or_strong_open_in_space_thread}?\\s*?#{string}\\s*?#{b_or_strong_close_in_space_thread}?#{breakline_thread})"
+    end
+
+    def hnum_open_thread
+      "(?:\\<h\\d(?:\\s[^>]*?)?\\>)" 
+    end
+
+    def hnum_close_thread
+      "(?:\\<\\/h\\d\\>)" 
+    end
+
+    def b_or_strong_open_thread
+      "(?:\\<(?:b|strong)(?:\\s[^>]*?)?\\>)" 
+    end
+
+    def b_or_strong_close_thread
+      "(?:\\<\\/(?:b|strong)\\>)" 
+    end
+
+    def b_or_strong_open_in_space_thread
       within_whitespace( "(?:\\<(?:b|strong)(?:\\s[^>]*?)?\\>)(?=(?:.|\\n)*?(?:\\<\\/(?:b|strong)\\>))") 
+      # within_whitespace( "(?:\\<(?:b|strong)(?:\\s[^>]*?)?\\>)(?=(?:.|\\n)*?(?:\\<\\/(?:b|strong)\\>))") 
     end
 
-    def strong_close_thread
+    def b_or_strong_close_in_space_thread
       within_whitespace( "(?:\\<\\/(?:b|strong)\\>)") 
     end
 
@@ -239,10 +281,10 @@ module RegexLibrary
       %r!#{regex_string.join}!
     end
 
-    def strong_index_title_and_time_on_own_line_regex
+    def strong_index_title_and_time_then_linebreak_regex
       regex_string = [
-        "#{breakline_thread}",
-        "#{strong_open_thread}?",
+        "#{breakline_thread}?",
+        "#{b_or_strong_open_in_space_thread}?",
         "\\d+",
         "#{ok_tags}",
         "\\.",
@@ -258,10 +300,10 @@ module RegexLibrary
       %r!#{regex_string.join}!
     end
 
-    def strong_index_title_and_time_on_own_line_regex_find_title
+    def strong_index_title_and_time_then_linebreak_regex_find_title
       regex_string = [
-        "#{breakline_thread}",
-        "#{strong_open_thread}?",
+        "#{breakline_thread}?",
+        "#{b_or_strong_open_in_space_thread}?",
         "\\d+",
         "#{ok_tags}",
         "\\.",
@@ -278,10 +320,10 @@ module RegexLibrary
       %r!#{regex_string.join}!
     end
 
-    def strong_index_title_and_time_on_own_line_regex_find_time
+    def strong_index_title_and_time_then_linebreak_regex_find_time
       regex_string = [
-        "#{breakline_thread}",
-        "#{strong_open_thread}?",
+        "#{breakline_thread}?",
+        "#{b_or_strong_open_in_space_thread}?",
         "\\d+",
         "#{ok_tags}",
         "\\.",
@@ -297,10 +339,10 @@ module RegexLibrary
       %r!#{regex_string.join}!
     end
 
-    def strong_index_title_and_time_on_own_line_regex_find_index
+    def strong_index_title_and_time_then_linebreak_regex_find_index
       regex_string = [
-        "#{breakline_thread}",
-        "#{strong_open_thread}?",
+        "#{breakline_thread}?",
+        "#{b_or_strong_open_in_space_thread}?",
         "(\\d+)",
         "#{ok_tags}",
         "\\.",
@@ -337,7 +379,7 @@ module RegexLibrary
     def p_strong_details_regex
       regex_string = [
         "#{breakline_thread}",
-        "#{strong_open_thread}",
+        "#{b_or_strong_open_in_space_thread}",
         "#{ok_tags}",
         "\\d+",
         "(?:",
@@ -356,7 +398,7 @@ module RegexLibrary
         "#{no_tags}",
         "[,;|]",
         "#{no_tags}",
-        "#{strong_close_thread}",
+        "#{b_or_strong_close_in_space_thread}",
         ".*?",
         "#{breakline_thread}",
       ]
@@ -366,7 +408,7 @@ module RegexLibrary
     def p_strong_details_regex_find_index #first of 2
       regex_string = [
         "#{breakline_thread}",
-        "#{strong_open_thread}",
+        "#{b_or_strong_open_in_space_thread}",
         "#{ok_tags}",
         "(\\d+)",
         "(?:",
@@ -385,7 +427,7 @@ module RegexLibrary
         "#{no_tags}",
         "[,;]",
         "#{no_tags}",
-        "#{strong_close_thread}",
+        "#{b_or_strong_close_in_space_thread}",
         ".*?",
         "#{breakline_thread}",
       ]
@@ -395,7 +437,7 @@ module RegexLibrary
     def strong_details_regex_find_activity
       regex_string = [
         "(?:",
-        "#{strong_open_thread}",
+        "#{b_or_strong_open_in_space_thread}",
         "#{ok_tags}",
         "\\d+",
         "(?:",
@@ -412,11 +454,11 @@ module RegexLibrary
         "\\s",
         "#{ok_tags}",
         "|",
-        "#{strong_open_thread}",
+        "#{b_or_strong_open_in_space_thread}",
         ")?",
         "(",
         "[^<>]*?",
-        "#{strong_close_thread}",
+        "#{b_or_strong_close_in_space_thread}",
         "[^<>]*",
         "#{a_href_thread}?",
         ")",
@@ -428,7 +470,7 @@ module RegexLibrary
     def strong_details_regex_find_address_phone
       regex_string = [
         "(?:",
-        "#{strong_open_thread}",
+        "#{b_or_strong_open_in_space_thread}",
         "#{ok_tags}",
         "\\d+",
         "(?:",
@@ -447,7 +489,7 @@ module RegexLibrary
         ")?",
         "[^<>]*?",
         "[,;]",
-        "#{strong_close_thread}",
+        "#{b_or_strong_close_in_space_thread}",
         "([^<>;]*)",
         "[;]?",
         "[^<>]*",
@@ -459,7 +501,7 @@ module RegexLibrary
     def strong_details_regex_find_name
       regex_string = [
         "(?:",
-        "#{strong_open_thread}",
+        "#{b_or_strong_open_in_space_thread}",
         "#{ok_tags}",
         "\\d+",
         "(?:",
@@ -482,7 +524,7 @@ module RegexLibrary
         "\\s*?",
         ")",
         "[,;]",
-        "#{strong_close_thread}",
+        "#{b_or_strong_close_in_space_thread}",
         "[^<>]*",
         "#{a_href_thread}?",
       ]
@@ -493,52 +535,26 @@ module RegexLibrary
       %r!#{a_find_href_thread}!
     end
 
+    def find_website_after_n
+      %r!#{\nhttp:\/\/(.*)}!
+    end
+
     def day_section_start_regex(list)
       insert = case_desensitize_array(Array(list))
-      %r!#{within_broken_strong_optional("(?:#{insert})")}.*!
+      %r!#{optional_strong_or_hnum_within_breakline_optional("(?:#{insert})")}.*!
     end
 
     def day_section_cut_regex(list)
       insert = case_desensitize_array(Array(list))
-      %r!#{within_broken_strong_optional("(?:#{insert})")}!
+      %r!#{optional_strong_or_hnum_within_breakline_optional("(?:#{insert})")}!
     end
 
     def day_section_cut_regex_find_section
-      %r!#{within_broken_strong_optional("(?:.*?)")}(.*)!
+      %r!#{optional_strong_or_hnum_within_breakline_optional("(?:.*?)")}(.*)!
     end
 
     def nytimes_map_data_regex
-      %r!var NYTG_MAP_DATA = ({.*};)!
-    end
-
-    def regex_split_without_loss(string_or_array, split_term)
-      add_back = string_or_array.scan(split_term).flatten
-      add_to = string_or_array.split(split_term).reject(&:blank?)
-      if add_back && add_to && add_back.length >0 && add_to.length > 0
-        0.upto(add_to.length - 1).each do |i|
-          add_to[i] = add_back[i] + add_to[i]
-        end
-        return add_to
-      else
-        return nil
-      end
+      %r!var NYTG_MAP_DATA = ({.*})!
     end
 
 end
-
-#     def regex_split_without_loss(string_or_array, split_term)
-#       add_back = string_or_array.scan(split_term).flatten
-#       add_to = string_or_array.split(split_term).reject(&:blank?)
-#       if add_back && add_to && add_back.length > 0 && add_to.length > 0
-#         0.upto(add_to.length - 1).each do |i|
-#           if !add_to[i] || !add_back[i]
-#             binding.pry
-#           else
-#             add_to[i] = add_back[i] + add_to[i]
-#           end
-#         end
-#         return add_to
-#       else
-#         return nil
-#       end
-#     end

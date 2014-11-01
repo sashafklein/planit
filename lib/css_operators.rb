@@ -26,6 +26,20 @@ module CssOperators
     end
   end
 
+  def regex_split_without_loss(string_or_array, split_term)
+    add_back = string_or_array.scan(split_term).flatten
+    add_to = string_or_array.split(split_term).reject(&:blank?)
+    # binding.pry
+    if add_back && add_to && add_back.length > 0 && add_to.length > 0
+      0.upto(add_to.length - 1).each do |i|
+        add_to[i] = add_back[i] + add_to[i]
+      end
+      return add_to
+    else
+      return nil
+    end
+  end
+
   def text_selector(selector)
     if (sel = css(selector)).any?
       text = sel.inner_html

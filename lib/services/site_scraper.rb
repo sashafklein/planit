@@ -4,6 +4,7 @@ module Services
     # PAGE SETUP
 
     require 'uri'
+    require 'json'
     include RegexLibrary
     include CssOperators
 
@@ -114,7 +115,9 @@ module Services
     def scrape_content
       return @scrape_content if @scrape_content
       @scrape_content = CGI.unescape( scrape_container(@scrape_target).first.inner_html )
+      @scrape_content = @scrape_content.gsub(/\s\s+/, "  ") #maximum 2 spaces
       @scrape_content = @scrape_content.gsub(/\n/, '')
+      @scrape_content = @scrape_content.gsub(/[\u00AD]/, '')
       @scrape_content = @scrape_content.gsub(/\"/, "'")
       0.upto(illegal_content.length - 1).each do |i|
         @scrape_content = @scrape_content.gsub(%r!#{illegal_content[i]}!, '')

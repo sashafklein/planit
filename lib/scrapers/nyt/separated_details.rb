@@ -25,10 +25,14 @@ module Scrapers
 
       def day_group(leg)
         if scrape_content
-          return [scrape_content] unless has_days? && has_legend?
+          return [scrape_content] unless has_days?
           days = [ scrape_content.scan(day_section_start_regex("friday")).flatten.first.split(day_section_cut_regex("saturday"))[0] ]
           days << scrape_content.scan(day_section_start_regex("saturday")).flatten.first.split(day_section_cut_regex("sunday"))[0]
-          days << scrape_content.scan(day_section_start_regex("sunday")).flatten.first.split(day_section_cut_regex(["the basics", "the details", "if you go"]))[0]
+          if has_legend?
+            days << scrape_content.scan(day_section_start_regex("sunday")).flatten.first.split(day_section_cut_regex(["the basics", "the details", "if you go"]))[0]
+          else
+            days << scrape_content.scan(day_section_start_regex("sunday")).flatten.first
+          end
         end
       end
 
@@ -41,55 +45,53 @@ module Scrapers
 
       def section_group(day)
         day_to_split = day.split(day_section_cut_regex_find_section)[1]
-        test = regex_split_without_loss(day_to_split, strong_index_title_and_time_on_own_line_regex)
+        sections = regex_split_without_loss(day_to_split, strong_index_title_and_time_then_linebreak_regex)
       end
 
       def section_data(section, section_index)
         { 
-          order: section.scan(strong_index_title_and_time_on_own_line_regex_find_index).flatten.first,
-          time: section.scan(strong_index_title_and_time_on_own_line_regex_find_time).flatten.first,
-          section_title: trim( section.scan(strong_index_title_and_time_on_own_line_regex_find_title).flatten.first ),
-          content: trim( de_tag ( section.split(strong_index_title_and_time_on_own_line_regex)[1] ) ),
+          order: section.scan(strong_index_title_and_time_then_linebreak_regex_find_index).flatten.first,
+          time: section.scan(strong_index_title_and_time_then_linebreak_regex_find_time).flatten.first,
+          section_title: trim( section.scan(strong_index_title_and_time_then_linebreak_regex_find_title).flatten.first ),
+          content: trim( de_tag ( section.split(strong_index_title_and_time_then_linebreak_regex)[1] ) ),
         }
       end
       
       def activity_group(section)
-        section_relevant_index = section.scan(strong_index_title_and_time_on_own_line_regex_find_index).flatten.first
-        # activity_group_array = []
-        # if has_legend?
-        #   activity_details_container = scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go"])).flatten.first
-        #   activity_group_array = activity_details_container.scan(p_strong_details_regex)
-        # elsif has_map_data?
-        #   binding.pry
-        #   # MAP DATA
-        #   # JSON PARSE
-        #   # require 'json'
-        #   # value = '{"val":"test","val1":"test1","val2":"test2"}'
-        #   # puts JSON.parse(value) 
-        #   # CREATE INDEXED ACTIVITY DATA LIST W/ RELEVANCE
-        #   # ALSO WILL NEED TO SEARCH SECTIONS FOR TEXT MATCHES, UGH (E.G. ELMWOOD CAFE)
-        # end
-        # for group_to_test in activity_group_array
-        #   group_index = group_to_test.scan(p_strong_details_regex_find_index).flatten.first
-        #   if group_index == section_relevant_index
-        #     return group_to_test.scan(strong_details_regex_find_activity).flatten
-        #   end
-        # end
-        # return []
+        section_relevant_index = section.scan(strong_index_title_and_time_then_linebreak_regex_find_index).flatten.first
+        activity_group_array = []
         if has_legend?
           activity_details_container = scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go"])).flatten.first
           activity_group_array = activity_details_container.scan(p_strong_details_regex)
+          for group_to_test in activity_group_array
+            group_index = group_to_test.scan(p_strong_details_regex_find_index).flatten.first
+            if group_index == section_relevant_index
+              return group_to_test.scan(strong_details_regex_find_activity).flatten
+            end
+          end
         elsif has_map_data?
-          # MAP DATA
-          # JSON PARSE
+          map_hash = JSON.parse(@map_data,:symbolize_names => true)
+          binding.pry
+          map_hash[:symbols].each do |symbol|
+            data = symbol[:data]
+            activity_group_array << {
+              name: find_by_attr(data, 'label')[:text],
+              website: find_by_attr(data, 'popup')[:body].scan(find_website_after_n).flatten.first,
+              lat: find_by_attr(data, 'root')[:location][:lat],
+              lon: find_by_attr(data, 'root')[:location][:lon],
+              address: find_by_attr(data, 'popup')[:body].scan(find_address_after_n).flatten.first,
+              phone: find_by_attr(data, 'popup')[:body].scan(find_phone_after_n).flatten.first,
+              index: find_by_attr(data, 'bubble_number')[:text],
+            }
+            binding.pry
+          end
           # CREATE INDEXED ACTIVITY DATA LIST W/ RELEVANCE
           # ALSO WILL NEED TO SEARCH SECTIONS FOR TEXT MATCHES, UGH (E.G. ELMWOOD CAFE)
-          activity_group_array = []
-        end
-        for group_to_test in activity_group_array
-          group_index = group_to_test.scan(p_strong_details_regex_find_index).flatten.first
-          if group_index == section_relevant_index
-            return group_to_test.scan(strong_details_regex_find_activity).flatten
+          for group_to_test in activity_group_array
+            group_index = group_to_test.scan(p_strong_details_regex_find_index).flatten.first
+            if group_index == section_relevant_index
+              return group_to_test.scan(strong_details_regex_find_activity).flatten
+            end
           end
         end
         return []
@@ -109,39 +111,32 @@ module Scrapers
 
       # OPERATIONS
 
+      def find_by_attr(hash, name_search, att=:name)
+        hash.find{ |h| h[att] == name_search }
+      end
+
+      # NEEDS TO BE MORE STRINGENT
       def has_days?
         downcased = scrape_content.downcase
         return false unless %w(Friday Saturday Sunday).all?{ |weekend_day| downcased.include?(weekend_day.downcase) }
         true
       end
 
+      # NEEDS TO BE MORE STRINGENT
       def has_legend?
         downcased = scrape_content.downcase
         return false unless (["the basics", "the details", "if you go"]).any?{ |legend_group| downcased.include?(legend_group) }
         true
       end
 
-      # def has_map_data?
-      #   for script in find_scripts_inner_html(page)
-      #     # binding.pry
-      #     if script.first.scan(nytimes_map_data_regex).length > 0
-      #       @map_data = script.scan(nytimes_map_data_regex).flatten.first
-      #       return true
-      #     end
-      #   end
-      #   return false
-      # end
       def has_map_data?
-        for script in page.css("script")
-          script_html = script.inner_html.gsub(/\n/, '')
-          binding.pry
-          if script_html.scan(nytimes_map_data_regex).length > 0
-            @map_data = script_html.scan(nytimes_map_data_regex).flatten.first
-            return false
-          else
-            return false
+        for script in find_scripts_inner_html(page)
+          if script.flatten.first.scan(nytimes_map_data_regex).length > 0
+            @map_data = script.flatten.first.scan(nytimes_map_data_regex).flatten.first
+            return true
           end
         end
+        return false
       end
 
     end
