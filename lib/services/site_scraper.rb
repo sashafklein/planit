@@ -40,7 +40,7 @@ module Services
                   day_data(day, day_index), 
                   leg_data(leg, leg_index), 
                   itinerary_data(itinerary, itinerary_index), 
-                  global_data
+                  global_data,
                 ])
                 @data << item
               end
@@ -50,7 +50,11 @@ module Services
       end
 
       general_group.each_with_index do |general, general_index|
-        @data << full_item([general_data(general, general_index)])
+        @data << full_item([
+          general_data(general, general_index),
+          # itinerary_data(itinerary, itinerary_index), 
+          global_data,
+        ])
       end
       # binding.pry
       @data

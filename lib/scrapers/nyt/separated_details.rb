@@ -11,17 +11,36 @@ module Scrapers
 
       def global_data
         { 
+          trip_name: page.css("title").text,
           locality: split_by('h1', [["36 Hours in ", 1], ["36 Hours at the ", 1], ["36 Hours on ", 1], ["36 Hours | ", 1]]),
         }
       end
 
       # PAGE 
 
-      def itinerary_data(itinerary, itinerary_index)
-        {
-          trip_name: page.css("title").text,
-        }
-      end
+      def activity_group_array
+        return @activity_group_array if @activity_group_array
+        array_in_activity_group_array = []
+        if has_legend?
+          activity_details_container = scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go"])).flatten.first
+          return @activity_array_group = activity_details_container.scan(p_strong_details_regex)
+        elsif has_map_data?
+          map_hash = JSON.parse(@map_data,:symbolize_names => true)
+          map_hash[:symbols].each do |symbol|
+            data = symbol[:data]
+            array_in_activity_group_array << {
+              name: breakline_to_space( name_in_data_hash(data) ),
+              website: website_in_data_hash(data),
+              lat: lat_in_data_hash(data),
+              lon: lon_in_data_hash(data),
+              street_address: address_in_data_hash(data),
+              phone: phone_in_data_hash(data),
+              order: order_in_data_hash(data),
+            }
+          end
+          return @activity_group_array = array_in_activity_group_array
+        end        
+      end        
 
       def day_group(leg)
         if scrape_content
@@ -59,54 +78,64 @@ module Scrapers
       
       def activity_group(section)
         section_relevant_index = section.scan(strong_index_title_and_time_then_linebreak_regex_find_index).flatten.first
-        activity_group_array = []
-        if has_legend?
-          activity_details_container = scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go"])).flatten.first
-          activity_group_array = activity_details_container.scan(p_strong_details_regex)
+        if !has_map_data?
           for group_to_test in activity_group_array
             group_index = group_to_test.scan(p_strong_details_regex_find_index).flatten.first
             if group_index == section_relevant_index
               return group_to_test.scan(strong_details_regex_find_activity).flatten
             end
           end
-        elsif has_map_data?
-          map_hash = JSON.parse(@map_data,:symbolize_names => true)
-          binding.pry
-          map_hash[:symbols].each do |symbol|
-            data = symbol[:data]
-            activity_group_array << {
-              name: find_by_attr(data, 'label')[:text],
-              website: find_by_attr(data, 'popup')[:body].scan(find_website_after_n).flatten.first,
-              lat: find_by_attr(data, 'root')[:location][:lat],
-              lon: find_by_attr(data, 'root')[:location][:lon],
-              address: find_by_attr(data, 'popup')[:body].scan(find_address_after_n).flatten.first,
-              phone: find_by_attr(data, 'popup')[:body].scan(find_phone_after_n).flatten.first,
-              index: find_by_attr(data, 'bubble_number')[:text],
-            }
-            binding.pry
-          end
-          # CREATE INDEXED ACTIVITY DATA LIST W/ RELEVANCE
-          # ALSO WILL NEED TO SEARCH SECTIONS FOR TEXT MATCHES, UGH (E.G. ELMWOOD CAFE)
-          for group_to_test in activity_group_array
-            group_index = group_to_test.scan(p_strong_details_regex_find_index).flatten.first
-            if group_index == section_relevant_index
-              return group_to_test.scan(strong_details_regex_find_activity).flatten
+        else
+          group_to_sequence = activity_group_array.select{ |h| h[:order]==nil }
+          group_to_sequence.each do |to_sequence|
+            unless !to_sequence[:name]
+              if section.scan(to_sequence[:name]).length > 0
+                activity_group_array.find{ |h| h[:name]==to_sequence[:name] }[:order] = section_relevant_index
+              end
             end
           end
+          return activity_group_array.select{ |h| h[:order]==section_relevant_index }
         end
         return []
       end
 
       def activity_data(activity, activity_index)
-        # name = trim( de_tag( activity.scan(strong_details_regex_find_name).flatten.first ) )
-        # street_address = trim( activity.scan(strong_details_regex_find_address_phone).flatten.first )
-        # website = activity.scan(a_regex_find_href).flatten.first
-        # binding.pry
-        {
-          name: trim( de_tag( activity.scan(strong_details_regex_find_name).flatten.first ) ),
-          street_address: trim( activity.scan(strong_details_regex_find_address_phone).flatten.first ),
-          website: activity.scan(a_regex_find_href).flatten.first,
-        }
+        if has_map_data?
+          {
+            name: activity[:name],
+            street_address: activity[:street_address],
+            phone: activity[:phone], 
+            lat: activity[:lat],
+            lon: activity[:lon],
+            website: activity[:website], 
+          }
+        else
+          {
+            name: trim( de_tag( activity.scan(strong_details_regex_find_name).flatten.first ) ),
+            street_address: trim( activity.scan(strong_details_regex_find_address_phone).flatten.first ),
+            website: activity.scan(a_regex_find_href).flatten.first,
+          }
+        end
+      end
+
+      def general_group
+        if has_map_data?
+          return activity_group_array.select{ |h| h[:order]==nil }
+        end
+        return []
+      end
+
+      def general_data(activity, activity_index)
+        if has_map_data?
+          {
+            name: activity[:name],
+            street_address: activity[:street_address],
+            phone: activity[:phone], 
+            lat: activity[:lat],
+            lon: activity[:lon],
+            website: activity[:website], 
+          }
+        end
       end
 
       # OPERATIONS
@@ -137,6 +166,35 @@ module Scrapers
           end
         end
         return false
+      end
+
+      def name_in_data_hash(data)
+        find_by_attr(data, 'label')[:text] ; rescue ; nil
+      end
+
+      def website_in_data_hash(data)
+        find_by_attr(data, 'popup')[:body].scan(find_website_after_n).flatten.first ; rescue ; nil
+      end
+
+      def lat_in_data_hash(data)
+        find_by_attr(data, 'root')[:location][:lat] ; rescue ; nil
+      end
+
+      def lon_in_data_hash(data)
+        find_by_attr(data, 'root')[:location][:lng] ; rescue ; nil
+      end
+
+      def phone_in_data_hash(data)
+        find_by_attr(data, 'popup')[:body].scan(find_phone_after_n).flatten.first ; rescue ; nil
+      end
+
+      def order_in_data_hash(data)
+        find_by_attr(data, 'bubble_number')[:text] ; rescue ; nil
+      end
+
+      def address_in_data_hash(data)
+        # binding.pry
+        find_by_attr(data, 'popup')[:body].scan(find_address_after_n).flatten.first ; rescue ; nil
       end
 
     end

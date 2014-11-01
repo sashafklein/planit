@@ -536,7 +536,53 @@ module RegexLibrary
     end
 
     def find_website_after_n
-      %r!#{\nhttp:\/\/(.*)}!
+      regex_string = [
+        "\\n",
+        "(",
+        "(?:",
+        "http[s]?:\\/\\/",
+        ")?",
+        ".*[a-z]\\.[a-z].*",
+        ")",
+        "(?:\\n|\\z)", #end of line or string
+      ] 
+      %r!#{regex_string.join}!
+    end
+
+    def find_phone_after_n
+      regex_string = [
+        "\\n",
+        "(",
+        "(?:",
+        "(?:",
+        "\\d|\\-|\\(|\\)",
+        "){9}",
+        "(?:",
+        "\\d|\\-|\\(|\\)",
+        ")+",
+        ")",
+        "(?:\\n|\\z)", #end of line or string
+      ]
+      %r!#{regex_string.join}!
+    end
+
+    def find_address_after_n
+      regex_string = [
+        "\\n",
+        "(",
+        "(?:",
+        "[a-z]|[A-z]|[0-9]| |[.,'-()]",
+        ")+",
+        "(?:",
+        "[ ][a-z|A-Z]|[a-z|A-Z][ ]",
+        ")",
+        "(?:",
+        "[a-z]|[A-z]|[0-9]| |[.,'-()]",
+        ")+?",
+        ")",
+        "(?:\\n|\\z)", #end of line or string
+      ]
+      %r!#{regex_string.join}!
     end
 
     def day_section_start_regex(list)

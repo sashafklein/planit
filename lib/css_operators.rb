@@ -26,6 +26,18 @@ module CssOperators
     end
   end
 
+  def breakline_to_space(html)
+    quote_slash_to_space( slash_n_to_space(html) )
+  end
+
+  def slash_n_to_space(html)
+    html.gsub(/\n/, ' ') ; rescue ; html
+  end
+
+  def quote_slash_to_space(html)
+    html.gsub("\n", ' ') ; rescue ; html
+  end
+
   def regex_split_without_loss(string_or_array, split_term)
     add_back = string_or_array.scan(split_term).flatten
     add_to = string_or_array.split(split_term).reject(&:blank?)
