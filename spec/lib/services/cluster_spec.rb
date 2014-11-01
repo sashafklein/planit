@@ -1,4 +1,4 @@
-module Servies
+module Services
   class Cluster
 
     attr_accessor :locations, :bounds
