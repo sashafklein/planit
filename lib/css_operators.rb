@@ -1,5 +1,12 @@
 module CssOperators
 
+  # def find_and_clean_inner_html_of_first_success(target)
+  #   target.each do |attempt|
+  #     if page.css(attempt) && page.css(attempt).length > 0
+  #       page.css(attempt)  
+  #   end
+  # end
+
   def find_scripts_inner_html(page_to_search)
     page_to_search.inner_html.scan(/<script(?:\s[^>]*)?\>(?:\s*\n\s*)?((?:\n|.)*?)(?:\s*\n\s*)?\<\/script\>/)
   end

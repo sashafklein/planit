@@ -1,9 +1,10 @@
 module Scrapers
-  module Nyt
+  module NytimesMod
 
     # PAGE SETUP
 
     class SeparatedDetails < Nytimes
+      
       def initialize(url, page)
         super(url, page)
         @scrape_target = %w(#area-main #article article)

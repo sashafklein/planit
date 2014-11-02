@@ -6,6 +6,19 @@ module Scrapers
 
     include ScraperHelper
 
+    # describe "jeangeorges" do
+
+    #   before do 
+    #     @base_name = 'jeangeorges'
+    #     @url = 'http://www.nytimes.com/2014/04/09/dining/restaurant-review-jean-georges-on-the-upper-west-side.html'
+    #     @base_domain = get_domain(@url)
+    #   end
+
+    #   it "parses the page correctly" do
+    #     expect(scraper.data).to eq expectations
+    #   end
+    # end
+
     describe "berkeley" do
 
       before do 

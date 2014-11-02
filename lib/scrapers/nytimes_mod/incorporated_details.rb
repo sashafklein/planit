@@ -1,5 +1,5 @@
 module Scrapers
-  module Nyt
+  module NytimesMod
 
     # PAGE SETUP
 
