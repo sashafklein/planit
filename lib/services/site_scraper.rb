@@ -74,9 +74,9 @@ module Services
     def itinerary_data(itinerary, itinerary_index); {};                 end
     def leg_group(itinerary);                       [day_group(nil)];   end
     def leg_data(leg, leg_index);                   {};                 end
-    def day_group(leg);                             [section_group];    end
+    def day_group(leg);                             [section_group(nil)];    end
     def day_data(day, day_index);                   {};                 end
-    def section_group(day);                         [activity_group];   end
+    def section_group(day);                         [activity_group(nil)];   end
     def section_data(section, section_index);       {};                 end
     def activity_group(section);                    [];                 end
     def activity_data(activity, activity_index);    {};                 end

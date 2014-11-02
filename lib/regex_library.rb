@@ -536,6 +536,7 @@ module RegexLibrary
     end
 
     def find_website_after_n
+<<<<<<< Updated upstream
       regex_string = [
         "\\n",
         "(",
@@ -583,6 +584,9 @@ module RegexLibrary
         "(?:\\n|\\z)", #end of line or string
       ]
       %r!#{regex_string.join}!
+=======
+      %r!\nhttp:\/\/(.*)!
+>>>>>>> Stashed changes
     end
 
     def day_section_start_regex(list)
