@@ -3,7 +3,7 @@ module Scrapers
 
     # PAGE SETUP
 
-    class ItemReview < Tripadvisor
+    class UserReviews < Tripadvisor
 
       def initialize(url, page)
         super(url, page)
@@ -24,6 +24,7 @@ module Scrapers
         [{
           name: trim( de_tag( name ) ),
           street_address: street_address,
+          extended_address: extended_address,
           locality: locality,
           region: region,
           postal_code: postal_code,
@@ -42,11 +43,15 @@ module Scrapers
       # OPERATIONS
 
       def name
-        page.css('h1#HEADING').inner_html ; rescue ; nil
+        page.css('.HEADING').inner_html ; rescue ; nil
       end
 
       def street_address
         page.css("span[property='v:street-address']").inner_html ; rescue ; nil
+      end
+
+      def extended_address
+        page.css("span.extended-address").first.inner_html ; rescue ; nil
       end
 
       def locality
@@ -78,7 +83,7 @@ module Scrapers
       end
 
       def rating
-        page.css('img.rating_no_fill').attribute('content').value; rescue ; nil        
+        page.css('.metacontent').css('img.rating_no_fill').first.attribute('alt').value; rescue ; nil        
       end
 
       def ratings_base
@@ -86,11 +91,11 @@ module Scrapers
       end
 
       def price_info
-        page.css("b:contains('Price range:')").first.next_element.text ; rescue ; nil
+        page.css("b:contains('Price range:')").first.next.text ; rescue ; nil
       end
 
       def category
-        @url.split("tripadvisor.com/")[1].split("_Review")[0] ; rescue ; nil
+        page.css(".slim_ranking").first.css("a").inner_html.split("s in")[0] ; rescue ; nil
       end
 
       def lazy_load
@@ -103,7 +108,7 @@ module Scrapers
 
       def images
         image_list = []
-        container = first_css_match(["div.sizedThumb_container", "div.photo_slideshow", "div.photoGrid.photoBx"])
+        container = first_css_match([".ug_thumbs", "div.sizedThumb_container", "div.photo_slideshow", "div.photoGrid.photoBx"])
         container.css("img").each do |img_in_container|
           if img_in_container.attribute('src')
             img_url = img_in_container.attribute('src').value

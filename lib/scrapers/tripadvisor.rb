@@ -11,8 +11,8 @@ module Scrapers
     def self.specific_scraper(url, page)
       if single_item?(url)
         TripadvisorMod::ItemReview.new(url, page)
-      # elsif thirty_six_new?(url)
-      #   TripadvisorMod::SeparatedDetails.new(url, page)
+      elsif reviews_item?(url)
+        TripadvisorMod::UserReviews.new(url, page)
       # elsif restaurant_new?(url)
       #   TripadvisorMod::RestaurantReview.new(url, page)
       # elsif restaurant_report?(url)
@@ -37,12 +37,18 @@ module Scrapers
       return false
     end
 
-    # def self.reviews_item?(url)
-    #   acceptable_reviews_items = [
-    #     'ShowUserReviews',
-    #   ]
-    #   url.include?("/#{acceptable_reviews_items.any?}-")
-    # end
+    def self.reviews_item?(url)
+      acceptable_reviews_items = [
+        'ShowUserReviews',
+      ]
+      acceptable_reviews_items.each do |accept|
+        if url.include?("/#{accept}-")
+          return true
+        end
+      end
+      return false
+    end
+
     # def self.thirty_six_new?(url)
     #   url.include?('things-to-do-in-36-hours')
     # end

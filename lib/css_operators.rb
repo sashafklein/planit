@@ -59,22 +59,29 @@ module CssOperators
     end
   end
 
-  def text_selector(selector)
-    if (sel = css(selector)).any?
-      text = sel.inner_html
-        .gsub(/\<\/*[p]\>/, "\n")
-        .gsub(/\<\/*[br]\>/, "\n")
-        .gsub(/\&[l][t]\;(?:.|\n)*?\&[g][t]\;/, '')
-      de_tag( text )
-    else
-      nil
+  def first_css_match(array)
+    array.each do |attempt|
+      if result = page.css(attempt).first 
+        return result
+      end
     end
+    return []
   end
-    
+
+  # def text_selector(selector)
+  #   if (sel = css(selector)).any?
+  #     text = sel.inner_html
+  #       .gsub(/\<\/*[p]\>/, "\n")
+  #       .gsub(/\<\/*[br]\>/, "\n")
+  #       .gsub(/\&[l][t]\;(?:.|\n)*?\&[g][t]\;/, '')
+  #     de_tag( text )
+  #   else
+  #     nil
+  #   end
+  # end
+
   def de_tag(html)
-    if html && html.length > 0
-      html.gsub(/<(?:.|\n)*?>/, '')
-    end
+    html.gsub(/<(?:.|\n)*?>/, '') ; rescue ; html
   end
 
   def trim(html)

@@ -19,5 +19,18 @@ module Scrapers
       end
     end
 
+    describe "umegaoka" do
+
+      before do 
+        @base_name = 'umegaoka'
+        @url = 'http://www.tripadvisor.com/ShowUserReviews-g1066456-d1678469-r237573192-Umegaoka_Sushi_No_Midori_Sohonten_Shibuya-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html#REVIEWS'
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect(scraper.data).to eq expectations
+      end
+    end
+
   end
 end 

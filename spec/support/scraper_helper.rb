@@ -8,7 +8,7 @@ module ScraperHelper
   end
 
   def expectations
-    YAML.load_file( file_path('yml') ).map(&:symbolize_keys)
+    YAML.load_file( file_path('yml') ).map(&:recursive_symbolize_keys!)
   end
 
   def file_path(ending)
