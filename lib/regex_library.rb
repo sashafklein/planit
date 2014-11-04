@@ -585,6 +585,50 @@ module RegexLibrary
       %r!#{regex_string.join}!
     end
 
+    def day_within_hnum_regex
+      regex_string = [
+        "#{hnum_open_thread}",
+        "#{any_spaces}",
+        "(?:d|D)ay \\d+",
+        "#{any_spaces}",
+        "#{hnum_close_thread}",
+      ]
+      %r!#{regex_string.join}!
+    end
+
+    def day_within_hnum_regex_find_day
+      regex_string = [
+        "#{hnum_open_thread}",
+        "#{any_spaces}",
+        "(?:d|D)ay (\\d+)",
+        "#{any_spaces}",
+        "#{hnum_close_thread}",
+      ]
+      %r!#{regex_string.join}!
+    end
+
+    def guide_item_regex
+      regex_string = [
+        "\\<",
+        "div",
+        "[^>]*?class\\=\\'[^>]*?",
+        "guideItem listing",
+        "[^>]*?\\'[^>]*?\\>",
+      ]
+      %r!#{regex_string.join}!
+    end
+
+    def find_guide_no_regex
+      regex_string = [
+        "\\<",
+        "div",
+        "[^>]*?id\\=\\'guide\\_(\\d*?)",
+        "\\'",
+        "[^>]*?\\>",
+      ]
+      %r!#{regex_string.join}!
+    end
+
     def day_section_start_regex(list)
       insert = case_desensitize_array(Array(list))
       %r!#{optional_strong_or_hnum_within_breakline_optional("(?:#{insert})")}.*!

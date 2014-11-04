@@ -32,5 +32,18 @@ module Scrapers
       end
     end
 
+    describe "bogota" do
+
+      before do 
+        @base_name = 'bogota'
+        @url = 'http://www.tripadvisor.com/Guide-g294074-l186-Bogota.html'
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect(scraper.data).to eq expectations
+      end
+    end
+
   end
 end 

@@ -13,6 +13,8 @@ module Scrapers
         TripadvisorMod::ItemReview.new(url, page)
       elsif reviews_item?(url)
         TripadvisorMod::UserReviews.new(url, page)
+      elsif guide?(url)
+        TripadvisorMod::Guide.new(url, page)
       # elsif restaurant_new?(url)
       #   TripadvisorMod::RestaurantReview.new(url, page)
       # elsif restaurant_report?(url)
@@ -40,6 +42,18 @@ module Scrapers
     def self.reviews_item?(url)
       acceptable_reviews_items = [
         'ShowUserReviews',
+      ]
+      acceptable_reviews_items.each do |accept|
+        if url.include?("/#{accept}-")
+          return true
+        end
+      end
+      return false
+    end
+
+    def self.guide?(url)
+      acceptable_reviews_items = [
+        'Guide',
       ]
       acceptable_reviews_items.each do |accept|
         if url.include?("/#{accept}-")
