@@ -93,6 +93,25 @@ module Services
 
     # OPERATIONS
     
+    def remove_punc(string)
+      string.scan(remove_final_punctuation_regex).first.first ; rescue ; string
+    end
+
+    def find_country(string)
+      Carmen::Country.all.map(&:name).find{ |c| no_accents(string).include?(no_accents(c)) }
+    end
+
+    def find_region(string, country)
+      carmen_country = Carmen::Country.named(country)
+      carmen_country.subregions.map(&:name).find{ |sr| no_accents(string).include?(no_accents(sr)) }
+    end
+
+    # def find_locality(string, subregion, country)
+    #   carmen_country = Carmen::Country.named(country)
+    #   carmen_subregion = Carmen::Country.named(country)
+    #   carmen_country.subregions.map(&:name).find{ |sr| no_accents(string).include?(no_accents(sr)) }
+    # end
+
     def scrape_container(list)
       return @scrape_container if @scrape_container
       selector = list.select{ |sel| css(sel).any? }.first
@@ -129,5 +148,8 @@ module Services
       return @scrape_content
     end
 
+    def no_accents(string)
+      I18n.transliterate string
+    end
   end
 end

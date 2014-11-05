@@ -81,6 +81,10 @@ module CssOperators
     return []
   end
 
+  def find_lat_lon_string_in_script(string)
+    string.scan(find_lat_lon_regex).flatten.first ; rescue ; nil
+  end
+
   # def text_selector(selector)
   #   if (sel = css(selector)).any?
   #     text = sel.inner_html

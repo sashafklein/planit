@@ -629,6 +629,93 @@ module RegexLibrary
       %r!#{regex_string.join}!
     end
 
+    def airbnb_rooms_link
+      regex_string = [
+        "\\<a[^>]*href\\=[#{quote_thread}']\\/rooms\\/",
+        "\\d+",
+        "[#{quote_thread}'][^>]*\\>",
+        "[^<]+",
+        "\\<\\/a\\>",
+      ]
+      %r!#{regex_string.join}!
+    end
+
+    def airbnb_rooms_link_find_room_no
+      regex_string = [
+        "\\<a[^>]*href\\=[#{quote_thread}']\\/rooms\\/",
+        "(\\d+)",
+        "[#{quote_thread}'][^>]*\\>",
+        "[^<]+",
+        "\\<\\/a\\>",
+      ]
+      %r!#{regex_string.join}!
+    end
+
+    def airbnb_host_link_find_user_id
+      regex_string = [
+        "\\<a[^>]*href\\=[#{quote_thread}']\\/users\\/show\\/",
+        "(\\d+)",
+        "[#{quote_thread}'][^>]*\\>",
+        "[^<]+",
+        "\\<\\/a\\>",
+      ]
+      %r!#{regex_string.join}!
+    end
+
+    def recognize_phone
+      regex_string = [
+        "(?:",
+        "\\(?",
+        "\\+?",
+        "\\d+",
+        "\\)?",
+        "[ ]?",
+        ")",
+        "(?:",
+        "[0-9() -]+",
+        ")",
+      ]
+      %r!#{regex_string.join}!
+    end
+
+    def photos_with_image_folder
+      regex_string = [
+        "[#{quote_thread}']",
+        "(http[s]?:\\/\\/",
+        "[^#{quote_thread}']*?",
+        "images",
+        "[^#{quote_thread}']",
+        "*?)[#{quote_thread}']",
+      ]
+      %r!#{regex_string.join}!
+    end
+
+    def find_lat_lon_regex
+      regex_string = [
+        "(?:",
+        "http[s]?:\\/\\/",
+        ")?",
+        "[a-zA-Z0-9]+\\.[a-zA-Z0-9]+\\.[a-zA-Z0-9]+",
+        "\\/",
+        ".*?",
+        "(?:ll|center|marker)\\=",
+        "([0-9-.,]+)"
+      ]
+      %r!#{regex_string.join}!
+    end
+
+    def remove_final_punctuation_regex
+      %r/(.*)[,;:.?!]\z/
+    end
+
+    def static_map_src
+      "[#{quote_thread}'](http[s]?:\\/\\/maps\\.googleapis\\.com\\/maps\\/api\\/staticmap\\?[^#{quote_thread}']*)[#{quote_thread}']"
+    end
+
+    def static_map_src
+      "[#{quote_thread}'](http[s]?:\\/\\/maps\\.googleapis\\.com\\/maps\\/api\\/staticmap\\?[^#{quote_thread}']*)[#{quote_thread}']"
+    end
+
     def day_section_start_regex(list)
       insert = case_desensitize_array(Array(list))
       %r!#{optional_strong_or_hnum_within_breakline_optional("(?:#{insert})")}.*!

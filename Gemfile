@@ -24,6 +24,7 @@ gem "unicorn"
 
 gem "haml-rails"
 gem 'geocoder'
+gem 'carmen'
 gem 'rest_client'
 gem 'devise'
 gem 'friendly_id', '~> 5.0.0'
