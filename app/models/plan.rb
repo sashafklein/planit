@@ -1,7 +1,7 @@
 class Plan < ActiveRecord::Base
 
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :name, use: :slugged
 
   belongs_to :user
   has_many :legs

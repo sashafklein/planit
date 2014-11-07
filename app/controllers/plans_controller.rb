@@ -27,7 +27,7 @@ class PlansController < ApplicationController
   private
 
   def load_plan
-    @plan = Plan.includes(:moneyshots, legs: [{ days: [{ items: [:location, :arrival, :departure] }] }] )
+    @plan = Plan.includes(:moneyshots, legs: [{ days: [{ items: [:place, :arrival, :departure] }] }] )
                 .friendly.find(params[:id])
   end
 

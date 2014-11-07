@@ -25,7 +25,7 @@ gem "unicorn"
 gem "haml-rails"
 gem 'geocoder'
 gem 'carmen'
-gem 'rest_client'
+gem 'httparty'
 gem 'devise'
 gem 'friendly_id', '~> 5.0.0'
 gem 'rack-mini-profiler'
@@ -55,7 +55,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem "factory_girl_rails"
   gem "pry-rails"
-  gem "rspec-rails", "~> 2.14.0"
+  gem "rspec-rails"
 end
 
 group :test do

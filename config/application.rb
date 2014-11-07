@@ -27,10 +27,27 @@ module Planit
       generate.javascript_engine false
       generate.request_specs false
       generate.routing_specs false
+      generate.model_specs false
+      generate.mailer_specs false
+      generate.view_specs false
       generate.stylesheets false
       generate.test_framework :rspec
-      generate.view_specs false
     end
+
+    config.action_mailer.default_url_options = { :host => "www.bloc.io" }
+
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      :port           => '587',
+      :address        => 'smtp.sendgrid.net',
+      :user_name      => ENV['SENDGRID_USERNAME'],
+      :password       => ENV['SENDGRID_PASSWORD'],
+      :authentication => :plain,
+      :domain         => 'heroku.com',
+      :enable_starttls_auto => true
+    }
+
+    config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += Dir[

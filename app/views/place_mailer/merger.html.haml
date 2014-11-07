@@ -1,0 +1,16 @@
+%h3 Merged place data
+%h6== 
+  %strong Location ID: 
+  = "#{@location_id}"
+
+%h3 The diff
+  %table.table
+    %tr
+      %th
+        Object
+      %th
+        Hash
+    %tr
+      - @diff.each do |att|
+        %td= att[:object].inspect
+        %td= att[:hash].inspect

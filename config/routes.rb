@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
       resources :items, only: [] do
         match '/create' => 'items#create', on: :collection, via: [:options, :post]
+        match '/scrape' => 'items#scrape', on: :collection, via: [:options, :post]
       end
       
       resources :legs, only: [] do

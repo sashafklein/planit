@@ -1,25 +1,28 @@
 Planit
 ======
 
-Getting Started
----------------
+GETTING STARTED FROM GITHUB
 
-This repository comes equipped with a self-setup script:
+Go to Terminal
+Go to planit directory (`code planit`)
+Pull code (`gp` -- "git pull")
+If there's a fast-fowards error, stash your changes and lay them on top:
+  - `ga .`
+  - `gss` ("git stash save") -- saves your staged changes and sets them aside
+  - `gp` ("git pull")
+  - `gsp` ("git stach pop") -- "pops" the top layer of set-aside changes onto your history
 
-    % ./bin/setup
+PUSHING TO GITHUB
 
-After setting up, you can run the application using [foreman]:
+Go to Terminal
+Go to planit directory (`code planit`)
+Check file changes (`gs` -- "git status")
+Add ("stage") ALL changes (`ga .` -- "git add .") -- the . means the present directory
+  - `ga -u .` as well, if you want to add deleted files
+Commit files (`gc -m "Comment about changes"` -- `git commit`)
 
-    % foreman start
+OTHER GH COMMANDS
 
-[foreman]: http://ddollar.github.io/foreman/
-
-Guidelines
-----------
-
-Use the following guides for getting things done, programming well, and
-programming in style.
-
-* [Protocol](http://github.com/thoughtbot/guides/blob/master/protocol)
-* [Best Practices](http://github.com/thoughtbot/guides/blob/master/best-practices)
-* [Style](http://github.com/thoughtbot/guides/blob/master/style)
+`gl` -- Git Log (previous commits)
+`gd` -- Git diff (see tracked but unstaged changes)
+`gds` -- Git diff --staged (see staged changes)

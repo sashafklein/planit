@@ -5,7 +5,7 @@ module Services
         
         before { @clusterer = cluster_from_names [] }
 
-        it "groups appropriately" do
+        xit "groups appropriately" do
           expect(@clusterer.to_json).to eq([
             [{
                location_name: [lat, lon],
@@ -19,7 +19,7 @@ module Services
         
         before { @clusterer = cluster_from_names [] }
 
-        it "groups appropriately" do
+        xit "groups appropriately" do
         end
       end
 
@@ -27,7 +27,7 @@ module Services
         
         before { @clusterer = cluster_from_names [] }
 
-        it "groups appropriately" do
+        xit "groups appropriately" do
         end
       end
 
@@ -35,7 +35,7 @@ module Services
         
         before { @clusterer = cluster_from_names [] }
 
-        it "groups appropriately" do
+        xit "groups appropriately" do
         end
       end
 
@@ -43,7 +43,7 @@ module Services
         
         before { @clusterer = cluster_from_names [] }
 
-        it "groups appropriately" do
+        xit "groups appropriately" do
         end
       end
     end

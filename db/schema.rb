@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141019005610) do
+ActiveRecord::Schema.define(version: 20141106194942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "days", force: true do |t|
     t.integer  "leg_id"
@@ -70,10 +71,34 @@ ActiveRecord::Schema.define(version: 20141019005610) do
   add_index "images", ["uploader_id"], name: "index_images_on_uploader_id", using: :btree
 
   create_table "items", force: true do |t|
-    t.integer  "leg_id"
-    t.integer  "day_id"
-    t.integer  "location_id"
+    t.integer "mark_id"
+    t.integer "plan_id"
+    t.integer "day_id"
+    t.integer "order"
+    t.integer "day_of_week", default: 0
+    t.string  "start_time"
+    t.float   "duration"
+  end
+
+  add_index "items", ["day_id"], name: "index_items_on_day_id", using: :btree
+  add_index "items", ["mark_id"], name: "index_items_on_mark_id", using: :btree
+  add_index "items", ["plan_id"], name: "index_items_on_plan_id", using: :btree
+
+  create_table "legs", force: true do |t|
+    t.string   "name"
     t.integer  "order"
+    t.boolean  "bucket",     default: false
+    t.text     "notes"
+    t.integer  "plan_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "legs", ["plan_id"], name: "index_legs_on_plan_id", using: :btree
+
+  create_table "marks", force: true do |t|
+    t.integer  "leg_id"
+    t.integer  "place_id"
     t.string   "mark"
     t.string   "category"
     t.string   "source"
@@ -91,49 +116,41 @@ ActiveRecord::Schema.define(version: 20141019005610) do
     t.integer  "groupable_id"
   end
 
-  add_index "items", ["arrival_id"], name: "index_items_on_arrival_id", using: :btree
-  add_index "items", ["day_id"], name: "index_items_on_day_id", using: :btree
-  add_index "items", ["departure_id"], name: "index_items_on_departure_id", using: :btree
-  add_index "items", ["groupable_id"], name: "index_items_on_groupable_id", using: :btree
-  add_index "items", ["groupable_type"], name: "index_items_on_groupable_type", using: :btree
-  add_index "items", ["leg_id"], name: "index_items_on_leg_id", using: :btree
-  add_index "items", ["location_id"], name: "index_items_on_location_id", using: :btree
-  add_index "items", ["order"], name: "index_items_on_order", using: :btree
-  add_index "items", ["user_id"], name: "index_items_on_user_id", using: :btree
+  add_index "marks", ["arrival_id"], name: "index_marks_on_arrival_id", using: :btree
+  add_index "marks", ["departure_id"], name: "index_marks_on_departure_id", using: :btree
+  add_index "marks", ["groupable_id"], name: "index_marks_on_groupable_id", using: :btree
+  add_index "marks", ["groupable_type"], name: "index_marks_on_groupable_type", using: :btree
+  add_index "marks", ["leg_id"], name: "index_marks_on_leg_id", using: :btree
+  add_index "marks", ["place_id"], name: "index_marks_on_place_id", using: :btree
+  add_index "marks", ["user_id"], name: "index_marks_on_user_id", using: :btree
 
-  create_table "legs", force: true do |t|
-    t.string   "name"
-    t.integer  "order"
-    t.boolean  "bucket",     default: false
-    t.text     "notes"
-    t.integer  "plan_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "legs", ["plan_id"], name: "index_legs_on_plan_id", using: :btree
-
-  create_table "locations", force: true do |t|
-    t.string   "name"
-    t.string   "local_name"
+  create_table "places", force: true do |t|
     t.string   "postal_code"
     t.string   "street_address"
     t.string   "cross_street"
-    t.string   "phone"
     t.string   "country"
-    t.string   "state"
-    t.string   "city"
+    t.string   "region"
+    t.string   "locality"
     t.float    "lat"
     t.float    "lon"
-    t.string   "url"
-    t.string   "genre"
-    t.string   "subgenre"
+    t.string   "website"
+    t.string   "category"
+    t.string   "subcategory"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "names",          default: [], array: true
+    t.hstore   "phones",         default: {}
+    t.string   "email"
+    t.string   "contact_name"
+    t.hstore   "hours",          default: {}
+    t.integer  "price_tier"
+    t.string   "price_note"
+    t.text     "description"
+    t.hstore   "extra",          default: {}
   end
 
   create_table "plans", force: true do |t|
-    t.string   "title"
+    t.string   "name"
     t.integer  "user_id"
     t.text     "description"
     t.integer  "duration"

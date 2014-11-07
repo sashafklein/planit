@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :plans
-  has_many :items
+  has_many :marks
 
   extend FriendlyId
   friendly_id :name, use: :slugged
