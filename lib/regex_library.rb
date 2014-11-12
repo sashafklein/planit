@@ -704,6 +704,10 @@ module RegexLibrary
       %r!#{regex_string.join}!
     end
 
+    def trim_comma_semicolon_space_start_finish(string)
+      string.scan(/\A[,; ]*(.*?)[,; ]*\Z/).flatten.first
+    end
+
     def remove_final_punctuation_regex
       %r/(.*)[,;:.?!]\z/
     end

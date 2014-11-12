@@ -1,20 +1,17 @@
 module Services
   class Completer
 
-    attr_accessor :user, :attrs, :decremented_attrs, :place
+    attr_accessor :user, :attrs, :decremented_attrs
     def initialize(attrs, user)
-      @attrs, @user, @decremented_attrs = attrs.symbolize_keys, user, attrs.symbolize_keys.dup
+      @attrs, @user = attrs.recursive_symbolize_keys!, user
+      @decremented_attrs = attrs.dup
     end
 
     def complete!
-      @place = PlaceFinder.new(decremented_attrs.delete(:place)).find!
-
-      return nil unless place
-
-      fs_complete!
-      place.save! unless place.persisted?
+      place = PlaceCompleter.new( decremented_attrs.delete(:place) ).complete!
 
       mark = user.marks.where(place_id: place.id).first_or_initialize
+      mark.save!
       merge_and_create_associations!(mark)
       mark
     end
@@ -25,6 +22,7 @@ module Services
       plan = create_plan!
       leg = create_leg!(plan)
       day = create_day!(plan, leg)
+      item = create_item!(plan, day, mark)
     end
 
     def create_plan!
@@ -50,29 +48,19 @@ module Services
     end
 
     def create_item!(plan, day, mark)
-      return nil unless plan && item_attrs = decremented_attrs.delete(:item)
+      return nil unless plan 
+
+      item_attrs = decremented_attrs.delete(:item) || {}
 
       search_attrs = { mark_id: mark.id, plan_id: plan.id }.merge item_attrs.slice(*Item.attribute_keys)
       search_attrs = search_attrs.merge(day_id: day.id) if day
+      search_attrs[:day_of_week].downcase! if search_attrs[:day_of_week]
 
-      items = Item.where(search_attrs).first_or_create!
+      Item.where(search_attrs).first_or_create!
     end
 
     def no_val?(v)
       v.nil? || v == '' || v == []
-    end
-
-    def complete?
-      Place.attribute_keys.all?{ |key| place.send(key).present? || key == false }
-    end
-
-    def fs_complete!
-      if complete?
-        @place
-      else
-        @place = Services::FourSquareCompleter.new(@place).complete!
-        @place
-      end
     end
 
     def unacceptable_attributes(hash)

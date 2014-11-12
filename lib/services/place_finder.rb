@@ -8,10 +8,11 @@ module Services
 
     def find!
       return nil unless sufficient_to_locate?
-      
-      place = Place.where.not( nil_exclusions) 
-                  .where( atts.slice(*address_finders) )
-                  .find_by( address_qualifiers ) || Place.new( place_atts )
+
+      place = Place.where.not( nil_exclusions ) 
+                  .where(address_qualifiers)
+                  .where( locality: atts[:locality] )
+                  .with_address(atts[:street_addresses]).first || Place.new( place_atts )
 
       notify_and_round_out(place)
     end
@@ -37,8 +38,8 @@ module Services
     end
 
     def sufficient_to_locate?
-      (atts[:street_address] || atts[:names]) && 
-        (atts[:locality] || atts[:region] || (atts[:lat] && atts[:lon]))
+      (atts[:street_addresses].present? || atts[:names].present?) && 
+        (atts[:locality] || atts[:region] || (atts[:lat] && atts[:lon]) || atts[:nearby])
     end
 
     def address_qualifiers
@@ -50,7 +51,7 @@ module Services
     end
 
     def address_finders
-      [:street_address, :locality]
+      [:street_addresses, :locality]
     end
 
     def place_atts
@@ -76,11 +77,15 @@ module Services
     end
 
     def notify_of_merger(place)
-      PlaceMailer.delay.merger( place.id, diff(atts, place) )
+      unless ENV['RAILS_ENV'] == 'test'
+        PlaceMailer.delay.merger( place.id, diff(atts, place) )
+      end
     end
 
     def notify_of_name_clash(place)
-      PlaceMailer.delay.name_clash( place.id, diff(atts, place) )
+      unless ENV['RAILS_ENV'] == 'test'
+        PlaceMailer.delay.name_clash( place.id, diff(atts, place) )
+      end
     end
 
     def diff(hash, object)

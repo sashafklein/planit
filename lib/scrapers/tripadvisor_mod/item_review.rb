@@ -9,33 +9,27 @@ module Scrapers
         super(url, page)
       end
 
-      def global_data
-        { 
-          ratings_base: ratings_base,
-          site_name: site_name,
-          source_url: @url,
-        }
-      end
-
       # PAGE 
       
       def data
-        [{
-          name: trim( de_tag( name ) ),
-          street_address: street_address,
-          locality: locality,
-          region: region,
-          postal_code: postal_code,
-          country: country,
-          phone: trim( phone ),
-          category: category,
-          price_info: trim( price_info ),
-          rating: rating,
-          ranking: trim( de_tag ( ranking ) ),
-          images: images,
-          lat: lat,
-          lon: lon,
-        }.merge(global_data)]
+        [ place: {
+            name: trim( de_tag( name ) ),
+            street_address: street_address,
+            locality: locality,
+            region: region,
+            postal_code: postal_code,
+            country: country,
+            phones: { default: trim( phone ) },
+            category: category,
+            images: images,
+            lat: lat,
+            lon: lon,
+            price_tier: trim( price_info ),
+            rating: rating,
+            ranking: trim( de_tag ( ranking ) ),
+            ratings_base: ratings_base
+          }
+        ]
       end
 
       # OPERATIONS

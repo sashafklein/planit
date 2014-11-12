@@ -8,7 +8,7 @@ module Services
     include RegexLibrary
     include CssOperators
 
-    def self.build(url, page)
+    def self.build(url, page=nil)
       specific_scraper(url, page)
     end
 
@@ -16,7 +16,7 @@ module Services
     delegate :css, to: :page
     def initialize(url, page)
       @url = url
-      @page = Nokogiri::HTML page
+      @page = Nokogiri::HTML( page.present? ? page : open(url) )
       @data = []
     end
 

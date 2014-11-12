@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106194942) do
+ActiveRecord::Schema.define(version: 20141111235311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,7 +126,6 @@ ActiveRecord::Schema.define(version: 20141106194942) do
 
   create_table "places", force: true do |t|
     t.string   "postal_code"
-    t.string   "street_address"
     t.string   "cross_street"
     t.string   "country"
     t.string   "region"
@@ -138,15 +137,18 @@ ActiveRecord::Schema.define(version: 20141106194942) do
     t.string   "subcategory"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "names",          default: [], array: true
-    t.hstore   "phones",         default: {}
+    t.string   "names",            default: [], array: true
+    t.hstore   "phones",           default: {}
     t.string   "email"
     t.string   "contact_name"
-    t.hstore   "hours",          default: {}
+    t.hstore   "hours",            default: {}
     t.integer  "price_tier"
     t.string   "price_note"
     t.text     "description"
-    t.hstore   "extra",          default: {}
+    t.hstore   "extra",            default: {}
+    t.string   "subregion"
+    t.string   "street_addresses", default: [], array: true
+    t.string   "full_address"
   end
 
   create_table "plans", force: true do |t|

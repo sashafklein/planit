@@ -57,6 +57,7 @@ module Services
 
           mark_count = Mark.count
           place_count = Place.count
+
           c = Completer.new(place_hash, @user)
 
           completed_mark = c.complete!
@@ -75,6 +76,23 @@ module Services
       end
 
       context "with sequence data" do
+        context "without legs" do
+          it "creates an item, associated with day and plan" do
+            expect_any_instance_of(Completer).to receive(:fs_complete!)
+            expect(Item.count).to eq(0)
+
+            c = Completer.new(place_hash(sequence_hash), @user).complete!
+            item = c.items.first
+
+            expect(item.plan.name).to eq sequence_hash[:plan][:name]
+            expect(item.order).to eq(1)
+            expect(item.start_time).to eq('03:00')
+            expect(item.duration).to eq(0.5)
+            expect(item.weekday).to eq('Friday')
+            expect(item.day.order).to eq(1)
+            expect(item.leg).to be_present # Creates a blank leg inside the plan
+          end
+        end
       end
     end
 
@@ -89,17 +107,16 @@ module Services
       }.merge(overwrite_hash).compact
     end
 
-    def mark_data
+    def sequence_hash
       {
-        mark: {
+        item: {
           start_time: '3:00',
           duration: 0.5,
           order: 1,
-          day_of_week: 'FRIDAY',
-          plan: { title: "36 Hours in Cartagena, Colombia - NYTimes.com" },
-          day: { order: 1 },
-          start_hour: '4pm' 
-        }
+          day_of_week: 'FRIDAY'
+        },
+        day: { order: 1 },
+        plan: { name: "36 Hours in Cartagena, Colombia - NYTimes.com" }
       }
     end
   end

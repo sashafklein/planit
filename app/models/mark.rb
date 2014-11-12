@@ -1,6 +1,6 @@
 class Mark < ActiveRecord::Base
 
-  extend ActiveRecord::ClassInfo
+  include ActiveRecord::MetaExt
     
   before_save { category.downcase! if category_changed? }
   

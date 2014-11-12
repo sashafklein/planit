@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Api::V1::MarksController do
-  describe "create" do
+describe Api::V1::Users::MarksController do
+  pending "create" do
 
     before do
       @user = create(:user)
-      FourSquareCompleter.any_instance.stub(:complete!).and_return {}
+      ApiCompleter.any_instance.stub(:complete!).and_return {}
     end
 
     it "requires a user" do
@@ -28,10 +28,11 @@ describe Api::V1::MarksController do
 
     before do
       @user = create(:user)
+      allow_any_instance_of(Services::Completer).to receive(:fs_complete!).and_return {}
     end
 
     let(:fuunji_url) { 'http://www.tripadvisor.com/Restaurant_Review-g1066456-d1679642-Reviews-Fuunji-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html' }
-    let(:fuunji_doc) { File.read File.join(File.join('spec', 'support', 'pages', 'tripadvisor', "fuunji.html"))} 
+    let(:fuunji_doc) { File.read File.join(File.join('spec', 'support', 'pages', 'tripadvisor', "fuunji.html")) } 
     
     it "sets CORS headers" do
       post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id
@@ -49,14 +50,15 @@ describe Api::V1::MarksController do
       )
     end
 
-    it "can deal without the page" do
-    end
-
     it "errors without the url" do
+      post :scrape, data: fuunji_doc, user_id: @user.id
+      expect(response.code).to eq '500'
     end
 
     it "calls the right scraper" do
-      expect(Scrapers::Tripadvisor).to receive(:build).with(fuunji_url, fuunji_doc)
+      fake_scraper_data = [{ key: 'whatever'}]
+      expect(Scrapers::TripadvisorMod::ItemReview).to receive(:new).with(fuunji_url, fuunji_doc) { OpenStruct.new({ data: fake_scraper_data }) }
+      expect(Services::MassCompleter).to receive(:new).with(fake_scraper_data).and_return {}
       post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id
     end
 

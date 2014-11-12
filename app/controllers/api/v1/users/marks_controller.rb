@@ -1,4 +1,4 @@
-class Api::V1::MarksController < ApiController
+class Api::V1::Users::MarksController < ApiController
   
   before_action :load_user, only: [:create, :scrape]
   
@@ -18,8 +18,10 @@ class Api::V1::MarksController < ApiController
 
   def scrape
     return error(404, "User not found") unless @user
-    scraped = Services::SiteScraper.build(params[:url], params[:page])
-    completed = Services::MassCompleter.new(scraped, @user).complete
+    return error(500, "Missing key params") unless params[:url] && params[:page]
+    scraped = Array Services::SiteScraper.build(params[:url], params[:page]).data
+    completed = Services::MassCompleter.new(scraped, @user).complete!
+
     render json: completed, each_serializer: TotalMarkSerializer
   end
 

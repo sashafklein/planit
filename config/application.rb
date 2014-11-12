@@ -51,7 +51,8 @@ module Planit
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += Dir[
-      "#{config.root}/lib/**/"
+      "#{config.root}/lib/**/",
+      "#{config.root}/app/validators/"
     ]
 
 

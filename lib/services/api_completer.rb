@@ -2,21 +2,23 @@ require 'json'
 require 'uri'
 
 module Services
-  class FourSquareCompleter
+  class ApiCompleter
 
-    AUTH_TOKEN = "MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819"
-    BASE_URL = 'https://api.foursquare.com/v2/venues/explore'
+    FS_AUTH_TOKEN = "MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819"
+    FS_URL = 'https://api.foursquare.com/v2/venues/explore'
 
     delegate :name, :phone, :street_address, :lat, :lon, :country, :region, :locality, 
-             :category, :meal, :lodging, :nearby, :coordinate,
+             :category, :meal, :lodging, :coordinate,
              to: :place
 
     attr_accessor :place, :venue
     def initialize(place)
-      @place = place
+      @place = Place.where(region: place.region, locality: place.locality).with_address(place.street_address).first || place
     end
 
     def complete!
+      return place if place.complete?
+
       return place unless locality? && query?
 
       explore
@@ -32,24 +34,30 @@ module Services
     end
 
     def explore
-      @venue = HTTParty.get(full_url)['response']['groups'][0]['items'][0]['venue']
+      @venue = HTTParty.get(full_fs_url)['response']['groups'][0]['items'][0]['venue']
       merge!
       getPhoto
     rescue
       place
     end
+
+    def nearby
+      @nearby || place.nearby
+    end
     
     def merge!
+      return unless gut_check
+
       place.names << venue_name
-      place.phones[:default] ||= venue_phone
-      place.street_address = venue_address if street_address.blank? 
-      place.lat = venue_lat if lat.blank? 
-      place.lon = venue_lon if lon.blank? 
-      place.country = venue_country if country.blank? 
-      place.region = venue_region if region.blank? 
-      place.locality = venue_locality if locality.blank? 
-      place.category = venue_category if category.blank? 
+      place.phones[:default] = venue_phone if venue_phone
+      place.street_addresses << venue_address
+      place.website = venue_website
+      place.category = venue_category
       place.save!
+    end
+
+    def gut_check
+      place.lat.round(1) == venue_lat.round(1) && place.lon.round(1) == venue_lon.round(1)
     end
 
     def getPhoto
@@ -74,14 +82,18 @@ module Services
       URI.escape( name || street_address )
     end
 
-    def full_url
-      "#{BASE_URL}?#{locality}&query=#{query}&oauth_token=#{AUTH_TOKEN}&venuePhotos=1"
+    def full_fs_url
+      "#{FS_URL}?#{locality}&query=#{query}&oauth_token=#{FS_AUTH_TOKEN}&venuePhotos=1"
     end
 
     def venue_photo
       photo = venue['featuredPhotos']['items'][0]
       [photo['prefix'], photo['suffix']].join("200x200")
     end   
+    
+    def venue_website
+      venue['url']
+    end
 
     def venue_name
       venue['name']

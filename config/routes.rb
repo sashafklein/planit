@@ -17,9 +17,11 @@ Rails.application.routes.draw do
         match '/save_item' => 'bookmarklets#save_item', on: :collection, via: [:options, :post]
       end
 
-      resources :items, only: [] do
-        match '/create' => 'items#create', on: :collection, via: [:options, :post]
-        match '/scrape' => 'items#scrape', on: :collection, via: [:options, :post]
+      resources :users, only: [] do
+        resources :marks, only: [] do
+          match '/create' => 'users/marks#create', on: :collection, via: [:options, :post]
+          match '/scrape' => 'users/marks#scrape', on: :collection, via: [:options, :post]
+        end
       end
       
       resources :legs, only: [] do

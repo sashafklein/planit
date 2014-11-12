@@ -31,12 +31,7 @@ module Scrapers
         'VacationRentalReview',
         'Restaurant_Review',
       ]
-      acceptable_single_items.each do |accept|
-        if url.include?("/#{accept}-")
-          return true
-        end
-      end
-      return false
+      acceptable_single_items.any?{ |i| url.include?("/#{i}-") }
     end
 
     def self.reviews_item?(url)
