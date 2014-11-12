@@ -45,11 +45,24 @@ module Scrapers
       end
     end
 
-    describe "amelia island" do
+    describe "bogota" do
 
       before do 
         @base_name = 'bogota'
         @url = 'http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0'
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect(scraper.data).to eq expectations
+      end
+    end
+    
+    describe "india" do
+
+      before do 
+        @base_name = 'india'
+        @url = 'http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0'
         @base_domain = get_domain(@url)
       end
 

@@ -19,15 +19,19 @@ module Scrapers
       # PAGE 
       
       def data
-        binding.pry
+        # binding.pry
         [{
           name: trim( name ),
           full_address: trim( full_address ),
           # street_address: street_address,
           # locality: locality,
+          # hours: hours,
+          # price_note: price_note,
           region: region,
+          # postal_code: postal_code,
           country: country,
           phone: phone,
+          website: website,
           category: category,
           ranking: ranking,
           lat: lat,
@@ -61,38 +65,38 @@ module Scrapers
         find_region(city_and_country, country) ; rescue ; nil
       end
 
-      def street_address
-        raw_address = full_address
-        if region
-          raw_address = raw_address.gsub(region, '')
-        end
-        if country
-          raw_address = raw_address.gsub(country, '')
-        end
-        return raw_address
-      end
+      # def street_address
+      #   raw_address = full_address
+      #   if region
+      #     raw_address = raw_address.gsub(region, '')
+      #   end
+      #   if country
+      #     raw_address = raw_address.gsub(country, '')
+      #   end
+      #   return raw_address
+      # end
 
-      def locality
-        raw_address = full_address
-        if region
-          raw_address = raw_address.gsub(region, '')
-        end
-        if country
-          raw_address = raw_address.gsub(country, '')
-        end
-        return raw_address
-      end
+      # def locality
+      #   raw_address = full_address
+      #   if region
+      #     raw_address = raw_address.gsub(region, '')
+      #   end
+      #   if country
+      #     raw_address = raw_address.gsub(country, '')
+      #   end
+      #   return raw_address
+      # end
 
-      def postal_code
-        raw_address = full_address
-        if region
-          raw_address = raw_address.gsub(region, '')
-        end
-        if country
-          raw_address = raw_address.gsub(country, '')
-        end
-        return raw_address
-      end
+      # def postal_code
+      #   raw_address = full_address
+      #   if region
+      #     raw_address = raw_address.gsub(region, '')
+      #   end
+      #   if country
+      #     raw_address = raw_address.gsub(country, '')
+      #   end
+      #   return raw_address
+      # end
 
       def site_name
         "Fodor's"

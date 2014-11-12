@@ -695,17 +695,106 @@ module RegexLibrary
         "(?:",
         "http[s]?:\\/\\/",
         ")?",
-        "[a-zA-Z0-9]+\\.[a-zA-Z0-9]+\\.[a-zA-Z0-9]+",
+        "(?:(?:[a-zA-Z0-9]|\-)+\\.)?(?:[a-zA-Z0-9]|\-)+\\.[a-zA-Z0-9]+",
         "\\/",
         ".*?",
         "(?:ll|center|marker)\\=",
-        "([0-9-.,]+)"
+        "((?:[0-9.,]|\-)+)"
       ]
       %r!#{regex_string.join}!
     end
 
     def trim_comma_semicolon_space_start_finish(string)
       string.scan(/\A[,; ]*(.*?)[,; ]*\Z/).flatten.first
+    end
+
+    def find_background_image_url_regex
+      regex_string = [
+        "url",
+        "\\(",
+        "[#{quote_thread}']?",
+        "(",
+        "http[s]?:\\/\\/",
+        "(?:[a-zA-Z0-9-]+\\.)?[a-zA-Z0-9-]+\\.[a-zA-Z0-9]+",
+        "\\/",
+        "[^#{quote_thread}')]*?",
+        ")",
+        "[#{quote_thread}']?",
+        "\\)",
+      ]
+      %r!#{regex_string.join}!      
+    end
+
+    def find_lat_lon_in_script_format_center_colon
+      regex_string = [
+        "center:",
+        "[^.]*",
+        "\\.maps\\.LatLng",
+        "\\(",
+        "(",
+        "['#{quote_thread}]",
+        "[-]?\\d+\\.\\d+",
+        "['#{quote_thread}]",
+        "\\,\\s?",
+        "['#{quote_thread}]",
+        "[-]?\\d+\\.\\d+",
+        "['#{quote_thread}]",
+        ")",
+        "\\)",
+      ]
+      %r!#{regex_string.join}!      
+    end
+
+    def find_lat_by_script_id(id)
+      regex_string = [
+        "\{",
+        "[^}]*",
+        "['#{quote_thread}]",
+        "id",
+        "['#{quote_thread}]",
+        "\:",
+        id,
+        "\,",
+        "[^}]*",
+        "['#{quote_thread}]",
+        "lat",
+        "['#{quote_thread}]",
+        "\:",
+        "['#{quote_thread}]?",
+        "(",
+        "[-]?\\d+\\.\\d+",
+        ")",
+        "['#{quote_thread}]?",
+        "[^}]*",
+        "\}",
+      ]
+      %r!#{regex_string.join}!      
+    end
+
+    def find_lng_by_script_id(id)
+      regex_string = [
+        "\{",
+        "[^}]*",
+        "['#{quote_thread}]",
+        "id",
+        "['#{quote_thread}]",
+        "\:",
+        id,
+        "\,",
+        "[^}]*",
+        "['#{quote_thread}]",
+        "lng",
+        "['#{quote_thread}]",
+        "\:",
+        "['#{quote_thread}]?",
+        "(",
+        "[-]?\\d+\\.\\d+",
+        ")",
+        "['#{quote_thread}]?",
+        "[^}]*",
+        "\}",
+      ]
+      %r!#{regex_string.join}!      
     end
 
     def remove_final_punctuation_regex

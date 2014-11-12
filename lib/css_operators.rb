@@ -78,7 +78,7 @@ module CssOperators
         return result
       end
     end
-    return []
+    return nil
   end
 
   def find_lat_lon_string_in_script(string)
@@ -111,4 +111,11 @@ module CssOperators
       URI.unescape(html)
     end
   end
+
+  def any_case(string)
+    if string.length > 0
+      '(?:' + string.upcase + '|' + string.downcase + '|' + string.capitalize + '|' + string.titleize + ')'
+    end
+  end
+
 end

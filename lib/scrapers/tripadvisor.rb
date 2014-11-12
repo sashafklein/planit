@@ -15,12 +15,6 @@ module Scrapers
         TripadvisorMod::UserReviews.new(url, page)
       elsif guide?(url)
         TripadvisorMod::Guide.new(url, page)
-      # elsif restaurant_new?(url)
-      #   TripadvisorMod::RestaurantReview.new(url, page)
-      # elsif restaurant_report?(url)
-      #   TripadvisorMod::RestaurantReport.new(url, page)
-      # elsif hotel_review?(url)
-      #   TripadvisorMod::HotelReview.new(url, page)
       end
     end
 
@@ -57,22 +51,6 @@ module Scrapers
       end
       return false
     end
-
-    # def self.thirty_six_new?(url)
-    #   url.include?('things-to-do-in-36-hours')
-    # end
-
-    # def self.restaurant_new?(url)
-    #   url.include?('/dining/')
-    # end
-
-    # def self.restaurant_report?(url)
-    #   url.include?('/travel/restaurant-report')
-    # end
-
-    # def self.hotel_review?(url)
-    #   url.include?('/travel/hotel-review')
-    # end
 
   end
 end

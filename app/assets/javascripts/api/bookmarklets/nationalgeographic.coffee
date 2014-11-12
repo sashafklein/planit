@@ -7,9 +7,6 @@ if imageList && imageList.length
   photoToUse = imageList[0].url
 
 headerContentOptionArray = [
-  ["header:visible", (selector) ->
-    bySelector(selector)
-  ],
   ["div.page_head:visible", (selector) ->
     bySelector(selector)
   ]
@@ -18,16 +15,7 @@ headerContent = chooseOption(headerContentOptionArray)
 if headerContent && headerContent.length
   name = deTag(headerContent.split("<h1")[1].split("</h1>")[0]).split(">")[1]
   if headerContent.split('location">')[1].length
-    fullAddress = trim(deTag(headerContent.split('location">')[1]))
-    fullAddressArray = fullAddress.split(",")
-    country = fullAddressArray.pop()
-    locality = fullAddressArray.pop()
-    streetAddress = fullAddressArray.join()
 
-fullAddressOptionArray = [
-  ["p.meta location", (selector) ->
-    bySelector(selector)
-  ],
   ["strong:contains['Location: ']", (selector) ->
     bySelector(selector).split("Location: ")[1]
   ]
