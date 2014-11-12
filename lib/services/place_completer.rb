@@ -57,10 +57,12 @@ module Services
     def normalize(attributes)
       attributes[:names] = Array( attributes.delete(:names) ) + Array( attributes.delete(:name) )
       attributes[:street_addresses] = Array( attributes.delete(:street_addresses) ) + Array( attributes.delete(:street_address) )
+      attributes[:categories] = Array( attributes.delete(:categories) ) + Array( attributes.delete(:category) )
       attributes[:phones] = { default: attributes.delete(:phone) } if attributes[:phone] && ! attributes[:phones]
+      
       attributes[:extra] ||= {}
       attributes.except(*Place.attribute_keys << :nearby).each do |key, value|
-        attributes[:extra][key.to_sym] = attributes.delete(key)
+        attributes[:extra][key] = attributes.delete(key)
       end
       attributes
     end

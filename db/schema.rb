@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141111235311) do
+ActiveRecord::Schema.define(version: 20141112194643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20141111235311) do
     t.integer "day_of_week", default: 0
     t.string  "start_time"
     t.float   "duration"
+    t.hstore  "extra",       default: {}
   end
 
   add_index "items", ["day_id"], name: "index_items_on_day_id", using: :btree
@@ -142,8 +143,6 @@ ActiveRecord::Schema.define(version: 20141111235311) do
     t.float    "lat"
     t.float    "lon"
     t.string   "website"
-    t.string   "category"
-    t.string   "subcategory"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "names",            default: [], array: true
@@ -158,6 +157,7 @@ ActiveRecord::Schema.define(version: 20141111235311) do
     t.string   "subregion"
     t.string   "street_addresses", default: [], array: true
     t.string   "full_address"
+    t.string   "categories",       default: [], array: true
   end
 
   create_table "plans", force: true do |t|

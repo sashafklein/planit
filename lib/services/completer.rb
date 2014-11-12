@@ -50,7 +50,7 @@ module Services
     def create_item!(plan, day, mark)
       return nil unless plan 
 
-      item_attrs = decremented_attrs.delete(:item) || {}
+      item_attrs = normalize_item_attrs(decremented_attrs.delete(:item) || {})
 
       search_attrs = { mark_id: mark.id, plan_id: plan.id }.merge item_attrs.slice(*Item.attribute_keys)
       search_attrs = search_attrs.merge(day_id: day.id) if day
@@ -69,6 +69,14 @@ module Services
 
     def acceptable_keys
       Place.column_names + Mark.column_names
+    end
+
+    def normalize_item_attrs(attrs)
+      attrs[:extra] ||= {}
+      attrs.except(*Item.attribute_keys).each do |key, value|
+        attrs[:extra][key] = attrs.delete(key)
+      end
+      attrs
     end
   end
 end

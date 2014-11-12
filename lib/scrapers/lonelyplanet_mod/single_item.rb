@@ -51,8 +51,10 @@ module Scrapers
         trim( page.css("dt:contains('Location')").first.next_element.text ) ; rescue ; nil
       end
 
-      def street_address
-        street_and_zone
+      def full_address
+        if street_and_zone || city_and_country
+          return [street_and_zone, city_and_country].compact.join(", ")
+        end
       end
 
       def phone
@@ -65,20 +67,6 @@ module Scrapers
 
       def hours
         trim( page.css("dt:contains('Opening hours')").first.next_element.text ) ; rescue ; nil
-      end
-
-      def locality
-        if city_and_country.include?(country)
-          return remove_punc( trim( city_and_country.gsub(country, '') ) )
-        end
-      end
-
-      def country
-        find_country(city_and_country)
-      end
-
-      def region
-        find_region(city_and_country, country) ; rescue ; nil
       end
 
       def site_name
