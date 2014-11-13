@@ -3,7 +3,7 @@ module Scrapers
 
     # PAGE SETUP
 
-    class IncorporatedDetails < Nytimes
+    class IncorporatedThirtySixDetails < Nytimes
       def initialize(url, page)
         super(url, page)
         @scrape_target = %w(#area-main #article article)

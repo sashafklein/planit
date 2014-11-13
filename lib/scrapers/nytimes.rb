@@ -10,9 +10,13 @@ module Scrapers
 
     def self.specific_scraper(url, page)
       if thirty_six_old?(url)
-        NytimesMod::IncorporatedDetails.new(url, page)
+        NytimesMod::IncorporatedThirtySixDetails.new(url, page)
+      elsif thirty_six_new?(url) && google_map_enabled?(url, page)
+        NytimesMod::GoogleThirtySixMapped.new(url, page)
+      elsif google_map_enabled?(url, page)
+        NytimesMod::GoogleMapped.new(url, page)
       elsif thirty_six_new?(url)
-        NytimesMod::SeparatedDetails.new(url, page)
+        NytimesMod::SeparatedThirtySixDetails.new(url, page)
       # elsif restaurant_new?(url)
       #   NytimesMod::RestaurantReview.new(url, page)
       # elsif restaurant_report?(url)
@@ -30,6 +34,18 @@ module Scrapers
 
     def self.thirty_six_new?(url)
       url.include?('things-to-do-in-36-hours')
+    end
+
+    def self.google_map_enabled?(url, page)
+      page = Nokogiri::HTML page
+      if url.include?('/travel/')
+        for script in find_scripts_inner_html(page)
+          if script.flatten.first.scan(nytimes_map_data_regex).length > 0
+            return true
+          end
+        end
+      end
+      return false
     end
 
     def self.travel_separate_2012?(url, page)
