@@ -1,23 +1,23 @@
-require 'spec_helper'
+# require 'spec_helper'
 
-module Scrapers
+# module Scrapers
 
-  describe Jgblackbook do
+#   describe Jgblackbook do
 
-    include ScraperHelper
+#     include ScraperHelper
 
-    # describe "atacama" do
+#     # describe "atacama" do
 
-    #   before do 
-    #     @base_name = 'atacama'
-    #     @url = 'http://jgblackbook.com/destinations/explora-atacama/'
-    #     @base_domain = get_domain(@url)
-    #   end
+#     #   before do 
+#     #     @base_name = 'atacama'
+#     #     @url = 'http://jgblackbook.com/destinations/explora-atacama/'
+#     #     @base_domain = get_domain(@url)
+#     #   end
 
-    #   it "parses the page correctly" do
-    #     expect(data).to eq expectations
-    #   end
-    # end
+#     #   it "parses the page correctly" do
+#     #     expect(data).to eq expectations
+#     #   end
+#     # end
 
-  end
-end 
+#   end
+# end 

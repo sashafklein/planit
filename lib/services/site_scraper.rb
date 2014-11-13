@@ -92,10 +92,10 @@ module Services
 
     # OPERATIONS
     
-    def calculate_rating(string, base)
+    def calculate_rating(string, base=nil)
       if string && string.length > 0
         rate = string.scan(/.*?(\d+\.?\d*)(?: (?:out )?of (\d+\.?\d*))?.*?/).flatten.first.to_f
-        unless base && base.length > 0 
+        unless base
           base = string.scan(/.*?(\d+\.?\d*)(?: (?:out )?of (\d+\.?\d*))?.*?/).flatten[1].to_f
         end
       end

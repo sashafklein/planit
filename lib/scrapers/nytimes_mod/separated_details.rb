@@ -24,7 +24,7 @@ module Scrapers
       # PAGE 
 
       def activity_group_array
-        binding.pry
+        # binding.pry
         return @activity_group_array if @activity_group_array
         array_in_activity_group_array = []
         if has_map_data?
