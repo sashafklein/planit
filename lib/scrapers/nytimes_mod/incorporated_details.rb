@@ -11,7 +11,6 @@ module Scrapers
 
       def global_data
         { 
-          locality: split_by('h1', [["36 Hours in ", 1], ["36 Hours at the ", 1], ["36 Hours on ", 1], ["36 Hours | ", 1]]),
         }
       end
 
@@ -26,18 +25,25 @@ module Scrapers
 
       def general_data(general, general_index)
         {
-          name: general.scan(before_parens_regex_find_name).flatten.first,
-          street_address: general.scan(after_parens_regex_find_address).flatten.first,
-          phone: general.scan(after_separator_regex_find_phone).flatten.first,
-          website: general.scan(a_regex_find_href).flatten.first,
-          general_title: trim( scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go"])).flatten.first.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
-          general_number: general_index + 1,
+          place:{
+            name: general.scan(before_parens_regex_find_name).flatten.first,
+            street_address: general.scan(after_parens_regex_find_address).flatten.first,
+            phone: general.scan(after_separator_regex_find_phone).flatten.first,
+            website: general.scan(a_regex_find_href).flatten.first,
+            # general_title: trim( scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go"])).flatten.first.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
+            # general_number: general_index + 1,
+          },
         }.merge(global_data).merge(itinerary_data(nil, nil))
       end
 
       def itinerary_data(itinerary, itinerary_index)
         {
-          trip_name: page.css("title").text,
+          place:{
+            nearby: split_by('h1', [["36 Hours in ", 1], ["36 Hours at the ", 1], ["36 Hours on ", 1], ["36 Hours | ", 1]]),
+          },
+          plan:{
+            name: page.css("title").text,
+          },
         }
       end
 
@@ -52,8 +58,10 @@ module Scrapers
 
       def day_data(day, day_index)
         { 
-          day_number: day_index + 1,
-          day_title: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
+          day:{
+            order: day_index + 1,
+            day_of_the_week: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
+          },
         }
       end
 
@@ -64,10 +72,14 @@ module Scrapers
 
       def section_data(section, section_index)
         { 
-          order: section.scan(index_and_title_regex_find_index).flatten.first,
-          time: section.scan(time_on_own_line_regex_find_time).flatten.first, 
-          section_title: trim( section.scan(index_and_title_regex_find_title).flatten.first ),
-          content: trim( de_tag ( section.split(index_and_title_regex)[1] ) ),
+          item:{
+            order: section.scan(index_and_title_regex_find_index).flatten.first,
+            start_time: section.scan(time_on_own_line_regex_find_time).flatten.first, 
+          },
+          place:{
+            section_title: trim( section.scan(index_and_title_regex_find_title).flatten.first ),
+            # content: trim( de_tag ( section.split(index_and_title_regex)[1] ) ),
+          },
         }
       end
       
@@ -76,12 +88,13 @@ module Scrapers
       end
 
       def activity_data(activity, activity_index)
-        # binding.pry
         {
-          name: de_tag( activity.scan(before_parens_regex_find_name).flatten.first ),
-          street_address: activity.scan(after_parens_regex_find_address).flatten.first,
-          phone: activity.scan(after_separator_regex_find_phone).flatten.first,
-          website: activity.scan(a_regex_find_href).flatten.first,
+          place:{
+            name: de_tag( activity.scan(before_parens_regex_find_name).flatten.first ),
+            street_address: activity.scan(after_parens_regex_find_address).flatten.first,
+            phone: activity.scan(after_separator_regex_find_phone).flatten.first,
+            website: activity.scan(a_regex_find_href).flatten.first,
+          },
         }
       end
 

@@ -11,10 +11,11 @@ module Scrapers
 
       def global_data
         { 
-          ratings_base: ratings_base,
-          site_name: site_name,
-          source_url: @url,
-          source_title: page.css("title").text,
+          # site_name: site_name,
+          # source_url: @url,
+          plan:{
+            name: page.css("title").text,
+          },
         }
       end
 
@@ -27,12 +28,17 @@ module Scrapers
 
       def activity_data(activity, index)
         {
-          name: name(activity),
-          rating: rating(activity),
-          category: category(activity),
-          images: images(activity),
-          lat: lat(activity),
-          lon: lon(activity),
+          place:{
+            name: name(activity),
+            ratings:{
+              rating: rating(activity),
+              site_name: site_name,
+            },
+            category: category(activity),
+            images: images(activity),
+            lat: lat(activity),
+            lon: lon(activity),
+          },
         }
       end
 
@@ -57,10 +63,6 @@ module Scrapers
         "Stay"
       end
 
-      def ratings_base
-        5.0
-      end
-
       # ACTIVITY-SPECIFIC OPERATIONS
 
       def name(activity)
@@ -69,7 +71,11 @@ module Scrapers
       end
 
       def rating(activity)
-        activity.css(".stay-rank").first.css("span").first.css("i").text
+        rate = ( activity.css(".stay-rank").first.css("span").first.css("i").text ).to_i
+        base = 5.0
+        if rate
+          return ( (rate * 100) / base ).round
+        end
       rescue ; nil
       end
 

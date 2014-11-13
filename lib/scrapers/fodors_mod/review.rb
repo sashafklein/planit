@@ -11,31 +11,30 @@ module Scrapers
 
       def global_data
         { 
-          site_name: site_name,
-          source_url: @url,
+          # site_name: site_name,
+          # source_url: @url,
         }
       end
 
       # PAGE 
       
       def data
-        # binding.pry
         [{
-          name: trim( name ),
-          full_address: trim( full_address ),
-          # street_address: street_address,
-          # locality: locality,
-          # hours: hours,
-          # price_note: price_note,
-          region: region,
-          # postal_code: postal_code,
-          country: country,
-          phone: phone,
-          website: website,
-          category: category,
-          ranking: ranking,
-          lat: lat,
-          lon: lon,
+            place:{
+            name: trim( name ),
+            full_address: trim( full_address ),
+            phone: phone,
+            website: website,
+            category: category,
+            hours_note: hours_note,
+            price_note: price_note,
+            ratings:{
+              ranking: ranking,
+              site_name: site_name,
+            },
+            lat: lat,
+            lon: lon,
+          }
         }.merge(global_data)]
       end
 
@@ -46,57 +45,43 @@ module Scrapers
       end
 
       def full_address
-        trim( page.css("p.poi-info-title:contains('Address:')").first.next_element.text ) ; rescue ; nil
+        trim( page.css(".poi-info-title:contains('Address:')").first.next_element.text ) ; rescue ; nil
       end
 
       def phone
-        trim( page.css("p.poi-info-title:contains('Phone')").first.next_element.text ) ; rescue ; nil
+        trim( page.css(".poi-info-title:contains('Phone')").first.next_element.text ) ; rescue ; nil
+      end
+
+      def sight_details
+        page.css(".poi-info-title:contains('Sight Details')").first.parent.next_element.children
+      rescue ; nil
+      end
+
+      def hours_note
+        if sight_details && sight_details.length > 0
+          sight_details.each do |detail|
+            if opening = detail.text.include?("Mon"||"Tue"||"Wed"||"Thu"||"Fri"||"Sat"||"Sun")
+              return trim( detail.text )
+            end
+          end
+        end
+      rescue ; nil
+      end
+
+      def price_note
+        if sight_details && sight_details.length > 0
+          sight_details.each do |detail|
+            if opening = detail.text.include?("Free"||"$"||"€")
+              return trim( detail.text )
+            end
+          end
+        end
+      rescue ; nil
       end
 
       def website
-        page.css('div.poi-info-website').first.css('a').first.attribute('href').value ; rescue ; nil
+        page.css('.poi-info-website').first.css('a').first.attribute('href').value ; rescue ; nil
       end
-
-      def country
-        find_country(full_address)
-      end
-
-      def region
-        find_region(city_and_country, country) ; rescue ; nil
-      end
-
-      # def street_address
-      #   raw_address = full_address
-      #   if region
-      #     raw_address = raw_address.gsub(region, '')
-      #   end
-      #   if country
-      #     raw_address = raw_address.gsub(country, '')
-      #   end
-      #   return raw_address
-      # end
-
-      # def locality
-      #   raw_address = full_address
-      #   if region
-      #     raw_address = raw_address.gsub(region, '')
-      #   end
-      #   if country
-      #     raw_address = raw_address.gsub(country, '')
-      #   end
-      #   return raw_address
-      # end
-
-      # def postal_code
-      #   raw_address = full_address
-      #   if region
-      #     raw_address = raw_address.gsub(region, '')
-      #   end
-      #   if country
-      #     raw_address = raw_address.gsub(country, '')
-      #   end
-      #   return raw_address
-      # end
 
       def site_name
         "Fodor's"

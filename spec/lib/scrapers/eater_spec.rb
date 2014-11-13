@@ -15,7 +15,7 @@ module Scrapers
       end
 
       it "parses the page correctly" do
-        expect(scraper.data).to eq expectations
+        expect(data).to eq expectations
       end
     end
 
@@ -28,22 +28,22 @@ module Scrapers
       end
 
       it "parses the page correctly" do
-        expect(scraper.data).to eq expectations
+        expect(data).to eq expectations
       end
     end
 
-    describe "suppers" do
+    # describe "suppers" do
 
-      before do 
-        @base_name = 'suppers'
-        @url = 'http://sf.eater.com/2014/11/7/7174885/sunday-suppers-trendy'
-        @base_domain = get_domain(@url)
-      end
+    #   before do 
+    #     @base_name = 'suppers'
+    #     @url = 'http://sf.eater.com/2014/11/7/7174885/sunday-suppers-trendy'
+    #     @base_domain = get_domain(@url)
+    #   end
 
-      it "parses the page correctly" do
-        expect(scraper.data).to eq expectations
-      end
-    end
+    #   it "parses the page correctly" do
+    #     expect(data).to eq expectations
+    #   end
+    # end
 
     describe "apizza-scholls" do
 
@@ -54,7 +54,7 @@ module Scrapers
       end
 
       it "parses the page correctly" do
-        expect(scraper.data).to eq expectations
+        expect(data).to eq expectations
       end
     end
 
@@ -67,7 +67,7 @@ module Scrapers
       end
 
       it "parses the page correctly" do
-        expect(scraper.data).to eq expectations
+        expect(data).to eq expectations
       end
     end
 

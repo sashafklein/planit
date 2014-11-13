@@ -25,9 +25,11 @@ module Scrapers
             lat: lat,
             lon: lon,
             price_tier: trim( price_info ),
-            rating: rating,
-            ranking: trim( de_tag ( ranking ) ),
-            ratings_base: ratings_base
+            ratings:{
+              site_name: site_name,
+              rating: rating,
+              ranking: trim( de_tag ( ranking ) ),
+            },
           }
         ]
       end
@@ -71,11 +73,12 @@ module Scrapers
       end
 
       def rating
-        page.css('img.rating_no_fill').attribute('content').value; rescue ; nil        
-      end
-
-      def ratings_base
-        5
+        rate = ( page.css('img.rating_no_fill').attribute('content').value ).scan(/.*?(\d+\.?\d*).*?/).flatten.first.to_i
+        base = 5.0
+        if rate
+          return ( (rate * 100) / base ).round
+        end
+      rescue ; nil        
       end
 
       def price_info

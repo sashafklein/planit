@@ -12,7 +12,7 @@ module Scrapers
 
       def global_data
         { 
-          locality: find_locality, #default but overrideable
+          nearby: find_nearby, #default but overrideable
         }
       end
 
@@ -29,12 +29,14 @@ module Scrapers
       def activity_data(activity, activity_index)
         if has_story_info?
           {
-            name: activity[:name],
-            street_address: activity[:street_address],
-            phone: activity[:phone], 
-            lat: activity[:lat],
-            lon: activity[:lon],
-            website: activity[:website], 
+            place:{
+              name: activity[:name],
+              street_address: activity[:street_address],
+              phone: activity[:phone], 
+              lat: activity[:lat],
+              lon: activity[:lon],
+              website: activity[:website], 
+            }
           }
         end
       end
@@ -48,7 +50,7 @@ module Scrapers
         return false
       end
 
-      def find_locality
+      def find_nearby
         if ___
           return ___
         else

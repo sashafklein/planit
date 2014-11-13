@@ -12,8 +12,12 @@ module Scrapers
 
       def global_data
         { 
-          trip_name: page.css("title").text,
-          locality: split_by('h1', [["36 Hours in ", 1], ["36 Hours at the ", 1], ["36 Hours on ", 1], ["36 Hours | ", 1]]),
+          plan:{
+            name: page.css("title").text,
+          },
+          place:{
+            nearby: split_by('h1', [["36 Hours in ", 1], ["36 Hours at the ", 1], ["36 Hours on ", 1], ["36 Hours | ", 1]]),
+          },
         }
       end
 
@@ -30,13 +34,17 @@ module Scrapers
           map_hash[:symbols].each do |symbol|
             data = symbol[:data]
             array_in_activity_group_array << {
-              name: breakline_to_space( name_in_data_hash(data) ),
-              website: website_in_data_hash(data),
-              lat: lat_in_data_hash(data),
-              lon: lon_in_data_hash(data),
-              street_address: address_in_data_hash(data),
-              phone: phone_in_data_hash(data),
-              order: order_in_data_hash(data),
+              place:{
+                name: breakline_to_space( name_in_data_hash(data) ),
+                website: website_in_data_hash(data),
+                lat: lat_in_data_hash(data),
+                lon: lon_in_data_hash(data),
+                street_address: address_in_data_hash(data),
+                phone: phone_in_data_hash(data),
+              },
+              item:{
+                order: order_in_data_hash(data),
+              }
             }
           end
           return @activity_group_array = array_in_activity_group_array
@@ -58,8 +66,10 @@ module Scrapers
 
       def day_data(day, day_index)
         { 
-          day_number: day_index + 1,
-          day_title: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
+          day:{
+            order: day_index + 1,
+            day_of_the_week: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
+          },
         }
       end
 
@@ -70,10 +80,14 @@ module Scrapers
 
       def section_data(section, section_index)
         { 
-          order: section.scan(strong_index_title_and_time_then_linebreak_regex_find_index).flatten.first,
-          time: section.scan(strong_index_title_and_time_then_linebreak_regex_find_time).flatten.first,
-          section_title: trim( section.scan(strong_index_title_and_time_then_linebreak_regex_find_title).flatten.first ),
-          content: trim( de_tag ( section.split(strong_index_title_and_time_then_linebreak_regex)[1] ) ),
+          item:{
+            order: section.scan(strong_index_title_and_time_then_linebreak_regex_find_index).flatten.first,
+            start_time: section.scan(strong_index_title_and_time_then_linebreak_regex_find_time).flatten.first,
+          # content: trim( de_tag ( section.split(strong_index_title_and_time_then_linebreak_regex)[1] ) ),
+          },
+          place:{
+            section_title: trim( section.scan(strong_index_title_and_time_then_linebreak_regex_find_title).flatten.first ),
+          },
         }
       end
       
@@ -103,18 +117,22 @@ module Scrapers
       def activity_data(activity, activity_index)
         if has_map_data?
           {
-            name: activity[:name],
-            street_address: activity[:street_address],
-            phone: activity[:phone], 
-            lat: activity[:lat],
-            lon: activity[:lon],
-            website: activity[:website], 
+            place:{
+              name: activity[:name],
+              street_address: activity[:street_address],
+              phone: activity[:phone], 
+              lat: activity[:lat],
+              lon: activity[:lon],
+              website: activity[:website], 
+            },
           }
         else
           {
-            name: trim( de_tag( activity.scan(strong_details_regex_find_name).flatten.first ) ),
-            street_address: trim( activity.scan(strong_details_regex_find_address_phone).flatten.first ),
-            website: activity.scan(a_regex_find_href).flatten.first,
+            place:{
+              name: trim( de_tag( activity.scan(strong_details_regex_find_name).flatten.first ) ),
+              street_address: trim( activity.scan(strong_details_regex_find_address_phone).flatten.first ),
+              website: activity.scan(a_regex_find_href).flatten.first,
+            },
           }
         end
       end
@@ -129,12 +147,14 @@ module Scrapers
       def general_data(activity, activity_index)
         if has_map_data?
           {
-            name: activity[:name],
-            street_address: activity[:street_address],
-            phone: activity[:phone], 
-            lat: activity[:lat],
-            lon: activity[:lon],
-            website: activity[:website], 
+            place:{
+              name: activity[:name],
+              street_address: activity[:street_address],
+              phone: activity[:phone], 
+              lat: activity[:lat],
+              lon: activity[:lon],
+              website: activity[:website], 
+            },
           }
         end
       end

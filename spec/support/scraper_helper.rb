@@ -7,6 +7,13 @@ module ScraperHelper
     File.read( file_path('html') )
   end
 
+  def data
+    dup_data = scraper.data.dup
+    dup_data.map do |hash|
+      hash.recursive_delete_if{ |k, v| v.nil? || (v.is_a?(String) && v.empty?) }
+    end
+  end
+
   def expectations
     YAML.load_file( file_path('yml') ).map(&:recursive_symbolize_keys!)
   end

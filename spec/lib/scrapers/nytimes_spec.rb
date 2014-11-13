@@ -15,7 +15,7 @@ module Scrapers
     #   end
 
     #   it "parses the page correctly" do
-    #     expect(scraper.data).to eq expectations
+    #     expect(data).to eq expectations
     #   end
     # end
 
@@ -28,7 +28,7 @@ module Scrapers
       end
 
       it "parses the page correctly" do
-        expect(scraper.data).to eq expectations
+        expect(data).to eq expectations
       end
     end
 
@@ -41,7 +41,7 @@ module Scrapers
       end
 
       it "parses the page correctly" do
-        expect(scraper.data).to eq expectations
+        expect(data).to eq expectations
       end
     end
 
@@ -54,22 +54,22 @@ module Scrapers
       end
 
       it "parses the page correctly" do
-        expect(scraper.data).to eq expectations
+        expect(data).to eq expectations
       end
     end
     
-    describe "india" do
+    # describe "india" do
 
-      before do 
-        @base_name = 'india'
-        @url = 'http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0'
-        @base_domain = get_domain(@url)
-      end
+    #   before do 
+    #     @base_name = 'india'
+    #     @url = 'http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0'
+    #     @base_domain = get_domain(@url)
+    #   end
 
-      it "parses the page correctly" do
-        expect(scraper.data).to eq expectations
-      end
-    end
+    #   it "parses the page correctly" do
+    #     expect(data).to eq expectations
+    #   end
+    # end
 
     describe "amelia island" do
 
@@ -80,7 +80,7 @@ module Scrapers
       end
 
       it "parses the page correctly" do
-        expect(scraper.data).to eq expectations
+        expect(data).to eq expectations
       end
     end
 

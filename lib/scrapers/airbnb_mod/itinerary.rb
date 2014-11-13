@@ -11,8 +11,7 @@ module Scrapers
 
       def global_data
         { 
-          site_name: site_name,
-          confirmation_url: @url,
+          # site_name: site_name,
         }
       end
 
@@ -20,28 +19,28 @@ module Scrapers
       
       def data
         [{
-          name: trim( de_tag( name ) ) + " (Airbnb)",
-          full_address: full_address,
-          street_address: street_address,
-          locality: locality,
-          region: region,
-          neighborhood: neighborhood,
-          country: country,
-          category: category,
-          cost: cost,
-          lat: lat,
-          lon: lon,
-          # host_name: host_name,
-          # email: trim( email ),
-          # phone: trim( phone ),
-          confirmation_code: confirmation_code,
-          start_date: start_date,
-          end_date: end_date,
-          guests: guests,
-          # check_in_time
-          # check_out_time
-          nights: nights,
-          host_directions: host_directions,
+          place: {
+            name: trim( de_tag( name ) ) + " (Airbnb)",
+            full_address: full_address,
+            category: category,
+            lat: lat,
+            lon: lon,
+          },
+          item: {
+            cost: cost,
+            confirmation_code: confirmation_code,
+            start_date: start_date,
+            end_date: end_date,
+            guests: guests,
+            nights: nights,
+            host_directions: host_directions,
+            confirmation_url: @url,
+            # host_name: host_name,
+            # email: trim( email ),
+            # phone: trim( phone ),
+            # check_in_time
+            # check_out_time
+          }
         }.merge(global_data)]
       end
 
@@ -107,53 +106,6 @@ module Scrapers
         trim( de_tag( page.css("div:contains('Confirmation Code:')").last.inner_html.split('Confirmation Code:')[1] ) ) ; rescue ; nil
       end
 
-      def full_address_geocoded
-        if @full_address_geocoded
-          return @full_address_geocoded
-        end
-        @full_address_geocoded = Geocoder.search(full_address).first.data
-      end
-
-      def street_address
-        if ( street_number && street_number.length > 0 ) || ( route && route.length > 0 )
-          street_info = [street_number, route].join(" ")
-          if ( subpremise && subpremise.length > 0 ) 
-            apt_no = subpremise
-            return [apt_no, street_info].join(", ")
-          end
-          return street_info
-        end
-        return nil
-      end
-
-      def subpremise
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'subpremise' }['long_name'] ; rescue ; nil
-      end
-
-      def street_number
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'street_number' }['long_name'] ; rescue ; nil
-      end
-
-      def route
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'route' }['long_name'] ; rescue ; nil
-      end
-
-      def neighborhood
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'sublocality_level_1' }['long_name'] ; rescue ; nil
-      end
-
-      def locality
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'locality' }['long_name'] ; rescue ; nil
-      end
-
-      def region
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'administrative_area_level_1' }['long_name'] ; rescue ; nil
-      end
-
-      def country
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'country' }['long_name'] ; rescue ; nil
-      end
-
       #NEEDSFOLLOWUP
       # def phone
       #   [] ; rescue ; nil
@@ -164,7 +116,7 @@ module Scrapers
       end
 
       def category
-        "lodging"
+        ["lodging"]
       end
 
       def private

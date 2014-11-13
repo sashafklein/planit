@@ -11,25 +11,23 @@ module Scrapers
 
       def global_data
         { 
-          site_name: site_name,
-          source_url: @url,
+          # site_name: site_name,
+          # source_url: @url,
         }
       end
 
       # PAGE 
       
       def data
-        binding.pry
         [{
-          name: name,
-          street_address: street_address,
-          locality: locality,
-          region: region,
-          country: country,
-          website: website,
-          images: images,
-          lat: lat,
-          lon: lon,
+          place: {
+            name: name,
+            full_address: full_address,
+            website: website,
+            images: images,
+            lat: lat,
+            lon: lon,
+          }
         }.merge(global_data)]
       end
 
@@ -53,28 +51,12 @@ module Scrapers
       rescue ; nil
       end
 
-      def street_address
-        #NEEDSFOLLOWUP
-      end
-
       def phone
         trim( page.css("div.title:contains('Phone')").first.next_element.inner_html ) ; rescue ; nil
       end
 
       def hours
         trim( page.css("dt:contains('Opening hours')").first.next_element.text ) ; rescue ; nil
-      end
-
-      def locality
-        #NEEDSFOLLOWUP
-      end
-
-      def country
-        find_country(full_address) ; rescue ; nil
-      end
-
-      def region
-        find_region(full_address, country) ; rescue ; nil
       end
 
       def site_name

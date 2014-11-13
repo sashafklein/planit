@@ -11,9 +11,8 @@ module Scrapers
 
       def global_data
         { 
-          site_name: site_name,
-          source_url: @url,
-          ratings_base: 10,
+          # site_name: site_name,
+          # source_url: @url,
         }
       end
 
@@ -21,18 +20,18 @@ module Scrapers
       
       def data
         [{
-          name: trim( de_tag( name ) ),
-          full_address: trim( full_address ),
-          street_address: street_address,
-          locality: locality,
-          region: region,
-          neighborhood: neighborhood,
-          country: country,
-          category: category,
-          rating: rating,
-          images: images,
-          lat: lat,
-          lon: lon,
+          place:{
+            name: trim( de_tag( name ) ),
+            full_address: trim( full_address ),
+            category: category,
+            ratings: [{ 
+              rating: rating,
+              site_name: site_name,
+            }],
+            images: images,
+            lat: lat,
+            lon: lon,
+          }
         }.merge(global_data)]
       end
 
@@ -43,7 +42,12 @@ module Scrapers
       end
 
       def rating
-        page.css("span.rating").css("span.average").first.text ; rescue ; nil
+        rate = ( page.css("span.rating").css("span.average").first.text ).to_i
+        base = 10
+        if rate
+          return ( (rate * 100) / base ).round
+        end
+      rescue ; nil
       end
 
       def star_rating
@@ -54,59 +58,12 @@ module Scrapers
         trim( page.css("#hp_address_subtitle").first.text )   ; rescue ; nil
       end
 
-      def full_address_geocoded
-        if @full_address_geocoded
-          return @full_address_geocoded
-        end
-        @full_address_geocoded = Geocoder.search(full_address).first.data
-      end
-
-      def street_address
-        if ( street_number && street_number.length > 0 ) || ( route && route.length > 0 )
-          street_info = [street_number, route].join(" ")
-          if ( subpremise && subpremise.length > 0 ) 
-            apt_no = subpremise
-            return [apt_no, street_info].join(", ")
-          end
-          return street_info
-        end
-        return nil
-      end
-
-      def subpremise
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'subpremise' }['long_name'] ; rescue ; nil
-      end
-
-      def street_number
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'street_number' }['long_name'] ; rescue ; nil
-      end
-
-      def route
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'route' }['long_name'] ; rescue ; nil
-      end
-
-      def neighborhood
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'sublocality_level_1' }['long_name'] ; rescue ; nil
-      end
-
-      def locality
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'locality' }['long_name'] ; rescue ; nil
-      end
-
-      def region
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'administrative_area_level_1' }['long_name'] ; rescue ; nil
-      end
-
-      def country
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'country' }['long_name'] ; rescue ; nil
-      end
-
       def site_name
         "Booking.com"
       end
 
       def category
-        "lodging"
+        ["lodging"]
       end
 
       def map_string

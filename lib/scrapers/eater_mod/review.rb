@@ -11,28 +11,25 @@ module Scrapers
 
       def global_data
         { 
-          site_name: site_name,
-          source_url: @url,
+          # site_name: site_name,
+          # source_url: @url,
         }
       end
 
       # PAGE 
       
       def data
-        binding.pry
         [{
-          name: name,
-          full_address: full_address,
-          street_address: street_address,
-          locality: locality,
-          region: region,
-          country: country,
-          website: website,
-          phone: phone,
-          price_note: price_note,
-          images: images,
-          # lat: lat,
-          # lon: lon,
+          place:{
+            name: name,
+            full_address: full_address,
+            website: website,
+            phone: phone,
+            price_note: price_note,
+            images: images,
+            # lat: lat,
+            # lon: lon,
+          },
         }.merge(global_data)]
       end
 
@@ -57,25 +54,9 @@ module Scrapers
         #NEEDSFOLLOWUP
       end
 
-      def street_address
-        #NEEDSFOLLOWUP
-      end
-
-      def locality
-        #NEEDSFOLLOWUP
-      end
-
       def price_note
         attempt = trim( de_tag( page.css("dt:contains('Cost')").first.next_element.inner_html ) )
       rescue ; nil
-      end
-
-      def country
-        find_country(full_address) ; rescue ; nil
-      end
-
-      def region
-        find_region(full_address, country) ; rescue ; nil
       end
 
       def site_name

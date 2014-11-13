@@ -15,7 +15,7 @@ module Scrapers
       end
 
       it "parses the page correctly" do
-        expect(scraper.data).to eq expectations
+        expect(data).to eq expectations
       end
     end
 
@@ -28,7 +28,7 @@ module Scrapers
       end
 
       it "parses the page correctly" do
-        expect(scraper.data).to eq expectations
+        expect(data).to eq expectations
       end
     end
 

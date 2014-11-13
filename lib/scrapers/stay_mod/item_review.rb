@@ -11,8 +11,8 @@ module Scrapers
 
       def global_data
         { 
-          site_name: site_name,
-          source_url: @url,
+          # site_name: site_name,
+          # source_url: @url,
         }
       end
 
@@ -20,18 +20,15 @@ module Scrapers
       
       def data
         [{
-          name: name,
-          full_address: full_address,
-          street_address: street_address,
-          locality: locality,
-          region: region,
-          postal_code: postal_code,
-          country: country,
-          phone: phone,
-          category: category,
-          images: images,
-          lat: lat,
-          lon: lon,
+          place:{
+            name: name,
+            full_address: full_address,
+            phone: phone,
+            category: category,
+            images: images,
+            lat: lat,
+            lon: lon,
+          },
         }.merge(global_data)]
       end
 
@@ -45,26 +42,6 @@ module Scrapers
       def full_address
         trim( page.css(".venue-view").first.css(".address").first.text.gsub("(show map)", '') )
       rescue ; nil
-      end
-
-      def locality
-        #NEEDSFOLLOWUP
-      end
-
-      def street_address
-        #NEEDSFOLLOWUP
-      end
-
-      def region
-        find_region(full_address, country)
-      end
-
-      def postal_code
-        #NEEDSFOLLOWUP
-      end
-
-      def country
-        find_country(full_address)
       end
 
       def phone

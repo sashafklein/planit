@@ -8,7 +8,7 @@ module Services
     include RegexLibrary
     include CssOperators
 
-    def self.build(url, page=nil)
+    def self.build(url, page)
       specific_scraper(url, page)
     end
 
@@ -16,7 +16,7 @@ module Services
     delegate :css, to: :page
     def initialize(url, page)
       @url = url
-      @page = Nokogiri::HTML( page.present? ? page : open(url) )
+      @page = Nokogiri::HTML page
       @data = []
     end
 
@@ -27,7 +27,6 @@ module Services
       
       # WE NEED SOME FORM OF NILSINK HERE IF GROUPS TURN UP NIL
       # undefined method `each_with_index' for nil:NilClass
-      # binding.pry
 
       itinerary_group.each_with_index do |itinerary, itinerary_index|
         leg_group(itinerary).each_with_index do |leg, leg_index|
@@ -56,7 +55,7 @@ module Services
           global_data,
         ])
       end
-      # binding.pry
+      binding.pry
       @data
     end
 
@@ -97,35 +96,6 @@ module Services
       string.scan(remove_final_punctuation_regex).first.first ; rescue ; string
     end
 
-    def parse_address(string) #returns [street_address, extended_address, neighborhood, locality, region, postal_code, country]
-      # parsed_address = []
-      # if country = Carmen::Country.all.find{ |c| no_accents(string).include?(no_accents(c.name)) }
-      #   string = string.gsub(country.name, '').gsub(no_accents(country.name), '')
-      # elsif country = Carmen::Country.all.find{ |c| (string).include?("#{c.alpha_3_code.titleize}.") } 
-      #   string = string.gsub("#{country.alpha_3_code.titleize}.", '')
-      # elsif country = Carmen::Country.all.find{ |c| (string).include?(c.alpha_3_code.upcase) } 
-      #   string = string.gsub(country.alpha_3_code.upcase, '')
-      # end
-      # if region = country.subregions.find{ |sr| no_accents(string).include?(no_accents(sr.name)) }
-      #   string = string.gsub(no_accents(country.region.name), '').gsub(country.region.name, '')
-      # elsif region = country.subregions.find{ |sr| no_accents(string).include?("#{no_accents(sr.name).first(3)}.") }
-      #   string = string.gsub("#{no_accents(country.region.name).first(3)}.", '')
-      # elsif region = country.subregions.find{ |sr| string.include?(sr.code.upcase) }
-      #   string = string.gsub(no_accents(country.region.code.upcase), '')
-      # end
-      # binding.pry
-      # locality = nil
-      # postal_code = nil # pop after split right of locality & remove region
-      # street_address = nil split left of locality
-      # parsed_address.push street_address
-      # parsed_address.push extended_address
-      # parsed_address.push locality
-      # parsed_address.push region.try(:name)
-      # parsed_address.push postal_code
-      # parsed_address.push country.try(:name)
-      # return parsed_address
-    end
-
     def find_country(string)
       if string
         country = Carmen::Country.all.find{ |c| no_accents(string).include?(no_accents(c.name)) }
@@ -147,17 +117,14 @@ module Services
     rescue ; nil
     end
 
-    # def find_locality(string, country)
-    #   carmen_country = Carmen::Country.named(country)
-    #   country_code = carmen_country.code
-    #   City.where(country_code:country_code).pluck(:name).find{ |locality| no_accents(string).include?(locality) }
-    # end
-
-    # def find_postal_code(string, country)
-    #   carmen_country = Carmen::Country.named(country)
-    #   country_code = carmen_country.code
-    #   # city_database._match_code_.map(&:name).find{ |sr| no_accents(string).include?(no_accents(sr)) }
-    # end
+    def find_locality(string)
+      if string
+        # carmen_country = Carmen::Country.named(country)
+        # country_code = carmen_country.code
+        # City.where(country_code:country_code).pluck(:name).find{ |locality| no_accents(string).include?(locality) }
+      end
+    rescue ; nil
+    end
 
     def p_br_to_comma(string)
       string.gsub("<br>", ", ").gsub("<p>", ", ").gsub(",,", ",").gsub(", ,", ",") ; rescue ; nil

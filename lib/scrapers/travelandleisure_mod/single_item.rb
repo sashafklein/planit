@@ -11,29 +11,28 @@ module Scrapers
 
       def global_data
         { 
-          site_name: site_name,
-          source_url: @url,
+          # site_name: site_name,
+          # source_url: @url,
         }
       end
 
       # PAGE 
       
       def data
-        binding.pry
         [{
-          name: name,
-          street_address: street_address,
-          locality: locality,
-          region: region,
-          country: country,
-          phone: phone,
-          website: website,
-          email: email,
-          category: category,
-          price_note: price_note,
-          # images: images,
-          # lat: lat,
-          # lon: lon,
+          place:{
+            name: name,
+            full_address: full_address,
+            phone: phone,
+            website: website,
+            email: email,
+            category: category,
+            price_note: price_note,
+            hours_note: hours_note,
+            # images: images,
+            # lat: lat,
+            # lon: lon,
+          },
         }.merge(global_data)]
       end
 
@@ -59,26 +58,8 @@ module Scrapers
         page.css(".email.website").first.css("a").first.attribute('href').value.gsub("mailto:", '') ; rescue ; nil
       end
 
-      def hours
+      def hours_note
         trim( page.css("dt:contains('Opening hours')").first.next_element.text ) ; rescue ; nil
-      end
-
-      def locality
-        #NEEDSFOLLOWUP
-        nil
-      end
-
-      def street_address
-        #NEEDSFOLLOWUP
-        nil
-      end
-
-      def country
-        find_country(full_address) ; rescue ; nil
-      end
-
-      def region
-        find_region(full_address, country) ; rescue ; nil
       end
 
       def site_name

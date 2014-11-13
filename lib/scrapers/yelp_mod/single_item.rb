@@ -11,9 +11,8 @@ module Scrapers
 
       def global_data
         { 
-          ratings_base: ratings_base,
-          site_name: site_name,
-          source_url: @url,
+          # site_name: site_name,
+          # source_url: @url,
         }
       end
 
@@ -21,20 +20,25 @@ module Scrapers
       
       def data
         [{
-          name: name,
-          street_address: street_address,
-          locality: locality,
-          region: region,
-          postal_code: postal_code,
-          country: country,
-          phone: phone,
-          category: category,
-          hours: hours,
-          price_info: price_info,
-          rating: rating,
-          images: images,
-          lat: lat,
-          lon: lon,
+          place:{
+            name: name,
+            street_address: street_address,
+            locality: locality,
+            region: region,
+            postal_code: postal_code,
+            country: country,
+            phone: phone,
+            category: category,
+            hours: hours,
+            price_note: price_note,
+            ratings:{
+              rating: rating,
+              site_name: site_name,
+            },
+            images: images,
+            lat: lat,
+            lon: lon,
+          },
         }.merge(global_data)]
       end
 
@@ -74,12 +78,16 @@ module Scrapers
         if table = page.css('.hours-table')
           if rows = table.css("th")
             rows.each do |row|
-              open_close = []
+              open_close = {}
               if row.next_element.css('span').length == 2
-                open_close.push row.next_element.css('span')[0].text
-                open_close.push row.next_element.css('span')[1].text
+                open_close = {
+                  start_time: row.next_element.css('span')[0].text,
+                  end_time: row.next_element.css('span')[1].text,
+                }
               elsif row.next_element.css("*:contains('Closed')")
-                open_close = "Closed"
+                open_close = nil
+              else
+                open_close = nil
               end
               hours[row.text] = open_close
             end
@@ -94,15 +102,15 @@ module Scrapers
       end
 
       def rating
-        page.css("i.star-img").attribute('title').value.split(" star")[0]
+        rate = ( page.css("i.star-img").attribute('title').value.split(" star")[0] ).to_i
+        base = 5
+        if rate
+          return ( (rate * 100) / base ).round
+        end
       rescue ; nil        
       end
 
-      def ratings_base
-        5
-      end
-
-      def price_info
+      def price_note
         page.css("span[itemprop='priceRange']").first.inner_html ; rescue ; nil
       end
 

@@ -11,8 +11,8 @@ module Scrapers
 
       def global_data
         { 
-          site_name: site_name,
-          source_url: @url,
+          # site_name: site_name,
+          # source_url: @url,
         }
       end
 
@@ -20,20 +20,22 @@ module Scrapers
       
       def data
         [{
-          name: trim( name ),
-          street_address: street_address,
-          locality: locality,
-          region: region,
-          country: country,
-          phone: phone,
-          website: website,
-          category: category,
-          ranking: ranking,
-          hours: hours,
-          images: images,
-          price_note: price_note,
-          lat: lat,
-          lon: lon,
+          place:{
+            name: trim( name ),
+            full_address: full_address,
+            phone: phone,
+            website: website,
+            category: category,
+            ratings:{
+              ranking: ranking,
+              site_name: site_name,
+            },
+            hours_note: hours_note,
+            images: images,
+            price_note: price_note,
+            lat: lat,
+            lon: lon,
+          }
         }.merge(global_data)]
       end
 
@@ -65,7 +67,7 @@ module Scrapers
         page.css("dt:contains('More information')").first.next.css('a').first.attribute('href').value ; rescue ; nil
       end
 
-      def hours
+      def hours_note
         trim( page.css("dt:contains('Opening hours')").first.next_element.text ) ; rescue ; nil
       end
 

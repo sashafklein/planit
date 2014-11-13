@@ -11,8 +11,8 @@ module Scrapers
 
       def global_data
         { 
-          site_name: site_name,
-          source_url: @url,
+          # site_name: site_name,
+          # source_url: @url,
         }
       end
 
@@ -21,17 +21,15 @@ module Scrapers
       def data
         current_tab
         [{
-          name: name,
-          full_address: full_address,
-          street_address: street_address,
-          locality: locality,
-          region: region,
-          country: country,
-          website: website,
-          phone: phone,
-          images: images,
-          lat: lat,
-          lon: lon,
+          place:{
+            name: name,
+            full_address: full_address,
+            website: website,
+            phone: phone,
+            images: images,
+            lat: lat,
+            lon: lon,
+          },
         }.merge(global_data)]
       end
 
@@ -74,22 +72,6 @@ module Scrapers
       rescue ; nil
       end
 
-      def street_address
-        #NEEDSFOLLOWUP
-      end
-
-      def locality
-        #NEEDSFOLLOWUP
-      end
-
-      def country
-        find_country(full_address) ; rescue ; nil
-      end
-
-      def region
-        find_region(full_address, country) ; rescue ; nil
-      end
-
       def site_name
         "Eater"
       end
@@ -106,7 +88,6 @@ module Scrapers
 
       def images
         image_list = []
-        binding.pry
         string = @current_tab.css(".m-map-point-image").first.attribute("style").value
         img_url = string.scan(find_background_image_url_regex).flatten.first
         if img_url

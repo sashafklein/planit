@@ -11,8 +11,8 @@ module Scrapers
 
       def global_data
         { 
-          site_name: site_name,
-          source_url: @url,
+          # site_name: site_name,
+          # source_url: @url,
         }
       end
 
@@ -20,16 +20,14 @@ module Scrapers
       
       def data
         [{
-          name: trim( de_tag( name ) ) + " (Airbnb)",
-          full_address: full_address,
-          neighborhood: neighborhood,
-          locality: locality,
-          region: region,
-          country: country,
-          category: category,
-          lat: lat,
-          lon: lon,
-          images: images,
+          place: {
+            name: trim( de_tag( name ) ) + " (Airbnb)",
+            nearby: nearby,
+            category: category,
+            lat: lat,
+            lon: lon,
+            images: images,
+          }
         }.merge(global_data)]
       end
 
@@ -39,31 +37,8 @@ module Scrapers
         page.css("h1#listing_name").first.text ; rescue ; nil
       end
 
-      def full_address
-        page.css("#display-address").first.css("a[@href='#neighborhood']").first.text ; rescue ; nil
-      end
-
-      def full_address_geocoded
-        if @full_address_geocoded
-          return @full_address_geocoded
-        end
-        @full_address_geocoded = Geocoder.search(full_address).first.data
-      end
-
-      def locality
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'locality' }['long_name'] ; rescue ; nil
-      end
-
-      def neighborhood
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'sublocality_level_1' }['long_name'] ; rescue ; nil
-      end
-
-      def region
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'administrative_area_level_1' }['long_name'] ; rescue ; nil
-      end
-
-      def country
-        full_address_geocoded['address_components'].find{ |h| h["types"].include? 'country' }['long_name'] ; rescue ; nil
+      def nearby
+        trim( page.css("#display-address").first.css("a[@href='#neighborhood']").first.text ) ; rescue ; nil
       end
 
       def images
@@ -87,7 +62,7 @@ module Scrapers
       end
 
       def category
-        "lodging"
+        ["lodging"]
       end
 
       def map_container

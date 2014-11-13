@@ -11,9 +11,8 @@ module Scrapers
 
       def global_data
         { 
-          ratings_base: ratings_base,
-          site_name: site_name,
-          source_url: @url,
+          # site_name: site_name,
+          # source_url: @url,
         }
       end
 
@@ -21,21 +20,26 @@ module Scrapers
       
       def data
         [{
-          name: trim( de_tag( name ) ),
-          street_address: street_address,
-          extended_address: extended_address,
-          locality: locality,
-          region: region,
-          postal_code: postal_code,
-          country: country,
-          phone: trim( phone ),
-          category: category,
-          price_info: trim( price_info ),
-          rating: rating,
-          ranking: trim( de_tag ( ranking ) ),
-          images: images,
-          lat: lat,
-          lon: lon,
+          place:{
+            name: trim( de_tag( name ) ),
+            street_address: street_address,
+            extended_address: extended_address,
+            locality: locality,
+            region: region,
+            postal_code: postal_code,
+            country: country,
+            phone: trim( phone ),
+            category: category,
+            price_info: trim( price_info ),
+            ratings:{
+              site_name: site_name,
+              rating: rating,
+              ranking: trim( de_tag ( ranking ) ),
+            },
+            images: images,
+            lat: lat,
+            lon: lon,
+          },
         }.merge(global_data)]
       end
 
@@ -82,11 +86,12 @@ module Scrapers
       end
 
       def rating
-        page.css('.metacontent').css('img.rating_no_fill').first.attribute('alt').value; rescue ; nil        
-      end
-
-      def ratings_base
-        5
+        rate = ( page.css('.metacontent').css('img.rating_no_fill').first.attribute('alt').value ).scan(/.*?(\d+\.?\d*).*?/).flatten.first.to_i
+        base = 5.0
+        if rate
+          return ( (rate * 100) / base ).round
+        end
+      rescue ; nil        
       end
 
       def price_info

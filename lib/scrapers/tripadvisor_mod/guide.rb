@@ -13,9 +13,8 @@ module Scrapers
 
       def global_data
         { 
-          ratings_base: ratings_base,
-          site_name: site_name,
-          source_url: @url,
+          # site_name: site_name,
+          # source_url: @url,
         }
       end
 
@@ -23,7 +22,9 @@ module Scrapers
       
       def itinerary_data(itinerary, itinerary_index)
         {
-          trip_name: page.css("title").text,
+          plan:{
+            name: page.css("title").text,
+          },
         }
       end
 
@@ -37,7 +38,9 @@ module Scrapers
       def day_data(day, day_index)
         if has_days?
           { 
-            day_number: day_index + 1,
+            day:{
+              order: day_index + 1,
+            },
           }
         end
       end
@@ -55,15 +58,21 @@ module Scrapers
         if guide_no
           @order_no += 1
           {
-            name: name(guide_no),
-            order: @order_no,
-            lat: lat(guide_no),
-            lon: lon(guide_no),
-            price_info: price_info(guide_no),
-            duration_info: trim( duration_info(guide_no) ),
-            images: images(guide_no),
-            source_url: source_url(guide_no),
-            rating: rating(guide_no),
+            place:{
+              name: name(guide_no),
+              lat: lat(guide_no),
+              lon: lon(guide_no),
+              price_note: price_info(guide_no),
+              images: images(guide_no),
+              ratings:{
+                rating: rating(guide_no),
+                site_name: site_name,
+              },
+            },
+            item:{
+              order: @order_no,
+              duration_info: trim( duration_info(guide_no) ),
+            },
           }
         end
       end
