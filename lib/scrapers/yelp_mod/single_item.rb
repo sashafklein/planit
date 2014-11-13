@@ -89,7 +89,7 @@ module Scrapers
               else
                 open_close = nil
               end
-              hours[row.text] = open_close
+              hours[row.text.to_sym] = open_close
             end
           end
         end

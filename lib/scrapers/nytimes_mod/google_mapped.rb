@@ -66,6 +66,8 @@ module Scrapers
         { 
           day:{
             order: day_index + 1,
+          },
+          item:{
             day_of_the_week: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
           },
         }

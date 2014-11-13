@@ -71,11 +71,7 @@ module Scrapers
       end
 
       def rating(activity)
-        rate = ( activity.css(".stay-rank").first.css("span").first.css("i").text ).to_i
-        base = 5.0
-        if rate
-          return ( (rate * 100) / base ).round
-        end
+        calculate_rating( activity.css(".stay-rank").first.css("span").first.css("i").text, 5.0 )
       rescue ; nil
       end
 

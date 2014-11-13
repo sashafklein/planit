@@ -3,7 +3,7 @@ module Scrapers
 
     # PAGE SETUP
 
-    class GoogleThirySixMapped < Nytimes
+    class GoogleThirtySixMapped < Nytimes
       
       def initialize(url, page)
         super(url, page)
@@ -24,7 +24,6 @@ module Scrapers
       # PAGE 
 
       def activity_group_array
-        # binding.pry
         return @activity_group_array if @activity_group_array
         array_in_activity_group_array = []
         if has_map_data?
@@ -32,17 +31,13 @@ module Scrapers
           map_hash[:symbols].each do |symbol|
             data = symbol[:data]
             array_in_activity_group_array << {
-              place:{
-                name: breakline_to_space( name_in_data_hash(data) ),
-                website: website_in_data_hash(data),
-                lat: lat_in_data_hash(data),
-                lon: lon_in_data_hash(data),
-                street_address: address_in_data_hash(data),
-                phone: phone_in_data_hash(data),
-              },
-              item:{
-                order: order_in_data_hash(data),
-              }
+              name: breakline_to_space( name_in_data_hash(data) ),
+              website: website_in_data_hash(data),
+              lat: lat_in_data_hash(data),
+              lon: lon_in_data_hash(data),
+              street_address: address_in_data_hash(data),
+              phone: phone_in_data_hash(data),
+              order: order_in_data_hash(data),
             }
           end
           return @activity_group_array = array_in_activity_group_array
@@ -66,7 +61,9 @@ module Scrapers
         { 
           day:{
             order: day_index + 1,
-            day_of_the_week: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
+          },
+          item:{
+            day_of_week: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
           },
         }
       end
@@ -79,7 +76,7 @@ module Scrapers
       def section_data(section, section_index)
         { 
           item:{
-            order: section.scan(strong_index_title_and_time_then_linebreak_regex_find_index).flatten.first,
+            order: trim( section.scan(strong_index_title_and_time_then_linebreak_regex_find_index).flatten.first ).to_i,
             start_time: section.scan(strong_index_title_and_time_then_linebreak_regex_find_time).flatten.first,
           # content: trim( de_tag ( section.split(strong_index_title_and_time_then_linebreak_regex)[1] ) ),
           },
@@ -91,13 +88,16 @@ module Scrapers
       
       def activity_group(section)
         section_relevant_index = section.scan(strong_index_title_and_time_then_linebreak_regex_find_index).flatten.first
-        if !has_map_data?
-          for group_to_test in activity_group_array
-            group_index = group_to_test.scan(p_strong_details_regex_find_index).flatten.first
-            if group_index == section_relevant_index
-              return group_to_test.scan(strong_details_regex_find_activity).flatten
+        if has_map_data?
+          group_to_sequence = activity_group_array.select{ |h| h[:order]==nil }
+          group_to_sequence.each do |to_sequence|
+            unless !to_sequence[:name]
+              if section.scan(to_sequence[:name]).length > 0
+                activity_group_array.find{ |h| h[:name]==to_sequence[:name] }[:order] = section_relevant_index
+              end
             end
           end
+          return activity_group_array.select{ |h| h[:order]==section_relevant_index }
         end
         return []
       end
@@ -112,14 +112,6 @@ module Scrapers
               lat: activity[:lat],
               lon: activity[:lon],
               website: activity[:website], 
-            },
-          }
-        else
-          {
-            place:{
-              name: trim( de_tag( activity.scan(strong_details_regex_find_name).flatten.first ) ),
-              street_address: trim( activity.scan(strong_details_regex_find_address_phone).flatten.first ),
-              website: activity.scan(a_regex_find_href).flatten.first,
             },
           }
         end

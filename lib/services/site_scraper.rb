@@ -6,7 +6,9 @@ module Services
     require 'uri'
     require 'json'
     include RegexLibrary
+    extend RegexLibrary
     include CssOperators
+    extend CssOperators
 
     def self.build(url, page)
       specific_scraper(url, page)
@@ -51,11 +53,10 @@ module Services
       general_group.each_with_index do |general, general_index|
         @data << full_item([
           general_data(general, general_index),
-          # itinerary_data(itinerary, itinerary_index), 
+          itinerary_data(nil, nil), #MAY NEEDSFOLLOWUP 
           global_data,
         ])
       end
-      # binding.pry
       @data
     end
 
@@ -87,7 +88,7 @@ module Services
     end
 
     def progressive_merge(array_of_hashes)
-      array_of_hashes.inject({}) { |f, h| f.merge(h) }
+      array_of_hashes.inject({}) { |f, h| f.deep_merge(h) }
     end
 
     # OPERATIONS
@@ -102,7 +103,6 @@ module Services
       if rate && base
         return ( (rate.to_f * 100) / base ).round
       end
-    rescue ; nil
     end
 
     def remove_punc(string)

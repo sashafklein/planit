@@ -14,6 +14,12 @@ module ScraperHelper
     end
   end
 
+  def expect_equal(array1, array2)
+    array1.each_with_index do |hash, index|
+      expect( deep_sort_hash(array1[index]) ).to eq( deep_sort_hash(array2[index]) )
+    end
+  end
+
   def expectations
     YAML.load_file( file_path('yml') ).map(&:recursive_symbolize_keys!)
   end
@@ -25,6 +31,16 @@ module ScraperHelper
   def get_domain(url)
     full_domain = URI(url).host.match(/[^\.]+\.\w+$/).to_s
     no_extension = full_domain.split(".")[0]
+  end
+
+  private
+
+  def deep_sort_hash(object)
+    return object unless object.is_a?(Hash)
+    hash = ActiveSupport::OrderedHash.new
+    object.each { |k, v| hash[k] = deep_sort_hash(v) }
+    sorted = hash.sort { |a, b| a[0].to_s <=> b[0].to_s }
+    hash.class[sorted]
   end
 
 end

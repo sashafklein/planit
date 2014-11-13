@@ -26,14 +26,14 @@ module Scrapers
       def general_data(general, general_index)
         {
           place:{
-            name: general.scan(before_parens_regex_find_name).flatten.first,
+            name: trim( de_tag( general.scan(before_parens_regex_find_name).flatten.first ) ),
             street_address: general.scan(after_parens_regex_find_address).flatten.first,
             phone: general.scan(after_separator_regex_find_phone).flatten.first,
             website: general.scan(a_regex_find_href).flatten.first,
             # general_title: trim( scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go"])).flatten.first.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
             # general_number: general_index + 1,
           },
-        }.merge(global_data).merge(itinerary_data(nil, nil))
+        }
       end
 
       def itinerary_data(itinerary, itinerary_index)
@@ -59,8 +59,10 @@ module Scrapers
       def day_data(day, day_index)
         { 
           day:{
-            order: day_index + 1,
-            day_of_the_week: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
+            order: (day_index + 1).to_i,
+          },
+          item:{
+            day_of_week: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
           },
         }
       end
@@ -73,7 +75,7 @@ module Scrapers
       def section_data(section, section_index)
         { 
           item:{
-            order: section.scan(index_and_title_regex_find_index).flatten.first,
+            order: trim(section.scan(index_and_title_regex_find_index).flatten.first).to_i,
             start_time: section.scan(time_on_own_line_regex_find_time).flatten.first, 
           },
           place:{
@@ -90,7 +92,7 @@ module Scrapers
       def activity_data(activity, activity_index)
         {
           place:{
-            name: de_tag( activity.scan(before_parens_regex_find_name).flatten.first ),
+            name: trim( de_tag( activity.scan(before_parens_regex_find_name).flatten.first ) ),
             street_address: activity.scan(after_parens_regex_find_address).flatten.first,
             phone: activity.scan(after_separator_regex_find_phone).flatten.first,
             website: activity.scan(a_regex_find_href).flatten.first,

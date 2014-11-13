@@ -45,19 +45,7 @@ module Scrapers
       end
 
       it "parses the page correctly" do
-        expect(data).to eq expectations
-      end
-    end
-
-    describe "dublin" do
-
-      before do 
-        @base_name = 'dublin'
-        @url = 'http://www.nytimes.com/2014/11/16/travel/things-to-do-in-36-hours-in-dublin-ireland.html?rref=travel&module=ArrowsNav&contentCollection=Travel&action=keypress&region=FixedLeft&pgtype=article'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
+        expect_equal(data, expectations)
         expect(data).to eq expectations
       end
     end
@@ -73,6 +61,7 @@ module Scrapers
       end
 
       it "parses the page correctly" do
+        expect_equal(data, expectations)
         expect(data).to eq expectations
       end
     end
@@ -86,6 +75,7 @@ module Scrapers
       end
 
       it "parses the page correctly" do
+        expect_equal(data, expectations)
         expect(data).to eq expectations
       end
     end
@@ -99,6 +89,7 @@ module Scrapers
       end
 
       it "parses the page correctly" do
+        expect_equal(data, expectations)
         expect(data).to eq expectations
       end
     end

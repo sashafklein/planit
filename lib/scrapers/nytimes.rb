@@ -39,7 +39,7 @@ module Scrapers
     def self.google_map_enabled?(url, page)
       page = Nokogiri::HTML page
       if url.include?('/travel/')
-        for script in find_scripts_inner_html(page)
+        find_scripts_inner_html(page).each do |script|
           if script.flatten.first.scan(nytimes_map_data_regex).length > 0
             return true
           end

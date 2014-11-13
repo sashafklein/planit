@@ -50,7 +50,9 @@ module Scrapers
         { 
           day:{
             order: day_index + 1,
-            day_of_the_week: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
+          },
+          item:{
+            day_of_week: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
           },
         }
       end
@@ -63,7 +65,7 @@ module Scrapers
       def section_data(section, section_index)
         { 
           item:{
-            order: section.scan(strong_index_title_and_time_then_linebreak_regex_find_index).flatten.first,
+            order: trim( section.scan(strong_index_title_and_time_then_linebreak_regex_find_index).flatten.first ).to_i,
             start_time: section.scan(strong_index_title_and_time_then_linebreak_regex_find_time).flatten.first,
           # content: trim( de_tag ( section.split(strong_index_title_and_time_then_linebreak_regex)[1] ) ),
           },
@@ -75,15 +77,13 @@ module Scrapers
       
       def activity_group(section)
         section_relevant_index = section.scan(strong_index_title_and_time_then_linebreak_regex_find_index).flatten.first
-        group_to_sequence = activity_group_array.select{ |h| h[:order]==nil }
-        group_to_sequence.each do |to_sequence|
-          unless !to_sequence[:name]
-            if section.scan(to_sequence[:name]).length > 0
-              activity_group_array.find{ |h| h[:name]==to_sequence[:name] }[:order] = section_relevant_index
-            end
+        for group_to_test in activity_group_array
+          group_index = group_to_test.scan(p_strong_details_regex_find_index).flatten.first
+          if group_index == section_relevant_index
+            return group_to_test.scan(strong_details_regex_find_activity).flatten
           end
         end
-        return activity_group_array.select{ |h| h[:order]==section_relevant_index }
+        return []
       end
 
       def activity_data(activity, activity_index)

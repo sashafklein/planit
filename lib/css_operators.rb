@@ -35,7 +35,9 @@ module CssOperators
   end
 
   def quote_slash_to_space(html)
-    html.gsub("\n", ' ') ; rescue ; html
+    html.gsub("\n", ' ')
+    html.gsub("\\n", ' ')
+  rescue ; html
   end
 
   def regex_split_without_loss(string_or_array, split_term)
