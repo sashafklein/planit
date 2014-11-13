@@ -2,22 +2,22 @@ require 'spec_helper'
 
 module Scrapers
 
-  describe Stay do
+  describe Jgblackbook do
 
     include ScraperHelper
 
-    describe "pierre" do
+    # describe "atacama" do
 
-      before do 
-        @base_name = 'pierre'
-        @url = 'http://jgblackbook.com/destinations/explora-atacama/'
-        @base_domain = get_domain(@url)
-      end
+    #   before do 
+    #     @base_name = 'atacama'
+    #     @url = 'http://jgblackbook.com/destinations/explora-atacama/'
+    #     @base_domain = get_domain(@url)
+    #   end
 
-      it "parses the page correctly" do
-        expect(data).to eq expectations
-      end
-    end
+    #   it "parses the page correctly" do
+    #     expect(data).to eq expectations
+    #   end
+    # end
 
   end
 end 
