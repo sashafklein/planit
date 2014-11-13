@@ -76,8 +76,33 @@ module RegexLibrary
       # "(?:[S][t]\\a?\\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó,']+(?=(?:\\s|\\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ])(?:(?:\\s|\\-?)(?:[S][t]\\a?\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó',]+)+"
     end
 
-    def details_in_parens_thread
-      "(?:[^$><#{quote_thread};,]+?(?:[;,]\\s[^;),><#{quote_thread}]+?)?[;,]\\s\\d+[^)]+?)"
+    def details_semi_or_comma_separated_with_number_thread
+      threads = [
+        "(?:",
+        "[^$><#{quote_thread};,]+?",
+        "(?:",
+        "[;,]",
+        "\\s",
+        "[^;),><#{quote_thread}]+?",
+        ")?",
+        "[;,]",
+        "\\s",
+        "\\d+",
+        "[^)]+?",
+        ")",
+      ]
+      threads.join
+    end
+
+    def details_semi_or_comma_separated_with_number_in_parens_thread
+      threads = [
+        "(?:",
+        "\\(",
+        details_semi_or_comma_separated_with_number_thread,
+        "\\)",
+        ")",
+      ]
+      threads.join
     end
 
     def strong_or_not_thread(string)
@@ -368,9 +393,9 @@ module RegexLibrary
         "#{lowercase_destination_class}?",
         "#{ok_tags}",
         "\\s\\s?\\(",
-        "#{details_in_parens_thread}",
+        "#{details_semi_or_comma_separated_with_number_thread}",
         "\\)|\\(",
-        "#{details_in_parens_thread}",
+        "#{details_semi_or_comma_separated_with_number_thread}",
         "\\)",
       ]
       %r!#{regex_string.join}!

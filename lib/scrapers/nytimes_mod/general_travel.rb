@@ -8,12 +8,21 @@ module Scrapers
       def initialize(url, page)
         super(url, page)
         @scrape_target = %w(#area-main #article article)
+        @section_area = ""
+      end
+
+      def guessed_locale
+        @guessed_locale = guess_locale([ page.css("title").text, page.css("h1").text, url ]) #returns locality, region, country, full_string
       end
 
       def global_data
-        guess_locale
         { 
-          trip_name: page.css("title").text,
+          place:{
+            nearby: guessed_locale[3], #returns locality, region, country, full_string
+          },
+          plan:{
+            name: page.css("title").text
+          },
         }
       end
 
@@ -119,6 +128,11 @@ module Scrapers
       #   end
       # end
 
+      # strong w/ or w/o link (in any portion)
+      # parenthetical in more info
+      # not just links
+      # try to place within nearby via title above?  changes as you move through titles -- title is upcase
+
       def general_group
         if legend?
           group_array = []
@@ -127,6 +141,7 @@ module Scrapers
             group_array << legend_item.next_element
             legend_item = legend_item.next_element
           end
+          binding.pry
           return group_array
         end
         if has_map_data?
@@ -138,16 +153,31 @@ module Scrapers
       def general_data(activity, activity_index)
         if has_map_data?
           {
-            name: activity[:name],
-            street_address: activity[:street_address],
-            phone: activity[:phone], 
-            lat: activity[:lat],
-            lon: activity[:lon],
-            website: activity[:website], 
+            place:{
+              name: activity[:name],
+              street_address: activity[:street_address],
+              phone: activity[:phone], 
+              lat: activity[:lat],
+              lon: activity[:lon],
+              website: activity[:website], 
+            }
           }
         end
         if legend?
-          binding.pry
+          if activity.inner_html.include?("(") && activity.inner_html.include?(")") 
+            content = activity
+            binding.pry
+            name = content.css("strong").text
+          elsif @guessed_locale && @guessed_locale.length == 4
+            if @section_area = guess_sublocale( activity.inner_html, @guessed_locale )
+              binding.pry 
+              # next
+            end
+          end
+          return {}
+          # test if content or title
+          # if title, check for geography
+          #   if 
           # {
           #   name: activity[:name],
           #   street_address: activity[:street_address],
@@ -222,17 +252,6 @@ module Scrapers
 
       def address_in_data_hash(data)
         find_by_attr(data, 'popup')[:body].scan(find_address_after_n).flatten.first ; rescue ; nil
-      end
-
-      def guess_locale
-
-        # country match?
-        # region match? (multiple? single?)
-        # city match? (multiple? single?)
-        # start with page title
-        # then heading
-        # then url
-        # then confirm within text
       end
 
     end

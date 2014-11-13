@@ -24,12 +24,10 @@ module Scrapers
       # PAGE 
 
       def activity_group_array
+        binding.pry
         return @activity_group_array if @activity_group_array
         array_in_activity_group_array = []
-        if has_legend?
-          activity_details_container = scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go"])).flatten.first
-          return @activity_array_group = activity_details_container.scan(p_strong_details_regex)
-        elsif has_map_data?
+        if has_map_data?
           map_hash = JSON.parse(@map_data,:symbolize_names => true)
           map_hash[:symbols].each do |symbol|
             data = symbol[:data]
@@ -48,6 +46,9 @@ module Scrapers
             }
           end
           return @activity_group_array = array_in_activity_group_array
+        elsif has_legend?
+          activity_details_container = scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go", "lodging"])).flatten.first
+          return @activity_array_group = activity_details_container.scan(p_strong_details_regex)
         end        
       end        
 
@@ -175,7 +176,7 @@ module Scrapers
       # NEEDS TO BE MORE STRINGENT
       def has_legend?
         downcased = scrape_content.downcase
-        return false unless (["the basics", "the details", "if you go"]).any?{ |legend_group| downcased.include?(legend_group) }
+        return false unless (["the basics", "the details", "if you go", "lodging"]).any?{ |legend_group| downcased.include?(legend_group) }
         true
       end
 
@@ -214,7 +215,6 @@ module Scrapers
       end
 
       def address_in_data_hash(data)
-        # binding.pry
         find_by_attr(data, 'popup')[:body].scan(find_address_after_n).flatten.first ; rescue ; nil
       end
 

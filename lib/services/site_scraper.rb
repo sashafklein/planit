@@ -93,9 +93,11 @@ module Services
     # OPERATIONS
     
     def calculate_rating(string, base)
-      #clean rating string
       if string && string.length > 0
-        rate = string.scan(/.*?(\d+\.?\d*)(?: of \d+\.?\d*)?.*?/).flatten.first.to_f
+        rate = string.scan(/.*?(\d+\.?\d*)(?: (?:out )?of (\d+\.?\d*))?.*?/).flatten.first.to_f
+        unless base && base.length > 0 
+          base = string.scan(/.*?(\d+\.?\d*)(?: (?:out )?of (\d+\.?\d*))?.*?/).flatten[1].to_f
+        end
       end
       if rate && base
         return ( (rate.to_f * 100) / base ).round
@@ -109,7 +111,7 @@ module Services
 
     def find_country(string)
       if string
-        country = Carmen::Country.all.find{ |c| no_accents(string).include?(no_accents(c.name)) }
+        country = Carmen::Country.all.find{ |c| no_accents(string).downcase.include?(no_accents(c.name.downcase)) }
         country ||= Carmen::Country.all.find{ |c| (string).include?("#{c.alpha_3_code.titleize}.") } 
         country ||= Carmen::Country.all.find{ |c| (string).include?(c.alpha_3_code.upcase) } 
         country.try(:name)
@@ -128,12 +130,76 @@ module Services
     rescue ; nil
     end
 
-    def find_locality(string)
-      if string
-        # carmen_country = Carmen::Country.named(country)
-        # country_code = carmen_country.code
-        # City.where(country_code:country_code).pluck(:name).find{ |locality| no_accents(string).include?(locality) }
+    def find_locality(string, region="")
+      if string && region && region.length > 0
+        #swap out for FULL CITIES database stuff?
+        Services::City.find_in(string.downcase)
+      elsif string
+        Services::City.find_in(string.downcase)
       end
+    rescue ; nil
+    end
+
+    def guess_sublocale(string_array, locale_array) # returns locality [0], region [1], country [2], full_string [3]
+      if !string_array.is_a? Array
+        string_array = [string_array]
+      end
+      if locale_array[1] && locale_array[1].length > 0
+        region = locale_array[1]
+        string_array.each do |string|
+          if locality = find_locality(string, region)
+            return locality
+          end 
+        end
+      elsif locale_array[2] && locale_array[2].length > 0
+        country = locale_array[2]
+        string_array.each do |string|
+          if locality = find_locality(string, region)
+            return locality
+          elsif region = find_region(string, country)
+            return region
+          end 
+        end 
+      else
+        if locality = find_locality(string)
+          return locality
+        end
+      end
+      return nil
+    # rescue ; nil
+    end
+
+    def guess_locale(string_array) # returns locality [0], region [1], country [2], full_string [3]
+      
+      country_guess = []
+      if string_array.is_a? Array
+        string_array.each do |string|
+          country_guess << find_country(string)
+        end
+        if country_guess.length > 1 && country_guess.uniq.length == 1
+          country = country_guess.first
+          region_guess = []
+          string_array.each do |string|
+            country_guess << find_region(string, country)
+          end
+          if region_guess.length > 1 && region_guess.uniq.length == 1
+            region = region_guess.first
+          end
+        end
+
+        locality_guess = []
+        string_array.each do |string|
+          country_guess << find_locality(string)
+        end
+        if locality_guess.length > 1 && locality_guess.uniq.length == 1
+          #does locality match country code of country if country? otherwise reject
+          locality = locality_guess.first
+        end
+
+        return [locality, region, country, [locality, region, country].compact.join(", ")]
+
+      end
+
     rescue ; nil
     end
 

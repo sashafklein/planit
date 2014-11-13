@@ -19,6 +19,23 @@ module Scrapers
     #   end
     # end
 
+    # TRAVEL GENERAL FORMATS
+
+    describe "india" do
+
+      before do 
+        @base_name = 'india'
+        @url = 'http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0'
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect(data).to eq expectations
+      end
+    end
+
+    # NEW 36 HOUR FORMATS
+
     describe "berkeley" do
 
       before do 
@@ -31,6 +48,21 @@ module Scrapers
         expect(data).to eq expectations
       end
     end
+
+    describe "dublin" do
+
+      before do 
+        @base_name = 'dublin'
+        @url = 'http://www.nytimes.com/2014/11/16/travel/things-to-do-in-36-hours-in-dublin-ireland.html?rref=travel&module=ArrowsNav&contentCollection=Travel&action=keypress&region=FixedLeft&pgtype=article'
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect(data).to eq expectations
+      end
+    end
+
+    # OLD 36 HOUR FORMATS
 
     describe "cartagena" do
 
@@ -58,19 +90,6 @@ module Scrapers
       end
     end
     
-    # describe "india" do
-
-    #   before do 
-    #     @base_name = 'india'
-    #     @url = 'http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0'
-    #     @base_domain = get_domain(@url)
-    #   end
-
-    #   it "parses the page correctly" do
-    #     expect(data).to eq expectations
-    #   end
-    # end
-
     describe "amelia island" do
 
       before do 
