@@ -30,7 +30,7 @@ module Scrapers
             country: country,
             phone: trim( phone ),
             category: category,
-            price_info: trim( price_info ),
+            price_note: trim( price_info ),
             ratings:{
               site_name: site_name,
               rating: rating,
@@ -86,11 +86,7 @@ module Scrapers
       end
 
       def rating
-        rate = ( page.css('.metacontent').css('img.rating_no_fill').first.attribute('alt').value ).scan(/.*?(\d+\.?\d*).*?/).flatten.first.to_i
-        base = 5.0
-        if rate
-          return ( (rate * 100) / base ).round
-        end
+        calculate_rating( page.css('.metacontent').css('img.rating_no_fill').first.attribute('alt').value, 5 )
       rescue ; nil        
       end
 

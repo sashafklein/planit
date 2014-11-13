@@ -1,12 +1,5 @@
 module CssOperators
 
-  # def find_and_clean_inner_html_of_first_success(target)
-  #   target.each do |attempt|
-  #     if page.css(attempt) && page.css(attempt).length > 0
-  #       page.css(attempt)  
-  #   end
-  # end
-
   def find_scripts_inner_html(page_to_search)
     page_to_search.inner_html.scan(/<script(?:\s[^>]*)?\>(?:\s*\n\s*)?((?:\n|.)*?)(?:\s*\n\s*)?\<\/script\>/)
   end
@@ -85,18 +78,6 @@ module CssOperators
     string.scan(find_lat_lon_regex).flatten.first ; rescue ; nil
   end
 
-  # def text_selector(selector)
-  #   if (sel = css(selector)).any?
-  #     text = sel.inner_html
-  #       .gsub(/\<\/*[p]\>/, "\n")
-  #       .gsub(/\<\/*[br]\>/, "\n")
-  #       .gsub(/\&[l][t]\;(?:.|\n)*?\&[g][t]\;/, '')
-  #     de_tag( text )
-  #   else
-  #     nil
-  #   end
-  # end
-
   def de_tag(html)
     html.gsub(/<(?:.|\n)*?>/, '') ; rescue ; html
   end
@@ -109,12 +90,6 @@ module CssOperators
           .gsub(/\s+/, ' ')
           .gsub(/(\t)/, '')
       URI.unescape(html)
-    end
-  end
-
-  def any_case(string)
-    if string.length > 0
-      '(?:' + string.upcase + '|' + string.downcase + '|' + string.capitalize + '|' + string.titleize + ')'
     end
   end
 

@@ -42,11 +42,7 @@ module Scrapers
       end
 
       def rating
-        rate = ( page.css("span.rating").css("span.average").first.text ).to_i
-        base = 10
-        if rate
-          return ( (rate * 100) / base ).round
-        end
+        calculate_rating( page.css("span.rating").css("span.average").first.text , 10 )
       rescue ; nil
       end
 

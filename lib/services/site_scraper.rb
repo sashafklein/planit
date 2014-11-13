@@ -55,7 +55,7 @@ module Services
           global_data,
         ])
       end
-      binding.pry
+      # binding.pry
       @data
     end
 
@@ -92,6 +92,17 @@ module Services
 
     # OPERATIONS
     
+    def calculate_rating(string, base)
+      #clean rating string
+      if string && string.length > 0
+        rate = string.scan(/.*?(\d+\.?\d*)(?: of \d+\.?\d*)?.*?/).flatten.first.to_f
+      end
+      if rate && base
+        return ( (rate.to_f * 100) / base ).round
+      end
+    rescue ; nil
+    end
+
     def remove_punc(string)
       string.scan(remove_final_punctuation_regex).first.first ; rescue ; string
     end

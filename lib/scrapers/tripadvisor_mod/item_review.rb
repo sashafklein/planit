@@ -24,7 +24,7 @@ module Scrapers
             images: images,
             lat: lat,
             lon: lon,
-            price_tier: trim( price_info ),
+            price_note: trim( price_info ),
             ratings:{
               site_name: site_name,
               rating: rating,
@@ -73,11 +73,7 @@ module Scrapers
       end
 
       def rating
-        rate = ( page.css('img.rating_no_fill').attribute('content').value ).scan(/.*?(\d+\.?\d*).*?/).flatten.first.to_i
-        base = 5.0
-        if rate
-          return ( (rate * 100) / base ).round
-        end
+        calculate_rating( page.css('img.rating_no_fill').attribute('content').value , 5 )
       rescue ; nil        
       end
 

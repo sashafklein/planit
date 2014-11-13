@@ -19,31 +19,31 @@ module Scrapers
       end
     end
 
-    describe "lively" do
+    # describe "lively" do
 
-      before do 
-        @base_name = 'lively'
-        @url = 'http://www.travelandleisure.com/trips/trip-guide-to-lively-cartagena-colombia'
-        @base_domain = get_domain(@url)
-      end
+    #   before do 
+    #     @base_name = 'lively'
+    #     @url = 'http://www.travelandleisure.com/trips/trip-guide-to-lively-cartagena-colombia'
+    #     @base_domain = get_domain(@url)
+    #   end
 
-      it "parses the page correctly" do
-        expect(data).to eq expectations
-      end
-    end
+    #   it "parses the page correctly" do
+    #     expect(data).to eq expectations
+    #   end
+    # end
 
-    describe "retreat" do
+    # describe "retreat" do
 
-      before do 
-        @base_name = 'retreat'
-        @url = 'http://www.travelandleisure.com/articles/cartagena-a-hidden-retreat'
-        @base_domain = get_domain(@url)
-      end
+    #   before do 
+    #     @base_name = 'retreat'
+    #     @url = 'http://www.travelandleisure.com/articles/cartagena-a-hidden-retreat'
+    #     @base_domain = get_domain(@url)
+    #   end
 
-      it "parses the page correctly" do
-        expect(data).to eq expectations
-      end
-    end
+    #   it "parses the page correctly" do
+    #     expect(data).to eq expectations
+    #   end
+    # end
 
   end
 end 

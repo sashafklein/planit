@@ -84,10 +84,6 @@ module Scrapers
         true
       end
 
-      def ratings_base
-        5
-      end
-
       def price_info(guide_no)
         if guide_no
           if cost = page.css("#guide_#{guide_no}").first.css("strong:contains('Cost:')").first
@@ -157,7 +153,8 @@ module Scrapers
       end
 
       def rating(guide_no)
-        page.css("#guide_#{guide_no}").first.css('.sprite-ratings').first.attribute('alt').value ; rescue ; nil
+        calculate_rating( page.css("#guide_#{guide_no}").first.css('.sprite-ratings').first.attribute('alt').value, 5 )
+      rescue ; nil
       end
 
       def duration_info(guide_no)
