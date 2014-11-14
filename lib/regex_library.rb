@@ -79,11 +79,11 @@ module RegexLibrary
     def details_semi_or_comma_separated_with_number_thread
       threads = [
         "(?:",
-        "[^$><#{quote_thread};,]+?",
+        "[^$)><;,]+?",
         "(?:",
         "[;,]",
         "\\s",
-        "[^;),><#{quote_thread}]+?",
+        "[^$)><;,]+?",
         ")?",
         "[;,]",
         "\\s",
@@ -163,12 +163,24 @@ module RegexLibrary
       within_whitespace( "(?:\\<\\/(?:b|strong)\\>)") 
     end
 
+    def a_link_open_thread
+      "(?:\\<a.*?href\\=['#{quote_thread}][^'#{quote_thread}]*?['#{quote_thread}]\\s*[^>]*?\\>)"
+    end
+
+    def a_link_close_thread
+      "(?:\\<\\/a\\>)"
+    end
+
     def a_href_thread
-      "(?:\\<a.*?href\\=\\'[^'#{quote_thread}]*?\\'[^>]*?\\>[^<]*\\<\\/a\\>)"
+      "(?:#{a_link_open_thread}.*?#{a_link_close_thread})"
     end
 
     def a_find_href_thread
-      "(?:\\<a.*?href\\=\\'([^'#{quote_thread}]*?)\\'[^>]*?\\>[^<]*\\<\\/a\\>)"
+      "(?:\\<a.*?href\\=['#{quote_thread}]([^'#{quote_thread}]*?)['#{quote_thread}]\\s*[^>]*?\\>.*?#{a_link_close_thread})"
+    end
+
+    def find_phone_number_between_comma_or_semicolon_or_parens
+      "(?:[;,(]\\s\\s*((?:[+(]*\\d+[)(-. ]?)+\\d\\d+))"
     end
 
     # REGEX SAFETY <- CANNOT BE REPEATED * OR + OR ?
@@ -818,6 +830,74 @@ module RegexLibrary
         "['#{quote_thread}]?",
         "[^}]*",
         "\}",
+      ]
+      %r!#{regex_string.join}!      
+    end
+
+    def only_within_strong_strict_start_end
+      regex_string = [
+        "(?:",
+        "\\A",
+        b_or_strong_open_thread,
+        "(.*?)",
+        b_or_strong_close_thread,
+        "\\Z",
+        ")",
+      ]
+      %r!#{regex_string.join}!      
+    end
+
+    def capture_strong_phrase_accept_link
+      regex_string = [
+        "(",
+        a_link_open_thread,
+        "?",
+        "[\\s]*",
+        b_or_strong_open_thread,
+        "(?:.*?)",
+        b_or_strong_close_thread,
+        "[\\s]*",
+        a_link_close_thread,
+        "?",
+        ")",
+      ]
+      %r!#{regex_string.join}!      
+    end
+
+    def capture_strong_phrase_accept_link_followed_by_parens
+      regex_string = [
+        "(",
+        a_link_open_thread,
+        "?",
+        "[\\s]*",
+        b_or_strong_open_thread,
+        "(?:.*?)",
+        b_or_strong_close_thread,
+        "[\\s]*",
+        a_link_close_thread,
+        "?",
+        "[\\s]*",
+        "\\(",
+        ".*?",
+        "\\)",
+        ")",
+      ]
+      %r!#{regex_string.join}!      
+    end
+
+    def capture_phrase_accept_link_followed_by_detail_parens
+      regex_string = [
+        "(",
+        a_link_open_thread,
+        "?",
+        "(?:.*?)",
+        a_link_close_thread,
+        "?",
+        "\\s*",
+        "\\(",
+        details_semi_or_comma_separated_with_number_thread,
+        "\\)",
+        ")",
       ]
       %r!#{regex_string.join}!      
     end

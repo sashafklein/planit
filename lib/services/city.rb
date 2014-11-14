@@ -9,7 +9,7 @@ module Services
       city = cities.find do |name, accented|
         string.downcase.match /(?:\A|[ ]|[,]|[;]|[.])#{name}(?:\z|[ ]|[,]|[;]|[.])/
       end
-      city ? city.last['accented'] : nil
+      city ? city.last[:accented] : nil
     end
 
     private

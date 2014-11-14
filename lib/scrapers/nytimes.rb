@@ -13,8 +13,8 @@ module Scrapers
         NytimesMod::IncorporatedThirtySixDetails.new(url, page)
       elsif thirty_six_new?(url) && google_map_enabled?(url, page)
         NytimesMod::GoogleThirtySixMapped.new(url, page)
-      elsif google_map_enabled?(url, page)
-        NytimesMod::GoogleMapped.new(url, page)
+      # elsif google_map_enabled?(url, page)
+      #   NytimesMod::GoogleMapped.new(url, page)
       elsif thirty_six_new?(url)
         NytimesMod::SeparatedThirtySixDetails.new(url, page)
       # elsif restaurant_new?(url)
@@ -51,16 +51,17 @@ module Scrapers
     def self.travel_separate_2012?(url, page)
       page = Nokogiri::HTML page
       if url.include?('/travel/')
-        if wrapper = page.css(".articleBody")
-          ["downcase", "titleize", "upcase", "capitalize"].each do |operator|
-            search_term = "if you go".send(operator)
-            if separation = wrapper.css("strong:contains('#{search_term}')").first
-              if separation.parent.next_element.present?
-                return true
-              end
-            end
-          end
-        end
+        # if wrapper = page.css(".articleBody")
+        #   ["downcase", "titleize", "upcase", "capitalize"].each do |operator|
+        #     search_term = "if you go".send(operator)
+        #     if separation = wrapper.css("strong:contains('#{search_term}')").first
+        #       if separation.parent.next_element.present?
+        #         return true
+        #       end
+        #     end
+        #   end
+        # end
+        return true
       end
       return false
     end

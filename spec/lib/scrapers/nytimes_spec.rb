@@ -21,15 +21,31 @@ module Scrapers
 
     # TRAVEL GENERAL FORMATS
 
-    # describe "india" do
+    describe "india" do
+
+      before do 
+        @base_name = 'india'
+        @url = 'http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0'
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect_equal(data, expectations)
+        expect(data).to eq expectations
+      end
+    end
+
+    # describe "foodies" do
 
     #   before do 
-    #     @base_name = 'india'
-    #     @url = 'http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0'
+    #     @base_name = 'foodies'
+    #     @url = 'http://www.nytimes.com/2008/10/26/travel/26choice.html?pagewanted=all&_r=0'
     #     @base_domain = get_domain(@url)
     #   end
 
     #   it "parses the page correctly" do
+    #     binding.pry
+    #     expect_equal(data, expectations)
     #     expect(data).to eq expectations
     #   end
     # end
