@@ -21,20 +21,6 @@ module Scrapers
 
     # TRAVEL GENERAL FORMATS
 
-    describe "india" do
-
-      before do 
-        @base_name = 'india'
-        @url = 'http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
-    end
-
     # describe "foodies" do
 
     #   before do 
@@ -49,6 +35,20 @@ module Scrapers
     #     expect(data).to eq expectations
     #   end
     # end
+
+    describe "india" do
+
+      before do 
+        @base_name = 'india'
+        @url = 'http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0'
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect_equal(data, expectations)
+        expect(data).to eq expectations
+      end
+    end
 
     # NEW 36 HOUR FORMATS
 

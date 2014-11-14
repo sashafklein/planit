@@ -179,8 +179,12 @@ module RegexLibrary
       "(?:\\<a.*?href\\=['#{quote_thread}]([^'#{quote_thread}]*?)['#{quote_thread}]\\s*[^>]*?\\>.*?#{a_link_close_thread})"
     end
 
+    def phone_number_thread
+      "(?:(?:[+(]*\\d+[(\\\-\/. )]?)+\\d\\d\\d+)"
+    end
+
     def find_phone_number_between_comma_or_semicolon_or_parens
-      "(?:[;,(]\\s\\s*((?:[+(]*\\d+[)(-. ]?)+\\d\\d+))"
+      "(?:[;,(]\\s\\s*(#{phone_number_thread}))"
     end
 
     # REGEX SAFETY <- CANNOT BE REPEATED * OR + OR ?
