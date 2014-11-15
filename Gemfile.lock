@@ -2,6 +2,9 @@ GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
+    RubyInline (3.12.3)
+      ZenTest (~> 4.3)
+    ZenTest (4.11.0)
     actionmailer (4.1.4)
       actionpack (= 4.1.4)
       actionview (= 4.1.4)
@@ -114,6 +117,8 @@ GEM
       i18n
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
+    fuzzy-string-match (0.9.7)
+      RubyInline (>= 3.8.6)
     geocoder (1.2.5)
     haml (4.0.5)
       tilt
@@ -305,6 +310,7 @@ DEPENDENCIES
   foreman
   formulaic
   friendly_id (~> 5.0.0)
+  fuzzy-string-match
   geocoder
   haml-rails
   high_voltage

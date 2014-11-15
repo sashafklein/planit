@@ -1,7 +1,21 @@
 class PlaceValidator < ActiveModel::Validator
+  
   def validate(record)
-    if preexisting = Place.where.not(id: record.id).where(region: record.region, locality: record.locality).with_address(record.street_address).first
-      record.errors[:uniqueness] << "This place is already in the database. ID: #{preexisting.id}"
+    validate_lat_presence(record)
+    validate_lon_presence(record)
+  end
+
+  private
+
+  def validate_lat_presence(record)
+    if !record.lat.present?
+      record.errors[:base] << "Lat can't be blank"
+    end
+  end
+
+  def validate_lon_presence(record)
+    if !record.lon.present?
+      record.errors[:base] << "Lon can't be blank"
     end
   end
 end 

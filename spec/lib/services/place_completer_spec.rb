@@ -25,7 +25,7 @@ module Services
           expect( place.locality ).to eq('Shibuya')
           expect( place.street_addresses ).to eq( ["代々木2-14-3"] ) # Bonus -- should have "2 Chome-14 Yoyogi"
           expect( place.names ).to eq( ["Fuunji", "風雲児"] )
-          expect( place.phones ).to eq({ default: "+81364138480" })
+          expect( place.phones ).to eq({ 'default' => "+81364138480" })
           expect( place.category ).to eq("Ramen / Noodle House")
         end
 
@@ -38,30 +38,7 @@ module Services
           expect( place.lon ).to eq(-74.06488449999999)
         end
 
-        it "finds Dwelltime" do
-          place = PlaceCompleter.new({ name: "Dwelltime", nearby: 'Boston, MA'}).complete!
-          # Wrong region information, different lat/lon
-          binding.pry
-          place = PlaceCompleter.new({ name: "Dwelltime", nearby: 'Cambridge, MA' }).complete!
-          # Lat/lon off by a few blocks
-          binding.pry
-
-          place = PlaceCompleter.new({ name: "Dwelltime", nearby: 'Cambridge, MA', street_address: '364 Broadway'}).complete!
-          # Works
-          binding.pry
-
-          expect(place.locality).to eq('Cambridge')
-          expect(place.region).to eq("Massachusetts")
-          expect(place.subregion).to eq("Middlesex County")
-          expect(place.street_addresses).to eq([])
-          expect(place.lat).to eq 42.370557650844894
-          expect(place.lon).to eq -71.10438466072083
-          expect(place.category).to eq 'Coffee Shop'
-          expect(place.website).to eq 'http://dwelltimecambridge.com'
-          expect(place.images.first).to eq 'https://irs3.4sqi.net/img/general/2000x200/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg'
-        end
-
-        xit 'finds La Cevicheria in Cartagena' do
+        it 'finds La Cevicheria in Cartagena', :vcr do
           place = PlaceCompleter.new({name: 'La Cevicheria', street_address: "Calle Stuart No 7-14", nearby: "Cartagena, Colombia"} ).complete!
           
           expect( place.locality ).to eq "Cartagena"
@@ -69,16 +46,14 @@ module Services
           expect( place.region ).to eq "Bolivar"
           expect( place.category ).to eq 'Seafood Restaurant'
           expect( place.street_addresses ).to eq ["Calle Stuart No 7-14", "Calle Stuart 7-14"]
-
-          # expect( place.phones ).to eq( { default: "+5756645255" })
-          expect( place.lat ).to eq 10.42786552 # Geocoder and Lonely Planet disagree
-          expect( place.lon ).to eq -75.54796437
+          expect( place.lat ).to eq 10.428036
+          expect( place.lon ).to eq -75.548012
         end
 
         it "locates the Trident hotel in Mumbai, with 'Bombay' as nearby", :vcr do
           place = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: 'Bombay', street_address: 'Nariman Point, Mumbai, India'}).complete!
           expect( place.names ).to eq(["Trident Nariman Point", "The Trident"])
-          expect( place.phones ).to eq({ default: '+912266324343'})
+          expect( place.phones ).to eq({ 'default' => '+912266324343'})
           expect( place.region ).to eq("Maharashtra")
           expect( place.street_addresses ).to eq(["Nariman Point, Mumbai, India", "Nariman Point"])
           expect( place.full_address ).to eq("Nariman Point, Mumbai, Maharashtra, India")
@@ -100,20 +75,36 @@ module Services
         end
 
         it "recognizes the varying Fuunjis", :vcr do
-          place = PlaceCompleter.new({ name: 'Fuunji', nearby: 'Shinjuku, Tokyo' }).complete!
+          place = PlaceCompleter.new({ name: 'Fu-Unji', nearby: 'Shinjuku, Tokyo' }).complete!
           place2 = PlaceCompleter.new({ name: 'Fu-Unji', nearby: 'Tokyo'}).complete!
-          place3 = PlaceCompleter.new({ name: '風雲児', nearby: 'Tokyo, Japan'}).complete!
-          binding.pry
-          place4 = PlaceCompleter.new({ street_address: '代々木2-14-3', nearby: 'Tokyo, Japan' }).complete!
-          binding.pry
+          place3 = PlaceCompleter.new({ name: 'Fuunji', nearby: 'Tokyo, Japan'}).complete!
+
           expect( place ).to eq place2
           expect( place2 ).to eq place3
-          expect( place3 ).to eq place4
+        end
+
+
+        it "finds, correctly locates, and combines various Dwelltimes" do
+          place = PlaceCompleter.new({ name: "Dwelltime", nearby: 'Boston, MA'}).complete!
+          place2 = PlaceCompleter.new({ name: "Dwelltime", nearby: 'Cambridge, MA' }).complete!
+          place3 = PlaceCompleter.new({ name: "Dwelltime", nearby: 'Cambridge, MA', street_address: '364 Broadway'}).complete!
+          
+          place.reload 
+
+          expect(place.locality).to eq('Cambridge')
+          expect(place.region).to eq("Massachusetts")
+          expect(place.subregion).to eq("Middlesex County")
+          expect(place.street_addresses).to eq(['364 Broadway'])
+          expect(place.lat).to be_within(0.00001).of 42.370557650844894
+          expect(place.lon).to be_within(0.00001).of -71.10438466072083
+          expect(place.category).to eq 'Coffee Shop'
+          expect(place.website).to eq 'http://dwelltimecambridge.com'
+          expect(place.images.first.url).to eq 'https://irs3.4sqi.net/img/general/200x200/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg'
         end
       end
 
-      describe "how it cleans/flattens incoming hash info", :vcr do
-        it "turns excess into 'extra', and flattens name/street_address into names/street_addresses" do
+      describe "how it cleans/flattens incoming hash info" do
+        it "turns excess into 'extra', and flattens name/street_address into names/street_addresses", :vcr do
           hash = {
             locality: 'Shibuya, Tokyo',
             name: 'Fuunji',

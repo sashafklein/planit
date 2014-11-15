@@ -34,6 +34,30 @@ module RegexLibrary
       "(?:#{insert})"
     end
 
+    def non_latinate_thread
+      "(?:[^A-Z#{upcase_latinate_thread}a-z#{downcase_latinate_thread}])"
+    end
+
+    def non_latinate_or_punctuation_thread
+      "(?:[^#{normal_punctuation_thread}A-Z#{upcase_latinate_thread}a-z#{downcase_latinate_thread}])"
+    end
+
+    def non_latinate_or_punctuation_or_space_thread
+      "(?:[^#{normal_punctuation_thread}A-Z#{upcase_latinate_thread}a-z#{downcase_latinate_thread}0-9 ])"
+    end
+
+    def upcase_latinate_thread
+      "ÄÀÁÇÈÉËÌÍÏÖÒÓÜŪÑÇ"
+    end
+
+    def downcase_latinate_thread
+      "äàáçèéëìïíöòóüūñç"
+    end
+
+    def normal_punctuation_thread
+      "-#{quote_thread}'’!?.,:;_`\\/"
+    end
+
     def quote_thread
       '"'
     end
@@ -59,7 +83,7 @@ module RegexLibrary
     end
 
     def title_or_upper_case_word
-      "(?:[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó'’]+)"
+      "(?:[A-Z#{upcase_latinate_thread}][A-Z#{upcase_latinate_thread}a-z#{downcase_latinate_thread}'’]+)"
       # "(?:[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó'’]+)"
     end
 
@@ -69,7 +93,7 @@ module RegexLibrary
     end
 
     def title_case_word
-      "(?:[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó'’]+)"
+      "(?:[A-Z#{upcase_latinate_thread}][a-z#{downcase_latinate_thread}'’]+)"
       # "(?:[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][a-zäàáçèéëìíöòó'’]+)"
     end
 

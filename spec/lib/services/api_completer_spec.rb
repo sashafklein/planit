@@ -1,40 +1,42 @@
 require 'spec_helper'
 
 module Services
-  describe ApiSquareCompleter do
+  describe ApiCompleter do
     describe "complete!" do
       context "with sufficient information" do
 
-        it "returns a persisted place", :vcr do
+        it "returns a non-persisted place", :vcr do
           place = Place.new({lat: 37.74422249388305, lon: -122.4352317663816, names: ["Contigo"]})
           completed = ApiCompleter.new(place).complete!
-          expect( completed ).to be_a Place
-          expect( completed ).to be_persisted
+          c_place = completed[:place]
+          expect( c_place ).to be_a Place
+          expect( c_place ).not_to be_persisted
         end
 
         it "completes with latLon and name", :vcr do
-          place = Place.new({lat: 37.74422249388305, lon: -122.4352317663816, names: ["Contigo"]})
-          f = ApiCompleter.new(place)
-          completed = f.complete!
+          place = Place.new({lat: 37.750, lon: -122.434, names: ["Contigo"]})
+          completed = ApiCompleter.new(place).complete!
+          c_place = completed[:place]
 
-          expect(completed.street_address).to eq('1320 Castro St')
-          expect(completed.phones).to eq( { default: "4152850250" } )
-          expect(completed.category).to eq('Spanish Restaurant')
+          expect( c_place.street_address ).to eq('1320 Castro St')
+          expect( c_place.phones ).to eq( { default: "4152850250" } )
+          expect( c_place.category ).to eq('Spanish Restaurant')
         end
 
         it "completes with locality and name", :vcr do
           place = Place.new({locality: 'Cartagena', country: 'Colombia', names: ["La Cevicheria"]})
-          f = ApiCompleter.new(place)
-          completed = f.complete!
+          completed = ApiCompleter.new(place).complete!
 
-          img = completed.images.first
+          c_place = completed[:place]
+
+          img = completed[:photo]
           expect(img).to be_present
           expect( %w(png jpg jpeg) ).to include img.url.split('.').last
           expect(img.source).to eq 'FourSquare'
 
-          expect(completed.category).to eq('Seafood Restaurant')
-          expect(completed.country).to eq('Colombia')
-          expect(completed.region).to eq('Bolívar')
+          expect( c_place.category ).to eq('Seafood Restaurant')
+          expect( c_place.country ).to eq('Colombia')
+          expect( c_place.region ).to eq('Bolívar')
         end
       end
 
@@ -42,13 +44,16 @@ module Services
         it "returns original without name" do
           place = Place.new({lat: 37.74422249388305, lon: -122.4352317663816})
           completed = ApiCompleter.new(place).complete!
-          expect(completed).to eq( place )
+          c_place = completed[:place]
+
+          expect( c_place ).to eq( place )
         end
 
         it "returns original without locality" do
-          place = Place.new({names: ["Contigo"], street_address: '1320 Castro St'})
+          place = Place.new({names: ["Contigo"], street_addresses: ['1320 Castro St']})
           completed = ApiCompleter.new(place).complete!
-          expect(completed).to eq(place)
+          c_place = completed[:place]
+          expect( c_place ).to eq(place)
         end
       end
 
@@ -56,7 +61,8 @@ module Services
         it "returns the original" do
           place = Place.new({names: ["ThisPlaceDoesntExist"], locality: 'San Francisco'})
           completed = ApiCompleter.new(place).complete!
-          expect(completed).to eq(place)
+          c_place = completed[:place]
+          expect( c_place ).to eq(place)
         end
       end
     end

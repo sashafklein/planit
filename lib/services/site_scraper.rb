@@ -11,15 +11,15 @@ module Services
     extend CssOperators
     include GeoQueries
 
-    def self.build(url, page)
+    def self.build(url, page=nil)
       specific_scraper(url, page)
     end
 
     attr_accessor :url, :page
     delegate :css, to: :page
-    def initialize(url, page)
+    def initialize(url, page=nil)
       @url = url
-      @page = Nokogiri::HTML page
+      @page = Nokogiri::HTML( page ? page : open(url) )
       @data = []
     end
 

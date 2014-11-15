@@ -2,18 +2,131 @@
 http_interactions:
 - request:
     method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=Calle%20Santo%20Domingo,%20No.%203-88,%20Cartagena,%20Colombia&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Sat, 15 Nov 2014 01:00:37 GMT
+      Expires:
+      - Sun, 16 Nov 2014 01:00:37 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.01
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Baluarte de Santo Domingo",
+                       "short_name" : "Baluarte de Santo Domingo",
+                       "types" : [ "point_of_interest", "establishment" ]
+                    },
+                    {
+                       "long_name" : "Calle Zerrezuela",
+                       "short_name" : "Calle Zerrezuela",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "El Centro",
+                       "short_name" : "El Centro",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Centro",
+                       "short_name" : "Centro",
+                       "types" : [ "sublocality_level_1", "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "Cartagena",
+                       "short_name" : "Cartagena",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Bolivar",
+                       "short_name" : "Bolivar",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "Colombia",
+                       "short_name" : "CO",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Baluarte de Santo Domingo, Calle Zerrezuela, Cartagena, Bolivar, Colombia",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 10.4241992,
+                       "lng" : -75.55396689999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 10.4255481802915,
+                          "lng" : -75.5526179197085
+                       },
+                       "southwest" : {
+                          "lat" : 10.4228502197085,
+                          "lng" : -75.5553158802915
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "types" : [ "point_of_interest", "establishment" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Sat, 15 Nov 2014 01:00:37 GMT
+- request:
+    method: get
     uri: https://api.foursquare.com/v2/venues/explore?near=Cartagena,%20Colombia&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=La%20Paletteria&v=20140819&venuePhotos=1
     body:
       encoding: US-ASCII
       string: ''
-    headers: {}
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Thu, 06 Nov 2014 22:14:14 GMT
+      - Sat, 15 Nov 2014 01:00:37 GMT
       Server:
       - nginx
       Content-Type:
@@ -21,29 +134,29 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Tracer-Time:
-      - '170'
+      - '183'
       X-Ratelimit-Limit:
       - '500'
       X-Ratelimit-Remaining:
-      - '498'
+      - '479'
       Strict-Transport-Security:
       - max-age=864000
       X-Ex:
       - fastly_cdn
-      Content-Length:
-      - '5637'
       Accept-Ranges:
       - bytes
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-sjc3134-SJC
+      - cache-sjc3120-SJC
       X-Cache:
       - MISS
       X-Cache-Hits:
       - '0'
       Vary:
       - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -84,9 +197,9 @@ http_interactions:
         cHM6XC9cL3NzMy40c3FpLm5ldFwvaW1nXC9jYXRlZ29yaWVzX3YyXC9mb29k
         XC9pY2VjcmVhbV8iLCJzdWZmaXgiOiIucG5nIn0sInByaW1hcnkiOnRydWV9
         XSwidmVyaWZpZWQiOmZhbHNlLCJzdGF0cyI6eyJjaGVja2luc0NvdW50Ijox
-        NTIzLCJ1c2Vyc0NvdW50IjoxMjA1LCJ0aXBDb3VudCI6OTB9LCJwcmljZSI6
+        NTIzLCJ1c2Vyc0NvdW50IjoxMjA1LCJ0aXBDb3VudCI6OTJ9LCJwcmljZSI6
         eyJ0aWVyIjoxLCJtZXNzYWdlIjoiQ2hlYXAiLCJjdXJyZW5jeSI6IiQifSwi
-        bGlrZSI6ZmFsc2UsInJhdGluZyI6OS4zLCJyYXRpbmdTaWduYWxzIjoyNTYs
+        bGlrZSI6ZmFsc2UsInJhdGluZyI6OS4zLCJyYXRpbmdTaWduYWxzIjoyNTgs
         ImhvdXJzIjp7InN0YXR1cyI6Ikxpa2VseSBvcGVuIiwiaXNPcGVuIjp0cnVl
         fSwic3BlY2lhbHMiOnsiY291bnQiOjAsIml0ZW1zIjpbXX0sInBob3RvcyI6
         eyJjb3VudCI6MjY4LCJncm91cHMiOlt7InR5cGUiOiJ2ZW51ZSIsIm5hbWUi
@@ -100,79 +213,81 @@ http_interactions:
         IiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczEuNHNxaS5uZXRc
         L2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9QSVVZSUNIQlRRSEkzMEVFLmpw
         ZyJ9fSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9XX1dfSwiaGVyZU5vdyI6eyJj
-        b3VudCI6MCwic3VtbWFyeSI6Ik5vYm9keSBoZXJlIiwiZ3JvdXBzIjpbXX0s
-        ImZlYXR1cmVkUGhvdG9zIjp7ImNvdW50IjoxLCJpdGVtcyI6W3siaWQiOiI1
-        MGRiNmJjOGU0YjA4OGFhNGFlZmNhMmIiLCJjcmVhdGVkQXQiOjEzNTY1NTcy
-        NTYsInByZWZpeCI6Imh0dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9pbWdcL2dl
-        bmVyYWxcLyIsInN1ZmZpeCI6IlwvMTYxMTEwMjFfVUx4T0tnQUxsa0pTNW05
-        aEZZTFd1M2o3Sk5ob0VRMlUwQk0xcHpUTFM4by5qcGciLCJ3aWR0aCI6NTQw
-        LCJoZWlnaHQiOjcyMCwidXNlciI6eyJpZCI6IjE2MTExMDIxIiwiZmlyc3RO
-        YW1lIjoiUnViZW4iLCJsYXN0TmFtZSI6IkVnZWEiLCJnZW5kZXIiOiJtYWxl
-        IiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczEuNHNxaS5uZXRc
-        L2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9QSVVZSUNIQlRRSEkzMEVFLmpw
-        ZyJ9fSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9XX19LCJmbGFncyI6eyJleGFj
-        dE1hdGNoIjp0cnVlfSwidGlwcyI6W3siaWQiOiI1MGRmYmUyY2U0YjBjOTcw
-        ODRlNGUyZGYiLCJjcmVhdGVkQXQiOjEzNTY4NDA0OTIsInRleHQiOiJTw7Ns
-        byBzZSBwdWVkZSBkZWNpciBXT1ciLCJ0eXBlIjoidXNlciIsImNhbm9uaWNh
-        bFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNTBkZmJl
-        MmNlNGIwYzk3MDg0ZTRlMmRmIiwicGhvdG8iOnsiaWQiOiI1MGRmYmUyZWU0
-        YjBhMmYyMGIyNzAyMGEiLCJjcmVhdGVkQXQiOjEzNTY4NDA0OTQsInNvdXJj
-        ZSI6eyJuYW1lIjoiZm91cnNxdWFyZSBmb3IgaVBob25lIiwidXJsIjoiaHR0
-        cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9kb3dubG9hZFwvI1wvaXBob25lIn0s
-        InByZWZpeCI6Imh0dHBzOlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL2dlbmVy
-        YWxcLyIsInN1ZmZpeCI6IlwvMjA0MDkyMDhfclpDTVBXOXBBV2hqVzZiSmlF
-        ZTEtaXZOUW5kZHVnZ1NDNVVPR3o4d2JYOC5qcGciLCJ3aWR0aCI6NzIwLCJo
-        ZWlnaHQiOjcyMH0sInBob3RvdXJsIjoiaHR0cHM6XC9cL2lyczMuNHNxaS5u
-        ZXRcL2ltZ1wvZ2VuZXJhbFwvb3JpZ2luYWxcLzIwNDA5MjA4X3JaQ01QVzlw
-        QVdoalc2YkppRWUxLWl2TlFuZGR1Z2dTQzVVT0d6OHdiWDguanBnIiwibGlr
-        ZXMiOnsiY291bnQiOjUsImdyb3VwcyI6W10sInN1bW1hcnkiOiI1IGxpa2Vz
-        In0sImxvZ1ZpZXciOnRydWUsInRvZG8iOnsiY291bnQiOjF9LCJ1c2VyIjp7
-        ImlkIjoiMjA0MDkyMDgiLCJmaXJzdE5hbWUiOiJKdWFuIiwibGFzdE5hbWUi
-        OiJSb21lcm8iLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4Ijoi
-        aHR0cHM6XC9cL2lyczAuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4
-        IjoiXC9LQkNQREJFV1NLUU5DRDJNLmpwZyJ9fX1dLCJyZWZlcnJhbElkIjoi
-        ZS0wLTUwOWVmMmI5ZTRiMDFiOWU0OWYxZDI1Yy0wIn0seyJyZWFzb25zIjp7
-        ImNvdW50IjowLCJpdGVtcyI6W3sic3VtbWFyeSI6IlRoaXMgc3BvdCBpcyBw
-        b3B1bGFyIiwidHlwZSI6ImdlbmVyYWwiLCJyZWFzb25OYW1lIjoiZ2xvYmFs
-        SW50ZXJhY3Rpb25SZWFzb24ifV19LCJ2ZW51ZSI6eyJpZCI6IjUzNTFiNDA4
-        NDk4ZTM0OTI5M2RmOGYyOSIsIm5hbWUiOiJMYSBQYWxldHRlcmlhIiwiY29u
-        dGFjdCI6e30sImxvY2F0aW9uIjp7ImxhdCI6MTAuNDMxOTk1ODI0MDcxOTMz
-        LCJsbmciOi03NS41MzM0NTU4ODIyMjgyNSwiY2MiOiJDTyIsImNvdW50cnki
-        OiJDb2xvbWJpYSIsImZvcm1hdHRlZEFkZHJlc3MiOlsiQ29sb21iaWEiXX0s
-        ImNhdGVnb3JpZXMiOlt7ImlkIjoiNGJmNThkZDhkNDg5ODhkMWM5OTQxNzM1
-        IiwibmFtZSI6IkljZSBDcmVhbSBTaG9wIiwicGx1cmFsTmFtZSI6IkljZSBD
-        cmVhbSBTaG9wcyIsInNob3J0TmFtZSI6IkljZSBDcmVhbSIsImljb24iOnsi
-        cHJlZml4IjoiaHR0cHM6XC9cL3NzMy40c3FpLm5ldFwvaW1nXC9jYXRlZ29y
-        aWVzX3YyXC9mb29kXC9pY2VjcmVhbV8iLCJzdWZmaXgiOiIucG5nIn0sInBy
-        aW1hcnkiOnRydWV9XSwidmVyaWZpZWQiOmZhbHNlLCJzdGF0cyI6eyJjaGVj
-        a2luc0NvdW50IjoxNCwidXNlcnNDb3VudCI6MTAsInRpcENvdW50IjowfSwi
-        cHJpY2UiOnsidGllciI6MSwibWVzc2FnZSI6IkNoZWFwIiwiY3VycmVuY3ki
-        OiIkIn0sImxpa2UiOmZhbHNlLCJzcGVjaWFscyI6eyJjb3VudCI6MCwiaXRl
-        bXMiOltdfSwicGhvdG9zIjp7ImNvdW50IjoyLCJncm91cHMiOlt7InR5cGUi
-        OiJ2ZW51ZSIsIm5hbWUiOiJWZW51ZSBwaG90b3MiLCJjb3VudCI6MiwiaXRl
-        bXMiOlt7ImlkIjoiNTM3OTczMTI0OThlMDdkZDNhZDAwYWMwIiwiY3JlYXRl
-        ZEF0IjoxNDAwNDY4MjQyLCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3Fp
-        Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzgzNzM5ODExX2t5
-        MEdPM3J6cXBIdHNERldSMWp1amU2ZFU1cDZqWFV4LVpudlBuckRvMDguanBn
-        Iiwid2lkdGgiOjcyMCwiaGVpZ2h0Ijo5NjAsInVzZXIiOnsiaWQiOiI4Mzcz
-        OTgxMSIsImZpcnN0TmFtZSI6IlhlbmlhIiwibGFzdE5hbWUiOiJHb21leiIs
-        ImdlbmRlciI6ImZlbWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwv
-        XC9pcnMxLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvODM3
-        Mzk4MTEtR0E0QkUwM1REWk5YT1NHNC5qcGcifX0sInZpc2liaWxpdHkiOiJw
-        dWJsaWMifV19XX0sImhlcmVOb3ciOnsiY291bnQiOjAsInN1bW1hcnkiOiJO
-        b2JvZHkgaGVyZSIsImdyb3VwcyI6W119LCJmZWF0dXJlZFBob3RvcyI6eyJj
-        b3VudCI6MSwiaXRlbXMiOlt7ImlkIjoiNTM3OTczMTI0OThlMDdkZDNhZDAw
-        YWMwIiwiY3JlYXRlZEF0IjoxNDAwNDY4MjQyLCJwcmVmaXgiOiJodHRwczpc
-        L1wvaXJzMC40c3FpLm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJc
-        LzgzNzM5ODExX2t5MEdPM3J6cXBIdHNERldSMWp1amU2ZFU1cDZqWFV4LVpu
-        dlBuckRvMDguanBnIiwid2lkdGgiOjcyMCwiaGVpZ2h0Ijo5NjAsInVzZXIi
-        OnsiaWQiOiI4MzczOTgxMSIsImZpcnN0TmFtZSI6IlhlbmlhIiwibGFzdE5h
-        bWUiOiJHb21leiIsImdlbmRlciI6ImZlbWFsZSIsInBob3RvIjp7InByZWZp
-        eCI6Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1
-        ZmZpeCI6IlwvODM3Mzk4MTEtR0E0QkUwM1REWk5YT1NHNC5qcGcifX0sInZp
-        c2liaWxpdHkiOiJwdWJsaWMifV19fSwiZmxhZ3MiOnsiZXhhY3RNYXRjaCI6
-        dHJ1ZX0sInJlZmVycmFsSWQiOiJlLTAtNTM1MWI0MDg0OThlMzQ5MjkzZGY4
-        ZjI5LTEifV19XX19
+        b3VudCI6MSwic3VtbWFyeSI6Ik9uZSBwZXJzb24gaXMgY2hlY2tlZCBpbiBo
+        ZXJlIiwiZ3JvdXBzIjpbeyJ0eXBlIjoib3RoZXJzIiwibmFtZSI6Ik90aGVy
+        IHBlb3BsZSBoZXJlIiwiY291bnQiOjEsIml0ZW1zIjpbXX1dfSwiZmVhdHVy
+        ZWRQaG90b3MiOnsiY291bnQiOjEsIml0ZW1zIjpbeyJpZCI6IjUwZGI2YmM4
+        ZTRiMDg4YWE0YWVmY2EyYiIsImNyZWF0ZWRBdCI6MTM1NjU1NzI1NiwicHJl
+        Zml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvZ2VuZXJhbFwv
+        Iiwic3VmZml4IjoiXC8xNjExMTAyMV9VTHhPS2dBTGxrSlM1bTloRllMV3Uz
+        ajdKTmhvRVEyVTBCTTFwelRMUzhvLmpwZyIsIndpZHRoIjo1NDAsImhlaWdo
+        dCI6NzIwLCJ1c2VyIjp7ImlkIjoiMTYxMTEwMjEiLCJmaXJzdE5hbWUiOiJS
+        dWJlbiIsImxhc3ROYW1lIjoiRWdlYSIsImdlbmRlciI6Im1hbGUiLCJwaG90
+        byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwvaW1nXC91
+        c2VyXC8iLCJzdWZmaXgiOiJcL1BJVVlJQ0hCVFFISTMwRUUuanBnIn19LCJ2
+        aXNpYmlsaXR5IjoicHVibGljIn1dfX0sImZsYWdzIjp7ImV4YWN0TWF0Y2gi
+        OnRydWV9LCJ0aXBzIjpbeyJpZCI6IjUwZGZiZTJjZTRiMGM5NzA4NGU0ZTJk
+        ZiIsImNyZWF0ZWRBdCI6MTM1Njg0MDQ5MiwidGV4dCI6IlPDs2xvIHNlIHB1
+        ZWRlIGRlY2lyIFdPVyIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2FsVXJsIjoi
+        aHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC81MGRmYmUyY2U0YjBj
+        OTcwODRlNGUyZGYiLCJwaG90byI6eyJpZCI6IjUwZGZiZTJlZTRiMGEyZjIw
+        YjI3MDIwYSIsImNyZWF0ZWRBdCI6MTM1Njg0MDQ5NCwic291cmNlIjp7Im5h
+        bWUiOiJmb3Vyc3F1YXJlIGZvciBpUGhvbmUiLCJ1cmwiOiJodHRwczpcL1wv
+        Zm91cnNxdWFyZS5jb21cL2Rvd25sb2FkXC8jXC9pcGhvbmUifSwicHJlZml4
+        IjoiaHR0cHM6XC9cL2lyczMuNHNxaS5uZXRcL2ltZ1wvZ2VuZXJhbFwvIiwi
+        c3VmZml4IjoiXC8yMDQwOTIwOF9yWkNNUFc5cEFXaGpXNmJKaUVlMS1pdk5R
+        bmRkdWdnU0M1VU9Hejh3Ylg4LmpwZyIsIndpZHRoIjo3MjAsImhlaWdodCI6
+        NzIwfSwicGhvdG91cmwiOiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwvaW1n
+        XC9nZW5lcmFsXC9vcmlnaW5hbFwvMjA0MDkyMDhfclpDTVBXOXBBV2hqVzZi
+        SmlFZTEtaXZOUW5kZHVnZ1NDNVVPR3o4d2JYOC5qcGciLCJsaWtlcyI6eyJj
+        b3VudCI6NSwiZ3JvdXBzIjpbXSwic3VtbWFyeSI6IjUgbGlrZXMifSwibG9n
+        VmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MX0sInVzZXIiOnsiaWQiOiIy
+        MDQwOTIwOCIsImZpcnN0TmFtZSI6Ikp1YW4iLCJsYXN0TmFtZSI6IlJvbWVy
+        byIsImdlbmRlciI6Im1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpc
+        L1wvaXJzMC40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL0tC
+        Q1BEQkVXU0tRTkNEMk0uanBnIn19fV0sInJlZmVycmFsSWQiOiJlLTAtNTA5
+        ZWYyYjllNGIwMWI5ZTQ5ZjFkMjVjLTAifSx7InJlYXNvbnMiOnsiY291bnQi
+        OjAsIml0ZW1zIjpbeyJzdW1tYXJ5IjoiVGhpcyBzcG90IGlzIHBvcHVsYXIi
+        LCJ0eXBlIjoiZ2VuZXJhbCIsInJlYXNvbk5hbWUiOiJnbG9iYWxJbnRlcmFj
+        dGlvblJlYXNvbiJ9XX0sInZlbnVlIjp7ImlkIjoiNTM1MWI0MDg0OThlMzQ5
+        MjkzZGY4ZjI5IiwibmFtZSI6IkxhIFBhbGV0dGVyaWEiLCJjb250YWN0Ijp7
+        fSwibG9jYXRpb24iOnsibGF0IjoxMC40MzE5OTU4MjQwNzE5MzMsImxuZyI6
+        LTc1LjUzMzQ1NTg4MjIyODI1LCJjYyI6IkNPIiwiY291bnRyeSI6IkNvbG9t
+        YmlhIiwiZm9ybWF0dGVkQWRkcmVzcyI6WyJDb2xvbWJpYSJdfSwiY2F0ZWdv
+        cmllcyI6W3siaWQiOiI0YmY1OGRkOGQ0ODk4OGQxYzk5NDE3MzUiLCJuYW1l
+        IjoiSWNlIENyZWFtIFNob3AiLCJwbHVyYWxOYW1lIjoiSWNlIENyZWFtIFNo
+        b3BzIiwic2hvcnROYW1lIjoiSWNlIENyZWFtIiwiaWNvbiI6eyJwcmVmaXgi
+        OiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9pbWdcL2NhdGVnb3JpZXNfdjJc
+        L2Zvb2RcL2ljZWNyZWFtXyIsInN1ZmZpeCI6Ii5wbmcifSwicHJpbWFyeSI6
+        dHJ1ZX1dLCJ2ZXJpZmllZCI6ZmFsc2UsInN0YXRzIjp7ImNoZWNraW5zQ291
+        bnQiOjE0LCJ1c2Vyc0NvdW50IjoxMCwidGlwQ291bnQiOjB9LCJwcmljZSI6
+        eyJ0aWVyIjoxLCJtZXNzYWdlIjoiQ2hlYXAiLCJjdXJyZW5jeSI6IiQifSwi
+        bGlrZSI6ZmFsc2UsInNwZWNpYWxzIjp7ImNvdW50IjowLCJpdGVtcyI6W119
+        LCJwaG90b3MiOnsiY291bnQiOjIsImdyb3VwcyI6W3sidHlwZSI6InZlbnVl
+        IiwibmFtZSI6IlZlbnVlIHBob3RvcyIsImNvdW50IjoyLCJpdGVtcyI6W3si
+        aWQiOiI1Mzc5NzMxMjQ5OGUwN2RkM2FkMDBhYzAiLCJjcmVhdGVkQXQiOjE0
+        MDA0NjgyNDIsInByZWZpeCI6Imh0dHBzOlwvXC9pcnMwLjRzcWkubmV0XC9p
+        bWdcL2dlbmVyYWxcLyIsInN1ZmZpeCI6IlwvODM3Mzk4MTFfa3kwR08zcnpx
+        cEh0c0RGV1IxanVqZTZkVTVwNmpYVXgtWm52UG5yRG8wOC5qcGciLCJ3aWR0
+        aCI6NzIwLCJoZWlnaHQiOjk2MCwidXNlciI6eyJpZCI6IjgzNzM5ODExIiwi
+        Zmlyc3ROYW1lIjoiWGVuaWEiLCJsYXN0TmFtZSI6IkdvbWV6IiwiZ2VuZGVy
+        IjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczEu
+        NHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC84MzczOTgxMS1H
+        QTRCRTAzVERaTlhPU0c0LmpwZyJ9fSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9
+        XX1dfSwiaGVyZU5vdyI6eyJjb3VudCI6MCwic3VtbWFyeSI6Ik5vYm9keSBo
+        ZXJlIiwiZ3JvdXBzIjpbXX0sImZlYXR1cmVkUGhvdG9zIjp7ImNvdW50Ijox
+        LCJpdGVtcyI6W3siaWQiOiI1Mzc5NzMxMjQ5OGUwN2RkM2FkMDBhYzAiLCJj
+        cmVhdGVkQXQiOjE0MDA0NjgyNDIsInByZWZpeCI6Imh0dHBzOlwvXC9pcnMw
+        LjRzcWkubmV0XC9pbWdcL2dlbmVyYWxcLyIsInN1ZmZpeCI6IlwvODM3Mzk4
+        MTFfa3kwR08zcnpxcEh0c0RGV1IxanVqZTZkVTVwNmpYVXgtWm52UG5yRG8w
+        OC5qcGciLCJ3aWR0aCI6NzIwLCJoZWlnaHQiOjk2MCwidXNlciI6eyJpZCI6
+        IjgzNzM5ODExIiwiZmlyc3ROYW1lIjoiWGVuaWEiLCJsYXN0TmFtZSI6Ikdv
+        bWV6IiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0
+        cHM6XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4Ijoi
+        XC84MzczOTgxMS1HQTRCRTAzVERaTlhPU0c0LmpwZyJ9fSwidmlzaWJpbGl0
+        eSI6InB1YmxpYyJ9XX19LCJmbGFncyI6eyJleGFjdE1hdGNoIjp0cnVlfSwi
+        cmVmZXJyYWxJZCI6ImUtMC01MzUxYjQwODQ5OGUzNDkyOTNkZjhmMjktMSJ9
+        XX1dfX0=
     http_version: 
-  recorded_at: Thu, 06 Nov 2014 22:14:15 GMT
+  recorded_at: Sat, 15 Nov 2014 01:00:37 GMT
 recorded_with: VCR 2.9.3

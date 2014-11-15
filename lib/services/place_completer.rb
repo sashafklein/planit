@@ -1,57 +1,48 @@
 module Services
   class PlaceCompleter
 
-    attr_accessor :attrs, :place
+    attr_accessor :attrs, :place, :photo
     def initialize(attrs)
       @attrs = normalize(attrs)
     end
 
     def complete!
-      @place = PlaceFinder.new(attrs).find!
+      @place = Place.find_or_initialize(attrs)
 
-      load_region_info_from_nearby! if attrs[:nearby]
+      load_region_info_from_nearby!
       geocode!
       api_complete!
+      translate!
 
-      @place.save! unless @place.persisted?
+      @place = @place.find_and_merge
+      @place.save_with_photos!( Array(@photo) )
       @place
     end
 
     private
 
-    def load_region_info_from_nearby!
-      response = Geocoder.search(attrs.delete(:nearby)).first.data
-
-      @place.country = fetch_address_value(response, "country")
-      @place.region = fetch_address_value(response, "administrative_area_level_1")
-      @place.subregion = fetch_address_value(response, "administrative_area_level_2", '')
-      @place.locality = fetch_address_value(response, "locality")
+    def geocode!
+      return unless @place.street_address || @place.full_address
+      @place = Services::Geolocater.new(place, attrs).narrow
+      @geocoded = true
     end
 
-    def geocode!
-      response = Geocoder.search( [@place.street_address, @place.locality, @place.subregion, @place.region, @place.country].compact.join(", ") ).first.data
+    def load_region_info_from_nearby!
+      @place = Services::Geolocater.new(place, attrs).load_region_info_from_nearby if attrs[:nearby]
+    end
 
-      @place.lat = response['geometry']['location']['lat']
-      @place.lon = response['geometry']['location']['lng']
-
-      @place.subregion ||= fetch_address_value(response, "administrative_area_level_2")
-      @place.locality ||= fetch_address_value(response, "locality")
-      @place.postal_code = fetch_address_value(response, "postal_code", 'short_name')
-      @place.full_address ||= response['formatted_address']
+    def translate!
+      @place = Services::Geolocater.new(place, attrs).translate
     end
 
     def api_complete!
       if @place.complete?
         @place
       else
-        @place = Services::ApiCompleter.new(@place).complete!
+        response = Services::ApiCompleter.new(@place, @attrs[:nearby], @geocoded).complete!
+        @place, @photo = response[:place], response[:photo]
         @place
       end
-    end
-
-    def fetch_address_value(response, type, length='long_name')
-      component = response['address_components'].find{ |c| c['types'].include?(type) }
-      component ? component[length] : nil
     end
 
     def normalize(attributes)

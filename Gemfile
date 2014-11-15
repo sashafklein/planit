@@ -30,6 +30,7 @@ gem 'devise'
 gem 'friendly_id', '~> 5.0.0'
 gem 'rack-mini-profiler'
 gem 'active_model_serializers'
+gem 'fuzzy-string-match'
 
 gem 'rails-assets-angular'
 gem 'rails-assets-angular-resource'

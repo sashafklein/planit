@@ -4,12 +4,16 @@ module Services
 
     describe "complete!" do
 
-      before { @user = create(:user) }
+      before do 
+        @user = create(:user)
+        allow_any_instance_of(PlaceValidator).to receive(:validate) {}
+      end
 
       context "new place" do
         context "with no sequence or plan data" do
-          it "saves and returns an associated mark, rounded out by FourSquare API" do
-            expect_any_instance_of(Completer).to receive(:fs_complete!)
+          it "saves and returns an associated mark, rounded out by Geocoder and FourSquare API" do
+            expect_any_instance_of(Services::PlaceCompleter).to receive(:api_complete!)
+            expect_any_instance_of(Services::PlaceCompleter).to receive(:geocode!)
 
             hash = place_hash
             c = Completer.new(place_hash, @user)
@@ -20,7 +24,7 @@ module Services
             place = mark.place
 
             expect(place.name).to eq hash[:place][:names][0]
-            expect(place.street_address).to eq hash[:place][:street_address]
+            expect(place.street_address).to eq hash[:place][:street_addresses].first
             expect(place.locality).to eq hash[:place][:locality]
             expect(place.country).to eq hash[:place][:country]
           end
@@ -35,7 +39,8 @@ module Services
           end
 
           it "ignores but retains unusable data" do
-            expect_any_instance_of(Completer).to receive(:fs_complete!)
+            expect_any_instance_of(Services::PlaceCompleter).to receive(:api_complete!)
+            expect_any_instance_of(Services::PlaceCompleter).to receive(:geocode!)
 
             c = Completer.new(place_hash({made_up: 'whatever'}), @user)
             c.complete!
@@ -53,7 +58,8 @@ module Services
         end
 
         it "finds the mark, and doesn't create duplicates" do
-          expect_any_instance_of(Completer).to receive(:fs_complete!)
+          expect_any_instance_of(Services::PlaceCompleter).to receive(:api_complete!)
+          expect_any_instance_of(Services::PlaceCompleter).to receive(:geocode!)
 
           mark_count = Mark.count
           place_count = Place.count
@@ -71,14 +77,15 @@ module Services
         it "fills any missing info", :vcr do
           completed_mark = Completer.new(place_hash, @user).complete!
 
-          expect(@mark.reload.region).to eq('Bolívar') # From FourSquare
+          expect(@mark.reload.region).to eq('Bolivar') # From FourSquare
         end
       end
 
       context "with sequence data" do
         context "without legs" do
           it "creates an item, associated with day and plan" do
-            expect_any_instance_of(Completer).to receive(:fs_complete!)
+            expect_any_instance_of(Services::PlaceCompleter).to receive(:api_complete!)
+            expect_any_instance_of(Services::PlaceCompleter).to receive(:geocode!)
             expect(Item.count).to eq(0)
 
             c = Completer.new(place_hash(sequence_hash), @user).complete!
@@ -100,7 +107,7 @@ module Services
       {
         place: {
           names: ["La Paletteria"],
-          street_address: "Calle Santo Domingo, No. 3-88",
+          street_addresses: ["Calle Santo Domingo, No. 3-88"],
           locality: "Cartagena",
           country: "Colombia"
         }

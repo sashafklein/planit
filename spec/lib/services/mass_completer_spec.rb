@@ -26,8 +26,9 @@ module Services
 
       let(:user) { create(:user) }
 
-      it "sequences NYT Amelia Island", :vcr do
+      it "sequences NYT Amelia Island" do
         return_hash = YAML.load_file(File.join(Rails.root, 'spec', 'support', 'pages', 'nytimes', 'amelia-island.yml'))
+
         marks = MassCompleter.new(return_hash, user).complete!
 
         expect( marks.all?{ |m| m.is_a? Mark } ).to eq true
@@ -48,6 +49,7 @@ module Services
         # expect( florida_house_inn.sources.count ).to eq 1
         # expect( florida_house_inn.sources.name ).to eq "New York Times"
         # expect( florida_house_inn.sources.note.first(10) ).to eq "The dining"
+        binding.pry
 
         mark = user.marks.find_by_place_id( florida_house_inn.id )
         expect( mark.items.count ).to eq 1
