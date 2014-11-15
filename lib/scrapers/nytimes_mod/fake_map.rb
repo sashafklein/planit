@@ -3,7 +3,7 @@ module Scrapers
 
     # PAGE SETUP
 
-    class GeneralTravel < Nytimes
+    class FakeMap < Nytimes
       
       def initialize(url, page)
         super(url, page)
@@ -62,6 +62,17 @@ module Scrapers
             end
           end
         end
+        if interactive_graphic = page.css(".interactive-graphic").first
+          if fake_map = page.css(".interactive-graphic").inner_html.match(/['"].*PERSONALmap.*['"]/)
+            if fake_map_container = page.css(".interactive-graphic")
+              fake_map_container.each do |container|
+                container.css("p").each do |text_p|
+                  group_array << [text_p.text, @guessed_locale]
+                end
+              end
+            end
+          end
+        end
         return group_array
       end
 
@@ -89,7 +100,6 @@ module Scrapers
           if website.include?("nytimes")
             website = nil
           end
-          return website
         end
       rescue ; nil
       end

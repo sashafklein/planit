@@ -64,39 +64,49 @@ module Services
       end
     end
 
-    # def scan_region_strict(string, country=nil)
-    #   if string && country
-    #     carmen_country = Carmen::Country.named(country)
-    #     test_string = de_tag( no_accents(string) )
-    #     region_array = []
-    #     Carmen::Country.all.each do |c|
-    #       if match = test_string.match(%r!#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.])!)
-    #         name = c.name
-    #         count = test_string.scan(%r!#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.])!).length
-    #         region_array << [name, count]
-    #       end
-    #     end
-    #     return country_array.flatten
-    #   end
-    # end
+    def scan_region_strict(string, country=nil)
+      if string && country
+        carmen_country = Carmen::Country.named(country)
+        test_string = de_tag( no_accents(string) )
+        region_array = []
+        Carmen::Country.all.each do |c|
+          if match = test_string.match(%r!#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.])!)
+            name = c.name
+            count = test_string.scan(%r!#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.])!).length
+            region_array << [name, count]
+          end
+        end
+        return country_array.flatten
+      end
+    end
 
-    # def scan_locality_strict(string, country=nil)
-    #   if string && country
-    #     test_string = de_tag( no_accents(string) )
-    #     carmen_country = Carmen::Country.named(country)
-    #     country_array = []
-    #     Carmen::Country.all.each do |c|
-    #       if match = test_string.match(%r!#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.])!)
-    #         name = c.name
-    #         count = test_string.scan(%r!#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.])!).length
-    #         country_array << [name, count]
-    #       end
-    #     end
-    #     return country_array.flatten
-    #   elsif string
-
-    #   end
-    # end
+    def scan_locality_strict(string, country=nil)
+      # if string && country
+      #   test_string = de_tag( no_accents(string) )
+      #   carmen_country = Carmen::Country.named(country)
+      #   locality_array = []
+      #   Carmen::Country.all.each do |c|
+      #     if match = test_string.match(%r!#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.])!)
+      #       name = c.name
+      #       count = test_string.scan(%r!#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.])!).length
+      #       country_array << [name, count]
+      #     end
+      #   end
+      #   return country_array.flatten
+      # elsif string
+      if string
+        test_string = de_tag( no_accents(string).downcase )
+        locality_array = []
+        Services::City.new.cities.each do |c, hash|
+          if match = test_string.match(%r!#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.])!)
+            name = hash[:accented]
+            count = test_string.scan(%r!#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.])!).length
+            locality_array << [name, count]
+          end
+        end
+        return locality_array.flatten
+      end
+    end
 
     def find_country_by_locality(string)
       if string
@@ -128,7 +138,7 @@ module Services
         end 
       end
       return nil
-    # rescue ; nil
+    rescue ; nil
     end
 
     def guess_locale(string_array) # precise, single-answer per -- returns locality [0], region [1], country [2], full_string [3]
@@ -143,24 +153,31 @@ module Services
         string_array.each do |string|
           country_guess << find_country(string)
         end
-        if country_guess && country_guess.uniq.length == 1
+        if country_guess && country_guess.compact.uniq.length == 1
           country = country_guess.first
           region_guess = []
           string_array.each do |string|
             country_guess << find_region(string, country)
           end
-          if region_guess && region_guess.uniq.length == 1
+          if region_guess && region_guess.compact.uniq.length == 1
             region = region_guess.first
+          else
+            region = nil
           end
+        else
+          country = nil
+          region = nil
         end
 
         locality_guess = []
         string_array.each do |string|
           locality_guess << find_locality(string)
         end
-        if locality_guess && locality_guess.uniq.length == 1
+        if locality_guess && locality_guess.compact.uniq.length == 1
           #does locality match country code of country if country? otherwise reject
           locality = locality_guess.first
+        else
+          locality = nil
         end
 
         if locality && !country

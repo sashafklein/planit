@@ -19,6 +19,21 @@ module RegexLibrary
       "(?:#{insert})"
     end
 
+    def exceptions
+      excepts = [
+        "!",
+        "\\?",
+        "¿",
+        "¡",
+        " \\.\\.\\.",
+        " …",
+        "…",
+        "\\.\\.\\.",
+      ]
+      insert = excepts.join("|")
+      "(?:#{insert})"
+    end
+
     def quote_thread
       '"'
     end
@@ -45,6 +60,11 @@ module RegexLibrary
 
     def title_or_upper_case_word
       "(?:[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó'’]+)"
+      # "(?:[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó'’]+)"
+    end
+
+    def title_or_upper_case_word_or_num
+      "(?:[A-ZÄÀÁÇÈÉëÌÍÖÒÓ0-9][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó'’0-9-]+)"
       # "(?:[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó'’]+)"
     end
 
@@ -76,6 +96,12 @@ module RegexLibrary
       # "(?:[S][t]\\a?\\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó,']+(?=(?:\\s|\\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ])(?:(?:\\s|\\-?)(?:[S][t]\\a?\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó',]+)+"
     end
 
+    def title_or_upper_cased_or_exceptions_thread
+      "(?:(?:#{exceptions}?#{title_case_st_sta}#{title_or_upper_case_word_or_num}#{exceptions}?|#{exceptions}?#{title_or_upper_case_word_or_num}#{exceptions}?)(?:#{comma_space_or_dash}(?:#{exceptions}?#{title_case_st_sta}#{title_or_upper_case_word_or_num}#{exceptions}?|#{exceptions}?#{title_or_upper_case_word_or_num}#{exceptions}?))*)"
+      # "(?:(?:#{title_case_st_sta}#{title_or_upper_case_word}|#{title_or_upper_case_word})(?:(?:#{comma_space_or_dash}(?:#{title_case_st_sta}#{title_or_upper_case_word}|#{title_or_upper_case_word}))+)?)"
+      # "(?:[S][t]\\a?\\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó,']+(?=(?:\\s|\\-?)[A-ZÄÀÁÇÈÉëÌÍÖÒÓ])(?:(?:\\s|\\-?)(?:[S][t]\\a?\.\\s)?[A-ZÄÀÁÇÈÉëÌÍÖÒÓ][A-ZÄÀÁÇÈÉëÌÍÖÒÓa-zäàáçèéëìíöòó',]+)+"
+    end
+
     def details_semi_or_comma_separated_with_number_thread
       threads = [
         "(?:",
@@ -91,6 +117,18 @@ module RegexLibrary
         "[^)]+?",
         ")",
       ]
+      threads.join
+    end
+
+    def is_website_link?
+      threads = [
+        "(?:",
+        "(?:",
+        "http[s]?:\\/\\/",
+        ")?",
+        "[a-z0-9]+?\\.(?:[a-z0-9]+\\.)*[a-z]{2}[^ \\\\]*",
+        ")",
+      ] 
       threads.join
     end
 
@@ -402,7 +440,7 @@ module RegexLibrary
     def titlecase_before_parens_with_details_regex
       regex_string = [
         "#{ok_tags}",
-        "#{title_or_upper_cased_thread}",
+        "#{title_or_upper_cased_or_exceptions_thread}",
         "\\s?",
         "#{ok_tags}",
         "\\s?",
@@ -580,10 +618,7 @@ module RegexLibrary
       regex_string = [
         "\\n",
         "(",
-        "(?:",
-        "http[s]?:\\/\\/",
-        ")?",
-        ".*[a-z]\\.[a-z].*",
+        is_website_link?,
         ")",
         "(?:\\n|\\z)", #end of line or string
       ] 
@@ -894,7 +929,9 @@ module RegexLibrary
         "(",
         a_link_open_thread,
         "?",
-        "(?:.*?)",
+        "\\s*",
+        "(?:#{title_or_upper_cased_or_exceptions_thread})",
+        "\\s*",
         a_link_close_thread,
         "?",
         "\\s*",

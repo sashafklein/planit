@@ -6,6 +6,8 @@ module Scrapers
 
     include ScraperHelper
 
+    # RESTAURANT REVIEW
+
     # describe "jeangeorges" do
 
     #   before do 
@@ -19,22 +21,37 @@ module Scrapers
     #   end
     # end
 
+    # NEW FAKE MAPS
+
+    describe "fakemap" do
+
+      before do 
+        @base_name = 'fakemap'
+        @url = 'http://www.nytimes.com/2014/11/16/travel/a-guide-to-tokyo-from-an-outsider-and-insider-.html?ref=travel&_r=0'
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect_equal(data, expectations)
+        expect(data).to eq expectations
+      end
+    end
+
     # TRAVEL GENERAL FORMATS
 
-    # describe "foodies" do
+    describe "foodies" do
 
-    #   before do 
-    #     @base_name = 'foodies'
-    #     @url = 'http://www.nytimes.com/2008/10/26/travel/26choice.html?pagewanted=all&_r=0'
-    #     @base_domain = get_domain(@url)
-    #   end
+      before do 
+        @base_name = 'foodies'
+        @url = 'http://www.nytimes.com/2008/10/26/travel/26choice.html?pagewanted=all&_r=0'
+        @base_domain = get_domain(@url)
+      end
 
-    #   it "parses the page correctly" do
-    #     binding.pry
-    #     expect_equal(data, expectations)
-    #     expect(data).to eq expectations
-    #   end
-    # end
+      it "parses the page correctly" do
+        expect_equal(data, expectations)
+        expect(data).to eq expectations
+      end
+    end
 
     describe "india" do
 
