@@ -1,12 +1,24 @@
 class Hash
   
+  def recursive_symbolize_keys
+    hash = dup
+    hash = hash.symbolize_keys
+    
+    hash.each do |k, v|
+      if v.is_a? Hash
+        hash[k] = v.recursive_symbolize_keys
+      elsif v.is_a? Array
+        hash[k] = v.map do |value|
+          value.recursive_symbolize_keys if value.is_a? Hash
+        end
+      end
+    end
+
+    hash
+  end
+
   def recursive_symbolize_keys!
-    symbolize_keys!
-    # symbolize each hash in .values
-    values.each{|h| h.recursive_symbolize_keys! if h.is_a?(Hash) }
-    # symbolize each hash inside an array in .values
-    values.select{|v| v.is_a?(Array) }.flatten.each{|h| h.recursive_symbolize_keys! if h.is_a?(Hash) }
-    self
+    replace( recursive_symbolize_keys )
   end
 
   def recursive_delete_if(&block)

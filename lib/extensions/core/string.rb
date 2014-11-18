@@ -18,7 +18,7 @@ class String
   end
 
   def match_distance(string)
-    return nil if string.non_latinate? || self.non_latinate?
+    return nil if self.non_latinate? || string.non_latinate?
     algorithm = FuzzyStringMatch::JaroWinkler.create( :native )
     algorithm.getDistance( self.no_accents, string.no_accents )
   end
