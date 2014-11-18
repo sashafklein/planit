@@ -60,8 +60,6 @@ module Services
           found = PlaceFinder.new( attrs({locality: nil, region: nil, street_addresses: ['123 Some Other Street'], lat: 123, lon: 123}) ).find!
           expect( found ).to be_a Place
           expect( found ).not_to be_persisted
-          found = PlaceFinder.new( attrs({locality: nil, region: nil, street_addresses: ['123 Some Other Street'], lat: 123}) ).find!
-          expect( found ).to eq nil
         end
 
         it "takes name instead of street_address" do

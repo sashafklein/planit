@@ -11,9 +11,9 @@ module Services
 
       context "new place" do
         context "with no sequence or plan data" do
-          it "saves and returns an associated mark, rounded out by Geocoder and FourSquare API" do
-            expect_any_instance_of(Services::PlaceCompleter).to receive(:api_complete!)
-            expect_any_instance_of(Services::PlaceCompleter).to receive(:geocode!)
+          it "saves and returns an associated mark, rounded out by Geocoder and FourSquare API", :vcr do
+            expect_any_instance_of(Services::PlaceCompleter).to receive(:api_complete!).and_call_original
+            expect_any_instance_of(Services::PlaceCompleter).to receive(:geocode!).and_call_original
 
             hash = place_hash
             c = Completer.new(place_hash, @user)

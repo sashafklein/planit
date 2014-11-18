@@ -21,4 +21,12 @@ class Hash
     end
   end
 
+  def deep_val(indices, error=nil)
+    hash = dup
+    indices.map do |i|
+      return error if hash.nil?
+      hash = hash.send('[]', i)
+    end
+    hash
+  end
 end

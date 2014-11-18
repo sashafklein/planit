@@ -55,7 +55,7 @@ module RegexLibrary
     end
 
     def normal_punctuation_thread
-      "-#{quote_thread}'’!?.,:;_`\\/"
+      "-#{quote_thread}'’!?.,:;\(\)_`\\/"
     end
 
     def quote_thread

@@ -1,0 +1,752 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=Boston,%20MA&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 18 Nov 2014 03:16:01 GMT
+      Expires:
+      - Wed, 19 Nov 2014 03:16:01 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.01
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Boston",
+                       "short_name" : "Boston",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Suffolk County",
+                       "short_name" : "Suffolk County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Massachusetts",
+                       "short_name" : "MA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Boston, MA, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 42.3988669,
+                          "lng" : -70.9232011
+                       },
+                       "southwest" : {
+                          "lat" : 42.22788,
+                          "lng" : -71.191113
+                       }
+                    },
+                    "location" : {
+                       "lat" : 42.3584308,
+                       "lng" : -71.0597732
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 42.3988669,
+                          "lng" : -70.9232011
+                       },
+                       "southwest" : {
+                          "lat" : 42.22788,
+                          "lng" : -71.191113
+                       }
+                    }
+                 },
+                 "types" : [ "locality", "political" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Tue, 18 Nov 2014 03:16:01 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?near=Boston,%20Massachusetts,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Dwelltime&v=20140819&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 18 Nov 2014 03:16:01 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '174'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '493'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-sjc3135-SJC
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"geocode":{"what":"","where":"boston
+        massachusetts united states","center":{"lat":42.35843,"lng":-71.05977},"displayString":"Boston,
+        MA, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":42.400819999999996,"lng":-70.748802},"sw":{"lat":42.22788,"lng":-71.191155}}},"slug":"boston-massachusetts","longId":"72057594042858892"},"headerLocation":"Boston","headerFullLocation":"Boston","headerLocationGranularity":"city","query":"dwelltime","totalResults":4,"suggestedBounds":{"ne":{"lat":42.37138786145721,"lng":-71.0614604651928},"sw":{"lat":42.353123227986245,"lng":-71.11311069130898}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":1,"items":[{"summary":"Dan
+        V. has been here","type":"social","reasonName":"friendAndSelfCheckinReason","message":"Dan
+        V. has been here","count":1}]},"venue":{"id":"4e9ee3031081a02e6384b390","name":"Dwelltime","contact":{"phone":"6177145536","formattedPhone":"(617)
+        714-5536","twitter":"dwelltimecoffee"},"location":{"address":"364 Broadway","lat":42.370557650844894,"lng":-71.10438466072083,"postalCode":"02139","cc":"US","city":"Cambridge","state":"MA","country":"United
+        States","formattedAddress":["364 Broadway","Cambridge, MA 02139"]},"categories":[{"id":"4bf58dd8d48988d1e0931735","name":"Coffee
+        Shop","pluralName":"Coffee Shops","shortName":"Coffee Shop","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":3733,"usersCount":1007,"tipCount":40},"url":"http:\/\/dwelltimecambridge.com","price":{"tier":1,"message":"Cheap","currency":"$"},"like":false,"rating":8.5,"ratingSignals":125,"hours":{"status":"Closed
+        until 7:00am tomorrow","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":172,"groups":[{"type":"venue","name":"Venue
+        photos","count":172,"items":[{"id":"51bdc325498edfddf4c18e74","createdAt":1371390757,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg","width":720,"height":960,"user":{"id":"6026","firstName":"Jeanette","lastName":"Yuen","gender":"female","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/6026_1253707183600.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"51bdc325498edfddf4c18e74","createdAt":1371390757,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg","width":720,"height":960,"user":{"id":"6026","firstName":"Jeanette","lastName":"Yuen","gender":"female","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/6026_1253707183600.jpg"}},"visibility":"public"}]}},"flags":{"exactMatch":true},"tips":[{"id":"5096898ee4b03c3d2fb37247","createdAt":1352042894,"text":"Great
+        mocha, pay with Square, and pour over coffee. Feels like Sightglass in SF
+        except Dwelltime has free wifi.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/5096898ee4b03c3d2fb37247","likes":{"count":7,"groups":[],"summary":"7
+        likes"},"logView":true,"todo":{"count":2},"user":{"id":"288959","firstName":"Adam","lastName":"Besvinick","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/-HI0DNLCCX0GSTQ0S.jpg"}}}],"referralId":"e-0-4e9ee3031081a02e6384b390-0"},{"reasons":{"count":1,"items":[{"summary":"Dan
+        V. has been here","type":"social","reasonName":"friendAndSelfCheckinReason","message":"Dan
+        V. has been here","count":1}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"513cf8e7e4b09b145812bfe9","createdAt":1362950375,"text":"First
+        visit: cappuccino is better than at Dwelltime. Will come back!","entities":[{"indices":[42,51],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/513cf8e7e4b09b145812bfe9","likes":{"count":1,"groups":[],"summary":"1
+        like"},"logView":true,"todo":{"count":0},"user":{"id":"487826","firstName":"Alex","lastName":"Armstrong","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/5PXERBQHUFPJZVCE.jpg"}}}},"reason":{"text":"Dan
+        V. has been here","facePile":{"count":1,"items":[{"visitedCount":1,"liked":false,"disliked":false,"oked":false,"user":{"id":"10066626","firstName":"Dan","lastName":"Vanderkam","gender":"male","relationship":"friend","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/PEKOKQOOSIF5NHS4.jpg"}}}]}}}]},"venue":{"id":"506479e8e4b01f36bfd50cf9","name":"Simon''s
+        Too","contact":{"phone":"6179452687","formattedPhone":"(617) 945-2687","twitter":"simonstoo"},"location":{"address":"983
+        Mass Ave","crossStreet":"Dana St","lat":42.36931714403819,"lng":-71.11076295375824,"postalCode":"02139","cc":"US","city":"Cambridge","state":"MA","country":"United
+        States","formattedAddress":["983 Mass Ave (Dana St)","Cambridge, MA 02139"]},"categories":[{"id":"4bf58dd8d48988d1e0931735","name":"Coffee
+        Shop","pluralName":"Coffee Shops","shortName":"Coffee Shop","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":1020,"usersCount":307,"tipCount":14},"price":{"tier":2,"message":"Moderate","currency":"$"},"like":false,"rating":7.4,"ratingSignals":39,"hours":{"status":"Closed
+        until 7:00am tomorrow","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":24,"groups":[{"type":"venue","name":"Venue
+        photos","count":24,"items":[{"id":"509eb444498ec5d3bf9c806d","createdAt":1352578116,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/2922_3Nb40bS8eiYiiKTaEHJ1sNBiSXG-tDxYtQfc6H8C9n8.jpg","width":612,"height":612,"user":{"id":"2922","firstName":"Jonathan","lastName":"Ragan-Kelley","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/2922-E1XUQM3PXRTYI1AM.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"venuePage":{"id":"56838464"},"storeId":"","featuredPhotos":{"count":1,"items":[{"id":"509eb444498ec5d3bf9c806d","createdAt":1352578116,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/2922_3Nb40bS8eiYiiKTaEHJ1sNBiSXG-tDxYtQfc6H8C9n8.jpg","width":612,"height":612,"user":{"id":"2922","firstName":"Jonathan","lastName":"Ragan-Kelley","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/2922-E1XUQM3PXRTYI1AM.jpg"}},"visibility":"public"}]}},"tips":[{"id":"513cf8e7e4b09b145812bfe9","createdAt":1362950375,"text":"First
+        visit: cappuccino is better than at Dwelltime. Will come back!","entities":[{"indices":[42,51],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/513cf8e7e4b09b145812bfe9","likes":{"count":1,"groups":[],"summary":"1
+        like"},"logView":true,"todo":{"count":0},"user":{"id":"487826","firstName":"Alex","lastName":"Armstrong","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/5PXERBQHUFPJZVCE.jpg"}}}],"referralId":"e-0-506479e8e4b01f36bfd50cf9-1"},{"reasons":{"count":1,"items":[{"summary":"Similar
+        to Pavement Coffeehouse","type":"general","reasonName":"relatedPlacesReason","message":"People
+        who go to Pavement Coffeehouse & Wired Puppy tend to go here."}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"50e83f41e4b0dabfa7ee169c","createdAt":1357397825,"text":"Good
+        coffee, food just ok. Go to Dwelltime in Cambridge instead.","entities":[{"indices":[33,42],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/50e83f41e4b0dabfa7ee169c","logView":true,"todo":{"count":0},"user":{"id":"487684","firstName":"Carey","lastName":"Armstrong","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/487684-SYAHA10ICIM4JRTH.jpg"}}}},"reason":{"text":"Similar
+        to Pavement Coffeehouse","facePile":{"count":1,"items":[{"liked":false,"disliked":false,"oked":false,"photos":1,"user":{"id":"1784194","firstName":"George","lastName":"Babu","gender":"male","relationship":"facebook","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/FURNQQXOZEIO0YXY.jpg"}}}]}}}]},"venue":{"id":"4ce430fb22bef04d11c9d7f8","name":"Thinking
+        Cup","contact":{"phone":"6174825555","formattedPhone":"(617) 482-5555","twitter":"thinkingcup","facebook":"102356233150626","facebookUsername":"thinkingcup","facebookName":"The
+        Thinking Cup"},"location":{"address":"165 Tremont St","crossStreet":"btwn
+        Avery & West St","lat":42.35395343859856,"lng":-71.06380820274353,"postalCode":"02111","cc":"US","city":"Boston","state":"MA","country":"United
+        States","formattedAddress":["165 Tremont St (btwn Avery & West St)","Boston,
+        MA 02111"]},"categories":[{"id":"4bf58dd8d48988d1e0931735","name":"Coffee
+        Shop","pluralName":"Coffee Shops","shortName":"Coffee Shop","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":15479,"usersCount":6674,"tipCount":255},"url":"http:\/\/www.thinkingcup.com","price":{"tier":1,"message":"Cheap","currency":"$"},"hasMenu":true,"like":false,"rating":9.4,"ratingSignals":618,"menu":{"type":"Menu","label":"Menu","anchor":"View
+        Menu","url":"https:\/\/foursquare.com\/v\/thinking-cup\/4ce430fb22bef04d11c9d7f8\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/4ce430fb22bef04d11c9d7f8\/device_menu"},"hours":{"status":"Closed
+        until 7:00am tomorrow","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":753,"groups":[{"type":"venue","name":"Venue
+        photos","count":753,"items":[{"id":"509fa5f1e4b00baa8d4785c1","createdAt":1352639985,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/1616349_Az_TeJG62gqk5R3johOJjK0c3DBoaMDZYCAbd6IDfqQ.jpg","width":537,"height":720,"user":{"id":"1616349","firstName":"D.","lastName":"ROSS","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/ICXGB2KM1DQID15L.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"509fa5f1e4b00baa8d4785c1","createdAt":1352639985,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/1616349_Az_TeJG62gqk5R3johOJjK0c3DBoaMDZYCAbd6IDfqQ.jpg","width":537,"height":720,"user":{"id":"1616349","firstName":"D.","lastName":"ROSS","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/ICXGB2KM1DQID15L.jpg"}},"visibility":"public"}]}},"tips":[{"id":"50e83f41e4b0dabfa7ee169c","createdAt":1357397825,"text":"Good
+        coffee, food just ok. Go to Dwelltime in Cambridge instead.","entities":[{"indices":[33,42],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/50e83f41e4b0dabfa7ee169c","logView":true,"todo":{"count":0},"user":{"id":"487684","firstName":"Carey","lastName":"Armstrong","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/487684-SYAHA10ICIM4JRTH.jpg"}}}],"referralId":"e-0-4ce430fb22bef04d11c9d7f8-2"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"51043a3fe4b08881ebe9782d","createdAt":1359231551,"text":"Go
+        to Dwelltime instead. Low quality.","entities":[{"indices":[6,15],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/51043a3fe4b08881ebe9782d","photo":{"id":"51043a41e4b0f083b106f276","createdAt":1359231553,"source":{"name":"foursquare
+        for iPhone","url":"https:\/\/foursquare.com\/download\/#\/iphone"},"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/487684_-xzlBVgL7jpmwBglq9-UBju8Cb_255DIFDfpL0olRGE.jpg","width":720,"height":960},"photourl":"https:\/\/irs2.4sqi.net\/img\/general\/original\/487684_-xzlBVgL7jpmwBglq9-UBju8Cb_255DIFDfpL0olRGE.jpg","logView":true,"todo":{"count":0},"user":{"id":"487684","firstName":"Carey","lastName":"Armstrong","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/487684-SYAHA10ICIM4JRTH.jpg"}}}}}]},"venue":{"id":"4a22f2f2f964a520a77d1fe3","name":"Atomic
+        Bean Cafe","contact":{"phone":"6174990972","formattedPhone":"(617) 499-0972"},"location":{"address":"904
+        Massachusetts Ave","crossStreet":"Hancock St","lat":42.368212,"lng":-71.10856004,"postalCode":"02139","cc":"US","city":"Cambridge","state":"MA","country":"United
+        States","formattedAddress":["904 Massachusetts Ave (Hancock St)","Cambridge,
+        MA 02139"]},"categories":[{"id":"4bf58dd8d48988d1e0931735","name":"Coffee
+        Shop","pluralName":"Coffee Shops","shortName":"Coffee Shop","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":2327,"usersCount":754,"tipCount":35},"price":{"tier":1,"message":"Cheap","currency":"$"},"like":false,"rating":7.4,"ratingSignals":57,"hours":{"status":"Closed
+        until 7:00am tomorrow","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":35,"groups":[{"type":"venue","name":"Venue
+        photos","count":35,"items":[{"id":"4e3acb98483b3f951fcaadca","createdAt":1312476056,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/KPZWW0LS5LDPRS1JWP5QT5MVXBECF4G1JLZQKMYBO3VMN33J.jpg","width":720,"height":537,"user":{"id":"1498986","firstName":"michael","lastName":"scully","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/QA0X0IJKYHKXTHBB.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"4e3acb98483b3f951fcaadca","createdAt":1312476056,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/KPZWW0LS5LDPRS1JWP5QT5MVXBECF4G1JLZQKMYBO3VMN33J.jpg","width":720,"height":537,"user":{"id":"1498986","firstName":"michael","lastName":"scully","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/QA0X0IJKYHKXTHBB.jpg"}},"visibility":"public"}]}},"tips":[{"id":"51043a3fe4b08881ebe9782d","createdAt":1359231551,"text":"Go
+        to Dwelltime instead. Low quality.","entities":[{"indices":[6,15],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/51043a3fe4b08881ebe9782d","photo":{"id":"51043a41e4b0f083b106f276","createdAt":1359231553,"source":{"name":"foursquare
+        for iPhone","url":"https:\/\/foursquare.com\/download\/#\/iphone"},"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/487684_-xzlBVgL7jpmwBglq9-UBju8Cb_255DIFDfpL0olRGE.jpg","width":720,"height":960},"photourl":"https:\/\/irs2.4sqi.net\/img\/general\/original\/487684_-xzlBVgL7jpmwBglq9-UBju8Cb_255DIFDfpL0olRGE.jpg","logView":true,"todo":{"count":0},"user":{"id":"487684","firstName":"Carey","lastName":"Armstrong","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/487684-SYAHA10ICIM4JRTH.jpg"}}}],"referralId":"e-0-4a22f2f2f964a520a77d1fe3-3"}]}]}}'
+    http_version: 
+  recorded_at: Tue, 18 Nov 2014 03:16:02 GMT
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=Cambridge,%20MA&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 18 Nov 2014 03:16:02 GMT
+      Expires:
+      - Wed, 19 Nov 2014 03:16:02 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.01
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Cambridge",
+                       "short_name" : "Cambridge",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Middlesex County",
+                       "short_name" : "Middlesex County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Massachusetts",
+                       "short_name" : "MA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Cambridge, MA, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 42.4043839,
+                          "lng" : -71.06548719999999
+                       },
+                       "southwest" : {
+                          "lat" : 42.3523968,
+                          "lng" : -71.16033209999999
+                       }
+                    },
+                    "location" : {
+                       "lat" : 42.3736158,
+                       "lng" : -71.10973349999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 42.4043839,
+                          "lng" : -71.06548719999999
+                       },
+                       "southwest" : {
+                          "lat" : 42.3523968,
+                          "lng" : -71.16033209999999
+                       }
+                    }
+                 },
+                 "types" : [ "locality", "political" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Tue, 18 Nov 2014 03:16:03 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?near=Cambridge,%20Massachusetts,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Dwelltime&v=20140819&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 18 Nov 2014 03:16:03 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '192'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '492'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-sjc3123-SJC
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"geocode":{"what":"","where":"cambridge
+        massachusetts united states","center":{"lat":42.3751,"lng":-71.10561},"displayString":"Cambridge,
+        MA, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":42.404171999999996,"lng":-71.064095},"sw":{"lat":42.352396999999996,"lng":-71.160332}}},"slug":"cambridge-massachusetts","longId":"72057594042859908"},"headerLocation":"Cambridge","headerFullLocation":"Cambridge","headerLocationGranularity":"city","query":"dwelltime","totalResults":4,"suggestedBounds":{"ne":{"lat":42.37138786145721,"lng":-71.0614604651928},"sw":{"lat":42.353123227986245,"lng":-71.11311069130898}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":1,"items":[{"summary":"Dan
+        V. has been here","type":"social","reasonName":"friendAndSelfCheckinReason","message":"Dan
+        V. has been here","count":1}]},"venue":{"id":"4e9ee3031081a02e6384b390","name":"Dwelltime","contact":{"phone":"6177145536","formattedPhone":"(617)
+        714-5536","twitter":"dwelltimecoffee"},"location":{"address":"364 Broadway","lat":42.370557650844894,"lng":-71.10438466072083,"postalCode":"02139","cc":"US","city":"Cambridge","state":"MA","country":"United
+        States","formattedAddress":["364 Broadway","Cambridge, MA 02139"]},"categories":[{"id":"4bf58dd8d48988d1e0931735","name":"Coffee
+        Shop","pluralName":"Coffee Shops","shortName":"Coffee Shop","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":3733,"usersCount":1007,"tipCount":40},"url":"http:\/\/dwelltimecambridge.com","price":{"tier":1,"message":"Cheap","currency":"$"},"like":false,"rating":8.5,"ratingSignals":125,"hours":{"status":"Closed
+        until 7:00am tomorrow","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":172,"groups":[{"type":"venue","name":"Venue
+        photos","count":172,"items":[{"id":"51bdc325498edfddf4c18e74","createdAt":1371390757,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg","width":720,"height":960,"user":{"id":"6026","firstName":"Jeanette","lastName":"Yuen","gender":"female","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/6026_1253707183600.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"51bdc325498edfddf4c18e74","createdAt":1371390757,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg","width":720,"height":960,"user":{"id":"6026","firstName":"Jeanette","lastName":"Yuen","gender":"female","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/6026_1253707183600.jpg"}},"visibility":"public"}]}},"flags":{"exactMatch":true},"tips":[{"id":"5096898ee4b03c3d2fb37247","createdAt":1352042894,"text":"Great
+        mocha, pay with Square, and pour over coffee. Feels like Sightglass in SF
+        except Dwelltime has free wifi.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/5096898ee4b03c3d2fb37247","likes":{"count":7,"groups":[],"summary":"7
+        likes"},"logView":true,"todo":{"count":2},"user":{"id":"288959","firstName":"Adam","lastName":"Besvinick","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/-HI0DNLCCX0GSTQ0S.jpg"}}}],"referralId":"e-0-4e9ee3031081a02e6384b390-0"},{"reasons":{"count":1,"items":[{"summary":"Dan
+        V. has been here","type":"social","reasonName":"friendAndSelfCheckinReason","message":"Dan
+        V. has been here","count":1}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"513cf8e7e4b09b145812bfe9","createdAt":1362950375,"text":"First
+        visit: cappuccino is better than at Dwelltime. Will come back!","entities":[{"indices":[42,51],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/513cf8e7e4b09b145812bfe9","likes":{"count":1,"groups":[],"summary":"1
+        like"},"logView":true,"todo":{"count":0},"user":{"id":"487826","firstName":"Alex","lastName":"Armstrong","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/5PXERBQHUFPJZVCE.jpg"}}}},"reason":{"text":"Dan
+        V. has been here","facePile":{"count":1,"items":[{"visitedCount":1,"liked":false,"disliked":false,"oked":false,"user":{"id":"10066626","firstName":"Dan","lastName":"Vanderkam","gender":"male","relationship":"friend","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/PEKOKQOOSIF5NHS4.jpg"}}}]}}}]},"venue":{"id":"506479e8e4b01f36bfd50cf9","name":"Simon''s
+        Too","contact":{"phone":"6179452687","formattedPhone":"(617) 945-2687","twitter":"simonstoo"},"location":{"address":"983
+        Mass Ave","crossStreet":"Dana St","lat":42.36931714403819,"lng":-71.11076295375824,"postalCode":"02139","cc":"US","city":"Cambridge","state":"MA","country":"United
+        States","formattedAddress":["983 Mass Ave (Dana St)","Cambridge, MA 02139"]},"categories":[{"id":"4bf58dd8d48988d1e0931735","name":"Coffee
+        Shop","pluralName":"Coffee Shops","shortName":"Coffee Shop","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":1020,"usersCount":307,"tipCount":14},"price":{"tier":2,"message":"Moderate","currency":"$"},"like":false,"rating":7.4,"ratingSignals":39,"hours":{"status":"Closed
+        until 7:00am tomorrow","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":24,"groups":[{"type":"venue","name":"Venue
+        photos","count":24,"items":[{"id":"509eb444498ec5d3bf9c806d","createdAt":1352578116,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/2922_3Nb40bS8eiYiiKTaEHJ1sNBiSXG-tDxYtQfc6H8C9n8.jpg","width":612,"height":612,"user":{"id":"2922","firstName":"Jonathan","lastName":"Ragan-Kelley","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/2922-E1XUQM3PXRTYI1AM.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":1,"summary":"One
+        person is checked in here","groups":[{"type":"others","name":"Other people
+        here","count":1,"items":[]}]},"venuePage":{"id":"56838464"},"storeId":"","featuredPhotos":{"count":1,"items":[{"id":"509eb444498ec5d3bf9c806d","createdAt":1352578116,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/2922_3Nb40bS8eiYiiKTaEHJ1sNBiSXG-tDxYtQfc6H8C9n8.jpg","width":612,"height":612,"user":{"id":"2922","firstName":"Jonathan","lastName":"Ragan-Kelley","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/2922-E1XUQM3PXRTYI1AM.jpg"}},"visibility":"public"}]}},"tips":[{"id":"513cf8e7e4b09b145812bfe9","createdAt":1362950375,"text":"First
+        visit: cappuccino is better than at Dwelltime. Will come back!","entities":[{"indices":[42,51],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/513cf8e7e4b09b145812bfe9","likes":{"count":1,"groups":[],"summary":"1
+        like"},"logView":true,"todo":{"count":0},"user":{"id":"487826","firstName":"Alex","lastName":"Armstrong","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/5PXERBQHUFPJZVCE.jpg"}}}],"referralId":"e-0-506479e8e4b01f36bfd50cf9-1"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"51043a3fe4b08881ebe9782d","createdAt":1359231551,"text":"Go
+        to Dwelltime instead. Low quality.","entities":[{"indices":[6,15],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/51043a3fe4b08881ebe9782d","photo":{"id":"51043a41e4b0f083b106f276","createdAt":1359231553,"source":{"name":"foursquare
+        for iPhone","url":"https:\/\/foursquare.com\/download\/#\/iphone"},"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/487684_-xzlBVgL7jpmwBglq9-UBju8Cb_255DIFDfpL0olRGE.jpg","width":720,"height":960},"photourl":"https:\/\/irs2.4sqi.net\/img\/general\/original\/487684_-xzlBVgL7jpmwBglq9-UBju8Cb_255DIFDfpL0olRGE.jpg","logView":true,"todo":{"count":0},"user":{"id":"487684","firstName":"Carey","lastName":"Armstrong","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/487684-SYAHA10ICIM4JRTH.jpg"}}}}}]},"venue":{"id":"4a22f2f2f964a520a77d1fe3","name":"Atomic
+        Bean Cafe","contact":{"phone":"6174990972","formattedPhone":"(617) 499-0972"},"location":{"address":"904
+        Massachusetts Ave","crossStreet":"Hancock St","lat":42.368212,"lng":-71.10856004,"postalCode":"02139","cc":"US","city":"Cambridge","state":"MA","country":"United
+        States","formattedAddress":["904 Massachusetts Ave (Hancock St)","Cambridge,
+        MA 02139"]},"categories":[{"id":"4bf58dd8d48988d1e0931735","name":"Coffee
+        Shop","pluralName":"Coffee Shops","shortName":"Coffee Shop","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":2327,"usersCount":754,"tipCount":35},"price":{"tier":1,"message":"Cheap","currency":"$"},"like":false,"rating":7.4,"ratingSignals":57,"hours":{"status":"Closed
+        until 7:00am tomorrow","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":35,"groups":[{"type":"venue","name":"Venue
+        photos","count":35,"items":[{"id":"4e3acb98483b3f951fcaadca","createdAt":1312476056,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/KPZWW0LS5LDPRS1JWP5QT5MVXBECF4G1JLZQKMYBO3VMN33J.jpg","width":720,"height":537,"user":{"id":"1498986","firstName":"michael","lastName":"scully","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/QA0X0IJKYHKXTHBB.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"4e3acb98483b3f951fcaadca","createdAt":1312476056,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/KPZWW0LS5LDPRS1JWP5QT5MVXBECF4G1JLZQKMYBO3VMN33J.jpg","width":720,"height":537,"user":{"id":"1498986","firstName":"michael","lastName":"scully","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/QA0X0IJKYHKXTHBB.jpg"}},"visibility":"public"}]}},"tips":[{"id":"51043a3fe4b08881ebe9782d","createdAt":1359231551,"text":"Go
+        to Dwelltime instead. Low quality.","entities":[{"indices":[6,15],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/51043a3fe4b08881ebe9782d","photo":{"id":"51043a41e4b0f083b106f276","createdAt":1359231553,"source":{"name":"foursquare
+        for iPhone","url":"https:\/\/foursquare.com\/download\/#\/iphone"},"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/487684_-xzlBVgL7jpmwBglq9-UBju8Cb_255DIFDfpL0olRGE.jpg","width":720,"height":960},"photourl":"https:\/\/irs2.4sqi.net\/img\/general\/original\/487684_-xzlBVgL7jpmwBglq9-UBju8Cb_255DIFDfpL0olRGE.jpg","logView":true,"todo":{"count":0},"user":{"id":"487684","firstName":"Carey","lastName":"Armstrong","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/487684-SYAHA10ICIM4JRTH.jpg"}}}],"referralId":"e-0-4a22f2f2f964a520a77d1fe3-2"},{"reasons":{"count":1,"items":[{"summary":"Similar
+        to Pavement Coffeehouse","type":"general","reasonName":"relatedPlacesReason","message":"People
+        who go to Pavement Coffeehouse & Wired Puppy tend to go here."}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"50e83f41e4b0dabfa7ee169c","createdAt":1357397825,"text":"Good
+        coffee, food just ok. Go to Dwelltime in Cambridge instead.","entities":[{"indices":[33,42],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/50e83f41e4b0dabfa7ee169c","logView":true,"todo":{"count":0},"user":{"id":"487684","firstName":"Carey","lastName":"Armstrong","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/487684-SYAHA10ICIM4JRTH.jpg"}}}},"reason":{"text":"Similar
+        to Pavement Coffeehouse","facePile":{"count":1,"items":[{"liked":false,"disliked":false,"oked":false,"photos":1,"user":{"id":"1784194","firstName":"George","lastName":"Babu","gender":"male","relationship":"facebook","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/FURNQQXOZEIO0YXY.jpg"}}}]}}}]},"venue":{"id":"4ce430fb22bef04d11c9d7f8","name":"Thinking
+        Cup","contact":{"phone":"6174825555","formattedPhone":"(617) 482-5555","twitter":"thinkingcup","facebook":"102356233150626","facebookUsername":"thinkingcup","facebookName":"The
+        Thinking Cup"},"location":{"address":"165 Tremont St","crossStreet":"btwn
+        Avery & West St","lat":42.35395343859856,"lng":-71.06380820274353,"postalCode":"02111","cc":"US","city":"Boston","state":"MA","country":"United
+        States","formattedAddress":["165 Tremont St (btwn Avery & West St)","Boston,
+        MA 02111"]},"categories":[{"id":"4bf58dd8d48988d1e0931735","name":"Coffee
+        Shop","pluralName":"Coffee Shops","shortName":"Coffee Shop","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":15479,"usersCount":6674,"tipCount":255},"url":"http:\/\/www.thinkingcup.com","price":{"tier":1,"message":"Cheap","currency":"$"},"hasMenu":true,"like":false,"rating":9.4,"ratingSignals":618,"menu":{"type":"Menu","label":"Menu","anchor":"View
+        Menu","url":"https:\/\/foursquare.com\/v\/thinking-cup\/4ce430fb22bef04d11c9d7f8\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/4ce430fb22bef04d11c9d7f8\/device_menu"},"hours":{"status":"Closed
+        until 7:00am tomorrow","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":753,"groups":[{"type":"venue","name":"Venue
+        photos","count":753,"items":[{"id":"509fa5f1e4b00baa8d4785c1","createdAt":1352639985,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/1616349_Az_TeJG62gqk5R3johOJjK0c3DBoaMDZYCAbd6IDfqQ.jpg","width":537,"height":720,"user":{"id":"1616349","firstName":"D.","lastName":"ROSS","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/ICXGB2KM1DQID15L.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"509fa5f1e4b00baa8d4785c1","createdAt":1352639985,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/1616349_Az_TeJG62gqk5R3johOJjK0c3DBoaMDZYCAbd6IDfqQ.jpg","width":537,"height":720,"user":{"id":"1616349","firstName":"D.","lastName":"ROSS","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/ICXGB2KM1DQID15L.jpg"}},"visibility":"public"}]}},"tips":[{"id":"50e83f41e4b0dabfa7ee169c","createdAt":1357397825,"text":"Good
+        coffee, food just ok. Go to Dwelltime in Cambridge instead.","entities":[{"indices":[33,42],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/50e83f41e4b0dabfa7ee169c","logView":true,"todo":{"count":0},"user":{"id":"487684","firstName":"Carey","lastName":"Armstrong","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/487684-SYAHA10ICIM4JRTH.jpg"}}}],"referralId":"e-0-4ce430fb22bef04d11c9d7f8-3"}]}]}}'
+    http_version: 
+  recorded_at: Tue, 18 Nov 2014 03:16:03 GMT
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=Cambridge,%20MA&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 18 Nov 2014 03:16:03 GMT
+      Expires:
+      - Wed, 19 Nov 2014 03:16:03 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.01
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Cambridge",
+                       "short_name" : "Cambridge",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Middlesex County",
+                       "short_name" : "Middlesex County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Massachusetts",
+                       "short_name" : "MA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Cambridge, MA, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 42.4043839,
+                          "lng" : -71.06548719999999
+                       },
+                       "southwest" : {
+                          "lat" : 42.3523968,
+                          "lng" : -71.16033209999999
+                       }
+                    },
+                    "location" : {
+                       "lat" : 42.3736158,
+                       "lng" : -71.10973349999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 42.4043839,
+                          "lng" : -71.06548719999999
+                       },
+                       "southwest" : {
+                          "lat" : 42.3523968,
+                          "lng" : -71.16033209999999
+                       }
+                    }
+                 },
+                 "types" : [ "locality", "political" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Tue, 18 Nov 2014 03:16:04 GMT
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=364%20Broadway,%20Cambridge,%20Massachusetts,%20United%20States&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 18 Nov 2014 03:16:03 GMT
+      Expires:
+      - Wed, 19 Nov 2014 03:16:03 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.01
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "364",
+                       "short_name" : "364",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Broadway",
+                       "short_name" : "Broadway",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Mid-Cambridge",
+                       "short_name" : "Mid-Cambridge",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Cambridge",
+                       "short_name" : "Cambridge",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Middlesex County",
+                       "short_name" : "Middlesex County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Massachusetts",
+                       "short_name" : "MA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "02139",
+                       "short_name" : "02139",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "364 Broadway, Cambridge, MA 02139, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 42.3704867,
+                       "lng" : -71.1044524
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 42.3718356802915,
+                          "lng" : -71.1031034197085
+                       },
+                       "southwest" : {
+                          "lat" : 42.3691377197085,
+                          "lng" : -71.10580138029151
+                       }
+                    }
+                 },
+                 "types" : [ "street_address" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Tue, 18 Nov 2014 03:16:04 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?near=Cambridge,%20Massachusetts,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Dwelltime&v=20140819&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 18 Nov 2014 03:16:04 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '170'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '491'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-sjc3129-SJC
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"geocode":{"what":"","where":"cambridge
+        massachusetts united states","center":{"lat":42.3751,"lng":-71.10561},"displayString":"Cambridge,
+        MA, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":42.404171999999996,"lng":-71.064095},"sw":{"lat":42.352396999999996,"lng":-71.160332}}},"slug":"cambridge-massachusetts","longId":"72057594042859908"},"headerLocation":"Cambridge","headerFullLocation":"Cambridge","headerLocationGranularity":"city","query":"dwelltime","totalResults":4,"suggestedBounds":{"ne":{"lat":42.37138786145721,"lng":-71.0614604651928},"sw":{"lat":42.353123227986245,"lng":-71.11311069130898}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":1,"items":[{"summary":"Dan
+        V. has been here","type":"social","reasonName":"friendAndSelfCheckinReason","message":"Dan
+        V. has been here","count":1}]},"venue":{"id":"4e9ee3031081a02e6384b390","name":"Dwelltime","contact":{"phone":"6177145536","formattedPhone":"(617)
+        714-5536","twitter":"dwelltimecoffee"},"location":{"address":"364 Broadway","lat":42.370557650844894,"lng":-71.10438466072083,"postalCode":"02139","cc":"US","city":"Cambridge","state":"MA","country":"United
+        States","formattedAddress":["364 Broadway","Cambridge, MA 02139"]},"categories":[{"id":"4bf58dd8d48988d1e0931735","name":"Coffee
+        Shop","pluralName":"Coffee Shops","shortName":"Coffee Shop","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":3733,"usersCount":1007,"tipCount":40},"url":"http:\/\/dwelltimecambridge.com","price":{"tier":1,"message":"Cheap","currency":"$"},"like":false,"rating":8.5,"ratingSignals":125,"hours":{"status":"Closed
+        until 7:00am tomorrow","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":172,"groups":[{"type":"venue","name":"Venue
+        photos","count":172,"items":[{"id":"51bdc325498edfddf4c18e74","createdAt":1371390757,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg","width":720,"height":960,"user":{"id":"6026","firstName":"Jeanette","lastName":"Yuen","gender":"female","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/6026_1253707183600.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"51bdc325498edfddf4c18e74","createdAt":1371390757,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg","width":720,"height":960,"user":{"id":"6026","firstName":"Jeanette","lastName":"Yuen","gender":"female","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/6026_1253707183600.jpg"}},"visibility":"public"}]}},"flags":{"exactMatch":true},"tips":[{"id":"5096898ee4b03c3d2fb37247","createdAt":1352042894,"text":"Great
+        mocha, pay with Square, and pour over coffee. Feels like Sightglass in SF
+        except Dwelltime has free wifi.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/5096898ee4b03c3d2fb37247","likes":{"count":7,"groups":[],"summary":"7
+        likes"},"logView":true,"todo":{"count":2},"user":{"id":"288959","firstName":"Adam","lastName":"Besvinick","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/-HI0DNLCCX0GSTQ0S.jpg"}}}],"referralId":"e-0-4e9ee3031081a02e6384b390-0"},{"reasons":{"count":1,"items":[{"summary":"Dan
+        V. has been here","type":"social","reasonName":"friendAndSelfCheckinReason","message":"Dan
+        V. has been here","count":1}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"513cf8e7e4b09b145812bfe9","createdAt":1362950375,"text":"First
+        visit: cappuccino is better than at Dwelltime. Will come back!","entities":[{"indices":[42,51],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/513cf8e7e4b09b145812bfe9","likes":{"count":1,"groups":[],"summary":"1
+        like"},"logView":true,"todo":{"count":0},"user":{"id":"487826","firstName":"Alex","lastName":"Armstrong","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/5PXERBQHUFPJZVCE.jpg"}}}},"reason":{"text":"Dan
+        V. has been here","facePile":{"count":1,"items":[{"visitedCount":1,"liked":false,"disliked":false,"oked":false,"user":{"id":"10066626","firstName":"Dan","lastName":"Vanderkam","gender":"male","relationship":"friend","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/PEKOKQOOSIF5NHS4.jpg"}}}]}}}]},"venue":{"id":"506479e8e4b01f36bfd50cf9","name":"Simon''s
+        Too","contact":{"phone":"6179452687","formattedPhone":"(617) 945-2687","twitter":"simonstoo"},"location":{"address":"983
+        Mass Ave","crossStreet":"Dana St","lat":42.36931714403819,"lng":-71.11076295375824,"postalCode":"02139","cc":"US","city":"Cambridge","state":"MA","country":"United
+        States","formattedAddress":["983 Mass Ave (Dana St)","Cambridge, MA 02139"]},"categories":[{"id":"4bf58dd8d48988d1e0931735","name":"Coffee
+        Shop","pluralName":"Coffee Shops","shortName":"Coffee Shop","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":1020,"usersCount":307,"tipCount":14},"price":{"tier":2,"message":"Moderate","currency":"$"},"like":false,"rating":7.4,"ratingSignals":39,"hours":{"status":"Closed
+        until 7:00am tomorrow","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":24,"groups":[{"type":"venue","name":"Venue
+        photos","count":24,"items":[{"id":"509eb444498ec5d3bf9c806d","createdAt":1352578116,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/2922_3Nb40bS8eiYiiKTaEHJ1sNBiSXG-tDxYtQfc6H8C9n8.jpg","width":612,"height":612,"user":{"id":"2922","firstName":"Jonathan","lastName":"Ragan-Kelley","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/2922-E1XUQM3PXRTYI1AM.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":1,"summary":"One
+        person is checked in here","groups":[{"type":"others","name":"Other people
+        here","count":1,"items":[]}]},"venuePage":{"id":"56838464"},"storeId":"","featuredPhotos":{"count":1,"items":[{"id":"509eb444498ec5d3bf9c806d","createdAt":1352578116,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/2922_3Nb40bS8eiYiiKTaEHJ1sNBiSXG-tDxYtQfc6H8C9n8.jpg","width":612,"height":612,"user":{"id":"2922","firstName":"Jonathan","lastName":"Ragan-Kelley","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/2922-E1XUQM3PXRTYI1AM.jpg"}},"visibility":"public"}]}},"tips":[{"id":"513cf8e7e4b09b145812bfe9","createdAt":1362950375,"text":"First
+        visit: cappuccino is better than at Dwelltime. Will come back!","entities":[{"indices":[42,51],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/513cf8e7e4b09b145812bfe9","likes":{"count":1,"groups":[],"summary":"1
+        like"},"logView":true,"todo":{"count":0},"user":{"id":"487826","firstName":"Alex","lastName":"Armstrong","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/5PXERBQHUFPJZVCE.jpg"}}}],"referralId":"e-0-506479e8e4b01f36bfd50cf9-1"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"51043a3fe4b08881ebe9782d","createdAt":1359231551,"text":"Go
+        to Dwelltime instead. Low quality.","entities":[{"indices":[6,15],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/51043a3fe4b08881ebe9782d","photo":{"id":"51043a41e4b0f083b106f276","createdAt":1359231553,"source":{"name":"foursquare
+        for iPhone","url":"https:\/\/foursquare.com\/download\/#\/iphone"},"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/487684_-xzlBVgL7jpmwBglq9-UBju8Cb_255DIFDfpL0olRGE.jpg","width":720,"height":960},"photourl":"https:\/\/irs2.4sqi.net\/img\/general\/original\/487684_-xzlBVgL7jpmwBglq9-UBju8Cb_255DIFDfpL0olRGE.jpg","logView":true,"todo":{"count":0},"user":{"id":"487684","firstName":"Carey","lastName":"Armstrong","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/487684-SYAHA10ICIM4JRTH.jpg"}}}}}]},"venue":{"id":"4a22f2f2f964a520a77d1fe3","name":"Atomic
+        Bean Cafe","contact":{"phone":"6174990972","formattedPhone":"(617) 499-0972"},"location":{"address":"904
+        Massachusetts Ave","crossStreet":"Hancock St","lat":42.368212,"lng":-71.10856004,"postalCode":"02139","cc":"US","city":"Cambridge","state":"MA","country":"United
+        States","formattedAddress":["904 Massachusetts Ave (Hancock St)","Cambridge,
+        MA 02139"]},"categories":[{"id":"4bf58dd8d48988d1e0931735","name":"Coffee
+        Shop","pluralName":"Coffee Shops","shortName":"Coffee Shop","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":2327,"usersCount":754,"tipCount":35},"price":{"tier":1,"message":"Cheap","currency":"$"},"like":false,"rating":7.4,"ratingSignals":57,"hours":{"status":"Closed
+        until 7:00am tomorrow","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":35,"groups":[{"type":"venue","name":"Venue
+        photos","count":35,"items":[{"id":"4e3acb98483b3f951fcaadca","createdAt":1312476056,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/KPZWW0LS5LDPRS1JWP5QT5MVXBECF4G1JLZQKMYBO3VMN33J.jpg","width":720,"height":537,"user":{"id":"1498986","firstName":"michael","lastName":"scully","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/QA0X0IJKYHKXTHBB.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"4e3acb98483b3f951fcaadca","createdAt":1312476056,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/KPZWW0LS5LDPRS1JWP5QT5MVXBECF4G1JLZQKMYBO3VMN33J.jpg","width":720,"height":537,"user":{"id":"1498986","firstName":"michael","lastName":"scully","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/QA0X0IJKYHKXTHBB.jpg"}},"visibility":"public"}]}},"tips":[{"id":"51043a3fe4b08881ebe9782d","createdAt":1359231551,"text":"Go
+        to Dwelltime instead. Low quality.","entities":[{"indices":[6,15],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/51043a3fe4b08881ebe9782d","photo":{"id":"51043a41e4b0f083b106f276","createdAt":1359231553,"source":{"name":"foursquare
+        for iPhone","url":"https:\/\/foursquare.com\/download\/#\/iphone"},"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/487684_-xzlBVgL7jpmwBglq9-UBju8Cb_255DIFDfpL0olRGE.jpg","width":720,"height":960},"photourl":"https:\/\/irs2.4sqi.net\/img\/general\/original\/487684_-xzlBVgL7jpmwBglq9-UBju8Cb_255DIFDfpL0olRGE.jpg","logView":true,"todo":{"count":0},"user":{"id":"487684","firstName":"Carey","lastName":"Armstrong","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/487684-SYAHA10ICIM4JRTH.jpg"}}}],"referralId":"e-0-4a22f2f2f964a520a77d1fe3-2"},{"reasons":{"count":1,"items":[{"summary":"Similar
+        to Pavement Coffeehouse","type":"general","reasonName":"relatedPlacesReason","message":"People
+        who go to Pavement Coffeehouse & Wired Puppy tend to go here."}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"50e83f41e4b0dabfa7ee169c","createdAt":1357397825,"text":"Good
+        coffee, food just ok. Go to Dwelltime in Cambridge instead.","entities":[{"indices":[33,42],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/50e83f41e4b0dabfa7ee169c","logView":true,"todo":{"count":0},"user":{"id":"487684","firstName":"Carey","lastName":"Armstrong","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/487684-SYAHA10ICIM4JRTH.jpg"}}}},"reason":{"text":"Similar
+        to Pavement Coffeehouse","facePile":{"count":1,"items":[{"liked":false,"disliked":false,"oked":false,"photos":1,"user":{"id":"1784194","firstName":"George","lastName":"Babu","gender":"male","relationship":"facebook","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/FURNQQXOZEIO0YXY.jpg"}}}]}}}]},"venue":{"id":"4ce430fb22bef04d11c9d7f8","name":"Thinking
+        Cup","contact":{"phone":"6174825555","formattedPhone":"(617) 482-5555","twitter":"thinkingcup","facebook":"102356233150626","facebookUsername":"thinkingcup","facebookName":"The
+        Thinking Cup"},"location":{"address":"165 Tremont St","crossStreet":"btwn
+        Avery & West St","lat":42.35395343859856,"lng":-71.06380820274353,"postalCode":"02111","cc":"US","city":"Boston","state":"MA","country":"United
+        States","formattedAddress":["165 Tremont St (btwn Avery & West St)","Boston,
+        MA 02111"]},"categories":[{"id":"4bf58dd8d48988d1e0931735","name":"Coffee
+        Shop","pluralName":"Coffee Shops","shortName":"Coffee Shop","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":15479,"usersCount":6674,"tipCount":255},"url":"http:\/\/www.thinkingcup.com","price":{"tier":1,"message":"Cheap","currency":"$"},"hasMenu":true,"like":false,"rating":9.4,"ratingSignals":618,"menu":{"type":"Menu","label":"Menu","anchor":"View
+        Menu","url":"https:\/\/foursquare.com\/v\/thinking-cup\/4ce430fb22bef04d11c9d7f8\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/4ce430fb22bef04d11c9d7f8\/device_menu"},"hours":{"status":"Closed
+        until 7:00am tomorrow","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":753,"groups":[{"type":"venue","name":"Venue
+        photos","count":753,"items":[{"id":"509fa5f1e4b00baa8d4785c1","createdAt":1352639985,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/1616349_Az_TeJG62gqk5R3johOJjK0c3DBoaMDZYCAbd6IDfqQ.jpg","width":537,"height":720,"user":{"id":"1616349","firstName":"D.","lastName":"ROSS","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/ICXGB2KM1DQID15L.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"509fa5f1e4b00baa8d4785c1","createdAt":1352639985,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/1616349_Az_TeJG62gqk5R3johOJjK0c3DBoaMDZYCAbd6IDfqQ.jpg","width":537,"height":720,"user":{"id":"1616349","firstName":"D.","lastName":"ROSS","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/ICXGB2KM1DQID15L.jpg"}},"visibility":"public"}]}},"tips":[{"id":"50e83f41e4b0dabfa7ee169c","createdAt":1357397825,"text":"Good
+        coffee, food just ok. Go to Dwelltime in Cambridge instead.","entities":[{"indices":[33,42],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/50e83f41e4b0dabfa7ee169c","logView":true,"todo":{"count":0},"user":{"id":"487684","firstName":"Carey","lastName":"Armstrong","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/487684-SYAHA10ICIM4JRTH.jpg"}}}],"referralId":"e-0-4ce430fb22bef04d11c9d7f8-3"}]}]}}'
+    http_version: 
+  recorded_at: Tue, 18 Nov 2014 03:16:04 GMT
+recorded_with: VCR 2.9.3

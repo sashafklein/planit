@@ -11,7 +11,7 @@ module Services
              :category, :meal, :lodging, :coordinate,
              to: :place
 
-    attr_accessor :place, :venue, :geocoded, :photo, :alternate_nearby
+    attr_accessor :place, :venue, :geocoded, :photo, :alternate_nearby, :response
     def initialize(place, alternate_nearby=nil, geocoded=false)
       @place = place
       @alternate_nearby = alternate_nearby
@@ -20,12 +20,9 @@ module Services
     end
 
     def complete!
-      return place_with_photo if place.complete?
-      return place_with_photo unless nearby_info_present? && query?
+      return place_with_photo unless nearby_info_present? && query? && !place.complete?
 
       explore
-      place_with_photo
-    ensure
       place_with_photo
     end
 
@@ -36,19 +33,22 @@ module Services
     end
 
     def explore
-      @venue = HTTParty.get(full_fs_url)['response']['groups'][0]['items'][0]['venue']
+      @venue = get_venue!
       merge!
       getPhoto
-    rescue
-      place_with_photo
     end
 
     def nearby
       @nearby ||= place.nearby || alternate_nearby
     end
+
+    def get_venue!
+      @response = HTTParty.get(full_fs_url)
+      @response.deep_val ['response', 'groups', 0, 'items', 0, 'venue']
+    end
     
     def merge!
-      return unless similar_lat_lon? && similar_name?
+      return unless venue && acceptably_close_lat_lon_and_name?
       
       place.names << venue_name
       place.phones[:default] = venue_phone if venue_phone
@@ -62,27 +62,47 @@ module Services
       place.lon = venue_lon unless place.lon.present? && geocoded
     end
 
-    def similar_lat_lon?
-      ( place.lat.nil? || place.lat.round(1) == venue_lat.round(1) ) && 
-        (place.lon.nil? || place.lon.round(1) == venue_lon.round(1) )
+    def acceptably_close_lat_lon_and_name?
+      similar_name?
+    end
+
+    def name_stringency
+      if points_of_lat_lon_similarity >= 4
+        0.6
+      else
+        case points_of_lat_lon_similarity
+        when 3 then 0.7
+        when 2 then 0.85
+        else 2 # Reject, even if name matches
+        end
+      end 
+    end
+
+    def points_of_lat_lon_similarity
+      return @points_similarity if @points_similarity
+      return 0 unless venue_lat && venue_lon
+      return 6 if lat.nil? || lon.nil?
+      @points_similarity = [lat.points_of_similarity(venue_lat), lon.points_of_similarity(venue_lon)].min
     end
 
     def similar_name?
       return true if place.names.empty? || venue_name.non_latinate?
       place.names.any? do |name|
-        matches = (name.match_distance(venue_name) > 0.7)
-        notify_of_bad_name_distance if !matches
+        distance = name.without_articles.match_distance( venue_name.without_articles )
+        matches = (distance > name_stringency)
+        notify_of_bad_name_distance(distance) if !matches
         matches
       end
     end
 
-    def notify_of_bad_name_distance
-      return binding.pry if ENV["RAILS_ENV"] == 'test'
+    def notify_of_bad_name_distance(distance)
+      return if ENV["RAILS_ENV"] == 'test'
 
-      PlaceMailer.notify_of_bad_name_distance(name, distance, venue)
+      PlaceMailer.notify_of_bad_name_distance(name, distance, venue_name)
     end
 
     def getPhoto
+      return place_with_photo unless venue
       @photo = place.images.where(url: venue_photo).first_or_initialize(source: 'FourSquare')
     end
 
@@ -111,7 +131,8 @@ module Services
     end
 
     def venue_photo
-      photo = venue['featuredPhotos']['items'][0]
+      return nil unless photo = venue.deep_val( ['featuredPhotos', 'items', 0] )
+
       [photo['prefix'], photo['suffix']].join("200x200")
     end   
     
@@ -124,35 +145,35 @@ module Services
     end
 
     def venue_phone
-      venue['contact']['phone']
+      venue.deep_val %w(contact phone)
     end
 
     def venue_address
-      venue['location']['address']
+      venue.deep_val %w(location address)
     end
 
     def venue_lat
-      venue['location']['lat']
+      venue.deep_val %w(location lat)
     end
 
     def venue_lon
-      venue['location']['lng']
+      venue.deep_val %w(location lng)
     end
 
     def venue_country
-      venue['location']['country']
+      venue.deep_val %w(location country)
     end
 
     def venue_region
-      venue['location']['state']
+      venue.deep_val %w(location state)
     end
 
     def venue_locality
-      venue['location']['city']
+      venue.deep_val %w(location city)
     end
 
     def venue_category
-      venue['categories'][0]['name']
+      venue.deep_val ['categories', 0, 'name']
     end
   end
 end

@@ -8,8 +8,10 @@ class String
   end
 
   def cut(*substrings)
-    base = self
-    Array(substrings).each do |substring|
+    base = dup
+    subs = substrings.first.is_a?(Array) ? substrings.first : substrings
+    
+    subs.each do |substring|
       base = base.gsub(substring.to_s, '')
     end
     base
@@ -23,5 +25,9 @@ class String
 
   def non_latinate?
     %r!#{non_latinate_or_punctuation_or_space_thread}!.match(self)
+  end
+
+  def without_articles(articles= %w(the an a) )
+    split(" ").reject{ |w| articles.include?(w.downcase) }.join(" ")
   end
 end

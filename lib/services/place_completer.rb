@@ -8,7 +8,7 @@ module Services
 
     def complete!
       @place = Place.find_or_initialize(attrs)
-
+      
       load_region_info_from_nearby!
       geocode!
       api_complete!
