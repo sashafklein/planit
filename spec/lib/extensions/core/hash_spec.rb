@@ -3,17 +3,17 @@ require 'spec_helper'
 describe Hash do 
   describe "recursive_symbolize_keys" do
     it "symbolizes keys throughout the hash, without changing original" do
-      hash = { 'key' => { 'key2' => { 'key3' => 3, key4: [ {'key5' => 5 }] }}}
-      expect(hash.recursive_symbolize_keys).to eq({ key: { key2: { key3: 3, key4: [ { key5: 5 }] }}})
-      expect(hash).to eq({ 'key' => { 'key2' => { 'key3' => 3, key4: [ {'key5' => 5 }] }}})
+      hash = { 'key' => { 'key2' => { 'key3' => 3, key4: [ {'key5' => 5 }, 'whatever'] }}}
+      expect(hash.recursive_symbolize_keys).to eq({ key: { key2: { key3: 3, key4: [ { key5: 5 }, 'whatever'] }}})
+      expect(hash).to eq({ 'key' => { 'key2' => { 'key3' => 3, key4: [ {'key5' => 5 }, 'whatever'] }}})
     end
   end
 
   describe "recursive_symbolize_keys!" do
     it "symbolizes keys throughout the hash and changes original" do
-      hash = { 'key' => { 'key2' => { 'key3' => 3, key4: [ {'key5' => 5 }] }}}
-      expect(hash.recursive_symbolize_keys!).to eq({ key: { key2: { key3: 3, key4: [ { key5: 5 }] }}})
-      expect(hash).to eq({ key: { key2: { key3: 3, key4: [ { key5: 5 }] }}})
+      hash = { 'key' => { 'key2' => { 'key3' => 3, key4: [ {'key5' => 5 }, 'whatever'] }}}
+      expect(hash.recursive_symbolize_keys!).to eq({ key: { key2: { key3: 3, key4: [ { key5: 5 }, 'whatever'] }}})
+      expect(hash).to eq({ key: { key2: { key3: 3, key4: [ { key5: 5 }, 'whatever'] }}})
     end
   end
 

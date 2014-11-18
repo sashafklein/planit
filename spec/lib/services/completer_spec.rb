@@ -12,26 +12,20 @@ module Services
       context "new place" do
         context "with no sequence or plan data" do
           it "saves and returns an associated mark, rounded out by Geocoder and FourSquare API", :vcr do
-            expect_any_instance_of(Services::PlaceCompleter).to receive(:api_complete!).and_call_original
-            expect_any_instance_of(Services::PlaceCompleter).to receive(:geocode!).and_call_original
-
-            hash = place_hash
             c = Completer.new(place_hash, @user)
             mark = c.complete!
 
             expect(mark.user).to eq @user
             
             place = mark.place
-
-            expect(place.name).to eq hash[:place][:names][0]
-            expect(place.street_address).to eq hash[:place][:street_addresses].first
-            expect(place.locality).to eq hash[:place][:locality]
-            expect(place.country).to eq hash[:place][:country]
+            expect(place.name).to eq place_hash[:place][:names][0]
+            expect(place.street_address).to eq place_hash[:place][:street_addresses].first
+            expect(place.locality).to eq place_hash[:place][:locality]
+            expect(place.country).to eq place_hash[:place][:country]
           end
 
           it "grabs more info from FourSquare", :vcr do
             expect( Image.count ).to eq 0
-            hash = place_hash
             c = Completer.new(place_hash, @user)
             mark = c.complete!
 

@@ -9,7 +9,11 @@ class Hash
         hash[k] = v.recursive_symbolize_keys
       elsif v.is_a? Array
         hash[k] = v.map do |value|
-          value.recursive_symbolize_keys if value.is_a? Hash
+          if value.is_a? Hash
+            value.recursive_symbolize_keys 
+          else
+            value
+          end
         end
       end
     end
