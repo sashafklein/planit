@@ -13,7 +13,7 @@ module Services
         if string.match(%r!\A#{is_website_link?}!)
           string.downcase.match /#{name}/
         else
-          string.downcase.match /(?:\A|[ ]|[,]|[;]|[.])#{name}(?:\z|[ ]|[,]|[;]|[.])/
+          string.downcase.match /(?:\A|[ ]|[,]|[;]|[.]|[:]|[()]|[\/]|[\\])#{name}(?:\z|[ ]|[,]|[:]|[;]|[.]|[)]|[\/]|[\\])/
         end
       end
       city ? city.last[:accented] : nil

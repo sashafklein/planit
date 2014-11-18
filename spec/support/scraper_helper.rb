@@ -4,7 +4,11 @@ module ScraperHelper
   end
 
   def html
-    File.read( file_path('html') )
+    if file_name == 'general'
+      Nokogiri(open(@url)).inner_html
+    else
+      File.read( file_path('html') )
+    end
   end
 
   def data
@@ -12,6 +16,10 @@ module ScraperHelper
     dup_data.map do |hash|
       hash.recursive_delete_if{ |k, v| v.nil? || (v.is_a?(String) && v.empty?) }
     end
+  end
+
+  def name_attempts
+    dup_names = scraper.name_attempts.dup
   end
 
   def expect_equal(array1, array2)
@@ -25,7 +33,11 @@ module ScraperHelper
   end
 
   def file_path(ending)
-    File.join('spec', 'support', 'pages', @base_domain, "#{@base_name}.#{ending}")
+    File.join('spec', 'support', 'pages', "#{file_name}.#{ending}")
+  end
+
+  def file_name
+    @base_domain ? "#{@base_domain}/#{@base_name}" : 'general'
   end
   
   def get_domain(url)

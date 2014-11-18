@@ -7,12 +7,13 @@ module Scrapers
       def initialize(url, page)
         super(url, page)
         @scrape_target = %w(.story-info)
-        @default_locality = "New York City"
       end
 
       def global_data
         { 
-          nearby: find_nearby, #default but overrideable
+          place:{
+            nearby: find_nearby, #default but overrideable
+          }
         }
       end
 
@@ -51,11 +52,7 @@ module Scrapers
       end
 
       def find_nearby
-        if ___
-          return ___
-        else
-          return @default_locality
-        end
+        "New York City, New York, United States"
       end
 
       def name_in_data_hash(data)

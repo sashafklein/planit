@@ -22,7 +22,7 @@ module Scrapers
       # PAGE 
 
       def general_group
-        binding.pry
+        # binding.pry
         group_array = []
         #find linked CAPITALIZED items NOT BOLD ANYMORE, JUNK
 

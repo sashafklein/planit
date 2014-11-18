@@ -65,8 +65,12 @@ module Services
 
     def self.specific_scraper(url, page)
       class_name = URI(url).host.match(/[^\.]+\.\w+$/).to_s.split('.').first.capitalize
-      scraper = "Scrapers::#{class_name}".constantize
+      scraper = supported_scrapers.include?(class_name) ? "Scrapers::#{class_name}".constantize : Scrapers::General
       scraper.build(url, page)
+    end
+
+    def self.supported_scrapers
+      Dir.entries( File.join(Rails.root, 'lib', 'scrapers') ).select{ |e| e[-3..-1] == '.rb' }.map{ |e| e[0..-4] }.map(&:capitalize)
     end
 
     # FLOW DEFAULTS
@@ -155,5 +159,30 @@ module Services
         I18n.transliterate string
       end
     end
+
+    def top_pick(guesses, threshold=0.5)
+      if guesses && guesses.compact.uniq.length == 1
+        return [guesses.compact.uniq.first, 1]
+      elsif guesses && guesses.compact.uniq.length > 1
+        top = 0
+        top_guess = ""
+        guesses.compact.uniq.each do |guess|
+          if guesses.select{ |e| e == guess }.length > top
+            top = guesses.select{ |e| e == guess }.length 
+            top_guess = guess
+          elsif guesses.select{ |e| e == guess }.length == top
+            # strict no-equals rule would be to un-comment the below
+            # top_guess = ""
+          end
+        end
+        confidence = (top.to_f / guesses.compact.length.to_f)
+        if confidence > threshold
+          return [top_guess, confidence]
+        end
+      end
+      return []
+    rescue ; nil
+    end
+
   end
 end

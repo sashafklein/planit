@@ -19,6 +19,13 @@ module RegexLibrary
       "(?:#{insert})"
     end
 
+    def lowercase_destinations_plural_class
+      string = lowercase_destination_class.scan(/\(\?\:(.*)\)/).flatten.first
+      string = string + "s"
+      insert = string.split("|").join("s|")
+      "(?:#{insert})"
+    end
+
     def exceptions
       excepts = [
         "!",

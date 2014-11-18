@@ -31,13 +31,12 @@ module CssOperators
   end
 
   def slash_n_to_space(html)
-    html.gsub(/\n/, ' ') ; rescue ; html
+    html.gsub(/\n/, ' ')
   end
 
   def quote_slash_to_space(html)
     html.gsub("\n", ' ')
     html.gsub("\\n", ' ')
-  rescue ; html
   end
 
   def regex_split_without_loss(string_or_array, split_term)
@@ -77,21 +76,26 @@ module CssOperators
   end
 
   def find_lat_lon_string_in_script(string)
-    string.scan(find_lat_lon_regex).flatten.first ; rescue ; nil
+    string.scan(find_lat_lon_regex).flatten.first
   end
 
   def de_tag(html)
-    html.gsub(/<(?:.|\n)*?>/, '') ; rescue ; html
+    if html
+      html.gsub(/<(?:.|\n)*?>/, '')
+    end
   end
 
   def trim(html)
     if html && html.length > 0
-      html = html.gsub(/(\r\n|\n|\r)/, '')
-          .gsub(/( {2,})/, ' ')
-          .gsub(/^\s+|\s+$/, '')
-          .gsub(/\s+/, ' ')
-          .gsub(/(\t)/, '')
-      URI.unescape(html)
+      string = URI.unescape(html)
+      string = string.gsub(/(\r\n|\n|\r)/, '')
+      string = string.gsub(/( {2,})/, ' ')
+      string = string.gsub(/^\s+|\s+$/, '')
+      string = string.gsub(/\s+/, ' ')
+      string = string.gsub(/(\t)/, '')
+      string = string.gsub(/[.]{3}\Z/, '....')
+      string = string.gsub(/(?:\s| )?[-,;.!|@\?](?:\s| )?\Z/, '')
+      return string
     end
   end
 
