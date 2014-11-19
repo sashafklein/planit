@@ -22,6 +22,7 @@ module Scrapers
       # PAGE 
 
       def general_group
+
         group_array = []
         @currently_in = ""
 
@@ -95,6 +96,7 @@ module Scrapers
       end
 
       def phone(activity)
+        # binding.pry
         phone = trim( de_tag( activity.first ) ).scan(%r!#{find_phone_number_between_comma_or_semicolon_or_parens}!).flatten.first
       rescue ; nil
       end

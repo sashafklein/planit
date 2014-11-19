@@ -277,30 +277,52 @@ module RegexLibrary
     end
 
     def phone_number_thread
-      # "(?:(?:[+(]*\\d+[(\\\-\/. )]?)+(?:[-(). 0-9]\\d\\d+)+)"
+      # old "(?:(?:[+(]*\\d+[(\\\-\/. )]?)+(?:[-(). 0-9]\\d\\d+)+)"
       [
         "(?:",
-        "(?:\\+|[(]|\\+ )?", # start with optional +_ or (
-        "\\d\\d?\\d?", # next could 1 number or 3 numbers
-        "[-).\\\\\/ ]?", # optional close parentheses, also dash or period or slashes or space
-        "[ ]?", # optional space
-        "(?:[()]\\d\\d?\\d?[)][ ]?\\d)?", # optional foreign area code, 1 up to 3, with 1 follow-up
+
+        "(?:", # COUNTRY CODE -- OPTIONAL
+        "(?:\\+|\\+ )?", # start with optional + or +_
+        "\\d\\d?", # country code -- 1-2 numbers
         "[-.\\\\\/ ]?", # optional dash or period or slashes or space
-        "(?:\\d\\d\\d?\\d?)", # heart of the number, first go-around a must (at least 2 numbers, max 4)
+        ")?",
+
+        "(?:", # AREA CODE -- OPTIONAL
+        "[()]\\d\\d?\\d?[)]?", # optional area code, 1 up to 3, with 1 follow-up
         "[-.\\\\\/ ]?", # optional dash or period or slashes or space
-        "(?:\\d\\d\\d?\\d?)", # heart of the number, second go-around a must (at least 2 numbers, max 4)
+        ")?",
+
+        # CORE NUMBER
+        "(?:", # option of lots of small numbers broken up insist minimum 7 numbers total
+        "(?:\\d\\d?\\d?\\d?)", # at least one (1+)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)", # at least two (3+)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)", # at least two (5+)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)", # at least two (7+)
         "[-.\\\\\/ ]?", # optional dash or period or slashes or space
         "(?:\\d\\d\\d?\\d?)?", # optional final 2-4 numbers
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)?", # optional final 2-4 numbers
+        "|", # option of bigger set of numbers
+        "(?:\\d\\d\\d?\\d?)", # at least two (2+)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)", # at least two (4+)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d\\d?)", # at least three (7+)
         "[-.\\\\\/ ]?", # optional dash or period or slashes or space
         "(?:\\d\\d\\d?\\d?)?", # optional final 2-4 numbers
         "[-.\\\\\/ ]?", # optional dash or period or slashes or space
         "(?:\\d\\d\\d?\\d?)?", # optional final 2-4 numbers
         ")",
+
+        ")",
       ].join
     end
 
     def find_phone_number_between_comma_or_semicolon_or_parens
-      "(?:[;,(]\\s\\s*(#{phone_number_thread}))"
+      "(?:[;,(]\\s\\s*(#{phone_number_thread})\\s*[;,)])"
     end
 
     # REGEX SAFETY <- CANNOT BE REPEATED * OR + OR ?

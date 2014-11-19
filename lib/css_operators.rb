@@ -179,6 +179,8 @@ module CssOperators
       "[itemprop='latitude']",
       "[property='v:lat']",
       "[property='v:latitude']",
+      "[data-lat]",
+      "[data-latitude]",
     ]
   end
 
@@ -192,6 +194,10 @@ module CssOperators
       "[property='v:lng']",
       "[property='v:long']",
       "[property='v:longitude']",
+      "[data-lon]",
+      "[data-lng]",
+      "[data-long]",
+      "[data-longitude]",
     ]
   end
 
@@ -215,13 +221,42 @@ module CssOperators
     ]
   end
 
+  def article_usual_suspects
+    list = [
+      "article",
+      ".article-body",
+      "#article-body",
+      ".story-body",
+      "#story-body",
+      ".main-text",
+      "#main-text",
+      ".main",
+      "#main",
+      ".story",
+      "#story",
+      ".article",
+      "#article",
+      ".article-content",
+      "#article-content",
+      ".story-content",
+      "#story-content",
+      ".main-content",
+      "#main-content",
+    ]
+  end
+
   # USUAL SUSPECT FUNCTIONS
 
-  def get_usual_suspect_text(list)
+  def get_usual_suspect_text(list, nokogiri_page=nil)
+    if !nokogiri_page
+      nokogiri_page = page unless !respond_to?(:page)
+    end
     list.each do |attempt|
-      if object = page.css(attempt).first
+      if object = nokogiri_page.css(attempt).first
         if object.attribute("content")
           return trim( object.attribute("content").value )
+        elsif attempt.scan(/\A\[([^']*)\]\Z/).flatten.first && object.attribute(attempt.scan(/\A\[([^']*)\]\Z/).flatten.first)
+          return trim( de_tag( breakline_to_space( object.attribute.value ) ) )
         elsif object.text && object.text.length > 0
           return trim( de_tag( breakline_to_space( object.text ) ) )
         end
@@ -230,13 +265,18 @@ module CssOperators
     return nil
   end
 
-  def get_usual_suspect_html(list)
+  def get_usual_suspect_html(list, nokogiri_page=nil)
+    if !nokogiri_page
+      nokogiri_page = page unless !respond_to?(:page)
+    end
     list.each do |attempt|
-      if object = page.css(attempt).first
-        if object.attribute("content")
-          return trim( object.attribute("content").value )
-        elsif object.inner_html && object.inner_html.length > 0
+      if object = nokogiri_page.css(attempt).first
+        if object.inner_html && object.inner_html.length > 0
           return trim( de_tag( breakline_to_space( object.inner_html ) ) )
+        elsif object.attribute("content")
+          return trim( object.attribute("content").value )
+        elsif attempt.scan(/\A\[([^']*)\]\Z/).flatten.first && object.attribute(attempt.scan(/\A\[([^']*)\]\Z/).flatten.first)
+          return trim( de_tag( breakline_to_space( object.attribute.value ) ) ) 
         end
       end
     end
@@ -450,6 +490,17 @@ module CssOperators
       array_to_delete_from.delete(e.capitalize)
       array_to_delete_from.delete(e.titleize)
     end
+  end
+
+  def page_count_beyond_threshold?(page, regex, threshold=25)
+    if page = page.inner_html
+      if count = page.scan(regex)
+        if count.length > threshold
+          return true
+        end
+      end
+    end
+    return false
   end
 
   def clean_address_box(html)

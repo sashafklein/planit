@@ -63,13 +63,13 @@ module Scrapers
     #   end
     # end
 
-    # describe "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0" do
-    #   before { @url = "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0" }
-    #   it "parses the page" do 
-    #     raw_test(data) 
-    #     puts "name attempts #{name_attempts}"
-    #   end
-    # end
+    # RANDOM ARTICLE GRABS ALL ARTICLE-Y STUFF
+    describe "http://www.sfgate.com/restaurants/article/Chris-Cosentino-s-pork-ragu-survives-the-5825375.php" do
+      before { @url = "http://www.sfgate.com/restaurants/article/Chris-Cosentino-s-pork-ragu-survives-the-5825375.php" }
+      it "parses the page" do 
+        raw_test(data) 
+      end
+    end
 
     describe "http://novareresbiercafe.com" do
       before { @url = "http://novareresbiercafe.com" }
@@ -137,6 +137,7 @@ module Scrapers
       end
     end
 
+    # PERPETUAL REDIRECT PAGE?
     # describe "http://www.homebuenosaires.com/EN/index" do
     #   before { @url = "http://www.homebuenosaires.com/EN/index" }
     #   it "parses the page" do 

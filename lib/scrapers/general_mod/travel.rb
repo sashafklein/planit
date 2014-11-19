@@ -3,7 +3,7 @@ module Scrapers
 
     # PAGE SETUP
 
-    class Attempt < General
+    class Travel < General
 
       attr_accessor :locality, :region, :postal_code, :country, :street_address, :nearby
       def initialize(url, page)
@@ -121,11 +121,9 @@ module Scrapers
             end
           end
         end
-        unless @twitter
-          if meta = page.css("meta[name='twitter:title']").first
-            if meta.attribute("content")
-              return @twitter = meta.attribute("content").value
-            end
+        if meta = page.css("meta[name='twitter:title']").first
+          if meta.attribute("content")
+            return @twitter = meta.attribute("content").value
           end
         end
         return nil
@@ -139,7 +137,7 @@ module Scrapers
             if title.value.match(/Become a fan of .*? on Facebook/)
               @facebook_href = link.attribute("href").value
               title_match = title.value.scan(/Become a fan of (.*?) on Facebook/).flatten.first
-              return @facebook = title_match unless title_match && title_match.downcase == "us"
+              return @facebook = title_match unless !title_match || title_match.downcase == "us"
             end
           end
           if href = link.attribute("href")
@@ -151,11 +149,11 @@ module Scrapers
               return @facebook = href_match
             end
           end
-          if text = link.text.include?("facebook")
-            if text
+          if text = link.text
+            if text.include?("facebook")
               @facebook_href = link.attribute("href").value
-              text_match = text.scan(/(?:Become a fan of |\A)(.*?) on Facebook/).flatten.first
-              return @facebook = text_match unless text_match && text_match.downcase == "us"
+              text_match = link.text.scan(/(?:Become a fan of |\A)(.*?) on Facebook/).flatten.first
+              return @facebook = text_match unless !text_match || text_match.downcase == "us"
             end
           end
         end
@@ -361,12 +359,6 @@ module Scrapers
         end
         if lat_on_page = get_usual_suspect_text(latitude_usual_suspects)
           return @lat = lat_on_page
-        else
-          if meta_lat = page.css("[data-lat]").first
-            @lat = meta_lat.value
-          elsif meta_lat = page.css("[data-latitude]").first
-            @lat = meta_lat.value
-          end
         end
         return nil
       # rescue ; nil
@@ -383,16 +375,6 @@ module Scrapers
         end
         if lon_on_page = get_usual_suspect_text(longitude_usual_suspects)
           return @lon = lon_on_page
-        else
-          if meta_lon = page.css("[data-lon]").first
-            @lon = meta_lon.value
-          elsif meta_lon = page.css("[data-lng]").first
-            @lon = meta_lon.value
-          elsif meta_lon = page.css("[data-long]").first
-            @lon = meta_lon.value
-          elsif meta_lon = page.css("[data-longitude]").first
-            @lon = meta_lon.value
-          end
         end
         return nil
       # rescue ; nil
