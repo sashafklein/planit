@@ -13,22 +13,20 @@ module Scrapers
       # PAGE 
 
       def data
-        # run general page scrapers
-        meta_contact
-        set_locale
         # binding.pry
         [ place: {
+            lat: lat,
+            lon: lon,
             name: name,
+            nearby: nearby,
+            full_address: full_address,
             street_address: street_address,
             locality: locality,
             region: region,
             postal_code: postal_code,
             country: country,
             phones: phone,
-            lat: lat,
-            lon: lon,
             hours: hours,
-            nearby: nearby,
             # images: images,
           }
         ]
@@ -38,20 +36,13 @@ module Scrapers
 
       # DOES IT HAVE MAP LINKS? PARSE LINKS, LINK TEXT
 
-      def map_attempts # ADD OTHER MAP SERVICES? BING? MAPBOX?
-        [
-          "www.google.com/maps/", # e.g. https://www.google.com/maps/place/124+Columbus+Ave/@37.7967858,-122.4048005,17z/data=!3m1!4b1!4m2!3m1!1s0x808580f4dc5c4831:0x1bea4997be9969cf
-          "maps.google.com/maps?", # e.g. http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=contigo+1320+castro+street,+san+francisco,+ca+94114&sll=37.0625,-95.677068&sspn=62.870523,55.898438&ie=UTF8&z=17&iwloc=A
-        ]
-      end
-
       def map_images
         image_array = []
         page_map_images = page.css("img")
         page_map_images.each_with_index do |image, index|
           alt = image.attribute("alt").value unless !image.attribute("alt")
           src = image.attribute("src").value unless !image.attribute("src")
-          map_attempts.each do |attempt|          
+          map_usual_suspects.each do |attempt|          
             if src && src.include?(attempt)
               image_array << [index, alt, src]
             end
@@ -76,7 +67,7 @@ module Scrapers
         page_map_links.each_with_index do |link, index|
           text = link.text
           href = link.attribute("href").value unless !link.attribute("href")
-          map_attempts.each do |attempt|          
+          map_usual_suspects.each do |attempt|          
             if href && href.include?(attempt)
               link_array << [index, text, href]
             end
@@ -107,70 +98,13 @@ module Scrapers
       # rescue ; nil
       end
 
-      def title
-        return @title if @title
-        @title = trim( page.css("title").text ) 
-      # rescue; nil
-      end
-
-      def heading
-        return @heading if @heading
-        if h1 = page.css("h1").first
-          return @heading = trim( h1.text )  
-        end
-        return nil
-      # rescue; nil
-      end
-
-      def meta_description
-        return @meta_description if @meta_description
-        if meta_tag = page.css("meta[name='description']").first
-          return @meta_description = meta_tag.attribute("content").value
-        end
-        return nil
-      # rescue; nil
-      end
-
-      def meta_keywords
-        return @meta_keywords if @meta_keywords
-        if meta_tag = page.css("meta[name='keywords']").first
-          return @meta_keywords = meta_tag.attribute("content").value
-        end
-        return nil
-      # rescue; nil
-      end
-
-      def meta_name
-        return @meta_name if @meta_name
-        if meta_tag = page.css("meta[property='og:title']").first
-          return @meta_name = meta_tag.attribute("content").value
-        elsif meta_tag = page.css("meta[itemprop='name']").first
-          return @meta_keywords = meta_tag.attribute("content").value
-        end
-        return nil
-      # rescue; nil
-      end
+      # SOCIAL DATA SCRAPING
 
       def google
         return @google if @google
-        if map_string
+        if map_string && map_string.include?("google")
           map_string.each do |string|
-            query = string
-            # clean up before query
-            query = query.gsub(/.*\.com\/maps/, '') || ''
-            query = query.gsub(/.*\/place\//, '') || ''
-            query = query.gsub(/.*[qQ]\=/, '')
-            # clean up after query
-            query = query.gsub(/\+\+.*/, '') || ''
-            query = query.gsub(/\/\@.*/, '') || ''
-            query = query.gsub(/\&.*/, '') || ''
-            # fix spacing
-            query = query.gsub("+", " ") || ''
-            query = query.gsub("%20", " ") || ''
-            query = query.gsub("%2C", ",") || ''
-            # take out address starting with numbers
-            query = query.gsub(/\d+ (?:\w|\d+).*/, '') || ''
-            query = query.titleize
+            query = find_query_name_in_map_string(string)
             return @google = trim( query )
           end
         end
@@ -236,277 +170,109 @@ module Scrapers
       def tripadvisor
       end
 
-      def meta_contact
-        meta_street_address
-        meta_locality
-        meta_region
-        meta_country
-        meta_postal_code
+      # META DATA SCRAPING
+
+      def title
+        return @title if @title
+        @title = trim( page.css("title").text ) 
+      # rescue; nil
       end
 
-      def meta_street_address
-        return @street_address if @street_address
-        if meta_tag = page.css("meta[property='street_address']").first
-          return @street_address = trim( meta_tag.attribute("content").value )
+      def meta_description
+        return @meta_description if @meta_description
+        if meta_tag = page.css("meta[name='description']").first
+          return @meta_description = meta_tag.attribute("content").value
         end
         return nil
-      # rescue ; nil
+      # rescue; nil
       end
 
-      def meta_locality
-        return @locality if @locality
-        if meta_tag = page.css("meta[property='locality']").first
-          return @locality = trim( meta_tag.attribute("content").value ) 
-        elsif meta_tag = page.css("meta[property='city']").first
-          return @locality = trim( meta_tag.attribute("content").value )
+      def meta_keywords
+        return @meta_keywords if @meta_keywords
+        if meta_tag = page.css("meta[name='keywords']").first
+          return @meta_keywords = meta_tag.attribute("content").value
         end
         return nil
-      # rescue ; nil
+      # rescue; nil
       end
 
-      def meta_region
-        return @region if @region
-        if meta_tag = page.css("meta[property='region']").first
-          return @region = trim( meta_tag.attribute("content").value )
-        end
+      def meta_name
+        return @meta_name if @meta_name
+        return @meta_name = get_usual_suspect_text(meta_name_usual_suspects)
         return nil
-      # rescue ; nil
+      # rescue; nil
       end
 
-      def meta_phone
-        return @phone if @phone
-        if meta_tag = page.css("meta[property='phone']").first
-          return @phone = trim( meta_tag.attribute("content").value )
-        elsif meta_tag = page.css("meta[property='phone_number']").first
-          return @phone = trim( meta_tag.attribute("content").value )
-        elsif meta_tag = page.css("meta[property='phoneNumber']").first
-          return @phone = trim( meta_tag.attribute("content").value )
-        end
+      # ON PAGE DATA SCRAPING
+
+      def heading
+        return @heading if @heading
+        return @heading = get_usual_suspect_text(heading_usual_suspects)
         return nil
-      # rescue ; nil
+      # rescue; nil
       end
 
-      def meta_postal_code
-        return @postal_code if @postal_code
-        if meta_tag = page.css("meta[property='postal_code']").first
-          return @postal_code = trim( meta_tag.attribute("content").value )
-        elsif meta_tag = page.css("meta[property='postalCode']").first
-          return @postal_code = trim( meta_tag.attribute("content").value )
-        elsif meta_tag = page.css("meta[property='zip_code']").first
-          return @postal_code = trim( meta_tag.attribute("content").value )
-        elsif meta_tag = page.css("meta[property='zipCode']").first
-          return @postal_code = trim( meta_tag.attribute("content").value )
-        elsif meta_tag = page.css("meta[property='zipcode']").first
-          return @postal_code = trim( meta_tag.attribute("content").value )
-        end
+      def details_name
+        return @details_name if @details_name
+        return @details_name = get_usual_suspect_text(details_name_usual_suspects)
         return nil
-      # rescue ; nil
-      end
-
-      def meta_country
-        return @country if @country
-        if meta_tag = page.css("meta[property='country']").first
-          return @country = trim( meta_tag.attribute("content").value )
-        elsif meta_tag = page.css("meta[property='addressCountry']").first
-          return @country = trim( meta_tag.attribute("content").value )
-        elsif meta_tag = page.css("meta[property='country_name']").first
-          return @country = trim( meta_tag.attribute("content").value )
-        elsif meta_tag = page.css("meta[property='countryName']").first
-          return @country = trim( meta_tag.attribute("content").value )
-        end
-        return nil
-      # rescue ; nil
       end
 
       def full_address
         return @full_address if @full_address
-        # first if clean address already exists
-        if @street_address && @locality && @region && @country
-          return @full_address = [@street_address, @locality, @region, @country].join(", ")
-        elsif @street_address && @locality && @country
-          return @full_address = [@street_address, @locality, @country].join(", ")
-        elsif map_string
-          # via map link
+        full_address_from_map, full_address_from_box = nil
+        if attempt_from_address_box = get_usual_suspect_text(full_address_usual_suspects)
+          attempt_from_address_box = clean_address_box( attempt_from_address_box )
+          attempt_from_address_box = attempt_from_address_box.gsub(/\A#{name}/, '') unless !attempt_from_address_box
+          attempt_from_address_box = trim( attempt_from_address_box )
+          full_address_from_box = attempt_from_address_box
+        end
+        if map_string
           map_string.each do |string|
-            query = string
-            # clean up before query
-            query = query.gsub(/.*\.com\/maps/, '') || ''
-            query = query.gsub(/.*\/place\//, '') || ''
-            query = query.gsub(/.*\&q\=/, '') || ''
-            # clean up after query
-            query = query.gsub(/\+\+.*/, '') || ''
-            query = query.gsub(/\/\@.*/, '') || ''
-            query = query.gsub(/\&.*/, '') || ''
-            # take out venue name
-            query = query.gsub(/\A#{name}/, '') || ''
-            # fix spacing
-            query = query.gsub("+", " ") || ''
-            query = query.gsub("%20", " ") || ''
-            query = query.gsub("%2C", ",") || ''
-            query = query.titleize
-            return @full_address = query
+            query = find_query_address_in_map_string(string, name)
+            full_address_from_map = query
           end
         end
+        if full_address_from_box && full_address_from_map
+          if full_address_from_map.downcase.include?(full_address_from_box.downcase)
+            return @full_address = full_address_from_map
+          elsif full_address_from_box.downcase.include?(full_address_from_map.downcase)
+            return @full_address = full_address_from_box 
+          elsif full_address_from_map.length > full_address_from_box.length
+            return @full_address = full_address_from_map 
+          else
+            return @full_address = full_address_from_box
+          end
+        elsif full_address_from_box && !full_address_from_map
+          return @full_address = full_address_from_box
+        elsif full_address_from_map && !full_address_from_box
+          return @full_address = full_address_from_map  
+        end
+        return nil
       # rescue ; nil
       end
 
-      # def detail_box
-      #   return @detail_box if @detail_box
-      #   attempts = [
-      #     ".contact",
-      #     "#contact",
-      #     ".contact-info",
-      #     "#contact-info",
-      #     ".contact_info",
-      #     "#contact_info",
-      #     ".contact-info",
-      #     "#contact-info",
-      #     "adr",
-      #     ".adr",
-      #     "#adr",
-      #     "address",
-      #     ".address",
-      #     "#address",
-      #     ".address-info",
-      #     "#address-info",
-      #     ".address_info",
-      #     "#address_info",
-      #     ".address-info",
-      #     "#address-info",
-      #     "location",
-      #     ".location",
-      #     "#location",
-      #     ".propertyAddress",
-      #     "#propertyAddress",
-      #     ".property-address",
-      #     "#property-address",
-      #     ".property_address",
-      #     "#property_address",
-      #     "span[itemprop='contact']",
-      #     "span[itemprop='contact-info']",
-      #     "span[itemprop='contact_info']",
-      #     "span[itemprop='contactinfo']",
-      #     "span[itemprop='address']",
-      #     "span[itemprop='address-info']",
-      #     "span[itemprop='address_info']",
-      #     "span[itemprop='addressinfo']",
-      #   ]
-      #   attempts.each do |attempt|
-      #     if detail_attempt = page.css(attempt).first
-      #       return @detail_box = detail_attempt
-      #     end
-      #   end
-      #   return nil
-      # end
-
-      def details_name
-        return @details_name if @details_name
-        attempts = [
-          "[itemprop='name']",
-          "[itemprop='title']",  
-          "[property='v:name']",
-          "[property='v:title']",
-        ]
-        attempts.each do |attempt|
-          if object = page.css(attempt).first
-            if object.attribute("content")
-              return @details_name = trim( object.attribute("content").value )
-            elsif object.inner_html && object.inner_html.length > 0
-              return @details_name = trim( de_tag( object.inner_html ) )
-            end
-          end
-        end
-        return nil
-      end
-
-
       def street_address
         return @street_address if @street_address
-        attempts = [
-          "[itemprop='streetAddress']",
-          "[itemprop='street_address']",
-          "[itemprop='street-address']",
-          "[itemprop='streetaddress']",
-          "[itemprop='address']",          
-          "[property='v:streetAddress']",
-          "[property='v:street_address']",
-          "[property='v:street-address']",
-          "[property='v:streetaddress']",
-          "[property='v:address']",          
-        ]
-        attempts.each do |attempt|
-          if object = page.css(attempt).first
-            if object.attribute("content")
-              return @street_address = trim( object.attribute("content").value )
-            elsif object.inner_html && object.inner_html.length > 0
-              return @street_address = trim( de_tag( object.inner_html ) )
-            end
-          end
-        end
+        return @street_address = get_usual_suspect_text(street_address_usual_suspects)
         return nil
       end
 
       def country
         return @country if @country
-        attempts = [
-          "[itemprop='countryName']",
-          "[itemprop='country_name']",
-          "[itemprop='country-name']",
-          "[itemprop='countryname']",
-          "[itemprop='country']",          
-          "[itemprop='addressCountry']",          
-          "[itemprop='address_country']",          
-          "[itemprop='address-country']",          
-          "[property='v:countryName']",
-          "[property='v:country_name']",
-          "[property='v:country-name']",
-          "[property='v:countryname']",
-          "[property='v:country']",          
-          "[property='v:addressCountry']",          
-          "[property='v:address_country']",          
-          "[property='v:address-country']",          
-        ]
-        attempts.each do |attempt|
-          if object = page.css(attempt).first
-            if object.attribute("content")
-              return @country = trim( object.attribute("content").value )
-            elsif object.inner_html && object.inner_html.length > 0
-              return @country = trim( de_tag( object.inner_html ) )
-            end
-          end
-        end
+        return @country = get_usual_suspect_text(country_usual_suspects)
+        return nil
+      end
+
+      def region
+        return @region if @region
+        return @region = get_usual_suspect_text(region_usual_suspects)
         return nil
       end
 
       def postal_code
         return @postal_code if @postal_code
-        attempts = [
-          "[itemprop='postalCode']",
-          "[itemprop='postal_code']",
-          "[itemprop='postal-code']",
-          "[itemprop='postalcode']",
-          "[itemprop='zipCode']",          
-          "[itemprop='zip_code']",          
-          "[itemprop='zip-code']",          
-          "[itemprop='zipcode']",          
-          "[property='v:postalCode']",
-          "[property='v:postal_code']",
-          "[property='v:postal-code']",
-          "[property='v:postalcode']",
-          "[property='v:zipCode']",
-          "[property='v:zip_code']",
-          "[property='v:zip-code']",
-          "[property='v:zipcode']",
-        ]
-        attempts.each do |attempt|
-          if object = page.css(attempt).first
-            if object.attribute("content")
-              return @postal_code = trim( object.attribute("content").value )
-            elsif object.inner_html && object.inner_html.length > 0
-              return @postal_code = trim( de_tag( object.inner_html ) )
-            end
-          end
-        end
+        return @postal_code = get_usual_suspect_text(postal_code_usual_suspects)
         return nil
       end
 
@@ -520,34 +286,12 @@ module Scrapers
             end
           end
         end
-        attempts = [
-          "[itemprop='telephone']",
-          "[itemprop='phone']",
-          "[itemprop='phone_number']",
-          "[itemprop='phone-number']",
-          "[itemprop='phoneNumber']",          
-          "[itemprop='mobile']",          
-          "[property='v:telephone']",
-          "[property='v:phone']",
-          "[property='v:phone_number']",
-          "[property='v:phone-number']",
-          "[property='v:phoneNumber']",
-          "[property='v:mobile']",
-        ]
-        attempts.each do |attempt|
-          if object = page.css(attempt).first
-            if object.attribute("content")
-              return @phone = trim( object.attribute("content").value )
-            elsif object.inner_html && object.inner_html.length > 0
-              return @phone = trim( de_tag( object.inner_html ) )
-            end
-          end
-        end
+        return @phone = get_usual_suspect_text(phone_usual_suspects)
         return nil
       # rescue ; nil
       end
 
-      def set_locale
+      def nearby
         return @nearby if @nearby
         unless lat && lon
           if @locality && @country
@@ -615,24 +359,15 @@ module Scrapers
             return @lat = latlon.split(",")[0] unless !latlon
           end
         end
-        attempts = [
-          "[itemprop='lat']",
-          "[itemprop='latitude']",
-          "[property='v:lat']",
-          "[property='v:latitude']",
-        ]
-        attempts.each do |attempt|
-          if object = page.css(attempt).first
-            if object.attribute("content")
-              return @lat = trim( object.attribute("content").value )
-            elsif object.inner_html && object.inner_html.length > 0
-              return @lat = trim( de_tag( object.inner_html ) )
-            end
+        if lat_on_page = get_usual_suspect_text(latitude_usual_suspects)
+          return @lat = lat_on_page
+        else
+          if meta_lat = page.css("[data-lat]").first
+            @lat = meta_lat.value
+          elsif meta_lat = page.css("[data-latitude]").first
+            @lat = meta_lat.value
           end
         end
-        # if page.css("[data-lat]")
-        # elsif page.css("[data-latitude]")
-        # end
         return nil
       # rescue ; nil
       end
@@ -646,30 +381,19 @@ module Scrapers
             return @lon = latlon.split(",")[1] unless !latlon
           end
         end
-        attempts = [
-          "[itemprop='lon']",
-          "[itemprop='lng']",
-          "[itemprop='long']",
-          "[itemprop='longitude']",
-          "[property='v:lon']",
-          "[property='v:lng']",
-          "[property='v:long']",
-          "[property='v:longitude']",
-        ]
-        attempts.each do |attempt|
-          if object = page.css(attempt).first
-            if object.attribute("content")
-              return @lon = trim( object.attribute("content").value )
-            elsif object.inner_html && object.inner_html.length > 0
-              return @lon = trim( de_tag( object.inner_html ) )
-            end
+        if lon_on_page = get_usual_suspect_text(longitude_usual_suspects)
+          return @lon = lon_on_page
+        else
+          if meta_lon = page.css("[data-lon]").first
+            @lon = meta_lon.value
+          elsif meta_lon = page.css("[data-lng]").first
+            @lon = meta_lon.value
+          elsif meta_lon = page.css("[data-long]").first
+            @lon = meta_lon.value
+          elsif meta_lon = page.css("[data-longitude]").first
+            @lon = meta_lon.value
           end
         end
-        # if page.css("[data-lon]")
-        # elsif page.css("[data-lng]")
-        # elsif page.css("[data-long]")
-        # elsif page.css("[data-longitude]")
-        # end
         return nil
       # rescue ; nil
       end
@@ -684,7 +408,7 @@ module Scrapers
         guesses = []
         # trim down sub-titles etc
         if meta_keywords
-          trimmed_keyword = meta_keywords.gsub(/,.*/, '')
+          trimmed_keyword = meta_keywords.gsub(/\,.*/, '')
           trimmed_keyword = before_divider( trimmed_keyword )
         end
         if meta_description
@@ -705,9 +429,12 @@ module Scrapers
         guesses << before_divider( tripadvisor )
         guesses << before_divider( yelp )
         guesses << before_divider( google )
+
         @name_guesses = guesses
 
-        if clear_choice = top_pick(guesses.compact)[0]
+        delete_items_from_array_case_insensitive(list_of_null_page_titles, guesses)
+
+        if clear_choice = top_pick(guesses.compact, 0.4999)[0]
           return @name = clear_choice
         else
           # remove common destination suffix/prefixes

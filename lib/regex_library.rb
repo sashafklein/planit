@@ -1,8 +1,25 @@
 module RegexLibrary
 
-    # REGEX COMPONENTS REMEMBER DOUBLE ALL BACKSLASH
+    # LISTS
 
-    def lowercase_destination_class
+    def list_of_null_page_titles
+      null_titles = [
+        "home",
+        "homepage",
+        "home page",
+        "main",
+        "main page",
+        "pages",
+        "redirect",
+        "redirect page",
+        "page",
+        "webpage",
+        "website",
+        "web site",
+      ]
+    end
+
+    def list_of_common_destination_types
       destinations = [
         "library",
         "bookstore",
@@ -15,14 +32,17 @@ module RegexLibrary
         "hotel",
         "spa",
       ]
-      insert = destinations.join("|")
+    end
+
+    # REGEX COMPONENTS REMEMBER DOUBLE ALL BACKSLASH
+
+    def lowercase_destination_class
+      insert = list_of_common_destination_types.join("|")
       "(?:#{insert})"
     end
 
     def lowercase_destinations_plural_class
-      string = lowercase_destination_class.scan(/\(\?\:(.*)\)/).flatten.first
-      string = string + "s"
-      insert = string.split("|").join("s|")
+      insert = list_of_common_destination_types.join("s|")
       "(?:#{insert})"
     end
 
@@ -39,6 +59,10 @@ module RegexLibrary
       ]
       insert = excepts.join("|")
       "(?:#{insert})"
+    end
+
+    def latinate_or_number_thread
+      "(?:[0-9A-Z#{upcase_latinate_thread}a-z#{downcase_latinate_thread}])"
     end
 
     def non_latinate_thread
@@ -248,8 +272,31 @@ module RegexLibrary
       "(?:\\<a.*?href\\=['#{quote_thread}]([^'#{quote_thread}]*?)['#{quote_thread}]\\s*[^>]*?\\>.*?#{a_link_close_thread})"
     end
 
+    def email_thread
+      "(?:[#{latinate_or_number_thread}]+\\@[#{latinate_or_number_thread}]+\.[A-Za-z][A-Za-z]+(?:\\.[A-Za-z][A-Za-z]+)+)"
+    end
+
     def phone_number_thread
-      "(?:(?:[+(]*\\d+[(\\\-\/. )]?)+\\d\\d\\d+)"
+      # "(?:(?:[+(]*\\d+[(\\\-\/. )]?)+(?:[-(). 0-9]\\d\\d+)+)"
+      [
+        "(?:",
+        "(?:\\+|[(]|\\+ )?", # start with optional +_ or (
+        "\\d\\d?\\d?", # next could 1 number or 3 numbers
+        "[-).\\\\\/ ]?", # optional close parentheses, also dash or period or slashes or space
+        "[ ]?", # optional space
+        "(?:[()]\\d\\d?\\d?[)][ ]?\\d)?", # optional foreign area code, 1 up to 3, with 1 follow-up
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)", # heart of the number, first go-around a must (at least 2 numbers, max 4)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)", # heart of the number, second go-around a must (at least 2 numbers, max 4)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)?", # optional final 2-4 numbers
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)?", # optional final 2-4 numbers
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)?", # optional final 2-4 numbers
+        ")",
+      ].join
     end
 
     def find_phone_number_between_comma_or_semicolon_or_parens
@@ -266,10 +313,26 @@ module RegexLibrary
 
     def case_desensitize_array(list)
       item_array = []
-      for item in list
-        item_array << "#{case_desensitize(item)}"
+      joiner = '|'
+      list.each do |item|
+        if item.length > 0
+          string = item.upcase + joiner + item.downcase + joiner + item.capitalize + joiner + item.titleize
+          item_array << string
+        end
       end
-      insert = "(?:" + item_array.join("|") + ")"
+      insert = "(?:" + item_array.join(joiner) + ")"
+    end
+
+    def case_desensitize_and_pluralize_array(list)
+      item_array = []
+      joiner = '[Ss]?|'
+      list.each do |item|
+        if item.length > 0
+          string = item.upcase + joiner + item.downcase + joiner + item.capitalize + joiner + item.titleize
+          item_array << string
+        end
+      end
+      insert = "(?:" + item_array.join(joiner) + ")"
     end
 
     def tag_free_whitespace
