@@ -41,15 +41,15 @@ module Scrapers
       end
 
       def street_address
-        page.css("span[property='v:street-address']").inner_html ; rescue ; nil
+        page.css("span[property='v:street-address']").first.inner_html ; rescue ; nil
       end
 
       def locality
-        page.css("span[property='v:locality']").inner_html ; rescue ; nil
+        page.css("span[property='v:locality']").first.inner_html ; rescue ; nil
       end
 
       def region
-        page.css("span[property='v:region']").inner_html ; rescue ; nil
+        page.css("span[property='v:region']").first.inner_html ; rescue ; nil
       end
 
       def postal_code
@@ -57,7 +57,7 @@ module Scrapers
       end
 
       def country
-        page.css("span[property='v:country-name']").inner_html ; rescue ; nil
+        page.css("span[property='v:country-name']").first.inner_html ; rescue ; nil
       end
 
       def phone

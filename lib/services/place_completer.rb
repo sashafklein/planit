@@ -8,7 +8,7 @@ module Services
 
     def complete!
       @place = Place.find_or_initialize(attrs)
-      
+
       load_region_info_from_nearby!
       geocode!
       api_complete!
@@ -50,7 +50,9 @@ module Services
       attributes[:street_addresses] = Array( attributes.delete(:street_addresses) ) + Array( attributes.delete(:street_address) )
       attributes[:categories] = Array( attributes.delete(:categories) ) + Array( attributes.delete(:category) )
       attributes[:phones] = { default: attributes.delete(:phone) } if attributes[:phone] && ! attributes[:phones]
-      
+      attributes[:lat] = attributes[:lat] ? attributes[:lon].to_f : nil
+      attributes[:lon] = attributes[:lon] ? attributes[:lon].to_f : nil
+
       attributes[:extra] ||= {}
       attributes.except(*Place.attribute_keys << :nearby).each do |key, value|
         attributes[:extra][key] = attributes.delete(key)

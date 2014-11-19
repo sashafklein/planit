@@ -7,8 +7,8 @@ class Api::V1::Users::MarksController < ApiController
 
   def create
     return error(404, "User not found") unless @user
-    
-    completed = Completer.new(params[:mark], @user).complete!
+
+    completed = Services::Completer.new(mark_params, @user).complete!
     if completed
       render json: completed, serializer: TotalMarkSerializer
     else
@@ -18,7 +18,8 @@ class Api::V1::Users::MarksController < ApiController
 
   def scrape
     return error(404, "User not found") unless @user
-    return error(500, "Missing key params") unless params[:url] && params[:page]
+    return error(500, "Missing url param") unless params[:url]
+
     scraped = Array Services::SiteScraper.build(params[:url], params[:page]).data
     completed = Services::MassCompleter.new(scraped, @user).complete!
 
