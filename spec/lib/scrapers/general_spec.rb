@@ -9,70 +9,11 @@ module Scrapers
 
     # describe "website" do
     #   before { @url = "website" }
-    #   it "parses the page" do raw_test(data) end
+    #   it "parses the page" do 
+    #     raw_test(data) 
+    #     puts "name attempts #{name_attempts}"
+    #   end
     # end
-
-    # describe "website" do
-    #   before { @url = "website" }
-    #   it "parses the page" do raw_test(data) end
-    # end
-
-    # describe "website" do
-    #   before { @url = "website" }
-    #   it "parses the page" do raw_test(data) end
-    # end
-
-    # describe "website" do
-    #   before { @url = "website" }
-    #   it "parses the page" do raw_test(data) end
-    # end
-
-    # describe "website" do
-    #   before { @url = "website" }
-    #   it "parses the page" do raw_test(data) end
-    # end
-
-    # describe "website" do
-    #   before { @url = "website" }
-    #   it "parses the page" do raw_test(data) end
-    # end
-
-    # describe "website" do
-    #   before { @url = "website" }
-    #   it "parses the page" do raw_test(data) end
-    # end
-
-    # describe "website" do
-    #   before { @url = "website" }
-    #   it "parses the page" do raw_test(data) end
-    # end
-
-    # describe "website" do
-    #   before { @url = "website" }
-    #   it "parses the page" do raw_test(data) end
-    # end
-
-    # describe "website" do
-    #   before { @url = "website" }
-    #   it "parses the page" do raw_test(data) end
-    # end
-
-    # describe "website" do
-    #   before { @url = "website" }
-    #   it "parses the page" do raw_test(data) end
-    # end
-
-    # describe "website" do
-    #   before { @url = "website" }
-    #   it "parses the page" do raw_test(data) end
-    # end
-
-    describe "http://www.mesagrill.com/las-vegas-restaurant/" do
-      before { @url = "http://www.mesagrill.com/las-vegas-restaurant/" }
-      it "parses the page" do 
-        raw_test(data) 
-      end
-    end
 
     # describe "website" do
     #   before { @url = "website" }
@@ -82,22 +23,172 @@ module Scrapers
     #   end
     # end
 
-    # describe "http://www.banrepcultural.org/museo-botero" do
-    #   before { @url = "http://www.banrepcultural.org/museo-botero" }
-    #   it "parses the page" do raw_test(data) end
+    # describe "website" do
+    #   before { @url = "website" }
+    #   it "parses the page" do 
+    #     raw_test(data) 
+    #     puts "name attempts #{name_attempts}"
+    #   end
     # end
+
+    # describe "website" do
+    #   before { @url = "website" }
+    #   it "parses the page" do 
+    #     raw_test(data) 
+    #     puts "name attempts #{name_attempts}"
+    #   end
+    # end
+
+    # describe "website" do
+    #   before { @url = "website" }
+    #   it "parses the page" do 
+    #     raw_test(data) 
+    #     puts "name attempts #{name_attempts}"
+    #   end
+    # end
+
+    # describe "website" do
+    #   before { @url = "website" }
+    #   it "parses the page" do 
+    #     raw_test(data) 
+    #     puts "name attempts #{name_attempts}"
+    #   end
+    # end
+
+    # describe "website" do
+    #   before { @url = "website" }
+    #   it "parses the page" do 
+    #     raw_test(data) 
+    #     puts "name attempts #{name_attempts}"
+    #   end
+    # end
+
+    # RANDOM ARTICLE GRABS ALL ARTICLE-Y STUFF
+    describe "http://www.sfgate.com/restaurants/article/Chris-Cosentino-s-pork-ragu-survives-the-5825375.php" do
+      before { @url = "http://www.sfgate.com/restaurants/article/Chris-Cosentino-s-pork-ragu-survives-the-5825375.php" }
+      it "parses the page" do 
+        raw_test(data) 
+      end
+    end
+
+    describe "http://novareresbiercafe.com" do
+      before { @url = "http://novareresbiercafe.com" }
+      it "parses the page" do 
+        expect_equal(data, [
+          place: {
+            name: "Novare Res Bier",
+            locality: "Portland",
+            country: "United States of America",
+            nearby: "Portland, United States of America"
+          }
+          ])
+      end
+    end
+
+    describe "http://bluespoonme.com" do
+      before { @url = "http://bluespoonme.com" }
+      it "parses the page" do 
+        expect_equal(data, [
+          place: {
+            name: "Blue Spoon",
+            locality: "Portland",
+            country: "United States of America",
+            nearby: "Portland, United States of America"
+          }
+          ])
+      end
+    end
+
+    describe "http://www.biteintomaine.com" do
+      before { @url = "http://www.biteintomaine.com" }
+      it "parses the page" do 
+        expect_equal(data, [
+          place: {
+            name: "Bite into Maine",
+            locality: "Portland",
+            country: "United States of America",
+            nearby: "Portland, United States of America"
+          }
+          ])
+      end
+    end
+
+    # GNARLY LACK OF ACTUAL DATA
+    # describe "http://dwelltimecambridge.com" do
+    #   before { @url = "http://dwelltimecambridge.com" }
+    #   it "parses the page" do 
+    #     raw_test(data) 
+    #   end
+    # end
+
+    describe "http://www.mesagrill.com/las-vegas-restaurant/" do
+      before { @url = "http://www.mesagrill.com/las-vegas-restaurant/" }
+      it "parses the page" do 
+        expect_equal(data, [
+          place: {
+            name: "Mesa Grill Las Vegas",
+            full_address: "Mesa Grill Caesars Palace 3570 Las Vegas Blvd,Las Vegas, NV 89109",
+            lat: "36.116557",
+            lon: "-115.173261",
+            postal_code: "89109",
+            phones: "877.346.4642"
+          }
+          ])
+      end
+    end
+
+    # PERPETUAL REDIRECT PAGE?
+    # describe "http://www.homebuenosaires.com/EN/index" do
+    #   before { @url = "http://www.homebuenosaires.com/EN/index" }
+    #   it "parses the page" do 
+    #     raw_test(data) 
+    #     puts "name attempts #{name_attempts}"
+    #   end
+    # end
+
+    describe "http://www.reveillecoffee.com/" do
+      before { @url = "http://www.reveillecoffee.com/" }
+      it "parses the page" do 
+        expect_equal(data, [
+          place: {
+            name: "Réveille Coffee Co",
+            locality: "San Francisco", 
+            country: "United States of America",
+            nearby: "San Francisco, United States of America",
+          }
+          ])
+      end
+    end
+
+    describe "http://www.frenchie-restaurant.com/" do
+      before { @url = "http://www.frenchie-restaurant.com/" }
+      it "parses the page" do 
+        expect_equal(data, [
+          place: {
+            name: "Frenchie Restaurant",
+            locality: "Paris", 
+            country: "France",
+            nearby: "Paris, France",
+            full_address: "Restaurant Frenchie 5-6, rue du Nil 75002 Paris Métro 3 : Sentier",
+            phones: "+33 (0)1.40.39.96.19",
+            postal_code: "75002",
+          }
+          ])
+      end
+    end
 
     describe "http://www.fairmont.com/san-francisco/" do
       before { @url = "http://www.fairmont.com/san-francisco/" }
       it "parses the page correctly" do
         expect_equal(data, [
           place: {
-            name: "The Fairmont San Francisco",
-            street_address: "950 Mason Street San Francisco California, United States 94108 Maps &amp; Directions TEL + 1 415 772 5000 FAX + 415 772 5013 International Numbers",
+            country: "California, United States",
             locality: "San Francisco", 
+            name: "The Fairmont San Francisco",
+            nearby: "San Francisco, California, United States",
+            full_address: "950 Mason Street San Francisco California, United States 94108",
+            phones: "1 866 540 4491",
             postal_code: "94108",
-            country: "United States of America",
-            nearby: "San Francisco, United States of America",
           }
           ])
       end
@@ -113,6 +204,8 @@ module Scrapers
             locality: "San Francisco", 
             country: "United States of America",
             nearby: "San Francisco, United States of America",
+            full_address: "8 Mission Street San Francisco, CA 94105",
+            postal_code: "94105",
           }
         ])
       end
@@ -125,9 +218,12 @@ module Scrapers
           place: {
             name: "Mandarin Oriental, San Francisco",
             street_address: "222 Sansome Street",
+            full_address: "222 Sansome Street,  San Francisco,  CA  94104",
             postal_code: "94104",
+            region: "CA ",
             lat: "37.792457",
             lon: "-122.400789",
+            phones: "+1 (415) 276 9888",
           }
           ])
       end
@@ -141,6 +237,7 @@ module Scrapers
             name: "Contigo",
             lat: "37.0625", 
             lon: "-95.677068",
+            full_address: "1320 Castro Street, San Francisco, Ca 94114",
           }
           ])
       end
@@ -160,10 +257,6 @@ module Scrapers
       end
     end
 
-    describe "http://www.everyonesanoriginal.com/destinations/united-states/the-fairmont-san-francisco" do
-      before { @url = "http://www.everyonesanoriginal.com/destinations/united-states/the-fairmont-san-francisco" }
-    end
-
     describe "http://docrickettssf.com/" do
       before { @url = "http://docrickettssf.com/" }
       it "parses the page correctly" do
@@ -172,7 +265,9 @@ module Scrapers
             name: "Doc Ricketts",
             lat: "37.7967858", 
             lon: "-122.4048005",
-            phones: "415-649-6191",          }
+            phones: "415-649-6191",  
+            full_address: "124 Columbus Avenue, SF, CA",
+          }
           ])
       end
     end
@@ -182,7 +277,6 @@ module Scrapers
       if has_name?(data) && has_locale?(data)
         puts "#{@url} gets #{data}"
       else
-        puts "name attempts #{name_attempts}"
         expect(has_name?(data)).to equal(true)
         expect(has_locale?(data)).to equal(true)
       end

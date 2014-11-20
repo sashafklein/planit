@@ -1,8 +1,25 @@
 module RegexLibrary
 
-    # REGEX COMPONENTS REMEMBER DOUBLE ALL BACKSLASH
+    # LISTS
 
-    def lowercase_destination_class
+    def list_of_null_page_titles
+      null_titles = [
+        "home",
+        "homepage",
+        "home page",
+        "main",
+        "main page",
+        "pages",
+        "redirect",
+        "redirect page",
+        "page",
+        "webpage",
+        "website",
+        "web site",
+      ]
+    end
+
+    def list_of_common_destination_types
       destinations = [
         "library",
         "bookstore",
@@ -15,14 +32,17 @@ module RegexLibrary
         "hotel",
         "spa",
       ]
-      insert = destinations.join("|")
+    end
+
+    # REGEX COMPONENTS REMEMBER DOUBLE ALL BACKSLASH
+
+    def lowercase_destination_class
+      insert = list_of_common_destination_types.join("|")
       "(?:#{insert})"
     end
 
     def lowercase_destinations_plural_class
-      string = lowercase_destination_class.scan(/\(\?\:(.*)\)/).flatten.first
-      string = string + "s"
-      insert = string.split("|").join("s|")
+      insert = list_of_common_destination_types.join("s|")
       "(?:#{insert})"
     end
 
@@ -39,6 +59,10 @@ module RegexLibrary
       ]
       insert = excepts.join("|")
       "(?:#{insert})"
+    end
+
+    def latinate_or_number_thread
+      "(?:[0-9A-Z#{upcase_latinate_thread}a-z#{downcase_latinate_thread}])"
     end
 
     def non_latinate_thread
@@ -248,12 +272,57 @@ module RegexLibrary
       "(?:\\<a.*?href\\=['#{quote_thread}]([^'#{quote_thread}]*?)['#{quote_thread}]\\s*[^>]*?\\>.*?#{a_link_close_thread})"
     end
 
+    def email_thread
+      "(?:[#{latinate_or_number_thread}]+\\@[#{latinate_or_number_thread}]+\.[A-Za-z][A-Za-z]+(?:\\.[A-Za-z][A-Za-z]+)+)"
+    end
+
     def phone_number_thread
-      "(?:(?:[+(]*\\d+[(\\\-\/. )]?)+\\d\\d\\d+)"
+      # old "(?:(?:[+(]*\\d+[(\\\-\/. )]?)+(?:[-(). 0-9]\\d\\d+)+)"
+      [
+        "(?:",
+
+        "(?:", # COUNTRY CODE -- OPTIONAL
+        "(?:\\+|\\+ )?", # start with optional + or +_
+        "\\d\\d?", # country code -- 1-2 numbers
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        ")?",
+
+        "(?:", # AREA CODE -- OPTIONAL
+        "[()]\\d\\d?\\d?[)]?", # optional area code, 1 up to 3, with 1 follow-up
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        ")?",
+
+        # CORE NUMBER
+        "(?:", # option of lots of small numbers broken up insist minimum 7 numbers total
+        "(?:\\d\\d?\\d?\\d?)", # at least one (1+)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)", # at least two (3+)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)", # at least two (5+)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)", # at least two (7+)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)?", # optional final 2-4 numbers
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)?", # optional final 2-4 numbers
+        "|", # option of bigger set of numbers
+        "(?:\\d\\d\\d?\\d?)", # at least two (2+)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)", # at least two (4+)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d\\d?)", # at least three (7+)
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)?", # optional final 2-4 numbers
+        "[-.\\\\\/ ]?", # optional dash or period or slashes or space
+        "(?:\\d\\d\\d?\\d?)?", # optional final 2-4 numbers
+        ")",
+
+        ")",
+      ].join
     end
 
     def find_phone_number_between_comma_or_semicolon_or_parens
-      "(?:[;,(]\\s\\s*(#{phone_number_thread}))"
+      "(?:[;,(]\\s\\s*(#{phone_number_thread})\\s*[;,)])"
     end
 
     # REGEX SAFETY <- CANNOT BE REPEATED * OR + OR ?
@@ -266,10 +335,26 @@ module RegexLibrary
 
     def case_desensitize_array(list)
       item_array = []
-      for item in list
-        item_array << "#{case_desensitize(item)}"
+      joiner = '|'
+      list.each do |item|
+        if item.length > 0
+          string = item.upcase + joiner + item.downcase + joiner + item.capitalize + joiner + item.titleize
+          item_array << string
+        end
       end
-      insert = "(?:" + item_array.join("|") + ")"
+      insert = "(?:" + item_array.join(joiner) + ")"
+    end
+
+    def case_desensitize_and_pluralize_array(list)
+      item_array = []
+      joiner = '[Ss]?|'
+      list.each do |item|
+        if item.length > 0
+          string = item.upcase + joiner + item.downcase + joiner + item.capitalize + joiner + item.titleize
+          item_array << string
+        end
+      end
+      insert = "(?:" + item_array.join(joiner) + ")"
     end
 
     def tag_free_whitespace
