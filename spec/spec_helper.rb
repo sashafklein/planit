@@ -13,13 +13,31 @@ module Features
   # Extend this module in spec/support/features/*.rb
 end
 
+module Controllers
+  def response_body
+    body = JSON.parse(response.body)
+    body.is_a?(Hash) ? body.recursive_symbolize_keys : body.map(&:recursive_symbolize_keys)
+  end
+end
+
+module Mock
+  def disable_webmock(&block)
+    WebMock.disable!
+    yield
+    WebMock.enable!
+  end
+end
+
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
 
   config.include Features, type: :feature
+  config.include Controllers, type: :controller
+  config.include Mock
   config.include Formulaic::Dsl, type: :feature
+  config.infer_spec_type_from_file_location!
   config.infer_base_class_for_anonymous_controllers = false
   config.order = "random"
   config.use_transactional_fixtures = false

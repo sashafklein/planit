@@ -1,0 +1,247 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=Yoyogi,%20Shibuya,%20Tokyo%20Prefecture,%20Japan&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Thu, 20 Nov 2014 18:53:06 GMT
+      Expires:
+      - Fri, 21 Nov 2014 18:53:06 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.01
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Yoyogi",
+                       "short_name" : "Yoyogi",
+                       "types" : [ "sublocality_level_1", "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "Shibuya",
+                       "short_name" : "Shibuya",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Tokyo",
+                       "short_name" : "Tokyo",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "Japan",
+                       "short_name" : "JP",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Yoyogi, Shibuya, Tokyo, Japan",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 35.6887073,
+                          "lng" : 139.7035447
+                       },
+                       "southwest" : {
+                          "lat" : 35.6694037,
+                          "lng" : 139.6878533
+                       }
+                    },
+                    "location" : {
+                       "lat" : 35.6779389,
+                       "lng" : 139.69224
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 35.6887073,
+                          "lng" : 139.7035447
+                       },
+                       "southwest" : {
+                          "lat" : 35.6694037,
+                          "lng" : 139.6878533
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "types" : [ "sublocality_level_1", "sublocality", "political" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Thu, 20 Nov 2014 18:53:06 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?near=Shibuya,%20Tokyo%20Prefecture,%20Japan&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Fuunji&v=20140819&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 20 Nov 2014 18:53:12 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '193'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '499'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-lax1424-LAX
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJtZXRhIjp7ImNvZGUiOjIwMH0sIm5vdGlmaWNhdGlvbnMiOlt7InR5cGUi
+        OiJub3RpZmljYXRpb25UcmF5IiwiaXRlbSI6eyJ1bnJlYWRDb3VudCI6NjN9
+        fV0sInJlc3BvbnNlIjp7InNwZWxsQ29ycmVjdGlvbiI6eyJzdWdnZXN0aW9u
+        Ijp7InRhcmdldCI6eyJ0eXBlIjoicGF0aCIsInVybCI6IlwvdmVudWVzXC9l
+        eHBsb3JlIiwicGFyYW1zIjp7InF1ZXJ5IjoiZnVqaSIsInN3IjoiMzUuNjM2
+        NTY1LDEzOS42NjA1MTUiLCJuZSI6IjM1LjY5NTE0OSwxMzkuNzI2ODg0Iiwi
+        bm9Db3JyZWN0IjoiMSJ9fSwibWVzc2FnZSI6eyJlbnRpdGllcyI6W3siaW5k
+        aWNlcyI6WzAsNF0sInR5cGUiOiJjb3JyZWN0aW9uIn1dLCJ0ZXh0IjoiZnVq
+        aSJ9fX0sImdlb2NvZGUiOnsid2hhdCI6IiIsIndoZXJlIjoic2hpYnV5YSB0
+        b2t5byBqYXBhbiIsImNlbnRlciI6eyJsYXQiOjM1LjY2NDA0LCJsbmciOjEz
+        OS42OTgyMX0sImRpc3BsYXlTdHJpbmciOiJTaGlidXlhLCBUxY1recWNLCBK
+        YXBhbiIsImNjIjoiSlAiLCJnZW9tZXRyeSI6eyJib3VuZHMiOnsibmUiOnsi
+        bGF0IjozNS42OTIwNjYxOTI2MjcwMSwibG5nIjoxMzkuNzIzMjA1NTY2NDA2
+        fSwic3ciOnsibGF0IjozNS42NDE2MDE1NjI1MDAwNCwibG5nIjoxMzkuNjYx
+        Njk3Mzg3Njk0OTd9fX0sInNsdWciOiJzaGlidXlhLWt1LWphcGFuIiwibG9u
+        Z0lkIjoiNzIwNTc1OTQwMzk3ODA1MTgifSwid2FybmluZyI6eyJ0ZXh0Ijoi
+        VGhlcmUgYXJlbid0IGEgbG90IG9mIHJlc3VsdHMgZm9yIFwiRnV1bmppLlwi
+        IFRyeSBzb21ldGhpbmcgbW9yZSBnZW5lcmFsLCByZXNldCB5b3VyIGZpbHRl
+        cnMsIG9yIGV4cGFuZCB0aGUgc2VhcmNoIGFyZWEuIn0sImhlYWRlckxvY2F0
+        aW9uIjoiQ3VycmVudCBtYXAgdmlldyIsImhlYWRlckZ1bGxMb2NhdGlvbiI6
+        IkN1cnJlbnQgbWFwIHZpZXciLCJoZWFkZXJMb2NhdGlvbkdyYW51bGFyaXR5
+        IjoidW5rbm93biIsInF1ZXJ5IjoiZnV1bmppIiwidG90YWxSZXN1bHRzIjox
+        LCJzdWdnZXN0ZWRCb3VuZHMiOnsibmUiOnsibGF0IjozNS42ODgyMDc3NjAx
+        NDM4OCwibG5nIjoxMzkuNjkzNDY5MTY0Mzc0M30sInN3Ijp7ImxhdCI6MzUu
+        Njg1NTA4MTAwMzU4NDMsImxuZyI6MTM5LjY5OTc4NzczODMyMDM0fX0sImdy
+        b3VwcyI6W3sidHlwZSI6IlJlY29tbWVuZGVkIFBsYWNlcyIsIm5hbWUiOiJy
+        ZWNvbW1lbmRlZCIsIml0ZW1zIjpbeyJyZWFzb25zIjp7ImNvdW50IjoyLCJp
+        dGVtcyI6W3sic3VtbWFyeSI6Ik9uIHlvdXIgdG8tZG8gbGlzdCIsInR5cGUi
+        OiJnZW5lcmFsIiwicmVhc29uTmFtZSI6InRvZG9SZWFzb24ifV19LCJ2ZW51
+        ZSI6eyJpZCI6IjRiNTk4M2ZhZjk2NGE1MjBjYThhMjhlMyIsIm5hbWUiOiLp
+        oqjpm7LlhZAiLCJjb250YWN0Ijp7InBob25lIjoiKzgxMzY0MTM4NDgwIiwi
+        Zm9ybWF0dGVkUGhvbmUiOiIrODEgMy02NDEzLTg0ODAiLCJ0d2l0dGVyIjoi
+        ZnVfdW5qaSJ9LCJsb2NhdGlvbiI6eyJhZGRyZXNzIjoi5Luj44CF5pyoMi0x
+        NC0zIiwiY3Jvc3NTdHJlZXQiOiLljJfmlpfnrKzkuIDjg5Pjg6sgMUYiLCJs
+        YXQiOjM1LjY4Njg1NzkzMDI1MTE2LCJsbmciOjEzOS42OTY2Mjg0NTEzNDcz
+        MiwicG9zdGFsQ29kZSI6IjE1MS0wMDUzIiwiY2MiOiJKUCIsImNpdHkiOiLm
+        uIvosLfljLoiLCJzdGF0ZSI6IuadseS6rOmDvSIsImNvdW50cnkiOiJKYXBh
+        biIsImZvcm1hdHRlZEFkZHJlc3MiOlsi5Luj44CF5pyoMi0xNC0zICjljJfm
+        lpfnrKzkuIDjg5Pjg6sgMUYpIiwi5riL6LC35Yy6LCBUxY1recWNIiwiMTUx
+        LTAwNTMiLCJKYXBhbiJdfSwiY2F0ZWdvcmllcyI6W3siaWQiOiI0YmY1OGRk
+        OGQ0ODk4OGQxZDE5NDE3MzUiLCJuYW1lIjoiUmFtZW4gXC8gTm9vZGxlIEhv
+        dXNlIiwicGx1cmFsTmFtZSI6IlJhbWVuIFwvIE5vb2RsZSBIb3VzZSIsInNo
+        b3J0TmFtZSI6IlJhbWVuIFwvIE5vb2RsZXMiLCJpY29uIjp7InByZWZpeCI6
+        Imh0dHBzOlwvXC9zczMuNHNxaS5uZXRcL2ltZ1wvY2F0ZWdvcmllc192Mlwv
+        Zm9vZFwvcmFtZW5fIiwic3VmZml4IjoiLnBuZyJ9LCJwcmltYXJ5Ijp0cnVl
+        fV0sInZlcmlmaWVkIjpmYWxzZSwic3RhdHMiOnsiY2hlY2tpbnNDb3VudCI6
+        NDM5NCwidXNlcnNDb3VudCI6MzAxMywidGlwQ291bnQiOjQyfSwidXJsIjoi
+        aHR0cDpcL1wvd3d3LmZ1LXVuamkuY29tIiwicHJpY2UiOnsidGllciI6MSwi
+        bWVzc2FnZSI6IkNoZWFwIiwiY3VycmVuY3kiOiIkIn0sImxpa2UiOmZhbHNl
+        LCJyYXRpbmciOjguMiwicmF0aW5nU2lnbmFscyI6ODAsImhvdXJzIjp7InN0
+        YXR1cyI6IkNsb3NlZCB1bnRpbCAxMTowMGFtIiwiaXNPcGVuIjpmYWxzZX0s
+        InNwZWNpYWxzIjp7ImNvdW50IjowLCJpdGVtcyI6W119LCJwaG90b3MiOnsi
+        Y291bnQiOjUxNywiZ3JvdXBzIjpbeyJ0eXBlIjoidmVudWUiLCJuYW1lIjoi
+        VmVudWUgcGhvdG9zIiwiY291bnQiOjUxNywiaXRlbXMiOlt7ImlkIjoiNTAw
+        YTY5NjBlNGIwNTg2OTJmYjQyYzBhIiwiY3JlYXRlZEF0IjoxMzQyODU5NjE2
+        LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5ldFwvaW1nXC9nZW5l
+        cmFsXC8iLCJzdWZmaXgiOiJcL2xPRG5zaUQwSWpHSVpjWE5FTVJsYVFia0Vt
+        aDNUNjVnRmdSdW9zXzZsMFEuanBnIiwid2lkdGgiOjYxMiwiaGVpZ2h0Ijo2
+        MTIsInVzZXIiOnsiaWQiOiIzMzkyNzAiLCJmaXJzdE5hbWUiOiJ3ZWFrYm9z
+        b24iLCJnZW5kZXIiOiJub25lIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6
+        XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9S
+        WkVJWUtCM0IzR1ExR1hKLnBuZyJ9fSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9
+        XX1dfSwiaGVyZU5vdyI6eyJjb3VudCI6MCwic3VtbWFyeSI6Ik5vYm9keSBo
+        ZXJlIiwiZ3JvdXBzIjpbXX0sImxpc3RlZCI6eyJncm91cHMiOlt7InR5cGUi
+        OiJjcmVhdGVkIiwiY291bnQiOjEsIml0ZW1zIjpbXX1dfSwiZmVhdHVyZWRQ
+        aG90b3MiOnsiY291bnQiOjEsIml0ZW1zIjpbeyJpZCI6IjUwMGE2OTYwZTRi
+        MDU4NjkyZmI0MmMwYSIsImNyZWF0ZWRBdCI6MTM0Mjg1OTYxNiwicHJlZml4
+        IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvZ2VuZXJhbFwvIiwi
+        c3VmZml4IjoiXC9sT0Ruc2lEMElqR0laY1hORU1SbGFRYmtFbWgzVDY1Z0Zn
+        UnVvc182bDBRLmpwZyIsIndpZHRoIjo2MTIsImhlaWdodCI6NjEyLCJ1c2Vy
+        Ijp7ImlkIjoiMzM5MjcwIiwiZmlyc3ROYW1lIjoid2Vha2Jvc29uIiwiZ2Vu
+        ZGVyIjoibm9uZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMx
+        LjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvUlpFSVlLQjNC
+        M0dRMUdYSi5wbmcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19fSwiZmxh
+        Z3MiOnsiZXhhY3RNYXRjaCI6dHJ1ZX0sInRpcHMiOlt7ImlkIjoiNGNjN2Jh
+        OTdkZTA4MTk5YzM4YTFlYzVlIiwiY3JlYXRlZEF0IjoxMjg4MTU3ODQ3LCJ0
+        ZXh0Ijoi44Kk44Kx44Oh44Oz5bqX5ZOh44GV44KT44GM44Gk44GR6bq644KS
+        5L2c44Gj44Gm44G+44GZ44CC576O5ZGz44GX44GE44Gn44GZ44CC5pi86YGO
+        44GO44Gn44KC6KGM5YiX44GC44KKIiwidHlwZSI6InVzZXIiLCJjYW5vbmlj
+        YWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFyZS5jb21cL2l0ZW1cLzRjYzdi
+        YTk3ZGUwODE5OWMzOGExZWM1ZSIsImxpa2VzIjp7ImNvdW50Ijo5LCJncm91
+        cHMiOltdLCJzdW1tYXJ5IjoiOSBsaWtlcyJ9LCJsb2dWaWV3Ijp0cnVlLCJ0
+        b2RvIjp7ImNvdW50IjoxfSwidXNlciI6eyJpZCI6IjI3MTU5NSIsImZpcnN0
+        TmFtZSI6Imt5b2giLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4
+        IjoiaHR0cHM6XC9cL2lyczAuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3Vm
+        Zml4IjoiXC9JSkhaNE9RT0NRSEpXT1BBLmpwZyJ9fX1dLCJyZWZlcnJhbElk
+        IjoiZS0wLTRiNTk4M2ZhZjk2NGE1MjBjYThhMjhlMy0wIn1dfV19fQ==
+    http_version: 
+  recorded_at: Thu, 20 Nov 2014 18:53:12 GMT
+recorded_with: VCR 2.9.3

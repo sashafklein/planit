@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :plans
   has_many :marks
+  has_many :items, through: :marks
 
   extend FriendlyId
   friendly_id :name, use: :slugged

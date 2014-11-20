@@ -41,6 +41,16 @@ module Services
             expect(c.decremented_attrs).to eq({ made_up: 'whatever'})
           end
 
+          it "uses scraped images and FourSquare images", :vcr do
+            c = Completer.new(YAML.load_file( File.join(Rails.root, 'spec', 'support', 'pages', 'tripadvisor', 'fuunji.yml')).first, @user)
+            m = c.complete!
+            p = m.place
+
+            expect(p.images.count).to eq 5
+            expect(p.images.where(source: 'FourSquare').count).to eq 1
+            expect(p.images.where(source: 'Trip Advisor').count).to eq 4
+          end
+
         end  
       end
 

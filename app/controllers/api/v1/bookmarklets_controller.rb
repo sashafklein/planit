@@ -1,17 +1,18 @@
 class Api::V1::BookmarkletsController < ApiController
   
   # Seems like both were necessary, for both pre-flight and actual requests
-  before_filter :cors_set_access_control_headers, only: [:show, :base, :save_item]
-  after_filter :cors_set_access_control_headers, only: [:show, :base, :save_item]
+  before_filter :cors_set_access_control_headers, only: [:script, :view]
+  after_filter :cors_set_access_control_headers, only: [:script, :view]
 
-  def show
-    path = File.join Rails.root, 'app', 'assets', 'javascripts', 'api', 'bookmarklets', "#{params[:id]}.coffee"
+  def script
+    path = File.join Rails.root, 'app', 'assets', 'javascripts', 'api', 'bookmarklets', "base.coffee"
     if File.exists? path
+
       js = CoffeeScript.compile File.read(path)
           .gsub("HOSTNAME", request.base_url)
           .gsub("USER_ID", params[:user_id])
 
-      complete_js = Uglifier.compile js.gsub("'SPECIFIC_FILE'", specific_file(params[:web_url]))
+      complete_js = Uglifier.compile js
             
       render js: complete_js
     else
@@ -19,12 +20,8 @@ class Api::V1::BookmarkletsController < ApiController
     end
   end
 
-  def base
+  def view
     render 'api/v1/bookmarklets/base', layout: false
-  end
-
-  def save_item
-    render json: { success: true }
   end
 
   private

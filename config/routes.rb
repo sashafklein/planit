@@ -12,9 +12,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :bookmarklets, only: [:show] do
-        match '/base' => 'bookmarklets#base', on: :collection, via: [:options, :get]
-        match '/save_item' => 'bookmarklets#save_item', on: :collection, via: [:options, :post]
+      resources :bookmarklets, only: [] do
+        match '/script' => 'bookmarklets#script', on: :collection, via: [:options, :get]
+        match '/view' => 'bookmarklets#view', on: :collection, via: [:options, :get]
       end
 
       resources :users, only: [] do

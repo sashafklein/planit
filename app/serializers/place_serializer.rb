@@ -1,3 +1,5 @@
 class PlaceSerializer < ActiveModel::Serializer
-  attributes :id, :lat, :lon, :name, :street_address, :region, :locality, :country
+  attributes :id, :lat, :lon, :names, :street_addresses, :region, :locality, :country, :images
+
+  has_many :images
 end

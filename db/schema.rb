@@ -17,15 +17,6 @@ ActiveRecord::Schema.define(version: 20141112194643) do
   enable_extension "plpgsql"
   enable_extension "hstore"
 
-  create_table "cities", force: true do |t|
-    t.string   "country_code"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "cities", ["country_code"], name: "index_cities_on_country_code", using: :btree
-
   create_table "days", force: true do |t|
     t.integer  "leg_id"
     t.integer  "order"
