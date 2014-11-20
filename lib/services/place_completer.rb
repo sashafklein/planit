@@ -1,8 +1,9 @@
 module Services
   class PlaceCompleter
 
-    attr_accessor :attrs, :place, :photo
+    attr_accessor :attrs, :place, :photos
     def initialize(attrs)
+      @photos = set_photos(attrs)
       @attrs = normalize(attrs)
     end
 
@@ -15,7 +16,7 @@ module Services
       translate!
 
       @place = @place.find_and_merge
-      @place.save_with_photos!( Array(@photo) )
+      @place.save_with_photos!( @photos )
       @place
     end
 
@@ -40,7 +41,8 @@ module Services
         @place
       else
         response = Services::ApiCompleter.new(@place, @attrs[:nearby], @geocoded).complete!
-        @place, @photo = response[:place], response[:photo]
+        @place = response[:place]
+        @photos += response[:photos]
         @place
       end
     end
@@ -54,10 +56,15 @@ module Services
       attributes[:lon] = attributes[:lon] ? attributes[:lon].to_f : nil
 
       attributes[:extra] ||= {}
-      attributes.except(*Place.attribute_keys << :nearby).each do |key, value|
+      attributes.except(*Place.attribute_keys + [:nearby, :images]).each do |key, value|
         attributes[:extra][key] = attributes.delete(key)
       end
       attributes
+    end
+
+    def set_photos(attrs)
+      photo_array = Array( attrs.delete(:images) )
+      @photos = photo_array.map{ |a| Image.new({ url: a[:url], source_url: a[:source], source: a[:credit] }) }
     end
   end
 end

@@ -9,11 +9,8 @@ class Api::V1::Users::MarksController < ApiController
     return error(404, "User not found") unless @user
 
     completed = Services::Completer.new(mark_params, @user).complete!
-    if completed
-      render json: completed, serializer: TotalMarkSerializer
-    else
-      error(500, "We couldn't find enough information!")
-    end
+
+    render json: completed, serializer: TotalMarkSerializer
   end
 
   def scrape
@@ -21,6 +18,7 @@ class Api::V1::Users::MarksController < ApiController
     return error(500, "Missing url param") unless params[:url]
 
     scraped = Array Services::SiteScraper.build(params[:url], params[:page]).data
+    puts "SCRAPED: #{scraped}"
     completed = Services::MassCompleter.new(scraped, @user).complete!
 
     render json: completed, each_serializer: TotalMarkSerializer

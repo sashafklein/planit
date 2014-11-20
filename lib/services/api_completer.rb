@@ -11,19 +11,19 @@ module Services
              :category, :meal, :lodging, :coordinate,
              to: :place
 
-    attr_accessor :place, :venue, :geocoded, :photo, :alternate_nearby, :response
+    attr_accessor :place, :venue, :geocoded, :photos, :alternate_nearby, :response
     def initialize(place, alternate_nearby=nil, geocoded=false)
       @place = place
       @alternate_nearby = alternate_nearby
       @geocoded = geocoded
-      @photo = nil
+      @photos = []
     end
 
     def complete!
-      return place_with_photo unless nearby_info_present? && query? && !place.complete?
+      return place_with_photos unless nearby_info_present? && query? && !place.complete?
 
       explore
-      place_with_photo
+      place_with_photos
     end
 
     private
@@ -102,12 +102,14 @@ module Services
     end
 
     def getPhoto
-      return place_with_photo unless venue
-      @photo = place.images.where(url: venue_photo).first_or_initialize(source: 'FourSquare')
+      return place_with_photos unless venue
+      venue_photos.each do |photo|
+        @photos << place.images.where(url: photo).first_or_initialize(source: 'FourSquare')
+      end
     end
 
-    def place_with_photo
-      { place: place, photo: photo }
+    def place_with_photos
+      { place: place, photos: photos }
     end
 
     def nearby_info_present?
@@ -130,10 +132,12 @@ module Services
       "#{ FS_URL }?#{ nearby_parameter }&query=#{ query }&oauth_token=#{ FS_AUTH_TOKEN }&venuePhotos=1"
     end
 
-    def venue_photo
-      return nil unless photo = venue.deep_val( ['featuredPhotos', 'items', 0] )
+    def venue_photos
+      return nil unless photos = venue.deep_val( ['featuredPhotos', 'items'] )
 
-      [photo['prefix'], photo['suffix']].join("200x200")
+      photos.map do |photo|
+        [photo['prefix'], photo['suffix']].join("200x200")
+      end
     end   
     
     def venue_website
