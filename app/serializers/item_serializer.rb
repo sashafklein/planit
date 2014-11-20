@@ -1,11 +1,11 @@
 class ItemSerializer < ActiveModel::Serializer
   has_one :day, serializer: DaySerializer
-  has_one :plan, serializer: DaySerializer
+  has_one :plan, serializer: PlanSerializer
 
-  attributes :leg, :hours, :weekday
+  attributes :leg, :weekday
 
   def leg
-    object.leg ? LegSerializer.new(object.leg) : nil
+    object.day ? LegSerializer.new(object.leg) : nil
   end
 
   def weekday

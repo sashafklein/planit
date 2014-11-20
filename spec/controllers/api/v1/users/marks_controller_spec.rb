@@ -100,11 +100,23 @@ describe Api::V1::Users::MarksController do
     end
 
     context "whole lotta places" do
-      it "serializes EVERYTHING" do
+      it "serializes and saves EVERYTHING", :vcr do
         expect( @user.marks.count ).to eq 0
-
         post :scrape, url: 'http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0', user_id: @user.id
-        binding.pry
+
+        plan = @user.plans.first
+        items = plan.items
+
+        expect( @user.plans.count ).to eq 1
+        expect( @user.items.count ).to eq Place.count
+        expect( @user.marks.count ).to eq Place.count
+        expect( @user.items ).to eq plan.items
+        expect( items.count ).to eq 18
+        expect( response_body.count ).to eq 18
+
+        scraped = YAML.load_file( File.join(Rails.root, 'spec', 'support', 'pages', 'nytimes', 'bogota.yml') )
+        expect( scraped.map{ |e| e['place'] }.map{ |p| p['name'] }.compact.sort ).to eq( items.places.pluck(:names).map(&:first).sort )
+
       end
     end
   end

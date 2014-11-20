@@ -35,7 +35,7 @@ module Services
     def explore
       @venue = get_venue!
       merge!
-      getPhoto
+      getPhotos
     end
 
     def nearby
@@ -53,7 +53,7 @@ module Services
       place.names << venue_name
       place.phones[:default] = venue_phone if venue_phone
       place.street_addresses << venue_address
-      place.website = venue_website
+      place.website = venue_website if place.website.blank?
       place.categories << venue_category
       place.locality = venue_locality unless place.locality.present? && geocoded
       place.set_country(venue_country) unless place.country.present? && geocoded
@@ -86,7 +86,7 @@ module Services
     end
 
     def similar_name?
-      return true if place.names.empty? || venue_name.non_latinate?
+      return true if venue_name.non_latinate?
       place.names.any? do |name|
         distance = name.without_articles.match_distance( venue_name.without_articles )
         matches = (distance > name_stringency)
@@ -101,7 +101,7 @@ module Services
       PlaceMailer.notify_of_bad_name_distance(name, distance, venue_name)
     end
 
-    def getPhoto
+    def getPhotos
       return place_with_photos unless venue
       venue_photos.each do |photo|
         @photos << place.images.where(url: photo).first_or_initialize(source: 'FourSquare')
@@ -133,7 +133,7 @@ module Services
     end
 
     def venue_photos
-      return nil unless photos = venue.deep_val( ['featuredPhotos', 'items'] )
+      return [] unless photos = venue.deep_val( ['featuredPhotos', 'items'] )
 
       photos.map do |photo|
         [photo['prefix'], photo['suffix']].join("200x200")

@@ -14,9 +14,9 @@ module Services
       geocode!
       api_complete!
       translate!
-
+      
       @place = @place.find_and_merge
-      @place.save_with_photos!( @photos )
+      save_with_photos!
       @place
     end
 
@@ -65,6 +65,10 @@ module Services
     def set_photos(attrs)
       photo_array = Array( attrs.delete(:images) )
       @photos = photo_array.map{ |a| Image.new({ url: a[:url], source_url: a[:source], source: a[:credit] }) }
+    end
+
+    def save_with_photos!
+      @place = @place.save_with_photos!( @photos )
     end
   end
 end

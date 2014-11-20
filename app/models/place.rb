@@ -73,14 +73,16 @@ class Place < ActiveRecord::Base
   end
 
   def save_with_photos!(photos)
-    return nil unless lat && lon
-    
+    return nil unless valid?
+
     save!
-    
+
     Array(photos).each do |p| 
       next if images.find_by(url: p.url)
       p.update_attributes!(imageable_type: self.class.to_s, imageable_id: id)
     end
+    
+    self
   end
 
   def set_country(val)

@@ -20,7 +20,8 @@ module Services
       place = Place.by_location(atts).first
       place ||= find_by_ll_and_name
       place ||= Place.new( place_atts )
-      place
+
+      place.persisted? ? Place.new(place_atts).merge(place) : place
     end
 
     def notify_and_round_out(place)

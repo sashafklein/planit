@@ -20,6 +20,14 @@ module Controllers
   end
 end
 
+module Mock
+  def disable_webmock(&block)
+    WebMock.disable!
+    yield
+    WebMock.enable!
+  end
+end
+
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
@@ -27,6 +35,7 @@ RSpec.configure do |config|
 
   config.include Features, type: :feature
   config.include Controllers, type: :controller
+  config.include Mock
   config.include Formulaic::Dsl, type: :feature
   config.infer_spec_type_from_file_location!
   config.infer_base_class_for_anonymous_controllers = false

@@ -11,7 +11,7 @@ module Services
     end
 
     def complete!
-      completers.map(&:complete!)
+      completers.map(&:complete!).compact
     end
   end
 end

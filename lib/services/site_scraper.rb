@@ -20,7 +20,7 @@ module Services
     delegate :css, to: :page
     def initialize(url, page=nil)
       @url = url
-      @page = Nokogiri::HTML( page ? page : open(url) )
+      @page = Nokogiri::HTML( page ? page : safe_open(url) )
       @data = []
     end
 
@@ -63,6 +63,15 @@ module Services
     end
 
     private
+
+    def safe_open(url)
+      return open(url) unless ENV['RAILS_ENV'] == 'test'
+      
+      WebMock.disable!
+      resp = open(url)
+      WebMock.enable!
+      resp
+    end
 
     def self.specific_scraper(url, page)
       class_name = URI(url).host.match(/[^\.]+\.\w+$/).to_s.split('.').first.capitalize

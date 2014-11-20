@@ -29,7 +29,7 @@ module Services
 
           c_place = completed[:place]
 
-          img = completed[:photo]
+          img = completed[:photos].first
           expect(img).to be_present
           expect( %w(png jpg jpeg) ).to include img.url.split('.').last
           expect(img.source).to eq 'FourSquare'
