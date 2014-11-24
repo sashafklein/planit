@@ -30,4 +30,8 @@ class String
   def without_articles(articles= %w(the an a) )
     split(" ").reject{ |w| articles.include?(w.downcase) }.join(" ")
   end
+
+  def without_common_symbols
+    cut %w(& # * , ; . ' " * ^ % ! @  )
+  end
 end

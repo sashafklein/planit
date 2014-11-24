@@ -35,7 +35,7 @@ module ActiveRecord
     end
 
     def merge(other, exceptions=[])
-      return if other.atts(*other.class.attribute_keys) == atts(*other.class.attribute_keys)
+      return self if other.atts(*other.class.attribute_keys) == atts(*other.class.attribute_keys)
 
       cleaned( array_attributes, exceptions ).each do |att, val|
         write_attribute att, ( Array(val) + Array(other.read_attribute(att)) )

@@ -58,6 +58,7 @@ module Services
     end
 
     def is_specific?
+      return false if response.blank?
       non_regional = full_address.cut(region, short_region, country, short_country, subregion, locality, postal_code, ',', ' ')
       non_regional.length > 2
     end
@@ -103,10 +104,11 @@ module Services
     end
 
     def get_results(query)
-      @response = Geocoder.search( query ).first.data
+      @response = Geocoder.search( query ).first.try(:data) || {}
     end
 
     def get_value(response, type, length='long_name')
+      return nil if response.blank?
       component = response['address_components'].find{ |c| c['types'].include?(type) }
       component ? component[length] : nil
     end

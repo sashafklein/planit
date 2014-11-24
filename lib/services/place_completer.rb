@@ -58,7 +58,10 @@ module Services
       attributes[:lat] = attributes[:lat] ? attributes[:lon].to_f : nil
       attributes[:lon] = attributes[:lon] ? attributes[:lon].to_f : nil
 
-      attributes[:extra] ||= {}
+      if !attributes[:extra] || !attributes[:extra].is_a?(Hash)
+        attributes[:extra] = attributes[:extra] ? { detail: attributes.delete(:extra) } : {}
+      end
+
       attributes.except(*Place.attribute_keys + [:nearby, :images]).each do |key, value|
         attributes[:extra][key] = attributes.delete(key)
       end
