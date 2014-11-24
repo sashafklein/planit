@@ -1,5 +1,6 @@
 namespace :clone do
   task prod: :environment do
+    puts "Working..."
     `heroku pgbackups:capture`
     puts "Captured the production database"
     url = `heroku pgbackups:url`.strip
