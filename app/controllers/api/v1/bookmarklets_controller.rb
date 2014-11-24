@@ -3,6 +3,7 @@ class Api::V1::BookmarkletsController < ApiController
   # Seems like both were necessary, for both pre-flight and actual requests
   before_filter :cors_set_access_control_headers, only: [:script, :view]
   after_filter :cors_set_access_control_headers, only: [:script, :view]
+  before_filter :allow_iframe_requests, only: [:view]
 
   def script
     path = File.join Rails.root, 'app', 'assets', 'javascripts', 'api', 'bookmarklets', "base.coffee"
@@ -21,6 +22,8 @@ class Api::V1::BookmarkletsController < ApiController
   end
 
   def view
+    @user = User.friendly.find(params[:user_id])
+    @url = params[:url]
     render 'api/v1/bookmarklets/base', layout: false
   end
 

@@ -6,7 +6,7 @@ class Plan < ActiveRecord::Base
   belongs_to :user
   has_many :legs
   has_many :days, through: :legs
-  has_many :items
+  has_many :items, dependent: :destroy
 
   has_many :moneyshots, class_name: 'Image', as: :imageable
   has_many :images, as: :imageable
@@ -44,5 +44,11 @@ class Plan < ActiveRecord::Base
 
   def total_days
     days.count
+  end
+
+  def remove_all_traces!
+    items.marks.places.destroy_all
+    items.marks.destroy_all
+    destroy
   end
 end

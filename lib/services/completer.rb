@@ -18,6 +18,10 @@ module Services
       mark
     end
 
+    def delay_complete!
+      Delayed::Job.enqueue CompleterDelayer.new(self)
+    end
+
     private
 
     def merge_and_create_associations!(mark)
@@ -56,13 +60,11 @@ module Services
 
       search_attrs = { mark_id: mark.id, plan_id: plan.id }.merge item_attrs.slice(*Item.attribute_keys)
       search_attrs = search_attrs.merge(day_id: day.id) if day
-      search_attrs[:day_of_week].downcase! if search_attrs[:day_of_week]
+      search_attrs[:day_of_week] = Item.day_of_weeks[search_attrs[:day_of_week].downcase] if search_attrs[:day_of_week]
+      search_attrs[:start_time] = MilitaryTime.new(search_attrs[:start_time]).convert if search_attrs[:start_time]
+      extra = search_attrs.delete(:extra)
 
-      Item.where(search_attrs).first_or_create!
-    end
-
-    def no_val?(v)
-      v.nil? || v == '' || v == []
+      Item.where(search_attrs).first_or_create!(extra: extra || {})
     end
 
     def unacceptable_attributes(hash)

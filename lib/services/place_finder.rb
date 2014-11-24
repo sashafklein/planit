@@ -21,7 +21,7 @@ module Services
       place ||= find_by_ll_and_name
       place ||= Place.new( place_atts )
 
-      place.persisted? ? Place.new(place_atts).merge(place) : place
+      place.persisted? ? place.merge(Place.new(place_atts)) : place
     end
 
     def notify_and_round_out(place)
@@ -78,13 +78,13 @@ module Services
 
     def notify_of_merger(place)
       return if ENV['RAILS_ENV'] == 'test'
-
+      return
       PlaceMailer.delay.merger( place.id, diff(atts, place) )
     end
 
     def notify_of_name_clash(place)
       return if ENV['RAILS_ENV'] == 'test'
-
+      return
       PlaceMailer.delay.name_clash( place.id, diff(atts, place) )
     end
 

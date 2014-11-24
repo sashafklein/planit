@@ -13,5 +13,9 @@ module Services
     def complete!
       completers.map(&:complete!).compact
     end
+
+    def delay_complete!
+      completers.map(&:delay_complete!)
+    end
   end
 end

@@ -48,6 +48,8 @@ module ActiveRecord
       cleaned( other_attributes, exceptions ).each do |att, val|
         write_attribute( att, other.read_attribute(att) ) unless has?( read_attribute(att) )
       end
+
+      self
     end
 
     def has?(att)

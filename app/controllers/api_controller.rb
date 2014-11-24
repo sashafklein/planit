@@ -13,7 +13,8 @@ class ApiController < ApplicationController
     response = {
       response_type: "ERROR",
       message: message,
-      meta: meta
+      meta: meta,
+      error: true
     }
 
     render json: response.to_json, status: status
@@ -28,5 +29,9 @@ class ApiController < ApplicationController
     headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
     headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization, Token, Data-Type, X-Requested-With'
     headers['Access-Control-Max-Age'] = "1728000"
+  end
+
+  def allow_iframe_requests
+    response.headers.delete('X-Frame-Options')
   end
 end

@@ -96,7 +96,7 @@ module Services
     end
 
     def notify_of_bad_name_distance(distance)
-      return if ENV["RAILS_ENV"] == 'test'
+      return if ENV["RAILS_ENV"] == 'test' || true
 
       PlaceMailer.notify_of_bad_name_distance(name, distance, venue_name)
     end

@@ -18,10 +18,10 @@ class Api::V1::Users::MarksController < ApiController
     return error(500, "Missing url param") unless params[:url]
 
     scraped = Array Services::SiteScraper.build(params[:url], params[:page]).data
-    puts "SCRAPED: #{scraped}"
-    completed = Services::MassCompleter.new(scraped, @user).complete!
 
-    render json: completed, each_serializer: TotalMarkSerializer
+    Services::MassCompleter.new(scraped, @user).delay_complete!
+    
+    render json: { success: true }
   end
 
   private

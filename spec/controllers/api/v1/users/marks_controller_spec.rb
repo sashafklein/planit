@@ -113,7 +113,7 @@ describe Api::V1::Users::MarksController do
         expect( @user.items ).to eq plan.items
         expect( items.count ).to eq 18
         expect( response_body.count ).to eq 18
-
+        binding.pry
         scraped = YAML.load_file( File.join(Rails.root, 'spec', 'support', 'pages', 'nytimes', 'bogota.yml') )
         expect( scraped.map{ |e| e['place'] }.map{ |p| p['name'] }.compact.sort ).to eq( items.places.pluck(:names).map(&:first).sort )
 

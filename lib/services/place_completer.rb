@@ -9,14 +9,17 @@ module Services
 
     def complete!
       @place = Place.find_or_initialize(attrs)
-
-      load_region_info_from_nearby!
-      geocode!
-      api_complete!
-      translate!
       
-      @place = @place.find_and_merge
-      save_with_photos!
+      unless @place.persisted?
+        load_region_info_from_nearby!
+        geocode!
+        api_complete!
+        translate!
+      
+        @place = @place.find_and_merge
+        save_with_photos!
+      end
+      
       @place
     end
 

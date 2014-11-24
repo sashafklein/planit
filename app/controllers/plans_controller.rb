@@ -3,6 +3,7 @@ class PlansController < ApplicationController
   before_action :load_plan, only: [:show, :print, :mobile]
 
   def show
+    raise
   end
 
   def new
@@ -27,7 +28,7 @@ class PlansController < ApplicationController
   private
 
   def load_plan
-    @plan = Plan.includes(:moneyshots, legs: [{ days: [{ items: [:place, :arrival, :departure] }] }] )
+    @plan = Plan.includes(:moneyshots, legs: [{ days: [{ items: [{mark: :place}] }] }] )
                 .friendly.find(params[:id])
   end
 

@@ -2,6 +2,9 @@
 
 #planit-bookmarklet
 
+  %form{ id: 'submit-form', action: scrape_api_v1_user_marks_path(@user), method: 'post' }
+    = hidden_field_tag :url, @url, id: 'planit-current-url'
+
   #planit-manual
     #planit-close-btn x
     #planit-topper
@@ -61,3 +64,6 @@
       #planit-noteWrap
         %input#planit-note.planit-input#planit-addNote{placeholder: "Note-to-Self?"}/
 
+  .planit-current-page-content{ style: 'display: none'}
+  
+= javascript_include_tag 'api/bookmarklets/view'
