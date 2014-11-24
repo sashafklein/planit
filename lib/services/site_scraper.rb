@@ -5,7 +5,6 @@ module Services
 
     require 'uri'
     require 'json'
-    require 'nokogiri'
     include RegexLibrary
     extend RegexLibrary
     include CssOperators
