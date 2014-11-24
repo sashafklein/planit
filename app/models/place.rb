@@ -23,17 +23,17 @@ class Place < ActiveRecord::Base
     Services::PlaceFinder.new(atts).find!
   end
 
-  def name
-    names.first
-  end
+  # def name
+  #   names.first
+  # end
 
-  def category
-    categories.first
-  end
+  # def category
+  #   categories.first
+  # end
 
-  def street_address
-    street_addresses.first
-  end
+  # def street_address
+  #   street_addresses.first
+  # end
 
   def self.center_coordinate(locations)
     [locations.average(:lat), locations.average(:lon)].join(":")
