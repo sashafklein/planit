@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     get :new2, on: :member
   end
 
-  get '/', to: 'plans#jmt'
+  devise_scope :user do
+    get '/', to: "devise/sessions#new"
+  end
 
   namespace :api do
     namespace :v1 do
