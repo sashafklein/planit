@@ -3,7 +3,7 @@
 
 .errors{ ng_if: 'errors.length', style: 'background: rgb(172, 140, 140); padding: 5px'} {{ errors }}
 
-= link_to image_tag("https://irs0.4sqi.net/img/general/width1260/x0R0UjoKpbnWlI-ndsNU86eg_r_gArC6_-okiSWAtd8.jpg", size: "40x40", alt: "+Planit"), "#{ render partial: 'bookmarklets/bookmarklet.js.erb', locals: { user: OpenStruct.new(slug: 'fake-user'), host: request.base_url } }"
+= link_to image_tag("https://irs0.4sqi.net/img/general/width1260/x0R0UjoKpbnWlI-ndsNU86eg_r_gArC6_-okiSWAtd8.jpg", size: "40x40", alt: "+Planit"), "#{ render partial: 'bookmarklets/bookmarklet.js.erb', locals: { user: (current_user ? current_user : OpenStruct.new(slug: 'fake-user')), host: request.base_url } }"
 
 .wrapper
 
