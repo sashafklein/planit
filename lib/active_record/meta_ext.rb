@@ -70,7 +70,7 @@ module ActiveRecord
 
     def uniqify_array_attrs
       array_attributes.keys.each do |att|
-        write_attribute(att, read_attribute(att).compact.uniq) if send("#{att}_changed?")
+        write_attribute(att, read_attribute(att).compact.uniq) if send("#{att}_changed?") || !id
       end
     end
 

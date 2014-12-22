@@ -11,7 +11,7 @@ namespace :seed  do
               next unless place_hash[:place]
               name = place_hash[:place][:name] || names = place_hash[:place][:names] ? names[0] : 'unnamed'
               puts "Saving #{name}"
-              Services::Completer.new(place_hash, niko).complete!
+              completed = Services::Completer.new(place_hash, niko).complete!
               puts "Saved #{name}"
             rescue
               next

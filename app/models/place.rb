@@ -79,14 +79,15 @@ class Place < ActiveRecord::Base
   def save_with_photos!(photos)
     return nil unless valid?
 
-    save!
+    p = self.persisted? ? self : Place.new(attributes)
+    p.save!
 
-    Array(photos).each do |p| 
-      next if images.find_by(url: p.url)
-      p.update_attributes!(imageable_type: self.class.to_s, imageable_id: id)
+    Array(photos).each do |photo| 
+      next if images.find_by(url: photo.url)
+      photo.update_attributes!(imageable_type: p.class.to_s, imageable_id: p.id)
     end
     
-    self
+    p
   end
 
   def set_country(val)

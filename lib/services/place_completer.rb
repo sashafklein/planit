@@ -14,8 +14,8 @@ module Services
         load_region_info_from_nearby!
         geocode!
         api_complete!
-        translate!
-      
+        translate!    
+        
         @place = @place.find_and_merge
         save_with_photos!
       end
