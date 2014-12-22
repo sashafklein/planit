@@ -15,7 +15,7 @@ module Services
         geocode!
         api_complete!
         translate!    
-        
+
         @place = @place.find_and_merge
         save_with_photos!
       end
@@ -55,7 +55,7 @@ module Services
       attributes[:street_addresses] = Array( attributes.delete(:street_addresses) ) + Array( attributes.delete(:street_address) )
       attributes[:categories] = Array( attributes.delete(:categories) ) + Array( attributes.delete(:category) )
       attributes[:phones] = { default: attributes.delete(:phone) } if attributes[:phone] && ! attributes[:phones]
-      attributes[:lat] = attributes[:lat] ? attributes[:lon].to_f : nil
+      attributes[:lat] = attributes[:lat] ? attributes[:lat].to_f : nil
       attributes[:lon] = attributes[:lon] ? attributes[:lon].to_f : nil
 
       if !attributes[:extra] || !attributes[:extra].is_a?(Hash)

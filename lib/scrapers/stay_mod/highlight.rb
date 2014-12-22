@@ -93,13 +93,13 @@ module Scrapers
 
       def lat(activity)
         id = activity.attribute("class").value.scan(/id(\d+)/).flatten.first
-        script_content.inner_html.scan(find_lng_by_script_id(id)).flatten.first
+        script_content.inner_html.scan(find_lat_by_script_id(id)).flatten.first
       rescue ; nil
       end
 
       def lon(activity)
         id = activity.attribute("class").value.scan(/id(\d+)/).flatten.first
-        script_content.inner_html.scan(find_lat_by_script_id(id)).flatten.first
+        script_content.inner_html.scan(find_lng_by_script_id(id)).flatten.first
       rescue ; nil
       end
 
