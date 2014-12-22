@@ -2,6 +2,7 @@ class Place < ActiveRecord::Base
 
   before_save :uniqify_array_attrs
   before_save :deaccent_regional_info
+  before_save { self.categories.each(&:titleize) }
 
   has_one :item
   has_many :images, as: :imageable
@@ -91,7 +92,7 @@ class Place < ActiveRecord::Base
   end
 
   def set_country(val)
-    self.country = val
+    self.country = Directories::AnglicizedCountry.find(val) || val
     expand_country
   end
 
