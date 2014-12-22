@@ -1,0 +1,40 @@
+.print-day-overview-wrap
+  .print-day-log-wrap
+    .print-day-log.title
+      / = bucket_locale
+      Bucket List
+    - bucket.each_with_index do |item, item_index|
+      / - if item.locality == bucket_locale
+      .print-day-log.item
+        = "(#{item_index + 1}) "
+        - if item.name         
+          %b= item.name.titleize
+        - else
+          %i= "Un-named"
+        / = print_distance(index, item_index, item, day)
+
+  .content-tab-print.day-map
+    .print-map-canvas.day
+      / %map.day-map-container{ icon: map_icon, coordinates: [], type: 'print' }
+
+
+- bucket.in_groups_of(4, 'open') do |items_in_four|
+
+  .print-tab-row
+
+    - colspan_open = 0
+
+    - items_in_four.each_with_index do |item, index|
+
+      - if index == 3 && item != 'open'
+        .print-tab-wrap.last
+          = render partial: 'days/print_tab', locals: { item: item }
+      - elsif item != 'open'
+        .print-tab-wrap
+          = render partial: 'days/print_tab', locals: { item: item }
+      - else
+        - colspan_open = colspan_open + 1
+
+    - colspan_open = ((colspan_open*180)+((colspan_open-1)*10))
+    - if colspan_open != -10
+      .fill-open{ style: "width: #{colspan_open}px", width: "#{colspan_open}px" }

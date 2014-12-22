@@ -1,0 +1,234 @@
+body
+  margin: 0
+
+.band
+  &.gray
+    background: #dfdfdf
+  &.white
+    background: #fff
+  &.spaced
+    padding: 9px 0 11px 0
+    border-top: 1px solid #f3f3f3
+    border-bottom: 1px solid #c4c7ca
+
+// TAB ENVIRONMENT
+
+.tab-section-header
+  padding: 8px 8px 3px 8px
+  font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+  font-size: 15px
+  text-shadow: 0px 1px 1px #fff
+
+.any-tab-wrapper
+  display: block
+  cursor: pointer
+
+.mark-tab
+  display: block
+  position: relative
+  padding: 8px
+  background-color: #f3f3f3
+  border: 1px solid #c4c7ca
+  border-bottom-color: #b7babe
+  -webkit-border-radius: 3px
+  -moz-border-radius: 3px
+  border-radius: 3px
+  -webkit-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  -moz-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  &:hover
+    background-color: #fff
+    -webkit-box-shadow: #eee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+    -moz-box-shadow: #eee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+    box-shadow: #eee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+    .tab-operations
+      visibility: visible
+      display: block
+
+  .tab-operations
+    visibility: hidden
+    display: none
+    margin-left: -1px
+    margin-top: -1px
+    text-align: center
+    position: absolute
+    z-index: 4
+    background: #fff
+    white-space: nowrap
+    cursor: pointer
+
+  .tab-operations-button
+    padding: 4px
+    display: inline
+    &:hover
+      color: rgb(213, 44, 111)
+
+  &.add-new
+    background: rgba( 255, 255, 255, 0.3 )
+    border: 1px solid #ccc
+    border-bottom-color: #b7babe
+    -webkit-box-shadow: #ccc 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+    -moz-box-shadow: #ccc 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+    box-shadow: #ccc 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+    &:hover
+      background: rgba( 255, 255, 255, 0.4 )
+
+.mark-tab-title
+  margin: 12px 0px 6px 0px
+  padding: 0px
+  font-size: 12px
+  line-height: 12px
+  text-align: center
+  font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+  font-weight: bold
+  position: relative
+  display: inherit
+  text-transform: capitalize
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+  word-wrap: normal
+  max-height: 12px
+
+.mark-tab-img
+  -webkit-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.1)
+  -moz-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.1)
+  box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.1)
+  background: #999
+  text-align: center
+  color: #aaa
+
+  &.add-photo
+    background: #999
+    color: #ccc
+  &.add-new
+    background: transparent
+
+.add-photo-camera
+  position: relative
+  margin: auto
+  top: 50%
+  transform: translateY(-50%)
+  &:hover
+    color: #fff
+
+.tab-load-more
+  text-align: center
+  padding: 10px
+  color: #000
+  text-shadow: 0px 1px 1px #fff
+  background-color: #f3f3f3
+  border: 1px solid #c4c7ca
+  border-bottom-color: #b7babe
+  -webkit-border-radius: 3px
+  -moz-border-radius: 3px
+  border-radius: 3px
+  -webkit-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  -moz-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  &:hover
+    background-color: #fff
+
+// VARIABLE SIZING
+
+// *Computer (Regular)
+
+.any-tab-wrapper
+  margin: 15px 0
+
+.mark-tab
+  margin: 4px
+
+.mark-tab.add-new
+  display: block !important
+  visibility: visible !important
+
+.mark-tab-img
+  width: 144px !important
+  height: 110px !important
+  img
+    width: 144px !important
+    height: 110px !important
+
+.mark-tab-title
+  width: 144px !important
+
+.tab-operations
+  width: 146px
+
+.tab-load-more
+  margin: 10px 5px 20px 5px
+
+// #Tablet (Portrait)
+@media only screen and (min-width: 768px) and (max-width: 959px)
+
+  .mark-tab
+    margin: 5px
+
+  .tab-operations
+    width: 146px
+
+  .mark-tab.add-new
+    display: block !important
+    visibility: visible !important
+
+// #Mobile (Portrait) <-- smallest
+@media only screen and (max-width: 767px)
+
+  .any-tab-wrapper
+    margin: 0
+
+  .mark-tab.add-new
+    display: none !important
+    visibility: hidden !important
+
+  .mark-tab-img
+    font-size: 3em
+    width: 272px !important
+    height: 208px !important
+    img
+      width: 272px !important
+      height: 208px !important
+
+  .mark-tab-title
+    width: 272px !important
+  
+  .tab-operations
+    width: 274px
+    font-size: 2.25em
+    padding: 0 0 5px 0
+
+  .tab-load-more
+    margin: 10px 5px 20px 5px
+
+// #Mobile (Landscape)
+@media only screen and (min-width: 480px) and (max-width: 767px)
+
+  .any-tab-wrapper
+    margin: 10px 0
+
+  .mark-tab
+    margin: 10px
+
+  .mark-tab.add-new
+    display: block !important
+    visibility: visible !important
+
+  .mark-tab-img
+    font-size: 2em
+    width: 172px !important
+    height: 131px !important
+    img
+      width: 172px !important
+      height: 131px !important
+
+  .mark-tab-title
+    width: 172px !important
+
+  .tab-operations
+    width: 174px
+    font-size: 1.25em
+    padding: 0 0 3px 0
+
+  .tab-load-more
+    margin: 10px 10px 20px 10px

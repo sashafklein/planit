@@ -1,0 +1,179 @@
+// PRINT SETTINGS
+
+.plans-print
+
+body.plans-print
+  width: 750px
+
+  .print-overview
+    height: 750px
+    width: 750px
+
+  .print-cover-wrap
+
+  .print-page-header
+    padding: 15px
+    margin-bottom: 10px
+    font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 32px
+    line-height: 38px
+    font-weight: normal
+    color: #000
+    background: #e0e0e0
+    border-bottom: 2px #e0e0e0 solid
+
+  .print-header-subtitle
+    padding: 10px 20px 7px 20px
+    margin: 0 0 10px 0
+    font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 21px
+    line-height: 28px
+    color: #000
+    text-align: left
+    -webkit-font-smoothing: antialiased
+    border-bottom: 3px solid #e0e0e0
+    background: #e0e0e0
+    b
+      font-size: 12px
+      line-height: 28px
+      text-transform: uppercase
+
+  .print-map-canvas
+    background: #eee
+    margin-bottom: 10px
+    &.page
+      height: 750px
+      width: 750px
+    &.day
+      float: right
+      height: 475px
+      width: 475px
+    &.tab
+      height: 168px
+      width: 168px
+      margin: 6px
+      background: #fff
+
+  .map-container
+    height: 750px
+    width: 750px
+
+  .print-tab-row
+    width: 750px
+    vertical-align: top
+    margin: 0
+    padding 0
+    overflow: hidden
+
+  .print-tab-wrap
+    vertical-align: top
+    border-top: 3px solid #ccc
+    background: #eee
+    display: inline-block
+    width: 180px
+    margin: 0 6px 10px 0
+    &.last
+      margin: 0 0 10px 0      
+
+  .print-day-overview-wrap
+    width: 750px
+    padding: 0
+    margin: 0 0 10px 0
+
+  .print-day-log-wrap
+    width: 265px
+    float: left
+
+  .print-day-log
+    vertical-align: top
+    &.title
+      padding: 10px 20px 7px 20px
+      margin-bottom: 10px
+      font-family: "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+      font-size: 18px
+      line-height: 22px
+      font-weight: bold
+      color: #000
+      text-align: left
+      -webkit-font-smoothing: antialiased
+      background: #e0e0e0
+      border-bottom: 3px solid #e0e0e0
+    &.item
+      font-size: 12px
+      line-height: 15px
+      padding: 4px 20px 0px 20px
+
+  .print-tab-content-line
+    font-family: "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+    text-align: left
+    font-size: 11px
+    line-height: 13px
+    color: #000
+    padding: 0 6px 2px 6px
+    word-wrap:break-word
+    -ms-word-break: break-all
+    word-break: break-all
+    /* Non standard for webkit */
+    word-break: break-word
+    -webkit-hyphens: auto
+    -moz-hyphens: auto
+    -ms-hyphens: auto
+    hyphens: auto
+    &.name
+      font-weight: bold
+      font-size: 15px
+      line-height: 18px
+      padding: 4px 6px 4px 6px
+
+  .fill-open
+    display: inline-block
+    border-top: 3px #ccc solid
+    background: #efefef
+    height: 250px
+    margin-right: -1
+    padding: 0 6px 10px 6px
+
+  .break-page
+    visibility: hidden
+    page-break-after: always
+
+  .footer
+    width: 750px
+    background: #e0e0e0
+    padding: 25px 0 50px 0
+    margin: 10px 0 0 0
+
+  .footer-content
+    padding: 50px
+    font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 14px
+    font-weight: normal
+    color: #000
+    -webkit-font-smoothing: antialiased
+  
+  .footer-section
+    padding-top: 15px
+    font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 14px
+    font-weight: normal
+    color: #000
+    -webkit-font-smoothing: antialiased
+  
+  @media print 
+
+    .exit-view
+      visibility:hidden
+      display: none !important
+
+    .print-cover-wrap
+      display: table
+      page-break-inside: avoid
+
+    .print-tab-row
+      display: table
+      page-break-inside: avoid
+
+    .print-day-overview-wrap
+      display: table
+      page-break-inside: avoid
+

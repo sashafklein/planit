@@ -8,8 +8,23 @@ class Day < ActiveRecord::Base
   delegate :plan, to: :leg
   delegate :user, to: :plan
   
-  delegate :coordinates, :center_coordinate, to: :items
+  # delegate :coordinates, :center_coordinate, to: :items
   delegate :parent_day, to: :first_item, as: :day_in_trip
+
+  # DAYS. OPERATORS
+
+  def self.has_travel?
+    if days.has_travel?
+      return true
+    end
+    return nil
+  end
+
+  # DAY OPERATORS
+
+  def has_lodging?
+    items.marks.where(lodging: true).any?
+  end
 
   def last_item
     items.last
@@ -28,12 +43,17 @@ class Day < ActiveRecord::Base
     previous.items.with_lodging.last
   end
 
+  def next
+    return nil if last_in_day?
+    siblings.find_by_order( order + 1 )
+  end
+
   def previous
     return nil if first_in_leg?
     siblings.find_by_order( order - 1 )
   end
 
-  def has_lodging
+  def has_lodging?
     items.with_lodging.any?
   end
 
@@ -41,8 +61,20 @@ class Day < ActiveRecord::Base
     order == 0
   end
 
+  def last_in_leg?
+    order == order.length
+  end
+
   def place_in_trip
     @place ||= plan.days.index(self)
+  end
+
+  def coordinates
+    items.map(&:coordinate).join("+")
+  end
+
+  def center_coordinate
+    items.center_coordinate
   end
 
   private

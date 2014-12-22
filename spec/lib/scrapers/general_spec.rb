@@ -39,44 +39,78 @@ module Scrapers
     #   end
     # end
 
-    # describe "website" do
-    #   before { @url = "website" }
+    # ARTICLES
+
+    # REDIRECTS/LOG-IN NECESSARY -- NEED TO SEND VIA BROWSER CLIENT
+    # describe "http://www.nytimes.com/2014/12/14/travel/vail-the-thrifty-way.html?hpw&rref=travel&action=click&pgtype=Homepage&module=well-region&region=bottom-well&WT.nav=bottom-well" do
+    #   before { @url = "http://www.nytimes.com/2014/12/14/travel/vail-the-thrifty-way.html?hpw&rref=travel&action=click&pgtype=Homepage&module=well-region&region=bottom-well&WT.nav=bottom-well" }
     #   it "parses the page" do 
     #     raw_test(data) 
-    #     puts "name attempts #{name_attempts}"
     #   end
     # end
 
-    # describe "website" do
-    #   before { @url = "website" }
+    # # THIS ONE IS GNARLY -- NAMES TWO LOCATIONS, AT WHICH THERE IS A POP-UP!!
+    # describe "http://www.washingtonpost.com/blogs/going-out-guide/wp/2014/11/13/jeremiah-langhorne-pops-up-at-dgs-delicatessen-mockingbird-hill/" do
+    #   before { @url = "http://www.washingtonpost.com/blogs/going-out-guide/wp/2014/11/13/jeremiah-langhorne-pops-up-at-dgs-delicatessen-mockingbird-hill/" }
     #   it "parses the page" do 
     #     raw_test(data) 
-    #     puts "name attempts #{name_attempts}"
     #   end
     # end
 
-    # describe "website" do
-    #   before { @url = "website" }
+    # describe "http://www.latimes.com/travel/la-tr-d-punta-mita-20141214-story.html#page=1" do
+    #   before { @url = "http://www.latimes.com/travel/la-tr-d-punta-mita-20141214-story.html#page=1" }
     #   it "parses the page" do 
     #     raw_test(data) 
-    #     puts "name attempts #{name_attempts}"
     #   end
     # end
 
-    # RANDOM ARTICLE GRABS ALL ARTICLE-Y STUFF
-    describe "http://www.sfgate.com/restaurants/article/Chris-Cosentino-s-pork-ragu-survives-the-5825375.php" do
-      before { @url = "http://www.sfgate.com/restaurants/article/Chris-Cosentino-s-pork-ragu-survives-the-5825375.php" }
-      it "parses the page" do 
-        raw_test(data) 
-      end
-    end
+    # describe "http://www.latimes.com/travel/deals/la-trb-las-vegas-bobby-flay-mesa-grill-10-year-menu-20141014-story.html" do
+    #   before { @url = "http://www.latimes.com/travel/deals/la-trb-las-vegas-bobby-flay-mesa-grill-10-year-menu-20141014-story.html" }
+    #   it "parses the page" do 
+    #     raw_test(data) 
+    #     # expect_equal(data, [
+    #     #   place: {
+    #     #     name: "mesa grill",
+    #     #     locality: "Las Vegas",
+    #     #     country: "United States of America",
+    #     #     nearby: "Las Vegas, United States of America",
+    #     #     website: "http://www.mesagrill.com/las-vegas-restaurant/",
+    #     #   },
+    #     #   place: {
+    #     #     name: "caesars palace",
+    #     #     locality: "Las Vegas",
+    #     #     country: "United States of America",
+    #     #     nearby: "Las Vegas, United States of America",
+    #     #     website: "http://www.caesarspalace.com",
+    #     #   }
+    #     #   ])
+    #   end
+    # end
+
+    # describe "http://www.sfgate.com/restaurants/article/Chris-Cosentino-s-pork-ragu-survives-the-5825375.php" do
+    #   before { @url = "http://www.sfgate.com/restaurants/article/Chris-Cosentino-s-pork-ragu-survives-the-5825375.php" }
+    #   it "parses the page" do 
+    #     expect_equal(data, [
+    #       place: {
+    #         name: "Porcellino",
+    #         locality: "San Francisco",
+    #         country: "United States of America",
+    #         nearby: "San Francisco, United States of America",
+    #         website: "http://www.porcellinosf.com",
+    #         phones: "(415) 641-4500",
+    #       }
+    #       ])
+    #   end
+    # end
+
+    # OTHER WEBSITES
 
     describe "http://novareresbiercafe.com" do
       before { @url = "http://novareresbiercafe.com" }
       it "parses the page" do 
         expect_equal(data, [
           place: {
-            name: "Novare Res Bier",
+            name: "Novare Res Bier Café",
             locality: "Portland",
             country: "United States of America",
             nearby: "Portland, United States of America"
@@ -184,7 +218,7 @@ module Scrapers
           place: {
             country: "California, United States",
             locality: "San Francisco", 
-            name: "The Fairmont San Francisco",
+            name: "The Fairmont San Francisco Hotel",
             nearby: "San Francisco, California, United States",
             full_address: "950 Mason Street San Francisco California, United States 94108",
             phones: "1 866 540 4491",
@@ -220,7 +254,7 @@ module Scrapers
             street_address: "222 Sansome Street",
             full_address: "222 Sansome Street,  San Francisco,  CA  94104",
             postal_code: "94104",
-            region: "CA ",
+            region: "CA",
             lat: "37.792457",
             lon: "-122.400789",
             phones: "+1 (415) 276 9888",
@@ -248,7 +282,7 @@ module Scrapers
       it "parses the page correctly" do
         expect_equal(data, [
           place: {
-            name: "Mount Lavinia",
+            name: "Mount Lavinia Hotel",
             locality: "Colombo", 
             country: "Sri Lanka",
             nearby: "Colombo, Sri Lanka",
@@ -272,6 +306,7 @@ module Scrapers
       end
     end
 
+    # PRIVATE FUNCTIONS
 
     def raw_test(data)
       if has_name?(data) && has_locale?(data)

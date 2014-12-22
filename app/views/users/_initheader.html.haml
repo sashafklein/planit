@@ -1,0 +1,59 @@
+- classes = start + " " + background
+.initial-header{ class: classes }
+  .container
+    .sixteen.columns.header-container
+      .logo-container
+        = image_tag "logo_only_#{color}.png", style: "float:left; width: 42px; height: 50px; margin: 10px 10px 10px 0"
+        = image_tag "logo_name_only_#{color}.png", class: "logo-name-top", style: "float:left; width: 86px; height: 50px; margin: 10px 10px 10px 0"
+      %input.input-search-field{ :name  => "input-search", :placeholder => "Search / Add" }
+      %button.input-search-button
+        .i.fa.fa-search.fa-lg
+      .main-menu-container.user-icon{ class: color }
+        .i.user-icon.fa.fa-user
+      .main-menu-container.main-menu{ class: color }
+        .i.main-menu.fa.fa-bars
+      .side-menu-container{ class: color }
+        / .i.icomoon.icon-map-2
+        
+
+/ ACCOUNT + SETTINGS
+/ MY DASHBOARD/PLANIT [WHAT TO CALL?]
+
+.page-header-band
+  .container
+    .sixteen-columns.page-header-container
+      .i.filter.fa.fa-sliders
+      Sort/Filter by 
+      %span.filter-content.up
+        Location
+        .i.fa.fa-caret-down
+      %span.filter-content.down
+        Type
+        .i.fa.fa-caret-up
+      %span.filter-content.off
+        Recent
+        .i.fa.fa-times
+      %span.filter-content.off
+        Recent
+        .i.fa.fa-times
+      = "|" 
+      .i.map-view.fa.fa-globe 
+      Map View
+      = "|" 
+      .i.share.fa.fa-share-alt-square
+      Share
+
+
+// SORTABLE/FILTERABLE BY: ([DEFAULT]) -- VIA DROP-DOWN MENU AND/OR VIA SEARCH/ADD BAR
+/ => [ COUNTRY / REGION / LOCALITY] <- DEPENDING ON # (MAX 10 BEFORE SPLIT)**
+/ => BEEN / [ NOT YET ] <- TOGGLE
+/ => [ PLANNED / BUCKETED ] <- 
+/ => [ STARRED / UNSTARRED ] / EXXED <- STARRED DISPLAYED FIRST
+/ => WHEN ADDED [MOST RECENT]
+/ => TYPE [ALL INCLUDED]
+/ => MANUAL ORDER??
+
+// SEARCH FUNCTIONALITY
+/ => TYPE [NEARBY] ... e.g. "food [near ll]"
+/ => TYPE near/in/around LOCATION
+/ => ADDS TO FILTER LIST

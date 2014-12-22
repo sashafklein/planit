@@ -14,6 +14,7 @@ module Scrapers
 
       def data
         # binding.pry
+        return "travel"
         [ place: {
             lat: lat,
             lon: lon,
@@ -42,7 +43,7 @@ module Scrapers
         page_map_images.each_with_index do |image, index|
           alt = image.attribute("alt").value unless !image.attribute("alt")
           src = image.attribute("src").value unless !image.attribute("src")
-          map_usual_suspects.each do |attempt|          
+          map_link_src_usual_suspects.each do |attempt|          
             if src && src.include?(attempt)
               image_array << [index, alt, src]
             end
@@ -67,7 +68,7 @@ module Scrapers
         page_map_links.each_with_index do |link, index|
           text = link.text
           href = link.attribute("href").value unless !link.attribute("href")
-          map_usual_suspects.each do |attempt|          
+          map_link_src_usual_suspects.each do |attempt|          
             if href && href.include?(attempt)
               link_array << [index, text, href]
             end

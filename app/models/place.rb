@@ -31,6 +31,10 @@ class Place < ActiveRecord::Base
     categories.first
   end
 
+  def image
+    images.first
+  end
+
   def street_address
     street_addresses.first
   end
@@ -93,6 +97,19 @@ class Place < ActiveRecord::Base
   def set_region(val)
     self.region = val
     expand_region
+  end
+
+  def alt_names
+    array = names.drop(1)
+  end
+
+  def second_address_array
+    array = [locality, region, postal_code].reject(&:blank?)
+    array.any? ? array : nil
+  end
+
+  def open_now?
+    true
   end
 
   private

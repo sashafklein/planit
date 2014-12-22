@@ -1,54 +1,49 @@
-.exit-view
-  %a{href: plan_path} Exit Print View
-.logo-container
-  = image_tag "white_logo.png"
-  = image_tag "white_tagline.png", id: "tagline"
-=image_tag "#{image_path @plan.moneyshot['url']}", style: "width: 750px; max-height: 750px", html: { border: "0" }
-.moneyshot-caption
-  = "\"#{@plan.moneyshot['subtitle']}\""
-  %a{href: @plan.moneyshot['source_url']}= "@#{@plan.moneyshot['source']}"
-
-.print-page-header
-  %strong
-    = @plan.title
-  .print-header-subtitle
-    = "#{@plan.legs.length} legs / #{@plan.last_day} days"
-
-.break-page
-
-.print-page-header
-  = image_tag "black_logo_only.png"
-  %strong
-    = "#{@plan.title}:"
-  .print-header-subtitle
-    Overview
-
-%map.print-overview{ icon: map_icon, coordinates: @plan.overview_coordinates, type: "print#{@plan.maptype || ''}"}
+.print-cover-wrap
+  .print-page-header
+    %strong
+      - if @plan.name && @plan.name.length > 0
+        = @plan.name
+      - else
+        = @plan.overall_locale
+    - if @plan.legs.length > 1 || @plan.days.length > 1
+      = "("
+      - if @plan.legs.length > 1
+        = "#{@plan.legs.length} legs : "
+      - if @plan.days.length > 1
+        = "#{@plan.days.length} days"
+      = ")"
+  .print-map-canvas.page
+    %map.print-overview{ icon: map_icon, coordinates: @plan.coordinates, type: "print#{@plan.maptype || ''}"}
 
 .break-page
-// break page
 
-.print-page-header
-  = image_tag "black_logo_only.png"
-  %strong
-    = "#{@plan.title}:"
+- if @plan.tips && @plan.tips.length > 0
   .print-header-subtitle
     Summary, Tips & Reminders
+    - @plan.tips.each do |tip|
+      .content-tab-wrap
+        .content-tab-print.time
+          = "-"
+        .content-tab-print.tips
+          = tip.html_safe
 
-- if @plan.tips
-  - @plan.tips.each do |tip|
+/ - if @plan.has_travel?
+/   .print-header-subtitle
+/     Transit & Transportation
+/   - @plan.legs.each_with_index do |leg, index|
+/     = render partial: 'legs/print_travel', locals: { leg: leg } 
+
+- if @plan.has_lodging?
+  .print-header-subtitle Accomodations
+
+  - @plan.items.with_lodging.each_with_index do |lodging_item, index|
     .content-tab-wrap
-      .content-tab-print.time
-        = "-"
-      .content-tab-print.tips
-        = tip.html_safe
+      .content-tab-print.time= image_tag "lodging-is-#{category(lodging_item)}.png"  
+      .content-tab-print.travel
+        = print_lodging(lodging_item, index)
+        - if lodging_item.notes
+          %span.lodging-notes= lodging_item.notes.html_safe
 
-.break-page
-// break page
-
-.print-page-header
-  = image_tag "black_logo_only.png"
-  %strong
-    = "#{@plan.title}:"
-  .print-header-subtitle
-    Transit & Transportation
+/ - if @plan.tips || @plan.has_travel? || @plan.has_lodging?
+- if @plan.tips || @plan.tips.length > 0 || @plan.has_lodging?
+  .break-page

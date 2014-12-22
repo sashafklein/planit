@@ -1,32 +1,102 @@
-.moneyshot.onview{ style: "background-image: url('#{image_path @plan.moneyshot['url']}')" }
-  = render 'show/moneyshot'
-= render 'show/initheader', { :color => 'white', :start => '' }
-= render 'show/persistent'
+// CALCULATIONS
+- place = Place.with_name("Beech Street Grill").first
 
-.body-container
+// HEADER
+= render 'users/initheader', { :background => 'white', :color => 'black', :start => '' }
 
-  // OVERVIEW MAP & AUTHORNOTE
-  .overview.onview
-    = render partial: 'show/overview', locals: { bucket: false }
+.place-page
+  .init-header-space 
 
-  // HIGHLIGHTS
-  .highlights.onview
-    = render partial: 'show/highlight', locals: { bucket: false }
+  .place-page-splash
+    .container
+      .thirteen.columns.name-essentials-wrap
+        .place-page-name
+          = place.name
+        .place-page-category
+          - if place.categories && place.categories.length > 0
+            = place.categories.join(", ").titleize
+          - else
+            .i.fa.fa-pencil
+            .span.gray= "Edit Info"
+      .three.columns.book-been-save-wrap
+        .book-been-save-bar
+          .click-to.book
+            .i.fa.fa-calendar
+          .click-to.been
+            .i.fa.fa.fa-check-circle
+          .click-to
+            .i.fa.fa-list-ol
+          .click-to.save
+            .i.fa.fa.fa-heart
+    .container
+      .five.columns.map-address-wrap
+        .map-canvas
+        - if place.alt_names.any?
+          .address-info-line= "(#{place.array.drop(1).join('), (')})"
+        - if place.street_address
+          .address-info-line= place.street_address
+        - if place.second_address_array
+          .address-info-line= place.second_address_array.join(", ")
+        - if place.country
+          .address-info-line= place.country
+        - if place.website
+          .address-info-line
+            %a{:title => "website", :href => place.website}
+              .i.fa.fa-link
+              = place.website
+        - if place.phones
+          - place.phones.each do |type, number|
+            .address-info-line
+              .i.fa.fa-phone
+              = number
 
-  // ROTATING GALLERY?
+      .eleven.columns.photos-wrap
+        - if place.image
+          .photos-gallery{ style: "background-image: url('#{place.image.url}')"}
+          .photos-caption
+            = "Photo Credit: "
+            %a{:title => "original photo", :href => place.image.source_url}= "#{place.image.source}"
+        - else
+          .photos-gallery
+            .add-photo
+              .i.fa.fa-camera-retro
+              ADD PHOTO
 
-  // DAY BY DAY DETAIL  
-  #content_begins
-  - @plan.legs.each_with_index do |leg, index|
-    = render partial: 'legs/leg', locals: { leg: leg, index: index, bucket: false }
+  .container
+    .eleven.columns.reviews-and-sources-wrap
+      .sources
+        .reviews-and-sources-title
+          12 expert recommendations
+        .reviews-and-sources-line
+          BlackBook Lose yourself in the dizzyingly hypnotic luxury of this Shinjuku lodge, star of Sofia Coppola's iconic film, Lost in Translation. 14 concierge.com A small hotel by Tokyo standards—only 177 rooms—the Park Hyatt fairly drips with luxury. Full Review → 8 Condé Nast Traveler 99.6 A swimming pool, a bamboo garden, and a restaurant occupy the three pyramidal atriums that crown the towers of this Shinjuku property. Full Review → 17 DK Eyewitness Remember the grandstand views Scarlett Johansson looked out on from her room at this hotel in the movie Lost in Translation? 6 Fodors Tick@2x Choice Sofia Coppola's classic film Lost in Translation was a love letter to this hotel... you may feel smitten as well. Full Review → 1 Frommer's Orange stars@2x Among the most gorgeous and sophisticated hotels in Japan, a perfect reflection of high-tech, avant-garde Tokyo in the 21st century. If you can afford it, stay here. Full Review → Be sure to book early, therefore, for the 52nd-floor New York Grill, one of Tokyo's best restaurants, offering a spectacular setting. 2 Lonely Planet Tick@2x Top Choice The service here is gracious and above all accommodating; perks for guests include complimentary mobile phone rentals. Full Review → 11 Michelin Guide All the guest rooms are decorated in tones of beige and green, with comfort taking priority over extravagance. Full Review → 10 Rough Guide The Park Hyatt remains the pick of Nishi-Shinjuku's luxury hotels. 5 Tablet 19.5 So when Tokyo takes on the boutique hotel, you can bet that it’ll be spectacular — and all the more so when it's a Park Hyatt hotel set fifty-odd stories above Shinjuku. Full Review → 9 Time Out Orange stars@2x Despite being Tokyo’s most decorated hotel, the Park Hyatt is perhaps now best known for its starring role in Sofia Coppola’s 2003 hit Lost in Translation. Full Review → 12 Travel + Leisure Other luxe hotels have since opened and some celebrities have moved on, but the 177-room Park Hyatt Tokyo continues to offer some of the best amenities of any property in the capital. Full Review → If the skies are clear, have lunch on the 40th floor in Kozue and gaze upon Mount Fuji as you nibble away on your bento box.
+      .reviews
+        .reviews-and-sources-title
+          10 user recommendations
 
-  - if @plan.bucket
-    - @plan.bucket.each_with_index do |leg, index|
-      = render partial: 'legs/leg', locals: { leg: leg, index: index, bucket: true }
+    .five.columns.more-info-wrap
+      .other-info-wrap.hours-availability-booking
+        - if place.open_now?
+          .hours-availability-booking-content.open-now= "Open now (_)"
 
-  / = render partial: 'narrative/narrative', locals { leg: leg, index: index, bucket: true }
+
+        .hours-availability-booking
+          
+        - if place.hours
+          .more-info-line
+            Hours
+        / - if place.reservations
+      .other-info-wrap.menu-cost-reservations
+        .more-info-line
+          .i.fa.fa-calendar
+          Takes Reservations
+        - if place.price_tier
+          .more-info-line
+            .i.fa.fa-money
+            place.price_tier
+        .more-info-line
+          .i.fa.fa-cutlery
+          View Menu
 
 .footer
   = render partial: 'show/footer'
 
-/ .printable-message

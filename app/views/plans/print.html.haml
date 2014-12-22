@@ -1,84 +1,54 @@
+// ESCAPE VIEW
+.exit-view
+  %a{href: plan_path}
+    .fa.fa-arrow-circle-left{ style: "padding-right: 10px; padding-left: 3px"} 
+    Exit Print View
+
 = render 'print_header'
 
-- @plan.legs.each_with_index do |leg, index|
-  = render partial: 'legs/print_travel', locals: { leg: leg } 
-  .content-tab-wrap
-
-.break-page
-.print-page-header
-  = image_tag "black_logo_only.png"
-  %strong= "#{@plan.title}:"
-  .print-header-subtitle Accomodations
-
-- @plan.items.with_lodging.each_with_index do |lodging_item, index|
-  .content-tab-wrap
-    .content-tab-print.time= image_tag "lodging-is-#{category(lodging_item)}.png"  
-    .content-tab-print.travel
-      = print_lodging(lodging_item, index)
-      - if lodging_item.notes
-        %span.lodging-notes= lodging_item.notes.html_safe
-    / - else
-    /   .content-tab-wrap
-    /     .content-tab-print.time
-    /       =image_tag "lodging-is-blank.png"  
-    /     .content-tab-print.travel
-    /       = "No housing listed for day #{day['items'][0]['parent_day']}"
-
-// WAY TO CONSOLIDATE DAYS?
-
-// BY SECTION
+// SECTION BY SECTION
 
 - @plan.legs.each_with_index do |leg, index|
-  .break-page
-  .print-page-header
-    = image_tag "black_logo_only.png"
-    .timeline-cluster= image_tag "timeline-cluster-pin-#{index + 1}.png"
-    %strong= "#{@plan.title}"
-    .print-header-subtitle
+  .print-header-subtitle
+    - if leg.name && leg.name.length > 0
       = leg.name
-      %b= " (Day #{leg.first_day} to #{leg.last_day})"
-  %map.map-container{ icon: map_icon, coordinates: leg.coordinates, type: "print#{@plan.maptype}" }
-  
-  .print-end
-  .break-page
-  // break page
+    - else 
+      = leg.overall_locale
+    - if leg.days.length != 1 && @plan.legs.length != 1
+      %b= " (Day #{leg.first_day.order} to #{leg.last_day.order})"
 
-  .print-page-header
-    = image_tag "black_logo_only.png"
-    .timeline-cluster= image_tag "timeline-cluster-pin-#{index + 1}.png"
-    %strong= "#{@plan.title}"
-    .print-header-subtitle
-      = leg.name
-      %b= " (Day #{leg.first_day} to #{leg.last_day})"
-  - if leg.arrival
-    .content-tab-wrap
-      .content-tab-print.time= image_tag "travel-by-#{leg.arrival.mode}.png"
-      .content-tab-print.travel
-        = "Arrive by "
-        %b= "#{leg.arrival.mode}"
-        = " - "
-        = print_travel(leg.arrival.terminus, '0')
+  / - if leg.arrival
+  /   .content-tab-wrap
+  /     .content-tab-print.time= image_tag "travel-by-#{leg.arrival.mode}.png"
+  /     .content-tab-print.travel
+  /       = "Arrive by "
+  /       %b= "#{leg.arrival.mode}"
+  /       = " - "
+  /       = print_travel(leg.arrival.terminus, '0')
 
   - leg.days.each_with_index do |day, day_index|
     = render partial: 'days/print_day', locals: { day: day, index: day_index }
 
-  - if leg.departure
-    .content-tab-wrap
-      .content-tab-print.time
-        = image_tag "travel-by-#{leg.departure['method']}.png"
-      .content-tab-print.travel
-        = "Depart by "
-        %b= "#{leg.departure['method']}"
-        - if leg.departure['travel_data']
-          = " - "
-          = print_travel(leg.departure['travel_data'].first, '0')
+  / - if leg.departure
+  /   .content-tab-wrap
+  /     .content-tab-print.time
+  /       = image_tag "travel-by-#{leg.departure['method']}.png"
+  /     .content-tab-print.travel
+  /       = "Depart by "
+  /       %b= "#{leg.departure['method']}"
+  /       - if leg.departure['travel_data']
+  /         = " - "
+  /         = print_travel(leg.departure['travel_data'].first, '0')
 
-  .print-end
+  - if @plan.bucket && @plan.bucket.length > 0
+    / - locale_list = get_locale_list(@plan.bucket)
+    / - if locale_list.uniq.length > 0
+    /   - locale_list.uniq.each_with_index do |locale, index|
+    = render partial: 'legs/print_bucket', locals: { bucket_locale: nil, bucket: @plan.bucket, index: index }
 
-.break-page
+.clear
 
 .footer
-  .footer-content
-    This is a 
+  .footer-content 
     %b Planit
-    / = "print-copy of '#{@plan.title}', a trip authored by #{@plan.author}"
+    = "print-copy of '#{@plan.name}'"

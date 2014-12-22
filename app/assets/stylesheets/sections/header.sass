@@ -1,0 +1,361 @@
+// HEADER
+
+.init-header-space
+  margin: 74px 0 0 0
+
+.initial-header
+  position: fixed
+  top: 0px
+  padding: 0
+  margin: 0 auto
+  width: 100%
+  display: block
+  height: 74px
+  opacity: 1
+  visibility: visible
+  border-top: 3px solid rgb(28, 48, 147)
+  z-index: 16777269
+  &.transparent
+  &.white
+    background: #fff
+  &.black
+    background: #000
+  &.blocked
+    background: #fff
+
+.header-title
+  display: inline-block
+  padding: 0 20px 0 20px
+  margin: 0
+  max-width: 350px
+  height: 100%
+  overflow: hidden
+  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  font-size: 14px
+  font-weight: normal
+  word-wrap: break-word
+  word-break: break-all
+  &.active
+    background: #fff
+    position: absolute
+    max-width: 100%
+
+.header-container
+  // width: 920px
+  height: 71px
+  padding: 0
+  overflow: hidden
+  margin-left: auto
+  margin-right: auto
+  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  font-size: 14px
+  font-weight: bold
+  -webkit-font-smoothing: antialiased
+
+.logo-container
+  visibility: visible
+  display: inline-block
+  float: left
+  img
+    float: left
+
+.input-search-field
+  position: absolute
+  border: 1px solid #f3f3f3
+  border-top: #ddd 2px solid
+  padding: 4px 8px
+  top: 21px
+  font-family: avenir, 'trebuchet ms', open sans, arial
+  font-size: 14px
+  line-height: 20px
+  height: 28px !important
+  color: #999
+  &:hover
+    color: #000
+    background: #fcfcfc
+    border: 1px solid #e3e3e3
+    border-top: #ccc 2px solid
+  &:focus
+    color: #000
+    background: #fcfcfc
+    border: 1px solid #e3e3e3
+    border-top: #ccc 2px solid
+
+.input-search-button
+  position: absolute
+  top: 21px
+  height: 28px
+  width: 45px
+  background: #ccc /* Old browsers */
+  background-size: contain
+  border: 1px solid #ddd
+  border-top: 1px solid #ddd
+  border-left: 1px solid #ddd
+  border-bottom: #aaa 3px solid
+  -moz-border-radius: 3px
+  -webkit-border-radius: 3px
+  border-radius: 3px
+  color: #222
+  font-family: 'trebuchet ms'
+  display: inline-block
+  font-size: 11px
+  font-weight: bold
+  text-decoration: none
+  cursor: pointer
+  line-height: normal
+  padding: 0px
+
+.side-menu-container
+  cursor: pointer
+  float: right
+  .i
+    &:hover
+      color: rgb(213, 44, 111)
+    &.black
+      color: #000
+    &.white
+      color: #fff
+
+.main-menu-container
+  cursor: pointer
+  float: right
+  height: 37px
+  width: 37px
+  border-radius: 50%
+  webkit-border-radius: 50%
+  moz-border-radius: 50%
+  text-align: center
+  overflow: hidden
+  &.black
+    color: #fff
+    background: #222 
+    border: 3px solid #000
+    &:hover
+      background: rgb(213, 44, 111)
+      border: 3px solid rgb(213, 44, 111)
+  &.white
+    color: #000
+    background: #ddd
+    border: 3px solid #fff
+    &:hover
+      background: rgb(213, 44, 111)
+      border: 3px solid rgb(213, 44, 111)
+  .i
+    position: relative
+    margin: auto
+    top: 50%
+    transform: translateY(-50%)
+
+.page-header-band
+  position: fixed
+  top: 74px
+  padding: 0
+  margin: 0 auto
+  width: 100%
+  display: block
+  height: 32px
+  background: #444  
+  border-top: #777 solid 1px
+  border-bottom: #333 solid 1px
+  // border-top: 1px solid #020412
+  // background: #0a1356
+  opacity: 1
+  visibility: visible
+  z-index: 16777269
+
+.page-header-container
+  padding: 6px 2px
+  color: #fff
+  text-align: center
+  font-size: 14px
+  line-height: 14px
+  .i
+    padding: 0 3px
+
+.filter-content
+  display: inline-block
+  margin: 0 3px
+  padding: 0px 3px
+  -moz-border-radius: 2px
+  -webkit-border-radius: 2px
+  border-radius: 2px
+  white-space: nowrap
+  font-size: 13px
+  line-height: 14px
+  cursor: pointer
+  &.up
+    background: #371356
+    border: 1px solid #44186b
+    border-bottom: 1px solid #2c0f45
+    &:hover
+      background: #861d45
+      border: 1px solid #ac486e
+      border-bottom: 1px solid #732650
+  &.down
+    background: #38546c
+    border: 1px solid #899fb6
+    border-bottom: 1px solid #344964
+    &:hover
+      background: #cc4e64
+      border: 1px solid #ff8693
+      border-bottom: 1px solid #ae3a3d
+  &.off
+    background: #898876
+    border: 1px solid #aeab98
+    border-bottom: 1px solid #837d67
+  &.backset
+    background: #101b2f
+    border: 1px solid #16223a
+    border-bottom: 1px solid #071224
+
+// VARIABLE SIZING
+
+// *Computer (Regular)
+
+.logo-name-top
+  display: block !important
+  visibility: visible !important
+
+.input-search-field
+  left: 295px
+  width: 306px
+
+.input-search-button
+  left: 600px
+  width: 45px
+
+.side-menu-container
+  visibility: visible
+  display: inline-block
+  margin: 24px 0
+
+  .i
+    height: 21px
+    width: 18px
+    font-size: 1.5em
+    margin: 0 0 0 5px
+
+.main-menu-container
+  margin: 17px 0 0 15px
+
+  .i
+    height: 21px
+    width: 18px
+    font-size: 1.25em
+    margin: 0
+
+.main-menu
+  visibility: hidden
+  display: none
+
+.user-icon
+  visibility: visible
+  display: inline-block
+
+.i.user-icon
+  position: relative
+  margin: auto
+  top: 50%
+  transform: translateY(-50%)
+
+// #Tablet (Portrait)
+@media only screen and (min-width: 768px) and (max-width: 959px)
+
+  .logo-name-top
+    display: block !important
+    visibility: visible !important
+
+  .input-search-field
+    left: 249px
+    width: 241px
+
+  .input-search-button
+    left: 489px
+    width: 45px
+
+  .side-menu-container
+    visibility: visible
+    display: inline-block
+
+  .main-menu-container
+    margin: 17px 0 0 15px
+
+    .i
+      height: 21px
+      width: 18px
+      font-size: 1.25em
+      margin: 0
+
+  .main-menu
+    visibility: hidden
+    display: none
+
+  .user-icon
+    visibility: visible
+    display: inline-block
+
+  .i.user-icon
+    position: relative
+    margin: auto
+    top: 50%
+    transform: translateY(-50%)
+
+// #Mobile (Portrait) <-- smallest
+@media only screen and (max-width: 767px)
+
+  .logo-name-top
+    display: none !important
+    visibility: hidden !important
+  
+  .input-search-field
+    left: 60px
+    width: 156px
+
+  .input-search-button
+    left: 215px
+    width: 30px
+
+  .side-menu-container
+    visibility: hidden
+    display: none
+
+  .main-menu-container
+    margin: 17px 0 0 0px
+
+  .user-icon
+    visibility: hidden
+    display: none
+
+  .main-menu
+    visibility: visible
+    display: block
+
+// #Mobile (Landscape)
+@media only screen and (min-width: 480px) and (max-width: 767px)
+
+  .logo-name-top
+    display: none !important
+    visibility: hidden !important
+  
+  .input-search-field
+    left: 60px
+    width: 263px
+  
+  .input-search-button
+    left: 322px
+    width: 40px
+
+  .side-menu-container
+    visibility: hidden
+    display: none
+  
+  .main-menu-container
+    margin: 17px 0 0 0px
+
+  .user-icon
+    visibility: hidden
+    display: none
+
+  .main-menu
+    visibility: visible
+    display: block

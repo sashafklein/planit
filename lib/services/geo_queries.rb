@@ -7,9 +7,13 @@ module Services
         country ||= Carmen::Country.all.find{ |c| (string).include?("#{c.alpha_3_code.titleize}.") } 
         country ||= Carmen::Country.all.find{ |c| (string).include?(c.alpha_3_code.upcase) } 
         country.try(:name)
-      end
-    # rescue ; nil
-    end
+      end    end
+
+    def find_country_by_code(string)
+      if string
+        country ||= Carmen::Country.all.find{ |c| (string.upcase).include?(c.code.upcase) } 
+        country.try(:name)
+      end    end
 
     def find_region(string, country)
       if string && country
@@ -18,26 +22,20 @@ module Services
         region ||= carmen_country.subregions.find{ |sr| no_accents(string).include?("#{no_accents(sr.name).first(3)}.") }
         region ||= carmen_country.subregions.find{ |sr| string.include?(sr.code.upcase) }
         region.try(:name)
-      end
-    # rescue ; nil
-    end
+      end    end
 
     def find_country_strict(string)
       if string
         country = Carmen::Country.all.find{ |c| no_accents(string).downcase.include?(no_accents(c.name.downcase)) }
         country.try(:name)
-      end
-    # rescue ; nil
-    end
+      end    end
 
     def find_region_strict(string, country)
       if string && country
         carmen_country = Carmen::Country.named(country)
         region = carmen_country.subregions.find{ |sr| no_accents(string.downcase).include?(no_accents(sr.name.downcase)) }
         region.try(:name)
-      end
-    # rescue ; nil
-    end
+      end    end
 
     def find_locality(string, country=nil)
       if string && country
@@ -45,9 +43,7 @@ module Services
         Services::City.new.find_in(string)
       elsif string
         Services::City.new.find_in(string)
-      end
-    # rescue ; nil
-    end
+      end    end
 
     def scan_country_strict(string)
       if string
@@ -98,9 +94,9 @@ module Services
         test_string = de_tag( no_accents(string).downcase )
         locality_array = []
         Services::City.new.cities.each do |c, hash|
-          if match = test_string.match(%r!#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!)
+          if match = test_string.match(%r!(?:\A|[ ]|\>)#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!)
             name = hash[:accented]
-            count = test_string.scan(%r!#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!).length
+            count = test_string.scan(%r!(?:\A|[ ]|\>)#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!).length
             locality_array << [name, count]
           end
         end
@@ -113,8 +109,8 @@ module Services
         test_string = de_tag( no_accents(string) )
         country_array = []
         Carmen::Country.all.each do |c|
-          if match = test_string.match(%r!#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!)
-            test_string.scan(%r!#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!).each do
+          if match = test_string.match(%r!(?:\A|[ ]|\>)#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!)
+            test_string.scan(%r!(?:\A|[ ]|\>)#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!).each do
               country_array << c.name
             end
           end
@@ -129,8 +125,8 @@ module Services
         test_string = de_tag( no_accents(string) )
         region_array = []
         carmen_country.subregions.each do |c|
-          if match = test_string.match(%r!#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!)
-            test_string.scan(%r!#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!).each do
+          if match = test_string.match(%r!(?:\A|[ ]|\>)#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!)
+            test_string.scan(%r!(?:\A|[ ]|\>)#{no_accents(c.name)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!).each do
               region_array << c.name
             end
           end
@@ -145,8 +141,8 @@ module Services
         test_string = de_tag( no_accents(string).downcase )
         locality_array = []
         Services::City.new.cities.each do |c, hash|
-          if match = test_string.match(%r!#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!)
-            test_string.scan(%r!#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!).each do 
+          if match = test_string.match(%r!(?:\A|[ ]|\>)#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!)
+            test_string.scan(%r!(?:\A|[ ]|\>)#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!).each do 
               locality_array << hash[:accented]
             end
           end
@@ -159,9 +155,7 @@ module Services
       if string
         #swap out for FULL CITIES database stuff?
         Services::City.new.get_city_country(string)
-      end
-    # rescue ; nil
-    end
+      end    end
 
     def guess_sublocale(string_array, locale_array) # returns locality [0], region [1], country [2], full_string [3]
       if !string_array.is_a? Array
@@ -184,9 +178,7 @@ module Services
           end 
         end 
       end
-      return nil
-    # rescue ; nil
-    end
+      return nil    end
 
     def guess_locale(string_array) # returns "highest confidence" locality [0], region [1], country [2], full_string [3]
       
@@ -251,8 +243,6 @@ module Services
         return [locality, region, country, [locality, region, country].compact.join(", ")]
 
       end
-
-    # rescue ; nil
     end
     
 
@@ -309,12 +299,25 @@ module Services
         return [locality, region, country, [locality, region, country].compact.join(", ")]
 
       end
-
-    # rescue ; nil
     end
 
     def guess_locale_rough(string_array) # returns locality [0], region [1], country [2], full_string [3]
       guess_locale(string_array)
+    end
+
+    def trim_full_to_street_address(full_address, country=nil, postal_code=nil, region=nil, locality=nil, name=nil)
+      if full_address
+        street_address = full_address.gsub(/\A#{name}/, '') unless !name
+        street_address = street_address.gsub(%r!((?:#{country}.*?)?)#{country}.*!, '\\1') unless !street_address || !country || country == ''
+        street_address = street_address.gsub(%r!((?:#{postal_code}.*?)?)#{postal_code}.*!, '\\1') unless !street_address || !postal_code || postal_code == ''
+        street_address = street_address.gsub(%r!((?:#{region}.*?)?)#{region}.*!, '\\1') unless !street_address || !region || region == ''
+        street_address = street_address.gsub(%r!((?:#{locality}.*?)?)#{locality}.*!, '\\1') unless !street_address || !locality || locality == ''
+        street_address = street_address.gsub(/([,-][ ]*)*\Z/, '') unless !street_address
+        street_address = street_address.gsub(/,\s?\s?\s?\s?,/, ',') unless !street_address
+        street_address = trim street_address unless !street_address
+        street_address = nil unless trim(street_address) != ""
+        return street_address
+      end
     end
 
   end

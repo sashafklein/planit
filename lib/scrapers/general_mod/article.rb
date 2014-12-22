@@ -10,37 +10,202 @@ module Scrapers
         super(url, page)
       end
 
-      # PAGE 
+      # PAGE  
 
       def data
-        # binding.pry
-        [ place: {
-            lat: lat,
-            lon: lon,
-            name: name,
-            nearby: nearby,
-            full_address: full_address,
-            street_address: street_address,
-            locality: locality,
-            region: region,
-            postal_code: postal_code,
-            country: country,
-            phones: phone,
-            hours: hours,
-            # images: images,
-          }
-        ]
+        if nearby && name && names.length == 1
+          [ place: {
+              lat: lat,
+              lon: lon,
+              nearby: nearby,
+              name: name,
+              full_address: full_address,
+              street_address: street_address,
+              locality: locality,
+              region: region,
+              postal_code: postal_code,
+              country: country,
+              phones: phone,
+              hours: hours,
+              website: trim_url( more_info_website ),
+            }
+          ]
+        elsif nearby && name && names.length > 1
+          names.each do |instance|
+            @data << full_item([
+              place: {
+                nearby: nearby,
+                name: instance,
+                full_address: find_address_by_name(instance),
+                locality: locality,
+                region: region,
+                country: country,
+                phone: find_phone_by_name(instance),
+                website: trim_url( find_website_by_name(instance) ),
+              }
+            ])
+          end
+          binding.pry
+          return @data
+        else
+          return nil
+        end
       end
 
       # OPERATIONS
 
-# Scan for more/story info section
-# Scan for info-packets (e.g. details in parens)
-# Scan for links starting with at &/or preceeded by destinations (comma/colon optional)
-# Scan for other links
-# Clean article text, return in sections
+      # Set article body box
+
+      def article_text
+        article_object.text
+      end
+
+      # Scan for more/story info section, if not separate, find & segregate in article body
+
+      def more_info_box
+        html = get_usual_textspect_html(details_box_usual_textspects)
+        0.upto(illegal_content.length - 1).each do |i|
+          html = html.gsub(%r!#{illegal_content[i]}!, '') unless !html
+        end
+        return html
+      end
+
+      def more_info_lines
+        if more_info_box && more_info_box.length > 0
+          if lines = more_info_box.split(%r!(?:\<[/]?[p]\>|\<[/]?[br]\>|\n|\r)!)
+            return lines.compact.reject(&:blank?)
+          end
+        end
+        return nil
+      end
+
+      def more_info_signal
+        %r!(?:Where|where|WHERE|Info|info|INFO)[: ]!
+      end
+
+      def more_info_names
+        names_array = []
+        if more_info_lines
+          more_info_lines.each do |line|
+            if line.match(more_info_signal)
+              matching_line = de_tag( line ).split(line.scan(more_info_signal).flatten.first)[1]
+              names_array << trim( matching_line.scan(/(.*?)[,.;(]/).flatten.first )
+            elsif strong_result = line.scan(/#{b_or_strong_open_thread}\s*(.*?)\s*#{b_or_strong_close_thread}/)
+              if strong_result.length > 0
+                strong_result.flatten.each do |e|
+                  names_array << trim(legal_strong_results(e)) unless !legal_strong_results(e)
+                end
+              end
+            end
+          end
+          return names_array.compact
+        end
+        return nil
+      end
+
+      def more_info_address
+        if more_info_lines && more_info_names && more_info_names.length == 1
+          more_info_lines.each do |line|
+            if line.match(more_info_signal)
+              matching_line = de_tag( line ).split(line.scan(more_info_signal).flatten.first)[1]
+              matching_line = trim( matching_line.gsub(/(?:#{phone_number_thread})/, '') )
+              matching_line = trim( matching_line.gsub(/(#{is_website_link?})/, '') )
+              matching_line = trim( matching_line.gsub(/\A#{name}/, '') )
+              return trim( matching_line.scan(/[,.;( ]*(.*?)[,.;( ]*/).flatten.first )
+            end
+          end
+        end
+      end
+
+      def more_info_website
+        if more_info_box
+          if punctuated = trim( more_info_box.scan(%r!(#{is_website_link?})!).flatten.first )
+            return punctuated.scan(remove_final_punctuation_regex).flatten.first
+          end
+        end
+        return nil
+      end
+
+      def more_info_phone
+        if more_info_box
+          more_info_box.gsub(/\d\d\d\d\d(?:-| )?(?:\d\d\d\d)/, '') # trim zip code out?
+          if punctuated = trim( more_info_box.scan(%r!(#{phone_number_thread})!).flatten.first )
+            return punctuated.scan(remove_final_punctuation_regex).flatten.first
+          end
+        end
+        return nil
+      end
+
+      # Scan for info-packets (e.g. details in parens)
+      # Scan for links starting with at &/or preceeded by destinations (comma/colon optional)
+      # Scan for other links
+      # Clean article text, return in sections
 
       # DOES IT HAVE MAP LINKS? PARSE LINKS, LINK TEXT
+
+      def at_place(text)
+        at_strings = text.scan(/(?:#{normal_punctuation_thread}[Aa]|\A[A]| [Aa])t (#{title_or_upper_cased_or_exceptions_thread})/).flatten
+        if pick = top_pick(at_strings.compact, 0.85)
+          return pick.first
+        end
+        return nil
+      end
+
+      def article_object
+        article_usual_suspects.each do |attempt|
+          if object = page.css(attempt).last
+            return object
+          end
+        end
+        return nil
+      end
+
+      def article_paragraphs
+        if article_paragraphs = article_object.css("p")
+          return article_paragraphs
+        end
+        return nil
+      end
+
+      def linked_places_in_article_body
+        link_names = []
+        article_paragraphs.each do |paragraph|
+          links_in_paragraph = paragraph.css("a")
+          links_in_paragraph.each do |link_in_paragraph|
+            if link_in_paragraph.attribute("href") && href = link_in_paragraph.attribute("href").value
+              if !href.match(/(?:#{prohibited_link_to_name_domains.join("\\.|")}\.)/) && !href.match(/#{link_in_paragraph.text}/) && href.match(/\A#{is_website_link?}\Z/) #verify real site / not internal or non-functioning
+                link_names << reject_long( get_allowable_link_text(link_in_paragraph) ) unless !get_allowable_link_text(link_in_paragraph)
+              end
+            end
+          end
+        end
+        if link_names.compact.length > 5 && top_pick(link_names.compact, 0.85).length > 0
+          return [top_pick(link_names.compact, 0.85).first]
+        elsif link_names.length > 0
+          return link_names.compact
+        end
+        return nil
+      end
+
+      def get_allowable_link_text(link_object)
+        if link_object.text.match(/\s*#{is_website_link?}\s*/)
+          return nil
+        else
+          if link_object.text
+            result = trim( link_object.text.gsub(/(?:#{prohibited_link_to_name_text_list.join("|")})/, '') )
+            return result unless result == ''
+          end
+        end
+        return link_object.text
+      end
+
+      def in_locale(text)
+        in_strings = text.scan(/(?:#{normal_punctuation_thread}[Ii]|\A[I]| [Ii])n (#{title_or_upper_cased_or_exceptions_thread})/).flatten
+        if pick = top_pick(in_strings.compact, 0.35)
+          return pick.first
+        end
+        return nil
+      end
 
       def map_images
         image_array = []
@@ -48,7 +213,7 @@ module Scrapers
         page_map_images.each_with_index do |image, index|
           alt = image.attribute("alt").value unless !image.attribute("alt")
           src = image.attribute("src").value unless !image.attribute("src")
-          map_usual_suspects.each do |attempt|          
+          map_link_src_usual_suspects.each do |attempt|          
             if src && src.include?(attempt)
               image_array << [index, alt, src]
             end
@@ -64,7 +229,6 @@ module Scrapers
             to_return << return_link_and_text(sub_array)
           end
         end          
-      # rescue ; nil
       end
 
       def map_links
@@ -73,7 +237,7 @@ module Scrapers
         page_map_links.each_with_index do |link, index|
           text = link.text
           href = link.attribute("href").value unless !link.attribute("href")
-          map_usual_suspects.each do |attempt|          
+          map_link_src_usual_suspects.each do |attempt|          
             if href && href.include?(attempt)
               link_array << [index, text, href]
             end
@@ -89,7 +253,6 @@ module Scrapers
             to_return << return_link_and_text(sub_array)
           end
         end          
-      # rescue ; nil
       end
 
       def return_link_and_text(link_array)
@@ -101,74 +264,29 @@ module Scrapers
           end
         end
         return link_text, link_array.first[2]
-      # rescue ; nil
       end
 
       # SOCIAL DATA SCRAPING
 
-      def google
-        return @google if @google
-        if map_string && map_string.include?("google")
-          map_string.each do |string|
-            query = find_query_name_in_map_string(string)
-            return @google = trim( query )
-          end
-        end
-      # rescue ; nil
-      end
-
-      def twitter
-        return @twitter if @twitter
-        page.css("a").each do |link|
-          if title = link.attribute("title")
-            if title.value.match(/Follow .*? on Twitter/)
-              title_match = title.value.scan(/Follow (.*?) on Twitter/).flatten.first
-              return @twitter = title_match unless title_match && title_match.downcase == "us"
-            end
-          end
-        end
-        if meta = page.css("meta[name='twitter:title']").first
-          if meta.attribute("content")
-            return @twitter = meta.attribute("content").value
-          end
-        end
-        return nil
-      # rescue ; nil
-      end
-
       def facebook
         return @facebook if @facebook
-          page.css("a").each do |link|
-          if title = link.attribute("title")
-            if title.value.match(/Become a fan of .*? on Facebook/)
-              @facebook_href = link.attribute("href").value
-              title_match = title.value.scan(/Become a fan of (.*?) on Facebook/).flatten.first
-              return @facebook = title_match unless !title_match || title_match.downcase == "us"
-            end
-          end
+        facebook_names = []
+        article_object.css("a").each do |link|
           if href = link.attribute("href")
             if href.value.match(/.*facebook.com\/pages.*/)
               @facebook_href = link.attribute("href").value
               href_match = href.value.scan(/pages\/.*?\//).flatten.first
               href_match = href_match.gsub("-", " ") || ''
               href_match = href_match.titleize
-              return @facebook = href_match
-            end
-          end
-          if text = link.text
-            if text.include?("facebook")
-              @facebook_href = link.attribute("href").value
-              text_match = link.text.scan(/(?:Become a fan of |\A)(.*?) on Facebook/).flatten.first
-              return @facebook = text_match unless !text_match || text_match.downcase == "us"
+              facebook_names << href_match unless href_match == ""
             end
           end
         end
-        return nil
-      # rescue ; nil
+        return facebook_names unless facebook_names.length == 0
+        return []
       end
 
       def yelp
-      # rescue ; nil
       end
 
       def tripadvisor
@@ -225,6 +343,9 @@ module Scrapers
       def full_address
         return @full_address if @full_address
         full_address_from_map, full_address_from_box = nil
+        if more_info_address
+          return @full_address = more_info_address
+        end
         if attempt_from_address_box = get_usual_suspect_text(full_address_usual_suspects)
           attempt_from_address_box = clean_address_box( attempt_from_address_box )
           attempt_from_address_box = attempt_from_address_box.gsub(/\A#{name}/, '') unless !attempt_from_address_box
@@ -252,8 +373,10 @@ module Scrapers
         elsif full_address_from_map && !full_address_from_box
           return @full_address = full_address_from_map  
         end
+        if nearby && name && names.length == 1
+          return @full_address = find_address_by_name(name) unless !find_address_by_name(name)
+        end
         return nil
-      # rescue ; nil
       end
 
       def street_address
@@ -290,9 +413,17 @@ module Scrapers
             end
           end
         end
-        return @phone = get_usual_suspect_text(phone_usual_suspects)
+        if phone_usual = get_usual_suspect_text(phone_usual_suspects)
+          return @phone = phone_usual
+        elsif more_info_phone
+          return @phone = more_info_phone
+        end
         return nil
-      # rescue ; nil
+      end
+
+      def host_domain
+        myUri = URI.parse( url )
+        return myUri.host
       end
 
       def nearby
@@ -301,7 +432,12 @@ module Scrapers
           if @locality && @country
             return @nearby = [@locality, @region, @country].join(", ")
           else
-            # scan page at meta tags, title and text-level
+            # scan page at meta tags, title and text-level, ALSO INFOBOX
+            locality_confidence = []
+            region_confidence = []
+            country_confidence = []
+            in_locale_guesses = guess_locale( in_locale(article_text) )
+            details_guesses = guess_locale( more_info_box )
             keyword_guesses = guess_locale( meta_keywords )
             description_guesses = guess_locale( meta_description )
             title_guesses = guess_locale( title )
@@ -309,32 +445,43 @@ module Scrapers
             # shovel guesses in, chose top
             unless @locality
               locality_guesses = []
+              locality_guesses << in_locale_guesses[0] unless !in_locale_guesses
+              locality_guesses << details_guesses[0] unless !details_guesses
               locality_guesses << keyword_guesses[0] unless !keyword_guesses
               locality_guesses << title_guesses[0] unless !title_guesses
               locality_guesses << description_guesses[0] unless !description_guesses
-              locality_guesses << page_guesses[0] unless !page_guesses
-              @locality = top_pick(locality_guesses)[0]
+              # locality_guesses << page_guesses[0] unless !page_guesses
+              @locality = top_pick(locality_guesses)[0] unless !top_pick(locality_guesses)
+              locality_confidence = [top_pick(locality_guesses)[1], (locality_guesses.length)]
             end
             unless @region
               region_guesses = []
+              region_guesses << in_locale_guesses[1] unless !in_locale_guesses
+              region_guesses << details_guesses[1] unless !details_guesses
               region_guesses << keyword_guesses[1] unless !keyword_guesses
               region_guesses << title_guesses[1] unless !title_guesses
               region_guesses << description_guesses[1] unless !description_guesses
-              region_guesses << page_guesses[1] unless !page_guesses
-              @region = top_pick(region_guesses)[0]
+              # region_guesses << page_guesses[1] unless !page_guesses
+              @region = top_pick(region_guesses)[0] unless !top_pick(region_guesses)
+              region_confidence = [top_pick(region_guesses)[1], (region_guesses.length)]
             end
             unless @country
               country_guesses = []
+              country_guesses << in_locale_guesses[2] unless !in_locale_guesses
+              country_guesses << details_guesses[2] unless !details_guesses
               country_guesses << keyword_guesses[2] unless !keyword_guesses
               country_guesses << title_guesses[2] unless !title_guesses
               country_guesses << description_guesses[2] unless !description_guesses
-              country_guesses << page_guesses[2] unless !page_guesses
-              @country = top_pick(country_guesses)[0]
+              # country_guesses << page_guesses[2] unless !page_guesses
+              @country = top_pick(country_guesses)[0] unless !top_pick(country_guesses)
+              country_confidence = [top_pick(country_guesses)[1], (country_guesses.length)]
             end
+            # test for congruence
+            # NEEDS FOLLOWUP
+
             return @nearby = [@locality, @region, @country].compact.join(", ")
           end
         end
-      # rescue ; nil
       end
 
       def map_string
@@ -351,7 +498,6 @@ module Scrapers
           end
           return @map_string = map_string_array
         end
-      # rescue ; nil
       end
 
       def lat
@@ -367,7 +513,6 @@ module Scrapers
           return @lat = lat_on_page
         end
         return nil
-      # rescue ; nil
       end
 
       def lon
@@ -383,70 +528,84 @@ module Scrapers
           return @lon = lon_on_page
         end
         return nil
-      # rescue ; nil
       end
 
       def hours
         # %w(.hours #hours)
       end
 
-      def name
-        return @name if @name
-        # Triangulate with Title, Heading, Keywords, Description, Facebook, Twitter, TripAdvisor, Yelp, Google
-        guesses = []
-        # trim down sub-titles etc
+      def names
+        return @names if @names
+        return [name] if name.class == String
+        return name if name.class == Array
+        return nil
+      end
+
+      def trimmed_keyword
         if meta_keywords
           trimmed_keyword = meta_keywords.gsub(/\,.*/, '')
-          trimmed_keyword = before_divider( trimmed_keyword )
+          return trimmed_keyword = before_divider( trimmed_keyword )
         end
+        return nil
+      end
+
+      def trimmed_description
         if meta_description
           trimmed_description = meta_description
           trimmed_description = trimmed_description.gsub(/ is a .*/, '') || ''
           trimmed_description = trimmed_description.gsub(/ is the .*/, '') || ''
-          trimmed_description = before_divider( trimmed_description )
+          return trimmed_description = before_divider( trimmed_description )
         end
-        # build guess array
-        guesses << before_divider( title )
-        guesses << before_divider( meta_name )
-        guesses << trimmed_keyword
-        guesses << trimmed_description
-        guesses << before_divider( details_name )
-        guesses << before_divider( heading )
-        guesses << before_divider( facebook )
-        guesses << before_divider( twitter )
-        guesses << before_divider( tripadvisor )
-        guesses << before_divider( yelp )
-        guesses << before_divider( google )
+        return nil
+      end
 
-        @name_guesses = guesses
+      def name
+        return @name if @name
+        # Triangulate with Title, Heading, Keywords, Description, Links, Facebook, Twitter, TripAdvisor, Yelp, Google
+        guesses = []
+        guesses << reject_long( at_place( article_text ) , 8, 25)
+        if more_info_names
+          more_info_names.each do |more_info_name|
+            guesses << trim( reject_long( more_info_name , 8, 25) )
+          end
+        end
+        guesses << reject_long( before_divider( title ) , 8, 25)
+        guesses << reject_long( before_divider( meta_name ) , 8, 25)
+        guesses << reject_long( trimmed_keyword , 8, 25)
+        guesses << reject_long( trimmed_description , 8, 25)
+        guesses << reject_long( before_divider( details_name ) , 8, 25)
+        guesses << reject_long( before_divider( heading ) , 8, 25)
+        if facebook
+          facebook.each do |facebook_place|
+            guesses << trim( reject_long( before_divider( facebook_place ) , 8, 25) )
+          end
+        end
 
-        delete_items_from_array_case_insensitive(list_of_null_page_titles, guesses)
+        if guesses.compact.uniq.length != 1
+          if linked_places_in_article_body
+            linked_places_in_article_body.each do |linked_place|
+              guesses << trim( reject_long( before_divider( linked_place ) , 8, 25) )
+            end
+          end
+        end
 
-        if clear_choice = top_pick(guesses.compact, 0.4999)[0]
+        guesses = delete_items_from_array_case_insensitive(list_of_null_page_titles, guesses).compact
+        guesses = delete_items_from_array(["(?:[Ff]ly.|[Tt]ravel.|[Dd]rive.)?(?:[Ff]rom.|[Vv]ia.)[A-Z]{3}"], guesses).compact
+        guesses = delete_items_from_array_case_insensitive([locality, region, country], guesses).compact unless !nearby
+        guesses = delete_items_from_array_case_insensitive([lowercase_destination_class, lowercase_destinations_plural_class], guesses).compact
+
+        #ensure that name is *on* the page
+        new_array = []
+        guesses.each do |guess|
+          new_array << guess unless ( !article_text || !article_text.include?(guess) ) && ( !heading || !heading.include?(guess) )
+        end
+        guesses = new_array
+
+        if clear_choice = top_pick(guesses.compact, 0.50001)[0]
           return @name = clear_choice
         else
-          # remove common destination suffix/prefixes
-          new_array = []
-          guesses.compact.each do |guess|
-            guess = trim( guess.downcase.gsub(/#{lowercase_destination_class}/, '') ) unless !guess
-            guess = trim( guess.downcase.gsub(/#{lowercase_destinations_plural_class}/, '') ) unless !guess
-            new_array << guess
-          end
-          guesses = new_array
-          # reset new_array and remove locality only / country only / region only
-          new_array = []
-          guesses.compact.each do |guess|
-            guess = trim( guess.downcase.gsub(/\A#{locality.downcase}\Z/, '') ) unless !guess || !locality
-            guess = trim( guess.downcase.gsub(/\A#{region.downcase}\Z/, '') ) unless !guess || !region
-            guess = trim( guess.downcase.gsub(/\A#{country.downcase}\Z/, '') ) unless !guess || !country
-            new_array << guess unless guess == ''
-          end
-          guesses = new_array
-          if ok_choice = top_pick(guesses, 0.2)[0]
-            return @name = ok_choice.titleize
-          end
+          return @names = guesses.compact.uniq        
         end
-      # rescue ; nil
       end
 
       def before_divider(string)
@@ -461,9 +620,57 @@ module Scrapers
         return nil
       end
 
-      def name_attempts
-        name
-        return @name_guesses
+      def searchable_text
+        text = ""
+        text += " . " + de_tag( heading ) unless !heading
+        text += " . " + article_text unless !article_text 
+        text += " . " + de_tag( more_info_box ) unless !more_info_box
+        return text
+      end
+
+      def find_website_by_name(instance)
+        cased(instance).each do |instance_cased|
+          if link = page.css("a:contains('#{instance_cased}')")
+            if link.first && website_result = link.first.attribute('href').value
+              if !website_result.include?(host_domain)
+                return website_result
+              end
+            end
+          end
+          if website_result = searchable_text.scan( find_website_by_name_multiple_attempts_regex(instance_cased) ).flatten.compact.first
+            if !website_result.include?(host_domain)
+              return website_result
+            end
+          end
+        end
+        return nil
+      end
+
+      def find_phone_by_name(instance)
+        cased(instance).each do |instance_cased|
+          if address_result = searchable_text.scan( find_phone_by_name_multiple_attempts_regex(instance_cased) ).flatten.compact.first
+            return trim address_result
+          end
+        end
+        return nil
+      end
+
+      def find_address_by_name(instance)
+        cased(instance).each do |instance_cased|
+          if address_result = searchable_text.scan( find_address_by_name_multiple_attempts_regex(instance_cased) ).flatten.compact.first
+            return trim address_result
+          end
+        end
+        return nil
+      end
+
+      def legal_strong_results(string)
+        prohibited_strong_results.each do |result|
+          if string.match(/\A(?:#{cased(result).join("|")})[:]?\Z/)
+            return nil
+          end
+        end
+        return string
       end
 
     end

@@ -1,51 +1,76 @@
+// CALCULATIONS
 
-= render 'show/initheader', { :background => 'white', :color => 'black', :start => '' }
-/ = render 'show/persistent', { :transition => '0' }
+// HEADER
+= render 'users/initheader', { :background => 'white', :color => 'black', :start => '' }
 
-.new-show-spacer
+.init-header-space 
 
-.body-container
-
-  .clear
-  #content_begins
+.plan-splash
   .container
-    - @plan.legs.each_with_index do |leg, index|
-      - leg.days.each_with_index do |day, index|
-        - day.items.with_tabs.each_with_index do |item, item_index|
-          = render partial: 'items/item_tab', locals: { item: item, row_index: item_index, item_index: item_index }
-    - if @plan.bucket
-      - @plan.bucket.each_with_index do |leg, index|
-        - leg.days.each_with_index do |day, index|
-          - day.items.with_tabs.each_with_index do |item, item_index|
-            = render partial: 'items/item_tab', locals: { item: item, row_index: item_index, item_index: item_index }
+    .plan-name-wrap
+      %span.plan-name= @plan.name
+    - if @plan
+      .plan-more-info-wrap
+        %span.plan-more-info
+          = @plan.created_at.strftime('%b %Y') # back-date to article publishing?
+          %i= "|"
+          %i= "http://plan.it/src/2j0fef"
+        
+
+- @plan.legs.each_with_index do |leg, index|
+  - if leg.name && leg.name.length > 0
+    .band.gray.spaced
+      .container
+        %strong= leg.name
+  - leg.days.each_with_index do |day, index|
+    .band.gray.spaced
+      .container
+        .three.columns.day-info-wrap
+          .day-number-separator
+            %span.day-info.number= "DAY #{index + 1}"
+          // CALCULATE "DAY ENVIRONS" -- NEIGHBORHOOD(S) / CITIES ETC?
+          - locale_list = get_locale_list(day.items)        
+          - if day.items.first.place.locality && day.items.first.place.locality.length > 0
+            .day-info-separator
+              %span.day-info.locale= "#{day.items.first.place.locality}" # NOT JUST FIRST LOCALITY?
+          // CALCULATE "DAY DISTANCE" -- POINT TO POINT, INCLUDING START / RETURN
+
+          .day-info-separator
+            %span.day-info.distance
+              = "15 mi"
+              = "walk & transit"
+          - lodging_list = get_lodging_list(day.items)
+          - if lodging_list.length > 0
+            .day-info-separator
+              %span.day-info.housing= "#{lodging_list.join(", ")}"
+          - else
+            .day-info-separator
+              %span.day-info.housing.none= "Find Housing"
+          .day-wingtip
+        .thirteen.columns.day-tab-wrap
+          - day_items_sorted = day.items.sort {|a,b| a[:order] <=> b[:order]}
+          - day_items_sorted.each_with_index do |item, item_index|
+            = render partial: 'items/item_tab', locals: { item: item.place, row_index: item_index, item_index: item_index }
+          = render partial: 'items/add_item_tab'
+
+- items_to_display = @plan.bucket
+- locale_list = get_locale_list(items_to_display)
+.band.gray.spaced
+  .container
+    .three.columns.day-info-wrap
+      .day-number-separator
+        %span.day-info.number= "BUCKET"
+      - if items_to_display.length > 0
+        .day-info-separator
+          - if locale_list.uniq.length > 0
+            - locale_list.uniq.each do |e|
+              %span.day-info.locale= "#{e}"
+      .day-wingtip
+    .thirteen.columns.day-tab-wrap
+      / DIFFERENTIAL EDITING OPTIONS DEPENDING ON USER (OWNER OF PLAN? OWNER OF BUCKET? FRIEND [COMMENTING RIGHTS]? VIEWER [SAVE ONLY]  ?)
+      - items_to_display.each_with_index do |item, item_index|
+        = render partial: 'items/item_tab', locals: { item: item.place, row_index: item_index, item_index: item_index }
+      = render partial: 'items/add_item_tab'
 
 .footer
   = render partial: 'show/footer'
-
-/ / load js to maximize map window
-
-/ / function thirty_pc() {
-/ /     var height = $(window).height();
-/ /     var thirtypc = (30 * height) / 100;
-/ /     thirtypc = parseInt(thirtypc) + 'px';
-/ /     $("div").css('height',thirtypc);
-/ / }
-
-/ / $(document).ready(function() {
-/ /     thirty_pc();
-/ /     $(window).bind('resize', thirty_pc);
-/ / });
-
-
-/ .searchbar-wrap
-/   %input.searchbar{ placeholder: "Add Destination" }
-/   .searchresults
-/     Test
-/ %map.map-container{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.all_coordinates, type: "mega" }
-
-
-
-/ / .footer
-/ /   = render partial: 'show/footer'
-
-/ / .printable-message

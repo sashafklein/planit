@@ -12,6 +12,75 @@ class Leg < ActiveRecord::Base
 
   default_scope { order('"order" ASC') }
 
+  # LEGS. OPERATORS
+
+  # def self.has_travel?
+  #   if days.has_travel? 
+  #     return true
+  #   end
+  #   return nil
+  # end
+
+  # def self.arrival
+  # end
+
+  # LEG OPERATORS
+
+  def overall_locale
+    string = ""
+    if countries 
+      if countries.length != 1
+        return countries.join(", ")
+      else
+        string += countries.first
+      end
+    end
+    if regions && regions.length != 1
+      return "#{comma_amp(regions)}"
+    elsif localities
+      if localities.length == 1
+        return "#{localities.first}, #{string}"
+      else
+        return "#{comma_amp(localities)}"
+      end
+    end
+    return nil
+  end
+
+  def countries
+    list = []
+    items.places.each do |place|
+      list << place.country unless !place.country || place.country.length == 0
+    end
+    # sort by frequency
+    return list.uniq unless list.length == 0
+    return nil
+  end
+
+  def regions
+    list = []
+    items.places.each do |place|
+      list << place.region unless !place.region || place.region.length == 0
+    end
+    # sort by frequency
+    return list.uniq unless list.length == 0
+    return nil
+  end
+
+  def localities
+    list = []
+    items.places.each do |place|
+      list << place.locality unless !place.locality || place.locality.length == 0
+    end
+    # sort by frequency
+    return list.uniq unless list.length == 0
+    return nil
+  end
+
+  def has_lodging?
+    items.marks.where(lodging: true).any?
+  end
+
   def items
     Item.where(day_id: days.pluck(:id))
   end
@@ -98,4 +167,20 @@ class Leg < ActiveRecord::Base
   def sites
     items.sites
   end
+
+  def comma_amp(array)
+    first_words_connector = ", "
+    two_words_connector = " & "
+    last_word_connector = ", & "
+    if array.length == 0
+      return ""
+    elsif array.length == 1
+      return array.first
+    elsif array.length == 2
+      return array.join(two_words_connector)
+    else
+      return "#{array[0...-1].join(first_words_connector)}#{last_word_connector}#{array[-1]}"
+    end
+  end
+
 end

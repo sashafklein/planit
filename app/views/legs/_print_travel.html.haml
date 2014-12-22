@@ -4,10 +4,10 @@
     - if info['notes']
       %span.lodging-notes= info['notes'].html_safe
 
-/ - leg.items.select(&:travel_data).map(&:travel_data).each_with_index do |info, index|
-/   = travel_info(travel_data, index)
-/   - if info['notes']
-/     %span.lodging-notes= info['notes'].html_safe
+- leg.items.select(&:travel_data).map(&:travel_data).each_with_index do |info, index|
+  = travel_info(travel_data, index)
+  - if info['notes']
+    %span.lodging-notes= info['notes'].html_safe
 
 - if leg.departure && leg.departure['travel_data']
   - leg.departure['travel_data'].each_with_index do |info, index|
