@@ -1,11 +1,11 @@
 // CALCULATIONS
 
 // HEADER
-= render 'users/initheader', { :background => 'white', :color => 'black', :start => '' }
-
-.init-header-space 
+= render 'users/initheader', { :background => 'white', :color => 'black', :start => '', :page_type => 'plan' }
 
 .plan-splash
+  .expand-map
+    .i.fa.fa-expand.fa-flip-horizontal
   .container
     .plan-name-wrap
       %span.plan-name= @plan.name
@@ -15,10 +15,9 @@
           = @plan.created_at.strftime('%b %Y') # back-date to article publishing?
           %i= "|"
           %i= "http://plan.it/src/2j0fef"
-        
 
 - @plan.legs.each_with_index do |leg, index|
-  - if leg.name && leg.name.length > 0
+  - if leg.name.present?
     .band.gray.spaced
       .container
         %strong= leg.name
@@ -30,15 +29,16 @@
             %span.day-info.number= "DAY #{index + 1}"
           // CALCULATE "DAY ENVIRONS" -- NEIGHBORHOOD(S) / CITIES ETC?
           - locale_list = get_locale_list(day.items)        
-          - if day.items.first.place.locality && day.items.first.place.locality.length > 0
+          - if day.items.first.place.locality.present?
             .day-info-separator
               %span.day-info.locale= "#{day.items.first.place.locality}" # NOT JUST FIRST LOCALITY?
           // CALCULATE "DAY DISTANCE" -- POINT TO POINT, INCLUDING START / RETURN
 
-          .day-info-separator
-            %span.day-info.distance
-              = "15 mi"
-              = "walk & transit"
+          - if day_distance = Distance.items_dist(day.items_with_prior_lodging)
+            - if day_distance > 0
+              .day-info-separator
+                %span.day-info.distance
+                  = "#{day_distance} miles"
           - lodging_list = get_lodging_list(day.items)
           - if lodging_list.length > 0
             .day-info-separator

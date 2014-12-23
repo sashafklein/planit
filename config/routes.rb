@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [] do
+    get :dashboard, on: :member
     get :bucket, on: :member
+  end
+
+  resources :places, only: [:show, :new] do
   end
 
   namespace :api do

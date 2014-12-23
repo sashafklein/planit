@@ -6,7 +6,7 @@ class Item < ActiveRecord::Base
   belongs_to :plan
   belongs_to :day
 
-  delegate :names, :categories, :category, :coordinate, :url, :phones, :phone, :website, :street_address, :country, :region, :locality, to: :place
+  delegate :names, :categories, :category, :coordinate, :lat, :lon, :url, :phones, :phone, :website, :street_address, :country, :region, :locality, to: :place
   delegate :place, :notes, :name, to: :mark
   delegate :leg, to: :day
   validates_presence_of :mark, :plan
@@ -29,7 +29,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.with_lodging
-    Mark.where(id: pluck(:mark_id), lodging: true)
+    where(mark_id: Mark.where(id: pluck(:mark_id), lodging: true).pluck(:id))
   end
 
   def next

@@ -10,12 +10,12 @@
 
 - @plan.legs.each_with_index do |leg, index|
   .print-header-subtitle
-    - if leg.name && leg.name.length > 0
+    - if leg.name.present?
       = leg.name
     - else 
       = leg.overall_locale
     - if leg.days.length != 1 && @plan.legs.length != 1
-      %b= " (Day #{leg.first_day.order} to #{leg.last_day.order})"
+      %b= "(Day #{leg.first_day.order} to #{leg.last_day.order})"
 
   / - if leg.arrival
   /   .content-tab-wrap
@@ -40,7 +40,7 @@
   /         = " - "
   /         = print_travel(leg.departure['travel_data'].first, '0')
 
-  - if @plan.bucket && @plan.bucket.length > 0
+  - if @plan.bucket.present?
     / - locale_list = get_locale_list(@plan.bucket)
     / - if locale_list.uniq.length > 0
     /   - locale_list.uniq.each_with_index do |locale, index|
@@ -50,5 +50,5 @@
 
 .footer
   .footer-content 
-    %b Planit
+    %strong= "Planit"
     = "print-copy of '#{@plan.name}'"

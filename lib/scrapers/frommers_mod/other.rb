@@ -54,7 +54,7 @@ module Scrapers
       # OPERATIONS
 
       def page_title
-        trim( CGI.unescape( breakline_to_space( page.css("title").first.text ) ) )
+        remove_plan_name_fluff( trim( CGI.unescape( breakline_to_space( page.css("title").first.text ) ) ) )
       rescue ; nil
       end
 

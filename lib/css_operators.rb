@@ -198,10 +198,12 @@ module CssOperators
   def trim(html)
     if html && html.length > 0
       string = URI.unescape(html) unless !html
-      string = string.gsub(/(\r\n|\n|\r)/, '') unless !string
+      string = string.gsub(/(\r\n|\n|\r)/, ' ') unless !string
+      string = string.gsub(/([\\]{1,}\n|[\\]{2,}n|\\n)/, ' ') unless !string
       string = string.gsub(/( {2,})/, ' ') unless !string
       string = string.gsub(/^\s+|\s+$/, '') unless !string
       string = string.gsub(/\s+/, ' ') unless !string
+      string = string.gsub(/\s([,:;.!|@\?])/, '\1') unless !string
       string = string.gsub(/(\t)/, '') unless !string
       string = string.gsub(/[.]{3}\Z/, '....') unless !string # prep elipses for end punctuation removal (below)
       string = string.gsub(/(?:\s| )?[,;.!|@\?](?:\s| )?\Z/, '') unless !string

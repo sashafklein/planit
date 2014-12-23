@@ -12,7 +12,7 @@ class Distance
   end
 
   def self.item(item1, item2, rounding=1)
-    item1, item2 = item1.place, item2.place unless item1.class == "Location" && item2.class == 'Location'
+    item1, item2 = item1.place, item2.place unless item1.class == "Place" && item2.class == 'Place'
     return false unless have_lat_lon(item1, item2)
 
     item_dist(item1, item2, rounding)
@@ -46,6 +46,20 @@ class Distance
 
   def self.item_dist(item1, item2, rounding=1)
     haversine( item1.lat, item1.lon, item2.lat, item2.lon, rounding )
+  end
+
+  def self.items_dist(item_array, rounding=1)
+    distance = 0.0
+    start_lat, start_lon = 0.0, 0.0
+    item_array.each_with_index do |e, i|
+      if i == 0
+        start_lat = e.lat 
+        start_lon = e.lon
+        next
+      end
+      distance += haversine( start_lat, start_lon, e.lat, e.lon, 10 )
+    end
+    return distance.round(rounding)
   end
 
   def self.power(a,b)

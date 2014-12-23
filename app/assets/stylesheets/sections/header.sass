@@ -2,6 +2,8 @@
 
 .init-header-space
   margin: 74px 0 0 0
+  &.bucket
+    margin: 104px 0 0 0
 
 .initial-header
   position: fixed
@@ -41,7 +43,6 @@
     max-width: 100%
 
 .header-container
-  // width: 920px
   height: 71px
   padding: 0
   overflow: hidden
@@ -55,9 +56,7 @@
 .logo-container
   visibility: visible
   display: inline-block
-  float: left
-  img
-    float: left
+  cursor: pointer
 
 .input-search-field
   position: absolute
@@ -88,10 +87,6 @@
   width: 45px
   background: #ccc /* Old browsers */
   background-size: contain
-  border: 1px solid #ddd
-  border-top: 1px solid #ddd
-  border-left: 1px solid #ddd
-  border-bottom: #aaa 3px solid
   -moz-border-radius: 3px
   -webkit-border-radius: 3px
   border-radius: 3px
@@ -104,10 +99,22 @@
   cursor: pointer
   line-height: normal
   padding: 0px
+  border: 1px solid #ddd
+  border-left: 1px solid #ccc
+  border-bottom: #aaa 3px solid
+  &:hover
+    background: #d00d23
+    border: 1px solid #e44557
+    border-bottom: 3px solid #840c1a
+    color: #fff
 
 .side-menu-container
-  cursor: pointer
   float: right
+  font-size: 14px
+  line-height: 23px
+  font-weight: normal
+  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  cursor: default
   .i
     &:hover
       color: rgb(213, 44, 111)
@@ -115,6 +122,18 @@
       color: #000
     &.white
       color: #fff
+  i
+    font-weight: normal
+    font-style: none
+    color: #777
+  .gray
+    color: #aaa
+  .divider
+    padding: 0px 4px
+  strong
+    &:hover
+      cursor: pointer
+      color: #d00d23
 
 .main-menu-container
   cursor: pointer
@@ -131,8 +150,8 @@
     background: #222 
     border: 3px solid #000
     &:hover
-      background: rgb(213, 44, 111)
-      border: 3px solid rgb(213, 44, 111)
+      background: #d00d23
+      border: 3px solid #d00d23
   &.white
     color: #000
     background: #ddd
@@ -153,28 +172,29 @@
   margin: 0 auto
   width: 100%
   display: block
-  height: 32px
-  background: #444  
-  border-top: #777 solid 1px
-  border-bottom: #333 solid 1px
-  // border-top: 1px solid #020412
-  // background: #0a1356
+  background: #1b1a33
+  border-top: #3a395a solid 1px
+  border-bottom: #0c0c1e solid 1px
   opacity: 1
   visibility: visible
   z-index: 16777269
+  &.place, &.user, &.plan
+    display: none
+    visibility: none
 
 .page-header-container
-  padding: 6px 2px
+  padding: 3px 2px
   color: #fff
   text-align: center
   font-size: 14px
   line-height: 14px
+  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
   .i
     padding: 0 3px
 
 .filter-content
   display: inline-block
-  margin: 0 3px
+  margin: 3px 3px
   padding: 0px 3px
   -moz-border-radius: 2px
   -webkit-border-radius: 2px
@@ -183,23 +203,30 @@
   font-size: 13px
   line-height: 14px
   cursor: pointer
-  &.up
-    background: #371356
-    border: 1px solid #44186b
-    border-bottom: 1px solid #2c0f45
-    &:hover
-      background: #861d45
-      border: 1px solid #ac486e
-      border-bottom: 1px solid #732650
-  &.down
+  background: #5b5e67
+  border: 1px solid #82848e
+  border-bottom: 1px solid #393b45
+  &:active
     background: #38546c
     border: 1px solid #899fb6
-    border-bottom: 1px solid #344964
+    border-bottom: 1px solid #344964  
+  &:hover
+    background: #861d45
+    border: 1px solid #ac486e
+    border-bottom: 1px solid #732650
+  &.up
+  &.down
+  &.off
+    border: 1px solid #273571
+    background: #1c295d
+    border-bottom: 1px solid #020412
+    color: #a7a5e8
     &:hover
       background: #cc4e64
       border: 1px solid #ff8693
       border-bottom: 1px solid #ae3a3d
-  &.off
+      color: #fff
+  &.gray
     background: #898876
     border: 1px solid #aeab98
     border-bottom: 1px solid #837d67
@@ -207,6 +234,107 @@
     background: #101b2f
     border: 1px solid #16223a
     border-bottom: 1px solid #071224
+
+.page-header-category
+  display: inline-block
+  margin: 0px 0px
+  padding: 3px 6px 3px 3px
+  -moz-border-radius: 2px
+  -webkit-border-radius: 2px
+  border-radius: 2px
+  white-space: nowrap
+  font-size: 14px
+  line-height: 14px
+  cursor: pointer
+  background: rgba(255, 255, 255, 0) 
+  border: 1px solid rgba(255, 255, 255, 0)
+  border-bottom: 1px solid rgba(0, 0, 0, 0)
+  &.map
+    &:hover
+      background: #d00d23
+      border: 1px solid #e44557
+      border-bottom: 1px solid #840c1a
+  &.share
+    &:hover
+      background: #d00d23
+      border: 1px solid #e44557
+      border-bottom: 1px solid #840c1a
+
+.page-header-divider
+  display: inline-block
+  padding: 0px 4px
+  margin: 0px 3px
+  color: #485395
+  text-shadow: 1px 1px 4px #000
+
+ul.dropdown-menu
+  display: none
+  -webkit-box-shadow: rgba(0, 0, 0, 0.172549) 0px 6px 12px 0px
+  background-clip: padding-box
+  background-color: rgb(255, 255, 255)
+  border-bottom-color: rgba(0, 0, 0, 0.14902)
+  border-bottom-left-radius: 4px
+  border-bottom-right-radius: 4px
+  border-bottom-style: solid
+  border-bottom-width: 1px
+  border-image-outset: 0px
+  border-image-repeat: stretch
+  border-image-slice: 100%
+  border-image-source: none
+  border-image-width: 1
+  border-left-color: rgba(0, 0, 0, 0.14902)
+  border-left-style: solid
+  border-left-width: 1px
+  border-right-color: rgba(0, 0, 0, 0.14902)
+  border-right-style: solid
+  border-right-width: 1px
+  border-top-color: rgba(0, 0, 0, 0.14902)
+  border-top-left-radius: 4px
+  border-top-right-radius: 4px
+  border-top-style: solid
+  border-top-width: 1px
+  box-shadow: rgba(0, 0, 0, 0.172549) 0px 6px 12px 0px
+  box-sizing: border-box
+  color: rgb(51, 51, 51)
+  font-family: avenir, proxima-nova, 'Helvetica Neue', Helvetica, Arial, sans-serif
+  font-size: 14px
+  height: auto
+  left: 0px
+  line-height: 20px
+  list-style-image: none
+  list-style-position: outside
+  list-style-type: none
+  margin-bottom: 0px
+  margin-left: 0px
+  margin-right: 0px
+  margin-top: 2px
+  min-width: 160px
+  padding-bottom: 5px
+  padding-left: 0px
+  padding-right: 0px
+  padding-top: 5px
+  position: absolute
+  top: 100%
+  width: auto
+  z-index: 1000
+  li
+    padding: 0 10px 0 10px
+    color: rgb(51, 51, 51)
+    display: list-item
+    height: 26px
+    text-align: left
+    width: 158px
+    &.divider
+      height: 1px
+      background-color: rgb(229, 229, 229)
+      margin-bottom: 9px
+      margin-left: 0px
+      margin-right: 0px
+      margin-top: 9px
+      overflow-x: hidden
+      overflow-y: hidden
+    &:hover
+      background: #ccc
 
 // VARIABLE SIZING
 
@@ -258,6 +386,19 @@
   top: 50%
   transform: translateY(-50%)
 
+.page-header-container
+  .shrink
+    visibility: visible
+    display: inline
+
+.page-header-category
+  &.sort
+    &:hover
+      background: rgba(255, 255, 255, 0) 
+      border: 1px solid rgba(255, 255, 255, 0)
+      border-bottom: 1px solid rgba(0, 0, 0, 0)
+      cursor: default
+
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
 
@@ -300,6 +441,19 @@
     top: 50%
     transform: translateY(-50%)
 
+  .page-header-container
+    .shrink
+      visibility: hidden
+      display: none
+
+  .page-header-category
+    &.sort
+      &:hover
+        background: rgba(255, 255, 255, 0) 
+        border: 1px solid rgba(255, 255, 255, 0)
+        border-bottom: 1px solid rgba(0, 0, 0, 0)
+        cursor: default
+
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
 
@@ -330,6 +484,23 @@
     visibility: visible
     display: block
 
+  .filter-content
+    visibility: hidden
+    display: none    
+
+  .page-header-container
+    .shrink
+      visibility: hidden
+      display: none
+
+  .page-header-category
+    &.sort
+      &:hover
+        background: #d00d23
+        border: 1px solid #e44557
+        border-bottom: 1px solid #840c1a
+        cursor: pointer
+
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
 
@@ -359,3 +530,20 @@
   .main-menu
     visibility: visible
     display: block
+
+  .filter-content
+    visibility: hidden
+    display: none
+
+  .page-header-container
+    .shrink
+      visibility: hidden
+      display: none
+
+  .page-header-category
+    &.sort
+      &:hover
+        background: #d00d23
+        border: 1px solid #e44557
+        border-bottom: 1px solid #840c1a
+        cursor: pointer

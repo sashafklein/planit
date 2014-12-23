@@ -1,0 +1,36 @@
+// HEADER
+= render 'users/initheader', { :background => 'white', :color => 'black', :start => '', :page_type => 'place' }
+
+.place-page
+
+  .place-page-splash
+    .container
+      .thirteen.columns.name-essentials-wrap
+        .place-page-name
+        .place-page-category
+          .i.fa.fa-pencil
+          .span.gray= "Edit Info"
+      .three.columns.book-been-save-wrap
+        .book-been-save-bar
+          .click-to.book
+            .i.fa.fa-calendar
+          .click-to.been
+            .i.fa.fa.fa-check-circle
+          .click-to
+            .i.fa.fa-list-ol
+          .click-to.save
+            .i.fa.fa.fa-heart
+    .container
+      .five.columns.map-address-wrap
+        .map-canvas
+
+      .eleven.columns.photos-wrap
+
+        .photos-gallery
+          .add-photo
+            .i.fa.fa-camera-retro
+            ADD PHOTO
+
+.footer
+  = render partial: 'show/footer'
+

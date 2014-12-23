@@ -13,7 +13,7 @@ module Scrapers
       def global_data
         { 
           plan:{
-            name: page.css("title").text,
+            name: remove_plan_name_fluff( page.css("title").text ),
           },
           place:{
             nearby: split_by('h1', [["36 Hours in ", 1], ["36 Hours at the ", 1], ["36 Hours on ", 1], ["36 Hours | ", 1]]),

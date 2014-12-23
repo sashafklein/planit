@@ -27,54 +27,25 @@ class Leg < ActiveRecord::Base
   # LEG OPERATORS
 
   def overall_locale
-    string = ""
-    if countries 
-      if countries.length != 1
-        return countries.join(", ")
-      else
-        string += countries.first
-      end
-    end
-    if regions && regions.length != 1
-      return "#{comma_amp(regions)}"
-    elsif localities
-      if localities.length == 1
-        return "#{localities.first}, #{string}"
-      else
-        return "#{comma_amp(localities)}"
-      end
-    end
-    return nil
+    return comma_amp(countries) unless countries.length >= 1
+    return comma_amp(regions) unless regions.length >= 1
+    return comma_amp(localities) unless localities < 2
+    return "#{localities.first}, #{countries.first}" unless !localities.present? && !countries.present?
+    return countries.first unless !countries.present?
+    return localities.first unless !localities.present?
+    return regions.first unless !regions.present?
   end
 
   def countries
-    list = []
-    items.places.each do |place|
-      list << place.country unless !place.country || place.country.length == 0
-    end
-    # sort by frequency
-    return list.uniq unless list.length == 0
-    return nil
+    items.places.where.not(country: nil).pluck(:country).uniq
   end
 
   def regions
-    list = []
-    items.places.each do |place|
-      list << place.region unless !place.region || place.region.length == 0
-    end
-    # sort by frequency
-    return list.uniq unless list.length == 0
-    return nil
+    items.places.where.not(region: nil).pluck(:region).uniq
   end
 
   def localities
-    list = []
-    items.places.each do |place|
-      list << place.locality unless !place.locality || place.locality.length == 0
-    end
-    # sort by frequency
-    return list.uniq unless list.length == 0
-    return nil
+    items.places.where.not(locality: nil).pluck(:locality).uniq
   end
 
   def has_lodging?

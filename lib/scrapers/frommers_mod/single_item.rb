@@ -41,7 +41,7 @@ module Scrapers
       # OPERATIONS
 
       def name
-        trim( page.css("h1").first.text )
+        trim( page.css("h1").first.text ) 
       rescue ; nil
       end
 

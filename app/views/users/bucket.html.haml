@@ -7,8 +7,7 @@
 - country_count = country_list.each_with_object(Hash.new(0)){ |m,h| h[m] += 1 }.sort {|a,b| b[1] <=> a[1]}
 
 // HEADER
-= render 'initheader', { :background => 'white', :color => 'black', :start => '' }
-.init-header-space 
+= render 'initheader', { :background => 'white', :color => 'black', :start => '', :page_type => 'bucket' }
 
 - item_count = country_list.length
 - country_count.each_with_index do |country_to_compute, index|

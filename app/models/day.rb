@@ -13,13 +13,6 @@ class Day < ActiveRecord::Base
 
   # DAYS. OPERATORS
 
-  def self.has_travel?
-    if days.has_travel?
-      return true
-    end
-    return nil
-  end
-
   # DAY OPERATORS
 
   def has_lodging?
@@ -41,6 +34,10 @@ class Day < ActiveRecord::Base
   def previous_lodging
     return nil unless previous
     previous.items.with_lodging.last
+  end
+
+  def items_with_prior_lodging
+    [previous_lodging].compact + items
   end
 
   def next

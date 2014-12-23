@@ -203,7 +203,7 @@ module Scrapers
             locality: "Paris", 
             country: "France",
             nearby: "Paris, France",
-            full_address: "Restaurant Frenchie 5-6, rue du Nil 75002 Paris Métro 3 : Sentier",
+            full_address: "Restaurant Frenchie 5-6, rue du Nil 75002 Paris Métro 3: Sentier",
             phones: "+33 (0)1.40.39.96.19",
             postal_code: "75002",
           }
@@ -220,7 +220,7 @@ module Scrapers
             locality: "San Francisco", 
             name: "The Fairmont San Francisco Hotel",
             nearby: "San Francisco, California, United States",
-            full_address: "950 Mason Street San Francisco California, United States 94108",
+            full_address: "The Fairmont San Francisco: 950 Mason Street San Francisco California, United States 94108",
             phones: "1 866 540 4491",
             postal_code: "94108",
           }

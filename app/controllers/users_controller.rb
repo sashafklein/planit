@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
   
-  before_action :load_user, only: [:bucket]
+  before_action :load_user, only: [:bucket, :dashboard]
 
   def bucket
-    # return error(404, "User not found") unless @user
+    @marks = @user.marks.includes(:places)
+  end
 
+  def dashboard
     @marks = @user.marks.includes(:places)
   end
 
@@ -12,8 +14,6 @@ class UsersController < ApplicationController
 
   def load_user
     @user = User.friendly.find(params[:id])
-  rescue
-    @user = nil
   end
 
 end

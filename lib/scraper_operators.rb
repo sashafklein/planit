@@ -1,6 +1,14 @@
 module ScraperOperators
 
   # OPERATIONS
+
+  def remove_plan_name_fluff(text)
+    text = text.gsub(/\s*on TripAdvisor\Z/, '') unless !text
+    text = text.gsub(/\s*[|] Frommer[']s\Z/, '') unless !text
+    text = text.gsub(/\s*[-] NYTimes.com\Z/, '') unless !text
+    text = text.gsub(/\AJOURNEYS [-]\s*/, '') unless !text
+    text = text.gsub(/\s*[-] Stay.com\Z/, '') unless !text
+  end
   
   def calculate_rating(string, base=nil)
     if string && string.length > 0

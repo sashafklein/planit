@@ -1,23 +1,20 @@
 .print-cover-wrap
   .print-page-header
     %strong
-      - if @plan.name && @plan.name.length > 0
+      - if @plan.name.present?
         = @plan.name
       - else
         = @plan.overall_locale
-    - if @plan.legs.length > 1 || @plan.days.length > 1
-      = "("
-      - if @plan.legs.length > 1
-        = "#{@plan.legs.length} legs : "
-      - if @plan.days.length > 1
-        = "#{@plan.days.length} days"
-      = ")"
+    - leg_num = "#{@plan.legs} legs" unless @plan.legs.length == 1
+    - day_num = "#{@plan.days} days" unless @plan.days.length == 1
+    - if leg_num || day_num
+      = [leg_num, day_num].join(": ")
   .print-map-canvas.page
     %map.print-overview{ icon: map_icon, coordinates: @plan.coordinates, type: "print#{@plan.maptype || ''}"}
 
 .break-page
 
-- if @plan.tips && @plan.tips.length > 0
+- if @plan.tips.present?
   .print-header-subtitle
     Summary, Tips & Reminders
     - @plan.tips.each do |tip|
