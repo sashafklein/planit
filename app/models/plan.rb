@@ -14,6 +14,21 @@ class Plan < ActiveRecord::Base
   delegate :last_day, :departure, to: :last_leg
   delegate :arrival, to: :first_leg
 
+  # PLANS. OPERATORS
+
+  # PLAN OPERATORS
+
+  # def has_travel?
+  #   if legs.has_travel?
+  #     return true
+  #   end
+  #   return nil
+  # end
+
+  def has_lodging?
+    items.marks.where(lodging: true).any?
+  end
+
   def first_leg
     legs.first
   end
@@ -26,7 +41,7 @@ class Plan < ActiveRecord::Base
     moneyshots.first
   end
 
-  def overview_coordinates
+  def coordinates
     legs.map(&:coordinates).join("+")
   end
 
@@ -39,7 +54,7 @@ class Plan < ActiveRecord::Base
   end
 
   def bucket
-    legs.where(name: nil).first #todo -- majorly incomplete
+    Item.where(day_id: nil, plan_id: self.id)
   end
 
   def total_days
@@ -51,4 +66,5 @@ class Plan < ActiveRecord::Base
     items.marks.destroy_all
     destroy
   end
+
 end

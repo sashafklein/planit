@@ -6,7 +6,8 @@ class Item < ActiveRecord::Base
   belongs_to :plan
   belongs_to :day
 
-  delegate :place, :name, to: :mark
+  delegate :names, :categories, :category, :coordinate, :lat, :lon, :url, :phones, :phone, :website, :street_address, :country, :region, :locality, to: :place
+  delegate :place, :notes, :name, to: :mark
   delegate :leg, to: :day
   validates_presence_of :mark, :plan
 
@@ -17,6 +18,8 @@ class Item < ActiveRecord::Base
 
   before_save { self.start_time = MilitaryTime.new(self.start_time).convert if start_time_changed? }
 
+  # SELF-OPERATIONS
+
   def self.marks
     Mark.where(id: pluck(:mark_id))
   end
@@ -25,7 +28,48 @@ class Item < ActiveRecord::Base
     marks.places
   end
 
+  def self.with_lodging
+    where(mark_id: Mark.where(id: pluck(:mark_id), lodging: true).pluck(:id))
+  end
+
+  def next
+    return nil if last_in_day?
+    siblings.find_by_order( order + 1 )
+  end
+
+  def previous
+    return nil if first_in_day?
+    siblings.find_by_order( order - 1 )
+  end
+
+  def first_in_day?
+    order == 0
+  end
+
+  def last_in_day?
+    order == order.length
+  end
+
   def weekday
     day_of_week ? day_of_week.capitalize : nil
+  end
+
+  # INDIVIDUAL ITEM PASS THROUGH LINKAGES
+
+  def image
+    self.place.images.first
+  end
+
+  def source
+    self.mark.source
+  end
+
+  def lodging
+    self.place.name unless !self.mark.lodging
+  end
+  private
+
+  def siblings
+    day.items
   end
 end

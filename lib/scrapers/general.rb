@@ -11,20 +11,23 @@ module Scrapers
     def self.specific_scraper(url, page)
       if is_article?(page)
         GeneralMod::Article.new(url, page)
-      elsif is_blog?(url, page)
-        GeneralMod::Blog.new(url, page)
-      elsif is_travel_site?(page)
-        GeneralMod::Travel.new(url, page)
+      # elsif is_travel_site?(page)
+      #   GeneralMod::Travel.new(url, page)
+      # elsif is_blog?(url, page)
+      #   GeneralMod::Blog.new(url, page)
       else
         GeneralMod::Catchall.new(url, page)
       end
     end
 
     def self.is_article?(page)
+      # replace this later
+      return false
+      # end replace
       page = Nokogiri::HTML page
       if page_count_beyond_threshold?(page, /(?:article|Article|ARTICLE)/, 40)
         if article_container = get_usual_suspect_text(article_usual_suspects, page)
-          return true
+          return true unless article_container.length == 0
         end
       end
       return nil

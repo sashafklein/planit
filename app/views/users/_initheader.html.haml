@@ -1,0 +1,131 @@
+- initial_classes = start + " " + background
+.initial-header{ class: initial_classes }
+  .container
+    .sixteen.columns.header-container
+      .logo-container
+        = image_tag "logo_only_#{color}.png", style: "float:left; width: 42px; height: 50px; margin: 10px 10px 10px 0"
+        = image_tag "logo_name_only_#{color}.png", class: "logo-name-top", style: "float:left; width: 86px; height: 50px; margin: 10px 10px 10px 0"
+      %input.input-search-field{ :name  => "input-search", :placeholder => "Search / Add" }
+      %button.input-search-button
+        .i.fa.fa-search.fa-lg
+      .main-menu-container.user-icon{ class: color }
+        .i.user-icon.fa.fa-user
+      / .dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+      .main-menu-container.main-menu{ class: color }
+        .i.main-menu.fa.fa-bars
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-user.fa-fw
+            Sign Up
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-user.fa-fw
+            Log In
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-user.fa-fw
+            Account
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-cog.fa-fw
+            Settings
+        %li.divider
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-times.fa-fw
+            Log Out
+      .side-menu-container{ class: color }
+        / %strong= "DASHBOARD"
+        %strong= "SIGN UP"
+        %i.divider= "|"
+        %strong.gray= "LOG IN"
+
+.page-header-band{ class: page_type }
+  .container
+    .sixteen-columns.page-header-container
+      .page-header-category.sort.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+        .i.filter.fa.fa-sliders
+        Sort/Filter
+        %span.shrink= "by"
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-bullseye.fa-fw
+            Nearby
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-globe.fa-fw
+            Region
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-filter.fa-fw
+            Type
+        %li
+          %a{:href => "#"}
+            %i.fa.fa.fa-clock-o.fa-fw
+            Recent
+        %li.divider
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-check-circle.fa-fw
+            Been
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-ban.fa-fw
+            Unliked
+      %span.filter-content.off
+        .i.fa.fa-bullseye 
+        / Nearby To Current Location default | dropdown for extra definition?  Hide if on PC?
+      %span.filter-content.up
+        = "Region" # Most Places | search: Country / Region / Locality / Neighborhood
+        .i.fa.fa-caret-down
+      %span.filter-content.down
+        Type
+        .i.fa.fa-filter
+      %span.filter-content.down
+        Recent
+        .i.fa.fa-caret-up
+      %span.filter-content.on
+        .i.fa.fa-check-circle
+        Been
+      %span.filter-content.off
+        .i.fa.fa-ban
+        Unliked
+      %span.page-header-divider= "|" 
+      .page-header-category.map
+        / .i.tab-view.fa.fa-th-large
+        / Tab
+        .i.map-view.fa.fa-globe 
+        Map
+        %span.shrink= "View"
+      %span.page-header-divider= "|" 
+      .page-header-category.share.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+        .i.share.fa.fa-share-alt-square
+        Share
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-link.fa-fw
+            Copy Link
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-envelope-o.fa-fw
+            Email
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-facebook.fa-fw
+            Facebook
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-twitter.fa-fw
+            Twitter
+        %li.divider
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-print.fa-fw
+            PDF
+
+.init-header-space{ class: page_type }
+
+

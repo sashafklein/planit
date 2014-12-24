@@ -202,6 +202,29 @@ module PlanHelper
     return az
   end
 
+  def get_lodging_list(item_list)
+    lodging_list = []
+    item_list.each do |item|
+      if item.mark.lodging
+        lodging_list << item.place.name
+      end
+    end
+    return lodging_list
+    # .each_with_object(Hash.new(0)){ |m,h| h[m] += 1 }.sort {|a,b| b[1] <=> a[1]}
+  end
+
+  def get_locale_list(item_list)
+    locale_list = []
+    neighborhood_list = []
+    item_list.places.each do |e|
+      locale_list << e.locality unless !e.locality || e.locality.length == 0
+    end
+    return locale_list
+    #   neighborhood_list << e.neighborhood unless !e.neighborhood || e.neighborhood.length == 0
+    # if locale_list.uniq < 2
+    #   locale_list = neighborhood_list
+  end
+
 end
 
 # def defaults

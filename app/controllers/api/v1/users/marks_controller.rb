@@ -1,6 +1,6 @@
 class Api::V1::Users::MarksController < ApiController
   
-  before_action :load_user, only: [:create, :scrape]
+  before_action :load_user, only: [:create, :scrape, :bucket]
   
   before_action :cors_set_access_control_headers, only: [:scrape]
   after_action :cors_set_access_control_headers, only: [:scrape]
@@ -22,6 +22,12 @@ class Api::V1::Users::MarksController < ApiController
     Services::MassCompleter.new(scraped, @user).delay_complete!
     
     render json: { success: true }
+  end
+
+  def bucket
+    return error(404, "User not found") unless @user
+
+    @marks = @user.marks
   end
 
   private

@@ -1,0 +1,15 @@
+// CALCULATIONS
+
+// HEADER
+= render 'initheader', { :background => 'white', :color => 'black', :start => '', :page_type => 'user' }
+
+.band.gray.spaced
+  .container
+
+    .sixteen.columns
+
+      - @user.plans.each do |p|
+        .plan-link= link_to p.name, p
+
+.footer
+  = render partial: 'show/footer'

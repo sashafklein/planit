@@ -30,11 +30,38 @@ module RegexLibrary
         "museum",
         "lounge",
         "hotel",
+        "hostel",
+        "bed & breakfast",
         "spa",
+        "guide",
+        "tour",
       ]
     end
 
     # REGEX COMPONENTS REMEMBER DOUBLE ALL BACKSLASH
+
+    def streets_or_cardinals_thread
+      items = [
+        "St",
+        "Rd",
+        "Ave",
+        "Av",
+        "Ln",
+        "Blvd",
+        "Dr",
+        "Ct",
+        "Expwy",
+        "Hwy",
+        "Fwy",
+        "Pkwy",
+        "Sq",
+        "NW",
+        "NE",
+        "SW",
+        "SE",
+      ]
+      "(?:" + items.join("\\.|") + "\\.)"
+    end
 
     def lowercase_destination_class
       insert = list_of_common_destination_types.join("|")
@@ -42,7 +69,7 @@ module RegexLibrary
     end
 
     def lowercase_destinations_plural_class
-      insert = list_of_common_destination_types.join("s|")
+      insert = list_of_common_destination_types.join("s|") + "s"
       "(?:#{insert})"
     end
 
@@ -181,7 +208,9 @@ module RegexLibrary
         "(?:",
         "http[s]?:\\/\\/",
         ")?",
-        "[a-z0-9]+?\\.(?:[a-z0-9]+\\.)*[a-z]{2}[^ \\\\]*",
+        "[a-z0-9]+?\\.(?:[a-z0-9]+\\.)*[a-z]{2}[^ \\\\<>()'",
+        quote_thread,
+        "]*",
         ")",
       ] 
       threads.join
@@ -268,6 +297,10 @@ module RegexLibrary
       "(?:#{a_link_open_thread}.*?#{a_link_close_thread})"
     end
 
+    def a_href_thread_find_text
+      "(?:#{a_link_open_thread}\\s*(.*?)\\s*#{a_link_close_thread})"
+    end
+
     def a_find_href_thread
       "(?:\\<a.*?href\\=['#{quote_thread}]([^'#{quote_thread}]*?)['#{quote_thread}]\\s*[^>]*?\\>.*?#{a_link_close_thread})"
     end
@@ -328,8 +361,8 @@ module RegexLibrary
     # REGEX SAFETY <- CANNOT BE REPEATED * OR + OR ?
 
     def case_desensitize(string)
-      if string.length > 0
-        '(?:' + string.upcase + '|' + string.downcase + '|' + string.capitalize + '|' + string.titleize + ')'
+      if string && string.length > 0
+        '(?:' + string + '|' + string.upcase + '|' + string.downcase + '|' + string.capitalize + '|' + string.titleize + ')'
       end
     end
 
@@ -338,7 +371,7 @@ module RegexLibrary
       joiner = '|'
       list.each do |item|
         if item.length > 0
-          string = item.upcase + joiner + item.downcase + joiner + item.capitalize + joiner + item.titleize
+          string = item + joiner + item.upcase + joiner + item.downcase + joiner + item.capitalize + joiner + item.titleize
           item_array << string
         end
       end
@@ -350,7 +383,7 @@ module RegexLibrary
       joiner = '[Ss]?|'
       list.each do |item|
         if item.length > 0
-          string = item.upcase + joiner + item.downcase + joiner + item.capitalize + joiner + item.titleize
+          string = item + joiner + item.upcase + joiner + item.downcase + joiner + item.capitalize + joiner + item.titleize
           item_array << string
         end
       end
@@ -388,7 +421,7 @@ module RegexLibrary
     end
 
     def after_separator_regex_find_phone
-      %r!\(.*?[,;]\s((?=\d+).*?)(?:[;,]|\))!
+      %r!\(.*?[,;]\s(((#{phone_number_thread}).*?))(?:[;,]|\))!
     end
 
     def time_on_own_line_regex
@@ -855,19 +888,7 @@ module RegexLibrary
     end
 
     def recognize_phone
-      regex_string = [
-        "(?:",
-        "\\(?",
-        "\\+?",
-        "\\d+",
-        "\\)?",
-        "[ ]?",
-        ")",
-        "(?:",
-        "[0-9() -]+",
-        ")",
-      ]
-      %r!#{regex_string.join}!
+      %r!#{phone_number_thread}!
     end
 
     def photos_with_image_folder
@@ -1059,8 +1080,125 @@ module RegexLibrary
       %r!#{regex_string.join}!      
     end
 
+    def find_website_by_name_multiple_attempts_regex(name)
+      # option 1 mandatory parens before name
+      # option 2 mandatory parens after name
+      # option 3 in sentence/phrase no periods
+      regex_string = [
+        "(?:",
+        "[(]",
+        name,
+        "(?:[^)]*[(][^)]*?[)][^)]*?|[^)]*?)",
+        "(#{is_website_link?})",
+        ".*?",
+        "[)]",
+        "|",
+        name,
+        "\\s*",
+        "[(]",
+        "(?:[^)]*[(][^)]*?[)][^)]*?|[^)]*?)",
+        "(#{is_website_link?})",
+        ".*?",
+        "[)]",
+        "|",
+        name,
+        "(?:",
+        "[^.]*",
+        streets_or_cardinals_thread,
+        "[^.]*",
+        ")*?",
+        "(#{is_website_link?})",
+        ")",
+      ]
+      %r!#{regex_string.join}!      
+    end
+
+    def find_phone_by_name_multiple_attempts_regex(name)
+      # option 1 mandatory parens before name
+      # option 2 mandatory parens after name
+      # option 3 in sentence/phrase no periods
+      regex_string = [
+        "(?:",
+        "[(]",
+        name,
+        "(?:[^)]*[(][^)]*?[)][^)]*?|[^)]*?)",
+        "(#{phone_number_thread})",
+        ".*?",
+        "[)]",
+        "|",
+        name,
+        "\\s*",
+        "[(]",
+        "(?:[^)]*[(][^)]*?[)][^)]*?|[^)]*?)",
+        "(#{phone_number_thread})",
+        ".*?",
+        "[)]",
+        "|",
+        name,
+        "(?:",
+          "[^.]*",
+          streets_or_cardinals_thread,
+          "[^.]*",
+        ")*?",
+        "(#{phone_number_thread})",
+        ")",
+      ]
+      %r!#{regex_string.join}!      
+    end
+
+    def find_address_by_name_multiple_attempts_regex(name)
+      # option 1 mandatory parens before name
+      # option 2 mandatory parens after name
+      # option 3 in sentence/phrase no periods
+      regex_string = [
+        "(?:",
+          "[(]",
+          name,
+          "[,: ]*",
+          "((?:[^)]*[(][^)]*?[)][^)]*?|[^)]*?))",
+          "(?:",
+            "#{phone_number_thread}",
+            "|",
+            "#{is_website_link?}",
+          ")",
+          ".*?",
+          "[)]",
+        "|",
+          name,
+          "\\s*",
+          "[(]",
+          "((?:[^)]*[(][^)]*?[)][^)]*?|[^)]*?))",
+          "(?:",
+            "#{phone_number_thread}",
+            "|",
+            "#{is_website_link?}",
+          ")",
+          ".*?",
+          "[)]",
+        "|",
+          name,
+          "[,: ]*",
+          "(",
+            "(?:",
+              "[^.]*",
+              streets_or_cardinals_thread,
+              "[^.]*",
+            ")*?",
+          ")",
+          "(?:",
+            "#{phone_number_thread}",
+            "|",
+            "#{is_website_link?}",
+            "|",
+            "\\Z",
+          ")",
+        ")",
+      ]
+      %r!#{regex_string.join}!      
+    end
+
     def remove_final_punctuation_regex
-      %r/(.*)[,;:.?!]\z/
+      %r/(.*)[,;:.?!]?\Z/
     end
 
     def static_map_src

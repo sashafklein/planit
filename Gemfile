@@ -21,7 +21,9 @@ gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
+
 gem 'nokogiri'
+gem 'font-awesome-sass'
 
 gem "haml-rails"
 gem 'geocoder'

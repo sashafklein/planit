@@ -1,11 +1,12 @@
 module Services
   describe Clusterer do
     describe "clusters" do
+      
       describe "with one clear cluster" do
         
         before { @clusterer = cluster_from_names [] }
 
-        xit "groups appropriately" do
+        it "groups appropriately" do
           expect(@clusterer.to_json).to eq([
             [{
                location_name: [lat, lon],
@@ -15,37 +16,37 @@ module Services
         end
       end
 
-      describe "with two clear clusters" do
+      # describe "with two clear clusters" do
         
-        before { @clusterer = cluster_from_names [] }
+      #   before { @clusterer = cluster_from_names [] }
 
-        xit "groups appropriately" do
-        end
-      end
+      #   it "groups appropriately" do
+      #   end
+      # end
 
-      describe "with three clear clusters" do
+      # describe "with three clear clusters" do
         
-        before { @clusterer = cluster_from_names [] }
+      #   before { @clusterer = cluster_from_names [] }
 
-        xit "groups appropriately" do
-        end
-      end
+      #   it "groups appropriately" do
+      #   end
+      # end
 
-      describe "with 10 clear clusters" do
+      # describe "with 10 clear clusters" do
         
-        before { @clusterer = cluster_from_names [] }
+      #   before { @clusterer = cluster_from_names [] }
 
-        xit "groups appropriately" do
-        end
-      end
+      #   it "groups appropriately" do
+      #   end
+      # end
 
-      describe "with borderline 1-2 clusters" do
+      # describe "with borderline 1-2 clusters" do
         
-        before { @clusterer = cluster_from_names [] }
+      #   before { @clusterer = cluster_from_names [] }
 
-        xit "groups appropriately" do
-        end
-      end
+      #   it "groups appropriately" do
+      #   end
+      # end
     end
   end
 

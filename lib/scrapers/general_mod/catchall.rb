@@ -13,7 +13,7 @@ module Scrapers
       # PAGE 
 
       def data
-        # binding.pry
+        # assumes single location per page, sorts for best possible results
         [ place: {
             lat: lat,
             lon: lon,
@@ -42,7 +42,7 @@ module Scrapers
         page_map_images.each_with_index do |image, index|
           alt = image.attribute("alt").value unless !image.attribute("alt")
           src = image.attribute("src").value unless !image.attribute("src")
-          map_usual_suspects.each do |attempt|          
+          map_link_src_usual_suspects.each do |attempt|          
             if src && src.include?(attempt)
               image_array << [index, alt, src]
             end
@@ -57,8 +57,9 @@ module Scrapers
             sub_array = image_array.map{ |e| e[2]==image_to_index }
             to_return << return_link_and_text(sub_array)
           end
-        end          
-      # rescue ; nil
+          return to_return unless to_return.length == 0          
+        end
+        return nil
       end
 
       def map_links
@@ -67,7 +68,7 @@ module Scrapers
         page_map_links.each_with_index do |link, index|
           text = link.text
           href = link.attribute("href").value unless !link.attribute("href")
-          map_usual_suspects.each do |attempt|          
+          map_link_src_usual_suspects.each do |attempt|          
             if href && href.include?(attempt)
               link_array << [index, text, href]
             end
@@ -132,7 +133,7 @@ module Scrapers
 
       def facebook
         return @facebook if @facebook
-          page.css("a").each do |link|
+        page.css("a").each do |link|
           if title = link.attribute("title")
             if title.value.match(/Become a fan of .*? on Facebook/)
               @facebook_href = link.attribute("href").value
@@ -222,6 +223,7 @@ module Scrapers
         if attempt_from_address_box = get_usual_suspect_text(full_address_usual_suspects)
           attempt_from_address_box = clean_address_box( attempt_from_address_box )
           attempt_from_address_box = attempt_from_address_box.gsub(/\A#{name}/, '') unless !attempt_from_address_box
+          attempt_from_address_box = attempt_from_address_box.gsub(/\A#{name.gsub(%r!(?:#{cased(lowercase_destination_class).join("|")}\Z|#{cased(lowercase_destinations_plural_class).join("|")}\Z)!, '')}/, '') unless !attempt_from_address_box || !name
           attempt_from_address_box = trim( attempt_from_address_box )
           full_address_from_box = attempt_from_address_box
         end
@@ -353,7 +355,7 @@ module Scrapers
         if map_string
           map_string.each do |string|
             string = string.gsub("%2C", ",") || ''
-            latlon = string.scan(/[,&@=\/]([-]?\d+\.\d+\,[-]?\d+\.\d+)[,&@]/).flatten.first
+            latlon = string.scan(/[,&@=\/]([-]?\d+\.\d+\,[-]?\d+\.\d+)(?:[,&@]|\Z)/).flatten.first
             return @lat = latlon.split(",")[0] unless !latlon
           end
         end
@@ -369,7 +371,7 @@ module Scrapers
         if map_string
           map_string.each do |string|
             string = string.gsub("%2C", ",") || ''
-            latlon = string.scan(/[,&@=\/]([-]?\d+\.\d+\,[-]?\d+\.\d+)[,&@]/).flatten.first
+            latlon = string.scan(/[,&@=\/]([-]?\d+\.\d+\,[-]?\d+\.\d+)(?:[,&@]|\Z)/).flatten.first
             return @lon = latlon.split(",")[1] unless !latlon
           end
         end
@@ -384,63 +386,58 @@ module Scrapers
         # %w(.hours #hours)
       end
 
-      def name
-        return @name if @name
-        # Triangulate with Title, Heading, Keywords, Description, Facebook, Twitter, TripAdvisor, Yelp, Google
-        guesses = []
-        # trim down sub-titles etc
+      def trimmed_keyword
         if meta_keywords
           trimmed_keyword = meta_keywords.gsub(/\,.*/, '')
-          trimmed_keyword = before_divider( trimmed_keyword )
+          return trimmed_keyword = before_divider( trimmed_keyword )
         end
+        return nil
+      end
+
+      def trimmed_description
         if meta_description
           trimmed_description = meta_description
           trimmed_description = trimmed_description.gsub(/ is a .*/, '') || ''
           trimmed_description = trimmed_description.gsub(/ is the .*/, '') || ''
-          trimmed_description = before_divider( trimmed_description )
+          return trimmed_description = before_divider( trimmed_description )
         end
-        # build guess array
-        guesses << before_divider( title )
-        guesses << before_divider( meta_name )
-        guesses << trimmed_keyword
-        guesses << trimmed_description
-        guesses << before_divider( details_name )
-        guesses << before_divider( heading )
+        return nil
+      end
+
+      def name
+        return @name if @name
+        # Triangulate with Title, Heading, Keywords, Description, Facebook, Twitter, TripAdvisor, Yelp, Google
+        guesses = []
+        guesses << reject_long( before_divider( title ) , 8, 33)
+        guesses << reject_long( before_divider( meta_name ) , 8, 33)
+        guesses << reject_long( trimmed_keyword , 8, 33)
+        guesses << reject_long( trimmed_description , 8, 33)
+        guesses << reject_long( before_divider( details_name ) , 8, 33)
+        guesses << reject_long( before_divider( heading ) , 8, 35)
         guesses << before_divider( facebook )
         guesses << before_divider( twitter )
         guesses << before_divider( tripadvisor )
         guesses << before_divider( yelp )
         guesses << before_divider( google )
 
-        @name_guesses = guesses
+        guesses = delete_items_from_array_case_insensitive(list_of_null_page_titles, guesses).compact
+        guesses = delete_items_from_array_case_insensitive([locality, region, country], guesses).compact
+        guesses = delete_items_from_array_case_insensitive([lowercase_destination_class, lowercase_destinations_plural_class], guesses).compact
 
-        delete_items_from_array_case_insensitive(list_of_null_page_titles, guesses)
 
-        if clear_choice = top_pick(guesses.compact, 0.4999)[0]
-          return @name = clear_choice
-        else
-          # remove common destination suffix/prefixes
-          new_array = []
-          guesses.compact.each do |guess|
-            guess = trim( guess.downcase.gsub(/#{lowercase_destination_class}/, '') ) unless !guess
-            guess = trim( guess.downcase.gsub(/#{lowercase_destinations_plural_class}/, '') ) unless !guess
-            new_array << guess
-          end
-          guesses = new_array
-          # reset new_array and remove locality only / country only / region only
-          new_array = []
-          guesses.compact.each do |guess|
-            guess = trim( guess.downcase.gsub(/\A#{locality.downcase}\Z/, '') ) unless !guess || !locality
-            guess = trim( guess.downcase.gsub(/\A#{region.downcase}\Z/, '') ) unless !guess || !region
-            guess = trim( guess.downcase.gsub(/\A#{country.downcase}\Z/, '') ) unless !guess || !country
-            new_array << guess unless guess == ''
-          end
-          guesses = new_array
-          if ok_choice = top_pick(guesses, 0.2)[0]
-            return @name = ok_choice.titleize
-          end
+        #ensure that name is *on* the page
+        new_array = []
+        guesses.each do |guess|
+          new_array << guess unless ( !page.text || !page.text.include?(guess) ) && ( !heading || !heading.include?(guess) )
         end
-      # rescue ; nil
+        guesses = new_array
+
+        if clear_choice = top_pick(guesses.compact, 0.50001)[0]
+          return @name = clear_choice
+        elsif muddy_choice = dominant_pick(guesses.compact)
+          return @name = muddy_choice unless ( !page.text || !page.text.include?(muddy_choice) ) && ( !heading || !heading.include?(muddy_choice) )
+        end
+        return nil
       end
 
       def before_divider(string)
@@ -453,11 +450,6 @@ module Scrapers
         trimmed = trimmed.gsub(/\|.*/, '') unless !trimmed
         return trim( trimmed ) unless trimmed == '' || !trimmed
         return nil
-      end
-
-      def name_attempts
-        name
-        return @name_guesses
       end
 
     end

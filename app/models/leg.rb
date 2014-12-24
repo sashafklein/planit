@@ -12,6 +12,46 @@ class Leg < ActiveRecord::Base
 
   default_scope { order('"order" ASC') }
 
+  # LEGS. OPERATORS
+
+  # def self.has_travel?
+  #   if days.has_travel? 
+  #     return true
+  #   end
+  #   return nil
+  # end
+
+  # def self.arrival
+  # end
+
+  # LEG OPERATORS
+
+  def overall_locale
+    return comma_amp(countries) unless countries.length >= 1
+    return comma_amp(regions) unless regions.length >= 1
+    return comma_amp(localities) unless localities < 2
+    return "#{localities.first}, #{countries.first}" unless !localities.present? && !countries.present?
+    return countries.first unless !countries.present?
+    return localities.first unless !localities.present?
+    return regions.first unless !regions.present?
+  end
+
+  def countries
+    items.places.where.not(country: nil).pluck(:country).uniq
+  end
+
+  def regions
+    items.places.where.not(region: nil).pluck(:region).uniq
+  end
+
+  def localities
+    items.places.where.not(locality: nil).pluck(:locality).uniq
+  end
+
+  def has_lodging?
+    items.marks.where(lodging: true).any?
+  end
+
   def items
     Item.where(day_id: days.pluck(:id))
   end
@@ -98,4 +138,20 @@ class Leg < ActiveRecord::Base
   def sites
     items.sites
   end
+
+  def comma_amp(array)
+    first_words_connector = ", "
+    two_words_connector = " & "
+    last_word_connector = ", & "
+    if array.length == 0
+      return ""
+    elsif array.length == 1
+      return array.first
+    elsif array.length == 2
+      return array.join(two_words_connector)
+    else
+      return "#{array[0...-1].join(first_words_connector)}#{last_word_connector}#{array[-1]}"
+    end
+  end
+
 end
