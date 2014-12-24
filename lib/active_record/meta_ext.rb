@@ -18,6 +18,21 @@ module ActiveRecord
       def none
         where('1=2')
       end
+
+      def extra_accessor(*symbols)
+        symbols.each do |sym|
+          instance_eval do 
+            define_method(sym) do |arg|
+              extra["#{sym}s"].present? ? extra["#{sym}s"] << arg : extra["#{sym}s"] = [arg]
+            end
+
+            define_method("#{sym}s") do
+              contents = extra["#{sym}s"]
+              contents.nil? ? [] : JSON.parse(contents)
+            end
+          end
+        end      
+      end
     end
 
     def self.included(base)

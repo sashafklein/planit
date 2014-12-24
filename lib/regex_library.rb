@@ -105,11 +105,11 @@ module RegexLibrary
     end
 
     def upcase_latinate_thread
-      "ÄÀÁÇÈÉËÌÍÏÖÒÓÜŪÑÇ"
+      "ÄÀÁÇÈÉËÌÍÎÏÖÒÓÜŪÑÇ"
     end
 
     def downcase_latinate_thread
-      "äàáçèéëìïíöòóüūñç"
+      "äàáçèéëìîïíöòóüūñç"
     end
 
     def normal_punctuation_thread

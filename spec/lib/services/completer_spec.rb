@@ -2,6 +2,8 @@ require 'spec_helper'
 module Services
   describe Completer do
 
+    include ScraperHelper
+
     describe "complete!" do
 
       before do 
@@ -62,9 +64,6 @@ module Services
         end
 
         it "finds the mark, and doesn't create duplicates" do
-          expect_any_instance_of(Services::PlaceCompleter).to receive(:api_complete!)
-          expect_any_instance_of(Services::PlaceCompleter).to receive(:geocode!)
-
           mark_count = Mark.count
           place_count = Place.count
 
@@ -79,9 +78,8 @@ module Services
         end
 
         it "fills any missing info", :vcr do
-          completed_mark = Completer.new(place_hash, @user).complete!
-
-          expect(@mark.reload.region).to eq('Bolivar') # From FourSquare
+          completed_mark = Completer.new(place_hash({}, {random_other: 'value'}) , @user).complete!
+          expect(@mark.reload.place.extra.symbolize_keys).to eq({random_other: 'value'})
         end
       end
 
@@ -105,16 +103,112 @@ module Services
           end
         end
       end
+
+      context "item data outside a plan context" do
+        context "without good api data" do
+          it "creates the place, mark, plan, and location", :vcr do
+            c = Completer.new(yml_data('itinerary', 'https://www.airbnb.com/reservation/itinerary?code=ZBCAT4') , @user)
+            m = c.complete!
+
+            expect( m.country ).to eq("Colombia")
+            expect( m.locality ).to eq("Bogota")
+
+            i = m.items.first
+
+            expect(i.extra).to eq({ 
+              guests: "2", 
+              nights: "3", 
+              host_directions: "Host's Directions The apt its located in an area called \"chapinero\" which is a central place of the city helping you get easily to any destination",
+              confirmation_url: "https://www.airbnb.com/reservation/itinerary?code=ZBCAT4",
+              cost: "$157",
+              confirmation_code: "ZBCAT4",
+              start_date: "Fri, November 21, 2014",
+              end_date: "Mon, November 24, 2014"
+            }.stringify_keys)
+          end
+        end
+      end
+
+      context "item data with plan" do
+        it "creates the Coney Island, and fits it in context", :vcr do
+          m = Completer.new(yml_data('nyhigh', 'http://www.stay.com/new-york/', 'Coney Island'), @user).complete!
+
+          expect( m.country ).to eq "United States"
+          expect( m.region ).to eq "New York"
+
+          expect( m.place.extra['ratings'] ).to be_present
+          expect( m.place.extra['sublocality'] ).to eq("Brooklyn") # No Locality for Coney Island in Geocoder
+          expect( m.place.flags ).to include ("Failed to find geolocation data for locality")
+
+          i = m.items.first
+          expect( i.plan.name ).to eq "New York City Guide - Stay.com"
+        end
+
+        it "creates the Plaza in context", :vcr do
+          m = Completer.new(yml_data('jetsetters', 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/', 'The Plaza'), @user).complete!
+
+          expect(m.country).to eq "United States"
+          expect(m.region).to eq "New York"
+          expect(m.locality).to eq "New York"
+          
+          p = m.place
+          expect(p.extra['sublocality']).to eq "Manhattan"
+
+          i = m.items.first
+          expect(i.plan.name).to eq "New York for Jetsetters - Stay.com"
+        end
+
+        it "creates Boom Boom Room in context", :vcr do
+          m = Completer.new(yml_data('jetsetters', 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/', 'Boom Boom Room'), @user).complete!
+
+          expect(m.country).to eq "United States"
+          expect(m.region).to eq "New York"
+          expect(m.locality).to eq "New York"
+          expect(m.place.completion_steps).to eq ["Geocode", "API", "Translate"]
+          expect(m.place.flags).to eq []
+
+          i = m.items.first
+          expect(i.plan.name).to eq "New York for Jetsetters - Stay.com"
+        end
+
+        it "creates Broadway in context", :vcr do
+          m = Completer.new(yml_data('nyhigh', 'http://www.stay.com/new-york/', 'Broadway'), @user).complete!
+
+          expect(m.country).to eq "United States"
+          expect(m.region).to eq "New York"
+          expect(m.locality).to eq "New York"
+          expect(m.name).to eq "Broadway"
+          i = m.items.first
+          expect(i.plan.name).to eq "New York City Guide - Stay.com"
+        end
+
+        it "creates Tribute WTC Visitor Center in context", :vcr do
+          m = Completer.new(yml_data('nyhigh', 'http://www.stay.com/new-york/', 'Tribute WTC Visitor Center'), @user).complete!
+
+          expect(m.country).to eq "United States"
+          expect(m.region).to eq "New York"
+          expect(m.locality).to eq "New York"
+          expect(m.name).to eq "Tribute WTC Visitor Center"
+          i = m.items.first
+          expect(i.plan.name).to eq "New York City Guide - Stay.com"
+        end
+      end
     end
 
-    def place_hash(overwrite_hash={})
+    def yml_data(base, url, search_term=nil)
+      @base_name, @url = base, url
+      @base_domain = get_domain(@url)
+      search_term ? expectations.find{ |p| p[:place][:name] == search_term } : expectations.first
+    end
+
+    def place_hash(overwrite_hash={}, place_additions={})
       {
         place: {
           names: ["La Paletteria"],
           street_addresses: ["Calle Santo Domingo, No. 3-88"],
           locality: "Cartagena",
           country: "Colombia"
-        }
+        }.merge(place_additions).compact
       }.merge(overwrite_hash).compact
     end
 

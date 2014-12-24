@@ -9,34 +9,41 @@ module Services
 
     def complete!
       @place = Place.find_or_initialize(attrs)
-      
+
       unless @place.persisted?
         load_region_info_from_nearby!
         geocode!
         api_complete!
-        translate!    
+        translate!
 
         @place = @place.find_and_merge
-        save_with_photos!
       end
-      
+
+      save_with_photos!
       @place
     end
 
     private
 
     def geocode!
-      return unless @place.street_address || @place.full_address
-      @place = Services::Geolocater.new(place, attrs).narrow
-      @geocoded = true
+      return unless @place.pinnable
+      geolocation = Services::Geolocater.new(place, attrs).narrow
+      @place = geolocation[:place]
+      @place.completion_step("Geocode") if @geocoded = geolocation[:success]
     end
 
     def load_region_info_from_nearby!
-      @place = Services::Geolocater.new(place, attrs).load_region_info_from_nearby if attrs[:nearby]
+      if attrs[:nearby]
+        region_geolocation = Services::Geolocater.new(place, attrs).load_region_info_from_nearby
+        @place = region_geolocation[:place]
+        @place.completion_step("Load Region Info From Nearby") if region_geolocation[:success]
+      end
     end
 
     def translate!
-      @place = Services::Geolocater.new(place, attrs).translate
+      translation = Services::Geolocater.new(place, attrs).translate
+      @place = translation[:place]
+      @place.completion_step("Translate") if translation[:success]
     end
 
     def api_complete!
@@ -44,6 +51,7 @@ module Services
         @place
       else
         response = Services::ApiCompleter.new(@place, @attrs[:nearby], @geocoded).complete!
+        @place.completion_step("API")
         @place = response[:place]
         @photos += response[:photos]
         @place

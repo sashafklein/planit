@@ -1,5 +1,6 @@
 class Place < ActiveRecord::Base
 
+
   before_save :uniqify_array_attrs
   before_save :deaccent_regional_info
   before_save { self.categories.each(&:titleize) }
@@ -8,6 +9,7 @@ class Place < ActiveRecord::Base
   has_many :images, as: :imageable
   
   include ActiveRecord::MetaExt
+  extra_accessor :flag, :completion_step
   validate!
 
   scope :with_nonempty_street_address, -> { where.not("street_addresses = '{}'") }
@@ -112,6 +114,10 @@ class Place < ActiveRecord::Base
 
   def open_now?
     true
+  end
+
+  def pinnable
+    street_address || full_address || (lat && lon)
   end
 
   private
