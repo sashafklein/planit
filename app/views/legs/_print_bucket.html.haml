@@ -14,8 +14,7 @@
         / = print_distance(index, item_index, item, day)
 
   .content-tab-print.day-map
-    .print-map-canvas.day
-      / %map.day-map-container{ icon: map_icon, coordinates: [], type: 'print' }
+    %map.print-map-canvas.day{ icon: map_icon, coordinates: bucket.coordinates, type: 'print' }
 
 
 - bucket.in_groups_of(4, 'open') do |items_in_four|

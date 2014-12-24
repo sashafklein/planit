@@ -1,18 +1,16 @@
 Rails.application.routes.draw do
   devise_for :users
+
   resources :plans, only: [:show, :new] do
-    get :welcome, on: :collection
     get :print, on: :member
-    get :mobile, on: :member
-    get :new2, on: :collection
+    get :edit, on: :member
   end
 
   devise_scope :user do
     get '/', to: "devise/sessions#new"
   end
 
-  resources :users, only: [] do
-    get :dashboard, on: :member
+  resources :users, only: [:show] do
     get :bucket, on: :member
   end
 

@@ -1,0 +1,22 @@
+= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'simple', :title => ['explore. dream. discover.',''] }
+
+.band.spaced
+  .container
+    .sixteen.columns
+      .center-box
+
+        .simple-entry-header Resend confirmation instructions
+        %hr.divider{ style: "width: 300px;"}
+
+        .simple-entry-form
+          = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+            = f.error_notification
+            = f.full_error :confirmation_token
+            .simple-entry-form-section
+              %i.fa.fa-envelope.simple-form-icon
+              = f.input :email, required: true, autofocus: true, placeholder: 'Email'
+            .simple-entry-form-section.form-actions.right
+              = f.button :submit, "Resend"
+        %hr.divider{ style: "width: 300px;"}
+        .simple-entry-links
+          = render "devise/shared/links"

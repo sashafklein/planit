@@ -34,6 +34,8 @@ gem 'friendly_id', '~> 5.0.0'
 gem 'rack-mini-profiler'
 gem 'active_model_serializers'
 gem 'fuzzy-string-match'
+gem 'bootstrap-sass', '~> 3.3.1'
+gem 'autoprefixer-rails'
 
 gem 'rails-assets-angular'
 gem 'rails-assets-angular-resource'

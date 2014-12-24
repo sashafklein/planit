@@ -6,7 +6,7 @@
 # HAML Usage:
 # %map{ coordinates: 'lat:lon+lat:lon+lat:lon', icon:  }
 
-angular.module("Common").directive 'map', (MapOptions, F, API, Path) ->
+angular.module("Common").directive 'map', (MapOptions, F, API) ->
   uniqueId = 1
   return {
     restrict: 'E'

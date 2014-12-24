@@ -21,3 +21,36 @@
   font-size: 14px
   color: #fff
   -webkit-font-smoothing: antialiased
+
+// VARIABLE SIZING
+
+// *Computer (Regular)
+
+.footer
+  &.new
+    display: block
+    visibility: visible
+
+// #Tablet (Portrait)
+@media only screen and (min-width: 768px) and (max-width: 959px)
+
+  .footer
+    &.new
+      display: none
+      visibility: hidden
+
+// #Mobile (Portrait) <-- smallest
+@media only screen and (max-width: 767px)
+
+  .footer
+    &.new
+      display: none
+      visibility: hidden
+
+// #Mobile (Landscape)
+@media only screen and (min-width: 480px) and (max-width: 767px)
+
+  .footer
+    &.new
+      display: none
+      visibility: hidden

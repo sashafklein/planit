@@ -1,0 +1,129 @@
+body
+  margin: 0
+  background: #dfdfdf
+
+.clear
+  clear:  both
+
+.exit-view
+  position: fixed
+  float: right
+  top: 15px
+  right: 15px
+  padding: 10px
+  background: rgb(0, 0, 0)
+  background: rgba(0, 0, 0, 0.7)
+  color: #fff
+  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  font-size: 14px
+  z-index: 16777269
+  a
+    display: inline-block
+    color: #fff
+  &.active
+    background: #f60
+
+hr.divider
+  display: block
+  position: relative
+  padding: 0
+  margin: 8px auto
+  height: 0
+  width: 100%
+  max-height: 0
+  font-size: 1px
+  line-height: 0
+  clear: both
+  border: none
+  border-top: 1px solid #aaaaaa
+  border-bottom: 1px solid #ffffff
+
+.center-box
+  display: table
+  margin: 0 auto
+
+.band
+  &.gray
+    background: #dfdfdf
+    border-top: 1px solid #f3f3f3
+    border-bottom: 1px solid #c4c7ca
+  &.white
+    background: #fff
+    border-top: 1px solid #fff
+    border-bottom: 1px solid #eee
+  &.spaced
+    padding: 17px 0 18px 0
+
+.a-stay-color, a.a-stay-color
+  &.a-gray
+    color: #777
+    a, a:link, a:visited
+      color: #777
+  &.a-black
+    color: #000
+    a, a:link, a:visited
+      color: #000
+  &.a-white
+    color: #fff
+    a, a:link, a:visited
+      color: #fff
+  &.h-neon
+    &:hover
+      color: #d00d23      
+    a:hover, a:active
+      color: #d00d23
+  &.h-black
+    &:hover
+      color: #000      
+    a:hover, a:active
+      color: #000
+  &.h-white
+    &:hover
+      color: #fff      
+    a:hover, a:active
+      color: #fff
+
+// TAB SIZING
+
+// *Computer (Regular)
+
+.mobile
+  visibility: hidden
+  display: none
+
+.large-screen
+  visibility: visible
+  display: inherit
+
+// #Tablet (Portrait)
+@media only screen and (min-width: 768px) and (max-width: 959px)
+
+  .mobile
+    visibility: hidden
+    display: none
+
+  .large-screen
+    visibility: visible
+    display: inherit
+
+// #Mobile (Portrait) <-- smallest
+@media only screen and (max-width: 767px)
+
+  .mobile
+    visibility: visible
+    display: inherit
+
+  .large-screen
+    visibility: hidden
+    display: none
+
+// #Mobile (Landscape)
+@media only screen and (min-width: 480px) and (max-width: 767px)
+
+  .mobile
+    visibility: visible
+    display: inherit
+
+  .large-screen
+    visibility: hidden
+    display: none

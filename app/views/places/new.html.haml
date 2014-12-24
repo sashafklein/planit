@@ -1,36 +1,64 @@
-// HEADER
-= render 'users/initheader', { :background => 'white', :color => 'black', :start => '', :page_type => 'place' }
+= render 'show/header', { :background => 'black', :color => 'white', :start => '', :page_type => 'new', :title => ['add new','place'] }
 
 .place-page
 
-  .place-page-splash
+  .add-new-wrap
     .container
-      .thirteen.columns.name-essentials-wrap
-        .place-page-name
-        .place-page-category
-          .i.fa.fa-pencil
-          .span.gray= "Edit Info"
-      .three.columns.book-been-save-wrap
-        .book-been-save-bar
-          .click-to.book
-            .i.fa.fa-calendar
-          .click-to.been
-            .i.fa.fa.fa-check-circle
-          .click-to
-            .i.fa.fa-list-ol
-          .click-to.save
-            .i.fa.fa.fa-heart
-    .container
+      .six.columns.add-new-form
+        .add-new-input.section
+          %i.fa.fa-book.new-place-icon
+          %input{ placeholder: 'Place Name'}
+          .sub-line
+            %i.fa.fa-foursquare.new-place-icon-small
+            Nearby Suggestion
+        .add-new-input.section
+          %i.fa.fa-home.new-place-icon
+          %input{ placeholder: 'Location'}
+        .add-new-input.section
+          %i.fa.fa-globe.new-place-icon
+          %input{ placeholder: 'Lat/Lon (feet/miles away)', disabled: true }
+        %hr.divider
+        .add-new-input.section
+          %span.icon-user.new-place-icon
+          %input{ placeholder: 'Recommended By'}
+        .add-new-input.section
+          %i.fa.fa-pencil.new-place-icon
+          %input{ placeholder: 'Add a Note'}
+        .add-new-input.section
+          %i.fa.fa-unlock-alt.new-place-icon
+          %select.on-off-button.off
+            %option{ :value => "public", :selected => 'selected' }= "Public (Default)"
+            %option{ :value => "private" }= "Private"
+        .mobile
+          %hr.divider
+          .click-for-more
+            %i.fa.fa-caret-down
+            Add Photo &/or Custom Pin
+          .add-new-submit.disabled
+            Add
+            .large-screen= "Place"
+          %hr.divider
+
       .five.columns.map-address-wrap
-        .map-canvas
+        .map-canvas.new
+        .tab-caption
+          %span.fa-stack.gray
+            %i.fa.fa-circle.fa-stack-2x
+            %span.icon-place.fa-stack-1x.fa-inverse
+          %span.gray= "Manually Pin"
 
-      .eleven.columns.photos-wrap
-
-        .photos-gallery
+      .five.columns.photos-wrap
+        .photos-gallery.new
           .add-photo
-            .i.fa.fa-camera-retro
-            ADD PHOTO
+            %i.fa.fa-camera-retro.new-place-icon
+            ADD PHOTOS
+        .tab-caption
+          %span.fa-stack.gray
+            %i.fa.fa-circle.fa-stack-2x
+            %i.fa.fa-cloud-upload.fa-stack-1x.fa-inverse
+          %span.gray= "Add Photos"
 
-.footer
-  = render partial: 'show/footer'
+      .add-new-submit.halo.large-screen.disabled
+        Add Place
 
+/ = render 'show/footer', { :page_type => 'new' }

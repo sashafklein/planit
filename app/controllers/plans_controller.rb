@@ -1,11 +1,18 @@
 class PlansController < ApplicationController
   
-  before_action :load_plan, only: [:show, :print]
+  before_action :load_plan, only: [:show, :print, :edit]
+  before_action :authenticate_user!, only: [:new, :edit]
 
   def show
   end
 
   def print
+  end
+
+  def new
+  end
+
+  def edit
   end
 
   private

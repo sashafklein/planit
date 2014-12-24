@@ -18,7 +18,7 @@ class Item < ActiveRecord::Base
 
   before_save { self.start_time = MilitaryTime.new(self.start_time).convert if start_time_changed? }
 
-  # SELF-OPERATIONS
+  # CLASS METHODS
 
   def self.marks
     Mark.where(id: pluck(:mark_id))
@@ -31,6 +31,12 @@ class Item < ActiveRecord::Base
   def self.with_lodging
     where(mark_id: Mark.where(id: pluck(:mark_id), lodging: true).pluck(:id))
   end
+
+  def self.coordinates
+    marks.coordinates
+  end
+
+  # INSTANCE METHODS
 
   def next
     return nil if last_in_day?

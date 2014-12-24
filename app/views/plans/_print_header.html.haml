@@ -5,8 +5,8 @@
         = @plan.name
       - else
         = @plan.overall_locale
-    - leg_num = "#{@plan.legs} legs" unless @plan.legs.length == 1
-    - day_num = "#{@plan.days} days" unless @plan.days.length == 1
+    - leg_num = "#{@plan.legs.count} legs" unless @plan.legs.count == 1
+    - day_num = "#{@plan.days.count} days" unless @plan.days.count == 1
     - if leg_num || day_num
       = [leg_num, day_num].join(": ")
   .print-map-canvas.page

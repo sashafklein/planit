@@ -6,8 +6,7 @@
     - country_list << place_to_compute.country
 - country_count = country_list.each_with_object(Hash.new(0)){ |m,h| h[m] += 1 }.sort {|a,b| b[1] <=> a[1]}
 
-// HEADER
-= render 'initheader', { :background => 'white', :color => 'black', :start => '', :page_type => 'bucket' }
+= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'bucket' }
 
 - item_count = country_list.length
 - country_count.each_with_index do |country_to_compute, index|
@@ -21,13 +20,14 @@
 
           .tab-section-header
             - if country_to_compute.last < 10
-              %strong= country_to_compute.first
+              %span.bubble-span.medium.primary= country_to_compute.first
             - else
-              %strong= country_to_compute.first
+              %span.bubble-span.medium.primary= country_to_compute.first
               = ":"
-              = "Region/Locality ("
+              %span.bubble-span.medium.secondary= "Region/Locality"
+              = "("
               %strong= "#{country_to_compute.last}"
-              = ")"            
+              = ")"
 
       .container
 
@@ -46,5 +46,4 @@
         %strong= 124
         )
 
-.footer
-  = render partial: 'show/footer'
+= render 'show/footer', { :page_type => 'bucket' }
