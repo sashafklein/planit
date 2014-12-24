@@ -12,6 +12,7 @@ namespace :seed  do
               name = place_hash[:place][:name] || names = place_hash[:place][:names] ? names[0] : 'unnamed'
               puts "Saving #{name}"
               completed = Services::Completer.new(place_hash, niko).complete!
+              sleep 0.5 # To avoid Google Api request/second limit
               puts "Saved #{name}"
             rescue
               next

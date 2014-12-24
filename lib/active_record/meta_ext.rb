@@ -56,12 +56,12 @@ module ActiveRecord
 
           metaclass.instance_eval do 
             define_method("without_#{singular}") do
-              where("#{plural} = '{}'")
+              where("? = '{}'", plural)
             end
 
             define_method("with_#{singular}") do |arg=nil|
               if arg.blank?
-                where.not("#{plural} = '{}'")
+                where.not("? = '{}'", plural)
               else
                 where("? = ANY (#{plural})", arg.is_a?(Array) ? arg.first : arg)
               end
