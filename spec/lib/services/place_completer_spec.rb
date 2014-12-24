@@ -25,7 +25,7 @@ module Services
           expect( place.locality ).to eq('Shibuya')
           expect( place.street_addresses ).to eq( ["代々木2-14-3"] ) # Bonus -- should have "2 Chome-14 Yoyogi"
           expect( place.names ).to eq( ["Fuunji", "風雲児"] )
-          expect( place.phones ).to eq({ default: "+81364138480" })
+          expect( place.phones.symbolize_keys ).to eq({ default: "+81364138480" })
           expect( place.category ).to eq("Ramen / Noodle House")
         end
 
@@ -41,7 +41,7 @@ module Services
         it 'finds La Cevicheria in Cartagena', :vcr do
           place = PlaceCompleter.new({name: 'La Cevicheria', street_address: "Calle Stuart No 7-14", nearby: "Cartagena, Colombia"} ).complete!
           
-          expect( place.locality ).to eq "Cartagena"
+          expect( place.locality ).to eq "Cartagena de Indias"
           expect( place.country ).to eq "Colombia"
           expect( place.region ).to eq "Bolivar"
           expect( place.category ).to eq 'Seafood Restaurant'
@@ -53,15 +53,14 @@ module Services
         it "locates the Trident hotel in Mumbai, with 'Bombay' as nearby", :vcr do
           place = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: 'Bombay', street_address: 'Nariman Point, Mumbai, India'}).complete!
           expect( place.names ).to eq(["Trident Nariman Point", "The Trident"])
-          expect( place.phones ).to eq({ default: "+912266324343" })
+          expect( place.reload.phones.symbolize_keys ).to eq({ default: "+912266324343" })
           expect( place.region ).to eq("Maharashtra")
           expect( place.street_addresses ).to eq(["Nariman Point, Mumbai, India", "Nariman Point"])
-          expect( place.full_address ).to eq("Nariman Point, Mumbai, Maharashtra, India")
           expect( place.locality ).to eq("Mumbai")
           expect( place.category ).to eq('Hotel')
           expect( place.website ).to eq("http://www.tridenthotels.com")
-          expect( place.lat ).to eq 18.9255728
-          expect( place.lon ).to eq 72.8242221
+          expect( place.lat ).to be_within(0.01).of(18.9255728)
+          expect( place.lon ).to be_within(0.01).of(72.8242221)
         end
       end
 
@@ -96,7 +95,6 @@ module Services
 
           expect(place.locality).to eq('Cambridge')
           expect(place.region).to eq("Massachusetts")
-          expect(place.subregion).to eq("Middlesex County")
           expect(place.street_addresses).to eq(['364 Broadway'])
           expect(place.lat).to be_within(0.00001).of 42.3705576508449
           expect(place.lon).to be_within(0.00001).of -71.1043846607208
@@ -122,6 +120,8 @@ module Services
           expect( place.names.sort ).to eq ['Fuunji', 'Fu-Unji', '風雲児'].sort
           expect( place.street_addresses.sort ).to eq ['代々木2-14-3', "2 Chome-14 Yoyogi"].sort
           expect( place.extra.symbolize_keys ).to eq({ rating: '5', rating_tier: '5 star', twitter: '@fuunjiIsTheShit' })
+          expect( place.completion_steps ).to eq ["Geocode", "API", "Translate"]
+          expect( place.sublocality ).to eq "Yoyogi"
         end
       end
     end

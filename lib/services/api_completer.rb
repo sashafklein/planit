@@ -58,6 +58,8 @@ module Services
       place.locality = venue_locality unless place.locality.present? && geocoded
       place.set_country(venue_country) unless place.country.present? && geocoded
       place.set_region(venue_region) unless place.region.present? && geocoded
+
+      place.add_flag("Took information from identically named, distant FourSquare data with LatLon: #{lat}, #{lon}.") if name_stringency == 0.99 
       place.lat = venue_lat unless place.lat.present? && geocoded
       place.lon = venue_lon unless place.lon.present? && geocoded
     end
@@ -73,6 +75,7 @@ module Services
         case points_of_lat_lon_similarity
         when 3 then 0.7
         when 2 then 0.85
+        when 1 then 0.99
         else 2 # Reject, even if name matches
         end
       end 
@@ -86,7 +89,8 @@ module Services
     end
 
     def similar_name?
-      return true if name.without_common_symbols.non_latinate? || venue_name.without_common_symbols.non_latinate?
+      return true if name.to_s.without_common_symbols.non_latinate? || venue_name.to_s.without_common_symbols.non_latinate?
+
       place.names.any? do |name|
         distance = name.without_articles.without_common_symbols.match_distance( venue_name.without_articles.without_common_symbols ) || 2
         matches = (distance > name_stringency)

@@ -11,53 +11,72 @@ module Services
     def translate
       location_vals = [@place.locality, @place.region, @place.country, @place.subregion].reject(&:blank?)
 
-      return @place unless location_vals.any?(&:non_latinate?)
+      return success unless location_vals.any?(&:non_latinate?)
+
+      @place.set_country get_value(response, "country") if should_translate?(place.country)
+      @place.set_region get_value(response, "administrative_area_level_1") if should_translate?(place.region)
+      update_locale should_translate?(place.subregion), should_translate?(place.locality)
 
       get_results( @place.coordinate(', ') )
-
-      update_location_basics
-      @place
+      update_location_basics unless response.empty?
+      success
     end
 
     def load_region_info_from_nearby
-      return place unless atts[:nearby]
+      return failure unless atts[:nearby]
 
       get_results(atts[:nearby])
 
       update_location_basics(false)
-      @place
+      success
     end
 
     def narrow
-      return @place unless @place.street_address || @place.full_address 
+      return failure unless @place.pinnable
 
-      query = @place.street_address ? [@place.street_address, @place.locality, @place.subregion, @place.region, @place.country].reject(&:blank?).join(", ") : @place.full_address
-      get_results(query)
+      get_results(get_query)
 
-      return @place unless is_specific?
+      return failure unless response_address_is_specific?
 
-      update_locale
-      @place.lat = lat
-      @place.lon = lon
-      @place.postal_code = postal_code
-      @place.full_address ||= full_address
-      @place
+      if seems_accurate?
+        update_location_basics
+        @place.lat = lat
+        @place.lon = lon
+        @place.postal_code = postal_code
+        @place.full_address ||= full_address
+      else
+        note_if_lat_lon_possibly_reversed
+        update_location_basics(true, false) # Don't trust locality
+      end
+
+      notify_if_geolocation_data_missing
+
+      success
     end
 
     private
 
-    def update_location_basics(update_subregion=true)
-      @place.set_country get_value(response, "country")
-      @place.set_region get_value(response, "administrative_area_level_1") 
-      update_locale(update_subregion)
+    def seems_accurate?
+      return @sa if @sa
+
+      return @sa = false if location_type == "APPROXIMATE"
+      return @sa = true unless place.lat && place.lon
+      @sa = lat.points_of_similarity(place.lat) > 1 && lon.points_of_similarity(place.lon) > 1
     end
 
-    def update_locale(update_subregion=true)
+    def update_location_basics(update_subregion=true, update_locality=true, overwrite=false)
+      @place.set_country get_value(response, "country") if place.country.blank? || overwrite
+      @place.set_region get_value(response, "administrative_area_level_1") if place.region.blank? || overwrite
+      update_locale(update_subregion, update_locality)
+    end
+
+    def update_locale(update_subregion=true, update_locality=true)
       @place.subregion = get_value(response, "administrative_area_level_2") if update_subregion
-      @place.locality = get_value(response, "locality")
+      @place.locality = get_value(response, "locality") if update_locality
+      @place.sublocality = sublocality if update_locality
     end
 
-    def is_specific?
+    def response_address_is_specific?
       return false if response.blank?
       non_regional = full_address.cut(region, short_region, country, short_country, subregion, locality, postal_code, ',', ' ')
       non_regional.length > 2
@@ -95,6 +114,10 @@ module Services
       @locality ||= get_value(response, "locality")
     end
 
+    def sublocality
+      @sublocality ||= get_value(response, 'sublocality_level_1')
+    end
+
     def postal_code
       @postal_code ||= get_value(response, "postal_code", 'short_name')
     end
@@ -104,13 +127,59 @@ module Services
     end
 
     def get_results(query)
-      @response = Geocoder.search( query ).first.try(:data) || {}
+      @response = response_data(query) || response_data(place.coordinate(', ')) || {}
+    end
+
+    def location_type
+      response['geometry']['location_type']
+    end
+
+    def response_data(query)
+      Geocoder.search( query ).first.try(:data)
     end
 
     def get_value(response, type, length='long_name')
       return nil if response.blank?
       component = response['address_components'].find{ |c| c['types'].include?(type) }
       component ? component[length] : nil
+    end
+
+    def failure
+      { place: @place, success: false }
+    end
+
+    def success
+      { place: @place, success: true }
+    end
+
+    def notify_if_geolocation_data_missing
+      place.add_flag("Failed to find geolocation data for locality") if !locality && !place.locality
+      place.add_flag("Failed to find geolocation data for region") if !region && !place.region
+      place.add_flag("Failed to find geolocation data for country") if !country && !place.country
+    end
+
+    def note_if_lat_lon_possibly_reversed
+      return if [lat, lon, place.lat, place.lon].any?(&:nil?)
+      total_lat_lon_similarity = lat.points_of_similarity(place.lat) + lon.points_of_similarity(place.lon)
+      total_reversed_similarity = lat.points_of_similarity(place.lon) + lon.points_of_similarity(place.lat)
+      if total_reversed_similarity > total_lat_lon_similarity
+        place.add_flag("Possible Reversed Lat Lon. Place: #{place.coordinate}, Geocoder: #{[lat, lon].join(':') }")
+      end
+    end
+
+    def get_query
+      return @query if @query
+      if place.lat && place.lon 
+        @query = place.coordinate(", ")
+      elsif place.street_address
+        @query = [place.street_address, place.locality, place.subregion, place.region, place.country].reject(&:blank?).join(", ")
+      else
+        @query = place.full_address
+      end
+    end
+
+    def should_translate?(place_attr)
+      place_attr.blank? || place_attr.non_latinate?
     end
   end
 end

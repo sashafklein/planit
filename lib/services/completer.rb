@@ -4,7 +4,7 @@ module Services
     attr_accessor :user, :attrs, :decremented_attrs
     def initialize(attrs, user)
       @attrs, @user = attrs.recursive_symbolize_keys!, user
-      @decremented_attrs = attrs.dup
+      @decremented_attrs = @attrs.dup
     end
 
     def complete!
@@ -32,7 +32,7 @@ module Services
     end
 
     def create_plan!
-      return nil unless plan_attrs = decremented_attrs.delete(:plan)
+      plan_attrs = decremented_attrs.delete(:plan) || {}
       
       name = plan_attrs[:name] || 'Untitled Trip'
       plan = user.plans.where(name: name).first_or_create!

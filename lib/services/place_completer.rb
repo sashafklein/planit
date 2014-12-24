@@ -9,34 +9,41 @@ module Services
 
     def complete!
       @place = Place.find_or_initialize(attrs)
-      
+
       unless @place.persisted?
         load_region_info_from_nearby!
         geocode!
         api_complete!
         translate!
-      
+
         @place = @place.find_and_merge
-        save_with_photos!
       end
-      
+
+      save_with_photos!
       @place
     end
 
     private
 
     def geocode!
-      return unless @place.street_address || @place.full_address
-      @place = Services::Geolocater.new(place, attrs).narrow
-      @geocoded = true
+      return unless @place.pinnable
+      geolocation = Services::Geolocater.new(place, attrs).narrow
+      @place = geolocation[:place]
+      @place.add_completion_step("Geocode") if @geocoded = geolocation[:success]
     end
 
     def load_region_info_from_nearby!
-      @place = Services::Geolocater.new(place, attrs).load_region_info_from_nearby if attrs[:nearby]
+      if attrs[:nearby]
+        region_geolocation = Services::Geolocater.new(place, attrs).load_region_info_from_nearby
+        @place = region_geolocation[:place]
+        @place.add_completion_step("Load Region Info From Nearby") if region_geolocation[:success]
+      end
     end
 
     def translate!
-      @place = Services::Geolocater.new(place, attrs).translate
+      translation = Services::Geolocater.new(place, attrs).translate
+      @place = translation[:place]
+      @place.add_completion_step("Translate") if translation[:success]
     end
 
     def api_complete!
@@ -44,6 +51,7 @@ module Services
         @place
       else
         response = Services::ApiCompleter.new(@place, @attrs[:nearby], @geocoded).complete!
+        @place.add_completion_step("API")
         @place = response[:place]
         @photos += response[:photos]
         @place
@@ -55,7 +63,7 @@ module Services
       attributes[:street_addresses] = Array( attributes.delete(:street_addresses) ) + Array( attributes.delete(:street_address) )
       attributes[:categories] = Array( attributes.delete(:categories) ) + Array( attributes.delete(:category) )
       attributes[:phones] = { default: attributes.delete(:phone) } if attributes[:phone] && ! attributes[:phones]
-      attributes[:lat] = attributes[:lat] ? attributes[:lon].to_f : nil
+      attributes[:lat] = attributes[:lat] ? attributes[:lat].to_f : nil
       attributes[:lon] = attributes[:lon] ? attributes[:lon].to_f : nil
 
       if !attributes[:extra] || !attributes[:extra].is_a?(Hash)

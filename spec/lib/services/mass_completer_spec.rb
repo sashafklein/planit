@@ -35,13 +35,14 @@ module Services
 
         plans = marks.map{ |m| m.items.first }.map{ |i| i.plan }.uniq
         expect( plans.count ).to eq( 1 )
-        expect( plans.first.name ).to eq "JOURNEYS -  36 Hours  -  Amelia Island, Fla. - NYTimes.com"
+        expect( plans.first.name ).to eq "36 Hours  -  Amelia Island, Fla."
 
         florida_house_inn = Place.with_name("Florida House Inn").first
         expect( florida_house_inn.names ).to include('1857 Florida House Inn')
         expect( florida_house_inn.street_addresses ).to eq ["22 South Third Street", '20 S 3rd St']
         expect( florida_house_inn.phones ).to eq( { 'default' => "904-261-3300" } )
         expect( florida_house_inn.extra ).to eq( { 'section_title' => "Boardinghouse Brunch" } )
+        expect( florida_house_inn.completion_steps ).to eq ["Load Region Info From Nearby", "Geocode", "API", "Translate"]
         
         expect( florida_house_inn.locality ).to eq( 'Fernandina Beach' )
         expect( florida_house_inn.subregion ).to eq( 'Nassau County' )
