@@ -73,7 +73,7 @@ module Services
     def update_locale(update_subregion=true, update_locality=true)
       @place.subregion = get_value(response, "administrative_area_level_2") if update_subregion
       @place.locality = get_value(response, "locality") if update_locality
-      @place.extra[:sublocality] = sublocality if sublocality if update_locality
+      @place.sublocality = sublocality if update_locality
     end
 
     def response_address_is_specific?
@@ -153,9 +153,9 @@ module Services
     end
 
     def notify_if_geolocation_data_missing
-      place.flag("Failed to find geolocation data for locality") if !locality && !place.locality
-      place.flag("Failed to find geolocation data for region") if !region && !place.region
-      place.flag("Failed to find geolocation data for country") if !country && !place.country
+      place.add_flag("Failed to find geolocation data for locality") if !locality && !place.locality
+      place.add_flag("Failed to find geolocation data for region") if !region && !place.region
+      place.add_flag("Failed to find geolocation data for country") if !country && !place.country
     end
 
     def note_if_lat_lon_possibly_reversed
@@ -163,7 +163,7 @@ module Services
       total_lat_lon_similarity = lat.points_of_similarity(place.lat) + lon.points_of_similarity(place.lon)
       total_reversed_similarity = lat.points_of_similarity(place.lon) + lon.points_of_similarity(place.lat)
       if total_reversed_similarity > total_lat_lon_similarity
-        place.flag("Possible Reversed Lat Lon. Place: #{place.coordinate}, Geocoder: #{[lat, lon].join(':') }")
+        place.add_flag("Possible Reversed Lat Lon. Place: #{place.coordinate}, Geocoder: #{[lat, lon].join(':') }")
       end
     end
 

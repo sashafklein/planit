@@ -59,7 +59,7 @@ module Services
       place.set_country(venue_country) unless place.country.present? && geocoded
       place.set_region(venue_region) unless place.region.present? && geocoded
 
-      place.flag("Took information from identically named, distant FourSquare data with LatLon: #{lat}, #{lon}.") if name_stringency == 0.99 
+      place.add_flag("Took information from identically named, distant FourSquare data with LatLon: #{lat}, #{lon}.") if name_stringency == 0.99 
       place.lat = venue_lat unless place.lat.present? && geocoded
       place.lon = venue_lon unless place.lon.present? && geocoded
     end

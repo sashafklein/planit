@@ -119,7 +119,9 @@ module Services
           place = PlaceCompleter.new(hash).complete!
           expect( place.names.sort ).to eq ['Fuunji', 'Fu-Unji', '風雲児'].sort
           expect( place.street_addresses.sort ).to eq ['代々木2-14-3', "2 Chome-14 Yoyogi"].sort
-          expect( place.extra.symbolize_keys ).to eq({ rating: '5', rating_tier: '5 star', twitter: '@fuunjiIsTheShit', :completion_steps=>"[\"Geocode\", \"API\", \"Translate\"]", :sublocality=>"Yoyogi" })
+          expect( place.extra.symbolize_keys ).to eq({ rating: '5', rating_tier: '5 star', twitter: '@fuunjiIsTheShit' })
+          expect( place.completion_steps ).to eq ["Geocode", "API", "Translate"]
+          expect( place.sublocality ).to eq "Yoyogi"
         end
       end
     end

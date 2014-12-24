@@ -29,21 +29,21 @@ module Services
       return unless @place.pinnable
       geolocation = Services::Geolocater.new(place, attrs).narrow
       @place = geolocation[:place]
-      @place.completion_step("Geocode") if @geocoded = geolocation[:success]
+      @place.add_completion_step("Geocode") if @geocoded = geolocation[:success]
     end
 
     def load_region_info_from_nearby!
       if attrs[:nearby]
         region_geolocation = Services::Geolocater.new(place, attrs).load_region_info_from_nearby
         @place = region_geolocation[:place]
-        @place.completion_step("Load Region Info From Nearby") if region_geolocation[:success]
+        @place.add_completion_step("Load Region Info From Nearby") if region_geolocation[:success]
       end
     end
 
     def translate!
       translation = Services::Geolocater.new(place, attrs).translate
       @place = translation[:place]
-      @place.completion_step("Translate") if translation[:success]
+      @place.add_completion_step("Translate") if translation[:success]
     end
 
     def api_complete!
@@ -51,7 +51,7 @@ module Services
         @place
       else
         response = Services::ApiCompleter.new(@place, @attrs[:nearby], @geocoded).complete!
-        @place.completion_step("API")
+        @place.add_completion_step("API")
         @place = response[:place]
         @photos += response[:photos]
         @place

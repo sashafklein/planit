@@ -62,7 +62,7 @@ module Services
           @mark = Mark.create(user: @user, place: @place)
         end
 
-        it "finds the mark, and doesn't create duplicates" do
+        it "finds the mark, and doesn't create duplicates", :vcr do
           mark_count = Mark.count
           place_count = Place.count
 
@@ -128,7 +128,7 @@ module Services
         end
 
         context "tricky Google one" do
-          it "gets it too" do
+          it "gets it too", :vcr do
             m = Completer.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "Restaurante Los Almendros"), @user).complete!
             expect(m.country).to eq "Colombia"
             expect(m.region).to eq "Magdalena"
@@ -144,7 +144,7 @@ module Services
           expect( m.region ).to eq "New York"
 
           expect( m.place.extra['ratings'] ).to be_present
-          expect( m.place.extra['sublocality'] ).to eq("Brooklyn") # No Locality for Coney Island in Geocoder
+          expect( m.place.sublocality ).to eq("Brooklyn") # No Locality for Coney Island in Geocoder
           expect( m.place.flags ).to include ("Failed to find geolocation data for locality")
 
           i = m.items.first
@@ -159,7 +159,7 @@ module Services
           expect(m.locality).to eq "New York"
           
           p = m.place
-          expect(p.extra['sublocality']).to eq "Manhattan"
+          expect(m.place.sublocality).to eq "Manhattan"
 
           i = m.items.first
           expect(i.plan.name).to eq "New York for Jetsetters - Stay.com"
