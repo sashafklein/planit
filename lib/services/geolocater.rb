@@ -30,8 +30,7 @@ module Services
     def narrow
       return failure unless @place.pinnable
 
-      query = @place.street_address ? [@place.street_address, @place.locality, @place.subregion, @place.region, @place.country].reject(&:blank?).join(", ") : @place.full_address || place.coordinate(", ")
-      get_results(query)
+      get_results(get_query)
 
       return failure unless response_address_is_specific?
 
@@ -161,6 +160,17 @@ module Services
       total_reversed_similarity = lat.points_of_similarity(place.lon) + lon.points_of_similarity(place.lat)
       if total_reversed_similarity > total_lat_lon_similarity
         place.flag("Possible Reversed Lat Lon. Place: #{place.coordinate}, Geocoder: #{[lat, lon].join(':') }")
+      end
+    end
+
+    def get_query
+      return @query if @query
+      if place.lat && place.lon 
+        @query = place.coordinate(", ")
+      elsif place.street_address
+        @query = [place.street_address, place.locality, place.subregion, place.region, place.country].reject(&:blank?).join(", ")
+      else
+        @query = place.full_address
       end
     end
   end

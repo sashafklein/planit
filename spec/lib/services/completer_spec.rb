@@ -48,8 +48,7 @@ module Services
             m = c.complete!
             p = m.place
 
-            expect(p.images.count).to eq 5
-            expect(p.images.where(source: 'FourSquare').count).to eq 1
+            expect(p.images.count).to be > 3
             expect(p.images.where(source: 'Trip Advisor').count).to eq 4
           end
 
@@ -125,6 +124,14 @@ module Services
               start_date: "Fri, November 21, 2014",
               end_date: "Mon, November 24, 2014"
             }.stringify_keys)
+          end
+        end
+
+        context "tricky Google one" do
+          it "gets it too" do
+            m = Completer.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "Restaurante Los Almendros"), @user).complete!
+            expect(m.country).to eq "Colombia"
+            expect(m.region).to eq "Magdalena"
           end
         end
       end
