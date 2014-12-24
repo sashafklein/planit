@@ -21,6 +21,7 @@ class Place < ActiveRecord::Base
   scope :by_lat, -> (lat, points) { lat && points ? where("ROUND( CAST(lat as numeric), ? ) = ?", points, lat.round(points) ) : none }
   scope :by_lon, -> (lon, points) { lon && points ? where("ROUND( CAST(lon as numeric), ? ) = ?", points, lon.round(points) ) : none }
   scope :with_region_info, -> (atts) { where( atts.slice(:country, :region, :locality).select{ |k, v| v.present? }.map{ |k, v| { k => v.no_accents } }.first )}
+  scope :flagged, -> { where.not("extra @> hstore('flags', 'null')") }
 
   def self.find_or_initialize(atts)
     Services::PlaceFinder.new(atts).find!

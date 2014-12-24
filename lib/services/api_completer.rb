@@ -89,7 +89,7 @@ module Services
     end
 
     def similar_name?
-      return true if name.without_common_symbols.non_latinate? || venue_name.without_common_symbols.non_latinate?
+      return true if name.to_s.without_common_symbols.non_latinate? || venue_name.to_s.without_common_symbols.non_latinate?
 
       place.names.any? do |name|
         distance = name.without_articles.without_common_symbols.match_distance( venue_name.without_articles.without_common_symbols ) || 2

@@ -13,6 +13,10 @@ module Services
 
       return success unless location_vals.any?(&:non_latinate?)
 
+      @place.set_country get_value(response, "country") if should_translate?(place.country)
+      @place.set_region get_value(response, "administrative_area_level_1") if should_translate?(place.region)
+      update_locale should_translate?(place.subregion), should_translate?(place.locality)
+
       get_results( @place.coordinate(', ') )
       update_location_basics unless response.empty?
       success
@@ -172,6 +176,10 @@ module Services
       else
         @query = place.full_address
       end
+    end
+
+    def should_translate?(place_attr)
+      place_attr.blank? || place_attr.non_latinate?
     end
   end
 end
