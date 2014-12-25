@@ -36,6 +36,14 @@ class Mark < ActiveRecord::Base
     Place.center_coordinate(places)
   end
 
+  def self.allnames
+    places.map(&:name)
+  end
+
+  def self.allids
+    places.ids
+  end
+
   def show_icon
     @show_icon ||= Icon.new(category, lodging, meal, mark).filename
   end
