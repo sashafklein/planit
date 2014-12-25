@@ -9,13 +9,14 @@
 // SECTION BY SECTION
 
 - @plan.legs.each_with_index do |leg, index|
-  .print-header-subtitle
-    - if leg.name.present?
-      = leg.name
-    - else 
-      = leg.overall_locale
-    - if leg.days.count != 1 && @plan.legs.count != 1
-      %b= "(Day #{leg.first_day.order} to #{leg.last_day.order})"
+  - if leg.name.present? || leg.overall_locale.present?
+    .print-header-subtitle
+      - if leg.name.present?
+        = leg.name
+      - else
+        = leg.overall_locale
+      - if leg.days.count > 1 && @plan.legs.count > 1
+        %b= "(Day #{leg.first_day.order} to #{leg.last_day.order})"
 
   / - if leg.arrival
   /   .content-tab-wrap
@@ -41,10 +42,11 @@
   /         = print_travel(leg.departure['travel_data'].first, '0')
 
   - if @plan.bucket.present?
+    - other_legs = false unless @plan.legs.count > 1
     / - locale_list = get_locale_list(@plan.bucket)
     / - if locale_list.uniq.length > 0
     /   - locale_list.uniq.each_with_index do |locale, index|
-    = render partial: 'legs/print_bucket', locals: { bucket_locale: nil, bucket: @plan.bucket, index: index }
+    = render partial: 'legs/print_bucket', locals: { bucket_locale: nil, bucket: @plan.bucket, index: index, other_legs: other_legs }
 
 .clear
 

@@ -36,6 +36,14 @@ class Item < ActiveRecord::Base
     marks.coordinates
   end
 
+  def self.allnames
+    marks.allnames
+  end
+
+  def self.allids
+    marks.allids
+  end
+
   # INSTANCE METHODS
 
   def next

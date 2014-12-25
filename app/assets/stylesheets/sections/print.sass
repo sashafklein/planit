@@ -3,11 +3,8 @@
 .plans-print
 
 body.plans-print
+  background: #fff
   width: 750px
-
-  .print-overview
-    height: 750px
-    width: 750px
 
   .print-cover-wrap
 
@@ -38,10 +35,10 @@ body.plans-print
       line-height: 28px
       text-transform: uppercase
 
-  .print-map-canvas
+  .empty-print-map-box
     background: #eee
     margin-bottom: 10px
-    border: #bbb 1px solid
+    border: #ccc 1px solid
     &.page
       height: 750px
       width: 750px
@@ -54,6 +51,18 @@ body.plans-print
       width: 168px
       margin: 6px
       background: #fff
+
+  .print-map-canvas
+    &.page
+      height: 748px
+      width: 748px
+    &.day
+      float: right
+      height: 473px
+      width: 473px
+    &.tab
+      height: 166px
+      width: 166px
 
   .map-container
     height: 750px

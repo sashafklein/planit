@@ -18,7 +18,8 @@
         = print_distance(index, item_index, item, day)
 
   .content-tab-print.day-map
-    %map.print-map-canvas.day{ icon: map_icon, coordinates: day.coordinates_including_prior_days_lodging, type: 'print' }
+    .empty-print-map-box.day
+      %map.print-map-canvas.day{ coordinates: day.coordinates_including_prior_days_lodging, type: 'print' }
 
 - day.items.in_groups_of(4, 'open') do |items_in_four|
 

@@ -8,7 +8,6 @@
 - if item.lodging && @plan.starts_at
   .print-tab-content-line
     = "Stay the night (#{display_date(@plan, item).strftime ("%m/%d/%Y")})"
-= info_tab(item, { test_attr: :category })
 - if item.category
   .print-tab-content-line
     = item.category.titleize
@@ -17,8 +16,8 @@
     %b Notes:
     = item.notes.html_safe
 - if item.coordinate
-  .print-map-canvas.tab
-    %map.item-map-container{ icon: map_icon, coordinates: item.coordinate, type: "detail" }
+  .empty-print-map-box.tab
+    %map.print-map-canvas.tab{ coordinates: item.coordinate, type: "print" }
 - if item.names && item.names.length > 1
   .print-tab-content-line
     = " (#{item.names[1]})"

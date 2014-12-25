@@ -1,7 +1,7 @@
 = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'plan' }
 
 .plan-splash
-  %map.plan-map-canvas.off{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.coordinates }
+  %map.plan-map-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.coordinates, names: @plan.items.allnames.join('/+/'), ids: @plan.items.allids.join('+'), path: place_path(@plan.items.first) }
     / .expand-map
     /   .i.fa.fa-expand.fa-flip-horizontal
     .container.upfront
