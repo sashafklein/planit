@@ -14,7 +14,7 @@
       = leg.name
     - else 
       = leg.overall_locale
-    - if leg.days.length != 1 && @plan.legs.length != 1
+    - if leg.days.count != 1 && @plan.legs.count != 1
       %b= "(Day #{leg.first_day.order} to #{leg.last_day.order})"
 
   / - if leg.arrival

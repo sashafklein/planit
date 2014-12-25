@@ -36,8 +36,13 @@ class Day < ActiveRecord::Base
     previous.items.with_lodging.last
   end
 
-  def items_with_prior_lodging
+  def items_including_prior_days_lodging
     [previous_lodging].compact + items
+  end
+
+  def coordinates_including_prior_days_lodging
+    previous_coordinate = previous_lodging.coordinate unless !previous_lodging
+    [previous_coordinate, items.coordinates].compact.join("+")
   end
 
   def next

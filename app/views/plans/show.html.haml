@@ -1,20 +1,18 @@
-// CALCULATIONS
-
-// HEADER
-= render 'users/initheader', { :background => 'white', :color => 'black', :start => '', :page_type => 'plan' }
+= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'plan' }
 
 .plan-splash
-  .expand-map
-    .i.fa.fa-expand.fa-flip-horizontal
-  .container
-    .plan-name-wrap
-      %span.plan-name= @plan.name
-    - if @plan
-      .plan-more-info-wrap
-        %span.plan-more-info
-          = @plan.created_at.strftime('%b %Y') # back-date to article publishing?
-          %i= "|"
-          %i= "http://plan.it/src/2j0fef"
+  %map.plan-map-canvas.off{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.coordinates }
+    / .expand-map
+    /   .i.fa.fa-expand.fa-flip-horizontal
+    .container.upfront
+      .plan-name-wrap
+        %span.plan-name= @plan.name
+      - if @plan
+        .plan-more-info-wrap
+          %span.plan-more-info
+            = @plan.created_at.strftime('%b %Y') # back-date to article publishing?
+            %i= "|"
+            %i= "http://plan.it/src/2j0fef"
 
 - @plan.legs.each_with_index do |leg, index|
   - if leg.name.present?
@@ -34,23 +32,20 @@
               %span.day-info.locale= "#{day.items.first.place.locality}" # NOT JUST FIRST LOCALITY?
           // CALCULATE "DAY DISTANCE" -- POINT TO POINT, INCLUDING START / RETURN
 
-          - if day_distance = Distance.items_dist(day.items_with_prior_lodging)
+          - if day_distance = Distance.items_dist(day.items_including_prior_days_lodging)
             - if day_distance > 0
-              .day-info-separator
-                %span.day-info.distance
-                  = "#{day_distance} miles"
+              %span.day-info.distance
+                = "#{day_distance} miles"
           - lodging_list = get_lodging_list(day.items)
           - if lodging_list.length > 0
-            .day-info-separator
-              %span.day-info.housing= "#{lodging_list.join(", ")}"
+            %span.day-info.housing= "#{lodging_list.join(", ")}"
           - else
-            .day-info-separator
-              %span.day-info.housing.none= "Find Housing"
+            %span.day-info.housing.none= "Find Housing"
           .day-wingtip
         .thirteen.columns.day-tab-wrap
           - day_items_sorted = day.items.sort {|a,b| a[:order] <=> b[:order]}
           - day_items_sorted.each_with_index do |item, item_index|
-            = render partial: 'items/item_tab', locals: { item: item.place, row_index: item_index, item_index: item_index }
+            = render partial: 'items/item_tab', locals: { item: item, row_index: item_index, item_index: item_index }
           = render partial: 'items/add_item_tab'
 
 - items_to_display = @plan.bucket
@@ -69,8 +64,7 @@
     .thirteen.columns.day-tab-wrap
       / DIFFERENTIAL EDITING OPTIONS DEPENDING ON USER (OWNER OF PLAN? OWNER OF BUCKET? FRIEND [COMMENTING RIGHTS]? VIEWER [SAVE ONLY]  ?)
       - items_to_display.each_with_index do |item, item_index|
-        = render partial: 'items/item_tab', locals: { item: item.place, row_index: item_index, item_index: item_index }
+        = render partial: 'items/item_tab', locals: { item: item, row_index: item_index, item_index: item_index }
       = render partial: 'items/add_item_tab'
 
-.footer
-  = render partial: 'show/footer'
+= render 'show/footer', { :page_type => 'plan' }

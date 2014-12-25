@@ -42,7 +42,7 @@ class Plan < ActiveRecord::Base
   end
 
   def coordinates
-    legs.map(&:coordinates).join("+")
+    items.coordinates
   end
 
   def trailblaze_date

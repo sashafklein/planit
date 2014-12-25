@@ -1,0 +1,29 @@
+= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'user' }
+
+.band.gray.spaced
+  .container
+
+    .two-thirds.column
+
+      .dashboard-header= "World View"
+
+      %map.world-view-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @user.marks.coordinates }
+
+    .one-third.column
+
+      .dashboard-header= "Profile & Info"
+
+      Bookmarklet link:
+      = link_to 'Planit Bookmarklet', "#{ render partial: 'bookmarklets/bookmarklet.js.erb', locals: { user: (current_user ? current_user : OpenStruct.new(slug: 'fake-user')), host: request.base_url } }"
+
+      - @user.plans.each do |p|
+        .plan-link= link_to p.name, p
+
+.band.gray.spaced
+  .container
+
+    .thirteen.columns
+
+      .dashboard-header= "Recent Activity"
+
+= render 'show/footer', { :page_type => 'user' }

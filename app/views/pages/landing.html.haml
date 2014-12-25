@@ -1,2 +1,16 @@
-%h1 This is the landing page
-%h2 We'll change it shortly
+= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'simple', :title => ['explore. dream. discover.',''] }
+
+.band.spaced
+  .container
+    .sixteen.columns
+      .center-box
+
+        .simple-entry-header welcome
+        %hr.divider{ style: "width: 300px;"}
+
+        - if current_user
+          .landing_line= link_to "DASHBOARD", @user
+
+        - else      
+          .landing_line= link_to "LOG IN", new_user_session_path
+          .landing_line= link_to "SIGN UP", new_user_registration_path

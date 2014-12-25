@@ -1,5 +1,4 @@
-// HEADER
-= render 'users/initheader', { :background => 'white', :color => 'black', :start => '', :page_type => 'place' }
+= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'place' }
 
 .place-page
 
@@ -12,23 +11,24 @@
           - if @place.categories && @place.categories.length > 0
             = @place.categories.join(", ").titleize
           - else
-            .i.fa.fa-pencil
-            .span.gray= "Edit Info"
+            %i.fa.fa-pencil.place-show-icon
+            .span.gray= "Edit Destination Type"
       .three.columns.book-been-save-wrap
         .book-been-save-bar
           .click-to.book
-            .i.fa.fa-calendar
+            %i.fa.fa-calendar.place-show-icon
           .click-to.been
-            .i.fa.fa.fa-check-circle
+            %i.fa.fa.fa-check-circle.place-show-icon
           .click-to
-            .i.fa.fa-list-ol
+            %i.fa.fa-list-ol.place-show-icon
           .click-to.save
-            .i.fa.fa.fa-heart
+            %i.fa.fa.fa-heart.place-show-icon
     .container
       .five.columns.map-address-wrap
-        .map-canvas
+        .empty-map-box
+          %map.map-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @place.coordinate }
         - if @place.alt_names.any?
-          .address-info-line= "(#{@place.array.drop(1).join('), (')})"
+          .address-info-line= "(#{@place.names.drop(1).join('), (')})"
         - if @place.street_address
           .address-info-line= @place.street_address
         - if @place.second_address_array
@@ -38,12 +38,12 @@
         - if @place.website
           .address-info-line
             %a{:title => "website", :href => @place.website}
-              .i.fa.fa-link
+              %i.fa.fa-link.place-show-icon
               = @place.website
         - if @place.phones
           - @place.phones.each do |type, number|
             .address-info-line
-              .i.fa.fa-phone
+              %i.fa.fa-phone.place-show-icon
               = number
 
       .eleven.columns.photos-wrap
@@ -55,74 +55,24 @@
         - else
           .photos-gallery
             .add-photo
-              .i.fa.fa-camera-retro
+              %i.fa.fa-camera-retro
               ADD PHOTO
 
   .container
     .eleven.columns.reviews-and-sources-wrap
       .sources
         .reviews-and-sources-title
-          12 expert recommendations
+          Professional reviews:
         .reviews-and-sources-line
-          BlackBook Lose yourself in the dizzyingly hypnotic luxury of this Shinjuku lodge, star of Sofia Coppola's iconic film, Lost in Translation. 14 concierge.com A small hotel by Tokyo standards—only 177 rooms—the Park Hyatt fairly drips with luxury. Full Review → 8 Condé Nast Traveler 99.6 A swimming pool, a bamboo garden, and a restaurant occupy the three pyramidal atriums that crown the towers of this Shinjuku property. Full Review → 17 DK Eyewitness Remember the grandstand views Scarlett Johansson looked out on from her room at this hotel in the movie Lost in Translation? 6 Fodors Tick@2x Choice Sofia Coppola's classic film Lost in Translation was a love letter to this hotel... you may feel smitten as well. Full Review → 1 Frommer's Orange stars@2x Among the most gorgeous and sophisticated hotels in Japan, a perfect reflection of high-tech, avant-garde Tokyo in the 21st century. If you can afford it, stay here. Full Review → Be sure to book early, therefore, for the 52nd-floor New York Grill, one of Tokyo's best restaurants, offering a spectacular setting. 2 Lonely Planet Tick@2x Top Choice The service here is gracious and above all accommodating; perks for guests include complimentary mobile phone rentals. Full Review → 11 Michelin Guide All the guest rooms are decorated in tones of beige and green, with comfort taking priority over extravagance. Full Review → 10 Rough Guide The Park Hyatt remains the pick of Nishi-Shinjuku's luxury hotels. 5 Tablet 19.5 So when Tokyo takes on the boutique hotel, you can bet that it’ll be spectacular — and all the more so when it's a Park Hyatt hotel set fifty-odd stories above Shinjuku. Full Review → 9 Time Out Orange stars@2x Despite being Tokyo’s most decorated hotel, the Park Hyatt is perhaps now best known for its starring role in Sofia Coppola’s 2003 hit Lost in Translation. Full Review → 12 Travel + Leisure Other luxe hotels have since opened and some celebrities have moved on, but the 177-room Park Hyatt Tokyo continues to offer some of the best amenities of any property in the capital. Full Review → If the skies are clear, have lunch on the 40th floor in Kozue and gaze upon Mount Fuji as you nibble away on your bento box.
-      .reviews
+          BlackBook Lose yourself in the dizzyingly hypnotic 
         .reviews-and-sources-title
-          10 user recommendations
-          %a.btn.btn-danger{:href => "#"}
-            %i.fa.fa-trash-o.fa-lg
-            Delete
-          %a.btn.btn-default.btn-sm{:href => "#"}
-            %i.fa.fa-cog
-            Settings
-          %a.btn.btn-lg.btn-success{:href => "#"}
-            %i.fa.fa-flag.fa-2x.pull-left
-            Font Awesome
-            %br Version 4.2.0
-          .btn-group
-            %a.btn.btn-default{:href => "#"}
-              %i.fa.fa-align-left
-            %a.btn.btn-default{:href => "#"}
-              %i.fa.fa-align-center
-            %a.btn.btn-default{:href => "#"}
-              %i.fa.fa-align-right
-            %a.btn.btn-default{:href => "#"}
-              %i.fa.fa-align-justify
-          .input-group.margin-bottom-sm
-            %span.input-group-addon
-              %i.fa.fa-envelope-o.fa-fw
-            %input.form-control{:placeholder => "Email address", :type => "text"}
-          .input-group
-            %span.input-group-addon
-              %i.fa.fa-key.fa-fw
-            %input.form-control{:placeholder => "Password", :type => "password"}
-          .btn-group.open
-            %a.btn.btn-primary{:href => "#"}
-              %i.fa.fa-user.fa-fw
-              User
-            %a.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-              %span.fa.fa-caret-down
-            %ul.dropdown-menu
-              %li
-                %a{:href => "#"}
-                  %i.fa.fa-link.fa-fw
-                  Copy Link
-              %li
-                %a{:href => "#"}
-                  %i.fa.fa-envelope-o.fa-fw
-                  Email
-              %li
-                %a{:href => "#"}
-                  %i.fa.fa-facebook.fa-fw
-                  Facebook
-              %li
-                %a{:href => "#"}
-                  %i.fa.fa-twitter.fa-fw
-                  Twitter
-              %li.divider
-              %li
-                %a{:href => "#"}
-                  %i.fa.fa-print.fa-fw
-                  PDF
+          Featured in # plans:
+        .reviews-and-sources-line
+          Dropdown
+        .reviews-and-sources-title
+          Bookmarked by # planiteers:
+        .reviews-and-sources-line
+          Mosaic if user image
 
     .five.columns.more-info-wrap
       .other-info-wrap.hours-availability-booking
@@ -137,19 +87,17 @@
         / - if @place.reservations
       .other-info-wrap.menu-cost-reservations
         .more-info-line
-          .i.fa.fa-calendar
+          %i.fa.fa-calendar.place-show-icon
           Takes Reservations
         - if @place.price_tier
           .more-info-line
-            .i.fa.fa-money
+            %i.fa.fa-money.place-show-icon
             @place.price_tier
         .more-info-line
-          .i.fa.fa-cutlery
+          %i.fa.fa-cutlery.place-show-icon
           View Menu
         .more-info-line
-          .i.fa.fa-wifi
+          %i.fa.fa-wifi.place-show-icon
           Has WiFi
 
-.footer
-  = render partial: 'show/footer'
-
+/ = render 'show/footer', { :page_type => 'place' }

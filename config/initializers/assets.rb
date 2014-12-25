@@ -5,4 +5,15 @@ Rails.application.config.assets.version = (ENV["ASSETS_VERSION"] || "1.0")
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( api/bookmarklets/view.js sections/bookmarklet.css )
+Rails.application.config.assets.precompile += [ 
+  'api/bookmarklets/view.js', 
+  'sections/bookmarklet.css',   
+  'icons.eot',
+  'icons.svg',
+  'icons.ttf',
+  'icons.woff'
+]
+
+Rails.application.config.assets.paths += [
+  Rails.root.join('vendor', 'assets', 'fonts')
+]

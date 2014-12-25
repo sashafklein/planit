@@ -1,50 +1,52 @@
-.content-tab-wrap.dayby
-  .content-tab.large.clicked.dayby
-    .content-tab-referent
-      = baseAZ((row_index)+item_index+1)
-    - if item.show_icon 
-      .icon-tag.dayby.large= image_tag "icon_#{item.show_icon}.png"
-    / CHANGE BELOW ONCE WE IDENTIFY METHODOLOGY FOR TRAVEL
-    - if item.arrival || item.departure 
-      .transit.to
-        = image_tag "transit_to.png"
-      .transit.from
-        = image_tag "transit_from.png"
-    .content-tab-image.dayby{ class: "#{item.mark?('down') ? 'down' : ''}" }
-      %a{href: "#"}
-        = image_tag item.image.url
-    .content-tab-title= item.name
+/ OLD
 
-    - if item.notes
-      .content-tab-more-info= item.notes.html_safe
+/ .content-tab-wrap.dayby
+/   .content-tab.large.clicked.dayby
+/     .content-tab-referent
+/       = baseAZ((row_index)+item_index+1)
+/     - if item.show_icon 
+/       .icon-tag.dayby.large= image_tag "icon_#{item.show_icon}.png"
+/     / CHANGE BELOW ONCE WE IDENTIFY METHODOLOGY FOR TRAVEL
+/     - if item.arrival || item.departure 
+/       .transit.to
+/         = image_tag "transit_to.png"
+/       .transit.from
+/         = image_tag "transit_from.png"
+/     .content-tab-image.dayby{ class: "#{item.mark?('down') ? 'down' : ''}" }
+/       %a{href: "#"}
+/         = image_tag item.image.url
+/     .content-tab-title= item.name
 
-    - if item.recoby || item.downby
-      .content-tab-recosby
-        - if item.recoby 
-          - item.recoby.each do |recoby|
-            .social
-              %span.updown.recoby= recoby['name']
-              - if recoby['notes']
-                .notes.recoby
-                  = "\"#{recoby['notes']}\""
-                  %b.notch= " "
-        - if item.downby 
-          - item.downby.each do |downby|
-            .social
-              %span.updown.downby= downby['name']
-              - if downby['notes']
-                .notes.downby
-                  = "\"#{downby['notes']}\""
-                  %b.notch
+/     - if item.notes
+/       .content-tab-more-info= item.notes.html_safe
 
-    - if item.rating
-      .content-tab-more-info= "#{item.rating}/10 (#{item.source})"
+/     - if item.recoby || item.downby
+/       .content-tab-recosby
+/         - if item.recoby 
+/           - item.recoby.each do |recoby|
+/             .social
+/               %span.updown.recoby= recoby['name']
+/               - if recoby['notes']
+/                 .notes.recoby
+/                   = "\"#{recoby['notes']}\""
+/                   %b.notch= " "
+/         - if item.downby 
+/           - item.downby.each do |downby|
+/             .social
+/               %span.updown.downby= downby['name']
+/               - if downby['notes']
+/                 .notes.downby
+/                   = "\"#{downby['notes']}\""
+/                   %b.notch
 
-    - if item.source && item.source_url
-      .content-tab-get-more
-        %b Source:
-        = link_to item.source, item.source_url
-    - elsif item.source_url
-      .content-tab-get-more
-        %b Source:
-        = link_to item.source_url, item.source_url
+/     - if item.rating
+/       .content-tab-more-info= "#{item.rating}/10 (#{item.source})"
+
+/     - if item.source && item.source_url
+/       .content-tab-get-more
+/         %b Source:
+/         = link_to item.source, item.source_url
+/     - elsif item.source_url
+/       .content-tab-get-more
+/         %b Source:
+/         = link_to item.source_url, item.source_url

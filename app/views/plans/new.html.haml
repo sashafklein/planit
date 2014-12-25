@@ -1,35 +1,46 @@
-.exit-view
-  %a{href: "#"} Exit Import View
+= render 'show/header', { :background => 'black', :color => 'white', :start => '', :page_type => 'new', :title => ['create new','plan'] }
 
-.errors{ ng_if: 'errors.length', style: 'background: rgb(172, 140, 140); padding: 5px'} {{ errors }}
+.place-page
 
-= link_to image_tag("https://irs0.4sqi.net/img/general/width1260/x0R0UjoKpbnWlI-ndsNU86eg_r_gArC6_-okiSWAtd8.jpg", size: "40x40", alt: "+Planit"), "#{ render partial: 'bookmarklets/bookmarklet.js.erb', locals: { user: (current_user ? current_user : OpenStruct.new(slug: 'fake-user')), host: request.base_url } }"
+  .add-new-wrap
+    .container
+      .six.columns.add-new-form
+        .add-new-input.section
+          %i.fa.fa-paper-plane.new-plan-icon
+          %input{ placeholder: 'Plan Name'}
+        %hr.divider
+        .add-new-input.section
+          %i.fa.fa-level-down.new-plan-icon
+          %input{ placeholder: 'Arriving to Where? (Optional)'}
+        .add-new-input.section
+          %i.fa.fa-level-up.new-plan-icon
+          %input{ placeholder: 'Departing from Where? (Optional)'}
+        %hr.divider
+        .add-new-input.section
+          %i.fa.fa-calendar.new-plan-icon
+          %input{ placeholder: 'Start Date? (Optional)'}
+        .add-new-input.section
+          %i.fa.fa-suitcase.new-plan-icon
+          %input{ placeholder: 'Days? (Optional Trip Length)'}
+        %hr.divider
+        .add-new-input.section
+          %i.fa.fa-unlock-alt.new-plan-icon
+          %select.on-off-button.off
+            %option{ :value => "public", :selected => 'selected' }= "Public (Default)"
+            %option{ :value => "private" }= "Private"
+        %hr.divider
+        .mobile
+          .click-for-more
+            %i.fa.fa-caret-down
+            Import Places or Plans
+        .add-new-submit.disabled
+          Create Plan
+        .mobile
+          %hr.divider
 
-.wrapper
-
-  .API-wrapper
-
-    .API-selector
-      %select{ id: "API", ng_model: 'API' }
-        %option{ value: "foursquare" }= 'Foursquare'
-        / %option{ value: "google"}= 'Google'
-        %option{ value: "none"}= 'None'
-    
-    .input-area
-      / %input{ type: "text", name: "query", id: "query", placeholder: "Enter a destination", ng_model: 'destination', ng_on_enter_key: 'search()'}
-      / %input{ type: "text", name: "baselocation", id: "baselocation", placeholder: "located in/near (to focus search)", ng_model: 'locale', ng_on_enter_key: 'search()' }
-      / %button{ id: "search", ng_click: 'search()' } Search
-    
-      %textarea{ ng_model: 'csv', class: 'input-text', placeholder: "Enter single or multiple lines, formatted in order* with comma-separation:\n\nDestination, Near/in, Trip Day #, Lodging? ('true' or blank), Meal? ('breakfast', 'lunch', or 'dinner'), Notes, Time of Day (military style '00:00') \n\nAs an example:\n\nFairmont Hotel, SF CA, 1, true,\nKnead Patisserie, San Francisco CA,,breakfast, <- CORRECT\nKnead, Patisserie, San Francisco, CA, breakfast, <--INCORRECT\n\nLeave all commas", rows: '12' }
-      %button{ ng_click: 'batchFetch()' } Batch Fetch
-          
-      .output_area
-        %textarea{ id: "result", class: 'output-text', ng_bind: 'output', placeholder: "YML results\n\nReminder on comma format (no line breaks):\n\n(1) Destination\n(2) Near/in\n(3) Trip Day #\n(4) Lodging? ('true' or blank)\n(5) Meal? ('breakfast', 'lunch', or 'dinner')\n(6) Notes\n(7) Time of Day (military style '00:00')", rows: '100'}
-      
-      End  
-
-  .img-wrapper
-    %img{ src: image_path("tab_stand_in.png"), id: "photo", ng_src: '{{photo}}' }
+      .ten.columns
+        .import-bucket
+          Imported Items/Plans would display here?
 
 
-      
+/ = render 'show/footer', { :page_type => 'new' }

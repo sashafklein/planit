@@ -1,0 +1,30 @@
+= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'simple', :title => ['explore. dream. discover.',''] }
+
+.band.spaced
+  .container
+    .sixteen.columns
+      .center-box
+
+        .simple-entry-header Change your password
+        %hr.divider{ style: "width: 300px;"}
+
+        .simple-entry-form
+          = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+            = f.error_notification
+            = f.input :reset_password_token, as: :hidden
+            = f.full_error :reset_password_token
+            .simple-entry-form-section
+              %i.fa.fa-envelope.simple-form-icon
+              = f.input :email, required: true, disabled: true, placeholder: @resource.email
+            .simple-entry-form-section
+              %i.fa.fa-key.simple-form-icon
+              = f.input :password, required: true, autofocus: true, placeholder: 'New password'
+            .simple-entry-form-section
+              %i.fa.fa-key.simple-form-icon
+              = f.input :password_confirmation, required: true, placeholder: 'Confirm Password'
+            .simple-entry-form-section.form-actions.right
+              = f.button :submit, "Change"
+
+        %hr.divider{ style: "width: 300px;"}
+        .simple-entry-links
+          = render "devise/shared/links"

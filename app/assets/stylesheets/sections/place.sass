@@ -1,6 +1,114 @@
 .place-page
 
-  // PLAN HEADER
+  // PLACE NEW
+
+  .add-new-wrap
+    padding: 20px 0
+    &.gray
+      background: #ddd
+      border-top: #eee 1px solid
+      border-bottom: #bbb 1px solid
+
+  .add-new-form
+    padding: 0px
+    margin-bottom: 10px
+    font-size: 22px
+    line-height: 22px
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+
+    .add-new-input
+      input
+        -webkit-border-radius: 2px
+        -moz-border-radius: 2px
+        border-radius: 2px
+        border: 1px solid #bbb
+        display: inline-block
+        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+        font-size: 16px
+        line-height: 22px
+        padding: 3px 8px
+        &:disabled
+          background: #eee
+          border: 1px solid #ccc
+
+      .on-off-button, select.on-off-button
+        display: inline-block
+        padding: 3px 8px
+        color: #777
+        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+        font-weight: normal
+        font-size: 16px
+        line-height: 22px
+        -webkit-border-radius: 2px
+        -moz-border-radius: 2px
+        border-radius: 2px
+        margin: 0
+        &.on
+          background: #fff
+          border: 1px solid #bbb
+        &.off
+          background: #eee
+          border: 1px solid #ccc
+          border-bottom: 2px solid #aaa
+
+      &.section
+        padding: 5px 0
+        .new-place-icon
+          text-align: center
+          width: 22px
+          margin-right: 3px
+          vertical-align: middle
+      .sub-line
+        padding: 0px 26px 5px 26px
+        font-size: 14px
+        line-height: 16px
+        .new-place-icon-small
+          text-align: center
+          width: 18px
+          padding: 6px
+
+    .click-for-more
+      float: left
+      display: inline-block
+      padding: 3px 8px
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-weight: bold
+      font-size: 13px
+      line-height: 22px
+      color: #777
+      text-shadow: 0px 1px 1px #fff
+      border: 1px solid rgba(0,0,0,0)
+      border-bottom: 3px solid rgba(0,0,0,0)
+      margin: 5px 0 10px 0
+      i
+        padding-right: 5px
+
+  .add-new-submit
+    float: right
+    display: inline-block
+    padding: 3px 8px
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-weight: bold
+    font-size: 16px
+    line-height: 22px
+    color: #333
+    text-shadow: 0px 1px 1px #fff
+    -webkit-border-radius: 3px
+    -moz-border-radius: 3px
+    border-radius: 3px
+    border: 1px solid #ccc
+    border-bottom: 3px solid #aaa
+    background: #fff
+    margin: 5px 0 10px 0
+    cursor: pointer
+    &.halo
+      margin: 5px 10px 10px 0
+    &.disabled
+      color: #777
+      background: #ddd
+
+  // PLACE PAGE
+
   .place-page-splash
     background: #ccc
     background: image-url('gray_over_white_band.png') repeat-x
@@ -32,7 +140,7 @@
     .gray
       display: inline
       color: #333
-    .i
+    .place-show-icon
       color: #777
       padding: 0px 1px      
 
@@ -59,10 +167,16 @@
     &:hover
       border-bottom: #fff 2px solid
       background: rgb(23, 42, 138)
-
     &.save
     &.been
     &.book
+
+  .tab-caption
+    font-size: 14px
+    line-height: 16px
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    &.gray
+    color: #777
 
   .map-address-wrap
     display: block
@@ -80,6 +194,9 @@
     margin-bottom: 15px
 
   .map-canvas
+    border: #bbb 1px solid
+
+  .empty-map-box
     background: #ccc
     margin-bottom: 10px
 
@@ -90,7 +207,7 @@
     line-height: 15px
     color: #000
     text-align: left
-    .i
+    .place-show-icon
       color: #777
       padding: 0px 1px
 
@@ -124,7 +241,7 @@
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
     font-weight: bold
     color: #eee
-    .i
+    i
       display: block
       padding-bottom: 5px
       font-size: 2em
@@ -170,13 +287,20 @@
     line-height: 17px
     color: #000
     text-align: left
-    .i
+    .place-show-icon
       color: #aaa
       padding: 0px 5px 0px 1px
 
   // TAB SIZING
 
   // *Computer (Regular)
+
+  .add-new-form
+    .add-new-input
+      input
+        width: 308px
+    .on-off-button
+      width: 308px
 
   .book-been-save-wrap
     padding: 15px 0px 5px 0px
@@ -185,11 +309,17 @@
   .book-been-save-bar
     display: inline-block
 
+  .empty-map-box
+    height: 262px
+
   .map-canvas
     height: 262px
 
   .photos-gallery
     height: 440px
+    &.new
+      height: 187px
+      margin-bottom: 10px
 
   .reviews-and-sources-wrap
     padding-right: 20px
@@ -224,6 +354,16 @@
   // #Tablet (Portrait)
   @media only screen and (min-width: 768px) and (max-width: 959px)
 
+    .add-new-wrap
+      min-height: 10px
+
+    .add-new-form
+      .add-new-input
+        input
+          width: 236px
+      .on-off-button
+        width: 236px
+
     .book-been-save-wrap
       padding: 15px 0px 5px 0px
       text-align: right
@@ -231,11 +371,16 @@
     .book-been-save-bar
       display: inline-block
 
+    .empty-map-box
+      height: 202px
+
     .map-canvas
       height: 202px
 
     .photos-gallery
       height: 350px
+      &.new
+        height: 144px
 
     .reviews-and-sources-wrap
       padding-right: 20px
@@ -249,11 +394,24 @@
   // #Mobile (Portrait) <-- smallest
   @media only screen and (max-width: 767px)
 
+    .add-new-wrap
+      min-height: 10px
+
+    .add-new-form
+      .add-new-input
+        input
+          width: 268px
+      .on-off-button
+        width: 268px
+
     .book-been-save-wrap
       padding: 0px 0px 10px 0px
 
     .book-been-save-bar
       display: block
+
+    .empty-map-box
+      height: 282px
 
     .map-canvas
       height: 282px
@@ -273,17 +431,36 @@
   // #Mobile (Landscape)
   @media only screen and (min-width: 480px) and (max-width: 767px)
 
+    .add-new-wrap
+      min-height: 10px
+
+    .add-new-form
+      .add-new-input
+        input
+          width: 388px
+      .on-off-button
+        width: 388px
+
     .book-been-save-wrap
       padding: 0px 0px 10px 0px
 
     .book-been-save-bar
       display: block
 
+    .empty-map-box
+      height: 287px
+      &.new
+        height: 191px
+
     .map-canvas
-      height: 402px
+      height: 287px
+      &.new
+        height: 191px
 
     .photos-gallery
       height: 287px
+      &.new
+        height: 191px
       
     .reviews-and-sources-wrap
       padding-right: 0px

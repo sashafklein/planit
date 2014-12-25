@@ -10,7 +10,7 @@ class Mark < ActiveRecord::Base
   has_many :items
   has_many :images, as: :imageable
 
-  delegate :names, :name, :categories, :category, :coordinate, :url, :phones, :phone, :website, :street_address, :country, :region, :locality, to: :place
+  delegate :names, :name, :categories, :category, :coordinate, :url, :phones, :phone, :website, :street_address, :country, :region, :locality, :sublocality, to: :place
   delegate :full, :lodging, to: :place, prefix: true
 
   has_one :arrival, class_name: 'Travel', foreign_key: 'to_id'

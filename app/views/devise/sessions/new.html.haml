@@ -1,0 +1,25 @@
+= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'simple', :title => ['explore. dream. discover.',''] }
+
+.band.spaced
+  .container
+    .sixteen.columns
+      .center-box
+
+        .simple-entry-header LOG IN
+        %hr.divider{ style: "width: 300px;"}
+
+        .simple-entry-form
+          = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            .simple-entry-form-section
+              %i.fa.fa-envelope.simple-form-icon
+              = f.input :email, required: true, autofocus: true, placeholder: 'Email'
+            .simple-entry-form-section
+              %i.fa.fa-key.simple-form-icon
+              = f.input :password, required: true, placeholder: 'Password'
+            .simple-entry-form-section.left
+              = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+            .simple-entry-form-section.form-actions.right
+              = f.button :submit, "Sign in"
+        %hr.divider{ style: "width: 300px;"}
+        .simple-entry-links
+          = render "devise/shared/links"

@@ -29,7 +29,7 @@ class Leg < ActiveRecord::Base
   def overall_locale
     return comma_amp(countries) unless countries.length >= 1
     return comma_amp(regions) unless regions.length >= 1
-    return comma_amp(localities) unless localities < 2
+    return comma_amp(localities) unless localities.length < 2
     return "#{localities.first}, #{countries.first}" unless !localities.present? && !countries.present?
     return countries.first unless !countries.present?
     return localities.first unless !localities.present?

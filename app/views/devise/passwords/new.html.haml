@@ -1,0 +1,22 @@
+= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'simple', :title => ['Not all who wander are lost.',''] }
+
+.band.spaced
+  .container
+    .sixteen.columns
+      .center-box
+
+        .simple-entry-header Forgot your password?
+        %hr.divider{ style: "width: 300px;"}
+
+        .simple-entry-form
+          = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+            = f.error_notification
+            .simple-entry-form-section
+              %i.fa.fa-envelope.simple-form-icon
+              = f.input :email, required: true, autofocus: true, placeholder: 'Email'
+            .simple-entry-form-section.form-actions.right
+              = f.button :submit, "Send Reset"
+
+        %hr.divider{ style: "width: 300px;"}
+        .simple-entry-links
+          = render "devise/shared/links"

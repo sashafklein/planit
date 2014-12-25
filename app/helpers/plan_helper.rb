@@ -214,15 +214,10 @@ module PlanHelper
   end
 
   def get_locale_list(item_list)
-    locale_list = []
-    neighborhood_list = []
-    item_list.places.each do |e|
-      locale_list << e.locality unless !e.locality || e.locality.length == 0
-    end
-    return locale_list
-    #   neighborhood_list << e.neighborhood unless !e.neighborhood || e.neighborhood.length == 0
-    # if locale_list.uniq < 2
-    #   locale_list = neighborhood_list
+    locality_list = item_list.places.pluck(:locality)
+    return locality_list.compact.uniq unless locality_list.compact.uniq.count < 2
+    sublocality_list = item_list.places.pluck(:sublocality)
+    return sublocality_list.compact.uniq
   end
 
 end
