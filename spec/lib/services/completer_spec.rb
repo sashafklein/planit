@@ -34,7 +34,7 @@ module Services
             expect(mark.place.images.first).to be_present
           end
 
-          it "ignores but retains unusable data" do
+          it "ignores but retains unusable data", :vcr do
             expect_any_instance_of(Services::PlaceCompleter).to receive(:api_complete!)
             expect_any_instance_of(Services::PlaceCompleter).to receive(:geocode!)
 
@@ -84,7 +84,7 @@ module Services
 
       context "with sequence data" do
         context "without legs" do
-          it "creates an item, associated with day and plan" do
+          it "creates an item, associated with day and plan", :vcr do
             expect_any_instance_of(Services::PlaceCompleter).to receive(:api_complete!)
             expect_any_instance_of(Services::PlaceCompleter).to receive(:geocode!)
             expect(Item.count).to eq(0)

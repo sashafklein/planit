@@ -32,6 +32,7 @@ module Services
     end
 
     def create_plan!
+      return unless attrs[:item] || attrs[:plan] || attrs[:day]
       plan_attrs = decremented_attrs.delete(:plan) || {}
       
       name = plan_attrs[:name] || 'Untitled Trip'
