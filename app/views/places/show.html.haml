@@ -25,9 +25,10 @@
             %i.fa.fa.fa-heart.place-show-icon
     .container
       .five.columns.map-address-wrap
-        %map.map-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @place.coordinate }
+        .empty-map-box
+          %map.map-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @place.coordinate }
         - if @place.alt_names.any?
-          .address-info-line= "(#{@place.array.drop(1).join('), (')})"
+          .address-info-line= "(#{@place.names.drop(1).join('), (')})"
         - if @place.street_address
           .address-info-line= @place.street_address
         - if @place.second_address_array

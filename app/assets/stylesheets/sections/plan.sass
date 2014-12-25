@@ -1,19 +1,21 @@
 // PLAN TOP-SECTION
 .plan-splash
-  height: 350px
+  height: 352px
   background: #333
-  // border-bottom: #fff 1px solid
-  // border-top: 1px #222 solid
+  border-top: #bbb 1px solid
+  border-bottom: #999 1px solid
   z-index: 1
 
 .plan-map-canvas
   height: 350px
   // position: fixed !important
   position: absolute
-  top: 75
+  top: 75px
   right: 0
   left: 0
-  z-index: 2
+  z-index: 150
+  &.expanded
+    bottom: 0 !important
 
 .container.upfront
   z-index: 4999
@@ -70,6 +72,7 @@
   line-height: 22px
   text-align: center
   overflow: hidden
+  z-index: 5004
   &:hover
     background: rgba(255, 255, 255, 0.6)
     color: #000
@@ -81,7 +84,8 @@
   border-bottom: 1px #aaa solid
 
 .day-info-wrap
-  padding: 10px 10px
+  margin: 10px 10px
+  padding: 0
   // background: #fcfcfc
   // border-bottom: 1px #ddd solid
 
@@ -93,25 +97,33 @@
   z-index: 2
 
 .day-number-separator
-  padding: 0px 0px 5px 0px
+  margin: 0
+  padding: 0
   text-align: left
   z-index: 1
+  font-size: 13px
+  line-height: 24px
 
 .day-info-separator
-  padding: 0px 0px 2px 0px
+  margin: 0px 0px 2px 0px
+  padding: 0
   text-align: left
   z-index: 1
+  font-size: 13px
+  line-height: 13px
 
 .day-info
   display: inline-block
-  padding: 0px 8px
+  padding: 7px 8px
   font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
   font-size: 13px
-  line-height: 26px
+  line-height: 13px
   font-weight: bold
   white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
   color: #fff
-  margin: 1px 0
+  margin: 0
 
   &.number
     padding: 7px 10px
@@ -169,6 +181,9 @@
 
 // *Computer (Regular)
 
+.day-info
+  max-width: 150px
+
 .day-wingtip
   right: 770px
   display: block
@@ -176,6 +191,9 @@
 
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
+
+  .day-info
+    max-width: 118px
 
   .day-wingtip
     right: 614px
@@ -191,6 +209,12 @@
     line-height: 34px
     padding: 3px 0px
 
+  .day-info
+    max-width: 284px
+
+  .day-info-separator
+    margin: 0px 0px 12px 0px
+
   .day-wingtip
     display: none
     visibility: hidden
@@ -202,6 +226,12 @@
     font-size: 20px
     line-height: 34px
     padding: 3px 0px
+
+  .day-info-separator
+    margin: 0px 0px 12px 0px
+
+  .day-info
+    max-width: 395px
 
   .day-wingtip
     display: none

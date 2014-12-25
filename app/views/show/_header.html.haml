@@ -22,14 +22,14 @@
           .page-title.extra{ class: color }= title.last.upcase
         - if page_type == 'new'
           .main-menu-container{ class: color }
-            = link_to user_path(current_user), class: "a-stay-color hover-stay-color a-#{background} h-#{background}" do
+            = link_to user_path(current_user), class: "a-override a-#{background} h-#{background}" do
               %i.fa.fa-arrow-left.main-menu-icon
         - else
           .main-menu-container.user-icon{ class: color }
-            %a.dropdown-toggle.a-stay-color{ class: "a-#{background} h-#{background}", "data-toggle" => "dropdown", :href => "#" }
+            %a.dropdown-toggle.a-override{ class: "a-#{background} h-#{background}", "data-toggle" => "dropdown", :href => "#" }
               %i.fa.fa-user.main-menu-icon
           .main-menu-container.main-menu{ class: color }
-            %i.fa.fa-bars.a-stay-color.main-menu-icon.dropdown-toggle{ class: "a-#{background} h-#{background}" }
+            %i.fa.fa-bars.a-override.main-menu-icon.dropdown-toggle{ class: "a-#{background} h-#{background}" }
           %ul.dropdown-menu
             - if current_user
               %li
@@ -54,11 +54,11 @@
                 = link_to "Sign Up", new_user_registration_path
         .side-menu-container{ class: "#{color} #{page_type}" }
           - if current_user
-            %strong.a-stay-color.h-neon{ class: "a-#{color}" }= link_to "DASHBOARD", @user
+            %strong.a-override.h-neon{ class: "a-#{color}" }= link_to "DASHBOARD", user_path(current_user)
           - else
-            %strong.a-stay-color.h-neon{ class: "a-#{color}" }= link_to "SIGN UP", new_user_registration_path
+            %strong.a-override.h-neon{ class: "a-#{color}" }= link_to "SIGN UP", new_user_registration_path
             %span.divider= "|"
-            %strong.a-stay-color.a-gray.h-neon= link_to "LOG IN", new_user_session_path
+            %strong.a-override.a-gray.h-neon= link_to "LOG IN", new_user_session_path
 
   .page-header-band{ class: page_type }
     .container

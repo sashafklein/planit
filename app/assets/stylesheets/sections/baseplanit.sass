@@ -54,7 +54,7 @@ hr.divider
   &.spaced
     padding: 17px 0 18px 0
 
-.a-stay-color, a.a-stay-color
+.a-override, a.a-override
   &.a-gray
     color: #777
     a, a:link, a:visited
@@ -68,20 +68,40 @@ hr.divider
     a, a:link, a:visited
       color: #fff
   &.h-neon
-    &:hover
+    &:hover, &:active
       color: #d00d23      
     a:hover, a:active
       color: #d00d23
   &.h-black
-    &:hover
+    &:hover, &:active
       color: #000      
     a:hover, a:active
       color: #000
   &.h-white
-    &:hover
+    &:hover, &:active
       color: #fff      
     a:hover, a:active
       color: #fff
+  &.u-none
+    text-decoration: none
+    a, a:link, a:visited, a:hover, a:active
+      text-decoration: none
+    &:hover, &:active
+      text-decoration: none
+  &.u-hover
+    text-decoration: none
+    a, a:link, a:visited
+      text-decoration: none
+    a:hover, a:active, &:hover, &:active
+      text-decoration: underline
+  &.u-both
+    text-decoration: underline
+    a, a:link, a:visited
+      text-decoration: underline
+    a:hover, a:active, &:hover, &:active
+      text-decoration: underline
+
+
 
 // TAB SIZING
 

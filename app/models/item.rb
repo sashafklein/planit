@@ -6,7 +6,7 @@ class Item < ActiveRecord::Base
   belongs_to :plan
   belongs_to :day
 
-  delegate :names, :categories, :category, :coordinate, :lat, :lon, :url, :phones, :phone, :website, :street_address, :country, :region, :locality, to: :place
+  delegate :names, :categories, :category, :coordinate, :lat, :lon, :url, :phones, :phone, :website, :street_address, :country, :region, :locality, :sublocality, to: :place
   delegate :place, :notes, :name, to: :mark
   delegate :leg, to: :day
   validates_presence_of :mark, :plan
@@ -63,7 +63,7 @@ class Item < ActiveRecord::Base
   # INDIVIDUAL ITEM PASS THROUGH LINKAGES
 
   def image
-    self.place.images.first
+    place.image
   end
 
   def source
