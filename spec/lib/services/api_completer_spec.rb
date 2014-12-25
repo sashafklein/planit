@@ -41,7 +41,7 @@ module Services
       end
 
       context "with insufficient information" do
-        it "returns original without name" do
+        it "returns original without name", :vcr do
           place = Place.new({lat: 37.74422249388305, lon: -122.4352317663816})
           completed = ApiCompleter.new(place).complete!
           c_place = completed[:place]
@@ -49,7 +49,7 @@ module Services
           expect( c_place ).to eq( place )
         end
 
-        it "returns original without locality" do
+        it "returns original without locality", :vcr do
           place = Place.new({names: ["Contigo"], street_addresses: ['1320 Castro St']})
           completed = ApiCompleter.new(place).complete!
           c_place = completed[:place]

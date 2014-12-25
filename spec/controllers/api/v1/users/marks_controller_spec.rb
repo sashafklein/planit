@@ -72,14 +72,14 @@ describe Api::V1::Users::MarksController do
       it "calls the right scraper", :vcr do
         fake_scraper_data = [{ key: 'whatever'}]
         expect(Scrapers::TripadvisorMod::ItemReview).to receive(:new).with(fuunji_url, fuunji_doc) { double({ data: fake_scraper_data }) }
-        expect(Services::MassCompleter).to receive(:new).with(fake_scraper_data, @user).and_return( double(complete!: true) )
-        post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id
+        expect(Services::MassCompleter).to receive(:new).with(fake_scraper_data, @user).and_return( double(delay_complete!: true) )
+        post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id, delay: false
       end
 
       it "saves new information to the user", :vcr do
         expect( @user.marks.count ).to eq 0
         
-        post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id
+        post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id, delay: false
         mark = @user.marks.first
 
         expect(mark.place.name).to eq "Fuunji"
@@ -90,7 +90,8 @@ describe Api::V1::Users::MarksController do
       it "works identically without the page", :vcr do
         expect( @user.marks.count ).to eq 0
         
-        post :scrape, url: fuunji_url, user_id: @user.id
+        post :scrape, url: fuunji_url, user_id: @user.id, delay: false
+
         mark = @user.marks.first
 
         expect(mark.place.name).to eq "Fuunji"
@@ -102,21 +103,19 @@ describe Api::V1::Users::MarksController do
     context "whole lotta places" do
       it "serializes and saves EVERYTHING", :vcr do
         expect( @user.marks.count ).to eq 0
-        post :scrape, url: 'http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0', user_id: @user.id
+        
+        post :scrape, url: 'http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0', user_id: @user.id, delay: false
 
         plan = @user.plans.first
         items = plan.items
 
         expect( @user.plans.count ).to eq 1
+        
         expect( @user.items.count ).to eq Place.count
-        expect( @user.marks.count ).to eq Place.count
-        expect( @user.items ).to eq plan.items
         expect( items.count ).to eq 18
-        expect( response_body.count ).to eq 18
-        binding.pry
-        scraped = YAML.load_file( File.join(Rails.root, 'spec', 'support', 'pages', 'nytimes', 'bogota.yml') )
-        expect( scraped.map{ |e| e['place'] }.map{ |p| p['name'] }.compact.sort ).to eq( items.places.pluck(:names).map(&:first).sort )
-
+        expect( @user.marks.count ).to eq Place.count
+        
+        expect( @user.items.pluck(:id).sort ).to eq plan.items.pluck(:id).sort
       end
     end
   end
