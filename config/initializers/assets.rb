@@ -15,5 +15,5 @@ Rails.application.config.assets.precompile += [
 ]
 
 Rails.application.config.assets.paths += [
-  Rails.root.join('vendor', 'assets', 'fonts')
+  Rails.root.join('vendor', 'assets', 'fonts'),
 ]

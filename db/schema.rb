@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141224183551) do
+ActiveRecord::Schema.define(version: 20141226015901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,14 +71,16 @@ ActiveRecord::Schema.define(version: 20141224183551) do
   add_index "images", ["uploader_id"], name: "index_images_on_uploader_id", using: :btree
 
   create_table "items", force: true do |t|
-    t.integer "mark_id"
-    t.integer "plan_id"
-    t.integer "day_id"
-    t.integer "order"
-    t.integer "day_of_week", default: 0
-    t.string  "start_time"
-    t.float   "duration"
-    t.hstore  "extra",       default: {}
+    t.integer  "mark_id"
+    t.integer  "plan_id"
+    t.integer  "day_id"
+    t.integer  "order"
+    t.integer  "day_of_week", default: 0
+    t.string   "start_time"
+    t.float    "duration"
+    t.hstore   "extra",       default: {}
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "items", ["day_id"], name: "index_items_on_day_id", using: :btree

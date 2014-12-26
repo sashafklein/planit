@@ -7,8 +7,17 @@
 
       .dashboard-header= "World View"
 
-      .empty-map-canvas.world-view
-        %map.world-view-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @user.marks.coordinates, names: @user.marks.allnames.join('/+/'), ids: @user.marks.allids.join('+'), path: place_path(@user.marks.first) }
+      .world-view-map-wrap
+        .empty-map-box.world-view
+          %map.world-view-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @user.marks.coordinates, names: @user.marks.allnames.join('/+/'), ids: @user.marks.allids.join('+'), path: place_path(@user.marks.first), type: 'worldview' }
+        .tab-caption
+          %span.fa-stack.gray
+            %i.fa.fa-circle.fa-stack-2x
+            %span.icon-place.fa-stack-1x.fa-inverse
+          %span.gray= "#{@user.marks.count} pins and"
+          %span.gray= "#{@user.plans.count} plans"
+          %span.gray.large-screen-inline= "across #{@user.marks.allcountries.count} countries"
+          %span.gray.large-screen-inline= "and _#{} continents"
 
     .one-third.column
 
@@ -17,14 +26,26 @@
       Bookmarklet link:
       = link_to 'Planit Bookmarklet', "#{ render partial: 'bookmarklets/bookmarklet.js.erb', locals: { user: (current_user ? current_user : OpenStruct.new(slug: 'fake-user')), host: request.base_url } }"
 
-      - @user.plans.each do |p|
-        .plan-link= link_to p.name, p
-
 .band.gray.spaced
   .container
 
-    .thirteen.columns
+    .sixteen.columns
 
       .dashboard-header= "Recent Activity"
+
+
+      - @user.recent_updates.each do |a|
+        - if a.class == Item
+          .activity-link
+            Updated
+            = link_to a.name, place_path(a.place)
+            in
+            = link_to a.plan.name, plan_path(a.plan_id)
+            (a plan)
+        - elsif a.class == Plan
+          .activity-link= link_to "Updated #{a.name} plan", plan_path(a)
+        - elsif a.class == Mark
+          .activity-link= link_to "Updated #{a.name}", place_path(a.place)
+
 
 = render 'show/footer', { :page_type => 'user' }

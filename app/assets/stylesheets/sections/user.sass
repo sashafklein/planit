@@ -99,6 +99,7 @@
 
 .dashboard-header
   padding: 10px 0px 5px 0px
+  margin: 0 0 10px 0
   font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
   font-size: 22px
   line-height: 25px
@@ -109,34 +110,60 @@
   -webkit-font-smoothing: antialiased
   text-transform: uppercase
 
+.world-view-map-wrap
+  display: block
+  position: relative
+  padding: 8px
+  background-color: #f3f3f3
+  border: 1px solid #c4c7ca
+  border-bottom-color: #b7babe
+  -webkit-border-radius: 3px
+  -moz-border-radius: 3px
+  border-radius: 3px
+  -webkit-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  -moz-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  margin-bottom: 15px
+
 .empty-map-box.world-view
-  background: #ccc
+  background: #eee
   margin-bottom: 10px
+  border: 1px solid #ccc
 
 .world-view-canvas
+
+.user-stats-caption
 
 
 // TAB SIZING
 
 // *Computer (Regular)
 
-.world-view-canvas, .empty-map-box.world-view
-  height: 400px
+.empty-map-box.world-view
+  height: 387px
+.world-view-canvas
+  height: 385px
 
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
 
-  .world-view-canvas, .empty-map-box.world-view
-    height: 360px
+  .empty-map-box.world-view
+    height: 339px
+  .world-view-canvas
+    height: 337px
 
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
 
-  .world-view-canvas, .empty-map-box.world-view
-    height: 140px
+  .empty-map-box.world-view
+    height: 201px
+  .world-view-canvas
+    height: 199px
 
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
 
-  .world-view-canvas, .empty-map-box.world-view
-    height: 175px
+  .empty-map-box.world-view
+    height: 287px
+  .world-view-canvas
+    height: 285px

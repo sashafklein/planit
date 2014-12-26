@@ -44,6 +44,22 @@ class Item < ActiveRecord::Base
     marks.allids
   end
 
+  def self.allcountries
+    marks.allcountries
+  end
+
+  def self.allregions
+    marks.countries
+  end
+
+  def self.alllocalities
+    marks.countries
+  end
+  
+  # def self.alltypes
+  #   marks.countries
+  # end
+
   # INSTANCE METHODS
 
   def next

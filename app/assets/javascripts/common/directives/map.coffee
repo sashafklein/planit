@@ -30,9 +30,9 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
 
     link: (s, elem) ->
 
-      acceptedMapTypes = ['default', 'print']
+      acceptedMapTypes = ['default', 'print', 'worldview']
       s.type = 'default' unless _.contains(acceptedMapTypes, s.type)
-      s.zoomLevel = -> if s.type == 'default' then 17
+      s.zoomLevel = -> if s.type == 'worldview' then 1 || 17
 
       path_to_replace = s.path || ''
       s.link_path = path_to_replace.replace(path_to_replace.split('/')[path_to_replace.split('/').length-1], '') || ''
@@ -77,24 +77,31 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
       divIconContent = 'Test'
 
       if s.type == 'default' && s.points.length > 1
+        clusterMarkers = new L.MarkerClusterGroup({
+          maxClusterRadius: 70,
+          iconCreateFunction: (cluster) ->
+            markers = cluster.getAllChildMarkers()
+            L.divIcon
+              html: "<span class='cluster-map-icon-tab'>#{markers.length} pins</span>"
+              className: "cluster-map-div-container"
+          #Disable all of the defaults:
+          showCoverageOnHover: false
+        })
         i = 0
-        s.map.featureLayer = for point in s.points
-          i++
-          L.marker([point.lat, point.lon], { 
+        while i < s.points.length
+          a = s.points[i]
+          clusterMarker = L.marker(new L.LatLng(a.lat, a.lon), {
             icon: L.divIcon({
-              # // Specify a class name we can refer to in CSS.
-              className: 'default-map-icon',
-              # // Define what HTML goes in each marker.
-              html: "<span class='default-map-icon-tab'><img src='/assets/map_icon_tip_red.png'><b>#{i}</b></span>",
-              # // Set a markers width and height.
+              className: 'default-map-div-icon',
+              html: "<span class='default-map-icon-tab'><img src='/assets/map_icon_tip_red.png'><b>#{i+1}</b></span>",
               iconSize: null,
-              # riseOnHover: true,
-              # riseOffset: 250,
-              # zIndexOffset: 0,
-              title: s.point_names[i-1],
-              alt: s.point_names[i-1],
-              })
-          }).addTo(s.map).bindPopup("<a href='#{s.link_path}#{s.point_ids[i-1]}'>#{s.point_names[i-1]}</a>")
+              title: s.point_names[i],
+              alt: s.point_names[i],
+            })
+          }).bindPopup("<a href='#{s.link_path}#{s.point_ids[i]}'>#{s.point_names[i]}</a>", {offset: new L.Point(0,8)})
+          clusterMarkers.addLayer clusterMarker
+          i++
+        s.map.addLayer(clusterMarkers)
       else if s.type == 'default' && s.points.length == 1
         s.map.featureLayer = for point in s.points
           L.marker([point.lat, point.lon], { 
@@ -102,7 +109,7 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
               iconUrl: '/assets/map_icon_x_black.png'
               iconSize: [15, 29]
               iconAnchor: [7, 15]
-              }
+            }
           }).addTo(s.map)
       else if s.type == 'print' && s.points.length > 1
         i = 0
@@ -110,13 +117,10 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
           i++
           L.marker([point.lat, point.lon], { 
             icon: L.divIcon({
-              # // Specify a class name we can refer to in CSS.
-              className: 'default-map-icon',
-              # // Define what HTML goes in each marker.
+              className: 'default-map-div-icon',
               html: "<span class='default-map-icon-tab print'><img src='/assets/map_icon_tip_black.png'><b>#{i}</b></span>",
-              # // Set a markers width and height.
               iconSize: null,
-              })
+            })
           }).addTo(s.map)
       else if s.type == 'print' && s.points.length == 1
         s.map.featureLayer = for point in s.points
@@ -125,8 +129,32 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
               iconUrl: '/assets/map_icon_x_black.png'
               iconSize: [15, 29]
               iconAnchor: [7, 15]
-              }
+            }
           }).addTo(s.map)
+      else if s.type == 'worldview'
+        clusterMarkers = new L.MarkerClusterGroup({
+          maxClusterRadius: 70,
+          iconCreateFunction: (cluster) ->
+            markers = cluster.getAllChildMarkers()
+            L.divIcon
+              html: "<span class='cluster-map-icon-tab'>#{markers.length} pins</span>"
+              className: "cluster-map-div-container"
+          #Disable all of the defaults:
+          showCoverageOnHover: false
+        })
+        i = 0
+        while i < s.points.length
+          a = s.points[i]
+          clusterMarker = L.marker(new L.LatLng(a.lat, a.lon), {
+            icon: L.divIcon({
+              className: 'default-map-div-icon',
+              html: "<span class='default-map-icon-tab'><img src='/assets/map_icon_tip_red.png'><i class='fa fa-globe'></i></span>",
+              iconSize: null,
+            })
+          }).bindPopup("<a href='#{s.link_path}#{s.point_ids[i]}'>#{s.point_names[i]}</a>", {offset: new L.Point(0,8)})
+          clusterMarkers.addLayer clusterMarker
+          i++
+        s.map.addLayer(clusterMarkers)
 
       if s.type == 'default' && s.points.length > 1
         s.bounds = new L.LatLngBounds(s.points)
@@ -134,12 +162,16 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
       else if s.type == 'default' && s.points.length == 1
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
+      else if s.type == 'worldview' && s.points.length > 1
+        s.bounds = new L.LatLngBounds(s.points)
+        s.map.fitBounds(s.bounds, { padding: [25, 25] } )
+        new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
       else if s.type == 'print'
         s.bounds = new L.LatLngBounds(s.points)
         s.map.fitBounds(s.bounds, { padding: [25, 25] } )
         showAttribution = false
 
-      unless _(['default', 'print']).contains s.type
+      unless _(['default', 'print', 'worldview']).contains s.type
         polyline = L.polyline(s.points, {color: 'red', opacity: '0.4', dashArray: '6, 10'}).addTo(s.map);
 
       this.featureLayer = (marker) ->
