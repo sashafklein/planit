@@ -1,49 +1,43 @@
-// CALCULATIONS
-- country_list = []
-- @user.marks.each do |mark_to_compute|
-  - place_to_compute = Place.all.find(mark_to_compute.place_id)
-  - if place_to_compute.country
-    - country_list << place_to_compute.country
-- country_count = country_list.each_with_object(Hash.new(0)){ |m,h| h[m] += 1 }.sort {|a,b| b[1] <=> a[1]}
-
 = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'bucket' }
-
-- item_count = country_list.length
-- country_count.each_with_index do |country_to_compute, index|
-
-  - if index < 3
-
-    .band.gray.spaced
-      .container
-
-        .sixteen.columns
-
-          .tab-section-header
-            - if country_to_compute.last < 10
-              %span.bubble-span.medium.primary= country_to_compute.first
-            - else
-              %span.bubble-span.medium.primary= country_to_compute.first
-              = ":"
-              %span.bubble-span.medium.secondary= "Region/Locality"
-              = "("
-              %strong= "#{country_to_compute.last}"
-              = ")"
-
-      .container
-
-        - @user.marks.each_with_index do |mark_to_display, index|
-          - place_to_display = Place.all.find(mark_to_display.place_id)
-          - if place_to_display.country == country_to_compute.first
-            = render partial: 'items/item_tab', locals: { item: place_to_display, row_index: index, item_index: index }
 
 .band.gray.spaced
   .container
 
     .sixteen.columns
 
-      .tab-load-more
-        Load More (
-        %strong= 124
-        )
+      - countries = @user.marks.allcountries
+      - countries.each do |country|
+
+        .tab-section-header
+          - marks = @user.marks.pluck(:country == 'country')
+          - raise
+          - regions = marks.allregions
+          - if marks > 10 && regions.count > 1
+            - regions.each do |region|
+              - ms = marks.pluck(:regions == 'region')
+              %span.bubble-span.medium.primary= country
+              = ":"
+              %span.bubble-span.medium.secondary= region
+              = "("
+              %strong= "#{regions.count}"
+              = ")"
+              - ms.each_with_index do |m, index|
+                = render partial: 'items/item_tab', locals: { item: m, item_index: index }
+
+          - else
+            %span.bubble-span.medium.primary= country
+            = "("
+            %strong= "#{country.count}"
+            = ")"
+
+/ .band.gray.spaced
+/   .container
+
+/     .sixteen.columns
+
+/       .tab-load-more
+/         Load More (
+/         %strong= 124
+/         )
 
 = render 'show/footer', { :page_type => 'bucket' }

@@ -4,7 +4,7 @@
   %map.plan-map-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.coordinates, names: @plan.items.allnames.join('/+/'), ids: @plan.items.allids.join('+'), path: place_path(@plan.items.first) }
     / .expand-map
     /   .i.fa.fa-expand.fa-flip-horizontal
-    .container.upfront
+    .container.upfront-plan-map
       .plan-name-wrap
         %span.plan-name= @plan.name
       - if @plan

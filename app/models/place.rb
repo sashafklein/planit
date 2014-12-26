@@ -22,12 +22,34 @@ class Place < ActiveRecord::Base
     Services::PlaceFinder.new(atts).find!
   end
 
-  def image
-    images.first
-  end
-
   def self.center_coordinate(locations)
     [locations.average(:lat), locations.average(:lon)].join(":")
+  end
+
+  def self.countries
+    country_and_frequency = pluck(:country).compact.each_with_object(Hash.new(0)){ |m,h| h[m] += 1 }.sort {|a,b| b[1] <=> a[1]}
+    country_and_frequency.map(&:first)
+  end
+
+  def self.regions
+    region_and_frequency = pluck(:region).compact.each_with_object(Hash.new(0)){ |m,h| h[m] += 1 }.sort {|a,b| b[1] <=> a[1]}
+    region_and_frequency.map(&:first)
+  end
+
+  def self.localities
+    locality_and_frequency = pluck(:locality).compact.each_with_object(Hash.new(0)){ |m,h| h[m] += 1 }.sort {|a,b| b[1] <=> a[1]}
+    locality_and_frequency.map(&:first)
+  end
+
+  # def self.types
+  #   type_and_frequency = pluck(:type).compact.each_with_object(Hash.new(0)){ |m,h| h[m] += 1 }.sort {|a,b| b[1] <=> a[1]}
+  #   type_and_frequency.map(&:first)
+  # end
+
+  #
+
+  def image
+    images.first
   end
 
   def coordinate(joiner=':')

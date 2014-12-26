@@ -44,6 +44,24 @@ class Mark < ActiveRecord::Base
     places.ids
   end
 
+  def self.allcountries
+    places.countries
+  end
+
+  def self.allregions
+    places.countries
+  end
+
+  def self.alllocalities
+    places.countries
+  end
+  
+  # def self.alltypes
+  #   places.countries
+  # end
+
+  # 
+
   def show_icon
     @show_icon ||= Icon.new(category, lodging, meal, mark).filename
   end

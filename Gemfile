@@ -45,6 +45,7 @@ gem 'rails-assets-active-support'
 gem 'rails-assets-async'
 gem 'rails-assets-lodash'
 gem 'rails-assets-leaflet'
+# gem 'rails-assets-leaflet.markercluster'
 
 group :development do
   gem "foreman"
