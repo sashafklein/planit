@@ -14,6 +14,7 @@ planitModules = [
 
 otherModules = [
   "ngRoute"
+  "ngResource"
 ]
 
 for module in planitModules

@@ -38,6 +38,8 @@ Rails.application.routes.draw do
       resources :days, only: [] do
         get :map, on: :member
       end
+
+      resources :items, only: [:index, :show]
     end
   end
 end

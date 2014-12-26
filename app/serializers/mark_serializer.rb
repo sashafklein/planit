@@ -1,11 +1,7 @@
 class MarkSerializer < ActiveModel::Serializer
-  attributes :id, :lat, :lon, :name, :image
+  attributes :id, :coordinate, :name, :image, :place
 
-  def image
-    object.images.first
-  end
+  delegate :name, :coordinate, :image, to: :object
 
-  def place
-    PlaceSerializer.new(object.place)
-  end
+  has_one :place, serializer: PlaceSerializer
 end
