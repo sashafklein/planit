@@ -14,7 +14,7 @@ module Scrapers
           # site_name: site_name,
           # source_url: @url,
           plan:{
-            name: page.css("title").text,
+            name: remove_plan_name_fluff( page.css("title").text ),
           },
         }
       end

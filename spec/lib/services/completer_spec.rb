@@ -148,7 +148,7 @@ module Services
           expect( m.place.flags ).to include ("Failed to find geolocation data for locality")
 
           i = m.items.first
-          expect( i.plan.name ).to eq "New York City Guide - Stay.com"
+          expect( i.plan.name ).to eq "New York City Guide"
         end
 
         it "creates the Plaza in context", :vcr do
@@ -162,7 +162,7 @@ module Services
           expect(m.place.sublocality).to eq "Manhattan"
 
           i = m.items.first
-          expect(i.plan.name).to eq "New York for Jetsetters - Stay.com"
+          expect(i.plan.name).to eq "New York for Jetsetters"
         end
 
         it "creates Boom Boom Room in context", :vcr do
@@ -175,7 +175,7 @@ module Services
           expect(m.place.flags).to eq []
 
           i = m.items.first
-          expect(i.plan.name).to eq "New York for Jetsetters - Stay.com"
+          expect(i.plan.name).to eq "New York for Jetsetters"
         end
 
         it "creates Broadway in context", :vcr do
@@ -186,7 +186,7 @@ module Services
           expect(m.locality).to eq "New York"
           expect(m.name).to eq "Broadway"
           i = m.items.first
-          expect(i.plan.name).to eq "New York City Guide - Stay.com"
+          expect(i.plan.name).to eq "New York City Guide"
         end
 
         it "creates Tribute WTC Visitor Center in context", :vcr do
@@ -197,7 +197,7 @@ module Services
           expect(m.locality).to eq "New York"
           expect(m.name).to eq "Tribute WTC Visitor Center"
           i = m.items.first
-          expect(i.plan.name).to eq "New York City Guide - Stay.com"
+          expect(i.plan.name).to eq "New York City Guide"
         end
       end
     end

@@ -106,6 +106,10 @@ class Mark < ActiveRecord::Base
     @categories ||= CategorySet.new(self).list
   end
 
+  def image
+    place.image
+  end
+
   private
 
   def siblings

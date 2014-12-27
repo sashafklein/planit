@@ -13,10 +13,12 @@
         .logo-container
           = image_tag "logo_only_#{color}.png", style: "float:left; width: 42px; height: 50px; margin: 10px 10px 10px 0"
           = image_tag "logo_name_only_#{color}.png", class: "logo-name-top #{page_type}", style: "float:left; width: 86px; height: 50px; margin: 10px 10px 10px 0"
-        .search-bar{ class: page_type }
-          %input.input-search-field{ :name  => "input-search", :placeholder => "Search / Add" }
-          %button.input-search-button
-            %i.fa.fa-search.fa-lg
+        .search-bar-wrap{ class: page_type }
+          .input-group
+            %input.form-control#input-search-field{ :name  => "input-search", :placeholder => "Search / Add", :type => "text"}/
+            %span.input-group-btn
+              %button.btn.btn-default#input-search-button{:type => "button"}
+                %i.fa.fa-search.fa-lg
         .page-title-bar{ class: page_type }
           .page-title{ class: color }= title.first.upcase
           .page-title.extra{ class: color }= title.last.upcase

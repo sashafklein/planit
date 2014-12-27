@@ -53,13 +53,13 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
         s.points.push { lat: parseFloat(pair[0]), lon: parseFloat(pair[1]) }
 
       width = s.width || '450px'
-      height = s.height || false
+      height = s.height || '450px'
       zoom = s.zoom || s.zoomLevel()
       scrollWheelZoom = s.scrollWheelZoom || false
       doubleClickZoom = s.doubleClickZoom || true
       zoomControl = s.zoomControl || false
       minZoom = s.minzoom || 1
-      maxZoom = s.maxzoom || 17
+      maxZoom = s.maxzoom || 18
 
       id = "map#{uniqueId++}"
       elem.attr('id', id)
@@ -84,7 +84,6 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
             L.divIcon
               html: "<span class='cluster-map-icon-tab'>#{markers.length} pins</span>"
               className: "cluster-map-div-container"
-          #Disable all of the defaults:
           showCoverageOnHover: false
         })
         i = 0
@@ -139,7 +138,6 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
             L.divIcon
               html: "<span class='cluster-map-icon-tab'>#{markers.length} pins</span>"
               className: "cluster-map-div-container"
-          #Disable all of the defaults:
           showCoverageOnHover: false
         })
         i = 0

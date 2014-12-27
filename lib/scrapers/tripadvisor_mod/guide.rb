@@ -23,7 +23,7 @@ module Scrapers
       def itinerary_data(itinerary, itinerary_index)
         {
           plan:{
-            name: page.css("title").text,
+            name: remove_plan_name_fluff( page.css("title").text ),
           },
         }
       end

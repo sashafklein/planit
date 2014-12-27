@@ -1,43 +1,37 @@
-= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'bucket' }
+#user-bucket-page
 
-.band.gray.spaced
-  .container
+  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'bucket' }
 
-    .sixteen.columns
+  #user-bucket-map
 
-      - countries = @user.marks.allcountries
-      - countries.each do |country|
+    %map.bucket-map-canvas{ coordinates: @user.marks.coordinates, names: @user.marks.allnames.join('/+/'), ids: @user.marks.allids.join('+'), path: place_path(@user.marks.first), minzoom: 2 }
 
-        .tab-section-header
-          - marks = @user.marks.pluck(:country == 'country')
-          - raise
-          - regions = marks.allregions
-          - if marks > 10 && regions.count > 1
-            - regions.each do |region|
-              - ms = marks.pluck(:regions == 'region')
-              %span.bubble-span.medium.primary= country
-              = ":"
-              %span.bubble-span.medium.secondary= region
-              = "("
-              %strong= "#{regions.count}"
-              = ")"
-              - ms.each_with_index do |m, index|
-                = render partial: 'items/item_tab', locals: { item: m, item_index: index }
+  #user-bucket-list
 
-          - else
-            %span.bubble-span.medium.primary= country
-            = "("
-            %strong= "#{country.count}"
-            = ")"
+    .band.gray.spaced
+      .container.tab-section-header
+        %span.bubble-span.medium.primary= "Category"
+        = ":"
+        %span.bubble-span.medium.secondary= "Subcategory"
+        = "("
+        %strong= "##"
+        = ")"
 
-/ .band.gray.spaced
-/   .container
+      .container
+        .sixteen.columns
 
-/     .sixteen.columns
+          - @user.marks.each_with_index do |m, index|
+            - if index < 50
+              = render partial: 'items/item_tab', locals: { item: m, item_index: index }
 
-/       .tab-load-more
-/         Load More (
-/         %strong= 124
-/         )
+    .band.gray.spaced
+      .container
 
-= render 'show/footer', { :page_type => 'bucket' }
+        .sixteen.columns
+
+          .tab-load-more
+            Load More (
+            %strong= "##"
+            )
+
+  = render 'show/footer', { :page_type => 'bucket' }

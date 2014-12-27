@@ -215,9 +215,19 @@ module PlanHelper
 
   def get_locale_list(item_list)
     locality_list = item_list.places.pluck(:locality)
-    return locality_list.compact.uniq unless locality_list.compact.uniq.count < 2
-    sublocality_list = item_list.places.pluck(:sublocality)
-    return sublocality_list.compact.uniq
+    if locality_list.compact.uniq.count == 1
+      sublocality_list = item_list.places.pluck(:sublocality)
+      return sublocality_list.compact.uniq unless !sublocality_list.compact.uniq.present?
+      return locality_list.compact.uniq
+    elsif locality_list.compact.uniq.count <= 4
+      return locality_list.compact.uniq
+    elsif locality_list.compact.uniq.count > 4
+      region_list = item_list.places.pluck(:region)
+      if region_list.compact.uniq.count < 1 && region_list.compact.uniq.count > 5
+        return region_list.compact.uniq
+      end
+    end
+    return []
   end
 
 end

@@ -19,22 +19,26 @@ class User < ActiveRecord::Base
     false
   end
 
-  def recent_activity_dates
-    
+  def recent_plan_activity?(date)
+    return true unless plans.present?
+    return false
   end
 
-  def recent_updates
-    recent_marks = marks.where('updated_at > ?', 1.month.ago).order('updated_at DESC')
-    recent_plans = plans.where('updated_at > ?', 1.month.ago).order('updated_at DESC')
+  def recent_pin_activity?(date)
+    return false unless items.where('items.updated_at >= ?', date.to_time).where('items.updated_at < ?', (date.to_time + 86400) ).present? || marks.where('updated_at >= ?', date.to_time).where('updated_at < ?', (date.to_time + 86400) ).present?
+    return true
+  end
+
+  def recent_items
     recent_items = items.where('items.updated_at > ?', 1.month.ago).order('items.updated_at DESC')
-    [recent_marks + recent_plans + recent_items].flatten.sort_by{ |i| i.updated_at }.reverse
   end
 
-  def recent_creates
-    recent_marks = marks.where('created_at > ?', 1.month.ago).order('created_at DESC')
-    recent_plans = plans.where('created_at > ?', 1.month.ago).order('created_at DESC')
-    recent_items = items.where('items.created_at > ?', 1.month.ago).order('items.created_at DESC')
-    [recent_marks + recent_plans + recent_items].flatten.sort_by{ |i| i.created_at }.reverse
+  def recent_marks
+    recent_marks = marks.where('updated_at > ?', 1.month.ago).order('updated_at DESC')
+  end
+
+  def recent_plans
+    recent_plans = plans.order('updated_at DESC')
   end
 
   def bucket_plan
