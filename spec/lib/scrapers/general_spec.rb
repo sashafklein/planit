@@ -179,21 +179,7 @@ module Scrapers
     #     puts "name attempts #{name_attempts}"
     #   end
     # end
-
-    describe "http://www.reveillecoffee.com/" do
-      before { @url = "http://www.reveillecoffee.com/" }
-      it "parses the page" do 
-        expect_equal(data, [
-          place: {
-            name: "Réveille Coffee Co",
-            locality: "San Francisco", 
-            country: "United States of America",
-            nearby: "San Francisco, United States of America",
-          }
-          ])
-      end
-    end
-
+    
     describe "http://www.frenchie-restaurant.com/" do
       before { @url = "http://www.frenchie-restaurant.com/" }
       it "parses the page" do 
