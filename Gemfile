@@ -37,6 +37,9 @@ gem 'fuzzy-string-match'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 
+gem "compass"
+gem "compass-rails"
+
 gem 'rails-assets-angular'
 gem 'rails-assets-angular-resource'
 gem 'rails-assets-angular-route'
@@ -45,6 +48,9 @@ gem 'rails-assets-active-support'
 gem 'rails-assets-async'
 gem 'rails-assets-lodash'
 gem 'rails-assets-leaflet'
+gem 'rails-assets-sinon'
+gem 'rails-assets-jasmine-sinon'
+gem 'rails-assets-rosie'
 # gem 'rails-assets-leaflet.markercluster'
 
 group :development do
@@ -63,6 +69,9 @@ group :development, :test do
   gem "factory_girl_rails"
   gem "pry-rails"
   gem "rspec-rails"
+  gem "jasmine-rails"
+  gem 'jasmine-headless-webkit'
+  gem 'guard-jasmine'
 end
 
 group :test do
