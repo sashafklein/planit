@@ -53,7 +53,7 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
         s.points.push { lat: parseFloat(pair[0]), lon: parseFloat(pair[1]) }
 
       width = s.width || '450px'
-      height = s.height || '100%'
+      height = s.height || '450px'
       zoom = s.zoom || s.zoomLevel()
       scrollWheelZoom = s.scrollWheelZoom || false
       doubleClickZoom = s.doubleClickZoom || true
