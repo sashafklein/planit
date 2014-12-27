@@ -2,17 +2,24 @@
 
 .plan-splash
   %map.plan-map-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.coordinates, names: @plan.items.allnames.join('/+/'), ids: @plan.items.allids.join('+'), path: place_path(@plan.items.first) }
-    / .expand-map
-    /   .i.fa.fa-expand.fa-flip-horizontal
     .container.upfront-plan-map
       .plan-name-wrap
         %span.plan-name= @plan.name
       - if @plan
         .plan-more-info-wrap
           %span.plan-more-info
-            = @plan.created_at.strftime('%b %Y') # back-date to article publishing?
-            %i= "|"
-            %i= "http://plan.it/src/2j0fef"
+            - if @plan.updated_at.present?
+              - if @plan.created_at.present? && @plan.updated_at == @plan.created_at 
+                = @plan.updated_at.strftime('%b %Y')
+              - elsif !@plan.created_at.present?
+                = @plan.updated_at.strftime('%b %Y')
+              - else
+                = @plan.updated_at.strftime('%b %Y')
+                %i= "|"
+                %i= 'original'
+                %i= @plan.created_at.strftime('%b %Y')
+            - if @plan.created_at.present? && !@plan.updated_at.present?
+              %i= @plan.created_at.strftime('%b %Y')
 
 - @plan.legs.each_with_index do |leg, index|
   - if leg.name.present?
@@ -25,22 +32,19 @@
         .three.columns.day-info-wrap
           .day-number-separator
             %span.day-info.number= "DAY #{index + 1}"
-          // CALCULATE "DAY ENVIRONS" -- NEIGHBORHOOD(S) / CITIES ETC?
-          - locale_list = get_locale_list(day.items)        
-          - if day.items.first.place.locality.present?
-            .day-info-separator
-              %span.day-info.locale= "#{day.items.first.place.locality}" # NOT JUST FIRST LOCALITY?
-          // CALCULATE "DAY DISTANCE" -- POINT TO POINT, INCLUDING START / RETURN
-
-          - if day_distance = Distance.items_dist(day.items_including_prior_days_lodging)
-            - if day_distance > 0
-              %span.day-info.distance
-                = "#{day_distance} miles"
-          - lodging_list = get_lodging_list(day.items)
-          - if lodging_list.length > 0
-            %span.day-info.housing= "#{lodging_list.join(", ")}"
-          - else
-            %span.day-info.housing.none= "Find Housing"
+          .day-info-separator
+            - locale_list = get_locale_list(day.items)
+            - if locale_list.present?
+              - locale_list.each do |l|
+                %span.day-info.locale= l
+            - if day_distance = Distance.items_dist(day.items_including_prior_days_lodging)
+              - if day_distance > 0 && day_distance < 10
+                %span.day-info.distance
+                  = "#{day_distance} miles btw points"
+              - elsif day_distance >= 10
+                %span.day-info.distance
+                  = "#{day_distance.round(0)} miles btw points"
+            - lodging_list = get_lodging_list(day.items)
           .day-wingtip
         .thirteen.columns.day-tab-wrap
           - day_items_sorted = day.items.sort {|a,b| a[:order] <=> b[:order]}
@@ -62,7 +66,6 @@
               %span.day-info.locale= "#{e}"
       .day-wingtip
     .thirteen.columns.day-tab-wrap
-      / DIFFERENTIAL EDITING OPTIONS DEPENDING ON USER (OWNER OF PLAN? OWNER OF BUCKET? FRIEND [COMMENTING RIGHTS]? VIEWER [SAVE ONLY]  ?)
       - items_to_display.each_with_index do |item, item_index|
         = render partial: 'items/item_tab', locals: { item: item, row_index: item_index, item_index: item_index }
       = render partial: 'items/add_item_tab'
