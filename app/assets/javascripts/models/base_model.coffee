@@ -1,7 +1,7 @@
 mod = angular.module("Models")
-mod.factory "Base", ($http) ->
+mod.factory "BaseModel", ($http) ->
   
-  class Base
+  class BaseModel
     constructor: (properties) -> _.extend(this, properties)
 
     extractHasManyRelation: (factory, properties, key) ->
@@ -56,6 +56,4 @@ mod.factory "Base", ($http) ->
     @update: (id, data) -> $http.put( "#{@objectPath(id)}/update", data )
     @create: (data) -> $http.post(@basePath, data)
     @destroy: (id) -> $http.delete( @objectPath(id) )
-
-  return Base
   
