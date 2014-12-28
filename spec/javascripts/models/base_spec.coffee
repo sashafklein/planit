@@ -23,5 +23,4 @@ describe 'Base', () ->
     it "parses an individual as one item", ->
       result = MockClass.generateFromJSON({ "value": "onlyValue"})
       expect( result.constructor ).toEqual(MockClass)
-      expect( result.myValue() ).toEqual("My value is 'onlyValue'")
-
+      expect( result.myValue() ).toEqual("My value is 'onlyValue'") 
