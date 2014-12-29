@@ -50,10 +50,12 @@ mod.factory "BaseModel", ($http) ->
         return new factory(json)
 
     @objectPath: (id) -> "#{@basePath}/#{id}"
+    objectPath: -> @constructor.objectPath(@id)
 
     @all:  -> $http.get(@basePath)
     @find: (id) -> $http.get( @objectPath(id) )
-    @update: (id, data) -> $http.put( "#{@objectPath(id)}/update", data )
     @create: (data) -> $http.post(@basePath, data)
-    @destroy: (id) -> $http.delete( @objectPath(id) )
+
+    update: (data) -> $http.put( "#{@objectPath(@id)}/update", data )
+    destroy:  -> $http.delete( @objectPath(@id) )
   

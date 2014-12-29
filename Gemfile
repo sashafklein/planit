@@ -51,6 +51,7 @@ gem 'rails-assets-leaflet'
 gem 'rails-assets-sinon'
 gem 'rails-assets-jasmine-sinon'
 gem 'rails-assets-rosie'
+gem 'rails-assets-requirejs'
 # gem 'rails-assets-leaflet.markercluster'
 
 group :development do
@@ -72,6 +73,7 @@ group :development, :test do
   gem "jasmine-rails"
   gem 'jasmine-headless-webkit'
   gem 'guard-jasmine'
+  gem "sinon-rails"
 end
 
 group :test do
