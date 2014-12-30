@@ -9,6 +9,7 @@ class Place < ActiveRecord::Base
   
   include ActiveRecord::MetaExt
   array_accessor :flag, :completion_step, :street_address, :name, :category
+  hstore_accessor :hours, :extra
   validate!
 
   scope :by_ll_and_name, -> (atts, name, points=2) { where.not( lat: nil ).where.not( lon: nil ).by_ll(atts[:lat], atts[:lon], points).with_name(name) }
@@ -40,13 +41,6 @@ class Place < ActiveRecord::Base
     locality_and_frequency = pluck(:locality).compact.each_with_object(Hash.new(0)){ |m,h| h[m] += 1 }.sort {|a,b| b[1] <=> a[1]}
     locality_and_frequency.map(&:first)
   end
-
-  # def self.types
-  #   type_and_frequency = pluck(:type).compact.each_with_object(Hash.new(0)){ |m,h| h[m] += 1 }.sort {|a,b| b[1] <=> a[1]}
-  #   type_and_frequency.map(&:first)
-  # end
-
-  #
 
   def image
     images.first

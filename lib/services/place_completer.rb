@@ -65,6 +65,7 @@ module Services
       attributes[:phones] = { default: attributes.delete(:phone) } if attributes[:phone] && ! attributes[:phones]
       attributes[:lat] = attributes[:lat] ? attributes[:lat].to_f : nil
       attributes[:lon] = attributes[:lon] ? attributes[:lon].to_f : nil
+      attributes[:hours] = attributes[:hours] ? normalized_hours(attributes[:hours]) : {}
 
       if !attributes[:extra] || !attributes[:extra].is_a?(Hash)
         attributes[:extra] = attributes[:extra] ? { detail: attributes.delete(:extra) } : {}
@@ -73,7 +74,16 @@ module Services
       attributes.except(*Place.attribute_keys + [:nearby, :images]).each do |key, value|
         attributes[:extra][key] = attributes.delete(key)
       end
+
       attributes
+    end
+
+    def normalized_hours(hours)
+      normalized = {}
+      hours.each do |k, v|
+        normalized[k.to_s.downcase] = v.stringify_keys
+      end
+      normalized
     end
 
     def set_photos(attrs)

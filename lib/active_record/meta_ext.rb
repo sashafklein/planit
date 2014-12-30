@@ -69,6 +69,16 @@ module ActiveRecord
           end
         end
       end
+
+      def hstore_accessor(*symbols)
+        symbols.each do |field|
+          class_eval do 
+            define_method(field) do
+              DeepStruct.new ParsedHstore.new(self[field.to_sym]).value
+            end
+          end
+        end
+      end
     end
 
     def self.included(base)

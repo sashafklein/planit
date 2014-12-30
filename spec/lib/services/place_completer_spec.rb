@@ -2,6 +2,9 @@ require 'spec_helper'
 
 module Services
   describe PlaceCompleter do 
+
+    include ScraperHelper 
+
     describe "complete!" do
       context "'fuzzy' finding with nearby attribute" do
         it "finds Florida House Inn (Amelia Island)", :vcr do
@@ -61,6 +64,30 @@ module Services
           expect( place.website ).to eq("http://www.tridenthotels.com")
           expect( place.lat ).to be_within(0.01).of(18.9255728)
           expect( place.lon ).to be_within(0.01).of(72.8242221)
+        end
+
+        xit "locates Caffe Vita Inc and fills out the category" do
+          place = PlaceCompleter.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "Caffe Vita Inc")[:place]).complete!
+          binding.pry
+        end
+
+        xit "locates Trocadero Club and fills out the category" do
+          place = PlaceCompleter.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "Trocadero Club")[:place]).complete!
+          binding.pry
+        end
+
+        it "saves hours as a hash, accessable as a deep struct" do
+          place = PlaceCompleter.new(yml_data('comptoir', 'http://www.yelp.com/biz/le-comptoir-du-relais-paris')[:place]).complete!
+          expect(place.hours.to_h).to eq({
+            mon: {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
+            tue: {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
+            wed: {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
+            thu: {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
+            fri: {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
+            sat: {"start_time" => "12:00 pm", "end_time" => "2:00 am"},
+            sun: {"start_time" => "12:00 pm", "end_time" => "12:00 am"}
+          })
+          expect(place.hours.mon.start_time).to eq("12:00 pm")
         end
       end
 
