@@ -18,4 +18,8 @@ class DeepStruct < OpenStruct
   def to_h
     @hash_table
   end
+
+  def present?
+    @table.present?
+  end
 end

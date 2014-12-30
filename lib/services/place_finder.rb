@@ -11,7 +11,6 @@ module Services
 
       place = find_by_cascade
       place = notify_and_round_out(place)
-
       place
     end
 
