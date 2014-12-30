@@ -78,16 +78,16 @@ module Services
 
         it "saves hours as a hash, accessable as a deep struct" do
           place = PlaceCompleter.new(yml_data('comptoir', 'http://www.yelp.com/biz/le-comptoir-du-relais-paris')[:place]).complete!
-          expect(place.hours.to_h).to eq({
-            mon: {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
-            tue: {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
-            wed: {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
-            thu: {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
-            fri: {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
-            sat: {"start_time" => "12:00 pm", "end_time" => "2:00 am"},
-            sun: {"start_time" => "12:00 pm", "end_time" => "12:00 am"}
+          expect(place.hours).to eq({
+            'mon' => {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
+            'tue' => {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
+            'wed' => {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
+            'thu' => {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
+            'fri' => {"start_time" => "12:00 pm", "end_time" => "12:00 am"},
+            'sat' => {"start_time" => "12:00 pm", "end_time" => "2:00 am"},
+            'sun' => {"start_time" => "12:00 pm", "end_time" => "12:00 am"}
           })
-          expect(place.hours.mon.start_time).to eq("12:00 pm")
+          expect(place.hours_struct.mon.start_time).to eq("12:00 pm")
         end
       end
 

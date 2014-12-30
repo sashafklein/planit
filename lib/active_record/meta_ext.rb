@@ -74,7 +74,13 @@ module ActiveRecord
         symbols.each do |field|
           class_eval do 
             define_method(field) do
-              DeepStruct.new ParsedHstore.new(self[field.to_sym]).value
+              parsed = ParsedHstore.new(self[field.to_sym]).value
+              parsed
+            end
+
+            define_method("#{field}_struct") do
+              parsed = ParsedHstore.new(self[field.to_sym]).value
+              DeepStruct.new parsed
             end
           end
         end
