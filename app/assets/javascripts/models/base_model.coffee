@@ -1,7 +1,7 @@
 mod = angular.module("Models")
-mod.factory "Base", ($http) ->
+mod.factory "BaseModel", ($http) ->
   
-  class Base
+  class BaseModel
     constructor: (properties) -> _.extend(this, properties)
 
     extractHasManyRelation: (factory, properties, key) ->
@@ -50,12 +50,12 @@ mod.factory "Base", ($http) ->
         return new factory(json)
 
     @objectPath: (id) -> "#{@basePath}/#{id}"
+    objectPath: -> @constructor.objectPath(@id)
 
     @all:  -> $http.get(@basePath)
     @find: (id) -> $http.get( @objectPath(id) )
-    @update: (id, data) -> $http.put( "#{@objectPath(id)}/update", data )
     @create: (data) -> $http.post(@basePath, data)
-    @destroy: (id) -> $http.delete( @objectPath(id) )
 
-  return Base
+    update: (data) -> $http.put( "#{@objectPath(@id)}/update", data )
+    destroy:  -> $http.delete( @objectPath(@id) )
   
