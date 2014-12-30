@@ -95,7 +95,7 @@
   color: #000
   text-align: left
 
-// DASHBOARD
+// DASHBOARD PAGE
 
 .dashboard-header
   padding: 10px 0px 5px 0px
@@ -133,6 +133,26 @@
 .world-view-canvas
 
 .user-stats-caption
+
+.profile-and-info-wrap
+  display: block
+  position: relative
+  padding: 8px
+  background-color: #f3f3f3
+  border: 1px solid #c4c7ca
+  border-bottom-color: #b7babe
+  -webkit-border-radius: 3px
+  -moz-border-radius: 3px
+  border-radius: 3px
+  -webkit-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  -moz-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  margin-bottom: 15px
+
+.profile-photo-box
+  background: #ddd
+  border: 1px solid #ccc
+  margin: 0 0 10px 0
 
 .guide-list
   padding: 10px 15px
@@ -183,11 +203,49 @@
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
-  a
-    font-weight: bold
 
 .recent-activity-list
   padding-bottom: 15px !important
+
+.no-activity-alert
+  display: block
+  position: relative
+  padding: 15px
+  background-color: #eaeaea
+  border: 1px solid #c4c7ca
+  border-bottom-color: #b7babe
+  -webkit-border-radius: 3px
+  -moz-border-radius: 3px
+  border-radius: 3px
+  text-align: center
+  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms' !important
+
+  .no-activity-note
+    display: block
+    font-size: 14px 
+    line-height: 20px
+    text-align: left
+    margin-bottom: 10px
+
+  .no-activity-button
+    display: inline-block
+    padding: 3px 8px
+    font-weight: bold
+    font-size: 15px !important
+    line-height: 18px !important
+    color: #fff
+    text-shadow: 0px 1px 1px #050b28
+    -webkit-border-radius: 3px
+    -moz-border-radius: 3px
+    border-radius: 3px
+    background: #fff
+    margin: 5px auto 10px auto
+    cursor: pointer
+    a, a:link, a:visited, a:hover, a:active
+      color: #fff
+      text-decoration: none
+
+// BUCKET PAGE
 
 .bucket-map-canvas
   background: #ccc
@@ -207,6 +265,8 @@
   height: 387px
 .world-view-canvas
   height: 385px
+.profile-photo-box
+  height: 280px
 
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
@@ -215,6 +275,8 @@
     height: 339px
   .world-view-canvas
     height: 337px
+  .profile-photo-box
+    height: 216px
 
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)

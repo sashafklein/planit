@@ -4,109 +4,49 @@
   .container
 
     .two-thirds.column
-
       .dashboard-header= "World View"
 
       .world-view-map-wrap
         .empty-map-box.world-view
           %map.world-view-canvas{ coordinates: @user.marks.coordinates, names: @user.marks.allnames.join('/+/'), ids: @user.marks.allids.join('+'), path: place_path(@user.marks.first), type: 'worldview' }
-        .tab-caption
-          %span.fa-stack.gray
-            %i.fa.fa-circle.fa-stack-2x
-            %span.icon-place.fa-stack-1x.fa-inverse
-          %span.gray= "#{@user.marks.count} pins and"
-          %span.gray= "#{@user.plans.count} plans"
-          %span.gray.large-screen-inline= "across #{@user.marks.allcountries.count} countries"
-          %span.gray.large-screen-inline= "and _#{} continents"
+        .tab-caption= @user.decorate.show_travel_stats_as_caption
 
     .one-third.column
-
       .dashboard-header= "Profile & Info"
 
-      Bookmarklet link:
-      = link_to 'Planit Bookmarklet', "#{ render partial: 'bookmarklets/bookmarklet.js.erb', locals: { user: (current_user ? current_user : OpenStruct.new(slug: 'fake-user')), host: request.base_url } }"
-      .no-plan-alert= link_to "Create a Plan!", new_plan_path()
+      .profile-and-info-wrap
+        .profile-photo-box
+
 
 .band.gray.spaced
   .container
 
     .eight.columns.recent-activity-list
-
       .dashboard-header= "Plans & Guides"
 
-      - if @user.recent_plans.present? || @user.plans.present?
-
-        - 0.upto(31).each do |n|
-          - t = ( Date.today - n )
-          - if @user.recent_plan_activity?(t)
-            %ul.activity-list
-              = "#{t.strftime('%d %b, %Y')}"
-              - if n > 1 
-                = "(#{n} days ago)"
-              - elsif n == 1
-                = "(1 day ago)"
-
-          - @user.recent_plans.where('updated_at >= ?', t.to_time).where('updated_at < ?', (t.to_time + 86400) ).each do |a|
-            %li.activity-line
-              - if a.created_at == a.updated_at
-                Added
-              - else
-                Updated
-              = link_to a.name, plan_path(a)
+      - if @user.plans.present?
+        - @user.plans.order('updated_at DESC').group_by{ |p| p.updated_at.to_date }.each do |date, plans| 
+          %ul.activity-list= days_since_string(date)
+          - plans.each do |plan|
+            %li.activity-line= plan.decorate.created_or_updated_at_link
 
       - else
-
-        = link_to "Create a Plan!", new_plan_path()
+        .no-activity-alert
+          .no-activity-note= @user.decorate.show_no_plans_alert
+          = @user.decorate.show_create_plan_button
 
     .eight.columns.recent-activity-list
-
       .dashboard-header= "Recent Pins"
 
-      - if @user.recent_marks.present? || @user.recent_items.present?
+      - if @user.marks_in_last_month? || @user.items_in_last_month?
+        - @user.marks.order('updated_at DESC').group_by{ |p| p.updated_at.to_date }.each do |date, marks| 
+          %ul.activity-list= days_since_string(date)
+          - marks.each do |mark|
+            %li.activity-line= mark.decorate.created_or_updated_at_link
 
-        - 0.upto(31).each do |n|
-          - t = ( Date.today - n )
-          - if @user.recent_pin_activity?(t)
-            %ul.activity-list
-              = "#{t.strftime('%d %b, %Y')}"
-              - if n > 1 
-                = "(#{n} days ago)"
-              - elsif n == 1
-                = "(1 day ago)"
-
-            - @user.recent_items.where('items.updated_at >= ?', t.to_time).where('items.updated_at < ?', (t.to_time + 86400) ).each do |a|
-              %li.activity-line
-                - if a.created_at == a.updated_at
-                  Added
-                - else
-                  Updated
-                = link_to a.name, place_path(a.place)
-                in
-                = link_to a.plan.name, plan_path(a.plan_id)
-            - @user.recent_marks.where('updated_at >= ?', t.to_time).where('updated_at < ?', (t.to_time + 86400) ).each do |a|
-              %li.activity-line
-                - if a.created_at == a.updated_at
-                  Added
-                - else
-                  Updated
-                = link_to a.name, place_path(a.place)
-                - if a.sublocality.present?
-                  in
-                  = a.sublocality
-                  - if a.locality.present? && a.locality != a.sublocality && a.country.present? && a.country != "United States" && a.country != "United States of America"
-                    = "(#{a.locality}, #{a.country})"
-                - elsif a.locality.present?
-                  in 
-                  = a.locality
-                  - if a.country.present? && a.country != "United States" && a.country != "United States of America"
-                    = "(#{a.country})"
-                - elsif a.region.present?
-                  in 
-                  = a.region
-                  - if a.country.present? && a.country != "United States" && a.country != "United States of America"
-                    = "(#{a.country})"
-                - elsif a.country.present?
-                  in
-                  = a.country
+      - else
+        .no-activity-alert
+          .no-activity-note= @user.decorate.show_no_pins_alert
+          = @user.decorate.show_bookmarklet_button_with_text
 
 = render 'show/footer', { :page_type => 'user' }

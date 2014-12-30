@@ -12,7 +12,7 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
     restrict: 'E'
     transclude: true
     replace: true
-    template: "<div class='ng-map-div' ><div ng_transclude=true></div></div>"
+    template: "<div class='ng-map-div'><div ng_transclude=true></div></div>"
     scope:
       type: '@'
       coordinates: '@'
@@ -39,7 +39,7 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
 
       ids_to_split = s.ids || ''
       s.point_ids = []
-      _(ids_to_split.split('+')).map (string) ->
+      _(ids_to_split.split('+')).map (string) ->  
         s.point_ids.push string
 
       names_to_split = s.names || ''
@@ -52,8 +52,6 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
         pair = string.split(':')
         s.points.push { lat: parseFloat(pair[0]), lon: parseFloat(pair[1]) }
 
-      width = s.width || '450px'
-      height = s.height || '450px'
       zoom = s.zoom || s.zoomLevel()
       scrollWheelZoom = s.scrollWheelZoom || false
       doubleClickZoom = s.doubleClickZoom || true
@@ -101,15 +99,6 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
           clusterMarkers.addLayer clusterMarker
           i++
         s.map.addLayer(clusterMarkers)
-      else if s.type == 'default' && s.points.length == 1
-        s.map.featureLayer = for point in s.points
-          L.marker([point.lat, point.lon], { 
-            icon: L.icon {
-              iconUrl: '/assets/map_icon_x_black.png'
-              iconSize: [15, 29]
-              iconAnchor: [7, 15]
-            }
-          }).addTo(s.map)
       else if s.type == 'print' && s.points.length > 1
         i = 0
         s.map.featureLayer = for point in s.points
@@ -120,15 +109,6 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
               html: "<span class='default-map-icon-tab print'><img src='/assets/map_icon_tip_black.png'><b>#{i}</b></span>",
               iconSize: null,
             })
-          }).addTo(s.map)
-      else if s.type == 'print' && s.points.length == 1
-        s.map.featureLayer = for point in s.points
-          L.marker([point.lat, point.lon], { 
-            icon: L.icon {
-              iconUrl: '/assets/map_icon_x_black.png'
-              iconSize: [15, 29]
-              iconAnchor: [7, 15]
-            }
           }).addTo(s.map)
       else if s.type == 'worldview'
         clusterMarkers = new L.MarkerClusterGroup({
@@ -153,17 +133,31 @@ angular.module("Common").directive 'map', (MapOptions, F, API) ->
           clusterMarkers.addLayer clusterMarker
           i++
         s.map.addLayer(clusterMarkers)
+      else
+        s.map.featureLayer = for point in s.points
+          marker = L.marker([point.lat, point.lon], { 
+            icon: L.icon {
+              iconUrl: '/assets/map_icon_x_black.png',
+              iconSize: [15, 29],
+              iconAnchor: [7, 15],
+            }
+          }).on('click', (e) -> s.map.setView([point.lat,point.lon], 16) )
+          marker.addTo(s.map)
 
       if s.type == 'default' && s.points.length > 1
         s.bounds = new L.LatLngBounds(s.points)
         s.map.fitBounds(s.bounds, { padding: [25, 25] } )
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
       else if s.type == 'default' && s.points.length == 1
+        s.map.setView([s.points[0].lat,s.points[0].lon], 16)
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
       else if s.type == 'worldview' && s.points.length > 1
         s.bounds = new L.LatLngBounds(s.points)
         s.map.fitBounds(s.bounds, { padding: [25, 25] } )
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
+      else if s.type == 'print' && s.points.length == 1
+        s.map.setView([s.points[0].lat,s.points[0].lon], 16)
+        showAttribution = false
       else if s.type == 'print'
         s.bounds = new L.LatLngBounds(s.points)
         s.map.fitBounds(s.bounds, { padding: [25, 25] } )

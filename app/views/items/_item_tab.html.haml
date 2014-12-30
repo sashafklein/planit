@@ -14,11 +14,5 @@
           .i.fa.fa-times-circle
         .tab-operations-button
           .i.fa.fa-trash
-      - if item.image
-        .mark-tab-img
-          = link_to image_tag(item.image.url), place_path(item.place)
-      - else
-        %a{ href: place_path(item.place) }
-          .mark-tab-img.add-photo
-            .i.add-photo-camera.fa.fa-camera-retro.fa-2x
+      = item.decorate.show_image_or_noimage
       = link_to item.name, place_path(item.place), class: "mark-tab-title a-override a-black h-black u-none"

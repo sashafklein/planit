@@ -1,4 +1,4 @@
-#place-page
+#show-place-page, #new-place-page
 
   // PLACE NEW
 
@@ -110,8 +110,6 @@
   // PLACE PAGE
 
   .place-page-splash
-    background: #ccc
-    background: image-url('gray_over_white_band.png') repeat-x
     border-top: #bbb 1px solid
     margin-bottom: 20px
 
@@ -137,12 +135,14 @@
     line-height: 15px
     color: #000
     text-align: left
+    span
+      padding: 0 0 0 1px
     .gray
       display: inline
       color: #333
     .place-show-icon
       color: #777
-      padding: 0px 1px      
+      padding: 0px 4px 0 0px
 
   .book-been-save-wrap
     padding: 15px 0px 5px 0px
@@ -203,6 +203,10 @@
     .place-show-icon
       color: #777
       padding: 0px 1px
+    &.truncate
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
 
   .photos-wrap
     display: block
@@ -283,6 +287,27 @@
     .place-show-icon
       color: #aaa
       padding: 0px 5px 0px 1px
+    i, span.icomoon
+      width: 22px
+      margin: 0 18px 0 0
+      text-align: center
+      &.true
+        color: #000
+
+  .show-hours-line
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 14px
+    line-height: 17px
+    color: #777
+    &.open
+      color: #000
+    &.today
+      font-weight: bold
+
+  i.show-hours-day
+    display: inline-block
+    width: 40px
+    font-style: none
 
   // TAB SIZING
 
@@ -326,7 +351,7 @@
 
   .other-info-wrap
     display: block
-    padding: 15px
+    padding: 25px
     margin-bottom: 10px
     &.hours-availability-booking
       border: 1px solid #eee
@@ -341,8 +366,13 @@
     font-weight: bold
     color: #000
     text-align: left
+    i
+      width: 40px
 
     &.open-now
+      color: #3a0
+    &.closed-now
+      color: #f30
 
   // #Tablet (Portrait)
   @media only screen and (min-width: 768px) and (max-width: 959px)

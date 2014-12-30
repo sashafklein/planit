@@ -7,7 +7,11 @@
     - if index != 0
       .print-day-log.item
         = "(0) "
-        %b= day.previous.items.last.name.titleize
+        - if day.previous_lodging
+          %b= day.previous_lodging
+        - else
+          %b= day.previous.items.last.name
+        = "(End Yesterday)"
     - day.items.each_with_index do |item, item_index|
       .print-day-log.item
         = "(#{item_index + 1}) "
@@ -15,7 +19,14 @@
           %b= item.name.titleize
         - else
           %i= "Un-named"
-        = print_distance(index, item_index, item, day)
+        - if item_index == 0
+          - dist = distance_to_yesterday_last_item_or_lodging(day)
+          - if dist.present?
+            = "(#{dist} miles)"
+        - else
+          - dist = distance_to_previous_item(item)
+          - if dist.present?
+            = "(#{dist} miles)"
 
   .content-tab-print.day-map
     .empty-print-map-box.day

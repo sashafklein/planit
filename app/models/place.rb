@@ -107,39 +107,58 @@ class Place < ActiveRecord::Base
     array = names.drop(1)
   end
 
-  def second_address_array
-    array = [locality, region, postal_code].reject(&:blank?)
-    array.any? ? array : nil
+  def open_until
+    if hours.any?
+      today = Date.today.strftime('%a').downcase
+      # convert timezones, check if open, report back until when?
+      if hours[today].scan(/end[_]time\=\>\"([^"]*)\"/).present?
+        hours[today].scan(/end[_]time\=\>\"([^"]*)\"/).flatten.first
+      end
+    end
   end
 
-  def open_now?
-    true
+  def open_again_at
+    if hours.any?
+      today = Date.today.strftime('%a').downcase
+      # convert timezones, check if open, report back until when?
+      if hours[today].scan(/start[_]time\=\>\"([^"]*)\"/).present?
+        hours[today].scan(/start[_]time\=\>\"([^"]*)\"/).flatten.first
+      end
+    end
   end
 
   def pinnable
     street_address || full_address || (lat && lon)
   end
 
+  def not_in_usa?
+    country.present? && country != "United States" && country != "United States of America"
+  end
+
+  def in_usa?
+    country == "United States" || country == "United States of America"
+  end
+
   private
 
   def expand_region
-    if region_changed? && region.length < 3 && carmen_country = Carmen::Country.named(country)
+    if region_changed? && region && region.length < 3 && carmen_country = Carmen::Country.named(country)
       carmen_region = carmen_country.subregions.coded(region)
       self.region = carmen_region.name if carmen_region
     end
   end
 
   def expand_country
-    if country_changed? && country.length < 3
+    if country_changed? && country && country.length < 3
       carmen_country = Carmen::Country.coded(country)
       self.country = carmen_country.name if carmen_country
     end
   end
 
   def deaccent_regional_info
-    self.country = country.no_accents if country_changed?
-    self.region = region.no_accents if region_changed?
-    self.subregion = subregion.no_accents if subregion_changed?
-    self.locality = locality.no_accents if locality_changed?
+    self.country = country.no_accents if country_changed? && country
+    self.region = region.no_accents if region_changed? && region
+    self.subregion = subregion.no_accents if subregion_changed? && subregion
+    self.locality = locality.no_accents if locality_changed? && locality
   end
 end

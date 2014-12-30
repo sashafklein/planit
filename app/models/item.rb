@@ -69,7 +69,7 @@ class Item < ActiveRecord::Base
 
   def previous
     return nil if first_in_day?
-    siblings.find_by_order( order - 1 )
+    siblings.find_by_order( order - 1 ) || siblings.find_by_id( id - 1 )
   end
 
   def first_in_day?

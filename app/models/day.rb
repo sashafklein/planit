@@ -55,6 +55,10 @@ class Day < ActiveRecord::Base
     siblings.find_by_order( order - 1 )
   end
 
+  def previous_ok_prior_leg
+    leg.previous.days.last unless !leg.previous.present?  
+  end
+
   def has_lodging?
     items.with_lodging.any?
   end
