@@ -111,19 +111,21 @@ module PlanHelper
     end
   end
 
-  def print_distance(day_index, item_index, item, day)
-    if day_index != 0 # Not first day
-      if item_index == 0
-        dist = Distance.item(item, day.previous.items.last, 1)
-      else
-        dist = Distance.item(item, item.previous, 1)
-      end
-    elsif item_index != 0 # Not first item
-      dist = Distance.item(item, item.previous, 1)
-    end
-    dist ? "(#{dist} miles)" : ''
+  def yesterday_last_item(day)
+    prior_day = day.previous if day.order != 0 # Not first day
+    prior_day ||= day.previous_ok_prior_leg if day.leg.order != 0 # Not first leg
+    prior_day.present? ? prior_day.items.last : nil
   end
 
+  def distance_to_yesterday_last_item_or_lodging(day)
+    dist = Distance.item( day.items.first, day.previous_lodging ) if day.previous_lodging.present?
+    dist ||= Distance.item( day.items.first, yesterday_last_item(day) ) if yesterday_last_item(day).present?
+  end
+
+  def distance_to_previous_item(item)
+    Distance.item(item, item.previous) if item.previous.present?
+  end
+      
   def timeline_cluster_image(day)
     input = '-cluster-pin' # day.time_of_day ? "_#{day.time_of_day}" : '-cluster-pin'
     "timeline#{input}.png"

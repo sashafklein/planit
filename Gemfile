@@ -36,6 +36,7 @@ gem 'active_model_serializers'
 gem 'fuzzy-string-match'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
+gem 'draper'
 
 gem "compass"
 gem "compass-rails"

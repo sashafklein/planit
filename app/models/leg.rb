@@ -64,6 +64,16 @@ class Leg < ActiveRecord::Base
     days.last
   end
 
+  def next
+    return nil if order leg.plan.legs.count == order
+    siblings.find_by_order( order + 1 )
+  end
+
+  def previous
+    return nil if order == 0 || order == nil
+    siblings.find_by_order( order - 1 )
+  end
+
   def leg_TOC(leg, index)
   end
   

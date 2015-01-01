@@ -1,6 +1,6 @@
-= render 'show/header', { :background => 'black', :color => 'white', :start => '', :page_type => 'new', :title => ['create new','plan'] }
+#new-plan-page
 
-.place-page
+  = render 'show/header', { :background => 'black', :color => 'white', :start => '', :page_type => 'new', :title => ['create new','plan'] }
 
   .add-new-wrap
     .container
@@ -29,10 +29,10 @@
             %option{ :value => "public", :selected => 'selected' }= "Public (Default)"
             %option{ :value => "private" }= "Private"
         %hr.divider
-        .mobile
-          .click-for-more
-            %i.fa.fa-caret-down
-            Import Places or Plans
+          .mobile
+            .click-for-more
+              %i.fa.fa-caret-down
+              Import Places or Plans
         .add-new-submit.disabled
           Create Plan
         .mobile
@@ -41,6 +41,3 @@
       .ten.columns
         .import-bucket
           Imported Items/Plans would display here?
-
-
-/ = render 'show/footer', { :page_type => 'new' }

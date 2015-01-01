@@ -1,73 +1,43 @@
-= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'plan' }
+#show-plans-page
 
-.plan-splash
-  %map.plan-map-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.coordinates, names: @plan.items.allnames.join('/+/'), ids: @plan.items.allids.join('+'), path: place_path(@plan.items.first) }
-    .container.upfront-plan-map
-      .plan-name-wrap
-        %span.plan-name= @plan.name
-      - if @plan
-        .plan-more-info-wrap
-          %span.plan-more-info
-            - if @plan.updated_at.present?
-              - if @plan.created_at.present? && @plan.updated_at == @plan.created_at 
-                = @plan.updated_at.strftime('%b %Y')
-              - elsif !@plan.created_at.present?
-                = @plan.updated_at.strftime('%b %Y')
-              - else
-                = @plan.updated_at.strftime('%b %Y')
-                %i= "|"
-                %i= 'original'
-                %i= @plan.created_at.strftime('%b %Y')
-            - if @plan.created_at.present? && !@plan.updated_at.present?
-              %i= @plan.created_at.strftime('%b %Y')
+  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'plan' }
 
-- @plan.legs.each_with_index do |leg, index|
-  - if leg.name.present?
-    .band.gray.spaced
-      .container
-        %strong= leg.name
-  - leg.days.each_with_index do |day, index|
-    .band.gray.spaced
-      .container
-        .three.columns.day-info-wrap
-          .day-number-separator
-            %span.day-info.number= "DAY #{index + 1}"
-          .day-info-separator
-            - locale_list = get_locale_list(day.items)
-            - if locale_list.present?
-              - locale_list.each do |l|
-                %span.day-info.locale= l
-            - if day_distance = Distance.items_dist(day.items_including_prior_days_lodging)
-              - if day_distance > 0 && day_distance < 10
-                %span.day-info.distance
-                  = "#{day_distance} miles btw points"
-              - elsif day_distance >= 10
-                %span.day-info.distance
-                  = "#{day_distance.round(0)} miles btw points"
-            - lodging_list = get_lodging_list(day.items)
-          .day-wingtip
-        .thirteen.columns.day-tab-wrap
-          - day_items_sorted = day.items.sort {|a,b| a[:order] <=> b[:order]}
-          - day_items_sorted.each_with_index do |item, item_index|
-            = render partial: 'items/item_tab', locals: { item: item, row_index: item_index, item_index: item_index }
-          = render partial: 'items/add_item_tab'
+  .plan-splash
+    %map.plan-map-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.coordinates, names: @plan.items.allnames.join('/+/'), ids: @plan.items.allids.join('+'), path: place_path(@plan.items.first) }
+      .container.upfront-plan-map
+        .plan-name-wrap
+          %span.plan-name= @plan.name
+        = @plan.decorate.show_plan_dates
 
-- items_to_display = @plan.bucket
-- locale_list = get_locale_list(items_to_display)
-.band.gray.spaced
-  .container
-    .three.columns.day-info-wrap
-      .day-number-separator
-        %span.day-info.number= "BUCKET"
-      - if items_to_display.length > 0
+  - @plan.legs.each_with_index do |leg, index|
+    = leg.decorate.show_leg_name
+    - leg.days.each_with_index do |day, index|
+      .band.gray.spaced
+        .container
+          .three.columns.day-info-wrap
+            .day-number-separator
+              %span.day-info.number= "DAY #{index + 1}"
+            .day-info-separator
+              = day.decorate.show_locales_in_day
+              = day.decorate.show_distances_in_day
+              - lodging_list = get_lodging_list(day.items)
+            .day-wingtip
+          .thirteen.columns.day-tab-wrap
+            - day.items.sort {|a,b| a[:order] <=> b[:order]}.each_with_index do |item, item_index|
+              = render partial: 'items/item_tab', locals: { item: item, row_index: item_index, item_index: item_index }
+            = render partial: 'items/add_item_tab'
+
+  .band.gray.spaced
+    .container
+      .three.columns.day-info-wrap
+        .day-number-separator
+          %span.day-info.number= "BUCKET"
         .day-info-separator
-          - if locale_list.uniq.length > 0
-            - locale_list.uniq.each do |e|
-              %span.day-info.locale= "#{e}"
-      .day-wingtip
-    .thirteen.columns.day-tab-wrap
-      - items_to_display.each_with_index do |item, item_index|
-        = render partial: 'items/item_tab', locals: { item: item, row_index: item_index, item_index: item_index }
-      = render partial: 'items/add_item_tab'
+          = @plan.decorate.show_locales_in_bucket
+        .day-wingtip
+      .thirteen.columns.day-tab-wrap
+        - @plan.bucket.each_with_index do |item, item_index|
+          = render partial: 'items/item_tab', locals: { item: item, item_index: item_index }
+        = render partial: 'items/add_item_tab'
 
-= render 'show/footer', { :page_type => 'plan' }
+  = render 'show/footer', { :page_type => 'plan' }

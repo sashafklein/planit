@@ -1,18 +1,12 @@
-#place-page#show
+#show-place-page
 
   = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'place' }
 
   .place-page-splash
     .container
       .thirteen.columns.name-essentials-wrap
-        .place-page-name
-          = @place.name
-        .place-page-category
-          - if @place.categories && @place.categories.length > 0
-            = @place.categories.join(", ").titleize
-          - else
-            %i.fa.fa-pencil.place-show-icon
-            .span.gray= "Edit Destination Type"
+        .place-page-name= @place.name
+        = @place.decorate.show_categories
       .three.columns.book-been-save-wrap
         .book-been-save-bar
           .click-to.book
@@ -26,78 +20,37 @@
     .container
       .five.columns.map-address-wrap
         .empty-map-box
-          %map.map-canvas.places-single{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @place.coordinate, names: [], ids: [], path: [] }
-        - if @place.alt_names.any?
-          .address-info-line= "(#{@place.names.drop(1).join('), (')})"
-        - if @place.street_address
-          .address-info-line= @place.street_address
-        - if @place.second_address_array
-          .address-info-line= @place.second_address_array.join(", ")
-        - if @place.country
-          .address-info-line= @place.country
-        - if @place.website
-          .address-info-line
-            %a{:title => "website", :href => @place.website}
-              %i.fa.fa-link.place-show-icon
-              = @place.website
-        - if @place.phones
-          - @place.phones.each do |type, number|
-            .address-info-line
-              %i.fa.fa-phone.place-show-icon
-              = number
+          %map.map-canvas.places-single{ coordinates: @place.coordinate }
+        = @place.decorate.show_alt_names_in_parens
+        = @place.decorate.show_address_linked_to_directions
+        = @place.decorate.show_website
+        = @place.decorate.show_phones
 
       .eleven.columns.photos-wrap
-        - if @place.image
-          .photos-gallery{ style: "background-image: url('#{@place.image.url}')"}
-          .photos-caption
-            = "Photo Credit: "
-            %a{:title => "original photo", :href => @place.image.source_url}= "#{@place.image.source}"
-        - else
-          .photos-gallery
-            .add-photo
-              %i.fa.fa-camera-retro
-              ADD PHOTO
+        = @place.decorate.show_photos_or_noimage
 
   .container
     .eleven.columns.reviews-and-sources-wrap
       .sources
-        .reviews-and-sources-title
-          Professional reviews:
+        .reviews-and-sources-title= 'Published reviews:'
         .reviews-and-sources-line
-          BlackBook Lose yourself in the dizzyingly hypnotic 
-        .reviews-and-sources-title
-          Featured in # plans:
+          X
+        .reviews-and-sources-title= 'Featured in # plans:'
         .reviews-and-sources-line
           Dropdown
-        .reviews-and-sources-title
-          Bookmarked by # planiteers:
+        .reviews-and-sources-title= 'Bookmarked by # planiteers:'
         .reviews-and-sources-line
           Mosaic if user image
 
     .five.columns.more-info-wrap
       .other-info-wrap.hours-availability-booking
-        - if @place.open_now?
-          .hours-availability-booking-content.open-now= "Open now (_)"
-
-        .hours-availability-booking
-          
-        - if @place.hours
-          .more-info-line
-            Hours
-        / - if @place.reservations
+        = @place.decorate.show_open_today
+        = @place.decorate.show_hours
+        = @place.decorate.show_reservations_maker
       .other-info-wrap.menu-cost-reservations
-        .more-info-line
-          %i.fa.fa-calendar.place-show-icon
-          Takes Reservations
-        - if @place.price_tier
-          .more-info-line
-            %i.fa.fa-money.place-show-icon
-            @place.price_tier
-        .more-info-line
-          %i.fa.fa-cutlery.place-show-icon
-          View Menu
-        .more-info-line
-          %i.fa.fa-wifi.place-show-icon
-          Has WiFi
+        = @place.decorate.show_reservations
+        = @place.decorate.show_price_info
+        = @place.decorate.show_view_menu
+        = @place.decorate.show_has_wifi
 
   = render 'show/footer', { :page_type => 'place' }

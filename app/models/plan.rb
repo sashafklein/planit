@@ -14,17 +14,6 @@ class Plan < ActiveRecord::Base
   delegate :last_day, :departure, to: :last_leg
   delegate :arrival, to: :first_leg
 
-  # PLANS. OPERATORS
-
-  # PLAN OPERATORS
-
-  # def has_travel?
-  #   if legs.has_travel?
-  #     return true
-  #   end
-  #   return nil
-  # end
-
   def has_lodging?
     items.marks.where(lodging: true).any?
   end
@@ -37,16 +26,8 @@ class Plan < ActiveRecord::Base
     legs.last
   end
 
-  def moneyshot
-    moneyshots.first
-  end
-
   def coordinates
     items.coordinates
-  end
-
-  def trailblaze_date
-    starts_at ? starts_at.strftime('%b %Y') : nil
   end
 
   def maptype
