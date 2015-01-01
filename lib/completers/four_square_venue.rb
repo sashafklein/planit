@@ -6,7 +6,6 @@ module Completers
       @json = json['venue']
     end
 
-
     def acceptably_close_lat_lon_and_name?(pip)
       similar_name?(pip)
     end
@@ -38,14 +37,8 @@ module Completers
       pip.names.any? do |name|
         distance = pip_name.without_articles.match_distance( venue_name.without_articles ) || 2
         matches = (distance > name_stringency(pip))
-        # notify_of_bad_name_distance(distance, pip) if !matches
         matches
       end
-    end
-
-    # Made obsolete by venue selection, I think
-    def notify_of_bad_name_distance(distance, pip)
-      pip.set_val( :flags, "Bad name distance. Name: #{pip.name}, Venue Name: #{name}, distance: #{distance}", FourSquare )
     end
 
     def photos

@@ -68,11 +68,7 @@ module Completers
     end
 
     def raw_attrs
-      hash = {}
-      attrs.reject{ |k, v| k == :nearby }.each do |k, v|
-        hash[k] = val(k)
-      end
-      hash.reject{ |k, v| v.blank? }
+      attrs.except(:nearby).reduce_to_hash{ |k, v| val(k) }.reject{ |k, v| v.blank? }
     end
 
     def default(sym)
@@ -89,12 +85,9 @@ module Completers
 
     def info(sym, type)
       if default(sym).is_a? Array
-        binding.pry if attrs[sym].nil?
         attrs[sym].map{ |e| e[type] }.flatten
       elsif default(sym).is_a? Hash
-        hash = {}
-        attrs[sym].each { |k, v| hash[k] = v[type] }
-        hash
+        attrs[sym].reduce_to_hash { |k, v| v[type] }
       else
         attrs.deep_val( [sym, type], default(sym) )
       end

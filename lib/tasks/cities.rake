@@ -48,7 +48,6 @@ namespace :cities  do
     return hash
 
   rescue 
-    binding.pry
     raise
   end
 

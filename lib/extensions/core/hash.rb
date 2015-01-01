@@ -9,7 +9,7 @@ class Hash
         hash[k] = v.recursive_symbolize_keys
       elsif v.is_a? Array
         hash[k] = v.map do |value|
-          if value.is_a? Hash
+          if value.is_a?(Hash)
             value.recursive_symbolize_keys 
           else
             value
@@ -44,5 +44,17 @@ class Hash
       hash = hash.send('[]', i)
     end
     hash
+  end
+
+  def reduce_to_hash(&block)
+    hash = {}
+    self.each do |k, v|
+      hash[k] = yield(k, v)
+    end
+    hash
+  end
+
+  def reduce_to_hash!(&block)
+    self.replace reduce_to_hash(&block)
   end
 end
