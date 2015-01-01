@@ -1,7 +1,7 @@
 class Place < ActiveRecord::Base
 
   before_save :uniqify_array_attrs
-  before_save :deaccent_regional_info
+  before_save :correct_and_deaccent_regional_info
   before_save { self.categories.each(&:titleize) }
 
   has_one :item
@@ -9,7 +9,7 @@ class Place < ActiveRecord::Base
   
   include ActiveRecord::MetaExt
   array_accessor :flag, :completion_step, :street_address, :name, :category
-  hstore_accessor :hours, :extra
+  hstore_accessor :hours, :extra, :phones
   validate!
 
   scope :by_ll_and_name, -> (atts, name, points=2) { where.not( lat: nil ).where.not( lon: nil ).by_ll(atts[:lat], atts[:lon], points).with_name(name) }
@@ -70,11 +70,10 @@ class Place < ActiveRecord::Base
   end
 
   def find_and_merge
-    atts = attributes.symbolize_keys.slice(:region, :country, :locality, :lat, :lon, :street_address, :names)
-    other = Place.find_or_initialize(atts)
+    other = Place.find_or_initialize(attributes)
 
     return self unless other && other.persisted?
-    
+
     other.merge(self)
     other
   end
@@ -91,16 +90,6 @@ class Place < ActiveRecord::Base
     end
     
     p
-  end
-
-  def set_country(val)
-    self.country = Directories::AnglicizedCountry.find(val) || val
-    expand_country
-  end
-
-  def set_region(val)
-    self.region = val
-    expand_region
   end
 
   def alt_names
@@ -141,24 +130,28 @@ class Place < ActiveRecord::Base
 
   private
 
-  def expand_region
-    if region_changed? && region && region.length < 3 && carmen_country = Carmen::Country.named(country)
-      carmen_region = carmen_country.subregions.coded(region)
-      self.region = carmen_region.name if carmen_region
-    end
-  end
 
   def expand_country
-    if country_changed? && country && country.length < 3
+    self.country = Directories::AnglicizedCountry.find(country) || country
+    if country_changed? && country.length < 3
       carmen_country = Carmen::Country.coded(country)
       self.country = carmen_country.name if carmen_country
     end
   end
 
-  def deaccent_regional_info
-    self.country = country.no_accents if country_changed? && country
-    self.region = region.no_accents if region_changed? && region
-    self.subregion = subregion.no_accents if subregion_changed? && subregion
-    self.locality = locality.no_accents if locality_changed? && locality
+  def expand_region
+    if region_changed? && region.length < 3 && carmen_country = Carmen::Country.named(country)
+      carmen_region = carmen_country.subregions.coded(region)
+      self.region = carmen_region.name if carmen_region
+    end
+  end
+
+  def correct_and_deaccent_regional_info
+    self.country = country.no_accents if country_changed?
+    self.region = region.no_accents if region_changed?
+    self.subregion = subregion.no_accents if subregion_changed?
+    self.locality = locality.no_accents if locality_changed?
+    expand_country
+    expand_region
   end
 end

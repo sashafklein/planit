@@ -1,0 +1,286 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=Amelia%20Island,%20Fla.&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Thu, 01 Jan 2015 00:50:17 GMT
+      Expires:
+      - Fri, 02 Jan 2015 00:50:17 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.02
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Amelia Island",
+                       "short_name" : "Amelia Island",
+                       "types" : [ "natural_feature", "establishment" ]
+                    },
+                    {
+                       "long_name" : "Nassau County",
+                       "short_name" : "Nassau County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "32034",
+                       "short_name" : "32034",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "Amelia Island, Florida 32034, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.705708,
+                          "lng" : -81.4267175
+                       },
+                       "southwest" : {
+                          "lat" : 30.515759,
+                          "lng" : -81.488119
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.6265697,
+                       "lng" : -81.46085599999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.705708,
+                          "lng" : -81.4267175
+                       },
+                       "southwest" : {
+                          "lat" : 30.515759,
+                          "lng" : -81.488119
+                       }
+                    }
+                 },
+                 "types" : [ "natural_feature", "establishment" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Thu, 01 Jan 2015 00:50:17 GMT
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=22%20S%203rd%20St,%20Nassau%20County,%20Florida,%20United%20States&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Thu, 01 Jan 2015 00:50:17 GMT
+      Expires:
+      - Fri, 02 Jan 2015 00:50:17 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.02
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "22",
+                       "short_name" : "22",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "South 3rd Street",
+                       "short_name" : "S 3rd St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Fernandina Beach",
+                       "short_name" : "Fernandina Beach",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Nassau County",
+                       "short_name" : "Nassau County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "32034",
+                       "short_name" : "32034",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "22 South 3rd Street, Fernandina Beach, FL 32034, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 30.6703649,
+                       "lng" : -81.4629492
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.6717138802915,
+                          "lng" : -81.46160021970849
+                       },
+                       "southwest" : {
+                          "lat" : 30.6690159197085,
+                          "lng" : -81.46429818029151
+                       }
+                    }
+                 },
+                 "types" : [ "street_address" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Thu, 01 Jan 2015 00:50:17 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?near=Fernandina%20Beach,%20Florida,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Florida%20House%20Inn&v=20140819&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 01 Jan 2015 00:50:18 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '221'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '440'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-jfk1026-JFK
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"geocode":{"what":"","where":"fernandina
+        beach florida united states","center":{"lat":30.66968,"lng":-81.46259},"displayString":"Fernandina
+        Beach, FL, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":30.705699,"lng":-81.42672999999999},"sw":{"lat":30.59947,"lng":-81.483409}}},"slug":"fernandina-beach-florida","longId":"72057594042082942"},"warning":{"text":"There
+        aren''t a lot of results for \"Florida House Inn.\" Try something more general,
+        reset your filters, or expand the search area."},"headerLocation":"Fernandina
+        Beach","headerFullLocation":"Fernandina Beach","headerLocationGranularity":"city","query":"florida
+        house inn","totalResults":1,"suggestedBounds":{"ne":{"lat":30.671711360075687,"lng":-81.46110225315537},"sw":{"lat":30.669011700290245,"lng":-81.46477673582275}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4bc44ea1dce4eee17915729d","name":"1857
+        Florida House Inn","contact":{},"location":{"address":"20 S 3rd St","lat":30.670361530182966,"lng":-81.46293949448905,"postalCode":"32034","cc":"US","city":"Amelia
+        Island","state":"FL","country":"United States","formattedAddress":["20 S 3rd
+        St","Amelia Island, FL 32034"]},"categories":[{"id":"4bf58dd8d48988d1fa931735","name":"Hotel","pluralName":"Hotels","shortName":"Hotel","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/travel\/hotel_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":201,"usersCount":144,"tipCount":4},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":21,"groups":[{"type":"venue","name":"Venue
+        photos","count":21,"items":[{"id":"521bad4311d2e9bb620f51d8","createdAt":1377545539,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/123432_fWKieH6SjNryGnZ9Pv3WhGOl5j1LWoU6NVpDtKKJOiI.jpg","width":959,"height":717,"user":{"id":"123432","firstName":"Kim","lastName":"Geralds","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QGFR2ENSY45IKPYP.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"521bad4311d2e9bb620f51d8","createdAt":1377545539,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/123432_fWKieH6SjNryGnZ9Pv3WhGOl5j1LWoU6NVpDtKKJOiI.jpg","width":959,"height":717,"user":{"id":"123432","firstName":"Kim","lastName":"Geralds","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QGFR2ENSY45IKPYP.jpg"}},"visibility":"public"}]}},"flags":{"exactMatch":true},"tips":[{"id":"4e9105a1f5b9f8967cef655b","createdAt":1318127009,"text":"This
+        place is amazing.....be sure to check out the courtyard, it is beautiful and
+        then sit awhile on the large front porch....so peaceful","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/4e9105a1f5b9f8967cef655b","likes":{"count":3,"groups":[],"summary":"3
+        likes"},"logView":true,"todo":{"count":1},"user":{"id":"10102494","firstName":"Becky","lastName":"Sandefur-Newport","gender":"female","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/2NXUKSGYSS3UV455.jpg"}}}],"referralId":"e-0-4bc44ea1dce4eee17915729d-0"}]}]}}'
+    http_version: 
+  recorded_at: Thu, 01 Jan 2015 00:50:18 GMT
+recorded_with: VCR 2.9.3

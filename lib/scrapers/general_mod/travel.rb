@@ -13,7 +13,6 @@ module Scrapers
       # PAGE 
 
       def data
-        # binding.pry
         return "travel"
         [ place: {
             lat: lat,

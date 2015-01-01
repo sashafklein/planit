@@ -13,7 +13,6 @@ module Scrapers
       # PAGE 
 
       def data
-        # binding.pry
         [ place: {
             lat: lat,
             lon: lon,
