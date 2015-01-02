@@ -9,12 +9,20 @@ module Scrapers
     private
 
     def self.specific_scraper(url, page)
-      if single_item?(url)
+      if travelmap?(url)
+        TripadvisorMod::Travelmap.new(url, page)
+      elsif single_item?(url)
         TripadvisorMod::ItemReview.new(url, page)
       elsif reviews_item?(url)
         TripadvisorMod::UserReviews.new(url, page)
       elsif guide?(url)
         TripadvisorMod::Guide.new(url, page)
+      end
+    end
+
+    def self.travelmap?(url)
+      if url.include?("/TravelMapHome")
+        return true
       end
     end
 
