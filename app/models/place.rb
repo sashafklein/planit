@@ -14,7 +14,10 @@ class Place < ActiveRecord::Base
   scope :by_lat, -> (lat, points) { lat && points ? where("ROUND( CAST(lat as numeric), ? ) = ?", points, lat.round(points) ) : none }
   scope :by_lon, -> (lon, points) { lon && points ? where("ROUND( CAST(lon as numeric), ? ) = ?", points, lon.round(points) ) : none }
   scope :with_region_info, -> (atts) { where( atts.slice(:country, :region, :locality).select{ |k, v| v.present? }.map{ |k, v| { k => v.no_accents } }.first )}
-  scope :non_nil_pluck, -> (att) { where.not({att => nil}).order("#{att} ASC").pluck("DISTINCT #{att}") }
+
+  def self.non_nil_pluck(att)
+    where.not( att => nil ).order("#{att} ASC").pluck("DISTINCT #{att}")
+  end
 
   def self.find_or_initialize(atts)
     Services::PlaceFinder.new(atts).find!
@@ -24,16 +27,8 @@ class Place < ActiveRecord::Base
     [locations.average(:lat), locations.average(:lon)].join(":")
   end
 
-  def self.countries
-    non_nil_pluck(:country)
-  end
-
-  def self.regions
-    non_nil_pluck(:region)
-  end
-
-  def self.localities
-    non_nil_pluck(:locality)
+  def self.coordinates(place_joiner=':', coordinate_joiner='+')
+    map{ |p| p.coordinate( place_joiner ) }.join coordinate_joiner
   end
 
   def validate_and_save!(images=[])
@@ -57,9 +52,8 @@ class Place < ActiveRecord::Base
   end
 
   def nearby
-    return @nearby if @nearby
     return nil unless [locality, region, country].any?(&:present?)
-    @nearby ||= [locality, region, country].reject(&:blank?).join(", ")
+    [locality, region, country].reject(&:blank?).join(", ")
   end
 
   def find_and_merge

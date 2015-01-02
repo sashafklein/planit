@@ -8,10 +8,15 @@ class Mark < ActiveRecord::Base
   belongs_to :user
 
   has_many :items
-  has_many :images, as: :imageable
 
-  delegate :names, :name, :categories, :category, :coordinate, :url, :phones, :phone, :website, :street_address, :country, :region, :locality, :sublocality, to: :place
+  delegate :names, :name, :categories, :category, :coordinate, :url, :phones, :phone, :website,
+           :country, :region, :locality, :sublocality, :images, :image, to: :place
+
   delegate :full, :lodging, to: :place, prefix: true
+
+  class << self
+    delegate :coordinates, to: :places
+  end
 
   has_one :arrival, class_name: 'Travel', foreign_key: 'to_id'
   has_one :departure, class_name: 'Travel', foreign_key: 'from_id'
@@ -28,39 +33,33 @@ class Mark < ActiveRecord::Base
     Place.where(id: pluck(:place_id))
   end
 
-  def self.coordinates
-    places.map(&:coordinate).join("+")
-  end
-
   def self.center_coordinate
     Place.center_coordinate(places)
   end
 
-  def self.allnames
+  def self.all_names
     places.map(&:name)
   end
 
-  def self.allids
-    places.ids
+  def self.all_ids
+    places.pluck(:id)
   end
 
-  def self.allcountries
-    places.countries
+  def self.all_countries
+    places.non_nil_pluck(:country)
   end
 
-  def self.allregions
-    places.countries
+  def self.all_regions
+    places.non_nil_pluck(:region)
   end
 
-  def self.alllocalities
-    places.countries
+  def self.all_localities
+    places.non_nil_pluck(:locality)
   end
   
-  # def self.alltypes
+  # def self.all_types
   #   places.countries
   # end
-
-  # 
 
   def show_icon
     @show_icon ||= Icon.new(category, lodging, meal, mark).filename
@@ -72,10 +71,6 @@ class Mark < ActiveRecord::Base
 
   def previous
     siblings.find_by_order(order - 1)
-  end
-
-  def image
-    images.first
   end
 
   def recoby
@@ -104,10 +99,6 @@ class Mark < ActiveRecord::Base
 
   def categories
     @categories ||= CategorySet.new(self).list
-  end
-
-  def image
-    place.image
   end
 
   private

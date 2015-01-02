@@ -3,7 +3,7 @@
   = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'plan' }
 
   .plan-splash
-    %map.plan-map-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.coordinates, names: @plan.items.allnames.join('/+/'), ids: @plan.items.allids.join('+'), path: place_path(@plan.items.first) }
+    %map.plan-map-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.coordinates, names: @plan.items.allnames.join('/+/'), ids: @plan.items.all_ids.join('+'), path: place_path(@plan.items.first) }
       .container.upfront-plan-map
         .plan-name-wrap
           %span.plan-name= @plan.name

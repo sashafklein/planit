@@ -19,7 +19,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def show_travel_stats_as_caption
-    "#{pin_on_circle_icon} <span class='gray'>#{marks.count} pins and #{plans.count} plans</span> <span class='gray large-screen-inline'>across #{marks.allcountries.count} countries and _#{} continents</span>".html_safe
+    "#{pin_on_circle_icon} <span class='gray'>#{marks.count} pins and #{plans.count} plans</span> <span class='gray large-screen-inline'>across #{marks.all_countries.count} countries and _#{} continents</span>".html_safe
   end
 
   def show_no_plans_alert
