@@ -49,11 +49,6 @@ class Place < ActiveRecord::Base
     [lat, lon].join( joiner )
   end
 
-  def local_name_unique?
-    return true unless name && local_name
-    local_name.downcase != name.downcase
-  end
-
   def full
     string = ''
     string += locality.titleize unless locality.blank?
