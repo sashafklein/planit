@@ -9,7 +9,6 @@ module Completers
 
     def complete!
       place = PlaceCompleter.new( decremented_attrs.delete(:place) ).complete!
-
       return nil unless place
       
       mark = user.marks.where(place_id: place.id).first_or_initialize

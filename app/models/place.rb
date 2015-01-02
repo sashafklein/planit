@@ -15,8 +15,8 @@ class Place < ActiveRecord::Base
   scope :by_lon, -> (lon, points) { lon && points ? where("ROUND( CAST(lon as numeric), ? ) = ?", points, lon.round(points) ) : none }
   scope :with_region_info, -> (atts) { where( atts.slice(:country, :region, :locality).select{ |k, v| v.present? }.map{ |k, v| { k => v.no_accents } }.first )}
 
-  def self.non_nil_pluck(att)
-    where.not( att => nil ).order("#{att} ASC").pluck("DISTINCT #{att}")
+  def self.att_by_frequency(att)
+    where.not(att => nil).select("#{att}, count(#{att}) as frequency").order('frequency desc').group(att).mapp(&att)
   end
 
   def self.find_or_initialize(atts)
@@ -73,9 +73,7 @@ class Place < ActiveRecord::Base
     if hours.any?
       today = Date.today.strftime('%a').downcase
       # convert timezones, check if open, report back until when?
-      if hours[today].scan(/end[_]time\=\>\"([^"]*)\"/).present?
-        hours[today].scan(/end[_]time\=\>\"([^"]*)\"/).flatten.first
-      end
+      hours[today]['end_time'] if hours[today]['end_time']
     end
   end
 
@@ -83,9 +81,7 @@ class Place < ActiveRecord::Base
     if hours.any?
       today = Date.today.strftime('%a').downcase
       # convert timezones, check if open, report back until when?
-      if hours[today].scan(/start[_]time\=\>\"([^"]*)\"/).present?
-        hours[today].scan(/start[_]time\=\>\"([^"]*)\"/).flatten.first
-      end
+      hours[today]['start_time'] if hours[today]['start_time']
     end
   end
 

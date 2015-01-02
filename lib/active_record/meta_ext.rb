@@ -127,7 +127,7 @@ module ActiveRecord
     end
 
     def array_attrs_unique?
-      array_attributes.all? { |att| read_attribute(att) == read_attribute(att).uniq }
+      array_attributes.all? { |att, val| val == val.uniq }
     end
 
     private

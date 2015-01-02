@@ -74,7 +74,12 @@ module Completers
 
     def merge_and_save_with_photos!
       @place = pip.place.find_and_merge
-      @place = @place.validate_and_save!( @photos )
+      if @place.valid? 
+        @place.validate_and_save!( @photos ) 
+      else
+        # raise @place.errors.values.first
+        nil
+      end
     end
   end
 end

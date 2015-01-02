@@ -50,7 +50,13 @@ module Completers
     end
 
     def pick_venue
-      @venue = venues.find{ |v| v.acceptably_close_lat_lon_and_name?(pip) }
+      @venue = venues.find do |v| 
+        if pip.name.present?
+          v.acceptably_close_lat_lon_and_name?(pip)
+        else
+          v.address == pip.street_address
+        end
+      end
     end
     
     def merge!
@@ -68,6 +74,9 @@ module Completers
       pip.set_val( :lat, venue.lat, self.class )
       pip.set_val( :lon, venue.lon, self.class )
       pip.set_val( :completion_steps, self.class.to_s.demodulize, self.class )
+      pip.set_val( :extra, { menu_url: venue.menu_url }, self.class )
+      pip.set_val( :extra, { mobile_menu_url: venue.mobile_menu_url }, self.class )
+      pip.set_val( :extra, { four_square_id: venue.four_square_id }, self.class )
     end
 
     def getPhotos

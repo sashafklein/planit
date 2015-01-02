@@ -1,6 +1,8 @@
 module Completers
   class FourSquareVenue
 
+    IMAGE_SIZE = '622x440'
+
     attr_accessor :json
     def initialize(json)
       @json = json['venue']
@@ -43,9 +45,8 @@ module Completers
 
     def photos
       return [] unless photos = json.deep_val( ['featuredPhotos', 'items'] )
-
       photos.map do |photo|
-        [photo['prefix'], photo['suffix']].join("200x200")
+        [photo['prefix'], photo['suffix']].join(IMAGE_SIZE)
       end
     end   
     
@@ -91,6 +92,18 @@ module Completers
 
     def full_address
       json.deep_val %w( location formattedAddress )
+    end
+
+    def menu_url
+      json.deep_val %w( menu url )
+    end
+
+    def mobile_menu_url
+      json.deep_val %w( menu mobileUrl )
+    end
+
+    def four_square_id
+      json['id']
     end
   end
 end

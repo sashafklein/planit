@@ -22,7 +22,7 @@ def place_params
 end
 
 def photo_params
-  { photo: "https://irs3.4sqi.net/img/general/200x200/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg" }
+  { photo: "https://irs3.4sqi.net/img/general/#{Completers::FourSquareVenue::IMAGE_SIZE}/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg" }
 end
 
 def mark_params

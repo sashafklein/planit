@@ -30,7 +30,7 @@ describe Api::V1::Users::MarksController do
       expect(response_body[:items].any?).to eq false
 
       img = response_body[:place][:images].first
-      expect(img[:url]).to eq "https://irs3.4sqi.net/img/general/200x200/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg"
+      expect(img[:url]).to eq "https://irs3.4sqi.net/img/general/#{Completers::FourSquareVenue::IMAGE_SIZE}/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg"
       expect(img[:source]).to eq "FourSquare"
 
       expect(response_body[:user][:email]).to eq @user.email
@@ -112,7 +112,7 @@ describe Api::V1::Users::MarksController do
         expect( @user.plans.count ).to eq 1
 
         expect( @user.items.count ).to eq Place.count
-        expect( items.count ).to eq 19
+        expect( items.count ).to eq 18
         expect( @user.marks.count ).to eq Place.count
         
         expect( @user.items.pluck(:id).sort ).to eq plan.items.pluck(:id).sort

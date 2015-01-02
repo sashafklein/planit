@@ -10,7 +10,7 @@ class Mark < ActiveRecord::Base
   has_many :items
 
   delegate :names, :name, :categories, :category, :coordinate, :url, :phones, :phone, :website,
-           :country, :region, :locality, :sublocality, :images, :image, to: :place
+           :country, :region, :locality, :sublocality, :images, :image, :street_address, to: :place
 
   delegate :full, :lodging, to: :place, prefix: true
 
@@ -46,15 +46,15 @@ class Mark < ActiveRecord::Base
   end
 
   def self.all_countries
-    places.non_nil_pluck(:country)
+    places.att_by_frequency(:country).map(&:country)
   end
 
   def self.all_regions
-    places.non_nil_pluck(:region)
+    places.att_by_frequency(:region).map(&:region)
   end
 
   def self.all_localities
-    places.non_nil_pluck(:locality)
+    places.att_by_frequency(:locality).map(&:locality)
   end
   
   # def self.all_types

@@ -37,8 +37,8 @@ module Completers
           expect( place.street_addresses ).to eq( ["701, 957 Calle 51"] )
           expect( place.names ).to eq( ["Penthouse room with a view (Airbnb)"] )
           expect( place.full_address ).to eq("Calle 51 # 9-57 Apt 701, Bogota, Cundinamarca, Colombia")
-          expect( place.lat ).to eq(4.6379639)
-          expect( place.lon ).to eq(-74.06488449999999)
+          expect( place.lat ).to be_within(0.000001).of(4.6379639)
+          expect( place.lon ).to be_within(0.000001).of(-74.0648845)
         end
 
         it 'finds La Cevicheria in Cartagena', :vcr do
@@ -127,7 +127,7 @@ module Completers
           expect(place.lon).to be_within(0.00001).of -71.1043846607208
           expect(place.category).to eq 'Coffee Shop'
           expect(place.website).to eq 'http://dwelltimecambridge.com'
-          expect(place.images.first.url).to eq 'https://irs3.4sqi.net/img/general/200x200/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg'
+          expect(place.images.first.url).to eq "https://irs3.4sqi.net/img/general/#{Completers::FourSquareVenue::IMAGE_SIZE}/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg"
         end
       end
 
@@ -146,7 +146,7 @@ module Completers
           place = PlaceCompleter.new(hash).complete!
           expect( place.names.sort ).to eq ['Fuunji', 'Fu-Unji', '風雲児'].sort
           expect( place.street_addresses.sort ).to eq ['代々木2-14-3', "2 Chome-14 Yoyogi"].sort
-          expect( place.extra.symbolize_keys ).to eq({ rating: '5', rating_tier: '5 star', twitter: '@fuunjiIsTheShit' })
+          expect( place.extra.symbolize_keys ).to eq({ rating: '5', rating_tier: '5 star', twitter: '@fuunjiIsTheShit', four_square_id: "4b5983faf964a520ca8a28e3", menu_url: nil, mobile_menu_url: nil })
           expect( place.completion_steps ).to eq ["Narrow", "FourSquare", "Translate"]
           expect( place.sublocality ).to eq "Yoyogi"
         end
