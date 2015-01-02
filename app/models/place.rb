@@ -16,7 +16,7 @@ class Place < ActiveRecord::Base
   scope :with_region_info, -> (atts) { where( atts.slice(:country, :region, :locality).select{ |k, v| v.present? }.map{ |k, v| { k => v.no_accents } }.first )}
 
   def self.att_by_frequency(att)
-    where.not(att => nil).select("#{att}, count(#{att}) as frequency").order('frequency desc').group(att).mapp(&att)
+    where.not(att => nil).select("#{att}, count(#{att}) as frequency").order('frequency desc').group(att).map(&att)
   end
 
   def self.find_or_initialize(atts)

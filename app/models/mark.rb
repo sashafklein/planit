@@ -46,15 +46,15 @@ class Mark < ActiveRecord::Base
   end
 
   def self.all_countries
-    places.att_by_frequency(:country).map(&:country)
+    places.att_by_frequency(:country)
   end
 
   def self.all_regions
-    places.att_by_frequency(:region).map(&:region)
+    places.att_by_frequency(:region)
   end
 
   def self.all_localities
-    places.att_by_frequency(:locality).map(&:locality)
+    places.att_by_frequency(:locality)
   end
   
   # def self.all_types
