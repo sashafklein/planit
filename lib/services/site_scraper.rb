@@ -32,9 +32,6 @@ module Services
     def data
       return @data if @data.length > 0
       
-      # WE NEED SOME FORM OF NILSINK HERE IF GROUPS TURN UP NIL
-      # undefined method `each_with_index' for nil:NilClass
-
       itinerary_group.each_with_index do |itinerary, itinerary_index|
         leg_group(itinerary).each_with_index do |leg, leg_index|
           day_group(leg).each_with_index do |day, day_index|
@@ -100,6 +97,7 @@ module Services
     def activity_data(activity, activity_index);    {};                 end
     def general_group;                              [];                 end
     def general_data(general, general_index);       {};                 end
+    def global_data;                                {};                 end
 
     def full_item(datas_array)
       progressive_merge(datas_array)
