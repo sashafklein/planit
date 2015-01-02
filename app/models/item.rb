@@ -2,13 +2,21 @@ class Item < ActiveRecord::Base
 
   include ActiveRecord::MetaExt
   
+  hstore_accessor :extra
+  
   belongs_to :mark
   belongs_to :plan
   belongs_to :day
 
-  delegate :names, :categories, :category, :coordinate, :lat, :lon, :url, :phones, :phone, :website, :street_address, :country, :region, :locality, :sublocality, to: :place
+  delegate :names, :categories, :category, :coordinate, :lat, :lon, :url, :phones, :phone, :website, :street_address, 
+           :country, :region, :locality, :sublocality, :image, :source, to: :place
   delegate :place, :notes, :name, to: :mark
   delegate :leg, to: :day
+
+  class << self
+    delegate :places, :coordinates, :all_names, :all_ids, :all_types, :all_countries, :all_regions, :all_localities, to: :marks
+  end
+
   validates_presence_of :mark, :plan
 
   scope :with_tabs, -> { all }
@@ -24,42 +32,10 @@ class Item < ActiveRecord::Base
     Mark.where(id: pluck(:mark_id))
   end
 
-  def self.places
-    marks.places
-  end
-
   def self.with_lodging
     where(mark_id: Mark.where(id: pluck(:mark_id), lodging: true).pluck(:id))
   end
-
-  def self.coordinates
-    marks.coordinates
-  end
-
-  def self.allnames
-    marks.allnames
-  end
-
-  def self.allids
-    marks.allids
-  end
-
-  def self.allcountries
-    marks.allcountries
-  end
-
-  def self.allregions
-    marks.countries
-  end
-
-  def self.alllocalities
-    marks.countries
-  end
   
-  # def self.alltypes
-  #   marks.countries
-  # end
-
   # INSTANCE METHODS
 
   def next
@@ -86,17 +62,10 @@ class Item < ActiveRecord::Base
 
   # INDIVIDUAL ITEM PASS THROUGH LINKAGES
 
-  def image
-    place.image
-  end
-
-  def source
-    self.mark.source
-  end
-
   def lodging
     self.place.name unless !self.mark.lodging
   end
+
   private
 
   def siblings

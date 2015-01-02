@@ -79,7 +79,7 @@ module Completers
         it "fills any missing info", :vcr do
           atts = place_hash({}, {random_other: 'value'})
           completed_mark = Completer.new(atts, @user).complete!
-          expect(@mark.reload.place.extra.symbolize_keys).to eq({random_other: 'value'})
+          expect(@mark.reload.place.extra.symbolize_keys).to eq({random_other: 'value', four_square_id: "509ef2b9e4b01b9e49f1d25c", menu_url: nil, mobile_menu_url: nil})
           expect(@mark.place.flags.first).to eq "Place ##{@mark.place.id} merged with nonpersisted place. Added: {:names=>[\"La Paletteria\", \"La Palettería\"], :street_addresses=>[\"Calle Santo Domingo, No. 3-88\", \"Cll Santo Domingo # 36 - 86\"]}"
         end
       end

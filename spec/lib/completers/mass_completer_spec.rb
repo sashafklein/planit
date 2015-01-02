@@ -41,7 +41,7 @@ module Completers
         expect( florida_house_inn.names ).to include('1857 Florida House Inn')
         expect( florida_house_inn.street_addresses ).to eq ["22 South Third Street", '20 S 3rd St']
         expect( florida_house_inn.phones ).to eq( { 'default' => "904-261-3300" } )
-        expect( florida_house_inn.extra ).to eq( { 'section_title' => "Boardinghouse Brunch" } )
+        expect( florida_house_inn.extra ).to eq( { 'section_title' => "Boardinghouse Brunch", "four_square_id" => "4bc44ea1dce4eee17915729d", "menu_url" => nil, "mobile_menu_url" => nil } )
         expect( florida_house_inn.completion_steps ).to eq ["Nearby", "Narrow", "FourSquare", "Translate"]
         
         expect( florida_house_inn.locality ).to eq( 'Fernandina Beach' )

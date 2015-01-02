@@ -24,21 +24,6 @@ module ActiveRecord
         where('1=2')
       end
 
-      def extra_accessor(*symbols)
-        symbols.each do |sym|
-          instance_eval do 
-            define_method(sym) do |arg|
-              extra["#{sym}s"].present? ? extra["#{sym}s"] << arg : extra["#{sym}s"] = [arg]
-            end
-
-            define_method("#{sym}s") do
-              contents = extra["#{sym}s"]
-              contents.nil? ? [] : JSON.parse(contents)
-            end
-          end
-        end      
-      end
-
       def array_accessor(*symbols)
         symbols.each do |singular|
 
@@ -139,6 +124,10 @@ module ActiveRecord
       array_attributes.keys.each do |att|
         write_attribute(att, read_attribute(att).compact.uniq) if send("#{att}_changed?") || !id
       end
+    end
+
+    def array_attrs_unique?
+      array_attributes.all? { |att, val| val == val.uniq }
     end
 
     private

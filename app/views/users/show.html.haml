@@ -8,7 +8,7 @@
 
       .world-view-map-wrap
         .empty-map-box.world-view
-          %map.world-view-canvas{ coordinates: @user.marks.coordinates, names: @user.marks.allnames.join('/+/'), ids: @user.marks.allids.join('+'), path: place_path(@user.marks.first), type: 'worldview' }
+          %map.world-view-canvas{ coordinates: @user.marks.coordinates, names: @user.marks.all_names.join('/+/'), ids: @user.marks.all_ids.join('+'), path: place_path(@user.marks.first), type: 'worldview' }
         .tab-caption= @user.decorate.show_travel_stats_as_caption
 
     .one-third.column
