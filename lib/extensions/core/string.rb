@@ -34,4 +34,8 @@ class String
   def without_common_symbols
     cut %w(& # * , ; . ' " * ^ % ! @  )
   end
+
+  def capitalized?
+    chars.first == chars.first.upcase
+  end
 end

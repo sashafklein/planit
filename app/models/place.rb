@@ -1,9 +1,5 @@
 class Place < ActiveRecord::Base
 
-  before_save :uniqify_array_attrs
-  before_save :correct_and_deaccent_regional_info
-  before_save { self.categories.each(&:titleize) }
-
   has_one :item
   has_many :images, as: :imageable
   
@@ -18,6 +14,7 @@ class Place < ActiveRecord::Base
   scope :by_lat, -> (lat, points) { lat && points ? where("ROUND( CAST(lat as numeric), ? ) = ?", points, lat.round(points) ) : none }
   scope :by_lon, -> (lon, points) { lon && points ? where("ROUND( CAST(lon as numeric), ? ) = ?", points, lon.round(points) ) : none }
   scope :with_region_info, -> (atts) { where( atts.slice(:country, :region, :locality).select{ |k, v| v.present? }.map{ |k, v| { k => v.no_accents } }.first )}
+  scope :non_nil_pluck, -> (att) { where.not({att => nil}).order("#{att} ASC").pluck("DISTINCT #{att}") }
 
   def self.find_or_initialize(atts)
     Services::PlaceFinder.new(atts).find!
@@ -28,18 +25,19 @@ class Place < ActiveRecord::Base
   end
 
   def self.countries
-    country_and_frequency = pluck(:country).compact.each_with_object(Hash.new(0)){ |m,h| h[m] += 1 }.sort {|a,b| b[1] <=> a[1]}
-    country_and_frequency.map(&:first)
+    non_nil_pluck(:country)
   end
 
   def self.regions
-    region_and_frequency = pluck(:region).compact.each_with_object(Hash.new(0)){ |m,h| h[m] += 1 }.sort {|a,b| b[1] <=> a[1]}
-    region_and_frequency.map(&:first)
+    non_nil_pluck(:region)
   end
 
   def self.localities
-    locality_and_frequency = pluck(:locality).compact.each_with_object(Hash.new(0)){ |m,h| h[m] += 1 }.sort {|a,b| b[1] <=> a[1]}
-    locality_and_frequency.map(&:first)
+    non_nil_pluck(:locality)
+  end
+
+  def validate_and_save!(images=[])
+    PlaceSaver.new(self, images).save!
   end
 
   def image
@@ -78,20 +76,6 @@ class Place < ActiveRecord::Base
     other
   end
 
-  def save_with_photos!(photos)
-    return nil unless valid?
-
-    p = self.persisted? ? self : Place.new(attributes)
-    p.save!
-
-    Array(photos).each do |photo| 
-      next if images.find_by(url: photo.url)
-      photo.update_attributes!(imageable_type: p.class.to_s, imageable_id: p.id)
-    end
-    
-    p
-  end
-
   def alt_names
     array = names.drop(1)
   end
@@ -126,32 +110,5 @@ class Place < ActiveRecord::Base
 
   def in_usa?
     country == "United States" || country == "United States of America"
-  end
-
-  private
-
-
-  def expand_country
-    self.country = Directories::AnglicizedCountry.find(country) || country
-    if country_changed? && country.length < 3
-      carmen_country = Carmen::Country.coded(country)
-      self.country = carmen_country.name if carmen_country
-    end
-  end
-
-  def expand_region
-    if region_changed? && region.length < 3 && carmen_country = Carmen::Country.named(country)
-      carmen_region = carmen_country.subregions.coded(region)
-      self.region = carmen_region.name if carmen_region
-    end
-  end
-
-  def correct_and_deaccent_regional_info
-    self.country = country.no_accents if country_changed?
-    self.region = region.no_accents if region_changed?
-    self.subregion = subregion.no_accents if subregion_changed?
-    self.locality = locality.no_accents if locality_changed?
-    expand_country
-    expand_region
   end
 end

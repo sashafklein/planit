@@ -141,6 +141,10 @@ module ActiveRecord
       end
     end
 
+    def array_attrs_unique?
+      array_attributes.all? { |att| read_attribute(att) == read_attribute(att).uniq }
+    end
+
     private
 
     def cleaned(attrs, exceptions)
