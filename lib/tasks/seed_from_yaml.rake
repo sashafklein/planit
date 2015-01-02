@@ -13,7 +13,7 @@ namespace :seed  do
               puts "Sleeping to avoid Google API request/second limit"
               sleep 1 # To avoid Google Api request/second limit
               puts "Saving #{name}"
-              completed = Services::Completer.new(place_hash, niko).complete!
+              completed = Completers::Completer.new(place_hash, niko).complete!
               puts "Saved #{name}"
             rescue
               next

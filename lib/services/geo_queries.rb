@@ -40,9 +40,9 @@ module Services
     def find_locality(string, country=nil)
       if string && country
         #swap out for FULL CITIES database stuff?
-        Services::City.new.find_in(string)
+        Directories::City.new.find_in(string)
       elsif string
-        Services::City.new.find_in(string)
+        Directories::City.new.find_in(string)
       end    end
 
     def scan_country_strict(string)
@@ -93,7 +93,7 @@ module Services
       if string
         test_string = de_tag( no_accents(string).downcase )
         locality_array = []
-        Services::City.new.cities.each do |c, hash|
+        Directories::City.new.cities.each do |c, hash|
           if match = test_string.match(%r!(?:\A|[ ]|\>)#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!)
             name = hash[:accented]
             count = test_string.scan(%r!(?:\A|[ ]|\>)#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!).length
@@ -140,7 +140,7 @@ module Services
       if string
         test_string = de_tag( no_accents(string).downcase )
         locality_array = []
-        Services::City.new.cities.each do |c, hash|
+        Directories::City.new.cities.each do |c, hash|
           if match = test_string.match(%r!(?:\A|[ ]|\>)#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!)
             test_string.scan(%r!(?:\A|[ ]|\>)#{no_accents(c)}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!).each do 
               locality_array << hash[:accented]
@@ -154,7 +154,7 @@ module Services
     def find_country_by_locality(string)
       if string
         #swap out for FULL CITIES database stuff?
-        Services::City.new.get_city_country(string)
+        Directories::City.new.get_city_country(string)
       end    end
 
     def guess_sublocale(string_array, locale_array) # returns locality [0], region [1], country [2], full_string [3]

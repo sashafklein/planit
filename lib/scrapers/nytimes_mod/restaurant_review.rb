@@ -80,7 +80,6 @@ module Scrapers
       end
 
       def address_in_data_hash(data)
-        # binding.pry
         find_by_attr(data, 'popup')[:body].scan(find_address_after_n).flatten.first ; rescue ; nil
       end
 

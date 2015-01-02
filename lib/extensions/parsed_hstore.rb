@@ -1,28 +1,33 @@
 class ParsedHstore
 
+  attr_reader :value
   def initialize(hash)
-    new_hash = {}
-    hash.each do |key, value|
-      if value.is_a?(String) && is_json_hash?(value)
-        new_hash[key] = ParsedHstore.new( JSON.parse(value.gsub("=>", ":")) ).value
+    @value = hash.reduce_to_hash do |key, value|
+      
+      if is_json_string?(value)
+        wrap( clean(value) ).value
       elsif value.is_a? Hash
-        new_hash[key] = ParsedHstore.new(value).value
+        wrap( value ).value
       elsif value.is_a? Array
-        new_hash[key] = value.map{ |e| ParsedHstore.new(e).value }
+        value.map{ |e| self.class.new(e).value }
       else
-        new_hash[key] = value
+        value
       end
+      
     end
-    @value = new_hash
-  end
-
-  def value
-    @value
   end
 
   private
 
-  def is_json_hash?(string)
-    string[0..1] == "{\"" && string[-2..-1] == "\"}"
+  def wrap(input)
+    self.class.new input
+  end
+
+  def is_json_string?(input)
+    input.is_a?(String) && input[0..1] == "{\"" && input[-2..-1] == "\"}"
+  end
+
+  def clean(json_string)
+    JSON.parse( json_string.gsub("=>", ":") )
   end
 end

@@ -1,13 +1,14 @@
 module Services
   class PlaceFinder
 
-    attr_accessor :atts
+    attr_accessor :atts, :search_atts
     def initialize(atts)
       @atts = atts
+      @search_atts = atts.symbolize_keys.slice(:region, :country, :locality, :lat, :lon, :street_addresses, :names)
     end
 
     def find!
-      return Place.new(atts) unless sufficient_to_locate?
+      return Place.new(search_atts) unless sufficient_to_locate?
 
       place = find_by_cascade
       place = notify_and_round_out(place)
@@ -17,7 +18,7 @@ module Services
     private
 
     def find_by_cascade
-      place = Place.by_location(atts).first
+      place   = Place.by_location(search_atts).first
       place ||= find_by_ll_and_name
       place ||= Place.new( place_atts )
 
@@ -33,7 +34,7 @@ module Services
     end
 
     def notify_of_merger_or_clash(place)
-      if atts[:names].present? && place.names.any?{ |name| !atts[:names].include?(name) }
+      if search_atts[:names].present? && place.names.any?{ |name| !search_atts[:names].include?(name) }
         notify_of_name_clash(place)
         round_out(place)
       else
@@ -43,16 +44,16 @@ module Services
     end
 
     def find_by_ll_and_name
-      Array(atts[:names]).each do |name|
-        place = Place.by_ll_and_name(atts, name).first
+      Array(search_atts[:names]).each do |name|
+        place = Place.by_ll_and_name(search_atts, name).first
         return place if place
       end
       nil
     end
 
     def sufficient_to_locate?
-      (atts[:street_addresses].present? || atts[:names].present?) && 
-        (atts[:locality] || atts[:region] || (atts[:lat] && atts[:lon]) || atts[:nearby])
+      (search_atts[:street_addresses].present? || search_atts[:names].present?) && 
+        (search_atts[:locality] || search_atts[:region] || (search_atts[:lat] && search_atts[:lon]) || search_atts[:nearby])
     end
 
     def place_atts
@@ -77,25 +78,21 @@ module Services
     end
 
     def notify_of_merger(place)
-      return if ENV['RAILS_ENV'] == 'test'
-      return
-      PlaceMailer.delay.merger( place.id, diff(atts, place) )
+      place.add_flag("Place ##{place.id} merged with nonpersisted place. Added: #{additions(atts, place).to_s}")
     end
 
     def notify_of_name_clash(place)
-      return if ENV['RAILS_ENV'] == 'test'
-      return
-      PlaceMailer.delay.name_clash( place.id, diff(atts, place) )
+      place.add_flag("Place ##{place.id} name clashed with nonpersisted place. Added: #{additions(atts, place).to_s}")
     end
 
-    def diff(hash, object)
+    def additions(hash, object)
       result = {}
       atts = object.attributes.reject{ |k, v| %w(id updated_at created_at).include?(k) || v.blank? }
       atts.each do |key, object_val|
         hash_val = hash[key]
-        result[key] = { object: object_val, hash: hash_val } if hash_val != object_val
+        result[key] = hash_val if hash_val != object_val && !hash_val.blank?
       end
-      result
+      result.symbolize_keys
     end
   end
 end

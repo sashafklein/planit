@@ -7,8 +7,8 @@ class Api::V1::Users::MarksController < ApiController
 
   def create
     return error(404, "User not found") unless @user
-
-    completed = Services::Completer.new(mark_params, @user).complete!
+    
+    completed = Completers::Completer.new(mark_params, @user).complete!
 
     render json: completed, serializer: TotalMarkSerializer
   end
@@ -19,7 +19,7 @@ class Api::V1::Users::MarksController < ApiController
     
     scraped = Array Services::SiteScraper.build(params[:url], params[:page]).data
 
-    Services::MassCompleter.new(scraped, @user).delay_complete!(delay?)
+    Completers::MassCompleter.new(scraped, @user).delay_complete!(delay?)
 
     render json: { success: true }
   end

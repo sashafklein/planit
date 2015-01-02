@@ -16,7 +16,7 @@ describe Api::V1::Users::MarksController do
     end
 
     it "successfully serializes a mark with its place, place's photos, and empty item array", :vcr do
-      expect(Services::Completer).to receive(:new).and_call_original
+      expect(Completers::Completer).to receive(:new).and_call_original
       post :create, mark: mark_params, user_id: @user.id
 
       expect(response_body[:place][:id]).to be_a Integer
@@ -24,7 +24,7 @@ describe Api::V1::Users::MarksController do
       expect(response_body[:place][:lon]).to eq(mark_params[:place][:lon])
       expect(response_body[:place][:names]).to eq( [mark_params[:place][:name]] )
       expect(response_body[:place][:locality]).to eq(mark_params[:place][:locality])
-      expect(response_body[:place][:region]).to eq(mark_params[:place][:region])
+      expect(response_body[:place][:region]).to eq("California") # Expanded
       expect(response_body[:place][:street_addresses]).to eq( [mark_params[:place][:street_address]] )
 
       expect(response_body[:items].any?).to eq false
@@ -72,7 +72,7 @@ describe Api::V1::Users::MarksController do
       it "calls the right scraper", :vcr do
         fake_scraper_data = [{ key: 'whatever'}]
         expect(Scrapers::TripadvisorMod::ItemReview).to receive(:new).with(fuunji_url, fuunji_doc) { double({ data: fake_scraper_data }) }
-        expect(Services::MassCompleter).to receive(:new).with(fake_scraper_data, @user).and_return( double(delay_complete!: true) )
+        expect(Completers::MassCompleter).to receive(:new).with(fake_scraper_data, @user).and_return( double(delay_complete!: true) )
         post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id, delay: false
       end
 
@@ -110,9 +110,9 @@ describe Api::V1::Users::MarksController do
         items = plan.items
 
         expect( @user.plans.count ).to eq 1
-        
+
         expect( @user.items.count ).to eq Place.count
-        expect( items.count ).to eq 18
+        expect( items.count ).to eq 19
         expect( @user.marks.count ).to eq Place.count
         
         expect( @user.items.pluck(:id).sort ).to eq plan.items.pluck(:id).sort
