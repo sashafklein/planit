@@ -1,6 +1,6 @@
 require 'spec_helper'
 module Completers
-  describe Completer do
+  describe Completer, :vcr do
 
     include ScraperHelper
 
@@ -13,7 +13,7 @@ module Completers
 
       context "new place" do
         context "with no sequence or plan data" do
-          it "saves and returns an associated mark, rounded out by Geocoder and FourSquare API", :vcr do
+          it "saves and returns an associated mark, rounded out by Geocoder and FourSquare API" do
             c = Completer.new(place_hash, @user)
             mark = c.complete!
 
@@ -26,7 +26,7 @@ module Completers
             expect(place.country).to eq place_hash[:place][:country]
           end
 
-          it "grabs more info from FourSquare", :vcr do
+          it "grabs more info from FourSquare" do
             expect( Image.count ).to eq 0
             c = Completer.new(place_hash, @user)
             mark = c.complete!
@@ -34,7 +34,7 @@ module Completers
             expect(mark.place.images.first).to be_present
           end
 
-          it "ignores but retains unusable data", :vcr do
+          it "ignores but retains unusable data" do
             expect_any_instance_of(Completers::PlaceCompleter).to receive(:foursquare_complete!)
             expect_any_instance_of(Completers::PlaceCompleter).to receive(:narrow_with_geocoder!)
 
@@ -43,7 +43,7 @@ module Completers
             expect(c.decremented_attrs).to eq({ made_up: 'whatever'})
           end
 
-          it "uses scraped images and FourSquare images", :vcr do
+          it "uses scraped images and FourSquare images" do
             c = Completer.new(YAML.load_file( File.join(Rails.root, 'spec', 'support', 'pages', 'tripadvisor', 'fuunji.yml')).first, @user)
             m = c.complete!
             p = m.place
@@ -62,7 +62,7 @@ module Completers
           @mark = Mark.create(user: @user, place: @place)
         end
 
-        it "finds the mark, and doesn't create duplicates", :vcr do
+        it "finds the mark, and doesn't create duplicates" do
           mark_count = Mark.count
           place_count = Place.count
 
@@ -76,7 +76,7 @@ module Completers
           expect(completed_mark).to eq @mark
         end
 
-        it "fills any missing info", :vcr do
+        it "fills any missing info" do
           atts = place_hash({}, {random_other: 'value'})
           completed_mark = Completer.new(atts, @user).complete!
           expect(@mark.reload.place.extra.symbolize_keys).to eq({random_other: 'value', four_square_id: "509ef2b9e4b01b9e49f1d25c", menu_url: nil, mobile_menu_url: nil})
@@ -86,7 +86,7 @@ module Completers
 
       context "with sequence data" do
         context "without legs" do
-          it "creates an item, associated with day and plan", :vcr do
+          it "creates an item, associated with day and plan" do
             expect_any_instance_of(Completers::PlaceCompleter).to receive(:foursquare_complete!)
             expect_any_instance_of(Completers::PlaceCompleter).to receive(:narrow_with_geocoder!)
             expect(Item.count).to eq(0)
@@ -107,7 +107,7 @@ module Completers
 
       context "item data outside a plan context" do
         context "without good api data" do
-          it "creates the place, mark, plan, and location", :vcr do
+          it "creates the place, mark, plan, and location" do
             c = Completer.new(yml_data('itinerary', 'https://www.airbnb.com/reservation/itinerary?code=ZBCAT4') , @user)
             m = c.complete!
 
@@ -130,7 +130,7 @@ module Completers
         end
 
         context "tricky Google one" do
-          it "gets it too", :vcr do
+          it "gets it too" do
             m = Completer.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "Restaurante Los Almendros"), @user).complete!
             expect(m.country).to eq "Colombia"
             expect(m.region).to eq "Magdalena"
@@ -139,7 +139,7 @@ module Completers
       end
 
       context "item data with plan" do
-        it "creates the Coney Island, and fits it in context", :vcr do
+        it "creates the Coney Island, and fits it in context" do
           m = Completer.new(yml_data('nyhigh', 'http://www.stay.com/new-york/', 'Coney Island'), @user).complete!
 
           expect( m.country ).to eq "United States"
@@ -153,7 +153,7 @@ module Completers
           expect( i.plan.name ).to eq "New York City Guide"
         end
 
-        it "creates the Plaza in context", :vcr do
+        it "creates the Plaza in context" do
           m = Completer.new(yml_data('jetsetters', 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/', 'The Plaza'), @user).complete!
 
           expect(m.country).to eq "United States"
@@ -167,7 +167,7 @@ module Completers
           expect(i.plan.name).to eq "New York for Jetsetters"
         end
 
-        it "creates Boom Boom Room in context", :vcr do
+        it "creates Boom Boom Room in context" do
           m = Completer.new(yml_data('jetsetters', 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/', 'Boom Boom Room'), @user).complete!
 
           expect(m.country).to eq "United States"
@@ -180,7 +180,7 @@ module Completers
           expect(i.plan.name).to eq "New York for Jetsetters"
         end
 
-        it "creates Broadway in context", :vcr do
+        it "creates Broadway in context" do
           m = Completer.new(yml_data('nyhigh', 'http://www.stay.com/new-york/', 'Broadway'), @user).complete!
 
           expect(m.country).to eq "United States"
@@ -191,7 +191,7 @@ module Completers
           expect(i.plan.name).to eq "New York City Guide"
         end
 
-        it "creates Tribute WTC Visitor Center in context", :vcr do
+        it "creates Tribute WTC Visitor Center in context" do
           m = Completer.new(yml_data('nyhigh', 'http://www.stay.com/new-york/', 'Tribute WTC Visitor Center'), @user).complete!
 
           expect(m.country).to eq "United States"

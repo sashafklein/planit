@@ -7,7 +7,7 @@ module Completers
 
     describe "complete!" do
       context "'fuzzy' finding with nearby attribute" do
-        it "finds Florida House Inn (Amelia Island)", :vcr do
+        it "finds Florida House Inn (Amelia Island)" do
           place = PlaceCompleter.new( { name: 'Florida House Inn', street_address: "22 S 3rd St", nearby: 'Amelia Island, Fla.'}).complete!
           expect( place.country ).to eq('United States')
           expect( place.region ).to eq('Florida')
@@ -20,7 +20,7 @@ module Completers
           expect( place.full_address ).to eq("22 South 3rd Street, Fernandina Beach, FL 32034, USA")
         end
 
-        it "finds Fuunji", :vcr do
+        it "finds Fuunji" do
           place = PlaceCompleter.new( { name: 'Fuunji', nearby: 'Shibuya, Tokyo, Japan' }).complete!
           expect( place.country ).to eq('Japan')
           expect( place.region ).to eq('Tokyo-to')
@@ -32,7 +32,7 @@ module Completers
           expect( place.category ).to eq("Ramen / Noodle House")
         end
 
-        it "locates and doesn't overwrite Cundinamarca AirBNB", :vcr do
+        it "locates and doesn't overwrite Cundinamarca AirBNB" do
           place = PlaceCompleter.new({ name: "Penthouse room with a view (Airbnb)", nearby: 'Bogota, Colombia', street_address: "701, 957 Calle 51", full_address: 'Calle 51 # 9-57 Apt 701, Bogota, Cundinamarca, Colombia' }).complete!
           expect( place.street_addresses ).to eq( ["701, 957 Calle 51"] )
           expect( place.names ).to eq( ["Penthouse room with a view (Airbnb)"] )
@@ -41,7 +41,7 @@ module Completers
           expect( place.lon ).to be_within(0.000001).of(-74.0648845)
         end
 
-        it 'finds La Cevicheria in Cartagena', :vcr do
+        it 'finds La Cevicheria in Cartagena' do
           place = PlaceCompleter.new({name: 'La Cevicheria', street_address: "Calle Stuart No 7-14", nearby: "Cartagena, Colombia"} ).complete!
           
           expect( place.locality ).to eq "Cartagena de Indias"
@@ -53,7 +53,7 @@ module Completers
           expect( place.lon ).to eq -75.548012
         end
 
-        it "locates the Trident hotel in Mumbai, with 'Bombay' as nearby", :vcr do
+        it "locates the Trident hotel in Mumbai, with 'Bombay' as nearby" do
           place = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: 'Bombay', street_address: 'Nariman Point, Mumbai, India'}).complete!
           expect( place.names ).to eq(["Trident Nariman Point", "The Trident"])
           expect( place.reload.phones.symbolize_keys ).to eq({ default: "+912266324343" })
@@ -92,7 +92,7 @@ module Completers
       end
 
       context "with preexisting place in db" do
-        it "finds the Trident hotel with less information, and by either name", :vcr do
+        it "finds the Trident hotel with less information, and by either name" do
           place = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: 'Bombay', street_address: 'Nariman Point, Mumbai, India'}).complete!
           place2 = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: 'Mumbai'}).complete!
           place3 = PlaceCompleter.new({ name: 'The Trident', nearby: 'Bombay', street_address: 'Nariman Point, Mumbai, India'}).complete!
@@ -101,7 +101,7 @@ module Completers
           expect( place2 ).to eq place3
         end
 
-        it "recognizes the varying Fuunjis", :vcr do
+        it "recognizes the varying Fuunjis" do
           place = PlaceCompleter.new({ name: 'Fu-Unji', nearby: 'Shinjuku, Tokyo' }).complete!
           place2 = PlaceCompleter.new({ name: 'Fu-Unji', nearby: 'Tokyo'}).complete!
           place3 = PlaceCompleter.new({ name: 'Fuunji', nearby: 'Tokyo, Japan'}).complete!
@@ -111,7 +111,7 @@ module Completers
         end
 
 
-        it "finds, correctly locates, and combines various Dwelltimes", :vcr do
+        it "finds, correctly locates, and combines various Dwelltimes" do
           place = PlaceCompleter.new({ name: "Dwelltime", nearby: 'Boston, MA'}).complete!
           place2 = PlaceCompleter.new({ name: "Dwelltime", nearby: 'Cambridge, MA' }).complete!
           place3 = PlaceCompleter.new({ name: "Dwelltime", nearby: 'Cambridge, MA', street_address: '364 Broadway'}).complete!
@@ -132,7 +132,7 @@ module Completers
       end
 
       describe "how it cleans/flattens incoming hash info" do
-        it "turns excess into 'extra', and flattens name/street_address into names/street_addresses", :vcr do
+        it "turns excess into 'extra', and flattens name/street_address into names/street_addresses" do
           hash = {
             locality: 'Shibuya, Tokyo',
             name: 'Fuunji',

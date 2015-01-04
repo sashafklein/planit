@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Place do 
-  describe "#open?, #open_until, and #open_again_at ", :vcr do
+describe Place, :vcr do 
+  describe "#open?, #open_until, and #open_again_at" do
 
     before do 
       @comptoir = create(:comptoir)

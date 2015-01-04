@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Completers
-  describe MassCompleter do
+  describe MassCompleter, :vcr do
 
     include ScraperHelper
 
@@ -26,7 +26,7 @@ module Completers
 
       let(:user) { create(:user) }
 
-      it "sequences NYT Amelia Island", :vcr do
+      it "sequences NYT Amelia Island" do
         return_hash = YAML.load_file(File.join(Rails.root, 'spec', 'support', 'pages', 'nytimes', 'amelia-island.yml'))
 
         marks = MassCompleter.new(return_hash, user).complete!
