@@ -67,6 +67,32 @@ module ActiveRecord
               parsed = ParsedHstore.new(self[field.to_sym]).value
               DeepStruct.new parsed
             end
+
+            define_method("add_to_#{field}!") do |arg|
+              self[field.to_sym] = self[field.to_sym].merge(arg)
+              send("#{field}_will_change!")
+              save
+              arg
+            end
+
+            define_method("add_to_#{field}") do |arg|
+              self[field.to_sym] = self[field.to_sym].merge(arg)
+              send("#{field}_will_change!")
+              arg
+            end
+
+            define_method("remove_from_#{field}") do |arg|
+              self[field.to_sym] = self[field.to_sym].except(arg)
+              send("#{field}_will_change!")
+              self[field.to_sym]
+            end
+
+            define_method("remove_from_#{field}!") do |arg|
+              self[field.to_sym] = self[field.to_sym].except(arg)
+              send("#{field}_will_change!")
+              save
+              self[field.to_sym]
+            end
           end
         end
       end

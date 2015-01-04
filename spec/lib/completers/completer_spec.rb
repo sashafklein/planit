@@ -96,7 +96,7 @@ module Completers
 
             expect(item.plan.name).to eq sequence_hash[:plan][:name]
             expect(item.order).to eq(1)
-            expect(item.start_time).to eq('03:00')
+            expect(item.start_time).to eq('0300')
             expect(item.duration).to eq(0.5)
             expect(item.weekday).to eq('Friday')
             expect(item.day.order).to eq(1)

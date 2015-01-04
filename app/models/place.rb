@@ -15,6 +15,8 @@ class Place < ActiveRecord::Base
   scope :by_lon, -> (lon, points) { lon && points ? where("ROUND( CAST(lon as numeric), ? ) = ?", points, lon.round(points) ) : none }
   scope :with_region_info, -> (atts) { where( atts.slice(:country, :region, :locality).select{ |k, v| v.present? }.map{ |k, v| { k => v.no_accents } }.first )}
 
+  delegate :open?, :open_again_at, :open_until, to: :hour_calculator
+
   def self.att_by_frequency(att)
     where.not(att => nil).select("#{att}, count(#{att}) as frequency").order('frequency desc').group(att).map(&att)
   end
@@ -69,22 +71,6 @@ class Place < ActiveRecord::Base
     array = names.drop(1)
   end
 
-  def open_until
-    if hours.any?
-      today = Date.today.strftime('%a').downcase
-      # convert timezones, check if open, report back until when?
-      hours[today]['end_time'] if hours[today]['end_time']
-    end
-  end
-
-  def open_again_at
-    if hours.any?
-      today = Date.today.strftime('%a').downcase
-      # convert timezones, check if open, report back until when?
-      hours[today]['start_time'] if hours[today]['start_time']
-    end
-  end
-
   def pinnable
     street_address || full_address || (lat && lon)
   end
@@ -95,5 +81,20 @@ class Place < ActiveRecord::Base
 
   def in_usa?
     country == "United States" || country == "United States of America"
+  end
+
+  def timezone
+    return @timezone if @timezone
+    return @timezone = Timezone::Zone.new(zone: extra_struct.timezone) if extra_struct.timezone
+
+    zone = Timezone::Zone.new({latlon: [lat, lon]})
+    add_to_extra({ timezone: zone.zone })
+    @timezone = zone
+  end
+
+  private
+
+  def hour_calculator
+    PlaceHours.new(self)
   end
 end
