@@ -22,6 +22,7 @@ module Scrapers
       def itinerary_data(itinerary, itinerary_index)
         @folder_meta = itinerary.split(/[<][Pp]lacemark[>]/).flatten.first unless !itinerary
         plan_name = @folder_meta.scan(/[<][Nn]ame[>](.*)[<]\/[Nn]ame[>]/).flatten.first
+        plan_name = plan_name.gsub("Untitled layer", '')
         {
           plan:{
             name: plan_name,
@@ -54,16 +55,23 @@ module Scrapers
 
       def activity_data(activity, activity_index)
         name = activity.scan(/[<][Nn]ame[>](.*)[<][\/][Nn]ame[>]/).flatten.first
-        if not_a_name = name.scan(/Placemark[ ]?\d*/).flatten.first
+        if name && not_a_name = name.scan(/\A\s*((?:Placemark|Point)[ ]?\d*)\s*\Z/).flatten.first
           name = nil
         end
         latlon = activity.scan(/[<][Cc]oordinates[>](.*)[<][\/][Cc]oordinates[>]/).flatten
         lat = ''
         lon = ''
         if latlon && latlon.length == 1
-          lat = latlon.first.split(',').first
-          lon = latlon.first.split(',').last
+          xyz = latlon.first.split(",")
+          lat = xyz[1] # KML orients Longitude, Latitude, Altitude
+          lon = xyz[0] # KML orients Longitude, Latitude, Altitude
+          # Currently not capturing altidude, which would be xyz[2]
         end
+        lat_in_name = name.scan(/#{lat.to_i}\.\d{2}\d*/).flatten.first unless !name
+        lon_in_name = name.scan(/#{lon.to_i}\.\d{2}\d*/).flatten.first unless !name
+        name = trim( name.gsub(/#{lat_in_name}/, '') ) unless !name
+        name = trim( name.gsub(/#{lon_in_name}/, '') ) unless !name
+        name = trim( name.scan(/(.*?)[:]?\Z/).flatten.first ) unless !name
         {
           place:{
             name: name,
@@ -77,11 +85,11 @@ module Scrapers
             postal_code: activity.scan(/[<](?:[Pp]ostal(?:[_]c|C|c)ode|[Zz]ip(?:[_]c|C|c)ode)[>](.*)[<][\/](?:[Pp]ostal(?:[_]c|C|c)ode|[Zz]ip(?:[_]c|C|c)ode)[>]/).flatten.first,
             phone: activity.scan(/[<][Pp]hone(?:[_]number|Number|number)?[>](.*)[<][\/][Pp]hone(?:[_]number|Number|number)?[>]/).flatten.first,
             website: activity.scan(/[<][Ww]ebsite[>](.*)[<][\/][Ww]ebsite[>]/).flatten.first,
-            images:{
+            images:[{
               url: activity.scan(/[<](?:[Tt]ab_image|[Ii]mage|[Pp]hoto)[s]?[>](.*)[<][\/](?:[Tt]ab_image|[Ii]mage|[Pp]hoto)[s]?[>]/).flatten.first, 
-              source: activity.scan(/[<][Ii]mage_credit[>](.*)[<][\/][Ii]mage_credit[>]/).flatten.first, 
+              source: activity.scan(/[<](?:[Ii]mage_credit|[Ss]ource)[>](.*)[<][\/](?:[Ii]mage_credit|[Ss]ource)[>]/).flatten.first, 
               source_url: activity.scan(/[<][Ss]ource_url[>](.*)[<][\/][Ss]ource_url[>]/).flatten.first, 
-            },  
+            }],  
           },
           item:{
             day: activity.scan(/[<][Dd]ay[>](.*)[<][\/][Dd]ay/).flatten.first, 

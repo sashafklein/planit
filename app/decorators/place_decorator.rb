@@ -155,9 +155,9 @@ class PlaceDecorator < Draper::Decorator
   end
 
   def show_view_menu
-    # if menu.present?
+    # if menu_url.present?
     #   content_tag :div, :class => 'more-info-line' do
-    #     "<i class='fa fa-cutlery place-show-icon'></i> #{link_to menu.url, 'View Menu'}".html_safe
+    #     "<i class='fa fa-cutlery place-show-icon'></i> #{link_to menu_url, 'View Menu'}".html_safe
     #   end
     # end
   end
@@ -205,7 +205,19 @@ class PlaceDecorator < Draper::Decorator
   end
 
   def show_place_photo_gallery
-    "<div class='photos-gallery' style='background-image: url(#{image.url})'}></div><div class='photos-caption'>Photo Credit: #{link_to image.source, image.source_url, :title => 'original photo'}</div>".html_safe
+    "<div class='photos-gallery'>#{show_photo}</div>#{show_photo_number}#{show_photo_caption}".html_safe
+  end
+
+  def show_photo
+    "#{image_tag image.url, class: 'photos-gallery-image' }".html_safe
+  end
+
+  def show_photo_caption
+    "<div class='photos-caption'>Photo Credit: #{link_to image.source, image.source_url, :title => 'original photo'}</div>".html_safe
+  end
+
+  def show_photo_number
+    "<div class='photos-number'>[]</div>".html_safe
   end
 
 end

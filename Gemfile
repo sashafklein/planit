@@ -24,6 +24,7 @@ gem "unicorn"
 
 gem 'nokogiri'
 gem 'font-awesome-sass'
+gem 'image_size'
 
 gem "haml-rails"
 gem 'geocoder'

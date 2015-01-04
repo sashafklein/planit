@@ -7,13 +7,15 @@ module Services
         country ||= Carmen::Country.all.find{ |c| (string).include?("#{c.alpha_3_code.titleize}.") } 
         country ||= Carmen::Country.all.find{ |c| (string).include?(c.alpha_3_code.upcase) } 
         country.try(:name)
-      end    end
+      end
+    end
 
     def find_country_by_code(string)
       if string
         country ||= Carmen::Country.all.find{ |c| (string.upcase).include?(c.code.upcase) } 
         country.try(:name)
-      end    end
+      end
+    end
 
     def find_region(string, country)
       if string && country
@@ -22,20 +24,23 @@ module Services
         region ||= carmen_country.subregions.find{ |sr| no_accents(string).include?("#{no_accents(sr.name).first(3)}.") }
         region ||= carmen_country.subregions.find{ |sr| string.include?(sr.code.upcase) }
         region.try(:name)
-      end    end
+      end
+    end
 
     def find_country_strict(string)
       if string
         country = Carmen::Country.all.find{ |c| no_accents(string).downcase.include?(no_accents(c.name.downcase)) }
         country.try(:name)
-      end    end
+      end
+    end
 
     def find_region_strict(string, country)
       if string && country
         carmen_country = Carmen::Country.named(country)
         region = carmen_country.subregions.find{ |sr| no_accents(string.downcase).include?(no_accents(sr.name.downcase)) }
         region.try(:name)
-      end    end
+      end
+    end
 
     def find_locality(string, country=nil)
       if string && country
@@ -43,7 +48,8 @@ module Services
         Directories::City.new.find_in(string)
       elsif string
         Directories::City.new.find_in(string)
-      end    end
+      end
+    end
 
     def scan_country_strict(string)
       if string
@@ -155,7 +161,8 @@ module Services
       if string
         #swap out for FULL CITIES database stuff?
         Directories::City.new.get_city_country(string)
-      end    end
+      end
+    end
 
     def guess_sublocale(string_array, locale_array) # returns locality [0], region [1], country [2], full_string [3]
       if !string_array.is_a? Array

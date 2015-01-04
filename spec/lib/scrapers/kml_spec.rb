@@ -32,7 +32,32 @@ module Scrapers
       end
     end
 
-    # PRIVATE FUNCTIONS
+    describe "hot baths" do
+      before do 
+        @base_name = 'hotbaths'
+        @url = 'http://www.kml.com/'
+        @base_domain = "kml"
+      end
+
+      it "parses hotbath kml file correctly" do
+        expect_equal(data, expectations)
+        expect(data).to eq expectations
+      end
+    end
+
+    describe "barcelona" do
+      before do 
+        @base_name = 'barcelona'
+        @url = 'http://www.kml.com/'
+        @base_domain = "kml"
+      end
+
+      it "parses barcelona kml file correctly" do
+        expect_equal(data, expectations)
+        expect(data).to eq expectations
+      end
+    end
+
   end
 
 end 

@@ -55,7 +55,7 @@ module Services
       general_group.each_with_index do |general, general_index|
         @data << full_item([
           general_data(general, general_index),
-          itinerary_data(nil, nil), #MAY NEEDSFOLLOWUP 
+          itinerary_data(itinerary=nil, itinerary_index=nil),
           global_data,
         ])
       end
@@ -104,7 +104,8 @@ module Services
     end
 
     def progressive_merge(array_of_hashes)
-      array_of_hashes.inject({}) { |f, h| f.deep_merge(h) }
+      @test = array_of_hashes
+      array_of_hashes.inject({}) { |f, h| f.deep_merge(h) } ; rescue binding.pry
     end
 
   end
