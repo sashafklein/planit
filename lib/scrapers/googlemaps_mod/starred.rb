@@ -10,7 +10,7 @@ module Scrapers
       end
 
       def data
-        @data = processed_links(text_query_array)
+        processed_links(text_query_array)
       end
 
       # OPERATIONS
@@ -20,10 +20,10 @@ module Scrapers
         page.css("a").each_with_index do |link, index|
           if link.attribute("href") && link.attribute("href").value
             if link.attribute("href").value.include?("maps.google.com/?")
-              link_array << [
-                link.text, 
-                URI.escape( link.attribute("href").value ) + "&output=json", 
-              ]
+              link_array << {
+                text: link.text, 
+                href: URI.escape( link.attribute("href").value ) + "&output=json", 
+              }
             end
           end
         end       
@@ -31,94 +31,140 @@ module Scrapers
       end
 
       def processed_links(link_array)
-        @data = []
+        processed_array = []
         link_array.each do |each_link|
-          if each_link[1].include?("?cid=")
-            # IF GOOGLE PROVIDES CLEAR CID LINK
-            json = open( URI.parse( each_link[1].gsub("http://", "https://") ) ).read if each_link[1]
-            return {} unless json
-            link_name = each_link.first unless each_link.first.scan(/[-.,0-9 ]*/).flatten.first
-            names = [unhex( trim( json.scan(/infoWindow\:\{title:\"(.*?)\"/).flatten.first ) ), unhex( trim( each_link.first ) )].compact.uniq
-            address_lines = json.scan(/infoWindow\:\{.*addressLines\:\[(.*?)\]/).flatten.first
-            full_address = address_lines.gsub('","', ', ').gsub('"', '') if address_lines
-            locality = json.scan(/sxct\:\"(.*?)\"/).flatten.first
-            region = json.scan(/sxpr\:\"(.*?)\"/).flatten.first
-            postal_code = json.scan(/sxpo\:\"(.*?)\"/).flatten.first
-            country_code = json.scan(/sxcn\:\"(.*?)\"/).flatten.first
-            country = find_country_by_code(country_code) if country_code
-            street_address = trim_full_to_street_address(full_address, country, postal_code, region, locality, names.first)
-            website = json.scan(/actual_url\:\"(.*?)\"/).flatten.first
-            phone = json.scan(/infoWindow\:\{.*phones\:\[\{number\:\"(.*?)\"\}\]/).flatten.first
-            lat = json.scan(/viewport\:{center:{lat\:([-]?\d+\.\d+),/).flatten.first
-            lon = json.scan(/viewport\:{center:{lat\:[-]?\d+\.\d+,lng\:([-]?\d+\.\d+)/).flatten.first
-            images = nil
-            original_photo = json.scan(/photoUrl\:\"(.*?)\"/).flatten.first
-            if original_photo 
-              if original_photo.scan("logo.").flatten.first != "logo."
-                photo = unhex( original_photo )
-                # EDIT UP SIZE BY ONE ZERO
-                photo = photo.gsub(/\/s(\d\d)\//, "/s\\1"+"0/") unless !photo
-                photo = photo.gsub(/\&w\=(\d\d)\&/, "&w=\\1"+"0&") unless !photo
-                photo = photo.gsub(/\&h\=(\d\d)\&/, "&h=\\1"+"0&") unless !photo
-                photo = photo.gsub(/\&zoom\=0/, "&zoom=3") unless !photo
-                images = [{ url: photo, source: 'Google', credit: 'Google' }]
-              end
-            end
-            if lat.present? && lon.present? && ( locality.present? || region.present? || postal_code.present? || country_code.present? || street_address.present? || website.present? || phone.present? )
-              # REJECT IF GOOGLE RETURNS A BULLSHIT RESPONSE (NO DATA)
-              @data << {
-                place:{
-                  names: names,
-                  full_address: unhex( trim( full_address ) ),
-                  street_address: unhex( street_address ),
-                  locality: unhex( locality ),
-                  region: unhex( region ),
-                  country: unhex( country ),
-                  postal_code: unhex( postal_code ),
-                  website: unhex( website ),
-                  phone: trim( phone ),
-                  images: images,
-                  lat: lat,
-                  lon: lon,
-                },
-              }
-            end
-          elsif latlon = each_link[1].scan(/(?:\/\?q=|maps\?q=)([-]?\d+\.\d+[,][-]?\d+\.\d+)(?:[&]|\Z)/).flatten.first
+          if each_link[:href].include?("?cid=")
+            processed_array << google_clear_cid_hash(each_link)
+          elsif latlon = each_link[:href].scan(/(?:\/\?q=|maps\?q=)([-]?\d+\.\d+[,][-]?\d+\.\d+)(?:[&]|\Z)/).flatten.first
             # IF GOOGLE LINK PROVIDES LAT/LON AS IS
-            if !each_link.first.scan(/[-.,0-9 ]*/).flatten.first # no result if only lat/lon
-              name = unhex( trim( each_link.first ) ) 
-              lat = latlon.split(",")[0]
-              lon = latlon.split(",")[1]
-              data << {
-                place:{
-                  name: name,
-                  lat: lat,
-                  lon: lon,
-                },
-              }
+            if !each_link[:text].scan(/[-.,0-9 ]*/).flatten.first # no result if only lat/lon
+              processed_array << google_clear_latlon_hash(each_link)
             end
-          # elsif each_link[1].include?("ftid=")
+          # elsif each_link[:href].include?("ftid=")
           #   FEATURE / FTID MEANS NOT A POINT BUT AN AREA
           # else
           #   IF 'LINK TEXT' REPRESENTS NAME AND FULL ADDRESS, LINK Q= MAY ALSO -- REVISIT POST-BETA
-          #   string = unhex( trim( each_link.first ) )
-          #   country = find_country_at_end_of_string( string )
-          #   region = find_region_at_end_of_string( trim( string.gsub(/(?:\s*[,.;]?\s*#{generous_postal_code_regex})?\s*[,.;]?\s*#{country}/, '') ), country) if country
-          #   locality = find_locality_at_end_of_string( trim( string.gsub(/\s*[,.;]?\s*#{region}/, '') ) ) if region
-          #   locality ||= find_locality( string )
-          #   name = nil
-          #   {
-          #     place:{
-          #       name: name,
-          #       locality: locality,
-          #       region: region,
-          #       country: country,
-          #     },
-          #   }
+          end
+          clear_instance_variables
+        end
+        return processed_array.compact
+      end
+
+      # 
+
+      def google_clear_cid_hash(each_link)
+        json = open( URI.parse( each_link[:href].gsub("http://", "https://") ) ).read if each_link[:href]
+        return nil unless json
+        if lat(json).present? && lon(json).present? && ( locality(json).present? || region(json).present? || postal_code(json).present? || country_code(json).present? || street_address(json, each_link).present? || website(json).present? || phone(json).present? )
+          # REJECT IF GOOGLE RETURNS A BULLSHIT RESPONSE (NO DATA)
+          return {
+            place:{
+              names: names(json, each_link),
+              full_address: unhex( trim( full_address(json) ) ),
+              street_address: unhex( street_address(json, each_link) ),
+              locality: unhex( locality(json) ),
+              region: unhex( region(json) ),
+              country: unhex( country(json) ),
+              postal_code: unhex( postal_code(json) ),
+              website: unhex( website(json) ),
+              phone: trim( phone(json) ),
+              images: images(json),
+              lat: lat(json),
+              lon: lon(json),
+            },
+          }
+        end
+        return nil
+      end
+
+      def google_clear_latlon_hash(each_link)
+        {
+          place:{
+            name: unhex( trim( each_link[:text] ) ) ,
+            lat: latlon.split(",")[0],
+            lon: latlon.split(",")[1],
+          },
+        }
+      end
+
+      def names(json, each_link)          
+        @names ||= [ unhex( trim( json.scan(/infoWindow\:\{title:\"(.*?)\"/).flatten.first ) ), link_name(each_link) ].compact.uniq
+      end
+
+      def full_address(json)
+        @full_address ||= address_lines(json).gsub('","', ', ').gsub('"', '') if address_lines(json)
+      end
+
+      def locality(json)          
+        @locality ||= json.scan(/sxct\:\"(.*?)\"/).flatten.first
+      end
+
+      def region(json)          
+        @region ||= json.scan(/sxpr\:\"(.*?)\"/).flatten.first
+      end
+
+      def postal_code(json)          
+        @postal_code ||= json.scan(/sxpo\:\"(.*?)\"/).flatten.first
+      end
+
+      def country(json)          
+        @country ||= find_country_by_code(country_code(json)) if country_code(json)
+      end
+
+      def street_address(json, each_link)          
+        @street_address ||= trim_full_to_street_address(full_address(json), country(json), postal_code(json), region(json), locality(json), names(json, each_link).first)
+      end
+
+      def website(json)          
+        @website ||= json.scan(/actual_url\:\"(.*?)\"/).flatten.first
+      end
+
+      def phone(json)          
+        @phone ||= json.scan(/infoWindow\:\{.*phones\:\[\{number\:\"(.*?)\"\}\]/).flatten.first
+      end
+
+      def lat(json)          
+        @lat ||= json.scan(/viewport\:{center:{lat\:([-]?\d+\.\d+),/).flatten.first
+      end
+
+      def lon(json)            
+        @lon ||= json.scan(/viewport\:{center:{lat\:[-]?\d+\.\d+,lng\:([-]?\d+\.\d+)/).flatten.first
+      end
+
+      def images(json)
+        if original_photo = original_photo(json)
+          if original_photo.scan("logo.").flatten.first != "logo."
+            photo = unhex( original_photo )
+            # EDIT UP SIZE BY ONE ZERO
+            photo = photo.gsub(/\/s(\d\d)\//, "/s\\1"+"0/") unless !photo
+            photo = photo.gsub(/\&w\=(\d\d)\&/, "&w=\\1"+"0&") unless !photo
+            photo = photo.gsub(/\&h\=(\d\d)\&/, "&h=\\1"+"0&") unless !photo
+            photo = photo.gsub(/\&zoom\=0/, "&zoom=3") unless !photo
+            [{ url: photo, source: 'Google', credit: 'Google' }]
           end
         end
-        return @data
+      end
 
+      private
+
+      def original_photo(json)          
+        @original_photo ||= json.scan(/photoUrl\:\"(.*?)\"/).flatten.first
+      end
+
+      def link_name(each_link)
+        @link_name ||= unhex( trim( each_link[:text] ) ) unless each_link[:text].scan(/\A[-.,0-9 ]*\Z/).flatten.first
+      end
+
+      def address_lines(json)            
+        @address_lines ||= json.scan(/infoWindow\:\{.*addressLines\:\[(.*?)\]/).flatten.first
+      end
+
+      def country_code(json)          
+        @country_code ||= json.scan(/sxcn\:\"(.*?)\"/).flatten.first
+      end
+
+      def clear_instance_variables
+        @names, @full_address, @street_address, @locality, @region, @country, @postal_code, @website, @phone, @images, @lat, @lon, @country_code, @original_photo, @link_name, @address_lines = nil
       end
 
     end
