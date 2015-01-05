@@ -17,40 +17,28 @@
             %i.fa.fa-list-ol.place-show-icon
           .click-to.save
             %i.fa.fa.fa-heart.place-show-icon
+
     .container
-      .five.columns.map-address-wrap
-        .empty-map-box
-          %map.map-canvas.places-single{ coordinates: @place.coordinate }
-        = @place.decorate.show_alt_names_in_parens
-        = @place.decorate.show_address_linked_to_directions
-        = @place.decorate.show_website
-        = @place.decorate.show_phones
+      .five.columns
+        .map-address-wrap
+          .empty-map-box
+            %map.map-canvas.places-single{ coordinates: @place.coordinate }
+          = @place.decorate.show_alt_names_in_parens
+          = @place.decorate.show_address_linked_to_directions
+          = @place.decorate.show_website
+          = @place.decorate.show_phones
+
+        .other-info-wrap.hours-availability-booking
+          = @place.decorate.show_open_today
+          = @place.decorate.show_hours
+          = @place.decorate.show_reservations_maker
+        .other-info-wrap.menu-cost-reservations
+          = @place.decorate.show_reservations
+          = @place.decorate.show_price_info
+          = @place.decorate.show_view_menu
+          = @place.decorate.show_has_wifi
 
       .eleven.columns.photos-wrap
         = @place.decorate.show_photos_or_noimage
-
-  .container
-    .eleven.columns.reviews-and-sources-wrap
-      .sources
-        .reviews-and-sources-title= 'Published reviews:'
-        .reviews-and-sources-line
-          X
-        .reviews-and-sources-title= 'Featured in # plans:'
-        .reviews-and-sources-line
-          Dropdown
-        .reviews-and-sources-title= 'Bookmarked by # planiteers:'
-        .reviews-and-sources-line
-          Mosaic if user image
-
-    .five.columns.more-info-wrap
-      .other-info-wrap.hours-availability-booking
-        = @place.decorate.show_open_today
-        = @place.decorate.show_hours
-        = @place.decorate.show_reservations_maker
-      .other-info-wrap.menu-cost-reservations
-        = @place.decorate.show_reservations
-        = @place.decorate.show_price_info
-        = @place.decorate.show_view_menu
-        = @place.decorate.show_has_wifi
 
   = render 'show/footer', { :page_type => 'place' }

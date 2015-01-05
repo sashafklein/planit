@@ -13,7 +13,7 @@ module Scrapers
         @base_domain = "googlemaps"
       end
 
-      xit "parses nikoklein starred googlemaps correctly" do
+      it "parses nikoklein starred googlemaps correctly", :vcr do
         expect_equal(data, expectations)
         expect(data).to eq expectations
       end

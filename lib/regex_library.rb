@@ -1227,4 +1227,8 @@ module RegexLibrary
       %r!var NYTG_MAP_DATA = ({.*})!
     end
 
+    def generous_postal_code_regex
+      %r![A-Z0-9][A-Z0-9][- ]?[A-Z0-9]?[- ]?[A-Z0-9]?[- ]?[A-Z0-9]?[- ]?[A-Z0-9]?[- ]?[A-Z0-9]?[- ]?[A-Z0-9]?[A-Z0-9][A-Z0-9]!
+    end
+    
 end
