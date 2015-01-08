@@ -5,7 +5,7 @@ module Completers
     delegate *(Place.attribute_keys + [:coordinate, :pinnable, :nearby, :name, :street_address]), to: :place
 
     def initialize(attributes={})
-      @attrs = defaults.symbolize_keys
+      @attrs = SuperHash.new(defaults.symbolize_keys)
 
       attributes.symbolize_keys.each do |key, value|
         set_val(key, value, 'PlaceInProgress', true)
@@ -89,14 +89,14 @@ module Completers
       elsif default(sym).is_a? Hash
         attrs[sym].reduce_to_hash { |k, v| v[type] }
       else
-        attrs.deep_val( [sym, type], default(sym) )
+        attrs.super_fetch( sym, type ) { default(sym) }
       end
     end
 
     def set_hash(sym, val, source)
       val.each do |k, v|
         hash = { val: v, source: source }
-        if attrs[sym][k.to_sym] && attrs[sym][k.to_sym] != hash
+        if attrs.super_fetch( sym, k.to_sym ) && attrs.super_fetch( sym, k.to_sym ) != hash
           attrs[sym]["#{k}_#{clean_source(source)}".to_sym] = hash
         else
           attrs[sym][k.to_sym] = hash

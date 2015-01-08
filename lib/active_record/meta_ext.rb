@@ -59,12 +59,7 @@ module ActiveRecord
         symbols.each do |field|
           class_eval do 
             define_method(field) do
-              ParsedHstore.new(self[field.to_sym]).hash_value
-            end
-
-            define_method("#{field}_struct") do
-              parsed = ParsedHstore.new(self[field.to_sym]).hash_value
-              Hashie::Mash.new parsed
+              SuperHash.new ParsedHstore.new(self[field.to_sym]).hash_value
             end
 
             define_method("add_to_#{field}!") do |arg|
@@ -81,13 +76,17 @@ module ActiveRecord
             end
 
             define_method("remove_from_#{field}") do |arg|
-              self[field.to_sym] = self[field.to_sym].except(arg)
+              other = self[field].dup
+              other.delete(arg.to_s); other.delete(arg.to_sym)
+              self[field.to_sym] = other
               send("#{field}_will_change!")
               self[field.to_sym]
             end
 
             define_method("remove_from_#{field}!") do |arg|
-              self[field.to_sym] = self[field.to_sym].except(arg)
+              other = self[field].dup
+              other.delete(arg.to_s); other.delete(arg.to_sym)
+              self[field.to_sym] = other
               send("#{field}_will_change!")
               save
               self[field.to_sym]

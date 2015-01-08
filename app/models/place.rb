@@ -85,7 +85,7 @@ class Place < ActiveRecord::Base
 
   def timezone
     return @timezone if @timezone
-    return @timezone = Timezone::Zone.new(zone: extra_struct.timezone) if extra_struct.timezone
+    return @timezone = Timezone::Zone.new(zone: extra.timezone) if extra.timezone
 
     zone = Timezone::Zone.new({latlon: [lat, lon]})
     add_to_extra({ timezone: zone.zone })

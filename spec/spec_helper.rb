@@ -43,6 +43,12 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 end
 
+RSpec::Matchers.define :hash_eq do |expected|
+  match do |actual|
+    actual.recursive_symbolize_keys == expected.recursive_symbolize_keys
+  end
+end
+
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   c.hook_into :webmock
