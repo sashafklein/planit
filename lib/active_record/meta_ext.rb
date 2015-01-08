@@ -59,13 +59,12 @@ module ActiveRecord
         symbols.each do |field|
           class_eval do 
             define_method(field) do
-              parsed = ParsedHstore.new(self[field.to_sym]).value
-              parsed
+              ParsedHstore.new(self[field.to_sym]).hash_value
             end
 
             define_method("#{field}_struct") do
-              parsed = ParsedHstore.new(self[field.to_sym]).value
-              DeepStruct.new parsed
+              parsed = ParsedHstore.new(self[field.to_sym]).hash_value
+              Hashie::Mash.new parsed
             end
 
             define_method("add_to_#{field}!") do |arg|

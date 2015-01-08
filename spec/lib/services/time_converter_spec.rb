@@ -157,62 +157,107 @@ module Services
           }
         }
         expect( TimeConverter.convert_hours(hours) ).to eq({
-          'mon' => {
+          'mon' => [{
             'start_time' => '2200',
             'end_time' => '2300'
-          },
-          'tue' => {
+          }],
+          'tue' => [{
             'start_time' => '2320',
             'end_time' => '0000'
-          }
+          }]
+        })
+      end
+
+      it "converts a split time hash" do
+        hours = {
+          'mon' => [{ 
+           'start_time' => '9:00 am',
+            'end_time' => '11am'
+          },{
+            'start_time' => '12pm',
+            'end_time' => '5pm'
+          }],
+          tue: [{ 
+            start_time: '2320',
+            end_time: '12AM'
+          }]
+        }
+        expect( TimeConverter.convert_hours(hours) ).to eq({
+          'mon' => [{ 
+           'start_time' => '0900',
+            'end_time' => '1100'
+          },{
+            'start_time' => '1200',
+            'end_time' => '1700'
+          }],
+          'tue' => [{
+            'start_time' => '2320',
+            'end_time' => '0000'
+          }]
         })
       end
 
       it "converts a hash with date spreads" do
         hours = {
-          'mon-thu' => {
+          'mon-thu' => [{
             'start_time' => '8',
             'end_time' => '23'
-          },
-          'fri' => { 
+          }],
+          'fri' => [{ 
             start_time: '9am',
             end_time: '2400'
-          },
-          :'sat-sun' => {
+          }],
+          :'sat-sun' => [{
             start_time: 10,
-            end_time: 22
+            end_time: 12
+          },
+          {
+            start_time: 13,
+            end_time: 23
           }
+          ]
         }
 
         expect( TimeConverter.convert_hours(hours) ).to eq({
-          'mon' => {
+          'mon' => [{
             'start_time' => '0800',
             'end_time' => '2300'
-          },
-          'tue' => {
+          }],
+          'tue' => [{
             'start_time' => '0800',
             'end_time' => '2300'
-          },
-          'wed' => {
+          }],
+          'wed' => [{
             'start_time' => '0800',
             'end_time' => '2300'
-          },
-          'thu' => {
+          }],
+          'thu' => [{
             'start_time' => '0800',
             'end_time' => '2300'
-          },
-          'fri' => { 
+          }],
+          'fri' => [{ 
             'start_time' => '0900',
             'end_time' => '0000'
-          },
-          'sat' => {
-            'start_time' => '1000',
-            'end_time' => '2200'
-          },
-          'sun' => {
-            'start_time' => '1000',
-            'end_time' => '2200'
-          }
+          }],
+          'sat' => [
+            {
+              'start_time' => '1000',
+              'end_time' => '1200'
+            },
+            {
+              'start_time' => '1300',
+              'end_time' => '2300'  
+            }],
+          'sun' => [
+            {
+              'start_time' => '1000',
+              'end_time' => '1200'
+            },
+            {
+              'start_time' => '1300',
+              'end_time' => '2300'  
+            }
+          ]
         })
       end
     end

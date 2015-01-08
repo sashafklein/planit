@@ -38,6 +38,7 @@ gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 gem 'draper'
 gem 'timezone'
+gem 'hashie'
 
 gem "compass"
 gem "compass-rails"

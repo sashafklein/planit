@@ -8,12 +8,17 @@ module Services
 
     def self.convert_hours(hours)
       full_hours = split_into_days(hours.recursive_symbolize_keys)
+
       %w(mon tue wed thu fri sat sun).map(&:to_sym).reduce({}) do |new_hours, day|
         if full_hours[day]
-          new_hours[day.to_s] = { 
-            'start_time' => self.new(full_hours[day][:start_time]).absolute,
-            'end_time' => self.new(full_hours[day][:end_time]).absolute 
-          }
+          new_hours[day.to_s] = []
+
+          [full_hours[day]].flatten.each do |hour_band|
+            new_hours[day.to_s] << {
+              'start_time' => self.new(hour_band[:start_time]).absolute,
+              'end_time' => self.new(hour_band[:end_time]).absolute 
+            }
+          end
         end
         new_hours
       end
@@ -21,12 +26,18 @@ module Services
 
     def self.hours_converted?(hours)
       formatted = %w(mon tue wed thu fri sat sun).all? do |day|
-        ['start_time', 'end_time'].all? do |time|
-          time_string = hours[day] ? hours[day][time] : nil
-          time_string ? time_string == new(time_string).absolute : true
+        [hours[day]].flatten.all? do |hour_band|
+          ['start_time', 'end_time'].all? do |time|
+            time_string = hour_band ? hour_band[time] : nil
+            time_string ? time_string == new(time_string).absolute : true
+          end
         end
       end
       formatted && hours.keys.all?{ |day| %W(mon tue wed thu fri sat sun).include? day }
+    end
+
+    def self.numericize(string)
+      self.new(string).numericize
     end
 
     def absolute
@@ -34,17 +45,26 @@ module Services
     end
 
     def am_pm
-      @am_pm ||= Time.parse( add_colon(absolute) ).strftime("%-l:%M %P")
+      @am_pm ||= time.strftime("%-l:%M %P")
+    end
+
+    def numericize
+      time.strftime("%-l").to_f + (time.strftime("%M").to_f / 60.0)
     end
 
     private
+
+    def time
+      @time ||= Time.parse( add_colon(absolute) )
+    end
 
     def from_flat_input
       Time.parse( add_colon( pad(input) ) ).strftime("%H%M")
     end
 
     def add_colon(string)
-      string.insert(2, ":")
+      new_string = string.dup
+      new_string.insert(2, ":")
     end
 
     def pad(string)

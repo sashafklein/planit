@@ -1,5 +1,6 @@
 = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'user' }
 
+= link_to 'Sign Out', destroy_user_session_path, method: :delete
 .band.gray.spaced.large-screen
   .container
 
@@ -44,9 +45,8 @@
           - marks.each do |mark|
             %li.activity-line= mark.decorate.created_or_updated_at_link
 
-      - else
-        .no-activity-alert
-          .no-activity-note= @user.decorate.show_no_pins_alert
-          = @user.decorate.show_bookmarklet_button_with_text
+      .no-activity-alert
+        .no-activity-note= @user.decorate.show_no_pins_alert
+        = @user.decorate.show_bookmarklet_button_with_text
 
 = render 'show/footer', { :page_type => 'user' }

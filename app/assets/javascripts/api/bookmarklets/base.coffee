@@ -1,4 +1,5 @@
 html = document.getElementsByTagName('html')[0]
+# body = document.getElementsByTagName('body')[0].innerHTML
 
 iframe = document.createElement('iframe')
 iframe.id = "planit-iframe"
