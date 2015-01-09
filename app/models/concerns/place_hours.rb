@@ -1,71 +1,71 @@
 class PlaceHours
 
-  attr_accessor :place
-  def initialize(place)
-    @place = place
+  DAYS = [:mon, :tue, :wed, :thu, :fri, :sat, :sun]
+
+  attr_accessor :hours, :bands
+  def initialize(hour_set, timezone)
+    @timezone, @hours = timezone, SuperHash.new
+    SuperHash.new(hour_set).each { |day, _| @hours[day] = digest_hour_bands_for_day(hour_set, day) }
+    @hours.reject!{ |h| h.nil? || h.first.nil? }
+    @bands = get_bands
   end
-  delegate :hours, to: :place
 
   def open_until
     return nil unless open?
     
     closing_time = current_band.last
+    day = closing_time >= 24 ? day_of_week(1) : day_of_week
     closing_time -= 24 if closing_time >= 24
 
-    Services::TimeConverter.new( closing_time.to_s.gsub('.', ':') ).absolute
+    {
+      time: from_float( closing_time ).absolute,
+      day: day
+    }
   end
 
   def open_again_at
     return nil if open?
 
-    band = bands(day_of_week).reject{ |b| b.first < float_time }.first
+    band_and_day = { band: bands[day_of_week].reject{ |b| b.first < float_time }.first, day: day_of_week }
     
-    band ||= 1..6.find do |incrementer|
-      bands( day_of_week(incrementer) ).first
+    band_and_day ||= 1..6.find do |incrementer|
+      if band = bands[ day_of_week(incrementer) ].first
+        { band: band, day: day_of_week(incrementer) }
+      end
     end
     
-    Services::TimeConverter.new( band.first.to_s.gsub('.', ':') ).absolute
+    {
+      time: from_float( band_and_day[:band].first ).absolute,
+      day: band_and_day[:day]
+    }
   end
 
   def open?
     current_band ? true : false
   end
 
-  def full_hours(day=nil)
-    if day
-      full_hours_for_day(day)
-    else
-      hours.reduce_to_hash{ |key| full_hours_for_day(key) }
-    end
-  end
-
-  private
-
-  def full_hours_for_day(day)
-    (hours[day.to_s].to_a + [ overlap_hours(yesterday_hours(day)) ]).compact
-  end
+  # private
 
   def opens(day=day_of_week)
-    return nil unless full_hours(day)
+    return nil unless hours(day).present?
     
-    upcoming_band = full_hours(day).select{ |set| num(set['start_time']) > float_time }.sort{ |a, b| a['start_time'] <=> b['start_time'] }.first
-    upcoming_band ? upcoming_band['start_time'] : nil
+    upcoming_band = hours(day).select{ |set| num(set.first) > float_time }.sort{ |a, b| a.first <=> b.first }.first
+    upcoming_band ? upcoming_band.first : nil
   end
 
   def closes(day=day_of_week)
-    return nil unless full_hours(day)
+    return nil unless hours(day)
     
-    upcoming_band = full_hours(day).select{ |set| num(set['start_time']) > float_time }.sort{ |a, b| a['start_time'] <=> b['start_time'] }.last
-    upcoming_band ? upcoming_band['end_time'] : nil
+    upcoming_band = hours(day).select{ |set| num(set.first) > float_time }.sort{ |a, b| a.first <=> b.first }.last
+    upcoming_band ? upcoming_band.last : nil
   end
 
-  def day_of_week(extra_days=0)
-    (current_time + extra_days.days).strftime("%a").downcase
+  def day_of_week(after_today=0)
+    (current_time + after_today.days).strftime("%a").downcase
   end
-
 
   def current_time
-    DateTime.current.in_time_zone(place.timezone.zone)
+    DateTime.current.in_time_zone(@timezone)
   end
 
   def string_time
@@ -76,37 +76,48 @@ class PlaceHours
     num string_time
   end
 
-  def days
-    %w( mon tue wed thu fri sat sun )
-  end
-
-  def yesterday_hours(today)
-    hours[ days[ days.index(today) - 1 ] ]
+  def from_float(float)
+    Services::TimeConverter.from_float( float >= 24 ? float - 24 : float )
   end
 
   def overlap_hours(hour_set)
-    return nil unless overlap = hour_set.find{ |hs| num(hs['start_time']) > num(hs['end_time']) && hs['end_time'] != '0000' }
+    return nil unless overlap = hour_set.find{ |hs| num(hs.first) > num(hs.last) && hs.last != '0000' }
 
     overlap = overlap.dup 
-    overlap['start_time'] = '0000'
+    overlap[0] = '0000'
     overlap
   end
 
-  def bands(day)
-    ranges = full_hours(day).map do |hash|
-      start_time, end_time = num(hash['start_time']), num(hash['end_time'])
-      end_time += 24 if end_time < start_time
-      (start_time..end_time)
-    end
-
-    ranges.sort { |a,b| a.first <=> b.first }
-  end
-
   def num(time_string)
-    Services::TimeConverter.numericize(time_string)
+    time_string[0..1].to_f + (time_string[2..-1].to_f / 60.0).round(2)
   end
 
   def current_band
-    bands(day_of_week).find{ |b| b.include?(float_time) }
+    bands[day_of_week].to_a.find{ |b| b.include?(float_time) }
+  end
+
+  def digest_hour_bands_for_day(hour_bands, today)
+    yesterday_hours = [ hour_bands[ previous(today) ] ].flatten.compact.map(&:values)
+    array_of_hashes = ([ hour_bands[today] ].flatten.map(&:values) + [ overlap_hours(yesterday_hours) ]).compact
+    array_of_hashes.map do |a| 
+      a.last == '0000' ? [a.first, '2400'] : a
+    end
+  end
+
+  def get_bands
+    bands = SuperHash.new( DAYS.reduce({}){ |hash, day| hash[day] = []; hash } )
+    hours.each do |day, day_hours|
+      day_hours.each do |array|
+        start_time, end_time = num(array.first), num(array.last)
+        end_time += 24 if end_time <= start_time
+        bands[day] << (start_time..end_time) 
+      end
+      bands[day].sort!{ |a, b| a.first <=> b.first }
+    end
+    bands.reject{ |k,v| v.empty? }
+  end
+
+  def previous(day)
+    DAYS[ DAYS.index(day.to_sym) - 1 ]
   end
 end

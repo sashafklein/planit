@@ -36,6 +36,10 @@ module Services
       formatted && hours.keys.all?{ |day| %W(mon tue wed thu fri sat sun).include? day }
     end
 
+    def self.from_float(float)
+      self.new(float.to_s.gsub('.', ':'))
+    end
+
     def self.numericize(string)
       self.new(string).numericize
     end
@@ -49,7 +53,7 @@ module Services
     end
 
     def numericize
-      time.strftime("%-l").to_f + (time.strftime("%M").to_f / 60.0)
+      time.strftime("%-k").to_f + (time.strftime("%M").to_f / 60.0)
     end
 
     private

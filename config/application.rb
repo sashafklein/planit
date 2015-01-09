@@ -22,16 +22,19 @@ module Planit
 
     config.active_record.default_timezone = :utc
 
-    config.generators do |generate|
-      generate.helper false
-      generate.javascript_engine false
-      generate.request_specs false
-      generate.routing_specs false
-      generate.model_specs false
-      generate.mailer_specs false
-      generate.view_specs false
-      generate.stylesheets false
-      generate.test_framework :rspec
+    config.generators do |g|
+      g.helper false
+      g.javascript_engine false
+      g.request_specs false
+      g.routing_specs false
+      g.model_specs false
+      g.decorator_specs false
+      g.factories false
+      g.mailer_specs false
+      g.view_specs false
+      g.stylesheets false
+      g.test_framework :rspec
+      g.factory_girl false
     end
 
     config.action_mailer.default_url_options = { :host => "www.bloc.io" }

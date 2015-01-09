@@ -95,6 +95,6 @@ class Place < ActiveRecord::Base
   private
 
   def hour_calculator
-    PlaceHours.new(self)
+    PlaceHours.new(hours, timezone.zone)
   end
 end

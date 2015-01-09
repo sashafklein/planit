@@ -28,6 +28,10 @@ class SuperHash < Hash
     self.reject{ |k, v| k == key.to_sym || k == key.to_s }
   end
 
+  def merge(hash)
+    SuperHash.new( self.recursive_symbolize_keys.merge(hash.recursive_symbolize_keys) )
+  end
+
   def [](key)
     super(key.to_s) || super(key.to_sym)
   end
