@@ -1,251 +1,369 @@
-// PLAN TOP-SECTION
-.plan-splash
-  height: 352px
-  background: #333
-  border-top: #eee 1px solid
-  border-bottom: #bbb 1px solid
-  z-index: 1
+#show-plan-page, #new-plan-page
 
-.plan-map-canvas
-  height: 350px
-  // position: fixed !important
-  position: absolute
-  top: 75px
-  right: 0
-  left: 0
-  z-index: 150
-  &.expanded
-    bottom: 0 !important
+  // PLAN TOP-SECTION
+  .add-new-wrap
+    padding: 20px 0
+    &.gray
+      background: #ddd
+      border-top: #eee 1px solid
+      border-bottom: #bbb 1px solid
 
-.container.upfront-plan-map
-  z-index: 4999
-  text-align: right
-  padding: 55px 0 0 0
-
-.plan-name-wrap
-  display: inline-block
-  margin: 0px 30px 0px 30px
-  text-align: right
-  z-index: 5000
-
-.plan-name
-  padding: 5px 0px
-  font-family: "arial black", "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
-  font-size: 32px
-  line-height: 55px
-  font-weight: bold
-  color: #fff
-  background: rgba(0, 0, 0, 0.7)
-  box-shadow: 20px 0 0 rgba(0, 0, 0, 0.7), -20px 0 0 rgba(0, 0, 0, 0.7)
-  -webkit-box-shadow: 20px 0 0 rgba(0, 0, 0, 0.7), -20px 0 0 rgba(0, 0, 0, 0.7)
-  -moz-box-shadow: 20px 0 0 rgba(0, 0, 0, 0.7), -20px 0 0 rgba(0, 0, 0, 0.7)
-  z-index: 5001
-
-.plan-more-info-wrap
-  margin: 15px 30px 0px 30px
-  text-align: right
-  z-index: 5000
-
-.plan-more-info
-  padding: 5px 0px
-  font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
-  font-size: 11px
-  line-height: 15px
-  font-weight: bold
-  color: #000
-  background: rgba(255, 255, 255, 0.8)
-  box-shadow: 20px 0 0 rgba(255, 255, 255, 0.8), -20px 0 0 rgba(255, 255, 255, 0.8)
-  -webkit-box-shadow: 20px 0 0 rgba(255, 255, 255, 0.8), -20px 0 0 rgba(255, 255, 255, 0.8)
-  -moz-box-shadow: 20px 0 0 rgba(255, 255, 255, 0.8), -20px 0 0 rgba(255, 255, 255, 0.8)
-  z-index: 5001
-  i
-    padding-left: 5px
-    font-weight: normal
-    font-style: normal
-
-.expand-map
-  position: absolute
-  display: block
-  width: 30px
-  height: 30px
-  padding: 4px 0
-  background: rgba(255, 255, 255, 0.4)
-  color: #333
-  font-size: 20px
-  line-height: 22px
-  text-align: center
-  overflow: hidden
-  z-index: 5004
-  &:hover
-    background: rgba(255, 255, 255, 0.6)
-    color: #000
-    cursor: pointer
-
-// DAY INFO
-.day-tab-wrap
-  background: #cdcdcd
-  border-bottom: 1px #aaa solid
-
-.day-info-wrap
-  margin: 10px 10px
-  padding: 0
-  // background: #fcfcfc
-  // border-bottom: 1px #ddd solid
-
-.day-wingtip
-  position: absolute
-  top: 0px
-  border-bottom: 40px solid transparent  
-  border-right: 40px solid #cdcdcd
-  z-index: 2
-
-.day-number-separator
-  margin: 0
-  padding: 0
-  text-align: left
-  z-index: 1
-  font-size: 13px
-  line-height: 24px
-
-.day-info-separator
-  margin: 0px 0px 2px 0px
-  padding: 0
-  text-align: left
-  z-index: 1
-  font-size: 13px
-  line-height: 13px
-
-.day-info
-  display: inline-block
-  padding: 7px 8px
-  font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
-  font-size: 13px
-  line-height: 13px
-  font-weight: bold
-  white-space: nowrap
-  overflow: hidden
-  text-overflow: ellipsis
-  color: #fff
-  margin: 0
-
-  &.number
-    padding: 7px 10px
+  .plan-splash
+    height: 352px
     background: #333
-    border-bottom: 1px #000 solid
-    font-size: 22px
-    line-height: 26px
+    border-top: #eee 1px solid
+    border-bottom: #bbb 1px solid
+    z-index: 1
 
-  &.locale
-    background: #33338b
-    border-bottom: 1px #000 solid
+  .plan-map-canvas
+    height: 350px
+    // position: fixed !important
+    position: absolute
+    top: 75px
+    right: 0
+    left: 0
+    z-index: 150
+    &.expanded
+      bottom: 0 !important
 
-  &.map
-    background: #33338b
-    border-bottom: 1px #000 solid
+  .container.upfront-plan-map
+    z-index: 4999
+    text-align: right
+    padding: 55px 0 0 0
 
-  &.food
-    background: #f90
-    border-bottom: 1px #a30 solid
+  .plan-name-wrap
+    display: inline-block
+    margin: 0px 30px 0px 30px
+    text-align: right
+    z-index: 5000
 
-  &.distance
-    background: #aaa
-    border-bottom: 1px #777 solid
-
-  &.housing
-    background: #9ACD32
-    border-bottom: 1px #008000 solid
-    &.none
-      background: #ab1615
-      border-bottom: 1px #550f0f solid
-      &:hover
-        background: #d41d1b
-        border-bottom: 1px #930b09 solid
-        cursor: pointer
-
-.add-new-form
-  .section
-    .new-plan-icon
-      text-align: center
-      width: 22px
-      margin-right: 3px
-      vertical-align: middle
-    .new-plan-icon-small
-      text-align: center
-      width: 18px
-      padding: 6px
-  .icon-overlay-light
+  .plan-name
+    padding: 5px 0px
+    font-family: "arial black", "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+    font-size: 32px
+    line-height: 55px
+    font-weight: bold
     color: #fff
+    background: rgba(0, 0, 0, 0.7)
+    box-shadow: 20px 0 0 rgba(0, 0, 0, 0.7), -20px 0 0 rgba(0, 0, 0, 0.7)
+    -webkit-box-shadow: 20px 0 0 rgba(0, 0, 0, 0.7), -20px 0 0 rgba(0, 0, 0, 0.7)
+    -moz-box-shadow: 20px 0 0 rgba(0, 0, 0, 0.7), -20px 0 0 rgba(0, 0, 0, 0.7)
+    z-index: 5001
 
-.import-bucket
-  padding: 5px// background: #cdcdcd
+  .plan-more-info-wrap
+    margin: 15px 30px 0px 30px
+    text-align: right
+    z-index: 5000
 
+  .plan-more-info
+    padding: 5px 0px
+    font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+    font-size: 11px
+    line-height: 15px
+    font-weight: bold
+    color: #000
+    background: rgba(255, 255, 255, 0.8)
+    box-shadow: 20px 0 0 rgba(255, 255, 255, 0.8), -20px 0 0 rgba(255, 255, 255, 0.8)
+    -webkit-box-shadow: 20px 0 0 rgba(255, 255, 255, 0.8), -20px 0 0 rgba(255, 255, 255, 0.8)
+    -moz-box-shadow: 20px 0 0 rgba(255, 255, 255, 0.8), -20px 0 0 rgba(255, 255, 255, 0.8)
+    z-index: 5001
+    i
+      padding-left: 5px
+      font-weight: normal
+      font-style: normal
 
-// TAB SIZING
+  .expand-map
+    position: absolute
+    display: block
+    width: 30px
+    height: 30px
+    padding: 4px 0
+    background: rgba(255, 255, 255, 0.4)
+    color: #333
+    font-size: 20px
+    line-height: 22px
+    text-align: center
+    overflow: hidden
+    z-index: 5004
+    &:hover
+      background: rgba(255, 255, 255, 0.6)
+      color: #000
+      cursor: pointer
 
-// *Computer (Regular)
+  // DAY INFO
+  .day-tab-wrap
+    background: #cdcdcd
+    border-bottom: 1px #aaa solid
 
-.day-info
-  max-width: 150px
-
-.day-wingtip
-  right: 770px
-  display: block
-  visibility: visible
-
-// #Tablet (Portrait)
-@media only screen and (min-width: 768px) and (max-width: 959px)
-
-  .day-info
-    max-width: 118px
+  .day-info-wrap
+    margin: 10px 10px
+    padding: 0
+    // background: #fcfcfc
+    // border-bottom: 1px #ddd solid
 
   .day-wingtip
-    right: 614px
+    position: absolute
+    top: 0px
+    border-bottom: 40px solid transparent  
+    border-right: 40px solid #cdcdcd
+    z-index: 2
+
+  .day-number-separator
+    margin: 0
+    padding: 0
+    text-align: left
+    z-index: 1
+    font-size: 13px
+    line-height: 24px
+
+  .day-info-separator
+    margin: 0px 0px 2px 0px
+    padding: 0
+    text-align: left
+    z-index: 1
+    font-size: 13px
+    line-height: 13px
+
+  .day-info
+    display: inline-block
+    padding: 7px 8px
+    font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+    font-size: 13px
+    line-height: 13px
+    font-weight: bold
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    color: #fff
+    margin: 0
+
+    &.number
+      padding: 7px 10px
+      background: #333
+      border-bottom: 1px #000 solid
+      font-size: 22px
+      line-height: 26px
+
+    &.locale
+      background: #33338b
+      border-bottom: 1px #000 solid
+
+    &.map
+      background: #33338b
+      border-bottom: 1px #000 solid
+
+    &.food
+      background: #f90
+      border-bottom: 1px #a30 solid
+
+    &.distance
+      background: #aaa
+      border-bottom: 1px #777 solid
+
+    &.housing
+      background: #9ACD32
+      border-bottom: 1px #008000 solid
+      &.none
+        background: #ab1615
+        border-bottom: 1px #550f0f solid
+        &:hover
+          background: #d41d1b
+          border-bottom: 1px #930b09 solid
+          cursor: pointer
+
+  .add-new-form
+    padding: 0px
+    margin-bottom: 10px
+    font-size: 22px
+    line-height: 22px
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+
+    .add-new-input
+      input
+        -webkit-border-radius: 2px
+        -moz-border-radius: 2px
+        border-radius: 2px
+        border: 1px solid #bbb
+        display: inline-block
+        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+        font-size: 16px
+        line-height: 22px
+        padding: 3px 8px
+        &:disabled
+          background: #eee
+          border: 1px solid #ccc
+
+      .on-off-button, select.on-off-button
+        display: inline-block
+        padding: 3px 8px
+        color: #777
+        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+        font-weight: normal
+        font-size: 16px
+        line-height: 22px
+        -webkit-border-radius: 2px
+        -moz-border-radius: 2px
+        border-radius: 2px
+        margin: 0
+        &.on
+          background: #fff
+          border: 1px solid #bbb
+        &.off
+          background: #eee
+          border: 1px solid #ccc
+          border-bottom: 2px solid #aaa
+
+      &.section
+        padding: 5px 0
+        .new-plan-icon
+          text-align: center
+          width: 22px
+          margin-right: 3px
+          vertical-align: middle
+      .sub-line
+        padding: 0px 26px 5px 26px
+        font-size: 14px
+        line-height: 16px
+        .new-plan-icon-small
+          text-align: center
+          width: 18px
+          padding: 6px
+
+    .click-for-more
+      float: left
+      display: inline-block
+      padding: 3px 8px
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-weight: bold
+      font-size: 13px
+      line-height: 22px
+      color: #777
+      text-shadow: 0px 1px 1px #fff
+      border: 1px solid rgba(0,0,0,0)
+      border-bottom: 3px solid rgba(0,0,0,0)
+      margin: 5px 0 10px 0
+      i
+        padding-right: 5px
+
+  .add-new-submit
+    float: right
+    display: inline-block
+    padding: 3px 8px
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-weight: bold
+    font-size: 16px
+    line-height: 22px
+    color: #333
+    text-shadow: 0px 1px 1px #fff
+    -webkit-border-radius: 3px
+    -moz-border-radius: 3px
+    border-radius: 3px
+    border: 1px solid #ccc
+    border-bottom: 3px solid #aaa
+    background: #fff
+    margin: 5px 0 10px 0
+    cursor: pointer
+    &.halo
+      margin: 5px 10px 10px 0
+    &.disabled
+
+  .import-bucket
+    padding: 5px// background: #cdcdcd
+
+
+  // TAB SIZING
+
+  // *Computer (Regular)
+
+  .day-info
+    max-width: 150px
+
+  .day-wingtip
+    right: 770px
     display: block
     visibility: visible
 
+  .add-new-form
+    .add-new-input
+      input
+        width: 308px
+    .on-off-button
+      width: 308px
 
-// #Mobile (Portrait) <-- smallest
-@media only screen and (max-width: 767px)
+  // #Tablet (Portrait)
+  @media only screen and (min-width: 768px) and (max-width: 959px)
 
-  .plan-name
-    font-size: 20px
-    line-height: 34px
-    padding: 3px 0px
+    .day-info
+      max-width: 118px
 
-  .day-info
-    max-width: 284px
+    .day-wingtip
+      right: 614px
+      display: block
+      visibility: visible
 
-  .day-info-separator
-    margin: 0px 0px 12px 0px
+    .add-new-form
+      .add-new-input
+        input
+          width: 236px
+      .on-off-button
+        width: 236px
 
-  .day-wingtip
-    display: none
-    visibility: hidden
+  // #Mobile (Portrait) <-- smallest
+  @media only screen and (max-width: 767px)
 
-  .day-tab-wrap
-    background: transparent
-    border: transparent
-    margin: 0px
+    .plan-name
+      font-size: 20px
+      line-height: 34px
+      padding: 3px 0px
 
-// #Mobile (Landscape)
-@media only screen and (min-width: 480px) and (max-width: 767px)
+    .day-info
+      max-width: 284px
 
-  .plan-name
-    font-size: 20px
-    line-height: 34px
-    padding: 3px 0px
+    .day-info-separator
+      margin: 0px 0px 12px 0px
 
-  .day-info-separator
-    margin: 0px 0px 12px 0px
+    .day-wingtip
+      display: none
+      visibility: hidden
 
-  .day-info
-    max-width: 395px
+    .day-tab-wrap
+      background: transparent
+      border: transparent
+      margin: 0px
 
-  .day-wingtip
-    display: none
-    visibility: hidden
+    .add-new-form
+      .add-new-input
+        input
+          width: 268px
+      .on-off-button
+        width: 268px
 
-  .day-tab-wrap
-    background: transparent
-    border: transparent
-    margin: 0px
+  // #Mobile (Landscape)
+  @media only screen and (min-width: 480px) and (max-width: 767px)
+
+    .plan-name
+      font-size: 20px
+      line-height: 34px
+      padding: 3px 0px
+
+    .day-info-separator
+      margin: 0px 0px 12px 0px
+
+    .day-info
+      max-width: 395px
+
+    .day-wingtip
+      display: none
+      visibility: hidden
+
+    .day-tab-wrap
+      background: transparent
+      border: transparent
+      margin: 0px
+
+    .add-new-form
+      .add-new-input
+        input
+          width: 388px
+      .on-off-button
+        width: 388px

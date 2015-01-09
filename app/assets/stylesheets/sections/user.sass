@@ -25,7 +25,7 @@
       text-align: left
     &.right
       text-align: right
-  .input.email, .input.password, .input.boolean
+  .input.email, .input.password, .input.boolean, .input.user_first_name, .input.user_last_name
     display: inline-block
     margin: 0
     padding: 0
@@ -33,7 +33,7 @@
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
     font-size: 16px
     line-height: 22px
-    &.email, &.password
+    &.email, &.password, &#user_first_name, &#user_last_name
       display: inline-block
       width: 268px
       -webkit-border-radius: 2px
@@ -79,14 +79,30 @@
     width: 22px
     margin-right: 3px
     vertical-align: middle
+    span, i
+      display: inline-block
+      text-align: center
+      width: 22px
+      margin-right: 3px
+      vertical-align: middle
   label
     display: inline
     padding: 0 0 0 7px
-    &.password, &.email
+    &.password, &.email, &.user_first_name, &.user_last_name, &.string.required
       display: none
       visibility: hidden
+  span.hint
+    display: block
+    position: absolute
+    font-style: italic
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 12px
+    line-height: 14px
+    color: #aaa
+    padding-left: 4px
 
 .simple-entry-links
+  width: 300px
   padding: 10px 0px 5px 0px
   font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
   font-size: 13px

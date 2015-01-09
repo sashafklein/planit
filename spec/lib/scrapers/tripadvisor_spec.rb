@@ -6,11 +6,28 @@ module Scrapers
 
     include ScraperHelper
 
+    # 
+
     describe "travelmap" do
 
       before do 
         @base_name = 'travelmap'
         @url = 'http://www.tripadvisor.com/TravelMapHome'
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect_equal(data, expectations)
+        expect(data).to eq expectations
+      end
+    end
+
+    # 
+
+    describe "jerome" do
+      before do 
+        @base_name = 'jerome'
+        @url = 'http://www.tripadvisor.com/Hotel_Review-g29141-d82776-Reviews-Hotel_Jerome_An_Auberge_Resort-Aspen_Colorado.html'
         @base_domain = get_domain(@url)
       end
 

@@ -53,7 +53,7 @@ module Scrapers
       end
 
       def postal_code
-        page.css("span[property='v:postal-code']").inner_html ; rescue ; nil
+        page.css("span[property='v:postal-code']").first.inner_html ; rescue ; nil
       end
 
       def country
@@ -95,7 +95,7 @@ module Scrapers
 
       def images
         image_list = []
-        container = first_css_match(["div.sizedThumb_container", "div.photo_slideshow", "div.photoGrid.photoBx"])
+        container = first_css_match(["div.sizedThumb_container", "div.photo_slideshow", "div.photoGrid.photoBx", "div.full_meta_photo "])
         container.css("img").each do |img_in_container|
           if img_in_container.attribute('src')
             img_url = img_in_container.attribute('src').value

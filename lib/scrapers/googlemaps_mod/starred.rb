@@ -10,6 +10,7 @@ module Scrapers
       end
 
       def data
+        @json_request = 0
         processed_links(text_query_array)
       end
 
@@ -26,13 +27,25 @@ module Scrapers
               }
             end
           end
-        end       
+        end
+        # page.inner_html.scan(/([<]a href[=].*?[>].*?[<]\/a[>])/).flatten.each_with_index do |link, index|
+        #   if gmaps_link = link.scan(/HREF[=]["](http[:]\/\/maps.google.com\/.*?)["]/).flatten.first
+        #     link_array << {
+        #       text: link.scan(/[<]A HREF[=].*?[>](.*?)[<]\/A[>]/).flatten.first,
+        #       href: URI.escape( gmaps_link ) + "&output=json",
+        #     }
+        #   end
+        # end
+        # binding.pry
         return link_array
       end
 
       def processed_links(link_array)
         processed_array = []
         link_array.each do |each_link|
+          if each_link[:text].include?("El Coro Lounge Bar")
+            binding.pry
+          end
           if each_link[:href].include?("?cid=")
             processed_array << google_clear_cid_hash(each_link)
           elsif latlon = each_link[:href].scan(/(?:\/\?q=|maps\?q=)([-]?\d+\.\d+[,][-]?\d+\.\d+)(?:[&]|\Z)/).flatten.first
@@ -53,7 +66,7 @@ module Scrapers
       # 
 
       def google_clear_cid_hash(each_link)
-        json = open( URI.parse( each_link[:href].gsub("http://", "https://") ) ).read if each_link[:href]
+        json = get_json_output(each_link)
         return nil unless json
         if lat(json).present? && lon(json).present? && ( locality(json).present? || region(json).present? || postal_code(json).present? || country_code(json).present? || street_address(json, each_link).present? || website(json).present? || phone(json).present? )
           # REJECT IF GOOGLE RETURNS A BULLSHIT RESPONSE (NO DATA)
@@ -85,6 +98,15 @@ module Scrapers
             lon: latlon.split(",")[1],
           },
         }
+      end
+
+      def get_json_output(each_link)
+        @json_request += 1
+        if @json_request == 50
+          # sleep(15)
+          @json_request = 0
+        end
+        open( URI.parse( each_link[:href].gsub("http://", "https://") ) ).read if each_link[:href]
       end
 
       def names(json, each_link)          
@@ -125,10 +147,12 @@ module Scrapers
 
       def lat(json)          
         @lat ||= json.scan(/viewport\:{center:{lat\:([-]?\d+\.\d+),/).flatten.first
+        @lat ||= json.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=([-]?\d+\.\d+)\,[-]?\d+\.\d+/).flatten.first
       end
 
       def lon(json)            
         @lon ||= json.scan(/viewport\:{center:{lat\:[-]?\d+\.\d+,lng\:([-]?\d+\.\d+)/).flatten.first
+        @lon ||= json.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=[-]?\d+\.\d+\,([-]?\d+\.\d+)/).flatten.first
       end
 
       def images(json)
@@ -140,7 +164,7 @@ module Scrapers
             photo = photo.gsub(/\&w\=(\d\d)\&/, "&w=\\1"+"0&") unless !photo
             photo = photo.gsub(/\&h\=(\d\d)\&/, "&h=\\1"+"0&") unless !photo
             photo = photo.gsub(/\&zoom\=0/, "&zoom=3") unless !photo
-            [{ url: photo, source: 'Google', credit: 'Google' }]
+            [{ url: photo, source: unhex( original_photo ), credit: 'Google' }]
           end
         end
       end
