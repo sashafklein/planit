@@ -50,6 +50,6 @@ class Hash
   end
 
   def to_sh
-    binding.pry
+    SuperHash.new(self)
   end
 end

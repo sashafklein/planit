@@ -23,13 +23,13 @@ FactoryGirl.define do
       categories ["Brasseries", "French"]
       country 'France'
       hours({
-        mon: [{ start_time: "1200", end_time: "0000" }],
-        tue: [{ start_time: "1200", end_time: "0000" }],
-        wed: [{ start_time: "1200", end_time: "0000" }],
-        thu: [{ start_time: "1200", end_time: "0000" }],
-        fri: [{ start_time: "1200", end_time: "0000" }],
-        sat: [{ start_time: "1200", end_time: "0200" }],
-        sun: [{ start_time: "1200", end_time: "0000" }]
+        mon: [["1200","0000"]],
+        tue: [["1200","0000"]],
+        wed: [["1200","0000"]],
+        thu: [["1200","0000"]],
+        fri: [["1200","0000"]],
+        sat: [["1200","0200"]],
+        sun: [["1200","0000"]]
       })
       lat 48.851946
       lon 2.338757

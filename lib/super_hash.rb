@@ -24,12 +24,16 @@ class SuperHash < Hash
     hash
   end
 
-  def except(key)
-    self.reject{ |k, v| k == key.to_sym || k == key.to_s }
+  def except(*keys)
+    hash = dup
+    keys.each do |key|
+      hash = hash.reject{ |k, v| k == key.to_sym || k == key.to_s }
+    end
+    hash
   end
 
   def merge(hash)
-    SuperHash.new( self.recursive_symbolize_keys.merge(hash.recursive_symbolize_keys) )
+    self.class.new( self.recursive_symbolize_keys.merge(hash.recursive_symbolize_keys) )
   end
 
   def [](key)

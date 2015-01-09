@@ -13,38 +13,40 @@ class PlaceHours
   def open_until
     return nil unless open?
     
-    closing_time = current_band.last
-    day = closing_time >= 24 ? day_of_week(1) : day_of_week
-    closing_time -= 24 if closing_time >= 24
+    closing_time, day = current_band.last, day_of_week
+    
+    if closing_time >= 24 
+      day = day_of_week(1)
+      closing_time -= 24
+    end
 
-    {
-      time: from_float( closing_time ).absolute,
-      day: day
-    }
+    { day: day.to_s, time: from_float( closing_time ) }
   end
 
   def open_again_at
     return nil if open?
-
     band_and_day = { band: bands[day_of_week].reject{ |b| b.first < float_time }.first, day: day_of_week }
     
-    band_and_day ||= 1..6.find do |incrementer|
-      if band = bands[ day_of_week(incrementer) ].first
-        { band: band, day: day_of_week(incrementer) }
+    unless band_and_day && band_and_day[:band]
+      (1..6).each do |i|
+        if band = bands[ day_of_week(i) ].first
+          break if band_and_day = { band: band, day: day_of_week(i) }
+        end
       end
     end
-    
-    {
-      time: from_float( band_and_day[:band].first ).absolute,
-      day: band_and_day[:day]
-    }
+
+    { day: band_and_day[:day], time: from_float( band_and_day[:band].first ) }
   end
 
   def open?
     current_band ? true : false
   end
 
-  # private
+  def current_time
+    DateTime.current.in_time_zone(@timezone)
+  end
+
+  private
 
   def opens(day=day_of_week)
     return nil unless hours(day).present?
@@ -64,10 +66,6 @@ class PlaceHours
     (current_time + after_today.days).strftime("%a").downcase
   end
 
-  def current_time
-    DateTime.current.in_time_zone(@timezone)
-  end
-
   def string_time
     current_time.strftime("%H%M")
   end
@@ -77,47 +75,50 @@ class PlaceHours
   end
 
   def from_float(float)
-    Services::TimeConverter.from_float( float >= 24 ? float - 24 : float )
+    first, last = float.to_s.split('.')
+    "#{ first.rjust(2, '0') }#{ last.ljust(2, '0') }"
   end
 
   def overlap_hours(hour_set)
-    return nil unless overlap = hour_set.find{ |hs| num(hs.first) > num(hs.last) && hs.last != '0000' }
-
-    overlap = overlap.dup 
-    overlap[0] = '0000'
-    overlap
+    return nil unless overlap = hour_set.reject{ |a| a.empty? }.find{ |hs| num(hs.last) > 24 }
+    ['0000', from_float( num(overlap[1]) - 24 ) ]
   end
 
   def num(time_string)
-    time_string[0..1].to_f + (time_string[2..-1].to_f / 60.0).round(2)
+    (time_string[0..1].to_f + (time_string[2..-1].to_f / 100)).round(2)
   end
 
   def current_band
-    bands[day_of_week].to_a.find{ |b| b.include?(float_time) }
+    bands[day_of_week].to_a.find{ |b| b.last > float_time && b.first <= float_time }
   end
 
   def digest_hour_bands_for_day(hour_bands, today)
-    yesterday_hours = [ hour_bands[ previous(today) ] ].flatten.compact.map(&:values)
-    array_of_hashes = ([ hour_bands[today] ].flatten.map(&:values) + [ overlap_hours(yesterday_hours) ]).compact
-    array_of_hashes.map do |a| 
-      a.last == '0000' ? [a.first, '2400'] : a
-    end
+    hb = SuperHash.new(hour_bands.reduce_to_hash do |k, v| 
+      v.map do |a| 
+        num(a.last) <= num(a.first) ? [a.first, from_float(num(a.last) + 24)] : a
+      end
+    end)
+    yesterday_hours = hb[ previous(today) ]
+    yesterday_overlap = yesterday_hours.present? ? overlap_hours( yesterday_hours ) : nil
+    full_hours = (hb[today] + [ yesterday_overlap ] ).compact
   end
 
   def get_bands
     bands = SuperHash.new( DAYS.reduce({}){ |hash, day| hash[day] = []; hash } )
     hours.each do |day, day_hours|
       day_hours.each do |array|
-        start_time, end_time = num(array.first), num(array.last)
-        end_time += 24 if end_time <= start_time
-        bands[day] << (start_time..end_time) 
+        bands[day] << (num(array.first)..num(array.last))
       end
       bands[day].sort!{ |a, b| a.first <=> b.first }
     end
-    bands.reject{ |k,v| v.empty? }
+    bands
   end
 
   def previous(day)
     DAYS[ DAYS.index(day.to_sym) - 1 ]
+  end
+
+  def next_day(day)
+    DAYS[ DAYS.index(day.to_sym) + 1 ]
   end
 end
