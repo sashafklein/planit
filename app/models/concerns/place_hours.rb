@@ -35,6 +35,8 @@ class PlaceHours
       end
     end
 
+    return nil unless band_and_day.values.all?(&:present?)
+
     { day: band_and_day[:day], time: from_float( band_and_day[:band].first ) }
   end
 

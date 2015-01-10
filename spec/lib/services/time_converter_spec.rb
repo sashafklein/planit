@@ -156,15 +156,9 @@ module Services
             end_time: '12AM'
           }
         }
-        expect( TimeConverter.convert_hours(hours) ).to eq({
-          'mon' => [{
-            'start_time' => '2200',
-            'end_time' => '2300'
-          }],
-          'tue' => [{
-            'start_time' => '2320',
-            'end_time' => '0000'
-          }]
+        expect( TimeConverter.convert_hours(hours) ).to hash_eq({
+          mon: [ ['2200', '2300' ] ],
+          tue: [ ['2320', '0000' ] ]
         })
       end
 
@@ -182,18 +176,9 @@ module Services
             end_time: '12AM'
           }]
         }
-        expect( TimeConverter.convert_hours(hours) ).to eq({
-          'mon' => [{ 
-           'start_time' => '0900',
-            'end_time' => '1100'
-          },{
-            'start_time' => '1200',
-            'end_time' => '1700'
-          }],
-          'tue' => [{
-            'start_time' => '2320',
-            'end_time' => '0000'
-          }]
+        expect( TimeConverter.convert_hours(hours) ).to hash_eq({
+          mon: [ ['0900', '1100'], ['1200', '1700'] ],
+          tue: [ ['2320', '0000'] ]
         })
       end
 
@@ -218,66 +203,54 @@ module Services
           ]
         }
 
-        expect( TimeConverter.convert_hours(hours) ).to eq({
-          'mon' => [{
-            'start_time' => '0800',
-            'end_time' => '2300'
-          }],
-          'tue' => [{
-            'start_time' => '0800',
-            'end_time' => '2300'
-          }],
-          'wed' => [{
-            'start_time' => '0800',
-            'end_time' => '2300'
-          }],
-          'thu' => [{
-            'start_time' => '0800',
-            'end_time' => '2300'
-          }],
-          'fri' => [{ 
-            'start_time' => '0900',
-            'end_time' => '0000'
-          }],
-          'sat' => [
-            {
-              'start_time' => '1000',
-              'end_time' => '1200'
-            },
-            {
-              'start_time' => '1300',
-              'end_time' => '2300'  
-            }],
-          'sun' => [
-            {
-              'start_time' => '1000',
-              'end_time' => '1200'
-            },
-            {
-              'start_time' => '1300',
-              'end_time' => '2300'  
-            }
-          ]
+        expect( TimeConverter.convert_hours(hours) ).to hash_eq({
+          mon: [ ['0800', '2300'] ],
+          tue: [ ['0800', '2300'] ],
+          wed: [ ['0800', '2300'] ],
+          thu: [ ['0800', '2300'] ],
+          fri: [ ['0900', '0000'] ],
+          sat: [ ['1000', '1200'], ['1300', '2300'] ],
+          sun: [ ['1000', '1200'], ['1300', '2300'] ]
+        })
+      end
+
+      it 'converts the new array format' do
+        hours = {
+          'mon-thu' => [['8','23']],
+          fri: [['9am','2400']],
+          :'sat-sun' => [[10,12],[13,23]]
+        }
+
+        expect( TimeConverter.convert_hours(hours) ).to hash_eq({
+          mon: [ ['0800', '2300'] ],
+          tue: [ ['0800', '2300'] ],
+          wed: [ ['0800', '2300'] ],
+          thu: [ ['0800', '2300'] ],
+          fri: [ ['0900', '0000'] ],
+          sat: [ ['1000', '1200'], ['1300', '2300'] ],
+          sun: [ ['1000', '1200'], ['1300', '2300'] ]
         })
       end
     end
 
     describe ".hours_converted?" do
       it "returns true for good hours" do
-        hours = { 'mon' => { 'start_time' => '2200', 'end_time' => '2300' } }
-        expect( TimeConverter.hours_converted?(hours) ).to eq true
-
-        hours = { 'mon' => { 'start_time' => '2200' } }
+        hours = { 'mon' => [[ '2200', '2300' ]] }
         expect( TimeConverter.hours_converted?(hours) ).to eq true
       end
 
+      it 'returns false for incomplete hours' do
+        hours = { 'mon' => [[ '2200' ]] }
+        expect( TimeConverter.hours_converted?(hours) ).to eq false
+      end
+
       it "returns false for badly formatted hours" do
-        hours = { 'mon' => { 'start_time' => '2200', 'end_time' => '11pm' } }
+        hours = { 'mon' => [[ '2200', '11pm' ]] }
         expect( TimeConverter.hours_converted?(hours) ).to eq false
       end
 
       it 'returns false for hours with bad keys' do
-        hours = {'mon-fri' => { 'start_time' => '2000', 'end_time' => '2200' } }
+        hours = {'mon-fri' => [[ '2000', '2200' ]] }
         expect( TimeConverter.hours_converted?(hours) ).to eq false
       end
     end

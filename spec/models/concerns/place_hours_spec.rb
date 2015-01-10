@@ -47,6 +47,16 @@ describe PlaceHours do
       end
     end
 
+    it "handles a place with no hours" do
+      freeze 'Jan 3 2015 6:30am EST' do # 12:30pm in Paris, Saturday
+        calc = calculator( {} )
+        assert_time(calc, '12:30')
+        expect( calc.open? ).to eq false
+        expect( calc.open_until ).to eq nil
+        expect( calc.open_again_at ).to eq nil
+      end
+    end
+
     it "handles a 24-h place" do
       calc = calculator( @comptoir.hours.merge({ sat: [['0000', '0000']] }) )
 

@@ -7,33 +7,37 @@ module Services
     end
 
     def self.convert_hours(hours)
-      full_hours = split_into_days(hours.recursive_symbolize_keys)
+      full_hours = SuperHash.new split_into_days(hours.recursive_symbolize_keys)
 
       %w(mon tue wed thu fri sat sun).map(&:to_sym).reduce({}) do |new_hours, day|
         if full_hours[day]
           new_hours[day.to_s] = []
 
-          [full_hours[day]].flatten.each do |hour_band|
-            new_hours[day.to_s] << {
-              'start_time' => self.new(hour_band[:start_time]).absolute,
-              'end_time' => self.new(hour_band[:end_time]).absolute 
-            }
+          if full_hours[day].is_a?(Hash) || full_hours[day].first.is_a?(Hash)
+            [full_hours[day]].flatten.each do |hour_band|
+              new_hours[day.to_s] << [
+                self.new( hour_band.start_time ).absolute,
+                self.new( hour_band.end_time ).absolute 
+              ]
+            end
+          else # Array format
+            full_hours[day].each do |hour_band|
+              new_hours[day.to_s] << hour_band.map{ |t| self.new(t).absolute }
+            end
           end
         end
+        
         new_hours
       end
     end
 
     def self.hours_converted?(hours)
-      formatted = %w(mon tue wed thu fri sat sun).all? do |day|
-        [hours[day]].flatten.all? do |hour_band|
-          ['start_time', 'end_time'].all? do |time|
-            time_string = hour_band ? hour_band[time] : nil
-            time_string ? time_string == new(time_string).absolute : true
-          end
-        end
+      formatted = hours.all? do |day, hb|
+        %w(mon tue wed thu fri sat sun).include?(day) && hb &&
+          (hb.all?{ |band| band.first != band.last }) && 
+          (hb.all?{ |band| band.all?{ |t| t == new(t).absolute } })
       end
-      formatted && hours.keys.all?{ |day| %W(mon tue wed thu fri sat sun).include? day }
+      formatted && hours.keys.all?{ |day| %w(mon tue wed thu fri sat sun).include? day }
     end
 
     def self.from_float(float)

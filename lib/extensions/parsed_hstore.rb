@@ -56,8 +56,4 @@ class ParsedHstore
   def clean_hash(hash_string)
     JSON.parse( hash_string.gsub("{:", "{\"").gsub(", :", ", \"").gsub("=>", "\": ").gsub('nil', 'null') )
   end
-
-  def is_array?(value)
-    "[[\"1200\", \"0000\"]]"
-  end
 end

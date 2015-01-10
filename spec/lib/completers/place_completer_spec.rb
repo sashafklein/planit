@@ -79,15 +79,15 @@ module Completers
         it "saves hours as a hash, accessable as a deep struct" do
           place = PlaceCompleter.new(yml_data('comptoir', 'http://www.yelp.com/biz/le-comptoir-du-relais-paris')[:place]).complete!
           expect(place.hours).to hash_eq({
-            'mon' => [{"start_time" => "1200", "end_time" => "0000"}],
-            'tue' => [{"start_time" => "1200", "end_time" => "0000"}],
-            'wed' => [{"start_time" => "1200", "end_time" => "0000"}],
-            'thu' => [{"start_time" => "1200", "end_time" => "0000"}],
-            'fri' => [{"start_time" => "1200", "end_time" => "0000"}],
-            'sat' => [{"start_time" => "1200", "end_time" => "0200"}],
-            'sun' => [{"start_time" => "1200", "end_time" => "0000"}]
+            'mon' => [["1200","0000"]],
+            'tue' => [["1200","0000"]],
+            'wed' => [["1200","0000"]],
+            'thu' => [["1200","0000"]],
+            'fri' => [["1200","0000"]],
+            'sat' => [["1200","0200"]],
+            'sun' => [["1200","0000"]]
           })
-          expect(place.hours.mon.first.start_time).to eq("1200")
+          expect(place.hours.mon.first.first).to eq("1200")
         end
       end
 
