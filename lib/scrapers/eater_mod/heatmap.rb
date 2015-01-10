@@ -77,12 +77,12 @@ module Scrapers
       end
 
       def lat
-        attempt = trim( @current_tab.attribute("data-coordinates").value.split(",")[0] )
+        attempt = trim( @current_tab.attribute("data-coordinates").value.split(",")[1] ) # EATER REVERSES LONG/LAT
       rescue ; nil
       end
 
       def lon
-        attempt = trim( @current_tab.attribute("data-coordinates").value.split(",")[1] )
+        attempt = trim( @current_tab.attribute("data-coordinates").value.split(",")[0] ) # EATER REVERSES LONG/LAT
       rescue ; nil
       end
 

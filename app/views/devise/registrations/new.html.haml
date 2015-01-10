@@ -12,8 +12,14 @@
           = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
             = f.error_notification
             .simple-entry-form-section
+              %span.icomoon.icon-user.simple-form-icon
+              = f.input :first_name, required: true, autofocus: true, placeholder: 'First Name'
+            .simple-entry-form-section
+              %span.simple-form-icon
+              = f.input :last_name, required: true, placeholder: 'Last Name'
+            .simple-entry-form-section
               %i.fa.fa-envelope.simple-form-icon
-              = f.input :email, required: true, autofocus: true, placeholder: 'Email'
+              = f.input :email, required: true, placeholder: 'Email'
             .simple-entry-form-section
               %i.fa.fa-key.simple-form-icon
               = f.input :password, required: true, placeholder: 'Password'

@@ -206,7 +206,7 @@ module CssOperators
       string = string.gsub(/\s([,:;.!|@\?])/, '\1') unless !string
       string = string.gsub(/(\t)/, '') unless !string
       string = string.gsub(/[.]{3}\Z/, '....') unless !string # prep elipses for end punctuation removal (below)
-      string = string.gsub(/(?:\s| )?[,;.!|@\?](?:\s| )?\Z/, '') unless !string
+      string = string.gsub(/(?:\s| )?[,.!|@\?](?:\s| )?\Z/, '') unless !string #removed ';' in case of ASCII/HEX
       string = string.gsub(/\A[,:;.!|@\?](?:\s| )*/, '') unless !string
       string = string.gsub(/(?:\A[ ]*|[ ]*\Z)/, '') unless !string
       string = string.gsub(/(?:\A[-](?:[ ]|\s))/, '') unless !string

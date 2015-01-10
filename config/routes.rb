@@ -20,6 +20,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+
+      resources :allowable_sites, only: [] do
+        match '/test' => 'allowable_sites#test', on: :collection, via: [:options, :get]
+      end
+
       resources :bookmarklets, only: [] do
         match '/script' => 'bookmarklets#script', on: :collection, via: [:options, :get]
         match '/view' => 'bookmarklets#view', on: :collection, via: [:options, :get]

@@ -89,6 +89,42 @@ module Completers
           })
           expect(place.hours_struct.mon.start_time).to eq("12:00 pm")
         end
+
+        xit "flips L/L if needed (e.g. Gâteaux Thoumieux in Mogadishu)" do
+          place = PlaceCompleter.new(yml_data('thoumieux-flipped', 'http://www.eater.com/', "Gâteaux Thoumieux")[:place]).complete!
+          expect( place.lat ).to be_within(0.01).of(48.85989163257022)
+          expect( place.lon ).to be_within(0.01).of(2.3091419555351185)
+        end
+
+        xit "ensures L/L exists within natural bounds (e.g. Apizza Scholls in Antartica) -- also flip" do
+          place = PlaceCompleter.new(yml_data('apizza-scholls-flipped', 'http://www.eater.com/', "Apizza Scholls")[:place]).complete!
+          expect( place.lat ).to be_within(0.01).of(45.512043)
+          expect( place.lon ).to be_within(0.01).of(-122.613144)
+        end
+
+        xit "truly prioritizes nearby in finding matches (e.g. St Peters Episcopal Church in Fernandina Beach FL vs. Gainsville FL)" do
+          place = PlaceCompleter.new(yml_data('amelia-island', 'http://www.nytimes.com/', "St. Peter's Episcopal Church Cemetery")[:place]).complete!
+          expect( place.locality ).to eq("Fernandina Beach")
+          expect( place.lat ).to be_within(0.01).of(30.669427976988448)
+          expect( place.lon ).to be_within(0.01).of(-81.45895476767303)
+        end
+
+        xit "generates full completer for O'Connell Bridge" do
+          place = PlaceCompleter.new(yml_data('dublin', 'http://www.nytimes.com/', "O'Connell Bridge")[:place]).complete!
+          expect( place.categories ).to eq ['Bridge', 'Monument / Landmark', 'Other Great Outdoors']
+          expect( place.image ).not_to eq nil
+        end
+
+        xit "doesn't return Bogota Beer Company for Bogotá query" do
+          # no idea here what the originating query/YML is?
+        end
+
+        xit "prioritizes plan english names over hex/non-english names(e.g. Wagas vs &#27779;&#27468;&#26031; in Shanghai)" do
+          place = PlaceCompleter.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "&#27779;&#27468;&#26031;")[:place]).complete!
+          expect( place.name ).to eq 'Wagas'
+          expect( place.names ).to eq ['&#27779;&#27468;&#26031;', 'Wagas']
+        end
+
       end
 
       context "with preexisting place in db" do
@@ -129,6 +165,19 @@ module Completers
           expect(place.website).to eq 'http://dwelltimecambridge.com'
           expect(place.images.first.url).to eq "https://irs3.4sqi.net/img/general/#{Completers::FourSquareVenue::IMAGE_SIZE}/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg"
         end
+
+        xit "combines locations that are named distinctly only by introductory article (e.g. Casa de Socorro & La Casa de Socorro)" do
+          place = PlaceCompleter.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "LA CASA DE SOCORRO")[:place]).complete!
+          expect( place.name ).to eq('La Casa de Socorro')
+          # how do we ensure this is combined?
+        end
+
+        xit "combines locations that are named distinctly only by introductory article (e.g. Casa de Socorro & La Casa de Socorro)" do
+          place = PlaceCompleter.new(yml_data('cartagena', 'http://www.huffingtonpost.com/', "Casa de Socorro")[:place]).complete!
+          expect( place.name ).to eq('La Casa de Socorro')
+          # how do we ensure this is combined?
+        end
+
       end
 
       describe "how it cleans/flattens incoming hash info" do
@@ -151,6 +200,7 @@ module Completers
           expect( place.sublocality ).to eq "Yoyogi"
         end
       end
+
     end
   end
 end
