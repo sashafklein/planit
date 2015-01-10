@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Completers
-  describe MassCompleter do
+  describe MassCompleter, :vcr do
 
     include ScraperHelper
 
@@ -26,7 +26,7 @@ module Completers
 
       let(:user) { create(:user) }
 
-      it "sequences NYT Amelia Island", :vcr do
+      it "sequences NYT Amelia Island" do
         return_hash = YAML.load_file(File.join(Rails.root, 'spec', 'support', 'pages', 'nytimes', 'amelia-island.yml'))
 
         marks = MassCompleter.new(return_hash, user).complete!
@@ -59,7 +59,7 @@ module Completers
         expect( item.day.order ).to eq 3
 
         expect( item.order ).to eq 11
-        expect( item.start_time ).to eq '11:00'
+        expect( item.start_time ).to eq '1100'
         expect( item.sunday? ).to eq true
       end
 

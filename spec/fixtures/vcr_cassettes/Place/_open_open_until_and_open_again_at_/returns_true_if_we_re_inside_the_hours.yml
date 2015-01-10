@@ -1,0 +1,40 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=48.851946&lng=2.338757&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 03 Jan 2015 17:46:09 GMT
+      Server:
+      - Apache/2.4.6 (Linux/SUSE)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"sunrise":"2015-01-03 08:44","lng":2.338757,"countryCode":"FR","gmtOffset":1,"rawOffset":1,"sunset":"2015-01-03
+        17:06","timezoneId":"Europe/Paris","dstOffset":2,"countryName":"France","time":"2015-01-03
+        18:46","lat":48.851946}'
+    http_version: 
+  recorded_at: Sun, 01 Mar 2015 11:30:00 GMT
+recorded_with: VCR 2.9.3

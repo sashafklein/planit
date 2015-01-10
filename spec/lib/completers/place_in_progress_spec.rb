@@ -14,13 +14,13 @@ module Completers
         expect( @pip.names ).to eq @attrs[:names]
         expect( @pip.source(:lat) ).to eq "PlaceInProgress"
         expect( @pip.source(:names) ).to eq ["PlaceInProgress"]
-        expect( @pip.source(:phones) ).to eq( { default: 'PlaceInProgress' } )
+        expect( @pip.source(:phones) ).to hash_eq( { default: 'PlaceInProgress' } )
 
         expect( @pip.lon ).to eq nil
         expect( @pip.categories ).to eq []
         expect( @pip.hours ).to eq( {} )
 
-        expect( @pip.attrs.reject{ |k, v| v.empty? } ).to eq({
+        expect( @pip.attrs.reject{ |k, v| v.empty? } ).to hash_eq({
           lat: { val: @attrs[:lat], source: "PlaceInProgress" },
           names: [{ val: @attrs[:names], source: "PlaceInProgress" }],
           phones: { default: { val: @attrs[:phones][:default], source: "PlaceInProgress" } }
@@ -54,7 +54,7 @@ module Completers
           @pip.set_val(:hours, { mon: 'Whatever2' }, Narrow)
 
           expect( @pip.val(:flags) ).to eq ["This is a flag", "Another flag"]
-          expect( @pip.val(:hours) ).to eq( { mon: 'Whatever', mon_Narrow: 'Whatever2' } )
+          expect( @pip.val(:hours) ).to hash_eq( { mon: 'Whatever', mon_Narrow: 'Whatever2' } )
         end
       end
     end
@@ -62,7 +62,7 @@ module Completers
     describe "#val(sym)" do
       it "extracts the value correctly, excluding the source" do
         expect( @pip.val(:names) ).to eq ["Whatever"]
-        expect( @pip.val(:phones) ).to eq( { default: '123456789'} )
+        expect( @pip.val(:phones) ).to hash_eq( { default: '123456789'} )
         expect( @pip.val(:lat) ).to eq 12.345678
 
         @pip.set_val(:lon, 2, Nearby)

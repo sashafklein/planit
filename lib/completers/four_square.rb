@@ -43,8 +43,8 @@ module Completers
     end
 
     def get_venues!
-      @response = HTTParty.get(full_fs_url)
-      @venues = @response.deep_val(['response', 'groups', 0, 'items']).map do |item|
+      @response = SuperHash.new HTTParty.get(full_fs_url)
+      @venues = @response.super_fetch( 'response', 'groups', 0, 'items' ).map do |item|
         FourSquareVenue.new(item)
       end
     end

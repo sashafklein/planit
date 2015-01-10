@@ -13,5 +13,26 @@ FactoryGirl.define do
     lon 1.5
     website "www.whatever.com"
     categories ["Some category"]
+
+    factory :comptoir do
+      names ["Le Comptoir du Relais"]
+      street_addresses ["6 carrefour de l'Odeon"]
+      locality "Paris"
+      postal_code "75006"
+      phones( { default: "+33 1 44 27 07 97" } )
+      categories ["Brasseries", "French"]
+      country 'France'
+      hours({
+        mon: [["1200","0000"]],
+        tue: [["1200","0000"]],
+        wed: [["1200","0000"]],
+        thu: [["1200","0000"]],
+        fri: [["1200","0000"]],
+        sat: [["1200","0200"]],
+        sun: [["1200","0000"]]
+      })
+      lat 48.851946
+      lon 2.338757
+    end
   end
 end

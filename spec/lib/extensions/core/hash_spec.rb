@@ -24,13 +24,4 @@ describe Hash do
       expect(hash).to eq( { true_key: true, nil_key: nil, hash: { true_key: true, nil_key: nil } } )
     end
   end
-
-  describe "deep_val" do
-    it "it indexes deep into array, and nil sinks by default" do
-      hash = { a: { b: { c: 'd' }}}
-      expect( hash.deep_val([:a, :b, :c]) ).to eq 'd'
-      expect( hash.deep_val([:a, :e, :c]) ).to eq nil
-        expect( hash.deep_val([:a, :e, :c], '') ).to eq ''
-    end
-  end
 end

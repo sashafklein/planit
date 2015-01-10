@@ -23,6 +23,7 @@ class PlaceSaver
     uniqify_array_attrs
     correct_and_deaccent_regional_info
     capitalize_categories
+    format_hours
     save_and_validate_changes!(raise_errors)
   end
 
@@ -35,12 +36,13 @@ class PlaceSaver
 
   def validate_changes(raise_errors=false)
     if !raise_errors 
-      return (array_attrs_unique? && regional_info_correct_and_deaccented? && categories_capitalized?) ? true : false 
+      return ( array_attrs_unique? && regional_info_correct_and_deaccented? && categories_capitalized? && Services::TimeConverter.hours_converted?(place.hours) ) ? true : false 
     end
 
     raise "uniqify_array_attrs failed!" unless array_attrs_unique?
     raise "correct_and_deaccent_regional_info failed" unless regional_info_correct_and_deaccented?
     raise "capitalize_categories failed" unless categories_capitalized?
+    raise "format_hours failed" unless Services::TimeConverter.hours_converted?(place.hours)
     true
   end
 
@@ -100,6 +102,10 @@ class PlaceSaver
 
   def categories_capitalized?
     place.categories.all?{ |c| c.capitalized? }
+  end
+
+  def format_hours
+    place.add_to_hours Services::TimeConverter.convert_hours(place.hours)
   end
 
   def errors

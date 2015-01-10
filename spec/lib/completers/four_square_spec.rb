@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 module Completers
-  describe FourSquare do
+  describe FourSquare, :vcr do
     describe "complete!" do
       context "with sufficient information" do
 
-        it "returns a non-persisted place", :vcr do
+        it "returns a non-persisted place" do
           pip = PlaceInProgress.new({lat: 37.74422249388305, lon: -122.4352317663816, names: ["Contigo"]})
           completed = FourSquare.new(pip).complete!
           c_place = completed[:place].place
@@ -14,7 +14,7 @@ module Completers
           expect( c_place ).not_to be_persisted
         end
 
-        it "completes with latLon and name", :vcr do
+        it "completes with latLon and name" do
           pip = PlaceInProgress.new({lat: 37.750, lon: -122.434, names: ["Contigo"]})
           completed = FourSquare.new(pip).complete!
           c_place = completed[:place].place
@@ -24,7 +24,7 @@ module Completers
           expect( c_place.category ).to eq('Spanish Restaurant')
         end
 
-        it "completes with locality and name", :vcr do
+        it "completes with locality and name" do
           pip = PlaceInProgress.new({locality: 'Cartagena', country: 'Colombia', names: ["La Cevicheria"]})
           completed = FourSquare.new(pip).complete!
 
@@ -42,7 +42,7 @@ module Completers
       end
 
       context "with insufficient information" do
-        it "returns original without name", :vcr do
+        it "returns original without name" do
           place = Place.new({lat: 37.74422249388305, lon: -122.4352317663816})
           pip = PlaceInProgress.new(place.attributes.symbolize_keys)
           completed = FourSquare.new(pip).complete!
@@ -51,7 +51,7 @@ module Completers
           expect( c_place.attributes ).to eq( place.attributes )
         end
 
-        it "returns original without locality", :vcr do
+        it "returns original without locality" do
           place = Place.new({names: ["Contigo"], street_addresses: ['1320 Castro St']})
           pip = PlaceInProgress.new(place.attributes.symbolize_keys)
           completed = FourSquare.new(pip).complete!
@@ -60,7 +60,7 @@ module Completers
         end
       end
 
-      context "with unfindable information", :vcr do
+      context "with unfindable information" do
         it "returns the original" do
           place = Place.new({names: ["ThisPlaceDoesntExist"], locality: 'San Francisco'})
           pip = PlaceInProgress.new(place.attributes.symbolize_keys)

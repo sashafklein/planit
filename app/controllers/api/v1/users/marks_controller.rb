@@ -15,7 +15,7 @@ class Api::V1::Users::MarksController < ApiController
 
   def scrape
     return error(404, "User not found") unless @user
-    return error(500, "Missing url param") unless params[:url]
+    return error(500, "Missing url param") unless params[:url]    
     
     scraped = Array Services::SiteScraper.build(params[:url], params[:page]).data
 

@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 module Services
-  describe SiteScraper do
+  describe SiteScraper, :vcr do
     describe "initialize" do
 
       let(:url) { 'http://www.contigo.com' }
       let(:page) { File.read File.join(File.join('spec', 'support', 'pages', 'contigosf', "contigo.html")) } 
 
-      it "handles no page", :vcr do
+      it "handles no page" do
         page_scraper = SiteScraper.build(url, page)
         expect(page_scraper).to be_a Scrapers::General
         

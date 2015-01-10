@@ -37,15 +37,6 @@ class Hash
     end
   end
 
-  def deep_val(indices, error=nil)
-    hash = dup
-    indices.map do |i|
-      return error if hash.nil?
-      hash = hash.send('[]', i)
-    end
-    hash
-  end
-
   def reduce_to_hash(&block)
     hash = {}
     self.each do |k, v|
@@ -56,5 +47,9 @@ class Hash
 
   def reduce_to_hash!(&block)
     self.replace reduce_to_hash(&block)
+  end
+
+  def to_sh
+    SuperHash.new(self)
   end
 end

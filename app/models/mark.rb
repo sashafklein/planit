@@ -14,10 +14,6 @@ class Mark < ActiveRecord::Base
 
   delegate :full, :lodging, to: :place, prefix: true
 
-  class << self
-    delegate :coordinates, to: :places
-  end
-
   has_one :arrival, class_name: 'Travel', foreign_key: 'to_id'
   has_one :departure, class_name: 'Travel', foreign_key: 'from_id'
 
@@ -31,6 +27,10 @@ class Mark < ActiveRecord::Base
 
   def self.places
     Place.where(id: pluck(:place_id))
+  end
+
+  class << self
+    delegate :coordinates, to: :places
   end
 
   def self.center_coordinate

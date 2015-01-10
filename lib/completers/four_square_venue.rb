@@ -5,7 +5,7 @@ module Completers
 
     attr_accessor :json
     def initialize(json)
-      @json = json['venue']
+      @json = SuperHash.new json['venue']
     end
 
     def acceptably_close_lat_lon_and_name?(pip)
@@ -44,7 +44,7 @@ module Completers
     end
 
     def photos
-      return [] unless photos = json.deep_val( ['featuredPhotos', 'items'] )
+      return [] unless photos = json.super_fetch( *['featuredPhotos', 'items'] )
       photos.map do |photo|
         [photo['prefix'], photo['suffix']].join(IMAGE_SIZE)
       end
@@ -59,47 +59,47 @@ module Completers
     end
 
     def phone
-      json.deep_val %w(contact phone)
+      json.super_fetch %w(contact phone)
     end
 
     def address
-      json.deep_val %w(location address)
+      json.super_fetch %w(location address)
     end
 
     def lat
-      json.deep_val %w(location lat)
+      json.super_fetch %w(location lat)  
     end
 
     def lon
-      json.deep_val %w(location lng)
+      json.super_fetch %w(location lng)
     end
 
     def country
-      json.deep_val %w(location country)
+      json.super_fetch %w(location country)
     end
 
     def region
-      json.deep_val %w(location state)
+      json.super_fetch %w(location state)
     end
 
     def locality
-      json.deep_val %w(location city)
+      json.super_fetch %w(location city)
     end
 
     def category
-      json.deep_val ['categories', 0, 'name']
+      json.super_fetch ['categories', 0, 'name']
     end
 
     def full_address
-      json.deep_val %w( location formattedAddress )
+      json.super_fetch %w( location formattedAddress )
     end
 
     def menu_url
-      json.deep_val %w( menu url )
+      json.super_fetch %w( menu url )
     end
 
     def mobile_menu_url
-      json.deep_val %w( menu mobileUrl )
+      json.super_fetch %w( menu mobileUrl )
     end
 
     def four_square_id

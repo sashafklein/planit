@@ -50,8 +50,8 @@ class UserDecorator < Draper::Decorator
 
   def show_bookmarklet_button
     link_to "#{ render partial: 'bookmarklets/bookmarklet.js.erb', locals: { user: (current_user ? current_user : OpenStruct.new(slug: 'fake-user')), host: request.base_url } }", :class => "a-override u-none" do
-      h.content_tag :div, :class => 'no-activity-button blue planit-button enabled' do
-        "<i class='fa fa-globe'></i>".html_safe
+      h.content_tag :div, class: 'no-activity-button blue planit-button enabled' do
+        "<i class='fa fa-globe'></i><div class='hidden_button_name'>+Planit</div>".html_safe
       end
     end
   end
