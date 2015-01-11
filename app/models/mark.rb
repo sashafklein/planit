@@ -93,14 +93,6 @@ class Mark < ActiveRecord::Base
     "Depart by #{departure.mode} to #{name}"
   end
 
-  def is?(category_type)
-    categories.include?(category_type.to_s)
-  end
-
-  def categories
-    @categories ||= CategorySet.new(self).list
-  end
-
   private
 
   def siblings

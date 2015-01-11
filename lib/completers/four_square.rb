@@ -60,7 +60,6 @@ module Completers
     end
     
     def merge!
-      binding.pry
       return unless venue
 
       pip.set_val( :names, venue.name, self.class )
