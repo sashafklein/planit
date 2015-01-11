@@ -18,6 +18,7 @@ module Completers
           expect( place.phones ).to eq({})
           expect( place.category ).to eq('Hotel')
           expect( place.full_address ).to eq("22 South 3rd Street, Fernandina Beach, FL 32034, USA")
+          expect( place.meta_category ).to eq('Stay')
         end
 
         it "finds Fuunji" do
@@ -30,6 +31,8 @@ module Completers
           expect( place.names ).to eq( ["Fuunji", "風雲児"] )
           expect( place.phones.symbolize_keys ).to eq({ default: "+81364138480" })
           expect( place.category ).to eq("Ramen / Noodle House")
+          expect( place.meta_categories ).to eq(['Food'])
+          expect( place.meta_category ).to eq('Food')
         end
 
         it "locates and doesn't overwrite Cundinamarca AirBNB" do
@@ -64,6 +67,7 @@ module Completers
           expect( place.website ).to eq("http://www.tridenthotels.com")
           expect( place.lat ).to be_within(0.01).of(18.9255728)
           expect( place.lon ).to be_within(0.01).of(72.8242221)
+          expect( place.meta_category ).to eq('Stay')
         end
 
         xit "locates Caffe Vita Inc and fills out the category" do

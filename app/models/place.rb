@@ -4,7 +4,7 @@ class Place < ActiveRecord::Base
   has_many :images, as: :imageable
   
   include ActiveRecord::MetaExt
-  array_accessor :flag, :completion_step, :street_address, :name, :category
+  array_accessor :flag, :completion_step, :street_address, :name, :category, :meta_category
   hstore_accessor :hours, :extra, :phones
   validate!
 
@@ -92,9 +92,14 @@ class Place < ActiveRecord::Base
     @timezone = zone
   end
 
+  def is?(meta_category)
+    meta_categories.include?(meta_category.to_s)
+  end
+
   private
 
   def hour_calculator
     PlaceHours.new(hours, timezone.zone)
   end
+
 end

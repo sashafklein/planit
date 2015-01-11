@@ -19,6 +19,32 @@ module RegexLibrary
       ]
     end
 
+    def accepted_articles 
+      list = [
+        "the", #english
+        "la", #french, spanish, italian
+        "el", #spanish
+        "los", #spanish
+        "las", #french, spanish, italian
+        "le", #french
+        "les", #french
+        "il", #italian
+        "gli", #italian
+        "as", #portuguese
+        "a", #portuguese, english
+        "o", #portuguese, greek
+        "os", #portuguese
+        "der", #german
+        "die", #german, afrikaans
+        "de", #dutch
+        "du", #basque
+        "ang", #filipino
+        "da", #hausa
+        "nan", #haitian
+        "an", #irish, english
+      ].join("|")
+    end
+
     def list_of_common_destination_types
       destinations = [
         "library",

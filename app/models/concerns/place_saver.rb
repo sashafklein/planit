@@ -24,6 +24,8 @@ class PlaceSaver
     correct_and_deaccent_regional_info
     capitalize_categories
     format_hours
+    add_meta_categories
+    # meta_categories_correct?
     save_and_validate_changes!(raise_errors)
   end
 
@@ -79,6 +81,14 @@ class PlaceSaver
 
   def capitalize_categories
     place.categories = place.categories.map(&:titleize)
+  end
+
+  def add_meta_categories
+    place.meta_categories = CategorySet.new(place).set_meta_category
+  end
+
+  def meta_categories_correct?
+    place.meta_categories.all?{ |mc| CategorySet::ALL_CATEGORIES.include?(mc) }
   end
 
   def expand_region?

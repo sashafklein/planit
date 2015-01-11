@@ -1,64 +1,29 @@
 class CategorySet
   
-  attr_accessor :item
-  delegate :category, :lodging?, :meal?, to: :item
+  ALL_CATEGORIES = %w( Food Drink Relax See Do Stay Money Transit Area Help Shop Other )
+  attr_accessor :place
+  delegate :category, :categories, to: :place
 
-  def initialize(item)
-    @item = item 
+  def initialize(place)
+    @place = place 
   end
 
-  def list
-    l = []
-    l << 'cafe' if cafe?
-    l << 'sight' unless edible? || relaxation? || lodging?|| meal?
-    l << 'food' if edible? || meal?
-    l << 'drink' if bar?
-    l << 'lodging' if lodging?
-    l << 'camping' if camp?
-    l << 'relaxation' if relaxation?
-    l
+  def set_meta_category
+    meta_cat = []
+    ALL_CATEGORIES.map(&:downcase).each do |meta|
+      place.categories.each do |category|
+        if categories_for(meta).map(&:downcase).include?(category.downcase)
+          meta_cat << meta.capitalize
+        end
+      end
+    end
+    return meta_cat.uniq
   end
 
   private
 
-  def method_missing(meth, *args, &block)
-    collection = "#{meth.to_s.gsub('?','')}s"
-    if respond_to? collection , true
-      send(collection).include? category
-    else
-      super
-    end
+  def categories_for(meta_category)
+    Directories::Categories.new.list[meta_category]
   end
 
-  def edibles
-    foods + camps + cafes + bars
-  end
-
-  def foods
-    ['restaurant']
-  end
-
-  def camps
-    ['campsite']
-  end
-
-  def bars
-    ['bar', 'hotel bar']
-  end
-
-  def lodgings
-    ['hotel', 'apartment', 'house', '']
-  end
-
-  def cafes
-    ['coffee', 'café', 'tea', 'coffeeshop', 'teashop', 'coffee shop', 'tea shop']
-  end
-
-  def relaxations
-    ['spa', 'hotel spa', 'hotel pool', 'bath', 'hotel bath']
-  end
-
-  def relaxation?
-    relaxations.include?(category) || (category == 'resort' && !lodging)
-  end
 end
