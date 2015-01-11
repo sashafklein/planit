@@ -21,9 +21,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Thu, 01 Jan 2015 00:50:36 GMT
+      - Sun, 11 Jan 2015 21:23:20 GMT
       Expires:
-      - Fri, 02 Jan 2015 00:50:36 GMT
+      - Mon, 12 Jan 2015 21:23:20 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -36,6 +36,10 @@ http_interactions:
       - SAMEORIGIN
       Alternate-Protocol:
       - 80:quic,p=0.02
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
       Transfer-Encoding:
       - chunked
     body:
@@ -130,7 +134,7 @@ http_interactions:
                     },
                     {
                        "long_name" : "New York",
-                       "short_name" : "New York",
+                       "short_name" : "NY",
                        "types" : [ "locality", "political" ]
                     },
                     {
@@ -198,7 +202,7 @@ http_interactions:
                     },
                     {
                        "long_name" : "New York",
-                       "short_name" : "New York",
+                       "short_name" : "NY",
                        "types" : [ "locality", "political" ]
                     },
                     {
@@ -261,7 +265,7 @@ http_interactions:
                     },
                     {
                        "long_name" : "New York",
-                       "short_name" : "New York",
+                       "short_name" : "NY",
                        "types" : [ "locality", "political" ]
                     },
                     {
@@ -324,7 +328,7 @@ http_interactions:
                     },
                     {
                        "long_name" : "New York",
-                       "short_name" : "New York",
+                       "short_name" : "NY",
                        "types" : [ "locality", "political" ]
                     },
                     {
@@ -382,7 +386,7 @@ http_interactions:
                     },
                     {
                        "long_name" : "New York",
-                       "short_name" : "New York",
+                       "short_name" : "NY",
                        "types" : [ "locality", "political" ]
                     },
                     {
@@ -617,7 +621,7 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Thu, 01 Jan 2015 00:50:36 GMT
+  recorded_at: Sun, 11 Jan 2015 21:23:21 GMT
 - request:
     method: get
     uri: https://api.foursquare.com/v2/venues/explore?near=New%20York,%20New%20York,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Boom%20Boom%20Room&v=20140819&venuePhotos=1
@@ -637,7 +641,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 01 Jan 2015 00:50:37 GMT
+      - Sun, 11 Jan 2015 21:23:21 GMT
       Server:
       - nginx
       Content-Type:
@@ -645,11 +649,11 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Tracer-Time:
-      - '260'
+      - '266'
       X-Ratelimit-Limit:
       - '500'
       X-Ratelimit-Remaining:
-      - '423'
+      - '381'
       Strict-Transport-Security:
       - max-age=864000
       X-Ex:
@@ -659,7 +663,7 @@ http_interactions:
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-jfk1032-JFK
+      - cache-jfk1024-JFK
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -681,8 +685,7 @@ http_interactions:
         Boom Room Pt 2 In HD","contact":{},"location":{"lat":40.79568343193426,"lng":-74.00041184413695,"postalCode":"07047","cc":"US","city":"North
         Bergen","state":"NJ","country":"United States","formattedAddress":["North
         Bergen, NJ 07047"]},"categories":[{"id":"4bf58dd8d48988d1d6941735","name":"Strip
-        Club","pluralName":"Strip Clubs","shortName":"Strip Club","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/nightlife\/stripclub_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":366,"usersCount":13,"tipCount":0},"price":{"tier":3,"message":"Expensive","currency":"$"},"like":false,"hours":{"status":"Likely
-        open","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":15,"groups":[]},"hereNow":{"count":0,"summary":"Nobody
+        Club","pluralName":"Strip Clubs","shortName":"Strip Club","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/nightlife\/stripclub_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":366,"usersCount":13,"tipCount":0},"price":{"tier":3,"message":"Expensive","currency":"$"},"like":false,"hours":{"isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":15,"groups":[]},"hereNow":{"count":0,"summary":"Nobody
         here","groups":[]}},"referralId":"e-0-4ef6cee002d5abdcbaf6461c-0"},{"reasons":{"count":0,"items":[{"summary":"This
         spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4c43c41df0bdd13adac1c8cc","name":"The
         Boom Boom Room","contact":{},"location":{"address":"60 Astor Pl","crossStreet":"Monticello","lat":40.718381,"lng":-74.068897,"postalCode":"07304","cc":"US","city":"Jersey
@@ -693,5 +696,186 @@ http_interactions:
         the room is a rocking, don''t come a knocking!!","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/4c9828a7f419a0936cb96d88","likes":{"count":5,"groups":[],"summary":"5
         likes"},"logView":true,"todo":{"count":0},"user":{"id":"1655346","firstName":"Will","lastName":"McKinney","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/WV0H4BAF0G2Q4KMR.jpg"}}}],"referralId":"e-0-4c43c41df0bdd13adac1c8cc-1"}]}]}}'
     http_version: 
-  recorded_at: Thu, 01 Jan 2015 00:50:37 GMT
+  recorded_at: Sun, 11 Jan 2015 21:23:22 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/4c43c41df0bdd13adac1c8cc?oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 11 Jan 2015 21:23:22 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '46'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '380'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-jfk1023-JFK
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJtZXRhIjp7ImNvZGUiOjIwMH0sIm5vdGlmaWNhdGlvbnMiOlt7InR5cGUi
+        OiJub3RpZmljYXRpb25UcmF5IiwiaXRlbSI6eyJ1bnJlYWRDb3VudCI6NjN9
+        fV0sInJlc3BvbnNlIjp7InZlbnVlIjp7ImlkIjoiNGM0M2M0MWRmMGJkZDEz
+        YWRhYzFjOGNjIiwibmFtZSI6IlRoZSBCb29tIEJvb20gUm9vbSIsImNvbnRh
+        Y3QiOnt9LCJsb2NhdGlvbiI6eyJhZGRyZXNzIjoiNjAgQXN0b3IgUGwiLCJj
+        cm9zc1N0cmVldCI6Ik1vbnRpY2VsbG8iLCJsYXQiOjQwLjcxODM4MSwibG5n
+        IjotNzQuMDY4ODk3LCJwb3N0YWxDb2RlIjoiMDczMDQiLCJjYyI6IlVTIiwi
+        Y2l0eSI6IkplcnNleSBDaXR5Iiwic3RhdGUiOiJOSiIsImNvdW50cnkiOiJV
+        bml0ZWQgU3RhdGVzIiwiZm9ybWF0dGVkQWRkcmVzcyI6WyI2MCBBc3RvciBQ
+        bCAoTW9udGljZWxsbykiLCJKZXJzZXkgQ2l0eSwgTkogMDczMDQiXX0sImNh
+        bm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvdlwvdGhl
+        LWJvb20tYm9vbS1yb29tXC80YzQzYzQxZGYwYmRkMTNhZGFjMWM4Y2MiLCJj
+        YXRlZ29yaWVzIjpbeyJpZCI6IjRiZjU4ZGQ4ZDQ4OTg4ZDFkNjk0MTczNSIs
+        Im5hbWUiOiJTdHJpcCBDbHViIiwicGx1cmFsTmFtZSI6IlN0cmlwIENsdWJz
+        Iiwic2hvcnROYW1lIjoiU3RyaXAgQ2x1YiIsImljb24iOnsicHJlZml4Ijoi
+        aHR0cHM6XC9cL3NzMy40c3FpLm5ldFwvaW1nXC9jYXRlZ29yaWVzX3YyXC9u
+        aWdodGxpZmVcL3N0cmlwY2x1Yl8iLCJzdWZmaXgiOiIucG5nIn0sInByaW1h
+        cnkiOnRydWV9XSwidmVyaWZpZWQiOmZhbHNlLCJzdGF0cyI6eyJjaGVja2lu
+        c0NvdW50IjoxMjYsInVzZXJzQ291bnQiOjUwLCJ0aXBDb3VudCI6M30sImxp
+        a2VzIjp7ImNvdW50IjowLCJncm91cHMiOltdfSwibGlrZSI6ZmFsc2UsImRp
+        c2xpa2UiOmZhbHNlLCJvayI6ZmFsc2UsInNwZWNpYWxzIjp7ImNvdW50Ijow
+        LCJpdGVtcyI6W119LCJwaG90b3MiOnsiY291bnQiOjAsImdyb3VwcyI6W119
+        LCJoZXJlTm93Ijp7ImNvdW50IjowLCJzdW1tYXJ5IjoiTm9ib2R5IGhlcmUi
+        LCJncm91cHMiOltdfSwicmVhc29ucyI6eyJjb3VudCI6MCwiaXRlbXMiOltd
+        fSwiY3JlYXRlZEF0IjoxMjc5NTA5NTMzLCJtYXlvciI6eyJjb3VudCI6MH0s
+        InRpcHMiOnsiY291bnQiOjMsImdyb3VwcyI6W3sidHlwZSI6ImZvbGxvd2lu
+        ZyIsIm5hbWUiOiJUaXBzIGZyb20gcGVvcGxlIHlvdSBmb2xsb3ciLCJjb3Vu
+        dCI6MCwiaXRlbXMiOltdfSx7InR5cGUiOiJvdGhlcnMiLCJuYW1lIjoiQWxs
+        IHRpcHMiLCJjb3VudCI6MywiaXRlbXMiOlt7ImlkIjoiNGM5ODI4YTdmNDE5
+        YTA5MzZjYjk2ZDg4IiwiY3JlYXRlZEF0IjoxMjg1MDQwMjk1LCJ0ZXh0Ijoi
+        SWYgdGhlIHJvb20gaXMgYSByb2NraW5nLCBkb24ndCBjb21lIGEga25vY2tp
+        bmchISIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6XC9c
+        L2ZvdXJzcXVhcmUuY29tXC9pdGVtXC80Yzk4MjhhN2Y0MTlhMDkzNmNiOTZk
+        ODgiLCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJjb3VudCI6NSwiZ3JvdXBzIjpb
+        eyJ0eXBlIjoib3RoZXJzIiwiY291bnQiOjUsIml0ZW1zIjpbXX1dLCJzdW1t
+        YXJ5IjoiNSBsaWtlcyJ9LCJsaWtlIjpmYWxzZSwibG9nVmlldyI6dHJ1ZSwi
+        dG9kbyI6eyJjb3VudCI6MH0sInVzZXIiOnsiaWQiOiIxNjU1MzQ2IiwiZmly
+        c3ROYW1lIjoiV2lsbCIsImxhc3ROYW1lIjoiTWNLaW5uZXkiLCJnZW5kZXIi
+        OiJtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczMuNHNx
+        aS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9XVjBINEJBRjBHMlE0
+        S01SLmpwZyJ9fX0seyJpZCI6IjUzZTM3NTcyNDk4ZTE1NTBmM2EzYWI0NyIs
+        ImNyZWF0ZWRBdCI6MTQwNzQxNTY2NiwidGV4dCI6Ik5pY2UgcGxhY2UuLi4u
+        ZW5qb3lpbmcgdGhlIHRpbWUgISBSZWxheHh4IiwidHlwZSI6InVzZXIiLCJj
+        YW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFyZS5jb21cL2l0ZW1c
+        LzUzZTM3NTcyNDk4ZTE1NTBmM2EzYWI0NyIsImxhbmciOiJlbiIsImxpa2Vz
+        Ijp7ImNvdW50IjowLCJncm91cHMiOltdfSwibGlrZSI6ZmFsc2UsImxvZ1Zp
+        ZXciOnRydWUsInRvZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiMTk0
+        NTAyOTkiLCJmaXJzdE5hbWUiOiJBbmdlbGluZSDwn5KT8J+SjvCfkpMiLCJs
+        YXN0TmFtZSI6Ik9lbnRhcmkiLCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90byI6
+        eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5ldFwvaW1nXC91c2Vy
+        XC8iLCJzdWZmaXgiOiJcLzE5NDUwMjk5LUhTWFAzTFJVWjUyMU1XNUMuanBn
+        In19fSx7ImlkIjoiNGUzYmY0ODFjYzNmNjUxNzUzMWJjZWVhIiwiY3JlYXRl
+        ZEF0IjoxMzEyNTUyMDY1LCJ0ZXh0IjoiR2xhc3MgZmxvb3JzIGhtbW0uLi4i
+        LCJ0eXBlIjoidXNlciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vy
+        c3F1YXJlLmNvbVwvaXRlbVwvNGUzYmY0ODFjYzNmNjUxNzUzMWJjZWVhIiwi
+        bGFuZyI6ImVuIiwibGlrZXMiOnsiY291bnQiOjAsImdyb3VwcyI6W119LCJs
+        aWtlIjpmYWxzZSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0s
+        InVzZXIiOnsiaWQiOiIxMjI0OTY1NiIsImZpcnN0TmFtZSI6Ik5ldyBZb3Jr
+        IFNlY3JldHMiLCJnZW5kZXIiOiJub25lIiwicGhvdG8iOnsicHJlZml4Ijoi
+        aHR0cHM6XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4
+        IjoiXC8zS08xR0JETk1aTkpNS1FZLmpwZyJ9LCJ0eXBlIjoicGFnZSJ9fV19
+        XX0sInRhZ3MiOltdLCJzaG9ydFVybCI6Imh0dHA6XC9cLzRzcS5jb21cL2NT
+        NkhHUSIsInRpbWVab25lIjoiQW1lcmljYVwvTmV3X1lvcmsiLCJsaXN0ZWQi
+        OnsiY291bnQiOjEsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsIm5hbWUi
+        OiJMaXN0cyBmcm9tIG90aGVyIHBlb3BsZSIsImNvdW50IjoxLCJpdGVtcyI6
+        W3siaWQiOiI1MzlmY2NmNDQ5OGViM2RmY2U4OTUwYzAiLCJuYW1lIjoiTnlj
+        IiwiZGVzY3JpcHRpb24iOiIiLCJ0eXBlIjoib3RoZXJzIiwidXNlciI6eyJp
+        ZCI6IjE2MzM1NjAiLCJmaXJzdE5hbWUiOiJTYXZ2eUNpdHkiLCJnZW5kZXIi
+        OiJub25lIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczAuNHNx
+        aS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC8xNjMzNTYwLVNFRTBF
+        NUdTUkhNWkQzRkEuanBnIn19LCJlZGl0YWJsZSI6ZmFsc2UsInB1YmxpYyI6
+        dHJ1ZSwiY29sbGFib3JhdGl2ZSI6ZmFsc2UsInVybCI6IlwvYzBtcGxleGlz
+        XC9saXN0XC9ueWMiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNx
+        dWFyZS5jb21cL2MwbXBsZXhpc1wvbGlzdFwvbnljIiwiY3JlYXRlZEF0Ijox
+        NDAyOTgxNjIwLCJ1cGRhdGVkQXQiOjE0MTQ1MzQwMTEsInBob3RvIjp7Imlk
+        IjoiNTJmZDE2ZmU0OThlZTk5ZjljODJjYmUzIiwiY3JlYXRlZEF0IjoxMzky
+        MzE4MjA2LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3FpLm5ldFwvaW1n
+        XC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzMzMjU2MTkwX2J3TkE1emc3Ujlu
+        SjRjOHJaT0xEUHdyWGNsbEZCbFNiVnF5cWQzUkoyZXMuanBnIiwid2lkdGgi
+        Ojc5MiwiaGVpZ2h0Ijo1MjgsInVzZXIiOnsiaWQiOiIzMzI1NjE5MCIsImZp
+        cnN0TmFtZSI6IkJhcmNhZGUiLCJnZW5kZXIiOiJub25lIiwicGhvdG8iOnsi
+        cHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwv
+        Iiwic3VmZml4IjoiXC9BMkhIVVZKTU5UWTM1TFdGLnBuZyJ9LCJ0eXBlIjoi
+        Y2hhaW4ifSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9LCJmb2xsb3dlcnMiOnsi
+        Y291bnQiOjB9LCJsaXN0SXRlbXMiOnsiY291bnQiOjM1LCJpdGVtcyI6W3si
+        aWQiOiJ2NGM0M2M0MWRmMGJkZDEzYWRhYzFjOGNjIiwiY3JlYXRlZEF0Ijox
+        NDExMTA0MjE0fV19fV19XX0sInBhZ2VVcGRhdGVzIjp7ImNvdW50IjowLCJp
+        dGVtcyI6W119LCJpbmJveCI6eyJjb3VudCI6MCwiaXRlbXMiOltdfSwiYXR0
+        cmlidXRlcyI6eyJncm91cHMiOltdfX19fQ==
+    http_version: 
+  recorded_at: Sun, 11 Jan 2015 21:23:22 GMT
+- request:
+    method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=40.7406045&lng=-74.0078798&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 11 Jan 2015 21:23:22 GMT
+      Server:
+      - Apache/2.4.6 (Linux/SUSE)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"sunrise":"2015-01-11 07:19","lng":-74.0078798,"countryCode":"US","gmtOffset":-5,"rawOffset":-5,"sunset":"2015-01-11
+        16:48","timezoneId":"America/New_York","dstOffset":-4,"countryName":"United
+        States","time":"2015-01-11 16:23","lat":40.7406045}'
+    http_version: 
+  recorded_at: Sun, 11 Jan 2015 21:23:23 GMT
 recorded_with: VCR 2.9.3

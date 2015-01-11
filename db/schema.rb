@@ -138,23 +138,31 @@ ActiveRecord::Schema.define(version: 20150111231448) do
     t.string   "website"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "names",            default: [], array: true
-    t.hstore   "phones",           default: {}
+    t.string   "names",             default: [],    array: true
+    t.hstore   "phones",            default: {}
     t.string   "email"
     t.string   "contact_name"
-    t.hstore   "hours",            default: {}
+    t.hstore   "hours",             default: {}
     t.integer  "price_tier"
     t.string   "price_note"
     t.text     "description"
-    t.hstore   "extra",            default: {}
+    t.hstore   "extra",             default: {}
     t.string   "subregion"
-    t.string   "street_addresses", default: [], array: true
+    t.string   "street_addresses",  default: [],    array: true
     t.string   "full_address"
-    t.string   "categories",       default: [], array: true
-    t.text     "flags",            default: [], array: true
-    t.text     "completion_steps", default: [], array: true
+    t.string   "categories",        default: [],    array: true
+    t.text     "flags",             default: [],    array: true
+    t.text     "completion_steps",  default: [],    array: true
     t.text     "sublocality"
-    t.string   "meta_categories",  default: [], array: true
+    t.boolean  "wifi",              default: false
+    t.string   "menu"
+    t.string   "mobile_menu"
+    t.string   "foursquare_id"
+    t.string   "scrape_url"
+    t.string   "timezone_string"
+    t.boolean  "reservations",      default: false
+    t.string   "reservations_link"
+    t.string   "meta_categories",   default: [],    array: true
   end
 
   create_table "plans", force: true do |t|

@@ -231,6 +231,38 @@ module Services
           sun: [ ['1000', '1200'], ['1300', '2300'] ]
         })
       end
+
+      it "converts the long-hyphened bullshit Foursquare sends us" do
+        hours = {
+          "mon–fri"=>[["7:00 AM", "6:00 PM"]], 
+          "sat"=>[["8:00 AM", "6:00 PM"]], 
+          "sun"=>[["9:00 AM", "5:00 PM"]]
+        }
+
+        expect( "mon–fri".include?( String::LONG_DASH ) ).to eq true
+
+        expect( TimeConverter.convert_hours(hours) ).to hash_eq({
+          mon: [ ['0700', '1800'] ],
+          tue: [ ['0700', '1800'] ],
+          wed: [ ['0700', '1800'] ],
+          thu: [ ['0700', '1800'] ],
+          fri: [ ['0700', '1800'] ],
+          sat: [ ['0800', '1800'] ],
+          sun: [ ['0900', '1700'] ]
+        })
+      end
+
+      it "successfully converts 24/7" do
+        expect( TimeConverter.convert_hours({ 'mon-sun' => [['0000', '0000']]})).to hash_eq({
+          mon: [ ['0000', '0000'] ],
+          tue: [ ['0000', '0000'] ],
+          wed: [ ['0000', '0000'] ],
+          thu: [ ['0000', '0000'] ],
+          fri: [ ['0000', '0000'] ],
+          sat: [ ['0000', '0000'] ],
+          sun: [ ['0000', '0000'] ]
+        })
+      end
     end
 
     describe ".hours_converted?" do

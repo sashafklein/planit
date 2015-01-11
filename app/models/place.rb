@@ -4,6 +4,8 @@ class Place < ActiveRecord::Base
   has_many :images, as: :imageable
   
   include ActiveRecord::MetaExt
+  include ActiveRecord::MetaExt::HstoreAccessor
+
   array_accessor :flag, :completion_step, :street_address, :name, :category, :meta_category
   hstore_accessor :hours, :extra, :phones
   validate!
@@ -16,6 +18,8 @@ class Place < ActiveRecord::Base
   scope :with_region_info, -> (atts) { where( atts.slice(:country, :region, :locality).select{ |k, v| v.present? }.map{ |k, v| { k => v.no_accents } }.first )}
 
   delegate :open?, :open_again_at, :open_until, to: :hour_calculator
+
+  def tz; timezone_string; end
 
   def self.att_by_frequency(att)
     where.not(att => nil).select("#{att}, count(#{att}) as frequency").order('frequency desc').group(att).map(&att)
@@ -68,7 +72,7 @@ class Place < ActiveRecord::Base
   end
 
   def alt_names
-    array = names.drop(1)
+    names.drop(1)
   end
 
   def pinnable
@@ -83,23 +87,17 @@ class Place < ActiveRecord::Base
     country == "United States" || country == "United States of America"
   end
 
-  def timezone
-    return @timezone if @timezone
-    return @timezone = Timezone::Zone.new(zone: extra.timezone) if extra.timezone
+  private
 
-    zone = Timezone::Zone.new({latlon: [lat, lon]})
-    add_to_extra({ timezone: zone.zone })
-    @timezone = zone
+  def tz_object
+    Timezone::Zone.new({zone: tz})
   end
 
   def is?(meta_category)
     meta_categories.include?(meta_category.to_s)
   end
 
-  private
-
   def hour_calculator
     PlaceHours.new(hours, timezone.zone)
   end
-
 end

@@ -25,7 +25,8 @@ class PlaceSaver
     capitalize_categories
     format_hours
     add_meta_categories
-    # meta_categories_correct?
+    format_phones
+    set_timezone
     save_and_validate_changes!(raise_errors)
   end
 
@@ -38,14 +39,15 @@ class PlaceSaver
 
   def validate_changes(raise_errors=false)
     if !raise_errors 
-      return ( array_attrs_unique? && regional_info_correct_and_deaccented? && categories_capitalized? && Services::TimeConverter.hours_converted?(place.hours) ) ? true : false 
+      ( test_list.all? { |m| send(m) } ) ? true : false 
+    else
+      test_list.each{ |m| raise "Place Validation failed: #{m}" unless send(m) }
+      true
     end
+  end
 
-    raise "uniqify_array_attrs failed!" unless array_attrs_unique?
-    raise "correct_and_deaccent_regional_info failed" unless regional_info_correct_and_deaccented?
-    raise "capitalize_categories failed" unless categories_capitalized?
-    raise "format_hours failed" unless Services::TimeConverter.hours_converted?(place.hours)
-    true
+  def test_list
+    [:array_attrs_unique?, :regional_info_correct_and_deaccented?, :categories_capitalized?, :hours_converted?, :timezone_set?, :phones_formatted?, :meta_categories_correct?]
   end
 
   def save_images!
@@ -115,7 +117,27 @@ class PlaceSaver
   end
 
   def format_hours
-    place.add_to_hours Services::TimeConverter.convert_hours(place.hours)
+    place.set_hours Services::TimeConverter.convert_hours(place.hours)
+  end
+
+  def hours_converted?
+    Services::TimeConverter.hours_converted?(place.hours)
+  end
+
+  def format_phones
+    place.set_phones place.phones.reduce_to_hash{ |k, v| v.cut(' ', '-', String::LONG_DASH, '(', ')') }.uniq
+  end
+
+  def phones_formatted?
+    place.phones.all?{ |k, v| [' ', '-', String::LONG_DASH, '(', ')'].all?{ |s| !v.include?(s) }}
+  end
+
+  def set_timezone
+    place.timezone_string = Timezone::Zone.new({latlon: [place.lat, place.lon]}).zone
+  end
+
+  def timezone_set?
+    place.timezone_string.present?
   end
 
   def errors

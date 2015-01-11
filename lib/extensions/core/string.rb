@@ -3,6 +3,8 @@ class String
   include RegexLibrary
   require 'fuzzystringmatch'
 
+  LONG_DASH = '–'
+  
   def no_accents
     I18n.transliterate(self)
   end

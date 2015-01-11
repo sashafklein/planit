@@ -19,21 +19,35 @@ describe Api::V1::Users::MarksController, :vcr do
       expect(Completers::Completer).to receive(:new).and_call_original
       post :create, mark: mark_params, user_id: @user.id
 
-      expect(response_body[:place][:id]).to be_a Integer
-      expect(response_body[:place][:lat]).to eq(mark_params[:place][:lat])
-      expect(response_body[:place][:lon]).to eq(mark_params[:place][:lon])
-      expect(response_body[:place][:names]).to eq( [mark_params[:place][:name]] )
-      expect(response_body[:place][:locality]).to eq(mark_params[:place][:locality])
-      expect(response_body[:place][:region]).to eq("California") # Expanded
-      expect(response_body[:place][:street_addresses]).to eq( [mark_params[:place][:street_address]] )
+      place = response_body.place
+      expect( place.id ).to be_a Integer
+      expect( place.lat ).to eq(mark_params[:place][:lat])
+      expect( place.lon ).to eq(mark_params[:place][:lon])
+      expect( place.names ).to eq( [mark_params[:place][:name]] )
+      expect( place.locality ).to eq(mark_params[:place][:locality])
+      expect( place.region ).to eq("California") # Expanded
+      expect( place.street_addresses ).to eq( [mark_params[:place][:street_address]] )
 
-      expect(response_body[:items].any?).to eq false
+      expect( place.menu ).to eq( "https://foursquare.com/v/contigo/49c6bdfef964a52077571fe3/menu" )
+      expect( place.mobile_menu ).to eq( "https://foursquare.com/v/49c6bdfef964a52077571fe3/device_menu" )
+      expect( place.reservations ).to eq true
+      expect( place.reservations_link ).to eq 'http://www.opentable.com/single.aspx?rid=45052&ref=9601'
 
-      img = response_body[:place][:images].first
-      expect(img[:url]).to eq "https://irs3.4sqi.net/img/general/#{Completers::FourSquareVenue::IMAGE_SIZE}/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg"
-      expect(img[:source]).to eq "FourSquare"
+      expect( place.hours ).to hash_eq({
+        "tue"=>[["1730", "2200"]], 
+        "wed"=>[["1730", "2200"]],
+        "thu"=>[["1730", "2200"]],
+        "fri"=>[["1730", "2200"]], 
+        "sat"=>[["1730", "2200"]], 
+        "sun"=>[["1730", "2130"]] 
+      })
+      expect( response_body.items.any? ).to eq false
 
-      expect(response_body[:user][:email]).to eq @user.email
+      img = place.images.first
+      expect( img.url ).to eq "https://irs3.4sqi.net/img/general/#{Completers::FoursquareExploreVenue::IMAGE_SIZE}/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg"
+      expect( img.source ).to eq "Foursquare"
+
+      expect( response_body.user.email ).to eq @user.email
     end
   end
 

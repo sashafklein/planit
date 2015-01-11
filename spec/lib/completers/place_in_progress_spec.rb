@@ -20,7 +20,7 @@ module Completers
         expect( @pip.categories ).to eq []
         expect( @pip.hours ).to eq( {} )
 
-        expect( @pip.attrs.reject{ |k, v| v.empty? } ).to hash_eq({
+        expect( @pip.attrs.reject{ |k, v| v.blank? } ).to hash_eq({
           lat: { val: @attrs[:lat], source: "PlaceInProgress" },
           names: [{ val: @attrs[:names], source: "PlaceInProgress" }],
           phones: { default: { val: @attrs[:phones][:default], source: "PlaceInProgress" } }

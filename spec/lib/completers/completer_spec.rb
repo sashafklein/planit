@@ -13,7 +13,7 @@ module Completers
 
       context "new place" do
         context "with no sequence or plan data" do
-          it "saves and returns an associated mark, rounded out by Geocoder and FourSquare API" do
+          it "saves and returns an associated mark, rounded out by Geocoder and Foursquare API" do
             c = Completer.new(place_hash, @user)
             mark = c.complete!
 
@@ -26,7 +26,7 @@ module Completers
             expect(place.country).to eq place_hash[:place][:country]
           end
 
-          it "grabs more info from FourSquare" do
+          it "grabs more info from FoursquareExplore" do
             expect( Image.count ).to eq 0
             c = Completer.new(place_hash, @user)
             mark = c.complete!
@@ -35,15 +35,12 @@ module Completers
           end
 
           it "ignores but retains unusable data" do
-            expect_any_instance_of(Completers::PlaceCompleter).to receive(:foursquare_complete!)
-            expect_any_instance_of(Completers::PlaceCompleter).to receive(:narrow_with_geocoder!)
-
             c = Completer.new(place_hash({made_up: 'whatever'}), @user)
             c.complete!
             expect(c.decremented_attrs).to eq({ made_up: 'whatever'})
           end
 
-          it "uses scraped images and FourSquare images" do
+          it "uses scraped images and Foursquare images" do
             c = Completer.new(YAML.load_file( File.join(Rails.root, 'spec', 'support', 'pages', 'tripadvisor', 'fuunji.yml')).first, @user)
             m = c.complete!
             p = m.place
@@ -79,7 +76,8 @@ module Completers
         it "fills any missing info" do
           atts = place_hash({}, {random_other: 'value'})
           completed_mark = Completer.new(atts, @user).complete!
-          expect(@mark.reload.place.extra.symbolize_keys).to eq({random_other: 'value', four_square_id: "509ef2b9e4b01b9e49f1d25c", menu_url: nil, mobile_menu_url: nil})
+          expect(@mark.reload.place.extra.symbolize_keys).to eq({random_other: 'value'})
+          expect( @mark.place.foursquare_id ).to eq "509ef2b9e4b01b9e49f1d25c"
           expect(@mark.place.flags.first).to eq "Place ##{@mark.place.id} merged with nonpersisted place. Added: {:names=>[\"La Paletteria\", \"La Palettería\"], :street_addresses=>[\"Calle Santo Domingo, No. 3-88\", \"Cll Santo Domingo # 36 - 86\"]}"
         end
       end
@@ -87,8 +85,6 @@ module Completers
       context "with sequence data" do
         context "without legs" do
           it "creates an item, associated with day and plan" do
-            expect_any_instance_of(Completers::PlaceCompleter).to receive(:foursquare_complete!)
-            expect_any_instance_of(Completers::PlaceCompleter).to receive(:narrow_with_geocoder!)
             expect(Item.count).to eq(0)
 
             c = Completer.new(place_hash(sequence_hash), @user).complete!
@@ -173,8 +169,8 @@ module Completers
           expect(m.country).to eq "United States"
           expect(m.region).to eq "New York"
           expect(m.locality).to eq "New York"
-          expect(m.place.completion_steps).to eq ["Narrow", "FourSquare", "Translate"]
-          expect(m.place.flags).to eq ["Took information from identically named, distant FourSquare data with LatLon: 40.7406045, -74.0078798. Old lat lon: 40.7406045, -74.0078798"]
+          expect(m.place.completion_steps).to eq ["Narrow", "FoursquareExplore", "FoursquareRefine", "Translate"]
+          expect(m.place.flags).to eq ["Took information from identically named, distant FoursquareExplore data with LatLon: 40.7406045, -74.0078798. Old lat lon: 40.7406045, -74.0078798"]
 
           i = m.items.first
           expect(i.plan.name).to eq "New York for Jetsetters"
