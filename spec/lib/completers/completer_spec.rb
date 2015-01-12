@@ -188,7 +188,8 @@ module Completers
         end
 
         it "creates Tribute WTC Visitor Center in context" do
-          m = Completer.new(yml_data('nyhigh', 'http://www.stay.com/new-york/', 'Tribute WTC Visitor Center'), @user).complete!
+          url = 'http://www.stay.com/new-york/'
+          m = Completer.new(yml_data('nyhigh', url, 'Tribute WTC Visitor Center'), @user, url).complete!
 
           expect(m.country).to eq "United States"
           expect(m.region).to eq "New York"
@@ -196,6 +197,7 @@ module Completers
           expect(m.name).to eq "Tribute WTC Visitor Center"
           i = m.items.first
           expect(i.plan.name).to eq "New York City Guide"
+          expect(m.place.scrape_url).to eq 'http://www.stay.com/new-york/'
         end
       end
     end

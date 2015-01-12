@@ -19,7 +19,7 @@ class Api::V1::Users::MarksController < ApiController
 
     scraped = Array Services::SiteScraper.build(params[:url], params[:page]).data
 
-    Completers::MassCompleter.new(scraped, @user).delay_complete!(delay?)
+    Completers::MassCompleter.new(scraped, @user, params[:url]).delay_complete!(delay?)
 
     render json: { success: true }
   end

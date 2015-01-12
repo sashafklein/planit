@@ -22,7 +22,7 @@ module Completers
         end
 
         it "finds Fuunji" do
-          place = PlaceCompleter.new( { name: 'Fuunji', nearby: 'Shibuya, Tokyo, Japan' }).complete!
+          place = PlaceCompleter.new( { name: 'Fuunji', nearby: 'Shibuya, Tokyo, Japan' }, 'whatever.com').complete!
           expect( place.country ).to eq('Japan')
           expect( place.region ).to eq('Tokyo-to')
           expect( place.subregion ).to eq(nil)
@@ -41,6 +41,7 @@ module Completers
             "fri"=>[["1100", "1500"], ["1700", "2100"]],
             "sat"=>[["1100", "1500"], ["1700", "2100"]]
           })
+          expect( place.scrape_url ).to eq 'whatever.com'
         end
 
         it "locates and doesn't overwrite Cundinamarca AirBNB" do
@@ -105,7 +106,7 @@ module Completers
           expect( place.categories ).to eq ["Coffee Shop"]
           expect( place.completion_steps ).to eq ["Narrow", "FoursquareExplore", "FoursquareRefine", "Translate"]
           expect( place.flags ).to be_empty
-          expect( place.wifi ).to eq true
+          expect( place.wifi ).to eq false
           expect( place.foursquare_id ).to eq "4a7f3209f964a5203bf31fe3"
           expect( place.timezone_string ).to eq "America/Los_Angeles"
         end

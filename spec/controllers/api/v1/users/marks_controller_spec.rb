@@ -86,7 +86,7 @@ describe Api::V1::Users::MarksController, :vcr do
       it "calls the right scraper" do
         fake_scraper_data = [{ key: 'whatever'}]
         expect(Scrapers::TripadvisorMod::ItemReview).to receive(:new).with(fuunji_url, fuunji_doc) { double({ data: fake_scraper_data }) }
-        expect(Completers::MassCompleter).to receive(:new).with(fake_scraper_data, @user).and_return( double(delay_complete!: true) )
+        expect(Completers::MassCompleter).to receive(:new).with(fake_scraper_data, @user, fuunji_url).and_return( double(delay_complete!: true) )
         post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id, delay: false
       end
 

@@ -1,14 +1,15 @@
 module Completers
   class Completer
 
-    attr_accessor :user, :attrs, :decremented_attrs
-    def initialize(attrs, user)
+    attr_accessor :user, :attrs, :decremented_attrs, :url
+    def initialize(attrs, user, url=nil)
       @attrs, @user = attrs.recursive_symbolize_keys!, user
       @decremented_attrs = @attrs.dup
+      @url = url
     end
 
     def complete!
-      place = PlaceCompleter.new( decremented_attrs.delete(:place) ).complete!
+      place = PlaceCompleter.new( decremented_attrs.delete(:place), url ).complete!
       return nil unless place
       
       mark = user.marks.where(place_id: place.id).first_or_initialize

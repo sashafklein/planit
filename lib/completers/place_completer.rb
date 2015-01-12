@@ -1,14 +1,15 @@
 module Completers
   class PlaceCompleter
 
-    attr_accessor :attrs, :place, :photos, :pip
-    def initialize(attrs)
+    attr_accessor :attrs, :place, :photos, :pip, :url
+    def initialize(attrs, url=nil)
       @photos = set_photos(attrs)
       @attrs = normalize(attrs)
+      @url = url
     end
 
     def complete!
-      @pip = PlaceInProgress.new(attrs)
+      @pip = PlaceInProgress.new(attrs.merge(scrape_url: url))
       
       load_region_info_from_nearby!
       narrow_with_geocoder!
