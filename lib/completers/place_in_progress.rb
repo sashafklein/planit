@@ -2,7 +2,7 @@ module Completers
   class PlaceInProgress
 
     attr_accessor :attrs
-    delegate *(Place.attribute_keys + [:coordinate, :pinnable, :nearby, :name, :street_address]), to: :place
+    delegate *(Place.attribute_keys + [:coordinate, :pinnable, :nearby, :name, :street_address, :foursquare_id]), to: :place
 
     def initialize(attributes={})
       @attrs = SuperHash.new(defaults.symbolize_keys)
@@ -64,7 +64,7 @@ module Completers
     end
 
     def source_list
-      %w(PlaceInProgress Nearby FourSquare Narrow Translate)
+      %w(PlaceInProgress Nearby FoursquareExplore Narrow FoursquareRefine Translate)
     end
 
     def raw_attrs

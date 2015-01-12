@@ -22,7 +22,7 @@ module Completers
         end
 
         it "finds Fuunji" do
-          place = PlaceCompleter.new( { name: 'Fuunji', nearby: 'Shibuya, Tokyo, Japan' }).complete!
+          place = PlaceCompleter.new( { name: 'Fuunji', nearby: 'Shibuya, Tokyo, Japan' }, 'whatever.com').complete!
           expect( place.country ).to eq('Japan')
           expect( place.region ).to eq('Tokyo-to')
           expect( place.subregion ).to eq(nil)
@@ -33,6 +33,15 @@ module Completers
           expect( place.category ).to eq("Ramen / Noodle House")
           expect( place.meta_categories ).to eq(['Food'])
           expect( place.meta_category ).to eq('Food')
+          expect( place.hours ).to hash_eq({
+            "mon"=>[["1100", "1500"], ["1700", "2100"]],
+            "tue"=>[["1100", "1500"], ["1700", "2100"]],
+            "wed"=>[["1100", "1500"], ["1700", "2100"]],
+            "thu"=>[["1100", "1500"], ["1700", "2100"]],
+            "fri"=>[["1100", "1500"], ["1700", "2100"]],
+            "sat"=>[["1100", "1500"], ["1700", "2100"]]
+          })
+          expect( place.scrape_url ).to eq 'whatever.com'
         end
 
         it "locates and doesn't overwrite Cundinamarca AirBNB" do
@@ -70,9 +79,36 @@ module Completers
           expect( place.meta_category ).to eq('Stay')
         end
 
-        xit "locates Caffe Vita Inc and fills out the category" do
+        it "locates Caffe Vita Inc and fills out the category" do
           place = PlaceCompleter.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "Caffe Vita Inc")[:place]).complete!
-          binding.pry
+          expect( place.postal_code ).to eq "98103"
+          expect( place.cross_street ).to eq "at N 43rd St"
+          expect( place.country ).to eq "United States"
+          expect( place.region ).to eq "Washington"
+          expect( place.locality ).to eq "Seattle"
+          expect( place.lat ).to eq 47.659109
+          expect( place.lon ).to eq -122.3503097
+          expect( place.website ).to eq "http://www.caffevita.com"
+          expect( place.names ).to eq ["Caffe Vita Inc", "Caffé Vita"]
+          expect( place.phones ).to hash_eq( {"default"=>"2066323535"} )
+          expect( place.hours ).to hash_eq( {
+            "mon"=>[["0600", "2000"]], 
+            "tue"=>[["0600", "2000"]], 
+            "wed"=>[["0600", "2000"]], 
+            "thu"=>[["0600", "2000"]], 
+            "fri"=>[["0600", "2000"]], 
+            "sat"=>[["0700", "2000"]], 
+            "sun"=>[["0700", "2000"]]
+          } )
+          expect( place.subregion ).to eq "King County"
+          expect( place.street_addresses ).to eq ["4301 Fremont Avenue North", "4301 Fremont Ave N"]
+          expect( place.full_address ).to eq "4301 Fremont Avenue North, Seattle, Washington 98103"
+          expect( place.categories ).to eq ["Coffee Shop"]
+          expect( place.completion_steps ).to eq ["Narrow", "FoursquareExplore", "FoursquareRefine", "Translate"]
+          expect( place.flags ).to be_empty
+          expect( place.wifi ).to eq false
+          expect( place.foursquare_id ).to eq "4a7f3209f964a5203bf31fe3"
+          expect( place.timezone_string ).to eq "America/Los_Angeles"
         end
 
         xit "locates Trocadero Club and fills out the category" do
@@ -91,6 +127,7 @@ module Completers
             'sat' => [["1200","0200"]],
             'sun' => [["1200","0000"]]
           })
+          expect( place.flags ).to include("Clashing field hours. Ignored FoursquareRefine value.")
           expect(place.hours.mon.first.first).to eq("1200")
         end
 
@@ -167,7 +204,7 @@ module Completers
           expect(place.lon).to be_within(0.00001).of -71.1043846607208
           expect(place.category).to eq 'Coffee Shop'
           expect(place.website).to eq 'http://dwelltimecambridge.com'
-          expect(place.images.first.url).to eq "https://irs3.4sqi.net/img/general/#{Completers::FourSquareVenue::IMAGE_SIZE}/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg"
+          expect(place.images.first.url).to eq "https://irs3.4sqi.net/img/general/#{Completers::FoursquareExploreVenue::IMAGE_SIZE}/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg"
         end
 
         xit "combines locations that are named distinctly only by introductory article (e.g. Casa de Socorro & La Casa de Socorro)" do
@@ -199,8 +236,9 @@ module Completers
           place = PlaceCompleter.new(hash).complete!
           expect( place.names.sort ).to eq ['Fuunji', 'Fu-Unji', '風雲児'].sort
           expect( place.street_addresses.sort ).to eq ['代々木2-14-3', "2 Chome-14 Yoyogi"].sort
-          expect( place.extra.symbolize_keys ).to eq({ rating: '5', rating_tier: '5 star', twitter: '@fuunjiIsTheShit', four_square_id: "4b5983faf964a520ca8a28e3", menu_url: nil, mobile_menu_url: nil })
-          expect( place.completion_steps ).to eq ["Narrow", "FourSquare", "Translate"]
+          expect( place.extra.symbolize_keys ).to eq({ rating: '5', rating_tier: '5 star', twitter: '@fuunjiIsTheShit'})
+          expect( place.foursquare_id ).to eq "4b5983faf964a520ca8a28e3"
+          expect( place.completion_steps ).to eq ["Narrow", "FoursquareExplore", "FoursquareRefine", "Translate"]
           expect( place.sublocality ).to eq "Yoyogi"
         end
       end

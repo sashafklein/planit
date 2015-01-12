@@ -1,18 +1,20 @@
 module Completers
   class PlaceCompleter
 
-    attr_accessor :attrs, :place, :photos, :pip
-    def initialize(attrs)
+    attr_accessor :attrs, :place, :photos, :pip, :url
+    def initialize(attrs, url=nil)
       @photos = set_photos(attrs)
       @attrs = normalize(attrs)
+      @url = url
     end
 
     def complete!
-      @pip = PlaceInProgress.new(attrs)
+      @pip = PlaceInProgress.new(attrs.merge(scrape_url: url))
       
       load_region_info_from_nearby!
       narrow_with_geocoder!
-      foursquare_complete!
+      foursquare_explore!
+      foursquare_refine_venue!
       translate_with_geocoder!
       merge_and_save_with_photos!
     end
@@ -31,12 +33,18 @@ module Completers
       @pip = Translate.new(pip, attrs).complete
     end
 
-    def foursquare_complete!
-      unless pip.place.complete?
-        response = FourSquare.new(pip, @attrs[:nearby]).complete!
+    def foursquare_refine_venue!
+      unless pip.foursquare_id.blank?
+        response = FoursquareRefine.new(pip).complete 
         @pip = response[:place]
         @photos += response[:photos]
       end
+    end
+
+    def foursquare_explore!
+      response = FoursquareExplore.new(pip, @attrs[:nearby]).complete!
+      @pip = response[:place]
+      @photos += response[:photos]
     end
 
     def normalize(attributes)
@@ -75,10 +83,18 @@ module Completers
     def merge_and_save_with_photos!
       @place = pip.place.find_and_merge
       if @place.valid? 
-        @place.validate_and_save!( @photos ) 
+        @place.validate_and_save!( @photos.uniq{ |p| p.url } ) 
       else
-        # raise @place.errors.values.first
+        
         nil
+      end
+    end
+
+    def notify_of_invalid_place!
+      if Rails.environment.test? || Rails.environment.development?
+        raise
+      else
+        # PlaceMailer.notify_of_invalid_place(place).deliver
       end
     end
   end

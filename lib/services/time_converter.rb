@@ -34,7 +34,7 @@ module Services
     def self.hours_converted?(hours)
       formatted = hours.all? do |day, hb|
         %w(mon tue wed thu fri sat sun).include?(day) && hb &&
-          (hb.all?{ |band| band.first != band.last }) && 
+          (hb.all?{ |band| band.last == '0000' || (band.first != band.last) }) && 
           (hb.all?{ |band| band.all?{ |t| t == new(t).absolute } })
       end
       formatted && hours.keys.all?{ |day| %w(mon tue wed thu fri sat sun).include? day }
@@ -84,13 +84,13 @@ module Services
     end
 
     def self.split_into_days(hour_hash)
-      return hour_hash unless hour_hash.any?{ |k, v| k.to_s.include?('-') }
+      return hour_hash unless hour_hash.any?{ |k, v| hyphens.any?{ |h| k.to_s.include?(h) } }
       order = %w(mon tue wed thu fri sat sun)
 
       new_hash = {}
       hour_hash.stringify_keys.each do |k, v|
-        if k.include?('-')
-          first, last = k.split("-")
+        if hyphen = hyphens.find{ |h| k.include?(h) }
+          first, last = k.split( hyphen )
           order[ order.index(first)..order.index(last) ].each do |day|
             new_hash[day.to_sym] = v
           end
@@ -99,6 +99,10 @@ module Services
         end
       end
       new_hash
+    end
+
+    def self.hyphens
+      ['-', String::LONG_DASH]
     end
 
   end

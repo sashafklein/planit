@@ -1,6 +1,7 @@
 class Item < ActiveRecord::Base
 
   include ActiveRecord::MetaExt
+  include ActiveRecord::MetaExt::HstoreAccessor
   
   hstore_accessor :extra
   

@@ -12,7 +12,7 @@ module Completers
         update_location_basics(true, true, true)
         pip.set_val(:lat, lat, self.class)
         pip.set_val(:lon, lon, self.class)
-        pip.set_val(:postal_code, lon, self.class)
+        pip.set_val(:postal_code, postal_code, self.class)
         pip.set_val(:full_address, full_address, self.class) if !pip.full_address
       else
         note_if_lat_lon_possibly_reversed

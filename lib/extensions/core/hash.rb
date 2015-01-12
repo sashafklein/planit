@@ -38,7 +38,7 @@ class Hash
   end
 
   def reduce_to_hash(&block)
-    hash = {}
+    hash = {}.to_sh
     self.each do |k, v|
       hash[k] = yield(k, v)
     end
@@ -47,6 +47,17 @@ class Hash
 
   def reduce_to_hash!(&block)
     self.replace reduce_to_hash(&block)
+  end
+
+  def uniq
+    h = dup
+    a = []
+    h.each{ |k, v| a.include?(v) ? h.delete(k) : a << v }
+    h
+  end
+
+  def uniq!
+    self.replace(self.uniq)
   end
 
   def to_sh
