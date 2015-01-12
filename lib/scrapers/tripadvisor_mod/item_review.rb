@@ -30,7 +30,8 @@ module Scrapers
               rating: rating,
               ranking: trim( de_tag ( ranking ) ),
             },
-          }
+          },
+          scraper_url: @url, 
         ]
       end
 

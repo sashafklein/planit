@@ -28,7 +28,8 @@ module Scrapers
               phones: phone,
               hours: hours,
               website: trim_url( more_info_website ),
-            }
+            },
+            scraper_url: @url,
           ]
         elsif nearby && name && names.length > 1
           names.each do |instance|
@@ -42,7 +43,8 @@ module Scrapers
                 country: country,
                 phone: find_phone_by_name(instance),
                 website: trim_url( find_website_by_name(instance) ),
-              }
+              },
+              scraper_url: @url,
             ])
           end
           binding.pry

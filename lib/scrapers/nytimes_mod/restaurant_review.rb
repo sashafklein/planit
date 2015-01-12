@@ -13,7 +13,8 @@ module Scrapers
         { 
           place:{
             nearby: find_nearby, #default but overrideable
-          }
+          },
+          scraper_url: @url, 
         }
       end
 

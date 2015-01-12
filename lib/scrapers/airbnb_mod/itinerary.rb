@@ -11,7 +11,7 @@ module Scrapers
 
       def global_data
         { 
-          # site_name: site_name,
+          scraper_url: @url,
         }
       end
 

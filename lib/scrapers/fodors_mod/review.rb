@@ -11,8 +11,7 @@ module Scrapers
 
       def global_data
         { 
-          # site_name: site_name,
-          # source_url: @url,
+          scraper_url: @url,
         }
       end
 
@@ -20,7 +19,7 @@ module Scrapers
       
       def data
         [{
-            place:{
+          place:{
             name: trim( name ),
             full_address: trim( full_address ),
             phone: phone,

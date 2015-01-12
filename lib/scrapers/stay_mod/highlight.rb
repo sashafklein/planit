@@ -11,11 +11,10 @@ module Scrapers
 
       def global_data
         { 
-          # site_name: site_name,
-          # source_url: @url,
           plan:{
             name: remove_plan_name_fluff( page.css("title").text ),
           },
+          scraper_url: @url, 
         }
       end
 

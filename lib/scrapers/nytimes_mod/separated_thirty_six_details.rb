@@ -18,6 +18,7 @@ module Scrapers
           place:{
             nearby: split_by('h1', [["36 Hours in ", 1], ["36 Hours at the ", 1], ["36 Hours on ", 1], ["36 Hours | ", 1]]),
           },
+          scraper_url: @url, 
         }
       end
 

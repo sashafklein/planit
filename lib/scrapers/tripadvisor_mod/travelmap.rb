@@ -34,6 +34,7 @@ module Scrapers
             # what for been/favorite? is been a true/false? may not be our user's page... may be someone else's?
             # more broadly, do we want non-place/venue data? probably, but how to manage lat/lon?x
           },
+          scraper_url: @url, 
         }
       end
 
