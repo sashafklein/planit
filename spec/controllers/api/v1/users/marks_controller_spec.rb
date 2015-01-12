@@ -43,8 +43,7 @@ describe Api::V1::Users::MarksController, :vcr do
       })
       expect( response_body.items.any? ).to eq false
 
-      img = place.images.first
-      expect( img.url ).to eq "https://irs3.4sqi.net/img/general/#{Completers::FoursquareExploreVenue::IMAGE_SIZE}/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg"
+      img = place.images.find{ |i| i.url == "https://irs3.4sqi.net/img/general/#{Completers::FoursquareExploreVenue::IMAGE_SIZE}/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg"}
       expect( img.source ).to eq "Foursquare"
 
       expect( response_body.user.email ).to eq @user.email
