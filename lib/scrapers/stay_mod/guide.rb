@@ -29,6 +29,7 @@ module Scrapers
             lat: lat,
             lon: lon,
           },
+          scraper_url: @url, 
         }.merge(global_data)]
       end
 

@@ -13,7 +13,6 @@ module Scrapers
       # PAGE 
 
       def data
-        binding.pry
         [ place: {
             lat: lat,
             lon: lon,
@@ -29,7 +28,8 @@ module Scrapers
             hours: hours,
             website: more_info_website,
             # images: images,
-          }
+          },
+          # scraper_url: @url,
         ]
       end
 

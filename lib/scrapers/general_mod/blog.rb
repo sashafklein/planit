@@ -27,7 +27,8 @@ module Scrapers
             phones: phone,
             hours: hours,
             # images: images,
-          }
+          },
+          scraper_url: @url,
         ]
       end
 

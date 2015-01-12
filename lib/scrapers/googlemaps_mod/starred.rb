@@ -85,6 +85,8 @@ module Scrapers
               lat: lat(json),
               lon: lon(json),
             },
+            scraper_url: @url,
+            # USERNAME
           }
         end
         return nil
@@ -97,6 +99,8 @@ module Scrapers
             lat: latlon.split(",")[0],
             lon: latlon.split(",")[1],
           },
+          scraper_url: @url,
+          # USERNAME
         }
       end
 

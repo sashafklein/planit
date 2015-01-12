@@ -14,8 +14,7 @@ module Scrapers
           plan:{
             name: page_title,
           },
-          # site_name: site_name,
-          # source_url: @url,
+          scraper_url: @url,
         }
       end
 

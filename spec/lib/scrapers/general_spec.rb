@@ -113,8 +113,9 @@ module Scrapers
             name: "Novare Res Bier Café",
             locality: "Portland",
             country: "United States of America",
-            nearby: "Portland, United States of America"
-          }
+            nearby: "Portland, United States of America",
+          },
+          scraper_url: "http://novareresbiercafe.com",
           ])
       end
     end
@@ -127,8 +128,9 @@ module Scrapers
             name: "Blue Spoon",
             locality: "Portland",
             country: "United States of America",
-            nearby: "Portland, United States of America"
-          }
+            nearby: "Portland, United States of America",
+          },
+          scraper_url: "http://bluespoonme.com",
           ])
       end
     end
@@ -141,8 +143,9 @@ module Scrapers
             name: "Bite into Maine",
             locality: "Portland",
             country: "United States of America",
-            nearby: "Portland, United States of America"
-          }
+            nearby: "Portland, United States of America",
+          },
+          scraper_url: "http://www.biteintomaine.com",
           ])
       end
     end
@@ -165,8 +168,9 @@ module Scrapers
             lat: "36.116557",
             lon: "-115.173261",
             postal_code: "89109",
-            phones: "877.346.4642"
-          }
+            phones: "877.346.4642",
+          },
+          scraper_url: "http://www.mesagrill.com/las-vegas-restaurant/",
           ])
       end
     end
@@ -192,7 +196,8 @@ module Scrapers
             full_address: "Restaurant Frenchie 5-6, rue du Nil 75002 Paris Métro 3: Sentier",
             phones: "+33 (0)1.40.39.96.19",
             postal_code: "75002",
-          }
+          },
+          scraper_url: "http://www.frenchie-restaurant.com/",
           ])
       end
     end
@@ -209,7 +214,8 @@ module Scrapers
             full_address: "The Fairmont San Francisco: 950 Mason Street San Francisco California, United States 94108",
             phones: "1 866 540 4491",
             postal_code: "94108",
-          }
+          },
+          scraper_url: "http://www.fairmont.com/san-francisco/",
           ])
       end
     end
@@ -226,7 +232,8 @@ module Scrapers
             nearby: "San Francisco, United States of America",
             full_address: "8 Mission Street San Francisco, CA 94105",
             postal_code: "94105",
-          }
+          },
+          scraper_url: "http://www.jdvhotels.com/hotels/california/san-francisco-hotels/hotel-vitale/",
         ])
       end
     end
@@ -244,7 +251,8 @@ module Scrapers
             lat: "37.792457",
             lon: "-122.400789",
             phones: "+1 (415) 276 9888",
-          }
+          },
+          scraper_url: "http://www.mandarinoriental.com/sanfrancisco/",
           ])
       end
     end
@@ -258,7 +266,8 @@ module Scrapers
             lat: "37.0625", 
             lon: "-95.677068",
             full_address: "1320 Castro Street, San Francisco, Ca 94114",
-          }
+          },
+          scraper_url: "http://www.contigosf.com/",
           ])
       end
     end
@@ -272,7 +281,8 @@ module Scrapers
             locality: "Colombo", 
             country: "Sri Lanka",
             nearby: "Colombo, Sri Lanka",
-          }
+          },
+          scraper_url: "http://www.mountlaviniahotel.com/front/index.php",
           ])
       end
     end
@@ -287,7 +297,8 @@ module Scrapers
             lon: "-122.4048005",
             phones: "415-649-6191",  
             full_address: "124 Columbus Avenue, SF, CA",
-          }
+          },
+          scraper_url: "http://docrickettssf.com/",
           ])
       end
     end

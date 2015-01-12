@@ -27,6 +27,8 @@ module Scrapers
           plan:{
             name: plan_name,
           },
+          scraper_url: @url, 
+          # FILENAME
         }
       end
 

@@ -16,6 +16,7 @@ module Scrapers
           plan:{
             name: remove_plan_name_fluff( page.css("title").text )
           },
+          scraper_url: @url, 
         }
       end
 

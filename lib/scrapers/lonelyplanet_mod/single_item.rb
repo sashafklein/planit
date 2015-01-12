@@ -11,8 +11,7 @@ module Scrapers
 
       def global_data
         { 
-          # site_name: site_name,
-          # source_url: @url,
+          scraper_url: @url, 
         }
       end
 
@@ -35,7 +34,7 @@ module Scrapers
             price_note: price_note,
             lat: lat,
             lon: lon,
-          }
+          },
         }.merge(global_data)]
       end
 
