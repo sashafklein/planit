@@ -26,7 +26,11 @@ class String
   end
 
   def non_latinate?
-    %r!#{non_latinate_or_punctuation_or_space_thread}!.match(self)
+    !latinate?
+  end
+
+  def latinate?
+    !(%r!#{non_latinate_or_punctuation_or_space_thread}!.match(self))
   end
 
   def without_articles(articles= %w(the an a) )

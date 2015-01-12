@@ -10,7 +10,7 @@ module Completers
 
     def complete!
       @pip = PlaceInProgress.new(attrs.merge(scrape_url: url))
-      
+            
       load_region_info_from_nearby!
       narrow_with_geocoder!
       foursquare_explore!
@@ -52,6 +52,8 @@ module Completers
         plural = singular.to_s.pluralize.to_sym
         attributes[plural] = Array( attributes.delete(plural) ) + Array( attributes.delete(singular))
       end
+
+      attributes[:names] = attributes[:names].select(&:latinate?) + attributes[:names].select(&:non_latinate?)
       
       attributes[:lat] = attributes[:lat] ? attributes[:lat].to_f : nil
       attributes[:lon] = attributes[:lon] ? attributes[:lon].to_f : nil

@@ -29,14 +29,19 @@ module Completers
       return @points_similarity if @points_similarity
       return 0 unless lat && lon
       return 6 if pip.lat.nil? || pip.lon.nil?
-      @points_similarity = [pip.lat.points_of_similarity(lat), pip.lon.points_of_similarity(lon)].min
+      @points_similarity = ((pip.lat.points_of_similarity(lat) + pip.lon.points_of_similarity(lon)) / 2.0).floor
     end
 
     def similar_name?(pip)
-      pip_name, venue_name = pip.name.to_s.without_common_symbols, name.to_s.without_common_symbols
-      return true if pip_name.non_latinate? || venue_name.non_latinate?
+      if pip.names.all?(&:non_latinate?)
+        return pip.names.any?{ |n| n == name } && name_stringency(pip) != 2
+      end
+      
+      venue_name = name.to_s.without_common_symbols
 
-      pip.names.any? do |name|
+      pip.names.reject(&:non_latinate?).any? do |pip_name|
+        pip_name = pip_name.to_s.without_common_symbols
+
         distance = pip_name.without_articles.match_distance( venue_name.without_articles ) || 2
         matches = (distance > name_stringency(pip))
         matches
@@ -84,10 +89,6 @@ module Completers
 
     def locality
       json.super_fetch %w(location city)
-    end
-
-    def category
-      json.super_fetch ['categories', 0, 'name']
     end
 
     def full_address

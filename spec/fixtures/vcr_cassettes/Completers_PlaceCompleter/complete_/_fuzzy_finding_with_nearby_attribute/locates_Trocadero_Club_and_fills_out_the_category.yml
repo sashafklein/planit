@@ -1,0 +1,605 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=37.78639,-122.414982&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Mon, 12 Jan 2015 18:08:14 GMT
+      Expires:
+      - Tue, 13 Jan 2015 18:08:14 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.02
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "701",
+                       "short_name" : "701",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Geary Street",
+                       "short_name" : "Geary St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Tenderloin",
+                       "short_name" : "Tenderloin",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "94109",
+                       "short_name" : "94109",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "701 Geary Street, San Francisco, CA 94109, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 37.7863814,
+                       "lng" : -122.4150367
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.7877303802915,
+                          "lng" : -122.4136877197085
+                       },
+                       "southwest" : {
+                          "lat" : 37.7850324197085,
+                          "lng" : -122.4163856802915
+                       }
+                    }
+                 },
+                 "types" : [ "street_address" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Geary Blvd & Leavenworth St",
+                       "short_name" : "Geary Blvd & Leavenworth St",
+                       "types" : [ "bus_station", "transit_station", "establishment" ]
+                    },
+                    {
+                       "long_name" : "Lower Nob Hill",
+                       "short_name" : "Lower Nob Hill",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "94109",
+                       "short_name" : "94109",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "Geary Blvd & Leavenworth St, San Francisco, CA 94109, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 37.786556,
+                       "lng" : -122.414971
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.7879049802915,
+                          "lng" : -122.4136220197085
+                       },
+                       "southwest" : {
+                          "lat" : 37.7852070197085,
+                          "lng" : -122.4163199802915
+                       }
+                    }
+                 },
+                 "types" : [ "bus_station", "transit_station", "establishment" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Tenderloin",
+                       "short_name" : "Tenderloin",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Tenderloin, San Francisco, CA, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.7878162,
+                          "lng" : -122.4046888
+                       },
+                       "southwest" : {
+                          "lat" : 37.780043,
+                          "lng" : -122.421416
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.7846598,
+                       "lng" : -122.4145058
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.7878162,
+                          "lng" : -122.4046888
+                       },
+                       "southwest" : {
+                          "lat" : 37.780043,
+                          "lng" : -122.421416
+                       }
+                    }
+                 },
+                 "types" : [ "neighborhood", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "94109",
+                       "short_name" : "94109",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "San Francisco, CA 94109, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.8128889,
+                          "lng" : -122.411699
+                       },
+                       "southwest" : {
+                          "lat" : 37.7811169,
+                          "lng" : -122.4326081
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.7929789,
+                       "lng" : -122.4212424
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.8128889,
+                          "lng" : -122.411699
+                       },
+                       "southwest" : {
+                          "lat" : 37.7811169,
+                          "lng" : -122.4326081
+                       }
+                    }
+                 },
+                 "types" : [ "postal_code" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "San Francisco, CA, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.9297707,
+                          "lng" : -122.3279149
+                       },
+                       "southwest" : {
+                          "lat" : 37.6933354,
+                          "lng" : -123.1077733
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.7749295,
+                       "lng" : -122.4194155
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.812,
+                          "lng" : -122.3482
+                       },
+                       "southwest" : {
+                          "lat" : 37.70339999999999,
+                          "lng" : -122.527
+                       }
+                    }
+                 },
+                 "types" : [ "locality", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "San Francisco County, CA, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.9297707,
+                          "lng" : -122.3279149
+                       },
+                       "southwest" : {
+                          "lat" : 37.6933354,
+                          "lng" : -123.1077733
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.7749073,
+                       "lng" : -122.4193878
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.833827,
+                          "lng" : -122.3570189
+                       },
+                       "southwest" : {
+                          "lat" : 37.7080859,
+                          "lng" : -122.5300999
+                       }
+                    }
+                 },
+                 "types" : [ "administrative_area_level_2", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "California, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 42.0095169,
+                          "lng" : -114.131211
+                       },
+                       "southwest" : {
+                          "lat" : 32.5342321,
+                          "lng" : -124.4096196
+                       }
+                    },
+                    "location" : {
+                       "lat" : 36.778261,
+                       "lng" : -119.4179324
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 42.0095169,
+                          "lng" : -114.131211
+                       },
+                       "southwest" : {
+                          "lat" : 32.5342321,
+                          "lng" : -124.4096196
+                       }
+                    }
+                 },
+                 "types" : [ "administrative_area_level_1", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "United States",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 71.389888,
+                          "lng" : -66.9502861
+                       },
+                       "southwest" : {
+                          "lat" : 18.9110642,
+                          "lng" : 172.4458955
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.09024,
+                       "lng" : -95.712891
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 49.38,
+                          "lng" : -66.94
+                       },
+                       "southwest" : {
+                          "lat" : 25.82,
+                          "lng" : -124.39
+                       }
+                    }
+                 },
+                 "types" : [ "country", "political" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Mon, 12 Jan 2015 18:08:14 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?near=San%20Francisco,%20California,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Trocadero%20Club&v=20140819&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 12 Jan 2015 18:08:14 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '370'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '483'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-dfw1823-DFW
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"geocode":{"what":"","where":"san
+        francisco california united states","center":{"lat":37.77493,"lng":-122.41942},"displayString":"San
+        Francisco, CA, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":37.833687,"lng":-122.34905},"sw":{"lat":37.708085,"lng":-122.536232}}},"slug":"san-francisco-california","longId":"72057594043319895"},"warning":{"text":"There
+        aren''t a lot of results for \"Trocadero Club.\" Try something more general,
+        reset your filters, or expand the search area."},"headerLocation":"San Francisco","headerFullLocation":"San
+        Francisco","headerLocationGranularity":"city","query":"trocadero club","totalResults":3,"suggestedBounds":{"ne":{"lat":37.833224568213765,"lng":-122.25675191483887},"sw":{"lat":37.73137618426041,"lng":-122.48861699922102}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":1,"items":[{"summary":"June
+        L. (FB friend) liked this place","type":"social","reasonName":"facebookLikeReason","message":"June
+        L. liked this place","count":1}]},"venue":{"id":"46596e96f964a52019471fe3","name":"Equinox
+        Sports Club","contact":{"phone":"4156333900","formattedPhone":"(415) 633-3900","twitter":"equinox","facebook":"45802399400","facebookUsername":"Equinox","facebookName":"Equinox"},"location":{"address":"747
+        Market St","crossStreet":"at Grant","lat":37.78657046899121,"lng":-122.40459154855427,"postalCode":"94103","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["747
+        Market St (at Grant)","San Francisco, CA 94103"]},"categories":[{"id":"4bf58dd8d48988d175941735","name":"Gym
+        \/ Fitness Center","pluralName":"Gyms or Fitness Centers","shortName":"Gym
+        \/ Fitness","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/building\/gym_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":45562,"usersCount":2651,"tipCount":64},"url":"http:\/\/www.facebook.com\/equinox","like":false,"rating":9.3,"ratingSignals":284,"hours":{"status":"Open
+        until 11:00pm","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":421,"groups":[]},"hereNow":{"count":7,"summary":"7
+        people are checked in here","groups":[{"type":"others","name":"Other people
+        here","count":7,"items":[]}]}},"tips":[{"id":"4d262fedc0772c0f1ff29e88","createdAt":1294348269,"text":"Grab
+        a drink after your workout at Blu Restaurant & Bar. After all, you deserve
+        it.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/4d262fedc0772c0f1ff29e88","likes":{"count":22,"groups":[],"summary":"22
+        likes"},"logView":true,"todo":{"count":7},"user":{"id":"2371486","firstName":"Gilt
+        City","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/J15FVNBKSX1MTWNT.jpg"},"type":"page"}}],"referralId":"e-0-46596e96f964a52019471fe3-0"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"51dc511e498e55380951d3de","name":"Trocadero
+        Club","contact":{},"location":{"address":"701 Geary St","crossStreet":"Geary
+        St. & Leavenworth St.","lat":37.82859509621589,"lng":-122.26729123685624,"postalCode":"94109","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["701
+        Geary St (Geary St. & Leavenworth St.)","San Francisco, CA 94109"]},"categories":[{"id":"4bf58dd8d48988d11e941735","name":"Cocktail
+        Bar","pluralName":"Cocktail Bars","shortName":"Cocktail","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/nightlife\/cocktails_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":71,"usersCount":22,"tipCount":2},"price":{"tier":3,"message":"Expensive","currency":"$"},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":1,"groups":[{"type":"venue","name":"Venue
+        photos","count":1,"items":[{"id":"526df39511d2f424800d9494","createdAt":1382937493,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/516329_f1UDRyk8GIi7paohrwEDxssFy9IuDW5Gxkm6cQ5AtBk.jpg","width":960,"height":720,"user":{"id":"516329","firstName":"Ricardo","lastName":"A.","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/516329-YKRFOC4H44ER0J3N.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"526df39511d2f424800d9494","createdAt":1382937493,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/516329_f1UDRyk8GIi7paohrwEDxssFy9IuDW5Gxkm6cQ5AtBk.jpg","width":960,"height":720,"user":{"id":"516329","firstName":"Ricardo","lastName":"A.","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/516329-YKRFOC4H44ER0J3N.jpg"}},"visibility":"public"}]}},"flags":{"exactMatch":true},"tips":[{"id":"526d3b9c498e87a6e82c5a2d","createdAt":1382890396,"text":"a
+        gorgeous new addition to the neighborhood.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/526d3b9c498e87a6e82c5a2d","logView":true,"todo":{"count":0},"user":{"id":"46471068","firstName":"Ben","lastName":"Larson","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/-ECLD4HQZ13DP4HBY.jpg"}}}],"referralId":"e-0-51dc511e498e55380951d3de-1"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4ec6e4a3f5b9e88191da1b94","name":"Stern
+        Grove Trocadero Clubhouse","contact":{"phone":"4152522590","formattedPhone":"(415)
+        252-2590"},"location":{"address":"Stern Grove, Trocadero Clubhouse","lat":37.73600565625829,"lng":-122.47807767720364,"postalCode":"94103","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["Stern
+        Grove, Trocadero Clubhouse","San Francisco, CA 94103"]},"categories":[{"id":"4bf58dd8d48988d1e2931735","name":"Art
+        Gallery","pluralName":"Art Galleries","shortName":"Art Gallery","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/arts_entertainment\/artgallery_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":169,"usersCount":131,"tipCount":2},"url":"http:\/\/www.sfartscommission.org","like":false,"specials":{"count":0,"items":[]},"photos":{"count":19,"groups":[{"type":"venue","name":"Venue
+        photos","count":19,"items":[{"id":"51395658e4b01c34d4406f1f","createdAt":1362712152,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/31534_bCZQmPWDTfRKaWnocgcY2vfKC6Ub9lDYOx55pQ5aRcg.jpg","width":720,"height":960,"user":{"id":"31534","firstName":"Holger","lastName":"Luedorf","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QUUZEGVHPZMSZ4X2.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"51395658e4b01c34d4406f1f","createdAt":1362712152,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/31534_bCZQmPWDTfRKaWnocgcY2vfKC6Ub9lDYOx55pQ5aRcg.jpg","width":720,"height":960,"user":{"id":"31534","firstName":"Holger","lastName":"Luedorf","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QUUZEGVHPZMSZ4X2.jpg"}},"visibility":"public"}]}},"tips":[{"id":"51d0cf3a498e44d6b90a9503","createdAt":1372639034,"text":"Pre
+        concert talks happen here!","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/51d0cf3a498e44d6b90a9503","logView":true,"todo":{"count":0},"user":{"id":"7415299","firstName":"Koko","lastName":"Darling","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/TYFDM0BKB1MMJXOC.jpg"}}}],"referralId":"e-0-4ec6e4a3f5b9e88191da1b94-2"}]}]}}'
+    http_version: 
+  recorded_at: Mon, 12 Jan 2015 18:08:15 GMT
+- request:
+    method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=37.7863814&lng=-122.4150367&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 12 Jan 2015 18:08:15 GMT
+      Server:
+      - Apache/2.4.6 (Linux/SUSE)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"sunrise":"2015-01-12 07:24","lng":-122.4150367,"countryCode":"US","gmtOffset":-8,"rawOffset":-8,"sunset":"2015-01-12
+        17:11","timezoneId":"America/Los_Angeles","dstOffset":-7,"countryName":"United
+        States","time":"2015-01-12 10:08","lat":37.7863814}'
+    http_version: 
+  recorded_at: Mon, 12 Jan 2015 18:08:15 GMT
+recorded_with: VCR 2.9.3

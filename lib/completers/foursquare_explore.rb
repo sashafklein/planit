@@ -46,7 +46,7 @@ module Completers
       @response = SuperHash.new HTTParty.get(full_fs_url)
       @venues = @response.super_fetch( 'response', 'groups', 0, 'items' ).map do |item|
         FoursquareExploreVenue.new(item)
-      end
+      end.sort{ |a, b| b.points_of_lat_lon_similarity(pip) <=> a.points_of_lat_lon_similarity(pip) }
     end
 
     def pick_venue
@@ -66,11 +66,10 @@ module Completers
       pip.set_val( :phones, { default: venue.phone }, self.class ) if venue.phone
       pip.set_val( :street_addresses, venue.address, self.class )
       pip.set_val( :website, venue.website, self.class )
-      pip.set_val( :categories, venue.category, self.class )
       pip.set_val( :locality, venue.locality ,  self.class )
       pip.set_val( :country, venue.country , self.class )
       pip.set_val( :region, venue.region , self.class )
-      pip.set_val( :flags, "Took information from identically named, distant FoursquareExplore data with LatLon: #{lat}, #{lon}. Old lat lon: #{pip.coordinate(', ')}", self.class) if venue.name_stringency(pip) == 0.99 
+      pip.set_val( :flags, "Took information from identically named, distant FoursquareExplore data with LatLon: #{venue.lat}, #{venue.lon}. Old lat lon: #{pip.coordinate(', ')}", self.class) if venue.name_stringency(pip) == 0.99 
       pip.set_val( :lat, venue.lat, self.class )
       pip.set_val( :lon, venue.lon, self.class )
       pip.set_val( :completion_steps, self.class.to_s.demodulize, self.class )

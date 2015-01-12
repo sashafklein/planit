@@ -101,7 +101,7 @@ module Completers
       pip
     end
 
-    def note_if_lat_lon_possibly_reversed
+    def reverse_lat_lon_if_appropriate
       return if [lat, lon, pip.lat, pip.lon].any?(&:nil?)
 
       lat_possibly_reversed = pip.lat.points_of_similarity(lon) > 0
@@ -116,13 +116,22 @@ module Completers
 
     def get_query
       return @query if @query
-      if pip.lat && pip.lon 
+      if valid_lat_lon?
         @query = pip.coordinate(", ")
       elsif pip.street_address
         @query = [pip.street_address, pip.locality, pip.subregion, pip.region, pip.country].reject(&:blank?).join(", ")
       else
         @query = pip.full_address
       end
+    end
+
+    def valid_lat_lon?
+      pip.lat && pip.lon && Timezone::Zone.new({latlon: [pip.lat, pip.lon]})
+    rescue
+      pip.set_val(:flags, "Invalid lat and lon being cleared: #{pip.lat}:#{pip.lon}", self.class)
+      pip.set_val(:lat, nil, self.class, true)
+      pip.set_val(:lon, nil, self.class, true)
+      false
     end
   end
 end

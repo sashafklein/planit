@@ -17,6 +17,10 @@ class PlaceSaver
     do_saving
   end
 
+  def order_names
+    place.names = place.names.reject(&:non_latinate?) + place.names.select(&:non_latinate?)
+  end
+
   private
 
   def do_saving(raise_errors=false)
@@ -27,6 +31,7 @@ class PlaceSaver
     add_meta_categories
     format_phones
     set_timezone
+    order_names
     save_and_validate_changes!(raise_errors)
   end
 
@@ -47,7 +52,8 @@ class PlaceSaver
   end
 
   def test_list
-    [:array_attrs_unique?, :regional_info_correct_and_deaccented?, :categories_capitalized?, :hours_converted?, :timezone_set?, :phones_formatted?, :meta_categories_correct?]
+    [:array_attrs_unique?, :regional_info_correct_and_deaccented?, :categories_capitalized?, 
+      :hours_converted?, :timezone_set?, :phones_formatted?, :meta_categories_correct?, :names_ordered?]
   end
 
   def save_images!
@@ -90,7 +96,7 @@ class PlaceSaver
   end
 
   def meta_categories_correct?
-    place.meta_categories.all?{ |mc| CategorySet::ALL_CATEGORIES.include?(mc) }
+    place.meta_category && place.meta_categories.all?{ |mc| CategorySet::ALL_CATEGORIES.include?(mc) }
   end
 
   def expand_region?
@@ -125,11 +131,11 @@ class PlaceSaver
   end
 
   def format_phones
-    place.set_phones place.phones.reduce_to_hash{ |k, v| v.cut(' ', '-', String::LONG_DASH, '(', ')') }.uniq
+    place.set_phones place.phones.reduce_to_hash{ |k, v| v.cut(remove_from_phones) }.uniq
   end
 
   def phones_formatted?
-    place.phones.all?{ |k, v| [' ', '-', String::LONG_DASH, '(', ')'].all?{ |s| !v.include?(s) }}
+    place.phones.all?{ |k, v| remove_from_phones.all?{ |s| !v.include?(s) }}
   end
 
   def set_timezone
@@ -140,7 +146,15 @@ class PlaceSaver
     place.timezone_string.present?
   end
 
+  def names_ordered?
+    !( place.names.first.non_latinate? && place.names.any?(&:latinate?) )
+  end
+
   def errors
     "Error(s) saving Place#{' #' + place.id.to_s if place.id}: #{place.errors.messages.map{ |m| m.last }.flatten.map{ |m| "'#{m}'" }.join(', ')}"
+  end
+
+  def remove_from_phones
+    [' ', '-', String::LONG_DASH, '(', ')', '+']
   end
 end
