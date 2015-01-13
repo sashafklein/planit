@@ -19,9 +19,9 @@ http_interactions:
       message: Service Unavailable
     headers:
       Date:
-      - Mon, 12 Jan 2015 18:41:05 GMT
+      - Tue, 13 Jan 2015 20:07:32 GMT
       Server:
-      - Apache/2.4.6 (Linux/SUSE)
+      - Apache/2.2.17 (Linux/SUSE)
       Cache-Control:
       - no-cache
       Access-Control-Allow-Origin:
@@ -36,7 +36,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"status":{"message":"invalid lat/lng","value":12}}'
     http_version: 
-  recorded_at: Mon, 12 Jan 2015 18:41:06 GMT
+  recorded_at: Tue, 13 Jan 2015 20:07:32 GMT
 - request:
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?address=4741%20SE%20Hawthorne%20Blvd,%20%20Portland,%20OR%2097215&language=en&sensor=false
@@ -58,9 +58,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Mon, 12 Jan 2015 18:41:06 GMT
+      - Tue, 13 Jan 2015 20:07:32 GMT
       Expires:
-      - Tue, 13 Jan 2015 18:41:06 GMT
+      - Wed, 14 Jan 2015 20:07:32 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -166,10 +166,10 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Mon, 12 Jan 2015 18:41:06 GMT
+  recorded_at: Tue, 13 Jan 2015 20:07:32 GMT
 - request:
     method: get
-    uri: https://api.foursquare.com/v2/venues/explore?near=Portland,%20Oregon,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Apizza%20Scholls&v=20140819&venuePhotos=1
+    uri: https://api.foursquare.com/v2/venues/explore?ll=45.5119867,-122.6114566&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Apizza%20Scholls&v=20140819&venuePhotos=1
     body:
       encoding: US-ASCII
       string: ''
@@ -186,7 +186,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 12 Jan 2015 18:41:07 GMT
+      - Tue, 13 Jan 2015 20:07:33 GMT
       Server:
       - nginx
       Content-Type:
@@ -194,11 +194,11 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Tracer-Time:
-      - '182'
+      - '162'
       X-Ratelimit-Limit:
       - '500'
       X-Ratelimit-Remaining:
-      - '493'
+      - '401'
       Strict-Transport-Security:
       - max-age=864000
       X-Ex:
@@ -219,16 +219,15 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"geocode":{"what":"","where":"portland
-        oregon united states","center":{"lat":45.52345,"lng":-122.67621},"displayString":"Portland,
-        OR, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":45.653272,"lng":-122.472021},"sw":{"lat":45.432393,"lng":-122.83675}}},"slug":"portland-oregon","longId":"72057594043674481"},"warning":{"text":"There
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"warning":{"text":"There
         aren''t a lot of results for \"Apizza Scholls.\" Try something more general,
-        reset your filters, or expand the search area."},"headerLocation":"Portland","headerFullLocation":"Portland","headerLocationGranularity":"city","query":"apizza
+        reset your filters, or expand the search area."},"suggestedRadius":7140,"headerLocation":"Mt.
+        Tabor","headerFullLocation":"Mt. Tabor, Portland","headerLocationGranularity":"neighborhood","query":"apizza
         scholls","totalResults":2,"suggestedBounds":{"ne":{"lat":45.51802977632225,"lng":-122.60983380040282},"sw":{"lat":45.51175791541323,"lng":-122.68265819154051}},"groups":[{"type":"Recommended
         Places","name":"recommended","items":[{"reasons":{"count":0,"items":[{"summary":"This
         spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4293c000f964a52038241fe3","name":"Apizza
         Scholls","contact":{"phone":"5032331286","formattedPhone":"(503) 233-1286","twitter":"apizzascholls"},"location":{"address":"4741
-        SE Hawthorne Blvd","crossStreet":"at SE 47th Ave.","lat":45.512043,"lng":-122.613144,"postalCode":"97215","cc":"US","city":"Portland","state":"OR","country":"United
+        SE Hawthorne Blvd","crossStreet":"at SE 47th Ave.","lat":45.512043,"lng":-122.613144,"distance":131,"postalCode":"97215","cc":"US","city":"Portland","state":"OR","country":"United
         States","formattedAddress":["4741 SE Hawthorne Blvd (at SE 47th Ave.)","Portland,
         OR 97215"]},"categories":[{"id":"4bf58dd8d48988d1ca941735","name":"Pizza Place","pluralName":"Pizza
         Places","shortName":"Pizza","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/pizza_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":3113,"usersCount":1929,"tipCount":58},"url":"http:\/\/www.apizzascholls.com","price":{"tier":3,"message":"Expensive","currency":"$"},"hasMenu":true,"like":false,"rating":9.1,"ratingSignals":129,"menu":{"type":"Menu","label":"Menu","anchor":"View
@@ -245,15 +244,14 @@ http_interactions:
         Portland & Executive Tower","contact":{"phone":"5032261611","formattedPhone":"(503)
         226-1611","twitter":"hiltonhotels","facebook":"137619719644857","facebookUsername":"HiltonBonn","facebookName":"Hilton
         Bonn"},"location":{"address":"921 SW 6th Ave","crossStreet":"at SW Taylor
-        St","lat":45.51774469173548,"lng":-122.67934799194335,"postalCode":"97204","cc":"US","city":"Portland","state":"OR","country":"United
+        St","lat":45.51774469173548,"lng":-122.67934799194335,"distance":5334,"postalCode":"97204","cc":"US","city":"Portland","state":"OR","country":"United
         States","formattedAddress":["921 SW 6th Ave (at SW Taylor St)","Portland,
-        OR 97204"]},"categories":[{"id":"4bf58dd8d48988d1fa931735","name":"Hotel","pluralName":"Hotels","shortName":"Hotel","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/travel\/hotel_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":10709,"usersCount":4585,"tipCount":43},"url":"http:\/\/www.hilton.com","like":false,"rating":7.5,"ratingSignals":40,"specials":{"count":0,"items":[]},"photos":{"count":289,"groups":[{"type":"venue","name":"Venue
-        photos","count":289,"items":[{"id":"4fb833eee4b07468734e4dda","createdAt":1337471982,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/7E2Cx_rFqElFAYjJB7mw-cQJ03TsUu9SS6jf6JKGuQc.jpg","width":720,"height":540,"user":{"id":"10439891","firstName":"April","lastName":"Havener","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/H4J1ABCGE1IDCVRE.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":1,"summary":"One
-        person is checked in here","groups":[{"type":"others","name":"Other people
-        here","count":1,"items":[]}]},"storeId":"PDXPHHH","featuredPhotos":{"count":1,"items":[{"id":"4fb833eee4b07468734e4dda","createdAt":1337471982,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/7E2Cx_rFqElFAYjJB7mw-cQJ03TsUu9SS6jf6JKGuQc.jpg","width":720,"height":540,"user":{"id":"10439891","firstName":"April","lastName":"Havener","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/H4J1ABCGE1IDCVRE.jpg"}},"visibility":"public"}]}},"tips":[{"id":"5035a3ffe4b0573430c16746","createdAt":1345692671,"text":"Check
+        OR 97204"]},"categories":[{"id":"4bf58dd8d48988d1fa931735","name":"Hotel","pluralName":"Hotels","shortName":"Hotel","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/travel\/hotel_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":10712,"usersCount":4586,"tipCount":43},"url":"http:\/\/www.hilton.com","like":false,"rating":7.5,"ratingSignals":40,"specials":{"count":0,"items":[]},"photos":{"count":289,"groups":[{"type":"venue","name":"Venue
+        photos","count":289,"items":[{"id":"4fb833eee4b07468734e4dda","createdAt":1337471982,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/7E2Cx_rFqElFAYjJB7mw-cQJ03TsUu9SS6jf6JKGuQc.jpg","width":720,"height":540,"user":{"id":"10439891","firstName":"April","lastName":"Havener","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/H4J1ABCGE1IDCVRE.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"storeId":"PDXPHHH","featuredPhotos":{"count":1,"items":[{"id":"4fb833eee4b07468734e4dda","createdAt":1337471982,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/7E2Cx_rFqElFAYjJB7mw-cQJ03TsUu9SS6jf6JKGuQc.jpg","width":720,"height":540,"user":{"id":"10439891","firstName":"April","lastName":"Havener","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/H4J1ABCGE1IDCVRE.jpg"}},"visibility":"public"}]}},"tips":[{"id":"5035a3ffe4b0573430c16746","createdAt":1345692671,"text":"Check
         out apizza scholls.  Best pizza I''ve ever had.","entities":[{"indices":[10,16],"type":"search_match"},{"indices":[17,24],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/5035a3ffe4b0573430c16746","logView":true,"todo":{"count":0},"user":{"id":"67904","firstName":"doak","lastName":"williford","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/NIRKUI5LUHVOQJ1C.jpg"}}}],"referralId":"e-0-4a3ab616f964a52024a01fe3-1"}]}]}}'
     http_version: 
-  recorded_at: Mon, 12 Jan 2015 18:41:07 GMT
+  recorded_at: Tue, 13 Jan 2015 20:07:32 GMT
 - request:
     method: get
     uri: https://api.foursquare.com/v2/venues/4293c000f964a52038241fe3?oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819
@@ -273,7 +271,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 12 Jan 2015 18:41:08 GMT
+      - Tue, 13 Jan 2015 20:07:33 GMT
       Server:
       - nginx
       Content-Type:
@@ -281,11 +279,11 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Tracer-Time:
-      - '87'
+      - '92'
       X-Ratelimit-Limit:
       - '500'
       X-Ratelimit-Remaining:
-      - '492'
+      - '400'
       Strict-Transport-Security:
       - max-age=864000
       X-Ex:
@@ -295,7 +293,7 @@ http_interactions:
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-ord1720-ORD
+      - cache-dfw1826-DFW
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -897,49 +895,51 @@ http_interactions:
         c3QgcGl6emEiLCJzYW1wbGUiOnsiZW50aXRpZXMiOlt7ImluZGljZXMiOlsx
         MiwyMl0sInR5cGUiOiJrZXlQaHJhc2UifV0sInRleHQiOiJTb21lIG9mIHRo
         ZSBiZXN0IHBpenphIGluIHRoZSBjaXR5ISJ9LCJjb3VudCI6OH1dLCJob3Vy
-        cyI6eyJzdGF0dXMiOiJDbG9zZWQgdW50aWwgNTowMHBtIiwiaXNPcGVuIjpm
-        YWxzZSwidGltZWZyYW1lcyI6W3siZGF5cyI6Ik1vblx1MjAxM1NhdCIsImlu
-        Y2x1ZGVzVG9kYXkiOnRydWUsIm9wZW4iOlt7InJlbmRlcmVkVGltZSI6IjU6
-        MDAgUE1cdTIwMTM5OjMwIFBNIn1dLCJzZWdtZW50cyI6W119LHsiZGF5cyI6
-        IlN1biIsIm9wZW4iOlt7InJlbmRlcmVkVGltZSI6IjQ6MDAgUE1cdTIwMTM4
-        OjAwIFBNIn1dLCJzZWdtZW50cyI6W119XX0sInBvcHVsYXIiOnsiaXNPcGVu
-        IjpmYWxzZSwidGltZWZyYW1lcyI6W3siZGF5cyI6IlRvZGF5IiwiaW5jbHVk
-        ZXNUb2RheSI6dHJ1ZSwib3BlbiI6W3sicmVuZGVyZWRUaW1lIjoiNTowMCBQ
-        TVx1MjAxMzk6MDAgUE0ifV0sInNlZ21lbnRzIjpbXX0seyJkYXlzIjoiVHVl
-        XHUyMDEzVGh1Iiwib3BlbiI6W3sicmVuZGVyZWRUaW1lIjoiNTowMCBQTVx1
-        MjAxMzk6MDAgUE0ifV0sInNlZ21lbnRzIjpbXX0seyJkYXlzIjoiRnJpXHUy
-        MDEzU2F0Iiwib3BlbiI6W3sicmVuZGVyZWRUaW1lIjoiNDowMCBQTVx1MjAx
-        MzEwOjAwIFBNIn1dLCJzZWdtZW50cyI6W119LHsiZGF5cyI6IlN1biIsIm9w
-        ZW4iOlt7InJlbmRlcmVkVGltZSI6IjM6MDAgUE1cdTIwMTM5OjAwIFBNIn1d
-        LCJzZWdtZW50cyI6W119XX0sInBhZ2VVcGRhdGVzIjp7ImNvdW50IjowLCJp
-        dGVtcyI6W119LCJpbmJveCI6eyJjb3VudCI6MCwiaXRlbXMiOltdfSwiYXR0
-        cmlidXRlcyI6eyJncm91cHMiOlt7InR5cGUiOiJwcmljZSIsIm5hbWUiOiJQ
-        cmljZSIsInN1bW1hcnkiOiIkJCQiLCJjb3VudCI6MSwiaXRlbXMiOlt7ImRp
-        c3BsYXlOYW1lIjoiUHJpY2UiLCJkaXNwbGF5VmFsdWUiOiIkJCQiLCJwcmlj
-        ZVRpZXIiOjN9XX0seyJ0eXBlIjoicmVzZXJ2YXRpb25zIiwibmFtZSI6IlJl
-        c2VydmF0aW9ucyIsInN1bW1hcnkiOiJSZXNlcnZhdGlvbnMiLCJjb3VudCI6
-        MywiaXRlbXMiOlt7ImRpc3BsYXlOYW1lIjoiUmVzZXJ2YXRpb25zIiwiZGlz
-        cGxheVZhbHVlIjoiWWVzIn1dfSx7InR5cGUiOiJwYXltZW50cyIsIm5hbWUi
-        OiJDcmVkaXQgQ2FyZHMiLCJzdW1tYXJ5IjoiQ3JlZGl0IENhcmRzIiwiY291
-        bnQiOjcsIml0ZW1zIjpbeyJkaXNwbGF5TmFtZSI6IkNyZWRpdCBDYXJkcyIs
-        ImRpc3BsYXlWYWx1ZSI6IlllcyAoaW5jbC4gRGlzY292ZXIgJiBWaXNhKSJ9
-        XX0seyJ0eXBlIjoib3V0ZG9vclNlYXRpbmciLCJuYW1lIjoiT3V0ZG9vciBT
-        ZWF0aW5nIiwic3VtbWFyeSI6Ik91dGRvb3IgU2VhdGluZyIsImNvdW50Ijox
-        LCJpdGVtcyI6W3siZGlzcGxheU5hbWUiOiJPdXRkb29yIFNlYXRpbmciLCJk
-        aXNwbGF5VmFsdWUiOiJZZXMifV19LHsidHlwZSI6InNlcnZlcyIsIm5hbWUi
-        OiJNZW51cyIsInN1bW1hcnkiOiJEaW5uZXIiLCJjb3VudCI6OCwiaXRlbXMi
-        Olt7ImRpc3BsYXlOYW1lIjoiRGlubmVyIiwiZGlzcGxheVZhbHVlIjoiRGlu
-        bmVyIn1dfSx7InR5cGUiOiJkcmlua3MiLCJuYW1lIjoiRHJpbmtzIiwic3Vt
-        bWFyeSI6IkJlZXIgJiBXaW5lIiwiY291bnQiOjUsIml0ZW1zIjpbeyJkaXNw
-        bGF5TmFtZSI6IkJlZXIiLCJkaXNwbGF5VmFsdWUiOiJCZWVyIn0seyJkaXNw
-        bGF5TmFtZSI6IldpbmUiLCJkaXNwbGF5VmFsdWUiOiJXaW5lIn1dfSx7InR5
-        cGUiOiJkaW5pbmdPcHRpb25zIiwibmFtZSI6IkRpbmluZyBPcHRpb25zIiwi
-        c3VtbWFyeSI6IlRha2Utb3V0IiwiY291bnQiOjUsIml0ZW1zIjpbeyJkaXNw
-        bGF5TmFtZSI6IlRha2Utb3V0IiwiZGlzcGxheVZhbHVlIjoiVGFrZS1vdXQi
-        fSx7ImRpc3BsYXlOYW1lIjoiRGVsaXZlcnkiLCJkaXNwbGF5VmFsdWUiOiJO
-        byBEZWxpdmVyeSJ9XX1dfX19fQ==
+        cyI6eyJzdGF0dXMiOiJDbG9zZWQgdW50aWwgNTowMCBQTSIsImlzT3BlbiI6
+        ZmFsc2UsInRpbWVmcmFtZXMiOlt7ImRheXMiOiJNb25cdTIwMTNTYXQiLCJp
+        bmNsdWRlc1RvZGF5Ijp0cnVlLCJvcGVuIjpbeyJyZW5kZXJlZFRpbWUiOiI1
+        OjAwIFBNXHUyMDEzOTozMCBQTSJ9XSwic2VnbWVudHMiOltdfSx7ImRheXMi
+        OiJTdW4iLCJvcGVuIjpbeyJyZW5kZXJlZFRpbWUiOiI0OjAwIFBNXHUyMDEz
+        ODowMCBQTSJ9XSwic2VnbWVudHMiOltdfV19LCJwb3B1bGFyIjp7ImlzT3Bl
+        biI6ZmFsc2UsInRpbWVmcmFtZXMiOlt7ImRheXMiOiJUb2RheSIsImluY2x1
+        ZGVzVG9kYXkiOnRydWUsIm9wZW4iOlt7InJlbmRlcmVkVGltZSI6IjU6MDAg
+        UE1cdTIwMTM5OjAwIFBNIn1dLCJzZWdtZW50cyI6W119LHsiZGF5cyI6Ildl
+        ZFx1MjAxM1RodSIsIm9wZW4iOlt7InJlbmRlcmVkVGltZSI6IjU6MDAgUE1c
+        dTIwMTM5OjAwIFBNIn1dLCJzZWdtZW50cyI6W119LHsiZGF5cyI6IkZyaVx1
+        MjAxM1NhdCIsIm9wZW4iOlt7InJlbmRlcmVkVGltZSI6IjQ6MDAgUE1cdTIw
+        MTMxMDowMCBQTSJ9XSwic2VnbWVudHMiOltdfSx7ImRheXMiOiJTdW4iLCJv
+        cGVuIjpbeyJyZW5kZXJlZFRpbWUiOiIzOjAwIFBNXHUyMDEzOTowMCBQTSJ9
+        XSwic2VnbWVudHMiOltdfSx7ImRheXMiOiJNb24iLCJvcGVuIjpbeyJyZW5k
+        ZXJlZFRpbWUiOiI1OjAwIFBNXHUyMDEzOTowMCBQTSJ9XSwic2VnbWVudHMi
+        OltdfV19LCJwYWdlVXBkYXRlcyI6eyJjb3VudCI6MCwiaXRlbXMiOltdfSwi
+        aW5ib3giOnsiY291bnQiOjAsIml0ZW1zIjpbXX0sImF0dHJpYnV0ZXMiOnsi
+        Z3JvdXBzIjpbeyJ0eXBlIjoicHJpY2UiLCJuYW1lIjoiUHJpY2UiLCJzdW1t
+        YXJ5IjoiJCQkIiwiY291bnQiOjEsIml0ZW1zIjpbeyJkaXNwbGF5TmFtZSI6
+        IlByaWNlIiwiZGlzcGxheVZhbHVlIjoiJCQkIiwicHJpY2VUaWVyIjozfV19
+        LHsidHlwZSI6InJlc2VydmF0aW9ucyIsIm5hbWUiOiJSZXNlcnZhdGlvbnMi
+        LCJzdW1tYXJ5IjoiUmVzZXJ2YXRpb25zIiwiY291bnQiOjMsIml0ZW1zIjpb
+        eyJkaXNwbGF5TmFtZSI6IlJlc2VydmF0aW9ucyIsImRpc3BsYXlWYWx1ZSI6
+        IlllcyJ9XX0seyJ0eXBlIjoicGF5bWVudHMiLCJuYW1lIjoiQ3JlZGl0IENh
+        cmRzIiwic3VtbWFyeSI6IkNyZWRpdCBDYXJkcyIsImNvdW50Ijo3LCJpdGVt
+        cyI6W3siZGlzcGxheU5hbWUiOiJDcmVkaXQgQ2FyZHMiLCJkaXNwbGF5VmFs
+        dWUiOiJZZXMgKGluY2wuIERpc2NvdmVyICYgVmlzYSkifV19LHsidHlwZSI6
+        Im91dGRvb3JTZWF0aW5nIiwibmFtZSI6Ik91dGRvb3IgU2VhdGluZyIsInN1
+        bW1hcnkiOiJPdXRkb29yIFNlYXRpbmciLCJjb3VudCI6MSwiaXRlbXMiOlt7
+        ImRpc3BsYXlOYW1lIjoiT3V0ZG9vciBTZWF0aW5nIiwiZGlzcGxheVZhbHVl
+        IjoiWWVzIn1dfSx7InR5cGUiOiJzZXJ2ZXMiLCJuYW1lIjoiTWVudXMiLCJz
+        dW1tYXJ5IjoiRGlubmVyIiwiY291bnQiOjgsIml0ZW1zIjpbeyJkaXNwbGF5
+        TmFtZSI6IkRpbm5lciIsImRpc3BsYXlWYWx1ZSI6IkRpbm5lciJ9XX0seyJ0
+        eXBlIjoiZHJpbmtzIiwibmFtZSI6IkRyaW5rcyIsInN1bW1hcnkiOiJCZWVy
+        ICYgV2luZSIsImNvdW50Ijo1LCJpdGVtcyI6W3siZGlzcGxheU5hbWUiOiJC
+        ZWVyIiwiZGlzcGxheVZhbHVlIjoiQmVlciJ9LHsiZGlzcGxheU5hbWUiOiJX
+        aW5lIiwiZGlzcGxheVZhbHVlIjoiV2luZSJ9XX0seyJ0eXBlIjoiZGluaW5n
+        T3B0aW9ucyIsIm5hbWUiOiJEaW5pbmcgT3B0aW9ucyIsInN1bW1hcnkiOiJU
+        YWtlLW91dCIsImNvdW50Ijo1LCJpdGVtcyI6W3siZGlzcGxheU5hbWUiOiJU
+        YWtlLW91dCIsImRpc3BsYXlWYWx1ZSI6IlRha2Utb3V0In0seyJkaXNwbGF5
+        TmFtZSI6IkRlbGl2ZXJ5IiwiZGlzcGxheVZhbHVlIjoiTm8gRGVsaXZlcnki
+        fV19XX19fX0=
     http_version: 
-  recorded_at: Mon, 12 Jan 2015 18:41:08 GMT
+  recorded_at: Tue, 13 Jan 2015 20:07:33 GMT
 - request:
     method: get
     uri: http://api.geonames.org/timezoneJSON?lat=45.5119867&lng=-122.6114566&username=sashafklein
@@ -959,9 +959,9 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 12 Jan 2015 18:41:08 GMT
+      - Tue, 13 Jan 2015 20:07:34 GMT
       Server:
-      - Apache/2.4.6 (Linux/SUSE)
+      - Apache/2.2.17 (Linux/SUSE)
       Cache-Control:
       - no-cache
       Access-Control-Allow-Origin:
@@ -972,9 +972,9 @@ http_interactions:
       - application/json;charset=UTF-8
     body:
       encoding: UTF-8
-      string: '{"sunrise":"2015-01-12 07:48","lng":-122.6114566,"countryCode":"US","gmtOffset":-8,"rawOffset":-8,"sunset":"2015-01-12
-        16:49","timezoneId":"America/Los_Angeles","dstOffset":-7,"countryName":"United
-        States","time":"2015-01-12 10:41","lat":45.5119867}'
+      string: '{"time":"2015-01-13 12:07","countryName":"United States","sunset":"2015-01-13
+        16:50","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.6114566,"sunrise":"2015-01-13
+        07:48","timezoneId":"America/Los_Angeles","lat":45.5119867}'
     http_version: 
-  recorded_at: Mon, 12 Jan 2015 18:41:09 GMT
+  recorded_at: Tue, 13 Jan 2015 20:07:34 GMT
 recorded_with: VCR 2.9.3

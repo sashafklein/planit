@@ -29,7 +29,7 @@ module Completers
           expect( place.locality ).to eq('Shibuya-ku')
           expect( place.street_addresses ).to eq( ["代々木2-14-3"] ) # Bonus -- should have "2 Chome-14 Yoyogi"
           expect( place.names ).to eq( ["Fuunji", "風雲児"] )
-          expect( place.phones.symbolize_keys ).to eq({ default: "+81364138480" })
+          expect( place.phones.symbolize_keys ).to eq({ default: "81364138480" })
           expect( place.category ).to eq("Ramen / Noodle House")
           expect( place.meta_categories ).to eq(['Food'])
           expect( place.meta_category ).to eq('Food')
@@ -68,7 +68,7 @@ module Completers
         it "locates the Trident hotel in Mumbai, with 'Bombay' as nearby" do
           place = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: 'Bombay', street_address: 'Nariman Point, Mumbai, India'}).complete!
           expect( place.names ).to eq(["Trident Nariman Point", "The Trident"])
-          expect( place.reload.phones.symbolize_keys ).to eq({ default: "+912266324343" })
+          expect( place.reload.phones.symbolize_keys ).to eq({ default: "912266324343" })
           expect( place.region ).to eq("Maharashtra")
           expect( place.street_addresses ).to eq(["Nariman Point, Mumbai, India", "Nariman Point"])
           expect( place.locality ).to eq("Mumbai")
@@ -128,7 +128,7 @@ module Completers
             'sun' => [["1200","0000"]]
           })
           expect( place.flags ).to include("Clashing field hours. Ignored FoursquareRefine value.")
-          expect(place.hours.mon.first.first).to eq("1200")
+          expect( place.hours.mon.first.first ).to eq("1200")
         end
 
         it "flips L/L if needed (e.g. Gâteaux Thoumieux in Mogadishu)" do
@@ -217,6 +217,17 @@ module Completers
           #expect( place.phones ).to eq ["862151341075"]
         end
 
+        it "combines locations that are named distinctly only by introductory article (e.g. Casa de Socorro & La Casa de Socorro)" do
+          place = PlaceCompleter.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "LA CASA DE SOCORRO")[:place]).complete!
+          expect( place.name ).to eq('La Casa de Socorro')
+          expect( place.lat ).to eq 10.4202192
+          expect( place.lon ).to eq -75.5475489
+          expect( place.website ).to eq "http://www.restaurantelacasadesocorro.com/"
+          expect( place.names ).to eq ["La Casa de Socorro"]
+          expect( place.phones ).to eq( {"default"=>"5756644658"} )
+          expect( place.categories ).to eq ["Caribbean Restaurant"]
+          expect( place.meta_categories ).to eq ["Food"]
+        end
       end
 
       context "with preexisting place in db" do
@@ -258,16 +269,11 @@ module Completers
           expect(place.images.first.url).to eq "https://irs3.4sqi.net/img/general/#{Completers::FoursquareExploreVenue::IMAGE_SIZE}/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg"
         end
 
-        xit "combines locations that are named distinctly only by introductory article (e.g. Casa de Socorro & La Casa de Socorro)" do
-          place = PlaceCompleter.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "LA CASA DE SOCORRO")[:place]).complete!
-          expect( place.name ).to eq('La Casa de Socorro')
-          # how do we ensure this is combined?
-        end
-
-        xit "combines locations that are named distinctly only by introductory article (e.g. Casa de Socorro & La Casa de Socorro)" do
-          place = PlaceCompleter.new(yml_data('cartagena', 'http://www.huffingtonpost.com/', "Casa de Socorro")[:place]).complete!
-          expect( place.name ).to eq('La Casa de Socorro')
-          # how do we ensure this is combined?
+        it "combines locations that are named distinctly only by introductory article (e.g. Casa de Socorro & La Casa de Socorro)" do
+          place1 = PlaceCompleter.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "LA CASA DE SOCORRO")[:place]).complete!
+          place2 = PlaceCompleter.new(yml_data('cartagena', 'http://www.huffingtonpost.com/', "Casa de Socorro")[:place]).complete!
+          expect( place2.names ).to eq(['La Casa de Socorro'])
+          expect( place1 ).to eq place2
         end
 
       end

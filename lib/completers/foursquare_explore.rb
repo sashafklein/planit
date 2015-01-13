@@ -44,6 +44,7 @@ module Completers
 
     def get_venues!
       @response = SuperHash.new HTTParty.get(full_fs_url)
+
       @venues = @response.super_fetch( 'response', 'groups', 0, 'items' ).map do |item|
         FoursquareExploreVenue.new(item)
       end.sort{ |a, b| b.points_of_lat_lon_similarity(pip) <=> a.points_of_lat_lon_similarity(pip) }
@@ -98,7 +99,7 @@ module Completers
     end
     
     def nearby_parameter
-      URI.escape( nearby ? "near=#{nearby}" : "ll=#{coordinate(',')}" )
+      URI.escape( coordinate ? "ll=#{coordinate(',')}" : "near=#{nearby}" )
     end
 
     def query

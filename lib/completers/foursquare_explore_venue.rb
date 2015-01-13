@@ -37,12 +37,11 @@ module Completers
         return pip.names.any?{ |n| n == name } && name_stringency(pip) != 2
       end
       
-      venue_name = name.to_s.without_common_symbols
+      venue_name = clean(name)
 
       pip.names.reject(&:non_latinate?).any? do |pip_name|
-        pip_name = pip_name.to_s.without_common_symbols
-
-        distance = pip_name.without_articles.match_distance( venue_name.without_articles ) || 2
+        pip_name = clean(pip_name)
+        distance = pip_name.match_distance( venue_name ) || 2
         matches = (distance > name_stringency(pip))
         matches
       end
@@ -54,6 +53,15 @@ module Completers
         [photo['prefix'], photo['suffix']].join(IMAGE_SIZE)
       end
     end   
+
+    def clean(n)
+      n = n.to_s.without_common_symbols.downcase.without_articles
+      if n.chars.select{ |c| c == c.no_accents }.count > n.chars.reject{ |c| c.no_accents }.count
+        n.no_accents
+      else
+        n
+      end
+    end
     
     def website
       json['url']

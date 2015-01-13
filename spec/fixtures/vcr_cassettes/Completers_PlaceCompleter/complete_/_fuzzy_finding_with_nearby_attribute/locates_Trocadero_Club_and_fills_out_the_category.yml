@@ -2,6 +2,43 @@
 http_interactions:
 - request:
     method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=37.78639&lng=-122.414982&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 13 Jan 2015 20:07:07 GMT
+      Server:
+      - Apache/2.2.17 (Linux/SUSE)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"time":"2015-01-13 12:07","countryName":"United States","sunset":"2015-01-13
+        17:12","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.414982,"sunrise":"2015-01-13
+        07:24","timezoneId":"America/Los_Angeles","lat":37.78639}'
+    http_version: 
+  recorded_at: Tue, 13 Jan 2015 20:07:07 GMT
+- request:
+    method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=37.78639,-122.414982&sensor=false
     body:
       encoding: US-ASCII
@@ -21,9 +58,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Mon, 12 Jan 2015 18:08:14 GMT
+      - Tue, 13 Jan 2015 20:07:07 GMT
       Expires:
-      - Tue, 13 Jan 2015 18:08:14 GMT
+      - Wed, 14 Jan 2015 20:07:07 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -470,10 +507,10 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Mon, 12 Jan 2015 18:08:14 GMT
+  recorded_at: Tue, 13 Jan 2015 20:07:07 GMT
 - request:
     method: get
-    uri: https://api.foursquare.com/v2/venues/explore?near=San%20Francisco,%20California,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Trocadero%20Club&v=20140819&venuePhotos=1
+    uri: https://api.foursquare.com/v2/venues/explore?ll=37.7863814,-122.4150367&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Trocadero%20Club&v=20140819&venuePhotos=1
     body:
       encoding: US-ASCII
       string: ''
@@ -490,7 +527,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 12 Jan 2015 18:08:14 GMT
+      - Tue, 13 Jan 2015 20:07:08 GMT
       Server:
       - nginx
       Content-Type:
@@ -498,11 +535,11 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Tracer-Time:
-      - '370'
+      - '205'
       X-Ratelimit-Limit:
       - '500'
       X-Ratelimit-Remaining:
-      - '483'
+      - '414'
       Strict-Transport-Security:
       - max-age=864000
       X-Ex:
@@ -512,7 +549,7 @@ http_interactions:
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-dfw1823-DFW
+      - cache-dfw1820-DFW
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -523,48 +560,47 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"geocode":{"what":"","where":"san
-        francisco california united states","center":{"lat":37.77493,"lng":-122.41942},"displayString":"San
-        Francisco, CA, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":37.833687,"lng":-122.34905},"sw":{"lat":37.708085,"lng":-122.536232}}},"slug":"san-francisco-california","longId":"72057594043319895"},"warning":{"text":"There
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"warning":{"text":"There
         aren''t a lot of results for \"Trocadero Club.\" Try something more general,
-        reset your filters, or expand the search area."},"headerLocation":"San Francisco","headerFullLocation":"San
-        Francisco","headerLocationGranularity":"city","query":"trocadero club","totalResults":3,"suggestedBounds":{"ne":{"lat":37.833224568213765,"lng":-122.25675191483887},"sw":{"lat":37.73137618426041,"lng":-122.48861699922102}},"groups":[{"type":"Recommended
+        reset your filters, or expand the search area."},"suggestedRadius":2079,"headerLocation":"Tenderloin","headerFullLocation":"Tenderloin,
+        San Francisco","headerLocationGranularity":"neighborhood","query":"trocadero
+        club","totalResults":3,"suggestedBounds":{"ne":{"lat":37.78909870962785,"lng":-122.4009172421218},"sw":{"lat":37.73347741562165,"lng":-122.48175198363612}},"groups":[{"type":"Recommended
         Places","name":"recommended","items":[{"reasons":{"count":1,"items":[{"summary":"June
         L. (FB friend) liked this place","type":"social","reasonName":"facebookLikeReason","message":"June
         L. liked this place","count":1}]},"venue":{"id":"46596e96f964a52019471fe3","name":"Equinox
         Sports Club","contact":{"phone":"4156333900","formattedPhone":"(415) 633-3900","twitter":"equinox","facebook":"45802399400","facebookUsername":"Equinox","facebookName":"Equinox"},"location":{"address":"747
-        Market St","crossStreet":"at Grant","lat":37.78657046899121,"lng":-122.40459154855427,"postalCode":"94103","cc":"US","city":"San
+        Market St","crossStreet":"at Grant","lat":37.78657046899121,"lng":-122.40459154855427,"distance":919,"postalCode":"94103","cc":"US","city":"San
         Francisco","state":"CA","country":"United States","formattedAddress":["747
         Market St (at Grant)","San Francisco, CA 94103"]},"categories":[{"id":"4bf58dd8d48988d175941735","name":"Gym
         \/ Fitness Center","pluralName":"Gyms or Fitness Centers","shortName":"Gym
-        \/ Fitness","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/building\/gym_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":45562,"usersCount":2651,"tipCount":64},"url":"http:\/\/www.facebook.com\/equinox","like":false,"rating":9.3,"ratingSignals":284,"hours":{"status":"Open
-        until 11:00pm","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":421,"groups":[]},"hereNow":{"count":7,"summary":"7
-        people are checked in here","groups":[{"type":"others","name":"Other people
-        here","count":7,"items":[]}]}},"tips":[{"id":"4d262fedc0772c0f1ff29e88","createdAt":1294348269,"text":"Grab
+        \/ Fitness","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/building\/gym_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":45601,"usersCount":2653,"tipCount":64},"url":"http:\/\/www.facebook.com\/equinox","like":false,"rating":9.3,"ratingSignals":284,"hours":{"status":"Open
+        until 11:00pm","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":421,"groups":[]},"hereNow":{"count":1,"summary":"One
+        person is checked in here","groups":[{"type":"others","name":"Other people
+        here","count":1,"items":[]}]}},"tips":[{"id":"4d262fedc0772c0f1ff29e88","createdAt":1294348269,"text":"Grab
         a drink after your workout at Blu Restaurant & Bar. After all, you deserve
         it.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/4d262fedc0772c0f1ff29e88","likes":{"count":22,"groups":[],"summary":"22
         likes"},"logView":true,"todo":{"count":7},"user":{"id":"2371486","firstName":"Gilt
         City","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/J15FVNBKSX1MTWNT.jpg"},"type":"page"}}],"referralId":"e-0-46596e96f964a52019471fe3-0"},{"reasons":{"count":0,"items":[{"summary":"This
         spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"51dc511e498e55380951d3de","name":"Trocadero
         Club","contact":{},"location":{"address":"701 Geary St","crossStreet":"Geary
-        St. & Leavenworth St.","lat":37.82859509621589,"lng":-122.26729123685624,"postalCode":"94109","cc":"US","city":"San
+        St. & Leavenworth St.","lat":37.82859509621589,"lng":-122.26729123685624,"distance":13817,"postalCode":"94109","cc":"US","city":"San
         Francisco","state":"CA","country":"United States","formattedAddress":["701
         Geary St (Geary St. & Leavenworth St.)","San Francisco, CA 94109"]},"categories":[{"id":"4bf58dd8d48988d11e941735","name":"Cocktail
         Bar","pluralName":"Cocktail Bars","shortName":"Cocktail","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/nightlife\/cocktails_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":71,"usersCount":22,"tipCount":2},"price":{"tier":3,"message":"Expensive","currency":"$"},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":1,"groups":[{"type":"venue","name":"Venue
         photos","count":1,"items":[{"id":"526df39511d2f424800d9494","createdAt":1382937493,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/516329_f1UDRyk8GIi7paohrwEDxssFy9IuDW5Gxkm6cQ5AtBk.jpg","width":960,"height":720,"user":{"id":"516329","firstName":"Ricardo","lastName":"A.","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/516329-YKRFOC4H44ER0J3N.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
-        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"526df39511d2f424800d9494","createdAt":1382937493,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/516329_f1UDRyk8GIi7paohrwEDxssFy9IuDW5Gxkm6cQ5AtBk.jpg","width":960,"height":720,"user":{"id":"516329","firstName":"Ricardo","lastName":"A.","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/516329-YKRFOC4H44ER0J3N.jpg"}},"visibility":"public"}]}},"flags":{"exactMatch":true},"tips":[{"id":"526d3b9c498e87a6e82c5a2d","createdAt":1382890396,"text":"a
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"526df39511d2f424800d9494","createdAt":1382937493,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/516329_f1UDRyk8GIi7paohrwEDxssFy9IuDW5Gxkm6cQ5AtBk.jpg","width":960,"height":720,"user":{"id":"516329","firstName":"Ricardo","lastName":"A.","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/516329-YKRFOC4H44ER0J3N.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true,"exactMatch":true},"tips":[{"id":"526d3b9c498e87a6e82c5a2d","createdAt":1382890396,"text":"a
         gorgeous new addition to the neighborhood.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/526d3b9c498e87a6e82c5a2d","logView":true,"todo":{"count":0},"user":{"id":"46471068","firstName":"Ben","lastName":"Larson","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/-ECLD4HQZ13DP4HBY.jpg"}}}],"referralId":"e-0-51dc511e498e55380951d3de-1"},{"reasons":{"count":0,"items":[{"summary":"This
         spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4ec6e4a3f5b9e88191da1b94","name":"Stern
         Grove Trocadero Clubhouse","contact":{"phone":"4152522590","formattedPhone":"(415)
-        252-2590"},"location":{"address":"Stern Grove, Trocadero Clubhouse","lat":37.73600565625829,"lng":-122.47807767720364,"postalCode":"94103","cc":"US","city":"San
+        252-2590"},"location":{"address":"Stern Grove, Trocadero Clubhouse","lat":37.73600565625829,"lng":-122.47807767720364,"distance":7888,"postalCode":"94103","cc":"US","city":"San
         Francisco","state":"CA","country":"United States","formattedAddress":["Stern
         Grove, Trocadero Clubhouse","San Francisco, CA 94103"]},"categories":[{"id":"4bf58dd8d48988d1e2931735","name":"Art
         Gallery","pluralName":"Art Galleries","shortName":"Art Gallery","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/arts_entertainment\/artgallery_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":169,"usersCount":131,"tipCount":2},"url":"http:\/\/www.sfartscommission.org","like":false,"specials":{"count":0,"items":[]},"photos":{"count":19,"groups":[{"type":"venue","name":"Venue
         photos","count":19,"items":[{"id":"51395658e4b01c34d4406f1f","createdAt":1362712152,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/31534_bCZQmPWDTfRKaWnocgcY2vfKC6Ub9lDYOx55pQ5aRcg.jpg","width":720,"height":960,"user":{"id":"31534","firstName":"Holger","lastName":"Luedorf","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QUUZEGVHPZMSZ4X2.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
-        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"51395658e4b01c34d4406f1f","createdAt":1362712152,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/31534_bCZQmPWDTfRKaWnocgcY2vfKC6Ub9lDYOx55pQ5aRcg.jpg","width":720,"height":960,"user":{"id":"31534","firstName":"Holger","lastName":"Luedorf","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QUUZEGVHPZMSZ4X2.jpg"}},"visibility":"public"}]}},"tips":[{"id":"51d0cf3a498e44d6b90a9503","createdAt":1372639034,"text":"Pre
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"51395658e4b01c34d4406f1f","createdAt":1362712152,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/31534_bCZQmPWDTfRKaWnocgcY2vfKC6Ub9lDYOx55pQ5aRcg.jpg","width":720,"height":960,"user":{"id":"31534","firstName":"Holger","lastName":"Luedorf","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QUUZEGVHPZMSZ4X2.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"51d0cf3a498e44d6b90a9503","createdAt":1372639034,"text":"Pre
         concert talks happen here!","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/51d0cf3a498e44d6b90a9503","logView":true,"todo":{"count":0},"user":{"id":"7415299","firstName":"Koko","lastName":"Darling","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/TYFDM0BKB1MMJXOC.jpg"}}}],"referralId":"e-0-4ec6e4a3f5b9e88191da1b94-2"}]}]}}'
     http_version: 
-  recorded_at: Mon, 12 Jan 2015 18:08:15 GMT
+  recorded_at: Tue, 13 Jan 2015 20:07:08 GMT
 - request:
     method: get
     uri: http://api.geonames.org/timezoneJSON?lat=37.7863814&lng=-122.4150367&username=sashafklein
@@ -584,9 +620,9 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 12 Jan 2015 18:08:15 GMT
+      - Tue, 13 Jan 2015 20:07:09 GMT
       Server:
-      - Apache/2.4.6 (Linux/SUSE)
+      - Apache/2.2.17 (Linux/SUSE)
       Cache-Control:
       - no-cache
       Access-Control-Allow-Origin:
@@ -597,9 +633,9 @@ http_interactions:
       - application/json;charset=UTF-8
     body:
       encoding: UTF-8
-      string: '{"sunrise":"2015-01-12 07:24","lng":-122.4150367,"countryCode":"US","gmtOffset":-8,"rawOffset":-8,"sunset":"2015-01-12
-        17:11","timezoneId":"America/Los_Angeles","dstOffset":-7,"countryName":"United
-        States","time":"2015-01-12 10:08","lat":37.7863814}'
+      string: '{"time":"2015-01-13 12:07","countryName":"United States","sunset":"2015-01-13
+        17:12","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.4150367,"sunrise":"2015-01-13
+        07:24","timezoneId":"America/Los_Angeles","lat":37.7863814}'
     http_version: 
-  recorded_at: Mon, 12 Jan 2015 18:08:15 GMT
+  recorded_at: Tue, 13 Jan 2015 20:07:09 GMT
 recorded_with: VCR 2.9.3

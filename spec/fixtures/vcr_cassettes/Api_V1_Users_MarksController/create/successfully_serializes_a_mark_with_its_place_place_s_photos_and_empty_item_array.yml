@@ -2,6 +2,43 @@
 http_interactions:
 - request:
     method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=37.750902&lng=-122.434327&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 13 Jan 2015 21:07:18 GMT
+      Server:
+      - Apache/2.2.17 (Linux/SUSE)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"time":"2015-01-13 13:07","countryName":"United States","sunset":"2015-01-13
+        17:12","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.434327,"sunrise":"2015-01-13
+        07:24","timezoneId":"America/Los_Angeles","lat":37.750902}'
+    http_version: 
+  recorded_at: Tue, 13 Jan 2015 21:07:18 GMT
+- request:
+    method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=37.750902,-122.434327&sensor=false
     body:
       encoding: US-ASCII
@@ -21,9 +58,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Sun, 11 Jan 2015 21:02:57 GMT
+      - Tue, 13 Jan 2015 21:07:19 GMT
       Expires:
-      - Mon, 12 Jan 2015 21:02:57 GMT
+      - Wed, 14 Jan 2015 21:07:19 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -417,10 +454,10 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Sun, 11 Jan 2015 21:02:57 GMT
+  recorded_at: Tue, 13 Jan 2015 21:07:19 GMT
 - request:
     method: get
-    uri: https://api.foursquare.com/v2/venues/explore?near=San%20Francisco,%20California,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Contigo&v=20140819&venuePhotos=1
+    uri: https://api.foursquare.com/v2/venues/explore?ll=37.750902,-122.434327&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Contigo&v=20140819&venuePhotos=1
     body:
       encoding: US-ASCII
       string: ''
@@ -437,7 +474,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 11 Jan 2015 21:02:58 GMT
+      - Tue, 13 Jan 2015 21:07:19 GMT
       Server:
       - nginx
       Content-Type:
@@ -445,11 +482,11 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Tracer-Time:
-      - '365'
+      - '161'
       X-Ratelimit-Limit:
       - '500'
       X-Ratelimit-Remaining:
-      - '492'
+      - '433'
       Strict-Transport-Security:
       - max-age=864000
       X-Ex:
@@ -459,7 +496,7 @@ http_interactions:
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-ord1733-ORD
+      - cache-dfw1828-DFW
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -470,21 +507,19 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"geocode":{"what":"","where":"san
-        francisco california united states","center":{"lat":37.77493,"lng":-122.41942},"displayString":"San
-        Francisco, CA, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":37.833687,"lng":-122.34905},"sw":{"lat":37.708085,"lng":-122.536232}}},"slug":"san-francisco-california","longId":"72057594043319895"},"warning":{"text":"There
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"warning":{"text":"There
         aren''t a lot of results for \"Contigo.\" Try something more general, reset
-        your filters, or expand the search area."},"headerLocation":"San Francisco","headerFullLocation":"San
-        Francisco","headerLocationGranularity":"city","query":"contigo","totalResults":3,"suggestedBounds":{"ne":{"lat":37.77208739612164,"lng":-122.41405508234732},"sw":{"lat":37.74422249388305,"lng":-122.4352317663816}},"groups":[{"type":"Recommended
+        your filters, or expand the search area."},"suggestedRadius":4644,"headerLocation":"Noe
+        Valley","headerFullLocation":"Noe Valley, San Francisco","headerLocationGranularity":"neighborhood","query":"contigo","totalResults":3,"suggestedBounds":{"ne":{"lat":37.77208739612164,"lng":-122.41405508234732},"sw":{"lat":37.74422249388305,"lng":-122.4352317663816}},"groups":[{"type":"Recommended
         Places","name":"recommended","items":[{"reasons":{"count":1,"items":[{"summary":"Dan
         V. has been here","type":"social","reasonName":"friendAndSelfCheckinReason","message":"Dan
         V. has been here","count":1}]},"venue":{"id":"49c6bdfef964a52077571fe3","name":"Contigo","contact":{"phone":"4152850250","formattedPhone":"(415)
         285-0250","twitter":"contigosf"},"location":{"address":"1320 Castro St","crossStreet":"at
-        24th St","lat":37.750985758393895,"lng":-122.4342691898346,"postalCode":"94114","cc":"US","city":"San
+        24th St","lat":37.750985758393895,"lng":-122.4342691898346,"distance":10,"postalCode":"94114","cc":"US","city":"San
         Francisco","state":"CA","country":"United States","formattedAddress":["1320
         Castro St (at 24th St)","San Francisco, CA 94114"]},"categories":[{"id":"4bf58dd8d48988d150941735","name":"Spanish
-        Restaurant","pluralName":"Spanish Restaurants","shortName":"Spanish","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/spanish_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":2906,"usersCount":1977,"tipCount":42},"url":"http:\/\/www.contigosf.com","price":{"tier":4,"message":"Very
-        Expensive","currency":"$"},"hasMenu":true,"like":false,"rating":9.4,"ratingSignals":84,"reservations":{"url":"http:\/\/www.opentable.com\/single.aspx?rid=45052&ref=9601"},"menu":{"type":"Menu","label":"Menu","anchor":"View
+        Restaurant","pluralName":"Spanish Restaurants","shortName":"Spanish","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/spanish_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":2907,"usersCount":1977,"tipCount":43},"url":"http:\/\/www.contigosf.com","price":{"tier":4,"message":"Very
+        Expensive","currency":"$"},"hasMenu":true,"like":false,"rating":9.4,"ratingSignals":85,"reservations":{"url":"http:\/\/www.opentable.com\/single.aspx?rid=45052&ref=9601"},"menu":{"type":"Menu","label":"Menu","anchor":"View
         Menu","url":"https:\/\/foursquare.com\/v\/contigo\/49c6bdfef964a52077571fe3\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/49c6bdfef964a52077571fe3\/device_menu"},"hours":{"status":"Closed
         until 5:30pm","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":127,"groups":[{"type":"venue","name":"Venue
         photos","count":127,"items":[{"id":"518efa1e498e9443a3c8f848","createdAt":1368324638,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg","width":612,"height":612,"user":{"id":"2261","firstName":"Lee","lastName":"Sherman","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/-4JRTUAND5EYXYRGF.png"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
@@ -492,37 +527,37 @@ http_interactions:
         Brett Emerson had a vision and he''s stuck to it, creating the perfect neighborhood
         Bay Area-inflected Spanish restaurant. [Eater 38 Member]","type":"user","url":"http:\/\/sf.eater.com\/places\/contigo","canonicalUrl":"https:\/\/foursquare.com\/item\/4cf6c91911e76a31148aac3b","likes":{"count":73,"groups":[],"summary":"73
         likes"},"logView":true,"todo":{"count":60},"user":{"id":"3343327","firstName":"Eater","gender":"none","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/4HBAAMCL4WUF3IEU.png"},"type":"page"}}],"referralId":"e-0-49c6bdfef964a52077571fe3-0"},{"reasons":{"count":0,"items":[{"summary":"This
-        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"53f79bb111d2d0d7d2cf8420","createdAt":1408736177,"text":"Brett
-        Emerson, chef of Contigo, eats here on his nights off. He loves the Gang-gari-gai.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1112","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79bb111d2d0d7d2cf8420","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
-        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}}}]},"venue":{"id":"44d0de34f964a52029361fe3","name":"Manora''s
-        Thai Cuisine","contact":{"phone":"4158616224","formattedPhone":"(415) 861-6224"},"location":{"address":"1600
-        Folsom St","crossStreet":"at 12th St","lat":37.77082080965625,"lng":-122.41501765889433,"postalCode":"94103","cc":"US","city":"San
-        Francisco","state":"CA","country":"United States","formattedAddress":["1600
-        Folsom St (at 12th St)","San Francisco, CA 94103"]},"categories":[{"id":"4bf58dd8d48988d149941735","name":"Thai
-        Restaurant","pluralName":"Thai Restaurants","shortName":"Thai","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/thai_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":2009,"usersCount":1178,"tipCount":26},"url":"http:\/\/www.manorathai.com","price":{"tier":2,"message":"Moderate","currency":"$"},"hasMenu":true,"like":false,"rating":8.4,"ratingSignals":32,"menu":{"type":"Menu","label":"Menu","anchor":"View
-        Menu","url":"https:\/\/foursquare.com\/v\/manoras-thai-cuisine\/44d0de34f964a52029361fe3\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/44d0de34f964a52029361fe3\/device_menu"},"hours":{"status":"Closed
-        until 11:30am tomorrow","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":37,"groups":[{"type":"venue","name":"Venue
-        photos","count":37,"items":[{"id":"50383760e4b0fba092667faf","createdAt":1345861472,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/c-eIbaOWnjsXXHBfwMtlAE4vDNukTrMygvm8A8RfZzQ.jpg","width":540,"height":720,"user":{"id":"4545177","firstName":"Todd","lastName":"Tate","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/APH3BPE1PNUAEUW0.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
-        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"50383760e4b0fba092667faf","createdAt":1345861472,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/c-eIbaOWnjsXXHBfwMtlAE4vDNukTrMygvm8A8RfZzQ.jpg","width":540,"height":720,"user":{"id":"4545177","firstName":"Todd","lastName":"Tate","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/APH3BPE1PNUAEUW0.jpg"}},"visibility":"public"}]}},"tips":[{"id":"53f79bb111d2d0d7d2cf8420","createdAt":1408736177,"text":"Brett
-        Emerson, chef of Contigo, eats here on his nights off. He loves the Gang-gari-gai.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1112","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79bb111d2d0d7d2cf8420","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
-        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}],"referralId":"e-0-44d0de34f964a52029361fe3-1"},{"reasons":{"count":0,"items":[{"summary":"This
         spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"53f79c18498e85581edacc75","createdAt":1408736280,"text":"Brett
         Emerson, chef of Contigo, eats here on his nights off. He loves the Sopa de
         pollo.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1111","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79c18498e85581edacc75","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
         Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}}}]},"venue":{"id":"4a6ab0a4f964a520d9cd1fe3","name":"Los
         Panchos","contact":{"phone":"4152851033","formattedPhone":"(415) 285-1033"},"location":{"address":"3206
-        Mission St","crossStreet":"Valencia","lat":37.745489080348435,"lng":-122.42011141934297,"postalCode":"94110","cc":"US","city":"San
+        Mission St","crossStreet":"Valencia","lat":37.745489080348435,"lng":-122.42011141934297,"distance":1388,"postalCode":"94110","cc":"US","city":"San
         Francisco","state":"CA","country":"United States","formattedAddress":["3206
         Mission St (Valencia)","San Francisco, CA 94110"]},"categories":[{"id":"4bf58dd8d48988d1c1941735","name":"Mexican
-        Restaurant","pluralName":"Mexican Restaurants","shortName":"Mexican","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/mexican_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":1055,"usersCount":614,"tipCount":13},"price":{"tier":1,"message":"Cheap","currency":"$"},"hasMenu":true,"like":false,"rating":7.1,"ratingSignals":31,"menu":{"type":"Menu","label":"Menu","anchor":"View
+        Restaurant","pluralName":"Mexican Restaurants","shortName":"Mexican","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/mexican_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":1058,"usersCount":615,"tipCount":13},"price":{"tier":1,"message":"Cheap","currency":"$"},"hasMenu":true,"like":false,"rating":7.1,"ratingSignals":31,"menu":{"type":"Menu","label":"Menu","anchor":"View
         Menu","url":"https:\/\/foursquare.com\/v\/los-panchos\/4a6ab0a4f964a520d9cd1fe3\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/4a6ab0a4f964a520d9cd1fe3\/device_menu"},"specials":{"count":0,"items":[]},"photos":{"count":33,"groups":[{"type":"venue","name":"Venue
         photos","count":33,"items":[{"id":"4d18346655f8a3402ef6d76a","createdAt":1293431910,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/2IFB1JWJSAU25CJWIK2GSOHIPJEB32NZLRN0SMOQJTQ111VJ.jpg","width":537,"height":720,"user":{"id":"1822187","firstName":"Nino","lastName":"E","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/RKHWK4MSFKM4P4NV.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
         here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"4d18346655f8a3402ef6d76a","createdAt":1293431910,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/2IFB1JWJSAU25CJWIK2GSOHIPJEB32NZLRN0SMOQJTQ111VJ.jpg","width":537,"height":720,"user":{"id":"1822187","firstName":"Nino","lastName":"E","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/RKHWK4MSFKM4P4NV.jpg"}},"visibility":"public"}]}},"tips":[{"id":"53f79c18498e85581edacc75","createdAt":1408736280,"text":"Brett
         Emerson, chef of Contigo, eats here on his nights off. He loves the Sopa de
         pollo.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1111","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79c18498e85581edacc75","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
-        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}],"referralId":"e-0-4a6ab0a4f964a520d9cd1fe3-2"}]}]}}'
+        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}],"referralId":"e-0-4a6ab0a4f964a520d9cd1fe3-1"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"53f79bb111d2d0d7d2cf8420","createdAt":1408736177,"text":"Brett
+        Emerson, chef of Contigo, eats here on his nights off. He loves the Gang-gari-gai.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1112","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79bb111d2d0d7d2cf8420","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
+        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}}}]},"venue":{"id":"44d0de34f964a52029361fe3","name":"Manora''s
+        Thai Cuisine","contact":{"phone":"4158616224","formattedPhone":"(415) 861-6224"},"location":{"address":"1600
+        Folsom St","crossStreet":"at 12th St","lat":37.77082080965625,"lng":-122.41501765889433,"distance":2793,"postalCode":"94103","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["1600
+        Folsom St (at 12th St)","San Francisco, CA 94103"]},"categories":[{"id":"4bf58dd8d48988d149941735","name":"Thai
+        Restaurant","pluralName":"Thai Restaurants","shortName":"Thai","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/thai_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":2009,"usersCount":1178,"tipCount":26},"url":"http:\/\/www.manorathai.com","price":{"tier":2,"message":"Moderate","currency":"$"},"hasMenu":true,"like":false,"rating":8.4,"ratingSignals":32,"menu":{"type":"Menu","label":"Menu","anchor":"View
+        Menu","url":"https:\/\/foursquare.com\/v\/manoras-thai-cuisine\/44d0de34f964a52029361fe3\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/44d0de34f964a52029361fe3\/device_menu"},"hours":{"status":"Open
+        until 2:30pm, reopens later","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":37,"groups":[{"type":"venue","name":"Venue
+        photos","count":37,"items":[{"id":"50383760e4b0fba092667faf","createdAt":1345861472,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/c-eIbaOWnjsXXHBfwMtlAE4vDNukTrMygvm8A8RfZzQ.jpg","width":540,"height":720,"user":{"id":"4545177","firstName":"Todd","lastName":"Tate","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/APH3BPE1PNUAEUW0.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"50383760e4b0fba092667faf","createdAt":1345861472,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/c-eIbaOWnjsXXHBfwMtlAE4vDNukTrMygvm8A8RfZzQ.jpg","width":540,"height":720,"user":{"id":"4545177","firstName":"Todd","lastName":"Tate","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/APH3BPE1PNUAEUW0.jpg"}},"visibility":"public"}]}},"tips":[{"id":"53f79bb111d2d0d7d2cf8420","createdAt":1408736177,"text":"Brett
+        Emerson, chef of Contigo, eats here on his nights off. He loves the Gang-gari-gai.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1112","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79bb111d2d0d7d2cf8420","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
+        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}],"referralId":"e-0-44d0de34f964a52029361fe3-2"}]}]}}'
     http_version: 
-  recorded_at: Sun, 11 Jan 2015 21:02:58 GMT
+  recorded_at: Tue, 13 Jan 2015 21:07:19 GMT
 - request:
     method: get
     uri: https://api.foursquare.com/v2/venues/49c6bdfef964a52077571fe3?oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819
@@ -542,7 +577,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 11 Jan 2015 21:02:59 GMT
+      - Tue, 13 Jan 2015 21:07:20 GMT
       Server:
       - nginx
       Content-Type:
@@ -550,11 +585,11 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Tracer-Time:
-      - '96'
+      - '91'
       X-Ratelimit-Limit:
       - '500'
       X-Ratelimit-Remaining:
-      - '491'
+      - '432'
       Strict-Transport-Security:
       - max-age=864000
       X-Ex:
@@ -564,7 +599,7 @@ http_interactions:
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-dfw1825-DFW
+      - cache-ord1732-ORD
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -604,14 +639,14 @@ http_interactions:
         ZSI6IkZvb2QiLCJzaG9ydE5hbWUiOiJGb29kIiwiaWNvbiI6eyJwcmVmaXgi
         OiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9pbWdcL2NhdGVnb3JpZXNfdjJc
         L2Zvb2RcL2RlZmF1bHRfIiwic3VmZml4IjoiLnBuZyJ9fV0sInZlcmlmaWVk
-        Ijp0cnVlLCJzdGF0cyI6eyJjaGVja2luc0NvdW50IjoyOTA2LCJ1c2Vyc0Nv
-        dW50IjoyMDIxLCJ0aXBDb3VudCI6NDJ9LCJ1cmwiOiJodHRwOlwvXC93d3cu
+        Ijp0cnVlLCJzdGF0cyI6eyJjaGVja2luc0NvdW50IjoyOTA3LCJ1c2Vyc0Nv
+        dW50IjoyMDIzLCJ0aXBDb3VudCI6NDN9LCJ1cmwiOiJodHRwOlwvXC93d3cu
         Y29udGlnb3NmLmNvbSIsInByaWNlIjp7InRpZXIiOjQsIm1lc3NhZ2UiOiJW
         ZXJ5IEV4cGVuc2l2ZSIsImN1cnJlbmN5IjoiJCJ9LCJoYXNNZW51Ijp0cnVl
         LCJsaWtlcyI6eyJjb3VudCI6NTgsImdyb3VwcyI6W3sidHlwZSI6Im90aGVy
         cyIsImNvdW50Ijo1OCwiaXRlbXMiOltdfV0sInN1bW1hcnkiOiI1OCBMaWtl
         cyJ9LCJsaWtlIjpmYWxzZSwiZGlzbGlrZSI6ZmFsc2UsIm9rIjpmYWxzZSwi
-        cmF0aW5nIjo5LjQsInJhdGluZ1NpZ25hbHMiOjg0LCJyZXNlcnZhdGlvbnMi
+        cmF0aW5nIjo5LjQsInJhdGluZ1NpZ25hbHMiOjg1LCJyZXNlcnZhdGlvbnMi
         OnsidXJsIjoiaHR0cDpcL1wvd3d3Lm9wZW50YWJsZS5jb21cL3NpbmdsZS5h
         c3B4P3JpZD00NTA1MiZyZWY9OTYwMSJ9LCJtZW51Ijp7InR5cGUiOiJNZW51
         IiwibGFiZWwiOiJNZW51IiwiYW5jaG9yIjoiVmlldyBNZW51IiwidXJsIjoi
@@ -697,14 +732,14 @@ http_interactions:
         ZWVuIGhlcmUiLCJ0eXBlIjoic29jaWFsIiwicmVhc29uTmFtZSI6ImZyaWVu
         ZEFuZFNlbGZDaGVja2luUmVhc29uIiwibWVzc2FnZSI6IkRhbiBWLiBoYXMg
         YmVlbiBoZXJlIiwidGFyZ2V0Ijp7InR5cGUiOiJuYXZpZ2F0aW9uIiwib2Jq
-        ZWN0Ijp7ImlkIjoiNTRiMmU1MDI0OThlMGM5MzY5YWIyYjEyIiwidHlwZSI6
+        ZWN0Ijp7ImlkIjoiNTRiNTg5MDg0OThlNmIwODdkYTkyNzRiIiwidHlwZSI6
         InNvY2lhbCIsInRhcmdldCI6eyJ0eXBlIjoicGF0aCIsInVybCI6IlwvdmVu
         dWVzXC80OWM2YmRmZWY5NjRhNTIwNzc1NzFmZTNcL3NvY2lhbCJ9LCJpZ25v
         cmFibGUiOmZhbHNlfX0sImNvdW50IjoxfV19LCJjcmVhdGVkQXQiOjEyMzc3
-        NjE1MzQsIm1heW9yIjp7ImNvdW50IjowfSwidGlwcyI6eyJjb3VudCI6NDIs
+        NjE1MzQsIm1heW9yIjp7ImNvdW50IjowfSwidGlwcyI6eyJjb3VudCI6NDMs
         Imdyb3VwcyI6W3sidHlwZSI6ImZvbGxvd2luZyIsIm5hbWUiOiJUaXBzIGZy
         b20gcGVvcGxlIHlvdSBmb2xsb3ciLCJjb3VudCI6MCwiaXRlbXMiOltdfSx7
-        InR5cGUiOiJvdGhlcnMiLCJuYW1lIjoiQWxsIHRpcHMiLCJjb3VudCI6NDIs
+        InR5cGUiOiJvdGhlcnMiLCJuYW1lIjoiQWxsIHRpcHMiLCJjb3VudCI6NDMs
         Iml0ZW1zIjpbeyJpZCI6IjRjZjZjOTE5MTFlNzZhMzExNDhhYWMzYiIsImNy
         ZWF0ZWRBdCI6MTI5MTI0MTc1MywidGV4dCI6IkJlY2F1c2UgQnJldHQgRW1l
         cnNvbiBoYWQgYSB2aXNpb24gYW5kIGhlJ3Mgc3R1Y2sgdG8gaXQsIGNyZWF0
@@ -945,137 +980,138 @@ http_interactions:
         IlBhdWwiLCJsYXN0TmFtZSI6Ikxpc3pld3NraSIsImdlbmRlciI6Im1hbGUi
         LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwv
         aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLy0xXzEyNTg3NDc2NDI1ODQuanBn
-        In19fSx7ImlkIjoiNTQ3MTc5OTI0OThlNjdiZTk3OGVhZGE2IiwiY3JlYXRl
-        ZEF0IjoxNDE2NzIyODM0LCJ0ZXh0IjoiVGhlIHRhcmdhIGRlIFNhbnRpYWdv
-        IGlzIHRvIGRpZSBmb3IiLCJ0eXBlIjoidXNlciIsImNhbm9uaWNhbFVybCI6
-        Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNTQ3MTc5OTI0OThl
-        NjdiZTk3OGVhZGE2IiwibGFuZyI6ImVuIiwibGlrZXMiOnsiY291bnQiOjAs
-        Imdyb3VwcyI6W119LCJsaWtlIjpmYWxzZSwibG9nVmlldyI6dHJ1ZSwidG9k
-        byI6eyJjb3VudCI6MH0sInVzZXIiOnsiaWQiOiI3MzQwMjQ1OCIsImZpcnN0
-        TmFtZSI6IkFiaGlzaGVrIiwibGFzdE5hbWUiOiJLb25hIiwiZ2VuZGVyIjoi
-        bWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRzcWku
-        bmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvNzM0MDI0NTgtM0RJTlhE
-        TkkyWFVUR1VRVS5qcGcifX19LHsiaWQiOiI1NDNkZTFjMjQ5OGUwZWMwY2U4
-        ODkzOWEiLCJjcmVhdGVkQXQiOjE0MTMzNDE2MzQsInRleHQiOiJUYXBhcyBQ
-        YSBBbWIgVG9tw6JxdWV0IiwidHlwZSI6InVzZXIiLCJjYW5vbmljYWxVcmwi
-        OiJodHRwczpcL1wvZm91cnNxdWFyZS5jb21cL2l0ZW1cLzU0M2RlMWMyNDk4
-        ZTBlYzBjZTg4OTM5YSIsImxhbmciOiJjYSIsImxpa2VzIjp7ImNvdW50Ijow
-        LCJncm91cHMiOltdfSwibGlrZSI6ZmFsc2UsImxvZ1ZpZXciOnRydWUsInRv
-        ZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiMTA1NzkiLCJmaXJzdE5h
-        bWUiOiJBbmRyZXciLCJsYXN0TmFtZSI6IlNoZXBwYXJkIiwiZ2VuZGVyIjoi
-        bWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRzcWku
-        bmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvMTA1NzktUklYV1pZWkgx
-        R0NNSTJGMCJ9fX0seyJpZCI6IjU0MTMxMmM1NDk4ZTkxYzRkNzVlZDNjOSIs
-        ImNyZWF0ZWRBdCI6MTQxMDUzNjEzMywidGV4dCI6IkZ1biBuZWlnaGJvcmhv
-        b2QgZWF0ZXJ5LiBMb3ZlIHRoZWlyIHRvYXN0IHRhcGFzLCB0aGUgdG9tYXRv
-        ZXMgdGhleSBzb3VyY2UgYXJlIGFtYXppbmcuIiwidHlwZSI6InVzZXIiLCJj
-        YW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFyZS5jb21cL2l0ZW1c
-        LzU0MTMxMmM1NDk4ZTkxYzRkNzVlZDNjOSIsImxhbmciOiJlbiIsImxpa2Vz
-        Ijp7ImNvdW50IjowLCJncm91cHMiOltdfSwibGlrZSI6ZmFsc2UsImxvZ1Zp
-        ZXciOnRydWUsInRvZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNjM1
-        MDY5IiwiZmlyc3ROYW1lIjoiSm9zaHVhIiwibGFzdE5hbWUiOiJIYWZ0ZWwi
-        LCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9c
-        L2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC82MzUw
-        NjktU0VFQ0FCWFJXNUcwWDMwMC5qcGcifX19LHsiaWQiOiI1NDAzZjU1ZTQ5
-        OGVmNjdhMTQ2MTBiZDgiLCJjcmVhdGVkQXQiOjE0MDk1NDU1NjYsInRleHQi
-        OiJDYWxhbWFyaSwgc2FsbW9uLCBhbmQgY3JvcXVldHRhcyB3ZXJlIGluY3Jl
-        ZGlibGUuIiwidHlwZSI6InVzZXIiLCJjYW5vbmljYWxVcmwiOiJodHRwczpc
-        L1wvZm91cnNxdWFyZS5jb21cL2l0ZW1cLzU0MDNmNTVlNDk4ZWY2N2ExNDYx
-        MGJkOCIsImxhbmciOiJlbiIsImxpa2VzIjp7ImNvdW50IjowLCJncm91cHMi
-        OltdfSwibGlrZSI6ZmFsc2UsImxvZ1ZpZXciOnRydWUsInRvZG8iOnsiY291
-        bnQiOjB9LCJ1c2VyIjp7ImlkIjoiMzI1MjMiLCJmaXJzdE5hbWUiOiJEaW5l
-        c2giLCJsYXN0TmFtZSI6IlRoaXJ1cHV2YW5hbSIsImdlbmRlciI6Im1hbGUi
-        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3FpLm5ldFwv
-        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzRhYTcxNDc2MDQ3ZTQuanBnIn19
-        fV19XX0sInRhZ3MiOlsiYmFyY2Vsb25hIiwiY2F0YWxhbiIsImVhdGVyIDM4
-        IiwiZm9vZGllIiwiZ291cm1ldCBtYWdhemluZSIsIm5vZSB2YWxsZXkiLCJz
-        cGFuaXNoIiwidGFwYXMiXSwic2hvcnRVcmwiOiJodHRwOlwvXC80c3EuY29t
-        XC8zUGJZcVkiLCJ0aW1lWm9uZSI6IkFtZXJpY2FcL0xvc19BbmdlbGVzIiwi
-        bGlzdGVkIjp7ImNvdW50IjoxODQsImdyb3VwcyI6W3sidHlwZSI6Im90aGVy
-        cyIsIm5hbWUiOiJMaXN0cyBmcm9tIG90aGVyIHBlb3BsZSIsImNvdW50Ijox
-        ODQsIml0ZW1zIjpbeyJpZCI6IjUwMDQzNTEzZTRiMGJjNTE3MDhmZWJlYiIs
-        Im5hbWUiOiJCYXkgQXJlYSBGb29kaWUgQnVja2V0IExpc3QiLCJkZXNjcmlw
-        dGlvbiI6IiIsInR5cGUiOiJvdGhlcnMiLCJ1c2VyIjp7ImlkIjoiNjkyNDg2
-        NyIsImZpcnN0TmFtZSI6Ikx5bm1hbiIsImdlbmRlciI6ImZlbWFsZSIsInBo
-        b3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMwLjRzcWkubmV0XC9pbWdc
-        L3VzZXJcLyIsInN1ZmZpeCI6IlwvSE9RTUczRkNXU0hJSFZBMy5qcGcifX0s
-        ImVkaXRhYmxlIjpmYWxzZSwicHVibGljIjp0cnVlLCJjb2xsYWJvcmF0aXZl
-        IjpmYWxzZSwidXJsIjoiXC9seW5tYW53XC9saXN0XC9iYXktYXJlYS1mb29k
-        aWUtYnVja2V0LWxpc3QiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91
-        cnNxdWFyZS5jb21cL2x5bm1hbndcL2xpc3RcL2JheS1hcmVhLWZvb2RpZS1i
-        dWNrZXQtbGlzdCIsImNyZWF0ZWRBdCI6MTM0MjQ1MzAxMSwidXBkYXRlZEF0
-        IjoxNDE0MDkxMDQyLCJmb2xsb3dlcnMiOnsiY291bnQiOjUzfSwibGlzdEl0
-        ZW1zIjp7ImNvdW50IjoxMjksIml0ZW1zIjpbeyJpZCI6InY0OWM2YmRmZWY5
-        NjRhNTIwNzc1NzFmZTMiLCJjcmVhdGVkQXQiOjEzNDc5ODMzMTN9XX19LHsi
-        aWQiOiI0ZjNlYWViZmU0YjA5NDhmMWZkMjBkMzUiLCJuYW1lIjoiMjAxMyBT
-        YW4gRnJhbmNpc2NvIEJpYiBHb3VybWFuZHMiLCJkZXNjcmlwdGlvbiI6IlRo
-        aXMgeWVhciA3MCBlc3RhYmxpc2htZW50cyBtYWRlIHRoZSBsaXN0XHUyMDE0
-        YSBsaXN0IHRoYXQgcmVwcmVzZW50cyBhIHNpemFibGUgZ2VvZ3JhcGhpYyBh
-        cmVhLCBpbmNsdWRpbmcgdGhlIGVudGlyZSBCYXkgQXJlYSBhbmQgV2luZSBD
-        b3VudHJ5LiIsInR5cGUiOiJvdGhlcnMiLCJ1c2VyIjp7ImlkIjoiMzM1ODI0
-        MiIsImZpcnN0TmFtZSI6Ik1pY2hlbGluIFRyYXZlbCAmIExpZmVzdHlsZSIs
-        ImdlbmRlciI6Im5vbmUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wv
-        aXJzMy40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL1ZLMFBQ
-        REUzVjFIVTIwRDUuanBnIn0sInR5cGUiOiJwYWdlIn0sImVkaXRhYmxlIjpm
-        YWxzZSwicHVibGljIjp0cnVlLCJjb2xsYWJvcmF0aXZlIjpmYWxzZSwidXJs
-        IjoiXC9taWNoZWxpbmd1aWRlc1wvbGlzdFwvMjAxMy1zYW4tZnJhbmNpc2Nv
-        LWJpYi1nb3VybWFuZHMiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91
-        cnNxdWFyZS5jb21cL21pY2hlbGluZ3VpZGVzXC9saXN0XC8yMDEzLXNhbi1m
-        cmFuY2lzY28tYmliLWdvdXJtYW5kcyIsImNyZWF0ZWRBdCI6MTMyOTUwODAz
-        MSwidXBkYXRlZEF0IjoxMzk1MzU2MjMwLCJsb2dWaWV3Ijp0cnVlLCJmb2xs
-        b3dlcnMiOnsiY291bnQiOjY4M30sImxpc3RJdGVtcyI6eyJjb3VudCI6Njks
-        Iml0ZW1zIjpbeyJpZCI6InY0OWM2YmRmZWY5NjRhNTIwNzc1NzFmZTMiLCJj
-        cmVhdGVkQXQiOjEzMjk1MDg1Mjd9XX19XX1dfSwicGhyYXNlcyI6W3sicGhy
-        YXNlIjoiY2h1cnJvcyBjb24gY2hvY29sYXRlIiwic2FtcGxlIjp7ImVudGl0
-        aWVzIjpbeyJpbmRpY2VzIjpbMjMsNDRdLCJ0eXBlIjoia2V5UGhyYXNlIn1d
-        LCJ0ZXh0IjoiLi4uIGFuZCBvZiBjb3Vyc2UsIHRoZSBjaHVycm9zIGNvbiBj
-        aG9jb2xhdGUifSwiY291bnQiOjR9LHsicGhyYXNlIjoidHJpcGUiLCJzYW1w
-        bGUiOnsiZW50aXRpZXMiOlt7ImluZGljZXMiOlsyNiwzMV0sInR5cGUiOiJr
-        ZXlQaHJhc2UifV0sInRleHQiOiIuLi4gZGlzaCwgZmxhdCBicmVhZCwgYW5k
-        IHRyaXBlLiBTYXZlIHJvb20gZm9yIGNodXJyb3MgY29uIGNob2NvbGF0ZSBm
-        b3IuLi4ifSwiY291bnQiOjV9LHsicGhyYXNlIjoiY2hvcml6byBhbmQgYmxh
-        Y2sgcmljZSIsInNhbXBsZSI6eyJlbnRpdGllcyI6W3siaW5kaWNlcyI6WzE4
-        LDQwXSwidHlwZSI6ImtleVBocmFzZSJ9XSwidGV4dCI6IjcwLiBDYWxhbWFy
-        aSB3aXRoIGNob3Jpem8gYW5kIGJsYWNrIHJpY2UifSwiY291bnQiOjJ9XSwi
-        aG91cnMiOnsic3RhdHVzIjoiQ2xvc2VkIHVudGlsIDU6MzBwbSIsImlzT3Bl
+        In19fSx7ImlkIjoiNTRiNDEyNTA0OThlYzNjODkyN2ZhMTk3IiwiY3JlYXRl
+        ZEF0IjoxNDIxMDg3MzEyLCJ0ZXh0IjoiQmVzdCB0YXBhcyBhbmQgU3Bhbmlz
+        aCB3aW5lIGxpc3QgaW4gU2FuIEZyYW5jaXNjby4iLCJ0eXBlIjoidXNlciIs
+        ImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRl
+        bVwvNTRiNDEyNTA0OThlYzNjODkyN2ZhMTk3IiwibGFuZyI6ImVuIiwibGlr
+        ZXMiOnsiY291bnQiOjAsImdyb3VwcyI6W119LCJsaWtlIjpmYWxzZSwibG9n
+        VmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0sInVzZXIiOnsiaWQiOiI2
+        MTQ2MzkiLCJmaXJzdE5hbWUiOiJSYWNoZWwiLCJsYXN0TmFtZSI6Iktpbmci
+        LCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpc
+        L1wvaXJzMC40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL0g0
+        U1dLVVlBTUtNTllWUzIuanBnIn19fSx7ImlkIjoiNTQ3MTc5OTI0OThlNjdi
+        ZTk3OGVhZGE2IiwiY3JlYXRlZEF0IjoxNDE2NzIyODM0LCJ0ZXh0IjoiVGhl
+        IHRhcmdhIGRlIFNhbnRpYWdvIGlzIHRvIGRpZSBmb3IiLCJ0eXBlIjoidXNl
+        ciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwv
+        aXRlbVwvNTQ3MTc5OTI0OThlNjdiZTk3OGVhZGE2IiwibGFuZyI6ImVuIiwi
+        bGlrZXMiOnsiY291bnQiOjAsImdyb3VwcyI6W119LCJsaWtlIjpmYWxzZSwi
+        bG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0sInVzZXIiOnsiaWQi
+        OiI3MzQwMjQ1OCIsImZpcnN0TmFtZSI6IkFiaGlzaGVrIiwibGFzdE5hbWUi
+        OiJLb25hIiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0
+        dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6
+        IlwvNzM0MDI0NTgtM0RJTlhETkkyWFVUR1VRVS5qcGcifX19LHsiaWQiOiI1
+        NDNkZTFjMjQ5OGUwZWMwY2U4ODkzOWEiLCJjcmVhdGVkQXQiOjE0MTMzNDE2
+        MzQsInRleHQiOiJUYXBhcyBQYSBBbWIgVG9tw6JxdWV0IiwidHlwZSI6InVz
+        ZXIiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFyZS5jb21c
+        L2l0ZW1cLzU0M2RlMWMyNDk4ZTBlYzBjZTg4OTM5YSIsImxhbmciOiJjYSIs
+        Imxpa2VzIjp7ImNvdW50IjowLCJncm91cHMiOltdfSwibGlrZSI6ZmFsc2Us
+        ImxvZ1ZpZXciOnRydWUsInRvZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7Imlk
+        IjoiMTA1NzkiLCJmaXJzdE5hbWUiOiJBbmRyZXciLCJsYXN0TmFtZSI6IlNo
+        ZXBwYXJkIiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0
+        dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6
+        IlwvMTA1NzktUklYV1pZWkgxR0NNSTJGMCJ9fX0seyJpZCI6IjU0MTMxMmM1
+        NDk4ZTkxYzRkNzVlZDNjOSIsImNyZWF0ZWRBdCI6MTQxMDUzNjEzMywidGV4
+        dCI6IkZ1biBuZWlnaGJvcmhvb2QgZWF0ZXJ5LiBMb3ZlIHRoZWlyIHRvYXN0
+        IHRhcGFzLCB0aGUgdG9tYXRvZXMgdGhleSBzb3VyY2UgYXJlIGFtYXppbmcu
+        IiwidHlwZSI6InVzZXIiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91
+        cnNxdWFyZS5jb21cL2l0ZW1cLzU0MTMxMmM1NDk4ZTkxYzRkNzVlZDNjOSIs
+        ImxhbmciOiJlbiIsImxpa2VzIjp7ImNvdW50IjowLCJncm91cHMiOltdfSwi
+        bGlrZSI6ZmFsc2UsImxvZ1ZpZXciOnRydWUsInRvZG8iOnsiY291bnQiOjB9
+        LCJ1c2VyIjp7ImlkIjoiNjM1MDY5IiwiZmlyc3ROYW1lIjoiSm9zaHVhIiwi
+        bGFzdE5hbWUiOiJIYWZ0ZWwiLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsi
+        cHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwv
+        Iiwic3VmZml4IjoiXC82MzUwNjktU0VFQ0FCWFJXNUcwWDMwMC5qcGcifX19
+        XX1dfSwidGFncyI6WyJiYXJjZWxvbmEiLCJjYXRhbGFuIiwiZWF0ZXIgMzgi
+        LCJmb29kaWUiLCJnb3VybWV0IG1hZ2F6aW5lIiwibm9lIHZhbGxleSIsInNw
+        YW5pc2giLCJ0YXBhcyJdLCJzaG9ydFVybCI6Imh0dHA6XC9cLzRzcS5jb21c
+        LzNQYllxWSIsInRpbWVab25lIjoiQW1lcmljYVwvTG9zX0FuZ2VsZXMiLCJs
+        aXN0ZWQiOnsiY291bnQiOjE4NSwiZ3JvdXBzIjpbeyJ0eXBlIjoib3RoZXJz
+        IiwibmFtZSI6Ikxpc3RzIGZyb20gb3RoZXIgcGVvcGxlIiwiY291bnQiOjE4
+        NSwiaXRlbXMiOlt7ImlkIjoiNTAwNDM1MTNlNGIwYmM1MTcwOGZlYmViIiwi
+        bmFtZSI6IkJheSBBcmVhIEZvb2RpZSBCdWNrZXQgTGlzdCIsImRlc2NyaXB0
+        aW9uIjoiIiwidHlwZSI6Im90aGVycyIsInVzZXIiOnsiaWQiOiI2OTI0ODY3
+        IiwiZmlyc3ROYW1lIjoiTHlubWFuIiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhv
+        dG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczAuNHNxaS5uZXRcL2ltZ1wv
+        dXNlclwvIiwic3VmZml4IjoiXC9IT1FNRzNGQ1dTSElIVkEzLmpwZyJ9fSwi
+        ZWRpdGFibGUiOmZhbHNlLCJwdWJsaWMiOnRydWUsImNvbGxhYm9yYXRpdmUi
+        OmZhbHNlLCJ1cmwiOiJcL2x5bm1hbndcL2xpc3RcL2JheS1hcmVhLWZvb2Rp
+        ZS1idWNrZXQtbGlzdCIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vy
+        c3F1YXJlLmNvbVwvbHlubWFud1wvbGlzdFwvYmF5LWFyZWEtZm9vZGllLWJ1
+        Y2tldC1saXN0IiwiY3JlYXRlZEF0IjoxMzQyNDUzMDExLCJ1cGRhdGVkQXQi
+        OjE0MTQwOTEwNDIsImZvbGxvd2VycyI6eyJjb3VudCI6NTN9LCJsaXN0SXRl
+        bXMiOnsiY291bnQiOjEyOSwiaXRlbXMiOlt7ImlkIjoidjQ5YzZiZGZlZjk2
+        NGE1MjA3NzU3MWZlMyIsImNyZWF0ZWRBdCI6MTM0Nzk4MzMxM31dfX0seyJp
+        ZCI6IjRmM2VhZWJmZTRiMDk0OGYxZmQyMGQzNSIsIm5hbWUiOiIyMDEzIFNh
+        biBGcmFuY2lzY28gQmliIEdvdXJtYW5kcyIsImRlc2NyaXB0aW9uIjoiVGhp
+        cyB5ZWFyIDcwIGVzdGFibGlzaG1lbnRzIG1hZGUgdGhlIGxpc3RcdTIwMTRh
+        IGxpc3QgdGhhdCByZXByZXNlbnRzIGEgc2l6YWJsZSBnZW9ncmFwaGljIGFy
+        ZWEsIGluY2x1ZGluZyB0aGUgZW50aXJlIEJheSBBcmVhIGFuZCBXaW5lIENv
+        dW50cnkuIiwidHlwZSI6Im90aGVycyIsInVzZXIiOnsiaWQiOiIzMzU4MjQy
+        IiwiZmlyc3ROYW1lIjoiTWljaGVsaW4gVHJhdmVsICYgTGlmZXN0eWxlIiwi
+        Z2VuZGVyIjoibm9uZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9p
+        cnMzLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvVkswUFBE
+        RTNWMUhVMjBENS5qcGcifSwidHlwZSI6InBhZ2UifSwiZWRpdGFibGUiOmZh
+        bHNlLCJwdWJsaWMiOnRydWUsImNvbGxhYm9yYXRpdmUiOmZhbHNlLCJ1cmwi
+        OiJcL21pY2hlbGluZ3VpZGVzXC9saXN0XC8yMDEzLXNhbi1mcmFuY2lzY28t
+        YmliLWdvdXJtYW5kcyIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vy
+        c3F1YXJlLmNvbVwvbWljaGVsaW5ndWlkZXNcL2xpc3RcLzIwMTMtc2FuLWZy
+        YW5jaXNjby1iaWItZ291cm1hbmRzIiwiY3JlYXRlZEF0IjoxMzI5NTA4MDMx
+        LCJ1cGRhdGVkQXQiOjEzOTUzNTYyMzAsImxvZ1ZpZXciOnRydWUsImZvbGxv
+        d2VycyI6eyJjb3VudCI6NjgzfSwibGlzdEl0ZW1zIjp7ImNvdW50Ijo2OSwi
+        aXRlbXMiOlt7ImlkIjoidjQ5YzZiZGZlZjk2NGE1MjA3NzU3MWZlMyIsImNy
+        ZWF0ZWRBdCI6MTMyOTUwODUyN31dfX1dfV19LCJwaHJhc2VzIjpbeyJwaHJh
+        c2UiOiJjaHVycm9zIGNvbiBjaG9jb2xhdGUiLCJzYW1wbGUiOnsiZW50aXRp
+        ZXMiOlt7ImluZGljZXMiOlsyMyw0NF0sInR5cGUiOiJrZXlQaHJhc2UifV0s
+        InRleHQiOiIuLi4gYW5kIG9mIGNvdXJzZSwgdGhlIGNodXJyb3MgY29uIGNo
+        b2NvbGF0ZSJ9LCJjb3VudCI6NH0seyJwaHJhc2UiOiJ0cmlwZSIsInNhbXBs
+        ZSI6eyJlbnRpdGllcyI6W3siaW5kaWNlcyI6WzI2LDMxXSwidHlwZSI6Imtl
+        eVBocmFzZSJ9XSwidGV4dCI6Ii4uLiBkaXNoLCBmbGF0IGJyZWFkLCBhbmQg
+        dHJpcGUuIFNhdmUgcm9vbSBmb3IgY2h1cnJvcyBjb24gY2hvY29sYXRlIGZv
+        ci4uLiJ9LCJjb3VudCI6NX0seyJwaHJhc2UiOiJjaG9yaXpvIGFuZCBibGFj
+        ayByaWNlIiwic2FtcGxlIjp7ImVudGl0aWVzIjpbeyJpbmRpY2VzIjpbMTgs
+        NDBdLCJ0eXBlIjoia2V5UGhyYXNlIn1dLCJ0ZXh0IjoiNzAuIENhbGFtYXJp
+        IHdpdGggY2hvcml6byBhbmQgYmxhY2sgcmljZSJ9LCJjb3VudCI6Mn1dLCJo
+        b3VycyI6eyJzdGF0dXMiOiJDbG9zZWQgdW50aWwgNTozMCBQTSIsImlzT3Bl
         biI6ZmFsc2UsInRpbWVmcmFtZXMiOlt7ImRheXMiOiJUdWVcdTIwMTNTYXQi
-        LCJvcGVuIjpbeyJyZW5kZXJlZFRpbWUiOiI1OjMwIFBNXHUyMDEzMTA6MDAg
-        UE0ifV0sInNlZ21lbnRzIjpbXX0seyJkYXlzIjoiU3VuIiwiaW5jbHVkZXNU
-        b2RheSI6dHJ1ZSwib3BlbiI6W3sicmVuZGVyZWRUaW1lIjoiNTozMCBQTVx1
+        LCJpbmNsdWRlc1RvZGF5Ijp0cnVlLCJvcGVuIjpbeyJyZW5kZXJlZFRpbWUi
+        OiI1OjMwIFBNXHUyMDEzMTA6MDAgUE0ifV0sInNlZ21lbnRzIjpbXX0seyJk
+        YXlzIjoiU3VuIiwib3BlbiI6W3sicmVuZGVyZWRUaW1lIjoiNTozMCBQTVx1
         MjAxMzk6MzAgUE0ifV0sInNlZ21lbnRzIjpbXX1dfSwicG9wdWxhciI6eyJp
         c09wZW4iOmZhbHNlLCJ0aW1lZnJhbWVzIjpbeyJkYXlzIjoiVG9kYXkiLCJp
-        bmNsdWRlc1RvZGF5Ijp0cnVlLCJvcGVuIjpbeyJyZW5kZXJlZFRpbWUiOiI1
+        bmNsdWRlc1RvZGF5Ijp0cnVlLCJvcGVuIjpbeyJyZW5kZXJlZFRpbWUiOiI2
         OjAwIFBNXHUyMDEzMTA6MDAgUE0ifV0sInNlZ21lbnRzIjpbXX0seyJkYXlz
-        IjoiTW9uIiwib3BlbiI6W3sicmVuZGVyZWRUaW1lIjoiTm9uZSJ9XSwic2Vn
-        bWVudHMiOltdfSx7ImRheXMiOiJUdWVcdTIwMTNXZWQiLCJvcGVuIjpbeyJy
-        ZW5kZXJlZFRpbWUiOiI2OjAwIFBNXHUyMDEzMTA6MDAgUE0ifV0sInNlZ21l
-        bnRzIjpbXX0seyJkYXlzIjoiVGh1XHUyMDEzRnJpIiwib3BlbiI6W3sicmVu
-        ZGVyZWRUaW1lIjoiNjowMCBQTVx1MjAxMzExOjAwIFBNIn1dLCJzZWdtZW50
-        cyI6W119LHsiZGF5cyI6IlNhdCIsIm9wZW4iOlt7InJlbmRlcmVkVGltZSI6
-        IjU6MDAgUE1cdTIwMTMxMTowMCBQTSJ9XSwic2VnbWVudHMiOltdfV19LCJw
-        YWdlVXBkYXRlcyI6eyJjb3VudCI6MCwiaXRlbXMiOltdfSwiaW5ib3giOnsi
-        Y291bnQiOjAsIml0ZW1zIjpbXX0sImF0dHJpYnV0ZXMiOnsiZ3JvdXBzIjpb
-        eyJ0eXBlIjoicHJpY2UiLCJuYW1lIjoiUHJpY2UiLCJzdW1tYXJ5IjoiJCQk
-        JCIsImNvdW50IjoxLCJpdGVtcyI6W3siZGlzcGxheU5hbWUiOiJQcmljZSIs
-        ImRpc3BsYXlWYWx1ZSI6IiQkJCQiLCJwcmljZVRpZXIiOjR9XX0seyJ0eXBl
-        IjoicGF5bWVudHMiLCJuYW1lIjoiQ3JlZGl0IENhcmRzIiwic3VtbWFyeSI6
-        IkNyZWRpdCBDYXJkcyIsImNvdW50Ijo3LCJpdGVtcyI6W3siZGlzcGxheU5h
-        bWUiOiJDcmVkaXQgQ2FyZHMiLCJkaXNwbGF5VmFsdWUiOiJZZXMgKGluY2wu
-        IERpc2NvdmVyICYgVmlzYSkifV19LHsidHlwZSI6Im91dGRvb3JTZWF0aW5n
-        IiwibmFtZSI6Ik91dGRvb3IgU2VhdGluZyIsInN1bW1hcnkiOiJPdXRkb29y
-        IFNlYXRpbmciLCJjb3VudCI6MSwiaXRlbXMiOlt7ImRpc3BsYXlOYW1lIjoi
-        T3V0ZG9vciBTZWF0aW5nIiwiZGlzcGxheVZhbHVlIjoiWWVzIn1dfSx7InR5
-        cGUiOiJzZXJ2ZXMiLCJuYW1lIjoiTWVudXMiLCJzdW1tYXJ5IjoiRGlubmVy
-        IiwiY291bnQiOjgsIml0ZW1zIjpbeyJkaXNwbGF5TmFtZSI6IkRpbm5lciIs
-        ImRpc3BsYXlWYWx1ZSI6IkRpbm5lciJ9XX0seyJ0eXBlIjoiZHJpbmtzIiwi
-        bmFtZSI6IkRyaW5rcyIsInN1bW1hcnkiOiJXaW5lIiwiY291bnQiOjUsIml0
-        ZW1zIjpbeyJkaXNwbGF5TmFtZSI6IldpbmUiLCJkaXNwbGF5VmFsdWUiOiJX
-        aW5lIn1dfSx7InR5cGUiOiJkaW5pbmdPcHRpb25zIiwibmFtZSI6IkRpbmlu
-        ZyBPcHRpb25zIiwiY291bnQiOjUsIml0ZW1zIjpbeyJkaXNwbGF5TmFtZSI6
-        IkRlbGl2ZXJ5IiwiZGlzcGxheVZhbHVlIjoiTm8gRGVsaXZlcnkifV19XX19
-        fX0=
+        IjoiV2VkIiwib3BlbiI6W3sicmVuZGVyZWRUaW1lIjoiNjowMCBQTVx1MjAx
+        MzEwOjAwIFBNIn1dLCJzZWdtZW50cyI6W119LHsiZGF5cyI6IlRodVx1MjAx
+        M0ZyaSIsIm9wZW4iOlt7InJlbmRlcmVkVGltZSI6IjY6MDAgUE1cdTIwMTMx
+        MTowMCBQTSJ9XSwic2VnbWVudHMiOltdfSx7ImRheXMiOiJTYXQiLCJvcGVu
+        IjpbeyJyZW5kZXJlZFRpbWUiOiI1OjAwIFBNXHUyMDEzMTE6MDAgUE0ifV0s
+        InNlZ21lbnRzIjpbXX0seyJkYXlzIjoiU3VuIiwib3BlbiI6W3sicmVuZGVy
+        ZWRUaW1lIjoiNTowMCBQTVx1MjAxMzEwOjAwIFBNIn1dLCJzZWdtZW50cyI6
+        W119LHsiZGF5cyI6Ik1vbiIsIm9wZW4iOlt7InJlbmRlcmVkVGltZSI6Ik5v
+        bmUifV0sInNlZ21lbnRzIjpbXX1dfSwicGFnZVVwZGF0ZXMiOnsiY291bnQi
+        OjAsIml0ZW1zIjpbXX0sImluYm94Ijp7ImNvdW50IjowLCJpdGVtcyI6W119
+        LCJhdHRyaWJ1dGVzIjp7Imdyb3VwcyI6W3sidHlwZSI6InByaWNlIiwibmFt
+        ZSI6IlByaWNlIiwic3VtbWFyeSI6IiQkJCQiLCJjb3VudCI6MSwiaXRlbXMi
+        Olt7ImRpc3BsYXlOYW1lIjoiUHJpY2UiLCJkaXNwbGF5VmFsdWUiOiIkJCQk
+        IiwicHJpY2VUaWVyIjo0fV19LHsidHlwZSI6InBheW1lbnRzIiwibmFtZSI6
+        IkNyZWRpdCBDYXJkcyIsInN1bW1hcnkiOiJDcmVkaXQgQ2FyZHMiLCJjb3Vu
+        dCI6NywiaXRlbXMiOlt7ImRpc3BsYXlOYW1lIjoiQ3JlZGl0IENhcmRzIiwi
+        ZGlzcGxheVZhbHVlIjoiWWVzIChpbmNsLiBEaXNjb3ZlciAmIFZpc2EpIn1d
+        fSx7InR5cGUiOiJvdXRkb29yU2VhdGluZyIsIm5hbWUiOiJPdXRkb29yIFNl
+        YXRpbmciLCJzdW1tYXJ5IjoiT3V0ZG9vciBTZWF0aW5nIiwiY291bnQiOjEs
+        Iml0ZW1zIjpbeyJkaXNwbGF5TmFtZSI6Ik91dGRvb3IgU2VhdGluZyIsImRp
+        c3BsYXlWYWx1ZSI6IlllcyJ9XX0seyJ0eXBlIjoic2VydmVzIiwibmFtZSI6
+        Ik1lbnVzIiwic3VtbWFyeSI6IkRpbm5lciIsImNvdW50Ijo4LCJpdGVtcyI6
+        W3siZGlzcGxheU5hbWUiOiJEaW5uZXIiLCJkaXNwbGF5VmFsdWUiOiJEaW5u
+        ZXIifV19LHsidHlwZSI6ImRyaW5rcyIsIm5hbWUiOiJEcmlua3MiLCJzdW1t
+        YXJ5IjoiV2luZSIsImNvdW50Ijo1LCJpdGVtcyI6W3siZGlzcGxheU5hbWUi
+        OiJXaW5lIiwiZGlzcGxheVZhbHVlIjoiV2luZSJ9XX0seyJ0eXBlIjoiZGlu
+        aW5nT3B0aW9ucyIsIm5hbWUiOiJEaW5pbmcgT3B0aW9ucyIsImNvdW50Ijo1
+        LCJpdGVtcyI6W3siZGlzcGxheU5hbWUiOiJEZWxpdmVyeSIsImRpc3BsYXlW
+        YWx1ZSI6Ik5vIERlbGl2ZXJ5In1dfV19fX19
     http_version: 
-  recorded_at: Sun, 11 Jan 2015 21:02:59 GMT
+  recorded_at: Tue, 13 Jan 2015 21:07:20 GMT
 - request:
     method: get
     uri: http://api.geonames.org/timezoneJSON?lat=37.750902&lng=-122.434327&username=sashafklein
@@ -1095,22 +1131,24 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 11 Jan 2015 21:02:59 GMT
+      - Tue, 13 Jan 2015 21:07:32 GMT
       Server:
-      - Apache/2.2.17 (Linux/SUSE)
+      - Apache/2.2.15 (CentOS)
       Cache-Control:
       - no-cache
       Access-Control-Allow-Origin:
       - "*"
-      Transfer-Encoding:
-      - chunked
+      Content-Length:
+      - '247'
+      Connection:
+      - close
       Content-Type:
       - application/json;charset=UTF-8
     body:
       encoding: UTF-8
-      string: '{"time":"2015-01-11 13:02","countryName":"United States","sunset":"2015-01-11
-        17:10","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.434327,"sunrise":"2015-01-11
-        07:25","timezoneId":"America/Los_Angeles","lat":37.750902}'
+      string: '{"time":"2015-01-13 13:07","countryName":"United States","sunset":"2015-01-13
+        17:12","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.434327,"sunrise":"2015-01-13
+        07:24","timezoneId":"America/Los_Angeles","lat":37.750902}'
     http_version: 
-  recorded_at: Sun, 11 Jan 2015 21:03:00 GMT
+  recorded_at: Tue, 13 Jan 2015 21:07:20 GMT
 recorded_with: VCR 2.9.3

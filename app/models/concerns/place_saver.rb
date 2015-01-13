@@ -32,6 +32,7 @@ class PlaceSaver
     format_phones
     set_timezone
     order_names
+    deduplicate_names
     save_and_validate_changes!(raise_errors)
   end
 
@@ -96,7 +97,7 @@ class PlaceSaver
   end
 
   def meta_categories_correct?
-    place.meta_category && place.meta_categories.all?{ |mc| CategorySet::ALL_CATEGORIES.include?(mc) }
+    place.meta_categories.all?{ |mc| CategorySet::ALL_CATEGORIES.include?(mc) }
   end
 
   def expand_region?
@@ -148,6 +149,31 @@ class PlaceSaver
 
   def names_ordered?
     !( place.names.first.non_latinate? && place.names.any?(&:latinate?) )
+  end
+
+  def deduplicate_names
+    new_names = []
+    place.names.each do |name|
+      previous = new_names.find{ |n| clean(n) == clean(name) }
+      if previous
+        if previous.length == name.length
+          new_names[ new_names.index(previous) ] = ( [previous, name].sort{ |a, b| b.titlecase.match_distance(b) <=> a.titlecase.match_distance(a) }.first )
+        else
+          new_names[ new_names.index(previous) ] = [previous, name].max
+        end
+      else
+        new_names << name
+      end
+    end
+    place.names = new_names
+  end
+
+  def names_deduplicated?
+    place.names.map(&:downcase).map(&:without_articles).uniq.count == place.names.count
+  end
+
+  def clean(name)
+    name.downcase.without_articles
   end
 
   def errors

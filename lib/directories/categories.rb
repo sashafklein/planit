@@ -215,6 +215,8 @@ module Directories
             "Blini House",
             "Borek Place",
             "Bougatsa Shop",
+            "Brasseries",
+            "Brasserie",
             "Brazilian Restaurant",
             "Breakfast Spot",
             "Bubble Tea Shop",

@@ -31,7 +31,7 @@ describe String do
 
   describe "without_articles" do
     it "removes articles from a string" do
-      expect( "A string with a bunch of the article things".without_articles ).to eq("string with bunch of article things")
+      expect( "The string with el bunch of los the article things".without_articles ).to eq("string with bunch of article things")
     end
 
     it "can take an article array" do
