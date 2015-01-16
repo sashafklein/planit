@@ -9,10 +9,11 @@
       = title.first.upcase
       .large-screen= title.last.upcase
   - else  
-    .container
-      .sixteen.columns.header-container
+    .container.pseudo
+      .header-container
         .logo-container
-          = image_tag "logo_only_#{color}.png", style: "float:left; width: 42px; height: 50px; margin: 10px 10px 10px 0"
+          = image_tag "logo_only_#{color}.png", style: "float:left; width: 42px; height: 50px; margin: 10px 10px 10px 0", class: "large-screen"
+          = image_tag "logo_only_white.png", style: "float:left; width: 42px; height: 50px; margin: 10px 10px 10px 0", class: "mobile"
           = image_tag "logo_name_only_#{color}.png", class: "logo-name-top #{page_type}", style: "float:left; width: 86px; height: 50px; margin: 10px 10px 10px 0"
         .search-bar-wrap{ class: page_type }
           .input-group
@@ -31,8 +32,8 @@
           .main-menu-container.user-icon{ class: color }
             %a.dropdown-toggle.a-override{ class: "a-#{background} h-#{background}", "data-toggle" => "dropdown", :href => "#" }
               %i.fa.fa-user.main-menu-icon
-          .main-menu-container.main-menu{ class: color }
-            %i.fa.fa-bars.a-override.main-menu-icon.dropdown-toggle{ class: "a-#{background} h-#{background}" }
+          .main-menu-container.main-menu.mobile.white
+            %i.fa.fa-bars.a-override.main-menu-icon.dropdown-toggle{ class: "a-black h-black" }
           %ul.dropdown-menu
             - if current_user
               %li
@@ -63,7 +64,7 @@
             %span.divider= "|"
             %strong.a-override.a-gray.h-neon= link_to "LOG IN", new_user_session_path
 
-  .page-header-band{ class: page_type }
+  .page-header-band.large-screen{ class: page_type }
     .container
       .sixteen-columns.page-header-container
         .page-header-category.sort.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}

@@ -1,10 +1,55 @@
 // BOTTOM OF PAGE
+
 .footer
   // min-width: 940px
   width: 100%
   background: #000
   padding: 45px 0 50px 0
   margin: 0
+
+  &.mobile
+    position: fixed !important
+    bottom: 0px
+    left: 0px
+    border-top: #333
+    padding: 0px 0px
+    z-index: 100000
+ 
+.bottom-nav-bar
+  cursor: pointer
+  width: 100%
+  text-align: center
+  display: table
+  table-layout: fixed
+
+  .nav-item
+    padding: 10px 0px
+    box-sizing: border-box
+    -moz-box-sizing: border-box
+    -webkit-box-sizing: border-box
+    display: table-cell
+    width: auto
+    color: #ddd
+    background: #000
+    border-bottom: #000 3px solid
+    font-size: 18px
+    line-height: 18px
+    &.raised
+      background: #1f1f1f
+      border-bottom: #1f1f1f 3px solid
+      color: #eee
+    &:hover, &:active
+      background: #222
+      border-bottom: #444 3px solid
+      color: #fff
+    &.selected
+      background: #2f2f2f
+      border-bottom: #aaa 3px solid
+      color: #fff
+      &:hover, &:active
+        background: #2f2f2f
+        border-bottom: #aaa 3px solid
+        color: #fff
 
 .footer-title
   margin: auto
