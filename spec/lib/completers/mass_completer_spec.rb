@@ -42,7 +42,7 @@ module Completers
         florida_house_inn = Place.with_name("Florida House Inn").first
         expect( florida_house_inn.names ).to include('1857 Florida House Inn')
         expect( florida_house_inn.street_addresses ).to eq ["22 South Third Street", '20 S 3rd St']
-        expect( florida_house_inn.phones ).to eq( { 'default' => "9042613300" } )
+        expect( florida_house_inn.phones ).to eq( ["9042613300"] )
         expect( florida_house_inn.extra ).to eq( { 'section_title' => "Boardinghouse Brunch" } )
         expect( florida_house_inn.completion_steps ).to eq ["Nearby", "Narrow", "FoursquareExplore", "FoursquareRefine", "Translate"]
         

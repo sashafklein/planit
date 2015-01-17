@@ -4,13 +4,14 @@ module Completers
     attr_accessor :attrs, :place, :photos, :pip, :url
     def initialize(attrs, url=nil)
       @photos = set_photos(attrs)
-      @attrs = normalize(attrs)
+      @attrs = attrs
+      normalize_attrs!
       @url = url
     end
 
     def complete!
       @pip = PlaceInProgress.new(attrs.merge(scrape_url: url))
-            
+      
       load_region_info_from_nearby!
       narrow_with_geocoder!
       foursquare_explore!
@@ -47,26 +48,34 @@ module Completers
       @photos += response[:photos]
     end
 
-    def normalize(attributes)
+    def normalize_attrs!
       [:name, :street_address, :category].each do |singular|
         plural = singular.to_s.pluralize.to_sym
-        attributes[plural] = Array( attributes.delete(plural) ) + Array( attributes.delete(singular))
+        attrs[plural] = Array( attrs.delete(plural) ).flatten + Array( attrs.delete(singular)).flatten
       end
 
-      attributes[:names] = attributes[:names].select(&:latinate?) + attributes[:names].select(&:non_latinate?)
+      attrs[:names] = attrs[:names].select(&:latinate?) + attrs[:names].select(&:non_latinate?)
       
-      attributes[:lat] = attributes[:lat] ? attributes[:lat].to_f : nil
-      attributes[:lon] = attributes[:lon] ? attributes[:lon].to_f : nil
+      [:lat, :lon].each{ |att| attrs[att] = attrs.delete(att).try(:to_f) }
 
-      attributes[:hours] = normalized_hours(attributes[:hours])
-      attributes[:extra] ||= {}
-      attributes[:phones] = { default: attributes.delete(:phone) } if attributes[:phone] && ! attributes[:phones]
+      attrs[:phones] = normalize_phones
+      attrs[:hours] = normalized_hours(attrs[:hours])
+      attrs[:extra] = normalize_extra
+    end
 
-      attributes.except(*Place.attribute_keys + [:nearby, :images]).each do |key, value|
-        attributes[:extra][key] = attributes.delete(key)
+    def normalize_phones
+      array = []
+      [:phones, :phone].each do |sym|
+        val = attrs.delete(sym)
+        array += val.values if val.is_a?(Hash)
+        array += Array(val) if val.is_a?(String) || val.is_a?(Array)
       end
+      attrs[:phones] = array.flatten
+    end
 
-      attributes
+    def normalize_extra
+      attrs[:extra] ||= {}
+      extra_attrs.each { |k, _| attrs[:extra][k] = attrs.delete(k) }
     end
 
     def normalized_hours(hours)
@@ -80,6 +89,10 @@ module Completers
     def set_photos(attrs)
       photo_array = Array( attrs.delete(:images) )
       @photos = photo_array.map{ |a| Image.new({ url: a[:url], source_url: a[:source], source: a[:credit] }) }
+    end
+
+    def extra_attrs
+      attrs.except(*Place.attribute_keys + [:nearby, :images])
     end
 
     def merge_and_save_with_photos!

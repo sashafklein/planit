@@ -132,11 +132,11 @@ class PlaceSaver
   end
 
   def format_phones
-    place.set_phones place.phones.reduce_to_hash{ |k, v| v.cut(remove_from_phones) }.uniq
+    place.phones = place.phones.map{ |v| v.gsub(%r!\D!, '') }.uniq
   end
 
   def phones_formatted?
-    place.phones.all?{ |k, v| remove_from_phones.all?{ |s| !v.include?(s) }}
+    place.phones.all?{ |p| p.gsub(%r!\D!, '') == p } && (place.phones == place.phones.uniq)
   end
 
   def set_timezone

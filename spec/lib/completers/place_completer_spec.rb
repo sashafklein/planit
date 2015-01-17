@@ -15,7 +15,8 @@ module Completers
           expect( place.locality ).to eq('Fernandina Beach')
           expect( place.street_addresses ).to eq( ['22 S 3rd St', '20 S 3rd St'] )
           expect( place.names ).to eq( ['Florida House Inn', '1857 Florida House Inn'] )
-          expect( place.phones ).to eq({})
+          expect( place.phones ).to eq( [] )
+          expect( place.phone ).to eq nil
           expect( place.category ).to eq('Hotel')
           expect( place.full_address ).to eq("22 South 3rd Street, Fernandina Beach, FL 32034, USA")
           expect( place.meta_category ).to eq('Stay')
@@ -29,7 +30,7 @@ module Completers
           expect( place.locality ).to eq('Shibuya-ku')
           expect( place.street_addresses ).to eq( ["代々木2-14-3"] ) # Bonus -- should have "2 Chome-14 Yoyogi"
           expect( place.names ).to eq( ["Fuunji", "風雲児"] )
-          expect( place.phones.symbolize_keys ).to eq({ default: "81364138480" })
+          expect( place.phones ).to eq(["81364138480"])
           expect( place.category ).to eq("Ramen / Noodle House")
           expect( place.meta_categories ).to eq(['Food'])
           expect( place.meta_category ).to eq('Food')
@@ -68,7 +69,7 @@ module Completers
         it "locates the Trident hotel in Mumbai, with 'Bombay' as nearby" do
           place = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: 'Bombay', street_address: 'Nariman Point, Mumbai, India'}).complete!
           expect( place.names ).to eq(["Trident Nariman Point", "The Trident"])
-          expect( place.reload.phones.symbolize_keys ).to eq({ default: "912266324343" })
+          expect( place.reload.phones ).to eq(["912266324343"])
           expect( place.region ).to eq("Maharashtra")
           expect( place.street_addresses ).to eq(["Nariman Point, Mumbai, India", "Nariman Point"])
           expect( place.locality ).to eq("Mumbai")
@@ -90,7 +91,7 @@ module Completers
           expect( place.lon ).to eq -122.3503097
           expect( place.website ).to eq "http://www.caffevita.com"
           expect( place.names ).to eq ["Caffe Vita Inc", "Caffé Vita"]
-          expect( place.phones ).to hash_eq( {"default"=>"2066323535"} )
+          expect( place.phones ).to eq(["2066323535"])
           expect( place.hours ).to hash_eq( {
             "mon"=>[["0600", "2000"]], 
             "tue"=>[["0600", "2000"]], 
@@ -149,7 +150,7 @@ module Completers
           expect( place.categories ).to eq ['Dessert Shop']
           expect( place.meta_category ).to eq 'Food'
           expect( place.timezone_string ).to eq 'Europe/Paris'
-          # expect( place.phones ).to eq ["33145511212"]
+          expect( place.phones ).to eq ["33145511212"]
         end
 
         it "ensures L/L exists within natural bounds (e.g. Apizza Scholls in Antartica) -- also flip" do
@@ -176,7 +177,7 @@ module Completers
             "sat"=>[["1700", "2130"]],
             "sun"=>[["1600", "2000"]]
           })
-          # expect( place.phones ).to eq ["5032331286"]
+          expect( place.phones ).to eq ["5032331286"]
         end
 
         it "truly prioritizes nearby in finding matches (e.g. St Peters Episcopal Church in Fernandina Beach FL vs. Gainsville FL)" do
@@ -214,7 +215,7 @@ module Completers
           expect( place.categories ).to eq ["Café"]
           expect( place.meta_categories ).to eq ["Food"]
           expect( place.sublocality ).to eq "Pudong Xinqu"
-          #expect( place.phones ).to eq ["862151341075"]
+          expect( place.phones ).to eq ["862151341075"]
         end
 
         it "combines locations that are named distinctly only by introductory article (e.g. Casa de Socorro & La Casa de Socorro)" do
@@ -224,7 +225,7 @@ module Completers
           expect( place.lon ).to eq -75.5475489
           expect( place.website ).to eq "http://www.restaurantelacasadesocorro.com/"
           expect( place.names ).to eq ["La Casa de Socorro"]
-          expect( place.phones ).to eq( {"default"=>"5756644658"} )
+          expect( place.phone ).to eq("5756644658")
           expect( place.categories ).to eq ["Caribbean Restaurant"]
           expect( place.meta_categories ).to eq ["Food"]
         end

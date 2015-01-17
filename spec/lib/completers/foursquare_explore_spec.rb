@@ -20,7 +20,7 @@ module Completers
           c_place = completed[:place].place
 
           expect( c_place.street_address ).to eq('1320 Castro St')
-          expect( c_place.phones ).to eq( { 'default' => "4152850250" } )
+          expect( c_place.phones ).to eq( ["4152850250"] )
         end
 
         it "completes with locality and name" do

@@ -64,7 +64,7 @@ module Completers
       return unless venue
 
       pip.set_val( :names, venue.name, self.class )
-      pip.set_val( :phones, { default: venue.phone }, self.class ) if venue.phone
+      pip.set_val( :phones, venue.phone, self.class ) if venue.phone
       pip.set_val( :street_addresses, venue.address, self.class )
       pip.set_val( :website, venue.website, self.class )
       pip.set_val( :locality, venue.locality ,  self.class )
