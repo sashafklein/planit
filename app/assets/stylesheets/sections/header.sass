@@ -2,7 +2,8 @@
 
 .init-header-space
   margin: 74px 0 0 0
-  &.bucket, &.simple
+  // &.bucket, &.simple
+  &.simple
     margin: 106px 0 0 0
 
 .initial-header
@@ -133,7 +134,7 @@
   font-size: 14px !important
   line-height: 28px !important
   margin-top: 21px !important
-  padding: 0px 6px !important
+  padding: 0px 12px !important
   i
     font-size: 14px !important
     line-height: 28px !important
@@ -193,6 +194,35 @@
     top: 50%
     transform: translateY(-50%)
 
+.top-nav-bar
+  cursor: pointer
+  text-align: center
+  display: table
+  table-layout: fixed
+
+  .nav-item
+    padding: 0px 5px 5px 5px
+    box-sizing: border-box
+    -moz-box-sizing: border-box
+    -webkit-box-sizing: border-box
+    display: table-cell
+    width: auto
+    color: #333
+    font-size: 18px
+    line-height: 18px
+    border-bottom: 3px transparent solid
+    &.raised
+      color: #000
+    &:hover, &:active
+      color: #ff0066
+      border-bottom: 3px #ff0066 solid
+    &.selected
+      background: rgb(28, 48, 147)
+      &:hover, &:active
+        background: rgb(18, 31, 97)
+        border-bottom: #aaa 3px solid
+        color: #fff
+
 .page-header-band
   position: fixed
   top: 74px
@@ -207,7 +237,7 @@
   opacity: 1
   visibility: visible
   z-index: 16777269
-  &.place, &.user, &.plan, &.new, &.simple
+  &.place, &.user, &.plan, &.new, &.simple, &.bucket
     display: none
     visibility: none
 

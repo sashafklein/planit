@@ -17,7 +17,7 @@
           = image_tag "logo_name_only_#{color}.png", class: "logo-name-top #{page_type}", style: "float:left; width: 86px; height: 50px; margin: 10px 10px 10px 0"
         .search-bar-wrap{ class: page_type }
           .input-group
-            %input.form-control#input-search-field{ :name  => "input-search", :placeholder => "Search / Add", :type => "text"}/
+            %input.form-control#input-search-field{ :name  => "input-search", :placeholder => "Search & Sort", :type => "text"}/
             %span.input-group-btn
               %button.btn.btn-default#input-search-button{:type => "button"}
                 %i.fa.fa-search.fa-lg
@@ -36,6 +36,10 @@
             %i.fa.fa-bars.a-override.main-menu-icon.dropdown-toggle{ class: "a-black h-black" }
           %ul.dropdown-menu
             - if current_user
+              %li
+                %i.fa.fa-user.fa-fw
+                = link_to "My Dashboard", user_path(current_user)
+              %li.divider
               %li
                 %i.fa.fa-user.fa-fw
                 = link_to "Update Account", edit_user_registration_path
@@ -58,7 +62,17 @@
                 = link_to "Sign Up", new_user_registration_path
         .side-menu-container{ class: "#{color} #{page_type}" }
           - if current_user
-            %strong.a-override.h-neon{ class: "a-#{color}" }= link_to "DASHBOARD", user_path(current_user)
+            .top-nav-bar
+              .nav-item.nav-item-map{ class: page_type }
+                %span.icon-map4
+              .nav-item.nav-item-list{ class: page_type }
+                %i.fa.fa-th-large
+              .nav-item.nav-item-new.raised{ class: page_type }
+                %i.fa.fa-plus-circle
+              .nav-item.nav-item-feed{ class: page_type }
+                %i.fa.fa-inbox
+              .nav-item.nav-item-share{ class: page_type }
+                %i.fa.fa-paper-plane
           - else
             %strong.a-override.h-neon{ class: "a-#{color}" }= link_to "SIGN UP", new_user_registration_path
             %span.divider= "|"
