@@ -5,7 +5,7 @@ FactoryGirl.define do
     sequence(:names) { |n| ["Place Name #{n}", "Local Name #{n}"] }
     postal_code '94114'
     sequence(:street_addresses) { |n| ["#{n} Some Street"] }
-    phones {{ default: "1234167890" }}
+    phones ["1234167890"]
     country "SomeCountry"
     region "StateName"
     locality "CityName"
@@ -19,7 +19,7 @@ FactoryGirl.define do
       street_addresses ["6 carrefour de l'Odeon"]
       locality "Paris"
       postal_code "75006"
-      phones( { default: "+33 1 44 27 07 97" } )
+      phones(["+33 1 44 27 07 97"])
       categories ["Brasseries", "French"]
       country 'France'
       hours({

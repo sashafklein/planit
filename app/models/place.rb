@@ -6,8 +6,8 @@ class Place < ActiveRecord::Base
   include ActiveRecord::MetaExt
   include ActiveRecord::MetaExt::HstoreAccessor
 
-  array_accessor :flag, :completion_step, :street_address, :name, :category, :meta_category
-  hstore_accessor :hours, :extra, :phones
+  array_accessor :flag, :completion_step, :street_address, :name, :category, :meta_category, :phone
+  hstore_accessor :hours, :extra
   validate!
 
   scope :by_ll_and_name, -> (atts, name, points=2) { where.not( lat: nil ).where.not( lon: nil ).by_ll(atts[:lat], atts[:lon], points).with_name(name) }

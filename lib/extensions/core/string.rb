@@ -26,15 +26,21 @@ class String
   end
 
   def non_latinate?
-    %r!#{non_latinate_or_punctuation_or_space_thread}!.match(self)
+    !latinate?
   end
 
-  def without_articles(articles= %w(the an a) )
+  def latinate?
+    !(%r!#{non_latinate_or_punctuation_or_space_thread}!.match(self))
+  end
+
+  def without_articles(articles=nil)
+    articles ||= %w(the la el las les los le o os il gli o os der die de du ang da nan an)
+
     split(" ").reject{ |w| articles.include?(w.downcase) }.join(" ")
   end
 
   def without_common_symbols
-    cut %w(& # * , ; . ' " * ^ % ! @  )
+    cut %w(& # * , ; . ' " * ^ % ! @ )
   end
 
   def capitalized?

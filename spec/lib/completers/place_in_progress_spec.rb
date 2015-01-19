@@ -4,7 +4,7 @@ module Completers
   describe PlaceInProgress do
 
     before do 
-      @attrs = {phones: { default: '123456789' }, lat: 12.345678, names: ["Whatever"]}
+      @attrs = {phones: ['123456789'], lat: 12.345678, names: ["Whatever"]}
       @pip = PlaceInProgress.new(@attrs)
     end
 
@@ -14,7 +14,7 @@ module Completers
         expect( @pip.names ).to eq @attrs[:names]
         expect( @pip.source(:lat) ).to eq "PlaceInProgress"
         expect( @pip.source(:names) ).to eq ["PlaceInProgress"]
-        expect( @pip.source(:phones) ).to hash_eq( { default: 'PlaceInProgress' } )
+        expect( @pip.source(:phones) ).to eq( ['PlaceInProgress'] )
 
         expect( @pip.lon ).to eq nil
         expect( @pip.categories ).to eq []
@@ -23,7 +23,7 @@ module Completers
         expect( @pip.attrs.reject{ |k, v| v.blank? } ).to hash_eq({
           lat: { val: @attrs[:lat], source: "PlaceInProgress" },
           names: [{ val: @attrs[:names], source: "PlaceInProgress" }],
-          phones: { default: { val: @attrs[:phones][:default], source: "PlaceInProgress" } }
+          phones:[{ val: @attrs[:phones],source: "PlaceInProgress" }]
         })
       end
     end
@@ -62,7 +62,7 @@ module Completers
     describe "#val(sym)" do
       it "extracts the value correctly, excluding the source" do
         expect( @pip.val(:names) ).to eq ["Whatever"]
-        expect( @pip.val(:phones) ).to hash_eq( { default: '123456789'} )
+        expect( @pip.val(:phones) ).to eq( ['123456789'] )
         expect( @pip.val(:lat) ).to eq 12.345678
 
         @pip.set_val(:lon, 2, Nearby)
@@ -88,7 +88,7 @@ module Completers
       it "initializes a place with all the right attributes" do
         expect(@pip.place).to be_a Place
         expect(@pip.place.lat).to eq @pip.val(:lat)
-        expect(@pip.place.phones).to eq @pip.val(:phones).stringify_keys
+        expect(@pip.place.phones).to eq @pip.val(:phones)
       end
     end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150111231448) do
+ActiveRecord::Schema.define(version: 20150113211138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,7 +139,6 @@ ActiveRecord::Schema.define(version: 20150111231448) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "names",             default: [],    array: true
-    t.hstore   "phones",            default: {}
     t.string   "email"
     t.string   "contact_name"
     t.hstore   "hours",             default: {}
@@ -163,6 +162,7 @@ ActiveRecord::Schema.define(version: 20150111231448) do
     t.boolean  "reservations",      default: false
     t.string   "reservations_link"
     t.string   "meta_categories",   default: [],    array: true
+    t.string   "phones",            default: [],    array: true
   end
 
   create_table "plans", force: true do |t|

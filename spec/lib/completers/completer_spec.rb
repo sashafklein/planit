@@ -163,14 +163,13 @@ module Completers
           expect(i.plan.name).to eq "New York for Jetsetters"
         end
 
-        it "creates Boom Boom Room in context" do
+        it "creates Boom Boom Room in context despite crappy FS data" do
           m = Completer.new(yml_data('jetsetters', 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/', 'Boom Boom Room'), @user).complete!
 
           expect(m.country).to eq "United States"
           expect(m.region).to eq "New York"
           expect(m.locality).to eq "New York"
-          expect(m.place.completion_steps).to eq ["Narrow", "FoursquareExplore", "FoursquareRefine", "Translate"]
-          expect(m.place.flags).to eq ["Took information from identically named, distant FoursquareExplore data with LatLon: 40.7406045, -74.0078798. Old lat lon: 40.7406045, -74.0078798"]
+          expect(m.place.completion_steps).to eq ["Narrow", "Translate"]
 
           i = m.items.first
           expect(i.plan.name).to eq "New York for Jetsetters"

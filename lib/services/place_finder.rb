@@ -64,7 +64,7 @@ module Services
       place.assign_attributes( place_atts.select { |k,v| should_update?(place, k) } )
       
       place.names = ( place.names + place_atts.fetch(:names, []) ).compact.uniq
-      place.phones = place_atts.fetch(:phones, {}).merge place.phones
+      place.phones = ( place.phones + place_atts.fetch(:phones, []) ).compact.uniq
       place.hours = place_atts.fetch(:hours, {}).merge place.hours
 
       place

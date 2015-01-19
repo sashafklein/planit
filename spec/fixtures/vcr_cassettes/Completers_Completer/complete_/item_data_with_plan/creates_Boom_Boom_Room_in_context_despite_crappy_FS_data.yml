@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 13 Jan 2015 20:57:47 GMT
+      - Tue, 13 Jan 2015 21:01:18 GMT
       Server:
       - Apache/2.2.17 (Linux/SUSE)
       Cache-Control:
@@ -32,11 +32,11 @@ http_interactions:
       - application/json;charset=UTF-8
     body:
       encoding: UTF-8
-      string: '{"time":"2015-01-13 15:57","countryName":"United States","sunset":"2015-01-13
+      string: '{"time":"2015-01-13 16:01","countryName":"United States","sunset":"2015-01-13
         16:50","rawOffset":-5,"dstOffset":-4,"countryCode":"US","gmtOffset":-5,"lng":-74.007949,"sunrise":"2015-01-13
         07:19","timezoneId":"America/New_York","lat":40.740639}'
     http_version: 
-  recorded_at: Tue, 13 Jan 2015 20:57:47 GMT
+  recorded_at: Tue, 13 Jan 2015 21:01:17 GMT
 - request:
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=40.740639,-74.007949&sensor=false
@@ -58,9 +58,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Tue, 13 Jan 2015 20:57:47 GMT
+      - Tue, 13 Jan 2015 21:01:18 GMT
       Expires:
-      - Wed, 14 Jan 2015 20:57:47 GMT
+      - Wed, 14 Jan 2015 21:01:18 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -658,10 +658,10 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Tue, 13 Jan 2015 20:57:47 GMT
+  recorded_at: Tue, 13 Jan 2015 21:01:18 GMT
 - request:
     method: get
-    uri: https://api.foursquare.com/v2/venues/explore?near=New%20York,%20New%20York,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Boom%20Boom%20Room&v=20140819&venuePhotos=1
+    uri: https://api.foursquare.com/v2/venues/explore?ll=40.7406045,-74.0078798&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Boom%20Boom%20Room&v=20140819&venuePhotos=1
     body:
       encoding: US-ASCII
       string: ''
@@ -678,7 +678,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 13 Jan 2015 20:57:48 GMT
+      - Tue, 13 Jan 2015 21:01:20 GMT
       Server:
       - nginx
       Content-Type:
@@ -686,11 +686,11 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Tracer-Time:
-      - '295'
+      - '175'
       X-Ratelimit-Limit:
       - '500'
       X-Ratelimit-Remaining:
-      - '471'
+      - '470'
       Strict-Transport-Security:
       - max-age=864000
       X-Ex:
@@ -700,7 +700,7 @@ http_interactions:
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-ord1722-ORD
+      - cache-dfw1834-DFW
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -711,21 +711,13 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"geocode":{"what":"","where":"new
-        york new york united states","center":{"lat":40.742185,"lng":-73.992602},"displayString":"New
-        York, NY, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":40.882214,"lng":-73.907},"sw":{"lat":40.679548,"lng":-74.047285}}},"slug":"new-york-city-new-york","longId":"72057594043056517"},"warning":{"text":"There
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"warning":{"text":"There
         aren''t a lot of results for \"Boom Boom Room.\" Try something more general,
-        reset your filters, or expand the search area."},"headerLocation":"New York","headerFullLocation":"New
-        York","headerLocationGranularity":"city","query":"boom boom room","totalResults":1,"suggestedBounds":{"ne":{"lat":40.79703326182698,"lng":-74.00176304316852},"sw":{"lat":40.79433360204153,"lng":-73.99906064510537}},"groups":[{"type":"Recommended
-        Places","name":"recommended","items":[{"reasons":{"count":0,"items":[{"summary":"This
-        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4ef6cee002d5abdcbaf6461c","name":"Boom
-        Boom Room Pt 2 In HD","contact":{},"location":{"lat":40.79568343193426,"lng":-74.00041184413695,"postalCode":"07047","cc":"US","city":"North
-        Bergen","state":"NJ","country":"United States","formattedAddress":["North
-        Bergen, NJ 07047"]},"categories":[{"id":"4bf58dd8d48988d1d6941735","name":"Strip
-        Club","pluralName":"Strip Clubs","shortName":"Strip Club","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/nightlife\/stripclub_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":366,"usersCount":13,"tipCount":0},"price":{"tier":3,"message":"Expensive","currency":"$"},"like":false,"hours":{"isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":15,"groups":[]},"hereNow":{"count":0,"summary":"Nobody
-        here","groups":[]}},"referralId":"e-0-4ef6cee002d5abdcbaf6461c-0"}]}]}}'
+        reset your filters, or expand the search area."},"suggestedRadius":1800,"headerLocation":"Meatpacking
+        District","headerFullLocation":"Meatpacking District, New York","headerLocationGranularity":"neighborhood","query":"boom
+        boom room","totalResults":0,"groups":[{"type":"Recommended Places","name":"recommended","items":[]}]}}'
     http_version: 
-  recorded_at: Tue, 13 Jan 2015 20:57:48 GMT
+  recorded_at: Tue, 13 Jan 2015 21:01:20 GMT
 - request:
     method: get
     uri: http://api.geonames.org/timezoneJSON?lat=40.7406045&lng=-74.0078798&username=sashafklein
@@ -745,9 +737,9 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 13 Jan 2015 20:58:05 GMT
+      - Tue, 13 Jan 2015 21:01:21 GMT
       Server:
-      - Apache/2.4.6 (Linux/SUSE)
+      - Apache/2.2.17 (Linux/SUSE)
       Cache-Control:
       - no-cache
       Access-Control-Allow-Origin:
@@ -758,9 +750,9 @@ http_interactions:
       - application/json;charset=UTF-8
     body:
       encoding: UTF-8
-      string: '{"sunrise":"2015-01-13 07:19","lng":-74.0078798,"countryCode":"US","gmtOffset":-5,"rawOffset":-5,"sunset":"2015-01-13
-        16:50","timezoneId":"America/New_York","dstOffset":-4,"countryName":"United
-        States","time":"2015-01-13 15:58","lat":40.7406045}'
+      string: '{"time":"2015-01-13 16:01","countryName":"United States","sunset":"2015-01-13
+        16:50","rawOffset":-5,"dstOffset":-4,"countryCode":"US","gmtOffset":-5,"lng":-74.0078798,"sunrise":"2015-01-13
+        07:19","timezoneId":"America/New_York","lat":40.7406045}'
     http_version: 
-  recorded_at: Tue, 13 Jan 2015 20:58:05 GMT
+  recorded_at: Tue, 13 Jan 2015 21:01:21 GMT
 recorded_with: VCR 2.9.3

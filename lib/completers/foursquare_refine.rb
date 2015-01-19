@@ -31,6 +31,7 @@ module Completers
       set_val :wifi, venue.wifi
       set_val :cross_street, venue.cross_street
       set_val :hours, venue.hours 
+      set_val :categories, venue.categories
       set_val :reservations, venue.reservations 
       set_val :reservations_link, venue.reservations_link
       set_val :completion_steps, self.class.to_s.demodulize, true
@@ -72,6 +73,10 @@ module Completers
         json.super_fetch :menu, :mobileUrl
       end
 
+      def categories
+        Array( json.categories ).flatten.map{ |c| c['name'] }
+      end
+
       def reservations
         return true if reservations_link.present?
 
@@ -101,12 +106,14 @@ module Completers
       def format(hours)
         return nil unless hours
 
-        split_time_blocks = hours.timeframes.inject({}) do |new_hours, tf|
-          new_hours[tf.days.downcase] = tf.open.map{ |block| parse_time(block.renderedTime) } 
-          new_hours
+        new_hours = {}
+        hours.timeframes.each do |tf|
+          Array(tf.days.split(", ")).flatten.map(&:downcase).each do |day|
+            new_hours[day] = tf.open.map{ |block| parse_time(block.renderedTime) } 
+          end
         end
 
-        Services::TimeConverter.convert_hours(split_time_blocks)
+        Services::TimeConverter.convert_hours(new_hours)
       end
 
       def parse_time(rendered_time)

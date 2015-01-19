@@ -20,8 +20,7 @@ module Completers
           c_place = completed[:place].place
 
           expect( c_place.street_address ).to eq('1320 Castro St')
-          expect( c_place.phones ).to eq( { 'default' => "4152850250" } )
-          expect( c_place.category ).to eq('Spanish Restaurant')
+          expect( c_place.phones ).to eq( ["4152850250"] )
         end
 
         it "completes with locality and name" do
@@ -35,7 +34,6 @@ module Completers
           expect( %w(png jpg jpeg) ).to include img.url.split('.').last
           expect(img.source).to eq 'Foursquare'
 
-          expect( c_place.category ).to eq('Seafood Restaurant')
           expect( c_place.country ).to eq('Colombia')
           expect( c_place.region ).to eq('Bolívar')
         end

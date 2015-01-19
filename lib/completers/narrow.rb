@@ -15,7 +15,7 @@ module Completers
         pip.set_val(:postal_code, postal_code, self.class)
         pip.set_val(:full_address, full_address, self.class) if !pip.full_address
       else
-        note_if_lat_lon_possibly_reversed
+        reverse_lat_lon_if_appropriate
         update_location_basics(true, false) # Don't trust locality
       end
 

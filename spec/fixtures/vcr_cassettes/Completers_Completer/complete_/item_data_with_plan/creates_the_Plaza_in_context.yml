@@ -2,6 +2,43 @@
 http_interactions:
 - request:
     method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=40.76424&lng=-73.97388&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 13 Jan 2015 20:41:47 GMT
+      Server:
+      - Apache/2.4.6 (Linux/SUSE)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"sunrise":"2015-01-13 07:18","lng":-73.97388,"countryCode":"US","gmtOffset":-5,"rawOffset":-5,"sunset":"2015-01-13
+        16:50","timezoneId":"America/New_York","dstOffset":-4,"countryName":"United
+        States","time":"2015-01-13 15:41","lat":40.76424}'
+    http_version: 
+  recorded_at: Tue, 13 Jan 2015 20:41:47 GMT
+- request:
+    method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=40.76424,-73.97388&sensor=false
     body:
       encoding: US-ASCII
@@ -21,9 +58,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Sun, 11 Jan 2015 21:23:26 GMT
+      - Tue, 13 Jan 2015 20:41:47 GMT
       Expires:
-      - Mon, 12 Jan 2015 21:23:26 GMT
+      - Wed, 14 Jan 2015 20:41:47 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -722,10 +759,10 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Sun, 11 Jan 2015 21:23:27 GMT
+  recorded_at: Tue, 13 Jan 2015 20:41:47 GMT
 - request:
     method: get
-    uri: https://api.foursquare.com/v2/venues/explore?near=New%20York,%20New%20York,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=The%20Plaza&v=20140819&venuePhotos=1
+    uri: https://api.foursquare.com/v2/venues/explore?ll=40.7650434,-73.97331969999999&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=The%20Plaza&v=20140819&venuePhotos=1
     body:
       encoding: US-ASCII
       string: ''
@@ -742,7 +779,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 11 Jan 2015 21:23:27 GMT
+      - Tue, 13 Jan 2015 20:41:48 GMT
       Server:
       - nginx
       Content-Type:
@@ -750,11 +787,11 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Tracer-Time:
-      - '299'
+      - '241'
       X-Ratelimit-Limit:
       - '500'
       X-Ratelimit-Remaining:
-      - '377'
+      - '488'
       Strict-Transport-Security:
       - max-age=864000
       X-Ex:
@@ -764,7 +801,7 @@ http_interactions:
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-ord1735-ORD
+      - cache-ord1731-ORD
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -775,16 +812,15 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"geocode":{"what":"","where":"new
-        york new york united states","center":{"lat":40.742185,"lng":-73.992602},"displayString":"New
-        York, NY, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":40.882214,"lng":-73.907},"sw":{"lat":40.679548,"lng":-74.047285}}},"slug":"new-york-city-new-york","longId":"72057594043056517"},"warning":{"text":"There
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"warning":{"text":"There
         aren''t a lot of results for \"The Plaza.\" Try something more general, reset
-        your filters, or expand the search area."},"headerLocation":"New York","headerFullLocation":"New
-        York","headerLocationGranularity":"city","query":"the plaza","totalResults":3,"suggestedBounds":{"ne":{"lat":40.76431454882414,"lng":-73.97274222345155},"sw":{"lat":40.75934352341505,"lng":-73.9811136062572}},"groups":[{"type":"Recommended
+        your filters, or expand the search area."},"suggestedRadius":600,"headerLocation":"Central
+        Park","headerFullLocation":"Central Park, New York","headerLocationGranularity":"neighborhood","query":"the
+        plaza","totalResults":2,"suggestedBounds":{"ne":{"lat":40.76537258146571,"lng":-73.97533172193376},"sw":{"lat":40.76267292168026,"lng":-73.97262410553417}},"groups":[{"type":"Recommended
         Places","name":"recommended","items":[{"reasons":{"count":0,"items":[{"summary":"This
         spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4ddacc00b0fb97d348b93271","name":"The
         Shops at The Plaza","contact":{"phone":"2125465499","formattedPhone":"(212)
-        546-5499"},"location":{"address":"1 W 58th St","crossStreet":"5th Ave","lat":40.76408859312372,"lng":-73.97483308661613,"postalCode":"10019","cc":"US","city":"New
+        546-5499"},"location":{"address":"1 W 58th St","crossStreet":"5th Ave","lat":40.76408859312372,"lng":-73.97483308661613,"distance":166,"postalCode":"10019","cc":"US","city":"New
         York","state":"NY","country":"United States","formattedAddress":["1 W 58th
         St (5th Ave)","New York, NY 10019"]},"categories":[{"id":"4bf58dd8d48988d1fd941735","name":"Mall","pluralName":"Malls","shortName":"Mall","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/shops\/mall_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":637,"usersCount":417,"tipCount":7},"hasMenu":true,"like":false,"rating":7.8,"ratingSignals":15,"menu":{"type":"Services","label":"Services","anchor":"View
         Services","url":"https:\/\/foursquare.com\/v\/the-shops-at-the-plaza\/4ddacc00b0fb97d348b93271\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/4ddacc00b0fb97d348b93271\/device_menu"},"hours":{"status":"Likely
@@ -795,172 +831,16 @@ http_interactions:
         like"},"logView":true,"todo":{"count":1},"user":{"id":"42913020","firstName":"Cathy","lastName":"Smith","gender":"female","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/RBNZDLNGSMCD0J00.jpg"}}}],"referralId":"e-0-4ddacc00b0fb97d348b93271-0"},{"reasons":{"count":0,"items":[{"summary":"This
         spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4dab414d8154abafc2bf224f","name":"The
         Plaza Hotel Fountain","contact":{},"location":{"address":"59 5th Ave","crossStreet":"(Central
-        Park South)","lat":40.76395691002225,"lng":-73.9731227408518,"postalCode":"10003","cc":"US","city":"New
+        Park South)","lat":40.76395691002225,"lng":-73.9731227408518,"distance":122,"postalCode":"10003","cc":"US","city":"New
         York","state":"NY","country":"United States","formattedAddress":["59 5th Ave
         ((Central Park South))","New York, NY 10003"]},"categories":[{"id":"4bf58dd8d48988d164941735","name":"Plaza","pluralName":"Plazas","shortName":"Plaza","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/parks_outdoors\/plaza_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":1623,"usersCount":1244,"tipCount":6},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":141,"groups":[{"type":"venue","name":"Venue
         photos","count":141,"items":[{"id":"51843035498e43b270124076","createdAt":1367617589,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/29101171_4-Dul_8kabnGMxuQiCvhwQa4EKbHP8wCX0fEIiKLW18.jpg","width":1440,"height":1440,"user":{"id":"29101171","firstName":"Rudolf","lastName":"French","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/-FJLKJAH1XZWJN5JE.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
         here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"51843035498e43b270124076","createdAt":1367617589,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/29101171_4-Dul_8kabnGMxuQiCvhwQa4EKbHP8wCX0fEIiKLW18.jpg","width":1440,"height":1440,"user":{"id":"29101171","firstName":"Rudolf","lastName":"French","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/-FJLKJAH1XZWJN5JE.jpg"}},"visibility":"public"}]}},"tips":[{"id":"4eb59239b8f786e27544d12f","createdAt":1320522297,"text":"It
         smells like horse poop here, but it''s so fkn classy.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/4eb59239b8f786e27544d12f","photo":{"id":"4eb5924002d5f33e92a1a4a2","createdAt":1320522304,"source":{"name":"foursquare
         for iPhone","url":"https:\/\/foursquare.com\/download\/#\/iphone"},"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/MSQVEFV3BYBJFNMYXGPUCNWP2FI43HHQBISP3NRM0G2CPPMA.jpg","width":537,"height":720},"photourl":"https:\/\/irs2.4sqi.net\/img\/general\/original\/MSQVEFV3BYBJFNMYXGPUCNWP2FI43HHQBISP3NRM0G2CPPMA.jpg","likes":{"count":7,"groups":[],"summary":"7
-        likes"},"logView":true,"todo":{"count":0},"user":{"id":"14789901","firstName":"Rose","lastName":"Kowalski","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/VNO434VZEYXYS5B5.jpg"}}}],"referralId":"e-0-4dab414d8154abafc2bf224f-1"},{"reasons":{"count":0,"items":[{"summary":"This
-        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4e57c94118a82d0a334aa4d0","name":"The
-        Plaza at 1251","contact":{},"location":{"lat":40.759569479115456,"lng":-73.98073308885695,"cc":"US","state":"New
-        York","country":"United States","formattedAddress":["New York"]},"categories":[{"id":"4bf58dd8d48988d164941735","name":"Plaza","pluralName":"Plazas","shortName":"Plaza","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/parks_outdoors\/plaza_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":86,"usersCount":41,"tipCount":0},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":7,"groups":[{"type":"venue","name":"Venue
-        photos","count":7,"items":[{"id":"537ca902498e5ea3d39b6308","createdAt":1400678658,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/434494_NpT3KlGtOAGcIPcVSSqRrfAGJw4hb_uIiJkijqpcINo.jpg","width":960,"height":720,"user":{"id":"434494","firstName":"Marc","lastName":"Silverman","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/L4AHU0VEQ2KTP0DV.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
-        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"537ca902498e5ea3d39b6308","createdAt":1400678658,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/434494_NpT3KlGtOAGcIPcVSSqRrfAGJw4hb_uIiJkijqpcINo.jpg","width":960,"height":720,"user":{"id":"434494","firstName":"Marc","lastName":"Silverman","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/L4AHU0VEQ2KTP0DV.jpg"}},"visibility":"public"}]}},"referralId":"e-0-4e57c94118a82d0a334aa4d0-2"}]}]}}'
+        likes"},"logView":true,"todo":{"count":0},"user":{"id":"14789901","firstName":"Rose","lastName":"Kowalski","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/VNO434VZEYXYS5B5.jpg"}}}],"referralId":"e-0-4dab414d8154abafc2bf224f-1"}]}]}}'
     http_version: 
-  recorded_at: Sun, 11 Jan 2015 21:23:28 GMT
-- request:
-    method: get
-    uri: https://api.foursquare.com/v2/venues/4e57c94118a82d0a334aa4d0?oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Sun, 11 Jan 2015 21:23:28 GMT
-      Server:
-      - nginx
-      Content-Type:
-      - application/json; charset=utf-8
-      Access-Control-Allow-Origin:
-      - "*"
-      Tracer-Time:
-      - '52'
-      X-Ratelimit-Limit:
-      - '500'
-      X-Ratelimit-Remaining:
-      - '376'
-      Strict-Transport-Security:
-      - max-age=864000
-      X-Ex:
-      - fastly_cdn
-      Accept-Ranges:
-      - bytes
-      Via:
-      - 1.1 varnish
-      X-Served-By:
-      - cache-ord1732-ORD
-      X-Cache:
-      - MISS
-      X-Cache-Hits:
-      - '0'
-      Vary:
-      - Accept-Encoding,User-Agent,Accept-Language
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eyJtZXRhIjp7ImNvZGUiOjIwMH0sIm5vdGlmaWNhdGlvbnMiOlt7InR5cGUi
-        OiJub3RpZmljYXRpb25UcmF5IiwiaXRlbSI6eyJ1bnJlYWRDb3VudCI6NjN9
-        fV0sInJlc3BvbnNlIjp7InZlbnVlIjp7ImlkIjoiNGU1N2M5NDExOGE4MmQw
-        YTMzNGFhNGQwIiwibmFtZSI6IlRoZSBQbGF6YSBhdCAxMjUxIiwiY29udGFj
-        dCI6e30sImxvY2F0aW9uIjp7ImxhdCI6NDAuNzU5NTY5NDc5MTE1NDU2LCJs
-        bmciOi03My45ODA3MzMwODg4NTY5NSwiY2MiOiJVUyIsInN0YXRlIjoiTmV3
-        IFlvcmsiLCJjb3VudHJ5IjoiVW5pdGVkIFN0YXRlcyIsImZvcm1hdHRlZEFk
-        ZHJlc3MiOlsiTmV3IFlvcmsiXX0sImNhbm9uaWNhbFVybCI6Imh0dHBzOlwv
-        XC9mb3Vyc3F1YXJlLmNvbVwvdlwvdGhlLXBsYXphLWF0LTEyNTFcLzRlNTdj
-        OTQxMThhODJkMGEzMzRhYTRkMCIsImNhdGVnb3JpZXMiOlt7ImlkIjoiNGJm
-        NThkZDhkNDg5ODhkMTY0OTQxNzM1IiwibmFtZSI6IlBsYXphIiwicGx1cmFs
-        TmFtZSI6IlBsYXphcyIsInNob3J0TmFtZSI6IlBsYXphIiwiaWNvbiI6eyJw
-        cmVmaXgiOiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9pbWdcL2NhdGVnb3Jp
-        ZXNfdjJcL3BhcmtzX291dGRvb3JzXC9wbGF6YV8iLCJzdWZmaXgiOiIucG5n
-        In0sInByaW1hcnkiOnRydWV9XSwidmVyaWZpZWQiOmZhbHNlLCJzdGF0cyI6
-        eyJjaGVja2luc0NvdW50Ijo4NiwidXNlcnNDb3VudCI6NDIsInRpcENvdW50
-        IjowfSwibGlrZXMiOnsiY291bnQiOjAsImdyb3VwcyI6W119LCJsaWtlIjpm
-        YWxzZSwiZGlzbGlrZSI6ZmFsc2UsIm9rIjpmYWxzZSwic3BlY2lhbHMiOnsi
-        Y291bnQiOjAsIml0ZW1zIjpbXX0sInBob3RvcyI6eyJjb3VudCI6NywiZ3Jv
-        dXBzIjpbeyJ0eXBlIjoidmVudWUiLCJuYW1lIjoiVmVudWUgcGhvdG9zIiwi
-        Y291bnQiOjcsIml0ZW1zIjpbeyJpZCI6IjUzN2NhOTAyNDk4ZTVlYTNkMzli
-        NjMwOCIsImNyZWF0ZWRBdCI6MTQwMDY3ODY1OCwic291cmNlIjp7Im5hbWUi
-        OiJmb3Vyc3F1YXJlIGZvciBpUGhvbmUiLCJ1cmwiOiJodHRwczpcL1wvZm91
-        cnNxdWFyZS5jb21cL2Rvd25sb2FkXC8jXC9pcGhvbmUifSwicHJlZml4Ijoi
-        aHR0cHM6XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvZ2VuZXJhbFwvIiwic3Vm
-        Zml4IjoiXC80MzQ0OTRfTnBUM0tsR3RPQUdjSVBjVlNTcVJyZkFHSnc0aGJf
-        dUlpSmtpanFwY0lOby5qcGciLCJ3aWR0aCI6OTYwLCJoZWlnaHQiOjcyMCwi
-        dXNlciI6eyJpZCI6IjQzNDQ5NCIsImZpcnN0TmFtZSI6Ik1hcmMiLCJsYXN0
-        TmFtZSI6IlNpbHZlcm1hbiIsImdlbmRlciI6Im1hbGUiLCJwaG90byI6eyJw
-        cmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3FpLm5ldFwvaW1nXC91c2VyXC8i
-        LCJzdWZmaXgiOiJcL0w0QUhVMFZFUTJLVFAwRFYuanBnIn19LCJ2aXNpYmls
-        aXR5IjoicHVibGljIn0seyJpZCI6IjUzMWU5MWQzNDk4ZTk3YzBiMmY1NDg5
-        YiIsImNyZWF0ZWRBdCI6MTM5NDUxMjMzOSwic291cmNlIjp7Im5hbWUiOiJJ
-        bnN0YWdyYW0iLCJ1cmwiOiJodHRwOlwvXC9pbnN0YWdyYW0uY29tIn0sInBy
-        ZWZpeCI6Imh0dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9pbWdcL2dlbmVyYWxc
-        LyIsInN1ZmZpeCI6IlwvODA1ODYyMDRfcFltZ1l5XzF3RXJnZnBkYmFBdnla
-        dVUxaWFFTndCa1BFQWVmbkVuWHJuOC5qcGciLCJ3aWR0aCI6NjQwLCJoZWln
-        aHQiOjY0MCwidXNlciI6eyJpZCI6IjgwNTg2MjA0IiwiZmlyc3ROYW1lIjoi
-        UmHDumwgTS4iLCJsYXN0TmFtZSI6IklnbGVzaWFzIiwiZ2VuZGVyIjoibWFs
-        ZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMwLjRzcWkubmV0
-        XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvODA1ODYyMDQtSlBHMllCSUNM
-        QldNQVBSMi5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifSx7ImlkIjoi
-        NTNhZjBmMzA0OThlOTVkYmRmYWU0NTAyIiwiY3JlYXRlZEF0IjoxNDAzOTgx
-        NjE2LCJzb3VyY2UiOnsibmFtZSI6ImZvdXJzcXVhcmUgZm9yIGlQaG9uZSIs
-        InVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvZG93bmxvYWRcLyNc
-        L2lwaG9uZSJ9LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5ldFwv
-        aW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzMzMDEzNTBfUmtmZUxZVk1I
-        WXRScWtGenZsc2xyUWZTWEdkc1lMR1RIWjhGQ3cwcVFNOC5qcGciLCJ3aWR0
-        aCI6NzIwLCJoZWlnaHQiOjk2MCwidXNlciI6eyJpZCI6IjMzMDEzNTAiLCJm
-        aXJzdE5hbWUiOiJLZXZpbiIsImxhc3ROYW1lIjoiUnViaW4iLCJnZW5kZXIi
-        OiJtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNx
-        aS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9QS09YQU9NVjAxVVdE
-        UzBWLnBuZyJ9fSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9LHsiaWQiOiI1MGM1
-        MDZmNmU0YjA0ODk0MjZlYmM3ZGEiLCJjcmVhdGVkQXQiOjEzNTUwODk2NTQs
-        InNvdXJjZSI6eyJuYW1lIjoiZm91cnNxdWFyZSBmb3IgaVBob25lIiwidXJs
-        IjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9kb3dubG9hZFwvI1wvaXBo
-        b25lIn0sInByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdc
-        L2dlbmVyYWxcLyIsInN1ZmZpeCI6IlwvMTExNTY4MDlfSlIyZ1ZKZm1KXzF3
-        WU9iSkZOSndiWUdLS3J5SFRvbG1yRlhwTHFmVHBqMC5qcGciLCJ3aWR0aCI6
-        NTM3LCJoZWlnaHQiOjcyMCwidXNlciI6eyJpZCI6IjExMTU2ODA5IiwiZmly
-        c3ROYW1lIjoiYXJpcSIsImxhc3ROYW1lIjoiZGFuaWVscyIsImdlbmRlciI6
-        Im1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3Fp
-        Lm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzExMTU2ODA5LUZOWVVW
-        MVJPNDI0RUpWUFYifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifSx7ImlkIjoi
-        NTBjZTgzOGNlNGIwYzc2OTdiOTk4NzU1IiwiY3JlYXRlZEF0IjoxMzU1NzEx
-        MzcyLCJzb3VyY2UiOnsibmFtZSI6ImZvdXJzcXVhcmUgZm9yIGlQaG9uZSIs
-        InVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvZG93bmxvYWRcLyNc
-        L2lwaG9uZSJ9LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3FpLm5ldFwv
-        aW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzc3MjAwNF9waVh3czJLcHBB
-        NVp0djZNQ0NjZm5rSldmOUhfQk1rTGxiVDM3UjNjaWZVLmpwZyIsIndpZHRo
-        Ijo3MjAsImhlaWdodCI6NTQwLCJ1c2VyIjp7ImlkIjoiNzcyMDA0IiwiZmly
-        c3ROYW1lIjoiU3RlcGhlbiIsImxhc3ROYW1lIjoiT3NhZGEiLCJnZW5kZXIi
-        OiJtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczMuNHNx
-        aS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9JRkgxNDRVV1YyVExM
-        UklDLmpwZyJ9fSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9LHsiaWQiOiI1MGRj
-        ZThhY2U0YjBhYjdjZDFiZDM2ZjUiLCJjcmVhdGVkQXQiOjEzNTY2NTQ3NjQs
-        InNvdXJjZSI6eyJuYW1lIjoiSW5zdGFncmFtIiwidXJsIjoiaHR0cDpcL1wv
-        aW5zdGFncmFtLmNvbSJ9LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3Fp
-        Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzYyOTc5X0UtdE1w
-        ajdMZERYc0lJazdlWkhwbFQxeTdYazg0SFBrUm83dmc1dXBacncuanBnIiwi
-        d2lkdGgiOjYxMiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2Mjk3OSIs
-        ImZpcnN0TmFtZSI6IkthbmRpcnJhIiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhv
-        dG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wv
-        dXNlclwvIiwic3VmZml4IjoiXC9YVlVLWUhZSFhWV0VHQUQzLmpwZyJ9fSwi
-        dmlzaWJpbGl0eSI6InB1YmxpYyJ9XX1dfSwiaGVyZU5vdyI6eyJjb3VudCI6
-        MCwic3VtbWFyeSI6Ik5vYm9keSBoZXJlIiwiZ3JvdXBzIjpbXX0sInJlYXNv
-        bnMiOnsiY291bnQiOjAsIml0ZW1zIjpbXX0sImNyZWF0ZWRBdCI6MTMxNDM3
-        NjAwMSwibWF5b3IiOnsiY291bnQiOjB9LCJ0aXBzIjp7ImNvdW50IjowLCJn
-        cm91cHMiOlt7InR5cGUiOiJmb2xsb3dpbmciLCJuYW1lIjoiVGlwcyBmcm9t
-        IHBlb3BsZSB5b3UgZm9sbG93IiwiY291bnQiOjAsIml0ZW1zIjpbXX1dfSwi
-        dGFncyI6W10sInNob3J0VXJsIjoiaHR0cDpcL1wvNHNxLmNvbVwvcERwbVg2
-        IiwidGltZVpvbmUiOiJBbWVyaWNhXC9OZXdfWW9yayIsImxpc3RlZCI6eyJj
-        b3VudCI6MCwiZ3JvdXBzIjpbXX0sInBhZ2VVcGRhdGVzIjp7ImNvdW50Ijow
-        LCJpdGVtcyI6W119LCJpbmJveCI6eyJjb3VudCI6MCwiaXRlbXMiOltdfSwi
-        dmVudWVSYXRpbmdCbGFja2xpc3RlZCI6dHJ1ZSwiYXR0cmlidXRlcyI6eyJn
-        cm91cHMiOltdfX19fQ==
-    http_version: 
-  recorded_at: Sun, 11 Jan 2015 21:23:28 GMT
+  recorded_at: Tue, 13 Jan 2015 20:41:48 GMT
 - request:
     method: get
     uri: http://api.geonames.org/timezoneJSON?lat=40.7650434&lng=-73.97331969999999&username=sashafklein
@@ -980,9 +860,9 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 11 Jan 2015 21:23:28 GMT
+      - Tue, 13 Jan 2015 20:41:49 GMT
       Server:
-      - Apache/2.4.6 (Linux/SUSE)
+      - Apache/2.2.17 (Linux/SUSE)
       Cache-Control:
       - no-cache
       Access-Control-Allow-Origin:
@@ -993,9 +873,9 @@ http_interactions:
       - application/json;charset=UTF-8
     body:
       encoding: UTF-8
-      string: '{"sunrise":"2015-01-11 07:19","lng":-73.97331969999999,"countryCode":"US","gmtOffset":-5,"rawOffset":-5,"sunset":"2015-01-11
-        16:48","timezoneId":"America/New_York","dstOffset":-4,"countryName":"United
-        States","time":"2015-01-11 16:23","lat":40.7650434}'
+      string: '{"time":"2015-01-13 15:41","countryName":"United States","sunset":"2015-01-13
+        16:50","rawOffset":-5,"dstOffset":-4,"countryCode":"US","gmtOffset":-5,"lng":-73.97331969999999,"sunrise":"2015-01-13
+        07:18","timezoneId":"America/New_York","lat":40.7650434}'
     http_version: 
-  recorded_at: Sun, 11 Jan 2015 21:23:29 GMT
+  recorded_at: Tue, 13 Jan 2015 20:41:49 GMT
 recorded_with: VCR 2.9.3

@@ -29,15 +29,19 @@ module Completers
       return @points_similarity if @points_similarity
       return 0 unless lat && lon
       return 6 if pip.lat.nil? || pip.lon.nil?
-      @points_similarity = [pip.lat.points_of_similarity(lat), pip.lon.points_of_similarity(lon)].min
+      @points_similarity = ((pip.lat.points_of_similarity(lat) + pip.lon.points_of_similarity(lon)) / 2.0).floor
     end
 
     def similar_name?(pip)
-      pip_name, venue_name = pip.name.to_s.without_common_symbols, name.to_s.without_common_symbols
-      return true if pip_name.non_latinate? || venue_name.non_latinate?
+      if pip.names.all?(&:non_latinate?)
+        return pip.names.any?{ |n| n == name } && name_stringency(pip) != 2
+      end
+      
+      venue_name = clean(name)
 
-      pip.names.any? do |name|
-        distance = pip_name.without_articles.match_distance( venue_name.without_articles ) || 2
+      pip.names.reject(&:non_latinate?).any? do |pip_name|
+        pip_name = clean(pip_name)
+        distance = pip_name.match_distance( venue_name ) || 2
         matches = (distance > name_stringency(pip))
         matches
       end
@@ -49,6 +53,15 @@ module Completers
         [photo['prefix'], photo['suffix']].join(IMAGE_SIZE)
       end
     end   
+
+    def clean(n)
+      n = n.to_s.without_common_symbols.downcase.without_articles
+      if n.chars.select{ |c| c == c.no_accents }.count > n.chars.reject{ |c| c.no_accents }.count
+        n.no_accents
+      else
+        n
+      end
+    end
     
     def website
       json['url']
@@ -84,10 +97,6 @@ module Completers
 
     def locality
       json.super_fetch %w(location city)
-    end
-
-    def category
-      json.super_fetch ['categories', 0, 'name']
     end
 
     def full_address
