@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 20150113211138) do
     t.text     "flags",             default: [],    array: true
     t.text     "completion_steps",  default: [],    array: true
     t.text     "sublocality"
+    t.string   "meta_categories",   default: [],    array: true
     t.boolean  "wifi",              default: false
     t.string   "menu"
     t.string   "mobile_menu"
@@ -161,7 +162,6 @@ ActiveRecord::Schema.define(version: 20150113211138) do
     t.string   "timezone_string"
     t.boolean  "reservations",      default: false
     t.string   "reservations_link"
-    t.string   "meta_categories",   default: [],    array: true
     t.string   "phones",            default: [],    array: true
   end
 
