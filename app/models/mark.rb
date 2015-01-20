@@ -30,7 +30,11 @@ class Mark < ActiveRecord::Base
   end
 
   class << self
-    delegate :coordinates, to: :places
+    # delegate :coordinates, to: :places
+  end
+
+  def self.coordinates
+    places.map(&:coordinate)
   end
 
   def self.center_coordinate

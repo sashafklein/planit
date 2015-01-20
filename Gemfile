@@ -43,6 +43,8 @@ gem 'timezone'
 gem "compass"
 gem "compass-rails"
 
+gem 'jasmine'
+
 gem 'rails-assets-angular'
 gem 'rails-assets-angular-resource'
 gem 'rails-assets-angular-route'
@@ -81,7 +83,6 @@ group :test do
   gem 'vcr'
   gem "factory_girl_rails"
 
-  gem 'jasmine'
   gem "rspec-rails"
   gem "jasmine-rails"
   gem 'jasmine-headless-webkit'

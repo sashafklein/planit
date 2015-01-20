@@ -5,6 +5,7 @@ class Place < ActiveRecord::Base
   
   include ActiveRecord::MetaExt
   include ActiveRecord::MetaExt::HstoreAccessor
+  include ActiveRecord::MetaExt::ArrayAccessor
 
   array_accessor :flag, :completion_step, :street_address, :name, :category, :meta_category, :phone
   hstore_accessor :hours, :extra
