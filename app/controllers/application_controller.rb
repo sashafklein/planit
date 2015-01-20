@@ -24,11 +24,11 @@ class ApplicationController < ActionController::Base
   # Returning 403 Forbidden if permission is denied
   rescue_from Pundit::NotAuthorizedError, with: :permission_denied
  
-  # Enforces access right checks for individuals resources
-  after_filter :verify_authorized, :except => :index
+  # # Enforces access right checks for individuals resources
+  # after_filter :verify_authorized, :except => :index
  
-  # Enforces access right checks for collections
-  after_filter :verify_policy_scoped, :only => :index
+  # # Enforces access right checks for collections
+  # after_filter :verify_policy_scoped, :only => :index
  
  
   private

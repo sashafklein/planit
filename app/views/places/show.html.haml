@@ -40,4 +40,6 @@
       .eleven.columns.photos-wrap
         = @place.decorate.show_photos_or_noimage
 
+  = @place.decorate.next_image_script
+
   = render 'show/footer', { :page_type => 'place' }
