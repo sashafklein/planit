@@ -79,7 +79,7 @@ module Completers
 
       def reservations
         return true if reservations_link.present?
-
+        
         res = json.attributes.groups.find{ |g| g.type == 'reservations' }
         val = res ? res.to_sh.items.first.displayValue : 'No'
         val == 'No' ? false : true

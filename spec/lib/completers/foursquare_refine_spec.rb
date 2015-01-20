@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Completers
-  describe FoursquareRefine do
+  describe FoursquareRefine, :vcr do
 
     describe "the new attributes" do
 
