@@ -2,7 +2,7 @@ class ChangePhonesToArray < ActiveRecord::Migration
   def up
     new_phones = {}
     Place.find_each do |p|
-      new_phones[p.id] = p.phones.values.map{ |v| v.gsub(%r!\D!, '') }
+      new_phones[p.id] = p.phones.values.compact.map{ |v| v.gsub(%r!\D!, '') }
     end
 
     remove_column :places, :phones
@@ -19,7 +19,7 @@ class ChangePhonesToArray < ActiveRecord::Migration
   def down
     new_phones = {}
     Place.find_each do |p|
-      new_phones[p.id] = p.phones.values.map{ |v| v.gsub(%r!\D!, '') }
+      new_phones[p.id] = p.phones.values.compact.map{ |v| v.gsub(%r!\D!, '') }
     end
 
     remove_column :places, :phones

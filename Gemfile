@@ -51,9 +51,6 @@ gem 'rails-assets-active-support'
 gem 'rails-assets-async'
 gem 'rails-assets-lodash'
 gem 'rails-assets-leaflet'
-gem 'rails-assets-sinon'
-gem 'rails-assets-jasmine-sinon'
-gem 'rails-assets-rosie'
 gem 'rails-assets-requirejs'
 # gem 'rails-assets-leaflet.markercluster'
 
@@ -70,13 +67,7 @@ group :development, :test do
   gem "awesome_print"
   gem "byebug"
   gem "dotenv-rails"
-  gem "factory_girl_rails"
   gem "pry-rails"
-  gem "rspec-rails"
-  gem "jasmine-rails"
-  gem 'jasmine-headless-webkit'
-  gem 'guard-jasmine'
-  gem "sinon-rails"
 end
 
 group :test do
@@ -87,9 +78,18 @@ group :test do
   gem "shoulda-matchers", require: false
   gem "timecop"
   gem "webmock"
-
   gem 'vcr'
+  gem "factory_girl_rails"
+
   gem 'jasmine'
+  gem "rspec-rails"
+  gem "jasmine-rails"
+  gem 'jasmine-headless-webkit'
+  gem 'guard-jasmine'
+  gem "sinon-rails"
+  gem 'rails-assets-sinon'
+  gem 'rails-assets-jasmine-sinon'
+  gem 'rails-assets-rosie'
 end
 
 group :staging, :production do
