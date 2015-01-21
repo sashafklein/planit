@@ -26,6 +26,7 @@ module Scrapers
             country: country,
             phones: phone,
             hours: hours,
+            map_href: map_href,
             # images: images,
           },
           scraper_url: @url,
@@ -329,6 +330,11 @@ module Scrapers
           end
         end
       # rescue ; nil
+      end
+
+      def map_href
+        return @map_href if @map_href
+        map_links ? @map_href = map_links.map{ |l| l.last } : nil
       end
 
       def map_string

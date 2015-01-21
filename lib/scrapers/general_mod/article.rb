@@ -28,6 +28,7 @@ module Scrapers
               phones: phone,
               hours: hours,
               website: trim_url( more_info_website ),
+              map_href: map_href,
             },
             scraper_url: @url,
           ]
@@ -484,6 +485,11 @@ module Scrapers
             return @nearby = [@locality, @region, @country].compact.join(", ")
           end
         end
+      end
+
+      def map_href
+        return @map_href if @map_href
+        map_links ? @map_href = map_links.map{ |l| l.last } : nil
       end
 
       def map_string
