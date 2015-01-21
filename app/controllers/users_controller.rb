@@ -1,14 +1,13 @@
 class UsersController < ApplicationController
   
   before_action :load_user, only: [:bucket, :show]
+  before_action :authorize_user, only: [:bucket, :show]
 
   def bucket
-    authorize @user
     @marks = @user.marks.includes(:place)
   end
 
   def show
-    authorize @user
     marks = @user.marks.includes(:place)
     @marks = (admin? || same_user?) ? marks : marks.where(published: true)
   end
@@ -17,6 +16,10 @@ class UsersController < ApplicationController
 
   def load_user
     @user = User.friendly.find(params[:id])
+  end
+
+  def authorize_user
+    authorize @user
   end
 
 end

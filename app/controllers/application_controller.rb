@@ -19,9 +19,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :permission_denied
  
-  # # Enforces access right checks for individuals resources
-  after_action :verify_authorized, :except => :index
- 
   private
  
   def permission_denied
