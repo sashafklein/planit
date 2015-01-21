@@ -68,7 +68,7 @@ module Completers
       attrs[:extra] = normalize_extra
 
       found = Services::PlaceFinder.new(attrs).find!
-      @attrs = attrs.merge( found.attributes.symbolize_keys.to_sh ) if found.persisted?
+      @attrs = attrs.merge( found.attributes.symbolize_keys.reject{ |k,v| v.nil? }.to_sh ) if found.persisted?
     end
 
     def normalize_phones
