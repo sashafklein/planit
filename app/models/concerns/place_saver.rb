@@ -108,10 +108,6 @@ class PlaceSaver
     place.country_changed? && place.country && place.country.length < 3 
   end
 
-  def should_update_country?
-    place.country_changed? && place.country.length < 3
-  end
-
   def regional_info_correct_and_deaccented?
     [:country, :region, :subregion, :locality].all? do |att|
       val = place.read_attribute(att)

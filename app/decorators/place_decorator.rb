@@ -83,7 +83,7 @@ class PlaceDecorator < Draper::Decorator
   def show_phones
     if phones.any?
       html = ''
-      phones.map do |type, number|
+      phones.compact.each do |number|
         html += "<div class='address-info-line'>"
         html += "<i class='fa fa-phone place-show-icon'></i>"
         html += number
@@ -105,10 +105,17 @@ class PlaceDecorator < Draper::Decorator
     html = ''
     if hours.any?
       %w( sun mon tue wed thu fri sat ).each do |day|
-        if day == today = Date.today.strftime('%a').downcase
-          html += "<div class='show-hours-line today'><i class='show-hours-day'>#{day.titleize}:</i> #{hours[day].scan(/start[_]time\=\>\"([^"]*)\"/).flatten.first} to #{hours[day].scan(/end[_]time\=\>\"([^"]*)\"/).flatten.first}</div>"
+        if hours[day]
+          html += "<div class='show-hours-line "
+          html += "today" if day == today = Date.today.strftime('%a').downcase
+          html += "'><i class='show-hours-day'>#{day.titleize}:</i> "
+          windows = []
+          hours[day].each do |window|
+            windows << "#{Time.strptime(window.first, '%H%M').strftime('%l:%M%p').downcase} - #{Time.strptime(window.last, '%H%M').strftime('%l:%M%p').downcase}"
+          end
+          html += "#{windows.join(', ')}</div>"
         else
-          html += "<div class='show-hours-line'><i class='show-hours-day'>#{day.titleize}:</i> #{hours[day].scan(/start[_]time\=\>\"([^"]*)\"/).flatten.first} to #{hours[day].scan(/end[_]time\=\>\"([^"]*)\"/).flatten.first}</div>"
+          html += "<div class='show-hours-line'><i class='show-hours-day'>#{day.titleize}:</i> Closed</div>"
         end
       end
     end
@@ -116,28 +123,23 @@ class PlaceDecorator < Draper::Decorator
   end
 
   def show_open_today
-    
     if open_until.present?
-      content_tag :div, "<i class='fa fa-clock-o'></i> Open now (until #{open_until})".html_safe, :class => 'hours-availability-booking-content open-now'
+      content_tag :div, "<i class='fa fa-clock-o'></i> Open #{formatted_open_until}".html_safe, :class => 'hours-availability-booking-content open-now'
     elsif open_again_at.present? 
-      content_tag :div, "<i class='fa fa-clock-o'></i> Closed now (opens today at #{open_again_at})".html_safe, :class => 'hours-availability-booking-content closed-now'
+      content_tag :div, "<i class='fa fa-clock-o'></i> Closed #{formatted_open_again_at}".html_safe, :class => 'hours-availability-booking-content closed-now'
     end
   end
 
-  def show_reservations_maker
-    # if reservations.any?
-    #   content_tag :div, :class => 'more-info-line' do
-    #     "<i class='fa fa-calendar place-show-icon'></i>Takes Reservations"
-    #   end
-    # end
-  end
-
   def show_reservations
-    # if reservations.any?
-    #   content_tag :div, :class => 'more-info-line' do
-    #     "<i class='fa fa-calendar place-show-icon'></i>Takes Reservations"
-    #   end
-    # end
+    if reservations
+      content_tag :div, :class => 'more-info-line' do
+        if reservations_link
+          "<i class='fa fa-calendar place-show-icon'></i>Takes Reservations".html_safe
+        else
+          "<i class='fa fa-calendar place-show-icon'></i><a href='#{reservations_link}'>Make a Reservation</a>".html_safe
+        end
+      end
+    end
   end
 
   def show_price_info
@@ -155,19 +157,19 @@ class PlaceDecorator < Draper::Decorator
   end
 
   def show_view_menu
-    # if menu_url.present?
-    #   content_tag :div, :class => 'more-info-line' do
-    #     "<i class='fa fa-cutlery place-show-icon'></i> #{link_to menu_url, 'View Menu'}".html_safe
-    #   end
-    # end
+    if menu.present?
+      content_tag :div, :class => 'more-info-line' do
+        "<i class='fa fa-cutlery place-show-icon'></i> #{link_to menu, 'View Menu'}".html_safe
+      end
+    end
   end
 
   def show_has_wifi
-    # if wifi == true
-    #   content_tag :div, :class => 'more-info-line' do
-    #     "<i class='fa fa-wifi place-show-icon'></i> Has WiFi".html_safe
-    #   end
-    # end
+    if wifi == true
+      content_tag :div, :class => 'more-info-line' do
+        "<i class='fa fa-wifi place-show-icon'></i> Has WiFi".html_safe
+      end
+    end
   end
 
   private
@@ -218,6 +220,25 @@ class PlaceDecorator < Draper::Decorator
 
   def show_photo_number
     "<div class='photos-number'>[]</div>".html_safe
+  end
+
+  def formatted_open_until
+    if open_until
+      html = ["until"]
+      html << Time.strptime(open_until[:time], '%H%M').strftime('%l:%M%p').downcase
+      html << open_until[:day].titleize if open_until[:day] != Date.today.strftime('%a').downcase
+      html.join(" ")
+    end
+  end
+
+  def formatted_open_again_at
+    if open_again_at
+      html = ["until"]
+      html << Time.strptime(open_again_at[:time], '%H%M').strftime('%l:%M%p').downcase
+      html << open_again_at[:day].titleize if open_again_at[:day] != Date.today.strftime('%a').downcase
+      html << "today" if open_again_at[:day] == Date.today.strftime('%a').downcase
+      html.join(" ")
+    end
   end
 
 end
