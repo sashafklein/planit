@@ -1,4 +1,6 @@
 class Mark < BaseModel
+
+  boolean_accessor :lodging, :meal, :published
     
   before_save { category.downcase! if category_changed? }
   

@@ -1,5 +1,8 @@
 class Plan < BaseModel
 
+  include ActiveRecord::MetaExt
+  boolean_accessor :published
+
   extend FriendlyId
   friendly_id :name, use: :slugged
 

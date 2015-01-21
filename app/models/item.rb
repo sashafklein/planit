@@ -1,6 +1,7 @@
 class Item < BaseModel
   
   hstore_accessor :extra
+  boolean_accessor :published
   
   belongs_to :mark
   belongs_to :plan
