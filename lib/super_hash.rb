@@ -37,15 +37,25 @@ class SuperHash < Hash
   end
 
   def [](key)
-    super(key.to_s) || super(key.to_sym)
+    super(key.to_sym) || super(key.to_s)
   end
 
   def []=(key, val)
-    if [key.to_s]
-      super(key.to_s, val)
-    else [key.to_sym]
+    if self[key.to_sym]
       super(key.to_sym, val)
+    elsif self[key.to_s]
+      super(key.to_s, val)
+    else
+      super(key, val)
     end
+  end
+
+  def delete(key)
+    super(key.to_sym) || super(key.to_s)
+  end
+
+  def slice(*keys)
+    recursive_symbolize_keys.slice( *keys.map(&:to_sym) ).to_sh
   end
 
   private
