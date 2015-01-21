@@ -10,7 +10,12 @@ require 'vcr'
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |file| require file }
 
 module Features
-  # Extend this module in spec/support/features/*.rb
+  include Warden::Test::Helpers
+  Warden.test_mode!
+  
+  def sign_in(user)
+    login_as(user, scope: :user)
+  end
 end
 
 module Controllers
