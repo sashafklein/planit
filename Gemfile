@@ -43,7 +43,7 @@ gem 'timezone'
 gem "compass"
 gem "compass-rails"
 
-gem 'jasmine'
+# gem 'jasmine'
 
 gem 'rails-assets-angular'
 gem 'rails-assets-angular-resource'
@@ -55,7 +55,8 @@ gem 'rails-assets-lodash'
 gem 'rails-assets-leaflet'
 gem 'rails-assets-requirejs'
 gem 'rails-assets-sinon'
-gem 'rails-assets-jasmine-sinon'
+# gem 'rails-assets-jasmine'
+# gem 'rails-assets-jasmine-sinon'
 # gem 'rails-assets-leaflet.markercluster'
 
 group :development do
