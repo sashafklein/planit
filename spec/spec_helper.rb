@@ -38,6 +38,13 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
+  config.after(:each, :type => :feature) do |example|
+    if example.exception
+      artifact = save_page
+      puts "\"#{example.description}\" failed. Page saved to #{artifact}"
+    end
+  end
+
   config.include Features, type: :feature
   config.include Controllers, type: :controller
   config.include Mock
@@ -64,4 +71,9 @@ end
 
 ActiveRecord::Migration.maintain_test_schema!
 Capybara.javascript_driver = :webkit
+
+if ENV['CIRCLE_ARTIFACTS']
+  Capybara.save_and_open_page_path = ENV['CIRCLE_ARTIFACTS']
+end
+
 WebMock.disable_net_connect!(allow_localhost: true)
