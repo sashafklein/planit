@@ -10,7 +10,12 @@ require 'vcr'
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |file| require file }
 
 module Features
-  # Extend this module in spec/support/features/*.rb
+  include Warden::Test::Helpers
+  Warden.test_mode!
+  
+  def sign_in(user)
+    login_as(user, scope: :user)
+  end
 end
 
 module Controllers
@@ -31,6 +36,13 @@ end
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.after(:each, :type => :feature) do |example|
+    if example.exception
+      artifact = save_page
+      puts "\"#{example.description}\" failed. Page saved to #{artifact}"
+    end
   end
 
   config.include Features, type: :feature
@@ -59,4 +71,9 @@ end
 
 ActiveRecord::Migration.maintain_test_schema!
 Capybara.javascript_driver = :webkit
+
+if ENV['CIRCLE_ARTIFACTS']
+  Capybara.save_and_open_page_path = ENV['CIRCLE_ARTIFACTS']
+end
+
 WebMock.disable_net_connect!(allow_localhost: true)

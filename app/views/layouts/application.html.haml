@@ -1,13 +1,13 @@
 !!!
-%html{"data-ng-app" => "ngApp"}
+%html{ data: { ng_app: "ngApp"} }
   %head
-    %meta{:charset => "utf-8"}/
-    %meta{:content => "NOODP", :name => "ROBOTS"}/
-    %meta{:content => "initial-scale=1", :name => "viewport"}/
+    %meta{charset: "utf-8"}/
+    %meta{content: "NOODP", name: "ROBOTS"}/
+    %meta{content: "initial-scale=1", name: "viewport"}/
     %title= title
-    = stylesheet_link_tag :application, media: "all"
     = csrf_meta_tags
-  %body{:class => body_class}
+    = stylesheet_link_tag :application, media: "all"
+  %body{class: body_class}
     = render "flashes"
     = yield
     = render "javascript"
