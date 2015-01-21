@@ -5,7 +5,7 @@ module Completers
       return failure unless pip.pinnable
 
       get_results(get_query)
-
+      
       return failure unless response_address_is_specific?
 
       if seems_accurate?

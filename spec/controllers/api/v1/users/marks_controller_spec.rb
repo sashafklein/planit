@@ -100,17 +100,31 @@ describe Api::V1::Users::MarksController, :vcr do
         expect(mark.place.images.first).to be_a Image
       end
 
-      it "works identically without the page" do
+      # Caution -- TripAdvisor seems to mess this up for some connections
+      xit "works identically without the page" do
         expect( @user.marks.count ).to eq 0
         
-        post :scrape, url: fuunji_url, user_id: @user.id, delay: false
+        post :scrape, url: 'http://www.contigosf.com/', user_id: @user.id, delay: false
 
         mark = @user.marks.first
 
-        expect(mark.place.name).to eq "Fuunji"
-        expect(mark.place.street_addresses).to include "代々木2-14-3" # TODO -- get rid of the shitty Yoyogi address
+        expect(mark.place.name).to eq "Contigo"
+        expect(mark.place.street_addresses).to include "1320 Castro St" # TODO -- get rid of the shitty Yoyogi address
         expect(mark.place.images.first).to be_a Image
       end
+
+      it "works identically without the page" do
+        expect( @user.marks.count ).to eq 0
+        
+        post :scrape, url: 'http://www.booking.com/hotel/co/tayrona-tented-lodge.html', user_id: @user.id, delay: false
+
+        mark = @user.marks.first
+
+        expect(mark.place.name).to eq "Tayrona Tented Lodge"
+        expect(mark.place.full_address).to eq "Km 38 +300 mts, vía Santa Marta- Rioacha, 575000 Buritaca, Colombia"
+        expect(mark.place.images.first).to be_a Image
+      end
+      
     end
 
     context "whole lotta places" do

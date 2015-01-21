@@ -4,33 +4,35 @@ module Completers
     attr_accessor :attrs, :place, :photos, :pip, :url
     def initialize(attrs, url=nil)
       @photos = set_photos(attrs)
-      @attrs = attrs
+      @attrs = attrs.symbolize_keys.to_sh
       normalize_attrs!
       @url = url
     end
 
     def complete!
-      @pip = PlaceInProgress.new(attrs.merge(scrape_url: url))
-      
-      unless @pip.foursquare_id
-        load_region_info_from_nearby!
-        narrow_with_geocoder!
-        foursquare_explore!
-        foursquare_refine_venue!
-        translate_with_geocoder!
-      end
-      
+      @pip = PlaceInProgress.new attrs.merge({scrape_url: url})
+
+      api_complete! unless @pip.completion_steps.include?("FoursquareRefine")
+
       merge_and_save_with_photos!
     end
 
     private
+
+    def api_complete!
+      load_region_info_from_nearby!
+      narrow_with_geocoder!
+      foursquare_explore!
+      foursquare_refine_venue!
+      translate_with_geocoder!
+    end
 
     def load_region_info_from_nearby!
       @pip = Nearby.new(pip, attrs).complete if attrs[:nearby]
     end
 
     def narrow_with_geocoder!
-      @pip = Narrow.new(pip, attrs).complete unless !pip.pinnable
+      @pip = Narrow.new(pip, attrs).complete if pip.pinnable
     end
 
     def translate_with_geocoder!
@@ -64,6 +66,9 @@ module Completers
       attrs[:phones] = normalize_phones
       attrs[:hours] = normalized_hours(attrs[:hours])
       attrs[:extra] = normalize_extra
+
+      found = Services::PlaceFinder.new(attrs).find!
+      @attrs = attrs.merge( found.attributes.symbolize_keys.to_sh ) if found.persisted?
     end
 
     def normalize_phones

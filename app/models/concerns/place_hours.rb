@@ -6,7 +6,7 @@ class PlaceHours
   def initialize(hour_set, timezone)
     @timezone, @hours = timezone, SuperHash.new
     SuperHash.new(hour_set).each { |day, _| @hours[day] = digest_hour_bands_for_day(hour_set, day) }
-    @hours.reject!{ |h| h.nil? || h.first.nil? }
+    @hours.reject!{ |k, v| v.blank? }
     @bands = get_bands
   end
 

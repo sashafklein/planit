@@ -65,7 +65,7 @@ module Services
     private
 
     def safe_open(url)
-      return open(url) unless ENV['RAILS_ENV'] == 'test'
+      return open(url) unless Rails.env.test?
       
       WebMock.disable!
       resp = open(url)

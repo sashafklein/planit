@@ -250,6 +250,13 @@ module Completers
           expect( place2 ).to eq place3
         end
 
+        it "skips completion if it has enough locality info to find a previous place" do
+          expect_any_instance_of(PlaceCompleter).to receive(:api_complete!).once.and_call_original
+          place1 = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: "Bombay", street_address: 'Nariman Point, Mumbai, India' }).complete!
+          place2 = PlaceCompleter.new({ name: 'Trident Nariman Point', locality: 'Mumbai', street_address: 'Nariman Point, Mumbai, India' }).complete!
+
+          expect( place1 ).to eq place2
+        end
 
         it "finds, correctly locates, and combines various Dwelltimes" do
           place = PlaceCompleter.new({ name: "Dwelltime", nearby: 'Boston, MA'}).complete!
