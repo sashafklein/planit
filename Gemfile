@@ -54,7 +54,8 @@ gem 'rails-assets-async'
 gem 'rails-assets-lodash'
 gem 'rails-assets-leaflet'
 gem 'rails-assets-requirejs'
-gem "sinon-rails"
+gem 'rails-assets-sinon'
+gem 'rails-assets-jasmine-sinon'
 # gem 'rails-assets-leaflet.markercluster'
 
 group :development do
@@ -89,8 +90,7 @@ group :test do
   gem 'jasmine-headless-webkit'
   gem 'guard-jasmine'
   gem 'rails-assets-rosie'
-  gem 'rails-assets-sinon'
-  gem 'rails-assets-jasmine-sinon'
+  gem "sinon-rails"
 end
 
 group :staging, :production do

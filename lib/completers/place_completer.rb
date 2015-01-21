@@ -12,11 +12,14 @@ module Completers
     def complete!
       @pip = PlaceInProgress.new(attrs.merge(scrape_url: url))
       
-      load_region_info_from_nearby!
-      narrow_with_geocoder!
-      foursquare_explore!
-      foursquare_refine_venue!
-      translate_with_geocoder!
+      unless @pip.foursquare_id
+        load_region_info_from_nearby!
+        narrow_with_geocoder!
+        foursquare_explore!
+        foursquare_refine_venue!
+        translate_with_geocoder!
+      end
+      
       merge_and_save_with_photos!
     end
 
