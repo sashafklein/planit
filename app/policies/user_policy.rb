@@ -1,38 +1,29 @@
 class UserPolicy < ApplicationPolicy
-  attr_reader :user
+  attr_reader :user, :record
 
-  def initialize(user)
-    @user = user
-  end
-
-  def index?
-    false
+  def initialize(user, record)
+    @user, @record = user, record
   end
 
   def show?
-    true
-    # scope.where(:id => record.id).exists?
+    user
   end
 
-  def create?
-    false
+  def bucket?
+    record == user
   end
 
-  def new?
-    false
-  end
+  # def update?
+  #   admin?
+  # end
 
-  def update?
-    @user.admin?
-  end
+  # def edit?
+  #   update?
+  # end
 
-  def edit?
-    update?
-  end
-
-  def destroy?
-    @user.admin?
-  end
+  # def destroy?
+  #   admin?
+  # end
 
 end
 

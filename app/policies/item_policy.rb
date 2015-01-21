@@ -6,21 +6,16 @@ class ItemPolicy < ApplicationPolicy
     @item = item
   end
 
-  def index?
-    false
+  def record
+    item
   end
 
   def show?
-    if @item.private == true
-      @user.admin? || @user.items.include?(@item)
-    else
-      true
-    end
-    # scope.where(:id => record.id).exists?
+    item.published? ? user : admin? || owns?
   end
 
   def create?
-    @user?
+    user
   end
 
   def new?
@@ -28,7 +23,7 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.admin? || @user.items.include?(@item)
+    admin? || owns?
   end
 
   def edit?
@@ -36,7 +31,7 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.admin? || @user.items.include?(@item)
+    admin? || owns?
   end
 
 end

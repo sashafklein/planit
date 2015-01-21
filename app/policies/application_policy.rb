@@ -11,15 +11,11 @@ class ApplicationPolicy
   end
 
   def show?
-    @plan = Plan.find(params[:id])
-    authorize @plan
-    @item = Item.find(params[:id])
-    @mark = Mark.find(params[:id])
-    # scope.where(:id => record.id).exists?
+    admin? || record.user_id == user.id
   end
 
   def create?
-    false
+    user.present?
   end
 
   def new?
@@ -35,24 +31,17 @@ class ApplicationPolicy
   end
 
   def destroy?
-    false
+    admin?
   end
 
-  def scope
-    Pundit.policy_scope!(user, record.class)
-  end
+  private
 
-  class Scope
-    attr_reader :user, :scope
+  def admin?
+    user ? user.admin? : false
+  end 
 
-    def initialize(user, scope)
-      @user = user
-      @scope = scope
-    end
-
-    def resolve
-      scope
-    end
+  def owns?
+    record.user_id == user.id
   end
 end
 

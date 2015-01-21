@@ -1,5 +1,6 @@
 class ApiController < ApplicationController
   skip_before_action :verify_authenticity_token
+  skip_after_action :verify_authorized
 
   respond_to :json, :js
   

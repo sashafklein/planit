@@ -11,27 +11,15 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    user
   end
 
   def create?
-    @user?
-  end
-
-  def new?
-    create?
+    user
   end
 
   def update?
-    @user.admin?
-  end
-
-  def edit?
-    update?
-  end
-
-  def destroy?
-    @user.admin?
+    admin?
   end
 
 end

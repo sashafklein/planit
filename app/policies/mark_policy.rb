@@ -11,16 +11,11 @@ class MarkPolicy < ApplicationPolicy
   end
 
   def show?
-    if @mark.private == true
-      @user.admin? || @user.marks.include?(@mark)
-    else
-      true
-    end
-    # scope.where(:id => record.id).exists?
+    mark.published? ? user : admin? || owns?
   end
 
   def create?
-    @user?
+    user?
   end
 
   def new?
@@ -28,7 +23,7 @@ class MarkPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.admin? || @user.marks.include?(@mark)
+    admin? || owns?
   end
 
   def edit?
@@ -36,7 +31,13 @@ class MarkPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.admin? || @user.marks.include?(@mark)
+    update?
+  end
+
+  private
+
+  def record
+    mark
   end
 
 end

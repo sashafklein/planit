@@ -11,16 +11,11 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def show?
-    if @plan.private == true
-      @user.admin? || @user.plans.include?(@plan)
-    else
-      true
-    end
-    # scope.where(:id => record.id).exists?
+    plan.published? ? user : admin? || owns?
   end
 
   def create?
-    @user?
+    user?
   end
 
   def new?
@@ -28,7 +23,7 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.admin? || @user.plans.include?(@plan)
+    admin? || owns?
   end
 
   def edit?
@@ -36,8 +31,13 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.admin? || @user.plans.include?(@plan)
+    admin? || owns?
   end
 
+  private
+
+  def record
+    plan
+  end
 end
 
