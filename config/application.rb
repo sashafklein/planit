@@ -36,7 +36,7 @@ module Planit
       g.factory_girl false
     end
 
-    config.action_mailer.default_url_options = { :host => "www.bloc.io" }
+    config.action_mailer.default_url_options = { :host => "www.plan.it" }
 
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
