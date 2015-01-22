@@ -28,9 +28,10 @@
           = @place.decorate.show_website
           = @place.decorate.show_phones
 
-        .other-info-wrap.hours-availability-booking
-          = @place.decorate.show_open_today
-          = @place.decorate.show_hours
+        - if @place.hours.present?
+          .hours.other-info-wrap.hours-availability-booking
+            = @place.decorate.show_open_today
+            = @place.decorate.show_hours
         .other-info-wrap.menu-cost-reservations
           = @place.decorate.show_reservations
           = @place.decorate.show_price_info
