@@ -48,6 +48,8 @@ Rails.application.routes.draw do
       end
 
       resources :items, only: [:index, :show]
+
+      resources :places, only: [:show, :index]
     end
   end
 end

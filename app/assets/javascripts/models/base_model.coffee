@@ -55,6 +55,12 @@ mod.factory "BaseModel", ($http) ->
     @all:  -> $http.get(@basePath)
     @find: (id) -> $http.get( @objectPath(id) )
     @create: (data) -> $http.post(@basePath, data)
+    @where: (conditions) -> 
+      $http.get(
+        @basePath,
+        params:
+          conditions: conditions
+      )
 
     update: (data) -> $http.put( "#{@objectPath(@id)}/update", data )
     destroy:  -> $http.delete( @objectPath(@id) )
