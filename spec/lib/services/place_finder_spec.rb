@@ -6,14 +6,9 @@ module Services
 
       before do 
         @mark = create(:mark, :with_place)
-        allow_any_instance_of(PlaceMailer).to receive(:deliver) {}
       end
 
-      context "with preexisting record without name clash - sends notification and" do
-
-        before do 
-          expect_any_instance_of(PlaceFinder).to( receive(:notify_of_merger) )
-        end
+      context "with preexisting record without name clash" do
 
         it "finds the mark by address" do
           found = PlaceFinder.new(attrs).find!
@@ -37,6 +32,7 @@ module Services
           found = PlaceFinder.new( attrs({country: nil, region: nil}) ).find!
           expect( found ).to eq @mark.place
         end
+
       end
 
       context "with preexisting record with name clash" do
@@ -45,15 +41,21 @@ module Services
           expect_any_instance_of(PlaceFinder).to( receive(:notify_of_name_clash ) ) {}
         end
 
-        it "grabs and merges with the existing object and sends out merger notification" do
-          found = PlaceFinder.new( attrs({names: ['Other name']}) ).find!
-          expect( found ).not_to eq(@mark)
-          expect( found.persisted? ).to eq true
-          expect( found.names ).to eq @mark.place.names + ['Other name']
-          expect( found.street_address ).to eq @mark.street_address
+        it "notifies of a merger if a name is added" do
+          found = PlaceFinder.new( attrs({names: [@mark.name, "OtherName"]}) ).find!
+          expect( found ).to eq @mark.place
         end
       end
 
+      context "without a name" do
+        it "doesn't find a place without a name" do
+          found = PlaceFinder.new( attrs({ names: [] }) ).find!
+          expect( found ).not_to eq @mark.place
+          expect( found ).not_to be_persisted
+          expect( found.street_address ).to eq @mark.place.street_address
+        end
+      end
+      
       context "without findable record" do
 
         it "takes lat lon plus street_address" do
@@ -79,11 +81,51 @@ module Services
           end
         end
       end
+
+      context "the Vancouver Starbucks test" do
+
+        before do 
+          @atts = {cross_street: 'at Heather St', country: 'Canada', region: "British Columbia", locality: "Vancouver", lat: 49.26293173490001, lon: -123.11948776245117, names: ["Starbucks"], street_addresses: ["682 W Broadway"], full_address: "682 W Broadway, Vancouver, Canada", categories: ["Coffee Shop"], meta_categories: ["Food"], phones: ["6047080030"]}.to_sh
+          @sb = Place.create( @atts )
+        end
+
+        it "finds with name and street address" do
+          expect( search( :names, :street_addresses )).to eq @sb
+        end
+        
+        it "finds with name and full_address" do
+          expect( search( :names, :full_address )).to eq @sb
+        end
+        
+        it "finds with name and lat and lon" do
+          expect( search( :names, :lat, :lon ) ).to eq @sb
+        end
+
+        it "finds with name and cross street and locality" do
+          expect( search( :names, :cross_street, :locality )).to eq @sb
+        end
+        
+        it "finds with name and phones" do
+          expect( search( :names, :phones )).to eq @sb
+        end
+
+        it "doesn't find without name, no matter what else" do
+          expect( search( :phones, :sublocality, :locality, :region, :country, :cross_street, :phones, :lat, :on )).not_to be_persisted
+        end
+
+        it "doesn't find if it doesn't have a specific addressing piece" do
+          expect( search( :names, :locality, :sublocality, :region, :country )).not_to be_persisted
+        end
+      end
+    end
+
+    def search(*atts_to_slice)
+      PlaceFinder.new(@atts.slice(*atts_to_slice)).find!
     end
 
     def attrs(to_merge={})
       {
-        street_addresses: [@mark.street_address], country: @mark.country, locality: @mark.locality, region: @mark.region
+        names: [@mark.name], street_addresses: [@mark.street_address], country: @mark.country, locality: @mark.locality, region: @mark.region
       }.merge(to_merge).compact
     end
   end

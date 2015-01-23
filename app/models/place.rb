@@ -11,14 +11,11 @@ class Place < ActiveRecord::Base
   hstore_accessor :hours, :extra
   validate!
 
-  scope :by_ll_and_name, -> (atts, name, points=2) { where.not( lat: nil ).where.not( lon: nil ).by_ll(atts[:lat], atts[:lon], points).with_name(name) }
-  scope :by_location, -> (atts) { atts[:street_addresses].present? ? with_street_address.with_region_info(atts).with_street_address(atts[:street_addresses]) : none }
-  scope :by_ll, -> (lat, lon, points=2) { by_lat(lat, points).by_lon(lon, points) }
-  scope :by_lat, -> (lat, points) { lat && points ? where("ROUND( CAST(lat as numeric), ? ) = ?", points, lat.round(points) ) : none }
-  scope :by_lon, -> (lon, points) { lon && points ? where("ROUND( CAST(lon as numeric), ? ) = ?", points, lon.round(points) ) : none }
-  scope :with_region_info, -> (atts) { where( atts.slice(:country, :region, :locality).select{ |k, v| v.present? }.map{ |k, v| { k => v.no_accents } }.first )}
-
   delegate :open?, :open_again_at, :open_until, to: :hour_calculator
+
+  def self.query(search_atts={})
+    PlaceQuery.new(self.all, search_atts)
+  end
 
   def tz; timezone_string; end
 
