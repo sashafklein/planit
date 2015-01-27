@@ -1,18 +1,15 @@
-class Place < ActiveRecord::Base
+class Place < BaseModel
 
   has_one :item
   has_many :images, as: :imageable
-  
-  include ActiveRecord::MetaExt
-  include ActiveRecord::MetaExt::HstoreAccessor
-  include ActiveRecord::MetaExt::ArrayAccessor
-  extend PlaceQueries
 
   array_accessor :flag, :completion_step, :street_address, :name, :category, :meta_category, :phone
   hstore_accessor :hours, :extra
   validate!
 
   delegate :open?, :open_again_at, :open_until, to: :hour_calculator
+
+  extend PlaceQueries
 
   def tz; timezone_string; end
 
@@ -41,15 +38,11 @@ class Place < ActiveRecord::Base
   end
 
   def coordinate(joiner=':')
-    return false unless lat && lon
-    [lat, lon].join( joiner )
+    lat && lon ? [lat lon].join( joiner ) : false
   end
 
   def full
-    string = ''
-    string += locality.titleize unless locality.blank?
-    string += country.titleize unless country.blank?
-    string
+    [locality, country].reject(&:blank?).join(", ")
   end
 
   def nearby

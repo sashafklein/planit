@@ -1,7 +1,6 @@
-module ActiveRecord
-  module MetaExt
+module MetaExt
+  module Base
 
-    # CLASS METHODS
     module ClassMethods
 
       def metaclass
@@ -30,7 +29,6 @@ module ActiveRecord
       base.extend ClassMethods
     end
 
-    # INSTANCE METHODS
     def complete?
       self.class.attribute_keys.all?{ |k| read_attribute(k) == false || read_attribute(k).present? } 
     end
