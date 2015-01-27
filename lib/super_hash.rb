@@ -1,6 +1,3 @@
-# Hash with indifferent and method access, and a super_fetch method which
-# can deep-fetch with an error block that can take the key as an argument.
-
 class SuperHash < Hash
 
   def initialize(hash = {})
@@ -58,9 +55,23 @@ class SuperHash < Hash
     recursive_symbolize_keys.slice( *keys.map(&:to_sym) ).to_sh
   end
 
+  def select_val(&block)
+    hash = seed
+    each { |k, v| hash[k] = v if yield(v) }
+    hash
+  end
+
+  def map_val(&block)
+    hash = seed
+    each{ |k, v| hash[k] = yield(v) }
+    hash
+  end
+
   private
 
   def method_missing(m, *args, &block)
+    return super(m, *args, &block) if args.count > 1
+
     if is_setter?(m)
       set_val(m, args.first)
     else
@@ -88,8 +99,7 @@ class SuperHash < Hash
 
   def set_val(sym, arg)
     prop = sym.to_s[0..-2].to_sym
-    self[ sym.to_s[0..-2].to_sym ] = arg
-    self[prop]
+    self[ prop ] = arg
   end
 
   def get_val(sym, &block)
@@ -99,5 +109,9 @@ class SuperHash < Hash
     else
       val
     end
+  end
+
+  def seed
+    {}.to_sh
   end
 end

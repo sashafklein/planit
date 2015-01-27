@@ -38,9 +38,17 @@ class PlaceSaver
 
   def save_and_validate_changes!(raise_errors=false)
     return false unless validate_changes(raise_errors)
-    @place.save!
+
+    if (!place.persisted? && place.id) then sneaky_save! else @place.save! end
+
     save_images!
     @place
+  end
+
+  def sneaky_save!
+    preexisting = Place.find(place.id) 
+    preexisting.update_attributes(place.attributes)
+    @place = preexisting
   end
 
   def validate_changes(raise_errors=false)

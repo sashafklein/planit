@@ -13,6 +13,7 @@ FactoryGirl.define do
     lon 1.5
     website "www.whatever.com"
     categories ["Some category"]
+    foursquare_id 'abcde12345'
 
     factory :comptoir do
       names ["Le Comptoir du Relais"]

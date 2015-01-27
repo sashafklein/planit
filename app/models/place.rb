@@ -1,24 +1,15 @@
-class Place < ActiveRecord::Base
+class Place < BaseModel
 
   has_one :item
   has_many :images, as: :imageable
-  
-  include ActiveRecord::MetaExt
-  include ActiveRecord::MetaExt::HstoreAccessor
-  include ActiveRecord::MetaExt::ArrayAccessor
 
   array_accessor :flag, :completion_step, :street_address, :name, :category, :meta_category, :phone
   hstore_accessor :hours, :extra
   validate!
 
-  scope :by_ll_and_name, -> (atts, name, points=2) { where.not( lat: nil ).where.not( lon: nil ).by_ll(atts[:lat], atts[:lon], points).with_name(name) }
-  scope :by_location, -> (atts) { atts[:street_addresses].present? ? with_street_address.with_region_info(atts).with_street_address(atts[:street_addresses]) : none }
-  scope :by_ll, -> (lat, lon, points=2) { by_lat(lat, points).by_lon(lon, points) }
-  scope :by_lat, -> (lat, points) { lat && points ? where("ROUND( CAST(lat as numeric), ? ) = ?", points, lat.round(points) ) : none }
-  scope :by_lon, -> (lon, points) { lon && points ? where("ROUND( CAST(lon as numeric), ? ) = ?", points, lon.round(points) ) : none }
-  scope :with_region_info, -> (atts) { where( atts.slice(:country, :region, :locality).select{ |k, v| v.present? }.map{ |k, v| { k => v.no_accents } }.first )}
-
   delegate :open?, :open_again_at, :open_until, to: :hour_calculator
+
+  extend PlaceQueries
 
   def tz; timezone_string; end
 
@@ -47,15 +38,11 @@ class Place < ActiveRecord::Base
   end
 
   def coordinate(joiner=':')
-    return false unless lat && lon
-    [lat, lon].join( joiner )
+    lat && lon ? [lat, lon].join( joiner ) : false
   end
 
   def full
-    string = ''
-    string += locality.titleize unless locality.blank?
-    string += country.titleize unless country.blank?
-    string
+    [locality, country].reject(&:blank?).join(", ")
   end
 
   def nearby

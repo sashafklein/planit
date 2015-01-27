@@ -1,4 +1,4 @@
-class Travel < ActiveRecord::Base
+class Travel < BaseModel
   belongs_to :from, class_name: 'Item'
   belongs_to :to, class_name: 'Item'
   has_one :next_step, class_name: 'Travel'

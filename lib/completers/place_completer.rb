@@ -11,7 +11,6 @@ module Completers
 
     def complete!
       @pip = PlaceInProgress.new attrs.merge({scrape_url: url})
-
       api_complete! unless @pip.completion_steps.include?("FoursquareRefine")
 
       merge_and_save_with_photos!
