@@ -1,4 +1,4 @@
-class Plan < ActiveRecord::Base
+class Plan < BaseModel
 
   extend FriendlyId
   friendly_id :name, use: :slugged

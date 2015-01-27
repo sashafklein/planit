@@ -1,4 +1,4 @@
-class Leg < ActiveRecord::Base
+class Leg < BaseModel
 
   belongs_to :plan
   has_many :days

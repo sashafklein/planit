@@ -1,4 +1,4 @@
-class Day < ActiveRecord::Base
+class Day < BaseModel
 
   belongs_to :leg
   has_many :items
