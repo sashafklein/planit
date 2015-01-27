@@ -38,7 +38,7 @@ class Place < BaseModel
   end
 
   def coordinate(joiner=':')
-    lat && lon ? [lat lon].join( joiner ) : false
+    lat && lon ? [lat, lon].join( joiner ) : false
   end
 
   def full
