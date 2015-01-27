@@ -148,7 +148,9 @@ class PlaceDecorator < Draper::Decorator
           hours[day].each do |window|
             windows << "#{Time.strptime(window.first, '%H%M').strftime('%l:%M%p').downcase} - #{Time.strptime(window.last, '%H%M').strftime('%l:%M%p').downcase}"
           end
-          html += "#{windows.join(', ')}</div>"
+          html += "#{windows.first}</div>" if windows.length == 1
+          indenter = "</div><div class='show-hours-line indented'>"
+          html += "#{windows.join(indenter)}</div>" if windows.length > 1
         else
           html += "<div class='show-hours-line'><i class='show-hours-day'>#{day.titleize}:</i> Closed</div>"
         end
