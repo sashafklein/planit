@@ -100,7 +100,6 @@ describe Api::V1::Users::MarksController, :vcr do
         expect(mark.place.images.first).to be_a Image
       end
 
-      # Caution -- TripAdvisor seems to mess this up for some connections
       xit "works identically without the page" do
         expect( @user.marks.count ).to eq 0
         

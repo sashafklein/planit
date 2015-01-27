@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://api.geonames.org/timezoneJSON?lat=11.264380725103877&lng=-73.82640838623047&username=sashafklein
+    uri: http://api.geonames.org/timezoneJSON?lat=37.0625&lng=-95.677068&username=sashafklein
     body:
       encoding: US-ASCII
       string: ''
@@ -19,27 +19,29 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 21 Jan 2015 03:30:29 GMT
+      - Tue, 27 Jan 2015 00:22:20 GMT
       Server:
-      - Apache/2.2.17 (Linux/SUSE)
+      - Apache/2.2.15 (CentOS)
       Cache-Control:
       - no-cache
       Access-Control-Allow-Origin:
       - "*"
-      Transfer-Encoding:
-      - chunked
+      Content-Length:
+      - '240'
+      Connection:
+      - close
       Content-Type:
       - application/json;charset=UTF-8
     body:
       encoding: UTF-8
-      string: '{"time":"2015-01-20 22:30","countryName":"Colombia","sunset":"2015-01-21
-        17:53","rawOffset":-5,"dstOffset":-5,"countryCode":"CO","gmtOffset":-5,"lng":-73.82640838623047,"sunrise":"2015-01-21
-        06:19","timezoneId":"America/Bogota","lat":11.264380725103877}'
+      string: '{"time":"2015-01-26 18:22","countryName":"United States","sunset":"2015-01-27
+        17:42","rawOffset":-6,"dstOffset":-5,"countryCode":"US","gmtOffset":-6,"lng":-95.677068,"sunrise":"2015-01-27
+        07:29","timezoneId":"America/Chicago","lat":37.0625}'
     http_version: 
-  recorded_at: Wed, 21 Jan 2015 03:30:30 GMT
+  recorded_at: Tue, 27 Jan 2015 00:22:10 GMT
 - request:
     method: get
-    uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=11.264380725103877,-73.82640838623047&sensor=false
+    uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=37.0625,-95.677068&sensor=false
     body:
       encoding: US-ASCII
       string: ''
@@ -58,9 +60,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Wed, 21 Jan 2015 03:30:30 GMT
+      - Tue, 27 Jan 2015 00:22:08 GMT
       Expires:
-      - Thu, 22 Jan 2015 03:30:30 GMT
+      - Wed, 28 Jan 2015 00:22:08 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -80,175 +82,359 @@ http_interactions:
       Transfer-Encoding:
       - chunked
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        ewogICAicmVzdWx0cyIgOiBbCiAgICAgIHsKICAgICAgICAgImFkZHJlc3Nf
-        Y29tcG9uZW50cyIgOiBbCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAg
-        ImxvbmdfbmFtZSIgOiAiSS05MCIsCiAgICAgICAgICAgICAgICJzaG9ydF9u
-        YW1lIiA6ICJJLTkwIiwKICAgICAgICAgICAgICAgInR5cGVzIiA6IFsgInJv
-        dXRlIiBdCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgIHsKICAgICAgICAg
-        ICAgICAgImxvbmdfbmFtZSIgOiAiU2FudGEgTWFydGEgKERpc3RyaXRvIFR1
-        csOtc3RpY28gQ3VsdHVyYWwgRSBIaXN0w7NyaWNvKSIsCiAgICAgICAgICAg
-        ICAgICJzaG9ydF9uYW1lIiA6ICJTYW50YSBNYXJ0YSAoRGlzdHJpdG8gVHVy
-        w61zdGljbyBDdWx0dXJhbCBFIEhpc3TDs3JpY28pIiwKICAgICAgICAgICAg
-        ICAgInR5cGVzIiA6IFsgImxvY2FsaXR5IiwgInBvbGl0aWNhbCIgXQogICAg
-        ICAgICAgICB9LAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICJsb25n
-        X25hbWUiIDogIk1hZ2RhbGVuYSIsCiAgICAgICAgICAgICAgICJzaG9ydF9u
-        YW1lIiA6ICJNYWdkYWxlbmEiLAogICAgICAgICAgICAgICAidHlwZXMiIDog
-        WyAiYWRtaW5pc3RyYXRpdmVfYXJlYV9sZXZlbF8xIiwgInBvbGl0aWNhbCIg
-        XQogICAgICAgICAgICB9LAogICAgICAgICAgICB7CiAgICAgICAgICAgICAg
-        ICJsb25nX25hbWUiIDogIkNvbG9tYmlhIiwKICAgICAgICAgICAgICAgInNo
-        b3J0X25hbWUiIDogIkNPIiwKICAgICAgICAgICAgICAgInR5cGVzIiA6IFsg
-        ImNvdW50cnkiLCAicG9saXRpY2FsIiBdCiAgICAgICAgICAgIH0KICAgICAg
-        ICAgXSwKICAgICAgICAgImZvcm1hdHRlZF9hZGRyZXNzIiA6ICJJLTkwLCBT
-        YW50YSBNYXJ0YSAoRGlzdHJpdG8gVHVyw61zdGljbyBDdWx0dXJhbCBFIEhp
-        c3TDs3JpY28pLCBNYWdkYWxlbmEsIENvbG9tYmlhIiwKICAgICAgICAgImdl
-        b21ldHJ5IiA6IHsKICAgICAgICAgICAgImJvdW5kcyIgOiB7CiAgICAgICAg
-        ICAgICAgICJub3J0aGVhc3QiIDogewogICAgICAgICAgICAgICAgICAibGF0
-        IiA6IDExLjI0OTQsCiAgICAgICAgICAgICAgICAgICJsbmciIDogLTczLjc3
-        MjMKICAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAgInNvdXRod2Vz
-        dCIgOiB7CiAgICAgICAgICAgICAgICAgICJsYXQiIDogMTEuMjQ3MTksCiAg
-        ICAgICAgICAgICAgICAgICJsbmciIDogLTczLjgyMTQxCiAgICAgICAgICAg
-        ICAgIH0KICAgICAgICAgICAgfSwKICAgICAgICAgICAgImxvY2F0aW9uIiA6
-        IHsKICAgICAgICAgICAgICAgImxhdCIgOiAxMS4yNDc5MTE3LAogICAgICAg
-        ICAgICAgICAibG5nIiA6IC03My43OTcxMjA4MDAwMDAwMgogICAgICAgICAg
-        ICB9LAogICAgICAgICAgICAibG9jYXRpb25fdHlwZSIgOiAiQVBQUk9YSU1B
-        VEUiLAogICAgICAgICAgICAidmlld3BvcnQiIDogewogICAgICAgICAgICAg
-        ICAibm9ydGhlYXN0IiA6IHsKICAgICAgICAgICAgICAgICAgImxhdCIgOiAx
-        MS4yNDk2NDM5ODAyOTE1LAogICAgICAgICAgICAgICAgICAibG5nIiA6IC03
-        My43NzIzCiAgICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgICJzb3V0
-        aHdlc3QiIDogewogICAgICAgICAgICAgICAgICAibGF0IiA6IDExLjI0Njk0
-        NjAxOTcwODUsCiAgICAgICAgICAgICAgICAgICJsbmciIDogLTczLjgyMTQx
-        CiAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgICB9LAog
-        ICAgICAgICAidHlwZXMiIDogWyAicm91dGUiIF0KICAgICAgfSwKICAgICAg
-        ewogICAgICAgICAiYWRkcmVzc19jb21wb25lbnRzIiA6IFsKICAgICAgICAg
-        ICAgewogICAgICAgICAgICAgICAibG9uZ19uYW1lIiA6ICJTYW50YSBNYXJ0
-        YSAoRGlzdHJpdG8gVHVyw61zdGljbyBDdWx0dXJhbCBFIEhpc3TDs3JpY28p
-        IiwKICAgICAgICAgICAgICAgInNob3J0X25hbWUiIDogIlNhbnRhIE1hcnRh
-        IChEaXN0cml0byBUdXLDrXN0aWNvIEN1bHR1cmFsIEUgSGlzdMOzcmljbyki
-        LAogICAgICAgICAgICAgICAidHlwZXMiIDogWyAibG9jYWxpdHkiLCAicG9s
-        aXRpY2FsIiBdCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgIHsKICAgICAg
-        ICAgICAgICAgImxvbmdfbmFtZSIgOiAiTWFnZGFsZW5hIiwKICAgICAgICAg
-        ICAgICAgInNob3J0X25hbWUiIDogIk1hZ2RhbGVuYSIsCiAgICAgICAgICAg
-        ICAgICJ0eXBlcyIgOiBbICJhZG1pbmlzdHJhdGl2ZV9hcmVhX2xldmVsXzEi
-        LCAicG9saXRpY2FsIiBdCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgIHsK
-        ICAgICAgICAgICAgICAgImxvbmdfbmFtZSIgOiAiQ29sb21iaWEiLAogICAg
-        ICAgICAgICAgICAic2hvcnRfbmFtZSIgOiAiQ08iLAogICAgICAgICAgICAg
-        ICAidHlwZXMiIDogWyAiY291bnRyeSIsICJwb2xpdGljYWwiIF0KICAgICAg
-        ICAgICAgfQogICAgICAgICBdLAogICAgICAgICAiZm9ybWF0dGVkX2FkZHJl
-        c3MiIDogIlNhbnRhIE1hcnRhIChEaXN0cml0byBUdXLDrXN0aWNvIEN1bHR1
-        cmFsIEUgSGlzdMOzcmljbyksIE1hZ2RhbGVuYSwgQ29sb21iaWEiLAogICAg
-        ICAgICAiZ2VvbWV0cnkiIDogewogICAgICAgICAgICAiYm91bmRzIiA6IHsK
-        ICAgICAgICAgICAgICAgIm5vcnRoZWFzdCIgOiB7CiAgICAgICAgICAgICAg
-        ICAgICJsYXQiIDogMTEuMzQ4OTI5NiwKICAgICAgICAgICAgICAgICAgImxu
-        ZyIgOiAtNzMuNTY1MjU3NwogICAgICAgICAgICAgICB9LAogICAgICAgICAg
-        ICAgICAic291dGh3ZXN0IiA6IHsKICAgICAgICAgICAgICAgICAgImxhdCIg
-        OiAxMC44MjQ3MywKICAgICAgICAgICAgICAgICAgImxuZyIgOiAtNzQuMjQx
-        NzYKICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9LAogICAgICAgICAg
-        ICAibG9jYXRpb24iIDogewogICAgICAgICAgICAgICAibGF0IiA6IDExLjE3
-        Mzg1MjcsCiAgICAgICAgICAgICAgICJsbmciIDogLTczLjkzNTk4MjA5OTk5
-        OTk5CiAgICAgICAgICAgIH0sCiAgICAgICAgICAgICJsb2NhdGlvbl90eXBl
-        IiA6ICJBUFBST1hJTUFURSIsCiAgICAgICAgICAgICJ2aWV3cG9ydCIgOiB7
-        CiAgICAgICAgICAgICAgICJub3J0aGVhc3QiIDogewogICAgICAgICAgICAg
-        ICAgICAibGF0IiA6IDExLjM0ODkyOTYsCiAgICAgICAgICAgICAgICAgICJs
-        bmciIDogLTczLjU2NTI1NzcKICAgICAgICAgICAgICAgfSwKICAgICAgICAg
-        ICAgICAgInNvdXRod2VzdCIgOiB7CiAgICAgICAgICAgICAgICAgICJsYXQi
-        IDogMTAuODI0NzMsCiAgICAgICAgICAgICAgICAgICJsbmciIDogLTc0LjI0
-        MTc2CiAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgICB9
-        LAogICAgICAgICAidHlwZXMiIDogWyAibG9jYWxpdHkiLCAicG9saXRpY2Fs
-        IiBdCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAgImFkZHJlc3NfY29tcG9u
-        ZW50cyIgOiBbCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgImxvbmdf
-        bmFtZSIgOiAiU2FudGEgTWFydGEiLAogICAgICAgICAgICAgICAic2hvcnRf
-        bmFtZSIgOiAiU2FudGEgTWFydGEiLAogICAgICAgICAgICAgICAidHlwZXMi
-        IDogWyAiYWRtaW5pc3RyYXRpdmVfYXJlYV9sZXZlbF8yIiwgInBvbGl0aWNh
-        bCIgXQogICAgICAgICAgICB9LAogICAgICAgICAgICB7CiAgICAgICAgICAg
-        ICAgICJsb25nX25hbWUiIDogIk1hZ2RhbGVuYSIsCiAgICAgICAgICAgICAg
-        ICJzaG9ydF9uYW1lIiA6ICJNYWdkYWxlbmEiLAogICAgICAgICAgICAgICAi
-        dHlwZXMiIDogWyAiYWRtaW5pc3RyYXRpdmVfYXJlYV9sZXZlbF8xIiwgInBv
-        bGl0aWNhbCIgXQogICAgICAgICAgICB9LAogICAgICAgICAgICB7CiAgICAg
-        ICAgICAgICAgICJsb25nX25hbWUiIDogIkNvbG9tYmlhIiwKICAgICAgICAg
-        ICAgICAgInNob3J0X25hbWUiIDogIkNPIiwKICAgICAgICAgICAgICAgInR5
-        cGVzIiA6IFsgImNvdW50cnkiLCAicG9saXRpY2FsIiBdCiAgICAgICAgICAg
-        IH0KICAgICAgICAgXSwKICAgICAgICAgImZvcm1hdHRlZF9hZGRyZXNzIiA6
-        ICJTYW50YSBNYXJ0YSwgTWFnZGFsZW5hLCBDb2xvbWJpYSIsCiAgICAgICAg
-        ICJnZW9tZXRyeSIgOiB7CiAgICAgICAgICAgICJib3VuZHMiIDogewogICAg
-        ICAgICAgICAgICAibm9ydGhlYXN0IiA6IHsKICAgICAgICAgICAgICAgICAg
-        ImxhdCIgOiAxMS4zNDg4NTYsCiAgICAgICAgICAgICAgICAgICJsbmciIDog
-        LTczLjU2NTE4MzgKICAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAg
-        InNvdXRod2VzdCIgOiB7CiAgICAgICAgICAgICAgICAgICJsYXQiIDogMTAu
-        ODIzODY0MSwKICAgICAgICAgICAgICAgICAgImxuZyIgOiAtNzQuMjQxNjQ2
-        OAogICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0sCiAgICAgICAgICAg
-        ICJsb2NhdGlvbiIgOiB7CiAgICAgICAgICAgICAgICJsYXQiIDogMTEuMTcz
-        ODUyNywKICAgICAgICAgICAgICAgImxuZyIgOiAtNzMuOTM1OTgyMDk5OTk5
-        OTkKICAgICAgICAgICAgfSwKICAgICAgICAgICAgImxvY2F0aW9uX3R5cGUi
-        IDogIkFQUFJPWElNQVRFIiwKICAgICAgICAgICAgInZpZXdwb3J0IiA6IHsK
-        ICAgICAgICAgICAgICAgIm5vcnRoZWFzdCIgOiB7CiAgICAgICAgICAgICAg
-        ICAgICJsYXQiIDogMTEuMzQ4ODU2LAogICAgICAgICAgICAgICAgICAibG5n
-        IiA6IC03My41NjUxODM4CiAgICAgICAgICAgICAgIH0sCiAgICAgICAgICAg
-        ICAgICJzb3V0aHdlc3QiIDogewogICAgICAgICAgICAgICAgICAibGF0IiA6
-        IDEwLjgyMzg2NDEsCiAgICAgICAgICAgICAgICAgICJsbmciIDogLTc0LjI0
-        MTY0NjgKICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAg
-        IH0sCiAgICAgICAgICJ0eXBlcyIgOiBbICJhZG1pbmlzdHJhdGl2ZV9hcmVh
-        X2xldmVsXzIiLCAicG9saXRpY2FsIiBdCiAgICAgIH0sCiAgICAgIHsKICAg
-        ICAgICAgImFkZHJlc3NfY29tcG9uZW50cyIgOiBbCiAgICAgICAgICAgIHsK
-        ICAgICAgICAgICAgICAgImxvbmdfbmFtZSIgOiAiTWFnZGFsZW5hIiwKICAg
-        ICAgICAgICAgICAgInNob3J0X25hbWUiIDogIk1hZ2RhbGVuYSIsCiAgICAg
-        ICAgICAgICAgICJ0eXBlcyIgOiBbICJhZG1pbmlzdHJhdGl2ZV9hcmVhX2xl
-        dmVsXzEiLCAicG9saXRpY2FsIiBdCiAgICAgICAgICAgIH0sCiAgICAgICAg
-        ICAgIHsKICAgICAgICAgICAgICAgImxvbmdfbmFtZSIgOiAiQ29sb21iaWEi
-        LAogICAgICAgICAgICAgICAic2hvcnRfbmFtZSIgOiAiQ08iLAogICAgICAg
-        ICAgICAgICAidHlwZXMiIDogWyAiY291bnRyeSIsICJwb2xpdGljYWwiIF0K
-        ICAgICAgICAgICAgfQogICAgICAgICBdLAogICAgICAgICAiZm9ybWF0dGVk
-        X2FkZHJlc3MiIDogIk1hZ2RhbGVuYSwgQ29sb21iaWEiLAogICAgICAgICAi
-        Z2VvbWV0cnkiIDogewogICAgICAgICAgICAiYm91bmRzIiA6IHsKICAgICAg
-        ICAgICAgICAgIm5vcnRoZWFzdCIgOiB7CiAgICAgICAgICAgICAgICAgICJs
-        YXQiIDogMTEuMzQ4OTI5NiwKICAgICAgICAgICAgICAgICAgImxuZyIgOiAt
-        NzMuNTQxOTkKICAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAgInNv
-        dXRod2VzdCIgOiB7CiAgICAgICAgICAgICAgICAgICJsYXQiIDogOC45MTgz
-        ODAxLAogICAgICAgICAgICAgICAgICAibG5nIiA6IC03NC45NDU0MjI5CiAg
-        ICAgICAgICAgICAgIH0KICAgICAgICAgICAgfSwKICAgICAgICAgICAgImxv
-        Y2F0aW9uIiA6IHsKICAgICAgICAgICAgICAgImxhdCIgOiAxMC40MTEzMDE0
-        LAogICAgICAgICAgICAgICAibG5nIiA6IC03NC40MDU2NjEyCiAgICAgICAg
-        ICAgIH0sCiAgICAgICAgICAgICJsb2NhdGlvbl90eXBlIiA6ICJBUFBST1hJ
-        TUFURSIsCiAgICAgICAgICAgICJ2aWV3cG9ydCIgOiB7CiAgICAgICAgICAg
-        ICAgICJub3J0aGVhc3QiIDogewogICAgICAgICAgICAgICAgICAibGF0IiA6
-        IDExLjM0ODkyOTYsCiAgICAgICAgICAgICAgICAgICJsbmciIDogLTczLjU0
-        MTk5CiAgICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgICJzb3V0aHdl
-        c3QiIDogewogICAgICAgICAgICAgICAgICAibGF0IiA6IDguOTE4MzgwMSwK
-        ICAgICAgICAgICAgICAgICAgImxuZyIgOiAtNzQuOTQ1NDIyOQogICAgICAg
-        ICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICAgfSwKICAgICAgICAg
-        InR5cGVzIiA6IFsgImFkbWluaXN0cmF0aXZlX2FyZWFfbGV2ZWxfMSIsICJw
-        b2xpdGljYWwiIF0KICAgICAgfSwKICAgICAgewogICAgICAgICAiYWRkcmVz
-        c19jb21wb25lbnRzIiA6IFsKICAgICAgICAgICAgewogICAgICAgICAgICAg
-        ICAibG9uZ19uYW1lIiA6ICJDb2xvbWJpYSIsCiAgICAgICAgICAgICAgICJz
-        aG9ydF9uYW1lIiA6ICJDTyIsCiAgICAgICAgICAgICAgICJ0eXBlcyIgOiBb
-        ICJjb3VudHJ5IiwgInBvbGl0aWNhbCIgXQogICAgICAgICAgICB9CiAgICAg
-        ICAgIF0sCiAgICAgICAgICJmb3JtYXR0ZWRfYWRkcmVzcyIgOiAiQ29sb21i
-        aWEiLAogICAgICAgICAiZ2VvbWV0cnkiIDogewogICAgICAgICAgICAiYm91
-        bmRzIiA6IHsKICAgICAgICAgICAgICAgIm5vcnRoZWFzdCIgOiB7CiAgICAg
-        ICAgICAgICAgICAgICJsYXQiIDogMTMuMzk3MzUsCiAgICAgICAgICAgICAg
-        ICAgICJsbmciIDogLTY2Ljg1MTkyMwogICAgICAgICAgICAgICB9LAogICAg
-        ICAgICAgICAgICAic291dGh3ZXN0IiA6IHsKICAgICAgICAgICAgICAgICAg
-        ImxhdCIgOiAtNC4yMjcxMSwKICAgICAgICAgICAgICAgICAgImxuZyIgOiAt
-        ODEuNzM1NzQ4ODk5OTk5OTkKICAgICAgICAgICAgICAgfQogICAgICAgICAg
-        ICB9LAogICAgICAgICAgICAibG9jYXRpb24iIDogewogICAgICAgICAgICAg
-        ICAibGF0IiA6IDQuNTcwODY4LAogICAgICAgICAgICAgICAibG5nIiA6IC03
-        NC4yOTczMzI5OTk5OTk5OQogICAgICAgICAgICB9LAogICAgICAgICAgICAi
-        bG9jYXRpb25fdHlwZSIgOiAiQVBQUk9YSU1BVEUiLAogICAgICAgICAgICAi
-        dmlld3BvcnQiIDogewogICAgICAgICAgICAgICAibm9ydGhlYXN0IiA6IHsK
-        ICAgICAgICAgICAgICAgICAgImxhdCIgOiAxMi40NTg0NTcsCiAgICAgICAg
-        ICAgICAgICAgICJsbmciIDogLTY2Ljg1MTkyMwogICAgICAgICAgICAgICB9
-        LAogICAgICAgICAgICAgICAic291dGh3ZXN0IiA6IHsKICAgICAgICAgICAg
-        ICAgICAgImxhdCIgOiAtNC4yMjcxMSwKICAgICAgICAgICAgICAgICAgImxu
-        ZyIgOiAtNzkuMDA4MzUwNAogICAgICAgICAgICAgICB9CiAgICAgICAgICAg
-        IH0KICAgICAgICAgfSwKICAgICAgICAgInR5cGVzIiA6IFsgImNvdW50cnki
-        LCAicG9saXRpY2FsIiBdCiAgICAgIH0KICAgXSwKICAgInN0YXR1cyIgOiAi
-        T0siCn0K
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "County Road 4300",
+                       "short_name" : "County Rd 4300",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Coffeyville",
+                       "short_name" : "Coffeyville",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Montgomery County",
+                       "short_name" : "Montgomery County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Kansas",
+                       "short_name" : "KS",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "67337",
+                       "short_name" : "67337",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "County Road 4300, Coffeyville, KS 67337, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.06260770000001,
+                          "lng" : -95.6744281
+                       },
+                       "southwest" : {
+                          "lat" : 37.0582079,
+                          "lng" : -95.67447629999999
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.0604079,
+                       "lng" : -95.67445699999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.06260770000001,
+                          "lng" : -95.67310321970849
+                       },
+                       "southwest" : {
+                          "lat" : 37.0582079,
+                          "lng" : -95.6758011802915
+                       }
+                    }
+                 },
+                 "types" : [ "route" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Fawn Creek",
+                       "short_name" : "Fawn Creek",
+                       "types" : [ "administrative_area_level_3", "political" ]
+                    },
+                    {
+                       "long_name" : "Montgomery County",
+                       "short_name" : "Montgomery County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Kansas",
+                       "short_name" : "KS",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Fawn Creek, KS, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.124356,
+                          "lng" : -95.6740411
+                       },
+                       "southwest" : {
+                          "lat" : 36.9991658,
+                          "lng" : -95.819863
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.0510372,
+                       "lng" : -95.7510475
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.124356,
+                          "lng" : -95.6740411
+                       },
+                       "southwest" : {
+                          "lat" : 36.9991658,
+                          "lng" : -95.819863
+                       }
+                    }
+                 },
+                 "types" : [ "administrative_area_level_3", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "67337",
+                       "short_name" : "67337",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "Coffeyville",
+                       "short_name" : "Coffeyville",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Kansas",
+                       "short_name" : "KS",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Coffeyville, KS 67337, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.181579,
+                          "lng" : -95.4128631
+                       },
+                       "southwest" : {
+                          "lat" : 36.999147,
+                          "lng" : -95.82397700000001
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.0570857,
+                       "lng" : -95.62476699999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.181579,
+                          "lng" : -95.4128631
+                       },
+                       "southwest" : {
+                          "lat" : 36.999147,
+                          "lng" : -95.82397700000001
+                       }
+                    }
+                 },
+                 "types" : [ "postal_code" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Coffeyville",
+                       "short_name" : "Coffeyville",
+                       "types" : [ "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Coffeyville, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.386668,
+                          "lng" : -95.518007
+                       },
+                       "southwest" : {
+                          "lat" : 36.99909359999999,
+                          "lng" : -95.964744
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.240253,
+                       "lng" : -95.81428849999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.386668,
+                          "lng" : -95.518007
+                       },
+                       "southwest" : {
+                          "lat" : 36.99909359999999,
+                          "lng" : -95.964744
+                       }
+                    }
+                 },
+                 "types" : [ "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Montgomery County",
+                       "short_name" : "Montgomery County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Kansas",
+                       "short_name" : "KS",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Montgomery County, KS, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.3866679,
+                          "lng" : -95.51796709999999
+                       },
+                       "southwest" : {
+                          "lat" : 36.99907400000001,
+                          "lng" : -95.964748
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.240253,
+                       "lng" : -95.81428849999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.3866679,
+                          "lng" : -95.51796709999999
+                       },
+                       "southwest" : {
+                          "lat" : 36.99907400000001,
+                          "lng" : -95.964748
+                       }
+                    }
+                 },
+                 "types" : [ "administrative_area_level_2", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Kansas",
+                       "short_name" : "KS",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Kansas, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 40.0045419,
+                          "lng" : -94.588387
+                       },
+                       "southwest" : {
+                          "lat" : 36.9930159,
+                          "lng" : -102.0517688
+                       }
+                    },
+                    "location" : {
+                       "lat" : 39.011902,
+                       "lng" : -98.4842465
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.0045419,
+                          "lng" : -94.588387
+                       },
+                       "southwest" : {
+                          "lat" : 36.9930159,
+                          "lng" : -102.0517688
+                       }
+                    }
+                 },
+                 "types" : [ "administrative_area_level_1", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "United States",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 71.389888,
+                          "lng" : -66.94539469999999
+                       },
+                       "southwest" : {
+                          "lat" : 18.9110642,
+                          "lng" : 172.4458955
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.09024,
+                       "lng" : -95.712891
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 49.38,
+                          "lng" : -66.94
+                       },
+                       "southwest" : {
+                          "lat" : 25.82,
+                          "lng" : -124.39
+                       }
+                    }
+                 },
+                 "types" : [ "country", "political" ]
+              }
+           ],
+           "status" : "OK"
+        }
     http_version: 
-  recorded_at: Wed, 21 Jan 2015 03:30:30 GMT
+  recorded_at: Tue, 27 Jan 2015 00:22:10 GMT
 - request:
     method: get
-    uri: https://api.foursquare.com/v2/venues/explore?ll=11.264380725103877,-73.82640838623047&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Tayrona%20Tented%20Lodge&v=20140819&venuePhotos=1
+    uri: https://api.foursquare.com/v2/venues/explore?ll=37.0625,-95.677068&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Contigo&v=20140819&venuePhotos=1
     body:
       encoding: US-ASCII
       string: ''
@@ -265,7 +451,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 21 Jan 2015 03:30:44 GMT
+      - Tue, 27 Jan 2015 00:22:09 GMT
       Server:
       - nginx
       Content-Type:
@@ -273,7 +459,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Tracer-Time:
-      - '153'
+      - '90'
       X-Ratelimit-Limit:
       - '500'
       X-Ratelimit-Remaining:
@@ -287,7 +473,7 @@ http_interactions:
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-jfk1022-JFK
+      - cache-lax1434-LAX
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -297,232 +483,17 @@ http_interactions:
       Transfer-Encoding:
       - chunked
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eyJtZXRhIjp7ImNvZGUiOjIwMH0sIm5vdGlmaWNhdGlvbnMiOlt7InR5cGUi
-        OiJub3RpZmljYXRpb25UcmF5IiwiaXRlbSI6eyJ1bnJlYWRDb3VudCI6NjN9
-        fV0sInJlc3BvbnNlIjp7InN1Z2dlc3RlZFJhZGl1cyI6MzAwMDAsImhlYWRl
-        ckxvY2F0aW9uIjoiQ3VycmVudCBtYXAgdmlldyIsImhlYWRlckZ1bGxMb2Nh
-        dGlvbiI6IkN1cnJlbnQgbWFwIHZpZXciLCJoZWFkZXJMb2NhdGlvbkdyYW51
-        bGFyaXR5IjoidW5rbm93biIsInF1ZXJ5IjoidGF5cm9uYSB0ZW50ZWQgbG9k
-        Z2UiLCJ0b3RhbFJlc3VsdHMiOjQsInN1Z2dlc3RlZEJvdW5kcyI6eyJuZSI6
-        eyJsYXQiOjExLjMyMjQyNjIxODgyNzY0OCwibG5nIjotNzMuNTMzMjE0Nzc3
-        NDY2Nn0sInN3Ijp7ImxhdCI6MTEuMjUwNDM0MzMxNjY4NTU0LCJsbmciOi03
-        NC4wNTcyNTE4NzQ5MDExNn19LCJncm91cHMiOlt7InR5cGUiOiJSZWNvbW1l
-        bmRlZCBQbGFjZXMiLCJuYW1lIjoicmVjb21tZW5kZWQiLCJpdGVtcyI6W3si
-        cmVhc29ucyI6eyJjb3VudCI6MCwiaXRlbXMiOlt7InN1bW1hcnkiOiJUaGlz
-        IHNwb3QgaXMgcG9wdWxhciIsInR5cGUiOiJnZW5lcmFsIiwicmVhc29uTmFt
-        ZSI6Imdsb2JhbEludGVyYWN0aW9uUmVhc29uIn1dfSwidmVudWUiOnsiaWQi
-        OiI0ZTlkZDRiMjYxYWY0ZmVhYjY1NzgyNjYiLCJuYW1lIjoiUGFycXVlIE5h
-        Y2lvbmFsIE5hdHVyYWwgVGF5cm9uYSIsImNvbnRhY3QiOnt9LCJsb2NhdGlv
-        biI6eyJsYXQiOjExLjMxOTE1Mzg2MDMyMDQxNiwibG5nIjotNzQuMDMzNDMy
-        MDA2ODM1OTQsImRpc3RhbmNlIjoyMzQwNywiY2MiOiJDTyIsImNpdHkiOiJT
-        YW50YSBNYXJ0YSIsInN0YXRlIjoiTWFnZGFsZW5hIiwiY291bnRyeSI6IkNv
-        bG9tYmlhIiwiZm9ybWF0dGVkQWRkcmVzcyI6WyJTYW50YSBNYXJ0YSwgTWFn
-        ZGFsZW5hIiwiQ29sb21iaWEiXX0sImNhdGVnb3JpZXMiOlt7ImlkIjoiNGJm
-        NThkZDhkNDg5ODhkMTU5OTQxNzM1IiwibmFtZSI6IlRyYWlsIiwicGx1cmFs
-        TmFtZSI6IlRyYWlscyIsInNob3J0TmFtZSI6IlRyYWlsIiwiaWNvbiI6eyJw
-        cmVmaXgiOiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9pbWdcL2NhdGVnb3Jp
-        ZXNfdjJcL3BhcmtzX291dGRvb3JzXC9oaWtpbmd0cmFpbF8iLCJzdWZmaXgi
-        OiIucG5nIn0sInByaW1hcnkiOnRydWV9XSwidmVyaWZpZWQiOmZhbHNlLCJz
-        dGF0cyI6eyJjaGVja2luc0NvdW50IjoxMDQyLCJ1c2Vyc0NvdW50Ijo4NzMs
-        InRpcENvdW50Ijo0MX0sImxpa2UiOmZhbHNlLCJyYXRpbmciOjkuMSwicmF0
-        aW5nU2lnbmFscyI6NjAsImhvdXJzIjp7ImlzT3BlbiI6ZmFsc2V9LCJzcGVj
-        aWFscyI6eyJjb3VudCI6MCwiaXRlbXMiOltdfSwicGhvdG9zIjp7ImNvdW50
-        IjoyMzMsImdyb3VwcyI6W3sidHlwZSI6InZlbnVlIiwibmFtZSI6IlZlbnVl
-        IHBob3RvcyIsImNvdW50IjoyMzMsIml0ZW1zIjpbeyJpZCI6IjUxYzNjNjQ5
-        NDk4ZTE2YThhNmFhMGQyZSIsImNyZWF0ZWRBdCI6MTM3MTc4NDc3NywicHJl
-        Zml4IjoiaHR0cHM6XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvZ2VuZXJhbFwv
-        Iiwic3VmZml4IjoiXC82Mjc0NzNfNUZ5WFlWUWJtOWhtVXJzdnc2MkxPbTJX
-        THhTNnhQR0FGSnZMTHMzbzBSby5qcGciLCJ3aWR0aCI6NjEyLCJoZWlnaHQi
-        OjYxMiwidXNlciI6eyJpZCI6IjYyNzQ3MyIsImZpcnN0TmFtZSI6Illhc3Nl
-        ZiIsImxhc3ROYW1lIjoiQnJpY2XDsW8gR2FyY2lhIiwiZ2VuZGVyIjoibWFs
-        ZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0
-        XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvTkVaQkJRWlpDTkRRUlFRWC5q
-        cGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19XX0sImhlcmVOb3ciOnsi
-        Y291bnQiOjAsInN1bW1hcnkiOiJOb2JvZHkgaGVyZSIsImdyb3VwcyI6W119
-        LCJmZWF0dXJlZFBob3RvcyI6eyJjb3VudCI6MSwiaXRlbXMiOlt7ImlkIjoi
-        NTFjM2M2NDk0OThlMTZhOGE2YWEwZDJlIiwiY3JlYXRlZEF0IjoxMzcxNzg0
-        Nzc3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwvaW1nXC9n
-        ZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzYyNzQ3M181RnlYWVZRYm05aG1VcnN2
-        dzYyTE9tMldMeFM2eFBHQUZKdkxMczNvMFJvLmpwZyIsIndpZHRoIjo2MTIs
-        ImhlaWdodCI6NjEyLCJ1c2VyIjp7ImlkIjoiNjI3NDczIiwiZmlyc3ROYW1l
-        IjoiWWFzc2VmIiwibGFzdE5hbWUiOiJCcmljZcOxbyBHYXJjaWEiLCJnZW5k
-        ZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczEu
-        NHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9ORVpCQlFaWkNO
-        RFFSUVFYLmpwZyJ9fSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9XX19LCJ0aXBz
-        IjpbeyJpZCI6IjUyZjE5YzQxNDk4ZWNiMTYzNTc5ZDQ2YSIsImNyZWF0ZWRB
-        dCI6MTM5MTU2NTg4OSwidGV4dCI6ImxvcyBtZWpvcmVzIGRpYXMgZGUgbWkg
-        dmlkYSIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6XC9c
-        L2ZvdXJzcXVhcmUuY29tXC9pdGVtXC81MmYxOWM0MTQ5OGVjYjE2MzU3OWQ0
-        NmEiLCJsaWtlcyI6eyJjb3VudCI6MiwiZ3JvdXBzIjpbXSwic3VtbWFyeSI6
-        IjIgbGlrZXMifSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0s
-        InVzZXIiOnsiaWQiOiIxNTY4Mzk4OCIsImZpcnN0TmFtZSI6IkpvaG4iLCJs
-        YXN0TmFtZSI6IkNvcnRlcyIsImdlbmRlciI6Im1hbGUiLCJwaG90byI6eyJw
-        cmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3FpLm5ldFwvaW1nXC91c2VyXC8i
-        LCJzdWZmaXgiOiJcLzE1NjgzOTg4LVdKU09DTVpEUFZDVlZETUcuanBnIn19
-        fV0sInJlZmVycmFsSWQiOiJlLTAtNGU5ZGQ0YjI2MWFmNGZlYWI2NTc4MjY2
-        LTAifSx7InJlYXNvbnMiOnsiY291bnQiOjAsIml0ZW1zIjpbeyJzdW1tYXJ5
-        IjoiVGhpcyBzcG90IGlzIHBvcHVsYXIiLCJ0eXBlIjoiZ2VuZXJhbCIsInJl
-        YXNvbk5hbWUiOiJnbG9iYWxJbnRlcmFjdGlvblJlYXNvbiJ9XX0sInZlbnVl
-        Ijp7ImlkIjoiNGQwZDE3NDRlZWE5YjYwYzAxNmI1YzNmIiwibmFtZSI6IkVj
-        b2hhYnMgVGF5cm9uYSIsImNvbnRhY3QiOnt9LCJsb2NhdGlvbiI6eyJhZGRy
-        ZXNzIjoiUGFycXVlIE5hY2lvbmFsIE5hdHVyYWwgVGF5cm9uYSIsImxhdCI6
-        MTEuMzEwODUyNTAxMDI1Njc3LCJsbmciOi03My45MzQ0MjkyOTA4MjIzLCJk
-        aXN0YW5jZSI6MTI4NzYsImNjIjoiQ08iLCJjaXR5IjoiU2FudGEgTWFydGEi
-        LCJzdGF0ZSI6Ik1hZ2RhbGVuYSIsImNvdW50cnkiOiJDb2xvbWJpYSIsImZv
-        cm1hdHRlZEFkZHJlc3MiOlsiUGFycXVlIE5hY2lvbmFsIE5hdHVyYWwgVGF5
-        cm9uYSIsIlNhbnRhIE1hcnRhLCBNYWdkYWxlbmEiLCJDb2xvbWJpYSJdfSwi
-        Y2F0ZWdvcmllcyI6W3siaWQiOiI0YmY1OGRkOGQ0ODk4OGQxZTQ5NDE3MzUi
-        LCJuYW1lIjoiQ2FtcGdyb3VuZCIsInBsdXJhbE5hbWUiOiJDYW1wZ3JvdW5k
-        cyIsInNob3J0TmFtZSI6IkNhbXBncm91bmQiLCJpY29uIjp7InByZWZpeCI6
-        Imh0dHBzOlwvXC9zczMuNHNxaS5uZXRcL2ltZ1wvY2F0ZWdvcmllc192Mlwv
-        cGFya3Nfb3V0ZG9vcnNcL2NhbXBncm91bmRfIiwic3VmZml4IjoiLnBuZyJ9
-        LCJwcmltYXJ5Ijp0cnVlfV0sInZlcmlmaWVkIjpmYWxzZSwic3RhdHMiOnsi
-        Y2hlY2tpbnNDb3VudCI6MjQ2LCJ1c2Vyc0NvdW50IjoxODQsInRpcENvdW50
-        Ijo4fSwibGlrZSI6ZmFsc2UsInJhdGluZyI6OC4xLCJyYXRpbmdTaWduYWxz
-        IjoxMCwic3BlY2lhbHMiOnsiY291bnQiOjAsIml0ZW1zIjpbXX0sInBob3Rv
-        cyI6eyJjb3VudCI6NTQsImdyb3VwcyI6W3sidHlwZSI6InZlbnVlIiwibmFt
-        ZSI6IlZlbnVlIHBob3RvcyIsImNvdW50Ijo1NCwiaXRlbXMiOlt7ImlkIjoi
-        NTBhNjRkMjhlNGIwMTQ3ZTQyODYxN2FkIiwiY3JlYXRlZEF0IjoxMzUzMDc2
-        MDA4LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwvaW1nXC9n
-        ZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzE2OTY1NzFfVHJRTTQtQnAyWUJjNVdL
-        RDVaLW53c1FWUGtwTGExaFMxU2dObXlsM3JSby5qcGciLCJ3aWR0aCI6NzIw
-        LCJoZWlnaHQiOjQwNSwidXNlciI6eyJpZCI6IjE2OTY1NzEiLCJmaXJzdE5h
-        bWUiOiJGbHludXgiLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4
-        IjoiaHR0cHM6XC9cL2lyczAuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3Vm
-        Zml4IjoiXC9MVVRXTUpPWFlNMVcwWkQzLmpwZyJ9fSwidmlzaWJpbGl0eSI6
-        InB1YmxpYyJ9XX1dfSwiaGVyZU5vdyI6eyJjb3VudCI6MCwic3VtbWFyeSI6
-        Ik5vYm9keSBoZXJlIiwiZ3JvdXBzIjpbXX0sImZlYXR1cmVkUGhvdG9zIjp7
-        ImNvdW50IjoxLCJpdGVtcyI6W3siaWQiOiI1MGE2NGQyOGU0YjAxNDdlNDI4
-        NjE3YWQiLCJjcmVhdGVkQXQiOjEzNTMwNzYwMDgsInByZWZpeCI6Imh0dHBz
-        OlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL2dlbmVyYWxcLyIsInN1ZmZpeCI6
-        IlwvMTY5NjU3MV9UclFNNC1CcDJZQmM1V0tENVotbndzUVZQa3BMYTFoUzFT
-        Z05teWwzclJvLmpwZyIsIndpZHRoIjo3MjAsImhlaWdodCI6NDA1LCJ1c2Vy
-        Ijp7ImlkIjoiMTY5NjU3MSIsImZpcnN0TmFtZSI6IkZseW51eCIsImdlbmRl
-        ciI6Im1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMC40
-        c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL0xVVFdNSk9YWU0x
-        VzBaRDMuanBnIn19LCJ2aXNpYmlsaXR5IjoicHVibGljIn1dfX0sInRpcHMi
-        Olt7ImlkIjoiNTBkYTFhNWZlNGIwNzllNWUyNzk5YjBjIiwiY3JlYXRlZEF0
-        IjoxMzU2NDcwODc5LCJ0ZXh0IjoiSXQgaXMgYW4gaW5jcmVkaWJsZSBwbGFj
-        ZSB0byBiZS4gVGFrZSB0aW1lIGEgc3RheSBmb3IgbW9yZSB0aGFuIGp1c3Qg
-        b25lIG5pZ2h0LiBBZnRlciBhIGxvbmcgd2FsayB0aHJvdWdoIHRoZSBqdW5n
-        bGUgdGhlIGZvb2QgaW4gdGhlIGhvdGVsIGlzIGV4Y2VsbGVudCBhbmQgdGhl
-        IGFjY29tbW9kYXRpb24gZmFudGFzdGljLiIsInR5cGUiOiJ1c2VyIiwiY2Fu
-        b25pY2FsVXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC81
-        MGRhMWE1ZmU0YjA3OWU1ZTI3OTliMGMiLCJwaG90byI6eyJpZCI6IjUwZGEx
-        YTYxZTRiMDQyMWU3Mjc2MTg3YSIsImNyZWF0ZWRBdCI6MTM1NjQ3MDg4MSwi
-        c291cmNlIjp7Im5hbWUiOiJmb3Vyc3F1YXJlIGZvciBpUGhvbmUiLCJ1cmwi
-        OiJodHRwczpcL1wvZm91cnNxdWFyZS5jb21cL2Rvd25sb2FkXC8jXC9pcGhv
-        bmUifSwicHJlZml4IjoiaHR0cHM6XC9cL2lyczMuNHNxaS5uZXRcL2ltZ1wv
-        Z2VuZXJhbFwvIiwic3VmZml4IjoiXC81MjkyMDYzX2wyRTE5NE5KbTN2clk5
-        UGxrVXhwZ3I5bGZRcVhPUnpyWFBIUWRvdXMzMEkuanBnIiwid2lkdGgiOjcy
-        MCwiaGVpZ2h0Ijo5NjB9LCJwaG90b3VybCI6Imh0dHBzOlwvXC9pcnMzLjRz
-        cWkubmV0XC9pbWdcL2dlbmVyYWxcL29yaWdpbmFsXC81MjkyMDYzX2wyRTE5
-        NE5KbTN2clk5UGxrVXhwZ3I5bGZRcVhPUnpyWFBIUWRvdXMzMEkuanBnIiwi
-        bGlrZXMiOnsiY291bnQiOjMsImdyb3VwcyI6W10sInN1bW1hcnkiOiIzIGxp
-        a2VzIn0sImxvZ1ZpZXciOnRydWUsInRvZG8iOnsiY291bnQiOjB9LCJ1c2Vy
-        Ijp7ImlkIjoiNTI5MjA2MyIsImZpcnN0TmFtZSI6IkNlc2FyIiwibGFzdE5h
-        bWUiOiJBcnR1cm8iLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4
-        IjoiaHR0cHM6XC9cL2lyczMuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3Vm
-        Zml4IjoiXC9IVTNOMVYyM0g0Q1ZIU1BQLmpwZyJ9fX1dLCJyZWZlcnJhbElk
-        IjoiZS0wLTRkMGQxNzQ0ZWVhOWI2MGMwMTZiNWMzZi0xIn0seyJyZWFzb25z
-        Ijp7ImNvdW50IjowLCJpdGVtcyI6W3sic3VtbWFyeSI6IlRoaXMgc3BvdCBp
-        cyBwb3B1bGFyIiwidHlwZSI6ImdlbmVyYWwiLCJyZWFzb25OYW1lIjoiZ2xv
-        YmFsSW50ZXJhY3Rpb25SZWFzb24ifV19LCJ2ZW51ZSI6eyJpZCI6IjRkMmM5
-        Mjk3ZWJhY2IxZjdhZmNkMTU1MCIsIm5hbWUiOiJSZXN0YXVyYW50ZSBUYXly
-        b25hIiwiY29udGFjdCI6e30sImxvY2F0aW9uIjp7ImFkZHJlc3MiOiJQYXJx
-        dWUgTmFjaW9uYWwgTmF0dXJhbCBUYXlyb25hIiwibGF0IjoxMS4zMTA4NDg1
-        OTM3MTE4NTMsImxuZyI6LTczLjkzNDI3MDczOTU1NTM2LCJkaXN0YW5jZSI6
-        MTI4NjAsImNjIjoiQ08iLCJjaXR5IjoiU2FudGEgTWFydGEiLCJzdGF0ZSI6
-        Ik1hZ2RhbGVuYSIsImNvdW50cnkiOiJDb2xvbWJpYSIsImZvcm1hdHRlZEFk
-        ZHJlc3MiOlsiUGFycXVlIE5hY2lvbmFsIE5hdHVyYWwgVGF5cm9uYSIsIlNh
-        bnRhIE1hcnRhLCBNYWdkYWxlbmEiLCJDb2xvbWJpYSJdfSwiY2F0ZWdvcmll
-        cyI6W3siaWQiOiI0YmY1OGRkOGQ0ODk4OGQxNDQ5NDE3MzUiLCJuYW1lIjoi
-        Q2FyaWJiZWFuIFJlc3RhdXJhbnQiLCJwbHVyYWxOYW1lIjoiQ2FyaWJiZWFu
-        IFJlc3RhdXJhbnRzIiwic2hvcnROYW1lIjoiQ2FyaWJiZWFuIiwiaWNvbiI6
-        eyJwcmVmaXgiOiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9pbWdcL2NhdGVn
-        b3JpZXNfdjJcL2Zvb2RcL2NhcmliYmVhbl8iLCJzdWZmaXgiOiIucG5nIn0s
-        InByaW1hcnkiOnRydWV9XSwidmVyaWZpZWQiOmZhbHNlLCJzdGF0cyI6eyJj
-        aGVja2luc0NvdW50IjoxMDEsInVzZXJzQ291bnQiOjY2LCJ0aXBDb3VudCI6
-        Mn0sInByaWNlIjp7InRpZXIiOjIsIm1lc3NhZ2UiOiJNb2RlcmF0ZSIsImN1
-        cnJlbmN5IjoiJCJ9LCJsaWtlIjpmYWxzZSwic3BlY2lhbHMiOnsiY291bnQi
-        OjAsIml0ZW1zIjpbXX0sInBob3RvcyI6eyJjb3VudCI6MTIsImdyb3VwcyI6
-        W3sidHlwZSI6InZlbnVlIiwibmFtZSI6IlZlbnVlIHBob3RvcyIsImNvdW50
-        IjoxMiwiaXRlbXMiOlt7ImlkIjoiNTA0OGU5Y2VlNGIwZDZlNjYyMDJhYjI2
-        IiwiY3JlYXRlZEF0IjoxMzQ2OTU1NzI2LCJwcmVmaXgiOiJodHRwczpcL1wv
-        aXJzMi40c3FpLm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzd5
-        N2lGNkRxMXFBQU50TmRmQTdKSU5vZTVwWElUZElPeFQ5NFdnSkJWYVUuanBn
-        Iiwid2lkdGgiOjcyMCwiaGVpZ2h0Ijo1NDAsInVzZXIiOnsiaWQiOiI0NDI1
-        MzQiLCJmaXJzdE5hbWUiOiJzdGVwaGFuaWUiLCJnZW5kZXIiOiJmZW1hbGUi
-        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwv
-        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzQ0MjUzNC1OMVo1ME1BRTFOSERB
-        SFMxLmpwZyJ9fSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9XX1dfSwiaGVyZU5v
-        dyI6eyJjb3VudCI6MCwic3VtbWFyeSI6Ik5vYm9keSBoZXJlIiwiZ3JvdXBz
-        IjpbXX0sImZlYXR1cmVkUGhvdG9zIjp7ImNvdW50IjoxLCJpdGVtcyI6W3si
-        aWQiOiI1MDQ4ZTljZWU0YjBkNmU2NjIwMmFiMjYiLCJjcmVhdGVkQXQiOjEz
-        NDY5NTU3MjYsInByZWZpeCI6Imh0dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9p
-        bWdcL2dlbmVyYWxcLyIsInN1ZmZpeCI6IlwvN3k3aUY2RHExcUFBTnROZGZB
-        N0pJTm9lNXBYSVRkSU94VDk0V2dKQlZhVS5qcGciLCJ3aWR0aCI6NzIwLCJo
-        ZWlnaHQiOjU0MCwidXNlciI6eyJpZCI6IjQ0MjUzNCIsImZpcnN0TmFtZSI6
-        InN0ZXBoYW5pZSIsImdlbmRlciI6ImZlbWFsZSIsInBob3RvIjp7InByZWZp
-        eCI6Imh0dHBzOlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1
-        ZmZpeCI6IlwvNDQyNTM0LU4xWjUwTUFFMU5IREFIUzEuanBnIn19LCJ2aXNp
-        YmlsaXR5IjoicHVibGljIn1dfX0sInRpcHMiOlt7ImlkIjoiNTJhM2JmMmIx
-        MWQyYzE4YWY2ZTU0OTMwIiwiY3JlYXRlZEF0IjoxMzg2NDYzMDE5LCJ0ZXh0
-        IjoiTGFzIEJyb2NoZXRhcyBkZSBsYW5nb3N0aW5vcyBzb24gZGVsaWNpb3Nh
-        cy4iLCJ0eXBlIjoidXNlciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9m
-        b3Vyc3F1YXJlLmNvbVwvaXRlbVwvNTJhM2JmMmIxMWQyYzE4YWY2ZTU0OTMw
-        IiwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0sInVzZXIiOnsi
-        aWQiOiI3MjM5MTM5NyIsImZpcnN0TmFtZSI6Ikp1YW4gRGF2aWQiLCJsYXN0
-        TmFtZSI6IkFsZGFuYSBCYXJyaW9zIiwiZ2VuZGVyIjoibWFsZSIsInBob3Rv
-        Ijp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMwLjRzcWkubmV0XC9pbWdcL3Vz
-        ZXJcLyIsInN1ZmZpeCI6IlwvNzIzOTEzOTctRkVGRzQwNVFTRUMyMFRYMC5q
-        cGcifX19XSwicmVmZXJyYWxJZCI6ImUtMC00ZDJjOTI5N2ViYWNiMWY3YWZj
-        ZDE1NTAtMiJ9LHsicmVhc29ucyI6eyJjb3VudCI6MCwiaXRlbXMiOlt7InN1
-        bW1hcnkiOiJUaGlzIHNwb3QgaXMgcG9wdWxhciIsInR5cGUiOiJnZW5lcmFs
-        IiwicmVhc29uTmFtZSI6Imdsb2JhbEludGVyYWN0aW9uUmVhc29uIn1dfSwi
-        dmVudWUiOnsiaWQiOiI1M2U1MDM0NjQ5OGVjNzZlZDVhMjZjM2QiLCJuYW1l
-        IjoiUGFycXVlIE5hY2lvbmFsIGRlbCB0YXlyb25hIiwiY29udGFjdCI6e30s
-        ImxvY2F0aW9uIjp7ImxhdCI6MTEuMjUzNzA2NjkwMTc1Nzg0LCJsbmciOi03
-        My41NTcwMzQ2NDU1MzE4LCJkaXN0YW5jZSI6Mjk0MzMsImNjIjoiQ08iLCJj
-        b3VudHJ5IjoiQ29sb21iaWEiLCJmb3JtYXR0ZWRBZGRyZXNzIjpbIkNvbG9t
-        YmlhIl19LCJjYXRlZ29yaWVzIjpbeyJpZCI6IjUyZTgxNjEyYmNiYzU3ZjEw
-        NjZiN2EyMSIsIm5hbWUiOiJOYXRpb25hbCBQYXJrIiwicGx1cmFsTmFtZSI6
-        Ik5hdGlvbmFsIFBhcmtzIiwic2hvcnROYW1lIjoiTmF0aW9uYWwgUGFyayIs
-        Imljb24iOnsicHJlZml4IjoiaHR0cHM6XC9cL3NzMy40c3FpLm5ldFwvaW1n
-        XC9jYXRlZ29yaWVzX3YyXC9wYXJrc19vdXRkb29yc1wvaGlraW5ndHJhaWxf
-        Iiwic3VmZml4IjoiLnBuZyJ9LCJwcmltYXJ5Ijp0cnVlfV0sInZlcmlmaWVk
-        IjpmYWxzZSwic3RhdHMiOnsiY2hlY2tpbnNDb3VudCI6OCwidXNlcnNDb3Vu
-        dCI6NywidGlwQ291bnQiOjB9LCJsaWtlIjpmYWxzZSwic3BlY2lhbHMiOnsi
-        Y291bnQiOjAsIml0ZW1zIjpbXX0sInBob3RvcyI6eyJjb3VudCI6MSwiZ3Jv
-        dXBzIjpbeyJ0eXBlIjoidmVudWUiLCJuYW1lIjoiVmVudWUgcGhvdG9zIiwi
-        Y291bnQiOjEsIml0ZW1zIjpbeyJpZCI6IjU0MTA3NDAyNDk4ZTU5YWNjYmRm
-        MjAzMyIsImNyZWF0ZWRBdCI6MTQxMDM2NDQxOCwicHJlZml4IjoiaHR0cHM6
-        XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvZ2VuZXJhbFwvIiwic3VmZml4Ijoi
-        XC83Njg3Mzg2X1BKd3NUb2tNM2drLWRKMWJRWHBMdTF5ZGVXUEo2YTI0ckNm
-        aWhBRllsREEuanBnIiwid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDAsInVzZXIi
-        OnsiaWQiOiI3Njg3Mzg2IiwiZmlyc3ROYW1lIjoiQm90aSIsImdlbmRlciI6
-        Im1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3Fp
-        Lm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzc2ODczODYtUVcyMEJS
-        VklHRUdVQ1NERi5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19XX0s
-        ImhlcmVOb3ciOnsiY291bnQiOjAsInN1bW1hcnkiOiJOb2JvZHkgaGVyZSIs
-        Imdyb3VwcyI6W119LCJmZWF0dXJlZFBob3RvcyI6eyJjb3VudCI6MSwiaXRl
-        bXMiOlt7ImlkIjoiNTQxMDc0MDI0OThlNTlhY2NiZGYyMDMzIiwiY3JlYXRl
-        ZEF0IjoxNDEwMzY0NDE4LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3Fp
-        Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzc2ODczODZfUEp3
-        c1Rva00zZ2stZEoxYlFYcEx1MXlkZVdQSjZhMjRyQ2ZpaEFGWWxEQS5qcGci
-        LCJ3aWR0aCI6OTYwLCJoZWlnaHQiOjU0MCwidXNlciI6eyJpZCI6Ijc2ODcz
-        ODYiLCJmaXJzdE5hbWUiOiJCb3RpIiwiZ2VuZGVyIjoibWFsZSIsInBob3Rv
-        Ijp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9pbWdcL3Vz
-        ZXJcLyIsInN1ZmZpeCI6IlwvNzY4NzM4Ni1RVzIwQlJWSUdFR1VDU0RGLmpw
-        ZyJ9fSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9XX19LCJyZWZlcnJhbElkIjoi
-        ZS0wLTUzZTUwMzQ2NDk4ZWM3NmVkNWEyNmMzZC0zIn1dfV19fQ==
+      encoding: UTF-8
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"fallbackCategory":{"target":{"type":"path","url":"\/venue\/explore","params":{"query":"Contigo","ll":"37.062500,-95.677068","radius":"10000"}},"refinements":[{"query":"food"}]},"warning":{"text":"There
+        aren''t a lot of results for \"Contigo.\" Try something more general, reset
+        your filters, or expand the search area."},"suggestedRadius":30000,"headerLocation":"Current
+        map view","headerFullLocation":"Current map view","headerLocationGranularity":"unknown","query":"contigo","totalResults":0,"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[]}]}}'
     http_version: 
-  recorded_at: Wed, 21 Jan 2015 03:30:44 GMT
+  recorded_at: Tue, 27 Jan 2015 00:22:10 GMT
 - request:
     method: get
-    uri: http://api.geonames.org/timezoneJSON?lat=11.264380725103877&lng=-73.82640838623047&username=sashafklein
+    uri: http://api.geonames.org/timezoneJSON?lat=37.0625&lng=-95.677068&username=sashafklein
     body:
       encoding: US-ASCII
       string: ''
@@ -539,24 +510,22 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 21 Jan 2015 03:30:57 GMT
+      - Tue, 27 Jan 2015 00:22:09 GMT
       Server:
-      - Apache/2.2.15 (CentOS)
+      - Apache/2.4.6 (Linux/SUSE)
       Cache-Control:
       - no-cache
       Access-Control-Allow-Origin:
       - "*"
-      Content-Length:
-      - '253'
-      Connection:
-      - close
+      Transfer-Encoding:
+      - chunked
       Content-Type:
       - application/json;charset=UTF-8
     body:
       encoding: UTF-8
-      string: '{"time":"2015-01-20 22:30","countryName":"Colombia","sunset":"2015-01-21
-        17:53","rawOffset":-5,"dstOffset":-5,"countryCode":"CO","gmtOffset":-5,"lng":-73.82640838623047,"sunrise":"2015-01-21
-        06:19","timezoneId":"America/Bogota","lat":11.264380725103877}'
+      string: '{"sunrise":"2015-01-27 07:29","lng":-95.677068,"countryCode":"US","gmtOffset":-6,"rawOffset":-6,"sunset":"2015-01-27
+        17:42","timezoneId":"America/Chicago","dstOffset":-5,"countryName":"United
+        States","time":"2015-01-26 18:22","lat":37.0625}'
     http_version: 
-  recorded_at: Wed, 21 Jan 2015 03:30:45 GMT
+  recorded_at: Tue, 27 Jan 2015 00:22:11 GMT
 recorded_with: VCR 2.9.3

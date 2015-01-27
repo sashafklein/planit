@@ -262,11 +262,12 @@ module Completers
           place1 = PlaceCompleter.new({ name: 'Starbucks', nearby: "Coal Harbor, Vancouver", street_address: '1099 Robson Street' }).complete!
           place2 = PlaceCompleter.new({ name: 'Starbucks', locality: 'Vancouver', street_address: '900 Granville St' }).complete!
           place3 = PlaceCompleter.new({ name: 'Starbucks', locality: 'Vancouver', country: 'Canada' }).complete!
-          binding.pry
           places = [place1, place2, place3]
           expect( places.map(&:locality).uniq ).to eq ['Vancouver']
           expect( places.map(&:names).uniq ).to eq [['Starbucks']]
           expect( places.map(&:country).uniq ).to eq ['Canada']
+          expect( places.map(&:lat).uniq.count ).to eq 3
+          expect( places.map(&:lon).max - places.map(&:lon).min ).to be < 0.01 # Stringent lat/lon comparisons
           expect( places.map(&:id).uniq.count ).to eq 3
         end
 

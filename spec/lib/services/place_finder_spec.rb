@@ -54,6 +54,11 @@ module Services
           expect( found ).not_to be_persisted
           expect( found.street_address ).to eq @mark.place.street_address
         end
+
+        it "makes an exception for foursquare_id, which is sufficient alone" do
+          found = PlaceFinder.new( foursquare_id: 'abcde12345' ).find!
+          expect( found ).to eq @mark.place
+        end
       end
       
       context "without findable record" do
