@@ -1,10 +1,9 @@
 class Plan < BaseModel
 
-  include ActiveRecord::MetaExt
-  boolean_accessor :published
-
   extend FriendlyId
   friendly_id :name, use: :slugged
+
+  boolean_accessor :published
 
   belongs_to :user
   has_many :legs
