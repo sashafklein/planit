@@ -38,6 +38,7 @@ gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 gem 'draper'
 gem 'timezone'
+gem 'newrelic_rpm'
 
 gem 'pundit'
 
@@ -92,6 +93,6 @@ group :test do
 end
 
 group :staging, :production do
-  gem "newrelic_rpm", ">= 3.7.3"
+  # gem "newrelic_rpm", ">= 3.7.3"
   gem 'rails_12factor'
 end
