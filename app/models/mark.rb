@@ -1,6 +1,4 @@
 class Mark < BaseModel
-
-  boolean_accessor :lodging, :meal, :published
     
   before_save { category.downcase! if category_changed? }
   
@@ -13,6 +11,7 @@ class Mark < BaseModel
            :country, :region, :locality, :sublocality, :images, :image, :street_address, to: :place
 
   delegate :full, :lodging, to: :place, prefix: true
+  boolean_accessor :lodging, :meal, :published
 
   has_one :arrival, class_name: 'Travel', foreign_key: 'to_id'
   has_one :departure, class_name: 'Travel', foreign_key: 'from_id'

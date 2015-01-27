@@ -3,18 +3,18 @@ class Plan < BaseModel
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  boolean_accessor :published
-
   belongs_to :user
+
   has_many :legs
   has_many :days, through: :legs
   has_many :items, dependent: :destroy
-
   has_many :moneyshots, class_name: 'Image', as: :imageable
   has_many :images, as: :imageable
 
+  boolean_accessor :published
   delegate :last_day, :departure, to: :last_leg
   delegate :arrival, to: :first_leg
+
 
   def has_lodging?
     items.marks.where(lodging: true).any?
