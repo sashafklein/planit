@@ -31,7 +31,7 @@ gem 'carmen'
 gem 'httparty'
 gem 'devise'
 gem 'friendly_id', '~> 5.0.0'
-gem 'rack-mini-profiler'
+gem 'rack-mini-profiler', require: false
 gem 'active_model_serializers'
 gem 'fuzzy-string-match'
 gem 'bootstrap-sass', '~> 3.3.1'
@@ -64,6 +64,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'better_errors'
   gem 'bullet'
+  # gem 'thin'
 end
 
 group :development, :test do

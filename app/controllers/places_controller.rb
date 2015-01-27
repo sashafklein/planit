@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-  
+
   before_action :load_place, only: [:show]
   before_action :authenticate_user!, only: [:new]
 
@@ -12,7 +12,6 @@ class PlacesController < ApplicationController
   private
 
   def load_place
-    @place = Place.find(params[:id])
+    @place = Place.includes(:images).find(params[:id])
   end
-
 end
