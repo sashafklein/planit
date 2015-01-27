@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113211138) do
+ActiveRecord::Schema.define(version: 20150121194759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20150113211138) do
     t.hstore   "extra",       default: {}
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "published",   default: true
   end
 
   add_index "items", ["day_id"], name: "index_items_on_day_id", using: :btree
@@ -117,6 +118,7 @@ ActiveRecord::Schema.define(version: 20150113211138) do
     t.integer  "user_id"
     t.string   "groupable_type"
     t.integer  "groupable_id"
+    t.boolean  "published",      default: true
   end
 
   add_index "marks", ["arrival_id"], name: "index_marks_on_arrival_id", using: :btree
@@ -153,7 +155,6 @@ ActiveRecord::Schema.define(version: 20150113211138) do
     t.text     "flags",             default: [],    array: true
     t.text     "completion_steps",  default: [],    array: true
     t.text     "sublocality"
-    t.string   "meta_categories",   default: [],    array: true
     t.boolean  "wifi",              default: false
     t.string   "menu"
     t.string   "mobile_menu"
@@ -162,6 +163,7 @@ ActiveRecord::Schema.define(version: 20150113211138) do
     t.string   "timezone_string"
     t.boolean  "reservations",      default: false
     t.string   "reservations_link"
+    t.string   "meta_categories",   default: [],    array: true
     t.string   "phones",            default: [],    array: true
   end
 
@@ -179,6 +181,7 @@ ActiveRecord::Schema.define(version: 20150113211138) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug",                           null: false
+    t.boolean  "published",   default: true
   end
 
   add_index "plans", ["slug"], name: "index_plans_on_slug", unique: true, using: :btree
@@ -221,6 +224,7 @@ ActiveRecord::Schema.define(version: 20150113211138) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug",                                null: false
+    t.integer  "role",                   default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

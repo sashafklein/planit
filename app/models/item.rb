@@ -1,7 +1,5 @@
 class Item < BaseModel
   
-  hstore_accessor :extra
-  
   belongs_to :mark
   belongs_to :plan
   belongs_to :day
@@ -10,6 +8,8 @@ class Item < BaseModel
            :country, :region, :locality, :sublocality, :image, :source, to: :place
   delegate :place, :notes, :name, to: :mark
   delegate :leg, to: :day
+  hstore_accessor :extra
+  boolean_accessor :published
 
   class << self
     delegate :places, :coordinates, :all_names, :all_ids, :all_types, :all_countries, :all_regions, :all_localities, to: :marks

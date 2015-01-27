@@ -39,6 +39,8 @@ gem 'autoprefixer-rails'
 gem 'draper'
 gem 'timezone'
 
+gem 'pundit'
+
 gem "compass"
 gem "compass-rails"
 

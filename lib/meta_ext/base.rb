@@ -23,6 +23,22 @@ module MetaExt
         where('1=2')
       end
 
+      def boolean_accessor(*symbols)
+        symbols.each do |symbol|
+
+          metaclass.instance_eval do 
+            define_method(symbol) do
+              where(symbol => true)
+            end
+
+            define_method("not_#{symbol}") do
+              where(symbol => false)
+            end
+          end
+
+        end
+      end
+
     end
 
     def self.included(base)

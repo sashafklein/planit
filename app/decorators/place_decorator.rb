@@ -101,6 +101,41 @@ class PlaceDecorator < Draper::Decorator
     end
   end
 
+  def next_image_script
+    insert  = "<script type='text/javascript'> "
+    insert +=   "var imageCount = 0; "
+    insert +=   "var imageUrl = new Array(); "
+    insert +=   "var imageCredit = new Array(); "
+    insert +=   "var imageSource = new Array(); "
+    insert +=   "function loadImages() { "
+    images.each_with_index do |image, index|
+      insert += "imageUrl[#{index}] = '#{image.url}'; "
+      insert += "imageCredit[#{index}] = '#{image.source}'; "
+      insert += "imageSource[#{index}] = '#{image.source_url}'; "
+    end
+    insert +=     "document.getElementById('gallery-number').innerHTML = '1'; "
+    insert +=     "document.getElementById('gallery-image').style.backgroundImage = 'url(' + imageUrl[0] + ')'; "
+    insert +=     "document.getElementById('gallery-link').innerHTML = imageCredit[0]; "
+    insert +=     "document.getElementById('gallery-link').href = imageSource[0]; "
+    insert +=   "}; "
+    insert +=   "function nextImage() { "
+    insert +=     "if (imageUrl.length > 0) { "
+    insert +=       "if (imageCount + 1 < imageUrl.length) { "
+    insert +=         "imageCount++; "
+    insert +=       "} else { "
+    insert +=         "imageCount = 0; "
+    insert +=       "}; "
+    insert +=       "document.getElementById('gallery-number').innerHTML = imageCount + 1; "
+    insert +=       "document.getElementById('gallery-image').style.backgroundImage = 'url(' + imageUrl[imageCount] + ')'; "
+    insert +=       "document.getElementById('gallery-link').innerHTML = imageCredit[imageCount]; "
+    insert +=       "document.getElementById('gallery-link').href = imageSource[imageCount]; "
+    insert +=     "};"
+    insert +=   "};"
+    insert +=   "window.onLoad = loadImages(); "
+    insert += "</script>"
+    return insert.html_safe
+  end
+
   def show_hours
     html = ''
     if hours.any?
@@ -211,15 +246,17 @@ class PlaceDecorator < Draper::Decorator
   end
 
   def show_photo
-    "#{image_tag image.url, class: 'photos-gallery-image' }".html_safe
+    "<a href='#' onClick='nextImage();'><div class='photos-gallery-image' id='gallery-image'></div></a>".html_safe
   end
 
   def show_photo_caption
-    "<div class='photos-caption'>Photo Credit: #{link_to image.source, image.source_url, :title => 'original photo'}</div>".html_safe
+    "<div class='photos-caption'>Photo Credit: <a href='#' id='gallery-link'>Loading</a></div>".html_safe
   end
 
   def show_photo_number
-    "<div class='photos-number'>[]</div>".html_safe
+    if images.length > 1
+      "<div class='photos-number'>[ <span id='gallery-number'>0</span> / #{images.length} ]</div>".html_safe
+    end
   end
 
   def formatted_open_until

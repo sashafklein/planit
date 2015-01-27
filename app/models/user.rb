@@ -1,5 +1,7 @@
 class User < BaseModel
 
+  enum role: { member: 0, admin: 1 }
+
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
