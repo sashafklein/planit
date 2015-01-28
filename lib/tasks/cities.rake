@@ -14,7 +14,7 @@ namespace :cities  do
       output << yaml
       output.close
     end
-    puts "Compelte?"
+    puts "Complete?"
   end
 
   task priority: :environment do
