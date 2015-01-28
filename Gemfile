@@ -56,6 +56,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-leaflet'
   gem 'rails-assets-requirejs'
   gem 'rails-assets-sinon'
+  gem 'rails-assets-jasmine-sinon'
   # gem 'rails-assets-leaflet.markercluster'
 end
 
@@ -64,9 +65,8 @@ group :development do
   gem "spring"
   gem "spring-commands-rspec"
   gem 'binding_of_caller'
-  gem 'better_errors'
   gem 'bullet'
-  # gem 'thin'
+  gem 'web-console'
 end
 
 group :development, :test do
@@ -74,6 +74,7 @@ group :development, :test do
   gem "byebug"
   gem "dotenv-rails"
   gem "pry-rails"
+  gem "teaspoon"
 end
 
 group :test do
@@ -88,14 +89,9 @@ group :test do
   gem "factory_girl_rails"
 
   gem "rspec-rails"
-  gem "jasmine-rails"
-  gem 'jasmine-headless-webkit'
-  gem 'guard-jasmine'
   gem 'rails-assets-rosie'
-  gem "sinon-rails"
 end
 
 group :staging, :production do
-  # gem "newrelic_rpm", ">= 3.7.3"
   gem 'rails_12factor'
 end

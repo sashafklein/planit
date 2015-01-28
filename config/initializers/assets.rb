@@ -11,7 +11,11 @@ Rails.application.config.assets.precompile += [
   'icons.eot',
   'icons.svg',
   'icons.ttf',
-  'icons.woff'
+  'icons.woff', 
+  'teaspoon.css',
+  'jasmine/1.3.1.js',
+  'teaspoon-teaspoon.js',
+  'teaspoon-jasmine.js'
 ]
 
 Rails.application.config.assets.paths += [
