@@ -23,6 +23,7 @@ gem "unicorn"
 gem 'nokogiri'
 gem 'font-awesome-sass'
 gem 'image_size'
+gem 'simple_form'
 
 gem "haml-rails"
 gem 'geocoder'
@@ -82,7 +83,6 @@ group :test do
   gem 'vcr'
   gem 'shoulda-matchers', require: false
   gem "factory_girl_rails"
-
   gem "rspec-rails"
 end
 
