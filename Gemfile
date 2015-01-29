@@ -16,7 +16,6 @@ gem "rack-timeout"
 gem "rails"
 gem "recipient_interceptor"
 gem "sass-rails"
-gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
@@ -54,10 +53,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-async'
   gem 'rails-assets-lodash'
   gem 'rails-assets-leaflet'
-  gem 'rails-assets-requirejs'
-  gem 'rails-assets-sinon'
-  gem 'rails-assets-jasmine-sinon'
-  # gem 'rails-assets-leaflet.markercluster'
 end
 
 group :development do
@@ -89,7 +84,6 @@ group :test do
   gem "factory_girl_rails"
 
   gem "rspec-rails"
-  gem 'rails-assets-rosie'
 end
 
 group :staging, :production do
