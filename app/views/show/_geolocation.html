@@ -1,0 +1,13 @@
+<script>
+
+  function success(position) {
+    alert(position.coords.latitude + "," + position.coords.longitude);
+  };
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, error);
+  } else {
+    error('not supported');
+  };
+
+</script>
