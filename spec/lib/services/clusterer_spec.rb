@@ -9,7 +9,6 @@ module Services
         xit "groups appropriately" do
           expect(@clusterer.to_json).to eq([
             [{
-               location_name: [lat, lon],
                location_name: [lat, lon]
             }],
           ])

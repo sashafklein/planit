@@ -38,7 +38,7 @@ module Completers
     end
 
     def full_fs_url
-      "#{ FoursquareExplore::FS_URL }/#{ fsid }?oauth_token=#{ FoursquareExplore::FS_AUTH_TOKEN }"
+      "#{ FoursquareExplore::FS_URL }/#{ fsid }?oauth_token=#{ FoursquareExplore.auth_token }"
     end
 
     def set_val(field, val, override=false)
@@ -79,7 +79,7 @@ module Completers
 
       def reservations
         return true if reservations_link.present?
-        
+
         res = json.attributes.groups.find{ |g| g.type == 'reservations' }
         val = res ? res.to_sh.items.first.displayValue : 'No'
         val == 'No' ? false : true

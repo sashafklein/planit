@@ -1,6 +1,7 @@
 require 'spec_helper'
 
-describe 'Authentication' do
+describe 'Authentication', :js do
+
   describe "sign in" do
     it "is linked to on the landing page" do
       user = create(:user)
@@ -10,6 +11,7 @@ describe 'Authentication' do
       fill_in 'Email', with: user.email
       fill_in "Password", with: user.password
       click_button 'Sign in'
+
       expect( current_path ).to eq user_path(user)
     end
   end

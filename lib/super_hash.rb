@@ -30,7 +30,7 @@ class SuperHash < Hash
   end
 
   def merge(hash)
-    self.class.new( self.recursive_symbolize_keys.merge(hash.recursive_symbolize_keys) )
+    recursive_symbolize_keys.to_h.merge( hash.recursive_symbolize_keys ).to_sh
   end
 
   def [](key)
@@ -52,7 +52,7 @@ class SuperHash < Hash
   end
 
   def slice(*keys)
-    recursive_symbolize_keys.slice( *keys.map(&:to_sym) ).to_sh
+    recursive_symbolize_keys.to_h.slice( *keys.map(&:to_sym) ).to_sh
   end
 
   def select_val(&block)

@@ -19,9 +19,9 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 13 Jan 2015 20:41:47 GMT
+      - Wed, 28 Jan 2015 03:17:16 GMT
       Server:
-      - Apache/2.4.6 (Linux/SUSE)
+      - Apache/2.2.17 (Linux/SUSE)
       Cache-Control:
       - no-cache
       Access-Control-Allow-Origin:
@@ -32,11 +32,11 @@ http_interactions:
       - application/json;charset=UTF-8
     body:
       encoding: UTF-8
-      string: '{"sunrise":"2015-01-13 07:18","lng":-73.97388,"countryCode":"US","gmtOffset":-5,"rawOffset":-5,"sunset":"2015-01-13
-        16:50","timezoneId":"America/New_York","dstOffset":-4,"countryName":"United
-        States","time":"2015-01-13 15:41","lat":40.76424}'
+      string: '{"time":"2015-01-27 22:17","countryName":"United States","sunset":"2015-01-28
+        17:08","rawOffset":-5,"dstOffset":-4,"countryCode":"US","gmtOffset":-5,"lng":-73.97388,"sunrise":"2015-01-28
+        07:09","timezoneId":"America/New_York","lat":40.76424}'
     http_version: 
-  recorded_at: Tue, 13 Jan 2015 20:41:47 GMT
+  recorded_at: Wed, 28 Jan 2015 03:17:16 GMT
 - request:
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=40.76424,-73.97388&sensor=false
@@ -58,9 +58,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Tue, 13 Jan 2015 20:41:47 GMT
+      - Wed, 28 Jan 2015 03:17:16 GMT
       Expires:
-      - Wed, 14 Jan 2015 20:41:47 GMT
+      - Thu, 29 Jan 2015 03:17:16 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -629,11 +629,6 @@ http_interactions:
                        "types" : [ "locality", "political" ]
                     },
                     {
-                       "long_name" : "New York County",
-                       "short_name" : "New York County",
-                       "types" : [ "administrative_area_level_2", "political" ]
-                    },
-                    {
                        "long_name" : "New York",
                        "short_name" : "NY",
                        "types" : [ "administrative_area_level_1", "political" ]
@@ -652,8 +647,8 @@ http_interactions:
                           "lng" : -73.70027209999999
                        },
                        "southwest" : {
-                          "lat" : 40.4959961,
-                          "lng" : -74.2590879
+                          "lat" : 40.4913686,
+                          "lng" : -74.25908989999999
                        }
                     },
                     "location" : {
@@ -667,8 +662,8 @@ http_interactions:
                           "lng" : -73.70027209999999
                        },
                        "southwest" : {
-                          "lat" : 40.4959961,
-                          "lng" : -74.2590879
+                          "lat" : 40.4913686,
+                          "lng" : -74.25908989999999
                        }
                     }
                  },
@@ -695,7 +690,7 @@ http_interactions:
                           "lng" : -71.85626429999999
                        },
                        "southwest" : {
-                          "lat" : 40.4959961,
+                          "lat" : 40.4913686,
                           "lng" : -79.76214379999999
                        }
                     },
@@ -710,7 +705,7 @@ http_interactions:
                           "lng" : -71.85626429999999
                        },
                        "southwest" : {
-                          "lat" : 40.4960191,
+                          "lat" : 40.4913686,
                           "lng" : -79.76214379999999
                        }
                     }
@@ -730,7 +725,7 @@ http_interactions:
                     "bounds" : {
                        "northeast" : {
                           "lat" : 71.389888,
-                          "lng" : -66.9502861
+                          "lng" : -66.94539469999999
                        },
                        "southwest" : {
                           "lat" : 18.9110642,
@@ -759,7 +754,7 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Tue, 13 Jan 2015 20:41:47 GMT
+  recorded_at: Wed, 28 Jan 2015 03:17:16 GMT
 - request:
     method: get
     uri: https://api.foursquare.com/v2/venues/explore?ll=40.7650434,-73.97331969999999&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=The%20Plaza&v=20140819&venuePhotos=1
@@ -779,7 +774,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 13 Jan 2015 20:41:48 GMT
+      - Wed, 28 Jan 2015 03:17:16 GMT
       Server:
       - nginx
       Content-Type:
@@ -787,11 +782,11 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Tracer-Time:
-      - '241'
+      - '252'
       X-Ratelimit-Limit:
       - '500'
       X-Ratelimit-Remaining:
-      - '488'
+      - '277'
       Strict-Transport-Security:
       - max-age=864000
       X-Ex:
@@ -801,7 +796,7 @@ http_interactions:
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-ord1731-ORD
+      - cache-sjc3133-SJC
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -811,7 +806,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"warning":{"text":"There
         aren''t a lot of results for \"The Plaza.\" Try something more general, reset
         your filters, or expand the search area."},"suggestedRadius":600,"headerLocation":"Central
@@ -822,9 +817,8 @@ http_interactions:
         Shops at The Plaza","contact":{"phone":"2125465499","formattedPhone":"(212)
         546-5499"},"location":{"address":"1 W 58th St","crossStreet":"5th Ave","lat":40.76408859312372,"lng":-73.97483308661613,"distance":166,"postalCode":"10019","cc":"US","city":"New
         York","state":"NY","country":"United States","formattedAddress":["1 W 58th
-        St (5th Ave)","New York, NY 10019"]},"categories":[{"id":"4bf58dd8d48988d1fd941735","name":"Mall","pluralName":"Malls","shortName":"Mall","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/shops\/mall_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":637,"usersCount":417,"tipCount":7},"hasMenu":true,"like":false,"rating":7.8,"ratingSignals":15,"menu":{"type":"Services","label":"Services","anchor":"View
-        Services","url":"https:\/\/foursquare.com\/v\/the-shops-at-the-plaza\/4ddacc00b0fb97d348b93271\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/4ddacc00b0fb97d348b93271\/device_menu"},"hours":{"status":"Likely
-        open","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":29,"groups":[{"type":"venue","name":"Venue
+        St (5th Ave)","New York, NY 10019"]},"categories":[{"id":"4bf58dd8d48988d1fd941735","name":"Mall","pluralName":"Malls","shortName":"Mall","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/shops\/mall_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":642,"usersCount":422,"tipCount":7},"hasMenu":true,"like":false,"rating":7.8,"ratingSignals":16,"menu":{"type":"Services","label":"Services","anchor":"View
+        Services","url":"https:\/\/foursquare.com\/v\/the-shops-at-the-plaza\/4ddacc00b0fb97d348b93271\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/4ddacc00b0fb97d348b93271\/device_menu"},"hours":{"isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":29,"groups":[{"type":"venue","name":"Venue
         photos","count":29,"items":[{"id":"5032d3fee4b044311487f2ec","createdAt":1345508350,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/gI0mnKIkSNsPjGNbIBZ0ae2sqaDN-75k4d7caz_C5DY.jpg","width":720,"height":540,"user":{"id":"37890","firstName":"Dave","lastName":"McComb","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/IHX04CBS50FSDU3W.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
         here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"5032d3fee4b044311487f2ec","createdAt":1345508350,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/gI0mnKIkSNsPjGNbIBZ0ae2sqaDN-75k4d7caz_C5DY.jpg","width":720,"height":540,"user":{"id":"37890","firstName":"Dave","lastName":"McComb","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/IHX04CBS50FSDU3W.jpg"}},"visibility":"public"}]}},"tips":[{"id":"515616c0e4b00656ec44c3ef","createdAt":1364596416,"text":"Great
         public restrooms!","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/515616c0e4b00656ec44c3ef","likes":{"count":1,"groups":[],"summary":"1
@@ -833,14 +827,14 @@ http_interactions:
         Plaza Hotel Fountain","contact":{},"location":{"address":"59 5th Ave","crossStreet":"(Central
         Park South)","lat":40.76395691002225,"lng":-73.9731227408518,"distance":122,"postalCode":"10003","cc":"US","city":"New
         York","state":"NY","country":"United States","formattedAddress":["59 5th Ave
-        ((Central Park South))","New York, NY 10003"]},"categories":[{"id":"4bf58dd8d48988d164941735","name":"Plaza","pluralName":"Plazas","shortName":"Plaza","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/parks_outdoors\/plaza_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":1623,"usersCount":1244,"tipCount":6},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":141,"groups":[{"type":"venue","name":"Venue
+        ((Central Park South))","New York, NY 10003"]},"categories":[{"id":"4bf58dd8d48988d164941735","name":"Plaza","pluralName":"Plazas","shortName":"Plaza","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/parks_outdoors\/plaza_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":1626,"usersCount":1246,"tipCount":6},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":141,"groups":[{"type":"venue","name":"Venue
         photos","count":141,"items":[{"id":"51843035498e43b270124076","createdAt":1367617589,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/29101171_4-Dul_8kabnGMxuQiCvhwQa4EKbHP8wCX0fEIiKLW18.jpg","width":1440,"height":1440,"user":{"id":"29101171","firstName":"Rudolf","lastName":"French","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/-FJLKJAH1XZWJN5JE.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
         here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"51843035498e43b270124076","createdAt":1367617589,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/29101171_4-Dul_8kabnGMxuQiCvhwQa4EKbHP8wCX0fEIiKLW18.jpg","width":1440,"height":1440,"user":{"id":"29101171","firstName":"Rudolf","lastName":"French","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/-FJLKJAH1XZWJN5JE.jpg"}},"visibility":"public"}]}},"tips":[{"id":"4eb59239b8f786e27544d12f","createdAt":1320522297,"text":"It
         smells like horse poop here, but it''s so fkn classy.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/4eb59239b8f786e27544d12f","photo":{"id":"4eb5924002d5f33e92a1a4a2","createdAt":1320522304,"source":{"name":"foursquare
         for iPhone","url":"https:\/\/foursquare.com\/download\/#\/iphone"},"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/MSQVEFV3BYBJFNMYXGPUCNWP2FI43HHQBISP3NRM0G2CPPMA.jpg","width":537,"height":720},"photourl":"https:\/\/irs2.4sqi.net\/img\/general\/original\/MSQVEFV3BYBJFNMYXGPUCNWP2FI43HHQBISP3NRM0G2CPPMA.jpg","likes":{"count":7,"groups":[],"summary":"7
         likes"},"logView":true,"todo":{"count":0},"user":{"id":"14789901","firstName":"Rose","lastName":"Kowalski","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/VNO434VZEYXYS5B5.jpg"}}}],"referralId":"e-0-4dab414d8154abafc2bf224f-1"}]}]}}'
     http_version: 
-  recorded_at: Tue, 13 Jan 2015 20:41:48 GMT
+  recorded_at: Wed, 28 Jan 2015 03:17:17 GMT
 - request:
     method: get
     uri: http://api.geonames.org/timezoneJSON?lat=40.7650434&lng=-73.97331969999999&username=sashafklein
@@ -860,7 +854,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 13 Jan 2015 20:41:49 GMT
+      - Wed, 28 Jan 2015 03:17:17 GMT
       Server:
       - Apache/2.2.17 (Linux/SUSE)
       Cache-Control:
@@ -873,9 +867,9 @@ http_interactions:
       - application/json;charset=UTF-8
     body:
       encoding: UTF-8
-      string: '{"time":"2015-01-13 15:41","countryName":"United States","sunset":"2015-01-13
-        16:50","rawOffset":-5,"dstOffset":-4,"countryCode":"US","gmtOffset":-5,"lng":-73.97331969999999,"sunrise":"2015-01-13
-        07:18","timezoneId":"America/New_York","lat":40.7650434}'
+      string: '{"time":"2015-01-27 22:17","countryName":"United States","sunset":"2015-01-28
+        17:08","rawOffset":-5,"dstOffset":-4,"countryCode":"US","gmtOffset":-5,"lng":-73.97331969999999,"sunrise":"2015-01-28
+        07:09","timezoneId":"America/New_York","lat":40.7650434}'
     http_version: 
-  recorded_at: Tue, 13 Jan 2015 20:41:49 GMT
+  recorded_at: Wed, 28 Jan 2015 03:17:18 GMT
 recorded_with: VCR 2.9.3

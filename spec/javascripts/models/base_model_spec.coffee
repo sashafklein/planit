@@ -1,5 +1,3 @@
-#= require spec_helper
-
 describe 'BaseModel', () ->
   
   [BaseModel, MockClass] = [null, null]
@@ -75,7 +73,6 @@ describe 'BaseModel', () ->
     describe ".all()", ->
       it "sends an HTTP query to the set basePath", ->
         sinon.stub(@http, 'get')
-
         MockClass.all()
 
         expect(@http.get.calledWithMatch("/api/v1/wrong_path" )).toEqual false

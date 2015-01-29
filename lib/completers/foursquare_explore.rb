@@ -18,6 +18,10 @@ module Completers
       @photos = []
     end
 
+    def self.auth_token
+      FS_AUTH_TOKEN
+    end
+
     def complete!
       return place_with_photos unless nearby_info_present? && query? && !pip.place.complete?
 
