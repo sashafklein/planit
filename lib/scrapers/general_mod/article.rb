@@ -28,6 +28,7 @@ module Scrapers
               phones: phone,
               hours: hours,
               website: trim_url( more_info_website ),
+              map_href: map_href,
             },
             scraper_url: @url,
           ]

@@ -8,6 +8,11 @@ module Scrapers
 
     private
 
+    def map_href
+      return @map_href if @map_href
+      map_links ? @map_href = map_links.map{ |l| l.last } : nil
+    end
+    
     def self.specific_scraper(url, page)
       if is_article?(page)
         GeneralMod::Article.new(url, page)

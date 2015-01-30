@@ -27,6 +27,7 @@ module Scrapers
             country: country,
             phones: phone,
             hours: hours,
+            map_href: map_href,
             # images: images,
           },
           scraper_url: @url,

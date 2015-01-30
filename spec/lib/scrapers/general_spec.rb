@@ -169,6 +169,7 @@ module Scrapers
             lon: "-115.173261",
             postal_code: "89109",
             phones: "877.346.4642",
+            map_href: ["http://maps.google.com/maps?client=safari&q=mesa+grill+las+vegas&oe=UTF-8&ie=UTF8&hl=en&hq=mesa+grill&hnear=Las+Vegas,+Clark,+Nevada&ll=36.116557,-115.173261&spn=0.009898,0.022724&z=16&iwloc=A"],
           },
           scraper_url: "http://www.mesagrill.com/las-vegas-restaurant/",
           ])
@@ -232,6 +233,7 @@ module Scrapers
             nearby: "San Francisco, United States of America",
             full_address: "8 Mission Street San Francisco, CA 94105",
             postal_code: "94105",
+            map_href: ["http://maps.google.com/maps?q=hotel+vitale+8+Mission+Street+San+Francisco+CA+94105++"],
           },
           scraper_url: "http://www.jdvhotels.com/hotels/california/san-francisco-hotels/hotel-vitale/",
         ])
@@ -266,6 +268,7 @@ module Scrapers
             lat: "37.0625", 
             lon: "-95.677068",
             full_address: "1320 Castro Street, San Francisco, Ca 94114",
+            map_href: ["http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=contigo+1320+castro+street,+san+francisco,+ca+94114&sll=37.0625,-95.677068&sspn=62.870523,55.898438&ie=UTF8&z=17&iwloc=A"],
           },
           scraper_url: "http://www.contigosf.com/",
           ])
@@ -297,6 +300,7 @@ module Scrapers
             lon: "-122.4048005",
             phones: "415-649-6191",  
             full_address: "124 Columbus Avenue, SF, CA",
+            map_href: ["https://www.google.com/maps/place/124+Columbus+Ave/@37.7967858,-122.4048005,17z/data=!3m1!4b1!4m2!3m1!1s0x808580f4dc5c4831:0x1bea4997be9969cf"],
           },
           scraper_url: "http://docrickettssf.com/",
           ])
