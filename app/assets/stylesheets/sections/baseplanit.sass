@@ -8,6 +8,30 @@ html, body
 .clear
   clear:  both
 
+.valign-content
+  vertical-align: middle
+  /* fallback for non-Flexbox browsers */
+  display: inline-block
+  /* Flexbox browsers */
+  display: -webkit-inline-box
+  display: -moz-inline-box
+  display: -ms-inline-flexbox
+  display: -webkit-inline-flex
+  display: inline-flex
+  /* vertical centering for legacy, horizontal centering for modern */
+  -webkit-box-pack: center
+  -moz-box-pack: center
+  -ms-flex-pack: center
+  -webkit-justify-content: center
+  justify-content: center
+  /* modern Flexbox only */
+  -ms-flex-align: center
+  -webkit-align-items: center
+  align-items: center
+  /* legacy Flexbox only */
+  -webkit-box-orient: vertical
+  -moz-box-orient: vertical
+
 .exit-view
   position: fixed
   float: right

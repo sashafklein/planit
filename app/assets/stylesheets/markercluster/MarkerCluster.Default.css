@@ -1,60 +1,92 @@
-.marker-cluster-small {
-	background-color: rgba(181, 226, 140, 0.6);
-	}
-.marker-cluster-small div {
-	background-color: rgba(110, 204, 57, 0.6);
-	}
+.marker-cluster-small span {
+	display: table;
+  font-size: 16px;
+	line-height: 34px;
+	width: 34px;
+	height: 34px;
+	margin-left: 3px;
+	margin-top: 3px;
+	background-color: #ff0066;
+	border-bottom: #990033 solid 1px;
+  border-radius: 2px
+}
+.marker-cluster-small:hover span {
+	background-color: transparent;
+	border-bottom: transparent solid 1px;	
+	color: #ffffff;
+  text-shadow: 0 0 1px #FF0066;
+}
 
-.marker-cluster-medium {
-	background-color: rgba(241, 211, 87, 0.6);
-	}
-.marker-cluster-medium div {
-	background-color: rgba(240, 194, 12, 0.6);
-	}
+.marker-cluster-medium span {
+	display: table;
+  font-size: 17px;
+	line-height: 36px;
+	width: 36px;
+	height: 36px;
+	margin-left: 2px;
+	margin-top: 2px;
+	background-color: #ff0066;
+	border-bottom: #990033 solid 1px;
+  border-radius: 3px
+}
+.marker-cluster-medium:hover span{
+	background-color: transparent;
+	border-bottom: transparent solid 1px;	
+	color: #ffffff;
+  text-shadow: 0 0 1px #FF0066;
+}
 
-.marker-cluster-large {
-	background-color: rgba(253, 156, 115, 0.6);
-	}
-.marker-cluster-large div {
-	background-color: rgba(241, 128, 23, 0.6);
-	}
+.marker-cluster-large span {
+	display: table;
+  font-size: 18px;
+	line-height: 40px;
+	width: 40px;
+	height: 40px;
+	margin-left: 0;
+	margin-top: 0;
+	background-color: #ff0066;
+	border-bottom: #990033 solid 1px;
+  border-radius: 4px
+}
+.marker-cluster-large:hover span {
+	background-color: transparent;
+	border-bottom: transparent solid 1px;	
+	color: #ffffff;
+  text-shadow: 0 0 1px #FF0066;
+}
 
 	/* IE 6-8 fallback colors */
 .leaflet-oldie .marker-cluster-small {
-	background-color: rgb(181, 226, 140);
-	}
+	background-color: #ff0066;
+}
 .leaflet-oldie .marker-cluster-small div {
-	background-color: rgb(110, 204, 57);
-	}
-
-.leaflet-oldie .marker-cluster-medium {
-	background-color: rgb(241, 211, 87);
-	}
-.leaflet-oldie .marker-cluster-medium div {
-	background-color: rgb(240, 194, 12);
-	}
-
-.leaflet-oldie .marker-cluster-large {
-	background-color: rgb(253, 156, 115);
-	}
-.leaflet-oldie .marker-cluster-large div {
-	background-color: rgb(241, 128, 23);
+	background-color: #ff0066;
 }
 
-.marker-cluster {
-	background-clip: padding-box;
-	border-radius: 20px;
-	}
-.marker-cluster div {
-	width: 30px;
-	height: 30px;
-	margin-left: 5px;
-	margin-top: 5px;
+.leaflet-oldie .marker-cluster-medium {
+	background-color: #ff0066;
+}
+.leaflet-oldie .marker-cluster-medium div {
+	background-color: #ff0066;
+}
 
+.leaflet-oldie .marker-cluster-large {
+	background-color: #ff0066;
+}
+.leaflet-oldie .marker-cluster-large div {
+	background-color: #ff0066;
+}
+
+.marker-cluster div {
 	text-align: center;
-	border-radius: 15px;
-	font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
-	}
-.marker-cluster span {
-	line-height: 30px;
-	}
+	font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms';
+  font-weight: bold;
+  color: #ffffff;
+  z-index: 10000 !important;
+}
+.marker-cluster:hover {
+  z-index: 12500 !important;
+}
+path.leaflet-clickable {
+  z-index: 12500 !important;
+}

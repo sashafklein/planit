@@ -32,11 +32,16 @@ Rails.application.routes.draw do
         match '/view' => 'bookmarklets#view', on: :collection, via: [:options, :get]
       end
 
-      resources :users, only: [] do
+      resources :users, only: [:show] do
+        resources :places, only: [:index], controller: 'users/places'
         resources :marks, only: [] do
           match '/create' => 'users/marks#create', on: :collection, via: [:options, :post]
           match '/scrape' => 'users/marks#scrape', on: :collection, via: [:options, :post]
         end
+      end
+
+      resources :plans, only: [:show] do
+        resources :places, only: [:index], controller: 'plans/places'
       end
       
       resources :legs, only: [] do
@@ -50,6 +55,7 @@ Rails.application.routes.draw do
       resources :items, only: [:index, :show]
 
       resources :places, only: [:show, :index]
+
     end
   end
 end

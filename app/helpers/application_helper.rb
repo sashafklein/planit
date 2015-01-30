@@ -6,6 +6,9 @@ module ApplicationHelper
     "#{(date).strftime('%d %b, %Y')} #{days_ago((Date.today - date.to_date).to_i)}"
   end
 
+  def current_user_id
+    current_user ? current_user.id : nil
+  end
 
   private
 
