@@ -82,6 +82,7 @@ group :test do
   gem 'shoulda-matchers', require: false
   gem "factory_girl_rails"
   gem "rspec-rails"
+  gem "selenium-webdriver"
 end
 
 group :staging, :production do

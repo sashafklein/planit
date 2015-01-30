@@ -1,17 +1,18 @@
 require 'spec_helper'
 
-describe 'Authentication', :js do
+describe 'Authentication', driver: :selenium do
 
   describe "sign in" do
     it "is linked to on the landing page" do
       user = create(:user)
+      sleep 1
       visit root_path
       expect( page ).to have_content 'LOG IN' # On sign-in page
       
       fill_in 'Email', with: user.email
       fill_in "Password", with: user.password
       click_button 'Sign in'
-
+      save_and_open_page
       expect( current_path ).to eq user_path(user)
     end
   end
