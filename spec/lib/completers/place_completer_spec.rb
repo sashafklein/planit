@@ -106,7 +106,7 @@ module Completers
           expect( place.full_address ).to eq "4301 Fremont Avenue North, Seattle, Washington 98103"
           expect( place.categories ).to eq ["Coffee Shop"]
           expect( place.completion_steps ).to eq ["Narrow", "FoursquareExplore", "FoursquareRefine", "Translate"]
-          expect( place.flags ).to be_empty
+          expect( place.flags.where.not(name: 'API Query') ).to be_empty
           expect( place.wifi ).to eq false
           expect( place.foursquare_id ).to eq "4a7f3209f964a5203bf31fe3"
           expect( place.timezone_string ).to eq "America/Los_Angeles"

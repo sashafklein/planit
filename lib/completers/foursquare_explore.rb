@@ -112,7 +112,7 @@ module Completers
 
     def full_fs_url
       url = "#{ FS_URL }/explore?#{ nearby_parameter }&query=#{ query }&oauth_token=#{ FS_AUTH_TOKEN }&venuePhotos=1"
-      pip.flag(name: "Api Query", details: "In #{self.class}", info: { query: url })
+      pip.flag(name: "API Query", details: "In #{self.class}", info: { query: url })
       url
     end
   end

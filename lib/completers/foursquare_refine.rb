@@ -39,7 +39,7 @@ module Completers
 
     def full_fs_url
       url = "#{ FoursquareExplore::FS_URL }/#{ fsid }?oauth_token=#{ FoursquareExplore.auth_token }"
-      pip.flag(name: "Api Query", details: "In #{self.class}", info: { query: url })
+      pip.flag(name: "API Query", details: "In #{self.class}", info: { query: url })
       url
     end
 
