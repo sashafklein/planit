@@ -24,7 +24,7 @@ module Completers
         expect( pip.wifi ).to eq false
         expect( pip.menu ).to eq "https://foursquare.com/v/lavash/49b3268cf964a520e1521fe3/menu"
         expect( pip.mobile_menu ).to eq "https://foursquare.com/v/49b3268cf964a520e1521fe3/device_menu"
-        expect( pip.flags ).to eq []
+        expect( pip.flags.reject{ |f| f.name == "API Query"} ).to be_empty
         expect( pip.completion_steps ).to eq ['FoursquareRefine']
       end
     end

@@ -13,7 +13,7 @@ gem "jquery-rails"
 gem "neat"
 gem "pg"
 gem "rack-timeout"
-gem "rails"
+gem "rails", '4.2.0'
 gem "recipient_interceptor"
 gem "sass-rails"
 gem "title"
@@ -58,8 +58,6 @@ end
 
 group :development do
   gem "foreman"
-  gem "spring"
-  gem "spring-commands-rspec"
   gem 'binding_of_caller'
   gem 'bullet'
   gem 'web-console'
@@ -84,6 +82,7 @@ group :test do
   gem 'shoulda-matchers', require: false
   gem "factory_girl_rails"
   gem "rspec-rails"
+  gem "selenium-webdriver"
 end
 
 group :staging, :production do

@@ -1,10 +1,10 @@
 class PlaceSaver
 
-  attr_accessor :place, :images
+  attr_accessor :place, :images, :flags
   delegate :uniqify_array_attrs, :array_attrs_unique?, to: :place
-  def initialize(place, images=[])
+  def initialize(place, images=[], flags=[])
     @place = place.persisted? ? place : Place.new(place.attributes)
-    @images = images
+    @images, @flags = images, flags
   end
 
   def save!
@@ -42,6 +42,7 @@ class PlaceSaver
     if (!place.persisted? && place.id) then sneaky_save! else @place.save! end
 
     save_images!
+    save_flags!
     @place
   end
 
@@ -69,6 +70,13 @@ class PlaceSaver
     images.each do |photo|
       next if place.images.find_by(url: photo.url)
       photo.update_attributes!(imageable_type: place.class.to_s, imageable_id: place.id)
+    end
+  end
+
+  def save_flags!
+    flags.each do |flag|
+      next if place.flags.find_by(name: flag.name, details: flag.details)
+      flag.update_attributes!(object_type: place.class.to_s, object_id: place.id)
     end
   end
 

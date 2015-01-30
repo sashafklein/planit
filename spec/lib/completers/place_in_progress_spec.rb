@@ -46,14 +46,10 @@ module Completers
 
       describe "duplication" do
         it "deduplicates arrays and keeps track of hash disagreements" do
-          @pip.set_val(:flags, "This is a flag", Nearby)
-          @pip.set_val(:flags, "Another flag", Nearby)
-          @pip.update({ flags: "This is a flag" }, Nearby) # Doesn't double
           @pip.set_val(:hours, { mon: 'Whatever' }, Nearby)
           @pip.set_val(:hours, { mon: 'Whatever' }, Nearby)
           @pip.set_val(:hours, { mon: 'Whatever2' }, Narrow)
 
-          expect( @pip.val(:flags) ).to eq ["This is a flag", "Another flag"]
           expect( @pip.val(:hours) ).to hash_eq( { mon: 'Whatever', mon_Narrow: 'Whatever2' } )
         end
       end

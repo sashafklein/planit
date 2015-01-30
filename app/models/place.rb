@@ -2,8 +2,9 @@ class Place < BaseModel
 
   has_one :item
   has_many :images, as: :imageable
+  has_many :flags, as: :object
 
-  array_accessor :flag, :completion_step, :street_address, :name, :category, :meta_category, :phone
+  array_accessor :completion_step, :street_address, :name, :category, :meta_category, :phone
   hstore_accessor :hours, :extra
   validate!
 
@@ -29,8 +30,8 @@ class Place < BaseModel
     map{ |p| p.coordinate( place_joiner ) }.join coordinate_joiner
   end
 
-  def validate_and_save!(images=[])
-    PlaceSaver.new(self, images).save!
+  def validate_and_save!(images=[], flags=[])
+    PlaceSaver.new(self, images, flags).save!
   end
 
   def image

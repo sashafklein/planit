@@ -33,9 +33,8 @@ module Completers
     end
 
     def notify_if_geolocation_data_missing
-      pip.set_val( :flags, "Failed to find geolocation data for locality", self.class) if !locality && !pip.locality
-      pip.set_val( :flags, "Failed to find geolocation data for region", self.class) if !region && !pip.region
-      pip.set_val( :flags, "Failed to find geolocation data for country", self.class) if !country && !pip.country
+      failure_array = [:locality, :region, :country].select{ |attr| !send(attr) && !pip.val(attr) }
+      pip.flag( name: "Failed geolocation", details: "Failed to find listed attrs in Narrow API call", info: failure_array) if failure_array.any?
     end
   end
 end

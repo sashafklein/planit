@@ -277,7 +277,7 @@ module Scrapers
 
     describe "http://www.mountlaviniahotel.com/front/index.php" do
       before { @url = "http://www.mountlaviniahotel.com/front/index.php" }
-      it "parses the page correctly" do
+      xit "parses the page correctly" do
         expect_equal(data, [
           place: {
             name: "Mount Lavinia Hotel",

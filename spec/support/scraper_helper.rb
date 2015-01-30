@@ -9,6 +9,8 @@ module ScraperHelper
     else
       File.read( file_path('html') )
     end
+  rescue
+    ''
   end
 
   def data

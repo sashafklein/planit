@@ -38,12 +38,14 @@ module Completers
     end
 
     def full_fs_url
-      "#{ FoursquareExplore::FS_URL }/#{ fsid }?oauth_token=#{ FoursquareExplore.auth_token }"
+      url = "#{ FoursquareExplore::FS_URL }/#{ fsid }?oauth_token=#{ FoursquareExplore.auth_token }"
+      pip.flag(name: "API Query", details: "In #{self.class}", info: { query: url })
+      url
     end
 
     def set_val(field, val, override=false)
       if !override && !pip.val(field) == false && pip.val(field).present?
-        pip.set_val( :flags, "Clashing field #{field}. Ignored FoursquareRefine value.", self.class ) if pip.val(field) != val
+        pip.flag( name: "Field Clash", details: "Ignored FoursquareRefine value.", info: { field: field, place: pip.val(field), venue: val} ) if pip.val(field) != val
       else
         pip.set_val field, val, self.class
       end
