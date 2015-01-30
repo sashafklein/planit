@@ -13,7 +13,7 @@ gem "jquery-rails"
 gem "neat"
 gem "pg"
 gem "rack-timeout"
-gem "rails"
+gem "rails", '4.2.0'
 gem "recipient_interceptor"
 gem "sass-rails"
 gem "title"
