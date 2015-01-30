@@ -45,6 +45,14 @@ module MetaExt
       base.extend ClassMethods
     end
 
+    def flag(name:, details: nil, info: {})
+      flags.where(name: name, details: details).first_or_initialize(info: info)
+    end
+
+    def flag!(name:, details: nil, info: {})
+      flag(name: name, details: details, info: info).save!
+    end
+
     def complete?
       self.class.attribute_keys.all?{ |k| read_attribute(k) == false || read_attribute(k).present? } 
     end

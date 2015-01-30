@@ -55,7 +55,7 @@ module Services
       off_locality_or_sublocality = sublocality != place.sublocality || locality != place.locality
 
       if off_addresses || off_cross_streets || off_locality_or_sublocality
-        place.add_flag("Place ##{place.id} merged with possibly problematic data. Possible clashes -- persisted: #{place.attributes.to_sh.slice(:street_addresses, :cross_street, :locality, :sublocality)}, incoming: #{search_atts.slice(:street_addresses, :cross_street, :locality, :sublocality)}}")
+        place.flag(name: "Potentially problematic merge", details: "Place ##{place.id} merged with iffy data", info: clashes(incoming: atts, persisted: place))
       end
     end
 
@@ -81,7 +81,7 @@ module Services
     end
 
     def notify_of_name_clash(place)
-      place.add_flag("Place ##{place.id} name clashed with nonpersisted place. Added: #{search_atts.slice(:names, :street_addresses, :cross_street, :locality, :sublocality)}")
+      place.flag(name: "Name clash", details: "New name added to persisted place. New atts in info.", info: clashes(incoming: atts, persisted: place))
     end
 
     def by_location
@@ -98,6 +98,18 @@ module Services
 
     def by_cross_street_and_region_info
       query.where(cross_street: cross_street).with_region_info(search_atts).first if cross_street
+    end
+
+    def clashes(incoming:, persisted:)
+      incoming = incoming.symbolize_keys
+      persisted = persisted.attributes.reject{ |k, v| %w(id updated_at created_at).include?(k) || v.blank? }.symbolize_keys
+
+      disagreements = persisted.select do |key, persisted_val|
+        incoming_val = incoming[key]
+        incoming_val != persisted_val && !incoming_val.blank?
+      end
+
+      { persisted: persisted.slice( *disagreements.keys ), incoming: incoming.slice( *disagreements.keys ) }
     end
 
   end

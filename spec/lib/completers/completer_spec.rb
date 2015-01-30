@@ -142,7 +142,7 @@ module Completers
 
           expect( m.place.extra['ratings'] ).to be_present
           expect( m.place.sublocality ).to eq("Brooklyn") # No Locality for Coney Island in Geocoder
-          expect( m.place.flags ).to include ("Failed to find geolocation data for locality")
+          expect( m.place.flags.find_by(name: "Field Clash").info ).to hash_eq( {"field"=>"categories", "place"=>["Attraction"], "venue"=>["Museum", "Performing Arts Venue", "General Entertainment"]} )
 
           i = m.items.first
           expect( i.plan.name ).to eq "New York City Guide"

@@ -90,7 +90,7 @@ module Completers
       (hours || {}).each do |k, v|
         normalized[k.to_s.downcase] = v.stringify_keys
       end
-      normalized
+      Services::TimeConverter.convert_hours(normalized)
     end
 
     def set_photos(attrs)
@@ -105,7 +105,7 @@ module Completers
     def merge_and_save_with_photos!
       @place = pip.place.find_and_merge
       if @place.valid? 
-        @place.validate_and_save!( @photos.uniq{ |p| p.url } ) 
+        @place.validate_and_save!( @photos.uniq{ |p| p.url }, pip.flags ) 
       else
         
         nil

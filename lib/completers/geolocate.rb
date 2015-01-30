@@ -108,14 +108,17 @@ module Completers
       lon_possibly_reversed = pip.lon.points_of_similarity(lat) > 0
 
       if lat_possibly_reversed && lon_possibly_reversed
-        pip.set_val(:flags, "Reversing likely backwards LatLon. Pre-flip Place: #{pip.coordinate}, Geocoder: #{[lat, lon].join(':') }", self.class)
+        pip.flag( name: "Reversed LatLon", info: { pre_flip: pip.cooordinate, geocoder: [lat, lon].join(":") } )
         pip.set_val(:lat, pip.lon, self.class)
         pip.set_val(:lon, pip.lat, self.class)
       end
     end
 
     def get_query
-      return @query if @query
+      if @query
+        return flag_and_return_query
+      end
+
       if valid_lat_lon?
         @query = pip.coordinate(", ")
       elsif pip.street_address
@@ -123,15 +126,21 @@ module Completers
       else
         @query = pip.full_address
       end
+      flag_and_return_query
     end
 
     def valid_lat_lon?
       pip.lat && pip.lon && Timezone::Zone.new({latlon: [pip.lat, pip.lon]})
     rescue
-      pip.set_val(:flags, "Invalid lat and lon being cleared: #{pip.lat}:#{pip.lon}", self.class)
+      pip.flag( name: "Invalid LatLon found", details: "Cleared out LatLon in #{self.class}", info: { old: { lat: pip.lat, lon: pip.lon} } )
       pip.set_val(:lat, nil, self.class, true)
       pip.set_val(:lon, nil, self.class, true)
       false
+    end
+
+    def flag_and_return_query
+      pip.flag(name: "API Query", details: "In #{self.class}", info: { query: @query })
+      @query 
     end
   end
 end

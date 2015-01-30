@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150121194759) do
+ActiveRecord::Schema.define(version: 20150130000728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,18 @@ ActiveRecord::Schema.define(version: 20150121194759) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "flags", force: true do |t|
+    t.text     "details"
+    t.string   "name"
+    t.integer  "object_id"
+    t.string   "object_type"
+    t.json     "info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "flags", ["object_id", "object_type"], name: "index_flags_on_object_id_and_object_type", using: :btree
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -152,7 +164,6 @@ ActiveRecord::Schema.define(version: 20150121194759) do
     t.string   "street_addresses",  default: [],    array: true
     t.string   "full_address"
     t.string   "categories",        default: [],    array: true
-    t.text     "flags",             default: [],    array: true
     t.text     "completion_steps",  default: [],    array: true
     t.text     "sublocality"
     t.boolean  "wifi",              default: false

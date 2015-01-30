@@ -74,13 +74,13 @@ module Completers
       pip.set_val( :locality, venue.locality ,  self.class )
       pip.set_val( :country, venue.country , self.class )
       pip.set_val( :region, venue.region , self.class )
-      pip.set_val( :flags, "Took information from identically named, distant FoursquareExplore data with LatLon: #{venue.lat}, #{venue.lon}. Old lat lon: #{pip.coordinate(', ')}", self.class) if venue.name_stringency(pip) == 0.99 
       pip.set_val( :lat, venue.lat, self.class )
       pip.set_val( :lon, venue.lon, self.class )
       pip.set_val( :completion_steps, self.class.to_s.demodulize, self.class )
       pip.set_val( :menu, venue.menu, self.class )
       pip.set_val( :mobile_menu, venue.mobile_menu, self.class )
       pip.set_val( :foursquare_id, venue.foursquare_id, self.class )
+      pip.flag( name: "Name-Lat/Lon Clash", details: "Took information from identically named, distant FoursquareExplore data.", info: { name: venue.name, venue: { lat: venue.lat, lon: venue.lon }, place: { lat: pip.lat, lon: pip.lon } } ) if venue.name_stringency(pip) == 0.99 
     end
 
     def getPhotos
@@ -111,7 +111,9 @@ module Completers
     end
 
     def full_fs_url
-      "#{ FS_URL }/explore?#{ nearby_parameter }&query=#{ query }&oauth_token=#{ FS_AUTH_TOKEN }&venuePhotos=1"
+      url = "#{ FS_URL }/explore?#{ nearby_parameter }&query=#{ query }&oauth_token=#{ FS_AUTH_TOKEN }&venuePhotos=1"
+      pip.flag(name: "Api Query", details: "In #{self.class}", info: { query: url })
+      url
     end
   end
 end

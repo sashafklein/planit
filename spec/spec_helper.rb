@@ -38,12 +38,12 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  # config.after(:each, :type => :feature) do |example|
-  #   if example.exception
-  #     artifact = save_page
-  #     puts "\"#{example.description}\" failed. Page saved to #{artifact}"
-  #   end
-  # end
+  config.after(:each, :type => :feature) do |example|
+    if example.exception
+      artifact = save_page
+      puts "\"#{example.description}\" failed. Page saved to #{artifact}"
+    end
+  end
 
   config.include Features, type: :feature
   config.include Controllers, type: :controller

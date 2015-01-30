@@ -1,11 +1,12 @@
 module Completers
   class PlaceInProgress
 
-    attr_accessor :attrs
+    attr_accessor :attrs, :flags
     delegate *(Place.attribute_keys + [:coordinate, :pinnable, :nearby, :name, :street_address, :foursquare_id]), to: :place
 
     def initialize(attributes={})
       @attrs = SuperHash.new(defaults.symbolize_keys)
+      @flags = []
 
       attributes.symbolize_keys.each do |key, value|
         set_val(key, value, 'PlaceInProgress', true)
@@ -42,6 +43,10 @@ module Completers
           attrs[sym] = { val: val, source: cleaned_source }
         end
       end
+    end
+
+    def flag(name:, details: nil, info: nil)
+      @flags << place.flag(name: name, details: details, info: info)
     end
 
     private
