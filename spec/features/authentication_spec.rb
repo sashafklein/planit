@@ -7,7 +7,7 @@ describe 'Authentication', driver: :selenium do
       user = create(:user)
       visit root_path
 
-      sleep 3
+      sleep 4
       
       expect( page ).to have_content 'LOG IN' # On sign-in page
       sleep 1
@@ -26,7 +26,7 @@ describe 'Authentication', driver: :selenium do
     it "allows new users to register" do
       visit root_path
 
-      sleep 3
+      sleep 4
       
       click_link 'Sign up'
       sleep 1
