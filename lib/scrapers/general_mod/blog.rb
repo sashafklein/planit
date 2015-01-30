@@ -332,11 +332,6 @@ module Scrapers
       # rescue ; nil
       end
 
-      def map_href
-        return @map_href if @map_href
-        map_links ? @map_href = map_links.map{ |l| l.last } : nil
-      end
-
       def map_string
         return @map_string if @map_string
         map_string_array = []
