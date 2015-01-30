@@ -58,8 +58,6 @@ end
 
 group :development do
   gem "foreman"
-  gem "spring"
-  gem "spring-commands-rspec"
   gem 'binding_of_caller'
   gem 'bullet'
   gem 'web-console'
