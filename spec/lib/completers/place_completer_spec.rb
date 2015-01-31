@@ -177,7 +177,10 @@ module Completers
             "sat"=>[["1700", "2130"]],
             "sun"=>[["1600", "2000"]]
           })
+          binding.pry
           expect( place.phones ).to eq ["5032331286"]
+          expect( place.lat ).to be_within(0.01).of 45.512043
+          expect( place.lon ).to be_within(0.01).of -122.613144
         end
 
         it "truly prioritizes nearby in finding matches (e.g. St Peters Episcopal Church in Fernandina Beach FL vs. Gainsville FL)" do

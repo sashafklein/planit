@@ -49,7 +49,16 @@ module Completers
       @flags << place.flag(name: name, details: details, info: info)
     end
 
+    def clean_attrs
+      attrs.reduce_to_hash{ |k, v| val(k) }.select_val(&:present?)
+    end
+
     private
+
+
+    def raw_attrs
+      attrs.except(:nearby).reduce_to_hash{ |k, v| val(k) }.select_val(&:present?)
+    end
 
     def accept?(sym, val, source)
       ( !val(sym) || source_a_gt_source_b( source, source(sym) ) ) && !val.nil?
@@ -70,10 +79,6 @@ module Completers
 
     def source_list
       %w(PlaceInProgress Nearby FoursquareExplore Narrow FoursquareRefine Translate)
-    end
-
-    def raw_attrs
-      attrs.except(:nearby).reduce_to_hash{ |k, v| val(k) }.reject{ |k, v| v.blank? }
     end
 
     def default(sym)

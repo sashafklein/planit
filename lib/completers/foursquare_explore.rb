@@ -48,10 +48,12 @@ module Completers
 
     def get_venues!
       @response = SuperHash.new HTTParty.get(full_fs_url)
-
-      @venues = @response.super_fetch( 'response', 'groups', 0, 'items' ).map do |item|
+      
+      @venues = @response.super_fetch( :response, :groups, 0, :items ).map do |item|
         FoursquareExploreVenue.new(item)
       end.sort{ |a, b| b.points_of_lat_lon_similarity(pip) <=> a.points_of_lat_lon_similarity(pip) }
+    rescue
+      pip.flag( name: "API Failure", details: "FoursquareExplore response unexpected", info: { place: pip.clean_attrs, query: full_fs_url, response: @response } )
     end
 
     def pick_venue
