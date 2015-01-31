@@ -5,7 +5,7 @@ class Place < BaseModel
   has_many :flags, as: :object
 
   array_accessor :completion_step, :street_address, :name, :category, :meta_category, :phone
-  hstore_accessor :hours, :extra
+  json_accessor :hours, :extra
   validate!
 
   delegate :open?, :open_again_at, :open_until, to: :hour_calculator

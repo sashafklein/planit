@@ -106,7 +106,7 @@ module Completers
           expect( place.full_address ).to eq "4301 Fremont Avenue North, Seattle, Washington 98103"
           expect( place.categories ).to eq ["Coffee Shop"]
           expect( place.completion_steps ).to eq ["Narrow", "FoursquareExplore", "FoursquareRefine", "Translate"]
-          expect( place.flags.where.not(name: 'API Query') ).to be_empty
+          expect( place.flags.where.not(name: ['API Query', "State"]) ).to be_empty
           expect( place.wifi ).to eq false
           expect( place.foursquare_id ).to eq "4a7f3209f964a5203bf31fe3"
           expect( place.timezone_string ).to eq "America/Los_Angeles"
@@ -177,7 +177,6 @@ module Completers
             "sat"=>[["1700", "2130"]],
             "sun"=>[["1600", "2000"]]
           })
-          binding.pry
           expect( place.phones ).to eq ["5032331286"]
           expect( place.lat ).to be_within(0.01).of 45.512043
           expect( place.lon ).to be_within(0.01).of -122.613144
@@ -317,7 +316,7 @@ module Completers
           place = PlaceCompleter.new(hash).complete!
           expect( place.names.sort ).to eq ['Fuunji', 'Fu-Unji', '風雲児'].sort
           expect( place.street_addresses.sort ).to eq ['代々木2-14-3', "2 Chome-14 Yoyogi"].sort
-          expect( place.extra.symbolize_keys ).to eq({ rating: '5', rating_tier: '5 star', twitter: '@fuunjiIsTheShit'})
+          expect( place.extra.symbolize_keys ).to hash_eq({ rating: 5, rating_tier: '5 star', twitter: '@fuunjiIsTheShit'})
           expect( place.foursquare_id ).to eq "4b5983faf964a520ca8a28e3"
           expect( place.completion_steps ).to eq ["Narrow", "FoursquareExplore", "FoursquareRefine", "Translate"]
           expect( place.sublocality ).to eq "Yoyogi"

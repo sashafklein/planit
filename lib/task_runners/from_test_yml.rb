@@ -2,7 +2,6 @@ module TaskRunners
   class FromTestYml
 
     def seed(folder='', filename=nil, name=nil)
-      @lines = []
       return load_and_save_yml_file(yml_base_path, folder, filename, name) if filename
 
       entries( yml_base_path ).each do |folder|
@@ -10,7 +9,6 @@ module TaskRunners
           load_and_save_yml_file(yml_base_path, folder, file)
         end  
       end  
-      File.open(log_file, 'w') { |file| file.write(@lines.join("\n")) }
     end
 
     private
@@ -18,11 +16,12 @@ module TaskRunners
     def load_and_save_yml_file(yml_base_path, folder, entry, name=nil)
       return unless is_yml?(entry)
 
-      yml = load_file( yml_base_path, folder, entry ).select(&:place)
+      yml = load_file( path = path(yml_base_path, folder, entry) ).select(&:place)
       yml = yml.is_a?(Hash) ? yml.to_sh : yml.map(&:to_sh)
       yml = yml.select{ |e| e.place.name == name || e.place.names.try(:include?, name) } if name
 
       yml.each do |place_hash|
+        place_hash.place.filepath = path
         begin
           complete_place(place_hash)
         rescue => e
@@ -40,7 +39,7 @@ module TaskRunners
 
     def save(place_hash, name)
       print "Saving #{name}"
-      completed = Completers::Completer.new(place_hash, niko).complete!
+      completed = Completers::Completer.new(place_hash, niko, place_hash[:scraper_url]).complete!
       if completed
         print "Saved #{name} as Place ##{completed.place.id} -- hit #{completed.place.completion_steps.join(", ")}"
       else
@@ -57,8 +56,12 @@ module TaskRunners
       file[-3..-1] == 'yml'
     end
 
-    def load_file(*path_segments)
-      YAML.load_file( File.join(path_segments) ).map(&:to_sh)
+    def path(*path_segments)
+      File.join(path_segments)
+    end
+
+    def load_file(path)
+      YAML.load_file( path ).map(&:to_sh)
     end
 
     def entries(*path_segments)
@@ -78,7 +81,7 @@ module TaskRunners
     end
 
     def print(text, color=:green)
-      @lines << text
+      File.open(log_file, 'a') { |file| file.puts(text) }
       puts text.colorize( color ) 
     end
   end
