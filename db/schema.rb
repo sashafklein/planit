@@ -45,15 +45,15 @@ ActiveRecord::Schema.define(version: 20150131054131) do
 
   create_table "flags", force: :cascade do |t|
     t.text     "details"
-    t.string   "name",        limit: 255
+    t.string   "name"
     t.integer  "object_id"
-    t.string   "object_type", limit: 255
+    t.string   "object_type"
     t.json     "info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "flags", ["object_id", "object_type"], name: "index_flags_on_object_id_and_object_type", using: :btree
+  add_index "flags", ["object_type", "object_id"], name: "index_flags_on_object_type_and_object_id", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",           limit: 255, null: false
