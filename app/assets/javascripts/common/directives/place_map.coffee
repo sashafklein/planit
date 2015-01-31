@@ -55,7 +55,7 @@ angular.module("Common").directive 'placeMap', (MapOptions, F, API, Place, User,
 
         # Center and add features (zoom, attribution)
         s.map.setView( [s.primaryPlace.lat,s.primaryPlace.lon], 16 )
-        s.map.setMaxBounds(s.map.getBounds().pad(5))
+        # s.map.setMaxBounds(s.map.getBounds().pad(9))
         if s.type == 'print'
           showAttribution = false
         else

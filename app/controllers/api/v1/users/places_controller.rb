@@ -26,7 +26,7 @@ class Api::V1::Users::PlacesController < ApiController
   end
 
   def serialize_places(user, published=false)
-    places = published ? user.marks.published.places : user.marks.places
+    places = published ? user.marks.published.places.includes(:images) : user.marks.places.includes(:images)
     ActiveModel::ArraySerializer.new(places, each_serializer: MapPlaceSerializer)
   end
 

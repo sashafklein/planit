@@ -304,6 +304,9 @@
     background: #eee
     &:hover
       background: #fff
+      .bucket-list-control
+        color: #ccc
+
   li + li
     border-top: 1px solid #ccc    
 
@@ -332,6 +335,20 @@
     height: 69px
     width: 69px
     background-color: #ccc !important
+    text-align: center
+
+    .bucket-list-cluster-size
+      display: inline-block
+      position: relative
+      top: 50%
+      transform: translateY(-50%)
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-size: 14px
+      font-weight: bold
+      color: #eee
+      background: #ff0066
+      padding: 2px 4px
+      border-radius: 2px
 
   .bucket-list-profile
     display: inline-block
@@ -390,7 +407,7 @@
     height: 23px
     margin: 0
     text-align: center
-    color: #ccc
+    color: #eee
     cursor: pointer
     -webkit-transition: -webkit-transform 1s
     transition: transform 1s
@@ -413,6 +430,10 @@
       line-height: 23px
       width: 23px
 
+    span, i
+      &:hover
+        color: #000
+
     &:hover
       color: #000
       .bucket-list-control-hint
@@ -432,19 +453,21 @@
       span
         font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
         font-size: 13px
+        font-weight: bold
         line-height: 19px
         height: 19px
         border-radius: 3px
         -webkit-border-radius: 3px
         padding: 0px 4px
-        border: 1px solid #c0c0c0
         background: #ccc
+        &:hover
+          background: #ff0066
+          color: #fff
 
       &:hover
         display: inline-block
         visibility: visible
         right: 30px
-        color: #ff0066
 
   
 

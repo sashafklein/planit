@@ -1,61 +1,10 @@
-angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User, PlanitMarker) ->
+angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User, PlanitMarker, ClusterLocator, CoffeeSort) ->
 
   return {
     restrict: 'E'
     transclude: false
     replace: true
-    template: """
-      <div class='ng-map-div' ng-class="{'expanded': expanded()}" ng-cloak='true' >
-        <div id='in-view-list'>
-          <div class="bucket-list-container">
-            <ul>
-              <li ng-repeat='place in placesInView'>
-                <div class="bucket-list-tab">
-                  <div ng-if='!place.hasImage()' class="bucket-list-no-img">
-                  </div>
-                  <div ng-if='place.hasImage()' class="bucket-list-img" style="background-image: url('{{place.images[0].url}}');">
-                  </div>
-                  <div class="bucket-list-profile">
-                    <a ng-href='{{place.url()}}' class="bucket-list-title">
-                      {{ place.name() }} 
-                    </a>
-                    <div class="bucket-list-more-info">
-                      <i class='fa fa-globe padding-top' ng-if=" place.meta_categories[0] == 'Area' || place.meta_categories.length == 0 "></i>
-                      <span class='icon-directions-walk' ng-if=" place.meta_categories[0] == 'Do' "></span>
-                      <span class='icon-local-bar' ng-if=" place.meta_categories[0] == 'Drink' "></span>
-                      <span class='icon-local-restaurant' ng-if=" place.meta_categories[0] == 'Food' "></span>
-                      <i class='fa fa-life-ring' ng-if=" place.meta_categories[0] == 'Help' "></i>
-                      <i class='fa fa-money' ng-if=" place.meta_categories[0] == 'Money' "></i>
-                      <i class='fa fa-globe' ng-if=" place.meta_categories[0] == 'Other' "></i>
-                      <span class='icon-drink' ng-if=" place.meta_categories[0] == 'Relax' "></span>
-                      <i class='fa fa-university xsm pad-two-top' ng-if=" place.meta_categories[0] == 'See' "></i>
-                      <i class='fa fa-shopping-cart' ng-if=" place.meta_categories[0] == 'Shop' "></i>
-                      <span class='icon-home' ng-if=" place.meta_categories[0] == 'Stay' "></span>
-                      <i class='fa fa-exchange sm padding-bottom' ng-if=" place.meta_categories[0] == 'Transit' "></i>
-                      {{ place.categories.join(', ') }}
-                    </div>
-                  </div>
-                  <div class="bucket-list-controls">
-                    <div class="bucket-list-control">
-                      <div class="bucket-list-control-hint"><span>Save</span></div>
-                      <span class="icomoon icon-bookmark"></span>
-                    </div>    
-                    <div class="bucket-list-control">
-                      <div class="bucket-list-control-hint"><span>Delete</span></div>
-                      <i class="fa fa-trash"></i>
-                    </div>    
-                    <div class="bucket-list-control">
-                      <div class="bucket-list-control-hint"><span>Flag</span></div>
-                      <i class="fa fa-flag"></i>
-                    </div>    
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    """
+    templateUrl: "bucket_map.html"
     scope:
       userId: '@'
       currentUserId: '@'
@@ -90,6 +39,11 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
             s.map.fitBounds(currentBounds, { paddingTopLeft: [s.paddingToFocusArea[3], s.paddingToFocusArea[0]], paddingBottomRight: [s.paddingToFocusArea[1], s.paddingToFocusArea[2]] } )
             return
           ), 400
+      
+      # Cluster Locator Functions
+      s.lowestCommonArea = (places) -> ClusterLocator.lowestCommonArea(places)
+      s.nearestGlobalRegion = (centerpoint) -> ClusterLocator.nearestGlobalRegion(centerpoint)
+      s.namesOrZoomForMore = (places) -> ClusterLocator.namesOrZoomForMore(places)
 
       s.generateContextualUserPins = ->
         if s.currentUserId != s.userId
@@ -116,7 +70,7 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
         id = "main_map"
         elem.attr('id', id)
 
-        s.map = L.map(id, { scrollWheelZoom: scrollWheelZoom, doubleClickZoom: doubleClickZoom, zoomControl: zoomControl, minZoom: minZoom, maxZoom: maxZoom, maxBounds: [[-86,-400],[86,315]] } )
+        s.map = L.map(id, { scrollWheelZoom: scrollWheelZoom, doubleClickZoom: doubleClickZoom, zoomControl: zoomControl, minZoom: minZoom, maxZoom: maxZoom, maxBounds: [[-84,-400],[84,315]] } )
         
         L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
           attribution: "&copy; <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a>"
@@ -161,18 +115,26 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
         s.map.on "zoomend", -> s.showHideContext()
 
         # Relay back viewable marker info
+        s._clusterObject = (cluster) ->
+          count: cluster._childCount
+          center: cluster._latlng
+          places: _( cluster.getAllChildMarkers() ).map('options').map('placeObject').value()
         s.currentBounds = -> s.map.getBounds()
         s.changePlacesInView = () ->
           s.placesInView = []
+          s.clustersInView = []
           currentBounds = s.currentBounds()
-          # clusterMarkers._featureGroup._layers.eachLayer (layer) ->
-          #   s.placesInView.push layer.options.placeObject if layer._childClusters._featureGroup._layers._icon && currentBounds.contains(layer._childClusters._featureGroup._layers._latlng)
-          clusterMarkers.eachLayer (marker) ->
-            s.placesInView.push marker.options.placeObject if currentBounds.contains(marker.getLatLng())
-          if s.placesInView == [] then s.showList = false else s.showList = true
-          return s.placesInView
-        s.map.on "moveend", -> 
-          s.$apply -> s.changePlacesInView()
+          stuffOnMap = clusterMarkers._featureGroup.getLayers()
+          
+          for layer in stuffOnMap
+            s.placesInView.push( layer.options.placeObject ) if layer.options.placeObject && currentBounds.contains( layer._latlng )
+            s.clustersInView.push( s._clusterObject(layer) ) if layer._childCount > 1 && ( layerBounds = layer._bounds ) && ( currentBounds.contains( layerBounds ) )
+
+          s.clustersInView.sort( CoffeeSort.dynamicSort('-count') )
+          if s.placesInView == [] && s.clustersInView == [] then s.showList = false else s.showList = true
+
+        s.map.on "moveend", -> s.$apply -> s.changePlacesInView()
+        s.map.on "zoomend", -> setTimeout ( -> s.$apply -> s.changePlacesInView() ), 400
         s.changePlacesInView()
 
   }
