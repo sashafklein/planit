@@ -5,10 +5,10 @@
         %ul
           %li{"ng-repeat" => "cluster in clustersInView"}
             .bucket-list-tab
-              .bucket-list-no-img
+              .bucket-list-img{:style => "background-image: url('{{ clusterImage(cluster.location) }}');"}
                 .bucket-list-cluster-size {{ cluster.count }}
               .bucket-list-profile
-                %a.bucket-list-title {{ lowestCommonArea(cluster.places) || nearestGlobalRegion(cluster.center) }}
+                %a.bucket-list-title {{ cluster.location }}
                 .bucket-list-more-info {{ namesOrZoomForMore(cluster.places) }}
                 .bucket-list-controls
           %li{"ng-repeat" => "place in placesInView"}
@@ -44,4 +44,4 @@
                 .bucket-list-control
                   .bucket-list-control-hint
                     %span Flag
-                  %i.fa.fa-flag}
+                  %i.fa.fa-flag

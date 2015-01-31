@@ -1,4 +1,4 @@
-angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User, PlanitMarker, ClusterLocator, CoffeeSort) ->
+angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User, PlanitMarker, ClusterLocator, BasicOperators) ->
 
   return {
     restrict: 'E'
@@ -41,8 +41,10 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
           ), 400
       
       # Cluster Locator Functions
-      s.lowestCommonArea = (places) -> ClusterLocator.lowestCommonArea(places)
-      s.nearestGlobalRegion = (centerpoint) -> ClusterLocator.nearestGlobalRegion(centerpoint)
+      s.clusterImage = (location) -> ClusterLocator.imageForLocation(location)
+      s.bestListLocation = (places, center) ->
+        location = Place.lowestCommonArea(places)
+        location ||= ClusterLocator.nearestGlobalRegion(center)
       s.namesOrZoomForMore = (places) -> ClusterLocator.namesOrZoomForMore(places)
 
       s.generateContextualUserPins = ->
@@ -114,11 +116,11 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
         s.showHideContext()
         s.map.on "zoomend", -> s.showHideContext()
 
-        # Relay back viewable marker info
+        # Relay back sidelist marker info
         s._clusterObject = (cluster) ->
-          count: cluster._childCount
-          center: cluster._latlng
-          places: _( cluster.getAllChildMarkers() ).map('options').map('placeObject').value()
+          places = _( cluster.getAllChildMarkers() ).map('options').map('placeObject').value()
+          center = cluster._latlng
+          return { count: cluster._childCount, center: center, places: places, location: s.bestListLocation(places, center) }
         s.currentBounds = -> s.map.getBounds()
         s.changePlacesInView = () ->
           s.placesInView = []
@@ -130,7 +132,7 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
             s.placesInView.push( layer.options.placeObject ) if layer.options.placeObject && currentBounds.contains( layer._latlng )
             s.clustersInView.push( s._clusterObject(layer) ) if layer._childCount > 1 && ( layerBounds = layer._bounds ) && ( currentBounds.contains( layerBounds ) )
 
-          s.clustersInView.sort( CoffeeSort.dynamicSort('-count') )
+          s.clustersInView.sort( BasicOperators.dynamicSort('-count') )
           if s.placesInView == [] && s.clustersInView == [] then s.showList = false else s.showList = true
 
         s.map.on "moveend", -> s.$apply -> s.changePlacesInView()
