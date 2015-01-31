@@ -2,6 +2,7 @@ module TaskRunners
   class FromTestYml
 
     def seed(folder='', filename=nil, name=nil)
+      File.open(log_file, 'w') { |file| Date.today.strftime("Seeded %b %d, %Y")   }
       return load_and_save_yml_file(yml_base_path, folder, filename, name) if filename
 
       entries( yml_base_path ).each do |folder|
