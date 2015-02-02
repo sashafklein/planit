@@ -4,11 +4,12 @@ class Flag < BaseModel
   json_accessor :info
 
   def self.print_states
-    where(name: 'State').order('created_at ASC').map(&:print)
+    where(name: 'State').order('created_at ASC').each(&:print)
+    nil
   end
 
   def print
-    "\n#{id}: #{name} -- #{details}\n-------------------------"
+    puts "\n#{id}: #{name} -- #{details}\n-------------------------"
     ap info
     puts "\n" 
   end

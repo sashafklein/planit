@@ -205,12 +205,18 @@ module Completers
 
         end
 
+        it "completes Tayrona from Mauricio.yml" do
+          c = completed_data(filename: 'mauricio', scrape_url: "http://www.email.com/", name: 'Tayrona')
+          m = c.complete!
+          binding.pry
+        end
+
       end
     end
 
     def completed_data(filename:, scrape_url:, name: nil)
       data = yml_data(filename, scrape_url, name)
-      p = PlaceCompleter.new(data)
+      Completer.new(data, @user)
     end
 
     def place_hash(overwrite_hash={}, place_additions={})
