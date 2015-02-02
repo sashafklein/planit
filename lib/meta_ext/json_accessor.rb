@@ -7,7 +7,7 @@ module MetaExt
         symbols.each do |field|
           class_eval do 
             define_method(field) do
-              self[field].is_a?(Hash) ? self[field].to_sh : self[field]
+              self[field].is_a?(Hash) ? self[field].to_sh : self[field].to_sa
             end
 
             define_method("add_to_#{field}!") do |arg|
