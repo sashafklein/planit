@@ -47,9 +47,9 @@ module ScraperHelper
     no_extension = full_domain.split(".")[0]
   end
 
-  def yml_data(base, url, search_term=nil)
-    @base_name, @url = base, url
-    @base_domain = get_domain(@url)
+  def yml_data(base, url_or_folder, search_term=nil)
+    @base_name = base
+    @base_domain = url_or_folder.include?('.') ? get_domain(url_or_folder) : url_or_folder
     search_term ? expectations.find{ |p| p[:place][:name] == search_term || Array(p[:place][:names]).include?(search_term) } : expectations.first
   end
 
