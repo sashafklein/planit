@@ -1,9 +1,7 @@
-class Flag < ActiveRecord::Base
+class Flag < BaseModel
   belongs_to :object, polymorphic: true
 
-  def info
-    self[:info].class == Hash ? self[:info].to_sh : self[:info]
-  end
+  json_accessor :info
 
   def description
     [name, details].compact.join(" - ")

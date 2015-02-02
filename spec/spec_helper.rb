@@ -53,6 +53,11 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
   config.order = "random"
   config.use_transactional_fixtures = false
+  
+  # Skip Features (for now) on CircleCI
+  if ENV['CIRCLE_ARTIFACTS']
+    config.filter_run_excluding type: :feature
+  end
 end
 
 RSpec::Matchers.define :hash_eq do |expected|

@@ -44,6 +44,7 @@ gem 'pundit'
 
 gem "compass"
 gem "compass-rails"
+gem 'colorize'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-angular'

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Authentication', driver: :selenium do
+describe 'Authentication' do
 
   describe "sign in" do
     it "is linked to on the landing page" do

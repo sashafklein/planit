@@ -24,12 +24,12 @@ class PlaceSaver
   private
 
   def do_saving(raise_errors=false)
+    format_phones
+    capitalize_categories
+    add_meta_categories
     uniqify_array_attrs
     correct_and_deaccent_regional_info
-    capitalize_categories
     format_hours
-    add_meta_categories
-    format_phones
     set_timezone
     order_names
     deduplicate_names
@@ -105,7 +105,7 @@ class PlaceSaver
   end
 
   def capitalize_categories
-    place.categories = place.categories.map(&:titleize)
+    place.categories = place.categories.map(&:nuanced_titleize)
   end
 
   def add_meta_categories

@@ -8,7 +8,8 @@ class Item < BaseModel
            :country, :region, :locality, :sublocality, :image, :source, to: :place
   delegate :place, :notes, :name, to: :mark
   delegate :leg, to: :day
-  hstore_accessor :extra
+  
+  json_accessor :extra
   boolean_accessor :published
 
   class << self

@@ -19,6 +19,7 @@ module Completers
     private
 
     def api_complete!
+      
       load_region_info_from_nearby!
       narrow_with_geocoder!
       foursquare_explore!
@@ -27,18 +28,24 @@ module Completers
     end
 
     def load_region_info_from_nearby!
+      pip.flag( name: 'State', details: 'Before nearby', info: pip.clean_attrs)
       @pip = Nearby.new(pip, attrs).complete if attrs[:nearby]
     end
 
     def narrow_with_geocoder!
+      pip.flag( name: 'State', details: 'Before narrow', info: pip.clean_attrs)
       @pip = Narrow.new(pip, attrs).complete if pip.pinnable
     end
 
-    def translate_with_geocoder!
-      @pip = Translate.new(pip, attrs).complete
+    def foursquare_explore!
+      pip.flag( name: 'State', details: 'Before foursquare explore', info: pip.clean_attrs)
+      response = FoursquareExplore.new(pip, @attrs[:nearby]).complete!
+      @pip = response[:place]
+      @photos += response[:photos]
     end
 
     def foursquare_refine_venue!
+      pip.flag( name: 'State', details: 'Before refine', info: pip.clean_attrs)
       unless pip.foursquare_id.blank?
         response = FoursquareRefine.new(pip).complete 
         @pip = response[:place]
@@ -46,10 +53,9 @@ module Completers
       end
     end
 
-    def foursquare_explore!
-      response = FoursquareExplore.new(pip, @attrs[:nearby]).complete!
-      @pip = response[:place]
-      @photos += response[:photos]
+    def translate_with_geocoder!
+      pip.flag( name: 'State', details: 'Before translate', info: pip.clean_attrs)
+      @pip = Translate.new(pip, attrs).complete
     end
 
     def normalize_attrs!
@@ -81,8 +87,13 @@ module Completers
     end
 
     def normalize_extra
-      attrs[:extra] ||= {}
+      attrs[:extra] ||= {}.to_sh
+      if !attrs[:extra].is_a? Hash
+        attrs[:extra] = { misc: attrs[:extra] }.to_sh
+      end
+
       extra_attrs.each { |k, _| attrs[:extra][k] = attrs.delete(k) }
+      attrs[:extra]
     end
 
     def normalized_hours(hours)
@@ -103,6 +114,7 @@ module Completers
     end
 
     def merge_and_save_with_photos!
+      pip.flag( name: 'State', details: 'Before save', info: pip.clean_attrs)
       @place = pip.place.find_and_merge
       if @place.valid? 
         @place.validate_and_save!( @photos.uniq{ |p| p.url }, pip.flags ) 

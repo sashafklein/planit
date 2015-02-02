@@ -20,7 +20,7 @@ class String
   end
 
   def match_distance(string)
-    return nil if self.non_latinate? || string.non_latinate?
+    return nil if non_latinate? || string.nil? || string.non_latinate?
     algorithm = FuzzyStringMatch::JaroWinkler.create( :native )
     algorithm.getDistance( self.no_accents, string.no_accents )
   end
@@ -45,5 +45,19 @@ class String
 
   def capitalized?
     chars.first == chars.first.upcase
+  end
+
+  def nuanced_titleize
+    articles = %w(the and to a an of if)
+    all_caps = %(bbq)
+
+    split(" ").each_with_index.map do |w, i| 
+      w = w.downcase
+      if all_caps.include?(w)
+        w.upcase
+      else
+        !articles.include?(w) || i == 0 ? w.capitalize : w
+      end
+    end.join(" ")
   end
 end
