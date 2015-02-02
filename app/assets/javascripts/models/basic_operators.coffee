@@ -14,7 +14,7 @@ mod.factory 'BasicOperators', ->
         result * sortOrder
 
     @commaAndJoin = (list, max=3) ->
-      return null if !list || list.length == 0 || list.length > 5
+      return undefined if !list || list.length == 0 || list.length > 5
       if list.length == 1
         list[0]
       else if list.length == 2 && max >= 2

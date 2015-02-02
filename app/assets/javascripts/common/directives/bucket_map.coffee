@@ -15,6 +15,12 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
       showList: '@'
 
     link: (s, element) ->
+
+      # Hover Tethering
+      $('.bucket-list-li', '.default-map-icon-tab', '.marker-cluster').on 'hover', (e) ->
+        id = e.attr(id)
+        $("#p#{id}", "#l#{id}").toggleClass 'hover'
+
       window.s = s
 
       s.showList = true unless s.showList
@@ -43,9 +49,16 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
       # Cluster Locator Functions
       s.clusterImage = (location) -> ClusterLocator.imageForLocation(location)
       s.bestListLocation = (places, center) ->
-        location = Place.lowestCommonArea(places)
+        location = BasicOperators.commaAndJoin( _(places).map('names').map((p) -> p[0]).value() ) if places.length < 3
+        location ||= Place.lowestCommonArea(places)
         location ||= ClusterLocator.nearestGlobalRegion(center)
+        return location
       s.namesOrZoomForMore = (places) -> ClusterLocator.namesOrZoomForMore(places)
+
+      # Disable Map Panning for List Box
+      s.listBox = document.getElementById('in-view-list')
+      s.listBox.addEventListener 'mouseover', -> s.map.dragging.disable()
+      s.listBox.addEventListener 'mouseout', -> s.map.dragging.enable()
 
       s.generateContextualUserPins = ->
         if s.currentUserId != s.userId
@@ -97,7 +110,7 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
         while i < s.primaryPlaces.length
           a = s.primaryPlaces[i]
           s.primaryCoordinates.push [a.lat,a.lon]
-          clusterMarker = PlanitMarker.primaryPin(a)
+          clusterMarker = PlanitMarker.primaryPin(a, true, true)
           clusterMarkers.addLayer clusterMarker
           i++
         s.map.addLayer(clusterMarkers)
@@ -120,7 +133,7 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
         s._clusterObject = (cluster) ->
           places = _( cluster.getAllChildMarkers() ).map('options').map('placeObject').value()
           center = cluster._latlng
-          return { count: cluster._childCount, center: center, places: places, location: s.bestListLocation(places, center) }
+          return { id: "lid-#{cluster._leaflet_id}", count: cluster._childCount, center: center, places: places, location: s.bestListLocation(places, center) }
         s.currentBounds = -> s.map.getBounds()
         s.changePlacesInView = () ->
           s.placesInView = []

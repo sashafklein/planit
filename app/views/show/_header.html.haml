@@ -1,13 +1,10 @@
-.initial-header{ class: "#{start} #{background}" }
+.initial-header{ class: "#{start} #{background} #{page_type}" }
   - if page_type == 'simple'
     .simple-header-top
       = image_tag "its_your_#{color}.png", style: "width: 117px; height: 50px;"
       = image_tag "logo_only_#{color}.png", style: "width: 42px; height: 50px;"
       = image_tag "logo_name_only_#{color}.png", style: "width: 86px; height: 50px;"
       = image_tag "ellipsis_#{color}.png", style: "width: 20px; height: 50px;"
-    .tagline-band
-      = title.first.upcase
-      .large-screen= title.last.upcase
   - else  
     .container.pseudo{ class: page_type }
       .header-container
@@ -65,14 +62,24 @@
             .top-nav-bar
               .nav-item.nav-item-map{ class: page_type }
                 %span.icon-map4
+                .nav-item-hint
+                  %span= "MAP VIEW"
               .nav-item.nav-item-list{ class: page_type }
                 %i.fa.fa-th-large
+                .nav-item-hint
+                  %span= "TILE VIEW"
               .nav-item.nav-item-new.raised{ class: page_type }
                 %i.fa.fa-plus-circle
+                .nav-item-hint
+                  %span= "ADD NEW"
               .nav-item.nav-item-feed{ class: page_type }
                 %i.fa.fa-inbox
+                .nav-item-hint
+                  %span= "MY INBOX"
               .nav-item.nav-item-share{ class: page_type }
                 %i.fa.fa-paper-plane
+                .nav-item-hint
+                  %span= "SHARE"
           - else
             %strong.a-override.h-neon{ class: "a-#{color}" }= link_to "SIGN UP", new_user_registration_path
             %span.divider= "|"

@@ -1,5 +1,18 @@
 // SIGNUP/LOGIN
 
+.tagline-band
+  display: block
+  margin: 0
+  padding: 4px
+  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  font-size: 14px
+  font-weight: bold
+  width: 100%
+  text-align: center
+  visibility: visible
+  z-index: 16777269
+  color: #777
+
 .simple-entry-header
   width: 300px
   padding: 10px 0px 5px 0px
@@ -16,6 +29,8 @@
 .simple-entry-form
   .simple-entry-form-section
     display: block
+    white-space: nowrap
+    overflow: hidden
     width: 300px
     padding: 10px 0
     font-size: 16px
@@ -25,10 +40,23 @@
       text-align: left
     &.right
       text-align: right
-  .input.email, .input.password, .input.boolean, .input.user_first_name, .input.user_last_name
+  .form-group.email, .form-group.password, .form-group.user_first_name, .form-group.user_last_name
     display: inline-block
     margin: 0
     padding: 0
+  .form-group.boolean
+    display: block
+    margin: 0
+    padding: 0
+    label
+      padding: 0
+      margin: 0
+      display: inline
+      position: relative
+      input
+        margin: 0 10px 0 6px
+        display: inline-block
+        position: relative
   input
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
     font-size: 16px
@@ -43,8 +71,9 @@
       padding: 3px 8px
       margin: 0
     &.boolean
-      width: auto
+      padding: 0
       margin: 4px
+      display: inline-block !important
     &:disabled
       background: #eee
       border: 1px solid #ccc
@@ -284,6 +313,7 @@
   border-radius: 4px
   padding: 4px
   background: #eee
+  cursor: pointer
 
   ul
     min-height: 0px
@@ -298,10 +328,13 @@
     -moz-box-sizing: border-box
     -webkit-box-sizing: border-box
     background: #eee
-    &:hover
+    &:hover, .highlighted
       background: #fff
       .bucket-list-control
         color: #ccc
+      .bucket-list-cluster-size
+        color: #fff
+        background: #000
 
   li + li
     border-top: 1px solid #ccc    
@@ -325,12 +358,6 @@
     -moz-background-size: cover
     -o-background-size: cover
     background-size: cover
-
-  .bucket-list-no-img
-    display: inline-block
-    height: 69px
-    width: 69px
-    background-color: #ccc !important
     text-align: center
 
     .bucket-list-cluster-size
@@ -345,6 +372,13 @@
       background: #ff0066
       padding: 2px 4px
       border-radius: 2px
+
+  .bucket-list-no-img
+    display: inline-block
+    height: 69px
+    width: 69px
+    background-color: #ccc !important
+    text-align: center
 
   .bucket-list-profile
     display: inline-block

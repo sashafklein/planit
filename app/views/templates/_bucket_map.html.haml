@@ -3,7 +3,7 @@
     #in-view-list
       .bucket-list-container
         %ul
-          %li{"ng-repeat" => "cluster in clustersInView"}
+          %li{"ng-repeat" => "cluster in clustersInView", class: "bucket-list-li", id: "{{cluster.id}}" }
             .bucket-list-tab
               .bucket-list-img{:style => "background-image: url('{{ clusterImage(cluster.location) }}');"}
                 .bucket-list-cluster-size {{ cluster.count }}
@@ -11,7 +11,7 @@
                 %a.bucket-list-title {{ cluster.location }}
                 .bucket-list-more-info {{ namesOrZoomForMore(cluster.places) }}
                 .bucket-list-controls
-          %li{"ng-repeat" => "place in placesInView"}
+          %li{"ng-repeat" => "place in placesInView", class: "bucket-list-li", id: "{{'p' + place.id}}"}
             .bucket-list-tab
               .bucket-list-no-img{"ng-if" => "!place.hasImage()"}
               .bucket-list-img{"ng-if" => "place.hasImage()", :style => "background-image: url('{{place.images[0].url}}');"}

@@ -10,14 +10,12 @@ mod.factory "Place", ($resource, BaseModel, BasicOperators) ->
       localities = @_locality(places)
       regions = @_region(places)
       countries = @_country(places)
-      if localities.length == 1
-        area = BasicOperators.commaAndJoin( sublocalities )
-        area ||= localities[0]
-      else
-        area ||= BasicOperators.commaAndJoin( localities, 2 )
-        area ||= BasicOperators.commaAndJoin( regions )
-      unless area
-        area ||= BasicOperators.commaAndJoin( countries, 2 ) unless _.contains(countries, "United States")
+      area = BasicOperators.commaAndJoin( sublocalities ) if localities.length == 1
+      area ||= localities[0] if localities.length == 1
+      area ||= BasicOperators.commaAndJoin( localities, 2 )
+      area ||= BasicOperators.commaAndJoin( regions )
+      area ||= BasicOperators.commaAndJoin( countries, 2 ) unless _.contains(countries, "United States")
+      return area
 
     url: -> "/places/#{@id}"
     name: -> @names[0]

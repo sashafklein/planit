@@ -1,5 +1,5 @@
 mod = angular.module('Models')
-mod.factory 'PlanitMarker', ->
+mod.factory 'PlanitMarker', ($compile) ->
 
   class PlanitMarker
 
@@ -19,7 +19,7 @@ mod.factory 'PlanitMarker', ->
         return "<i class='fa fa-exchange sm padding-bottom'></i>" if(metacategories[0] == 'Transit')
       return "<i class='fa fa-globe padding-top'></i>"
 
-    @primaryPin: (place, show_popup = true) ->
+    @primaryPin: (place, show_popup = true, tether_pin = false) ->
       primaryMarker = L.marker(new L.LatLng(place.lat, place.lon), options={
         title: place.names[0],
         alt: place.names[0],
@@ -30,7 +30,7 @@ mod.factory 'PlanitMarker', ->
         },
         icon: L.divIcon({
           className: 'default-map-div-icon',
-          html: "<div class='default-map-icon-tab' id='pin-#{ place.id }'>#{ @catIconFor( place.meta_categories ) }<div class='arrow' /></div>",
+          html: "<div class='default-map-icon-tab' id='p#{place.id}'>#{ @catIconFor( place.meta_categories ) }<div class='arrow' /></div>",
           iconSize: null,
         }),
       })
