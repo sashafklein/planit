@@ -322,7 +322,6 @@ module Completers
           expect( place.sublocality ).to eq "Yoyogi"
         end
       end
-
     end
   end
 end

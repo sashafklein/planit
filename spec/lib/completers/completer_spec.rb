@@ -198,6 +198,19 @@ module Completers
           expect(m.place.scrape_url).to eq 'http://www.stay.com/new-york/'
         end
       end
+
+      describe "failed seeds" do
+        it 'completes Alma' do
+          p = completed_data(filename: 'cartagena', scrape_url: "http://www.huffingtonpost.com/curtis-ellis/cartagena-eat-pray-love-d_b_3479981.html", name: 'Alma')
+
+        end
+
+      end
+    end
+
+    def completed_data(filename:, scrape_url:, name: nil)
+      data = yml_data(filename, scrape_url, name)
+      p = PlaceCompleter.new(data)
     end
 
     def place_hash(overwrite_hash={}, place_additions={})
