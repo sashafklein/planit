@@ -2,6 +2,7 @@ module TaskRunners
   class FromTestYml
 
     def seed(folder='', filename=nil, name=nil)
+      @current = 0
       File.open(log_file, 'w') { |file| Date.today.strftime("Seeded %b %d, %Y")   }
       return load_and_save_yml_file(yml_base_path, folder, filename, name) if filename
 
@@ -17,6 +18,9 @@ module TaskRunners
     def load_and_save_yml_file(yml_base_path, folder, entry, name=nil)
       return unless is_yml?(entry)
 
+      @original_logger_level = ActiveRecord::Base.logger.level
+      ActiveRecord::Base.logger.level = 1
+
       yml = load_file( path = path(yml_base_path, folder, entry) ).select(&:place)
       yml = yml.is_a?(Hash) ? yml.to_sh : yml.map(&:to_sh)
       yml = yml.select{ |e| e.place.name == name || e.place.names.try(:include?, name) } if name
@@ -31,6 +35,8 @@ module TaskRunners
           next
         end
       end
+    ensure
+      ActiveRecord::Base.logger.level = @original_logger_level
     end
 
     def complete_place(place_hash)
@@ -39,7 +45,7 @@ module TaskRunners
     end
 
     def save(place_hash, name)
-      print "Saving #{name}"
+      print "#{@current += 1}: Saving #{name}"
       completed = Completers::Completer.new(place_hash, niko, place_hash[:scraper_url]).complete!
       if completed
         print "Saved #{name} as Place ##{completed.place.id} -- hit #{completed.place.completion_steps.join(", ")}"
