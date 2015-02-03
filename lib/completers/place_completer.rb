@@ -19,7 +19,7 @@ module Completers
     private
 
     def api_complete!
-      
+      pip.flag( name: 'State', details: 'Start of PlaceCompleter', info: pip.clean_attrs)
       load_region_info_from_nearby!
       narrow_with_geocoder!
       foursquare_explore!
@@ -28,34 +28,39 @@ module Completers
     end
 
     def load_region_info_from_nearby!
-      pip.flag( name: 'State', details: 'Before nearby', info: pip.clean_attrs)
+      return unless attrs[:nearby]
       @pip = Nearby.new(pip, attrs).complete if attrs[:nearby]
+      pip.flag( name: 'State', details: 'After nearby', info: pip.clean_attrs)
     end
 
     def narrow_with_geocoder!
-      pip.flag( name: 'State', details: 'Before narrow', info: pip.clean_attrs)
-      @pip = Narrow.new(pip, attrs).complete if pip.pinnable
+      return unless pip.pinnable
+      @pip = Narrow.new(pip, attrs).complete 
+      pip.flag( name: 'State', details: 'After narrow', info: pip.clean_attrs)
     end
 
     def foursquare_explore!
-      pip.flag( name: 'State', details: 'Before foursquare explore', info: pip.clean_attrs)
       response = FoursquareExplore.new(pip, @attrs[:nearby]).complete!
+      return unless response[:success]
       @pip = response[:place]
       @photos += response[:photos]
+      pip.flag( name: 'State', details: 'After foursquare explore', info: pip.clean_attrs)
     end
 
     def foursquare_refine_venue!
-      pip.flag( name: 'State', details: 'Before refine', info: pip.clean_attrs)
-      unless pip.foursquare_id.blank?
-        response = FoursquareRefine.new(pip).complete 
-        @pip = response[:place]
-        @photos += response[:photos]
-      end
+      return if pip.foursquare_id.blank?
+      response = FoursquareRefine.new(pip).complete 
+      response = FoursquareRefine.new(pip).complete 
+      @pip = response[:place]
+      @photos += response[:photos]
+      pip.flag( name: 'State', details: 'After refine', info: pip.clean_attrs)
     end
 
     def translate_with_geocoder!
-      pip.flag( name: 'State', details: 'Before translate', info: pip.clean_attrs)
+      location_vals = [pip.locality, pip.region, pip.country, pip.subregion].reject(&:blank?)
+      return unless location_vals.any?(&:non_latinate?)
       @pip = Translate.new(pip, attrs).complete
+      pip.flag( name: 'State', details: 'After translate', info: pip.clean_attrs)
     end
 
     def normalize_attrs!
@@ -114,7 +119,7 @@ module Completers
     end
 
     def merge_and_save_with_photos!
-      pip.flag( name: 'State', details: 'Before save', info: pip.clean_attrs)
+      pip.flag( name: 'State', details: 'After translate', info: pip.clean_attrs)
       @place = pip.place.find_and_merge
       if @place.valid? 
         @place.validate_and_save!( @photos.uniq{ |p| p.url }, pip.flags ) 

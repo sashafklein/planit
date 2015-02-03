@@ -3,6 +3,8 @@ class Flag < BaseModel
 
   json_accessor :info
 
+  scope :states, -> { where(name: 'State') }
+
   def self.print_states
     where(name: 'State').order('created_at ASC').each(&:print)
     nil

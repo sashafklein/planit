@@ -201,8 +201,9 @@ module Completers
 
       describe "failed seeds" do
         it 'completes Alma' do
-          p = completed_data(filename: 'cartagena', scrape_url: "http://www.huffingtonpost.com/curtis-ellis/cartagena-eat-pray-love-d_b_3479981.html", name: 'Alma')
-
+          c = completed_data(filename: 'cartagena', scrape_url: "http://www.huffingtonpost.com/curtis-ellis/cartagena-eat-pray-love-d_b_3479981.html", name: 'Alma')
+          m = c.complete!
+          binding.pry
         end
 
         it "completes Tayrona from Mauricio.yml" do

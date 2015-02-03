@@ -5,6 +5,10 @@ module Scrapers
 
     class Starred < Googlemaps
 
+      delegate :names, :full_address, :street_address, :locality, :region, :country, :country_code,
+               :postal_code, :website, :phone, :images, :lat, :lon, to: :bsjson
+
+      attr_reader :bsjson
       def initialize(url, page)
         super(url, page)
       end
@@ -58,7 +62,6 @@ module Scrapers
           # else
           #   IF 'LINK TEXT' REPRESENTS NAME AND FULL ADDRESS, LINK Q= MAY ALSO -- REVISIT POST-BETA
           end
-          clear_instance_variables
         end
         return processed_array.compact
       end
@@ -68,22 +71,22 @@ module Scrapers
       def google_clear_cid_hash(each_link)
         json = get_json_output(each_link)
         return nil unless json
-        if lat(json).present? && lon(json).present? && ( locality(json).present? || region(json).present? || postal_code(json).present? || country_code(json).present? || street_address(json, each_link).present? || website(json).present? || phone(json).present? )
+        if lat && lon && ( locality || region || postal_code || country_code || street_address.present? || website || phone )
           # REJECT IF GOOGLE RETURNS A BULLSHIT RESPONSE (NO DATA)
           return {
             place:{
-              names: names(json, each_link),
-              full_address: unhex( trim( full_address(json) ) ),
-              street_address: unhex( street_address(json, each_link) ),
-              locality: unhex( locality(json) ),
-              region: unhex( region(json) ),
-              country: unhex( country(json) ),
-              postal_code: unhex( postal_code(json) ),
-              website: unhex( website(json) ),
-              phone: trim( phone(json) ),
-              images: images(json),
-              lat: lat(json),
-              lon: lon(json),
+              names: names,
+              full_address: unhex( trim( full_address ) ),
+              street_address: unhex( street_address ),
+              locality: unhex( locality ),
+              region: unhex( region ),
+              country: unhex( country ),
+              postal_code: unhex( postal_code ),
+              website: unhex( website ),
+              phone: trim( phone ),
+              images: images,
+              lat: lat,
+              lon: lon,
             },
             scraper_url: @url,
             # USERNAME
@@ -110,89 +113,12 @@ module Scrapers
           # sleep(15)
           @json_request = 0
         end
-        open( URI.parse( each_link[:href].gsub("http://", "https://") ) ).read if each_link[:href]
-      end
 
-      def names(json, each_link)          
-        @names ||= [ unhex( trim( json.scan(/infoWindow\:\{title:\"(.*?)\"/).flatten.first ) ), link_name(each_link) ].compact.uniq
-      end
-
-      def full_address(json)
-        @full_address ||= address_lines(json).gsub('","', ', ').gsub('"', '') if address_lines(json)
-      end
-
-      def locality(json)          
-        @locality ||= json.scan(/sxct\:\"(.*?)\"/).flatten.first
-      end
-
-      def region(json)          
-        @region ||= json.scan(/sxpr\:\"(.*?)\"/).flatten.first
-      end
-
-      def postal_code(json)          
-        @postal_code ||= json.scan(/sxpo\:\"(.*?)\"/).flatten.first
-      end
-
-      def country(json)          
-        @country ||= find_country_by_code(country_code(json)) if country_code(json)
-      end
-
-      def street_address(json, each_link)          
-        @street_address ||= trim_full_to_street_address(full_address(json), country(json), postal_code(json), region(json), locality(json), names(json, each_link).first)
-      end
-
-      def website(json)          
-        @website ||= json.scan(/actual_url\:\"(.*?)\"/).flatten.first
-      end
-
-      def phone(json)          
-        @phone ||= json.scan(/infoWindow\:\{.*phones\:\[\{number\:\"(.*?)\"\}\]/).flatten.first
-      end
-
-      def lat(json)          
-        @lat ||= json.scan(/viewport\:{center:{lat\:([-]?\d+\.\d+),/).flatten.first
-        @lat ||= json.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=([-]?\d+\.\d+)\,[-]?\d+\.\d+/).flatten.first
-      end
-
-      def lon(json)            
-        @lon ||= json.scan(/viewport\:{center:{lat\:[-]?\d+\.\d+,lng\:([-]?\d+\.\d+)/).flatten.first
-        @lon ||= json.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=[-]?\d+\.\d+\,([-]?\d+\.\d+)/).flatten.first
-      end
-
-      def images(json)
-        if original_photo = original_photo(json)
-          if original_photo.scan("logo.").flatten.first != "logo."
-            photo = unhex( original_photo )
-            # EDIT UP SIZE BY ONE ZERO
-            photo = photo.gsub(/\/s(\d\d)\//, "/s\\1"+"0/") unless !photo
-            photo = photo.gsub(/\&w\=(\d\d)\&/, "&w=\\1"+"0&") unless !photo
-            photo = photo.gsub(/\&h\=(\d\d)\&/, "&h=\\1"+"0&") unless !photo
-            photo = photo.gsub(/\&zoom\=0/, "&zoom=3") unless !photo
-            [{ url: photo, source: unhex( original_photo ), credit: 'Google' }]
-          end
+        if each_link[:href]
+          @bsjson = Services::GoogleJsonParser.new( each_link[:href].gsub("http://", "https://"), each_link[:text] )
+        else
+          @bsjson = SuperHash.new
         end
-      end
-
-      private
-
-      def original_photo(json)          
-        @original_photo ||= json.scan(/photoUrl\:\"(.*?)\"/).flatten.first
-      end
-
-      def link_name(each_link)
-        @link_name ||= unhex( trim( each_link[:text] ) ) unless each_link[:text].scan(/\A[-.,0-9 ]*\Z/).flatten.first
-      end
-
-      def address_lines(json)            
-        @address_lines ||= json.scan(/infoWindow\:\{.*addressLines\:\[(.*?)\]/).flatten.first
-      end
-
-      def country_code(json)          
-        @country_code ||= json.scan(/sxcn\:\"(.*?)\"/).flatten.first
-      end
-
-      def clear_instance_variables
-        @names, @full_address, @street_address, @locality, @region, @country, @postal_code, @website, @phone, @images, @lat, @lon, @country_code, @original_photo, @link_name, @address_lines = nil
       end
 
     end

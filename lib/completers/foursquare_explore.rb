@@ -37,9 +37,14 @@ module Completers
 
     def explore
       get_venues!
+      binding.pry
       pick_venue
-      merge!
-      getPhotos
+      if venue
+        merge!
+        getPhotos
+      else
+        place_with_photos(false)
+      end
     end
 
     def nearby
@@ -67,8 +72,6 @@ module Completers
     end
     
     def merge!
-      return unless venue
-
       pip.set_val( :names, venue.name, self.class )
       pip.set_val( :phones, venue.phone, self.class ) if venue.phone
       pip.set_val( :street_addresses, venue.address, self.class )
@@ -92,8 +95,8 @@ module Completers
       end
     end
 
-    def place_with_photos
-      { place: pip, photos: photos }
+    def place_with_photos(success=true)
+      { place: pip, photos: photos, success: success }
     end
 
     def nearby_info_present?
