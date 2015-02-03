@@ -39,8 +39,8 @@ class PlaceDecorator < Draper::Decorator
   end
 
   def show_address_linked_to_directions
-    link_to "https://maps.google.com?daddr=#{lat},#{lon}", :class => 'a-override a-black u-none h-black s-neon' do
-      show_street_or_full_address + show_locality_zip_and_region + show_country
+    h.link_to "https://maps.google.com?daddr=#{lat},#{lon}", :class => 'a-override a-black u-none h-black s-neon' do
+      ''.html_safe + show_street_or_full_address + show_locality_zip_and_region + show_country
     end
   end
 

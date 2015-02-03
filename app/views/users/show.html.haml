@@ -1,52 +1,54 @@
-= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'user' }
+#user-show-page
 
-= link_to 'Sign Out', destroy_user_session_path, method: :delete
-.band.gray.spaced.large-screen
-  .container
+  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'user' }
 
-    .two-thirds.column
-      .dashboard-header= "World View"
+  = link_to 'Sign Out', destroy_user_session_path, method: :delete
+  .band.gray.spaced.large-screen
+    .container
 
-      .world-view-map-wrap
-        .empty-map-box.world-view
-          %map.world-view-canvas{ coordinates: @user.marks.coordinates, names: @user.marks.all_names.join('/+/'), ids: @user.marks.all_ids.join('+'), path: '/places/1', type: 'worldview' }
-        .tab-caption= @user.decorate.show_travel_stats_as_caption
+      .two-thirds.column
+        .dashboard-header= "World View"
 
-    .one-third.column
-      .dashboard-header= "Profile & Info"
+        .world-view-map-wrap
+          .empty-map-box.world-view
+            / %worldview_map.world-view-canvas{ user_id: @user.id, current_user_id: current_user_id, type: 'worldview' }
+          .tab-caption= @user.decorate.show_travel_stats_as_caption
 
-      .profile-and-info-wrap
-        .profile-photo-box
+      .one-third.column
+        .dashboard-header= "Profile & Info"
+
+        .profile-and-info-wrap
+          .profile-photo-box
 
 
-.band.gray.spaced
-  .container
+  .band.gray.spaced
+    .container
 
-    .eight.columns.recent-activity-list
-      .dashboard-header= "Plans & Guides"
+      .eight.columns.recent-activity-list
+        .dashboard-header= "Plans & Guides"
 
-      - if @user.plans.present?
-        - @user.plans.order('updated_at DESC').group_by{ |p| p.updated_at.to_date }.each do |date, plans| 
-          %ul.activity-list= days_since_string(date)
-          - plans.each do |plan|
-            %li.activity-line= plan.decorate.created_or_updated_at_link
+        - if @user.plans.present?
+          - @user.plans.order('updated_at DESC').group_by{ |p| p.updated_at.to_date }.each do |date, plans| 
+            %ul.activity-list= days_since_string(date)
+            - plans.each do |plan|
+              %li.activity-line= plan.decorate.created_or_updated_at_link
 
-      - else
+        - else
+          .no-activity-alert
+            .no-activity-note= @user.decorate.show_no_plans_alert
+            = @user.decorate.show_create_plan_button
+
+      .eight.columns.recent-activity-list
+        .dashboard-header= "Recent Pins"
+
+        - if @user.marks_in_last_month? || @user.items_in_last_month?
+          - @user.marks.order('updated_at DESC').group_by{ |p| p.updated_at.to_date }.each do |date, marks| 
+            %ul.activity-list= days_since_string(date)
+            - marks.each do |mark|
+              %li.activity-line= mark.decorate.created_or_updated_at_link
+
         .no-activity-alert
-          .no-activity-note= @user.decorate.show_no_plans_alert
-          = @user.decorate.show_create_plan_button
+          .no-activity-note= @user.decorate.show_no_pins_alert
+          = @user.decorate.show_bookmarklet_button_with_text
 
-    .eight.columns.recent-activity-list
-      .dashboard-header= "Recent Pins"
-
-      - if @user.marks_in_last_month? || @user.items_in_last_month?
-        - @user.marks.order('updated_at DESC').group_by{ |p| p.updated_at.to_date }.each do |date, marks| 
-          %ul.activity-list= days_since_string(date)
-          - marks.each do |mark|
-            %li.activity-line= mark.decorate.created_or_updated_at_link
-
-      .no-activity-alert
-        .no-activity-note= @user.decorate.show_no_pins_alert
-        = @user.decorate.show_bookmarklet_button_with_text
-
-= render 'show/footer', { :page_type => 'user' }
+  = render 'show/footer', { :page_type => 'user' }

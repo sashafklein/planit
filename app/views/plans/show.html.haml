@@ -1,43 +1,47 @@
-#show-plan-page
+#show-plan-page{ ng_controller: 'Plans.ShowCtrl' }
 
   = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'plan' }
 
-  .plan-splash
-    %map.plan-map-canvas{ icon: image_path('pin_sm_red_19x22.png'), coordinates: @plan.coordinates, names: @plan.items.allnames.join('/+/'), ids: @plan.items.all_ids.join('+'), path: place_path(@plan.items.first) }
-      .container.upfront-plan-map
-        .plan-name-wrap
+  .plan-map-container{ ng_class: "{'expanded': mapExpanded}" }
+    %div#expand-map-button{ ng_click: 'contractOrExpandMap()', ng_class: "{'expanded': mapExpanded}" }
+      %i.fa.fa-expand.fa-flip-horizontal
+    %places_map.plan-map-canvas{ plan_id: @plan.id, current_user_id: current_user_id, type: 'plan' }
+      .plan-name-and-detail-container{ ng_show: '!mapExpanded' }
+        .plan-name-wrap.clearfix
           %span.plan-name= @plan.name
         = @plan.decorate.show_plan_dates
 
-  - @plan.legs.each_with_index do |leg, index|
-    = leg.decorate.show_leg_name
-    - leg.days.each_with_index do |day, index|
-      .band.gray.spaced
-        .container
-          .three.columns.day-info-wrap
-            .day-number-separator
-              %span.day-info.number= "DAY #{index + 1}"
-            .day-info-separator
-              = day.decorate.show_locales_in_day
-              = day.decorate.show_distances_in_day
-              - lodging_list = get_lodging_list(day.items)
-            .day-wingtip
-          .thirteen.columns.day-tab-wrap
-            - day.items.sort {|a,b| a[:order] <=> b[:order]}.each_with_index do |item, item_index|
-              = render partial: 'items/item_tab', locals: { item: item, row_index: item_index, item_index: item_index }
-            = render partial: 'items/add_item_tab'
+  .plan-items-container{ ng_show: '!mapExpanded' }
+    - @plan.legs.each_with_index do |leg, index|
+      = leg.decorate.show_leg_name
+      - leg.days.each_with_index do |day, index|
+        .band.gray.spaced
+          .container
+            .three.columns.day-info-wrap
+              .day-number-separator
+                %span.day-info.number= "DAY #{index + 1}"
+              .day-info-separator
+                = day.decorate.show_locales_in_day
+                = day.decorate.show_distances_in_day
+                - lodging_list = get_lodging_list(day.items)
+              .day-wingtip
+            .thirteen.columns.day-tab-wrap
+              - day.items.sort {|a,b| a[:order] <=> b[:order]}.each_with_index do |item, item_index|
+                = render partial: 'items/item_tab', locals: { item: item, row_index: item_index, item_index: item_index }
+              = render partial: 'items/add_item_tab'
 
-  .band.gray.spaced
-    .container
-      .three.columns.day-info-wrap
-        .day-number-separator
-          %span.day-info.number= "BUCKET"
-        .day-info-separator
-          = @plan.decorate.show_locales_in_bucket
-        .day-wingtip
-      .thirteen.columns.day-tab-wrap
-        - @plan.bucket.each_with_index do |item, item_index|
-          = render partial: 'items/item_tab', locals: { item: item, item_index: item_index }
-        = render partial: 'items/add_item_tab'
+    .band.gray.spaced
+      .container
+        .three.columns.day-info-wrap
+          .day-number-separator
+            %span.day-info.number= "BUCKET"
+          .day-info-separator
+            = @plan.decorate.show_locales_in_bucket
+          .day-wingtip
+        .thirteen.columns.day-tab-wrap
+          - @plan.bucket.each_with_index do |item, item_index|
+            = render partial: 'items/item_tab', locals: { item: item, item_index: item_index }
+          = render partial: 'items/add_item_tab'
 
-  = render 'show/footer', { :page_type => 'plan' }
+  .plan-footer-container{ ng_show: '!mapExpanded' }
+    = render 'show/footer', { :page_type => 'plan' }

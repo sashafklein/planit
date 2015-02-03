@@ -24,7 +24,7 @@
       .five.columns
         .map-address-wrap
           .empty-map-box
-            %map.map-canvas.places-single{ coordinates: @place.coordinate }
+            %place_map.map-canvas.places-single{ place_id: @place.id, current_user_id: current_user_id }
           = @place.decorate.show_alt_names_in_parens
           = @place.decorate.show_address_linked_to_directions
           = @place.decorate.show_website

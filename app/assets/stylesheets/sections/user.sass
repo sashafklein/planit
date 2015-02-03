@@ -1,5 +1,18 @@
 // SIGNUP/LOGIN
 
+.tagline-band
+  display: block
+  margin: 0
+  padding: 4px
+  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  font-size: 14px
+  font-weight: bold
+  width: 100%
+  text-align: center
+  visibility: visible
+  z-index: 16777269
+  color: #777
+
 .simple-entry-header
   width: 300px
   padding: 10px 0px 5px 0px
@@ -16,6 +29,8 @@
 .simple-entry-form
   .simple-entry-form-section
     display: block
+    white-space: nowrap
+    overflow: hidden
     width: 300px
     padding: 10px 0
     font-size: 16px
@@ -25,10 +40,23 @@
       text-align: left
     &.right
       text-align: right
-  .input.email, .input.password, .input.boolean, .input.user_first_name, .input.user_last_name
+  .form-group.email, .form-group.password, .form-group.user_first_name, .form-group.user_last_name
     display: inline-block
     margin: 0
     padding: 0
+  .form-group.boolean
+    display: block
+    margin: 0
+    padding: 0
+    label
+      padding: 0
+      margin: 0
+      display: inline
+      position: relative
+      input
+        margin: 0 10px 0 6px
+        display: inline-block
+        position: relative
   input
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
     font-size: 16px
@@ -43,8 +71,9 @@
       padding: 3px 8px
       margin: 0
     &.boolean
-      width: auto
+      padding: 0
       margin: 4px
+      display: inline-block !important
     &:disabled
       background: #eee
       border: 1px solid #ccc
@@ -145,10 +174,6 @@
   background: #eee
   margin-bottom: 10px
   border: 1px solid #ccc
-
-.world-view-canvas
-
-.user-stats-caption
 
 .profile-and-info-wrap
   display: block
@@ -266,12 +291,221 @@
 .bucket-map-canvas
   background: #ccc
   position: fixed
-  height: 100%
-  top: 106px
+  height: inherit
+  top: 74px
   bottom: 0px
   left: 0px
   right: 0px
   z-index: 10000
+
+#in-view-list
+  clear: both
+  display: block
+  visibility: visible
+  z-index: 150000 !important
+  top: 85px
+  max-height: 80%
+  left: 15px
+  position: fixed
+  overflow: scroll
+  width: 360px
+  box-shadow: rgba(0, 0, 0, 0.65098) 0px 1px 5px 0px
+  border-radius: 4px
+  padding: 4px
+  background: #eee
+  cursor: pointer
+
+  ul
+    min-height: 0px
+    margin: 0
+    padding: 0
+  li
+    color: #000
+    height: 75px
+    margin: 0
+    padding: 3px
+    box-sizing: border-box
+    -moz-box-sizing: border-box
+    -webkit-box-sizing: border-box
+    background: #eee
+    &:hover, .highlighted
+      background: #fff
+      .bucket-list-control
+        color: #ccc
+      .bucket-list-cluster-size
+        color: #fff
+        background: #000
+
+  li + li
+    border-top: 1px solid #ccc    
+
+  .bucket-list-container
+    overflow: scroll
+
+  .bucket-list-tab
+    display: block
+    height: 69px
+    width: 346px
+    overflow: hidden
+    vertical-align: top
+
+  .bucket-list-img
+    display: inline-block
+    height: 69px
+    width: 69px
+    background: no-repeat center center
+    -webkit-background-size: cover
+    -moz-background-size: cover
+    -o-background-size: cover
+    background-size: cover
+    text-align: center
+
+    .bucket-list-cluster-size
+      display: inline-block
+      position: relative
+      top: 50%
+      transform: translateY(-50%)
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-size: 14px
+      font-weight: bold
+      color: #eee
+      background: #ff0066
+      padding: 2px 4px
+      border-radius: 2px
+
+  .bucket-list-no-img
+    display: inline-block
+    height: 69px
+    width: 69px
+    background-color: #ccc !important
+    text-align: center
+
+  .bucket-list-profile
+    display: inline-block
+    vertical-align: top
+    width: 244px
+    height: 69px
+    padding: 0 0 0 7px
+    margin: 0
+    overflow: hidden
+
+  .bucket-list-title
+    display: block
+    width: 237px
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-weight: bold
+    font-size: 15px
+    line-height: 19px
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+
+  .bucket-list-more-info
+    display: block
+    width: 237px
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 13px
+    line-height: 15px
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+
+    span, i
+      color: #777
+      font-size: 13px
+      &.sm
+        font-size: 11px
+      &.xsm
+        font-size: 9px
+      &.pad-two-top
+        vertical-align: top
+        margin-top: 2px
+
+  .bucket-list-controls
+    display: inline-block
+    width: 23px
+    height: 69px
+    overflow: hidden
+    padding: 0
+    margin: 0
+    text-align: left
+    vertical-align: top
+
+  .bucket-list-control
+    display: block
+    width: 23px
+    height: 23px
+    margin: 0
+    text-align: center
+    color: #eee
+    cursor: pointer
+    -webkit-transition: -webkit-transform 1s
+    transition: transform 1s
+
+    span.icon-bookmark
+      text-align: center
+      font-size: 21px
+      line-height: 23px
+      width: 23px
+
+    i.fa-trash
+      text-align: center
+      font-size: 15px
+      line-height: 23px
+      width: 23px
+
+    span.fa-flag
+      text-align: center
+      font-size: 14px
+      line-height: 23px
+      width: 23px
+
+    span, i
+      &:hover
+        color: #000
+
+    &:hover
+      color: #000
+      .bucket-list-control-hint
+        display: inline-block
+        visibility: visible
+        right: 30px
+      
+    .bucket-list-control-hint
+      display: none
+      visibility: hidden
+      position: absolute
+      overflow: hidden
+      right: 100px
+      padding: 2px 8px 2px 0
+      color: #333
+
+      span
+        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+        font-size: 13px
+        font-weight: bold
+        line-height: 19px
+        height: 19px
+        border-radius: 3px
+        -webkit-border-radius: 3px
+        padding: 0px 4px
+        background: #ccc
+        &:hover
+          background: #ff0066
+          color: #fff
+
+      &:hover
+        display: inline-block
+        visibility: visible
+        right: 30px
+
+  
+
+
+
+
+
+
 
 // TAB SIZING
 
@@ -302,6 +536,10 @@
   .world-view-canvas
     height: 199px
 
+  #in-view-list
+    display: none
+    visibility: hidden
+
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
 
@@ -309,3 +547,8 @@
     height: 287px
   .world-view-canvas
     height: 285px
+
+  #in-view-list
+    display: none
+    visibility: hidden
+

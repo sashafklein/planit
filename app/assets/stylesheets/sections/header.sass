@@ -1,8 +1,10 @@
+#user-bucket-page, #user-show-page, #show-plan-page, #show-place-page
+  height: 100%
+  
 // HEADER
 
 .init-header-space
   margin: 74px 0 0 0
-  // &.bucket, &.simple
   &.simple
     margin: 106px 0 0 0
 
@@ -17,10 +19,12 @@
   opacity: 1
   visibility: visible
   z-index: 16777269
-  &.transparent
   &.white
-    background: #fff
+    background: #fafafa
     border-top: 3px solid rgb(28, 48, 147)
+    border-bottom: 1px solid #ccc
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
   &.black
     background: #050d36
     border-top: 3px solid #000
@@ -55,24 +59,6 @@
   overflow: hidden
   img
     margin: 10px 5px
-
-.tagline-band
-  position: fixed
-  display: block
-  top: 74px
-  margin: 0
-  padding: 4px
-  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  font-size: 14px
-  font-weight: bold
-  width: 100%
-  text-align: center
-  visibility: visible
-  z-index: 16777269
-  color: #777
-  &.place, &.user, &.plan, &.new
-    display: none
-    visibility: none
 
 .header-container
   height: 71px
@@ -173,14 +159,14 @@
   overflow: hidden
   &.black
     color: #fff
-    background: #222 
+    background: #000 
     border: 3px solid #000
     &:hover
       background: #ff0066
       border: 3px solid #ff0066
   &.white
     color: #000
-    background: #ddd
+    background: #fff
     border: 3px solid #fff
     &:hover
       background: rgb(213, 44, 111)
@@ -201,27 +187,52 @@
   table-layout: fixed
 
   .nav-item
-    padding: 0px 5px 5px 5px
+    padding: 0px 10px 5px 10px
     box-sizing: border-box
     -moz-box-sizing: border-box
     -webkit-box-sizing: border-box
     display: table-cell
     width: auto
-    color: #333
+    color: #777
     font-size: 18px
     line-height: 18px
     border-bottom: 3px transparent solid
+    transition: all 0.2s ease
     &.raised
-      color: #000
+      color: #666
     &:hover, &:active
       color: #ff0066
       border-bottom: 3px #ff0066 solid
+      .nav-item-hint
+        opacity: 1
+        span
+          background: #ff0066
     &.selected
-      background: rgb(28, 48, 147)
+      color: #333
       &:hover, &:active
-        background: rgb(18, 31, 97)
-        border-bottom: #aaa 3px solid
+        color: #000
+        border-bottom: #000 3px solid
+        .nav-item-hint
+          span
+            background: #000
+
+    .nav-item-hint
+      display: inline-block
+      opacity: 0
+      position: absolute
+      top: 0px
+      width: 70px
+      margin-left: -35px
+      overflow: hidden
+      white-space: nowrap
+      span
         color: #fff
+        padding: 0px 3px
+        border-radius: 2px
+        -webkit-border-radius: 2px
+        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+        font-size: 11px
+        font-weight: bold
 
 .page-header-band
   position: fixed
@@ -274,8 +285,6 @@
     background: #861d45
     border: 1px solid #ac486e
     border-bottom: 1px solid #732650
-  &.up
-  &.down
   &.off
     border: 1px solid #273571
     background: #1c295d
@@ -341,8 +350,10 @@
 
 .initial-header
   .search-bar-wrap
-    left: 250px !important
-    width: 430px !important
+    left: 0
+    right: 0
+    width: 400px
+    margin: 0 auto
 
 .side-menu-container
   visibility: visible
@@ -392,8 +403,10 @@
 
   .initial-header
     .search-bar-wrap
-      left: 244px !important
-      width: 280px !important
+      left: 0
+      right: 0
+      width: 300px
+      margin: 0 auto
 
   .side-menu-container
     visibility: visible
@@ -450,9 +463,14 @@
 
   .initial-header
     .search-bar-wrap
-      left: 80px !important
-      right: 80px !important
-      width: auto !important
+      left: 80px
+      right: 80px
+      width: auto
+    &.bucket
+      .search-bar-wrap
+        left: 80px
+        right: 80px
+        width: auto
 
   .side-menu-container
     visibility: hidden
@@ -501,9 +519,15 @@
     background: #000 !important
     border-top: 3px solid #222 !important
     .search-bar-wrap
-      left: 80px !important
-      right: 80px !important
-      width: auto !important
+      left: 80px
+      right: 80px
+      width: auto
+    &.bucket
+      .search-bar-wrap
+        left: 80px
+        right: 80px
+        width: auto
+
 
   .side-menu-container
     visibility: hidden

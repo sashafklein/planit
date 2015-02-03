@@ -1,4 +1,5 @@
 #show-plan-page, #new-plan-page
+  height: 100%
 
   // PLAN TOP-SECTION
   .add-new-wrap
@@ -8,37 +9,82 @@
       border-top: #eee 1px solid
       border-bottom: #bbb 1px solid
 
-  .plan-splash
-    height: 352px
-    background: #333
-    border-top: #eee 1px solid
-    border-bottom: #bbb 1px solid
-    z-index: 1
+  .plan-map-container
+    height: 400px
+    padding: 0
+    margin: 0
+    overflow: hidden
+    top: 0
+    left: 0
+    right: 0
+    bottom: initial
+    &.expanded
+      position: fixed
+      padding-top: 75px
+      bottom: 0
+      height: inherit
 
   .plan-map-canvas
-    height: 350px
-    // position: fixed !important
-    position: absolute
-    top: 75px
-    right: 0
-    left: 0
+    display: block
+    position: relative
+    height: 100%
     z-index: 150
-    &.expanded
-      bottom: 0 !important
+    transition: height 0.15s ease
 
-  .container.upfront-plan-map
-    z-index: 4999
+  #expand-map-button
+    display: block
+    position: absolute
+    top: 425px
+    bottom: initial
+    float: right
+    right: 10px
+    width: 26px
+    height: 26px
+    border-radius: 4px
+    font-size: 15px
+    line-height: 26px
+    text-align: center
+    background: #fff
+    box-shadow: rgba(0, 0, 0, 0.65098) 0px 1px 5px 0px
+    color: rgb(68, 68, 68)
+    float: right
+    z-index: 5000
+    cursor: pointer
+    i
+      padding-left: 2px
+    &:hover
+      background-color: rgb(244, 244, 244)
+      color: #000
+    &.expanded
+      position: fixed
+      bottom: 24px
+      top: initial
+      background: #ff0066
+      color: #fff
+      &:hover
+        background: #333
+        color: #fff
+
+  .plan-name-and-detail-container
+    display: block
+    position: relative
+    width: 960px
+    margin: 0 auto
+    padding: 0
+    top: 50px
     text-align: right
-    padding: 55px 0 0 0
+    z-index: 19999 !important
+    &.expanded
+      position: fixed
 
   .plan-name-wrap
+    margin: 0 30px 0 0
     display: inline-block
-    margin: 0px 30px 0px 30px
     text-align: right
     z-index: 5000
 
   .plan-name
-    padding: 5px 0px
+    padding: 5px 0
     font-family: "arial black", "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
     font-size: 32px
     line-height: 55px
@@ -51,12 +97,12 @@
     z-index: 5001
 
   .plan-more-info-wrap
-    margin: 15px 30px 0px 30px
+    margin: 1px 30px 0 0
     text-align: right
     z-index: 5000
 
   .plan-more-info
-    padding: 5px 0px
+    padding: 5px 0
     font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
     font-size: 11px
     line-height: 15px
@@ -265,7 +311,6 @@
     cursor: pointer
     &.halo
       margin: 5px 10px 10px 0
-    &.disabled
 
   .import-bucket
     padding: 5px// background: #cdcdcd
@@ -311,6 +356,10 @@
   // #Mobile (Portrait) <-- smallest
   @media only screen and (max-width: 767px)
 
+    .container-upfront-plan-map
+      top: 105px
+      right: 40px
+
     .plan-name
       font-size: 20px
       line-height: 34px
@@ -340,6 +389,10 @@
 
   // #Mobile (Landscape)
   @media only screen and (min-width: 480px) and (max-width: 767px)
+
+    .container-upfront-plan-map
+      top: 105px
+      right: 40px
 
     .plan-name
       font-size: 20px

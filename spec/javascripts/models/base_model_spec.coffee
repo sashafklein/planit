@@ -78,6 +78,15 @@ describe 'BaseModel', () ->
         expect(@http.get.calledWithMatch("/api/v1/wrong_path" )).toEqual false
         expect(@http.get.calledWithMatch(MockClass.basePath)).toEqual true
 
+    describe ".where()", ->
+      it "sends an HTTP query to the set basePath", ->
+        sinon.stub(@http, 'get')
+
+        MockClass.where({some_condition: 'Some Value'})
+
+        expect(@http.get.calledWithMatch("/api/v1/wrong_path")).toEqual false
+        expect(@http.get.calledWithMatch(MockClass.basePath, {params: { conditions: {some_condition: 'Some Value'} } })).toEqual true
+
     describe ".find()", ->
       it "sends an HTTP query to the object API path", ->
         sinon.stub(@http, 'get')

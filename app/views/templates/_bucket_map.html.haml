@@ -1,0 +1,47 @@
+%script{ type: 'text/ng-template', id: 'bucket_map.html' }
+  .ng-map-div{"ng-class" => "{'expanded': expanded()}", "ng-cloak" => "true"}
+    #in-view-list
+      .bucket-list-container
+        %ul
+          %li{"ng-repeat" => "cluster in clustersInView", class: "bucket-list-li", id: "{{cluster.id}}" }
+            .bucket-list-tab
+              .bucket-list-img{:style => "background-image: url('{{ clusterImage(cluster.location) }}');"}
+                .bucket-list-cluster-size {{ cluster.count }}
+              .bucket-list-profile
+                %a.bucket-list-title {{ cluster.location }}
+                .bucket-list-more-info {{ namesOrZoomForMore(cluster.places) }}
+                .bucket-list-controls
+          %li{"ng-repeat" => "place in placesInView", class: "bucket-list-li", id: "{{'p' + place.id}}"}
+            .bucket-list-tab
+              .bucket-list-no-img{"ng-if" => "!place.hasImage()"}
+              .bucket-list-img{"ng-if" => "place.hasImage()", :style => "background-image: url('{{place.images[0].url}}');"}
+              .bucket-list-profile
+                %a.bucket-list-title{"ng-href" => ""}
+                  {{ place.name() }}
+                .bucket-list-more-info
+                  %i.fa.fa-globe.padding-top{"ng-if" => " place.meta_categories[0] == 'Area' || place.meta_categories.length == 0 "}
+                  %span.icon-directions-walk{"ng-if" => " place.meta_categories[0] == 'Do' "}
+                  %span.icon-local-bar{"ng-if" => " place.meta_categories[0] == 'Drink' "}
+                  %span.icon-local-restaurant{"ng-if" => " place.meta_categories[0] == 'Food' "}
+                  %i.fa.fa-life-ring{"ng-if" => " place.meta_categories[0] == 'Help' "}
+                  %i.fa.fa-money{"ng-if" => " place.meta_categories[0] == 'Money' "}
+                  %i.fa.fa-globe{"ng-if" => " place.meta_categories[0] == 'Other' "}
+                  %span.icon-drink{"ng-if" => " place.meta_categories[0] == 'Relax' "}
+                  %i.fa.fa-university.xsm.pad-two-top{"ng-if" => " place.meta_categories[0] == 'See' "}
+                  %i.fa.fa-shopping-cart{"ng-if" => " place.meta_categories[0] == 'Shop' "}
+                  %span.icon-home{"ng-if" => " place.meta_categories[0] == 'Stay' "}
+                  %i.fa.fa-exchange.sm.padding-bottom{"ng-if" => " place.meta_categories[0] == 'Transit' "}
+                  {{ place.categories.join(', ') }}
+              .bucket-list-controls
+                .bucket-list-control
+                  .bucket-list-control-hint
+                    %span Save
+                  %span.icomoon.icon-bookmark
+                .bucket-list-control
+                  .bucket-list-control-hint
+                    %span Delete
+                  %i.fa.fa-trash
+                .bucket-list-control
+                  .bucket-list-control-hint
+                    %span Flag
+                  %i.fa.fa-flag

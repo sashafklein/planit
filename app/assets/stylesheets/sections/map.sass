@@ -1,3 +1,4 @@
+
 .default-map-div-icon
   text-align: center
   height: 36px
@@ -5,8 +6,11 @@
   margin-top: -36px
   position: relative
   left: -50%
+  z-index: 10000 !important
   &:hover
-    z-index: 2500 !important
+    z-index: 12500 !important
+  &.primary
+    z-index: 10000 !important
 
 .default-map-icon-tab
   display: inline-block
@@ -20,19 +24,26 @@
   white-space: nowrap
   margin-left: auto
   margin-right: auto
+  border-radius: 2px
+  min-width: 28px
+  height: 28px
   background: #ff0066
   border-bottom: #990033 solid 1px
   color: #fff
-  &.single
-    color: rgba(0,0,0,0)
-    background: rgba(0,0,0,0)
-    border-bottom: rgba(0,0,0,0)
-    &:hover
-      color: rgba(0,0,0,0)
-      background: rgba(0,0,0,0)
-      border-bottom: rgba(0,0,0,0)
-      img
-        content: image-url('map_icon_tip_black.png')
+  div.arrow
+    position: relative
+    margin-left: auto
+    margin-right: auto
+    left: 0
+    right: 0
+    top: 12px
+    margin-top: -7px
+    border-width: 10px 9px 0 9px /*Arrow w/h is defined by the borders*/
+    width: 0px 
+    height: 0px
+    border-style: solid
+    z-index: 800
+    border-color: #ff0066 transparent transparent transparent
   &.print
     background: #333
     border-bottom: #000 solid 1px
@@ -43,71 +54,49 @@
     display: inline-block
     min-width: 16px
   &:hover
-    color: #000
-    background: #fff
-    border-bottom: #999 solid 1px
-    img
-      content: image-url('map_icon_tip_white.png')
-  img
-    position: absolute
-    margin-top: 21px
-    margin-left: auto
-    margin-right: auto
-    left: 0
-    right: 0
-  &.active
-    color: #000
-    background: #fff
-    border-bottom: #999 solid 1px
-    img
-      content: image-url('map_icon_tip_white.png')
+    color: #fff
+    background: #333
+    border-bottom: #000 solid 1px
+    div.arrow
+      border-color: #333 transparent transparent transparent
 
-.cluster-map-div-icon
+.contextual-map-div-icon
   text-align: center
-  height: 36px
-  width: auto
-  margin-top: -36px
+  height: 14px
+  width: 14px
+  margin-top: -14px
   position: relative
-  left: -50%
+  left: -7px
+  z-index: 1000 !important
   &:hover
-    z-index: 2500 !important
+    z-index: 3000 !important
 
-.cluster-map-div-container
-  display: table
-  text-align: center
-  height: 28px !important
-  width: auto
-  margin-top: -28px !important
-  position: relative
-  left: -50%
+.contextual-map-icon-tab
   overflow: hidden
-  &:hover
-    z-index: 2500 !important
-
-.cluster-map-icon-tab
-  display: inline-block
-  text-align: center
-  -webkit-font-smoothing: antialiased
-  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  font-size: 15px
-  font-weight: bold
-  line-height: 16px
-  padding: 5px 6px
   white-space: nowrap
-  margin-left: auto
-  margin-right: auto
-  background: #ff0066
-  border-bottom: #990033 solid 1px
-  color: #fff
-  i
-    width: 16px
-  b
-    display: inline-block
-    min-width: 16px
+  margin-left: 0
+  margin-right: 0
+  border-radius: 50%
+  text-align: center
+  font-size: 10px
+  background: #fff
+  color: #cc3366
+  border: 1px solid #777
+  display: block
+  vertical-align: text-top
+  width: 14px
+  height: 14px
+  .top-pad
+    margin-top: 1px
+  .bottom-pad
+    margin-bottom: 1px
+  .sm
+    font-size: 9px
+  .xsm
+    font-size: 7px
   &:hover
-    color: #000
-    background: #fff
-    border-bottom: #999 solid 1px
+    color: #ff0066
+    border: 1px solid #ff0066
 
 .leaflet-popup-content-wrapper
   background: #fff
@@ -120,11 +109,50 @@
   -webkit-box-shadow: #ccc 0 0.1875em 0,rgba(0,0,0,0.04) 0 0.11111em 0
   -moz-box-shadow: #ccc 0 0.1875em 0,rgba(0,0,0,0.04) 0 0.11111em 0
   box-shadow: #ccc 0 0.1875em 0,rgba(0,0,0,0.04) 0 0.11111em 0
-
   a
     color: #000
 
+.leaflet-popup-tip-container
+  height: 15px
+  margin-bottom: 4px
+
+.mini-popup
+  .leaflet-popup-content
+    margin: 5px 8px
+  a.leaflet-popup-close-button
+    text-align: right
+    margin: 1px 3px 0 0
+    padding: 0
+    line-height: 8px
+    font-size: 8px
+    width: 6px
+    height: 8px
+
+.leaflet-control-locate 
+  border: 1px solid rgba(0,0,0,0.4)
+  
+.leaflet-control-locate a 
+  background-color: #fff
+  background-position: -3px, -2px
+  
+.leaflet-control-locate.active a 
+  background-position: -33px -2px
+  
 .map-canvas.places-single
-  .leaflet-marker-icon
+  .primary-map-div-icon    
     &:hover
       content: image-url('map_icon_x_red.png') !important
+
+  .leaflet-popup-content-wrapper
+    background: #fff
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 13px
+    font-weight: bold
+    border-radius: 0
+    -webkit-border-radius: 0
+    -moz-border-radius: 0
+    -webkit-box-shadow: #ccc 0 0.1em 0,rgba(0,0,0,0.04) 0 0.11111em 0
+    -moz-box-shadow: #ccc 0 0.1em 0,rgba(0,0,0,0.04) 0 0.11111em 0
+    box-shadow: #ccc 0 0.1em 0,rgba(0,0,0,0.04) 0 0.11111em 0
+
+
