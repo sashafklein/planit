@@ -78,7 +78,7 @@ module Completers
     end
 
     def source_list
-      %w(PlaceInProgress Nearby FoursquareExplore Narrow FoursquareRefine Translate)
+      %w(PlaceInProgress GoogleMaps FoursquareExplore FoursquareRefine Translate)
     end
 
     def default(sym)

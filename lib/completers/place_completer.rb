@@ -20,47 +20,54 @@ module Completers
 
     def api_complete!
       pip.flag( name: 'State', details: 'Start of PlaceCompleter', info: pip.clean_attrs)
-      load_region_info_from_nearby!
-      narrow_with_geocoder!
+      locate_best_guess_with_google_maps!
       foursquare_explore!
       foursquare_refine_venue!
       translate_with_geocoder!
     end
 
+    def locate_best_guess_with_google_maps!
+      return if pip.lat && pip.lon
+      response = GoogleMaps.new(pip, attrs).complete
+      @pip = response[:place]
+      @photos += response[:photos]
+      pip.flag( name: 'State', details: 'After GoogleMaps', info: pip.clean_attrs)
+    end
+
     def load_region_info_from_nearby!
       return unless attrs[:nearby]
       @pip = Nearby.new(pip, attrs).complete if attrs[:nearby]
-      pip.flag( name: 'State', details: 'After nearby', info: pip.clean_attrs)
+      pip.flag( name: 'State', details: 'After Nearby', info: pip.clean_attrs)
     end
 
     def narrow_with_geocoder!
       return unless pip.pinnable
       @pip = Narrow.new(pip, attrs).complete 
-      pip.flag( name: 'State', details: 'After narrow', info: pip.clean_attrs)
+      pip.flag( name: 'State', details: 'After Narrow', info: pip.clean_attrs)
     end
 
     def foursquare_explore!
       response = FoursquareExplore.new(pip, @attrs[:nearby]).complete!
       return unless response[:success]
+      
       @pip = response[:place]
       @photos += response[:photos]
-      pip.flag( name: 'State', details: 'After foursquare explore', info: pip.clean_attrs)
+      pip.flag( name: 'State', details: 'After FoursquareExplore', info: pip.clean_attrs)
     end
 
     def foursquare_refine_venue!
       return if pip.foursquare_id.blank?
       response = FoursquareRefine.new(pip).complete 
-      response = FoursquareRefine.new(pip).complete 
       @pip = response[:place]
       @photos += response[:photos]
-      pip.flag( name: 'State', details: 'After refine', info: pip.clean_attrs)
+      pip.flag( name: 'State', details: 'After FoursquareRefine', info: pip.clean_attrs)
     end
 
     def translate_with_geocoder!
       location_vals = [pip.locality, pip.region, pip.country, pip.subregion].reject(&:blank?)
       return unless location_vals.any?(&:non_latinate?)
       @pip = Translate.new(pip, attrs).complete
-      pip.flag( name: 'State', details: 'After translate', info: pip.clean_attrs)
+      pip.flag( name: 'State', details: 'After Translate', info: pip.clean_attrs)
     end
 
     def normalize_attrs!

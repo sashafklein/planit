@@ -1,6 +1,7 @@
 module Completers
   class Geolocate
 
+    extend Memoist
     include RegexLibrary
 
     attr_accessor :pip, :atts, :response
@@ -31,47 +32,47 @@ module Completers
     end
 
     def subregion
-      @subregion ||= get_value(response, "administrative_area_level_2")
+      get_value(response, "administrative_area_level_2")
     end
 
     def region
-      @region ||= get_value(response, 'administrative_area_level_1')
+      get_value(response, 'administrative_area_level_1')
     end
 
     def short_region
-      @short_region ||= get_value(response, 'administrative_area_level_1', 'short_name')
+      get_value(response, 'administrative_area_level_1', 'short_name')
     end
 
     def country
-      @country ||= get_value(response, 'country')
+      get_value(response, 'country')
     end
 
     def short_country
-      @short_country ||= get_value(response, 'country', 'short_name')
+      get_value(response, 'country', 'short_name')
     end
 
     def lat
-      @lat ||= response['geometry']['location']['lat']
+      response['geometry']['location']['lat']
     end
 
     def lon
-      @lon ||= response['geometry']['location']['lng']
+      response['geometry']['location']['lng']
     end
 
     def locality
-      @locality ||= get_value(response, "locality")
+      get_value(response, "locality")
     end
 
     def sublocality
-      @sublocality ||= get_value(response, 'sublocality_level_1')
+      get_value(response, 'sublocality_level_1')
     end
 
     def postal_code
-      @postal_code ||= get_value(response, "postal_code", 'short_name')
+      get_value(response, "postal_code", 'short_name')
     end
 
     def full_address
-      @full_address ||= response['formatted_address']
+      response['formatted_address']
     end
 
     def get_results(query)
@@ -142,5 +143,7 @@ module Completers
       pip.flag(name: "API Query", details: "In #{self.class}", info: { query: @query })
       @query 
     end
+
+    memoize :subregion, :region, :short_region, :country, :short_country, :lat, :lon, :locality, :sublocality, :postal_code, :full_address
   end
 end

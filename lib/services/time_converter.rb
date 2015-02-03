@@ -1,6 +1,8 @@
 module Services
   class TimeConverter
 
+    extend Memoist
+
     attr_accessor :input
     def initialize(input)
       @input = input.to_s
@@ -49,11 +51,11 @@ module Services
     end
 
     def absolute
-      @absolute ||= input == depunctuate(input) ? from_flat_input : Time.parse(input).strftime("%H%M")
+      input == depunctuate(input) ? from_flat_input : Time.parse(input).strftime("%H%M")
     end
 
     def am_pm
-      @am_pm ||= time.strftime("%-l:%M %P")
+      time.strftime("%-l:%M %P")
     end
 
     def numericize
@@ -63,7 +65,7 @@ module Services
     private
 
     def time
-      @time ||= Time.parse( add_colon(absolute) )
+      Time.parse( add_colon(absolute) )
     end
 
     def from_flat_input
@@ -105,5 +107,6 @@ module Services
       ['-', String::LONG_DASH]
     end
 
+    memoize :absolute, :am_pm, :time
   end
 end

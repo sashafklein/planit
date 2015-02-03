@@ -15,8 +15,7 @@ module MetaExt
       end
 
       def validate!
-        include ActiveModel::Validations
-        validates_with("#{name}Validator".constantize)
+        extend PlaceValidator
       end
 
       def none

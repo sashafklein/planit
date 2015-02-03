@@ -153,7 +153,7 @@ class PlaceSaver
 
   def set_timezone
     place.timezone_string = Timezone::Zone.new({latlon: [place.lat, place.lon]}).zone
-  rescue
+  rescue => e
     binding.pry
   end
 

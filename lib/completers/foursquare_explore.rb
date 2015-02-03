@@ -26,7 +26,7 @@ module Completers
       return place_with_photos unless nearby_info_present? && query? && !pip.place.complete?
 
       explore
-      place_with_photos
+      place_with_photos(success: venue.present?)
     end
 
     private
@@ -38,12 +38,11 @@ module Completers
     def explore
       get_venues!
       pick_venue
-      if venue
-        merge!
-        getPhotos
-      else
-        place_with_photos(false)
-      end
+
+      return  unless venue
+
+      merge!
+      getPhotos
     end
 
     def nearby
@@ -52,13 +51,13 @@ module Completers
 
     def get_venues!
       @response = SuperHash.new HTTParty.get(full_fs_url)
-      
+
       @venues = @response.super_fetch( :response, :groups, 0, :items ).map do |item|
         FoursquareExploreVenue.new(item)
       end.sort{ |a, b| b.points_of_lat_lon_similarity(pip) <=> a.points_of_lat_lon_similarity(pip) }
 
       pip.flag( name: "Foursquare Explore Results", info: @venues.map(&:foursquare_id) )
-    rescue
+    rescue => e
       pip.flag( name: "API Failure", details: "FoursquareExplore response unexpected", info: { place: pip.clean_attrs, query: full_fs_url, response: @response } )
     end
 
@@ -96,8 +95,8 @@ module Completers
       end
     end
 
-    def place_with_photos(success=true)
-      { place: pip, photos: photos, success: success }
+    def place_with_photos(success: true)
+      { place: pip, photos: photos, success: success }.to_sh
     end
 
     def nearby_info_present?

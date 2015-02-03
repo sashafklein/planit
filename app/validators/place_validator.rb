@@ -1,28 +1,19 @@
 class PlaceValidator < ActiveModel::Validator
   
+  attr_accessor :record
   def validate(record)
-    validate_lat_presence(record)
-    validate_lon_presence(record)
-    validate_name_presence(record)
+    @record = record
+    validate_presence(:lat, :lon, :names, :country)
   end
 
   private
 
-  def validate_lat_presence(record)
-    if !record.lat.present?
-      record.errors[:base] << "Lat can't be blank"
+  def validate_presence(*atts)
+    atts.each do |att|
+      if !record[att].present? && !record[att] == false
+        record.errors[:base] << "#{att.capitalize} can't be blank"
+      end
     end
   end
 
-  def validate_lon_presence(record)
-    if !record.lon.present?
-      record.errors[:base] << "Lon can't be blank"
-    end
-  end
-
-  def validate_name_presence(record)
-    if !record.name
-      record.errors[:base] << "Names can't be blank"
-    end
-  end
 end 

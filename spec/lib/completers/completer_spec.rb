@@ -8,7 +8,6 @@ module Completers
 
       before do 
         @user = create(:user)
-        allow_any_instance_of(PlaceValidator).to receive(:validate) {}
       end
 
       context "new place" do
@@ -127,6 +126,7 @@ module Completers
         context "tricky Google one" do
           it "gets it too" do
             m = Completer.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "Restaurante Los Almendros"), @user).complete!
+            binding.pry
             expect(m.country).to eq "Colombia"
             expect(m.region).to eq "Magdalena"
           end
@@ -240,7 +240,7 @@ module Completers
         xit 'completes Alma' do
           c = completed_data(filename: 'cartagena', scrape_url: "http://www.huffingtonpost.com/curtis-ellis/cartagena-eat-pray-love-d_b_3479981.html", name: 'Alma')
           m = c.complete!
-          binding.pry
+          # binding.pry
         end
 
         xit "completes Tayrona from Mauricio.yml" do
