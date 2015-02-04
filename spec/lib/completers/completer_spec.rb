@@ -200,16 +200,155 @@ module Completers
       end
 
       describe "failed seeds" do
-        it 'completes Alma' do
+
+        xit 'completes Alma' do
+          p = completed_data(filename: 'cartagena', scrape_url: "http://www.huffingtonpost.com/curtis-ellis/cartagena-eat-pray-love-d_b_3479981.html", name: 'Alma')
+          # Finds Alma in Casa San Agustin https://foursquare.com/v/restaurante-alma/50d11a74e4b00e3143cbf000
+        end
+
+        xit "completes Tayrona from Mauricio.yml" do
+          c = completed_data(filename: 'mauricio', scrape_url: "http://www.email.com/", name: 'Tayrona')
+          m = c.complete!
+          # Select Parque Tayrona b/c of photos and frequency of visits https://foursquare.com/v/parque-nacional-natural-tayrona/4e9dd4b261af4feab6578266
+        end
+
+        xit "completes Quiebra-Canto" do
+          c = completed_data(filename: 'cartagena', scrape_url: "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0", name: "Quiebra-Canto")
+          m = c.complete!
+          # Select Quiebracanto b/c of photos and frequency of visits (168 vs 30) https://foursquare.com/v/quiebracanto/4c37db551e06d13a8cd2763e
+        end
+
+        xit "completes La Mulata and El Mesón de María y Mulata" do
+          c = completed_data(filename: 'cartagena', scrape_url: "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0", name: "El Mesón de María y Mulata")
+          m = c.complete!
+          # Select nearby Restaurante La Mulata b/c of photos and frequency of visits (612 vs 13) https://foursquare.com/v/restaurante-la-mulata/4ced55575de16ea84f82b596
+        end
+
+        xit "rejects Palma Cartagena" do
+          c = completed_data(filename: 'foodies', scrape_url: "http://www.nytimes.com/2008/10/26/travel/26choice.html?pagewanted=all&_r=0", name: "Palma")
+          m = c.complete!
+          # Unsatisfactory results, all in Italy??
+        end
+
+        xit "completes Cartagena Kitesurf School" do
+          c = completed_data(filename: 'cartagena', scrape_url: "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0", name: "Cartagena Kitesurf School")
+          m = c.complete!
+          # No Foursquare Results with Kitesurf in them, so...?
+          # Maybe scrape the website we have since we have one? http://kitesurfcartagena.com/contacts/ 
+
+        xit 'completes Alma' do
           c = completed_data(filename: 'cartagena', scrape_url: "http://www.huffingtonpost.com/curtis-ellis/cartagena-eat-pray-love-d_b_3479981.html", name: 'Alma')
           m = c.complete!
           binding.pry
         end
 
-        it "completes Tayrona from Mauricio.yml" do
+        xit "completes Tayrona from Mauricio.yml" do
           c = completed_data(filename: 'mauricio', scrape_url: "http://www.email.com/", name: 'Tayrona')
           m = c.complete!
           binding.pry
+          # Select Parque Tayrona b/c of photos and frequency of visits https://foursquare.com/v/parque-nacional-natural-tayrona/4e9dd4b261af4feab6578266
+        end
+
+        xit "completes Bogotá Bike Tours" do
+          c = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Bogotá Bike Tours")
+          m = c.complete!
+          # Correct downtown location
+        end
+
+        xit "completes La Opera (HOTEL)" do
+          c = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "La Opera")
+          m = c.complete!
+          # Foursquare result of "Hotel de la Opera" with StreetName closeness? "Calle 10 (5-72 La Candelaria)" to "Calle 10 No. 5-72"
+        end
+
+        xit "completes Gold Museum" do
+          c = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Gold Museum")
+          m = c.complete!
+          # Museo del Oro del Banco de la República is the right answer (4c7ab97e278eb713a3635b80), but wrong language
+        end
+
+        xit "correctly pins Amelia Toro"
+          # https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=amelia%20toro%20bogota
+        end
+
+        xit "rejects Xoco Chocolate? or Correctly Pins?"
+          # incorrectly placed on the map... 3 chain branches in bogota, offer all as options?
+          # maybe this https://foursquare.com/v/xoco/4d839967509137049b9f6c5b
+          # use verification and "usersCount" to invalidate? + no images? <50 users, <5 images
+          # "verified"=>false, / "stats"=>{"checkinsCount"=>4273, "usersCount"=>3783, "tipCount"=>125},
+        end
+
+        xit "correctly locates Villa De Leyva NOT in Bogota"
+          c = completed_data(filename: 'leyva', scrape_url: "http://www.frommers.com/destinations/bogota/278016", name: "Villa de Leyva")
+          m = c.complete!
+          # Villa De Leyva
+        end
+
+        xit "correctly locates Jardin Botanico Jose Celestino Mutis"
+          c = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Jardín Botánico José Celestino Mutis")
+          m = c.complete!
+          # Comes from NYTimes, even if we have via TripAdvisor, not merging? Also way off?
+        end
+
+        xit "correctly locates Botero Museum"
+          c = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Botero Museum")
+          m = c.complete!
+        end
+
+        xit "correctly locates Biblioteca Luis Ángel Arango"
+          c = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Biblioteca Luis Ángel Arango")
+          m = c.complete!
+        end
+
+        xit "correctly locates Jardin Botanico Jose Celestino Mutis"
+          c = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Jardín Botánico José Celestino Mutis")
+          m = c.complete!
+          # See https://www.google.com/maps/place/Hotel+el+Duruelo/@5.628924,-73.517965,14z/data=!4m2!3m1!1s0x8e41d708ca5087e9:0xaca8b4ef69ec38e6
+        end
+
+        xit "correctly locates Bite Into Maine"
+          c = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Bite Into Maine")
+          m = c.complete!
+        end
+
+        xit "correctly locates Hospedería Duruelo NOT in Bogota"
+          c = completed_data(filename: 'leyva', scrape_url: "http://www.frommers.com/destinations/bogota/278016", name: "Hospedería Duruelo")
+          m = c.complete!
+          # See https://www.google.com/maps/place/Hotel+el+Duruelo/@5.628924,-73.517965,14z/data=!4m2!3m1!1s0x8e41d708ca5087e9:0xaca8b4ef69ec38e6
+        end
+
+        xit "rejects The Down Under"
+          c = completed_data(filename: 'amelia-island', scrape_url: "http://www.nytimes.com/2003/12/12/travel/journeys-36-hours-amelia-island-fla.html?pagewanted=all", name: "The Down Under")
+          m = c.complete!
+          # 
+        end
+
+        xit "correctly locates Central Park in Amelia Island vicinity"
+          c = completed_data(filename: 'amelia-island', scrape_url: "http://www.nytimes.com/2003/12/12/travel/journeys-36-hours-amelia-island-fla.html?pagewanted=all", name: "Central Park")
+          m = c.complete!
+          # 
+        end
+
+        xit "correctly locates Fatehpur Sikri outside of Delhi and not in Agra"
+          c = completed_data(filename: 'india', scrape_url: "http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0", name: "Fatehpur Sikri")
+          m = c.complete!
+          # What happens if we hit Foursquare API after Google?
+        end
+
+        xit "doesn't put Fatehpur Sikri on the highway to Fatehpur Sikri"
+          c = completed_data(filename: 'india', scrape_url: "http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0", name: "Fatehpur Sikri")
+          m = c.complete!
+          # What happens if we hit Foursquare API after Google?
+        end
+
+        xit "correctly identifies the most prominent Gem Palace and locates"
+          # Gem Palace and not the Jewelry store?
+        end
+
+        xit "saves Marrakech, Morocco as city not bar"
+          c = completed_data(filename: 'travelmap', scrape_url: "http://www.tripadvisor.com/TravelMapHome", name: "Marrakech, Morocco")
+          m = c.complete!
+          # Currently saving as So Lounge | Sofitel Marrakech?  
         end
 
       end
