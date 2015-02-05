@@ -21,8 +21,11 @@ module Completers
             place = mark.place
             expect(place.name).to eq place_hash[:place][:names][0]
             expect(place.street_address).to eq place_hash[:place][:street_addresses].first
-            expect(place.locality).to eq place_hash[:place][:locality]
+            expect(place.locality).to eq "Cartagena De Indias"
             expect(place.country).to eq place_hash[:place][:country]
+            expect(place.foursquare_id).to be_present
+            expect(place.categories).to include "Ice Cream Shop"
+            expect(place.meta_category).to eq "Food"
           end
 
           it "grabs more info from FoursquareExplore" do
@@ -54,18 +57,16 @@ module Completers
       context "with a preexisting mark" do
         before do 
           @user = create(:user)
-          @place = Place.create(place_hash[:place])
-          @mark = Mark.create(user: @user, place: @place)
+          @place = Place.create!(place_hash[:place])
+          @mark = Mark.create!(user: @user, place: @place)
         end
 
         it "finds the mark, and doesn't create duplicates" do
           mark_count = Mark.count
           place_count = Place.count
-
           c = Completer.new(place_hash, @user)
 
           completed_mark = c.complete!
-
           expect(Mark.count).to eq(mark_count)
           expect(Place.count).to eq(place_count)
 
@@ -75,7 +76,8 @@ module Completers
         it "fills any missing info" do
           atts = place_hash({}, {random_other: 'value'})
           completed_mark = Completer.new(atts, @user).complete!
-          expect( @mark.reload.place.extra ).to hash_eq({random_other: 'value'})
+
+          expect( @mark.reload.place.extra.slice(:random_other) ).to hash_eq({random_other: 'value'})
           expect( @mark.place.foursquare_id ).to eq "509ef2b9e4b01b9e49f1d25c"
         end
       end
@@ -126,7 +128,7 @@ module Completers
         context "tricky Google one" do
           it "gets it too" do
             m = Completer.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "Restaurante Los Almendros"), @user).complete!
-            binding.pry
+            f = m.place.flags.states
             expect(m.country).to eq "Colombia"
             expect(m.region).to eq "Magdalena"
           end
@@ -141,6 +143,7 @@ module Completers
           expect( m.region ).to eq "New York"
 
           expect( m.place.extra['ratings'] ).to be_present
+
           expect( m.place.sublocality ).to eq("Brooklyn") # No Locality for Coney Island in Geocoder
           expect( m.place.flags.find_by(name: "Field Clash").info ).to hash_eq( {"field"=>"categories", "place"=>["Attraction"], "venue"=>["Museum", "Performing Arts Venue", "General Entertainment"]} )
 
@@ -168,7 +171,7 @@ module Completers
           expect(m.country).to eq "United States"
           expect(m.region).to eq "New York"
           expect(m.locality).to eq "New York"
-          expect(m.place.completion_steps).to eq ["Narrow", "Translate"]
+          expect(m.place.completion_steps).to eq ["TranslateAndRefine"]
 
           i = m.items.first
           expect(i.plan.name).to eq "New York for Jetsetters"
@@ -366,7 +369,9 @@ module Completers
           names: ["La Paletteria"],
           street_addresses: ["Calle Santo Domingo, No. 3-88"],
           locality: "Cartagena",
-          country: "Colombia"
+          country: "Colombia", 
+          lat: 10.424192,
+          lon: -75.551192
         }.merge(place_additions).compact
       }.merge(overwrite_hash).compact
     end

@@ -1,12 +1,7 @@
 module Completers
-  class FoursquareExploreVenue
+  class ApiVenue
 
-    IMAGE_SIZE = '622x440'
-
-    attr_accessor :json
-    def initialize(json)
-      @json = SuperHash.new json['venue']
-    end
+    extend Memoist
 
     def acceptably_close_lat_lon_and_name?(pip)
       similar_name?(pip)
@@ -32,6 +27,12 @@ module Completers
       @points_similarity = ((pip.lat.points_of_similarity(lat) + pip.lon.points_of_similarity(lon)) / 2.0).floor
     end
 
+    def name
+      names.first
+    end
+    
+    private
+
     def similar_name?(pip)
       if pip.names.all?(&:non_latinate?)
         return pip.names.any?{ |n| n == name } && name_stringency(pip) != 2
@@ -46,14 +47,7 @@ module Completers
         matches
       end
     end
-
-    def photos
-      return [] unless photos = json.super_fetch( *['featuredPhotos', 'items'] )
-      photos.map do |photo|
-        [photo['prefix'], photo['suffix']].join(IMAGE_SIZE)
-      end
-    end   
-
+    
     def clean(n)
       n = n.to_s.without_common_symbols.downcase.without_articles
       if n.chars.select{ |c| c == c.no_accents }.count > n.chars.reject{ |c| c.no_accents }.count
@@ -61,58 +55,6 @@ module Completers
       else
         n
       end
-    end
-    
-    def website
-      json['url']
-    end
-
-    def name
-      json['name']
-    end
-
-    def phone
-      json.super_fetch %w(contact phone)
-    end
-
-    def address
-      json.super_fetch %w(location address)
-    end
-
-    def lat
-      json.super_fetch %w(location lat)  
-    end
-
-    def lon
-      json.super_fetch %w(location lng)
-    end
-
-    def country
-      json.super_fetch %w(location country)
-    end
-
-    def region
-      json.super_fetch %w(location state)
-    end
-
-    def locality
-      json.super_fetch %w(location city)
-    end
-
-    def full_address
-      json.super_fetch %w( location formattedAddress )
-    end
-
-    def menu
-      json.super_fetch %w( menu url )
-    end
-
-    def mobile_menu
-      json.super_fetch %w( menu mobileUrl )
-    end
-
-    def foursquare_id
-      json['id']
     end
   end
 end

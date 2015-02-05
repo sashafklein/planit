@@ -10,4 +10,8 @@ class Object
     end
   end
 
+  def is_defined?
+    self == false || self.present?
+  end
+
 end

@@ -1,0 +1,81 @@
+module Completers
+  class ApiCompleter::Geolocate < ApiCompleter
+
+    include RegexLibrary
+
+    delegate :subregion, :region, :short_region, :country, :short_country, :lat, :lon, :locality, :sublocality, :postal_code, :full_address, to: :venue
+    attr_accessor :pip, :atts, :take, :venue
+    def initialize(pip, atts={}, take: [])
+      @pip, @atts, @take = pip, atts, take
+    end
+    
+    private
+
+    def update(key, val, overwrite=true)
+      pip.set_val( key, val, self.class, overwrite ) if take?(key)
+    end
+
+    def get_results(query)
+      @venue =ApiVenue::GeolocateVenue.new( ( response_data(query) || response_data(pip.coordinate(', ')) || {} ).to_sh )
+      @success = venue.found?
+    end
+
+    def response_data(query)
+      Geocoder.search( query ).first.try(:data)
+    end
+
+    def response_hash
+      { place: pip, success: @success.present? }
+    end
+
+    def update_location_basics(overwrite=false)
+      update( :country, country, overwrite )
+      update( :region, region, overwrite )
+      update_locale(overwrite)
+    end
+
+    def update_locale(overwrite=false)
+      update( :subregion, subregion, overwrite )
+      update( :locality, locality, overwrite )
+      update( :sublocality, sublocality, overwrite )
+    end
+
+    def reverse_lat_lon_if_appropriate
+      return if [lat, lon, pip.lat, pip.lon].any?(&:nil?)
+
+      lat_possibly_reversed = pip.lat.points_of_similarity(lon) > 0
+      lon_possibly_reversed = pip.lon.points_of_similarity(lat) > 0
+
+      if lat_possibly_reversed && lon_possibly_reversed
+        pip.flag( name: "Reversed LatLon", info: { pre_flip: pip.coordinate, geocoder: [lat, lon].join(":") } )
+        pip.set_val(:lat, pip.lon, self.class)
+        pip.set_val(:lon, pip.lat, self.class)
+      end
+    end
+
+    def get_query
+      @query = 
+        if    valid_lat_lon?     then pip.coordinate(", ")
+        elsif pip.street_address then [:street_address, :locality, :sublocality, :subregion, :region, :country].map{ |v| pip.val(v) }.reject(&:blank?).join(", ")
+        else  pip.full_address
+        end
+
+      flag_query(@query)
+
+      @query
+    end
+
+    def valid_lat_lon?
+      pip.lat && pip.lon && Timezone::Zone.new({latlon: [pip.lat, pip.lon]})
+    rescue
+      pip.flag( name: "Invalid LatLon found", details: "Cleared out LatLon in #{self.class}", info: { old: { lat: pip.lat, lon: pip.lon} } )
+      pip.set_val(:lat, nil, self.class, true)
+      pip.set_val(:lon, nil, self.class, true)
+      false
+    end
+
+    def take?(key)
+      take.include?(key)
+    end
+  end
+end

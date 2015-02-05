@@ -1,33 +1,28 @@
 module Completers
-  class Narrow < Geolocate
+  class ApiCompleter::Narrow < ApiCompleter::Geolocate
 
     def complete
-      return failure unless pip.pinnable
+      return response_hash unless pip.pinnable
 
       get_results(get_query)
       
-      return failure unless response_address_is_specific?
+      return response_hash unless venue.found? && response_address_is_specific?
 
       if seems_accurate?
-        update_location_basics(true, true, true)
-        pip.set_val(:lat, lat, self.class)
-        pip.set_val(:lon, lon, self.class)
-        pip.set_val(:postal_code, postal_code, self.class)
-        pip.set_val(:full_address, full_address, self.class) if !pip.full_address
+        update_location_basics(true)
       else
         reverse_lat_lon_if_appropriate
-        update_location_basics(true, false) # Don't trust locality
+        update_location_basics(false) # Don't trust locality
       end
 
       notify_if_geolocation_data_missing
 
-      success
+      response_hash
     end
 
     private
 
     def response_address_is_specific?
-      return false if response.blank?
       non_regional = full_address.cut(region, short_region, country, short_country, subregion, locality, postal_code, ',', ' ')
       non_regional.length > 2
     end

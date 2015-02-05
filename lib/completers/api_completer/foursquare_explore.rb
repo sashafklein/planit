@@ -1,8 +1,5 @@
-require 'json'
-require 'uri'
-
 module Completers
-  class FoursquareExplore
+  class ApiCompleter::FoursquareExplore < ApiCompleter
 
     FS_AUTH_TOKEN = "MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819"
     FS_URL = 'https://api.foursquare.com/v2/venues'
@@ -22,7 +19,7 @@ module Completers
       FS_AUTH_TOKEN
     end
 
-    def complete!
+    def complete
       return place_with_photos unless nearby_info_present? && query? && !pip.place.complete?
 
       explore
@@ -38,8 +35,8 @@ module Completers
     def explore
       get_venues!
       pick_venue
-
-      return  unless venue
+      
+      return unless venue
 
       merge!
       getPhotos
@@ -50,15 +47,15 @@ module Completers
     end
 
     def get_venues!
-      @response = SuperHash.new HTTParty.get(full_fs_url)
+      @response = HTTParty.get(full_fs_url).to_sh
 
       @venues = @response.super_fetch( :response, :groups, 0, :items ).map do |item|
-        FoursquareExploreVenue.new(item)
+        ApiVenue::FoursquareExploreVenue.new(item)
       end.sort{ |a, b| b.points_of_lat_lon_similarity(pip) <=> a.points_of_lat_lon_similarity(pip) }
 
       pip.flag( name: "Foursquare Explore Results", info: @venues.map(&:foursquare_id) )
     rescue => e
-      pip.flag( name: "API Failure", details: "FoursquareExplore response unexpected", info: { place: pip.clean_attrs, query: full_fs_url, response: @response } )
+      flag_failure(query: full_fs_url, response: @response, error: e)
     end
 
     def pick_venue
@@ -69,23 +66,17 @@ module Completers
           v.address == pip.street_address
         end
       end
+    rescue => e
+      pip.flag( name: "Foursquare Pick Venue Failure", details: "Couldn't pick an acceptable venue", info: { pip: pip.clean_attrs, venues: @venues } )
     end
     
     def merge!
-      pip.set_val( :names, venue.name, self.class )
-      pip.set_val( :phones, venue.phone, self.class ) if venue.phone
-      pip.set_val( :street_addresses, venue.address, self.class )
-      pip.set_val( :website, venue.website, self.class )
-      pip.set_val( :locality, venue.locality ,  self.class )
-      pip.set_val( :country, venue.country , self.class )
-      pip.set_val( :region, venue.region , self.class )
-      pip.set_val( :lat, venue.lat, self.class )
-      pip.set_val( :lon, venue.lon, self.class )
-      pip.set_val( :completion_steps, self.class.to_s.demodulize, self.class )
-      pip.set_val( :menu, venue.menu, self.class )
-      pip.set_val( :mobile_menu, venue.mobile_menu, self.class )
-      pip.set_val( :foursquare_id, venue.foursquare_id, self.class )
+      set_vals( :website, :locality, :country, :region, :lat, :lon, :menu, :mobile_menu, :foursquare_id, :names, :street_addresses, :phones )
       pip.flag( name: "Name-Lat/Lon Clash", details: "Took information from identically named, distant FoursquareExplore data.", info: { name: venue.name, venue: { lat: venue.lat, lon: venue.lon }, place: { lat: pip.lat, lon: pip.lon } } ) if venue.name_stringency(pip) == 0.99 
+    end
+
+    def set_vals(*vals)
+      vals.each{ |v| pip.set_val(v, venue.send(v), self.class) }
     end
 
     def getPhotos
@@ -117,7 +108,7 @@ module Completers
 
     def full_fs_url
       url = "#{ FS_URL }/explore?#{ nearby_parameter }&query=#{ query }&oauth_token=#{ FS_AUTH_TOKEN }&venuePhotos=1"
-      pip.flag(name: "API Query", details: "In #{self.class}", info: { query: url })
+      flag_query(url)
       url
     end
   end

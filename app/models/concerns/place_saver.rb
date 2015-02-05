@@ -144,7 +144,7 @@ class PlaceSaver
   end
 
   def format_phones
-    place.phones = place.phones.map{ |v| v.gsub(%r!\D!, '') }.uniq
+    place.phones = place.phones.compact.map{ |v| v.gsub(%r!\D!, '') }.uniq
   end
 
   def phones_formatted?

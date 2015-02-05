@@ -53,6 +53,19 @@ module Completers
       attrs.reduce_to_hash{ |k, v| val(k) }.select_val(&:present?)
     end
 
+    def defines?(*atts, all: false)
+      defined = vals(atts).select(&:is_defined?)
+      all ? vals.all?(&:is_defined?) : vals.any?(&:is_defined?)
+    end
+
+    def vals(*atts)
+      atts.map{ |a| val(a) }
+    end
+
+    def completed(step)
+      completion_steps.include?(step)
+    end
+
     private
 
 
@@ -77,13 +90,13 @@ module Completers
       b_index.nil? || a_index >= b_index
     end
 
+    # Rightmost has greatest overwrite permissions
     def source_list
-      %w(PlaceInProgress GoogleMaps FoursquareExplore FoursquareRefine Translate)
+      %w(PlaceInProgress Nearby Narrow GoogleMaps FoursquareExplore FoursquareRefine TranslateAndRefine)
     end
 
     def default(sym)
-      @as ||= Place.new.attributes
-      @as[sym.to_s]
+      Place.new.attributes[sym.to_s]
     end
 
     def defaults
