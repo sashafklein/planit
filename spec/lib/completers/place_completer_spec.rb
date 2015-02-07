@@ -18,7 +18,7 @@ module Completers
           expect( place.phones ).to eq( [] )
           expect( place.phone ).to eq nil
           expect( place.category ).to eq('Hotel')
-          expect( place.full_address ).to eq("22 South 3rd Street, Fernandina Beach, FL 32034, USA")
+          expect( place.full_address ).to eq("20 S 3rd St, Amelia Island, FL 32034")
           expect( place.meta_category ).to eq('Stay')
         end
 
@@ -57,7 +57,7 @@ module Completers
         it 'finds La Cevicheria in Cartagena' do
           place = PlaceCompleter.new({name: 'La Cevicheria', street_address: "Calle Stuart No 7-14", nearby: "Cartagena, Colombia"} ).complete!
           
-          expect( place.locality ).to eq "Cartagena de Indias"
+          expect( place.locality ).to eq "Cartagena De Indias"
           expect( place.country ).to eq "Colombia"
           expect( place.region ).to eq "Bolivar"
           expect( place.category ).to eq 'Seafood Restaurant'
@@ -136,7 +136,7 @@ module Completers
           place = PlaceCompleter.new(yml_data('thoumieux-flipped', 'http://www.eater.com/', "Gâteaux Thoumieux")[:place]).complete!
           expect( place.lat ).to be_within(0.01).of(48.85989163257022)
           expect( place.lon ).to be_within(0.01).of(2.3091419555351185)
-          expect( place.flags.find_by(name: "Invalid LatLon found").description ).to eq "Invalid LatLon found - Cleared out LatLon in Completers::Narrow"
+          expect( place.flags.find_by(name: "Invalid LatLon found").description ).to eq "Invalid LatLon found - Cleared out LatLon in PlaceAttrs"
           expect( place.completion_steps ).to eq ["Narrow", "FoursquareExplore", "FoursquareRefine", "Translate"]
           expect( place.hours ).to hash_eq({
             "mon"=>[["1000", "2000"]], 
@@ -153,11 +153,11 @@ module Completers
           expect( place.phones ).to eq ["33145511212"]
         end
 
-        it "ensures L/L exists within natural bounds (e.g. Apizza Scholls in Antartica) -- also flip" do
+        it "ensures L/L exists within natural bounds (e.g. Apizza Scholls in Antartica) or discards" do
           place = PlaceCompleter.new(yml_data('apizza-scholls-flipped', 'http://www.eater.com/', "Apizza Scholls")[:place]).complete!
           expect( place.lat ).to be_within(0.01).of(45.512043)
           expect( place.lon ).to be_within(0.01).of(-122.613144)
-          expect( place.flags.find_by(name: "Invalid LatLon found").description ).to eq("Invalid LatLon found - Cleared out LatLon in Completers::Narrow")
+          expect( place.flags.find_by(name: "Invalid LatLon found").description ).to eq("Invalid LatLon found - Cleared out LatLon in PlaceAttrs")
           expect( place.menu ).to eq "https://foursquare.com/v/apizza-scholls/4293c000f964a52038241fe3/menu"
           expect( place.mobile_menu ).to eq "https://foursquare.com/v/4293c000f964a52038241fe3/device_menu"
           expect( place.foursquare_id ).to eq "4293c000f964a52038241fe3"
@@ -167,7 +167,7 @@ module Completers
           expect( place.reservations_link ).to eq nil
           expect( place.categories ).to eq( ["Pizza Place"] )
           expect( place.meta_categories ).to eq( ["Food"] )
-          expect( place.full_address ).to eq "4741 SE Hawthorne Blvd,  Portland, OR 97215"
+          expect( place.full_address ).to eq "4741 SE Hawthorne Blvd (at SE 47th Ave.), Portland, OR 97215"
           expect( place.hours ).to hash_eq({
             "mon"=>[["1700", "2130"]],
             "tue"=>[["1700", "2130"]],
@@ -178,15 +178,15 @@ module Completers
             "sun"=>[["1600", "2000"]]
           })
           expect( place.phones ).to eq ["5032331286"]
-          expect( place.lat ).to be_within(0.01).of 45.512043
-          expect( place.lon ).to be_within(0.01).of -122.613144
+          expect( place.lat ).to be_within(0.001).of 45.512043
+          expect( place.lon ).to be_within(0.001).of -122.613144
         end
 
         it "truly prioritizes nearby in finding matches (e.g. St Peters Episcopal Church in Fernandina Beach FL vs. Gainsville FL)" do
           place = PlaceCompleter.new(yml_data('amelia-island', 'http://www.nytimes.com/', "St. Peter's Episcopal Church Cemetery")[:place]).complete!
           expect( place.locality ).to eq("Fernandina Beach")
-          expect( place.lat ).to be_within(0.01).of(30.669427976988448)
-          expect( place.lon ).to be_within(0.01).of(-81.45895476767303)
+          expect( place.lat ).to be_within(0.001).of(30.669427976988448)
+          expect( place.lon ).to be_within(0.001).of(-81.45895476767303)
           expect( place.meta_category ).to eq "See"
           expect( place.extra ).to hash_eq(section_title: "Favorite Haunts")
           expect( place.names ).to eq ["St. Peter's Episcopal Church Cemetery", "St Peters Episcopal Church"]
@@ -318,7 +318,7 @@ module Completers
           expect( place.street_addresses.sort ).to eq ['代々木2-14-3', "2 Chome-14 Yoyogi"].sort
           expect( place.extra.symbolize_keys ).to hash_eq({ rating: 5, rating_tier: '5 star', twitter: '@fuunjiIsTheShit'})
           expect( place.foursquare_id ).to eq "4b5983faf964a520ca8a28e3"
-          expect( place.completion_steps ).to eq ["Narrow", "FoursquareExplore", "FoursquareRefine", "Translate"]
+          expect( place.completion_steps ).to eq ["FoursquareExplore", "FoursquareRefine", "TranslateAndRefine"]
           expect( place.sublocality ).to eq "Yoyogi"
         end
       end

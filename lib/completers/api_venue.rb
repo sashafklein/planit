@@ -4,15 +4,25 @@ module Completers
     extend Memoist
 
     def acceptably_close_lat_lon_and_name?(pip)
-      similar_name?(pip)
+      if pip.names.all?(&:non_latinate?)
+        return pip.names.any?{ |n| n == name } && name_stringency(pip) != 2
+      end
+      
+      venue_name = clean(name)
+
+      pip.names.reject(&:non_latinate?).any? do |pip_name|
+        pip_name = clean(pip_name)
+        match_percent = StringMatch.new(pip_name, venue_name).value
+        match_percent > name_stringency(pip, pip_name)
+      end
     end
 
-    def name_stringency(pip)
+    def name_stringency(pip, pip_name)
       if points_of_lat_lon_similarity(pip) >= 4
-        0.6
+        0.65
       else
         case points_of_lat_lon_similarity(pip)
-        when 3 then 0.7
+        when 3 then 0.75
         when 2 then 0.85
         when 1 then 0.99
         else 2 # Reject, even if name matches
@@ -29,32 +39,6 @@ module Completers
 
     def name
       names.first
-    end
-    
-    private
-
-    def similar_name?(pip)
-      if pip.names.all?(&:non_latinate?)
-        return pip.names.any?{ |n| n == name } && name_stringency(pip) != 2
-      end
-      
-      venue_name = clean(name)
-
-      pip.names.reject(&:non_latinate?).any? do |pip_name|
-        pip_name = clean(pip_name)
-        distance = pip_name.match_distance( venue_name ) || 2
-        matches = (distance > name_stringency(pip))
-        matches
-      end
-    end
-    
-    def clean(n)
-      n = n.to_s.without_common_symbols.downcase.without_articles
-      if n.chars.select{ |c| c == c.no_accents }.count > n.chars.reject{ |c| c.no_accents }.count
-        n.no_accents
-      else
-        n
-      end
     end
   end
 end

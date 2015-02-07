@@ -55,7 +55,7 @@ module Completers
 
     def get_query
       @query = 
-        if    valid_lat_lon?     then pip.coordinate(", ")
+        if    pip.coordinate     then pip.coordinate(", ")
         elsif pip.street_address then [:street_address, :locality, :sublocality, :subregion, :region, :country].map{ |v| pip.val(v) }.reject(&:blank?).join(", ")
         else  pip.full_address
         end
@@ -63,15 +63,6 @@ module Completers
       flag_query(@query)
 
       @query
-    end
-
-    def valid_lat_lon?
-      pip.lat && pip.lon && Timezone::Zone.new({latlon: [pip.lat, pip.lon]})
-    rescue
-      pip.flag( name: "Invalid LatLon found", details: "Cleared out LatLon in #{self.class}", info: { old: { lat: pip.lat, lon: pip.lon} } )
-      pip.set_val(:lat, nil, self.class, true)
-      pip.set_val(:lon, nil, self.class, true)
-      false
     end
 
     def take?(key)

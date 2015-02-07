@@ -4,9 +4,8 @@ module Completers
     attr_accessor :attrs, :flags
     delegate *(Place.attribute_keys + [:coordinate, :pinnable, :nearby, :name, :street_address, :foursquare_id]), to: :place
 
-    def initialize(attributes={})
-      @attrs = SuperHash.new(defaults.symbolize_keys)
-      @flags = []
+    def initialize(attributes={}, flags=[])
+      @attrs, @flags = SuperHash.new(defaults.symbolize_keys), flags
 
       attributes.symbolize_keys.each do |key, value|
         set_val(key, value, 'PlaceInProgress', true)
@@ -30,6 +29,10 @@ module Completers
 
     def source(sym)
       info(sym, :source)
+    end
+
+    def sources(*syms)
+      syms.map{ |s| source(s) }
     end
 
     def set_val(sym, val, source, force=false)
@@ -67,7 +70,6 @@ module Completers
     end
 
     private
-
 
     def raw_attrs
       attrs.except(:nearby).reduce_to_hash{ |k, v| val(k) }.select_val(&:present?)

@@ -61,6 +61,12 @@ class SuperHash < Hash
     hash
   end
 
+  def reject_val(&block)
+    hash = seed
+    each { |k, v| hash[k] = v if !yield(v) }
+    hash
+  end
+
   def map_val(&block)
     hash = seed
     each{ |k, v| hash[k] = yield(v) }

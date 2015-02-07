@@ -48,8 +48,8 @@ class Place < BaseModel
   end
 
   def nearby
-    return nil unless [locality, region, country].any?(&:present?)
-    [locality, region, country].reject(&:blank?).join(", ")
+    return nil unless [locality, subregion, region, country].any?(&:present?)
+    [locality, subregion, region, country].reject(&:blank?).join(", ")
   end
 
   def find_and_merge

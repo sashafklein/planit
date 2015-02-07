@@ -40,14 +40,16 @@ module Completers
 
     def query
       if nearby 
-        "#{pip.name}, #{nearby}"
-      else
+        "#{pip.name}, #{nearby}".no_accents
+      elsif ll.present?
         "#{pip.name}&sll=#{ll}"
+      elsif pip.full_address
+        "#{pip.name}, #{ pip.full_address.gsub(/\#.*,/, ',') }".no_accents
       end
     end
 
     def ll
-      [atts.lat, atts.lon].join(",")
+      [atts.lat, atts.lon].reject(&:blank?).join(",")
     end
 
     def nearby

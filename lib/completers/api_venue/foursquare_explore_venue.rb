@@ -56,7 +56,8 @@ module Completers
     end
 
     def full_address
-      json.super_fetch %w( location formattedAddress )
+      fa = json.super_fetch %w( location formattedAddress )
+      fa ? fa.join(", ") : nil
     end
 
     def menu

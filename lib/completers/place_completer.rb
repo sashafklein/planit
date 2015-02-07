@@ -6,8 +6,8 @@ module Completers
     attr_accessor :attrs, :place, :photos, :pip, :url
     def initialize(attrs, url=nil)
       normalizer = PlaceAttrs.new(attrs.merge(scrape_url: url))
-      @photos, @attrs = normalizer.set_photos, normalizer.normalize
-      @pip = PlaceInProgress.new @attrs
+      @photos, @attrs, @flags = normalizer.set_photos, normalizer.normalize, normalizer.flags
+      @pip = PlaceInProgress.new @attrs, @flags
       add_state("Start of PlaceCompleter")
     end
 
@@ -26,6 +26,7 @@ module Completers
         nearby unless pip.coordinate
         foursquare
         google_maps if !pip.completed("FoursquareExplore")
+        foursquare if retry_foursquare?
       end
       translate_and_refine
     end
@@ -80,6 +81,11 @@ module Completers
       else
         nil
       end
+    end
+
+    def retry_foursquare?
+      pip.flags.find{ |f| f.name == "Insufficient Atts for FoursquareExplore" } &&
+        ApiCompleter::FoursquareExplore.new(pip).sufficient_to_fetch?
     end
 
     def area?

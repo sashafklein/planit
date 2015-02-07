@@ -5,8 +5,8 @@ class String
 
   LONG_DASH = '–'
   
-  def no_accents
-    I18n.transliterate(self)
+  def no_accents(replacement: '')
+    I18n.transliterate(self, replacement: replacement)
   end
 
   def cut(*substrings)
@@ -34,13 +34,13 @@ class String
   end
 
   def without_articles(articles=nil)
-    articles ||= %w(the la el las les los le o os il gli o os der die de du ang da nan an)
+    articles ||= %w(the la el las les los le o os il gli o os der die de du ang da nan an a)
 
     split(" ").reject{ |w| articles.include?(w.downcase) }.join(" ")
   end
 
   def without_common_symbols
-    cut %w(& # * , ; . ' " * ^ % ! @ )
+    cut( %w(& # * , ; . - ' " * ^ % ! @ ) + ['(', ')'] )
   end
 
   def capitalized?

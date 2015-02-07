@@ -19,26 +19,244 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 28 Jan 2015 03:14:03 GMT
+      - Fri, 06 Feb 2015 01:40:46 GMT
       Server:
-      - Apache/2.2.15 (CentOS)
+      - Apache/2.2.17 (Linux/SUSE)
       Cache-Control:
       - no-cache
       Access-Control-Allow-Origin:
       - "*"
-      Content-Length:
-      - '246'
-      Connection:
-      - close
+      Transfer-Encoding:
+      - chunked
       Content-Type:
       - application/json;charset=UTF-8
     body:
       encoding: UTF-8
-      string: '{"time":"2015-01-27 19:14","countryName":"United States","sunset":"2015-01-28
-        17:28","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.414982,"sunrise":"2015-01-28
-        07:17","timezoneId":"America/Los_Angeles","lat":37.78639}'
+      string: '{"time":"2015-02-05 17:40","countryName":"United States","sunset":"2015-02-06
+        17:38","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.414982,"sunrise":"2015-02-06
+        07:09","timezoneId":"America/Los_Angeles","lat":37.78639}'
     http_version: 
-  recorded_at: Wed, 28 Jan 2015 03:13:51 GMT
+  recorded_at: Fri, 06 Feb 2015 01:40:46 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?ll=37.78639,-122.414982&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Trocadero%20Club&v=20140819&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 06 Feb 2015 01:40:47 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '298'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '497'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-lax1423-LAX
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"warning":{"text":"There
+        aren''t a lot of results for \"Trocadero Club.\" Try something more general,
+        reset your filters, or expand the search area."},"suggestedRadius":2079,"headerLocation":"Tenderloin","headerFullLocation":"Tenderloin,
+        San Francisco","headerLocationGranularity":"neighborhood","query":"trocadero
+        club","totalResults":3,"suggestedBounds":{"ne":{"lat":37.78909870962785,"lng":-122.4009172421218},"sw":{"lat":37.73347741562165,"lng":-122.48175198363612}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":1,"items":[{"summary":"June
+        L. (FB friend) liked this place","type":"social","reasonName":"facebookLikeReason","message":"June
+        L. liked this place","count":1}]},"venue":{"id":"46596e96f964a52019471fe3","name":"Equinox
+        Sports Club","contact":{"phone":"4156333900","formattedPhone":"(415) 633-3900","twitter":"equinox","facebook":"45802399400","facebookUsername":"Equinox","facebookName":"Equinox"},"location":{"address":"747
+        Market St","crossStreet":"at Grant","lat":37.78657046899121,"lng":-122.40459154855427,"distance":914,"postalCode":"94103","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["747
+        Market St (at Grant)","San Francisco, CA 94103"]},"categories":[{"id":"4bf58dd8d48988d175941735","name":"Gym
+        \/ Fitness Center","pluralName":"Gyms or Fitness Centers","shortName":"Gym
+        \/ Fitness","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/building\/gym_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":45710,"usersCount":2658,"tipCount":65},"url":"http:\/\/www.facebook.com\/equinox","like":false,"rating":9.3,"ratingSignals":286,"hours":{"status":"Open
+        until 11:00 PM","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":424,"groups":[]},"hereNow":{"count":3,"summary":"3
+        people are checked in here","groups":[{"type":"others","name":"Other people
+        here","count":3,"items":[]}]}},"tips":[{"id":"4d262fedc0772c0f1ff29e88","createdAt":1294348269,"text":"Grab
+        a drink after your workout at Blu Restaurant & Bar. After all, you deserve
+        it.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/4d262fedc0772c0f1ff29e88","likes":{"count":24,"groups":[],"summary":"24
+        likes"},"logView":true,"todo":{"count":7},"user":{"id":"2371486","firstName":"Gilt
+        City","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/J15FVNBKSX1MTWNT.jpg"},"type":"page"}}],"referralId":"e-0-46596e96f964a52019471fe3-0"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"51dc511e498e55380951d3de","name":"Trocadero
+        Club","contact":{},"location":{"address":"701 Geary St","crossStreet":"Geary
+        St. & Leavenworth St.","lat":37.82859509621589,"lng":-122.26729123685624,"distance":13812,"postalCode":"94109","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["701
+        Geary St (Geary St. & Leavenworth St.)","San Francisco, CA 94109"]},"categories":[{"id":"4bf58dd8d48988d11e941735","name":"Cocktail
+        Bar","pluralName":"Cocktail Bars","shortName":"Cocktail","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/nightlife\/cocktails_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":73,"usersCount":23,"tipCount":2},"price":{"tier":3,"message":"Expensive","currency":"$"},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":1,"groups":[{"type":"venue","name":"Venue
+        photos","count":1,"items":[{"id":"526df39511d2f424800d9494","createdAt":1382937493,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/516329_f1UDRyk8GIi7paohrwEDxssFy9IuDW5Gxkm6cQ5AtBk.jpg","width":960,"height":720,"user":{"id":"516329","firstName":"Ricardo","lastName":"A.","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/516329-YKRFOC4H44ER0J3N.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"526df39511d2f424800d9494","createdAt":1382937493,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/516329_f1UDRyk8GIi7paohrwEDxssFy9IuDW5Gxkm6cQ5AtBk.jpg","width":960,"height":720,"user":{"id":"516329","firstName":"Ricardo","lastName":"A.","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/516329-YKRFOC4H44ER0J3N.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true,"exactMatch":true},"tips":[{"id":"526d3b9c498e87a6e82c5a2d","createdAt":1382890396,"text":"a
+        gorgeous new addition to the neighborhood.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/526d3b9c498e87a6e82c5a2d","logView":true,"todo":{"count":0},"user":{"id":"46471068","firstName":"Ben","lastName":"Larson","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/-ECLD4HQZ13DP4HBY.jpg"}}}],"referralId":"e-0-51dc511e498e55380951d3de-1"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4ec6e4a3f5b9e88191da1b94","name":"Stern
+        Grove Trocadero Clubhouse","contact":{"phone":"4152522590","formattedPhone":"(415)
+        252-2590"},"location":{"address":"Stern Grove, Trocadero Clubhouse","lat":37.73600565625829,"lng":-122.47807767720364,"distance":7892,"postalCode":"94103","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["Stern
+        Grove, Trocadero Clubhouse","San Francisco, CA 94103"]},"categories":[{"id":"4bf58dd8d48988d1e2931735","name":"Art
+        Gallery","pluralName":"Art Galleries","shortName":"Art Gallery","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/arts_entertainment\/artgallery_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":169,"usersCount":131,"tipCount":2},"url":"http:\/\/www.sfartscommission.org","like":false,"specials":{"count":0,"items":[]},"photos":{"count":19,"groups":[{"type":"venue","name":"Venue
+        photos","count":19,"items":[{"id":"51395658e4b01c34d4406f1f","createdAt":1362712152,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/31534_bCZQmPWDTfRKaWnocgcY2vfKC6Ub9lDYOx55pQ5aRcg.jpg","width":720,"height":960,"user":{"id":"31534","firstName":"Holger","lastName":"Luedorf","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QUUZEGVHPZMSZ4X2.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"51395658e4b01c34d4406f1f","createdAt":1362712152,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/31534_bCZQmPWDTfRKaWnocgcY2vfKC6Ub9lDYOx55pQ5aRcg.jpg","width":720,"height":960,"user":{"id":"31534","firstName":"Holger","lastName":"Luedorf","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QUUZEGVHPZMSZ4X2.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"51d0cf3a498e44d6b90a9503","createdAt":1372639034,"text":"Pre
+        concert talks happen here!","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/51d0cf3a498e44d6b90a9503","logView":true,"todo":{"count":0},"user":{"id":"7415299","firstName":"Koko","lastName":"Darling","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/TYFDM0BKB1MMJXOC.jpg"}}}],"referralId":"e-0-4ec6e4a3f5b9e88191da1b94-2"}]}]}}'
+    http_version: 
+  recorded_at: Fri, 06 Feb 2015 01:40:47 GMT
+- request:
+    method: get
+    uri: https://www.google.com/maps?output=json&q=Trocadero%20Club,%20San%20Francisco,%20California,%20United%20States
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 06 Feb 2015 01:40:48 GMT
+      Expires:
+      - "-1"
+      Cache-Control:
+      - private, max-age=0
+      Content-Type:
+      - application/json; charset=ISO-8859-1
+      Set-Cookie:
+      - PREF=ID=40e4fc0773461b74:TM=1423186848:LM=1423186848:S=bXWoRc-gOZJACieh; expires=Sun,
+        05-Feb-2017 01:40:48 GMT; path=/; domain=.google.com
+      X-Content-Type-Options:
+      - nosniff
+      Content-Disposition:
+      - attachment; filename="f.txt"
+      Server:
+      - GFE/2.0
+      Transfer-Encoding:
+      - chunked
+      Alternate-Protocol:
+      - 443:quic,p=0.02
+    body:
+      encoding: UTF-8
+      string: 'while(1);{title:"Trocadero Club, San Francisco, California, United
+        States - Google Maps",url:"/maps?q=Trocadero+Club,+San+Francisco,+California,+United+States\x26ie=UTF8\x26hq=\x26hnear=",urlViewport:false,ei:"oBvUVMbwAsyDiQK0zoGgDQ",form:{selected:"q",q:{q:"Trocadero
+        Club, San Francisco, California, United States",what:"",near:""},d:{saddr:"",daddr:"",dfaddr:""},geocode:""},query:{type:"dq"},viewport:{center:{lat:37.786389999999997,lng:-122.41498199999999},span:{lat:0.0062950000000000002,lng:0.0062950000000000002},mapType:"",source:0},iwloc:"A",modules:["","strr","pphover","act_s","appiw","mg","rst"],overlays:{sxcar:true,markers:[{id:"A",cid:"15930319793039692456",latlng:{lat:37.786389999999997,lng:-122.41498199999999},image:"https://maps.gstatic.com/intl/en_us/mapfiles/markers2/markerA.png",sprite:{width:20,height:34,top:0,image:"https://maps.gstatic.com/mapfiles/markers2/red_markers_A_J2.png"},icon_id:"A",drg:true,laddr:"RxBar,
+        701 Geary Street, San Francisco, California 94109",geocode:"CdPqZEnrUklIFRaTQAIdehi0-Ckzgt-ikYCFgDGoUoEGc90T3Q",sxti:"RxBar",sxst:"Geary
+        Street",sxsn:"701",sxct:"San Francisco",sxpr:"California",sxpo:"94109",sxcn:"US",sxph:"+14159520481",name:"RxBar",infoWindow:{title:"RxBar",addressLines:["701
+        Geary Street","San Francisco, California 94109"],phones:[{number:"(415) 952-0481"}],hp:{url:"http://www.google.com/local_url?dq=Trocadero+Club,+San+Francisco,+California,+United+States\x26q=http://www.rxbarsf.com/\x26oi=miw\x26sa=X\x26ct=miw_link\x26cd=1\x26cad=homepage,cid:15930319793039692456\x26ei=oBvUVMbwAsyDiQK0zoGgDQ\x26s=ANYYN7k7kXnz_vABEXESjO5AO0L72JBHMQ",domain:"rxbarsf.com",actual_url:"http://www.rxbarsf.com/"},basics:"\x3cdiv
+        transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more info",place_url:"http://www.google.com/local_url?dq=Trocadero+Club,+San+Francisco,+California,+United+States\x26q=https://plus.google.com/116131028196616641229/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7mLWR62BOMcWzLLTFAH4r4MTr6TpQ",reviews:3,zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D15930319793039692456%26q%3DTrocadero%2BClub,%2BSan%2BFrancisco,%2BCalifornia,%2BUnited%2BStates%26cd%3D1%26cad%3Dsrc:ppwrev%26ei%3DoBvUVMbwAsyDiQK0zoGgDQ%26action%3Dopenratings",photoUrl:"https://cbks0.google.com/cbk?output=thumbnail\x26w=90\x26h=68\x26ll=37.786390,-122.414982\x26thumb=0",photoType:2,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=15930319793039692456\x26q=\x26near=",link_jsaction:"",star_score_e3:0,write_review_url:"http://www.google.com/local_url?dq=Trocadero+Club,+San+Francisco,+California,+United+States\x26q=https://plus.google.com/116131028196616641229/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7lbqGBbPqgw9sa522Y47fv3wDWPKA",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,elms:[4,1,6,1,10,2,12,1,5,2,11]}],layers:[{composition_type:2,spec:{id:"m"},default_epoch:291000000,pertile_data:{area:[{id:"tuwtvtutwwwtwvu",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwvw",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwwt",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwwu",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwv",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwww",zrange:[15,15],layer:"m",epoch:291016455},{id:"tuwtvtutwwwuvvt",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvu",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvv",zrange:[15,15],layer:"m",epoch:291007463},{id:"tuwtvtutwwwuvvw",zrange:[15,15],layer:"m",epoch:291007463},{id:"tuwtvtutwwwuvwt",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwu",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwv",zrange:[15,15],layer:"m",epoch:291007463},{id:"tuwtvtutwwwuvww",zrange:[15,15],layer:"m",epoch:291017369},{id:"tuwtvtutwwwvutu",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwvutw",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwvuut",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwvuuu",zrange:[15,15],layer:"m",epoch:291016455},{id:"tuwtvtutwwwvuuv",zrange:[15,15],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuuw",zrange:[15,15],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuvu",zrange:[15,15],layer:"m",epoch:291008734},{id:"tuwtvtutwwwvuvw",zrange:[15,15],layer:"m",epoch:291010675},{id:"tuwtvtutwwwvuw",zrange:[15,15],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvwtu",zrange:[15,15],layer:"m",epoch:291010692},{id:"tuwtvtutwwwvwut",zrange:[15,15],layer:"m",epoch:291010692},{id:"tuwtvtutwwwvwuu",zrange:[15,15],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwttt",zrange:[15,15],layer:"m",epoch:291007463},{id:"tuwtvtutwwwwttu",zrange:[15,15],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwttv",zrange:[15,15],layer:"m",epoch:291024042},{id:"tuwtvtutwwwwttw",zrange:[15,15],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtut",zrange:[15,15],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtuu",zrange:[15,15],layer:"m",epoch:291017369},{id:"tuwtvtutwwwwtuv",zrange:[15,15],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtuw",zrange:[15,15],layer:"m",epoch:291017369},{id:"tuwtvtutwwwwtvt",zrange:[15,15],layer:"m",epoch:291024042},{id:"tuwtvtutwwwwtvu",zrange:[15,15],layer:"m",epoch:291019590},{id:"tuwtvtutwwwwtvv",zrange:[15,15],layer:"m",epoch:291024042},{id:"tuwtvtutwwwwtvw",zrange:[15,15],layer:"m",epoch:291019590},{id:"tuwtvtutwwwwtw",zrange:[15,15],layer:"m",epoch:291019590},{id:"tuwtvtutwwwwvtt",zrange:[15,15],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwvtu",zrange:[15,15],layer:"m",epoch:291019590},{id:"tuwtvtutwwwwvut",zrange:[15,15],layer:"m",epoch:291019590},{id:"tuwtvtutwwwwvuu",zrange:[15,15],layer:"m",epoch:291019590},{id:"tuwtvtutwwwtwvuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwvuw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwvw",zrange:[16,16],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwwtv",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwtw",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwuv",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwuw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwvt",zrange:[16,16],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwwvu",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwvv",zrange:[16,16],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwwvw",zrange:[16,16],layer:"m",epoch:291016455},{id:"tuwtvtutwwwtwwwt",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwwu",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwtwwwv",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwww",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwuvvtv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvtw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvuw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvv",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwuvvwt",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwuvvwu",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvwv",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwuvvww",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwtv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwtw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwwt",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwwv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvutut",zrange:[16,16],layer:"m",epoch:291021458},{id:"tuwtvtutwwwvutuu",zrange:[16,16],layer:"m",epoch:291021458},{id:"tuwtvtutwwwvutuv",zrange:[16,16],layer:"m",epoch:291017258},{id:"tuwtvtutwwwvutuw",zrange:[16,16],layer:"m",epoch:291017258},{id:"tuwtvtutwwwvutwt",zrange:[16,16],layer:"m",epoch:291007433},{id:"tuwtvtutwwwvutwu",zrange:[16,16],layer:"m",epoch:291007433},{id:"tuwtvtutwwwvutwv",zrange:[16,16],layer:"m",epoch:291007433},{id:"tuwtvtutwwwvutww",zrange:[16,16],layer:"m",epoch:291008768},{id:"tuwtvtutwwwvuutt",zrange:[16,16],layer:"m",epoch:291021458},{id:"tuwtvtutwwwvuutu",zrange:[16,16],layer:"m",epoch:291016455},{id:"tuwtvtutwwwvuutv",zrange:[16,16],layer:"m",epoch:291017258},{id:"tuwtvtutwwwvuutw",zrange:[16,16],layer:"m",epoch:291016455},{id:"tuwtvtutwwwvuuut",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwvuuuu",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwvuuuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvuuuw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvuuvt",zrange:[16,16],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuvu",zrange:[16,16],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuvv",zrange:[16,16],layer:"m",epoch:291008768},{id:"tuwtvtutwwwvuuvw",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuuwt",zrange:[16,16],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuwu",zrange:[16,16],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuwv",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuuww",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuvut",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvuvuu",zrange:[16,16],layer:"m",epoch:291008768},{id:"tuwtvtutwwwvuvuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvuvuw",zrange:[16,16],layer:"m",epoch:291008768},{id:"tuwtvtutwwwvuvw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvuwtt",zrange:[16,16],layer:"m",epoch:291008768},{id:"tuwtvtutwwwvuwtu",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuwtv",zrange:[16,16],layer:"m",epoch:291008768},{id:"tuwtvtutwwwvuwtw",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuwu",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuwvt",zrange:[16,16],layer:"m",epoch:291008734},{id:"tuwtvtutwwwvuwvu",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuwvv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvuwvw",zrange:[16,16],layer:"m",epoch:291010675},{id:"tuwtvtutwwwvuwwt",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuwwu",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuwwv",zrange:[16,16],layer:"m",epoch:291010675},{id:"tuwtvtutwwwvuwww",zrange:[16,16],layer:"m",epoch:291010675},{id:"tuwtvtutwwwvwtut",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvwtuu",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvwtuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvwtuw",zrange:[16,16],layer:"m",epoch:291010692},{id:"tuwtvtutwwwvwutt",zrange:[16,16],layer:"m",epoch:291010675},{id:"tuwtvtutwwwvwutu",zrange:[16,16],layer:"m",epoch:291010675},{id:"tuwtvtutwwwvwutv",zrange:[16,16],layer:"m",epoch:291010692},{id:"tuwtvtutwwwvwutw",zrange:[16,16],layer:"m",epoch:291010692},{id:"tuwtvtutwwwvwuu",zrange:[16,16],layer:"m",epoch:291010675},{id:"tuwtvtutwwwwtttt",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwtttu",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwtttv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwtttw",zrange:[16,16],layer:"m",epoch:291007382},{id:"tuwtvtutwwwwttut",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwttuu",zrange:[16,16],layer:"m",epoch:291007390},{id:"tuwtvtutwwwwttuv",zrange:[16,16],layer:"m",epoch:291007390},{id:"tuwtvtutwwwwttuw",zrange:[16,16],layer:"m",epoch:291007390},{id:"tuwtvtutwwwwttvt",zrange:[16,16],layer:"m",epoch:291007416},{id:"tuwtvtutwwwwttvu",zrange:[16,16],layer:"m",epoch:291023812},{id:"tuwtvtutwwwwttvv",zrange:[16,16],layer:"m",epoch:291019204},{id:"tuwtvtutwwwwttvw",zrange:[16,16],layer:"m",epoch:291023812},{id:"tuwtvtutwwwwttw",zrange:[16,16],layer:"m",epoch:291023812},{id:"tuwtvtutwwwwtutt",zrange:[16,16],layer:"m",epoch:291007390},{id:"tuwtvtutwwwwtutu",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwtutv",zrange:[16,16],layer:"m",epoch:291007390},{id:"tuwtvtutwwwwtutw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwtuut",zrange:[16,16],layer:"m",epoch:291007269},{id:"tuwtvtutwwwwtuuv",zrange:[16,16],layer:"m",epoch:291007269},{id:"tuwtvtutwwwwtuv",zrange:[16,16],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtuwt",zrange:[16,16],layer:"m",epoch:291007269},{id:"tuwtvtutwwwwtuwv",zrange:[16,16],layer:"m",epoch:291007269},{id:"tuwtvtutwwwwtvtt",zrange:[16,16],layer:"m",epoch:291023600},{id:"tuwtvtutwwwwtvtu",zrange:[16,16],layer:"m",epoch:291023812},{id:"tuwtvtutwwwwtvtv",zrange:[16,16],layer:"m",epoch:291023600},{id:"tuwtvtutwwwwtvtw",zrange:[16,16],layer:"m",epoch:291023812},{id:"tuwtvtutwwwwtvu",zrange:[16,16],layer:"m",epoch:291023812},{id:"tuwtvtutwwwwtvvt",zrange:[16,16],layer:"m",epoch:291023600},{id:"tuwtvtutwwwwtvvu",zrange:[16,16],layer:"m",epoch:291023600},{id:"tuwtvtutwwwwtvvv",zrange:[16,16],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtvvw",zrange:[16,16],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtvw",zrange:[16,16],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtwt",zrange:[16,16],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtwut",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwtwuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwtwv",zrange:[16,16],layer:"m",epoch:291019590},{id:"tuwtvtutwwwwtwwt",zrange:[16,16],layer:"m",epoch:291019590},{id:"tuwtvtutwwwwtwwv",zrange:[16,16],layer:"m",epoch:291019590},{id:"tuwtvtutwwwwvttt",zrange:[16,16],layer:"m",epoch:291010675},{id:"tuwtvtutwwwwvttu",zrange:[16,16],layer:"m",epoch:291010675},{id:"tuwtvtutwwwwvttv",zrange:[16,16],layer:"m",epoch:291010675},{id:"tuwtvtutwwwwvttw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwvtut",zrange:[16,16],layer:"m",epoch:291010954},{id:"tuwtvtutwwwwvtuu",zrange:[16,16],layer:"m",epoch:291010954},{id:"tuwtvtutwwwwvtuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwvtuw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwvutt",zrange:[16,16],layer:"m",epoch:291019590},{id:"tuwtvtutwwwwvutu",zrange:[16,16],layer:"m",epoch:291019590},{id:"tuwtvtutwwwwvutv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwvutw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwvuut",zrange:[16,16],layer:"m",epoch:291019590},{id:"tuwtvtutwwwwvuuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvuutut",zrange:[17,17],layer:"m",epoch:291022852},{id:"tuwtvtutwwwvuutuu",zrange:[17,17],layer:"m",epoch:291019230},{id:"tuwtvtutwwwvuutuv",zrange:[17,17],layer:"m",epoch:291019230},{id:"tuwtvtutwwwvuutuw",zrange:[17,17],layer:"m",epoch:291019230},{id:"tuwtvtutwwwvuutwt",zrange:[17,17],layer:"m",epoch:291019230},{id:"tuwtvtutwwwvuutwu",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwvuutwv",zrange:[17,17],layer:"m",epoch:291008817},{id:"tuwtvtutwwwvuutww",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwvuuutt",zrange:[17,17],layer:"m",epoch:291022906},{id:"tuwtvtutwwwvuuutu",zrange:[17,17],layer:"m",epoch:291022906},{id:"tuwtvtutwwwvuuutv",zrange:[17,17],layer:"m",epoch:291019230},{id:"tuwtvtutwwwvuuutw",zrange:[17,17],layer:"m",epoch:291025466},{id:"tuwtvtutwwwvuuuut",zrange:[17,17],layer:"m",epoch:291022906},{id:"tuwtvtutwwwvuuuuu",zrange:[17,17],layer:"m",epoch:291015929},{id:"tuwtvtutwwwvuuuuv",zrange:[17,17],layer:"m",epoch:291025466},{id:"tuwtvtutwwwvuuuuw",zrange:[17,17],layer:"m",epoch:291025466},{id:"tuwtvtutwwwvuuuvt",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwvuuuvu",zrange:[17,17],layer:"m",epoch:291025466},{id:"tuwtvtutwwwvuuuvv",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwvuuuvw",zrange:[17,17],layer:"m",epoch:291025466},{id:"tuwtvtutwwwvuuuw",zrange:[17,17],layer:"m",epoch:291025466},{id:"tuwtvtutwwwvuuvut",zrange:[17,17],layer:"m",epoch:291008817},{id:"tuwtvtutwwwvuuvuu",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwvuuvuv",zrange:[17,17],layer:"m",epoch:291015391},{id:"tuwtvtutwwwvuuvuw",zrange:[17,17],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuvwt",zrange:[17,17],layer:"m",epoch:291015391},{id:"tuwtvtutwwwvuuvwu",zrange:[17,17],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuvwv",zrange:[17,17],layer:"m",epoch:291023884},{id:"tuwtvtutwwwvuuvww",zrange:[17,17],layer:"m",epoch:291023884},{id:"tuwtvtutwwwvuuwtt",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwvuuwtu",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwvuuwtv",zrange:[17,17],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuwtw",zrange:[17,17],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuwu",zrange:[17,17],layer:"m",epoch:291025796},{id:"tuwtvtutwwwvuuwvt",zrange:[17,17],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuwvu",zrange:[17,17],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuwvv",zrange:[17,17],layer:"m",epoch:291023722},{id:"tuwtvtutwwwvuuwvw",zrange:[17,17],layer:"m",epoch:291023722},{id:"tuwtvtutwwwvuuwwt",zrange:[17,17],layer:"m",epoch:291025796},{id:"tuwtvtutwwwvuuwwu",zrange:[17,17],layer:"m",epoch:291025796},{id:"tuwtvtutwwwvuuwwv",zrange:[17,17],layer:"m",epoch:291024282},{id:"tuwtvtutwwwvuuwww",zrange:[17,17],layer:"m",epoch:291024282},{id:"tuwtvtutwwwvuwtu",zrange:[17,17],layer:"m",epoch:291024828},{id:"tuwtvtutwwwvuwtwt",zrange:[17,17],layer:"m",epoch:291024828},{id:"tuwtvtutwwwvuwtwu",zrange:[17,17],layer:"m",epoch:291024828},{id:"tuwtvtutwwwvuwtwv",zrange:[17,17],layer:"m",epoch:291008734},{id:"tuwtvtutwwwvuwtww",zrange:[17,17],layer:"m",epoch:291023512},{id:"tuwtvtutwwwvuwutt",zrange:[17,17],layer:"m",epoch:291024828},{id:"tuwtvtutwwwvuwutu",zrange:[17,17],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuwutv",zrange:[17,17],layer:"m",epoch:291024828},{id:"tuwtvtutwwwvuwutw",zrange:[17,17],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuwuut",zrange:[17,17],layer:"m",epoch:291025302},{id:"tuwtvtutwwwvuwuuu",zrange:[17,17],layer:"m",epoch:291025302},{id:"tuwtvtutwwwvuwuuv",zrange:[17,17],layer:"m",epoch:291025666},{id:"tuwtvtutwwwvuwuuw",zrange:[17,17],layer:"m",epoch:291025666},{id:"tuwtvtutwwwvuwuvt",zrange:[17,17],layer:"m",epoch:291024828},{id:"tuwtvtutwwwvuwuvu",zrange:[17,17],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuwuvv",zrange:[17,17],layer:"m",epoch:291023512},{id:"tuwtvtutwwwvuwuvw",zrange:[17,17],layer:"m",epoch:291023512},{id:"tuwtvtutwwwvuwuw",zrange:[17,17],layer:"m",epoch:291025666},{id:"tuwtvtutwwwvuwvut",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvuwvuu",zrange:[17,17],layer:"m",epoch:291023512},{id:"tuwtvtutwwwvuwwtt",zrange:[17,17],layer:"m",epoch:291023512},{id:"tuwtvtutwwwvuwwtu",zrange:[17,17],layer:"m",epoch:291024166},{id:"tuwtvtutwwwvuwwut",zrange:[17,17],layer:"m",epoch:291025666},{id:"tuwtvtutwwwvuwwuu",zrange:[17,17],layer:"m",epoch:291025666},{id:"tuwtvtutwwwwttttt",zrange:[17,17],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwttttu",zrange:[17,17],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwttttv",zrange:[17,17],layer:"m",epoch:291014217},{id:"tuwtvtutwwwwttttw",zrange:[17,17],layer:"m",epoch:291014217},{id:"tuwtvtutwwwwtttut",zrange:[17,17],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwtttuu",zrange:[17,17],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwtttuv",zrange:[17,17],layer:"m",epoch:291014217},{id:"tuwtvtutwwwwtttuw",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwtttv",zrange:[17,17],layer:"m",epoch:291025224},{id:"tuwtvtutwwwwtttwt",zrange:[17,17],layer:"m",epoch:291025224},{id:"tuwtvtutwwwwtttwu",zrange:[17,17],layer:"m",epoch:291007381},{id:"tuwtvtutwwwwtttwv",zrange:[17,17],layer:"m",epoch:291025224},{id:"tuwtvtutwwwwtttww",zrange:[17,17],layer:"m",epoch:291014775},{id:"tuwtvtutwwwwttutt",zrange:[17,17],layer:"m",epoch:291015702},{id:"tuwtvtutwwwwttutu",zrange:[17,17],layer:"m",epoch:291015702},{id:"tuwtvtutwwwwttutv",zrange:[17,17],layer:"m",epoch:291025726},{id:"tuwtvtutwwwwttutw",zrange:[17,17],layer:"m",epoch:291025726},{id:"tuwtvtutwwwwttuut",zrange:[17,17],layer:"m",epoch:291015702},{id:"tuwtvtutwwwwttuuv",zrange:[17,17],layer:"m",epoch:291025726},{id:"tuwtvtutwwwwttuv",zrange:[17,17],layer:"m",epoch:291025726},{id:"tuwtvtutwwwwttuwt",zrange:[17,17],layer:"m",epoch:291025726},{id:"tuwtvtutwwwwttuwv",zrange:[17,17],layer:"m",epoch:291025726},{id:"tuwtvtutwwwwttvtt",zrange:[17,17],layer:"m",epoch:291025796},{id:"tuwtvtutwwwwttvtu",zrange:[17,17],layer:"m",epoch:291025224},{id:"tuwtvtutwwwwttvtv",zrange:[17,17],layer:"m",epoch:291025796},{id:"tuwtvtutwwwwttvtw",zrange:[17,17],layer:"m",epoch:291024786},{id:"tuwtvtutwwwwttvut",zrange:[17,17],layer:"m",epoch:291025224},{id:"tuwtvtutwwwwttvuu",zrange:[17,17],layer:"m",epoch:291024882},{id:"tuwtvtutwwwwttvuv",zrange:[17,17],layer:"m",epoch:291024786},{id:"tuwtvtutwwwwttvuw",zrange:[17,17],layer:"m",epoch:291024882},{id:"tuwtvtutwwwwttvvt",zrange:[17,17],layer:"m",epoch:291025796},{id:"tuwtvtutwwwwttvvu",zrange:[17,17],layer:"m",epoch:291024786},{id:"tuwtvtutwwwwttvvv",zrange:[17,17],layer:"m",epoch:291024282},{id:"tuwtvtutwwwwttvvw",zrange:[17,17],layer:"m",epoch:291024282},{id:"tuwtvtutwwwwttvwt",zrange:[17,17],layer:"m",epoch:291024786},{id:"tuwtvtutwwwwttvwu",zrange:[17,17],layer:"m",epoch:291024882},{id:"tuwtvtutwwwwttvwv",zrange:[17,17],layer:"m",epoch:291023326},{id:"tuwtvtutwwwwttvww",zrange:[17,17],layer:"m",epoch:291023962},{id:"tuwtvtutwwwwttwtt",zrange:[17,17],layer:"m",epoch:291025726},{id:"tuwtvtutwwwwttwtu",zrange:[17,17],layer:"m",epoch:291025726},{id:"tuwtvtutwwwwttwtv",zrange:[17,17],layer:"m",epoch:291024882},{id:"tuwtvtutwwwwttwtw",zrange:[17,17],layer:"m",epoch:291024882},{id:"tuwtvtutwwwwttwut",zrange:[17,17],layer:"m",epoch:291025726},{id:"tuwtvtutwwwwttwuv",zrange:[17,17],layer:"m",epoch:291024992},{id:"tuwtvtutwwwwttwvt",zrange:[17,17],layer:"m",epoch:291024882},{id:"tuwtvtutwwwwttwvu",zrange:[17,17],layer:"m",epoch:291024882},{id:"tuwtvtutwwwwttwvv",zrange:[17,17],layer:"m",epoch:291023962},{id:"tuwtvtutwwwwttwvw",zrange:[17,17],layer:"m",epoch:291023962},{id:"tuwtvtutwwwwttwwt",zrange:[17,17],layer:"m",epoch:291024992},{id:"tuwtvtutwwwwttwwv",zrange:[17,17],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtvttt",zrange:[17,17],layer:"m",epoch:291025302},{id:"tuwtvtutwwwwtvttu",zrange:[17,17],layer:"m",epoch:291024282},{id:"tuwtvtutwwwwtvttv",zrange:[17,17],layer:"m",epoch:291025666},{id:"tuwtvtutwwwwtvttw",zrange:[17,17],layer:"m",epoch:291023666},{id:"tuwtvtutwwwwtvtut",zrange:[17,17],layer:"m",epoch:291023326},{id:"tuwtvtutwwwwtvtuu",zrange:[17,17],layer:"m",epoch:291023962},{id:"tuwtvtutwwwwtvtuv",zrange:[17,17],layer:"m",epoch:291023326},{id:"tuwtvtutwwwwtvtuw",zrange:[17,17],layer:"m",epoch:291023326},{id:"tuwtvtutwwwwtvtvt",zrange:[17,17],layer:"m",epoch:291025666},{id:"tuwtvtutwwwwtvtvu",zrange:[17,17],layer:"m",epoch:291023764},{id:"tuwtvtutwwwwtvtvv",zrange:[17,17],layer:"m",epoch:291025666},{id:"tuwtvtutwwwwtvtvw",zrange:[17,17],layer:"m",epoch:291024076},{id:"tuwtvtutwwwwtvtwt",zrange:[17,17],layer:"m",epoch:291018910},{id:"tuwtvtutwwwwtvtwu",zrange:[17,17],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtvtwv",zrange:[17,17],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtvtww",zrange:[17,17],layer:"m",epoch:291022988},{id:"tuwtvtutwwwwtvutt",zrange:[17,17],layer:"m",epoch:291023962},{id:"tuwtvtutwwwwtvutu",zrange:[17,17],layer:"m",epoch:291023962},{id:"tuwtvtutwwwwtvutv",zrange:[17,17],layer:"m",epoch:291023814},{id:"tuwtvtutwwwwtvutw",zrange:[17,17],layer:"m",epoch:291023814},{id:"tuwtvtutwwwwtvuut",zrange:[17,17],layer:"m",epoch:291023814},{id:"tuwtvtutwwwwtvuuv",zrange:[17,17],layer:"m",epoch:291023814},{id:"tuwtvtutwwwwtvuvt",zrange:[17,17],layer:"m",epoch:291023814},{id:"tuwtvtutwwwwtvuvu",zrange:[17,17],layer:"m",epoch:291023814},{id:"tuwtvtutwwwwtvuvv",zrange:[17,17],layer:"m",epoch:291022988},{id:"tuwtvtutwwwwtvuvw",zrange:[17,17],layer:"m",epoch:291022988},{id:"tuwtvtutwwwwtvuwt",zrange:[17,17],layer:"m",epoch:291023814},{id:"tuwtvtutwwwwtvuwv",zrange:[17,17],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtvvtt",zrange:[17,17],layer:"m",epoch:291025666},{id:"tuwtvtutwwwwtvvtu",zrange:[17,17],layer:"m",epoch:291024076},{id:"tuwtvtutwwwwtvvut",zrange:[17,17],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtvvuu",zrange:[17,17],layer:"m",epoch:291023394},{id:"tuwtvtutwwwwtvwtt",zrange:[17,17],layer:"m",epoch:291024102},{id:"tuwtvtutwwwwtvwtu",zrange:[17,17],layer:"m",epoch:291024102},{id:"tuwtvtutwwwwtvwut",zrange:[17,17],layer:"m",epoch:291024102}]}}]},panel:"\x3cdiv
+        id=\"resultspanel\" class=\"local\"\x3e\x3cbody\x3e \x3cdiv\x3e \x3cdiv class=\"query\"
+        id=\"qmod\"\x3e   \x3cspan class=\"query_terms\"\x3e\x3cspan class=\"query_terms_light\"\x3e\x3c/span\x3e\x3cspan
+        class=\"query_terms_bold\"\x3e\x3c/span\x3e\x3c/span\x3e  \x3c/div\x3e \x3c/div\x3e  \x3c/body\x3e  \x3cdiv
+        class=\"noprint res\"\x3e       \x3cdiv\x3e  \x3cdiv\x3e  \x3cdiv class=\"one\"
+        id=\"one_A_2\" jsprops=''markerid:\"A\";oneId:\"one_A_2\";panelId:\"panel_A_2\"''
+        jstrack=\"oBvUVMbwAsyDiQK0zoGgDQ\" ved=\"0CAsQpQ0wAA\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
+        \x3cdiv class=\"lsicon\"\x3e \x3cdiv class=\"icon\" log=\"\" jsaction=\"app.openInfoWindow\"
+        jsprops=\"markerid:''A''\" jstrack=\"oBvUVMbwAsyDiQK0zoGgDQ\" ved=0CAwQ_gswAA
+        id=\"marker_A_2\"\x3e\x3cimg alt=\"A\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"mp iconA\"/\x3e\x3c/div\x3e \x3cspan\x3e \x3cimg class=\"unstarred
+        noprint si_15930319793039692456\" jsaction=\"si.togglePanelStarring\" jsprops=\"markerid:''A'';b_s:2\"
+        data-authtoken=\"54d41ba1kHvHEmHQJTwI3hvahPrO5nBwHGs\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        id=\"pp-starred-item-star\" log=\"si_lhs\" width=\"21\" height=\"14\"\x3e
+        \x3c/span\x3e \x3c/div\x3e \x3cdiv class=\"text vcard indent block\" id=\"panel_A_2\"\x3e  \x3cdiv
+        class=\"name lname\" id=\"link_A_2\"\x3e \x3cspan class=\"pp-place-title\"\x3e\x3cspan\x3eRxBar\x3c/span\x3e\x3c/span\x3e      \x3c/div\x3e
+        \x3cdiv\x3e \x3cdiv\x3e\x3c/div\x3e  \x3cspan class=\"pp-headline-item pp-headline-address\"\x3e
+        \x3cspan\x3e701 Geary Street, San Francisco, CA\x3c/span\x3e  \x3c/span\x3e  \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e \x3cspan class=\"pp-headline-item pp-headline-phone\"\x3e
+        \x3cspan class=\"telephone\"\x3e \x3cnobr\x3e(415) 952-0481\x3c/nobr\x3e \x3cspan
+        class=\"pp-headline-phone-label\" style=\"display:none\"\x3e ()\x3c/span\x3e  \x3c/span\x3e   \x3c/span\x3e  \x3cspan\x3e
+        \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item pp-headline-authority-page\"\x3e
+        \x3cspan\x3e\x3ca href=\"http://www.google.com/local_url?dq=Trocadero+Club,+San+Francisco,+California,+United+States\x26amp;q=http://www.rxbarsf.com/\x26amp;ved=0CBEQ5AQ\x26amp;sa=X\x26amp;ei=oBvUVMbwAsyDiQK0zoGgDQ\x26amp;s=ANYYN7nsXpPKFbIgIhkh_4m8slpBwwOg1A\"
+        target=\"_blank\"\x3e\x3cspan\x3erxbarsf.com\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e
+        \x3c/span\x3e  \x3c/div\x3e  \x3cdiv class=\"one_item_space\"\x3e  \x3cspan
+        id=\"pp-reviews-headline\"\x3e\x3cspan style=\"margin-right:8px\"\x3e\x3c/span\x3e\x3cspan\x3e\x3ca
+        class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=Trocadero+Club,+San+Francisco,+California,+United+States\x26amp;q=https://plus.google.com/116131028196616641229/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CBAQlQU\x26amp;sa=X\x26amp;ei=oBvUVMbwAsyDiQK0zoGgDQ\x26amp;s=ANYYN7kfvGrtOtK47CjQz8Q39dr8kukciQ\"
+        target=\"_blank\"\x3e\x3cspan\x3e3 reviews\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3cspan style=\"color:#666\"\x3e \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item
+        pp-lhs-price-attribute\"\x3e$$$\x3c/span\x3e  \x3c/div\x3e     \x3cbr/\x3e
+        \x3c/div\x3e  \x3cdiv class=\"actbar-local-wrapper one_item_space\"\x3e \x3cspan
+        id=\"actbar-A\" class=\"actbar\" markerid=\"A\" panelId=\"actbar-panel-A-pp\"
+        jsvalues=\"@unique-id: $this.uniqueId;@id: ''actbar-''+$this.uniqueId;@markerid:
+        $this.markerId;@panelId: ''actbar-panel-''+$this.uniqueId;\"\x3e\x3cspan id=\"actbar-btns-A\"
+        jsvalues=\"@id:''actbar-btns-''+$this.uniqueId\" jsdisplay=\"$this.visible!=''none''\"
+        jsskip=\"1\"\x3e\x3cul class=\"actbar-list\"\x3e\x3cli class=\"actbar-btn\"
+        jsaction=\"ab.topLevelClick\" action=\"directions\" jsdisplay=\"$this.hasDirections\"
+        ved=\"0CBIQywYwAA\" jstrack=\"oBvUVMbwAsyDiQK0zoGgDQ\" \x3e\x3cspan class=\"actbar-text\"\x3eDirections\x3c/span\x3e\x3c/li\x3e\x3cli
+        class=\"actbar-btn\" jsaction=\"ab.topLevelClick\" action=\"actbar-sn\" jsdisplay=\"$this.hasSearchNearby\"
+        ved=\"0CBMQzAYwAA\" jstrack=\"oBvUVMbwAsyDiQK0zoGgDQ\" \x3e\x3cspan class=\"actbar-text\"\x3eSearch
+        nearby\x3c/span\x3e\x3c/li\x3e\x3cli class=\"actbar-btn\" jsaction=\"ab.topLevelClick\"
+        jsselect=\"$this.topLevelActions\" jsdisplay=\"$count\" style=\"display:none\"
+        jsvalues=\"@action:$this.action\" \x3e\x3cspan class=\"actbar-text\" jscontent=\"$this.text\"\x3e\x3c/span\x3e\x3c/li\x3e\x3cli
+        class=\"actbar-btn\" jsaction=\"ab.topLevelClick\" action=\"actbar-more\"
+        jsdisplay=\"!$this.hideMoreButton\"ved=\"0CBQQzgYwAA\" jstrack=\"oBvUVMbwAsyDiQK0zoGgDQ\"
+        \x3e\x3cspan class=\"actbar-text\"\x3emore\x3c/span\x3e\x3cspan class=\"actbar-arrow\"\x3e\x3cimg
+        src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\" class=\"arrow-down\"\x3e\x3c/span\x3e\x3c/li\x3e\x3c/ul\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3cspan\x3e\x3cspan id=\"actbar-panel-A-pp\" class=\"actbar\" jsvalues=\"@unique-id:
+        $this.uniqueId;@markerid: $this.markerId;@id: ''actbar-panel-'' + $this.uniqueId;@panelId:
+        ''actbar-panel-'' + $this.uniqueId;\"\x3e\x3cspan jsvalues=\"@id:''actbar-sn-''
+        + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-sn''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan
+        jsvalues=\"@id:''actbar-saveto-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-saveto''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3c/div\x3e \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e       \x3c/div\x3e \x3c/div\x3e\x3cdiv
+        id=\"bottomads\" class=\"ads noprint\" style=\"display:none\"\x3e\x3cdiv\x3e\x3cdiv
+        class=\"adsmessage v3\" id=\"bottomads_origin\"\x3eAd\x3c/div\x3e\x3cdiv id=\"bottomads_contents\"\x3e\x3c/div\x3e\x3cdiv
+        class=\"awpromo\"\x3e\x3ca href=\"//www.google.com/adwords/express/#utm_campaign=en\x26utm_medium=et\x26utm_source=us-en-et-awx-q411-maps-syah\x26utm_content=us-en-et-awx-q411-maps-syah\"
+        target=\"_blank\"\x3eSee your ad here\x26nbsp;\x26raquo;\x3c/a\x3e\x3c/div\x3e\x3c/div\x3e\x3c/div\x3e\x3cdiv
+        class=\"noprint\"\x3e\x3c/div\x3e\x3cdiv class=\"notices\" id=\"localpanelnotices\"\x3e\x3cdiv\x3e  \x3c/div\x3e\x3c/div\x3e\x3cdiv
+        class=\"lhsf rmi-rpl-k gmnoprint\" jsattrs=\"class.rmi-base-k?panel_footer.anchor_footer;\"
+        id=\"lhsf\"\x3e \x3cdiv class=\"rmi-rpl-top secondary\"\x3e \x3ca jsdisplay=\"panel_footer.report_action\"
+        href=\"javascript:void(0)\" jsaction=\"rmi.open-mps-switchbox\" jsattrs=\"jsaction:panel_footer.report_action;id?panel_footer.is_basepage;id:''suck_lhp_link'';\"\x3e
+        Report a problem\x3c/a\x3e \x3cspan jsdisplay=\"panel_footer.report_action\"
+        jsattrs=\"id?panel_footer.is_basepage;id:''suck_lhp_sep'';\"\x3e - \x3c/span\x3e
+        \x3ca href=\"javascript:void(0)\" jsaction=\"ml.openDialog\"\x3e Maps Labs\x3c/a\x3e
+        \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://maps.google.com/support?hl=en\"
+        jsattrs=\"href:panel_footer.help_url;\"\x3e Help\x3c/a\x3e \x3c/div\x3e \x3cdiv
+        class=\"rmi-rpl-bottom secondary\"\x3e \x3cspan\x3eGoogle Maps \x3c/span\x3e
+        \x3cspan\x3e\x3c/span\x3e \x3cspan jscontent=\"panel_footer.country_msg\"
+        jsvars=\"__new_dir:bidiDir(panel_footer.country_msg);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
+        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x3c/span\x3e \x3cspan\x3e\x3c/span\x3e
+        \x3cspan\x3e - \x3c/span\x3e \x3cspan jscontent=\"raw:panel_footer.copyright\"
+        jsvars=\"__new_dir:bidiDir(panel_footer.copyright);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
+        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x26#169;2015 Google\x3c/span\x3e
+        \x3cspan\x3e\x3c/span\x3e \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/help/terms_maps.html\"
+        jsattrs=\"href:panel_footer.terms_url;\" target=\"_blank\"\x3e Terms of Use\x3c/a\x3e
+        \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/policies/privacy/\"
+        jsattrs=\"href:panel_footer.privacy_url;\" target=\"_blank\"\x3e Privacy\x3c/a\x3e
+        \x3c/div\x3e \x3c/div\x3e\x3c/div\x3e",panelId:0,sign_in_url:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=http://www.google.com/maps%3Fq%3DTrocadero%2BClub,%2BSan%2BFrancisco,%2BCalifornia,%2BUnited%2BStates%26num%3D10",is_details_req:false,dopts:{dtm:"d",atms:["d","r","w","b"],ddu:"m",transit:{hts:true,tmos:["now","dep","arr"],tm:{d:"now"},date:{},time:{v:"utc:1423186800"},sos:["def","num","walk"],st:{d:"def"},ne:{h:true},na:{h:true},ptmos:["","B","S","T","R"]}},slayers_trigger:false,timeformat:{ampm:true,dp:"mdy"},activityType:1,panel_modules:["pplhs"],page_conf:{topbar_config:{show_panel_toggler:true,directions_url:"javascript:void(0)",show_directions_link:true,startcol_only:true,show_my_places_link:true,my_places_url:"javascript:void(0)",enabled_kennedy_ui:true},panel_display:true}}'
+    http_version: 
+  recorded_at: Fri, 06 Feb 2015 01:40:48 GMT
 - request:
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=37.78639,-122.414982&sensor=false
@@ -60,9 +278,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Wed, 28 Jan 2015 03:13:51 GMT
+      - Fri, 06 Feb 2015 01:40:49 GMT
       Expires:
-      - Thu, 29 Jan 2015 03:13:51 GMT
+      - Sat, 07 Feb 2015 01:40:49 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -509,137 +727,5 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Wed, 28 Jan 2015 03:13:51 GMT
-- request:
-    method: get
-    uri: https://api.foursquare.com/v2/venues/explore?ll=37.7863814,-122.4150367&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Trocadero%20Club&v=20140819&venuePhotos=1
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Wed, 28 Jan 2015 03:13:51 GMT
-      Server:
-      - nginx
-      Content-Type:
-      - application/json; charset=utf-8
-      Access-Control-Allow-Origin:
-      - "*"
-      Tracer-Time:
-      - '195'
-      X-Ratelimit-Limit:
-      - '500'
-      X-Ratelimit-Remaining:
-      - '373'
-      Strict-Transport-Security:
-      - max-age=864000
-      X-Ex:
-      - fastly_cdn
-      Accept-Ranges:
-      - bytes
-      Via:
-      - 1.1 varnish
-      X-Served-By:
-      - cache-lax1430-LAX
-      X-Cache:
-      - MISS
-      X-Cache-Hits:
-      - '0'
-      Vary:
-      - Accept-Encoding,User-Agent,Accept-Language
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: ASCII-8BIT
-      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"warning":{"text":"There
-        aren''t a lot of results for \"Trocadero Club.\" Try something more general,
-        reset your filters, or expand the search area."},"suggestedRadius":2079,"headerLocation":"Tenderloin","headerFullLocation":"Tenderloin,
-        San Francisco","headerLocationGranularity":"neighborhood","query":"trocadero
-        club","totalResults":3,"suggestedBounds":{"ne":{"lat":37.78909870962785,"lng":-122.4009172421218},"sw":{"lat":37.73347741562165,"lng":-122.48175198363612}},"groups":[{"type":"Recommended
-        Places","name":"recommended","items":[{"reasons":{"count":1,"items":[{"summary":"June
-        L. (FB friend) liked this place","type":"social","reasonName":"facebookLikeReason","message":"June
-        L. liked this place","count":1}]},"venue":{"id":"46596e96f964a52019471fe3","name":"Equinox
-        Sports Club","contact":{"phone":"4156333900","formattedPhone":"(415) 633-3900","twitter":"equinox","facebook":"45802399400","facebookUsername":"Equinox","facebookName":"Equinox"},"location":{"address":"747
-        Market St","crossStreet":"at Grant","lat":37.78657046899121,"lng":-122.40459154855427,"distance":919,"postalCode":"94103","cc":"US","city":"San
-        Francisco","state":"CA","country":"United States","formattedAddress":["747
-        Market St (at Grant)","San Francisco, CA 94103"]},"categories":[{"id":"4bf58dd8d48988d175941735","name":"Gym
-        \/ Fitness Center","pluralName":"Gyms or Fitness Centers","shortName":"Gym
-        \/ Fitness","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/building\/gym_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":45617,"usersCount":2653,"tipCount":63},"url":"http:\/\/www.facebook.com\/equinox","like":false,"rating":9.3,"ratingSignals":286,"hours":{"status":"Open
-        until 11:00 PM","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":424,"groups":[]},"hereNow":{"count":11,"summary":"11
-        people are checked in here","groups":[{"type":"others","name":"Other people
-        here","count":11,"items":[]}]}},"tips":[{"id":"4d262fedc0772c0f1ff29e88","createdAt":1294348269,"text":"Grab
-        a drink after your workout at Blu Restaurant & Bar. After all, you deserve
-        it.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/4d262fedc0772c0f1ff29e88","likes":{"count":24,"groups":[],"summary":"24
-        likes"},"logView":true,"todo":{"count":7},"user":{"id":"2371486","firstName":"Gilt
-        City","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/J15FVNBKSX1MTWNT.jpg"},"type":"page"}}],"referralId":"e-0-46596e96f964a52019471fe3-0"},{"reasons":{"count":0,"items":[{"summary":"This
-        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"51dc511e498e55380951d3de","name":"Trocadero
-        Club","contact":{},"location":{"address":"701 Geary St","crossStreet":"Geary
-        St. & Leavenworth St.","lat":37.82859509621589,"lng":-122.26729123685624,"distance":13817,"postalCode":"94109","cc":"US","city":"San
-        Francisco","state":"CA","country":"United States","formattedAddress":["701
-        Geary St (Geary St. & Leavenworth St.)","San Francisco, CA 94109"]},"categories":[{"id":"4bf58dd8d48988d11e941735","name":"Cocktail
-        Bar","pluralName":"Cocktail Bars","shortName":"Cocktail","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/nightlife\/cocktails_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":73,"usersCount":23,"tipCount":2},"price":{"tier":3,"message":"Expensive","currency":"$"},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":1,"groups":[{"type":"venue","name":"Venue
-        photos","count":1,"items":[{"id":"526df39511d2f424800d9494","createdAt":1382937493,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/516329_f1UDRyk8GIi7paohrwEDxssFy9IuDW5Gxkm6cQ5AtBk.jpg","width":960,"height":720,"user":{"id":"516329","firstName":"Ricardo","lastName":"A.","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/516329-YKRFOC4H44ER0J3N.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
-        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"526df39511d2f424800d9494","createdAt":1382937493,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/516329_f1UDRyk8GIi7paohrwEDxssFy9IuDW5Gxkm6cQ5AtBk.jpg","width":960,"height":720,"user":{"id":"516329","firstName":"Ricardo","lastName":"A.","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/516329-YKRFOC4H44ER0J3N.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true,"exactMatch":true},"tips":[{"id":"526d3b9c498e87a6e82c5a2d","createdAt":1382890396,"text":"a
-        gorgeous new addition to the neighborhood.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/526d3b9c498e87a6e82c5a2d","logView":true,"todo":{"count":0},"user":{"id":"46471068","firstName":"Ben","lastName":"Larson","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/-ECLD4HQZ13DP4HBY.jpg"}}}],"referralId":"e-0-51dc511e498e55380951d3de-1"},{"reasons":{"count":0,"items":[{"summary":"This
-        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4ec6e4a3f5b9e88191da1b94","name":"Stern
-        Grove Trocadero Clubhouse","contact":{"phone":"4152522590","formattedPhone":"(415)
-        252-2590"},"location":{"address":"Stern Grove, Trocadero Clubhouse","lat":37.73600565625829,"lng":-122.47807767720364,"distance":7888,"postalCode":"94103","cc":"US","city":"San
-        Francisco","state":"CA","country":"United States","formattedAddress":["Stern
-        Grove, Trocadero Clubhouse","San Francisco, CA 94103"]},"categories":[{"id":"4bf58dd8d48988d1e2931735","name":"Art
-        Gallery","pluralName":"Art Galleries","shortName":"Art Gallery","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/arts_entertainment\/artgallery_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":169,"usersCount":131,"tipCount":2},"url":"http:\/\/www.sfartscommission.org","like":false,"specials":{"count":0,"items":[]},"photos":{"count":19,"groups":[{"type":"venue","name":"Venue
-        photos","count":19,"items":[{"id":"51395658e4b01c34d4406f1f","createdAt":1362712152,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/31534_bCZQmPWDTfRKaWnocgcY2vfKC6Ub9lDYOx55pQ5aRcg.jpg","width":720,"height":960,"user":{"id":"31534","firstName":"Holger","lastName":"Luedorf","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QUUZEGVHPZMSZ4X2.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
-        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"51395658e4b01c34d4406f1f","createdAt":1362712152,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/31534_bCZQmPWDTfRKaWnocgcY2vfKC6Ub9lDYOx55pQ5aRcg.jpg","width":720,"height":960,"user":{"id":"31534","firstName":"Holger","lastName":"Luedorf","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QUUZEGVHPZMSZ4X2.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"51d0cf3a498e44d6b90a9503","createdAt":1372639034,"text":"Pre
-        concert talks happen here!","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/51d0cf3a498e44d6b90a9503","logView":true,"todo":{"count":0},"user":{"id":"7415299","firstName":"Koko","lastName":"Darling","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/TYFDM0BKB1MMJXOC.jpg"}}}],"referralId":"e-0-4ec6e4a3f5b9e88191da1b94-2"}]}]}}'
-    http_version: 
-  recorded_at: Wed, 28 Jan 2015 03:13:52 GMT
-- request:
-    method: get
-    uri: http://api.geonames.org/timezoneJSON?lat=37.7863814&lng=-122.4150367&username=sashafklein
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Wed, 28 Jan 2015 03:14:04 GMT
-      Server:
-      - Apache/2.2.15 (CentOS)
-      Cache-Control:
-      - no-cache
-      Access-Control-Allow-Origin:
-      - "*"
-      Content-Length:
-      - '249'
-      Connection:
-      - close
-      Content-Type:
-      - application/json;charset=UTF-8
-    body:
-      encoding: UTF-8
-      string: '{"time":"2015-01-27 19:14","countryName":"United States","sunset":"2015-01-28
-        17:28","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.4150367,"sunrise":"2015-01-28
-        07:17","timezoneId":"America/Los_Angeles","lat":37.7863814}'
-    http_version: 
-  recorded_at: Wed, 28 Jan 2015 03:13:52 GMT
+  recorded_at: Fri, 06 Feb 2015 01:40:48 GMT
 recorded_with: VCR 2.9.3

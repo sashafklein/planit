@@ -1,26 +1,20 @@
 class PlaceAttrs
 
-  attr_reader :attrs
+  attr_reader :attrs, :flags
   def initialize(attrs)
     @attrs = attrs.symbolize_keys.to_sh
+    @flags = []
   end
 
   def normalize
-    [:name, :street_address, :category].each do |singular|
-      plural = singular.to_s.pluralize.to_sym
-      attrs[plural] = Array( attrs.delete(plural) ).flatten + Array( attrs.delete(singular)).flatten
-    end
+    pluralize_singular_array_attrs
+    prioritize_latinate_names
+    format_and_validate_lat_lon
+    normalize_json_attrs
 
-    attrs[:names] = attrs[:names].select(&:latinate?) + attrs[:names].select(&:non_latinate?)
-    
-    [:lat, :lon].each{ |att| attrs[att] = attrs.delete(att).try(:to_f) }
-
-    attrs[:phones] = normalize_phones
-    attrs[:hours] = normalized_hours(attrs[:hours])
-    attrs[:extra] = normalize_extra
-
+    @attrs = attrs.reject_val(&:nil?)
     found = Services::PlaceFinder.new(attrs).find!
-    @attrs = attrs.merge( found.attributes.symbolize_keys.reject{ |k,v| v.nil? }.to_sh ) if found.persisted?
+    @attrs = attrs.merge( found.attributes.symbolize_keys.to_sh.reject_val(&:nil?) ) if found.persisted?
     @attrs
   end
 
@@ -30,6 +24,41 @@ class PlaceAttrs
   end
 
   private
+
+  def pluralize_singular_array_attrs
+    [:name, :street_address, :category].each do |singular|
+      plural = singular.to_s.pluralize.to_sym
+      attrs[plural] = Array( attrs.delete(plural) ).flatten + Array( attrs.delete(singular)).flatten
+    end
+  end
+
+  def prioritize_latinate_names
+    attrs.names = attrs.names.select(&:latinate?) + attrs.names.select(&:non_latinate?)
+  end
+
+  def format_and_validate_lat_lon
+    [:lat, :lon].each{ |att| attrs[att] = attrs.delete(att).try(:to_f) }
+    validate_or_nullify_lat_lon!
+  end
+
+  def normalize_json_attrs
+    attrs[:phones] = normalize_phones
+    attrs[:hours] = normalized_hours(attrs[:hours])
+    attrs[:extra] = normalize_extra
+  end
+
+  def validate_or_nullify_lat_lon!
+    attrs.lat && attrs.lon && timezone = Timezone::Zone.new({latlon: [attrs.lat, attrs.lon]})
+    attrs.timezone_string = timezone
+  rescue
+    flag({ name: "Invalid LatLon found", details: "Cleared out LatLon in PlaceAttrs", info: { old: { lat: attrs.lat, lon: attrs.lon} } })
+    attrs.lat, attrs.lon = nil
+    false
+  end
+
+  def flag(hash)
+    @flags << Flag.new(hash)
+  end
 
   def extra_attrs
     attrs.except(*Place.attribute_keys + [:nearby, :images])
