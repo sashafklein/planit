@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 module Completers
   describe Completer, :vcr do
 
@@ -138,15 +139,15 @@ module Completers
       context "item data with plan" do
         it "creates the Coney Island, and fits it in context" do
           m = Completer.new(yml_data('nyhigh', 'http://www.stay.com/new-york/', 'Coney Island'), @user).complete!
+          p = m.place
 
-          expect( m.country ).to eq "United States"
-          expect( m.region ).to eq "New York"
+          expect( p.country ).to eq "United States"
+          expect( p.region ).to eq "New York"
 
-          expect( m.place.extra['ratings'] ).to be_present
+          expect( p.extra['ratings'] ).to be_present
 
-          expect( m.place.sublocality ).to eq("Brooklyn") # No Locality for Coney Island in Geocoder
-          expect( m.place.flags.find_by(name: "Field Clash").info ).to hash_eq( {"field"=>"categories", "place"=>["Attraction"], "venue"=>["Museum", "Performing Arts Venue", "General Entertainment"]} )
-
+          expect( p.sublocality ).to eq("Brooklyn") # No Locality for Coney Island in Geocoder
+          expect( p.categories ).to eq ['Attraction', 'Neighborhood']
           i = m.items.first
           expect( i.plan.name ).to eq "New York City Guide"
         end
@@ -239,7 +240,7 @@ module Completers
           # No Foursquare Results with Kitesurf in them, so...?
           # Maybe scrape the website we have since we have one? http://kitesurfcartagena.com/contacts/ 
         end
-        
+
         xit 'completes Alma' do
           c = completed_data(filename: 'cartagena', scrape_url: "http://www.huffingtonpost.com/curtis-ellis/cartagena-eat-pray-love-d_b_3479981.html", name: 'Alma')
           m = c.complete!

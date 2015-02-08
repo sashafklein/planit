@@ -13,7 +13,7 @@ module Completers
       { place: pip, photos: venue.photos || [], success: true }
     rescue => e
       flag_failure(query: full_fs_url, response: @response, error: e)
-      { place: pip, photos: venue.photos || [], success: false}
+      { place: pip, photos: venue.try(:photos) || [], success: false}
     end
 
     private
@@ -41,14 +41,6 @@ module Completers
       url = "#{ FoursquareExplore::FS_URL }/#{ fsid }?oauth_token=#{ FoursquareExplore.auth_token }"
       flag_query(url)
       url
-    end
-
-    def set_val(field, val, override=false)
-      if !override && !pip.val(field) == false && pip.val(field).present?
-        pip.flag( name: "Field Clash", details: "Ignored FoursquareRefine value.", info: { field: field, place: pip.val(field), venue: val} ) if pip.val(field) != val
-      else
-        pip.set_val field, val, self.class
-      end
     end
 
   end

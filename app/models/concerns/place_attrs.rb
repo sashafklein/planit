@@ -49,7 +49,7 @@ class PlaceAttrs
 
   def validate_or_nullify_lat_lon!
     attrs.lat && attrs.lon && timezone = Timezone::Zone.new({latlon: [attrs.lat, attrs.lon]})
-    attrs.timezone_string = timezone
+    attrs.timezone_string = timezone.zone
   rescue
     flag({ name: "Invalid LatLon found", details: "Cleared out LatLon in PlaceAttrs", info: { old: { lat: attrs.lat, lon: attrs.lon} } })
     attrs.lat, attrs.lon = nil

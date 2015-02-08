@@ -2,6 +2,43 @@
 http_interactions:
 - request:
     method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=40.740639&lng=-74.007949&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 07 Feb 2015 19:13:35 GMT
+      Server:
+      - Apache/2.4.6 (Linux/SUSE)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"sunrise":"2015-02-07 07:00","lng":-74.007949,"countryCode":"US","gmtOffset":-5,"rawOffset":-5,"sunset":"2015-02-07
+        17:20","timezoneId":"America/New_York","dstOffset":-4,"countryName":"United
+        States","time":"2015-02-07 14:13","lat":40.740639}'
+    http_version: 
+  recorded_at: Sat, 07 Feb 2015 19:13:35 GMT
+- request:
+    method: get
     uri: https://api.foursquare.com/v2/venues/explore?ll=40.740639,-74.007949&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Boom%20Boom%20Room&v=20140819&venuePhotos=1
     body:
       encoding: US-ASCII
@@ -19,7 +56,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 05 Feb 2015 22:10:27 GMT
+      - Sat, 07 Feb 2015 19:13:36 GMT
       Server:
       - nginx
       Content-Type:
@@ -27,11 +64,11 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Tracer-Time:
-      - '206'
+      - '230'
       X-Ratelimit-Limit:
       - '500'
       X-Ratelimit-Remaining:
-      - '472'
+      - '466'
       Strict-Transport-Security:
       - max-age=864000
       X-Ex:
@@ -41,7 +78,7 @@ http_interactions:
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-sjc3124-SJC
+      - cache-dfw1822-DFW
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -58,7 +95,7 @@ http_interactions:
         District","headerFullLocation":"Meatpacking District, New York","headerLocationGranularity":"neighborhood","query":"boom
         boom room","totalResults":0,"groups":[{"type":"Recommended Places","name":"recommended","items":[]}]}}'
     http_version: 
-  recorded_at: Thu, 05 Feb 2015 22:10:27 GMT
+  recorded_at: Sat, 07 Feb 2015 19:13:36 GMT
 - request:
     method: get
     uri: https://www.google.com/maps?output=json&q=Boom%20Boom%20Room&sll=40.740639,-74.007949
@@ -78,7 +115,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 05 Feb 2015 22:10:30 GMT
+      - Sat, 07 Feb 2015 19:13:36 GMT
       Expires:
       - "-1"
       Cache-Control:
@@ -86,8 +123,8 @@ http_interactions:
       Content-Type:
       - application/json; charset=ISO-8859-1
       Set-Cookie:
-      - PREF=ID=490306e40744d16e:TM=1423174230:LM=1423174230:S=jb5OrHociJpHRhNg; expires=Sat,
-        04-Feb-2017 22:10:30 GMT; path=/; domain=.google.com
+      - PREF=ID=3e99931991b4876e:TM=1423336416:LM=1423336416:S=DYsfqneDNFBUQh6Z; expires=Mon,
+        06-Feb-2017 19:13:36 GMT; path=/; domain=.google.com
       X-Content-Type-Options:
       - nosniff
       Content-Disposition:
@@ -100,33 +137,33 @@ http_interactions:
       - 443:quic,p=0.02
     body:
       encoding: UTF-8
-      string: 'while(1);{title:"Boom Boom Room - Google Maps",url:"/maps?q=Boom+Boom+Room\x26sll=40.740639,-74.007949\x26ie=UTF8\x26hq=\x26hnear=",urlViewport:false,ei:"VurTVLDODIr2iQLSqYC4BQ",form:{selected:"q",q:{q:"Boom
+      string: 'while(1);{title:"Boom Boom Room - Google Maps",url:"/maps?q=Boom+Boom+Room\x26sll=40.740639,-74.007949\x26ie=UTF8\x26hq=\x26hnear=",urlViewport:false,ei:"4GPWVLqOJeyCiQLovYDQCQ",form:{selected:"q",q:{q:"Boom
         Boom Room",what:"",near:""},d:{saddr:"",daddr:"",dfaddr:""},geocode:""},query:{type:"dq"},viewport:{center:{lat:37.784613,lng:-122.433165},span:{lat:0.0062950000000000002,lng:0.0062950000000000002},mapType:"",source:0},iwloc:"A",modules:["","strr","pphover","act_s","appiw","mg","rst"],overlays:{sxcar:true,markers:[{id:"A",cid:"10017612433250301918",latlng:{lat:37.784613,lng:-122.433165},image:"https://maps.gstatic.com/intl/en_us/mapfiles/markers2/markerA.png",sprite:{width:20,height:34,top:0,image:"https://maps.gstatic.com/mapfiles/markers2/red_markers_A_J2.png"},icon_id:"A",drg:true,laddr:"Boom
         Boom Room, 1601 Fillmore Street, San Francisco, California 94115",geocode:"CZZrU4V2Qu_UFSWMQAIdc9Gz-CkHiBlNuICFgDHet2u1brUFiw",sxti:"Boom
         Boom Room",sxst:"Fillmore Street",sxsn:"1601",sxct:"San Francisco",sxpr:"California",sxpo:"94115",sxcn:"US",sxph:"+14156738000",name:"Boom
         Boom Room",infoWindow:{title:"\x3cb\x3eBoom\x3c/b\x3e \x3cb\x3eBoom\x3c/b\x3e
         \x3cb\x3eRoom\x3c/b\x3e",addressLines:["1601 Fillmore Street","San Francisco,
-        California 94115"],phones:[{number:"(415) 673-8000"}],hp:{url:"http://www.google.com/local_url?dq=Boom+Boom+Room\x26q=http://www.boomboomblues.com/\x26oi=miw\x26sa=X\x26ct=miw_link\x26cd=1\x26cad=homepage,cid:10017612433250301918\x26ei=VurTVLDODIr2iQLSqYC4BQ\x26s=ANYYN7ncxOWVDmrJDYQaMaWBVwJYqBdlZg",domain:"boomboomblues.com",actual_url:"http://www.boomboomblues.com/"},basics:"\x3cdiv
-        transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more info",place_url:"http://www.google.com/local_url?dq=Boom+Boom+Room\x26q=https://plus.google.com/115730760318242184917/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7kPL1pEXdBX1-MxtWqoYcTh9EdBMg",reviews:43,zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D10017612433250301918%26q%3DBoom%2BBoom%2BRoom%26cd%3D1%26cad%3Dsrc:ppwrev%26ei%3DVurTVLDODIr2iQLSqYC4BQ%26action%3Dopenratings",photoUrl:"https://lh6.googleusercontent.com/-U6kdvXFZhaE/T-6CAHFro3I/AAAAAAAAJJU/jjfVQ_Sqfto/s90/Boom%2BBoom%2BRoom",photoType:1,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=10017612433250301918\x26q=\x26near=",deprecated_stars:4,link_jsaction:"",star_score_e3:3900,write_review_url:"http://www.google.com/local_url?dq=Boom+Boom+Room\x26q=https://plus.google.com/115730760318242184917/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7nGHYdsHcTHbRsWZKcsObeoC9phtw",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,elms:[4,1,6,1,10,2,12,1,5,2,11],known_for_term:["john
+        California 94115"],phones:[{number:"(415) 673-8000"}],hp:{url:"http://www.google.com/local_url?dq=Boom+Boom+Room\x26q=http://www.boomboomblues.com/\x26oi=miw\x26sa=X\x26ct=miw_link\x26cd=1\x26cad=homepage,cid:10017612433250301918\x26ei=4GPWVLqOJeyCiQLovYDQCQ\x26s=ANYYN7nwwCRYRuN2fxopIaj6KGWmvERUAQ",domain:"boomboomblues.com",actual_url:"http://www.boomboomblues.com/"},basics:"\x3cdiv
+        transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more info",place_url:"http://www.google.com/local_url?dq=Boom+Boom+Room\x26q=https://plus.google.com/115730760318242184917/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7kPL1pEXdBX1-MxtWqoYcTh9EdBMg",reviews:43,zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D10017612433250301918%26q%3DBoom%2BBoom%2BRoom%26cd%3D1%26cad%3Dsrc:ppwrev%26ei%3D4GPWVLqOJeyCiQLovYDQCQ%26action%3Dopenratings",photoUrl:"https://lh6.googleusercontent.com/-U6kdvXFZhaE/T-6CAHFro3I/AAAAAAAAJJU/jjfVQ_Sqfto/s90/Boom%2BBoom%2BRoom",photoType:1,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=10017612433250301918\x26q=\x26near=",deprecated_stars:4,link_jsaction:"",star_score_e3:3900,write_review_url:"http://www.google.com/local_url?dq=Boom+Boom+Room\x26q=https://plus.google.com/115730760318242184917/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7nGHYdsHcTHbRsWZKcsObeoC9phtw",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,elms:[4,1,6,1,10,2,12,1,5,2,11],known_for_term:["john
         lee hooker","san francisco music","music venues","honey island swamp","dance
-        floor"]}],layers:[{composition_type:2,spec:{id:"m"},default_epoch:291000000,pertile_data:{area:[{id:"tuwtvtutwwwtwtu",zrange:[15,15],layer:"m",epoch:291007886},{id:"tuwtvtutwwwtwtw",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwut",zrange:[15,15],layer:"m",epoch:291007886},{id:"tuwtvtutwwwtwuu",zrange:[15,15],layer:"m",epoch:291007886},{id:"tuwtvtutwwwtwuv",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwuw",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwvu",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwvw",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwwt",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwwu",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwv",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwww",zrange:[15,15],layer:"m",epoch:291016455},{id:"tuwtvtutwwwuvtt",zrange:[15,15],layer:"m",epoch:291007886},{id:"tuwtvtutwwwuvtu",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvtv",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvtw",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvu",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvt",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvu",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvv",zrange:[15,15],layer:"m",epoch:291007463},{id:"tuwtvtutwwwuvvw",zrange:[15,15],layer:"m",epoch:291007463},{id:"tuwtvtutwwwuvwt",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwu",zrange:[15,15],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwv",zrange:[15,15],layer:"m",epoch:291007463},{id:"tuwtvtutwwwuvww",zrange:[15,15],layer:"m",epoch:291017369},{id:"tuwtvtutwwwvutu",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwvutw",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwvuut",zrange:[15,15],layer:"m",epoch:291021458},{id:"tuwtvtutwwwvuuu",zrange:[15,15],layer:"m",epoch:291016455},{id:"tuwtvtutwwwvuuv",zrange:[15,15],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuuw",zrange:[15,15],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuvu",zrange:[15,15],layer:"m",epoch:291008734},{id:"tuwtvtutwwwvuwt",zrange:[15,15],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuwu",zrange:[15,15],layer:"m",epoch:291024042},{id:"tuwtvtutwwwwttt",zrange:[15,15],layer:"m",epoch:291007463},{id:"tuwtvtutwwwwttu",zrange:[15,15],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwttv",zrange:[15,15],layer:"m",epoch:291024042},{id:"tuwtvtutwwwwttw",zrange:[15,15],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtut",zrange:[15,15],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtuu",zrange:[15,15],layer:"m",epoch:291017369},{id:"tuwtvtutwwwwtuv",zrange:[15,15],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtuw",zrange:[15,15],layer:"m",epoch:291017369},{id:"tuwtvtutwwwwtvt",zrange:[15,15],layer:"m",epoch:291024042},{id:"tuwtvtutwwwwtvu",zrange:[15,15],layer:"m",epoch:291019590},{id:"tuwtvtutwwwwtwt",zrange:[15,15],layer:"m",epoch:291019590},{id:"tuwtvtutwwwwtwu",zrange:[15,15],layer:"m",epoch:291019590},{id:"tuwtvtutwwwtwtuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwtuw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwtw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwutv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwutw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwuuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwuuw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwuw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwvu",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwvw",zrange:[16,16],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwwtt",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwtu",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwtv",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwtw",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwut",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwuu",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwuv",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwuw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwvt",zrange:[16,16],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwwvu",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwvv",zrange:[16,16],layer:"m",epoch:291021458},{id:"tuwtvtutwwwtwwvw",zrange:[16,16],layer:"m",epoch:291016455},{id:"tuwtvtutwwwtwwwt",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwwu",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwtwwwv",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwww",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwuvttv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvttw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvtuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvtuw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvtv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvtw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvutv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvutw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvuuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvuwt",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvuwv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvt",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvu",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvv",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwuvvwt",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwuvvwu",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvwv",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwuvvww",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwt",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwut",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwwt",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvwwv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvutut",zrange:[16,16],layer:"m",epoch:291021458},{id:"tuwtvtutwwwvutuu",zrange:[16,16],layer:"m",epoch:291021458},{id:"tuwtvtutwwwvutuv",zrange:[16,16],layer:"m",epoch:291017258},{id:"tuwtvtutwwwvutuw",zrange:[16,16],layer:"m",epoch:291017258},{id:"tuwtvtutwwwvutwt",zrange:[16,16],layer:"m",epoch:291007433},{id:"tuwtvtutwwwvutwu",zrange:[16,16],layer:"m",epoch:291007433},{id:"tuwtvtutwwwvutwv",zrange:[16,16],layer:"m",epoch:291007433},{id:"tuwtvtutwwwvutww",zrange:[16,16],layer:"m",epoch:291008768},{id:"tuwtvtutwwwvuutt",zrange:[16,16],layer:"m",epoch:291021458},{id:"tuwtvtutwwwvuutu",zrange:[16,16],layer:"m",epoch:291016455},{id:"tuwtvtutwwwvuutv",zrange:[16,16],layer:"m",epoch:291017258},{id:"tuwtvtutwwwvuutw",zrange:[16,16],layer:"m",epoch:291016455},{id:"tuwtvtutwwwvuuut",zrange:[16,16],layer:"m",epoch:291007383},{id:"tuwtvtutwwwvuuuu",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwvuuuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvuuuw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvuuvt",zrange:[16,16],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuvu",zrange:[16,16],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuvv",zrange:[16,16],layer:"m",epoch:291008768},{id:"tuwtvtutwwwvuuvw",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuuwt",zrange:[16,16],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuwu",zrange:[16,16],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuwv",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuuww",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuvut",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvuvuu",zrange:[16,16],layer:"m",epoch:291008768},{id:"tuwtvtutwwwvuvuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwvuvuw",zrange:[16,16],layer:"m",epoch:291008768},{id:"tuwtvtutwwwvuwtt",zrange:[16,16],layer:"m",epoch:291008768},{id:"tuwtvtutwwwvuwtu",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuwtv",zrange:[16,16],layer:"m",epoch:291008768},{id:"tuwtvtutwwwvuwtw",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwvuwu",zrange:[16,16],layer:"m",epoch:291024042},{id:"tuwtvtutwwwwtttt",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwtttu",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwtttv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwtttw",zrange:[16,16],layer:"m",epoch:291007382},{id:"tuwtvtutwwwwttut",zrange:[16,16],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwttuu",zrange:[16,16],layer:"m",epoch:291007390},{id:"tuwtvtutwwwwttuv",zrange:[16,16],layer:"m",epoch:291007390},{id:"tuwtvtutwwwwttuw",zrange:[16,16],layer:"m",epoch:291007390},{id:"tuwtvtutwwwwttvt",zrange:[16,16],layer:"m",epoch:291007416},{id:"tuwtvtutwwwwttvu",zrange:[16,16],layer:"m",epoch:291023812},{id:"tuwtvtutwwwwttvv",zrange:[16,16],layer:"m",epoch:291019204},{id:"tuwtvtutwwwwttvw",zrange:[16,16],layer:"m",epoch:291023812},{id:"tuwtvtutwwwwttw",zrange:[16,16],layer:"m",epoch:291023812},{id:"tuwtvtutwwwwtutt",zrange:[16,16],layer:"m",epoch:291007390},{id:"tuwtvtutwwwwtutu",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwtutv",zrange:[16,16],layer:"m",epoch:291007390},{id:"tuwtvtutwwwwtutw",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwtuut",zrange:[16,16],layer:"m",epoch:291007269},{id:"tuwtvtutwwwwtuuv",zrange:[16,16],layer:"m",epoch:291007269},{id:"tuwtvtutwwwwtuv",zrange:[16,16],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtuwt",zrange:[16,16],layer:"m",epoch:291007269},{id:"tuwtvtutwwwwtuwv",zrange:[16,16],layer:"m",epoch:291007269},{id:"tuwtvtutwwwwtvtt",zrange:[16,16],layer:"m",epoch:291023600},{id:"tuwtvtutwwwwtvtu",zrange:[16,16],layer:"m",epoch:291023812},{id:"tuwtvtutwwwwtvtv",zrange:[16,16],layer:"m",epoch:291023600},{id:"tuwtvtutwwwwtvtw",zrange:[16,16],layer:"m",epoch:291023812},{id:"tuwtvtutwwwwtvu",zrange:[16,16],layer:"m",epoch:291023812},{id:"tuwtvtutwwwwtwt",zrange:[16,16],layer:"m",epoch:291016692},{id:"tuwtvtutwwwwtwut",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwtwuv",zrange:[16,16],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwtuw",zrange:[17,17],layer:"m",epoch:291008341},{id:"tuwtvtutwwwtwwtwu",zrange:[17,17],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwtww",zrange:[17,17],layer:"m",epoch:291015019},{id:"tuwtvtutwwwtwwutv",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwutw",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwuuv",zrange:[17,17],layer:"m",epoch:291007382},{id:"tuwtvtutwwwtwwuuw",zrange:[17,17],layer:"m",epoch:291007382},{id:"tuwtvtutwwwtwwuvt",zrange:[17,17],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwuvu",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwuvv",zrange:[17,17],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwuvw",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwuwt",zrange:[17,17],layer:"m",epoch:291007382},{id:"tuwtvtutwwwtwwuwu",zrange:[17,17],layer:"m",epoch:291007382},{id:"tuwtvtutwwwtwwuwv",zrange:[17,17],layer:"m",epoch:291007382},{id:"tuwtvtutwwwtwwuww",zrange:[17,17],layer:"m",epoch:291010028},{id:"tuwtvtutwwwtwwvuu",zrange:[17,17],layer:"m",epoch:291015442},{id:"tuwtvtutwwwtwwvuw",zrange:[17,17],layer:"m",epoch:291015442},{id:"tuwtvtutwwwtwwvwu",zrange:[17,17],layer:"m",epoch:291017746},{id:"tuwtvtutwwwtwwvww",zrange:[17,17],layer:"m",epoch:291017746},{id:"tuwtvtutwwwtwwwtt",zrange:[17,17],layer:"m",epoch:291007383},{id:"tuwtvtutwwwtwwwtu",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwwtv",zrange:[17,17],layer:"m",epoch:291022906},{id:"tuwtvtutwwwtwwwtw",zrange:[17,17],layer:"m",epoch:291022906},{id:"tuwtvtutwwwtwwwut",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwtwwwuu",zrange:[17,17],layer:"m",epoch:291010028},{id:"tuwtvtutwwwtwwwuv",zrange:[17,17],layer:"m",epoch:291022906},{id:"tuwtvtutwwwtwwwuw",zrange:[17,17],layer:"m",epoch:291010028},{id:"tuwtvtutwwwtwwwv",zrange:[17,17],layer:"m",epoch:291022906},{id:"tuwtvtutwwwtwwwwt",zrange:[17,17],layer:"m",epoch:291022906},{id:"tuwtvtutwwwtwwwwu",zrange:[17,17],layer:"m",epoch:291015929},{id:"tuwtvtutwwwtwwwwv",zrange:[17,17],layer:"m",epoch:291022906},{id:"tuwtvtutwwwtwwwww",zrange:[17,17],layer:"m",epoch:291015929},{id:"tuwtvtutwwwuvvttv",zrange:[17,17],layer:"m",epoch:291007382},{id:"tuwtvtutwwwuvvttw",zrange:[17,17],layer:"m",epoch:291008163},{id:"tuwtvtutwwwuvvtuv",zrange:[17,17],layer:"m",epoch:291008163},{id:"tuwtvtutwwwuvvtuw",zrange:[17,17],layer:"m",epoch:291008163},{id:"tuwtvtutwwwuvvtvt",zrange:[17,17],layer:"m",epoch:291007382},{id:"tuwtvtutwwwuvvtvu",zrange:[17,17],layer:"m",epoch:291007382},{id:"tuwtvtutwwwuvvtvv",zrange:[17,17],layer:"m",epoch:291010028},{id:"tuwtvtutwwwuvvtvw",zrange:[17,17],layer:"m",epoch:291010028},{id:"tuwtvtutwwwuvvtwt",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvtwu",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvtwv",zrange:[17,17],layer:"m",epoch:291007382},{id:"tuwtvtutwwwuvvtww",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvutv",zrange:[17,17],layer:"m",epoch:291023570},{id:"tuwtvtutwwwuvvutw",zrange:[17,17],layer:"m",epoch:291023570},{id:"tuwtvtutwwwuvvuuv",zrange:[17,17],layer:"m",epoch:291023570},{id:"tuwtvtutwwwuvvuuw",zrange:[17,17],layer:"m",epoch:291015236},{id:"tuwtvtutwwwuvvuv",zrange:[17,17],layer:"m",epoch:291023570},{id:"tuwtvtutwwwuvvuwt",zrange:[17,17],layer:"m",epoch:291023570},{id:"tuwtvtutwwwuvvuwu",zrange:[17,17],layer:"m",epoch:291014523},{id:"tuwtvtutwwwuvvuwv",zrange:[17,17],layer:"m",epoch:291023570},{id:"tuwtvtutwwwuvvuww",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvvt",zrange:[17,17],layer:"m",epoch:291010028},{id:"tuwtvtutwwwuvvvut",zrange:[17,17],layer:"m",epoch:291007382},{id:"tuwtvtutwwwuvvvuu",zrange:[17,17],layer:"m",epoch:291014279},{id:"tuwtvtutwwwuvvvuv",zrange:[17,17],layer:"m",epoch:291007382},{id:"tuwtvtutwwwuvvvuw",zrange:[17,17],layer:"m",epoch:291014279},{id:"tuwtvtutwwwuvvvv",zrange:[17,17],layer:"m",epoch:291022142},{id:"tuwtvtutwwwuvvvw",zrange:[17,17],layer:"m",epoch:291022142},{id:"tuwtvtutwwwuvvwt",zrange:[17,17],layer:"m",epoch:291014279},{id:"tuwtvtutwwwuvvwu",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvwvt",zrange:[17,17],layer:"m",epoch:291014279},{id:"tuwtvtutwwwuvvwvu",zrange:[17,17],layer:"m",epoch:291014279},{id:"tuwtvtutwwwuvvwvv",zrange:[17,17],layer:"m",epoch:291007382},{id:"tuwtvtutwwwuvvwvw",zrange:[17,17],layer:"m",epoch:291007382},{id:"tuwtvtutwwwuvvwwt",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwuvvwwu",zrange:[17,17],layer:"m",epoch:291007381},{id:"tuwtvtutwwwuvvwwv",zrange:[17,17],layer:"m",epoch:291014975},{id:"tuwtvtutwwwuvvwww",zrange:[17,17],layer:"m",epoch:291014975},{id:"tuwtvtutwwwvuutuu",zrange:[17,17],layer:"m",epoch:291019230},{id:"tuwtvtutwwwvuutuw",zrange:[17,17],layer:"m",epoch:291019230},{id:"tuwtvtutwwwvuutwu",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwvuutww",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwvuuutt",zrange:[17,17],layer:"m",epoch:291022906},{id:"tuwtvtutwwwvuuutu",zrange:[17,17],layer:"m",epoch:291022906},{id:"tuwtvtutwwwvuuutv",zrange:[17,17],layer:"m",epoch:291019230},{id:"tuwtvtutwwwvuuutw",zrange:[17,17],layer:"m",epoch:291012761},{id:"tuwtvtutwwwvuuuut",zrange:[17,17],layer:"m",epoch:291022906},{id:"tuwtvtutwwwvuuuuu",zrange:[17,17],layer:"m",epoch:291015929},{id:"tuwtvtutwwwvuuuuv",zrange:[17,17],layer:"m",epoch:291012761},{id:"tuwtvtutwwwvuuuuw",zrange:[17,17],layer:"m",epoch:291012761},{id:"tuwtvtutwwwvuuuv",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwvuuuwt",zrange:[17,17],layer:"m",epoch:291015626},{id:"tuwtvtutwwwvuuuwu",zrange:[17,17],layer:"m",epoch:291022922},{id:"tuwtvtutwwwvuuuwv",zrange:[17,17],layer:"m",epoch:291015626},{id:"tuwtvtutwwwvuuuww",zrange:[17,17],layer:"m",epoch:291022922},{id:"tuwtvtutwwwvuuvuu",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwvuuvuw",zrange:[17,17],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuwtt",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwvuuwtu",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwvuuwtv",zrange:[17,17],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuwtw",zrange:[17,17],layer:"m",epoch:291007434},{id:"tuwtvtutwwwvuuwut",zrange:[17,17],layer:"m",epoch:291015626},{id:"tuwtvtutwwwvuuwuu",zrange:[17,17],layer:"m",epoch:291022922},{id:"tuwtvtutwwwvuuwuv",zrange:[17,17],layer:"m",epoch:291013577},{id:"tuwtvtutwwwvuuwuw",zrange:[17,17],layer:"m",epoch:291023286},{id:"tuwtvtutwwwwttttt",zrange:[17,17],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwttttu",zrange:[17,17],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwttttv",zrange:[17,17],layer:"m",epoch:291014217},{id:"tuwtvtutwwwwttttw",zrange:[17,17],layer:"m",epoch:291014217},{id:"tuwtvtutwwwwtttut",zrange:[17,17],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwtttuu",zrange:[17,17],layer:"m",epoch:291022142},{id:"tuwtvtutwwwwtttuv",zrange:[17,17],layer:"m",epoch:291014217},{id:"tuwtvtutwwwwtttuw",zrange:[17,17],layer:"m",epoch:291000000},{id:"tuwtvtutwwwwtttv",zrange:[17,17],layer:"m",epoch:291022922},{id:"tuwtvtutwwwwtttwt",zrange:[17,17],layer:"m",epoch:291014217},{id:"tuwtvtutwwwwtttwu",zrange:[17,17],layer:"m",epoch:291007381},{id:"tuwtvtutwwwwtttwv",zrange:[17,17],layer:"m",epoch:291014775},{id:"tuwtvtutwwwwtttww",zrange:[17,17],layer:"m",epoch:291014775},{id:"tuwtvtutwwwwttutt",zrange:[17,17],layer:"m",epoch:291015702},{id:"tuwtvtutwwwwttutu",zrange:[17,17],layer:"m",epoch:291015702},{id:"tuwtvtutwwwwttutv",zrange:[17,17],layer:"m",epoch:291015702},{id:"tuwtvtutwwwwttutw",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwwttuut",zrange:[17,17],layer:"m",epoch:291015702},{id:"tuwtvtutwwwwttuuu",zrange:[17,17],layer:"m",epoch:291014975},{id:"tuwtvtutwwwwttuuv",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwwttuuw",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwwttuvt",zrange:[17,17],layer:"m",epoch:291015702},{id:"tuwtvtutwwwwttuvu",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwwttuvv",zrange:[17,17],layer:"m",epoch:291015702},{id:"tuwtvtutwwwwttuvw",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwwttuw",zrange:[17,17],layer:"m",epoch:291023038},{id:"tuwtvtutwwwwttvtt",zrange:[17,17],layer:"m",epoch:291022922},{id:"tuwtvtutwwwwttvtu",zrange:[17,17],layer:"m",epoch:291022922},{id:"tuwtvtutwwwwttvtv",zrange:[17,17],layer:"m",epoch:291023286},{id:"tuwtvtutwwwwttvtw",zrange:[17,17],layer:"m",epoch:291023286},{id:"tuwtvtutwwwwttvut",zrange:[17,17],layer:"m",epoch:291014775},{id:"tuwtvtutwwwwttvuu",zrange:[17,17],layer:"m",epoch:291016401},{id:"tuwtvtutwwwwttvuv",zrange:[17,17],layer:"m",epoch:291023286},{id:"tuwtvtutwwwwttvuw",zrange:[17,17],layer:"m",epoch:291016401},{id:"tuwtvtutwwwwttwt",zrange:[17,17],layer:"m",epoch:291023148},{id:"tuwtvtutwwwwttwut",zrange:[17,17],layer:"m",epoch:291023148},{id:"tuwtvtutwwwwttwuu",zrange:[17,17],layer:"m",epoch:291022760},{id:"tuwtvtutwwwwttwuv",zrange:[17,17],layer:"m",epoch:291023148},{id:"tuwtvtutwwwwttwuw",zrange:[17,17],layer:"m",epoch:291022760}]}}]},panel:"\x3cdiv
+        floor"]}],layers:[{composition_type:2,spec:{id:"m"},default_epoch:292000000,pertile_data:{area:[{id:"tuwtvtutwwwtwtu",zrange:[15,15],layer:"m",epoch:292007886},{id:"tuwtvtutwwwtwtw",zrange:[15,15],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwut",zrange:[15,15],layer:"m",epoch:292007886},{id:"tuwtvtutwwwtwuu",zrange:[15,15],layer:"m",epoch:292007886},{id:"tuwtvtutwwwtwuv",zrange:[15,15],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwuw",zrange:[15,15],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwvu",zrange:[15,15],layer:"m",epoch:292026810},{id:"tuwtvtutwwwtwvw",zrange:[15,15],layer:"m",epoch:292028241},{id:"tuwtvtutwwwtwwt",zrange:[15,15],layer:"m",epoch:292026810},{id:"tuwtvtutwwwtwwu",zrange:[15,15],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwwv",zrange:[15,15],layer:"m",epoch:292028241},{id:"tuwtvtutwwwtwww",zrange:[15,15],layer:"m",epoch:292028241},{id:"tuwtvtutwwwuvtt",zrange:[15,15],layer:"m",epoch:292007886},{id:"tuwtvtutwwwuvtu",zrange:[15,15],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvtv",zrange:[15,15],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvtw",zrange:[15,15],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvu",zrange:[15,15],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvvt",zrange:[15,15],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvvu",zrange:[15,15],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvvv",zrange:[15,15],layer:"m",epoch:292007463},{id:"tuwtvtutwwwuvvw",zrange:[15,15],layer:"m",epoch:292007463},{id:"tuwtvtutwwwuvwt",zrange:[15,15],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvwu",zrange:[15,15],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvwv",zrange:[15,15],layer:"m",epoch:292007463},{id:"tuwtvtutwwwuvww",zrange:[15,15],layer:"m",epoch:292017369},{id:"tuwtvtutwwwvutu",zrange:[15,15],layer:"m",epoch:292028241},{id:"tuwtvtutwwwvutw",zrange:[15,15],layer:"m",epoch:292028241},{id:"tuwtvtutwwwvuu",zrange:[15,15],layer:"m",epoch:292037483},{id:"tuwtvtutwwwvuvu",zrange:[15,15],layer:"m",epoch:292025821},{id:"tuwtvtutwwwvuwt",zrange:[15,15],layer:"m",epoch:292037483},{id:"tuwtvtutwwwvuwu",zrange:[15,15],layer:"m",epoch:292037483},{id:"tuwtvtutwwwwttt",zrange:[15,15],layer:"m",epoch:292037483},{id:"tuwtvtutwwwwttu",zrange:[15,15],layer:"m",epoch:292016692},{id:"tuwtvtutwwwwttv",zrange:[15,15],layer:"m",epoch:292037483},{id:"tuwtvtutwwwwttw",zrange:[15,15],layer:"m",epoch:292033210},{id:"tuwtvtutwwwwtut",zrange:[15,15],layer:"m",epoch:292016692},{id:"tuwtvtutwwwwtuu",zrange:[15,15],layer:"m",epoch:292017369},{id:"tuwtvtutwwwwtuv",zrange:[15,15],layer:"m",epoch:292016692},{id:"tuwtvtutwwwwtuw",zrange:[15,15],layer:"m",epoch:292017369},{id:"tuwtvtutwwwwtvt",zrange:[15,15],layer:"m",epoch:292037483},{id:"tuwtvtutwwwwtvu",zrange:[15,15],layer:"m",epoch:292033210},{id:"tuwtvtutwwwwtwt",zrange:[15,15],layer:"m",epoch:292019590},{id:"tuwtvtutwwwwtwu",zrange:[15,15],layer:"m",epoch:292019590},{id:"tuwtvtutwwwtwtuv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwtuw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwtw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwutv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwutw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwuuv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwuuw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwuv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwuw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwvu",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwvw",zrange:[16,16],layer:"m",epoch:292026810},{id:"tuwtvtutwwwtwwtt",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwwtu",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwwtv",zrange:[16,16],layer:"m",epoch:292007383},{id:"tuwtvtutwwwtwwtw",zrange:[16,16],layer:"m",epoch:292007383},{id:"tuwtvtutwwwtwwut",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwwuu",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwwuv",zrange:[16,16],layer:"m",epoch:292007383},{id:"tuwtvtutwwwtwwuw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwwvt",zrange:[16,16],layer:"m",epoch:292026810},{id:"tuwtvtutwwwtwwvu",zrange:[16,16],layer:"m",epoch:292007383},{id:"tuwtvtutwwwtwwvv",zrange:[16,16],layer:"m",epoch:292026810},{id:"tuwtvtutwwwtwwvw",zrange:[16,16],layer:"m",epoch:292016455},{id:"tuwtvtutwwwtwwwt",zrange:[16,16],layer:"m",epoch:292007383},{id:"tuwtvtutwwwtwwwu",zrange:[16,16],layer:"m",epoch:292022142},{id:"tuwtvtutwwwtwwwv",zrange:[16,16],layer:"m",epoch:292007383},{id:"tuwtvtutwwwtwwww",zrange:[16,16],layer:"m",epoch:292022142},{id:"tuwtvtutwwwuvttv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvttw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvtuv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvtuw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvtv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvtwt",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvtwu",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvtwv",zrange:[16,16],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvtww",zrange:[16,16],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvutv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvutw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvuuv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvuvt",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvuvu",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvuvv",zrange:[16,16],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvuvw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvuwt",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvuwv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvvt",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvvu",zrange:[16,16],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvvv",zrange:[16,16],layer:"m",epoch:292022142},{id:"tuwtvtutwwwuvvw",zrange:[16,16],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvwtt",zrange:[16,16],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvwtu",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvwtv",zrange:[16,16],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvwtw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvwut",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvwuv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvwvt",zrange:[16,16],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvwvu",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvwvv",zrange:[16,16],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvwvw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvwwt",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwuvwwv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwvutut",zrange:[16,16],layer:"m",epoch:292026810},{id:"tuwtvtutwwwvutuu",zrange:[16,16],layer:"m",epoch:292028241},{id:"tuwtvtutwwwvutuv",zrange:[16,16],layer:"m",epoch:292026810},{id:"tuwtvtutwwwvutuw",zrange:[16,16],layer:"m",epoch:292028241},{id:"tuwtvtutwwwvutwt",zrange:[16,16],layer:"m",epoch:292007433},{id:"tuwtvtutwwwvutwu",zrange:[16,16],layer:"m",epoch:292028241},{id:"tuwtvtutwwwvutwv",zrange:[16,16],layer:"m",epoch:292007433},{id:"tuwtvtutwwwvutww",zrange:[16,16],layer:"m",epoch:292008768},{id:"tuwtvtutwwwvuut",zrange:[16,16],layer:"m",epoch:292028241},{id:"tuwtvtutwwwvuuut",zrange:[16,16],layer:"m",epoch:292007383},{id:"tuwtvtutwwwvuuuu",zrange:[16,16],layer:"m",epoch:292022142},{id:"tuwtvtutwwwvuuuv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwvuuuw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwvuuvt",zrange:[16,16],layer:"m",epoch:292028241},{id:"tuwtvtutwwwvuuvu",zrange:[16,16],layer:"m",epoch:292028241},{id:"tuwtvtutwwwvuuvv",zrange:[16,16],layer:"m",epoch:292025821},{id:"tuwtvtutwwwvuuvw",zrange:[16,16],layer:"m",epoch:292025821},{id:"tuwtvtutwwwvuuwt",zrange:[16,16],layer:"m",epoch:292025821},{id:"tuwtvtutwwwvuuwu",zrange:[16,16],layer:"m",epoch:292007434},{id:"tuwtvtutwwwvuuwv",zrange:[16,16],layer:"m",epoch:292037483},{id:"tuwtvtutwwwvuuww",zrange:[16,16],layer:"m",epoch:292037483},{id:"tuwtvtutwwwvuvut",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwvuvuu",zrange:[16,16],layer:"m",epoch:292008768},{id:"tuwtvtutwwwvuvuv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwvuvuw",zrange:[16,16],layer:"m",epoch:292008768},{id:"tuwtvtutwwwvuwt",zrange:[16,16],layer:"m",epoch:292025821},{id:"tuwtvtutwwwvuwu",zrange:[16,16],layer:"m",epoch:292037483},{id:"tuwtvtutwwwwtttt",zrange:[16,16],layer:"m",epoch:292022142},{id:"tuwtvtutwwwwtttu",zrange:[16,16],layer:"m",epoch:292022142},{id:"tuwtvtutwwwwtttv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwwtttw",zrange:[16,16],layer:"m",epoch:292007382},{id:"tuwtvtutwwwwttut",zrange:[16,16],layer:"m",epoch:292022142},{id:"tuwtvtutwwwwttuu",zrange:[16,16],layer:"m",epoch:292007390},{id:"tuwtvtutwwwwttuv",zrange:[16,16],layer:"m",epoch:292007390},{id:"tuwtvtutwwwwttuw",zrange:[16,16],layer:"m",epoch:292007390},{id:"tuwtvtutwwwwttvt",zrange:[16,16],layer:"m",epoch:292007416},{id:"tuwtvtutwwwwttvu",zrange:[16,16],layer:"m",epoch:292031722},{id:"tuwtvtutwwwwttvv",zrange:[16,16],layer:"m",epoch:292037483},{id:"tuwtvtutwwwwttvw",zrange:[16,16],layer:"m",epoch:292031722},{id:"tuwtvtutwwwwttw",zrange:[16,16],layer:"m",epoch:292031722},{id:"tuwtvtutwwwwtutt",zrange:[16,16],layer:"m",epoch:292007390},{id:"tuwtvtutwwwwtutu",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwwtutv",zrange:[16,16],layer:"m",epoch:292007390},{id:"tuwtvtutwwwwtutw",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwwtuut",zrange:[16,16],layer:"m",epoch:292007269},{id:"tuwtvtutwwwwtuuv",zrange:[16,16],layer:"m",epoch:292007269},{id:"tuwtvtutwwwwtuv",zrange:[16,16],layer:"m",epoch:292016692},{id:"tuwtvtutwwwwtuwt",zrange:[16,16],layer:"m",epoch:292007269},{id:"tuwtvtutwwwwtuwv",zrange:[16,16],layer:"m",epoch:292007269},{id:"tuwtvtutwwwwtvtt",zrange:[16,16],layer:"m",epoch:292037483},{id:"tuwtvtutwwwwtvtu",zrange:[16,16],layer:"m",epoch:292033210},{id:"tuwtvtutwwwwtvtv",zrange:[16,16],layer:"m",epoch:292037483},{id:"tuwtvtutwwwwtvtw",zrange:[16,16],layer:"m",epoch:292033210},{id:"tuwtvtutwwwwtvut",zrange:[16,16],layer:"m",epoch:292031722},{id:"tuwtvtutwwwwtvuu",zrange:[16,16],layer:"m",epoch:292031722},{id:"tuwtvtutwwwwtvuv",zrange:[16,16],layer:"m",epoch:292031700},{id:"tuwtvtutwwwwtvuw",zrange:[16,16],layer:"m",epoch:292031700},{id:"tuwtvtutwwwwtwt",zrange:[16,16],layer:"m",epoch:292016692},{id:"tuwtvtutwwwwtwut",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwwtwuv",zrange:[16,16],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwwtuw",zrange:[17,17],layer:"m",epoch:292033004},{id:"tuwtvtutwwwtwwtwu",zrange:[17,17],layer:"m",epoch:292007383},{id:"tuwtvtutwwwtwwtww",zrange:[17,17],layer:"m",epoch:292015019},{id:"tuwtvtutwwwtwwutv",zrange:[17,17],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwwutw",zrange:[17,17],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwwuuv",zrange:[17,17],layer:"m",epoch:292007382},{id:"tuwtvtutwwwtwwuuw",zrange:[17,17],layer:"m",epoch:292033128},{id:"tuwtvtutwwwtwwuvt",zrange:[17,17],layer:"m",epoch:292007383},{id:"tuwtvtutwwwtwwuvu",zrange:[17,17],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwwuvv",zrange:[17,17],layer:"m",epoch:292007383},{id:"tuwtvtutwwwtwwuvw",zrange:[17,17],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwwuwt",zrange:[17,17],layer:"m",epoch:292007382},{id:"tuwtvtutwwwtwwuwu",zrange:[17,17],layer:"m",epoch:292007382},{id:"tuwtvtutwwwtwwuwv",zrange:[17,17],layer:"m",epoch:292007382},{id:"tuwtvtutwwwtwwuww",zrange:[17,17],layer:"m",epoch:292010028},{id:"tuwtvtutwwwtwwvuu",zrange:[17,17],layer:"m",epoch:292015442},{id:"tuwtvtutwwwtwwvuw",zrange:[17,17],layer:"m",epoch:292015442},{id:"tuwtvtutwwwtwwvwu",zrange:[17,17],layer:"m",epoch:292017746},{id:"tuwtvtutwwwtwwvww",zrange:[17,17],layer:"m",epoch:292032854},{id:"tuwtvtutwwwtwwwtt",zrange:[17,17],layer:"m",epoch:292007383},{id:"tuwtvtutwwwtwwwtu",zrange:[17,17],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwwwtv",zrange:[17,17],layer:"m",epoch:292022906},{id:"tuwtvtutwwwtwwwtw",zrange:[17,17],layer:"m",epoch:292022906},{id:"tuwtvtutwwwtwwwut",zrange:[17,17],layer:"m",epoch:292000000},{id:"tuwtvtutwwwtwwwuu",zrange:[17,17],layer:"m",epoch:292010028},{id:"tuwtvtutwwwtwwwuv",zrange:[17,17],layer:"m",epoch:292022906},{id:"tuwtvtutwwwtwwwuw",zrange:[17,17],layer:"m",epoch:292010028},{id:"tuwtvtutwwwtwwwvt",zrange:[17,17],layer:"m",epoch:292022906},{id:"tuwtvtutwwwtwwwvu",zrange:[17,17],layer:"m",epoch:292022906},{id:"tuwtvtutwwwtwwwvv",zrange:[17,17],layer:"m",epoch:292032854},{id:"tuwtvtutwwwtwwwvw",zrange:[17,17],layer:"m",epoch:292022906},{id:"tuwtvtutwwwtwwwwt",zrange:[17,17],layer:"m",epoch:292022906},{id:"tuwtvtutwwwtwwwwu",zrange:[17,17],layer:"m",epoch:292015929},{id:"tuwtvtutwwwtwwwwv",zrange:[17,17],layer:"m",epoch:292022906},{id:"tuwtvtutwwwtwwwww",zrange:[17,17],layer:"m",epoch:292015929},{id:"tuwtvtutwwwuvvttv",zrange:[17,17],layer:"m",epoch:292033128},{id:"tuwtvtutwwwuvvttw",zrange:[17,17],layer:"m",epoch:292033128},{id:"tuwtvtutwwwuvvtuv",zrange:[17,17],layer:"m",epoch:292025024},{id:"tuwtvtutwwwuvvtuw",zrange:[17,17],layer:"m",epoch:292025024},{id:"tuwtvtutwwwuvvtvt",zrange:[17,17],layer:"m",epoch:292007382},{id:"tuwtvtutwwwuvvtvu",zrange:[17,17],layer:"m",epoch:292025024},{id:"tuwtvtutwwwuvvtvv",zrange:[17,17],layer:"m",epoch:292010028},{id:"tuwtvtutwwwuvvtvw",zrange:[17,17],layer:"m",epoch:292025024},{id:"tuwtvtutwwwuvvtw",zrange:[17,17],layer:"m",epoch:292025024},{id:"tuwtvtutwwwuvvutv",zrange:[17,17],layer:"m",epoch:292023570},{id:"tuwtvtutwwwuvvutw",zrange:[17,17],layer:"m",epoch:292023570},{id:"tuwtvtutwwwuvvuuv",zrange:[17,17],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvvuuw",zrange:[17,17],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvvuvt",zrange:[17,17],layer:"m",epoch:292023570},{id:"tuwtvtutwwwuvvuvu",zrange:[17,17],layer:"m",epoch:292023570},{id:"tuwtvtutwwwuvvuvv",zrange:[17,17],layer:"m",epoch:292023570},{id:"tuwtvtutwwwuvvuvw",zrange:[17,17],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvvuwt",zrange:[17,17],layer:"m",epoch:292023570},{id:"tuwtvtutwwwuvvuwu",zrange:[17,17],layer:"m",epoch:292014523},{id:"tuwtvtutwwwuvvuwv",zrange:[17,17],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvvuww",zrange:[17,17],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvvvt",zrange:[17,17],layer:"m",epoch:292010028},{id:"tuwtvtutwwwuvvvut",zrange:[17,17],layer:"m",epoch:292007382},{id:"tuwtvtutwwwuvvvuu",zrange:[17,17],layer:"m",epoch:292014279},{id:"tuwtvtutwwwuvvvuv",zrange:[17,17],layer:"m",epoch:292007382},{id:"tuwtvtutwwwuvvvuw",zrange:[17,17],layer:"m",epoch:292033628},{id:"tuwtvtutwwwuvvvv",zrange:[17,17],layer:"m",epoch:292022142},{id:"tuwtvtutwwwuvvvwt",zrange:[17,17],layer:"m",epoch:292022142},{id:"tuwtvtutwwwuvvvwu",zrange:[17,17],layer:"m",epoch:292033628},{id:"tuwtvtutwwwuvvvwv",zrange:[17,17],layer:"m",epoch:292022142},{id:"tuwtvtutwwwuvvvww",zrange:[17,17],layer:"m",epoch:292033628},{id:"tuwtvtutwwwuvvwtt",zrange:[17,17],layer:"m",epoch:292014279},{id:"tuwtvtutwwwuvvwtu",zrange:[17,17],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvvwtv",zrange:[17,17],layer:"m",epoch:292033628},{id:"tuwtvtutwwwuvvwtw",zrange:[17,17],layer:"m",epoch:292033628},{id:"tuwtvtutwwwuvvwu",zrange:[17,17],layer:"m",epoch:292031562},{id:"tuwtvtutwwwuvvwv",zrange:[17,17],layer:"m",epoch:292033628},{id:"tuwtvtutwwwuvvwwt",zrange:[17,17],layer:"m",epoch:292033016},{id:"tuwtvtutwwwuvvwwu",zrange:[17,17],layer:"m",epoch:292033016},{id:"tuwtvtutwwwuvvwwv",zrange:[17,17],layer:"m",epoch:292033720},{id:"tuwtvtutwwwuvvwww",zrange:[17,17],layer:"m",epoch:292033720},{id:"tuwtvtutwwwvuutuu",zrange:[17,17],layer:"m",epoch:292032854},{id:"tuwtvtutwwwvuutuw",zrange:[17,17],layer:"m",epoch:292032854},{id:"tuwtvtutwwwvuutwu",zrange:[17,17],layer:"m",epoch:292031730},{id:"tuwtvtutwwwvuutww",zrange:[17,17],layer:"m",epoch:292031730},{id:"tuwtvtutwwwvuuutt",zrange:[17,17],layer:"m",epoch:292032854},{id:"tuwtvtutwwwvuuutu",zrange:[17,17],layer:"m",epoch:292022906},{id:"tuwtvtutwwwvuuutv",zrange:[17,17],layer:"m",epoch:292032854},{id:"tuwtvtutwwwvuuutw",zrange:[17,17],layer:"m",epoch:292025466},{id:"tuwtvtutwwwvuuuut",zrange:[17,17],layer:"m",epoch:292022906},{id:"tuwtvtutwwwvuuuuu",zrange:[17,17],layer:"m",epoch:292015929},{id:"tuwtvtutwwwvuuuuv",zrange:[17,17],layer:"m",epoch:292025466},{id:"tuwtvtutwwwvuuuuw",zrange:[17,17],layer:"m",epoch:292025466},{id:"tuwtvtutwwwvuuuv",zrange:[17,17],layer:"m",epoch:292025932},{id:"tuwtvtutwwwvuuuw",zrange:[17,17],layer:"m",epoch:292034184},{id:"tuwtvtutwwwvuuvuu",zrange:[17,17],layer:"m",epoch:292025932},{id:"tuwtvtutwwwvuuvuw",zrange:[17,17],layer:"m",epoch:292007434},{id:"tuwtvtutwwwvuuwtt",zrange:[17,17],layer:"m",epoch:292025932},{id:"tuwtvtutwwwvuuwtu",zrange:[17,17],layer:"m",epoch:292025932},{id:"tuwtvtutwwwvuuwtv",zrange:[17,17],layer:"m",epoch:292007434},{id:"tuwtvtutwwwvuuwtw",zrange:[17,17],layer:"m",epoch:292007434},{id:"tuwtvtutwwwvuuwu",zrange:[17,17],layer:"m",epoch:292034184},{id:"tuwtvtutwwwwttttt",zrange:[17,17],layer:"m",epoch:292022142},{id:"tuwtvtutwwwwttttu",zrange:[17,17],layer:"m",epoch:292022142},{id:"tuwtvtutwwwwttttv",zrange:[17,17],layer:"m",epoch:292014217},{id:"tuwtvtutwwwwttttw",zrange:[17,17],layer:"m",epoch:292014217},{id:"tuwtvtutwwwwtttut",zrange:[17,17],layer:"m",epoch:292022142},{id:"tuwtvtutwwwwtttuu",zrange:[17,17],layer:"m",epoch:292033628},{id:"tuwtvtutwwwwtttuv",zrange:[17,17],layer:"m",epoch:292014217},{id:"tuwtvtutwwwwtttuw",zrange:[17,17],layer:"m",epoch:292000000},{id:"tuwtvtutwwwwtttvt",zrange:[17,17],layer:"m",epoch:292034184},{id:"tuwtvtutwwwwtttvu",zrange:[17,17],layer:"m",epoch:292025224},{id:"tuwtvtutwwwwtttvv",zrange:[17,17],layer:"m",epoch:292034184},{id:"tuwtvtutwwwwtttvw",zrange:[17,17],layer:"m",epoch:292025224},{id:"tuwtvtutwwwwtttwt",zrange:[17,17],layer:"m",epoch:292025224},{id:"tuwtvtutwwwwtttwu",zrange:[17,17],layer:"m",epoch:292007381},{id:"tuwtvtutwwwwtttwv",zrange:[17,17],layer:"m",epoch:292033652},{id:"tuwtvtutwwwwtttww",zrange:[17,17],layer:"m",epoch:292033652},{id:"tuwtvtutwwwwttut",zrange:[17,17],layer:"m",epoch:292035250},{id:"tuwtvtutwwwwttuut",zrange:[17,17],layer:"m",epoch:292035250},{id:"tuwtvtutwwwwttuuu",zrange:[17,17],layer:"m",epoch:292033720},{id:"tuwtvtutwwwwttuuv",zrange:[17,17],layer:"m",epoch:292035250},{id:"tuwtvtutwwwwttuuw",zrange:[17,17],layer:"m",epoch:292033720},{id:"tuwtvtutwwwwttuv",zrange:[17,17],layer:"m",epoch:292035250},{id:"tuwtvtutwwwwttuwt",zrange:[17,17],layer:"m",epoch:292035250},{id:"tuwtvtutwwwwttuwu",zrange:[17,17],layer:"m",epoch:292025078},{id:"tuwtvtutwwwwttuwv",zrange:[17,17],layer:"m",epoch:292035250},{id:"tuwtvtutwwwwttuww",zrange:[17,17],layer:"m",epoch:292025078},{id:"tuwtvtutwwwwttvtt",zrange:[17,17],layer:"m",epoch:292034184},{id:"tuwtvtutwwwwttvtu",zrange:[17,17],layer:"m",epoch:292037158},{id:"tuwtvtutwwwwttvtv",zrange:[17,17],layer:"m",epoch:292034184},{id:"tuwtvtutwwwwttvtw",zrange:[17,17],layer:"m",epoch:292037158},{id:"tuwtvtutwwwwttvu",zrange:[17,17],layer:"m",epoch:292037158},{id:"tuwtvtutwwwwttwtt",zrange:[17,17],layer:"m",epoch:292037158},{id:"tuwtvtutwwwwttwtu",zrange:[17,17],layer:"m",epoch:292032272},{id:"tuwtvtutwwwwttwtv",zrange:[17,17],layer:"m",epoch:292038058},{id:"tuwtvtutwwwwttwtw",zrange:[17,17],layer:"m",epoch:292038058},{id:"tuwtvtutwwwwttwut",zrange:[17,17],layer:"m",epoch:292032272},{id:"tuwtvtutwwwwttwuu",zrange:[17,17],layer:"m",epoch:292032272},{id:"tuwtvtutwwwwttwuv",zrange:[17,17],layer:"m",epoch:292038058},{id:"tuwtvtutwwwwttwuw",zrange:[17,17],layer:"m",epoch:292032272}]}}]},panel:"\x3cdiv
         id=\"resultspanel\" class=\"local\"\x3e\x3cbody\x3e \x3cdiv\x3e \x3cdiv class=\"query\"
         id=\"qmod\"\x3e   \x3cspan class=\"query_terms\"\x3e\x3cspan class=\"query_terms_light\"\x3e\x3c/span\x3e\x3cspan
         class=\"query_terms_bold\"\x3e\x3c/span\x3e\x3c/span\x3e  \x3c/div\x3e \x3c/div\x3e  \x3c/body\x3e  \x3cdiv
         class=\"noprint res\"\x3e       \x3cdiv\x3e  \x3cdiv\x3e  \x3cdiv class=\"one\"
         id=\"one_A_2\" jsprops=''markerid:\"A\";oneId:\"one_A_2\";panelId:\"panel_A_2\"''
-        jstrack=\"VurTVLDODIr2iQLSqYC4BQ\" ved=\"0CA4QpQ0wAA\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
+        jstrack=\"4GPWVLqOJeyCiQLovYDQCQ\" ved=\"0CA4QpQ0wAA\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
         \x3cdiv class=\"lsicon\"\x3e \x3cdiv class=\"icon\" log=\"\" jsaction=\"app.openInfoWindow\"
-        jsprops=\"markerid:''A''\" jstrack=\"VurTVLDODIr2iQLSqYC4BQ\" ved=0CA8Q_gswAA
+        jsprops=\"markerid:''A''\" jstrack=\"4GPWVLqOJeyCiQLovYDQCQ\" ved=0CA8Q_gswAA
         id=\"marker_A_2\"\x3e\x3cimg alt=\"A\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
         class=\"mp iconA\"/\x3e\x3c/div\x3e \x3cspan\x3e \x3cimg class=\"unstarred
         noprint si_10017612433250301918\" jsaction=\"si.togglePanelStarring\" jsprops=\"markerid:''A'';b_s:2\"
-        data-authtoken=\"54d3ea57_J89KBydDB16HSiOas10Y7R9YmA\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        data-authtoken=\"54d663e1sQfjxDcJ2_l9Yx7ht8dTRVuGPaU\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
         id=\"pp-starred-item-star\" log=\"si_lhs\" width=\"21\" height=\"14\"\x3e
         \x3c/span\x3e \x3c/div\x3e \x3cdiv class=\"text vcard indent block\" id=\"panel_A_2\"\x3e  \x3cdiv
         class=\"name lname\" id=\"link_A_2\"\x3e \x3cspan class=\"pp-place-title\"\x3e\x3cspan\x3e\x3cb\x3eBoom\x3c/b\x3e
         \x3cb\x3eBoom\x3c/b\x3e \x3cb\x3eRoom\x3c/b\x3e\x3c/span\x3e\x3c/span\x3e     \x3cdiv
-        class=\"pp-coverphoto\"\x3e  \x3cdiv\x3e \x3ca href=\"http://www.google.com/local_url?dq=Boom+Boom+Room\x26amp;q=https://plus.google.com/115730760318242184917/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CBEQhgU\x26amp;sa=X\x26amp;ei=VurTVLDODIr2iQLSqYC4BQ\x26amp;s=ANYYN7lMXPiXuHNy2I-sNxssXl69MGa5Bg\"
+        class=\"pp-coverphoto\"\x3e  \x3cdiv\x3e \x3ca href=\"http://www.google.com/local_url?dq=Boom+Boom+Room\x26amp;q=https://plus.google.com/115730760318242184917/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CBEQhgU\x26amp;sa=X\x26amp;ei=4GPWVLqOJeyCiQLovYDQCQ\x26amp;s=ANYYN7l2LP1ge7huEfPzk-t7IwE_0R7BXA\"
         target=\"_blank\"\x3e \x3cdiv\x3e \x3cdiv id=\"photo-stack\"\x3e \x3cimg class=\"photo-stack-background\"
         src=\"//maps.gstatic.com/mapfiles/thumbnail.png\"\x3e  \x3cdiv class=\"photo-shadow\"\x3e
         \x3cdiv class=\"photo-border\"\x3e \x3cimg src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHFWqcCyLOBHozRgLbIePnt6h_rHgzENT-Q9OhAR1TxJGLvD4qzr0X5YxH\"
@@ -139,7 +176,7 @@ http_interactions:
         \x3cspan class=\"telephone\"\x3e \x3cnobr\x3e(415) 673-8000\x3c/nobr\x3e \x3cspan
         class=\"pp-headline-phone-label\" style=\"display:none\"\x3e ()\x3c/span\x3e  \x3c/span\x3e   \x3c/span\x3e  \x3cspan\x3e
         \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item pp-headline-authority-page\"\x3e
-        \x3cspan\x3e\x3ca href=\"http://www.google.com/local_url?dq=Boom+Boom+Room\x26amp;q=http://www.boomboomblues.com/\x26amp;ved=0CBYQ5AQ\x26amp;sa=X\x26amp;ei=VurTVLDODIr2iQLSqYC4BQ\x26amp;s=ANYYN7nic_YJ_yqZrnPAGp_wgQ37LMfz0w\"
+        \x3cspan\x3e\x3ca href=\"http://www.google.com/local_url?dq=Boom+Boom+Room\x26amp;q=http://www.boomboomblues.com/\x26amp;ved=0CBYQ5AQ\x26amp;sa=X\x26amp;ei=4GPWVLqOJeyCiQLovYDQCQ\x26amp;s=ANYYN7kvgwSKTpFK1FJfKQjQUO6sUvk_tw\"
         target=\"_blank\"\x3e\x3cspan\x3eboomboomblues.com\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e
         \x3c/span\x3e  \x3c/div\x3e  \x3cdiv class=\"one_item_space\"\x3e  \x3cspan
         id=\"pp-reviews-headline\"\x3e\x3cspan style=\"margin-right:8px\"\x3e\x3cspan
@@ -149,7 +186,7 @@ http_interactions:
         style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
         style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
         style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_empty.png\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan\x3e\x3ca
-        class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=Boom+Boom+Room\x26amp;q=https://plus.google.com/115730760318242184917/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CBUQlQU\x26amp;sa=X\x26amp;ei=VurTVLDODIr2iQLSqYC4BQ\x26amp;s=ANYYN7lMXPiXuHNy2I-sNxssXl69MGa5Bg\"
+        class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=Boom+Boom+Room\x26amp;q=https://plus.google.com/115730760318242184917/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CBUQlQU\x26amp;sa=X\x26amp;ei=4GPWVLqOJeyCiQLovYDQCQ\x26amp;s=ANYYN7l2LP1ge7huEfPzk-t7IwE_0R7BXA\"
         target=\"_blank\"\x3e\x3cspan\x3e43 reviews\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e\x3c/span\x3e
         \x3cspan style=\"color:#666\"\x3e \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item
         pp-lhs-price-attribute\"\x3e$$\x3c/span\x3e  \x3c/div\x3e \x3cdiv class=\"one_item_space\"\x3e\x3cdiv
@@ -170,14 +207,14 @@ http_interactions:
         jsvalues=\"@id:''actbar-btns-''+$this.uniqueId\" jsdisplay=\"$this.visible!=''none''\"
         jsskip=\"1\"\x3e\x3cul class=\"actbar-list\"\x3e\x3cli class=\"actbar-btn\"
         jsaction=\"ab.topLevelClick\" action=\"directions\" jsdisplay=\"$this.hasDirections\"
-        ved=\"0CBcQywYwAA\" jstrack=\"VurTVLDODIr2iQLSqYC4BQ\" \x3e\x3cspan class=\"actbar-text\"\x3eDirections\x3c/span\x3e\x3c/li\x3e\x3cli
+        ved=\"0CBcQywYwAA\" jstrack=\"4GPWVLqOJeyCiQLovYDQCQ\" \x3e\x3cspan class=\"actbar-text\"\x3eDirections\x3c/span\x3e\x3c/li\x3e\x3cli
         class=\"actbar-btn\" jsaction=\"ab.topLevelClick\" action=\"actbar-sn\" jsdisplay=\"$this.hasSearchNearby\"
-        ved=\"0CBgQzAYwAA\" jstrack=\"VurTVLDODIr2iQLSqYC4BQ\" \x3e\x3cspan class=\"actbar-text\"\x3eSearch
+        ved=\"0CBgQzAYwAA\" jstrack=\"4GPWVLqOJeyCiQLovYDQCQ\" \x3e\x3cspan class=\"actbar-text\"\x3eSearch
         nearby\x3c/span\x3e\x3c/li\x3e\x3cli class=\"actbar-btn\" jsaction=\"ab.topLevelClick\"
         jsselect=\"$this.topLevelActions\" jsdisplay=\"$count\" style=\"display:none\"
         jsvalues=\"@action:$this.action\" \x3e\x3cspan class=\"actbar-text\" jscontent=\"$this.text\"\x3e\x3c/span\x3e\x3c/li\x3e\x3cli
         class=\"actbar-btn\" jsaction=\"ab.topLevelClick\" action=\"actbar-more\"
-        jsdisplay=\"!$this.hideMoreButton\"ved=\"0CBkQzgYwAA\" jstrack=\"VurTVLDODIr2iQLSqYC4BQ\"
+        jsdisplay=\"!$this.hideMoreButton\"ved=\"0CBkQzgYwAA\" jstrack=\"4GPWVLqOJeyCiQLovYDQCQ\"
         \x3e\x3cspan class=\"actbar-text\"\x3emore\x3c/span\x3e\x3cspan class=\"actbar-arrow\"\x3e\x3cimg
         src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\" class=\"arrow-down\"\x3e\x3c/span\x3e\x3c/li\x3e\x3c/ul\x3e\x3c/span\x3e\x3c/span\x3e
         \x3cspan\x3e\x3cspan id=\"actbar-panel-A-pp\" class=\"actbar\" jsvalues=\"@unique-id:
@@ -210,48 +247,9 @@ http_interactions:
         jsattrs=\"href:panel_footer.terms_url;\" target=\"_blank\"\x3e Terms of Use\x3c/a\x3e
         \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/policies/privacy/\"
         jsattrs=\"href:panel_footer.privacy_url;\" target=\"_blank\"\x3e Privacy\x3c/a\x3e
-        \x3c/div\x3e \x3c/div\x3e\x3c/div\x3e",panelId:0,sign_in_url:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=http://www.google.com/maps%3Fq%3DBoom%2BBoom%2BRoom%26sll%3D40.740639,-74.007949%26num%3D10",is_details_req:false,dopts:{dtm:"d",atms:["d","r","w","b"],ddu:"m",transit:{hts:true,tmos:["now","dep","arr"],tm:{d:"now"},date:{},time:{v:"utc:1423174200"},sos:["def","num","walk"],st:{d:"def"},ne:{h:true},na:{h:true},ptmos:["","B","S","T","R"]}},slayers_trigger:false,timeformat:{ampm:true,dp:"mdy"},activityType:1,panel_modules:["pplhs"],page_conf:{topbar_config:{show_panel_toggler:true,directions_url:"javascript:void(0)",show_directions_link:true,startcol_only:true,show_my_places_link:true,my_places_url:"javascript:void(0)",enabled_kennedy_ui:true},panel_display:true}}'
+        \x3c/div\x3e \x3c/div\x3e\x3c/div\x3e",panelId:0,sign_in_url:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=http://www.google.com/maps%3Fq%3DBoom%2BBoom%2BRoom%26sll%3D40.740639,-74.007949%26num%3D10",is_details_req:false,dopts:{dtm:"d",atms:["d","r","w","b"],ddu:"m",transit:{hts:true,tmos:["now","dep","arr"],tm:{d:"now"},date:{},time:{v:"utc:1423336380"},sos:["def","num","walk"],st:{d:"def"},ne:{h:true},na:{h:true},ptmos:["","B","S","T","R"]}},slayers_trigger:false,timeformat:{ampm:true,dp:"mdy"},activityType:1,panel_modules:["pplhs"],page_conf:{topbar_config:{show_panel_toggler:true,directions_url:"javascript:void(0)",show_directions_link:true,startcol_only:true,show_my_places_link:true,my_places_url:"javascript:void(0)",enabled_kennedy_ui:true},panel_display:true}}'
     http_version: 
-  recorded_at: Thu, 05 Feb 2015 22:10:30 GMT
-- request:
-    method: get
-    uri: http://api.geonames.org/timezoneJSON?lat=40.740639&lng=-74.007949&username=sashafklein
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Thu, 05 Feb 2015 22:13:37 GMT
-      Server:
-      - Apache/2.2.15 (CentOS)
-      Cache-Control:
-      - no-cache
-      Access-Control-Allow-Origin:
-      - "*"
-      Content-Length:
-      - '243'
-      Connection:
-      - close
-      Content-Type:
-      - application/json;charset=UTF-8
-    body:
-      encoding: UTF-8
-      string: '{"time":"2015-02-05 17:13","countryName":"United States","sunset":"2015-02-05
-        17:18","rawOffset":-5,"dstOffset":-4,"countryCode":"US","gmtOffset":-5,"lng":-74.007949,"sunrise":"2015-02-05
-        07:02","timezoneId":"America/New_York","lat":40.740639}'
-    http_version: 
-  recorded_at: Thu, 05 Feb 2015 22:13:24 GMT
+  recorded_at: Sat, 07 Feb 2015 19:13:37 GMT
 - request:
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=40.740639,-74.007949&sensor=false
@@ -273,9 +271,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Thu, 05 Feb 2015 22:13:25 GMT
+      - Sat, 07 Feb 2015 19:13:37 GMT
       Expires:
-      - Fri, 06 Feb 2015 22:13:25 GMT
+      - Sun, 08 Feb 2015 19:13:37 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -766,7 +764,7 @@ http_interactions:
                           "lng" : -73.70027209999999
                        },
                        "southwest" : {
-                          "lat" : 40.4913686,
+                          "lat" : 40.4913699,
                           "lng" : -74.25908989999999
                        }
                     },
@@ -781,7 +779,7 @@ http_interactions:
                           "lng" : -73.70027209999999
                        },
                        "southwest" : {
-                          "lat" : 40.4913686,
+                          "lat" : 40.4913699,
                           "lng" : -74.25908989999999
                        }
                     }
@@ -820,11 +818,11 @@ http_interactions:
                     "location_type" : "APPROXIMATE",
                     "viewport" : {
                        "northeast" : {
-                          "lat" : 45.015865,
-                          "lng" : -71.85626429999999
+                          "lat" : 45.0126113,
+                          "lng" : -73.24139099999999
                        },
                        "southwest" : {
-                          "lat" : 40.4913686,
+                          "lat" : 40.6997812,
                           "lng" : -79.76214379999999
                        }
                     }
@@ -873,42 +871,5 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Thu, 05 Feb 2015 22:13:25 GMT
-- request:
-    method: get
-    uri: http://api.geonames.org/timezoneJSON?lat=40.740639&lng=-74.007949&username=sashafklein
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Thu, 05 Feb 2015 22:13:40 GMT
-      Server:
-      - Apache/2.4.6 (Linux/SUSE)
-      Cache-Control:
-      - no-cache
-      Access-Control-Allow-Origin:
-      - "*"
-      Transfer-Encoding:
-      - chunked
-      Content-Type:
-      - application/json;charset=UTF-8
-    body:
-      encoding: UTF-8
-      string: '{"sunrise":"2015-02-05 07:02","lng":-74.007949,"countryCode":"US","gmtOffset":-5,"rawOffset":-5,"sunset":"2015-02-05
-        17:18","timezoneId":"America/New_York","dstOffset":-4,"countryName":"United
-        States","time":"2015-02-05 17:13","lat":40.740639}'
-    http_version: 
-  recorded_at: Thu, 05 Feb 2015 22:13:40 GMT
+  recorded_at: Sat, 07 Feb 2015 19:13:37 GMT
 recorded_with: VCR 2.9.3

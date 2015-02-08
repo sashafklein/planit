@@ -7,17 +7,14 @@ module Completers
       if pip.names.all?(&:non_latinate?)
         return pip.names.any?{ |n| n == name } && name_stringency(pip) != 2
       end
-      
-      venue_name = clean(name)
 
       pip.names.reject(&:non_latinate?).any? do |pip_name|
-        pip_name = clean(pip_name)
-        match_percent = StringMatch.new(pip_name, venue_name).value
-        match_percent > name_stringency(pip, pip_name)
+        match_percent = Services::StringMatch.new(pip_name, name).value
+        match_percent > name_stringency(pip)
       end
     end
 
-    def name_stringency(pip, pip_name)
+    def name_stringency(pip)
       if points_of_lat_lon_similarity(pip) >= 4
         0.65
       else
