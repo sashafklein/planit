@@ -1,4 +1,4 @@
-= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'simple', :title => ['explore. dream. discover.',''] }
+= render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'simple' }
 
 .band.spaced
   .container
@@ -25,13 +25,13 @@
                   Currently waiting confirmation for: #{resource.unconfirmed_email}
             .simple-entry-form-section
               %i.fa.fa-key.simple-form-icon
-              = f.input :password, autocomplete: "off", hint: "Leave it blank if you don't want to change it", required: false, placeholder: 'New Password'
+              = f.input :password, autocomplete: "off", required: false, placeholder: 'New Password'
             .simple-entry-form-section
               %i.fa.fa-key.simple-form-icon
               = f.input :password_confirmation, required: false, placeholder: 'Confirm New Password'
             .simple-entry-form-section
               %i.fa.fa-key.simple-form-icon
-              = f.input :current_password, hint: "We need your current password to make any changes", required: true, placeholder: 'Current Password'
+              = f.input :current_password, required: true, placeholder: 'Current Password (Required)'
             .simple-entry-form-section.form-actions.right
               = f.button :submit, "Update"
               

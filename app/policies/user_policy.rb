@@ -9,7 +9,15 @@ class UserPolicy < ApplicationPolicy
     user
   end
 
-  def bucket?
+  def places?
+    user
+  end
+
+  def guides?
+    user
+  end
+
+  def inbox?
     record == user
   end
 

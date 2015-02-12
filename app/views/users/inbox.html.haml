@@ -1,0 +1,25 @@
+- title( [current_user.first_name,current_user.last_name].compact.join(' ') + "’s Inbox" )
+
+#user-inbox-page
+
+  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'inbox' }
+
+  .band.gray.spaced
+    .container
+
+      .sixteen.columns
+        .dashboard-header= "Future Home of the Planit Inbox"
+
+        %h4
+          %p
+            Personal Reco's
+          %p
+            Subscriptions (Professional Reco's)
+          %p
+            Saved Items
+          %p
+            (Trending)
+
+  = render 'show/footer', { :page_type => 'inbox' }
+
+= render 'templates/bucket_map'

@@ -1,12 +1,10 @@
-#user-bucket-page, #user-show-page, #show-plan-page, #show-place-page
+#user-places-page, #user-show-page, #show-plan-page, #show-place-page
   height: 100%
   
 // HEADER
 
 .init-header-space
-  margin: 74px 0 0 0
-  &.simple
-    margin: 106px 0 0 0
+  margin: 68px 0 0 0
 
 .initial-header
   position: fixed
@@ -15,14 +13,13 @@
   margin: 0 auto
   width: 100%
   display: block
-  height: 74px
+  height: 68px
   opacity: 1
   visibility: visible
-  z-index: 16777269
+  z-index: 140000
   &.white
     background: #fafafa
     border-top: 3px solid rgb(28, 48, 147)
-    border-bottom: 1px solid #ccc
     -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
   &.black
@@ -33,6 +30,8 @@
     border-top: 3px solid #2a2d3d
   &.blocked
     background: #fff
+  &.focused
+    border-top: 3px solid #f06 !important
 
 .header-title
   display: inline-block
@@ -58,10 +57,11 @@
   white-space: nowrap
   overflow: hidden
   img
-    margin: 10px 5px
+    margin: 7px 5px 0 5px
 
 .header-container
-  height: 71px
+  width: 100%
+  height: 65px
   padding: 0
   overflow: hidden
   margin-left: auto
@@ -72,33 +72,182 @@
   font-weight: bold
   -webkit-font-smoothing: antialiased
 
-  .page-title-bar
-    display: block
-    visibility: visible
-    position: absolute
-    top: 21px
-    padding: 4px 8px
-    text-align: center
-    &.user, &.plan, &.bucket, &.place
-      display: none
-      visibility: hidden
-
-  .search-bar-wrap
+  .page-title-wrap
     display: inline-block
     visibility: visible
     position: absolute
-    &.new, &.simple
+    margin: 0 auto
+    left: 0
+    right: 0
+    top: 19px
+    text-align: center
+    &.dashboard, &.guides, &.places, &.inbox, &.plan, &.place
       display: none
       visibility: hidden
 
+  .expanded-search-and-filter
+    display: none
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    height: 68px
+    z-index: 750
+    white-space: nowrap
+    overflow: none
+    text-align: center
+    button.close:hover
+      background: transparent !important
+
+    .search-bar-wrap
+      margin: 21px auto
+
+  .search-close
+    display: inline-block
+    position: absolute
+    top: 10px
+    right: 10px
+    color: #333
+    &:hover
+      color: #000
+
+  .search-and-filter-wrap
+    display: inline-block
+    visibility: visible
+    position: absolute
+    top: 25px
+    margin: 0 auto
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 14px
+    line-height: 14px
+    font-weight: normal
+    color: #aaa
+    text-align: right
+    &.new, &.simple
+      display: none
+      visibility: hidden
+    .filter-button
+      float: left
+      padding-bottom: 6px
+      display: inline-block
+      cursor: pointer
+      transition: all 0.2s ease
+      &:hover
+        color: #f06
+      .fa-caret-down
+        color: #aaa
+        a
+          color: #aaa
+          &:hover
+            color: #aaa
+
+    .search-teaser
+      width: 85%
+      padding-bottom: 6px
+      display: inline-block
+      border-bottom: 1px solid #ccc
+      cursor: text
+      text-align: left
+      &.full-width
+        width: 100%
+      #search-teaser-text
+        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+        font-size: 14px
+        line-height: 14px
+        color: #333
+      i
+        float: right
+        cursor: pointer
+        transition: all 0.2s ease
+        &:hover
+          color: #f06
+
+    .filter-dropdown
+      transition: all 0.2s ease
+      color: #aaa
+      &:hover
+        color: #f06
+
+ul.filter-dropdown-menu
+  padding: 15px 0
+  text-align: left
+  font-size: 14px
+  line-height: 14px
+  li.divider
+    margin: 6px 0
+
+  li.filter-dropdown-menu
+    white-space: nowrap
+    overflow: hidden
+    width: auto
+    transition: all 0.2s ease
+    a
+      cursor: pointer
+      display: inline-block
+      margin: 2px 20px
+      padding: 1px 5px
+      white-space: nowrap
+      overflow: hidden
+      border-radius: 3px
+      background: #eee
+      i, span
+        float: right
+        padding: 2px 0
+      &:hover
+        color: #fff
+        background: #f06
+        .filter-dropdown-menu-icon
+          color: #fff
+      &.clear-all-filters
+        display: none
+        visibility: hidden
+        padding: 1px 5px
+        margin: 2px 20px
+        border-radius: 3px
+        background: #ccc
+        color: #fff
+        font-weight: bold
+        transition: all 0.2s ease
+        b
+          float: right
+        &:hover
+          color: #fff
+          background: #f06
+      &.apply-filters
+        display: block
+        visibility: visible
+        background: transparent
+        font-weight: bold
+        color: #777 !important
+        &:hover
+          color: #777 !important
+        a
+          color: #777 !important
+        &:hover
+          color: #777 !important
+
+  .filter-dropdown-menu-icon
+    display: inline-block
+    margin-left: 10px
+    transition: all 0.2s ease
+    color: #777
+
+  .filter-dropdown-menu-checkbox
+    display: inline-block
+    margin-right: 10px
+
 .page-title
-  display: inline-block
+  text-align: center
+  display: block
   margin: 0
   font-size: 25px
   line-height: 25px
   font-weight: bold
   font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  text-transform: uppercase
   cursor: default
+  white-space: nowrap
+  overflow: hidden
   &.black
     color: #000
   &.white
@@ -108,23 +257,42 @@
   visibility: visible
   display: inline-block
   cursor: pointer
+  img
+    float: left
+    margin: 7px 10px 0 0
+ 
+.logo-image-top
+  width: 42px
+  height: 50px
 
 .logo-name-top
+  width: 86px
+  height: 50px
   &.new
     display: none !important
     visibility: hidden !important
+
+.logo-my-top
+  width: 39px
+  height: 50px
+  margin: 7px 2px 0 0 !important
+
+.logo-title-top
+  height: 50px
+  margin: 7px 0px 0 0 !important
 
 #input-search-field, #input-search-button
   height: 28px
   font-family: avenir, 'trebuchet ms', open sans, arial !important
   font-size: 14px !important
   line-height: 28px !important
-  margin-top: 21px !important
   padding: 0px 12px !important
   i
     font-size: 14px !important
     line-height: 28px !important
     overflow: hidden !important
+#clear-search-input
+  right: 45px !important
 
 .side-menu-container
   float: right
@@ -147,30 +315,34 @@
   &.white
     color: #fff
 
+.top-menu-container
+  float: right
+
 .main-menu-container
   cursor: pointer
   float: right
-  height: 37px
-  width: 37px
-  border-radius: 50%
-  webkit-border-radius: 50%
-  moz-border-radius: 50%
+  height: 36px
+  width: 36px
+  border-radius: 18px
+  webkit-border-radius: 18px
+  moz-border-radius: 18px
   text-align: center
   overflow: hidden
+  transition: all 0.2s ease
   &.black
     color: #fff
-    background: #000 
-    border: 3px solid #000
+    background: rgb(20, 35, 125) 
+    border: 2px solid #000
     &:hover
       background: #ff0066
-      border: 3px solid #ff0066
+      border: 2px solid #ff0066
   &.white
     color: #000
     background: #fff
-    border: 3px solid #fff
+    border: 2px solid #fff
     &:hover
       background: rgb(213, 44, 111)
-      border: 3px solid rgb(213, 44, 111)
+      border: 2px solid rgb(213, 44, 111)
   .main-menu-icon
     height: 21px
     width: 18px
@@ -180,63 +352,117 @@
     top: 50%
     transform: translateY(-50%)
 
+ul.user-dropdown-menu
+  padding: 5px 0
+  margin-right: 3px
+  font-size: 15px
+  line-height: 18px
+  text-align: right
+
+li.user-dropdown-menu
+  white-space: nowrap
+  overflow: hidden
+  width: auto
+  &:hover
+    .user-dropdown-menu-icon
+      color: #f06
+
+.user-dropdown-menu-icon
+  width: 30px
+  text-align: center
+  margin-left: 10px
+  transition: all 0.2s ease
+
 .top-nav-bar
   cursor: pointer
   text-align: center
   display: table
   table-layout: fixed
+  white-space: nowrap
+  overflow: hidden
+  a.nav-item-link
+    display: table-cell
+    &.selected
+      cursor: default
+  a:visited, a:link
+    text-decoration: none
+    color: #777
+  a:hover, a:active
+    text-decoration: none
+    color: #ff0066
 
   .nav-item
-    padding: 0px 10px 5px 10px
+    display: table-cell
+    padding: 0px 15px 19px 15px
     box-sizing: border-box
     -moz-box-sizing: border-box
     -webkit-box-sizing: border-box
-    display: table-cell
     width: auto
     color: #777
     font-size: 18px
     line-height: 18px
+    text-shadow: 1px 1px 1px #fff
     border-bottom: 3px transparent solid
     transition: all 0.2s ease
-    &.raised
-      color: #666
+    overflow: hidden
+    max-height: 30px
     &:hover, &:active
       color: #ff0066
       border-bottom: 3px #ff0066 solid
+      a:visited, a:link, a:hover, a:active
+        color: #f06
+        text-decoration: none
       .nav-item-hint
         opacity: 1
+        display: inline-block
+        visibility: visible
         span
-          background: #ff0066
+          color: #ff0066
+          background: rgba( 255,255,255,1 )
     &.selected
       color: #333
+      border-bottom: #aaa 3px solid 
       &:hover, &:active
         color: #000
         border-bottom: #000 3px solid
         .nav-item-hint
-          span
-            background: #000
+          display: none
+          visibility: hidden
+    &.disabled
+      cursor: default
+      color: #ddd
+      border-bottom: none
+      &:hover, &:active
+        color: #ddd
+        border-bottom: none
+        .nav-item-hint
+          display: none
+          visibility: hidden
 
-    .nav-item-hint
-      display: inline-block
-      opacity: 0
-      position: absolute
-      top: 0px
-      width: 70px
-      margin-left: -35px
-      overflow: hidden
-      white-space: nowrap
-      span
-        color: #fff
-        padding: 0px 3px
-        border-radius: 2px
-        -webkit-border-radius: 2px
-        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-        font-size: 11px
-        font-weight: bold
+  .nav-item-hint
+    display: none
+    visibility: hidden
+    position: absolute
+    opacity: 0
+    top: 65px
+    width: 150px
+    margin-left: -84px
+    text-align: center
+    white-space: nowrap
+    padding: 5px 0 0 0
+    z-index: 950
+    span
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-size: 11px
+      line-height: 11px
+      font-weight: bold
+      padding: 3px 5px
+      border-radius: 3px
+      -webkit-border-radius: 3px
 
 .page-header-band
   position: fixed
-  top: 74px
+  top: 68px
   height: 32px
   padding: 0
   margin: 0 auto
@@ -248,7 +474,7 @@
   opacity: 1
   visibility: visible
   z-index: 16777269
-  &.place, &.user, &.plan, &.new, &.simple, &.bucket
+  &.place, &.user, &.plan, &.new, &.simple, &.places
     display: none
     visibility: none
 
@@ -344,24 +570,26 @@
   display: block !important
   visibility: visible !important
 
-.page-title-bar
-  left: 305px
+.page-title-wrap
   width: 350px
 
 .initial-header
-  .search-bar-wrap
+  .search-and-filter-wrap
     left: 0
     right: 0
-    width: 400px
+    width: 30%
     margin: 0 auto
+  .search-bar-wrap
+    width: 30%
+    margin: 21px auto
 
 .side-menu-container
   visibility: visible
   display: inline-block
-  margin: 24px 0
+  margin: 22px 0 0 0
 
 .main-menu-container
-  margin: 17px 0 0 15px
+  margin: 14px 0 0 15px
 
 .main-menu
   visibility: hidden
@@ -397,23 +625,25 @@
     display: block !important
     visibility: visible !important
 
-  .page-title-bar
-    left: 244px
+  .page-title-wrap
     width: 288px
 
   .initial-header
-    .search-bar-wrap
+    .search-and-filter-wrap
       left: 0
       right: 0
-      width: 300px
+      width: 30%
       margin: 0 auto
+    .search-bar-wrap
+      width: 45%
+      margin: 21px auto
 
   .side-menu-container
     visibility: visible
     display: inline-block
 
   .main-menu-container
-    margin: 17px 0 0 15px
+    margin: 14px 0 0 15px
 
   .main-menu
     visibility: hidden
@@ -442,42 +672,74 @@
         border-bottom: 1px solid rgba(0, 0, 0, 0)
         cursor: default
 
+  .top-nav-bar
+    .nav-item
+      padding: 0px 11px 19px 11px
+
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
 
+  .logo-container
+    img
+      margin: 2px 10px 0 0
+
+  .header-container
+    height: 55px
+
+  .init-header-space
+    margin: 55px 0 0 0 !important
+
   .initial-header
+    height: 55px
     background: #000 !important
-    border-top: 3px solid #222 !important
+    border-top: 0px !important
 
   .logo-name-top
     display: none !important
     visibility: hidden !important
   
-  .page-title-bar
-    left: 60px
-    width: 185px
+  .page-title-wrap
+    width: 205px
 
   .page-title.extra
     visibility: hidden
     display: none
 
   .initial-header
-    .search-bar-wrap
+    .expanded-search-and-filter
+      height: 55px
+      .search-bar-wrap
+        margin: 13px auto
+      .search-close
+        color: #fff !important
+        text-shadow: none
+        opacity: 0.7
+        &:hover
+          opacity: 0.9
+          color: #fff !important        
+    .search-and-filter-wrap
+      top: 18px
       left: 80px
       right: 80px
       width: auto
-    &.bucket
-      .search-bar-wrap
-        left: 80px
-        right: 80px
-        width: auto
+    .search-bar-wrap
+      left: 0px
+      right: 0px
+      margin: 14px auto
+      padding: 0 35px 
+      width: auto
+  .initial-header.focused
+    border-top: 0px !important
+
+  #search-teaser-text
+    color: #fff
 
   .side-menu-container
     visibility: hidden
     display: none
 
   .main-menu-container
-    margin: 17px 0 0 0px
+    margin: 9px 0 0 0px
 
   .user-icon
     visibility: hidden
@@ -507,34 +769,61 @@
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
 
+  .logo-container
+    img
+      margin: 2px 10px 0 0
+
   .logo-name-top
     display: none !important
     visibility: hidden !important
   
-  .page-title-bar
-    left: 60px
+  .page-title-wrap
     width: 302px
 
+  .header-container
+    height: 55px
+
+  .init-header-space
+    margin: 55px 0 0 0 !important
+
   .initial-header
+    height: 55px
     background: #000 !important
-    border-top: 3px solid #222 !important
-    .search-bar-wrap
+    border-top: 0px !important
+    .expanded-search-and-filter
+      height: 55px
+      .search-bar-wrap
+        margin: 13px auto
+      .search-close
+        color: #fff !important
+        text-shadow: none
+        opacity: 0.7
+        &:hover
+          opacity: 0.9
+          color: #fff !important        
+    .search-and-filter-wrap
+      top: 18px
       left: 80px
       right: 80px
       width: auto
-    &.bucket
-      .search-bar-wrap
-        left: 80px
-        right: 80px
-        width: auto
+    .search-bar-wrap
+      left: 0px
+      right: 0px
+      padding: 0 35px 
+      margin: 14px auto
+      width: auto
+  .initial-header.focused
+    border-top: 0px !important
 
+  #search-teaser-text
+    color: #fff
 
   .side-menu-container
     visibility: hidden
     display: none
   
   .main-menu-container
-    margin: 17px 0 0 0px
+    margin: 7px 0 0 0px
 
   .user-icon
     visibility: hidden

@@ -2,10 +2,6 @@ module Completers
   class Translate < Geolocate
 
     def complete
-      location_vals = [pip.locality, pip.region, pip.country, pip.subregion].reject(&:blank?)
-
-      return success unless location_vals.any?(&:non_latinate?)
-
       get_results( get_query )
 
       if response.empty?

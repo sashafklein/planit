@@ -5,6 +5,49 @@ body
 html, body
   height: 100% !important
 
+.clear-input-button
+  position: absolute
+  right: 5px
+  top: 0
+  bottom: 0
+  min-width: 15px
+  height: 15px
+  margin: auto
+  font-size: 15px
+  cursor: pointer
+  color: #ccc
+  text-align: center
+  z-index: 20000
+  i
+    vertical-align: top
+  &:hover
+    color: #f06
+
+.planit-modal
+  z-index: 150000 !important
+  button.close:hover
+    background: transparent !important
+  .modal-body
+    background-color: #fefefe
+  .modal-footer
+    font-size: 15px
+    line-height: 15px
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  .modal-title
+    font-size: 18px
+    line-height: 18px
+    font-weight: bold
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    text-transform: uppercase    
+  .share-with, .new-pin-nearby, .new-pin-query
+    width: 100%
+    padding: 6px 12px
+    position: relative
+  .new-pin-nearby
+    margin-top: 10px
+  .form-group
+    position: relative !important
+
 .profiler-popup
   width: 950px
   height: 300px
@@ -328,11 +371,15 @@ hr.divider
 
 // *Computer (Regular)
 
+.planit-modal
+  .modal-dialog
+    margin: 85px auto
+    
 .mobile
   visibility: hidden
   display: none
 
-.large-screen
+.large-screen, .largest-screen
   visibility: visible
   display: inherit
 
@@ -343,6 +390,10 @@ hr.divider
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
 
+  .planit-modal
+    .modal-dialog
+      margin: 85px auto
+      
   .mobile
     visibility: hidden
     display: none
@@ -351,6 +402,10 @@ hr.divider
     visibility: visible
     display: inherit
 
+  .largest-screen
+    visibility: hidden
+    display: none
+
   .large-screen-inline
     visibility: visible
     display: inline-block
@@ -358,21 +413,29 @@ hr.divider
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
 
+  .planit-modal
+    .modal-dialog
+      margin: 30px auto
+
   .mobile
     visibility: visible
     display: inherit
 
-  .large-screen, .large-screen-inline
+  .large-screen, .largest-screen, .large-screen-inline
     visibility: hidden
     display: none
 
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
 
+  .planit-modal
+    .modal-dialog
+      margin: 30px auto
+      
   .mobile
     visibility: visible
     display: inherit
 
-  .large-screen, .large-screen-inline
+  .large-screen, .largest-screen, .large-screen-inline
     visibility: hidden
     display: none

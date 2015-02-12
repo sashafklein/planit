@@ -17,6 +17,8 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
     maxClusterRadius: 80, //A cluster will cover at most this many pixels from its center
     iconCreateFunction: null,
 
+    requireDoubleClick: false,
+
     spiderfyOnMaxZoom: true,
     showCoverageOnHover: true,
     zoomToBoundsOnClick: true,
@@ -610,11 +612,16 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
     var map = this._map,
         spiderfyOnMaxZoom = this.options.spiderfyOnMaxZoom,
         showCoverageOnHover = this.options.showCoverageOnHover,
+        requireDoubleClick = this.options.requireDoubleClick,
         zoomToBoundsOnClick = this.options.zoomToBoundsOnClick;
 
     //Zoom on cluster click or spiderfy if we are at the lowest level
     if (spiderfyOnMaxZoom || zoomToBoundsOnClick) {
-      this.on('clusterclick', this._zoomOrSpiderfy, this);
+      if (requireDoubleClick) {
+        this.on('clusterdblclick', this._zoomOrSpiderfy, this);
+      } else {
+        this.on('clusterclick', this._zoomOrSpiderfy, this);
+      }
     }
 
     //Show convex hull (boundary) polygon on mouse over
@@ -644,8 +651,6 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 
   _showCoverage: function (e) {
     var map = this._map;
-
-    var boundsBuffer = 0.002;
 
     if (this._inZoomAnimation) {
       return;
@@ -685,11 +690,16 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
   _unbindEvents: function () {
     var spiderfyOnMaxZoom = this.options.spiderfyOnMaxZoom,
       showCoverageOnHover = this.options.showCoverageOnHover,
+      requireDoubleClick = this.options.requireDoubleClick,
       zoomToBoundsOnClick = this.options.zoomToBoundsOnClick,
       map = this._map;
 
     if (spiderfyOnMaxZoom || zoomToBoundsOnClick) {
-      this.off('clusterclick', this._zoomOrSpiderfy, this);
+      if (requireDoubleClick) {
+        this.off('clusterdblclick', this._zoomOrSpiderfy, this);
+      } else {
+        this.off('clusterclick', this._zoomOrSpiderfy, this);
+      }
     }
     if (showCoverageOnHover) {
       this.off('clustermouseover', this._showCoverage, this);

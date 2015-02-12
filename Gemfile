@@ -16,7 +16,6 @@ gem "rack-timeout"
 gem "rails", '4.2.0'
 gem "recipient_interceptor"
 gem "sass-rails"
-gem "title"
 gem "uglifier"
 gem "unicorn"
 

@@ -1,4 +1,4 @@
-angular.module("Common").directive 'placeMap', (MapOptions, F, API, Place, User, PlanitMarker) ->
+angular.module("Common").directive 'placeMap', (MapOptions, F, Place, User, PlanitMarker) ->
 
   return {
     restrict: 'E'

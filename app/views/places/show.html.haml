@@ -6,22 +6,13 @@
 
   .place-page-splash
     .container
-      .thirteen.columns.name-essentials-wrap
+      .sixteen.columns.name-essentials-wrap
         .place-page-name= @place.name
         = @place.decorate.show_categories
-      .three.columns.book-been-save-wrap
-        .book-been-save-bar
-          .click-to.book
-            %i.fa.fa-calendar.place-show-icon
-          .click-to.been
-            %i.fa.fa.fa-check-circle.place-show-icon
-          .click-to
-            %i.fa.fa-list-ol.place-show-icon
-          .click-to.save
-            %i.fa.fa.fa-heart.place-show-icon
 
     .container
       .five.columns
+        .place-controls= @place.decorate.show_place_controls
         .map-address-wrap
           .empty-map-box
             %place_map.map-canvas.places-single{ place_id: @place.id, current_user_id: current_user_id }
@@ -34,14 +25,22 @@
           .hours.other-info-wrap.hours-availability-booking
             = @place.decorate.show_open_today
             = @place.decorate.show_hours
-        .other-info-wrap.menu-cost-reservations
-          = @place.decorate.show_reservations
-          = @place.decorate.show_price_info
-          = @place.decorate.show_view_menu
-          = @place.decorate.show_has_wifi
+        - if @place.other_info?
+          .other-info-wrap
+            .menu-cost-reservations
+              = @place.decorate.show_reservations
+              = @place.decorate.show_price_info
+              = @place.decorate.show_view_menu
+              = @place.decorate.show_has_wifi
 
       .eleven.columns.photos-wrap
         = @place.decorate.show_photos_or_noimage
+
+    .container
+      .sixteen.columns
+        - if @place.has_sources?
+          .more-info-wrap
+            = @place.decorate.show_foursquare_link
 
   = @place.decorate.next_image_script
 

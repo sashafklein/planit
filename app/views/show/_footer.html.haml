@@ -1,3 +1,4 @@
+.footer-spacing
 .footer.large-screen{ class: page_type }
   .container
 
@@ -32,14 +33,8 @@
 
 .footer.mobile{ class: page_type }
   .bottom-nav-bar
-    .nav-item.nav-item-map{ class: page_type }
-      %span.icon-map4
-    .nav-item.nav-item-list{ class: page_type }
-      %i.fa.fa-th-list
-    .nav-item.nav-item-new.raised{ class: page_type }
-      %i.fa.fa-plus-circle
-    .nav-item.nav-item-feed{ class: page_type }
-      %i.fa.fa-inbox
-    .nav-item.nav-item-share{ class: page_type }
-      %i.fa.fa-paper-plane
-
+    = current_user.decorate.nav_item_map(page_type)
+    = current_user.decorate.nav_item_list(page_type)
+    = current_user.decorate.nav_item_new(page_type)
+    = current_user.decorate.nav_item_inbox(page_type)
+    = current_user.decorate.nav_item_share(page_type)

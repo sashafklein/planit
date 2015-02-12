@@ -1,4 +1,4 @@
-angular.module("Common").directive 'printMap', (MapOptions, F, API, Place, User) ->
+angular.module("Common").directive 'printMap', (MapOptions, F, Place, User) ->
 
   return {
     restrict: 'E'
@@ -17,7 +17,7 @@ angular.module("Common").directive 'printMap', (MapOptions, F, API, Place, User)
           scope.places = Place.generateFromJSON(places)
           scope.drawMap(scope, element)
         .error (response) ->
-          alert("Failed to grab places information!")
+          console.log("Failed to grab places information!")
           console.log response
 
       scope.drawMap = (scope, elem) ->

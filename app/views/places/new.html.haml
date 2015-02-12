@@ -1,6 +1,10 @@
+/ IF NO INCOMING DATA, OPEN MODAL
+
+- title 'Confirm New Place'
+
 #new-place-page
 
-  = render 'show/header', { :background => 'black', :color => 'white', :start => '', :page_type => 'new', :title => ['add new','place'] }
+  = render 'show/header', { :background => 'black', :color => 'white', :start => '', :page_type => 'new', :subtitle => ['confirm place','details'] }
 
   .place-page
 
@@ -37,7 +41,7 @@
               %i.fa.fa-caret-down
               Add Photo &/or Custom Pin
             .add-new-submit.disabled
-              Add
+              Save
               .large-screen= "Place"
             %hr.divider
 
@@ -62,4 +66,4 @@
             %span.gray= "Add Photos"
 
         .add-new-submit.halo.large-screen.disabled
-          Add Place
+          Save Place
