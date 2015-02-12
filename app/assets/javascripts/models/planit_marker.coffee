@@ -1,25 +1,9 @@
 mod = angular.module('Models')
-mod.factory 'PlanitMarker', ($compile) ->
+mod.factory 'PlanitMarker', ($timeout) ->
 
   class PlanitMarker
 
-    @catIconFor: (metacategories) ->
-      if metacategories
-        return "<i class='fa fa-globe padding-top'></i>" if(metacategories[0] == 'Area')
-        return "<span class='icon-directions-walk'></span>" if(metacategories[0] == 'Do')
-        return "<span class='icon-local-bar'></span>" if(metacategories[0] == 'Drink')
-        return "<span class='icon-local-restaurant'></span>" if(metacategories[0] == 'Food')
-        return "<i class='fa fa-life-ring'></i>" if(metacategories[0] == 'Help')
-        return "<i class='fa fa-money'></i>" if(metacategories[0] == 'Money')
-        return "<i class='fa fa-globe'></i>" if(metacategories[0] == 'Other')
-        return "<span class='icon-drink'></span>" if(metacategories[0] == 'Relax')
-        return "<i class='fa fa-university xsm'></i>" if(metacategories[0] == 'See')
-        return "<i class='fa fa-shopping-cart'></i>" if(metacategories[0] == 'Shop')
-        return "<span class='icon-home'></span>" if(metacategories[0] == 'Stay')
-        return "<i class='fa fa-exchange sm padding-bottom'></i>" if(metacategories[0] == 'Transit')
-      return "<i class='fa fa-globe padding-top'></i>"
-
-    @primaryPin: (place, show_popup = true, tether_pin = false) ->
+    @primaryPin: (place, show_popup = false) ->
       primaryMarker = L.marker(new L.LatLng(place.lat, place.lon), options={
         title: place.names[0],
         alt: place.names[0],
@@ -30,7 +14,7 @@ mod.factory 'PlanitMarker', ($compile) ->
         },
         icon: L.divIcon({
           className: 'default-map-div-icon',
-          html: "<div class='default-map-icon-tab' id='p#{place.id}'>#{ @catIconFor( place.meta_categories ) }<div class='arrow' /></div>",
+          html: """ <div class='default-map-icon-tab p#{place.id}' id='p#{place.id}'><i class='#{place.meta_icon || ''}'></i><div class='arrow' /></div> """,
           iconSize: null,
         }),
       })
@@ -43,9 +27,27 @@ mod.factory 'PlanitMarker', ($compile) ->
       L.marker([place.lat, place.lon], {
         icon: L.divIcon({
           className: 'contextual-map-div-icon',
-          html: "<div class='contextual-map-icon-tab' id='pin-#{ place.id }'>#{ @catIconFor( place.meta_categories ) }</div>",
+          html: """ <div class='contextual-map-icon-tab p#{place.id}' id='p#{place.id}'><i class='#{place.meta_icon}'></i></div> """,
           iconSize: null,
         })
       }).bindPopup("<a href='/places/#{place.id}'>#{ place.name() }</a>", {offset: new L.Point(0,3), className: 'mini-popup'})
+
+    @clusterPin: (cluster) ->
+      children = cluster.getAllChildMarkers().length
+      if children > 99
+        L.divIcon
+          className: "cluster-map-div-container"
+          html: """ <span class='cluster-map-icon-tab large c#{cluster._leaflet_id}' id='c#{cluster._leaflet_id}'>#{children}</span> """
+          iconSize: new L.Point(40,40)
+      else if children > 9
+        L.divIcon
+          className: "cluster-map-div-container"
+          html: """ <span class='cluster-map-icon-tab medium c#{cluster._leaflet_id}' id='c#{cluster._leaflet_id}'>#{children}</span> """
+          iconSize: new L.Point(36,36)
+      else
+        L.divIcon
+          className: "cluster-map-div-container"
+          html: """ <span class='cluster-map-icon-tab small c#{cluster._leaflet_id}' id='c#{cluster._leaflet_id}'>#{children}</span> """
+          iconSize: new L.Point(34,34)
 
   return PlanitMarker

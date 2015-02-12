@@ -1,8 +1,9 @@
+- title( [@user.first_name,@user.last_name].compact.join(' ') )
+
 #user-show-page
 
-  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'user' }
+  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'dashboard' }
 
-  = link_to 'Sign Out', destroy_user_session_path, method: :delete
   .band.gray.spaced.large-screen
     .container
 
@@ -20,35 +21,4 @@
         .profile-and-info-wrap
           .profile-photo-box
 
-
-  .band.gray.spaced
-    .container
-
-      .eight.columns.recent-activity-list
-        .dashboard-header= "Plans & Guides"
-
-        - if @user.plans.present?
-          - @user.plans.order('updated_at DESC').group_by{ |p| p.updated_at.to_date }.each do |date, plans| 
-            %ul.activity-list= days_since_string(date)
-            - plans.each do |plan|
-              %li.activity-line= plan.decorate.created_or_updated_at_link
-
-        - else
-          .no-activity-alert
-            .no-activity-note= @user.decorate.show_no_plans_alert
-            = @user.decorate.show_create_plan_button
-
-      .eight.columns.recent-activity-list
-        .dashboard-header= "Recent Pins"
-
-        - if @user.marks_in_last_month? || @user.items_in_last_month?
-          - @user.marks.order('updated_at DESC').group_by{ |p| p.updated_at.to_date }.each do |date, marks| 
-            %ul.activity-list= days_since_string(date)
-            - marks.each do |mark|
-              %li.activity-line= mark.decorate.created_or_updated_at_link
-
-        .no-activity-alert
-          .no-activity-note= @user.decorate.show_no_pins_alert
-          = @user.decorate.show_bookmarklet_button_with_text
-
-  = render 'show/footer', { :page_type => 'user' }
+  = render 'show/footer', { :page_type => 'dashboard' }

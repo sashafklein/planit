@@ -1,0 +1,27 @@
+%script{ type: 'text/ng-template', id: 'bucket_list_places.html' }
+  .bucket-list-tab
+    .bucket-list-no-img{ ng_if: "!place.hasImage()", ng_href: "/places/{{place.id}}" }
+    .bucket-list-img{ ng_if: "place.hasImage()", style: "background-image: url('{{place.images[0].url}}');", id: "{{'p' + place.id}}", ng_href: "/places/{{place.id}}" }
+    .bucket-list-wrap
+      .bucket-list-profile{ id: "{{'p' + place.id}}" }
+        %a.bucket-list-title{ ng_href: "/places/{{place.id}}" }
+          {{ place.name() }}
+        .bucket-list-more-info
+          %i{ class: '{{place.meta-icon}}'}
+          {{ place.categories.join(', ') }}
+      .bucket-list-controls
+        .bucket-list-control{ class: "edit-place", id: 'tag', data: { place_ids: "{{[place.id]}}" } }
+          %span.bucket-list-control-hint= "Tag"
+          %i.fa.fa-tag
+        .bucket-list-control{ class: "edit-place", id: 'note', data: { place_ids: "{{[place.id]}}" } }
+          %span.bucket-list-control-hint= "Add Note"
+          %i.fa.fa-pencil
+        .bucket-list-control{ class: "edit-place", id: 'been', data: { place_ids: "{{[place.id]}}" } }
+          %span.bucket-list-control-hint= "Been"
+          %i.fa.fa-check-square
+        .bucket-list-control{ class: "edit-place", id: 'love', data: { place_ids: "{{[place.id]}}" } }
+          %span.bucket-list-control-hint= "Love"
+          %i.fa.fa-heart
+        .bucket-list-control{ class: "edit-place", id: 'save', data: { place_ids: "{{[place.id]}}" } }
+          %span.bucket-list-control-hint= "Save"
+          %i.fa.fa-bookmark

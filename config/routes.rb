@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show] do
-    get :bucket, on: :member
+    get :places, on: :member
+    get :guides, on: :member
+    get :inbox, on: :member
   end
 
   resources :places, only: [:show, :new] do

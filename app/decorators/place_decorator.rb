@@ -22,14 +22,38 @@ class PlaceDecorator < Draper::Decorator
 
   # PLACE_SHOW
 
+  def show_place_controls
+    html = """
+    <div class='place-controls'>
+      <div class='place-control edit-place' id='tag' data-place-ids='#{[place.id]}'>
+        <span class='place-control-hint'>Tag</span>
+        <i class='fa fa-tag'></i>
+      </div>   
+      <div class='place-control edit-place' id='note' data-place-ids='#{[place.id]}'>
+        <span class='place-control-hint'>Add Note</span>
+        <i class='fa fa-pencil'></i>
+      </div>   
+      <div class='place-control edit-place' id='been' data-place-ids='#{[place.id]}'>
+        <span class='place-control-hint'>Been</span>
+        <i class='fa fa-check-square'></i>
+      </div>   
+      <div class='place-control edit-place' id='love' data-place-ids='#{[place.id]}'>
+        <span class='place-control-hint'>Love</span>
+        <i class='fa fa-heart'></i>
+      </div>   
+      <div class='place-control edit-place' id='save' data-place-ids='#{[place.id]}'>
+        <span class='place-control-hint'>Save</span>
+        <i class='fa fa-bookmark'></i>
+      </div>   
+    </div>
+    """.html_safe 
+  end
+
   def show_categories
-    if categories && categories.length > 0
-      content_tag :div, categories.join(", ").titleize, :class => 'place-page-category'
-    else
-      content_tag :div, :class => 'place-page-category' do
-        content_tag :span, "<i class='fa fa-pencil place-show-icon'></i>Edit Destination Type".html_safe, :class => 'gray'
-      end
-    end
+    html = "<i class='#{meta_icon} place-page-meta-category'></i>"
+    html += "<div class='place-page-category"
+    html += if ( categories && categories.length > 0 ) then "'>#{categories.join(', ').titleize}</div>" else "gray '>Edit Destination Type</div>" end
+    html.html_safe
   end
 
   def show_alt_names_in_parens
@@ -39,7 +63,7 @@ class PlaceDecorator < Draper::Decorator
   end
 
   def show_address_linked_to_directions
-    h.link_to "https://maps.google.com?daddr=#{lat},#{lon}", :class => 'a-override a-black u-none h-black s-neon' do
+    h.link_to "https://maps.google.com?daddr=#{lat},#{lon}", :class => 'directions-link' do
       ''.html_safe + show_street_or_full_address + show_locality_zip_and_region + show_country
     end
   end
@@ -169,14 +193,16 @@ class PlaceDecorator < Draper::Decorator
 
   def show_reservations
     if reservations
-      content_tag :div, :class => 'more-info-line' do
+      content_tag :div, :class => 'more-info-line ' do
         if reservations_link
           "<i class='fa fa-calendar place-show-icon'></i>Takes Reservations".html_safe
         else
           "<i class='fa fa-calendar place-show-icon'></i><a href='#{reservations_link}'>Make a Reservation</a>".html_safe
         end
       end
-    end
+    else
+      "<i class='fa fa-calendar place-show-icon'></i>No Reservations".html_safe
+    end      
   end
 
   def show_price_info
@@ -208,6 +234,50 @@ class PlaceDecorator < Draper::Decorator
       end
     end
   end
+
+  def show_foursquare_link
+    if foursquare_id
+      html = "<div class='more-info-line'>"
+      html += "<i class='fa fa-foursquare place-show-icon'></i>"
+      if foursquare_rating
+        html += "<span class='rating "
+        html += "green" if foursquare_rating > 8
+        html += "yellow" if foursquare_rating < 8 && foursquare_rating > 6
+        html += "red" if foursquare_rating <= 6
+        html += "'><b>" + foursquare_rating.to_s + "</b>/10</span> rated on "
+      end
+      html += "<a href='http://www.foursquare.com/v/"+foursquare_id+"'>Foursquare</a>"
+      html += " Venue Info" unless foursquare_rating
+      html += "</div>"
+      return html.html_safe
+    end
+  end
+
+  def show_yelp_link
+    if yelp_id
+      html = "<div class='more-info-line'>"
+      html += "<i class='fa fa-foursquare place-show-icon'></i>"
+      if yelp_rating
+        html += "<span class='rating "
+        html += "five" if yelp_rating == 5
+        html += "fourfive" if yelp_rating > 4.49 && yelp_rating < 5
+        html += "four" if yelp_rating > 3.99 && yelp_rating > 4.5
+        html += "threefive" if yelp_rating > 3.49 && yelp_rating > 4
+        html += "three" if yelp_rating > 2.99 && yelp_rating > 3.5
+        html += "twofive" if yelp_rating > 2.49 && yelp_rating > 3
+        html += "two" if yelp_rating > 1.99 && yelp_rating > 2.5
+        html += "onefive" if yelp_rating > 1.49 && yelp_rating > 2
+        html += "one" if yelp_rating <= 1  && yelp_rating > 1.5
+        html += "'> rated on "
+      end
+      html += "<a href='http://www.foursquare.com/v/"+yelp_id+"'>Yelp</a>"
+      html += " Venue Info" unless yelp_rating
+      html += "</div>"
+      return html.html_safe
+    end
+  end
+
+  # *** PRIVATE ***
 
   private
 

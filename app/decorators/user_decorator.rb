@@ -19,7 +19,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def show_travel_stats_as_caption
-    "#{pin_on_circle_icon} <span class='gray'>#{marks.count} pins and #{plans.count} plans</span> <span class='gray large-screen-inline'>across #{marks.all_countries.count} countries and _#{} continents</span>".html_safe
+    "#{pin_on_circle_icon} <span class='gray'>#{marks.count} pins and #{plans.count} plans</span> <span class='gray large-screen-inline'>across #{marks.all_localities.count} cities & #{marks.all_countries.count} countries</span>".html_safe
   end
 
   def show_no_plans_alert
@@ -40,6 +40,171 @@ class UserDecorator < Draper::Decorator
     "#{show_bookmarklet_button} Planit Bookmarklet".html_safe
   end
 
+  def page_type_title(page_type)
+    return image_tag('logo_guides_only.png', alt: 'GUIDES', class: 'logo-title-top largest-screen', style: 'width: 88px') if page_type == 'guides'
+    return image_tag('logo_map_only.png', alt: 'MAP', class: 'logo-title-top largest-screen', style: 'width: 55px') if page_type == 'places'
+    return image_tag('logo_inbox_only.png', alt: 'INBOX', class: 'logo-title-top largest-screen', style: 'width: 80px') if page_type == 'inbox'
+    return image_tag('logo_new_only.png', alt: 'ADD NEW', class: 'logo-title-top largest-screen', style: 'width: 117px') if page_type == 'new'
+  end
+
+  # NAVBARS
+
+  def nav_item_map(page_type)
+    return nav_item('map', 'my places', 'span', 'icon-map4', nil, nil) if page_type == 'places'
+    nav_item('map', 'my places', 'span', 'icon-map4', user_path(model)+'/places', nil)
+  end
+
+  def nav_item_list(page_type)
+    return nav_item('guides', 'my guides', 'i', 'fa fa-list', nil, nil) if (page_type == 'guides' || page_type == 'plan')
+    nav_item('guides', 'my guides', 'i', 'fa fa-list', user_path(model)+'/guides', nil)
+  end
+
+  def nav_item_new(page_type)
+    return nav_item('new', 'add new', 'i', 'fa fa-plus-circle', nil, 'disabled') if page_type == 'new'
+    nav_item('new', 'add new', 'i', 'fa fa-plus-circle', nil, true)
+  end
+
+  def nav_item_inbox(page_type)
+    return nav_item('inbox', 'my inbox', 'i', 'fa fa-inbox', nil, 'disabled') if page_type == 'inbox'
+    nav_item('inbox', 'my inbox', 'i', 'fa fa-inbox', nil, 'disabled') # user_path(model)+'/inbox' 
+  end
+
+  def nav_item_share(page_type)
+    return nav_item('share', 'share this', 'i', 'fa fa-paper-plane', nil, 'disabled') if page_type == 'inbox'
+    nav_item('share', 'share this', 'i', 'fa fa-paper-plane', nil, true)
+  end
+
+  # 
+
+  def search_teaser(page_type)
+    html = "<div class='search-teaser"
+    html += " full-width" unless ( page_type == 'guides' || page_type == 'places' )
+    html += "'><span id='search-teaser-text'></span><i class='fa fa-search fa-lg'></i></div>"
+    html.html_safe
+  end
+
+  def filter_or_tag_button(page_type)
+    return "<i class='fa fa-sliders fa-lg'></i> <i class='fa fa-caret-down'></i>".html_safe if page_type == 'places' 
+    return "<i class='fa fa-tag fa-lg'></i> <i class='fa fa-caret-down'></i>".html_safe if page_type == 'guides' 
+  end
+
+  def filter_dropdown_menu(page_type)
+    html = "<ul class='dropdown-menu dropdown-menu-left filter-dropdown-menu'>"
+    if page_type == 'places'
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#' class='apply-filters'>Apply Filters:</a>"
+      html +=   "<a href='#' class='clear-all-filters'>Clear All <b>×</b></a>"
+      html += "</li>"
+      html += "<li class='divider'></li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'><label><input type='checkbox' class='filter-dropdown-menu-checkbox'>Nearby Current Location<i class='filter-dropdown-menu-icon fa fa-compass'></i></label></a>"
+      html += "</li>"
+      html += "<li class='divider'></li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Most Loved<i class='filter-dropdown-menu-icon fa fa-heart'></i></label></a>"
+      html += "</li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Saved<i class='filter-dropdown-menu-icon fa fa-bookmark'></i></label></a>"
+      html += "</li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Been<i class='filter-dropdown-menu-icon fa fa-check-square'></i></label></a>"
+      html += "</li>"
+      html += "<li class='divider'></li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Food & Markets<i class='filter-dropdown-menu-icon icon-local-restaurant'></i></label></a>"
+      html += "</li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Drink & Nightlife<i class='filter-dropdown-menu-icon icon-local-bar'></i></label></a>"
+      html += "</li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>See & Do<i class='filter-dropdown-menu-icon icon-directions-walk'></i></label></a>"
+      html += "</li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Stay<i class='filter-dropdown-menu-icon icon-home'></i></label></a>"
+      html += "</li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Relax<i class='filter-dropdown-menu-icon icon-drink'></i></label></a>"
+      html += "</li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Other<i class='filter-dropdown-menu-icon fa fa-question'></i></label></a>"
+      html += "</li>"
+    elsif page_type == 'guides'
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#' class='apply-filters'>Narrow By Tag:</a>"
+      html +=   "<a href='#' class='clear-all-filters'>See All Guides <b>×</b></a>"
+      html += "</li>"
+      html += "<li class='divider'></li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'>Nearby Current Location<i class='filter-dropdown-menu-icon fa fa-compass'></i></a>"
+      html += "</li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'>Tagged Filter</a>"
+      html += "</li>"
+    end
+    html += "</ul>"
+    html.html_safe
+  end
+
+  def user_dropdown_menu
+    html = "<ul class='dropdown-menu dropdown-menu-right user-dropdown-menu'>"
+    if current_user
+      html += "<li class='user-dropdown-menu'>"
+      html +=   "<a href='#'>Get the Plugin<i class='user-dropdown-menu-icon fa fa-bolt fa-fw'></i></a>"
+      html += "</li>"
+      html += "<li class='user-dropdown-menu'>"
+      html +=   "<a href='#'>Recent Activity<i class='user-dropdown-menu-icon fa fa-history fa-fw'></i></a>"
+      html += "</li>"
+      html += "<li class='divider'></li>"
+      html += "<li class='user-dropdown-menu'>"
+      html +=   "<a href='" + edit_user_registration_path + "'>Update Account<i class='user-dropdown-menu-icon fa fa-user fa-fw'></i></a>"
+      html += "</li>"
+      html += "<li class='user-dropdown-menu'>"
+      html +=   "<a href='#'>Preferences<i class='user-dropdown-menu-icon fa fa-cog fa-fw'></i></a>"
+      html += "</li>"
+      html += "<li class='divider'></li>"
+      html += "<li class='user-dropdown-menu'>"
+      html +=   "<a href='" + destroy_user_session_path + "' data-method='delete'>Log Out<i class='user-dropdown-menu-icon fa fa-times fa-fw'></i></a>"
+      html += "</li>"
+    else
+      html += "<li class='user-dropdown-menu'>"
+      html +=   "<a href='" + new_user_session_path + "'>Log In<i class='user-dropdown-menu-icon fa fa-user fa-fw'></i></a>"
+      html += "</li>"
+      html += "<li class='user-dropdown-menu'>"
+      html +=   "<a href='" + new_user_registration_path + "'>Sign Up<i class='user-dropdown-menu-icon fa fa-user fa-fw'></i></a>"
+      html += "</li>"
+    end
+    html += "</ul>"
+    html.html_safe
+  end
+
+  def inject_modals(array)
+    injection = ''
+    array.each do |type|
+      html = ''
+      if type == 'share'
+        html += "            <label for='recipient-name' class='control-label'>Share with:</label>"
+        html += "            <input type='text' class='form-control share-with' id='recipient' placeholder='Email Address'>"
+        html += "          </div>"
+        html += "          <div class='form-group'>"
+        html += "            <label for='message-text' class='control-label'>Note:</label>"
+        html += "            <textarea class='form-control' id='message-text'></textarea>"
+      elsif type == 'new'
+        html += "            <input type='text' class='form-control new-pin-nearby input-with-clear' id='nearby' placeholder='Nearby Location'><span class='clear-input-button' id='clear-new-pin-nearby'><i class='fa fa-times-circle'></i></span>"
+        html += "          </div>"
+        html += "          <div class='form-group'>"
+        html += "            <input type='text' class='form-control new-pin-query' id='query' placeholder='Place Name'>"
+      end
+      title = 'Share the Love' if type == 'share'
+      title = 'Add a New Pin' if type == 'new'
+      submit = 'Share' if type == 'share'
+      submit = 'Add' if type == 'new'
+      injection += modal(type, title, submit, html)
+    end
+    injection.html_safe
+  end
+
+  # PRIVATE
+
   private
 
   def pin_on_circle_icon
@@ -54,6 +219,52 @@ class UserDecorator < Draper::Decorator
         "<i class='fa fa-globe'></i><div class='hidden_button_name'>+Planit</div>".html_safe
       end
     end
+  end
+
+  def nav_item(type, hint, icon_tag, icon, link_to, modal)
+    selected = if (!link_to.present? && !modal.present?) then true else false end
+    disabled = if (modal == 'disabled') then true else false end
+    html = ''
+    html += "<a href='#{link_to}'" if link_to
+    html += "<a href='#'" if selected || disabled
+    html += "<a href='#planit-modal-#{type}' data-toggle='modal' data-target='#planit-modal-#{type}' data-backdrop='static' data-keyboard='false'" if ( modal && !disabled )
+    html += " class='nav-item-link"
+    html += " selected" if selected
+    html += " disabled" if disabled
+    html += "'"
+    html += "><div class='nav-item nav-item-#{type}"
+    html += " selected" if selected
+    html += " disabled" if disabled
+    html += "'>"
+    html += "<#{icon_tag} class='nav-item-icon #{icon}'></#{icon_tag}><div class='nav-item-hint'><span>#{hint.upcase}</span></div></div>"
+    html += "</a>"
+    html.html_safe
+  end
+
+  def modal(type, title, submit, form_content)
+    html = ''
+    html += "<div class='modal fade planit-modal' id='planit-modal-#{type}' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
+    html += "  <div class='modal-dialog'>"
+    html += "    <div class='modal-content'>"
+    html += "      <div class='modal-header'>"
+    html += "        <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+    html += "        <h4 class='modal-title' id='exampleModalLabel'>#{title}</h4>"
+    html += "      </div>"
+    html += "      <div class='modal-body'>"
+    html += "        <form id='planit-modal-form-#{type}'>"
+    html += "          <div class='form-group'>"
+    html += form_content
+    html += "          </div>"
+    html += "        </form>"
+    html += "      </div>"
+    html += "      <div class='modal-footer'>"
+    html += "        <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>"
+    html += "        <button type='button' class='btn btn-primary' id='planit-modal-submit-#{type}'>#{submit}</button>"
+    html += "      </div>"
+    html += "    </div>"
+    html += "  </div>"
+    html += "</div>"
+    html.html_safe
   end
 
 end

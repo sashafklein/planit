@@ -21,27 +21,33 @@
   text-align: center
   display: table
   table-layout: fixed
+  a.nav-item-link
+    display: table-cell
+    box-sizing: border-box
+    -moz-box-sizing: border-box
+    -webkit-box-sizing: border-box
+    width: auto
+    &.selected
+      cursor: default
+  a:visited, a:link
+    text-decoration: none
+    color: #ddd
+  a:hover, a:active
+    text-decoration: none
+    color: #ff0066
 
   .nav-item
     padding: 10px 0px
     box-sizing: border-box
     -moz-box-sizing: border-box
     -webkit-box-sizing: border-box
-    display: table-cell
-    width: auto
+    display: inline-block
+    width: 100%
     color: #ddd
     background: #000
     border-bottom: #000 3px solid
     font-size: 18px
     line-height: 18px
-    &.raised
-      background: #1f1f1f
-      border-bottom: #1f1f1f 3px solid
-      color: #eee
-    &:hover, &:active
-      background: #222
-      border-bottom: #444 3px solid
-      color: #fff
     &.selected
       background: #2f2f2f
       border-bottom: #aaa 3px solid
@@ -50,6 +56,54 @@
         background: #2f2f2f
         border-bottom: #aaa 3px solid
         color: #fff
+        .nav-item-hint
+          display: none
+          visibility: hidden
+    &.disabled
+      background: #000
+      border-bottom: #000 3px solid
+      color: #111
+      &:hover, &:active
+        background: #000
+        border-bottom: #000 3px solid
+        color: #111
+        .nav-item-hint
+          display: none
+          visibility: hidden
+    &:hover, &:active
+      background: #222
+      border-bottom: #444 3px solid
+      color: #fff
+      a:visited, a:link, a:hover, a:active
+        text-decoration: none
+      .nav-item-hint
+        opacity: 1
+        display: inline-block
+        visibility: visible
+        span
+          color: #fff
+          background: rgba( 0,0,0,1 )
+
+  .nav-item-hint
+    display: none
+    visibility: hidden
+    position: absolute
+    opacity: 0
+    bottom: 52px
+    width: 150px
+    margin-left: -84px
+    text-align: center
+    white-space: nowrap
+    padding: 5px 0 0 0
+    z-index: 950
+    span
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-size: 11px
+      line-height: 11px
+      font-weight: bold
+      padding: 3px 5px
+      border-radius: 3px
+      -webkit-border-radius: 3px
 
 .footer-title
   margin: auto
@@ -71,6 +125,9 @@
 
 // *Computer (Regular)
 
+.footer-spacing
+  height: 0px
+
 .footer
   &.new
     display: block
@@ -78,6 +135,9 @@
 
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
+
+  .footer-spacing
+    height: 0px
 
   .footer
     &.new
@@ -87,6 +147,9 @@
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
 
+  .footer-spacing
+    height: 45px
+
   .footer
     &.new
       display: none
@@ -94,6 +157,9 @@
 
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
+
+  .footer-spacing
+    height: 45px
 
   .footer
     &.new

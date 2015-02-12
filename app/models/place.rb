@@ -60,6 +60,35 @@ class Place < BaseModel
     other
   end
 
+  def meta_icon
+    if meta_categories
+      return 'icomoon icon-map' if meta_categories[0] == 'Area'
+      return 'icon-directions-walk' if meta_categories[0] == 'Do'
+      return 'icon-local-bar' if meta_categories[0] == 'Drink'
+      return 'icon-local-restaurant' if meta_categories[0] == 'Food'
+      return 'fa fa-life-ring' if meta_categories[0] == 'Help'
+      return 'fa fa-money' if meta_categories[0] == 'Money'
+      return 'fa fa-globe' if meta_categories[0] == 'Other'
+      return 'icon-drink' if meta_categories[0] == 'Relax'
+      return 'fa fa-university' if meta_categories[0] == 'See'
+      return 'fa fa-shopping-cart' if meta_categories[0] == 'Shop'
+      return 'icon-home' if meta_categories[0] == 'Stay'
+      if meta_categories[0] == 'Transit'
+        if categories
+          return 'fa fa-subway'
+          return 'fa fa-plane'
+          return 'fa fa-car'
+          return 'fa fa-bus'
+          return 'fa fa-train'
+          return 'fa fa-taxi'
+        else
+          return 'fa fa-exchange'
+        end
+      end
+    end
+    return 'fa fa-globe'
+  end
+
   def alt_names
     names.drop(1)
   end
@@ -74,6 +103,24 @@ class Place < BaseModel
 
   def in_usa?
     country == "United States" || country == "United States of America"
+  end
+
+  def other_info?
+    result = if defined?(reservations) || price_tier.present? || price_note.present? || menu.present? || defined?(wifi) then true else false end
+  end
+
+  def has_sources?
+    (foursquare_id) ? true : false # ADD OTHER || SOURCES
+  end
+
+  def foursquare_rating
+    return false # REPLACE WHEN WE INTRODUCE TO DATABASE
+  end
+  def yelp_id
+    return false # REPLACE WHEN WE INTRODUCE TO DATABASE
+  end
+  def yelp_rating
+    return false # REPLACE WHEN WE INTRODUCE TO DATABASE
   end
 
   private

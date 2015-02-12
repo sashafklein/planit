@@ -1,4 +1,4 @@
-angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User, PlanitMarker, ClusterLocator, BasicOperators) ->
+angular.module("Common").directive 'bucketMap', (MapOptions, F, Place, User, PlanitMarker, ClusterLocator, BasicOperators, ClickControls, $compile, $timeout) ->
 
   return {
     restrict: 'E'
@@ -11,29 +11,29 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
       type: '@'
       zoomControl: '@'
       scrollWheelZoom: '@'
-      paddingToUse: '@'
+      webPadding: '@'
+      mobilePadding: '@'
       showList: '@'
 
     link: (s, element) ->
 
-      # Hover Tethering
-      $('.bucket-list-li', '.default-map-icon-tab', '.marker-cluster').on 'hover', (e) ->
-        id = e.attr(id)
-        $("#p#{id}", "#l#{id}").toggleClass 'hover'
-
-      window.s = s
-
       s.showList = true unless s.showList
+      s.mobile = if element.width() < 768 then true else false
+      s.padding = [35, 25, 15, 25] # default
+      s.requireDoubleClick = if s.mobile then true else false
 
       User.findPlaces( s.userId )
         .success (places) ->
           s.primaryPlaces = Place.generateFromJSON(places.user_pins)
           s.drawMap(s, element)
         .error (response) ->
-          alert("Failed to grab places information!")
+          console.log("Failed to grab places information!")
           console.log response
 
-      if s.paddingToUse then s.paddingToFocusArea = JSON.parse("[" + s.paddingToUse + "]") else s.paddingToFocusArea = [35, 25, 15, 25]
+      if s.mobilePadding && s.mobile
+        s.padding = JSON.parse("[" + s.mobilePadding + "]")
+      else if s.webPadding && !s.mobile
+        s.padding = JSON.parse("[" + s.webPadding + "]")
 
       s.expanded = -> s.$parent.mapExpanded
 
@@ -42,23 +42,27 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
           currentBounds = s.map.getBounds()
           setTimeout (->
             s.map.invalidateSize()
-            s.map.fitBounds(currentBounds, { paddingTopLeft: [s.paddingToFocusArea[3], s.paddingToFocusArea[0]], paddingBottomRight: [s.paddingToFocusArea[1], s.paddingToFocusArea[2]] } )
+            s.map.fitBounds(currentBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
             return
           ), 400
       
       # Cluster Locator Functions
-      s.clusterImage = (location) -> ClusterLocator.imageForLocation(location)
       s.bestListLocation = (places, center) ->
         location = BasicOperators.commaAndJoin( _(places).map('names').map((p) -> p[0]).value() ) if places.length < 3
         location ||= Place.lowestCommonArea(places)
         location ||= ClusterLocator.nearestGlobalRegion(center)
         return location
-      s.namesOrZoomForMore = (places) -> ClusterLocator.namesOrZoomForMore(places)
 
-      # Disable Map Panning for List Box
-      s.listBox = document.getElementById('in-view-list')
-      s.listBox.addEventListener 'mouseover', -> s.map.dragging.disable()
-      s.listBox.addEventListener 'mouseout', -> s.map.dragging.enable()
+      # Disable Map Panning & Zooming for List Box or Item Box
+      fixInfoBox = () ->
+        s.infoBox = if !s.mobile then document.getElementById('in-view-list') else document.getElementById('in-view-item')
+        s.infoBox.addEventListener 'mouseover', -> 
+          s.map.dragging.disable()
+          s.map.doubleClickZoom.disable()
+        s.infoBox.addEventListener 'mouseout', -> 
+          s.map.dragging.enable()
+          s.map.doubleClickZoom.disable()
+      setTimeout ( -> fixInfoBox() ), 1000
 
       s.generateContextualUserPins = ->
         if s.currentUserId != s.userId
@@ -78,8 +82,7 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
         scrollWheelZoom = false unless s.scrollWheelZoom
         doubleClickZoom = true
         zoomControl = s.zoomControl || false
-        minZoom = 1 if s.type == 'worldview'
-        minZoom = 2 if s.type != 'wordlview'
+        minZoom = 2
         maxZoom = 18
 
         id = "main_map"
@@ -90,7 +93,41 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
         L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
           attribution: "&copy; <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a>"
         ).addTo(s.map)
+
+        # s.map.setView( [0,0], 2 )
           
+        # Initialize and Execute hoverEvents
+        s.webHoverEvents = (object, id) ->
+          object.addEventListener 'mouseover', -> $timeout -> 
+            $(element.find(".#{id}")).addClass('highlighted')
+            unless object.className.indexOf('bucket-list-li') != -1
+              $timeout ->
+                $('#in-view-list').animate({
+                  scrollTop: $("##{id}").offset().top - $('#top-of-list').offset().top
+                }, 0)
+          object.addEventListener 'mouseout', -> $timeout -> $(element.find(".#{id}")).removeClass('highlighted')
+        s.doubleClickEvents = (object, id) ->
+          object.addEventListener 'dblclick', -> 
+            document.location.href = '/places/' + id.split('p')[1]
+        s.clickPinEvents = (object, id) -> 
+          object.addEventListener 'click', -> s.$apply ->
+            $(element.find(".#{s.clickedId}")).removeClass('highlighted') if (s.clickedId && (s.clickedId != id) )
+            $(element.find(".#{id}")).addClass('highlighted')
+            s.clickedId = id
+            s.place = if (id.split('p') && id.split('p').length > 1) then _(s.primaryPlaces).find( (obj) -> obj.id == parseInt( id.split('p')[1]) ) else null
+            s.cluster = if (id.split('c') && id.split('c').length > 1) then s._clusterObject( clusterMarkers._featureGroup.getLayer( parseInt( id.split('c')[1] ) ) ) else null
+        s.clickControlEvents = (object, id) ->
+          object.addEventListener 'click', -> 
+            ClickControls.placeEdits( $(this).attr('id'), $(this).attr('data-place-ids') )
+        s.addMouseEvents = (arrayOfClasses, focus_on) ->
+          $timeout -> 
+            for className in arrayOfClasses
+              for item in element.find(className)
+                s.webHoverEvents( item, $(item).attr('id') ) if focus_on == 'hover'
+                s.clickPinEvents( item, $(item).attr('id') ) if focus_on == 'clickPin'
+                s.clickControlEvents( item, $(item).attr('id') ) if focus_on == 'clickControl'
+                s.doubleClickEvents( item, $(item).attr('id') ) if focus_on == 'dblclick'
+
         # Create context layer and pins
         s.contextGroup = L.layerGroup()
         s.map.addLayer(s.contextGroup)
@@ -99,25 +136,28 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
         # Primary Pins in Clusters if Plan, WorldView
         clusterMarkers = new L.MarkerClusterGroup({
           maxClusterRadius: 50,
+          requireDoubleClick: s.requireDoubleClick,
           showCoverageOnHover: true,
-          disableClusteringAtZoom: 18,
+          disableClusteringAtZoom: 15,
           spiderfyDistanceMultiplier: 2,
           polygonOptions: { color: '#ff0066', opacity: 1.0, fillColor: '#ff0066', fillOpacity: 0.4, weight: 3 },
-          paddingToFocusArea: s.paddingToFocusArea,
-        })
+          paddingToFocusArea: s.padding,
+          iconCreateFunction: (cluster) -> PlanitMarker.clusterPin( cluster ),
+        }) 
         i = 0
         s.primaryCoordinates = []
         while i < s.primaryPlaces.length
-          a = s.primaryPlaces[i]
-          s.primaryCoordinates.push [a.lat,a.lon]
-          clusterMarker = PlanitMarker.primaryPin(a, true, true)
+          place = s.primaryPlaces[i]
+          place.leafletLocation = new L.LatLng( place.lat, place.lon )
+          s.primaryCoordinates.push [place.lat,place.lon]
+          clusterMarker = PlanitMarker.primaryPin(place)
           clusterMarkers.addLayer clusterMarker
           i++
         s.map.addLayer(clusterMarkers)
 
         # Center map and inject zoom control
-        s.bounds = new L.LatLngBounds(s.primaryCoordinates)
-        s.map.fitBounds(s.bounds, { paddingTopLeft: [s.paddingToFocusArea[3], s.paddingToFocusArea[0]], paddingBottomRight: [s.paddingToFocusArea[1], s.paddingToFocusArea[2]] } )
+        s.totalBounds = new L.LatLngBounds(s.primaryCoordinates)
+        s.map.fitBounds(s.totalBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
 
         # Control whether or not context pins are viewable
@@ -129,27 +169,58 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, API, Place, User
         s.showHideContext()
         s.map.on "zoomend", -> s.showHideContext()
 
-        # Relay back sidelist marker info
+        # Retrieve Cluster Info and Produce Object
+        s.currentBounds = -> s.map.getBounds()
         s._clusterObject = (cluster) ->
           places = _( cluster.getAllChildMarkers() ).map('options').map('placeObject').value()
           center = cluster._latlng
-          return { id: "lid-#{cluster._leaflet_id}", count: cluster._childCount, center: center, places: places, location: s.bestListLocation(places, center) }
-        s.currentBounds = -> s.map.getBounds()
-        s.changePlacesInView = () ->
-          s.placesInView = []
-          s.clustersInView = []
-          currentBounds = s.currentBounds()
-          stuffOnMap = clusterMarkers._featureGroup.getLayers()
-          
-          for layer in stuffOnMap
-            s.placesInView.push( layer.options.placeObject ) if layer.options.placeObject && currentBounds.contains( layer._latlng )
-            s.clustersInView.push( s._clusterObject(layer) ) if layer._childCount > 1 && ( layerBounds = layer._bounds ) && ( currentBounds.contains( layerBounds ) )
+          return { id: "c#{cluster._leaflet_id}", count: cluster._childCount, center: center, places: places, location: s.bestListLocation(places, center), clusterObject: cluster }
 
-          s.clustersInView.sort( BasicOperators.dynamicSort('-count') )
-          if s.placesInView == [] && s.clustersInView == [] then s.showList = false else s.showList = true
+        if s.mobile
+          # Relay clicked marker to infoBox if Mobile
+          s.clickedId = undefined
+          s.clearClicked = () -> 
+            s.$apply ->
+              $(element.find(".#{s.clickedId}")).removeClass('highlighted')
+              s.clickedId = undefined 
+              s.cluster = undefined
+              s.place = undefined
+          s.mobileUpdateView = () -> 
+            s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".context-map-icon-tab"], 'clickPin')
+            s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".context-map-icon-tab"], 'dblclick')
+            s.addMouseEvents([".edit-place", ".edit-places"], 'clickControl')
+            if ( (s.cluster && !s.currentBounds().contains( s.cluster.clusterObject._bounds ) ) || ( s.place && !s.currentBounds().contains( s.place.leafletLocation ) ) ) then s.clearClicked()
+          s.map.on "moveend", -> s.mobileUpdateView()
+          s.map.on "zoomend", -> setTimeout ( -> s.mobileUpdateView() ), 400
+          s.mobileUpdateView()
 
-        s.map.on "moveend", -> s.$apply -> s.changePlacesInView()
-        s.map.on "zoomend", -> setTimeout ( -> s.$apply -> s.changePlacesInView() ), 400
-        s.changePlacesInView()
+        if !s.mobile
+          # Relay back sidelist marker info if Web Browser
+          s.changePlacesInView = () -> 
+            currentBounds = s.currentBounds()
+            stuffOnMap = clusterMarkers._featureGroup.getLayers()
+            s.placesInView = []
+            s.clustersInView = []
+            for layer in stuffOnMap
+              s.placesInView.push( layer.options.placeObject ) if layer.options.placeObject && currentBounds.contains( layer._latlng )
+              s.clustersInView.push( s._clusterObject(layer) ) if layer._childCount > 1 && currentBounds.contains( layer._bounds )
+            if s.placesInView.length == 0 && s.clustersInView.length == 0
+              $(element.find("#first-bucket-item")).removeClass('invisible')
+            else
+              $(element.find("#first-bucket-item")).addClass('invisible')
+            s.clustersInView.sort( BasicOperators.dynamicSort('-count') )
+            $timeout ->
+              $('#in-view-list').animate({
+                scrollTop: $('#first-bucket-item').offset().top
+              }, 0)
+            s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".bucket-list-li"], 'hover')
+            s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".context-map-icon-tab"], 'dblclick')
+            s.addMouseEvents([".edit-place", ".edit-places"], 'clickControl')
+          s.map.on "moveend", -> s.$apply -> s.changePlacesInView()
+          s.map.on "zoomend", -> setTimeout ( -> s.$apply -> s.changePlacesInView() ), 400
+          s.changePlacesInView()
+          # Change Initial Loading Tab for Future Viewing, Recenter 'Lost' Browser to Start
+          $(element.find("#no-items-msg")).html('Not All Who Wander Are Lost...')
+          element.find("#first-bucket-item")[0].addEventListener 'click', -> s.map.fitBounds(s.totalBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
 
   }

@@ -1,0 +1,23 @@
+%script{ type: 'text/ng-template', id: 'bucket_list_clusters.html' }
+  .bucket-list-tab
+    .bucket-list-no-img{ ng_if: "!clusterImage(cluster.location)", ng_click: 'clusterZoom(cluster.id)' }
+    .bucket-list-img{ ng_if: "clusterImage(cluster.location)", style: "background-image: url('{{ clusterImage(cluster.location) }}');", id: "{{cluster.id}}", ng_click: 'clusterZoom(cluster.id)'  }
+    .bucket-list-wrap
+      .bucket-list-profile{ id: "{{cluster.id}}", ng_click: 'clusterZoom(cluster.id)' }
+        %a.bucket-list-title {{ cluster.location }}
+        .bucket-list-more-info 
+          %span.bucket-list-cluster-size {{ cluster.count }}
+          {{ pinsDetails(cluster.places) }}
+      .bucket-list-controls
+        .bucket-list-control{ class: 'edit-places', id: 'tag', :data => {:place_ids => "{{cluster_places_ids()}}" } }
+          %span.bucket-list-control-hint= "Tag All"
+          %i.fa.fa-tag
+        .bucket-list-control.disabled
+          %i.fa.fa-pencil
+        .bucket-list-control.disabled
+          %i.fa.fa-check-square
+        .bucket-list-control.disabled
+          %i.fa.fa-heart
+        .bucket-list-control{ class: 'edit-places', id: 'save', :data => {:place_ids => "{{cluster_places_ids()}}" } }
+          %span.bucket-list-control-hint= "Save All"
+          %i.fa.fa-bookmark

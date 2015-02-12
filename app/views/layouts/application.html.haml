@@ -4,10 +4,11 @@
     %meta{charset: "utf-8"}/
     %meta{content: "NOODP", name: "ROBOTS"}/
     %meta{content: "initial-scale=1", name: "viewport"}/
-    %title= title
+    %title= "Planit - " + yield(:title) || 'Save and Share the Places You Love'
+
     = csrf_meta_tags
     = stylesheet_link_tag :application, media: "all"
-  %body{class: body_class}
+  %body{class: body_class, ng_controller: 'ApplicationCtrl' }
     = render "flashes"
     = yield
     = render "javascript"

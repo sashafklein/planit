@@ -109,12 +109,22 @@
 
   // 
 
+  .directions-link
+    span
+      color: #000
+      text-decoration: none
+    &:hover
+      color: #fff
+      text-decoration: none
+      span
+        background: #f06
+
   .name-essentials-wrap
     margin-top: 10px
     margin-bottom: 20px
 
   .place-page-name
-    padding: 10px 0px 5px 0px
+    padding: 10px 0 0 0
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
     font-size: 32px
     line-height: 35px
@@ -124,11 +134,19 @@
     text-align: left
     -webkit-font-smoothing: antialiased
 
+  .place-page-meta-category
+    display: inline-block
+    font-size: 14px
+    line-height: 14px
+    color: #777
+    padding: 0 10px 0 0
+
   .place-page-category
+    display: inline-block
     padding: 0px 0px 0px 0px
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-    font-size: 12px
-    line-height: 15px
+    font-size: 14px
+    line-height: 14px
     color: #000
     text-align: left
     span
@@ -136,33 +154,64 @@
     .gray
       display: inline
       color: #333
-    .place-show-icon
-      color: #777
-      padding: 0px 4px 0 0px
 
-  .book-been-save-wrap
-    padding: 15px 0px 5px 0px
-    text-align: right
-
-  .book-been-save-bar
-    display: inline-block
-    background: rgb(28, 48, 147)
+  .place-controls
+    display: block
+    position: relative
+    height: 23px
     overflow: hidden
-    white-space: nowrap
-    padding: 0px 8px
-    border: 1px solid rgb(55, 78, 170)
-    border-bottom: 1px solid rgb(23, 42, 138)
-    cursor: pointer
+    padding: 0
+    margin: 0 0 5px 0
+    text-align: right
+    vertical-align: top
 
-  .click-to
+  .place-control
     display: inline-block
-    color: #fff
-    padding: 10px 7px
-    font-size: 1.1em
-    border-bottom: rgb(28, 48, 147) 2px solid
+    width: 23px
+    height: 23px
+    margin: 0
+    padding: 0
+    text-align: center
+    font-size: 18px
+    line-height: 23px
+    color: #777
+    cursor: pointer
+    -webkit-transition: -webkit-transform 1s
+    transition: transform 1s
     &:hover
-      border-bottom: #fff 2px solid
-      background: rgb(23, 42, 138)
+      i
+        color: #f06
+      .place-control-hint
+        display: inline-block
+        visibility: visible
+    &.disabled
+      color: #ccc
+      &:hover
+        i
+          color: #ccc
+        .place-control-hint
+          display: none
+          visibility: hidden
+    &.enabled
+      color: #333
+      
+    .place-control-hint
+      display: none
+      visibility: hidden
+      position: absolute
+      overflow: hidden
+      left: 0
+      top: 0
+      bottom: 0
+      margin: auto 0
+      color: #fff
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-size: 13px
+      font-weight: bold
+      border-radius: 3px
+      -webkit-border-radius: 3px
+      padding: 1px 4px
+      background: #ff0066
 
   .map-address-wrap
     display: block
@@ -195,7 +244,7 @@
     text-align: left
     .place-show-icon
       color: #777
-      padding: 0px 1px
+      padding: 0px 4px 0 1px
     &.truncate
       white-space: nowrap
       overflow: hidden
@@ -294,12 +343,28 @@
     .place-show-icon
       color: #aaa
       padding: 0px 5px 0px 1px
-    i, span.icomoon
       width: 22px
-      margin: 0 18px 0 0
+      margin: 0 8px 0 0
       text-align: center
       &.true
         color: #000
+    span.rating
+      padding: 1px 2px
+      border-radius: 2px
+      -webkit-border-radius: 2px
+      font-size: 11px
+      &.green
+        background: #66cc00
+        border: 1px solid #77dd22
+        border-bottom: 1px solid #5ab300 
+      &.yellow
+        background: #D0FF55
+        border: 1px solid #e2FF66
+        border-bottom: 1px solid #8AC914
+      &.red
+        background: #E86100
+        border: 1px solid #f97322
+        border-bottom: 1px solid #BD4F00
 
   .show-hours-line
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
@@ -342,6 +407,9 @@
   .map-canvas
     height: 262px
 
+  .photos-wrap
+    margin-top: 28px
+
   .photos-gallery
     height: 440px
     &.new
@@ -369,6 +437,17 @@
     &.hours-availability-booking
       border: 1px solid #eee
       background: #efefef
+
+  .menu-cost-reservations-content
+    padding: 0px 0px 10px 0px
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 14px
+    line-height: 17px
+    font-weight: bold
+    color: #000
+    text-align: left
+    i
+      width: 40px
 
   .hours-availability-booking-content
     padding: 0px 0px 10px 0px
@@ -409,6 +488,9 @@
     .map-canvas
       height: 202px
 
+    .photos-wrap
+      margin-top: 28px
+
     .photos-gallery
       height: 350px
       &.new
@@ -448,6 +530,9 @@
 
     .map-canvas
       height: 282px
+
+    .photos-wrap
+      margin-top: 0px
 
     .photos-gallery
       height: 200px
@@ -490,6 +575,9 @@
       height: 287px
       &.new
         height: 191px
+
+    .photos-wrap
+      margin-top: 0px
 
     .photos-gallery
       height: 287px

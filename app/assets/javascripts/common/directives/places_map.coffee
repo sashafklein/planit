@@ -1,4 +1,4 @@
-angular.module("Common").directive 'placesMap', (MapOptions, F, API, Place, Plan, User, PlanitMarker) ->
+angular.module("Common").directive 'placesMap', (MapOptions, F, Place, Plan, User, PlanitMarker) ->
 
   return {
     restrict: 'E'
@@ -26,7 +26,7 @@ angular.module("Common").directive 'placesMap', (MapOptions, F, API, Place, Plan
             s.primaryPlaces = Place.generateFromJSON(places)
             s.drawMap(s, element)
           .error (response) ->
-            alert("Failed to grab places information!")
+            console.log("Failed to grab places information!")
             console.log response
       else if s.planId
         Plan.findPlaces( s.planId )
@@ -90,6 +90,11 @@ angular.module("Common").directive 'placesMap', (MapOptions, F, API, Place, Plan
           spiderfyDistanceMultiplier: 2,
           polygonOptions: { color: '#ff0066', opacity: 1.0, fillColor: '#ff0066', fillOpacity: 0.4, weight: 3 },
           paddingToFocusArea: s.paddingToFocusArea,
+          iconCreateFunction: (cluster) ->
+            markers = cluster.getAllChildMarkers()
+            L.divIcon
+              html: "<span class='cluster-map-icon-tab'>#{markers.length}</span>"
+              className: "cluster-map-div-container"
         })
         i = 0
         while i < s.primaryPlaces.length
