@@ -37,7 +37,6 @@ module Completers
 
     def explore
       get_venues!
-      binding.pry
       pick_venue
       if venue
         merge!
@@ -57,7 +56,7 @@ module Completers
       @venues = @response.super_fetch( :response, :groups, 0, :items ).map do |item|
         FoursquareExploreVenue.new(item)
       end.sort{ |a, b| b.points_of_lat_lon_similarity(pip) <=> a.points_of_lat_lon_similarity(pip) }
-      binding.pry
+
       pip.flag( name: "Foursquare Explore Results", info: @venues.map(&:foursquare_id) )
     rescue
       pip.flag( name: "API Failure", details: "FoursquareExplore response unexpected", info: { place: pip.clean_attrs, query: full_fs_url, response: @response } )

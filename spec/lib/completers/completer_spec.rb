@@ -235,7 +235,8 @@ module Completers
           m = c.complete!
           # No Foursquare Results with Kitesurf in them, so...?
           # Maybe scrape the website we have since we have one? http://kitesurfcartagena.com/contacts/ 
-
+        end
+        
         xit 'completes Alma' do
           c = completed_data(filename: 'cartagena', scrape_url: "http://www.huffingtonpost.com/curtis-ellis/cartagena-eat-pray-love-d_b_3479981.html", name: 'Alma')
           m = c.complete!
@@ -267,85 +268,85 @@ module Completers
           # Museo del Oro del Banco de la República is the right answer (4c7ab97e278eb713a3635b80), but wrong language
         end
 
-        xit "correctly pins Amelia Toro"
+        xit "correctly pins Amelia Toro" do
           # https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=amelia%20toro%20bogota
         end
 
-        xit "rejects Xoco Chocolate? or Correctly Pins?"
+        xit "rejects Xoco Chocolate? or Correctly Pins?" do
           # incorrectly placed on the map... 3 chain branches in bogota, offer all as options?
           # maybe this https://foursquare.com/v/xoco/4d839967509137049b9f6c5b
           # use verification and "usersCount" to invalidate? + no images? <50 users, <5 images
           # "verified"=>false, / "stats"=>{"checkinsCount"=>4273, "usersCount"=>3783, "tipCount"=>125},
         end
 
-        xit "correctly locates Villa De Leyva NOT in Bogota"
+        xit "correctly locates Villa De Leyva NOT in Bogota" do
           c = completed_data(filename: 'leyva', scrape_url: "http://www.frommers.com/destinations/bogota/278016", name: "Villa de Leyva")
           m = c.complete!
           # Villa De Leyva
         end
 
-        xit "correctly locates Jardin Botanico Jose Celestino Mutis"
+        xit "correctly locates Jardin Botanico Jose Celestino Mutis" do
           c = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Jardín Botánico José Celestino Mutis")
           m = c.complete!
           # Comes from NYTimes, even if we have via TripAdvisor, not merging? Also way off?
         end
 
-        xit "correctly locates Botero Museum"
+        xit "correctly locates Botero Museum" do
           c = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Botero Museum")
           m = c.complete!
         end
 
-        xit "correctly locates Biblioteca Luis Ángel Arango"
+        xit "correctly locates Biblioteca Luis Ángel Arango" do
           c = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Biblioteca Luis Ángel Arango")
           m = c.complete!
         end
 
-        xit "correctly locates Jardin Botanico Jose Celestino Mutis"
+        xit "correctly locates Jardin Botanico Jose Celestino Mutis" do
           c = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Jardín Botánico José Celestino Mutis")
           m = c.complete!
           # See https://www.google.com/maps/place/Hotel+el+Duruelo/@5.628924,-73.517965,14z/data=!4m2!3m1!1s0x8e41d708ca5087e9:0xaca8b4ef69ec38e6
         end
 
-        xit "correctly locates Bite Into Maine"
+        xit "correctly locates Bite Into Maine" do
           c = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Bite Into Maine")
           m = c.complete!
         end
 
-        xit "correctly locates Hospedería Duruelo NOT in Bogota"
+        xit "correctly locates Hospedería Duruelo NOT in Bogota" do
           c = completed_data(filename: 'leyva', scrape_url: "http://www.frommers.com/destinations/bogota/278016", name: "Hospedería Duruelo")
           m = c.complete!
           # See https://www.google.com/maps/place/Hotel+el+Duruelo/@5.628924,-73.517965,14z/data=!4m2!3m1!1s0x8e41d708ca5087e9:0xaca8b4ef69ec38e6
         end
 
-        xit "rejects The Down Under"
+        xit "rejects The Down Under" do
           c = completed_data(filename: 'amelia-island', scrape_url: "http://www.nytimes.com/2003/12/12/travel/journeys-36-hours-amelia-island-fla.html?pagewanted=all", name: "The Down Under")
           m = c.complete!
           # 
         end
 
-        xit "correctly locates Central Park in Amelia Island vicinity"
+        xit "correctly locates Central Park in Amelia Island vicinity" do
           c = completed_data(filename: 'amelia-island', scrape_url: "http://www.nytimes.com/2003/12/12/travel/journeys-36-hours-amelia-island-fla.html?pagewanted=all", name: "Central Park")
           m = c.complete!
           # 
         end
 
-        xit "correctly locates Fatehpur Sikri outside of Delhi and not in Agra"
+        xit "correctly locates Fatehpur Sikri outside of Delhi and not in Agra" do
           c = completed_data(filename: 'india', scrape_url: "http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0", name: "Fatehpur Sikri")
           m = c.complete!
           # What happens if we hit Foursquare API after Google?
         end
 
-        xit "doesn't put Fatehpur Sikri on the highway to Fatehpur Sikri"
+        xit "doesn't put Fatehpur Sikri on the highway to Fatehpur Sikri" do
           c = completed_data(filename: 'india', scrape_url: "http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0", name: "Fatehpur Sikri")
           m = c.complete!
           # What happens if we hit Foursquare API after Google?
         end
 
-        xit "correctly identifies the most prominent Gem Palace and locates"
+        xit "correctly identifies the most prominent Gem Palace and locates" do
           # Gem Palace and not the Jewelry store?
         end
 
-        xit "saves Marrakech, Morocco as city not bar"
+        xit "saves Marrakech, Morocco as city not bar" do
           c = completed_data(filename: 'travelmap', scrape_url: "http://www.tripadvisor.com/TravelMapHome", name: "Marrakech, Morocco")
           m = c.complete!
           # Currently saving as So Lounge | Sofitel Marrakech?  
