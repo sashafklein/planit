@@ -38,8 +38,7 @@ module Completers
     def explore
       get_venues!
       pick_venue
-      binding.pry
-      pip.unsure = (pip.unsure + ["FoursquareExplore"]).uniq unless venue
+      pip.question!(class_name) unless venue
 
       merge!
       getPhotos

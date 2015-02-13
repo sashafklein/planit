@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe String do
   describe "no_accents" do

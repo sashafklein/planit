@@ -78,6 +78,10 @@ module Completers
       flag_name ? @flags.select{ |f| f.name == flag_name } : @flags
     end
 
+    def question!(completer_name)
+      @unsure = (@unsure + [completer_name]).uniq
+    end
+
     private
 
     def get_datastore(ds_name)
