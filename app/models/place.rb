@@ -48,8 +48,9 @@ class Place < BaseModel
   end
 
   def nearby
-    return nil unless [locality, subregion, region, country].any?(&:present?)
-    [locality, subregion, region, country].reject(&:blank?).join(", ")
+    list = [locality, subregion, region, country]
+    return nil unless list.any?(&:present?)
+    list.reject(&:blank?).join(", ")
   end
 
   def find_and_merge
@@ -117,11 +118,17 @@ class Place < BaseModel
   def foursquare_rating
     return false # REPLACE WHEN WE INTRODUCE TO DATABASE
   end
+  
   def yelp_id
     return false # REPLACE WHEN WE INTRODUCE TO DATABASE
   end
+  
   def yelp_rating
     return false # REPLACE WHEN WE INTRODUCE TO DATABASE
+  end
+
+  def tracking_data
+    Flag.where(name: "Tracking Data").first
   end
 
   private

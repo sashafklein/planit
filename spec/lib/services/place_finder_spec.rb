@@ -5,7 +5,7 @@ module Services
     describe 'find!' do
 
       before do 
-        @mark = create(:mark, :with_place)
+        @mark = create(:mark)
       end
 
       context "with preexisting record without name clash" do

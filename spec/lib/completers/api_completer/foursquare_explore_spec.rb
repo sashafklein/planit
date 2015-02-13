@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 module Completers
-  describe FoursquareExplore, :vcr do
+  describe ApiCompleter::FoursquareExplore, :vcr do
     describe "complete!" do
       context "with sufficient information" do
 
         it "returns a non-persisted place" do
           pip = PlaceInProgress.new({lat: 37.74422249388305, lon: -122.4352317663816, names: ["Contigo"]})
-          completed = FoursquareExplore.new(pip).complete!
+          completed = ApiCompleter::FoursquareExplore.new(pip).complete
           c_place = completed[:place].place
           
           expect( c_place ).to be_a Place
@@ -16,7 +16,7 @@ module Completers
 
         it "completes with latLon and name" do
           pip = PlaceInProgress.new({lat: 37.750, lon: -122.434, names: ["Contigo"]})
-          completed = FoursquareExplore.new(pip).complete!
+          completed = ApiCompleter::FoursquareExplore.new(pip).complete
           c_place = completed[:place].place
 
           expect( c_place.street_address ).to eq('1320 Castro St')
@@ -25,7 +25,7 @@ module Completers
 
         it "completes with locality and name" do
           pip = PlaceInProgress.new({locality: 'Cartagena', country: 'Colombia', names: ["La Cevicheria"]})
-          completed = FoursquareExplore.new(pip).complete!
+          completed = ApiCompleter::FoursquareExplore.new(pip).complete
 
           c_place = completed[:place].place
 
@@ -43,7 +43,7 @@ module Completers
         it "returns original without name" do
           place = Place.new({lat: 37.74422249388305, lon: -122.4352317663816})
           pip = PlaceInProgress.new(place.attributes.symbolize_keys)
-          completed = FoursquareExplore.new(pip).complete!
+          completed = ApiCompleter::FoursquareExplore.new(pip).complete
           c_place = completed[:place].place
 
           expect( c_place.attributes ).to eq( place.attributes )
@@ -52,7 +52,7 @@ module Completers
         it "returns original without locality" do
           place = Place.new({names: ["Contigo"], street_addresses: ['1320 Castro St']})
           pip = PlaceInProgress.new(place.attributes.symbolize_keys)
-          completed = FoursquareExplore.new(pip).complete!
+          completed = ApiCompleter::FoursquareExplore.new(pip).complete
           c_place = completed[:place].place
           expect( c_place.attributes ).to eq(place.attributes)
         end
@@ -62,7 +62,7 @@ module Completers
         it "returns the original" do
           place = Place.new({names: ["ThisPlaceDoesntExist"], locality: 'San Francisco'})
           pip = PlaceInProgress.new(place.attributes.symbolize_keys)
-          completed = FoursquareExplore.new(pip).complete!
+          completed = ApiCompleter::FoursquareExplore.new(pip).complete
           c_place = completed[:place].place
           expect( c_place.attributes ).to eq(place.attributes)
         end

@@ -6,23 +6,22 @@ module Completers
     include Services::GeoQueries
 
     attr_reader :json, :link, :text, :json_text, :success
-    def initialize(link, text='')
+    def initialize(link, text=nil)
       @link, @text = link, text
-      @json_text = open( URI.parse(link) ).read[/{.+}/]
+      @json_text = open( link ).read[/{.+}/]
       @json = eval( @json_text ).to_sh
-    end
-
-    def marker
-      json.super_fetch(:overlays, :markers, 0)
+      @json.overlays.try(:delete, :layers)
+      @json.try(:delete, :panel)
     end
 
     def names
-      [ marker.name ]
+      return [] unless n = marker.name || marker.super_fetch(:infoWindow, :title)
+      [n, text].compact.map{ |s| s.decode_characters.gsub(/<.*./, '') }.uniq
     end
 
     def full_address
-      lines = [ marker.address_lines ]
-      lines ? lines.join(", ") : nil
+      lines = marker.super_fetch(:infoWindow, :addressLines)
+      lines ? lines.join(", ").decode_characters : nil
     end
 
     def locality          
@@ -42,7 +41,10 @@ module Completers
     end
 
     def street_address
-      trim_full_to_street_address(full_address, country, postal_code, region, locality, names.first)
+      lines = marker.super_fetch(:infoWindow, :addressLines)
+      ( lines.try(:first) ||
+          trim_full_to_street_address(full_address, country, postal_code, region, locality, names.first) 
+      ).decode_characters
     end
 
     def street_addresses
@@ -50,7 +52,7 @@ module Completers
     end
 
     def website          
-      marker.super_fetch(:infoWindow, :hp, :url, :actual_url)
+      marker.super_fetch(:infoWindow, :hp, :actual_url)
     end
 
     def google_place_url
@@ -66,14 +68,16 @@ module Completers
       list ? list.map(&:number).compact : []
     end
 
-    def lat        
-      (json.super_fetch(:viewport, :center, :lat) ||
-        json_text.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=([-]?\d+\.\d+)\,[-]?\d+\.\d+/).flatten.first).try(:to_f)
+    def lat
+      fetched_lat = json.super_fetch(:viewport, :center, :lat)
+      chosen_lat = (fetched_lat && fetched_lat != 0) ? fetched_lat : json_text.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=([-]?\d+\.\d+)\,[-]?\d+\.\d+/).flatten.first
+      chosen_lat.try(:to_f)
     end
 
-    def lon            
-      (json.super_fetch(:viewport, :center, :lng) ||
-        json_text.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=[-]?\d+\.\d+\,([-]?\d+\.\d+)/).flatten.first).try(:to_f)
+    def lon
+      fetched_lon = json.super_fetch(:viewport, :center, :lng)
+      chosen_lon = (fetched_lon && fetched_lon != 0) ? fetched_lon : json_text.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=[-]?\d+\.\d+\,([-]?\d+\.\d+)/).flatten.first
+      chosen_lon.try(:to_f)
     end
 
     def images
@@ -89,6 +93,14 @@ module Completers
 
     def country_code          
       marker.sxcn
+    end
+
+    def extra
+      { google_place_url: google_place_url }
+    end
+
+    def marker
+      json.super_fetch(:overlays, :markers, 0) || {}.to_sh
     end
 
     private

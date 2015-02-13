@@ -14,4 +14,8 @@ class Object
     self == false || self.present?
   end
 
+  def is_a_or_h?
+    is_a?(Array) || is_a?(Hash)
+  end
+
 end

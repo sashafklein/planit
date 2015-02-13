@@ -2,7 +2,7 @@ module Completers
   class ApiCompleter::GoogleMaps < ApiCompleter
 
     attr_reader :pip, :atts, :venue
-    def initialize(pip, atts)
+    def initialize(pip, atts, take: nil)
       @pip, @atts = pip, atts
     end
 
@@ -16,18 +16,17 @@ module Completers
 
     def find
       flag_query(url)
-      @venue = ApiVenue::GoogleMapsVenue.new(url)
-      @success = venue.marker.present? && good_lat_lon?
+      @venue = ApiVenue::GoogleMapsVenue.new( url )
+      @success = venue.marker.present? && ( triangulate_from_previous! || good_lat_lon? )
+    end
+
+    def atts_to_merge
+      [:names, :full_address, :locality, :region, :postal_code, :country, :street_addresses, :website, :phones, :lat, :lon, :extra]
     end
 
     def merge!
       return unless @success
-      set_vals(:names, :full_address, :locality, :region, :postal_code, :country, :street_addresses, :website, :phones, :lat, :lon)
-      pip.set_val(:extra, { google_place_url: venue.google_place_url }, self.class)
-    end
-
-    def set_vals(*vals)
-      vals.each{ |v| pip.set_val(v, venue.send(v), self.class ) }
+      super
     end
 
     def photos
@@ -35,16 +34,16 @@ module Completers
     end
 
     def url
-      "https://www.google.com/maps?q=#{query}&output=json"
+      URI.parse("https://www.google.com/maps?q=#{query}&output=json").to_s
     end
 
     def query
       if nearby 
-        "#{pip.name}, #{nearby}".no_accents
+        ["#{pip.name.to_s.gsub(" ", '+')}", nearby].map(&:no_accents).join("&near=")
       elsif ll.present?
-        "#{pip.name}&sll=#{ll}"
+        "#{pip.name.to_s.gsub(" ", '+')}+loc:#{ll}"
       elsif pip.full_address
-        "#{pip.name}, #{ pip.full_address.gsub(/\#.*,/, ',') }".no_accents
+        "#{pip.name.to_s.gsub(" ", '+')}, #{ pip.full_address.to_s.gsub(/\#.*,/, ',').gsub(" ", '+') }".no_accents
       end
     end
 
@@ -60,7 +59,7 @@ module Completers
     end
 
     def good_lat_lon?
-      answer = venue.acceptably_close_lat_lon_and_name?(pip)
+      answer = venue.acceptably_close_lat_lon_and_name?(pip, overwrite_nil: true)
       flag_failure(query: url, response: venue.json, error: 'Unacceptable LatLon/Name', extra: { pip: pip.clean_attrs }) unless answer
       answer
     end

@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 module Completers
-  describe FoursquareRefine, :vcr do
+  describe ApiCompleter::FoursquareRefine, :vcr do
 
     describe "the new attributes" do
 
       it "grabs all the necessary information from Lavash" do
-        pip = PlaceInProgress.new({foursquare_id: '49b3268cf964a520e1521fe3' })
-        pip = FoursquareRefine.new(pip).complete[:place]
+        pip = PlaceInProgress.new( {foursquare_id: '49b3268cf964a520e1521fe3' })
+        pip = ApiCompleter::FoursquareRefine.new(pip).complete[:place]
         
         expect( pip.reservations ).to eq true
         expect( pip.reservations_link ).to eq nil
@@ -25,7 +25,6 @@ module Completers
         expect( pip.menu ).to eq "https://foursquare.com/v/lavash/49b3268cf964a520e1521fe3/menu"
         expect( pip.mobile_menu ).to eq "https://foursquare.com/v/49b3268cf964a520e1521fe3/device_menu"
         expect( pip.flags.reject{ |f| f.name == "API Query"} ).to be_empty
-        expect( pip.completion_steps ).to eq ['FoursquareRefine']
       end
     end
   end

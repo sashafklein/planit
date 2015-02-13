@@ -55,6 +55,10 @@ module Completers
       json.super_fetch %w(location city)
     end
 
+    def sublocality
+      json.super_fetch %w(location neighborhood)
+    end
+
     def full_address
       fa = json.super_fetch %w( location formattedAddress )
       fa ? fa.join(", ") : nil

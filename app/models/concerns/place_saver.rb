@@ -18,20 +18,21 @@ class PlaceSaver
   end
 
   def order_names
-    place.names = place.names.reject(&:non_latinate?) + place.names.select(&:non_latinate?)
+    place.names = place.names.reject(&:non_latinate?) + place.names.select(&:non_latinate?).map(&:decode_characters)
   end
 
   private
 
   def do_saving(raise_errors=false)
     format_phones
-    capitalize_categories
+    format_categories
     add_meta_categories
+    order_names
+    format_addresses
     uniqify_array_attrs
     correct_and_deaccent_regional_info
     format_hours
     set_timezone
-    order_names
     deduplicate_names
     save_and_validate_changes!(raise_errors)
   end
@@ -104,8 +105,8 @@ class PlaceSaver
     expand_region
   end
 
-  def capitalize_categories
-    place.categories = place.categories.map(&:nuanced_titleize)
+  def format_categories
+    place.categories = place.categories.map(&:nuanced_titleize).map(&:no_accents)
   end
 
   def add_meta_categories
@@ -161,6 +162,11 @@ class PlaceSaver
 
   def names_ordered?
     !( place.names.first.non_latinate? && place.names.any?(&:latinate?) )
+  end
+
+  def format_addresses
+    place.street_addresses = place.street_addresses.map{ |a| PlaceAddress.new(a).format }
+    place.full_address = PlaceAddress.new( place.full_address ).format
   end
 
   def deduplicate_names

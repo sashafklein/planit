@@ -9,8 +9,10 @@ class PlaceAttrs
   def normalize
     pluralize_singular_array_attrs
     prioritize_latinate_names
+    encode_characters_in_names
     format_and_validate_lat_lon
     normalize_json_attrs
+    clean_nearby
 
     @attrs = attrs.reject_val(&:nil?)
     found = Services::PlaceFinder.new(attrs).find!
@@ -36,6 +38,10 @@ class PlaceAttrs
     attrs.names = attrs.names.select(&:latinate?) + attrs.names.select(&:non_latinate?)
   end
 
+  def encode_characters_in_names
+    attrs.names = attrs.names.map{ |s| s.decode_characters }
+  end
+
   def format_and_validate_lat_lon
     [:lat, :lon].each{ |att| attrs[att] = attrs.delete(att).try(:to_f) }
     validate_or_nullify_lat_lon!
@@ -48,6 +54,7 @@ class PlaceAttrs
   end
 
   def validate_or_nullify_lat_lon!
+    return unless attrs.lat && attrs.lon
     attrs.lat && attrs.lon && timezone = Timezone::Zone.new({latlon: [attrs.lat, attrs.lon]})
     attrs.timezone_string = timezone.zone
   rescue
@@ -76,11 +83,11 @@ class PlaceAttrs
 
   def normalize_extra
     attrs[:extra] ||= {}.to_sh
-    if !attrs[:extra].is_a? Hash
-      attrs[:extra] = { misc: attrs[:extra] }.to_sh
-    end
-
+    
+    attrs[:extra] = { misc: attrs[:extra] }.to_sh if !attrs[:extra].is_a? Hash
+    
     extra_attrs.each { |k, _| attrs[:extra][k] = attrs.delete(k) }
+    
     attrs[:extra]
   end
 
@@ -90,5 +97,9 @@ class PlaceAttrs
       normalized[k.to_s.downcase] = v.stringify_keys
     end
     Services::TimeConverter.convert_hours(normalized)
+  end
+
+  def clean_nearby
+    attrs.nearby = attrs.nearby.gsub(/<.*>/, '') if attrs.nearby
   end
 end

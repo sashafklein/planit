@@ -14,7 +14,7 @@ module MetaExt
             end
 
             define_method(singular) do
-              send(plural).first
+              send(plural).compact.first
             end
           end
 

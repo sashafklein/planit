@@ -115,7 +115,7 @@ module Scrapers
         end
 
         if each_link[:href]
-          @bsjson = Completers::GoogleMapsVenue.new( each_link[:href].gsub("http://", "https://"), each_link[:text] )
+          @bsjson = Completers::ApiVenue::GoogleMapsVenue.new( each_link[:href].gsub("http://", "https://"), each_link[:text] )
         else
           @bsjson = SuperHash.new
         end

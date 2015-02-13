@@ -1,132 +1,105 @@
 module Completers
   class PlaceInProgress
 
-    attr_accessor :attrs, :flags
+    attr_accessor :unsure, :ds, :completion_steps, :triangulated
+
     delegate *(Place.attribute_keys + [:coordinate, :pinnable, :nearby, :name, :street_address, :foursquare_id]), to: :place
+    delegate :attrs, :val, :source, :sources, :info, :set_val, :raw_attrs, :clean_attrs, :update, to: :ds
 
     def initialize(attributes={}, flags=[])
-      @attrs, @flags = SuperHash.new(defaults.symbolize_keys), flags
-
-      attributes.symbolize_keys.each do |key, value|
-        set_val(key, value, 'PlaceInProgress', true)
-      end
+      @_base = new_datastore(attributes, "Base")
+      @flags, @completion_steps, @unsure, @triangulated = flags, [], [], false
+      @ds = @_base
     end
 
-    def update(new_atts, source_class, force=false)
-      new_atts.each do |att, val|
-        set_val(att, val, source_class, force)
-      end
-      self
+    def set_ds(datastore_name=:base)
+      new_ds = datastore(datastore_name)
+      @ds = new_ds
     end
 
     def place
       Place.new(raw_attrs)
     end
 
-    def val(sym)
-      info(sym, :val)
-    end
-
-    def source(sym)
-      info(sym, :source)
-    end
-
-    def sources(*syms)
-      syms.map{ |s| source(s) }
-    end
-
-    def set_val(sym, val, source, force=false)
-      cleaned_source = clean_source(source)
-      if accept?(sym, val, cleaned_source) || force
-        if default(sym).is_a? Array
-          attrs[sym] = ( attrs[sym] + [{ val: val, source: cleaned_source }] ).uniq
-        elsif default(sym).is_a? Hash
-          set_hash(sym, val, source)
-        else
-          attrs[sym] = { val: val, source: cleaned_source }
-        end
-      end
-    end
-
     def flag(name:, details: nil, info: nil)
       @flags << place.flag(name: name, details: details, info: info)
-    end
-
-    def clean_attrs
-      attrs.reduce_to_hash{ |k, v| val(k) }.select_val(&:present?)
-    end
-
-    def defines?(*atts, all: false)
-      defined = vals(atts).select(&:is_defined?)
-      all ? vals.all?(&:is_defined?) : vals.any?(&:is_defined?)
-    end
-
-    def vals(*atts)
-      atts.map{ |a| val(a) }
     end
 
     def completed(step)
       completion_steps.include?(step)
     end
 
+    def complete(step)
+      completion_steps << step
+    end
+
+    def flush!(ds_name=:base)
+      remove_instance_variable("@_#{ds_name}")
+      set_ds
+    end
+
+    def load!(from, hierarchy_bump=10) # Tend towards overriding on explicit side-load
+      from_ds = get_datastore(from)
+      set_ds
+
+      from_ds.clean_attrs.each do |k, v| 
+        @ds.set_val(field: k, val: from_ds.val(k), source: from_ds.source(k), hierarchy_bump: hierarchy_bump)
+      end 
+
+      flush!(from)
+    end
+
+    def datastores
+      instance_variables.select{ |s| s.to_s[1] == '_' }.map do |s|
+        get_datastore( s[2..-1] )
+      end
+    end
+
+    def previous(source_name)
+      source_hierarchy[ 0..( source_hierarchy.index(source_name)) ]
+    end
+
+    def load_and_flush_siblings!(dstore)
+      return unless dstore and dstore.is_a?(TrackHash)
+      siblings = datastores.select{ |d| d._name.include?( dstore._name[0..-2] ) }
+      siblings.each{ |d| flush!(d._name.underscore) unless d == dstore }
+      load!( dstore._name.underscore )
+    end
+
+    def viable_datastores(type_name:, venue:)
+      datastores.select do |d| 
+        d.type == type_name &&
+          ( d.val(:names).include?(venue.name) || 
+            venue.points_ll_similarity(d.clean_attrs) >= 3 )
+      end
+    end
+
+    def flags(flag_name=nil)
+      flag_name ? @flags.select{ |f| f.name == flag_name } : @flags
+    end
+
     private
 
-    def raw_attrs
-      attrs.except(:nearby).reduce_to_hash{ |k, v| val(k) }.select_val(&:present?)
+    def get_datastore(ds_name)
+      instance_variable_get("@_#{ds_name}")
     end
 
-    def accept?(sym, val, source)
-      ( !val(sym) || source_a_gt_source_b( source, source(sym) ) ) && !val.nil?
+    def datastore(ds_name)
+      ds_name ||= :base
+      get_datastore(ds_name) || make_datastore(ds_name)
     end
 
-    def clean_source(source)
-      source.is_a?(Class) ? source.to_s.demodulize : source
-    end
-
-    def source_a_gt_source_b(source_a, source_b)
-      a_index = source_list.index clean_source(source_a)
-      b_index = source_list.index clean_source(source_b)
-
-      raise "Bad source name: #{source_a}" unless a_index
-
-      b_index.nil? || a_index >= b_index
+    def make_datastore(ds_name)
+      instance_variable_set("@_#{ds_name}", new_datastore(nil, ds_name.to_s.camelize))
     end
 
     # Rightmost has greatest overwrite permissions
-    def source_list
-      %w(PlaceInProgress Nearby Narrow GoogleMaps FoursquareExplore FoursquareRefine TranslateAndRefine)
+    def source_hierarchy
+      %w(PlaceInProgress Pin Nearby Narrow FoursquareExplore FoursquareRefine TranslateAndRefine GoogleMaps)
     end
 
-    def default(sym)
-      Place.new.attributes[sym.to_s]
-    end
-
-    def defaults
-      Place.attribute_keys.inject({}) do |hash, k|
-        hash[k] = default(k).nil? ? {} : default(k)
-        hash
-      end 
-    end
-
-    def info(sym, type)
-      if default(sym).is_a? Array
-        attrs[sym].map{ |e| e[type] }.flatten
-      elsif default(sym).is_a? Hash
-        attrs[sym].reduce_to_hash { |k, v| v[type] }
-      else
-        attrs.super_fetch( sym, type ) { default(sym) }
-      end
-    end
-
-    def set_hash(sym, val, source)
-      val.each do |k, v|
-        hash = { val: v, source: source }
-        if attrs.super_fetch( sym, k.to_sym ) && attrs.super_fetch( sym, k.to_sym ) != hash
-          attrs[sym]["#{k}_#{clean_source(source)}".to_sym] = hash
-        else
-          attrs[sym][k.to_sym] = hash
-        end
-      end
+    def new_datastore(seed=nil, name=nil)
+      TrackHash.new(Place.new.attributes, seed, source_hierarchy, name)
     end
   end
 end

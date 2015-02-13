@@ -11,12 +11,8 @@ module Completers
     
     private
 
-    def update(key, val, overwrite=true)
-      pip.set_val( key, val, self.class, overwrite ) if take?(key)
-    end
-
     def get_results(query)
-      @venue =ApiVenue::GeolocateVenue.new( ( response_data(query) || response_data(pip.coordinate(', ')) || {} ).to_sh )
+      @venue = ApiVenue::GeolocateVenue.new( ( response_data(query) || response_data(pip.coordinate(', ')) || {} ).to_sh )
       @success = venue.found?
     end
 
@@ -29,15 +25,12 @@ module Completers
     end
 
     def update_location_basics(overwrite=false)
-      update( :country, country, overwrite )
-      update( :region, region, overwrite )
+      set_vals fields: [:country, :region].select{ |k| take?(k) }
       update_locale(overwrite)
     end
 
     def update_locale(overwrite=false)
-      update( :subregion, subregion, overwrite )
-      update( :locality, locality, overwrite )
-      update( :sublocality, sublocality, overwrite )
+      set_vals fields: [:subregion, :locality, :sublocality].select{ |k| take?(k) }
     end
 
     def reverse_lat_lon_if_appropriate
@@ -48,15 +41,14 @@ module Completers
 
       if lat_possibly_reversed && lon_possibly_reversed
         pip.flag( name: "Reversed LatLon", info: { pre_flip: pip.coordinate, geocoder: [lat, lon].join(":") } )
-        pip.set_val(:lat, pip.lon, self.class)
-        pip.set_val(:lon, pip.lat, self.class)
+        set_vals fields: [:lat, :lon]
       end
     end
 
     def get_query
       @query = 
-        if    pip.coordinate     then pip.coordinate(", ")
-        elsif pip.street_address then [:street_address, :locality, :sublocality, :subregion, :region, :country].map{ |v| pip.val(v) }.reject(&:blank?).join(", ")
+        if    pip.coordinate pip.coordinate(", ")
+        elsif pip.street_address then [:street_address, :locality, :sublocality, :subregion, :region, :country].map{ |v| pip.send(v) }.reject(&:blank?).join(", ")
         else  pip.full_address
         end
 

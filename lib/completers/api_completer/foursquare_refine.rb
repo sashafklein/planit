@@ -2,7 +2,7 @@ module Completers
   class ApiCompleter::FoursquareRefine < ApiCompleter
 
     attr_accessor :fsid, :pip, :venue
-    def initialize(pip)
+    def initialize(pip, attrs={}, take: nil)
       @pip, @fsid = pip, pip.foursquare_id
     end
 
@@ -29,12 +29,8 @@ module Completers
       @venue = ApiVenue::FoursquareRefineVenue.new @response
     end
 
-    def merge!
-      set_vals :menu, :mobile_menu, :wifi, :cross_street, :hours, :categories, :reservations, :reservations_link
-    end
-
-    def set_vals(*atts)
-      atts.each{ |att| set_val( att, venue.send(att) ) }
+    def atts_to_merge
+      [:menu, :mobile_menu, :wifi, :cross_street, :hours, :categories, :reservations, :reservations_link]
     end
 
     def full_fs_url

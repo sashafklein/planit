@@ -9,9 +9,9 @@ module Completers
              to: :pip
 
     attr_accessor :pip, :venues, :venue, :geocoded, :photos, :alternate_nearby, :response
-    def initialize(pip, alternate_nearby=nil)
+    def initialize(pip, attrs={}, take: nil)
       @pip = pip
-      @alternate_nearby = alternate_nearby
+      @alternate_nearby = attrs[:nearby]
       @photos = []
     end
 
@@ -38,8 +38,8 @@ module Completers
     def explore
       get_venues!
       pick_venue
-
-      return unless venue
+      binding.pry
+      pip.unsure = (pip.unsure + ["FoursquareExplore"]).uniq unless venue
 
       merge!
       getPhotos
@@ -54,32 +54,24 @@ module Completers
 
       @venues = @response.super_fetch( :response, :groups, 0, :items ).map do |item|
         ApiVenue::FoursquareExploreVenue.new(item)
-      end.sort{ |a, b| b.points_of_lat_lon_similarity(pip) <=> a.points_of_lat_lon_similarity(pip) }
-
-      pip.flag( name: "Foursquare Explore Results", info: @venues.map{ |v| { name: v.name, fsid: v.foursquare_id } } )
+      end
     rescue => e
+      @venues ||= []
       flag_failure(query: full_fs_url, response: @response, error: e)
     end
 
-    def pick_venue
-      venue_failure unless @venue = venues.find do |v| 
-        if pip.name.present?
-          v.acceptably_close_lat_lon_and_name?(pip)
-        else
-          v.address == pip.street_address
-        end
-      end
-    rescue => e
-      venue_failure
+    def sort_venues
+      @venues.sort!{ |a, b| b.points_ll_similarity(pip) <=> a.points_ll_similarity(pip) }
+      pip.flag( name: "Foursquare Explore Results", info: @venues.map{ |v| { name: v.name, fsid: v.foursquare_id } } )
     end
     
-    def merge!
-      set_vals( :website, :locality, :country, :region, :lat, :lon, :menu, :mobile_menu, :foursquare_id, :names, :street_addresses, :phones, :full_address )
-      pip.flag( name: "Name-Lat/Lon Clash", details: "Took information from identically named, distant FoursquareExplore data.", info: { name: venue.name, venue: { lat: venue.lat, lon: venue.lon }, place: { lat: pip.lat, lon: pip.lon } } ) if venue.name_stringency(pip) == 0.99 
+    def atts_to_merge
+      [:website, :locality, :country, :region, :lat, :lon, :menu, :mobile_menu, :foursquare_id, :names, :street_addresses, :phones, :full_address, :sublocality]
     end
 
-    def set_vals(*vals)
-      vals.each{ |v| pip.set_val(v, venue.send(v), self.class) }
+    def merge!
+      pip.flag( name: "Name-Lat/Lon Clash", details: "Taking information from identically named, distant FoursquareExplore data.", info: { name: venue.name, venue: { lat: venue.lat, lon: venue.lon }, place: { lat: pip.lat, lon: pip.lon } } ) if venue && venue.name_stringency(pip) == 0.99
+      super
     end
 
     def getPhotos
@@ -102,13 +94,10 @@ module Completers
     end
 
     def full_fs_url
+      return @full_fs_url if @full_fs_url
       url = "#{ FS_URL }/explore?#{ nearby_parameter }&query=#{ query }&oauth_token=#{ FS_AUTH_TOKEN }&venuePhotos=1"
       flag_query(url)
       url
-    end
-
-    def venue_failure
-      pip.flag( name: "Foursquare Pick Venue Failure", details: "Couldn't pick an acceptable venue", info: { pip: pip.clean_attrs, venues: @venues } )
     end
   end
 end

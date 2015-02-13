@@ -3,39 +3,50 @@ module Completers
 
     extend Memoist
 
-    def acceptably_close_lat_lon_and_name?(pip)
-      if pip.names.all?(&:non_latinate?)
-        return pip.names.any?{ |n| n == name } && name_stringency(pip) != 2
-      end
+    def serialize
+      Place.attribute_keys.inject({}) do |hash, k| 
+        hash[k] = respond_to?(k) ? send(k) : nil
+        hash
+      end.compact
+    end
 
-      pip.names.reject(&:non_latinate?).any? do |pip_name|
+    def self.venue_name
+      to_s.demodulize.split("Venue").first
+    end
+
+    def acceptably_close_lat_lon_and_name?(pip, overwrite_nil: true)
+      pip.names.any? do |pip_name|
         match_percent = Services::StringMatch.new(pip_name, name).value
-        match_percent > name_stringency(pip)
+        match_percent > name_stringency(pip, overwrite_nil: overwrite_nil)
       end
     end
 
-    def name_stringency(pip)
-      if points_of_lat_lon_similarity(pip) >= 4
-        0.65
-      else
-        case points_of_lat_lon_similarity(pip)
-        when 3 then 0.75
-        when 2 then 0.85
+    def name_stringency(pip, overwrite_nil: true)
+      return 2 if (polls = points_ll_similarity(pip, overwrite_nil: overwrite_nil)) < 1 # Reject distant, even if name matches
+      case polls
         when 1 then 0.99
-        else 2 # Reject, even if name matches
-        end
+        when 2 then 0.85
+        when 3 then 0.75
+        else 0.65
       end 
     end
 
-    def points_of_lat_lon_similarity(pip)
-      return @points_similarity if @points_similarity
+    def points_ll_similarity(pip, overwrite_nil: true)
       return 0 unless lat && lon
-      return 6 if pip.lat.nil? || pip.lon.nil?
-      @points_similarity = ((pip.lat.points_of_similarity(lat) + pip.lon.points_of_similarity(lon)) / 2.0).floor
+      return ( overwrite_nil ? 6 : 0 ) if pip.lat.nil? || pip.lon.nil?
+      ((pip.lat.points_of_similarity(lat) + pip.lon.points_of_similarity(lon)) / 2.0).floor
     end
 
     def name
       names.first
+    end
+
+    def street_address
+      street_addresses.first
+    end
+
+    def matching_ll_and_name_or_address(pip)
+      pip.name.present? ? acceptably_close_lat_lon_and_name?(pip) : street_address == pip.street_address
     end
   end
 end

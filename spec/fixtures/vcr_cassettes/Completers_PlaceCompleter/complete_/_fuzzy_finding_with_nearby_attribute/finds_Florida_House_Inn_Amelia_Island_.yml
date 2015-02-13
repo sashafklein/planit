@@ -1,0 +1,896 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=Amelia%20Island,%20Fla.&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 13 Feb 2015 00:56:28 GMT
+      Expires:
+      - Sat, 14 Feb 2015 00:56:28 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.08
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Amelia Island",
+                       "short_name" : "Amelia Island",
+                       "types" : [ "natural_feature", "establishment" ]
+                    },
+                    {
+                       "long_name" : "Nassau County",
+                       "short_name" : "Nassau County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "32034",
+                       "short_name" : "32034",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "Amelia Island, Florida 32034, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.705708,
+                          "lng" : -81.4267175
+                       },
+                       "southwest" : {
+                          "lat" : 30.515759,
+                          "lng" : -81.488119
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.6265697,
+                       "lng" : -81.46085599999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.705708,
+                          "lng" : -81.4267175
+                       },
+                       "southwest" : {
+                          "lat" : 30.515759,
+                          "lng" : -81.488119
+                       }
+                    }
+                 },
+                 "types" : [ "natural_feature", "establishment" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Fri, 13 Feb 2015 00:56:28 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?near=Nassau%20County,%20Florida,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Florida%20House%20Inn&v=20140819&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 13 Feb 2015 00:56:29 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '363'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '483'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-sjc3129-SJC
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"geocode":{"what":"","where":"nassau
+        county florida united states","center":{"lat":30.61058,"lng":-81.77142},"displayString":"Nassau
+        County, FL, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":30.829924,"lng":-81.346358},"sw":{"lat":30.273336999999998,"lng":-82.050331}}},"slug":"nassau-county-florida","longId":"72057594042093539"},"warning":{"text":"There
+        aren''t a lot of results for \"Florida House Inn.\" Try something more general,
+        reset your filters, or expand the search area."},"headerLocation":"Current
+        map view","headerFullLocation":"Current map view","headerLocationGranularity":"unknown","query":"florida
+        house inn","totalResults":1,"suggestedBounds":{"ne":{"lat":30.671711360075687,"lng":-81.46110225315537},"sw":{"lat":30.669011700290245,"lng":-81.46477673582275}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4bc44ea1dce4eee17915729d","name":"1857
+        Florida House Inn","contact":{},"location":{"address":"20 S 3rd St","lat":30.670361530182966,"lng":-81.46293949448905,"postalCode":"32034","cc":"US","city":"Amelia
+        Island","state":"FL","country":"United States","formattedAddress":["20 S 3rd
+        St","Amelia Island, FL 32034"]},"categories":[{"id":"4bf58dd8d48988d1fa931735","name":"Hotel","pluralName":"Hotels","shortName":"Hotel","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/travel\/hotel_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":201,"usersCount":144,"tipCount":4},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":21,"groups":[{"type":"venue","name":"Venue
+        photos","count":21,"items":[{"id":"521bad4311d2e9bb620f51d8","createdAt":1377545539,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/123432_fWKieH6SjNryGnZ9Pv3WhGOl5j1LWoU6NVpDtKKJOiI.jpg","width":959,"height":717,"user":{"id":"123432","firstName":"Kim","lastName":"Geralds","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QGFR2ENSY45IKPYP.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"521bad4311d2e9bb620f51d8","createdAt":1377545539,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/123432_fWKieH6SjNryGnZ9Pv3WhGOl5j1LWoU6NVpDtKKJOiI.jpg","width":959,"height":717,"user":{"id":"123432","firstName":"Kim","lastName":"Geralds","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QGFR2ENSY45IKPYP.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true,"exactMatch":true},"tips":[{"id":"4e9105a1f5b9f8967cef655b","createdAt":1318127009,"text":"This
+        place is amazing.....be sure to check out the courtyard, it is beautiful and
+        then sit awhile on the large front porch....so peaceful","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/4e9105a1f5b9f8967cef655b","likes":{"count":3,"groups":[],"summary":"3
+        likes"},"logView":true,"todo":{"count":1},"user":{"id":"10102494","firstName":"Becky","lastName":"Sandefur-Newport","gender":"female","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/2NXUKSGYSS3UV455.jpg"}}}],"referralId":"e-0-4bc44ea1dce4eee17915729d-0"}]}]}}'
+    http_version: 
+  recorded_at: Fri, 13 Feb 2015 00:56:29 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/4bc44ea1dce4eee17915729d?oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 13 Feb 2015 00:56:29 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '58'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '482'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-sjc3126-SJC
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJtZXRhIjp7ImNvZGUiOjIwMH0sIm5vdGlmaWNhdGlvbnMiOlt7InR5cGUi
+        OiJub3RpZmljYXRpb25UcmF5IiwiaXRlbSI6eyJ1bnJlYWRDb3VudCI6NjN9
+        fV0sInJlc3BvbnNlIjp7InZlbnVlIjp7ImlkIjoiNGJjNDRlYTFkY2U0ZWVl
+        MTc5MTU3MjlkIiwibmFtZSI6IjE4NTcgRmxvcmlkYSBIb3VzZSBJbm4iLCJj
+        b250YWN0Ijp7fSwibG9jYXRpb24iOnsiYWRkcmVzcyI6IjIwIFMgM3JkIFN0
+        IiwibGF0IjozMC42NzAzNjE1MzAxODI5NjYsImxuZyI6LTgxLjQ2MjkzOTQ5
+        NDQ4OTA1LCJwb3N0YWxDb2RlIjoiMzIwMzQiLCJjYyI6IlVTIiwiY2l0eSI6
+        IkFtZWxpYSBJc2xhbmQiLCJzdGF0ZSI6IkZMIiwiY291bnRyeSI6IlVuaXRl
+        ZCBTdGF0ZXMiLCJmb3JtYXR0ZWRBZGRyZXNzIjpbIjIwIFMgM3JkIFN0Iiwi
+        QW1lbGlhIElzbGFuZCwgRkwgMzIwMzQiXX0sImNhbm9uaWNhbFVybCI6Imh0
+        dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvdlwvMTg1Ny1mbG9yaWRhLWhvdXNl
+        LWlublwvNGJjNDRlYTFkY2U0ZWVlMTc5MTU3MjlkIiwiY2F0ZWdvcmllcyI6
+        W3siaWQiOiI0YmY1OGRkOGQ0ODk4OGQxZmE5MzE3MzUiLCJuYW1lIjoiSG90
+        ZWwiLCJwbHVyYWxOYW1lIjoiSG90ZWxzIiwic2hvcnROYW1lIjoiSG90ZWwi
+        LCJpY29uIjp7InByZWZpeCI6Imh0dHBzOlwvXC9zczMuNHNxaS5uZXRcL2lt
+        Z1wvY2F0ZWdvcmllc192MlwvdHJhdmVsXC9ob3RlbF8iLCJzdWZmaXgiOiIu
+        cG5nIn0sInByaW1hcnkiOnRydWV9XSwidmVyaWZpZWQiOmZhbHNlLCJzdGF0
+        cyI6eyJjaGVja2luc0NvdW50IjoyMDEsInVzZXJzQ291bnQiOjE0NywidGlw
+        Q291bnQiOjR9LCJsaWtlcyI6eyJjb3VudCI6MSwiZ3JvdXBzIjpbeyJ0eXBl
+        Ijoib3RoZXJzIiwiY291bnQiOjEsIml0ZW1zIjpbeyJpZCI6IjM3ODYxNzYx
+        IiwiZmlyc3ROYW1lIjoiTndhaHMiLCJsYXN0TmFtZSI6IkxMb3JyYWMiLCJn
+        ZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2ly
+        czEuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9TT05MVDBQ
+        SFVYSkRZMTU0LmpwZyJ9fV19XSwic3VtbWFyeSI6Ik53YWhzIExMb3JyYWMi
+        fSwibGlrZSI6ZmFsc2UsImRpc2xpa2UiOmZhbHNlLCJvayI6ZmFsc2UsInNw
+        ZWNpYWxzIjp7ImNvdW50IjowLCJpdGVtcyI6W119LCJwaG90b3MiOnsiY291
+        bnQiOjIxLCJncm91cHMiOlt7InR5cGUiOiJ2ZW51ZSIsIm5hbWUiOiJWZW51
+        ZSBwaG90b3MiLCJjb3VudCI6MjEsIml0ZW1zIjpbeyJpZCI6IjUyMWJhZDQz
+        MTFkMmU5YmI2MjBmNTFkOCIsImNyZWF0ZWRBdCI6MTM3NzU0NTUzOSwic291
+        cmNlIjp7Im5hbWUiOiJmb3Vyc3F1YXJlIGZvciBpUGhvbmUiLCJ1cmwiOiJo
+        dHRwczpcL1wvZm91cnNxdWFyZS5jb21cL2Rvd25sb2FkXC8jXC9pcGhvbmUi
+        fSwicHJlZml4IjoiaHR0cHM6XC9cL2lyczMuNHNxaS5uZXRcL2ltZ1wvZ2Vu
+        ZXJhbFwvIiwic3VmZml4IjoiXC8xMjM0MzJfZldLaWVINlNqTnJ5R25aOVB2
+        M1doR09sNWoxTFdvVTZOVnBEdEtLSk9pSS5qcGciLCJ3aWR0aCI6OTU5LCJo
+        ZWlnaHQiOjcxNywidXNlciI6eyJpZCI6IjEyMzQzMiIsImZpcnN0TmFtZSI6
+        IktpbSIsImxhc3ROYW1lIjoiR2VyYWxkcyIsImdlbmRlciI6ImZlbWFsZSIs
+        InBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMwLjRzcWkubmV0XC9p
+        bWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvUUdGUjJFTlNZNDVJS1BZUC5qcGci
+        fX0sInZpc2liaWxpdHkiOiJwdWJsaWMifSx7ImlkIjoiNGU5MTA1NTY5YTUy
+        ZGI3ZGJhODIxNzU5IiwiY3JlYXRlZEF0IjoxMzE4MTI2OTM0LCJzb3VyY2Ui
+        OnsibmFtZSI6ImZvdXJzcXVhcmUgZm9yIGlQaG9uZSIsInVybCI6Imh0dHBz
+        OlwvXC9mb3Vyc3F1YXJlLmNvbVwvZG93bmxvYWRcLyNcL2lwaG9uZSJ9LCJw
+        cmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwvaW1nXC9nZW5lcmFs
+        XC8iLCJzdWZmaXgiOiJcL1dNM09WVVhHWEgzQllTSERPS1NJRFZRVUhTMkVG
+        V0YzMFNKV1pCMEFQRUtEWktVSi5qcGciLCJ3aWR0aCI6NTM3LCJoZWlnaHQi
+        OjcyMCwidXNlciI6eyJpZCI6IjEwMTAyNDk0IiwiZmlyc3ROYW1lIjoiQmVj
+        a3kiLCJsYXN0TmFtZSI6IlNhbmRlZnVyLU5ld3BvcnQiLCJnZW5kZXIiOiJm
+        ZW1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3Fp
+        Lm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzJOWFVLU0dZU1MzVVY0
+        NTUuanBnIn19LCJ2aXNpYmlsaXR5IjoicHVibGljIn0seyJpZCI6IjUwNWQx
+        OTJjZTRiMDA4NGM0MDQxNWU3MiIsImNyZWF0ZWRBdCI6MTM0ODI3ODU3Miwi
+        c291cmNlIjp7Im5hbWUiOiJmb3Vyc3F1YXJlIGZvciBBbmRyb2lkIiwidXJs
+        IjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9kb3dubG9hZFwvI1wvYW5k
+        cm9pZCJ9LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5ldFwvaW1n
+        XC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzM1NTk1Mjk2X01vVl94SHpETmlV
+        OFJfcHY0alNrR1F4M0ljSEdjUGZXSkNRT1AwMjRaRFkuanBnIiwid2lkdGgi
+        OjcyMCwiaGVpZ2h0Ijo1NDAsInVzZXIiOnsiaWQiOiIzNTU5NTI5NiIsImZp
+        cnN0TmFtZSI6IkthdGhsZWVuIiwibGFzdE5hbWUiOiJGbG9yeWFuIiwiZ2Vu
+        ZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2ly
+        czMuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9NVVA0RURI
+        QU9ZMFBHRzNDLmpwZyJ9fSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9LHsiaWQi
+        OiI1MmMxZmZjNzQ5OGUwOGQ1OTVlYTVmYzciLCJjcmVhdGVkQXQiOjEzODg0
+        NDU2MzksInNvdXJjZSI6eyJuYW1lIjoiZm91cnNxdWFyZSBmb3IgaVBob25l
+        IiwidXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9kb3dubG9hZFwv
+        I1wvaXBob25lIn0sInByZWZpeCI6Imh0dHBzOlwvXC9pcnMyLjRzcWkubmV0
+        XC9pbWdcL2dlbmVyYWxcLyIsInN1ZmZpeCI6IlwvNDkyODczNl9SMGJQcUZP
+        dmFBY245QVlNS1ZJb2t2amhCZmJMT0ZUT0tKYnY2ZGxVZUZ3LmpwZyIsIndp
+        ZHRoIjo5NTksImhlaWdodCI6NzE3LCJ1c2VyIjp7ImlkIjoiNDkyODczNiIs
+        ImZpcnN0TmFtZSI6Ik1pbiIsImxhc3ROYW1lIjoiV29vbmcta2kiLCJnZW5k
+        ZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczMu
+        NHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9BTlJNSlpQREpW
+        UjVaVU40LmpwZyJ9fSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9LHsiaWQiOiI1
+        MmMwY2VlODQ5OGVlNjA0OWIwNThlYzEiLCJjcmVhdGVkQXQiOjEzODgzNjc1
+        OTIsInNvdXJjZSI6eyJuYW1lIjoiZm91cnNxdWFyZSBmb3IgaVBob25lIiwi
+        dXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9kb3dubG9hZFwvI1wv
+        aXBob25lIn0sInByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9p
+        bWdcL2dlbmVyYWxcLyIsInN1ZmZpeCI6IlwvNTkyNjY4MTlfaExoc3paMnJj
+        UGRGYllyRDVHUTJsRHA4QkdjUC1VYm1yYlRZd2J3b3AtVS5qcGciLCJ3aWR0
+        aCI6NzIwLCJoZWlnaHQiOjk2MCwidXNlciI6eyJpZCI6IjU5MjY2ODE5Iiwi
+        Zmlyc3ROYW1lIjoiRXVuaGEiLCJsYXN0TmFtZSI6IuuEpOyVhOuEpOyVhCDw
+        n4y/IiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0
+        cHM6XC9cL2lyczMuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4Ijoi
+        XC81OTI2NjgxOS0zQUVLNE9YNVVWNDEyWTVRLmpwZyJ9fSwidmlzaWJpbGl0
+        eSI6InB1YmxpYyJ9LHsiaWQiOiI1MmMyZDE1MDQ5OGVlZGMyOGIzNWU0YTci
+        LCJjcmVhdGVkQXQiOjEzODg0OTkyODAsInNvdXJjZSI6eyJuYW1lIjoiZm91
+        cnNxdWFyZSBmb3IgaVBob25lIiwidXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVh
+        cmUuY29tXC9kb3dubG9hZFwvI1wvaXBob25lIn0sInByZWZpeCI6Imh0dHBz
+        OlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL2dlbmVyYWxcLyIsInN1ZmZpeCI6
+        IlwvNTkyNjY4MTlfM2lUbk5RWUZsR3JSS0haUXliNnVLTjhObmd4ZzYzTkE0
+        WUZFangxNG5Lcy5qcGciLCJ3aWR0aCI6OTYwLCJoZWlnaHQiOjcyMCwidXNl
+        ciI6eyJpZCI6IjU5MjY2ODE5IiwiZmlyc3ROYW1lIjoiRXVuaGEiLCJsYXN0
+        TmFtZSI6IuuEpOyVhOuEpOyVhCDwn4y/IiwiZ2VuZGVyIjoiZmVtYWxlIiwi
+        cGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczMuNHNxaS5uZXRcL2lt
+        Z1wvdXNlclwvIiwic3VmZml4IjoiXC81OTI2NjgxOS0zQUVLNE9YNVVWNDEy
+        WTVRLmpwZyJ9fSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9XX1dfSwiaGVyZU5v
+        dyI6eyJjb3VudCI6MCwic3VtbWFyeSI6Ik5vYm9keSBoZXJlIiwiZ3JvdXBz
+        IjpbXX0sInJlYXNvbnMiOnsiY291bnQiOjAsIml0ZW1zIjpbXX0sImNyZWF0
+        ZWRBdCI6MTI3MTE1NjM4NSwidGlwcyI6eyJjb3VudCI6NCwiZ3JvdXBzIjpb
+        eyJ0eXBlIjoiZm9sbG93aW5nIiwibmFtZSI6IlRpcHMgZnJvbSBwZW9wbGUg
+        eW91IGZvbGxvdyIsImNvdW50IjowLCJpdGVtcyI6W119LHsidHlwZSI6Im90
+        aGVycyIsIm5hbWUiOiJBbGwgdGlwcyIsImNvdW50Ijo0LCJpdGVtcyI6W3si
+        aWQiOiI0ZTkxMDVhMWY1YjlmODk2N2NlZjY1NWIiLCJjcmVhdGVkQXQiOjEz
+        MTgxMjcwMDksInRleHQiOiJUaGlzIHBsYWNlIGlzIGFtYXppbmcuLi4uLmJl
+        IHN1cmUgdG8gY2hlY2sgb3V0IHRoZSBjb3VydHlhcmQsIGl0IGlzIGJlYXV0
+        aWZ1bCBhbmQgdGhlbiBzaXQgYXdoaWxlIG9uIHRoZSBsYXJnZSBmcm9udCBw
+        b3JjaC4uLi5zbyBwZWFjZWZ1bCIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2Fs
+        VXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC80ZTkxMDVh
+        MWY1YjlmODk2N2NlZjY1NWIiLCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJjb3Vu
+        dCI6MywiZ3JvdXBzIjpbeyJ0eXBlIjoib3RoZXJzIiwiY291bnQiOjMsIml0
+        ZW1zIjpbeyJpZCI6IjQ0NjQyNTAiLCJmaXJzdE5hbWUiOiJDaGFkIiwibGFz
+        dE5hbWUiOiJaaW1tZXJtYW4iLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsi
+        cHJlZml4IjoiaHR0cHM6XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvdXNlclwv
+        Iiwic3VmZml4IjoiXC9HRTBNTVdYMVRSQ1QyVjNaLmpwZyJ9fSx7ImlkIjoi
+        NzY0NzY2MyIsImZpcnN0TmFtZSI6IkhlYXRoZXIiLCJsYXN0TmFtZSI6Illv
+        dW5nIiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0
+        cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4Ijoi
+        XC9FRkVLRDNMMjVGSEExQ0VMLmpwZyJ9fSx7ImlkIjoiNTM0MDk5MDciLCJm
+        aXJzdE5hbWUiOiJNYW5ueSIsImxhc3ROYW1lIjoiR3JhbmFkb3MiLCJnZW5k
+        ZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIu
+        NHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9OUllJSkJTVDAz
+        Q1hNVFBDLmpwZyJ9fV19XSwic3VtbWFyeSI6IjMgbGlrZXMifSwibGlrZSI6
+        ZmFsc2UsImxvZ1ZpZXciOnRydWUsInRvZG8iOnsiY291bnQiOjF9LCJ1c2Vy
+        Ijp7ImlkIjoiMTAxMDI0OTQiLCJmaXJzdE5hbWUiOiJCZWNreSIsImxhc3RO
+        YW1lIjoiU2FuZGVmdXItTmV3cG9ydCIsImdlbmRlciI6ImZlbWFsZSIsInBo
+        b3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9pbWdc
+        L3VzZXJcLyIsInN1ZmZpeCI6IlwvMk5YVUtTR1lTUzNVVjQ1NS5qcGcifX19
+        LHsiaWQiOiI1NDBiODI5MTQ5OGUyMDc4NDA3ODNlNzUiLCJjcmVhdGVkQXQi
+        OjE0MTAwNDA0NjUsInRleHQiOiJDdXRlIGxpdHRsZSBwbGFjZSwgbG92ZSBo
+        b3cgdmludGFnZSBpdCBpcy4iLCJ0eXBlIjoidXNlciIsImNhbm9uaWNhbFVy
+        bCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNTQwYjgyOTE0
+        OThlMjA3ODQwNzgzZTc1IiwibGFuZyI6ImVuIiwibGlrZXMiOnsiY291bnQi
+        OjAsImdyb3VwcyI6W119LCJsaWtlIjpmYWxzZSwibG9nVmlldyI6dHJ1ZSwi
+        dG9kbyI6eyJjb3VudCI6MH0sInVzZXIiOnsiaWQiOiI2NzQ4NDYyMiIsImZp
+        cnN0TmFtZSI6IkxvZ2FuIiwibGFzdE5hbWUiOiJWYXVnaG4iLCJnZW5kZXIi
+        OiJtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczEuNHNx
+        aS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9LREdDUFpUNUNVU0sw
+        TldXLmpwZyJ9fX0seyJpZCI6IjUzMDY3OGVhMTFkMmNhYTNlYTM3OWE4NSIs
+        ImNyZWF0ZWRBdCI6MTM5MjkzMzA5OCwidGV4dCI6IlRyeSB0aGUgTWVybWFp
+        ZCBTbGFwISIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6
+        XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC81MzA2NzhlYTExZDJjYWEzZWEz
+        NzlhODUiLCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJjb3VudCI6MCwiZ3JvdXBz
+        IjpbXX0sImxpa2UiOmZhbHNlLCJsb2dWaWV3Ijp0cnVlLCJ0b2RvIjp7ImNv
+        dW50IjowfSwidXNlciI6eyJpZCI6IjIzMDY1NDA0IiwiZmlyc3ROYW1lIjoi
+        SmVmZiIsImxhc3ROYW1lIjoiSG9wd29vZCIsImdlbmRlciI6Im1hbGUiLCJw
+        aG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5ldFwvaW1n
+        XC91c2VyXC8iLCJzdWZmaXgiOiJcL09MRURWQ0ZVRVJSV0xJRTEuanBnIn19
+        fSx7ImlkIjoiNTFkOWYyMWU0OThlMTQ1ODJjZjYzOWYxIiwiY3JlYXRlZEF0
+        IjoxMzczMjM3NzkwLCJ0ZXh0IjoiU3RheSBpbiB0aGUgbG9nIGNhYmluIHJv
+        b20hIEl0J3Mgc28gY29vbCB+IHRoZSBzdGFmZiBpcyBzdXBlciBhd2Vzb21l
+        IGhlcmUsIHRoZXkgdGFrZSBncmVhdCBjYXJlIG9mIHlvdSEiLCJ0eXBlIjoi
+        dXNlciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNv
+        bVwvaXRlbVwvNTFkOWYyMWU0OThlMTQ1ODJjZjYzOWYxIiwibGFuZyI6ImVu
+        IiwibGlrZXMiOnsiY291bnQiOjAsImdyb3VwcyI6W119LCJsaWtlIjpmYWxz
+        ZSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0sInVzZXIiOnsi
+        aWQiOiIxNzc0ODc3NiIsImZpcnN0TmFtZSI6IlRyaW5hIiwibGFzdE5hbWUi
+        OiJTZWFyY3kiLCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90byI6eyJwcmVmaXgi
+        OiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZm
+        aXgiOiJcL1ZMSFBDVFZKNFROSlhIM0wuanBnIn19fV19XX0sInRhZ3MiOltd
+        LCJzaG9ydFVybCI6Imh0dHA6XC9cLzRzcS5jb21cLzhaRVNZciIsInRpbWVa
+        b25lIjoiQW1lcmljYVwvTmV3X1lvcmsiLCJsaXN0ZWQiOnsiY291bnQiOjMs
+        Imdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsIm5hbWUiOiJMaXN0cyBmcm9t
+        IG90aGVyIHBlb3BsZSIsImNvdW50IjozLCJpdGVtcyI6W3siaWQiOiI1MmI1
+        MWQxNTQ5OGUwYmEwOTQxMTZiMGIiLCJuYW1lIjoi66+4IOuPmeuCqOu2gCDs
+        npDrj5nssKgg7Jes7ZaJIiwiZGVzY3JpcHRpb24iOiIiLCJ0eXBlIjoib3Ro
+        ZXJzIiwidXNlciI6eyJpZCI6IjU5MjY2ODE5IiwiZmlyc3ROYW1lIjoiRXVu
+        aGEiLCJsYXN0TmFtZSI6IuuEpOyVhOuEpOyVhCDwn4y/IiwiZ2VuZGVyIjoi
+        ZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczMuNHNx
+        aS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC81OTI2NjgxOS0zQUVL
+        NE9YNVVWNDEyWTVRLmpwZyJ9fSwiZWRpdGFibGUiOmZhbHNlLCJwdWJsaWMi
+        OnRydWUsImNvbGxhYm9yYXRpdmUiOmZhbHNlLCJ1cmwiOiJcL3VzZXJcLzU5
+        MjY2ODE5XC9saXN0XC8lRUIlQUYlQjgtJUVCJThGJTk5JUVCJTgyJUE4JUVC
+        JUI2JTgwLSVFQyU5RSU5MCVFQiU4RiU5OSVFQyVCMCVBOC0lRUMlOTclQUMl
+        RUQlOTYlODkiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFy
+        ZS5jb21cL3VzZXJcLzU5MjY2ODE5XC9saXN0XC8lRUIlQUYlQjgtJUVCJThG
+        JTk5JUVCJTgyJUE4JUVCJUI2JTgwLSVFQyU5RSU5MCVFQiU4RiU5OSVFQyVC
+        MCVBOC0lRUMlOTclQUMlRUQlOTYlODkiLCJjcmVhdGVkQXQiOjEzODc2MDEx
+        NzMsInVwZGF0ZWRBdCI6MTM5NTc3NTk4NywiZm9sbG93ZXJzIjp7ImNvdW50
+        IjowfSwibGlzdEl0ZW1zIjp7ImNvdW50Ijo3OSwiaXRlbXMiOlt7ImlkIjoi
+        djRiYzQ0ZWExZGNlNGVlZTE3OTE1NzI5ZCIsImNyZWF0ZWRBdCI6MTM5Mzg3
+        MjM0OH1dfX0seyJpZCI6IjRmMWRmMzhjZTRiMGQzNWJkNjNhZThmYSIsIm5h
+        bWUiOiJDb3BwZXJoZWFkICYgVGhlIElzbGFuZCAhIiwiZGVzY3JpcHRpb24i
+        OiIiLCJ0eXBlIjoib3RoZXJzIiwidXNlciI6eyJpZCI6Ijk5NDU0OTkiLCJm
+        aXJzdE5hbWUiOiJQYXRyaWNpYSIsImxhc3ROYW1lIjoiTG9ja2UiLCJnZW5k
+        ZXIiOiJmZW1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJz
+        Mi40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzk5NDU0OTkt
+        VUVBSzFQMEJCUVVKQVBKSS5qcGcifX0sImVkaXRhYmxlIjpmYWxzZSwicHVi
+        bGljIjp0cnVlLCJjb2xsYWJvcmF0aXZlIjpmYWxzZSwidXJsIjoiXC9teWt5
+        bGVcL2xpc3RcL2NvcHBlcmhlYWQtLXRoZS1pc2xhbmQtIiwiY2Fub25pY2Fs
+        VXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9teWt5bGVcL2xpc3Rc
+        L2NvcHBlcmhlYWQtLXRoZS1pc2xhbmQtIiwiY3JlYXRlZEF0IjoxMzI3MzYy
+        OTU2LCJ1cGRhdGVkQXQiOjE0MDI5ODg4NTQsImZvbGxvd2VycyI6eyJjb3Vu
+        dCI6MH0sImxpc3RJdGVtcyI6eyJjb3VudCI6OCwiaXRlbXMiOlt7ImlkIjoi
+        dDRlOTEwNWExZjViOWY4OTY3Y2VmNjU1YiIsImNyZWF0ZWRBdCI6MTM0NjU5
+        NTYzMSwidGlwIjp7ImlkIjoiNGU5MTA1YTFmNWI5Zjg5NjdjZWY2NTViIiwi
+        Y3JlYXRlZEF0IjoxMzE4MTI3MDA5LCJ0ZXh0IjoiVGhpcyBwbGFjZSBpcyBh
+        bWF6aW5nLi4uLi5iZSBzdXJlIHRvIGNoZWNrIG91dCB0aGUgY291cnR5YXJk
+        LCBpdCBpcyBiZWF1dGlmdWwgYW5kIHRoZW4gc2l0IGF3aGlsZSBvbiB0aGUg
+        bGFyZ2UgZnJvbnQgcG9yY2guLi4uc28gcGVhY2VmdWwiLCJ0eXBlIjoidXNl
+        ciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwv
+        aXRlbVwvNGU5MTA1YTFmNWI5Zjg5NjdjZWY2NTViIiwibGlrZXMiOnsiY291
+        bnQiOjMsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50IjozLCJp
+        dGVtcyI6W3siaWQiOiI0NDY0MjUwIiwiZmlyc3ROYW1lIjoiQ2hhZCIsImxh
+        c3ROYW1lIjoiWmltbWVybWFuIiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7
+        InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdcL3VzZXJc
+        LyIsInN1ZmZpeCI6IlwvR0UwTU1XWDFUUkNUMlYzWi5qcGcifX0seyJpZCI6
+        Ijc2NDc2NjMiLCJmaXJzdE5hbWUiOiJIZWF0aGVyIiwibGFzdE5hbWUiOiJZ
+        b3VuZyIsImdlbmRlciI6ImZlbWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0
+        dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6
+        IlwvRUZFS0QzTDI1RkhBMUNFTC5qcGcifX0seyJpZCI6IjUzNDA5OTA3Iiwi
+        Zmlyc3ROYW1lIjoiTWFubnkiLCJsYXN0TmFtZSI6IkdyYW5hZG9zIiwiZ2Vu
+        ZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMy
+        LjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvTlJZSUpCU1Qw
+        M0NYTVRQQy5qcGcifX1dfV0sInN1bW1hcnkiOiIzIGxpa2VzIn0sImxpa2Ui
+        OmZhbHNlLCJsb2dWaWV3Ijp0cnVlLCJ0b2RvIjp7ImNvdW50IjoxfSwic2F2
+        ZXMiOnt9LCJ1c2VyIjp7ImlkIjoiMTAxMDI0OTQiLCJmaXJzdE5hbWUiOiJC
+        ZWNreSIsImxhc3ROYW1lIjoiU2FuZGVmdXItTmV3cG9ydCIsImdlbmRlciI6
+        ImZlbWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMyLjRz
+        cWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvMk5YVUtTR1lTUzNV
+        VjQ1NS5qcGcifX19fV19fV19XX0sInBhZ2VVcGRhdGVzIjp7ImNvdW50Ijow
+        LCJpdGVtcyI6W119LCJpbmJveCI6eyJjb3VudCI6MCwiaXRlbXMiOltdfSwi
+        YXR0cmlidXRlcyI6eyJncm91cHMiOlt7InR5cGUiOiJwYXltZW50cyIsIm5h
+        bWUiOiJDcmVkaXQgQ2FyZHMiLCJzdW1tYXJ5IjoiQ3JlZGl0IENhcmRzIiwi
+        Y291bnQiOjcsIml0ZW1zIjpbeyJkaXNwbGF5TmFtZSI6IkNyZWRpdCBDYXJk
+        cyIsImRpc3BsYXlWYWx1ZSI6IlllcyJ9XX1dfX19fQ==
+    http_version: 
+  recorded_at: Fri, 13 Feb 2015 00:56:29 GMT
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=30.670361530182966,-81.46293949448905&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 13 Feb 2015 00:56:29 GMT
+      Expires:
+      - Sat, 14 Feb 2015 00:56:29 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.08
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "22",
+                       "short_name" : "22",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "South 3rd Street",
+                       "short_name" : "S 3rd St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Fernandina Beach",
+                       "short_name" : "Fernandina Beach",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Nassau County",
+                       "short_name" : "Nassau County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "32034",
+                       "short_name" : "32034",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "22 South 3rd Street, Fernandina Beach, FL 32034, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 30.6703649,
+                       "lng" : -81.4629492
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.6717138802915,
+                          "lng" : -81.46160021970849
+                       },
+                       "southwest" : {
+                          "lat" : 30.6690159197085,
+                          "lng" : -81.46429818029151
+                       }
+                    }
+                 },
+                 "types" : [ "street_address" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Fernandina Beach",
+                       "short_name" : "Fernandina Beach",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Nassau County",
+                       "short_name" : "Nassau County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "32034",
+                       "short_name" : "32034",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "Fernandina Beach, FL 32034, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.7056984,
+                          "lng" : -81.42815349999999
+                       },
+                       "southwest" : {
+                          "lat" : 30.5995321,
+                          "lng" : -81.4834089
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.6696818,
+                       "lng" : -81.46259189999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.7056984,
+                          "lng" : -81.42815349999999
+                       },
+                       "southwest" : {
+                          "lat" : 30.5995321,
+                          "lng" : -81.4834089
+                       }
+                    }
+                 },
+                 "types" : [ "locality", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "32034",
+                       "short_name" : "32034",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "Fernandina Beach",
+                       "short_name" : "Fernandina Beach",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Fernandina Beach, FL 32034, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.726288,
+                          "lng" : -81.42279600000001
+                       },
+                       "southwest" : {
+                          "lat" : 30.5018909,
+                          "lng" : -81.57441799999999
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.59447269999999,
+                       "lng" : -81.49379929999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.726288,
+                          "lng" : -81.42279600000001
+                       },
+                       "southwest" : {
+                          "lat" : 30.5018909,
+                          "lng" : -81.57441799999999
+                       }
+                    }
+                 },
+                 "postcode_localities" : [ "FERNANDINA", "Fernandina Beach" ],
+                 "types" : [ "postal_code" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Nassau County",
+                       "short_name" : "Nassau County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Nassau County, FL, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.8297484,
+                          "lng" : -81.42672949999999
+                       },
+                       "southwest" : {
+                          "lat" : 30.2733371,
+                          "lng" : -82.050331
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.5927334,
+                       "lng" : -81.8224362
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.8297484,
+                          "lng" : -81.42672949999999
+                       },
+                       "southwest" : {
+                          "lat" : 30.2733371,
+                          "lng" : -82.050331
+                       }
+                    }
+                 },
+                 "types" : [ "administrative_area_level_2", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Jacksonville",
+                       "short_name" : "Jacksonville",
+                       "types" : [ "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Jacksonville, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.82749299999999,
+                          "lng" : -81.21286119999999
+                       },
+                       "southwest" : {
+                          "lat" : 29.622406,
+                          "lng" : -82.45954400000001
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.0806477,
+                       "lng" : -81.6911559
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.82749299999999,
+                          "lng" : -81.21286119999999
+                       },
+                       "southwest" : {
+                          "lat" : 29.622406,
+                          "lng" : -82.45954400000001
+                       }
+                    }
+                 },
+                 "types" : [ "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Florida, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 31.000968,
+                          "lng" : -80.0311371
+                       },
+                       "southwest" : {
+                          "lat" : 24.5210795,
+                          "lng" : -87.634896
+                       }
+                    },
+                    "location" : {
+                       "lat" : 27.6648274,
+                       "lng" : -81.5157535
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 31.000968,
+                          "lng" : -80.0311371
+                       },
+                       "southwest" : {
+                          "lat" : 24.9504879,
+                          "lng" : -87.634896
+                       }
+                    }
+                 },
+                 "types" : [ "administrative_area_level_1", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "United States",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 71.389888,
+                          "lng" : -66.94539469999999
+                       },
+                       "southwest" : {
+                          "lat" : 18.9110642,
+                          "lng" : 172.4458955
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.09024,
+                       "lng" : -95.712891
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 49.38,
+                          "lng" : -66.94
+                       },
+                       "southwest" : {
+                          "lat" : 25.82,
+                          "lng" : -124.39
+                       }
+                    }
+                 },
+                 "types" : [ "country", "political" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Fri, 13 Feb 2015 00:56:29 GMT
+- request:
+    method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=30.670361530182966&lng=-81.46293949448905&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 13 Feb 2015 00:56:43 GMT
+      Server:
+      - Apache/2.2.15 (CentOS)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Length:
+      - '260'
+      Connection:
+      - close
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"time":"2015-02-12 19:56","countryName":"United States","sunset":"2015-02-13
+        18:12","rawOffset":-5,"dstOffset":-4,"countryCode":"US","gmtOffset":-5,"lng":-81.46293949448905,"sunrise":"2015-02-13
+        07:08","timezoneId":"America/New_York","lat":30.670361530182966}'
+    http_version: 
+  recorded_at: Fri, 13 Feb 2015 00:56:30 GMT
+recorded_with: VCR 2.9.3

@@ -81,6 +81,40 @@ module Services
         matcher = StringMatch.new("Park Hyatt", "Park Hyatt Hotel")
         expect( matcher.value ).to be_within(0.07).of 0.85
       end
+
+      it "handles characters like a champ!" do
+        matcher = StringMatch.new("Wagas | 沃歌斯", "沃歌斯 - Wagas")
+        expect( matcher.value ).to be_within(0.07).of 0.95
+
+        matcher2 = StringMatch.new("Wagas", "Wagas | 沃歌斯")
+        expect( matcher2.value ).to eq matcher.value
+
+        matcher3 = StringMatch.new("沃歌斯", "沃歌斯")
+        expect( matcher3.value ).to eq 1.0
+
+        matcher4 = StringMatch.new("沃歌斯", "エグゼ")
+        expect( matcher4.value ).to eq 0
+
+        matcher5 = StringMatch.new("沃歌斯", "沃歌斯エグゼ")
+        expect( matcher5.value ).to be_within(0.07).of 0.5
+
+        matcher6 = StringMatch.new("沃歌斯", "&#27779;&#27468;&#26031;") # Decimal-encoded equivalent
+        expect( matcher6.value ).to eq 1
+      end
+
+      it "takes the main string composition into account when comparing" do
+        matcher = StringMatch.new("Wagas", "Wagas | 沃歌斯")
+        expect( matcher.value ).to eq 1
+
+        matcher2 = StringMatch.new("Wagas | 沃歌斯", "Wagas | 沃歌斯")
+        expect( matcher2.value ).to eq 1
+
+        matcher3 = StringMatch.new("Wagas | エグゼ", "Wagas | 沃歌斯")
+        expect( matcher3.value ).to be_within(0.07).of 0.65
+
+        matcher4 = StringMatch.new("沃歌斯", "Wagas | 沃歌斯")
+        expect( matcher4.value ).to eq 1.0
+      end
     end
   end
 end

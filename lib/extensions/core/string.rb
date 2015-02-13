@@ -40,7 +40,7 @@ class String
   end
 
   def without_common_symbols
-    cut( %w(& # * , ; . - ' " * ^ % ! @ ) + ['(', ')'] )
+    cut( %w(& # * , ; . - ' " * ^ % ! @ | ) + ['(', ')'] )
   end
 
   def capitalized?
@@ -59,5 +59,13 @@ class String
         !articles.include?(w) || i == 0 ? w.capitalize : w
       end
     end.join(" ")
+  end
+
+  def encoded_characters?
+    include?("&#")
+  end
+
+  def decode_characters
+    gsub(/[&][#](\d*)[;]/) { |s| $1.to_i.chr }
   end
 end

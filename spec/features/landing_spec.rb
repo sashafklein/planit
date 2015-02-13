@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Landing', :js do
+describe 'Landing' do
 
   describe "not signed in" do
     it "redirected to sign up page" do

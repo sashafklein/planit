@@ -40,7 +40,7 @@ module Scrapers
       def itinerary_data(itinerary, itinerary_index)
         {
           place:{
-            nearby: split_by('h1', [["36 Hours in ", 1], ["36 Hours at the ", 1], ["36 Hours on ", 1], ["36 Hours | ", 1]]),
+            nearby: split_by('h1', [["36 Hours in ", 1], ["36 Hours at the ", 1], ["36 Hours on ", 1], ["36 Hours | ", 1]]).gsub(/<.*>/, ''),
           },
           plan:{
             name: remove_plan_name_fluff( page.css("title").text ),
