@@ -1,9 +1,8 @@
 ENV["RAILS_ENV"] ||= 'test'
 
 require 'spec_helper'
-require File.expand_path("../../config/environment", __FILE__)
 
-# require "shoulda/matchers"
+require "shoulda/matchers"
 require "webmock/rspec"
 require 'vcr'
 
@@ -22,7 +21,7 @@ RSpec.configure do |config|
   config.include Features, type: :feature
   config.include Controllers, type: :controller
   config.include Mock
-  # config.include Formulaic::Dsl, type: :feature
+  config.include Formulaic::Dsl, type: :feature
   config.infer_spec_type_from_file_location!
   config.infer_base_class_for_anonymous_controllers = false
   config.order = "random"
@@ -35,10 +34,10 @@ RSpec.configure do |config|
   # end
 end
 
-# Capybara.javascript_driver = :webkit
+Capybara.javascript_driver = :webkit
 
 if ENV['CIRCLE_ARTIFACTS']
   Capybara.save_and_open_page_path = ENV['CIRCLE_ARTIFACTS']
 end
 
-# WebMock.disable_net_connect!(allow_localhost: true)
+WebMock.disable_net_connect!(allow_localhost: true)

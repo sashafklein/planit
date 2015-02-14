@@ -14,7 +14,7 @@ gem "neat"
 gem "pg"
 gem "rack-timeout"
 gem "rails", "4.2.0"
-# gem "recipient_interceptor"
+gem "recipient_interceptor"
 gem "sass-rails"
 gem "uglifier"
 gem "unicorn"
@@ -35,7 +35,7 @@ gem "rack-mini-profiler", require: false
 gem "active_model_serializers"
 gem "fuzzy-string-match"
 gem "bootstrap-sass"
-# gem "autoprefixer-rails"
+gem "autoprefixer-rails"
 gem "draper", require: false
 gem "timezone"
 gem "newrelic_rpm"
@@ -75,12 +75,12 @@ end
 group :test do
   gem "capybara-webkit", ">= 1.2.0"
   gem "database_cleaner"
-  # gem "formulaic"
+  gem "formulaic"
   gem "launchy"
   gem "timecop"
   gem "webmock"
   gem "vcr"
-  # gem "shoulda-matchers", require: false
+  gem "shoulda-matchers", require: false
   gem "factory_girl_rails"
   gem "rspec-rails"
   gem "selenium-webdriver"
