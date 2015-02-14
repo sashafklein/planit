@@ -99,7 +99,7 @@ module Completers
 
     # Rightmost has greatest overwrite permissions
     def source_hierarchy
-      %w(PlaceInProgress Pin Nearby Narrow FoursquareExplore FoursquareRefine TranslateAndRefine GoogleMaps)
+      %w(PlaceInProgress Pin Nearby Narrow FoursquareExplore FoursquareRefine GoogleMaps TranslateAndRefine)
     end
 
     def new_datastore(seed=nil, name=nil)
