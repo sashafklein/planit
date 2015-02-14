@@ -25,9 +25,9 @@ module Completers
         it "finds Fuunji" do
           place = PlaceCompleter.new( { name: 'Fuunji', nearby: 'Shibuya, Tokyo, Japan' }, 'whatever.com').complete!
           expect( place.country ).to eq('Japan')
-          expect( place.region ).to eq('Tokyo')
+          expect( place.region ).to eq('Tokyo-to')
           expect( place.subregion ).to eq(nil)
-          expect( place.locality ).to eq('Shibuya')
+          expect( place.locality ).to eq('Shibuya-ku')
           expect( place.street_addresses ).to eq( ["代々木2-14-3", "2 Chome-１４−3 Yoyogi"] )
           expect( place.names ).to eq( ["Fuunji", "風雲児"] )
           expect( place.phones ).to eq(["81364138480"])

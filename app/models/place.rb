@@ -6,8 +6,8 @@ class Place < BaseModel
 
   array_accessor :completion_step, :street_address, :name, :category, :meta_category, :phone
   json_accessor :hours, :extra
-  
-  validates_presence_of :lat, :lon, :country, :names
+
+  validate!
 
   delegate :open?, :open_again_at, :open_until, to: :hour_calculator
 
