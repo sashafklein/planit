@@ -48,8 +48,6 @@ gem "colorize"
 
 source "https://rails-assets.org" do
   gem "rails-assets-angular"
-  gem "rails-assets-angular-resource"
-  gem "rails-assets-angular-route"
   gem "rails-assets-angular-mocks"
   gem "rails-assets-active-support"
   gem "rails-assets-async"

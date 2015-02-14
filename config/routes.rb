@@ -9,9 +9,9 @@ Rails.application.routes.draw do
     get :edit, on: :member
   end
 
-  devise_scope :user do
-    get '/', to: "devise/sessions#new"
-  end
+  # devise_scope :user do
+  #   get '/', to: "devise/sessions#new"
+  # end
 
   resources :users, only: [:show] do
     get :places, on: :member

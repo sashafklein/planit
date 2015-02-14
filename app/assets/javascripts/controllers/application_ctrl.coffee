@@ -13,18 +13,14 @@ mod.controller "ApplicationCtrl", (ClickControls) ->
   $('.expanded-search-and-filter, .search-teaser, .filter-dropdown-menu').click (event) -> event.stopPropagation()
 
   searchToggleOn = () -> 
-    $(".search-and-filter-wrap").fadeOut("fast")
-    $(".logo-container").fadeOut("fast")
-    $(".top-menu-container").fadeOut("fast")
+    $(".search-and-filter-wrap, .logo-container, .top-menu-container").fadeOut("fast")
     $(".expanded-search-and-filter").fadeIn("fast")
     $('.initial-header').addClass("focused")
     $("#input-search-field").focus()
   searchToggleOff = () -> 
     $('.initial-header').removeClass("focused")
     $(".expanded-search-and-filter").fadeOut('fast')
-    $(".logo-container").fadeIn("fast")
-    $(".top-menu-container").fadeIn("fast")
-    $(".search-and-filter-wrap").fadeIn("fast")
+    $(".logo-container, .top-menu-container, .search-and-filter-wrap").fadeIn("fast")
     $('#search-teaser-text').html('') if $('#input-search-field').val().length == 0
   searchToggleText = () ->
     searchVal = $('#input-search-field').val()

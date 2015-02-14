@@ -28,7 +28,7 @@ describe 'Authentication' do
       fill_in 'Last name', with: 'Doe'
       click_button "Sign up"
 
-      expect( current_path ).to include '/users/'
+      expect( current_path ).to eq '/users/john-doe'
       expect( page ).to have_content "Welcome! You have signed up successfully."
     end
   end
