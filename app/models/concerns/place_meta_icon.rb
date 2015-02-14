@@ -27,7 +27,7 @@ class PlaceMetaIcon
   private
 
   def transit_icon
-    if categories.any?
+    if categories.any? # This logic will currently ALWAYS return 'fa fa-subway'
       return 'fa fa-subway'
       return 'fa fa-plane'
       return 'fa fa-car'

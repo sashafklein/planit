@@ -75,11 +75,11 @@ class Place < BaseModel
   end
 
   def not_in_usa?
-    country.present? && country != "United States" && country != "United States of America"
+    country.present? !country.in_usa?
   end
 
   def in_usa?
-    country == "United States" || country == "United States of America"
+    ["United States", "United States of America"].include?(country)
   end
 
   def other_info?
@@ -91,15 +91,15 @@ class Place < BaseModel
   end
 
   def foursquare_rating
-    return false # REPLACE WHEN WE INTRODUCE TO DATABASE
+    false # REPLACE WHEN WE INTRODUCE TO DATABASE
   end
   
   def yelp_id
-    return false # REPLACE WHEN WE INTRODUCE TO DATABASE
+    false # REPLACE WHEN WE INTRODUCE TO DATABASE
   end
   
   def yelp_rating
-    return false # REPLACE WHEN WE INTRODUCE TO DATABASE
+    false # REPLACE WHEN WE INTRODUCE TO DATABASE
   end
 
   def tracking_data
