@@ -10,6 +10,7 @@ describe Place do
       expect( place(no: :locality)         ).not_to be_valid
       expect( place(no: :names)            ).not_to be_valid
       expect( place(no: :street_addresses) ).not_to be_valid
+      expect( place(no: :timezone_string)  ).not_to be_valid
     end
   end
 
@@ -21,7 +22,8 @@ describe Place do
         names: ['Name'],
         country: 'USA',
         locality: 'Washington',
-        street_addresses: ["1600 Penn Ave"]
+        street_addresses: ["1600 Penn Ave"],
+        timezone_string: 'whatever'
       }.except(no)
     )
   end

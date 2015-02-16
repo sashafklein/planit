@@ -8,16 +8,15 @@ class PlaceSaver
   end
 
   def save!
-    raise errors unless place.valid?
     do_saving(true)
   end
 
   def save
-    return false unless place.valid?
     do_saving
   end
 
   def order_names
+    return unless (place.names = place.names.compact).any?
     place.names = place.names.reject(&:non_latinate?) + place.names.select(&:non_latinate?).map(&:decode_characters)
   end
 
@@ -26,6 +25,7 @@ class PlaceSaver
   def do_saving(raise_errors=false)
     format_phones
     format_categories
+    supply_missing_street_address
     add_meta_categories
     order_names
     format_addresses
@@ -105,6 +105,10 @@ class PlaceSaver
     expand_region
   end
 
+  def supply_missing_street_address
+    place.street_addresses << place.full_address.split(",")[0].strip if place.street_address.blank? && place.full_address.is_defined?
+  end
+
   def format_categories
     place.categories = place.categories.map(&:nuanced_titleize).map(&:no_accents)
   end
@@ -161,6 +165,7 @@ class PlaceSaver
   end
 
   def names_ordered?
+    return true if place.names.empty?
     !( place.names.first.non_latinate? && place.names.any?(&:latinate?) )
   end
 
@@ -192,10 +197,6 @@ class PlaceSaver
 
   def clean(name)
     name.downcase.without_articles
-  end
-
-  def errors
-    "Error(s) saving Place#{' #' + place.id.to_s if place.id}: #{place.errors.messages.map{ |m| m.last }.flatten.map{ |m| "'#{m}'" }.join(', ')}"
   end
 
   def remove_from_phones

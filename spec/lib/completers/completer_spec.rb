@@ -166,7 +166,7 @@ module Completers
           expect(i.plan.name).to eq "New York for Jetsetters"
         end
 
-        it "creates Boom Boom Room in context despite crappy FS data" do
+        xit "creates Boom Boom Room in context despite crappy FS data" do
           m = Completer.new(yml_data('jetsetters', 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/', 'Boom Boom Room'), @user).complete!
 
           expect(m.country).to eq "United States"
@@ -372,7 +372,8 @@ module Completers
           locality: "Cartagena",
           country: "Colombia", 
           lat: 10.424192,
-          lon: -75.551192
+          lon: -75.551192,
+          timezone_string: 'whatever'
         }.merge(place_additions).compact
       }.merge(overwrite_hash).compact
     end

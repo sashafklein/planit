@@ -1,27 +1,34 @@
 class PlaceValidator < ActiveModel::Validator
   
-  attr_accessor :record
-  def validate(record)
-    @record = record
-    validate_presence!(:lat, :lon, :country, :locality)
-    validate_any!(:street_addresses, :names)
+  attr_accessor :place
+  def validate(place)
+    @place = place
+    validate_presence!(:lat, :lon, :country, :locality, :timezone_string)
+    validate_any!(:names)
+    validate_street_address_if_relevant
   end
 
   private
 
   def validate_presence!(*atts)
     atts.each do |att|
-      if !record[att].is_defined?
-        record.errors[:base] << "#{att.capitalize} can't be blank"
+      if !place[att].is_defined?
+        place.errors[:base] << "#{att.capitalize} can't be blank"
       end
     end
   end
 
   def validate_any!(*atts)
     atts.each do |att|
-      if !record[att].compact.any?
-        record.errors[:base] << "#{att.capitalize} can't be empty"
+      if !place[att].compact.any?
+        place.errors[:base] << "#{att.capitalize} can't be empty"
       end
+    end
+  end
+
+  def validate_street_address_if_relevant
+    if true
+      place.errors[:base] << "Specific places need at least one street address" unless place.street_address
     end
   end
 

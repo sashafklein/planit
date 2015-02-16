@@ -121,6 +121,6 @@ class TrackHash
   end
 
   def accept?(sym, val, source, hierarchy_bump=0)
-    default(sym).is_a_or_h? || ( !val(sym).is_defined? || greater_hierarchy?( incoming: source, previous: source(sym), bump: hierarchy_bump ) ) && !val.nil?
+    default(sym).is_a_or_h? || ( !val(sym).is_defined? || greater_hierarchy?( incoming: source, previous: source(sym), bump: hierarchy_bump ) ) && val.is_defined?
   end
 end

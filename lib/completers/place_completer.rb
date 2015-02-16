@@ -12,6 +12,7 @@ module Completers
     end
 
     def complete!
+      return nil unless @pip.names.any?
       api_complete! unless @pip.completed("FoursquareRefine")
       merge_and_save_with_photos!
     end
@@ -47,7 +48,7 @@ module Completers
     end
 
     def pin
-      add_api_response( 'Pin', take: [:country, :region, :subregion, :locality, :sublocality, :lat, :lon, :full_address ] ) unless pip.completed("Pin")
+      add_api_response( 'Pin', take: [:country, :region, :subregion, :locality, :sublocality, :lat, :lon ] ) unless pip.completed("Pin")
     end
 
     def nearby
@@ -92,11 +93,9 @@ module Completers
     def merge_and_save_with_photos!
       add_state("Before final merge")
       @place = pip.place.find_and_merge
-      if @place.valid? 
-        @place.validate_and_save!( @photos.uniq{ |p| p.url }, pip.flags ) 
-      else
-        nil
-      end
+      @place.validate_and_save!( @photos.uniq{ |p| p.url }, pip.flags ) 
+    rescue => e
+      nil
     end
 
     def retry_foursquare?

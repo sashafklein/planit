@@ -13,6 +13,7 @@ module Completers
       @pip = pip
       @alternate_nearby = attrs[:nearby]
       @photos = []
+      @success = false
     end
 
     def self.auth_token
@@ -26,7 +27,7 @@ module Completers
       end
 
       explore
-      place_with_photos(success: venue.present?)
+      place_with_photos
     end
 
     def sufficient_to_fetch?
@@ -38,7 +39,8 @@ module Completers
     def explore
       get_venues!
       pick_venue
-      pip.question!(class_name) unless venue
+
+      pip.question!(class_name) unless @success = ( venue.present? && !pip.unsure.include?(class_name) )
 
       merge!
       getPhotos
@@ -80,8 +82,8 @@ module Completers
       end
     end
 
-    def place_with_photos(success: false)
-      { place: pip, photos: photos, success: success }.to_sh
+    def place_with_photos
+      { place: pip, photos: photos, success: @success }.to_sh
     end
     
     def nearby_parameter
