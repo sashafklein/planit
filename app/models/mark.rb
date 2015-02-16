@@ -54,6 +54,11 @@ class Mark < BaseModel
     # delegate :coordinates, to: :places
   end
 
+  def self.average_updated
+    array = map(&:updated_at).map{ |updated_at| updated_at.to_i }
+    array.sum/array.count
+  end
+
   def self.coordinates
     places.map(&:coordinate)
   end

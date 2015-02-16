@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   root 'landing#show'
+  get '/save', to: 'statics#save'
+  get '/welcome', to: 'statics#welcome'
 
   resources :plans, only: [:show, :new] do
     get :print, on: :member

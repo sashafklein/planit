@@ -1,4 +1,4 @@
-angular.module("Common").directive 'bucketMap', (MapOptions, F, Place, User, PlanitMarker, ClusterLocator, BasicOperators, ClickControls, $compile, $timeout) ->
+angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, ClusterLocator, BasicOperators, ClickControls, $compile, $timeout) ->
 
   return {
     restrict: 'E'

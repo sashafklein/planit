@@ -1,0 +1,115 @@
+.band.gray.spaced-extra
+  .container.sixteen.columns.left-section
+    .save-section-header= "Add to your Planit at Any Time"
+    .save-section-content
+      %p 
+        %i{ class: 'fa fa-plus-circle padded-icon' }
+        Add new places with a quick <a href="#planit-modal-new" data-toggle='modal' data-target='#planit-modal-new' data-backdrop='static' data-keyboard='false'>Foursquare</a> search
+      %p
+        %i{ class: 'fa fa-bookmark padded-icon' }
+        Save friends' places to your own Planit
+      %p.disabled
+        %i{ class: 'fa fa-inbox padded-icon' }
+        Receive and review place recommendations from friends
+        %span.coming-soon= "COMING SOON"
+
+.band.off-white.spaced-extra
+  .container.sixteen.columns.right-section
+    .save-section-header= "Save Pins from Articles, Websites & Reviews"
+    .save-section-content
+      %p
+        Everything you save will live forever, geolocated on <b>your</b> map
+        %i{ class: 'fa fa-map-marker padded-icon' }
+      %p
+        We'll keep track of where you first read about each place
+        %i{ class: 'fa fa-newspaper-o padded-icon' }
+      %p.disabled
+        %span.coming-soon= "COMING SOON"
+        <b>Save with a single click</b> with the Planit Chrome Extension
+        %i{ class: 'fa fa-bolt padded-icon' }
+      / %p
+      /   Save on IExplorer or Firefox with the Bookmarklet
+      /   %i{ class: 'fa fa-globe padded-icon' }
+      /   / %i{ class: 'icomoon icon-firefox padded-icon' }
+      /   / %i{ class: 'icomoon icon-IE padded-icon' }
+      /   / %i{ class: 'icomoon icon-chrome padded-icon' }
+    %span.learn-more.disabled
+      Connect to Chrome now
+      / = link_to 'Connect to Chrome now', 'chrome'
+
+.band.gray.spaced-extra
+  .container.sixteen.columns.left-section
+    .save-section-header.disabled= "Email Links to Planit"
+    .save-section-content
+      %p.disabled
+        %i{ class: 'fa fa-envelope padded-icon' }
+        Send in links to <a href="mailto:save@plan.it">save@plan.it</a> from 
+        - if current_user
+          = current_user.email
+        - else
+          your registered email address
+        %span.coming-soon= "COMING SOON"
+      %p.disabled
+        %i{ class: 'fa fa-envelope-o padded-icon' }
+        Friends can send links to recommendations to
+        - if current_user 
+          = link_to "#{current_user.slug}-3c280v@plan.it", "mailto:#{current_user.slug}-3c280v@plan.it"
+        - else
+          = "[your-username] @ plan.it"
+        %span.coming-soon= "COMING SOON"
+
+.band.off-white.spaced-extra
+  .container.sixteen.columns.right-section
+    .save-section-header.disabled
+      %span.struckthru= "Import"
+      %i= "Free"
+      Your Places
+    .save-section-content
+      %p.disabled
+        %span.coming-soon= "COMING SOON"
+        TripAdvisor
+        %i{ class: 'fa fa-unlock padded-icon' }
+      %p.disabled
+        %span.coming-soon= "COMING SOON"
+        Yelp
+        %i{ class: 'fa fa-unlock padded-icon' }
+      %p.disabled
+        %span.coming-soon= "COMING SOON"
+        Google Maps
+        %i{ class: 'fa fa-unlock padded-icon' }
+      %p.disabled
+        %span.coming-soon= "COMING SOON"
+        Foursquare
+        %i{ class: 'fa fa-unlock padded-icon' }
+      / %p
+      /   Gogobot
+      /   %i{ class: 'fa fa-unlock padded-icon' }
+      / %p
+      /   Pinterest
+      /   %i{ class: 'fa fa-unlock padded-icon' }
+      / %p
+      /   KML
+      /   %i{ class: 'fa fa-unlock padded-icon' }
+      / %p
+      /   Google Sheets
+      /   %i{ class: 'fa fa-unlock padded-icon' }
+    %span.learn-more.disabled
+      Free your data now
+      / = link_to 'Free your data now', 'import'
+
+.band.gray.spaced-extra
+  .container.sixteen.columns.left-section
+    .save-section-header= "View from Any Device"
+    .save-section-content
+      %p
+        %i{ class: 'fa fa-heart padded-icon' }
+        Phones, Tablets and Browsers all love Planit
+      %p
+        %i{ class: 'fa fa-laptop padded-icon' }
+        / %i{ class: 'fa fa-desktop padded-icon' }
+        Suggest improvements or features directly at <a href='mailto:userlove@plan.it'>userlove@plan.it</a>
+      %p.disabled
+        %i{ class: 'fa fa-tablet padded-icon' }
+        / %i{ class: 'fa fa-mobile padded-icon' }
+        Mobile Apps coming soon for Android and iPhone
+        %span.coming-soon= "COMING SOON"

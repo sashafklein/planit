@@ -27,12 +27,43 @@ html, body
   z-index: 150000 !important
   button.close:hover
     background: transparent !important
+  .modal-header
+    background-color: #ccc
+    border-bottom: 1px solid #bbb
+    -webkit-border-top-left-radius: 5px
+    -webkit-border-top-right-radius: 5px
+    -moz-border-radius-topleft: 5px
+    -moz-border-radius-topright: 5px
+    border-top-left-radius: 5px
+    border-top-right-radius: 5px
   .modal-body
-    background-color: #fefefe
+    background-color: #eee
   .modal-footer
     font-size: 15px
     line-height: 15px
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    padding: 8px 15px !important
+    position: relative
+    background-color: #eee
+    border-top: 1px solid #ccc
+    -webkit-border-bottom-left-radius: 5px
+    -webkit-border-bottom-right-radius: 5px
+    -moz-border-radius-bottomleft: 5px
+    -moz-border-radius-bottomright: 5px
+    border-bottom-left-radius: 5px
+    border-bottom-right-radius: 5px
+    .poweredbyfoursquare
+      width: 241px
+      height: 22px
+      opacity: 0.4
+      cursor: pointer
+      margin: auto
+      position: absolute
+      left: 0
+      top: 0
+      bottom: 0
+      &:hover
+        opacity: 1
   .modal-title
     font-size: 18px
     line-height: 18px
@@ -58,6 +89,10 @@ html, body
 
 .clear
   clear:  both
+
+.struckthru
+  text-decoration: line-through
+  opacity: 0.7
 
 .valign-content
   vertical-align: middle
@@ -125,12 +160,14 @@ hr.divider
     background: #dfdfdf
     border-top: 1px solid #f3f3f3
     border-bottom: 1px solid #c4c7ca
+  &.off-white
+    background: #eee
+    border-top: 1px solid #fafafa
+    border-bottom: 1px solid #ddd
   &.white
     background: #fff
     border-top: 1px solid #fff
     border-bottom: 1px solid #eee
-  &.spaced
-    padding: 17px 0 18px 0
 
 .a-override, a.a-override
   &.a-gray
@@ -371,6 +408,12 @@ hr.divider
 
 // *Computer (Regular)
 
+.band
+  &.spaced
+    padding: 17px 0
+  &.spaced-extra
+    padding: 40px 0
+
 .planit-modal
   .modal-dialog
     margin: 85px auto
@@ -389,6 +432,12 @@ hr.divider
   
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
+
+  .band
+    &.spaced
+      padding: 8px 0
+    &.spaced-extra
+      padding: 40px 0
 
   .planit-modal
     .modal-dialog
@@ -413,6 +462,12 @@ hr.divider
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
 
+  .band
+    &.spaced
+      padding: 8px 0
+    &.spaced-extra
+      padding: 12px 0
+
   .planit-modal
     .modal-dialog
       margin: 30px auto
@@ -427,6 +482,12 @@ hr.divider
 
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
+
+  .band
+    &.spaced
+      padding: 8px 0
+    &.spaced-extra
+      padding: 12px 0
 
   .planit-modal
     .modal-dialog

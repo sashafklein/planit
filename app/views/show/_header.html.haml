@@ -22,11 +22,11 @@
         .expanded-search-and-filter{ class: page_type }
           .search-bar-wrap
             .input-group
-              %input.form-control.input-with-clear#input-search-field{ :name  => "input-search", :placeholder => "Search #{page_type.titleize}", :type => "text"}
+              %input.form-control.input-with-clear#search-input-field{ :name  => "input-search", :placeholder => "Search #{page_type.titleize}", :type => "text"}
               %span.clear-input-button#clear-search-input
                 %i.fa.fa-times-circle
               %span.input-group-btn
-                %button.btn.btn-default#input-search-button{:type => "button"}
+                %button.btn.btn-default#search-input-button{:type => "button"}
                   %i.fa.fa-search.fa-lg
           %button.close.search-close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
             %span{"aria-hidden" => "true"} ×

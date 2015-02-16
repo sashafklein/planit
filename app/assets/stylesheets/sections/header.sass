@@ -79,7 +79,6 @@
     margin: 0 auto
     left: 0
     right: 0
-    top: 19px
     text-align: center
     &.dashboard, &.guides, &.places, &.inbox, &.plan, &.place
       display: none
@@ -123,7 +122,7 @@
     font-weight: normal
     color: #aaa
     text-align: right
-    &.new, &.simple
+    &.new, &.simple, &.howto, &.welcome
       display: none
       visibility: hidden
     .filter-button
@@ -150,7 +149,7 @@
       text-align: left
       &.full-width
         width: 100%
-      #search-teaser-text
+      #search-teaser-field
         font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
         font-size: 14px
         line-height: 14px
@@ -240,8 +239,8 @@ ul.filter-dropdown-menu
   text-align: center
   display: block
   margin: 0
-  font-size: 25px
-  line-height: 25px
+  font-size: 24px
+  line-height: 24px
   font-weight: bold
   font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
   text-transform: uppercase
@@ -249,9 +248,11 @@ ul.filter-dropdown-menu
   white-space: nowrap
   overflow: hidden
   &.black
-    color: #000
+    color: #333
+    text-shadow: #fff 1px 1px 1px
   &.white
-    color: #fff
+    color: #eee
+    text-shadow: #fff -1px -1px 1px
 
 .logo-container
   visibility: visible
@@ -281,7 +282,7 @@ ul.filter-dropdown-menu
   height: 50px
   margin: 7px 0px 0 0 !important
 
-#input-search-field, #input-search-button
+#search-input-field, #search-input-button
   height: 28px
   font-family: avenir, 'trebuchet ms', open sans, arial !important
   font-size: 14px !important
@@ -571,6 +572,7 @@ li.user-dropdown-menu
   visibility: visible !important
 
 .page-title-wrap
+  top: 20px
   width: 350px
 
 .initial-header
@@ -626,6 +628,7 @@ li.user-dropdown-menu
     visibility: visible !important
 
   .page-title-wrap
+    top: 20px
     width: 288px
 
   .initial-header
@@ -699,6 +702,7 @@ li.user-dropdown-menu
     visibility: hidden !important
   
   .page-title-wrap
+    top: 17px
     width: 205px
 
   .page-title.extra
@@ -731,7 +735,7 @@ li.user-dropdown-menu
   .initial-header.focused
     border-top: 0px !important
 
-  #search-teaser-text
+  #search-teaser-field
     color: #fff
 
   .side-menu-container
@@ -766,6 +770,11 @@ li.user-dropdown-menu
         border-bottom: 1px solid #840c1a
         cursor: pointer
 
+  .page-title
+    &.black
+      color: #ccc
+      text-shadow: none
+
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
 
@@ -778,6 +787,7 @@ li.user-dropdown-menu
     visibility: hidden !important
   
   .page-title-wrap
+    top: 17px
     width: 302px
 
   .header-container
@@ -815,7 +825,7 @@ li.user-dropdown-menu
   .initial-header.focused
     border-top: 0px !important
 
-  #search-teaser-text
+  #search-teaser-field
     color: #fff
 
   .side-menu-container
@@ -849,3 +859,8 @@ li.user-dropdown-menu
         border: 1px solid #e44557
         border-bottom: 1px solid #840c1a
         cursor: pointer
+
+  .page-title
+    &.black
+      color: #ccc
+      text-shadow: none

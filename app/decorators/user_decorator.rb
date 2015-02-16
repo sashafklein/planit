@@ -70,7 +70,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def nav_item_share(page_type)
-    return nav_item('share', 'share this', 'i', 'fa fa-paper-plane', nil, 'disabled') if page_type == 'inbox'
+    return nav_item('share', 'share this', 'i', 'fa fa-paper-plane', nil, 'disabled') if (page_type == 'inbox' || page_type == 'howto' || page_type == 'welcome')
     nav_item('share', 'share this', 'i', 'fa fa-paper-plane', nil, true)
   end
 
@@ -79,7 +79,7 @@ class UserDecorator < Draper::Decorator
   def search_teaser(page_type)
     html = "<div class='search-teaser"
     html += " full-width" unless ( page_type == 'guides' || page_type == 'places' )
-    html += "'><span id='search-teaser-text'></span><i class='fa fa-search fa-lg'></i></div>"
+    html += "'><span id='search-teaser-field'></span><i class='fa fa-search fa-lg'></i></div>"
     html.html_safe
   end
 
@@ -128,6 +128,13 @@ class UserDecorator < Draper::Decorator
       html += "<li class='filter-dropdown-menu'>"
       html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Other<i class='filter-dropdown-menu-icon fa fa-question'></i></label></a>"
       html += "</li>"
+      html += "<li class='divider'></li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'><label><input type='checkbox' class='filter-dropdown-menu-checkbox'>Open<i class='filter-dropdown-menu-icon fa fa-clock-o'></i></label></a>"
+      html += "</li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<a href='#'><label><input type='checkbox' class='filter-dropdown-menu-checkbox'>Wifi<i class='filter-dropdown-menu-icon fa fa-wifi'></i></label></a>"
+      html += "</li>"
     elsif page_type == 'guides'
       html += "<li class='filter-dropdown-menu'>"
       html +=   "<a href='#' class='apply-filters'>Narrow By Tag:</a>"
@@ -148,13 +155,13 @@ class UserDecorator < Draper::Decorator
   def user_dropdown_menu
     html = "<ul class='dropdown-menu dropdown-menu-right user-dropdown-menu'>"
     if current_user
-      html += "<li class='user-dropdown-menu'>"
-      html +=   "<a href='#'>Get the Plugin<i class='user-dropdown-menu-icon fa fa-bolt fa-fw'></i></a>"
-      html += "</li>"
-      html += "<li class='user-dropdown-menu'>"
-      html +=   "<a href='#'>Recent Activity<i class='user-dropdown-menu-icon fa fa-history fa-fw'></i></a>"
-      html += "</li>"
-      html += "<li class='divider'></li>"
+      # html += "<li class='user-dropdown-menu'>"
+      # html +=   "<a href='#'>Get the Plugin<i class='user-dropdown-menu-icon fa fa-bolt fa-fw'></i></a>"
+      # html += "</li>"
+      # html += "<li class='user-dropdown-menu'>"
+      # html +=   "<a href='#'>Recent Activity<i class='user-dropdown-menu-icon fa fa-history fa-fw'></i></a>"
+      # html += "</li>"
+      # html += "<li class='divider'></li>"
       html += "<li class='user-dropdown-menu'>"
       html +=   "<a href='" + edit_user_registration_path + "'>Update Account<i class='user-dropdown-menu-icon fa fa-user fa-fw'></i></a>"
       html += "</li>"
@@ -258,6 +265,7 @@ class UserDecorator < Draper::Decorator
     html += "        </form>"
     html += "      </div>"
     html += "      <div class='modal-footer'>"
+    html += "        <a href='https://developer.foursquare.com/'><img class='poweredbyfoursquare' src='https://ss0.4sqi.net/img/devsite/img_poweredby-181a0c7c0fe5f3576d97bcf29ce69d24.png' alt='foursquare'></a>" if type == 'new'
     html += "        <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>"
     html += "        <button type='button' class='btn btn-primary' id='planit-modal-submit-#{type}'>#{submit}</button>"
     html += "      </div>"

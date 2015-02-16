@@ -1,0 +1,39 @@
+#welcome-page
+
+  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'welcome' }
+
+  .band.gray.spaced-extra
+    .container.sixteen.columns.left-section
+      .welcome-section-header= "Save and Share the Places You Love"
+      .welcome-section-content
+        %p
+          %i{ class: 'icomoon icon-map padded-icon' }
+          Easily gather and curate your ultimate "wander list"
+        %p 
+          %i{ class: 'fa fa-book padded-icon' }
+          Never forget a recommendation again
+        %p
+          %i{ class: 'fa fa-plane padded-icon' }
+          Plot weekend trips, vacations, and great nights out
+        %p
+          %i{ class: 'fa fa-group padded-icon' }
+          Share tips on your favorite haunts with your friends & family
+        %p
+          %i{ class: 'fa fa-globe padded-icon black' }
+          %strong= "It's your Planit"
+      %span.learn-more
+        Get Started
+
+  .band.off-white.spaced-extra
+    .container.sixteen.columns.right-section
+      .welcome-section-divider= "Band"
+
+  = render 'show/save'
+
+  .band.off-white.spaced-extra
+    .container.sixteen.columns.right-section
+      .welcome-section-header= "Save and Share the Places You Love"
+      .welcome-section-content
+
+
+  = render 'show/footer', { :page_type => 'welcome' }
