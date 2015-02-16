@@ -1,5 +1,4 @@
 #= require_self
-#= require plan
 #= require common/common
 #= require_tree ./models
 #= require_tree ./controllers
@@ -13,8 +12,6 @@ planitModules = [
 ]
 
 otherModules = [
-  "ngRoute"
-  "ngResource"
 ]
 
 for module in planitModules

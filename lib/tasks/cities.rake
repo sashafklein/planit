@@ -69,9 +69,8 @@ namespace :cities  do
     end
     all_cities_hash  
 
-  rescue 
-    binding.pry
-    raise
+  rescue => e
+    raise e
   end
 
   def priority_cities_to_hash(priority_cities)

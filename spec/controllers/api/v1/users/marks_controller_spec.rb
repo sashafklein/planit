@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Api::V1::Users::MarksController, :vcr do
   describe "create" do
@@ -21,12 +21,12 @@ describe Api::V1::Users::MarksController, :vcr do
 
       place = response_body.place
       expect( place.id ).to be_a Integer
-      expect( place.lat ).to eq(mark_params[:place][:lat])
-      expect( place.lon ).to eq(mark_params[:place][:lon])
+      expect( place.lat ).to be_within(0.001).of mark_params[:place][:lat]
+      expect( place.lon ).to be_within(0.001).of mark_params[:place][:lon]
       expect( place.names ).to eq( [mark_params[:place][:name]] )
       expect( place.locality ).to eq(mark_params[:place][:locality])
       expect( place.region ).to eq("California") # Expanded
-      expect( place.street_addresses ).to eq( [mark_params[:place][:street_address]] )
+      expect( place.street_addresses ).to eq( [mark_params[:place][:street_address]].map{ |a| a.gsub("St", "Street") } )
 
       expect( place.menu ).to eq( "https://foursquare.com/v/contigo/49c6bdfef964a52077571fe3/menu" )
       expect( place.mobile_menu ).to eq( "https://foursquare.com/v/49c6bdfef964a52077571fe3/device_menu" )
@@ -43,7 +43,7 @@ describe Api::V1::Users::MarksController, :vcr do
       })
       expect( response_body.items.any? ).to eq false
 
-      img = place.images.find{ |i| i.url == "https://irs3.4sqi.net/img/general/#{Completers::FoursquareExploreVenue::IMAGE_SIZE}/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg"}
+      img = place.images.find{ |i| i.url == "https://irs3.4sqi.net/img/general/#{Completers::ApiVenue::FoursquareExploreVenue::IMAGE_SIZE}/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg"}
       expect( img.source ).to eq "Foursquare"
 
       expect( response_body.user.email ).to eq @user.email
@@ -94,7 +94,9 @@ describe Api::V1::Users::MarksController, :vcr do
         
         post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id, delay: false
         mark = @user.marks.first
-
+        
+        expect( mark.place.flags.where(name: "Triangulated").count ).to eq 1
+        
         expect(mark.place.name).to eq "Fuunji"
         expect(mark.place.street_addresses).to include "代々木2-14-3" # TODO -- get rid of the shitty Yoyogi address
         expect(mark.place.images.first).to be_a Image
@@ -120,7 +122,7 @@ describe Api::V1::Users::MarksController, :vcr do
         mark = @user.marks.first
 
         expect(mark.place.name).to eq "Tayrona Tented Lodge"
-        expect(mark.place.full_address).to eq "Km 38 +300 mts, vía Santa Marta- Rioacha, 575000 Buritaca, Colombia"
+        expect(mark.place.full_address).to eq "Km 38 +300 mts, vía Santa Marta- Rioacha, Santa Marta, 575000, Colombia"
         expect(mark.place.images.first).to be_a Image
       end
       
@@ -138,7 +140,7 @@ describe Api::V1::Users::MarksController, :vcr do
         expect( @user.plans.count ).to eq 1
 
         expect( @user.items.count ).to eq Place.count
-        expect( items.count ).to eq 18
+        expect( @user.items.count ).to be_within(3).of YAML.load_file("#{Rails.root}/spec/support/pages/nytimes/bogota.yml").map{ |h| h['place']['name'] }.compact.count
         expect( @user.marks.count ).to eq Place.count
         
         expect( @user.items.pluck(:id).sort ).to eq plan.items.pluck(:id).sort

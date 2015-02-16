@@ -1,5 +1,5 @@
 mod = angular.module("Models")
-mod.factory "Plan", ($resource, BaseModel, $http) ->
+mod.factory "Plan", (BaseModel, $http) ->
   
   class Plan extends BaseModel
     @generateFromJSON: (json) -> BaseModel.generateFromJSON(Plan, json)

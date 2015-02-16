@@ -14,6 +14,7 @@ FactoryGirl.define do
     website "www.whatever.com"
     categories ["Some category"]
     foursquare_id 'abcde12345'
+    timezone_string 'America/Whatever'
 
     factory :comptoir do
       names ["Le Comptoir du Relais"]

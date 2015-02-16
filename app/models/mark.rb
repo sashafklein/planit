@@ -4,6 +4,8 @@ class Mark < BaseModel
   
   belongs_to :place
   belongs_to :user
+  validates :place, presence: true
+  validates :user, presence: true
 
   has_many :items
 

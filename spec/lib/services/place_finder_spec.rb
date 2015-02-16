@@ -1,11 +1,11 @@
-require 'spec_helper'
+require 'rails_helper'
 
 module Services
   describe PlaceFinder do 
     describe 'find!' do
 
       before do 
-        @mark = create(:mark, :with_place)
+        @mark = create(:mark)
       end
 
       context "with preexisting record without name clash" do
@@ -90,7 +90,7 @@ module Services
       context "the Vancouver Starbucks test" do
 
         before do 
-          @atts = {cross_street: 'at Heather St', country: 'Canada', region: "British Columbia", locality: "Vancouver", lat: 49.26293173490001, lon: -123.11948776245117, names: ["Starbucks"], street_addresses: ["682 W Broadway"], full_address: "682 W Broadway, Vancouver, Canada", categories: ["Coffee Shop"], meta_categories: ["Food"], phones: ["6047080030"]}.to_sh
+          @atts = {cross_street: 'at Heather St', country: 'Canada', region: "British Columbia", locality: "Vancouver", lat: 49.26293173490001, lon: -123.11948776245117, timezone_string: "America/Vancouver", names: ["Starbucks"], street_addresses: ["682 W Broadway"], full_address: "682 W Broadway, Vancouver, Canada", categories: ["Coffee Shop"], meta_categories: ["Food"], phones: ["6047080030"]}.to_sh
           @sb = Place.create( @atts )
         end
 

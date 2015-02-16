@@ -1,6 +1,8 @@
 module Services
   class TimeConverter
 
+    extend Memoist
+
     attr_accessor :input
     def initialize(input)
       @input = input.to_s
@@ -15,14 +17,15 @@ module Services
 
           if full_hours[day].is_a?(Hash) || full_hours[day].first.is_a?(Hash)
             [full_hours[day]].flatten.each do |hour_band|
+              hb = normalize_24_hours(hour_band)
               new_hours[day.to_s] << [
-                self.new( hour_band.start_time ).absolute,
-                self.new( hour_band.end_time ).absolute 
+                self.new( hb.start_time ).absolute,
+                self.new( hb.end_time ).absolute 
               ]
             end
           else # Array format
             full_hours[day].each do |hour_band|
-              new_hours[day.to_s] << hour_band.map{ |t| self.new(t).absolute }
+              new_hours[day.to_s] << normalize_24_hours(hour_band).map{ |t| self.new(t).absolute }
             end
           end
         end
@@ -49,11 +52,11 @@ module Services
     end
 
     def absolute
-      @absolute ||= input == depunctuate(input) ? from_flat_input : Time.parse(input).strftime("%H%M")
+      input == depunctuate(input) ? from_flat_input : Time.parse(input).strftime("%H%M")
     end
 
     def am_pm
-      @am_pm ||= time.strftime("%-l:%M %P")
+      time.strftime("%-l:%M %P")
     end
 
     def numericize
@@ -62,8 +65,18 @@ module Services
 
     private
 
+    def self.normalize_24_hours(hour_band)
+      first, last = hour_band.is_a?(Hash) ? [:start_time, :end_time] : [0,-1]
+
+      if hour_band[first] == hour_band[last]
+        hour_band[first], hour_band[last] = '0000', '0000'
+      end
+
+      hour_band
+    end
+
     def time
-      @time ||= Time.parse( add_colon(absolute) )
+      Time.parse( add_colon(absolute) )
     end
 
     def from_flat_input
@@ -105,5 +118,6 @@ module Services
       ['-', String::LONG_DASH]
     end
 
+    memoize :absolute, :am_pm, :time
   end
 end

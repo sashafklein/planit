@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'Authentication' do
 
@@ -11,7 +11,7 @@ describe 'Authentication' do
       fill_in 'Email', with: user.email
       fill_in "Password", with: user.password
       click_button 'Sign in'
-      
+
       expect( current_path ).to eq user_path(user)
     end
   end
@@ -28,7 +28,7 @@ describe 'Authentication' do
       fill_in 'Last name', with: 'Doe'
       click_button "Sign up"
 
-      expect( current_path ).to include '/users/'
+      expect( current_path ).to eq '/users/john-doe'
       expect( page ).to have_content "Welcome! You have signed up successfully."
     end
   end

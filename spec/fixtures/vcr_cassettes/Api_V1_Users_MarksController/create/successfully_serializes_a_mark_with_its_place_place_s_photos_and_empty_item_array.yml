@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 28 Jan 2015 03:15:44 GMT
+      - Thu, 12 Feb 2015 21:02:31 GMT
       Server:
       - Apache/2.2.17 (Linux/SUSE)
       Cache-Control:
@@ -32,14 +32,670 @@ http_interactions:
       - application/json;charset=UTF-8
     body:
       encoding: UTF-8
-      string: '{"time":"2015-01-27 19:15","countryName":"United States","sunset":"2015-01-28
-        17:28","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.434327,"sunrise":"2015-01-28
-        07:17","timezoneId":"America/Los_Angeles","lat":37.750902}'
+      string: '{"time":"2015-02-12 13:02","countryName":"United States","sunset":"2015-02-12
+        17:45","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.434327,"sunrise":"2015-02-12
+        07:03","timezoneId":"America/Los_Angeles","lat":37.750902}'
     http_version: 
-  recorded_at: Wed, 28 Jan 2015 03:15:45 GMT
+  recorded_at: Thu, 12 Feb 2015 21:02:31 GMT
 - request:
     method: get
-    uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=37.750902,-122.434327&sensor=false
+    uri: https://api.foursquare.com/v2/venues/explore?ll=37.750902,-122.434327&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Contigo&v=20140819&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 12 Feb 2015 21:02:31 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '233'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '472'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-lax1431-LAX
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"warning":{"text":"There
+        aren''t a lot of results for \"Contigo.\" Try something more general, reset
+        your filters, or expand the search area."},"suggestedRadius":4644,"headerLocation":"Noe
+        Valley","headerFullLocation":"Noe Valley, San Francisco","headerLocationGranularity":"neighborhood","query":"contigo","totalResults":3,"suggestedBounds":{"ne":{"lat":37.77208739612164,"lng":-122.41405508234732},"sw":{"lat":37.74422249388305,"lng":-122.4352317663816}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":1,"items":[{"summary":"Dan
+        V. has been here","type":"social","reasonName":"friendAndSelfCheckinReason","message":"Dan
+        V. has been here","count":1}]},"venue":{"id":"49c6bdfef964a52077571fe3","name":"Contigo","contact":{"phone":"4152850250","formattedPhone":"(415)
+        285-0250","twitter":"contigosf"},"location":{"address":"1320 Castro St","crossStreet":"at
+        24th St","lat":37.750985758393895,"lng":-122.4342691898346,"distance":10,"postalCode":"94114","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["1320
+        Castro St (at 24th St)","San Francisco, CA 94114"]},"categories":[{"id":"4bf58dd8d48988d150941735","name":"Spanish
+        Restaurant","pluralName":"Spanish Restaurants","shortName":"Spanish","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/spanish_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":2930,"usersCount":1996,"tipCount":43},"url":"http:\/\/www.contigosf.com","price":{"tier":4,"message":"Very
+        Expensive","currency":"$"},"hasMenu":true,"like":false,"rating":9.4,"ratingSignals":87,"reservations":{"url":"http:\/\/www.opentable.com\/single.aspx?rid=45052&ref=9601"},"menu":{"type":"Menu","label":"Menu","anchor":"View
+        Menu","url":"https:\/\/foursquare.com\/v\/contigo\/49c6bdfef964a52077571fe3\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/49c6bdfef964a52077571fe3\/device_menu"},"hours":{"status":"Closed
+        until 5:30 PM","isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":128,"groups":[{"type":"venue","name":"Venue
+        photos","count":128,"items":[{"id":"518efa1e498e9443a3c8f848","createdAt":1368324638,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg","width":612,"height":612,"user":{"id":"2261","firstName":"Lee","lastName":"Sherman","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/-4JRTUAND5EYXYRGF.png"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"518efa1e498e9443a3c8f848","createdAt":1368324638,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg","width":612,"height":612,"user":{"id":"2261","firstName":"Lee","lastName":"Sherman","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/-4JRTUAND5EYXYRGF.png"}},"visibility":"public"}]}},"flags":{"exactMatch":true},"tips":[{"id":"4cf6c91911e76a31148aac3b","createdAt":1291241753,"text":"Because
+        Brett Emerson had a vision and he''s stuck to it, creating the perfect neighborhood
+        Bay Area-inflected Spanish restaurant. [Eater 38 Member]","type":"user","url":"http:\/\/sf.eater.com\/places\/contigo","canonicalUrl":"https:\/\/foursquare.com\/item\/4cf6c91911e76a31148aac3b","likes":{"count":73,"groups":[],"summary":"73
+        likes"},"logView":true,"todo":{"count":60},"user":{"id":"3343327","firstName":"Eater","gender":"none","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/4HBAAMCL4WUF3IEU.png"},"type":"page"}}],"referralId":"e-0-49c6bdfef964a52077571fe3-0"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"53f79c18498e85581edacc75","createdAt":1408736280,"text":"Brett
+        Emerson, chef of Contigo, eats here on his nights off. He loves the Sopa de
+        pollo.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1111","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79c18498e85581edacc75","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
+        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}}}]},"venue":{"id":"4a6ab0a4f964a520d9cd1fe3","name":"Los
+        Panchos","contact":{"phone":"4152851033","formattedPhone":"(415) 285-1033"},"location":{"address":"3206
+        Mission St","crossStreet":"Valencia","lat":37.745489080348435,"lng":-122.42011141934297,"distance":1388,"postalCode":"94110","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["3206
+        Mission St (Valencia)","San Francisco, CA 94110"]},"categories":[{"id":"4bf58dd8d48988d1c1941735","name":"Mexican
+        Restaurant","pluralName":"Mexican Restaurants","shortName":"Mexican","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/mexican_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":1079,"usersCount":622,"tipCount":13},"price":{"tier":1,"message":"Cheap","currency":"$"},"hasMenu":true,"like":false,"rating":7.3,"ratingSignals":34,"menu":{"type":"Menu","label":"Menu","anchor":"View
+        Menu","url":"https:\/\/foursquare.com\/v\/los-panchos\/4a6ab0a4f964a520d9cd1fe3\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/4a6ab0a4f964a520d9cd1fe3\/device_menu"},"specials":{"count":0,"items":[]},"photos":{"count":33,"groups":[{"type":"venue","name":"Venue
+        photos","count":33,"items":[{"id":"4d18346655f8a3402ef6d76a","createdAt":1293431910,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/2IFB1JWJSAU25CJWIK2GSOHIPJEB32NZLRN0SMOQJTQ111VJ.jpg","width":537,"height":720,"user":{"id":"1822187","firstName":"Nino","lastName":"E","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/RKHWK4MSFKM4P4NV.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"4d18346655f8a3402ef6d76a","createdAt":1293431910,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/2IFB1JWJSAU25CJWIK2GSOHIPJEB32NZLRN0SMOQJTQ111VJ.jpg","width":537,"height":720,"user":{"id":"1822187","firstName":"Nino","lastName":"E","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/RKHWK4MSFKM4P4NV.jpg"}},"visibility":"public"}]}},"tips":[{"id":"53f79c18498e85581edacc75","createdAt":1408736280,"text":"Brett
+        Emerson, chef of Contigo, eats here on his nights off. He loves the Sopa de
+        pollo.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1111","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79c18498e85581edacc75","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
+        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}],"referralId":"e-0-4a6ab0a4f964a520d9cd1fe3-1"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"53f79bb111d2d0d7d2cf8420","createdAt":1408736177,"text":"Brett
+        Emerson, chef of Contigo, eats here on his nights off. He loves the Gang-gari-gai.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1112","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79bb111d2d0d7d2cf8420","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
+        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}}}]},"venue":{"id":"44d0de34f964a52029361fe3","name":"Manora''s
+        Thai Cuisine","contact":{"phone":"4158616224","formattedPhone":"(415) 861-6224"},"location":{"address":"1600
+        Folsom St","crossStreet":"at 12th St","lat":37.77082080965625,"lng":-122.41501765889433,"distance":2793,"postalCode":"94103","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["1600
+        Folsom St (at 12th St)","San Francisco, CA 94103"]},"categories":[{"id":"4bf58dd8d48988d149941735","name":"Thai
+        Restaurant","pluralName":"Thai Restaurants","shortName":"Thai","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/thai_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":2019,"usersCount":1184,"tipCount":26},"url":"http:\/\/www.manorathai.com","price":{"tier":2,"message":"Moderate","currency":"$"},"hasMenu":true,"like":false,"rating":8.2,"ratingSignals":34,"menu":{"type":"Menu","label":"Menu","anchor":"View
+        Menu","url":"https:\/\/foursquare.com\/v\/manoras-thai-cuisine\/44d0de34f964a52029361fe3\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/44d0de34f964a52029361fe3\/device_menu"},"hours":{"status":"Open
+        until 2:30 PM, reopens later","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":38,"groups":[{"type":"venue","name":"Venue
+        photos","count":38,"items":[{"id":"50383760e4b0fba092667faf","createdAt":1345861472,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/c-eIbaOWnjsXXHBfwMtlAE4vDNukTrMygvm8A8RfZzQ.jpg","width":540,"height":720,"user":{"id":"4545177","firstName":"Todd","lastName":"Tate","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/APH3BPE1PNUAEUW0.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"50383760e4b0fba092667faf","createdAt":1345861472,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/c-eIbaOWnjsXXHBfwMtlAE4vDNukTrMygvm8A8RfZzQ.jpg","width":540,"height":720,"user":{"id":"4545177","firstName":"Todd","lastName":"Tate","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/APH3BPE1PNUAEUW0.jpg"}},"visibility":"public"}]}},"tips":[{"id":"53f79bb111d2d0d7d2cf8420","createdAt":1408736177,"text":"Brett
+        Emerson, chef of Contigo, eats here on his nights off. He loves the Gang-gari-gai.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1112","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79bb111d2d0d7d2cf8420","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
+        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}],"referralId":"e-0-44d0de34f964a52029361fe3-2"}]}]}}'
+    http_version: 
+  recorded_at: Thu, 12 Feb 2015 21:02:31 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/49c6bdfef964a52077571fe3?oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 12 Feb 2015 21:02:32 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '91'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '471'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-lax1420-LAX
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJtZXRhIjp7ImNvZGUiOjIwMH0sIm5vdGlmaWNhdGlvbnMiOlt7InR5cGUi
+        OiJub3RpZmljYXRpb25UcmF5IiwiaXRlbSI6eyJ1bnJlYWRDb3VudCI6NjN9
+        fV0sInJlc3BvbnNlIjp7InZlbnVlIjp7ImlkIjoiNDljNmJkZmVmOTY0YTUy
+        MDc3NTcxZmUzIiwibmFtZSI6IkNvbnRpZ28iLCJjb250YWN0Ijp7InBob25l
+        IjoiNDE1Mjg1MDI1MCIsImZvcm1hdHRlZFBob25lIjoiKDQxNSkgMjg1LTAy
+        NTAiLCJ0d2l0dGVyIjoiY29udGlnb3NmIn0sImxvY2F0aW9uIjp7ImFkZHJl
+        c3MiOiIxMzIwIENhc3RybyBTdCIsImNyb3NzU3RyZWV0IjoiYXQgMjR0aCBT
+        dCIsImxhdCI6MzcuNzUwOTg1NzU4MzkzODk1LCJsbmciOi0xMjIuNDM0MjY5
+        MTg5ODM0NiwicG9zdGFsQ29kZSI6Ijk0MTE0IiwiY2MiOiJVUyIsImNpdHki
+        OiJTYW4gRnJhbmNpc2NvIiwic3RhdGUiOiJDQSIsImNvdW50cnkiOiJVbml0
+        ZWQgU3RhdGVzIiwiZm9ybWF0dGVkQWRkcmVzcyI6WyIxMzIwIENhc3RybyBT
+        dCAoYXQgMjR0aCBTdCkiLCJTYW4gRnJhbmNpc2NvLCBDQSA5NDExNCJdfSwi
+        Y2Fub25pY2FsVXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC92XC9j
+        b250aWdvXC80OWM2YmRmZWY5NjRhNTIwNzc1NzFmZTMiLCJjYXRlZ29yaWVz
+        IjpbeyJpZCI6IjRiZjU4ZGQ4ZDQ4OTg4ZDE1MDk0MTczNSIsIm5hbWUiOiJT
+        cGFuaXNoIFJlc3RhdXJhbnQiLCJwbHVyYWxOYW1lIjoiU3BhbmlzaCBSZXN0
+        YXVyYW50cyIsInNob3J0TmFtZSI6IlNwYW5pc2giLCJpY29uIjp7InByZWZp
+        eCI6Imh0dHBzOlwvXC9zczMuNHNxaS5uZXRcL2ltZ1wvY2F0ZWdvcmllc192
+        MlwvZm9vZFwvc3BhbmlzaF8iLCJzdWZmaXgiOiIucG5nIn0sInByaW1hcnki
+        OnRydWV9LHsiaWQiOiI0YmY1OGRkOGQ0ODk4OGQxZGI5MzE3MzUiLCJuYW1l
+        IjoiVGFwYXMgUmVzdGF1cmFudCIsInBsdXJhbE5hbWUiOiJUYXBhcyBSZXN0
+        YXVyYW50cyIsInNob3J0TmFtZSI6IlRhcGFzIiwiaWNvbiI6eyJwcmVmaXgi
+        OiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9pbWdcL2NhdGVnb3JpZXNfdjJc
+        L2Zvb2RcL3RhcGFzXyIsInN1ZmZpeCI6Ii5wbmcifX0seyJpZCI6IjRkNGI3
+        MTA1ZDc1NGEwNjM3NGQ4MTI1OSIsIm5hbWUiOiJGb29kIiwicGx1cmFsTmFt
+        ZSI6IkZvb2QiLCJzaG9ydE5hbWUiOiJGb29kIiwiaWNvbiI6eyJwcmVmaXgi
+        OiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9pbWdcL2NhdGVnb3JpZXNfdjJc
+        L2Zvb2RcL2RlZmF1bHRfIiwic3VmZml4IjoiLnBuZyJ9fV0sInZlcmlmaWVk
+        Ijp0cnVlLCJzdGF0cyI6eyJjaGVja2luc0NvdW50IjoyOTMwLCJ1c2Vyc0Nv
+        dW50IjoyMDQ2LCJ0aXBDb3VudCI6NDN9LCJ1cmwiOiJodHRwOlwvXC93d3cu
+        Y29udGlnb3NmLmNvbSIsInByaWNlIjp7InRpZXIiOjQsIm1lc3NhZ2UiOiJW
+        ZXJ5IEV4cGVuc2l2ZSIsImN1cnJlbmN5IjoiJCJ9LCJoYXNNZW51Ijp0cnVl
+        LCJsaWtlcyI6eyJjb3VudCI6NTksImdyb3VwcyI6W3sidHlwZSI6Im90aGVy
+        cyIsImNvdW50Ijo1OSwiaXRlbXMiOltdfV0sInN1bW1hcnkiOiI1OSBMaWtl
+        cyJ9LCJsaWtlIjpmYWxzZSwiZGlzbGlrZSI6ZmFsc2UsIm9rIjpmYWxzZSwi
+        cmF0aW5nIjo5LjQsInJhdGluZ1NpZ25hbHMiOjg3LCJyZXNlcnZhdGlvbnMi
+        OnsidXJsIjoiaHR0cDpcL1wvd3d3Lm9wZW50YWJsZS5jb21cL3NpbmdsZS5h
+        c3B4P3JpZD00NTA1MiZyZWY9OTYwMSJ9LCJtZW51Ijp7InR5cGUiOiJNZW51
+        IiwibGFiZWwiOiJNZW51IiwiYW5jaG9yIjoiVmlldyBNZW51IiwidXJsIjoi
+        aHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC92XC9jb250aWdvXC80OWM2YmRm
+        ZWY5NjRhNTIwNzc1NzFmZTNcL21lbnUiLCJtb2JpbGVVcmwiOiJodHRwczpc
+        L1wvZm91cnNxdWFyZS5jb21cL3ZcLzQ5YzZiZGZlZjk2NGE1MjA3NzU3MWZl
+        M1wvZGV2aWNlX21lbnUifSwiZnJpZW5kVmlzaXRzIjp7ImNvdW50IjoxLCJz
+        dW1tYXJ5IjoiQSBmcmllbmQgaGFzIGJlZW4gaGVyZSIsIml0ZW1zIjpbeyJ2
+        aXNpdGVkQ291bnQiOjEsImxpa2VkIjpmYWxzZSwiZGlzbGlrZWQiOmZhbHNl
+        LCJva2VkIjpmYWxzZSwidXNlciI6eyJpZCI6IjEwMDY2NjI2IiwiZmlyc3RO
+        YW1lIjoiRGFuIiwibGFzdE5hbWUiOiJWYW5kZXJrYW0iLCJnZW5kZXIiOiJt
+        YWxlIiwicmVsYXRpb25zaGlwIjoiZnJpZW5kIiwicGhvdG8iOnsicHJlZml4
+        IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3Vm
+        Zml4IjoiXC9QRUtPS1FPT1NJRjVOSFM0LmpwZyJ9fX1dfSwic3BlY2lhbHMi
+        OnsiY291bnQiOjAsIml0ZW1zIjpbXX0sInBob3RvcyI6eyJjb3VudCI6MTI4
+        LCJncm91cHMiOlt7InR5cGUiOiJ2ZW51ZSIsIm5hbWUiOiJWZW51ZSBwaG90
+        b3MiLCJjb3VudCI6MTI4LCJpdGVtcyI6W3siaWQiOiI1MThlZmExZTQ5OGU5
+        NDQzYTNjOGY4NDgiLCJjcmVhdGVkQXQiOjEzNjgzMjQ2MzgsInNvdXJjZSI6
+        eyJuYW1lIjoiSW5zdGFncmFtIiwidXJsIjoiaHR0cDpcL1wvaW5zdGFncmFt
+        LmNvbSJ9LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwvaW1n
+        XC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzIyNjFfYTJIVjVNN2ZTRUlPMW9p
+        TDBESGJ2SE1HZEozeEhFb3pVVlVZMFU1dzBhZy5qcGciLCJ3aWR0aCI6NjEy
+        LCJoZWlnaHQiOjYxMiwidXNlciI6eyJpZCI6IjIyNjEiLCJmaXJzdE5hbWUi
+        OiJMZWUiLCJsYXN0TmFtZSI6IlNoZXJtYW4iLCJnZW5kZXIiOiJtYWxlIiwi
+        cGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczEuNHNxaS5uZXRcL2lt
+        Z1wvdXNlclwvIiwic3VmZml4IjoiXC8tNEpSVFVBTkQ1RVlYWVJHRi5wbmci
+        fX0sInZpc2liaWxpdHkiOiJwdWJsaWMifSx7ImlkIjoiNGVhYjgwYjc3NzVi
+        ZjA4NTZhMDViOGExIiwiY3JlYXRlZEF0IjoxMzE5ODYyNDU1LCJzb3VyY2Ui
+        OnsibmFtZSI6ImZvdXJzcXVhcmUgZm9yIGlQaG9uZSIsInVybCI6Imh0dHBz
+        OlwvXC9mb3Vyc3F1YXJlLmNvbVwvZG93bmxvYWRcLyNcL2lwaG9uZSJ9LCJw
+        cmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5ldFwvaW1nXC9nZW5lcmFs
+        XC8iLCJzdWZmaXgiOiJcL0NKUlZMWFVOVlhQRkVLRFFYTU1QRVFUTFFZNUtM
+        Q1ZYVklEWDNIWFIwRDAyVzIxRy5qcGciLCJ3aWR0aCI6NTQwLCJoZWlnaHQi
+        OjcyMCwidXNlciI6eyJpZCI6IjQ4MzE0IiwiZmlyc3ROYW1lIjoiU2hheSIs
+        Imxhc3ROYW1lIjoiRmFuIiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsi
+        cHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwv
+        Iiwic3VmZml4IjoiXC9VMlBJTlAwSVIzMUdIWVdRLmpwZyJ9fSwidmlzaWJp
+        bGl0eSI6InB1YmxpYyJ9LHsiaWQiOiI0ZGY0MWJjNjQwYTMwNmRlYWQwMDIy
+        ZDUiLCJjcmVhdGVkQXQiOjEzMDc4NDM1MjYsInNvdXJjZSI6eyJuYW1lIjoi
+        Zm91cnNxdWFyZSBmb3IgaVBob25lIiwidXJsIjoiaHR0cHM6XC9cL2ZvdXJz
+        cXVhcmUuY29tXC9kb3dubG9hZFwvI1wvaXBob25lIn0sInByZWZpeCI6Imh0
+        dHBzOlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL2dlbmVyYWxcLyIsInN1ZmZp
+        eCI6IlwvT0JDMkFOTkVCRlZSS0FXUEtYNExETUlQUDMwV1BLRUpPTVlHTUwy
+        NFJSTTAyQkdBLmpwZyIsIndpZHRoIjo3MjAsImhlaWdodCI6NTM3LCJ1c2Vy
+        Ijp7ImlkIjoiNTMwMTAiLCJmaXJzdE5hbWUiOiJpdnnimaUiLCJnZW5kZXIi
+        OiJmZW1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40
+        c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzBGMEFEUE1aNUlB
+        VVRZNUsuanBnIn19LCJ2aXNpYmlsaXR5IjoicHVibGljIn0seyJpZCI6IjUw
+        NTAxNWRmZTRiMGNkZTViMTM2NDY5ZiIsImNyZWF0ZWRBdCI6MTM0NzQyNTc1
+        OSwic291cmNlIjp7Im5hbWUiOiJJbnN0YWdyYW0iLCJ1cmwiOiJodHRwOlwv
+        XC9pbnN0YWdyYW0uY29tIn0sInByZWZpeCI6Imh0dHBzOlwvXC9pcnMwLjRz
+        cWkubmV0XC9pbWdcL2dlbmVyYWxcLyIsInN1ZmZpeCI6IlwvTnEySUtQODJk
+        NGpDMm04RFYyNEJmWkZvaFhlQkh2bEVfdUZpRFowY3NZWS5qcGciLCJ3aWR0
+        aCI6NjEyLCJoZWlnaHQiOjYxMiwidXNlciI6eyJpZCI6IjQwODQ0IiwiZmly
+        c3ROYW1lIjoiSmFjayIsImxhc3ROYW1lIjoiQ2hvdSIsImdlbmRlciI6Im1h
+        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3FpLm5l
+        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL0lCMVZTVUpIV0ZGTE5EWk8u
+        Z2lmIn19LCJ2aXNpYmlsaXR5IjoicHVibGljIn0seyJpZCI6IjUxODliOTA1
+        NDk4ZWIxMDFhODRiODQ0NSIsImNyZWF0ZWRBdCI6MTM2Nzk4MDI5Mywic291
+        cmNlIjp7Im5hbWUiOiJmb3Vyc3F1YXJlIGZvciBpUGhvbmUiLCJ1cmwiOiJo
+        dHRwczpcL1wvZm91cnNxdWFyZS5jb21cL2Rvd25sb2FkXC8jXC9pcGhvbmUi
+        fSwicHJlZml4IjoiaHR0cHM6XC9cL2lyczMuNHNxaS5uZXRcL2ltZ1wvZ2Vu
+        ZXJhbFwvIiwic3VmZml4IjoiXC8zNTM5MjVfcnFxZzRfeFBiU2RjZEEyQ2Vh
+        aUZ3eEhPT204QlZobGJ4OFZVVVVUMFg1QS5qcGciLCJ3aWR0aCI6MTQ0MCwi
+        aGVpZ2h0IjoxOTIwLCJ1c2VyIjp7ImlkIjoiMzUzOTI1IiwiZmlyc3ROYW1l
+        IjoiUm9iIiwibGFzdE5hbWUiOiJCcmVoYW50IiwiZ2VuZGVyIjoibWFsZSIs
+        InBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9p
+        bWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvNUpQU1VDWkdTTzFFVTBWRi5qcGci
+        fX0sInZpc2liaWxpdHkiOiJwdWJsaWMifSx7ImlkIjoiNGY3ZTNhZmRlNGIw
+        NGZiMGMyZWIyNmNmIiwiY3JlYXRlZEF0IjoxMzMzNjcyNzAxLCJzb3VyY2Ui
+        OnsibmFtZSI6ImZvdXJzcXVhcmUgZm9yIGlQaG9uZSIsInVybCI6Imh0dHBz
+        OlwvXC9mb3Vyc3F1YXJlLmNvbVwvZG93bmxvYWRcLyNcL2lwaG9uZSJ9LCJw
+        cmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3FpLm5ldFwvaW1nXC9nZW5lcmFs
+        XC8iLCJzdWZmaXgiOiJcL1l4TDdLYzNsdmVkNldiQjh5dHhmdnRvMHlaRExE
+        Ukc4aTlMZmdlNVFxcm8uanBnIiwid2lkdGgiOjcyMCwiaGVpZ2h0Ijo1Mzcs
+        InVzZXIiOnsiaWQiOiI5ODk1ODIiLCJmaXJzdE5hbWUiOiJUaW1vdGh5Iiwi
+        bGFzdE5hbWUiOiJDYXZhbmF1Z2giLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8i
+        OnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczMuNHNxaS5uZXRcL2ltZ1wvdXNl
+        clwvIiwic3VmZml4IjoiXC9YM1VJQ1JOTDBDMzROMFQwLmpwZyJ9fSwidmlz
+        aWJpbGl0eSI6InB1YmxpYyJ9XX1dfSwiaGVyZU5vdyI6eyJjb3VudCI6MCwi
+        c3VtbWFyeSI6Ik5vYm9keSBoZXJlIiwiZ3JvdXBzIjpbXX0sInJlYXNvbnMi
+        OnsiY291bnQiOjEsIml0ZW1zIjpbeyJzdW1tYXJ5IjoiRGFuIFYuIGhhcyBi
+        ZWVuIGhlcmUiLCJ0eXBlIjoic29jaWFsIiwicmVhc29uTmFtZSI6ImZyaWVu
+        ZEFuZFNlbGZDaGVja2luUmVhc29uIiwibWVzc2FnZSI6IkRhbiBWLiBoYXMg
+        YmVlbiBoZXJlIiwidGFyZ2V0Ijp7InR5cGUiOiJuYXZpZ2F0aW9uIiwib2Jq
+        ZWN0Ijp7ImlkIjoiNTRkZDE0ZTg0OThlMmRmZDJiYzU0YTQzIiwidHlwZSI6
+        InNvY2lhbCIsInRhcmdldCI6eyJ0eXBlIjoicGF0aCIsInVybCI6IlwvdmVu
+        dWVzXC80OWM2YmRmZWY5NjRhNTIwNzc1NzFmZTNcL3NvY2lhbCJ9LCJpZ25v
+        cmFibGUiOmZhbHNlfX0sImNvdW50IjoxfV19LCJjcmVhdGVkQXQiOjEyMzc3
+        NjE1MzQsInRpcHMiOnsiY291bnQiOjQzLCJncm91cHMiOlt7InR5cGUiOiJm
+        b2xsb3dpbmciLCJuYW1lIjoiVGlwcyBmcm9tIHBlb3BsZSB5b3UgZm9sbG93
+        IiwiY291bnQiOjAsIml0ZW1zIjpbXX0seyJ0eXBlIjoib3RoZXJzIiwibmFt
+        ZSI6IkFsbCB0aXBzIiwiY291bnQiOjQzLCJpdGVtcyI6W3siaWQiOiI0Y2Y2
+        YzkxOTExZTc2YTMxMTQ4YWFjM2IiLCJjcmVhdGVkQXQiOjEyOTEyNDE3NTMs
+        InRleHQiOiJCZWNhdXNlIEJyZXR0IEVtZXJzb24gaGFkIGEgdmlzaW9uIGFu
+        ZCBoZSdzIHN0dWNrIHRvIGl0LCBjcmVhdGluZyB0aGUgcGVyZmVjdCBuZWln
+        aGJvcmhvb2QgQmF5IEFyZWEtaW5mbGVjdGVkIFNwYW5pc2ggcmVzdGF1cmFu
+        dC4gW0VhdGVyIDM4IE1lbWJlcl0iLCJ0eXBlIjoidXNlciIsInVybCI6Imh0
+        dHA6XC9cL3NmLmVhdGVyLmNvbVwvcGxhY2VzXC9jb250aWdvIiwiY2Fub25p
+        Y2FsVXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC80Y2Y2
+        YzkxOTExZTc2YTMxMTQ4YWFjM2IiLCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJj
+        b3VudCI6NzMsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50Ijo3
+        MywiaXRlbXMiOltdfV0sInN1bW1hcnkiOiI3MyBsaWtlcyJ9LCJsaWtlIjpm
+        YWxzZSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6NjB9LCJ1c2Vy
+        Ijp7ImlkIjoiMzM0MzMyNyIsImZpcnN0TmFtZSI6IkVhdGVyIiwiZ2VuZGVy
+        Ijoibm9uZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRz
+        cWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvNEhCQUFNQ0w0V1VG
+        M0lFVS5wbmcifSwidHlwZSI6InBhZ2UifX0seyJpZCI6IjRhMWQ4NDdhNzBj
+        NjAzYmIwMTI5OGViNCIsImNyZWF0ZWRBdCI6MTI0MzQ0ODQ0MiwidGV4dCI6
+        IkNodXJyb3MgYW5kIGNob2NvbGF0ZS4iLCJ0eXBlIjoidXNlciIsImNhbm9u
+        aWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGEx
+        ZDg0N2E3MGM2MDNiYjAxMjk4ZWI0IiwibGFuZyI6ImVuIiwibGlrZXMiOnsi
+        Y291bnQiOjE0LCJncm91cHMiOlt7InR5cGUiOiJvdGhlcnMiLCJjb3VudCI6
+        MTQsIml0ZW1zIjpbXX1dLCJzdW1tYXJ5IjoiMTQgbGlrZXMifSwibGlrZSI6
+        ZmFsc2UsImxvZ1ZpZXciOnRydWUsInRvZG8iOnsiY291bnQiOjZ9LCJ1c2Vy
+        Ijp7ImlkIjoiMzA2MiIsImZpcnN0TmFtZSI6IkxhdXJhIiwibGFzdE5hbWUi
+        OiJHIiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0
+        cHM6XC9cL2lyczMuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4Ijoi
+        XC8zMDYyXzEyMzcxNDIyMjguanBnIn19fSx7ImlkIjoiNGYxZTE2NzBlNGIw
+        ZDg4MWZjZWIxOGM5IiwiY3JlYXRlZEF0IjoxMzI3MzcxODg4LCJ0ZXh0Ijoi
+        N3g3J3MgQmlnIEVhdCAyMDEyIHNheXMgdGhlIGNhbGFtYXJpIHdpdGggY2hv
+        cml6byBhbmQgYmxhY2sgcmljZSBpcyBkZWxpY2lvdXMuIFl1bSEiLCJ0eXBl
+        IjoidXNlciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJl
+        LmNvbVwvaXRlbVwvNGYxZTE2NzBlNGIwZDg4MWZjZWIxOGM5IiwibGFuZyI6
+        ImVuIiwibGlrZXMiOnsiY291bnQiOjEyLCJncm91cHMiOlt7InR5cGUiOiJv
+        dGhlcnMiLCJjb3VudCI6MTIsIml0ZW1zIjpbXX1dLCJzdW1tYXJ5IjoiMTIg
+        bGlrZXMifSwibGlrZSI6ZmFsc2UsImxvZ1ZpZXciOnRydWUsInRvZG8iOnsi
+        Y291bnQiOjd9LCJ1c2VyIjp7ImlkIjoiMTY0NzgiLCJmaXJzdE5hbWUiOiJC
+        cmlhbiIsImdlbmRlciI6Im1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRw
+        czpcL1wvaXJzMC40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJc
+        LzRhNmJhNTlkMmY0YzAuanBnIn19fSx7ImlkIjoiNGIwODE2OWE3MGM2MDNi
+        YjcxZmQ4ZWI0IiwiY3JlYXRlZEF0IjoxMjU4ODIxMjc0LCJ0ZXh0IjoiR28g
+        d2l0aCBhIGdyb3VwIGFuZCBlYXQgZXZlcnkgaXRlbSBvbiB0aGUgbWVudSIs
+        InR5cGUiOiJ1c2VyIiwidXJsIjoiaHR0cDpcL1wvY29udGlnb3NmLmNvbVwv
+        IiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9p
+        dGVtXC80YjA4MTY5YTcwYzYwM2JiNzFmZDhlYjQiLCJsYW5nIjoiZW4iLCJs
+        aWtlcyI6eyJjb3VudCI6MTAsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIs
+        ImNvdW50IjoxMCwiaXRlbXMiOltdfV0sInN1bW1hcnkiOiIxMCBsaWtlcyJ9
+        LCJsaWtlIjpmYWxzZSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6
+        MH0sInVzZXIiOnsiaWQiOiI3MDM5IiwiZmlyc3ROYW1lIjoiU2VhbiIsImxh
+        c3ROYW1lIjoiVGltYmVybGFrZSIsImdlbmRlciI6Im1hbGUiLCJwaG90byI6
+        eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5ldFwvaW1nXC91c2Vy
+        XC8iLCJzdWZmaXgiOiJcL04wMkNKSU5ZSlJJMElEUFQuanBnIn19fSx7Imlk
+        IjoiNDljNmJlMmE3MGM2MDNiYjFjMTY4ZWI0IiwiY3JlYXRlZEF0IjoxMjM3
+        NzYxNTc4LCJ0ZXh0IjoidHJ5IG91dCBhbnkgb2YgdGhlIGNvY2FzIChmbGF0
+        YnJlYWRzKSwgY3JvcXVldGFzLCBvciBwb3JrIGJlbGx5IGRpc2hlcy4geW91
+        IHdvbid0IGJlIHNvcnJ5LiIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2FsVXJs
+        IjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC80OWM2YmUyYTcw
+        YzYwM2JiMWMxNjhlYjQiLCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJjb3VudCI6
+        MTAsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50IjoxMCwiaXRl
+        bXMiOltdfV0sInN1bW1hcnkiOiIxMCBsaWtlcyJ9LCJsaWtlIjpmYWxzZSwi
+        bG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6Mn0sInVzZXIiOnsiaWQi
+        OiI3MjY2IiwiZmlyc3ROYW1lIjoiQ2xhdWRpbmUiLCJsYXN0TmFtZSI6IkNv
+        IiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6
+        XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC83
+        MjY2XzEyMzc3NTk1MjIuanBnIn19fSx7ImlkIjoiNGNlODYzODc5NGRhYTA5
+        MDc5MTIxZDI5IiwiY3JlYXRlZEF0IjoxMjkwMjk4MjQ3LCJ0ZXh0IjoiVHJ5
+        IHNvbWUgb2YgQ2F0YWx1bnlhJ3MgYmVzdCB3aW5lcyBoZXJlOiBhIHNwYXJr
+        bGluZyBjYXZhIG9yIGEgZnVsbC1ib2RpZWQgcmVkIHdpbmUgYmFzZWQgb24g
+        dGhlIGdhcm5hY2hhIGdyYXBlIGZyb20gdGhlIE1vbnRzYW50IERPIChvZmZl
+        cnMgbmVhci1QcmlvcmF0IHF1YWxpdHkgd2luZXMgYXQgYmV0dGVyIHByaWNl
+        cykuIMKhQm9uIHByb2ZpdCEiLCJ0eXBlIjoidXNlciIsImNhbm9uaWNhbFVy
+        bCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGNlODYzODc5
+        NGRhYTA5MDc5MTIxZDI5IiwibGFuZyI6ImVuIiwibGlrZXMiOnsiY291bnQi
+        OjYsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50Ijo2LCJpdGVt
+        cyI6W119XSwic3VtbWFyeSI6IjYgbGlrZXMifSwibGlrZSI6ZmFsc2UsImxv
+        Z1ZpZXciOnRydWUsInRvZG8iOnsiY291bnQiOjN9LCJ1c2VyIjp7ImlkIjoi
+        NDg1NTYyIiwiZmlyc3ROYW1lIjoiQXBwcm9hY2ggR3VpZGVzIiwiZ2VuZGVy
+        Ijoibm9uZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMyLjRz
+        cWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvNDg1NTYyLTVOMlBO
+        VVFUVExOUE9RSlcuanBnIn19fSx7ImlkIjoiNTFhMDJiOGM0OThlZGVlYTFk
+        YTk2Y2EzIiwiY3JlYXRlZEF0IjoxMzY5NDUxNDA0LCJ0ZXh0IjoiQmVzdCBw
+        bGFjZSB0byBnZXQgbWFycmllZCBldmVyLiIsInR5cGUiOiJ1c2VyIiwiY2Fu
+        b25pY2FsVXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC81
+        MWEwMmI4YzQ5OGVkZWVhMWRhOTZjYTMiLCJsYW5nIjoiZW4iLCJsaWtlcyI6
+        eyJjb3VudCI6NCwiZ3JvdXBzIjpbeyJ0eXBlIjoib3RoZXJzIiwiY291bnQi
+        OjQsIml0ZW1zIjpbeyJpZCI6IjIxOTY3MTMiLCJmaXJzdE5hbWUiOiJqZW5u
+        aWZlciIsImxhc3ROYW1lIjoibSIsImdlbmRlciI6ImZlbWFsZSIsInBob3Rv
+        Ijp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdcL3Vz
+        ZXJcLyIsInN1ZmZpeCI6IlwvQ1dKRzVYTExETlgyR1FCWC5qcGcifX0seyJp
+        ZCI6IjgzODc5NzYiLCJmaXJzdE5hbWUiOiJtZXJpa28iLCJsYXN0TmFtZSI6
+        ImJvcm9nb3ZlIiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4
+        IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3Vm
+        Zml4IjoiXC84Mzg3OTc2LVhQMlo0U0VFMUpNMzRNQkMuanBnIn19LHsiaWQi
+        OiI5MDg3OTYyIiwiZmlyc3ROYW1lIjoiQW5pdGEiLCJsYXN0TmFtZSI6IkMi
+        LCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpc
+        L1wvaXJzMy40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL0hZ
+        T0tNQ0NNNVhISTVCUEQuanBnIn19LHsiaWQiOiIxMzYwOTcyIiwiZmlyc3RO
+        YW1lIjoiU3VzYW4iLCJsYXN0TmFtZSI6IldoaXRlc2lkZSIsImdlbmRlciI6
+        ImZlbWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRz
+        cWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvRktGNEtXMUhHR0NZ
+        VFZHNS5qcGcifX1dfV0sInN1bW1hcnkiOiI0IGxpa2VzIn0sImxpa2UiOmZh
+        bHNlLCJsb2dWaWV3Ijp0cnVlLCJ0b2RvIjp7ImNvdW50IjowfSwidXNlciI6
+        eyJpZCI6IjUyMjA3MjkiLCJmaXJzdE5hbWUiOiJHZW5pZSIsImdlbmRlciI6
+        ImZlbWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRz
+        cWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvRE5JTExHTElTV0ZI
+        NDJBMC5qcGcifX19LHsiaWQiOiI1MDQxOTI5MmU0YjBjOTk2YjJiYjI0MWUi
+        LCJjcmVhdGVkQXQiOjEzNDY0NzQ2NDIsInRleHQiOiJUaGUgcGF0YXRlcyBi
+        cmF2ZXMgYXJlIHNvIGdvb2QgdGhhdCB0aGV5J3JlIG1lYW4sIGFuZCB0aGUg
+        d2luZSBsaXN0IGlzIG5vdCB0byBiZSB0cmlmbGVkIHdpdGguIFNpdCBiYWNr
+        IGFuZCBpbmR1bGdlIGluIGEgMyBob3VyIG1lYWwsIGlmIHlvdSBjYW4sIGFu
+        ZCB5b3Ugd2lsbCBsZWF2ZSBoYXBwaWVyIHRoYW4gd2hlbiB5b3UgY2FtZS4i
+        LCJ0eXBlIjoidXNlciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vy
+        c3F1YXJlLmNvbVwvaXRlbVwvNTA0MTkyOTJlNGIwYzk5NmIyYmIyNDFlIiwi
+        bGFuZyI6ImVuIiwibGlrZXMiOnsiY291bnQiOjIsImdyb3VwcyI6W3sidHlw
+        ZSI6Im90aGVycyIsImNvdW50IjoyLCJpdGVtcyI6W3siaWQiOiIxNjU4MDE2
+        IiwiZmlyc3ROYW1lIjoiQWxleCIsImxhc3ROYW1lIjoiR2FtYmFyZGVsbGEi
+        LCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpc
+        L1wvaXJzMy40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzE2
+        NTgwMTYtTkxPQlJGQUNLWkJLVUpWTC5qcGcifX0seyJpZCI6IjMxOTcxNCIs
+        ImZpcnN0TmFtZSI6IkJyYW5kb24iLCJsYXN0TmFtZSI6Ill1biIsImdlbmRl
+        ciI6Im1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40
+        c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL0xBMFhIS0dTR0E1
+        QVlFWlMuanBnIn19XX1dLCJzdW1tYXJ5IjoiMiBsaWtlcyJ9LCJsaWtlIjpm
+        YWxzZSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0sInVzZXIi
+        OnsiaWQiOiIxODU5NDk5IiwiZmlyc3ROYW1lIjoiQ2FybGVlIiwibGFzdE5h
+        bWUiOiJHb21lcyIsImdlbmRlciI6ImZlbWFsZSIsInBob3RvIjp7InByZWZp
+        eCI6Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1
+        ZmZpeCI6IlwvS08wRkxMMEVTNUdSM1RRVC5qcGcifX19LHsiaWQiOiI0YzRi
+        OWQ1Nzk1OTIyMGExNDI5OGM3MGYiLCJjcmVhdGVkQXQiOjEyODAwMjM4OTUs
+        InRleHQiOiJJZiB5b3UgY291bGQgZXZlciBsb3ZlIHNhcmRpbmVzLCB0aGUg
+        c2FyZGluZXMgYW5kIGF2b2NhZG8gb24gdG9hc3Qgd2lsbCBzcGVhayB0byB5
+        b3UuIiwidHlwZSI6InVzZXIiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wv
+        Zm91cnNxdWFyZS5jb21cL2l0ZW1cLzRjNGI5ZDU3OTU5MjIwYTE0Mjk4Yzcw
+        ZiIsImxhbmciOiJlbiIsImxpa2VzIjp7ImNvdW50IjoyLCJncm91cHMiOlt7
+        InR5cGUiOiJvdGhlcnMiLCJjb3VudCI6MiwiaXRlbXMiOlt7ImlkIjoiODUz
+        MCIsImZpcnN0TmFtZSI6IlJvYmJpZSIsImxhc3ROYW1lIjoiTWlsbGVyIiwi
+        Z2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9p
+        cnMyLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvR1lUU1VK
+        UUc1WlhHWFRVMC5qcGcifX1dfV0sInN1bW1hcnkiOiIyIGxpa2VzIn0sImxp
+        a2UiOmZhbHNlLCJsb2dWaWV3Ijp0cnVlLCJ0b2RvIjp7ImNvdW50IjowfSwi
+        dXNlciI6eyJpZCI6IjE4MzQ1IiwiZmlyc3ROYW1lIjoibWljaGFlbCIsImxh
+        c3ROYW1lIjoidCIsImdlbmRlciI6Im1hbGUiLCJwaG90byI6eyJwcmVmaXgi
+        OiJodHRwczpcL1wvaXJzMC40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZm
+        aXgiOiJcL0tVR01LT09UMzBPMERURkguanBnIn19fSx7ImlkIjoiNGI4YTE1
+        NjU3MGM2MDNiYmY4M2I5M2I0IiwiY3JlYXRlZEF0IjoxMjY3MzQwNjQ1LCJ0
+        ZXh0IjoiSW5zYW5lbHkgZ3JlYXQgdHJpcGUiLCJ0eXBlIjoidXNlciIsImNh
+        bm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwv
+        NGI4YTE1NjU3MGM2MDNiYmY4M2I5M2I0IiwibGFuZyI6ImVuIiwibGlrZXMi
+        OnsiY291bnQiOjIsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50
+        IjoyLCJpdGVtcyI6W3siaWQiOiIzMTcyNTg1NSIsImZpcnN0TmFtZSI6Ik1l
+        aHIiLCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRw
+        czpcL1wvaXJzMi40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJc
+        L09ZMUdGUjRGNVRWUENTWkouanBnIn19XX1dLCJzdW1tYXJ5IjoiMiBsaWtl
+        cyJ9LCJsaWtlIjpmYWxzZSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3Vu
+        dCI6MH0sInVzZXIiOnsiaWQiOiI5NTIiLCJmaXJzdE5hbWUiOiJUb20iLCJs
+        YXN0TmFtZSI6IlMiLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4
+        IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3Vm
+        Zml4IjoiXC85NTJfMTIzNzIzOTgyNy5qcGcifX19LHsiaWQiOiI1MmNhMDlh
+        ZjQ5OGU0ZDNlYjBjNDJkOTEiLCJjcmVhdGVkQXQiOjEzODg5NzI0NjMsInRl
+        eHQiOiJQYWVsbGEgbmVncmEgYW5kIFRlbXByYW5pbGxvISIsInR5cGUiOiJ1
+        c2VyIiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29t
+        XC9pdGVtXC81MmNhMDlhZjQ5OGU0ZDNlYjBjNDJkOTEiLCJsYW5nIjoiZW4i
+        LCJsaWtlcyI6eyJjb3VudCI6MSwiZ3JvdXBzIjpbeyJ0eXBlIjoib3RoZXJz
+        IiwiY291bnQiOjEsIml0ZW1zIjpbeyJpZCI6IjQ3MDgwOTUwIiwiZmlyc3RO
+        YW1lIjoiTWFoYWxpbiIsImxhc3ROYW1lIjoiTG9wZXoiLCJnZW5kZXIiOiJm
+        ZW1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3Fp
+        Lm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzNaS0QyQlkyWEFTTlpL
+        Uk4uanBnIn19XX1dLCJzdW1tYXJ5IjoiMSBsaWtlIn0sImxpa2UiOmZhbHNl
+        LCJsb2dWaWV3Ijp0cnVlLCJ0b2RvIjp7ImNvdW50IjowfSwidXNlciI6eyJp
+        ZCI6IjQ3MDgwOTUwIiwiZmlyc3ROYW1lIjoiTWFoYWxpbiIsImxhc3ROYW1l
+        IjoiTG9wZXoiLCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90byI6eyJwcmVmaXgi
+        OiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZm
+        aXgiOiJcLzNaS0QyQlkyWEFTTlpLUk4uanBnIn19fSx7ImlkIjoiNTEzYmM4
+        YmZlNGIwMTM5NGJiMDM1Yjc5IiwiY3JlYXRlZEF0IjoxMzYyODcyNTExLCJ0
+        ZXh0IjoiVGhlIHRhcGFzLXN0eWxlZCBjdWlzaW5lIGlzIGJlc3QgZXhwZXJp
+        ZW5jZWQgYXMgYSBncm91cCBzbyB5b3UgY2FuIHNoYXJlIGFtb25nc3QgZWFj
+        aCBvdGhlci4gQW5kIHlvdSBjYW4ndCBnbyB3cm9uZyB3aXRoIHRoZSB2YW5p
+        bGxhIGJlYW4gZ2VsYXQgd2l0aCBvbGl2ZSBvaWwgYW5kIHNlYSBzYWx0IGZv
+        ciBkZXNzZXJ0ISIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2FsVXJsIjoiaHR0
+        cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC81MTNiYzhiZmU0YjAxMzk0
+        YmIwMzViNzkiLCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJjb3VudCI6MSwiZ3Jv
+        dXBzIjpbeyJ0eXBlIjoib3RoZXJzIiwiY291bnQiOjEsIml0ZW1zIjpbeyJp
+        ZCI6Ijg3NDA2MzQiLCJmaXJzdE5hbWUiOiJFdWdlbmUiLCJnZW5kZXIiOiJt
+        YWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczAuNHNxaS5u
+        ZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9TM1hJUVpCVExSM1AzUDBB
+        LmpwZyJ9fV19XSwic3VtbWFyeSI6IjEgbGlrZSJ9LCJsaWtlIjpmYWxzZSwi
+        bG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MX0sInVzZXIiOnsiaWQi
+        OiI3MTYyOTUyIiwiZmlyc3ROYW1lIjoiS2F5dm9uIiwibGFzdE5hbWUiOiJU
+        ZWhyYW5pYW4iLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4Ijoi
+        aHR0cHM6XC9cL2lyczAuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4
+        IjoiXC9OQ1lORFBSM1UyWlpDWVdSLmpwZyJ9fX0seyJpZCI6IjRjYmNkNjJi
+        Zjc5NmVmM2I0OWI3MDE4MCIsImNyZWF0ZWRBdCI6MTI4NzQ0NDAxMSwidGV4
+        dCI6IkkgcmVjb21tZW5kIGVhdGluZyB0aGUgZXh0cmVtaXRpZXMgb2YgdmFy
+        aW91cyBhbmltYWxzLiBFYXJzLCB0b25ndWVzIGFuZCB0YWlscyBhcmUgYWxs
+        IGFjY2VwdGFibGUuIiwidHlwZSI6InVzZXIiLCJjYW5vbmljYWxVcmwiOiJo
+        dHRwczpcL1wvZm91cnNxdWFyZS5jb21cL2l0ZW1cLzRjYmNkNjJiZjc5NmVm
+        M2I0OWI3MDE4MCIsImxhbmciOiJlbiIsImxpa2VzIjp7ImNvdW50IjoxLCJn
+        cm91cHMiOlt7InR5cGUiOiJvdGhlcnMiLCJjb3VudCI6MSwiaXRlbXMiOlt7
+        ImlkIjoiMzE3MjU4NTUiLCJmaXJzdE5hbWUiOiJNZWhyIiwiZ2VuZGVyIjoi
+        ZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNx
+        aS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9PWTFHRlI0RjVUVlBD
+        U1pKLmpwZyJ9fV19XSwic3VtbWFyeSI6IjEgbGlrZSJ9LCJsaWtlIjpmYWxz
+        ZSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MX0sInVzZXIiOnsi
+        aWQiOiI2NDI2MTMiLCJmaXJzdE5hbWUiOiJNYXR0aGV3IiwibGFzdE5hbWUi
+        OiJMb2NrIiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0
+        dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6
+        IlwvQ05JTkk1M1ZIRVNCMUhJRi5qcGcifX19LHsiaWQiOiI0YzRiYTBiMjk1
+        OTIyMGExODk0ZmNjMGYiLCJjcmVhdGVkQXQiOjEyODAwMjQ3NTQsInRleHQi
+        OiJPcmRlciB0aGUgdGhlIHNxdWlkLiBZZXMsIHRoZSBzcXVpZC4iLCJ0eXBl
+        IjoidXNlciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJl
+        LmNvbVwvaXRlbVwvNGM0YmEwYjI5NTkyMjBhMTg5NGZjYzBmIiwibGFuZyI6
+        ImVuIiwibGlrZXMiOnsiY291bnQiOjEsImdyb3VwcyI6W3sidHlwZSI6Im90
+        aGVycyIsImNvdW50IjoxLCJpdGVtcyI6W119XSwic3VtbWFyeSI6IjEgbGlr
+        ZSJ9LCJsaWtlIjpmYWxzZSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3Vu
+        dCI6MX0sInVzZXIiOnsiaWQiOiIxODM0NSIsImZpcnN0TmFtZSI6Im1pY2hh
+        ZWwiLCJsYXN0TmFtZSI6InQiLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsi
+        cHJlZml4IjoiaHR0cHM6XC9cL2lyczAuNHNxaS5uZXRcL2ltZ1wvdXNlclwv
+        Iiwic3VmZml4IjoiXC9LVUdNS09PVDMwTzBEVEZILmpwZyJ9fX0seyJpZCI6
+        IjRiZWY3Nzk5NzBjNjAzYmIxMmFmOWJiNCIsImNyZWF0ZWRBdCI6MTI3Mzk4
+        NDkyMSwidGV4dCI6IlRoZSBCYXNxdWUgd2luZXMgYXJlIGdyZWF0LiBDaGVj
+        ayB0aGVtIG91dC4iLCJ0eXBlIjoidXNlciIsImNhbm9uaWNhbFVybCI6Imh0
+        dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGJlZjc3OTk3MGM2MDNi
+        YjEyYWY5YmI0IiwibGFuZyI6ImVuIiwibGlrZXMiOnsiY291bnQiOjEsImdy
+        b3VwcyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50IjoxLCJpdGVtcyI6W119
+        XSwic3VtbWFyeSI6IjEgbGlrZSJ9LCJsaWtlIjpmYWxzZSwibG9nVmlldyI6
+        dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0sInVzZXIiOnsiaWQiOiIzOTk4NzMi
+        LCJmaXJzdE5hbWUiOiJNYXJhIiwibGFzdE5hbWUiOiJNb3J0IiwiZ2VuZGVy
+        IjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczMu
+        NHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9GVVFUTTRGSzNL
+        UFQxWjNQLmpwZyJ9fX0seyJpZCI6IjRiMDZmN2EyNzBjNjAzYmJjMGY3OGVi
+        NCIsImNyZWF0ZWRBdCI6MTI1ODc0NzgxMCwidGV4dCI6IkdyZWF0IGZvb2Qg
+        YW5kIHdpbmUuIFRoaXMgaGFzIGJlY29tZSBhIGZhdm9yaXRlISIsInR5cGUi
+        OiJ1c2VyIiwidXJsIjoiaHR0cDpcL1wvY29udGlnb3NmLmNvbSIsImNhbm9u
+        aWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGIw
+        NmY3YTI3MGM2MDNiYmMwZjc4ZWI0IiwibGFuZyI6ImVuIiwibGlrZXMiOnsi
+        Y291bnQiOjEsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50Ijox
+        LCJpdGVtcyI6W119XSwic3VtbWFyeSI6IjEgbGlrZSJ9LCJsaWtlIjpmYWxz
+        ZSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0sInVzZXIiOnsi
+        aWQiOiIxMTA5NTkiLCJmaXJzdE5hbWUiOiJQYXVsIiwibGFzdE5hbWUiOiJM
+        aXN6ZXdza2kiLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4Ijoi
+        aHR0cHM6XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4
+        IjoiXC8tMV8xMjU4NzQ3NjQyNTg0LmpwZyJ9fX0seyJpZCI6IjU0YjQxMjUw
+        NDk4ZWMzYzg5MjdmYTE5NyIsImNyZWF0ZWRBdCI6MTQyMTA4NzMxMiwidGV4
+        dCI6IkJlc3QgdGFwYXMgYW5kIFNwYW5pc2ggd2luZSBsaXN0IGluIFNhbiBG
+        cmFuY2lzY28uIiwidHlwZSI6InVzZXIiLCJjYW5vbmljYWxVcmwiOiJodHRw
+        czpcL1wvZm91cnNxdWFyZS5jb21cL2l0ZW1cLzU0YjQxMjUwNDk4ZWMzYzg5
+        MjdmYTE5NyIsImxhbmciOiJlbiIsImxpa2VzIjp7ImNvdW50IjowLCJncm91
+        cHMiOltdfSwibGlrZSI6ZmFsc2UsImxvZ1ZpZXciOnRydWUsInRvZG8iOnsi
+        Y291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNjE0NjM5IiwiZmlyc3ROYW1lIjoi
+        UmFjaGVsIiwibGFzdE5hbWUiOiJLaW5nIiwiZ2VuZGVyIjoiZmVtYWxlIiwi
+        cGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczAuNHNxaS5uZXRcL2lt
+        Z1wvdXNlclwvIiwic3VmZml4IjoiXC9INFNXS1VZQU1LTU5ZVlMyLmpwZyJ9
+        fX0seyJpZCI6IjU0NzE3OTkyNDk4ZTY3YmU5NzhlYWRhNiIsImNyZWF0ZWRB
+        dCI6MTQxNjcyMjgzNCwidGV4dCI6IlRoZSB0YXJnYSBkZSBTYW50aWFnbyBp
+        cyB0byBkaWUgZm9yIiwidHlwZSI6InVzZXIiLCJjYW5vbmljYWxVcmwiOiJo
+        dHRwczpcL1wvZm91cnNxdWFyZS5jb21cL2l0ZW1cLzU0NzE3OTkyNDk4ZTY3
+        YmU5NzhlYWRhNiIsImxhbmciOiJlbiIsImxpa2VzIjp7ImNvdW50IjowLCJn
+        cm91cHMiOltdfSwibGlrZSI6ZmFsc2UsImxvZ1ZpZXciOnRydWUsInRvZG8i
+        OnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNzM0MDI0NTgiLCJmaXJzdE5h
+        bWUiOiJBYmhpc2hlayIsImxhc3ROYW1lIjoiS29uYSIsImdlbmRlciI6Im1h
+        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
+        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzczNDAyNDU4LTNESU5YRE5J
+        MlhVVEdVUVUuanBnIn19fSx7ImlkIjoiNTQzZGUxYzI0OThlMGVjMGNlODg5
+        MzlhIiwiY3JlYXRlZEF0IjoxNDEzMzQxNjM0LCJ0ZXh0IjoiVGFwYXMgUGEg
+        QW1iIFRvbcOicXVldCIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2FsVXJsIjoi
+        aHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC81NDNkZTFjMjQ5OGUw
+        ZWMwY2U4ODkzOWEiLCJsYW5nIjoiY2EiLCJsaWtlcyI6eyJjb3VudCI6MCwi
+        Z3JvdXBzIjpbXX0sImxpa2UiOmZhbHNlLCJsb2dWaWV3Ijp0cnVlLCJ0b2Rv
+        Ijp7ImNvdW50IjowfSwidXNlciI6eyJpZCI6IjEwNTc5IiwiZmlyc3ROYW1l
+        IjoiQW5kcmV3IiwibGFzdE5hbWUiOiJTaGVwcGFyZCIsImdlbmRlciI6Im1h
+        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
+        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzEwNTc5LVJJWFdaWVpIMUdD
+        TUkyRjAifX19LHsiaWQiOiI1NDEzMTJjNTQ5OGU5MWM0ZDc1ZWQzYzkiLCJj
+        cmVhdGVkQXQiOjE0MTA1MzYxMzMsInRleHQiOiJGdW4gbmVpZ2hib3Job29k
+        IGVhdGVyeS4gTG92ZSB0aGVpciB0b2FzdCB0YXBhcywgdGhlIHRvbWF0b2Vz
+        IHRoZXkgc291cmNlIGFyZSBhbWF6aW5nLiIsInR5cGUiOiJ1c2VyIiwiY2Fu
+        b25pY2FsVXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC81
+        NDEzMTJjNTQ5OGU5MWM0ZDc1ZWQzYzkiLCJsYW5nIjoiZW4iLCJsaWtlcyI6
+        eyJjb3VudCI6MCwiZ3JvdXBzIjpbXX0sImxpa2UiOmZhbHNlLCJsb2dWaWV3
+        Ijp0cnVlLCJ0b2RvIjp7ImNvdW50IjowfSwidXNlciI6eyJpZCI6IjYzNTA2
+        OSIsImZpcnN0TmFtZSI6Ikpvc2h1YSIsImxhc3ROYW1lIjoiSGFmdGVsIiwi
+        Z2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9p
+        cnMyLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvNjM1MDY5
+        LVNFRUNBQlhSVzVHMFgzMDAuanBnIn19fV19XX0sInRhZ3MiOlsiYmFyY2Vs
+        b25hIiwiY2F0YWxhbiIsImVhdGVyIDM4IiwiZm9vZGllIiwiZ291cm1ldCBt
+        YWdhemluZSIsIm5vZSB2YWxsZXkiLCJzcGFuaXNoIiwidGFwYXMiXSwic2hv
+        cnRVcmwiOiJodHRwOlwvXC80c3EuY29tXC8zUGJZcVkiLCJ0aW1lWm9uZSI6
+        IkFtZXJpY2FcL0xvc19BbmdlbGVzIiwibGlzdGVkIjp7ImNvdW50IjoxOTYs
+        Imdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsIm5hbWUiOiJMaXN0cyBmcm9t
+        IG90aGVyIHBlb3BsZSIsImNvdW50IjoxOTYsIml0ZW1zIjpbeyJpZCI6IjUw
+        MDQzNTEzZTRiMGJjNTE3MDhmZWJlYiIsIm5hbWUiOiJCYXkgQXJlYSBGb29k
+        aWUgQnVja2V0IExpc3QiLCJkZXNjcmlwdGlvbiI6IiIsInR5cGUiOiJvdGhl
+        cnMiLCJ1c2VyIjp7ImlkIjoiNjkyNDg2NyIsImZpcnN0TmFtZSI6Ikx5bm1h
+        biIsImdlbmRlciI6ImZlbWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBz
+        OlwvXC9pcnMwLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6Ilwv
+        SE9RTUczRkNXU0hJSFZBMy5qcGcifX0sImVkaXRhYmxlIjpmYWxzZSwicHVi
+        bGljIjp0cnVlLCJjb2xsYWJvcmF0aXZlIjpmYWxzZSwidXJsIjoiXC9seW5t
+        YW53XC9saXN0XC9iYXktYXJlYS1mb29kaWUtYnVja2V0LWxpc3QiLCJjYW5v
+        bmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFyZS5jb21cL2x5bm1hbndc
+        L2xpc3RcL2JheS1hcmVhLWZvb2RpZS1idWNrZXQtbGlzdCIsImNyZWF0ZWRB
+        dCI6MTM0MjQ1MzAxMSwidXBkYXRlZEF0IjoxNDE0MDkxMDQyLCJmb2xsb3dl
+        cnMiOnsiY291bnQiOjUzfSwibGlzdEl0ZW1zIjp7ImNvdW50IjoxMjksIml0
+        ZW1zIjpbeyJpZCI6InY0OWM2YmRmZWY5NjRhNTIwNzc1NzFmZTMiLCJjcmVh
+        dGVkQXQiOjEzNDc5ODMzMTN9XX19LHsiaWQiOiI0ZjNlYWViZmU0YjA5NDhm
+        MWZkMjBkMzUiLCJuYW1lIjoiMjAxMyBTYW4gRnJhbmNpc2NvIEJpYiBHb3Vy
+        bWFuZHMiLCJkZXNjcmlwdGlvbiI6IlRoaXMgeWVhciA3MCBlc3RhYmxpc2ht
+        ZW50cyBtYWRlIHRoZSBsaXN0XHUyMDE0YSBsaXN0IHRoYXQgcmVwcmVzZW50
+        cyBhIHNpemFibGUgZ2VvZ3JhcGhpYyBhcmVhLCBpbmNsdWRpbmcgdGhlIGVu
+        dGlyZSBCYXkgQXJlYSBhbmQgV2luZSBDb3VudHJ5LiIsInR5cGUiOiJvdGhl
+        cnMiLCJ1c2VyIjp7ImlkIjoiMzM1ODI0MiIsImZpcnN0TmFtZSI6Ik1pY2hl
+        bGluIFRyYXZlbCAmIExpZmVzdHlsZSIsImdlbmRlciI6Im5vbmUiLCJwaG90
+        byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwvaW1nXC91
+        c2VyXC8iLCJzdWZmaXgiOiJcL1ZLMFBQREUzVjFIVTIwRDUuanBnIn0sInR5
+        cGUiOiJwYWdlIn0sImVkaXRhYmxlIjpmYWxzZSwicHVibGljIjp0cnVlLCJj
+        b2xsYWJvcmF0aXZlIjpmYWxzZSwidXJsIjoiXC9taWNoZWxpbmd1aWRlc1wv
+        bGlzdFwvMjAxMy1zYW4tZnJhbmNpc2NvLWJpYi1nb3VybWFuZHMiLCJjYW5v
+        bmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFyZS5jb21cL21pY2hlbGlu
+        Z3VpZGVzXC9saXN0XC8yMDEzLXNhbi1mcmFuY2lzY28tYmliLWdvdXJtYW5k
+        cyIsImNyZWF0ZWRBdCI6MTMyOTUwODAzMSwidXBkYXRlZEF0IjoxMzk1MzU2
+        MjMwLCJsb2dWaWV3Ijp0cnVlLCJmb2xsb3dlcnMiOnsiY291bnQiOjY4M30s
+        Imxpc3RJdGVtcyI6eyJjb3VudCI6NjksIml0ZW1zIjpbeyJpZCI6InY0OWM2
+        YmRmZWY5NjRhNTIwNzc1NzFmZTMiLCJjcmVhdGVkQXQiOjEzMjk1MDg1Mjd9
+        XX19XX1dfSwicGhyYXNlcyI6W3sicGhyYXNlIjoiY2h1cnJvcyBjb24gY2hv
+        Y29sYXRlIiwic2FtcGxlIjp7ImVudGl0aWVzIjpbeyJpbmRpY2VzIjpbMTks
+        NDBdLCJ0eXBlIjoia2V5UGhyYXNlIn1dLCJ0ZXh0IjoiLi4uIGFuZCBkZWZp
+        bml0ZWx5IGNodXJyb3MgY29uIGNob2NvbGF0ZS4gQ2FuJ3Qgb3JkZXIgd3Jv
+        bmcgaGVyZS4ifSwiY291bnQiOjR9LHsicGhyYXNlIjoidHJpcGUiLCJzYW1w
+        bGUiOnsiZW50aXRpZXMiOlt7ImluZGljZXMiOlsxNSwyMF0sInR5cGUiOiJr
+        ZXlQaHJhc2UifV0sInRleHQiOiJJbnNhbmVseSBncmVhdCB0cmlwZSJ9LCJj
+        b3VudCI6NX0seyJwaHJhc2UiOiJjYWxhbWFyaSB3aXRoIGNob3Jpem8gYW5k
+        IGJsYWNrIHJpY2UiLCJzYW1wbGUiOnsiZW50aXRpZXMiOlt7ImluZGljZXMi
+        Ols0LDQwXSwidHlwZSI6ImtleVBocmFzZSJ9XSwidGV4dCI6IjcwLiBDYWxh
+        bWFyaSB3aXRoIGNob3Jpem8gYW5kIGJsYWNrIHJpY2UifSwiY291bnQiOjJ9
+        XSwiaG91cnMiOnsic3RhdHVzIjoiQ2xvc2VkIHVudGlsIDU6MzAgUE0iLCJp
+        c09wZW4iOmZhbHNlLCJ0aW1lZnJhbWVzIjpbeyJkYXlzIjoiVHVlXHUyMDEz
+        U2F0IiwiaW5jbHVkZXNUb2RheSI6dHJ1ZSwib3BlbiI6W3sicmVuZGVyZWRU
+        aW1lIjoiNTozMCBQTVx1MjAxMzEwOjAwIFBNIn1dLCJzZWdtZW50cyI6W119
+        LHsiZGF5cyI6IlN1biIsIm9wZW4iOlt7InJlbmRlcmVkVGltZSI6IjU6MzAg
+        UE1cdTIwMTM5OjMwIFBNIn1dLCJzZWdtZW50cyI6W119XX0sInBvcHVsYXIi
+        OnsiaXNPcGVuIjpmYWxzZSwidGltZWZyYW1lcyI6W3siZGF5cyI6IlRvZGF5
+        IiwiaW5jbHVkZXNUb2RheSI6dHJ1ZSwib3BlbiI6W3sicmVuZGVyZWRUaW1l
+        IjoiNjowMCBQTVx1MjAxMzExOjAwIFBNIn1dLCJzZWdtZW50cyI6W119LHsi
+        ZGF5cyI6IkZyaSIsIm9wZW4iOlt7InJlbmRlcmVkVGltZSI6IjY6MDAgUE1c
+        dTIwMTMxMTowMCBQTSJ9XSwic2VnbWVudHMiOltdfSx7ImRheXMiOiJTYXQi
+        LCJvcGVuIjpbeyJyZW5kZXJlZFRpbWUiOiI1OjAwIFBNXHUyMDEzMTE6MDAg
+        UE0ifV0sInNlZ21lbnRzIjpbXX0seyJkYXlzIjoiU3VuIiwib3BlbiI6W3si
+        cmVuZGVyZWRUaW1lIjoiNTowMCBQTVx1MjAxMzEwOjAwIFBNIn1dLCJzZWdt
+        ZW50cyI6W119LHsiZGF5cyI6Ik1vbiIsIm9wZW4iOlt7InJlbmRlcmVkVGlt
+        ZSI6Ik5vbmUifV0sInNlZ21lbnRzIjpbXX0seyJkYXlzIjoiVHVlXHUyMDEz
+        V2VkIiwib3BlbiI6W3sicmVuZGVyZWRUaW1lIjoiNjowMCBQTVx1MjAxMzEw
+        OjAwIFBNIn1dLCJzZWdtZW50cyI6W119XX0sInBhZ2VVcGRhdGVzIjp7ImNv
+        dW50IjowLCJpdGVtcyI6W119LCJpbmJveCI6eyJjb3VudCI6MCwiaXRlbXMi
+        OltdfSwiYXR0cmlidXRlcyI6eyJncm91cHMiOlt7InR5cGUiOiJwcmljZSIs
+        Im5hbWUiOiJQcmljZSIsInN1bW1hcnkiOiIkJCQkIiwiY291bnQiOjEsIml0
+        ZW1zIjpbeyJkaXNwbGF5TmFtZSI6IlByaWNlIiwiZGlzcGxheVZhbHVlIjoi
+        JCQkJCIsInByaWNlVGllciI6NH1dfSx7InR5cGUiOiJwYXltZW50cyIsIm5h
+        bWUiOiJDcmVkaXQgQ2FyZHMiLCJzdW1tYXJ5IjoiQ3JlZGl0IENhcmRzIiwi
+        Y291bnQiOjcsIml0ZW1zIjpbeyJkaXNwbGF5TmFtZSI6IkNyZWRpdCBDYXJk
+        cyIsImRpc3BsYXlWYWx1ZSI6IlllcyAoaW5jbC4gRGlzY292ZXIgJiBWaXNh
+        KSJ9XX0seyJ0eXBlIjoib3V0ZG9vclNlYXRpbmciLCJuYW1lIjoiT3V0ZG9v
+        ciBTZWF0aW5nIiwic3VtbWFyeSI6Ik91dGRvb3IgU2VhdGluZyIsImNvdW50
+        IjoxLCJpdGVtcyI6W3siZGlzcGxheU5hbWUiOiJPdXRkb29yIFNlYXRpbmci
+        LCJkaXNwbGF5VmFsdWUiOiJZZXMifV19LHsidHlwZSI6InNlcnZlcyIsIm5h
+        bWUiOiJNZW51cyIsInN1bW1hcnkiOiJEaW5uZXIiLCJjb3VudCI6OCwiaXRl
+        bXMiOlt7ImRpc3BsYXlOYW1lIjoiRGlubmVyIiwiZGlzcGxheVZhbHVlIjoi
+        RGlubmVyIn1dfSx7InR5cGUiOiJkcmlua3MiLCJuYW1lIjoiRHJpbmtzIiwi
+        c3VtbWFyeSI6IldpbmUiLCJjb3VudCI6NSwiaXRlbXMiOlt7ImRpc3BsYXlO
+        YW1lIjoiV2luZSIsImRpc3BsYXlWYWx1ZSI6IldpbmUifV19LHsidHlwZSI6
+        ImRpbmluZ09wdGlvbnMiLCJuYW1lIjoiRGluaW5nIE9wdGlvbnMiLCJjb3Vu
+        dCI6NSwiaXRlbXMiOlt7ImRpc3BsYXlOYW1lIjoiRGVsaXZlcnkiLCJkaXNw
+        bGF5VmFsdWUiOiJObyBEZWxpdmVyeSJ9XX1dfX19fQ==
+    http_version: 
+  recorded_at: Thu, 12 Feb 2015 21:02:32 GMT
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=37.750985758393895,-122.4342691898346&sensor=false
     body:
       encoding: US-ASCII
       string: ''
@@ -58,9 +714,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Wed, 28 Jan 2015 03:15:44 GMT
+      - Thu, 12 Feb 2015 21:02:32 GMT
       Expires:
-      - Thu, 29 Jan 2015 03:15:44 GMT
+      - Fri, 13 Feb 2015 21:02:32 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -72,7 +728,7 @@ http_interactions:
       X-Frame-Options:
       - SAMEORIGIN
       Alternate-Protocol:
-      - 80:quic,p=0.02
+      - 80:quic,p=0.08
       Accept-Ranges:
       - none
       Vary:
@@ -87,8 +743,8 @@ http_interactions:
               {
                  "address_components" : [
                     {
-                       "long_name" : "1320",
-                       "short_name" : "1320",
+                       "long_name" : "1314",
+                       "short_name" : "1314",
                        "types" : [ "street_number" ]
                     },
                     {
@@ -132,21 +788,21 @@ http_interactions:
                        "types" : [ "postal_code_suffix" ]
                     }
                  ],
-                 "formatted_address" : "1320 Castro Street, San Francisco, CA 94114, USA",
+                 "formatted_address" : "1314 Castro Street, San Francisco, CA 94114, USA",
                  "geometry" : {
                     "location" : {
-                       "lat" : 37.750902,
-                       "lng" : -122.434327
+                       "lat" : 37.750996,
+                       "lng" : -122.434336
                     },
                     "location_type" : "ROOFTOP",
                     "viewport" : {
                        "northeast" : {
-                          "lat" : 37.7522509802915,
-                          "lng" : -122.4329780197085
+                          "lat" : 37.7523449802915,
+                          "lng" : -122.4329870197085
                        },
                        "southwest" : {
-                          "lat" : 37.7495530197085,
-                          "lng" : -122.4356759802915
+                          "lat" : 37.7496470197085,
+                          "lng" : -122.4356849802915
                        }
                     }
                  },
@@ -358,12 +1014,12 @@ http_interactions:
                     "location_type" : "APPROXIMATE",
                     "viewport" : {
                        "northeast" : {
-                          "lat" : 37.833827,
+                          "lat" : 37.8332484,
                           "lng" : -122.3570189
                        },
                        "southwest" : {
                           "lat" : 37.7080859,
-                          "lng" : -122.5300999
+                          "lng" : -122.5177237
                        }
                     }
                  },
@@ -454,700 +1110,5 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Wed, 28 Jan 2015 03:15:45 GMT
-- request:
-    method: get
-    uri: https://api.foursquare.com/v2/venues/explore?ll=37.750902,-122.434327&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Contigo&v=20140819&venuePhotos=1
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Wed, 28 Jan 2015 03:15:45 GMT
-      Server:
-      - nginx
-      Content-Type:
-      - application/json; charset=utf-8
-      Access-Control-Allow-Origin:
-      - "*"
-      Tracer-Time:
-      - '137'
-      X-Ratelimit-Limit:
-      - '500'
-      X-Ratelimit-Remaining:
-      - '321'
-      Strict-Transport-Security:
-      - max-age=864000
-      X-Ex:
-      - fastly_cdn
-      Accept-Ranges:
-      - bytes
-      Via:
-      - 1.1 varnish
-      X-Served-By:
-      - cache-sjc3134-SJC
-      X-Cache:
-      - MISS
-      X-Cache-Hits:
-      - '0'
-      Vary:
-      - Accept-Encoding,User-Agent,Accept-Language
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: ASCII-8BIT
-      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"fallbackCategory":{"target":{"type":"path","url":"\/venue\/explore","params":{"query":"Contigo","ll":"37.750902,-122.434327","radius":"1548"}},"refinements":[{"query":"food"}]},"warning":{"text":"There
-        aren''t a lot of results for \"Contigo.\" Try something more general, reset
-        your filters, or expand the search area."},"suggestedRadius":4644,"headerLocation":"Noe
-        Valley","headerFullLocation":"Noe Valley, San Francisco","headerLocationGranularity":"neighborhood","query":"contigo","totalResults":3,"suggestedBounds":{"ne":{"lat":37.77208739612164,"lng":-122.41405508234732},"sw":{"lat":37.74422249388305,"lng":-122.4352317663816}},"groups":[{"type":"Recommended
-        Places","name":"recommended","items":[{"reasons":{"count":1,"items":[{"summary":"Dan
-        V. has been here","type":"social","reasonName":"friendAndSelfCheckinReason","message":"Dan
-        V. has been here","count":1}]},"venue":{"id":"49c6bdfef964a52077571fe3","name":"Contigo","contact":{"phone":"4152850250","formattedPhone":"(415)
-        285-0250","twitter":"contigosf"},"location":{"address":"1320 Castro St","crossStreet":"at
-        24th St","lat":37.750985758393895,"lng":-122.4342691898346,"distance":10,"postalCode":"94114","cc":"US","city":"San
-        Francisco","state":"CA","country":"United States","formattedAddress":["1320
-        Castro St (at 24th St)","San Francisco, CA 94114"]},"categories":[{"id":"4bf58dd8d48988d150941735","name":"Spanish
-        Restaurant","pluralName":"Spanish Restaurants","shortName":"Spanish","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/spanish_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":2922,"usersCount":1990,"tipCount":43},"url":"http:\/\/www.contigosf.com","price":{"tier":4,"message":"Very
-        Expensive","currency":"$"},"hasMenu":true,"like":false,"rating":9.3,"ratingSignals":85,"reservations":{"url":"http:\/\/www.opentable.com\/single.aspx?rid=45052&ref=9601"},"menu":{"type":"Menu","label":"Menu","anchor":"View
-        Menu","url":"https:\/\/foursquare.com\/v\/contigo\/49c6bdfef964a52077571fe3\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/49c6bdfef964a52077571fe3\/device_menu"},"hours":{"status":"Open
-        until 10:00 PM","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":127,"groups":[{"type":"venue","name":"Venue
-        photos","count":127,"items":[{"id":"518efa1e498e9443a3c8f848","createdAt":1368324638,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg","width":612,"height":612,"user":{"id":"2261","firstName":"Lee","lastName":"Sherman","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/-4JRTUAND5EYXYRGF.png"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
-        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"518efa1e498e9443a3c8f848","createdAt":1368324638,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg","width":612,"height":612,"user":{"id":"2261","firstName":"Lee","lastName":"Sherman","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/-4JRTUAND5EYXYRGF.png"}},"visibility":"public"}]}},"flags":{"exactMatch":true},"tips":[{"id":"4cf6c91911e76a31148aac3b","createdAt":1291241753,"text":"Because
-        Brett Emerson had a vision and he''s stuck to it, creating the perfect neighborhood
-        Bay Area-inflected Spanish restaurant. [Eater 38 Member]","type":"user","url":"http:\/\/sf.eater.com\/places\/contigo","canonicalUrl":"https:\/\/foursquare.com\/item\/4cf6c91911e76a31148aac3b","likes":{"count":73,"groups":[],"summary":"73
-        likes"},"logView":true,"todo":{"count":60},"user":{"id":"3343327","firstName":"Eater","gender":"none","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/4HBAAMCL4WUF3IEU.png"},"type":"page"}}],"referralId":"e-0-49c6bdfef964a52077571fe3-0"},{"reasons":{"count":0,"items":[{"summary":"This
-        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"53f79c18498e85581edacc75","createdAt":1408736280,"text":"Brett
-        Emerson, chef of Contigo, eats here on his nights off. He loves the Sopa de
-        pollo.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1111","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79c18498e85581edacc75","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
-        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}}}]},"venue":{"id":"4a6ab0a4f964a520d9cd1fe3","name":"Los
-        Panchos","contact":{"phone":"4152851033","formattedPhone":"(415) 285-1033"},"location":{"address":"3206
-        Mission St","crossStreet":"Valencia","lat":37.745489080348435,"lng":-122.42011141934297,"distance":1388,"postalCode":"94110","cc":"US","city":"San
-        Francisco","state":"CA","country":"United States","formattedAddress":["3206
-        Mission St (Valencia)","San Francisco, CA 94110"]},"categories":[{"id":"4bf58dd8d48988d1c1941735","name":"Mexican
-        Restaurant","pluralName":"Mexican Restaurants","shortName":"Mexican","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/mexican_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":1068,"usersCount":618,"tipCount":13},"price":{"tier":1,"message":"Cheap","currency":"$"},"hasMenu":true,"like":false,"rating":7.2,"ratingSignals":32,"menu":{"type":"Menu","label":"Menu","anchor":"View
-        Menu","url":"https:\/\/foursquare.com\/v\/los-panchos\/4a6ab0a4f964a520d9cd1fe3\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/4a6ab0a4f964a520d9cd1fe3\/device_menu"},"specials":{"count":0,"items":[]},"photos":{"count":33,"groups":[{"type":"venue","name":"Venue
-        photos","count":33,"items":[{"id":"4d18346655f8a3402ef6d76a","createdAt":1293431910,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/2IFB1JWJSAU25CJWIK2GSOHIPJEB32NZLRN0SMOQJTQ111VJ.jpg","width":537,"height":720,"user":{"id":"1822187","firstName":"Nino","lastName":"E","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/RKHWK4MSFKM4P4NV.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
-        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"4d18346655f8a3402ef6d76a","createdAt":1293431910,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/2IFB1JWJSAU25CJWIK2GSOHIPJEB32NZLRN0SMOQJTQ111VJ.jpg","width":537,"height":720,"user":{"id":"1822187","firstName":"Nino","lastName":"E","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/RKHWK4MSFKM4P4NV.jpg"}},"visibility":"public"}]}},"tips":[{"id":"53f79c18498e85581edacc75","createdAt":1408736280,"text":"Brett
-        Emerson, chef of Contigo, eats here on his nights off. He loves the Sopa de
-        pollo.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1111","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79c18498e85581edacc75","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
-        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}],"referralId":"e-0-4a6ab0a4f964a520d9cd1fe3-1"},{"reasons":{"count":0,"items":[{"summary":"This
-        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"snippets":{"count":1,"items":[{"detail":{"type":"tip","object":{"id":"53f79bb111d2d0d7d2cf8420","createdAt":1408736177,"text":"Brett
-        Emerson, chef of Contigo, eats here on his nights off. He loves the Gang-gari-gai.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1112","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79bb111d2d0d7d2cf8420","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
-        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}}}]},"venue":{"id":"44d0de34f964a52029361fe3","name":"Manora''s
-        Thai Cuisine","contact":{"phone":"4158616224","formattedPhone":"(415) 861-6224"},"location":{"address":"1600
-        Folsom St","crossStreet":"at 12th St","lat":37.77082080965625,"lng":-122.41501765889433,"distance":2793,"postalCode":"94103","cc":"US","city":"San
-        Francisco","state":"CA","country":"United States","formattedAddress":["1600
-        Folsom St (at 12th St)","San Francisco, CA 94103"]},"categories":[{"id":"4bf58dd8d48988d149941735","name":"Thai
-        Restaurant","pluralName":"Thai Restaurants","shortName":"Thai","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/thai_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":2013,"usersCount":1181,"tipCount":26},"url":"http:\/\/www.manorathai.com","price":{"tier":2,"message":"Moderate","currency":"$"},"hasMenu":true,"like":false,"rating":8.4,"ratingSignals":33,"menu":{"type":"Menu","label":"Menu","anchor":"View
-        Menu","url":"https:\/\/foursquare.com\/v\/manoras-thai-cuisine\/44d0de34f964a52029361fe3\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/44d0de34f964a52029361fe3\/device_menu"},"hours":{"status":"Open
-        until 9:30 PM","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":37,"groups":[{"type":"venue","name":"Venue
-        photos","count":37,"items":[{"id":"50383760e4b0fba092667faf","createdAt":1345861472,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/c-eIbaOWnjsXXHBfwMtlAE4vDNukTrMygvm8A8RfZzQ.jpg","width":540,"height":720,"user":{"id":"4545177","firstName":"Todd","lastName":"Tate","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/APH3BPE1PNUAEUW0.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
-        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"50383760e4b0fba092667faf","createdAt":1345861472,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/c-eIbaOWnjsXXHBfwMtlAE4vDNukTrMygvm8A8RfZzQ.jpg","width":540,"height":720,"user":{"id":"4545177","firstName":"Todd","lastName":"Tate","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/APH3BPE1PNUAEUW0.jpg"}},"visibility":"public"}]}},"tips":[{"id":"53f79bb111d2d0d7d2cf8420","createdAt":1408736177,"text":"Brett
-        Emerson, chef of Contigo, eats here on his nights off. He loves the Gang-gari-gai.","entities":[{"indices":[23,30],"type":"search_match"}],"type":"user","url":"http:\/\/www.chefsfeed.com\/cities\/3\/venues\/1112","canonicalUrl":"https:\/\/foursquare.com\/item\/53f79bb111d2d0d7d2cf8420","logView":true,"todo":{"count":0},"user":{"id":"78888784","firstName":"Chefs
-        Feed","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/78888784-4L2AQHMKQ0QFCZ1X.png"},"type":"page"}}],"referralId":"e-0-44d0de34f964a52029361fe3-2"}]}]}}'
-    http_version: 
-  recorded_at: Wed, 28 Jan 2015 03:15:45 GMT
-- request:
-    method: get
-    uri: https://api.foursquare.com/v2/venues/49c6bdfef964a52077571fe3?oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Wed, 28 Jan 2015 03:15:45 GMT
-      Server:
-      - nginx
-      Content-Type:
-      - application/json; charset=utf-8
-      Access-Control-Allow-Origin:
-      - "*"
-      Tracer-Time:
-      - '78'
-      X-Ratelimit-Limit:
-      - '500'
-      X-Ratelimit-Remaining:
-      - '320'
-      Strict-Transport-Security:
-      - max-age=864000
-      X-Ex:
-      - fastly_cdn
-      Accept-Ranges:
-      - bytes
-      Via:
-      - 1.1 varnish
-      X-Served-By:
-      - cache-sjc3122-SJC
-      X-Cache:
-      - MISS
-      X-Cache-Hits:
-      - '0'
-      Vary:
-      - Accept-Encoding,User-Agent,Accept-Language
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eyJtZXRhIjp7ImNvZGUiOjIwMH0sIm5vdGlmaWNhdGlvbnMiOlt7InR5cGUi
-        OiJub3RpZmljYXRpb25UcmF5IiwiaXRlbSI6eyJ1bnJlYWRDb3VudCI6NjN9
-        fV0sInJlc3BvbnNlIjp7InZlbnVlIjp7ImlkIjoiNDljNmJkZmVmOTY0YTUy
-        MDc3NTcxZmUzIiwibmFtZSI6IkNvbnRpZ28iLCJjb250YWN0Ijp7InBob25l
-        IjoiNDE1Mjg1MDI1MCIsImZvcm1hdHRlZFBob25lIjoiKDQxNSkgMjg1LTAy
-        NTAiLCJ0d2l0dGVyIjoiY29udGlnb3NmIn0sImxvY2F0aW9uIjp7ImFkZHJl
-        c3MiOiIxMzIwIENhc3RybyBTdCIsImNyb3NzU3RyZWV0IjoiYXQgMjR0aCBT
-        dCIsImxhdCI6MzcuNzUwOTg1NzU4MzkzODk1LCJsbmciOi0xMjIuNDM0MjY5
-        MTg5ODM0NiwicG9zdGFsQ29kZSI6Ijk0MTE0IiwiY2MiOiJVUyIsImNpdHki
-        OiJTYW4gRnJhbmNpc2NvIiwic3RhdGUiOiJDQSIsImNvdW50cnkiOiJVbml0
-        ZWQgU3RhdGVzIiwiZm9ybWF0dGVkQWRkcmVzcyI6WyIxMzIwIENhc3RybyBT
-        dCAoYXQgMjR0aCBTdCkiLCJTYW4gRnJhbmNpc2NvLCBDQSA5NDExNCJdfSwi
-        Y2Fub25pY2FsVXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC92XC9j
-        b250aWdvXC80OWM2YmRmZWY5NjRhNTIwNzc1NzFmZTMiLCJjYXRlZ29yaWVz
-        IjpbeyJpZCI6IjRiZjU4ZGQ4ZDQ4OTg4ZDE1MDk0MTczNSIsIm5hbWUiOiJT
-        cGFuaXNoIFJlc3RhdXJhbnQiLCJwbHVyYWxOYW1lIjoiU3BhbmlzaCBSZXN0
-        YXVyYW50cyIsInNob3J0TmFtZSI6IlNwYW5pc2giLCJpY29uIjp7InByZWZp
-        eCI6Imh0dHBzOlwvXC9zczMuNHNxaS5uZXRcL2ltZ1wvY2F0ZWdvcmllc192
-        MlwvZm9vZFwvc3BhbmlzaF8iLCJzdWZmaXgiOiIucG5nIn0sInByaW1hcnki
-        OnRydWV9LHsiaWQiOiI0YmY1OGRkOGQ0ODk4OGQxZGI5MzE3MzUiLCJuYW1l
-        IjoiVGFwYXMgUmVzdGF1cmFudCIsInBsdXJhbE5hbWUiOiJUYXBhcyBSZXN0
-        YXVyYW50cyIsInNob3J0TmFtZSI6IlRhcGFzIiwiaWNvbiI6eyJwcmVmaXgi
-        OiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9pbWdcL2NhdGVnb3JpZXNfdjJc
-        L2Zvb2RcL3RhcGFzXyIsInN1ZmZpeCI6Ii5wbmcifX0seyJpZCI6IjRkNGI3
-        MTA1ZDc1NGEwNjM3NGQ4MTI1OSIsIm5hbWUiOiJGb29kIiwicGx1cmFsTmFt
-        ZSI6IkZvb2QiLCJzaG9ydE5hbWUiOiJGb29kIiwiaWNvbiI6eyJwcmVmaXgi
-        OiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9pbWdcL2NhdGVnb3JpZXNfdjJc
-        L2Zvb2RcL2RlZmF1bHRfIiwic3VmZml4IjoiLnBuZyJ9fV0sInZlcmlmaWVk
-        Ijp0cnVlLCJzdGF0cyI6eyJjaGVja2luc0NvdW50IjoyOTIyLCJ1c2Vyc0Nv
-        dW50IjoyMDM3LCJ0aXBDb3VudCI6NDN9LCJ1cmwiOiJodHRwOlwvXC93d3cu
-        Y29udGlnb3NmLmNvbSIsInByaWNlIjp7InRpZXIiOjQsIm1lc3NhZ2UiOiJW
-        ZXJ5IEV4cGVuc2l2ZSIsImN1cnJlbmN5IjoiJCJ9LCJoYXNNZW51Ijp0cnVl
-        LCJsaWtlcyI6eyJjb3VudCI6NTgsImdyb3VwcyI6W3sidHlwZSI6Im90aGVy
-        cyIsImNvdW50Ijo1OCwiaXRlbXMiOltdfV0sInN1bW1hcnkiOiI1OCBMaWtl
-        cyJ9LCJsaWtlIjpmYWxzZSwiZGlzbGlrZSI6ZmFsc2UsIm9rIjpmYWxzZSwi
-        cmF0aW5nIjo5LjMsInJhdGluZ1NpZ25hbHMiOjg1LCJyZXNlcnZhdGlvbnMi
-        OnsidXJsIjoiaHR0cDpcL1wvd3d3Lm9wZW50YWJsZS5jb21cL3NpbmdsZS5h
-        c3B4P3JpZD00NTA1MiZyZWY9OTYwMSJ9LCJtZW51Ijp7InR5cGUiOiJNZW51
-        IiwibGFiZWwiOiJNZW51IiwiYW5jaG9yIjoiVmlldyBNZW51IiwidXJsIjoi
-        aHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC92XC9jb250aWdvXC80OWM2YmRm
-        ZWY5NjRhNTIwNzc1NzFmZTNcL21lbnUiLCJtb2JpbGVVcmwiOiJodHRwczpc
-        L1wvZm91cnNxdWFyZS5jb21cL3ZcLzQ5YzZiZGZlZjk2NGE1MjA3NzU3MWZl
-        M1wvZGV2aWNlX21lbnUifSwiZnJpZW5kVmlzaXRzIjp7ImNvdW50IjoxLCJz
-        dW1tYXJ5IjoiQSBmcmllbmQgaGFzIGJlZW4gaGVyZSIsIml0ZW1zIjpbeyJ2
-        aXNpdGVkQ291bnQiOjEsImxpa2VkIjpmYWxzZSwiZGlzbGlrZWQiOmZhbHNl
-        LCJva2VkIjpmYWxzZSwidXNlciI6eyJpZCI6IjEwMDY2NjI2IiwiZmlyc3RO
-        YW1lIjoiRGFuIiwibGFzdE5hbWUiOiJWYW5kZXJrYW0iLCJnZW5kZXIiOiJt
-        YWxlIiwicmVsYXRpb25zaGlwIjoiZnJpZW5kIiwicGhvdG8iOnsicHJlZml4
-        IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3Vm
-        Zml4IjoiXC9QRUtPS1FPT1NJRjVOSFM0LmpwZyJ9fX1dfSwic3BlY2lhbHMi
-        OnsiY291bnQiOjAsIml0ZW1zIjpbXX0sInBob3RvcyI6eyJjb3VudCI6MTI3
-        LCJncm91cHMiOlt7InR5cGUiOiJ2ZW51ZSIsIm5hbWUiOiJWZW51ZSBwaG90
-        b3MiLCJjb3VudCI6MTI3LCJpdGVtcyI6W3siaWQiOiI1MThlZmExZTQ5OGU5
-        NDQzYTNjOGY4NDgiLCJjcmVhdGVkQXQiOjEzNjgzMjQ2MzgsInNvdXJjZSI6
-        eyJuYW1lIjoiSW5zdGFncmFtIiwidXJsIjoiaHR0cDpcL1wvaW5zdGFncmFt
-        LmNvbSJ9LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwvaW1n
-        XC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzIyNjFfYTJIVjVNN2ZTRUlPMW9p
-        TDBESGJ2SE1HZEozeEhFb3pVVlVZMFU1dzBhZy5qcGciLCJ3aWR0aCI6NjEy
-        LCJoZWlnaHQiOjYxMiwidXNlciI6eyJpZCI6IjIyNjEiLCJmaXJzdE5hbWUi
-        OiJMZWUiLCJsYXN0TmFtZSI6IlNoZXJtYW4iLCJnZW5kZXIiOiJtYWxlIiwi
-        cGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczEuNHNxaS5uZXRcL2lt
-        Z1wvdXNlclwvIiwic3VmZml4IjoiXC8tNEpSVFVBTkQ1RVlYWVJHRi5wbmci
-        fX0sInZpc2liaWxpdHkiOiJwdWJsaWMifSx7ImlkIjoiNGVhYjgwYjc3NzVi
-        ZjA4NTZhMDViOGExIiwiY3JlYXRlZEF0IjoxMzE5ODYyNDU1LCJzb3VyY2Ui
-        OnsibmFtZSI6ImZvdXJzcXVhcmUgZm9yIGlQaG9uZSIsInVybCI6Imh0dHBz
-        OlwvXC9mb3Vyc3F1YXJlLmNvbVwvZG93bmxvYWRcLyNcL2lwaG9uZSJ9LCJw
-        cmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5ldFwvaW1nXC9nZW5lcmFs
-        XC8iLCJzdWZmaXgiOiJcL0NKUlZMWFVOVlhQRkVLRFFYTU1QRVFUTFFZNUtM
-        Q1ZYVklEWDNIWFIwRDAyVzIxRy5qcGciLCJ3aWR0aCI6NTQwLCJoZWlnaHQi
-        OjcyMCwidXNlciI6eyJpZCI6IjQ4MzE0IiwiZmlyc3ROYW1lIjoiU2hheSIs
-        Imxhc3ROYW1lIjoiRmFuIiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsi
-        cHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwv
-        Iiwic3VmZml4IjoiXC9VMlBJTlAwSVIzMUdIWVdRLmpwZyJ9fSwidmlzaWJp
-        bGl0eSI6InB1YmxpYyJ9LHsiaWQiOiI0ZGY0MWJjNjQwYTMwNmRlYWQwMDIy
-        ZDUiLCJjcmVhdGVkQXQiOjEzMDc4NDM1MjYsInNvdXJjZSI6eyJuYW1lIjoi
-        Zm91cnNxdWFyZSBmb3IgaVBob25lIiwidXJsIjoiaHR0cHM6XC9cL2ZvdXJz
-        cXVhcmUuY29tXC9kb3dubG9hZFwvI1wvaXBob25lIn0sInByZWZpeCI6Imh0
-        dHBzOlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL2dlbmVyYWxcLyIsInN1ZmZp
-        eCI6IlwvT0JDMkFOTkVCRlZSS0FXUEtYNExETUlQUDMwV1BLRUpPTVlHTUwy
-        NFJSTTAyQkdBLmpwZyIsIndpZHRoIjo3MjAsImhlaWdodCI6NTM3LCJ1c2Vy
-        Ijp7ImlkIjoiNTMwMTAiLCJmaXJzdE5hbWUiOiJpdnnimaUiLCJnZW5kZXIi
-        OiJmZW1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40
-        c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzBGMEFEUE1aNUlB
-        VVRZNUsuanBnIn19LCJ2aXNpYmlsaXR5IjoicHVibGljIn0seyJpZCI6IjUw
-        NTAxNWRmZTRiMGNkZTViMTM2NDY5ZiIsImNyZWF0ZWRBdCI6MTM0NzQyNTc1
-        OSwic291cmNlIjp7Im5hbWUiOiJJbnN0YWdyYW0iLCJ1cmwiOiJodHRwOlwv
-        XC9pbnN0YWdyYW0uY29tIn0sInByZWZpeCI6Imh0dHBzOlwvXC9pcnMwLjRz
-        cWkubmV0XC9pbWdcL2dlbmVyYWxcLyIsInN1ZmZpeCI6IlwvTnEySUtQODJk
-        NGpDMm04RFYyNEJmWkZvaFhlQkh2bEVfdUZpRFowY3NZWS5qcGciLCJ3aWR0
-        aCI6NjEyLCJoZWlnaHQiOjYxMiwidXNlciI6eyJpZCI6IjQwODQ0IiwiZmly
-        c3ROYW1lIjoiSmFjayIsImxhc3ROYW1lIjoiQ2hvdSIsImdlbmRlciI6Im1h
-        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3FpLm5l
-        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL0lCMVZTVUpIV0ZGTE5EWk8u
-        Z2lmIn19LCJ2aXNpYmlsaXR5IjoicHVibGljIn0seyJpZCI6IjUxODliOTA1
-        NDk4ZWIxMDFhODRiODQ0NSIsImNyZWF0ZWRBdCI6MTM2Nzk4MDI5Mywic291
-        cmNlIjp7Im5hbWUiOiJmb3Vyc3F1YXJlIGZvciBpUGhvbmUiLCJ1cmwiOiJo
-        dHRwczpcL1wvZm91cnNxdWFyZS5jb21cL2Rvd25sb2FkXC8jXC9pcGhvbmUi
-        fSwicHJlZml4IjoiaHR0cHM6XC9cL2lyczMuNHNxaS5uZXRcL2ltZ1wvZ2Vu
-        ZXJhbFwvIiwic3VmZml4IjoiXC8zNTM5MjVfcnFxZzRfeFBiU2RjZEEyQ2Vh
-        aUZ3eEhPT204QlZobGJ4OFZVVVVUMFg1QS5qcGciLCJ3aWR0aCI6MTQ0MCwi
-        aGVpZ2h0IjoxOTIwLCJ1c2VyIjp7ImlkIjoiMzUzOTI1IiwiZmlyc3ROYW1l
-        IjoiUm9iIiwibGFzdE5hbWUiOiJCcmVoYW50IiwiZ2VuZGVyIjoibWFsZSIs
-        InBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9p
-        bWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvNUpQU1VDWkdTTzFFVTBWRi5qcGci
-        fX0sInZpc2liaWxpdHkiOiJwdWJsaWMifSx7ImlkIjoiNGY3ZTNhZmRlNGIw
-        NGZiMGMyZWIyNmNmIiwiY3JlYXRlZEF0IjoxMzMzNjcyNzAxLCJzb3VyY2Ui
-        OnsibmFtZSI6ImZvdXJzcXVhcmUgZm9yIGlQaG9uZSIsInVybCI6Imh0dHBz
-        OlwvXC9mb3Vyc3F1YXJlLmNvbVwvZG93bmxvYWRcLyNcL2lwaG9uZSJ9LCJw
-        cmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3FpLm5ldFwvaW1nXC9nZW5lcmFs
-        XC8iLCJzdWZmaXgiOiJcL1l4TDdLYzNsdmVkNldiQjh5dHhmdnRvMHlaRExE
-        Ukc4aTlMZmdlNVFxcm8uanBnIiwid2lkdGgiOjcyMCwiaGVpZ2h0Ijo1Mzcs
-        InVzZXIiOnsiaWQiOiI5ODk1ODIiLCJmaXJzdE5hbWUiOiJUaW1vdGh5Iiwi
-        bGFzdE5hbWUiOiJDYXZhbmF1Z2giLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8i
-        OnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczMuNHNxaS5uZXRcL2ltZ1wvdXNl
-        clwvIiwic3VmZml4IjoiXC9YM1VJQ1JOTDBDMzROMFQwLmpwZyJ9fSwidmlz
-        aWJpbGl0eSI6InB1YmxpYyJ9XX1dfSwiaGVyZU5vdyI6eyJjb3VudCI6MCwi
-        c3VtbWFyeSI6Ik5vYm9keSBoZXJlIiwiZ3JvdXBzIjpbXX0sInJlYXNvbnMi
-        OnsiY291bnQiOjEsIml0ZW1zIjpbeyJzdW1tYXJ5IjoiRGFuIFYuIGhhcyBi
-        ZWVuIGhlcmUiLCJ0eXBlIjoic29jaWFsIiwicmVhc29uTmFtZSI6ImZyaWVu
-        ZEFuZFNlbGZDaGVja2luUmVhc29uIiwibWVzc2FnZSI6IkRhbiBWLiBoYXMg
-        YmVlbiBoZXJlIiwidGFyZ2V0Ijp7InR5cGUiOiJuYXZpZ2F0aW9uIiwib2Jq
-        ZWN0Ijp7ImlkIjoiNTRjODU0NjE0OThlZDE0YTFkMGQ0YzEyIiwidHlwZSI6
-        InNvY2lhbCIsInRhcmdldCI6eyJ0eXBlIjoicGF0aCIsInVybCI6IlwvdmVu
-        dWVzXC80OWM2YmRmZWY5NjRhNTIwNzc1NzFmZTNcL3NvY2lhbCJ9LCJpZ25v
-        cmFibGUiOmZhbHNlfX0sImNvdW50IjoxfV19LCJjcmVhdGVkQXQiOjEyMzc3
-        NjE1MzQsIm1heW9yIjp7ImNvdW50IjowfSwidGlwcyI6eyJjb3VudCI6NDMs
-        Imdyb3VwcyI6W3sidHlwZSI6ImZvbGxvd2luZyIsIm5hbWUiOiJUaXBzIGZy
-        b20gcGVvcGxlIHlvdSBmb2xsb3ciLCJjb3VudCI6MCwiaXRlbXMiOltdfSx7
-        InR5cGUiOiJvdGhlcnMiLCJuYW1lIjoiQWxsIHRpcHMiLCJjb3VudCI6NDMs
-        Iml0ZW1zIjpbeyJpZCI6IjRjZjZjOTE5MTFlNzZhMzExNDhhYWMzYiIsImNy
-        ZWF0ZWRBdCI6MTI5MTI0MTc1MywidGV4dCI6IkJlY2F1c2UgQnJldHQgRW1l
-        cnNvbiBoYWQgYSB2aXNpb24gYW5kIGhlJ3Mgc3R1Y2sgdG8gaXQsIGNyZWF0
-        aW5nIHRoZSBwZXJmZWN0IG5laWdoYm9yaG9vZCBCYXkgQXJlYS1pbmZsZWN0
-        ZWQgU3BhbmlzaCByZXN0YXVyYW50LiBbRWF0ZXIgMzggTWVtYmVyXSIsInR5
-        cGUiOiJ1c2VyIiwidXJsIjoiaHR0cDpcL1wvc2YuZWF0ZXIuY29tXC9wbGFj
-        ZXNcL2NvbnRpZ28iLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNx
-        dWFyZS5jb21cL2l0ZW1cLzRjZjZjOTE5MTFlNzZhMzExNDhhYWMzYiIsImxh
-        bmciOiJlbiIsImxpa2VzIjp7ImNvdW50Ijo3MywiZ3JvdXBzIjpbeyJ0eXBl
-        Ijoib3RoZXJzIiwiY291bnQiOjczLCJpdGVtcyI6W119XSwic3VtbWFyeSI6
-        IjczIGxpa2VzIn0sImxpa2UiOmZhbHNlLCJsb2dWaWV3Ijp0cnVlLCJ0b2Rv
-        Ijp7ImNvdW50Ijo2MH0sInVzZXIiOnsiaWQiOiIzMzQzMzI3IiwiZmlyc3RO
-        YW1lIjoiRWF0ZXIiLCJnZW5kZXIiOiJub25lIiwicGhvdG8iOnsicHJlZml4
-        IjoiaHR0cHM6XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3Vm
-        Zml4IjoiXC80SEJBQU1DTDRXVUYzSUVVLnBuZyJ9LCJ0eXBlIjoicGFnZSJ9
-        fSx7ImlkIjoiNGExZDg0N2E3MGM2MDNiYjAxMjk4ZWI0IiwiY3JlYXRlZEF0
-        IjoxMjQzNDQ4NDQyLCJ0ZXh0IjoiQ2h1cnJvcyBhbmQgY2hvY29sYXRlLiIs
-        InR5cGUiOiJ1c2VyIiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6XC9cL2ZvdXJz
-        cXVhcmUuY29tXC9pdGVtXC80YTFkODQ3YTcwYzYwM2JiMDEyOThlYjQiLCJs
-        YW5nIjoiZW4iLCJsaWtlcyI6eyJjb3VudCI6MTQsImdyb3VwcyI6W3sidHlw
-        ZSI6Im90aGVycyIsImNvdW50IjoxNCwiaXRlbXMiOltdfV0sInN1bW1hcnki
-        OiIxNCBsaWtlcyJ9LCJsaWtlIjpmYWxzZSwibG9nVmlldyI6dHJ1ZSwidG9k
-        byI6eyJjb3VudCI6Nn0sInVzZXIiOnsiaWQiOiIzMDYyIiwiZmlyc3ROYW1l
-        IjoiTGF1cmEiLCJsYXN0TmFtZSI6IkciLCJnZW5kZXIiOiJmZW1hbGUiLCJw
-        aG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwvaW1n
-        XC91c2VyXC8iLCJzdWZmaXgiOiJcLzMwNjJfMTIzNzE0MjIyOC5qcGcifX19
-        LHsiaWQiOiI0ZjFlMTY3MGU0YjBkODgxZmNlYjE4YzkiLCJjcmVhdGVkQXQi
-        OjEzMjczNzE4ODgsInRleHQiOiI3eDcncyBCaWcgRWF0IDIwMTIgc2F5cyB0
-        aGUgY2FsYW1hcmkgd2l0aCBjaG9yaXpvIGFuZCBibGFjayByaWNlIGlzIGRl
-        bGljaW91cy4gWXVtISIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2FsVXJsIjoi
-        aHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC80ZjFlMTY3MGU0YjBk
-        ODgxZmNlYjE4YzkiLCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJjb3VudCI6MTIs
-        Imdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50IjoxMiwiaXRlbXMi
-        OltdfV0sInN1bW1hcnkiOiIxMiBsaWtlcyJ9LCJsaWtlIjpmYWxzZSwibG9n
-        VmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6N30sInVzZXIiOnsiaWQiOiIx
-        NjQ3OCIsImZpcnN0TmFtZSI6IkJyaWFuIiwiZ2VuZGVyIjoibWFsZSIsInBo
-        b3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMwLjRzcWkubmV0XC9pbWdc
-        L3VzZXJcLyIsInN1ZmZpeCI6IlwvNGE2YmE1OWQyZjRjMC5qcGcifX19LHsi
-        aWQiOiI0YjA4MTY5YTcwYzYwM2JiNzFmZDhlYjQiLCJjcmVhdGVkQXQiOjEy
-        NTg4MjEyNzQsInRleHQiOiJHbyB3aXRoIGEgZ3JvdXAgYW5kIGVhdCBldmVy
-        eSBpdGVtIG9uIHRoZSBtZW51IiwidHlwZSI6InVzZXIiLCJ1cmwiOiJodHRw
-        OlwvXC9jb250aWdvc2YuY29tXC8iLCJjYW5vbmljYWxVcmwiOiJodHRwczpc
-        L1wvZm91cnNxdWFyZS5jb21cL2l0ZW1cLzRiMDgxNjlhNzBjNjAzYmI3MWZk
-        OGViNCIsImxhbmciOiJlbiIsImxpa2VzIjp7ImNvdW50IjoxMCwiZ3JvdXBz
-        IjpbeyJ0eXBlIjoib3RoZXJzIiwiY291bnQiOjEwLCJpdGVtcyI6W119XSwi
-        c3VtbWFyeSI6IjEwIGxpa2VzIn0sImxpa2UiOmZhbHNlLCJsb2dWaWV3Ijp0
-        cnVlLCJ0b2RvIjp7ImNvdW50IjowfSwidXNlciI6eyJpZCI6IjcwMzkiLCJm
-        aXJzdE5hbWUiOiJTZWFuIiwibGFzdE5hbWUiOiJUaW1iZXJsYWtlIiwiZ2Vu
-        ZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMy
-        LjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvTjAyQ0pJTllK
-        UkkwSURQVC5qcGcifX19LHsiaWQiOiI0OWM2YmUyYTcwYzYwM2JiMWMxNjhl
-        YjQiLCJjcmVhdGVkQXQiOjEyMzc3NjE1NzgsInRleHQiOiJ0cnkgb3V0IGFu
-        eSBvZiB0aGUgY29jYXMgKGZsYXRicmVhZHMpLCBjcm9xdWV0YXMsIG9yIHBv
-        cmsgYmVsbHkgZGlzaGVzLiB5b3Ugd29uJ3QgYmUgc29ycnkuIiwidHlwZSI6
-        InVzZXIiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFyZS5j
-        b21cL2l0ZW1cLzQ5YzZiZTJhNzBjNjAzYmIxYzE2OGViNCIsImxhbmciOiJl
-        biIsImxpa2VzIjp7ImNvdW50IjoxMCwiZ3JvdXBzIjpbeyJ0eXBlIjoib3Ro
-        ZXJzIiwiY291bnQiOjEwLCJpdGVtcyI6W119XSwic3VtbWFyeSI6IjEwIGxp
-        a2VzIn0sImxpa2UiOmZhbHNlLCJsb2dWaWV3Ijp0cnVlLCJ0b2RvIjp7ImNv
-        dW50IjoyfSwidXNlciI6eyJpZCI6IjcyNjYiLCJmaXJzdE5hbWUiOiJDbGF1
-        ZGluZSIsImxhc3ROYW1lIjoiQ28iLCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90
-        byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5ldFwvaW1nXC91
-        c2VyXC8iLCJzdWZmaXgiOiJcLzcyNjZfMTIzNzc1OTUyMi5qcGcifX19LHsi
-        aWQiOiI0Y2U4NjM4Nzk0ZGFhMDkwNzkxMjFkMjkiLCJjcmVhdGVkQXQiOjEy
-        OTAyOTgyNDcsInRleHQiOiJUcnkgc29tZSBvZiBDYXRhbHVueWEncyBiZXN0
-        IHdpbmVzIGhlcmU6IGEgc3BhcmtsaW5nIGNhdmEgb3IgYSBmdWxsLWJvZGll
-        ZCByZWQgd2luZSBiYXNlZCBvbiB0aGUgZ2FybmFjaGEgZ3JhcGUgZnJvbSB0
-        aGUgTW9udHNhbnQgRE8gKG9mZmVycyBuZWFyLVByaW9yYXQgcXVhbGl0eSB3
-        aW5lcyBhdCBiZXR0ZXIgcHJpY2VzKS4gwqFCb24gcHJvZml0ISIsInR5cGUi
-        OiJ1c2VyIiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUu
-        Y29tXC9pdGVtXC80Y2U4NjM4Nzk0ZGFhMDkwNzkxMjFkMjkiLCJsYW5nIjoi
-        ZW4iLCJsaWtlcyI6eyJjb3VudCI6NiwiZ3JvdXBzIjpbeyJ0eXBlIjoib3Ro
-        ZXJzIiwiY291bnQiOjYsIml0ZW1zIjpbXX1dLCJzdW1tYXJ5IjoiNiBsaWtl
-        cyJ9LCJsaWtlIjpmYWxzZSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3Vu
-        dCI6M30sInVzZXIiOnsiaWQiOiI0ODU1NjIiLCJmaXJzdE5hbWUiOiJBcHBy
-        b2FjaCBHdWlkZXMiLCJnZW5kZXIiOiJub25lIiwicGhvdG8iOnsicHJlZml4
-        IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3Vm
-        Zml4IjoiXC80ODU1NjItNU4yUE5VUVRUTE5QT1FKVy5qcGcifX19LHsiaWQi
-        OiI1MWEwMmI4YzQ5OGVkZWVhMWRhOTZjYTMiLCJjcmVhdGVkQXQiOjEzNjk0
-        NTE0MDQsInRleHQiOiJCZXN0IHBsYWNlIHRvIGdldCBtYXJyaWVkIGV2ZXIu
-        IiwidHlwZSI6InVzZXIiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91
-        cnNxdWFyZS5jb21cL2l0ZW1cLzUxYTAyYjhjNDk4ZWRlZWExZGE5NmNhMyIs
-        ImxhbmciOiJlbiIsImxpa2VzIjp7ImNvdW50Ijo0LCJncm91cHMiOlt7InR5
-        cGUiOiJvdGhlcnMiLCJjb3VudCI6NCwiaXRlbXMiOlt7ImlkIjoiMjE5Njcx
-        MyIsImZpcnN0TmFtZSI6Implbm5pZmVyIiwibGFzdE5hbWUiOiJtIiwiZ2Vu
-        ZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2ly
-        czEuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9DV0pHNVhM
-        TEROWDJHUUJYLmpwZyJ9fSx7ImlkIjoiODM4Nzk3NiIsImZpcnN0TmFtZSI6
-        Im1lcmlrbyIsImxhc3ROYW1lIjoiYm9yb2dvdmUiLCJnZW5kZXIiOiJmZW1h
-        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5l
-        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzgzODc5NzYtWFAyWjRTRUUx
-        Sk0zNE1CQy5qcGcifX0seyJpZCI6IjkwODc5NjIiLCJmaXJzdE5hbWUiOiJB
-        bml0YSIsImxhc3ROYW1lIjoiQyIsImdlbmRlciI6ImZlbWFsZSIsInBob3Rv
-        Ijp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL3Vz
-        ZXJcLyIsInN1ZmZpeCI6IlwvSFlPS01DQ001WEhJNUJQRC5qcGcifX0seyJp
-        ZCI6IjEzNjA5NzIiLCJmaXJzdE5hbWUiOiJTdXNhbiIsImxhc3ROYW1lIjoi
-        V2hpdGVzaWRlIiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4
-        IjoiaHR0cHM6XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3Vm
-        Zml4IjoiXC9GS0Y0S1cxSEdHQ1lUVkc1LmpwZyJ9fV19XSwic3VtbWFyeSI6
-        IjQgbGlrZXMifSwibGlrZSI6ZmFsc2UsImxvZ1ZpZXciOnRydWUsInRvZG8i
-        OnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNTIyMDcyOSIsImZpcnN0TmFt
-        ZSI6IkdlbmllIiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4
-        IjoiaHR0cHM6XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3Vm
-        Zml4IjoiXC9ETklMTEdMSVNXRkg0MkEwLmpwZyJ9fX0seyJpZCI6IjUwNDE5
-        MjkyZTRiMGM5OTZiMmJiMjQxZSIsImNyZWF0ZWRBdCI6MTM0NjQ3NDY0Miwi
-        dGV4dCI6IlRoZSBwYXRhdGVzIGJyYXZlcyBhcmUgc28gZ29vZCB0aGF0IHRo
-        ZXkncmUgbWVhbiwgYW5kIHRoZSB3aW5lIGxpc3QgaXMgbm90IHRvIGJlIHRy
-        aWZsZWQgd2l0aC4gU2l0IGJhY2sgYW5kIGluZHVsZ2UgaW4gYSAzIGhvdXIg
-        bWVhbCwgaWYgeW91IGNhbiwgYW5kIHlvdSB3aWxsIGxlYXZlIGhhcHBpZXIg
-        dGhhbiB3aGVuIHlvdSBjYW1lLiIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2Fs
-        VXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC81MDQxOTI5
-        MmU0YjBjOTk2YjJiYjI0MWUiLCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJjb3Vu
-        dCI6MiwiZ3JvdXBzIjpbeyJ0eXBlIjoib3RoZXJzIiwiY291bnQiOjIsIml0
-        ZW1zIjpbeyJpZCI6IjE2NTgwMTYiLCJmaXJzdE5hbWUiOiJBbGV4IiwibGFz
-        dE5hbWUiOiJHYW1iYXJkZWxsYSIsImdlbmRlciI6ImZlbWFsZSIsInBob3Rv
-        Ijp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL3Vz
-        ZXJcLyIsInN1ZmZpeCI6IlwvMTY1ODAxNi1OTE9CUkZBQ0taQktVSlZMLmpw
-        ZyJ9fSx7ImlkIjoiMzE5NzE0IiwiZmlyc3ROYW1lIjoiQnJhbmRvbiIsImxh
-        c3ROYW1lIjoiWXVuIiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZp
-        eCI6Imh0dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1
-        ZmZpeCI6IlwvTEEwWEhLR1NHQTVBWUVaUy5qcGcifX1dfV0sInN1bW1hcnki
-        OiIyIGxpa2VzIn0sImxpa2UiOmZhbHNlLCJsb2dWaWV3Ijp0cnVlLCJ0b2Rv
-        Ijp7ImNvdW50IjowfSwidXNlciI6eyJpZCI6IjE4NTk0OTkiLCJmaXJzdE5h
-        bWUiOiJDYXJsZWUiLCJsYXN0TmFtZSI6IkdvbWVzIiwiZ2VuZGVyIjoiZmVt
-        YWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczEuNHNxaS5u
-        ZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9LTzBGTEwwRVM1R1IzVFFU
-        LmpwZyJ9fX0seyJpZCI6IjRjNGI5ZDU3OTU5MjIwYTE0Mjk4YzcwZiIsImNy
-        ZWF0ZWRBdCI6MTI4MDAyMzg5NSwidGV4dCI6IklmIHlvdSBjb3VsZCBldmVy
-        IGxvdmUgc2FyZGluZXMsIHRoZSBzYXJkaW5lcyBhbmQgYXZvY2FkbyBvbiB0
-        b2FzdCB3aWxsIHNwZWFrIHRvIHlvdS4iLCJ0eXBlIjoidXNlciIsImNhbm9u
-        aWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGM0
-        YjlkNTc5NTkyMjBhMTQyOThjNzBmIiwibGFuZyI6ImVuIiwibGlrZXMiOnsi
-        Y291bnQiOjIsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50Ijoy
-        LCJpdGVtcyI6W3siaWQiOiI4NTMwIiwiZmlyc3ROYW1lIjoiUm9iYmllIiwi
-        bGFzdE5hbWUiOiJNaWxsZXIiLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsi
-        cHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwv
-        Iiwic3VmZml4IjoiXC9HWVRTVUpRRzVaWEdYVFUwLmpwZyJ9fV19XSwic3Vt
-        bWFyeSI6IjIgbGlrZXMifSwibGlrZSI6ZmFsc2UsImxvZ1ZpZXciOnRydWUs
-        InRvZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiMTgzNDUiLCJmaXJz
-        dE5hbWUiOiJtaWNoYWVsIiwibGFzdE5hbWUiOiJ0IiwiZ2VuZGVyIjoibWFs
-        ZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMwLjRzcWkubmV0
-        XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvS1VHTUtPT1QzME8wRFRGSC5q
-        cGcifX19LHsiaWQiOiI0YjhhMTU2NTcwYzYwM2JiZjgzYjkzYjQiLCJjcmVh
-        dGVkQXQiOjEyNjczNDA2NDUsInRleHQiOiJJbnNhbmVseSBncmVhdCB0cmlw
-        ZSIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6XC9cL2Zv
-        dXJzcXVhcmUuY29tXC9pdGVtXC80YjhhMTU2NTcwYzYwM2JiZjgzYjkzYjQi
-        LCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJjb3VudCI6MiwiZ3JvdXBzIjpbeyJ0
-        eXBlIjoib3RoZXJzIiwiY291bnQiOjIsIml0ZW1zIjpbeyJpZCI6IjMxNzI1
-        ODU1IiwiZmlyc3ROYW1lIjoiTWVociIsImdlbmRlciI6ImZlbWFsZSIsInBo
-        b3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9pbWdc
-        L3VzZXJcLyIsInN1ZmZpeCI6IlwvT1kxR0ZSNEY1VFZQQ1NaSi5qcGcifX1d
-        fV0sInN1bW1hcnkiOiIyIGxpa2VzIn0sImxpa2UiOmZhbHNlLCJsb2dWaWV3
-        Ijp0cnVlLCJ0b2RvIjp7ImNvdW50IjowfSwidXNlciI6eyJpZCI6Ijk1MiIs
-        ImZpcnN0TmFtZSI6IlRvbSIsImxhc3ROYW1lIjoiUyIsImdlbmRlciI6Im1h
-        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5l
-        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzk1Ml8xMjM3MjM5ODI3Lmpw
-        ZyJ9fX0seyJpZCI6IjUyY2EwOWFmNDk4ZTRkM2ViMGM0MmQ5MSIsImNyZWF0
-        ZWRBdCI6MTM4ODk3MjQ2MywidGV4dCI6IlBhZWxsYSBuZWdyYSBhbmQgVGVt
-        cHJhbmlsbG8hIiwidHlwZSI6InVzZXIiLCJjYW5vbmljYWxVcmwiOiJodHRw
-        czpcL1wvZm91cnNxdWFyZS5jb21cL2l0ZW1cLzUyY2EwOWFmNDk4ZTRkM2Vi
-        MGM0MmQ5MSIsImxhbmciOiJlbiIsImxpa2VzIjp7ImNvdW50IjoxLCJncm91
-        cHMiOlt7InR5cGUiOiJvdGhlcnMiLCJjb3VudCI6MSwiaXRlbXMiOlt7Imlk
-        IjoiNDcwODA5NTAiLCJmaXJzdE5hbWUiOiJNYWhhbGluIiwibGFzdE5hbWUi
-        OiJMb3BleiIsImdlbmRlciI6ImZlbWFsZSIsInBob3RvIjp7InByZWZpeCI6
-        Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZp
-        eCI6IlwvM1pLRDJCWTJYQVNOWktSTi5qcGcifX1dfV0sInN1bW1hcnkiOiIx
-        IGxpa2UifSwibGlrZSI6ZmFsc2UsImxvZ1ZpZXciOnRydWUsInRvZG8iOnsi
-        Y291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNDcwODA5NTAiLCJmaXJzdE5hbWUi
-        OiJNYWhhbGluIiwibGFzdE5hbWUiOiJMb3BleiIsImdlbmRlciI6ImZlbWFs
-        ZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0
-        XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvM1pLRDJCWTJYQVNOWktSTi5q
-        cGcifX19LHsiaWQiOiI1MTNiYzhiZmU0YjAxMzk0YmIwMzViNzkiLCJjcmVh
-        dGVkQXQiOjEzNjI4NzI1MTEsInRleHQiOiJUaGUgdGFwYXMtc3R5bGVkIGN1
-        aXNpbmUgaXMgYmVzdCBleHBlcmllbmNlZCBhcyBhIGdyb3VwIHNvIHlvdSBj
-        YW4gc2hhcmUgYW1vbmdzdCBlYWNoIG90aGVyLiBBbmQgeW91IGNhbid0IGdv
-        IHdyb25nIHdpdGggdGhlIHZhbmlsbGEgYmVhbiBnZWxhdCB3aXRoIG9saXZl
-        IG9pbCBhbmQgc2VhIHNhbHQgZm9yIGRlc3NlcnQhIiwidHlwZSI6InVzZXIi
-        LCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFyZS5jb21cL2l0
-        ZW1cLzUxM2JjOGJmZTRiMDEzOTRiYjAzNWI3OSIsImxhbmciOiJlbiIsImxp
-        a2VzIjp7ImNvdW50IjoxLCJncm91cHMiOlt7InR5cGUiOiJvdGhlcnMiLCJj
-        b3VudCI6MSwiaXRlbXMiOlt7ImlkIjoiODc0MDYzNCIsImZpcnN0TmFtZSI6
-        IkV1Z2VuZSIsImdlbmRlciI6Im1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJo
-        dHRwczpcL1wvaXJzMC40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgi
-        OiJcL1MzWElRWkJUTFIzUDNQMEEuanBnIn19XX1dLCJzdW1tYXJ5IjoiMSBs
-        aWtlIn0sImxpa2UiOmZhbHNlLCJsb2dWaWV3Ijp0cnVlLCJ0b2RvIjp7ImNv
-        dW50IjoxfSwidXNlciI6eyJpZCI6IjcxNjI5NTIiLCJmaXJzdE5hbWUiOiJL
-        YXl2b24iLCJsYXN0TmFtZSI6IlRlaHJhbmlhbiIsImdlbmRlciI6Im1hbGUi
-        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3FpLm5ldFwv
-        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL05DWU5EUFIzVTJaWkNZV1IuanBn
-        In19fSx7ImlkIjoiNGNiY2Q2MmJmNzk2ZWYzYjQ5YjcwMTgwIiwiY3JlYXRl
-        ZEF0IjoxMjg3NDQ0MDExLCJ0ZXh0IjoiSSByZWNvbW1lbmQgZWF0aW5nIHRo
-        ZSBleHRyZW1pdGllcyBvZiB2YXJpb3VzIGFuaW1hbHMuIEVhcnMsIHRvbmd1
-        ZXMgYW5kIHRhaWxzIGFyZSBhbGwgYWNjZXB0YWJsZS4iLCJ0eXBlIjoidXNl
-        ciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwv
-        aXRlbVwvNGNiY2Q2MmJmNzk2ZWYzYjQ5YjcwMTgwIiwibGFuZyI6ImVuIiwi
-        bGlrZXMiOnsiY291bnQiOjEsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIs
-        ImNvdW50IjoxLCJpdGVtcyI6W3siaWQiOiIzMTcyNTg1NSIsImZpcnN0TmFt
-        ZSI6Ik1laHIiLCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90byI6eyJwcmVmaXgi
-        OiJodHRwczpcL1wvaXJzMi40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZm
-        aXgiOiJcL09ZMUdGUjRGNVRWUENTWkouanBnIn19XX1dLCJzdW1tYXJ5Ijoi
-        MSBsaWtlIn0sImxpa2UiOmZhbHNlLCJsb2dWaWV3Ijp0cnVlLCJ0b2RvIjp7
-        ImNvdW50IjoxfSwidXNlciI6eyJpZCI6IjY0MjYxMyIsImZpcnN0TmFtZSI6
-        Ik1hdHRoZXciLCJsYXN0TmFtZSI6IkxvY2siLCJnZW5kZXIiOiJtYWxlIiwi
-        cGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2lt
-        Z1wvdXNlclwvIiwic3VmZml4IjoiXC9DTklOSTUzVkhFU0IxSElGLmpwZyJ9
-        fX0seyJpZCI6IjRjNGJhMGIyOTU5MjIwYTE4OTRmY2MwZiIsImNyZWF0ZWRB
-        dCI6MTI4MDAyNDc1NCwidGV4dCI6Ik9yZGVyIHRoZSB0aGUgc3F1aWQuIFll
-        cywgdGhlIHNxdWlkLiIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2FsVXJsIjoi
-        aHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC80YzRiYTBiMjk1OTIy
-        MGExODk0ZmNjMGYiLCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJjb3VudCI6MSwi
-        Z3JvdXBzIjpbeyJ0eXBlIjoib3RoZXJzIiwiY291bnQiOjEsIml0ZW1zIjpb
-        XX1dLCJzdW1tYXJ5IjoiMSBsaWtlIn0sImxpa2UiOmZhbHNlLCJsb2dWaWV3
-        Ijp0cnVlLCJ0b2RvIjp7ImNvdW50IjoxfSwidXNlciI6eyJpZCI6IjE4MzQ1
-        IiwiZmlyc3ROYW1lIjoibWljaGFlbCIsImxhc3ROYW1lIjoidCIsImdlbmRl
-        ciI6Im1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMC40
-        c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL0tVR01LT09UMzBP
-        MERURkguanBnIn19fSx7ImlkIjoiNGJlZjc3OTk3MGM2MDNiYjEyYWY5YmI0
-        IiwiY3JlYXRlZEF0IjoxMjczOTg0OTIxLCJ0ZXh0IjoiVGhlIEJhc3F1ZSB3
-        aW5lcyBhcmUgZ3JlYXQuIENoZWNrIHRoZW0gb3V0LiIsInR5cGUiOiJ1c2Vy
-        IiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9p
-        dGVtXC80YmVmNzc5OTcwYzYwM2JiMTJhZjliYjQiLCJsYW5nIjoiZW4iLCJs
-        aWtlcyI6eyJjb3VudCI6MSwiZ3JvdXBzIjpbeyJ0eXBlIjoib3RoZXJzIiwi
-        Y291bnQiOjEsIml0ZW1zIjpbXX1dLCJzdW1tYXJ5IjoiMSBsaWtlIn0sImxp
-        a2UiOmZhbHNlLCJsb2dWaWV3Ijp0cnVlLCJ0b2RvIjp7ImNvdW50IjowfSwi
-        dXNlciI6eyJpZCI6IjM5OTg3MyIsImZpcnN0TmFtZSI6Ik1hcmEiLCJsYXN0
-        TmFtZSI6Ik1vcnQiLCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90byI6eyJwcmVm
-        aXgiOiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJz
-        dWZmaXgiOiJcL0ZVUVRNNEZLM0tQVDFaM1AuanBnIn19fSx7ImlkIjoiNGIw
-        NmY3YTI3MGM2MDNiYmMwZjc4ZWI0IiwiY3JlYXRlZEF0IjoxMjU4NzQ3ODEw
-        LCJ0ZXh0IjoiR3JlYXQgZm9vZCBhbmQgd2luZS4gVGhpcyBoYXMgYmVjb21l
-        IGEgZmF2b3JpdGUhIiwidHlwZSI6InVzZXIiLCJ1cmwiOiJodHRwOlwvXC9j
-        b250aWdvc2YuY29tIiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6XC9cL2ZvdXJz
-        cXVhcmUuY29tXC9pdGVtXC80YjA2ZjdhMjcwYzYwM2JiYzBmNzhlYjQiLCJs
-        YW5nIjoiZW4iLCJsaWtlcyI6eyJjb3VudCI6MSwiZ3JvdXBzIjpbeyJ0eXBl
-        Ijoib3RoZXJzIiwiY291bnQiOjEsIml0ZW1zIjpbXX1dLCJzdW1tYXJ5Ijoi
-        MSBsaWtlIn0sImxpa2UiOmZhbHNlLCJsb2dWaWV3Ijp0cnVlLCJ0b2RvIjp7
-        ImNvdW50IjowfSwidXNlciI6eyJpZCI6IjExMDk1OSIsImZpcnN0TmFtZSI6
-        IlBhdWwiLCJsYXN0TmFtZSI6Ikxpc3pld3NraSIsImdlbmRlciI6Im1hbGUi
-        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwv
-        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLy0xXzEyNTg3NDc2NDI1ODQuanBn
-        In19fSx7ImlkIjoiNTRiNDEyNTA0OThlYzNjODkyN2ZhMTk3IiwiY3JlYXRl
-        ZEF0IjoxNDIxMDg3MzEyLCJ0ZXh0IjoiQmVzdCB0YXBhcyBhbmQgU3Bhbmlz
-        aCB3aW5lIGxpc3QgaW4gU2FuIEZyYW5jaXNjby4iLCJ0eXBlIjoidXNlciIs
-        ImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRl
-        bVwvNTRiNDEyNTA0OThlYzNjODkyN2ZhMTk3IiwibGFuZyI6ImVuIiwibGlr
-        ZXMiOnsiY291bnQiOjAsImdyb3VwcyI6W119LCJsaWtlIjpmYWxzZSwibG9n
-        VmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0sInVzZXIiOnsiaWQiOiI2
-        MTQ2MzkiLCJmaXJzdE5hbWUiOiJSYWNoZWwiLCJsYXN0TmFtZSI6Iktpbmci
-        LCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpc
-        L1wvaXJzMC40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL0g0
-        U1dLVVlBTUtNTllWUzIuanBnIn19fSx7ImlkIjoiNTQ3MTc5OTI0OThlNjdi
-        ZTk3OGVhZGE2IiwiY3JlYXRlZEF0IjoxNDE2NzIyODM0LCJ0ZXh0IjoiVGhl
-        IHRhcmdhIGRlIFNhbnRpYWdvIGlzIHRvIGRpZSBmb3IiLCJ0eXBlIjoidXNl
-        ciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwv
-        aXRlbVwvNTQ3MTc5OTI0OThlNjdiZTk3OGVhZGE2IiwibGFuZyI6ImVuIiwi
-        bGlrZXMiOnsiY291bnQiOjAsImdyb3VwcyI6W119LCJsaWtlIjpmYWxzZSwi
-        bG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0sInVzZXIiOnsiaWQi
-        OiI3MzQwMjQ1OCIsImZpcnN0TmFtZSI6IkFiaGlzaGVrIiwibGFzdE5hbWUi
-        OiJLb25hIiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0
-        dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6
-        IlwvNzM0MDI0NTgtM0RJTlhETkkyWFVUR1VRVS5qcGcifX19LHsiaWQiOiI1
-        NDNkZTFjMjQ5OGUwZWMwY2U4ODkzOWEiLCJjcmVhdGVkQXQiOjE0MTMzNDE2
-        MzQsInRleHQiOiJUYXBhcyBQYSBBbWIgVG9tw6JxdWV0IiwidHlwZSI6InVz
-        ZXIiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFyZS5jb21c
-        L2l0ZW1cLzU0M2RlMWMyNDk4ZTBlYzBjZTg4OTM5YSIsImxhbmciOiJjYSIs
-        Imxpa2VzIjp7ImNvdW50IjowLCJncm91cHMiOltdfSwibGlrZSI6ZmFsc2Us
-        ImxvZ1ZpZXciOnRydWUsInRvZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7Imlk
-        IjoiMTA1NzkiLCJmaXJzdE5hbWUiOiJBbmRyZXciLCJsYXN0TmFtZSI6IlNo
-        ZXBwYXJkIiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0
-        dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6
-        IlwvMTA1NzktUklYV1pZWkgxR0NNSTJGMCJ9fX0seyJpZCI6IjU0MTMxMmM1
-        NDk4ZTkxYzRkNzVlZDNjOSIsImNyZWF0ZWRBdCI6MTQxMDUzNjEzMywidGV4
-        dCI6IkZ1biBuZWlnaGJvcmhvb2QgZWF0ZXJ5LiBMb3ZlIHRoZWlyIHRvYXN0
-        IHRhcGFzLCB0aGUgdG9tYXRvZXMgdGhleSBzb3VyY2UgYXJlIGFtYXppbmcu
-        IiwidHlwZSI6InVzZXIiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91
-        cnNxdWFyZS5jb21cL2l0ZW1cLzU0MTMxMmM1NDk4ZTkxYzRkNzVlZDNjOSIs
-        ImxhbmciOiJlbiIsImxpa2VzIjp7ImNvdW50IjowLCJncm91cHMiOltdfSwi
-        bGlrZSI6ZmFsc2UsImxvZ1ZpZXciOnRydWUsInRvZG8iOnsiY291bnQiOjB9
-        LCJ1c2VyIjp7ImlkIjoiNjM1MDY5IiwiZmlyc3ROYW1lIjoiSm9zaHVhIiwi
-        bGFzdE5hbWUiOiJIYWZ0ZWwiLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsi
-        cHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwv
-        Iiwic3VmZml4IjoiXC82MzUwNjktU0VFQ0FCWFJXNUcwWDMwMC5qcGcifX19
-        XX1dfSwidGFncyI6WyJiYXJjZWxvbmEiLCJjYXRhbGFuIiwiZWF0ZXIgMzgi
-        LCJmb29kaWUiLCJnb3VybWV0IG1hZ2F6aW5lIiwibm9lIHZhbGxleSIsInNw
-        YW5pc2giLCJ0YXBhcyJdLCJzaG9ydFVybCI6Imh0dHA6XC9cLzRzcS5jb21c
-        LzNQYllxWSIsInRpbWVab25lIjoiQW1lcmljYVwvTG9zX0FuZ2VsZXMiLCJs
-        aXN0ZWQiOnsiY291bnQiOjE4OCwiZ3JvdXBzIjpbeyJ0eXBlIjoib3RoZXJz
-        IiwibmFtZSI6Ikxpc3RzIGZyb20gb3RoZXIgcGVvcGxlIiwiY291bnQiOjE4
-        OCwiaXRlbXMiOlt7ImlkIjoiNTAwNDM1MTNlNGIwYmM1MTcwOGZlYmViIiwi
-        bmFtZSI6IkJheSBBcmVhIEZvb2RpZSBCdWNrZXQgTGlzdCIsImRlc2NyaXB0
-        aW9uIjoiIiwidHlwZSI6Im90aGVycyIsInVzZXIiOnsiaWQiOiI2OTI0ODY3
-        IiwiZmlyc3ROYW1lIjoiTHlubWFuIiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhv
-        dG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczAuNHNxaS5uZXRcL2ltZ1wv
-        dXNlclwvIiwic3VmZml4IjoiXC9IT1FNRzNGQ1dTSElIVkEzLmpwZyJ9fSwi
-        ZWRpdGFibGUiOmZhbHNlLCJwdWJsaWMiOnRydWUsImNvbGxhYm9yYXRpdmUi
-        OmZhbHNlLCJ1cmwiOiJcL2x5bm1hbndcL2xpc3RcL2JheS1hcmVhLWZvb2Rp
-        ZS1idWNrZXQtbGlzdCIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vy
-        c3F1YXJlLmNvbVwvbHlubWFud1wvbGlzdFwvYmF5LWFyZWEtZm9vZGllLWJ1
-        Y2tldC1saXN0IiwiY3JlYXRlZEF0IjoxMzQyNDUzMDExLCJ1cGRhdGVkQXQi
-        OjE0MTQwOTEwNDIsImZvbGxvd2VycyI6eyJjb3VudCI6NTN9LCJsaXN0SXRl
-        bXMiOnsiY291bnQiOjEyOSwiaXRlbXMiOlt7ImlkIjoidjQ5YzZiZGZlZjk2
-        NGE1MjA3NzU3MWZlMyIsImNyZWF0ZWRBdCI6MTM0Nzk4MzMxM31dfX0seyJp
-        ZCI6IjRmM2VhZWJmZTRiMDk0OGYxZmQyMGQzNSIsIm5hbWUiOiIyMDEzIFNh
-        biBGcmFuY2lzY28gQmliIEdvdXJtYW5kcyIsImRlc2NyaXB0aW9uIjoiVGhp
-        cyB5ZWFyIDcwIGVzdGFibGlzaG1lbnRzIG1hZGUgdGhlIGxpc3RcdTIwMTRh
-        IGxpc3QgdGhhdCByZXByZXNlbnRzIGEgc2l6YWJsZSBnZW9ncmFwaGljIGFy
-        ZWEsIGluY2x1ZGluZyB0aGUgZW50aXJlIEJheSBBcmVhIGFuZCBXaW5lIENv
-        dW50cnkuIiwidHlwZSI6Im90aGVycyIsInVzZXIiOnsiaWQiOiIzMzU4MjQy
-        IiwiZmlyc3ROYW1lIjoiTWljaGVsaW4gVHJhdmVsICYgTGlmZXN0eWxlIiwi
-        Z2VuZGVyIjoibm9uZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9p
-        cnMzLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvVkswUFBE
-        RTNWMUhVMjBENS5qcGcifSwidHlwZSI6InBhZ2UifSwiZWRpdGFibGUiOmZh
-        bHNlLCJwdWJsaWMiOnRydWUsImNvbGxhYm9yYXRpdmUiOmZhbHNlLCJ1cmwi
-        OiJcL21pY2hlbGluZ3VpZGVzXC9saXN0XC8yMDEzLXNhbi1mcmFuY2lzY28t
-        YmliLWdvdXJtYW5kcyIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vy
-        c3F1YXJlLmNvbVwvbWljaGVsaW5ndWlkZXNcL2xpc3RcLzIwMTMtc2FuLWZy
-        YW5jaXNjby1iaWItZ291cm1hbmRzIiwiY3JlYXRlZEF0IjoxMzI5NTA4MDMx
-        LCJ1cGRhdGVkQXQiOjEzOTUzNTYyMzAsImxvZ1ZpZXciOnRydWUsImZvbGxv
-        d2VycyI6eyJjb3VudCI6NjgzfSwibGlzdEl0ZW1zIjp7ImNvdW50Ijo2OSwi
-        aXRlbXMiOlt7ImlkIjoidjQ5YzZiZGZlZjk2NGE1MjA3NzU3MWZlMyIsImNy
-        ZWF0ZWRBdCI6MTMyOTUwODUyN31dfX1dfV19LCJwaHJhc2VzIjpbeyJwaHJh
-        c2UiOiJjaHVycm9zIGNvbiBjaG9jb2xhdGUiLCJzYW1wbGUiOnsiZW50aXRp
-        ZXMiOlt7ImluZGljZXMiOlsyNSw0Nl0sInR5cGUiOiJrZXlQaHJhc2UifV0s
-        InRleHQiOiIuLi4gdHJpcGUuIFNhdmUgcm9vbSBmb3IgY2h1cnJvcyBjb24g
-        Y2hvY29sYXRlIGZvciBkZXNzZXJ0ISJ9LCJjb3VudCI6NH0seyJwaHJhc2Ui
-        OiJ0cmlwZSIsInNhbXBsZSI6eyJlbnRpdGllcyI6W3siaW5kaWNlcyI6WzE5
-        LDI0XSwidHlwZSI6ImtleVBocmFzZSJ9XSwidGV4dCI6Ii4uLiBjaGljayBw
-        ZWFzIGFuZCB0cmlwZS4uLiBhbmQgZGVmaW5pdGVseSBjaHVycm9zIGNvbiBj
-        aG9jb2xhdGUuLi4uIn0sImNvdW50Ijo1fSx7InBocmFzZSI6ImNhbGFtYXJp
-        IHdpdGggY2hvcml6byBhbmQgYmxhY2sgcmljZSIsInNhbXBsZSI6eyJlbnRp
-        dGllcyI6W3siaW5kaWNlcyI6WzQsNDBdLCJ0eXBlIjoia2V5UGhyYXNlIn1d
-        LCJ0ZXh0IjoiNzAuIENhbGFtYXJpIHdpdGggY2hvcml6byBhbmQgYmxhY2sg
-        cmljZSJ9LCJjb3VudCI6Mn1dLCJob3VycyI6eyJzdGF0dXMiOiJPcGVuIHVu
-        dGlsIDEwOjAwIFBNIiwiaXNPcGVuIjp0cnVlLCJ0aW1lZnJhbWVzIjpbeyJk
-        YXlzIjoiVHVlXHUyMDEzU2F0IiwiaW5jbHVkZXNUb2RheSI6dHJ1ZSwib3Bl
-        biI6W3sicmVuZGVyZWRUaW1lIjoiNTozMCBQTVx1MjAxMzEwOjAwIFBNIn1d
-        LCJzZWdtZW50cyI6W119LHsiZGF5cyI6IlN1biIsIm9wZW4iOlt7InJlbmRl
-        cmVkVGltZSI6IjU6MzAgUE1cdTIwMTM5OjMwIFBNIn1dLCJzZWdtZW50cyI6
-        W119XX0sInBvcHVsYXIiOnsic3RhdHVzIjoiTGlrZWx5IG9wZW4iLCJpc09w
-        ZW4iOnRydWUsInRpbWVmcmFtZXMiOlt7ImRheXMiOiJUb2RheSIsImluY2x1
-        ZGVzVG9kYXkiOnRydWUsIm9wZW4iOlt7InJlbmRlcmVkVGltZSI6IjY6MDAg
-        UE1cdTIwMTMxMDowMCBQTSJ9XSwic2VnbWVudHMiOltdfSx7ImRheXMiOiJX
-        ZWQiLCJvcGVuIjpbeyJyZW5kZXJlZFRpbWUiOiI2OjAwIFBNXHUyMDEzMTA6
-        MDAgUE0ifV0sInNlZ21lbnRzIjpbXX0seyJkYXlzIjoiVGh1XHUyMDEzRnJp
-        Iiwib3BlbiI6W3sicmVuZGVyZWRUaW1lIjoiNjowMCBQTVx1MjAxMzExOjAw
-        IFBNIn1dLCJzZWdtZW50cyI6W119LHsiZGF5cyI6IlNhdCIsIm9wZW4iOlt7
-        InJlbmRlcmVkVGltZSI6IjU6MDAgUE1cdTIwMTMxMTowMCBQTSJ9XSwic2Vn
-        bWVudHMiOltdfSx7ImRheXMiOiJTdW4iLCJvcGVuIjpbeyJyZW5kZXJlZFRp
-        bWUiOiI1OjAwIFBNXHUyMDEzMTA6MDAgUE0ifV0sInNlZ21lbnRzIjpbXX0s
-        eyJkYXlzIjoiTW9uIiwib3BlbiI6W3sicmVuZGVyZWRUaW1lIjoiTm9uZSJ9
-        XSwic2VnbWVudHMiOltdfV19LCJwYWdlVXBkYXRlcyI6eyJjb3VudCI6MCwi
-        aXRlbXMiOltdfSwiaW5ib3giOnsiY291bnQiOjAsIml0ZW1zIjpbXX0sImF0
-        dHJpYnV0ZXMiOnsiZ3JvdXBzIjpbeyJ0eXBlIjoicHJpY2UiLCJuYW1lIjoi
-        UHJpY2UiLCJzdW1tYXJ5IjoiJCQkJCIsImNvdW50IjoxLCJpdGVtcyI6W3si
-        ZGlzcGxheU5hbWUiOiJQcmljZSIsImRpc3BsYXlWYWx1ZSI6IiQkJCQiLCJw
-        cmljZVRpZXIiOjR9XX0seyJ0eXBlIjoicGF5bWVudHMiLCJuYW1lIjoiQ3Jl
-        ZGl0IENhcmRzIiwic3VtbWFyeSI6IkNyZWRpdCBDYXJkcyIsImNvdW50Ijo3
-        LCJpdGVtcyI6W3siZGlzcGxheU5hbWUiOiJDcmVkaXQgQ2FyZHMiLCJkaXNw
-        bGF5VmFsdWUiOiJZZXMgKGluY2wuIERpc2NvdmVyICYgVmlzYSkifV19LHsi
-        dHlwZSI6Im91dGRvb3JTZWF0aW5nIiwibmFtZSI6Ik91dGRvb3IgU2VhdGlu
-        ZyIsInN1bW1hcnkiOiJPdXRkb29yIFNlYXRpbmciLCJjb3VudCI6MSwiaXRl
-        bXMiOlt7ImRpc3BsYXlOYW1lIjoiT3V0ZG9vciBTZWF0aW5nIiwiZGlzcGxh
-        eVZhbHVlIjoiWWVzIn1dfSx7InR5cGUiOiJzZXJ2ZXMiLCJuYW1lIjoiTWVu
-        dXMiLCJzdW1tYXJ5IjoiRGlubmVyIiwiY291bnQiOjgsIml0ZW1zIjpbeyJk
-        aXNwbGF5TmFtZSI6IkRpbm5lciIsImRpc3BsYXlWYWx1ZSI6IkRpbm5lciJ9
-        XX0seyJ0eXBlIjoiZHJpbmtzIiwibmFtZSI6IkRyaW5rcyIsInN1bW1hcnki
-        OiJXaW5lIiwiY291bnQiOjUsIml0ZW1zIjpbeyJkaXNwbGF5TmFtZSI6Ildp
-        bmUiLCJkaXNwbGF5VmFsdWUiOiJXaW5lIn1dfSx7InR5cGUiOiJkaW5pbmdP
-        cHRpb25zIiwibmFtZSI6IkRpbmluZyBPcHRpb25zIiwiY291bnQiOjUsIml0
-        ZW1zIjpbeyJkaXNwbGF5TmFtZSI6IkRlbGl2ZXJ5IiwiZGlzcGxheVZhbHVl
-        IjoiTm8gRGVsaXZlcnkifV19XX19fX0=
-    http_version: 
-  recorded_at: Wed, 28 Jan 2015 03:15:46 GMT
-- request:
-    method: get
-    uri: http://api.geonames.org/timezoneJSON?lat=37.750902&lng=-122.434327&username=sashafklein
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Wed, 28 Jan 2015 03:15:45 GMT
-      Server:
-      - Apache/2.2.17 (Linux/SUSE)
-      Cache-Control:
-      - no-cache
-      Access-Control-Allow-Origin:
-      - "*"
-      Transfer-Encoding:
-      - chunked
-      Content-Type:
-      - application/json;charset=UTF-8
-    body:
-      encoding: UTF-8
-      string: '{"time":"2015-01-27 19:15","countryName":"United States","sunset":"2015-01-28
-        17:28","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.434327,"sunrise":"2015-01-28
-        07:17","timezoneId":"America/Los_Angeles","lat":37.750902}'
-    http_version: 
-  recorded_at: Wed, 28 Jan 2015 03:15:46 GMT
+  recorded_at: Thu, 12 Feb 2015 21:02:32 GMT
 recorded_with: VCR 2.9.3

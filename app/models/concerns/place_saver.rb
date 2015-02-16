@@ -8,30 +8,31 @@ class PlaceSaver
   end
 
   def save!
-    raise errors unless place.valid?
     do_saving(true)
   end
 
   def save
-    return false unless place.valid?
     do_saving
   end
 
   def order_names
-    place.names = place.names.reject(&:non_latinate?) + place.names.select(&:non_latinate?)
+    return unless (place.names = place.names.compact).any?
+    place.names = place.names.reject(&:non_latinate?) + place.names.select(&:non_latinate?).map(&:decode_characters)
   end
 
   private
 
   def do_saving(raise_errors=false)
     format_phones
-    capitalize_categories
+    format_categories
+    supply_missing_street_address
     add_meta_categories
+    order_names
+    format_addresses
     uniqify_array_attrs
     correct_and_deaccent_regional_info
     format_hours
     set_timezone
-    order_names
     deduplicate_names
     save_and_validate_changes!(raise_errors)
   end
@@ -104,8 +105,12 @@ class PlaceSaver
     expand_region
   end
 
-  def capitalize_categories
-    place.categories = place.categories.map(&:nuanced_titleize)
+  def supply_missing_street_address
+    place.street_addresses << place.full_address.split(",")[0].strip if place.street_address.blank? && place.full_address.is_defined?
+  end
+
+  def format_categories
+    place.categories = place.categories.map(&:nuanced_titleize).map(&:no_accents)
   end
 
   def add_meta_categories
@@ -144,7 +149,7 @@ class PlaceSaver
   end
 
   def format_phones
-    place.phones = place.phones.map{ |v| v.gsub(%r!\D!, '') }.uniq
+    place.phones = place.phones.compact.map{ |v| v.gsub(%r!\D!, '') }.uniq
   end
 
   def phones_formatted?
@@ -152,9 +157,7 @@ class PlaceSaver
   end
 
   def set_timezone
-    place.timezone_string = Timezone::Zone.new({latlon: [place.lat, place.lon]}).zone
-  rescue
-    binding.pry
+    place.timezone_string ||= Timezone::Zone.new({latlon: [place.lat, place.lon]}).zone
   end
 
   def timezone_set?
@@ -162,7 +165,13 @@ class PlaceSaver
   end
 
   def names_ordered?
+    return true if place.names.empty?
     !( place.names.first.non_latinate? && place.names.any?(&:latinate?) )
+  end
+
+  def format_addresses
+    place.street_addresses = place.street_addresses.map{ |a| PlaceAddress.new(a).format }
+    place.full_address = PlaceAddress.new( place.full_address ).format
   end
 
   def deduplicate_names
@@ -188,10 +197,6 @@ class PlaceSaver
 
   def clean(name)
     name.downcase.without_articles
-  end
-
-  def errors
-    "Error(s) saving Place#{' #' + place.id.to_s if place.id}: #{place.errors.messages.map{ |m| m.last }.flatten.map{ |m| "'#{m}'" }.join(', ')}"
   end
 
   def remove_from_phones

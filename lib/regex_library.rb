@@ -46,7 +46,7 @@ module RegexLibrary
     end
 
     def list_of_common_destination_types
-      destinations = [
+      st = [
         "library",
         "bookstore",
         "restaurant",
@@ -64,28 +64,77 @@ module RegexLibrary
       ]
     end
 
+    def abbrev_streets_list
+      streets_list_hash.keys
+    end
+
+    def full_streets_list
+      streets_list_hash.values
+    end
+
+    def streets_list_hash
+      {
+        "Aly" => "Alley",
+        "Av" => "Avenue",
+        "Ave" => "Avenue",
+        "Blvd" => "Boulevard",
+        "Br" => "Bridge",
+        "Byp" => "Bypass",
+        "Cir" => "Circle",
+        "Cres" => "Crescent",
+        "Cswy" => "Causeway",
+        "Ct" => "Court",
+        "Ctr" => "Center",
+        "Dr" => "Drive",
+        "Expwy" => "Expressway",
+        "Expy" => "Expressway",
+        "Ext" => "Extension",
+        "Fwy" => "Freeway",
+        "Gdn" => "Garden",
+        "Gdns" => "Gardens",
+        "Grv" => "Grove",
+        "Hts" => "Heights",
+        "Hwy" => "Highway",
+        "Ln" => "Lane",
+        "Mnr" => "Manor",
+        "Pkwy" => "Parkway",
+        "Plc" => "Place",
+        "Plz" => "Plaza",
+        "Pt" => "Point",
+        "R" => "Rural",
+        "Rd" => "Road",
+        "Rte" => "Route",
+        "Sq" => "Square",
+        "St" => "Street",
+        "Ter" => "Terrace",
+        "Tpke" => "Turnpike",
+        "Trl" => "Trail",
+        "Via" => "Viaduct",
+        "Vis" => "Vista"
+      }
+    end
+
+    def cardinal_directions_list
+      cardinal_directions_hash.keys
+    end
+
+    def cardinal_directions_hash
+      {
+        "N" => "North",
+        "S" => "South",
+        "E" => "East",
+        "W" => "West",
+        "NE" => "Northeast",
+        "NW" => "Northwest",
+        "SE" => "Southeast",
+        "SW" => "Southwest"
+      }
+    end
+
     # REGEX COMPONENTS REMEMBER DOUBLE ALL BACKSLASH
 
     def streets_or_cardinals_thread
-      items = [
-        "St",
-        "Rd",
-        "Ave",
-        "Av",
-        "Ln",
-        "Blvd",
-        "Dr",
-        "Ct",
-        "Expwy",
-        "Hwy",
-        "Fwy",
-        "Pkwy",
-        "Sq",
-        "NW",
-        "NE",
-        "SW",
-        "SE",
-      ]
+      items = streets_list + cardinal_directions_list
       "(?:" + items.join("\\.|") + "\\.)"
     end
 

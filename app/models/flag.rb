@@ -3,10 +3,11 @@ class Flag < BaseModel
 
   json_accessor :info
 
-  scope :states, -> { where(name: 'State') }
+  default_scope { order('created_at ASC') }
+  scope :states, -> { where(name: 'State').order('created_at ASC') }
 
   def self.print_states
-    where(name: 'State').order('created_at ASC').each(&:print)
+    states.each(&:print)
     nil
   end
 

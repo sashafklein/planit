@@ -14,13 +14,17 @@ module MetaExt
             end
 
             define_method(singular) do
-              send(plural).first
+              send(plural).compact.first
             end
           end
 
           metaclass.instance_eval do 
-            define_method("without_#{singular}") do
-              where("? = '{}'", plural)
+            define_method("without_#{singular}") do |arg=nil|
+              if arg.blank?
+                where("? = '{}'", plural)
+              else
+                where.not("? = ANY (#{plural})", arg.is_a?(Array) ? arg.first : arg)
+              end
             end
 
             define_method("with_#{singular}") do |arg=nil|

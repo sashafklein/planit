@@ -1,140 +1,112 @@
+Dir["./api_completer/*.rb"].each {|file| require_relative file }
+
 module Completers
   class PlaceCompleter
 
     attr_accessor :attrs, :place, :photos, :pip, :url
     def initialize(attrs, url=nil)
-      @photos = set_photos(attrs)
-      @attrs = attrs.symbolize_keys.to_sh
-      normalize_attrs!
-      @url = url
+      normalizer = PlaceAttrs.new(attrs.merge(scrape_url: url))
+      @photos, @attrs, @flags = normalizer.set_photos, normalizer.normalize, normalizer.flags
+      @pip = PlaceInProgress.new @attrs, @flags
+      add_state("Start of PlaceCompleter")
     end
 
     def complete!
-      @pip = PlaceInProgress.new attrs.merge({scrape_url: url})
-      api_complete! unless @pip.completion_steps.include?("FoursquareRefine")
-
+      return nil unless @pip.names.any?
+      api_complete! unless @pip.completed("FoursquareRefine")
       merge_and_save_with_photos!
     end
 
     private
 
     def api_complete!
-      pip.flag( name: 'State', details: 'Start of PlaceCompleter', info: pip.clean_attrs)
-      load_region_info_from_nearby!
-      narrow_with_geocoder!
-      foursquare_explore!
-      foursquare_refine_venue!
-      translate_with_geocoder!
+      if area?
+        google_maps unless pip.completed("GoogleMaps")
+        narrow if !@google_success
+      else
+        nearby unless pip.coordinate
+        foursquare
+        google_maps if (!pip.completed("FoursquareExplore") || pip.unsure.any?)
+        foursquare if retry_foursquare?
+        pin if (pip.completion_steps - ["Nearby"]).empty?
+      end
+      translate_and_refine
+      flag_it_up
     end
 
-    def load_region_info_from_nearby!
-      return unless attrs[:nearby]
-      @pip = Nearby.new(pip, attrs).complete if attrs[:nearby]
-      pip.flag( name: 'State', details: 'After nearby', info: pip.clean_attrs)
+    def foursquare
+      foursquare_explore unless pip.completed("FoursquareExplore")
+      foursquare_refine unless pip.completed("FoursquareRefine") || !pip.foursquare_id.present? || pip.unsure.include?("FoursquareExplore")
     end
 
-    def narrow_with_geocoder!
-      return unless pip.pinnable
-      @pip = Narrow.new(pip, attrs).complete 
-      pip.flag( name: 'State', details: 'After narrow', info: pip.clean_attrs)
+    def google_maps
+      add_api_response( "GoogleMaps" )
     end
 
-    def foursquare_explore!
-      response = FoursquareExplore.new(pip, @attrs[:nearby]).complete!
-      return unless response[:success]
+    def narrow
+      add_api_response( "Narrow", take: [:country, :region, :subregion, :locality] ) unless pip.completed("Narrow") || !pip.pinnable
+    end
+
+    def pin
+      add_api_response( 'Pin', take: [:country, :region, :subregion, :locality, :sublocality, :lat, :lon ] ) unless pip.completed("Pin")
+    end
+
+    def nearby
+      add_api_response( 'Nearby', take: [:country, :region, :subregion, :locality] ) unless pip.completed("Nearby") || !attrs.nearby
+    end
+
+    def foursquare_explore
+      add_api_response( 'FoursquareExplore' )
+    end
+
+    def foursquare_refine
+      add_api_response( 'FoursquareRefine' )
+    end
+
+    def translate_and_refine
+      add_api_response( 'TranslateAndRefine', take: [:country, :region, :subregion, :locality, :sublocality] ) unless pip.completed("Pin")
+    end
+
+    def api_call(name, take=nil)
+      "Completers::ApiCompleter::#{name}".constantize.new(pip, attrs, take: take).complete
+    end
+
+    def add_state(name)
+      pip.flag( name: "State", details: name, info: pip.clean_attrs )
+    end
+
+    def add_api_response(name, take: nil)
+      response = api_call(name, take)
+      return unless instance_variable_set("@#{name.underscore}_success", response[:success])
+
       @pip = response[:place]
-      @photos += response[:photos]
-      pip.flag( name: 'State', details: 'After foursquare explore', info: pip.clean_attrs)
+      @photos += Array(response[:photos]).flatten
+      pip.set_val(field: :completion_steps, val: name, source: name)
+      add_state("After #{name}")
     end
 
-    def foursquare_refine_venue!
-      return if pip.foursquare_id.blank?
-      response = FoursquareRefine.new(pip).complete 
-      response = FoursquareRefine.new(pip).complete 
-      @pip = response[:place]
-      @photos += response[:photos]
-      pip.flag( name: 'State', details: 'After refine', info: pip.clean_attrs)
-    end
-
-    def translate_with_geocoder!
-      location_vals = [pip.locality, pip.region, pip.country, pip.subregion].reject(&:blank?)
-      return unless location_vals.any?(&:non_latinate?)
-      @pip = Translate.new(pip, attrs).complete
-      pip.flag( name: 'State', details: 'After translate', info: pip.clean_attrs)
-    end
-
-    def normalize_attrs!
-      [:name, :street_address, :category].each do |singular|
-        plural = singular.to_s.pluralize.to_sym
-        attrs[plural] = Array( attrs.delete(plural) ).flatten + Array( attrs.delete(singular)).flatten
-      end
-
-      attrs[:names] = attrs[:names].select(&:latinate?) + attrs[:names].select(&:non_latinate?)
-      
-      [:lat, :lon].each{ |att| attrs[att] = attrs.delete(att).try(:to_f) }
-
-      attrs[:phones] = normalize_phones
-      attrs[:hours] = normalized_hours(attrs[:hours])
-      attrs[:extra] = normalize_extra
-
-      found = Services::PlaceFinder.new(attrs).find!
-      @attrs = attrs.merge( found.attributes.symbolize_keys.reject{ |k,v| v.nil? }.to_sh ) if found.persisted?
-    end
-
-    def normalize_phones
-      array = []
-      [:phones, :phone].each do |sym|
-        val = attrs.delete(sym)
-        array += val.values if val.is_a?(Hash)
-        array += Array(val) if val.is_a?(String) || val.is_a?(Array)
-      end
-      attrs[:phones] = array.flatten
-    end
-
-    def normalize_extra
-      attrs[:extra] ||= {}.to_sh
-      if !attrs[:extra].is_a? Hash
-        attrs[:extra] = { misc: attrs[:extra] }.to_sh
-      end
-
-      extra_attrs.each { |k, _| attrs[:extra][k] = attrs.delete(k) }
-      attrs[:extra]
-    end
-
-    def normalized_hours(hours)
-      normalized = {}
-      (hours || {}).each do |k, v|
-        normalized[k.to_s.downcase] = v.stringify_keys
-      end
-      Services::TimeConverter.convert_hours(normalized)
-    end
-
-    def set_photos(attrs)
-      photo_array = Array( attrs.delete(:images) )
-      @photos = photo_array.map{ |a| Image.new({ url: a[:url], source_url: a[:source], source: a[:credit] }) }
-    end
-
-    def extra_attrs
-      attrs.except(*Place.attribute_keys + [:nearby, :images])
+    def flag_it_up
+      pip.flag(name: "Triangulated", details: "Save as alternative in future", info: pip.attrs) if pip.triangulated
+      pip.flag(name: "Tracking Data", info: pip.attrs)
     end
 
     def merge_and_save_with_photos!
-      pip.flag( name: 'State', details: 'After translate', info: pip.clean_attrs)
+      add_state("Before final merge")
       @place = pip.place.find_and_merge
-      if @place.valid? 
-        @place.validate_and_save!( @photos.uniq{ |p| p.url }, pip.flags ) 
-      else
-        
-        nil
-      end
+      @place.validate_and_save!( @photos.uniq{ |p| p.url }, pip.flags ) 
+    rescue => e
+      nil
     end
 
-    def notify_of_invalid_place!
-      if Rails.environment.test? || Rails.environment.development?
-        raise
-      else
-        # PlaceMailer.notify_of_invalid_place(place).deliver
-      end
+    def retry_foursquare?
+      pip.unsure.any? || 
+        (pip.completed("FoursquareExplore") && !pip.completed("FoursquareRefine")) ||
+        ( pip.flags.find{ |f| f.name == "Insufficient Atts for FoursquareExplore" } &&
+          ApiCompleter::FoursquareExplore.new(pip).sufficient_to_fetch? )
+    end
+
+    def area?
+      false
     end
   end
 end

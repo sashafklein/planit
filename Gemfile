@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-source 'https://rails-assets.org'
+source "https://rails-assets.org"
 
 ruby "2.2.0"
 
@@ -13,54 +13,53 @@ gem "jquery-rails"
 gem "neat"
 gem "pg"
 gem "rack-timeout"
-gem "rails", '4.2.0'
+gem "rails", "4.2.0"
 gem "recipient_interceptor"
 gem "sass-rails"
 gem "uglifier"
 gem "unicorn"
+gem "memoist"
 
-gem 'nokogiri'
-gem 'font-awesome-sass'
-gem 'image_size'
-gem 'simple_form'
+gem "nokogiri"
+gem "font-awesome-sass"
+gem "image_size"
+gem "simple_form"
 
 gem "haml-rails"
-gem 'geocoder'
-gem 'carmen'
-gem 'httparty'
-gem 'devise'
-gem 'friendly_id'
-gem 'rack-mini-profiler', require: false
-gem 'active_model_serializers'
-gem 'fuzzy-string-match'
-gem 'bootstrap-sass'
-gem 'autoprefixer-rails'
-gem 'draper', require: false
-gem 'timezone'
-gem 'newrelic_rpm'
+gem "geocoder"
+gem "carmen"
+gem "httparty"
+gem "devise"
+gem "friendly_id"
+gem "rack-mini-profiler", require: false
+gem "active_model_serializers"
+gem "fuzzy-string-match"
+gem "bootstrap-sass"
+gem "autoprefixer-rails"
+gem "draper", require: false
+gem "timezone"
+gem "newrelic_rpm"
 
-gem 'pundit'
+gem "pundit"
 
 gem "compass"
 gem "compass-rails"
-gem 'colorize'
+gem "colorize"
 
-source 'https://rails-assets.org' do
-  gem 'rails-assets-angular'
-  gem 'rails-assets-angular-resource'
-  gem 'rails-assets-angular-route'
-  gem 'rails-assets-angular-mocks'
-  gem 'rails-assets-active-support'
-  gem 'rails-assets-async'
-  gem 'rails-assets-lodash'
-  gem 'rails-assets-leaflet'
+source "https://rails-assets.org" do
+  gem "rails-assets-angular"
+  gem "rails-assets-angular-mocks"
+  gem "rails-assets-active-support"
+  gem "rails-assets-async"
+  gem "rails-assets-lodash"
+  gem "rails-assets-leaflet"
 end
 
 group :development do
   gem "foreman"
-  gem 'binding_of_caller'
-  gem 'bullet'
-  gem 'web-console'
+  gem "binding_of_caller"
+  gem "bullet"
+  gem "web-console"
 end
 
 group :development, :test do
@@ -78,13 +77,13 @@ group :test do
   gem "launchy"
   gem "timecop"
   gem "webmock"
-  gem 'vcr'
-  gem 'shoulda-matchers', require: false
+  gem "vcr"
+  gem "shoulda-matchers", require: false
   gem "factory_girl_rails"
   gem "rspec-rails"
   gem "selenium-webdriver"
 end
 
 group :staging, :production do
-  gem 'rails_12factor'
+  gem "rails_12factor"
 end

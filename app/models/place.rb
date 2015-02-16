@@ -6,6 +6,7 @@ class Place < BaseModel
 
   array_accessor :completion_step, :street_address, :name, :category, :meta_category, :phone
   json_accessor :hours, :extra
+
   validate!
 
   delegate :open?, :open_again_at, :open_until, to: :hour_calculator
@@ -47,8 +48,9 @@ class Place < BaseModel
   end
 
   def nearby
-    return nil unless [locality, region, country].any?(&:present?)
-    [locality, region, country].reject(&:blank?).join(", ")
+    list = [locality, subregion, region, country]
+    return nil unless list.any?(&:present?)
+    list.reject(&:blank?).join(", ")
   end
 
   def find_and_merge
@@ -61,32 +63,7 @@ class Place < BaseModel
   end
 
   def meta_icon
-    if meta_categories
-      return 'icomoon icon-map' if meta_categories[0] == 'Area'
-      return 'icon-directions-walk' if meta_categories[0] == 'Do'
-      return 'icon-local-bar' if meta_categories[0] == 'Drink'
-      return 'icon-local-restaurant' if meta_categories[0] == 'Food'
-      return 'fa fa-life-ring' if meta_categories[0] == 'Help'
-      return 'fa fa-money' if meta_categories[0] == 'Money'
-      return 'fa fa-globe' if meta_categories[0] == 'Other'
-      return 'icon-drink' if meta_categories[0] == 'Relax'
-      return 'fa fa-university' if meta_categories[0] == 'See'
-      return 'fa fa-shopping-cart' if meta_categories[0] == 'Shop'
-      return 'icon-home' if meta_categories[0] == 'Stay'
-      if meta_categories[0] == 'Transit'
-        if categories
-          return 'fa fa-subway'
-          return 'fa fa-plane'
-          return 'fa fa-car'
-          return 'fa fa-bus'
-          return 'fa fa-train'
-          return 'fa fa-taxi'
-        else
-          return 'fa fa-exchange'
-        end
-      end
-    end
-    return 'fa fa-globe'
+    PlaceMetaIcon.new(meta_category).icon
   end
 
   def alt_names
@@ -98,11 +75,11 @@ class Place < BaseModel
   end
 
   def not_in_usa?
-    country.present? && country != "United States" && country != "United States of America"
+    country.present? !country.in_usa?
   end
 
   def in_usa?
-    country == "United States" || country == "United States of America"
+    ["United States", "United States of America"].include?(country)
   end
 
   def other_info?
@@ -114,13 +91,19 @@ class Place < BaseModel
   end
 
   def foursquare_rating
-    return false # REPLACE WHEN WE INTRODUCE TO DATABASE
+    false # REPLACE WHEN WE INTRODUCE TO DATABASE
   end
+  
   def yelp_id
-    return false # REPLACE WHEN WE INTRODUCE TO DATABASE
+    false # REPLACE WHEN WE INTRODUCE TO DATABASE
   end
+  
   def yelp_rating
-    return false # REPLACE WHEN WE INTRODUCE TO DATABASE
+    false # REPLACE WHEN WE INTRODUCE TO DATABASE
+  end
+
+  def tracking_data
+    Flag.where(name: "Tracking Data").first
   end
 
   private
