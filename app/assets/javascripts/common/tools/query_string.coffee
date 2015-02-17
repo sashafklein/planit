@@ -5,19 +5,11 @@ angular.module('Common').factory 'QueryString', () ->
     # PUBLIC
 
     @centerIs: ->
-      if nValue = QueryString._currentParamValue('n')
-        string = decodeURI( nValue )
+      if mValue = QueryString._currentParamValue('m')
+        string = decodeURI( mValue )
         if !string.replace(/[-0-9.,]/g,'').length
-          latLon = string.split(',')
-          return { lat: latLon[0], lon: latLon[1] }
-        else
-          null
-
-    @zoomIs: ->
-      if zValue = QueryString._currentParamValue('z')
-        string = decodeURI( zValue )
-        if !string.replace(/[0-9]/g,'').length
-          zoom = string if string.length
+          latLonZoom = string.split(',')
+          return { lat: latLonZoom[0], lon: latLonZoom[1], zoom: latLonZoom[2] } unless latLonZoom.length != 3
         else
           null
 
@@ -76,6 +68,7 @@ angular.module('Common').factory 'QueryString', () ->
       newSlug.push( QueryString._currentOrNewParamValue('c', params.c) ) unless to_clear.c # meta-categories
       newSlug.push( QueryString._currentOrNewParamValue('t', params.t) ) unless to_clear.t # tags
       newSlug.push( QueryString._currentOrNewParamValue('n', params.n) ) unless to_clear.n # nearby in text or lat/lon
+      newSlug.push( QueryString._currentOrNewParamValue('m', params.m) ) unless to_clear.m # nearby in text or lat/lon
       newSlug.push( QueryString._currentOrNewParamValue('z', params.z) ) unless to_clear.z # zoom-level
       newSlug.push( QueryString._currentOrNewParamValue('u', params.u) ) unless to_clear.u # users
       newSlug.push( QueryString._currentOrNewParamValue('p', params.p) ) unless to_clear.p # places

@@ -113,9 +113,8 @@ angular.module("Common").directive 'planMap', (F, Place, Plan, User, PlanitMarke
 
         # Start map (either center or with QueryString) and inject zoom control
         queryCenter = QueryString.centerIs()
-        queryZoom = QueryString.zoomIs()
-        if queryCenter && queryZoom
-          s.map.setView( [ parseFloat( queryCenter.lat ), parseFloat( queryCenter.lon ) ], parseInt( queryZoom ) )
+        if queryCenter
+          s.map.setView( [ parseFloat( queryCenter.lat ), parseFloat( queryCenter.lon ) ], parseInt( queryCenter.zoom ) )
         else
           s.bounds = new L.LatLngBounds(s.primaryCoordinates)
           s.map.fitBounds(s.bounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
@@ -131,11 +130,10 @@ angular.module("Common").directive 'planMap', (F, Place, Plan, User, PlanitMarke
 
         # On Zoom and Move End
         s.updateQuery = ->
-          QueryString.modifyParamValues( n:"#{s.map.getCenter().lat},#{s.map.getCenter().lng}" , z:"#{s.map.getZoom()}" )
+          QueryString.modifyParamValues( m:"#{s.map.getCenter().lat.toFixed(4)},#{s.map.getCenter().lng.toFixed(4)},#{s.map.getZoom()}" )
         s.map.on "moveend", -> s.updateQuery()
         s.map.on "zoomend", -> 
           s.showHideContext()
           s.updateQuery()
-
 
   }

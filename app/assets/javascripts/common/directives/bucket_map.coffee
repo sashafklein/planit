@@ -157,9 +157,8 @@ angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, C
 
         # Start map (either center or with QueryString) and inject zoom control
         queryCenter = QueryString.centerIs()
-        queryZoom = QueryString.zoomIs()
-        if queryCenter && queryZoom
-          s.map.setView( [ parseFloat( queryCenter.lat ), parseFloat( queryCenter.lon ) ], parseInt( queryZoom ) )
+        if queryCenter
+          s.map.setView( [ parseFloat( queryCenter.lat ), parseFloat( queryCenter.lon ) ], parseInt( queryCenter.zoom ) )
         else
           s.totalBounds = new L.LatLngBounds(s.primaryCoordinates)
           s.map.fitBounds(s.totalBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
@@ -182,7 +181,7 @@ angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, C
           return { id: "c#{cluster._leaflet_id}", count: cluster._childCount, center: center, places: places, location: s.bestListLocation(places, center), clusterObject: cluster }
 
         s.updateQuery = ->
-          QueryString.modifyParamValues( n:"#{s.map.getCenter().lat},#{s.map.getCenter().lng}" , z:"#{s.map.getZoom()}" )
+          QueryString.modifyParamValues( m:"#{s.map.getCenter().lat.toFixed(4)},#{s.map.getCenter().lng.toFixed(4)},#{s.map.getZoom()}" )
 
         if s.mobile
           # Relay clicked marker to infoBox if Mobile
