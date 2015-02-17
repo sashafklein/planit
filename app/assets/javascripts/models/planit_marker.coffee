@@ -28,7 +28,8 @@ mod.factory 'PlanitMarker', ($timeout) ->
         icon: L.divIcon({
           className: 'contextual-map-div-icon',
           html: """ <div class='contextual-map-icon-tab p#{place.id}' id='p#{place.id}'><i class='#{place.meta_icon}'></i></div> """,
-          iconSize: null,
+          iconSize: new L.Point(18,18),
+          iconAnchor: [9,9],
         })
       }).bindPopup("<a href='/places/#{place.id}'>#{ place.name() }</a>", {offset: new L.Point(0,3), className: 'mini-popup'})
 
@@ -36,18 +37,21 @@ mod.factory 'PlanitMarker', ($timeout) ->
       children = cluster.getAllChildMarkers().length
       if children > 99
         L.divIcon
-          className: "cluster-map-div-container"
-          html: """ <span class='cluster-map-icon-tab large c#{cluster._leaflet_id}' id='c#{cluster._leaflet_id}'>#{children}</span> """
-          iconSize: new L.Point(40,40)
+          className: "cluster-map-div-container",
+          html: """ <span class='cluster-map-icon-tab large c#{cluster._leaflet_id}' id='c#{cluster._leaflet_id}'>#{children}</span> """,
+          iconSize: new L.Point(40,40),
+          iconAnchor: [20,20],
       else if children > 9
         L.divIcon
-          className: "cluster-map-div-container"
-          html: """ <span class='cluster-map-icon-tab medium c#{cluster._leaflet_id}' id='c#{cluster._leaflet_id}'>#{children}</span> """
-          iconSize: new L.Point(36,36)
+          className: "cluster-map-div-container",
+          html: """ <span class='cluster-map-icon-tab medium c#{cluster._leaflet_id}' id='c#{cluster._leaflet_id}'>#{children}</span> """,
+          iconSize: new L.Point(36,36),
+          iconAnchor: [18,18],
       else
         L.divIcon
-          className: "cluster-map-div-container"
-          html: """ <span class='cluster-map-icon-tab small c#{cluster._leaflet_id}' id='c#{cluster._leaflet_id}'>#{children}</span> """
-          iconSize: new L.Point(34,34)
+          className: "cluster-map-div-container",
+          html: """ <span class='cluster-map-icon-tab small c#{cluster._leaflet_id}' id='c#{cluster._leaflet_id}'>#{children}</span> """,
+          iconSize: new L.Point(34,34),
+          iconAnchor: [17,17],
 
   return PlanitMarker

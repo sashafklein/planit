@@ -4,6 +4,23 @@ angular.module('Common').factory 'QueryString', () ->
 
     # PUBLIC
 
+    @centerIs: ->
+      if nValue = QueryString._currentParamValue('n')
+        string = decodeURI( nValue )
+        if !string.replace(/[-0-9.,]/g,'').length
+          latLon = string.split(',')
+          return { lat: latLon[0], lon: latLon[1] }
+        else
+          null
+
+    @zoomIs: ->
+      if zValue = QueryString._currentParamValue('z')
+        string = decodeURI( zValue )
+        if !string.replace(/[0-9]/g,'').length
+          zoom = string if string.length
+        else
+          null
+
     # @tagInclude: (tag) ->
     #   return true if QueryString._currentParamValue('t').indexOf(tag) != -1
       
@@ -34,8 +51,8 @@ angular.module('Common').factory 'QueryString', () ->
       return _currentPage if _currentPage
       _currentPage = window.location.pathname.split('/').pop()
 
-    @_removeBlanks: (paramValue) ->
-      paramValue.replace(/\s\s+/g, ' ').replace(/^\s*/g, '').replace(/\s*$/g, '') unless !paramValue
+    @_removeBlanks: (string) ->
+      string.replace(/\s\s+/g, ' ').replace(/^\s*/g, '').replace(/\s*$/g, '') unless !string
 
     @_currentOrNewParamValue: (paramName, paramValue) ->
       if cleanParamValue = QueryString._removeBlanks( paramValue )
@@ -58,11 +75,12 @@ angular.module('Common').factory 'QueryString', () ->
       newSlug.push( QueryString._currentOrNewParamValue('q', params.q) ) unless to_clear.q # search query
       newSlug.push( QueryString._currentOrNewParamValue('c', params.c) ) unless to_clear.c # meta-categories
       newSlug.push( QueryString._currentOrNewParamValue('t', params.t) ) unless to_clear.t # tags
-      newSlug.push( QueryString._currentOrNewParamValue('l', params.l) ) unless to_clear.l # lat,lon
-      newSlug.push( QueryString._currentOrNewParamValue('n', params.n) ) unless to_clear.n # nearby in text
-      newSlug.push( QueryString._currentOrNewParamValue('z', params.z) ) unless to_clear.z # zoom
+      newSlug.push( QueryString._currentOrNewParamValue('n', params.n) ) unless to_clear.n # nearby in text or lat/lon
+      newSlug.push( QueryString._currentOrNewParamValue('z', params.z) ) unless to_clear.z # zoom-level
       newSlug.push( QueryString._currentOrNewParamValue('u', params.u) ) unless to_clear.u # users
-      newSlug.push( QueryString._currentOrNewParamValue('o', params.o) ) unless to_clear.o # other, e.g. 'wifi', 'open'
+      newSlug.push( QueryString._currentOrNewParamValue('p', params.p) ) unless to_clear.p # places
+      newSlug.push( QueryString._currentOrNewParamValue('f', params.f) ) unless to_clear.f # other filters, e.g. 'wifi', 'open'
+      newSlug.push( QueryString._currentOrNewParamValue('v', params.v) ) unless to_clear.v # view type -- map or not?
       if _(newSlug).compact().value().length > 0
         "#{QueryString._currentPage()}?#{_(newSlug).compact().value().join('&')}" 
       else

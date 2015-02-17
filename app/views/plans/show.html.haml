@@ -5,7 +5,7 @@
   .plan-map-container{ ng_class: "{'expanded': mapExpanded}" }
     %div#expand-map-button{ ng_click: 'contractOrExpandMap()', ng_class: "{'expanded': mapExpanded}" }
       %i.fa.fa-expand.fa-flip-horizontal
-    %places_map.plan-map-canvas{ plan_id: @plan.id, current_user_id: current_user_id, type: 'plan' }
+    %plan_map.plan-map-canvas{ plan_id: @plan.id, current_user_id: current_user_id, type: 'plan' }
       .plan-name-and-detail-container{ ng_show: '!mapExpanded' }
         .plan-name-wrap.clearfix
           %span.plan-name= @plan.name

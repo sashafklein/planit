@@ -1,4 +1,4 @@
-angular.module("Common").directive 'placesMap', (F, Place, Plan, User, PlanitMarker) ->
+angular.module("Common").directive 'planMap', (F, Place, Plan, User, PlanitMarker, QueryString) ->
 
   return {
     restrict: 'E'
@@ -12,11 +12,19 @@ angular.module("Common").directive 'placesMap', (F, Place, Plan, User, PlanitMar
       type: '@'
       zoomControl: '@'
       scrollWheelZoom: '@'
-      paddingToUse: '@'
+      webPadding: '@'
+      mobilePadding: '@'
 
     link: (s, element) ->
+
       window.s = s
-      if s.paddingToUse then s.paddingToFocusArea = JSON.parse("[" + s.paddingToUse + "]") else s.paddingToFocusArea = [35, 25, 15, 25]
+      s.padding = [35, 25, 15, 25] # default
+      s.mobile = if element.width() < 768 then true else false
+      s.requireDoubleClick = if s.mobile then true else false
+      if s.mobilePadding && s.mobile
+        s.padding = JSON.parse("[" + s.mobilePadding + "]")
+      else if s.webPadding && !s.mobile
+        s.padding = JSON.parse("[" + s.webPadding + "]")
 
       # Get primaryPlaces from placeID string or planID, trigger draw map
       if s.placeIds
@@ -43,7 +51,7 @@ angular.module("Common").directive 'placesMap', (F, Place, Plan, User, PlanitMar
           currentBounds = s.map.getBounds()
           setTimeout (->
             s.map.invalidateSize()
-            s.map.fitBounds(currentBounds, { paddingTopLeft: [s.paddingToFocusArea[3], s.paddingToFocusArea[0]], paddingBottomRight: [s.paddingToFocusArea[1], s.paddingToFocusArea[2]] } )
+            s.map.fitBounds(currentBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
             return
           ), 400
 
@@ -84,30 +92,33 @@ angular.module("Common").directive 'placesMap', (F, Place, Plan, User, PlanitMar
 
         # Primary Pins in Clusters if Plan, WorldView
         clusterMarkers = new L.MarkerClusterGroup({
-          maxClusterRadius: 40,
+          maxClusterRadius: 50,
+          requireDoubleClick: s.requireDoubleClick,
           showCoverageOnHover: true,
-          disableClusteringAtZoom: 18,
+          disableClusteringAtZoom: 15,
           spiderfyDistanceMultiplier: 2,
           polygonOptions: { color: '#ff0066', opacity: 1.0, fillColor: '#ff0066', fillOpacity: 0.4, weight: 3 },
-          paddingToFocusArea: s.paddingToFocusArea,
-          iconCreateFunction: (cluster) ->
-            markers = cluster.getAllChildMarkers()
-            L.divIcon
-              html: "<span class='cluster-map-icon-tab'>#{markers.length}</span>"
-              className: "cluster-map-div-container"
+          padding: s.padding,
+          iconCreateFunction: (cluster) -> PlanitMarker.clusterPin( cluster ),
         })
         i = 0
         while i < s.primaryPlaces.length
-          a = s.primaryPlaces[i]
-          s.primaryCoordinates.push [a.lat,a.lon]
-          clusterMarker = PlanitMarker.primaryPin(a)
+          place = s.primaryPlaces[i]
+          place.leafletLocation = new L.LatLng( place.lat, place.lon )
+          s.primaryCoordinates.push [place.lat,place.lon]
+          clusterMarker = PlanitMarker.primaryPin(place, true)
           clusterMarkers.addLayer clusterMarker
           i++
         s.map.addLayer(clusterMarkers)
 
-        # Center map and inject zoom control
-        s.bounds = new L.LatLngBounds(s.primaryCoordinates)
-        s.map.fitBounds(s.bounds, { paddingTopLeft: [s.paddingToFocusArea[3], s.paddingToFocusArea[0]], paddingBottomRight: [s.paddingToFocusArea[1], s.paddingToFocusArea[2]] } )
+        # Start map (either center or with QueryString) and inject zoom control
+        queryCenter = QueryString.centerIs()
+        queryZoom = QueryString.zoomIs()
+        if queryCenter && queryZoom
+          s.map.setView( [ parseFloat( queryCenter.lat ), parseFloat( queryCenter.lon ) ], parseInt( queryZoom ) )
+        else
+          s.bounds = new L.LatLngBounds(s.primaryCoordinates)
+          s.map.fitBounds(s.bounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
 
         # Control whether or not context pins are viewable
@@ -117,6 +128,14 @@ angular.module("Common").directive 'placesMap', (F, Place, Plan, User, PlanitMar
           else
             s.map.removeLayer(s.contextGroup)
         s.showHideContext()
-        s.map.on "zoomend", -> s.showHideContext()
+
+        # On Zoom and Move End
+        s.updateQuery = ->
+          QueryString.modifyParamValues( n:"#{s.map.getCenter().lat},#{s.map.getCenter().lng}" , z:"#{s.map.getZoom()}" )
+        s.map.on "moveend", -> s.updateQuery()
+        s.map.on "zoomend", -> 
+          s.showHideContext()
+          s.updateQuery()
+
 
   }

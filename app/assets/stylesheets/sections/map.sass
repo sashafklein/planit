@@ -48,6 +48,7 @@ span.cluster-map-icon-tab
       background-color: #ff0066
 
 .cluster-map-div-container
+  z-index: 10000 !important
   div
     text-align: center
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
@@ -64,9 +65,9 @@ path.leaflet-clickable
 
 .default-map-div-icon
   text-align: center
-  height: 36px
-  width: auto
-  margin-top: -36px
+  height: 32px
+  width: 26px
+  margin-top: -32px
   position: relative
   left: -50%
   z-index: 10000 !important
@@ -82,15 +83,15 @@ path.leaflet-clickable
   font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
   font-size: 15px
   font-weight: bold
-  line-height: 16px
-  padding: 5px 6px
+  line-height: 26px
   white-space: nowrap
   margin-left: auto
   margin-right: auto
   border-radius: 2px
-  min-width: 28px
-  height: 28px
+  width: 26px
+  height: 26px
   background: #ff0066
+  border: #f06 1px solid
   border-bottom: #990033 solid 1px
   color: #fff
   div.arrow
@@ -99,9 +100,9 @@ path.leaflet-clickable
     margin-right: auto
     left: 0
     right: 0
-    top: 12px
-    margin-top: -7px
-    border-width: 10px 9px 0 9px /*Arrow w/h is defined by the borders*/
+    top: 0
+    margin-top: -3px
+    border-width: 8px 7px 0 7px /*Arrow w/h is defined by the borders*/
     width: 0px 
     height: 0px
     border-style: solid
@@ -109,15 +110,18 @@ path.leaflet-clickable
     border-color: #ff0066 transparent transparent transparent
   &.print
     background: #333
+    border: 1px solid #333
     border-bottom: #000 solid 1px
     color: #fff
   i
     width: 16px
+    display: inline-block
   b
     display: inline-block
     min-width: 16px
   &:hover, &.highlighted
     color: #fff
+    border: 1px solid #333
     background: #333
     border-bottom: #000 solid 1px
     div.arrow
@@ -125,11 +129,8 @@ path.leaflet-clickable
 
 .contextual-map-div-icon
   text-align: center
-  height: 14px
-  width: 14px
-  margin-top: -14px
-  position: relative
-  left: -7px
+  height: 18px
+  width: 18px
   z-index: 1000 !important
   &:hover
     z-index: 3000 !important
@@ -139,27 +140,35 @@ path.leaflet-clickable
   white-space: nowrap
   margin-left: 0
   margin-right: 0
-  border-radius: 50%
+  border-radius: 2px
   text-align: center
-  font-size: 10px
-  background: #fff
+  font-size: 14px
+  line-height: 14px
   color: #cc3366
-  border: 1px solid #777
+  background: #ddd
+  border: #ddd solid 1px
+  border-bottom: #bbb solid 1px
   display: block
   vertical-align: text-top
-  width: 14px
-  height: 14px
-  .top-pad
-    margin-top: 1px
-  .bottom-pad
-    margin-bottom: 1px
-  .sm
-    font-size: 9px
-  .xsm
-    font-size: 7px
+  width: 18px
+  height: 18px
+  position: relative
+  cursor: pointer
   &:hover
-    color: #ff0066
-    border: 1px solid #ff0066
+    color: #aa1144
+    background: #efefef
+    border: #efefef solid 1px
+    border-bottom: #ccc solid 1px
+  i
+    width: 14px
+    height: 14px
+    display: inline-block
+    position: absolute
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    margin: auto
 
 .leaflet-popup-content-wrapper
   background: #fff

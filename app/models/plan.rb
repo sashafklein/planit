@@ -8,7 +8,6 @@ class Plan < BaseModel
   has_many :legs
   has_many :days, through: :legs
   has_many :items, dependent: :destroy
-  has_many :moneyshots, class_name: 'Image', as: :imageable
   has_many :images, as: :imageable
   has_many :sources, as: :object
 

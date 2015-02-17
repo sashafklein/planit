@@ -1,4 +1,4 @@
-angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, ClusterLocator, BasicOperators, ClickControls, $compile, $timeout) ->
+angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, ClusterLocator, BasicOperators, ClickControls, QueryString, $compile, $timeout) ->
 
   return {
     restrict: 'E'
@@ -155,9 +155,14 @@ angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, C
           i++
         s.map.addLayer(clusterMarkers)
 
-        # Center map and inject zoom control
-        s.totalBounds = new L.LatLngBounds(s.primaryCoordinates)
-        s.map.fitBounds(s.totalBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
+        # Start map (either center or with QueryString) and inject zoom control
+        queryCenter = QueryString.centerIs()
+        queryZoom = QueryString.zoomIs()
+        if queryCenter && queryZoom
+          s.map.setView( [ parseFloat( queryCenter.lat ), parseFloat( queryCenter.lon ) ], parseInt( queryZoom ) )
+        else
+          s.totalBounds = new L.LatLngBounds(s.primaryCoordinates)
+          s.map.fitBounds(s.totalBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
 
         # Control whether or not context pins are viewable
@@ -176,6 +181,9 @@ angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, C
           center = cluster._latlng
           return { id: "c#{cluster._leaflet_id}", count: cluster._childCount, center: center, places: places, location: s.bestListLocation(places, center), clusterObject: cluster }
 
+        s.updateQuery = ->
+          QueryString.modifyParamValues( n:"#{s.map.getCenter().lat},#{s.map.getCenter().lng}" , z:"#{s.map.getZoom()}" )
+
         if s.mobile
           # Relay clicked marker to infoBox if Mobile
           s.clickedId = undefined
@@ -190,13 +198,14 @@ angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, C
             s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".context-map-icon-tab"], 'dblclick')
             s.addMouseEvents([".edit-place", ".edit-places"], 'clickControl')
             if ( (s.cluster && !s.currentBounds().contains( s.cluster.clusterObject._bounds ) ) || ( s.place && !s.currentBounds().contains( s.place.leafletLocation ) ) ) then s.clearClicked()
+            s.updateQuery()
           s.map.on "moveend", -> s.mobileUpdateView()
           s.map.on "zoomend", -> setTimeout ( -> s.mobileUpdateView() ), 400
           s.mobileUpdateView()
 
         if !s.mobile
           # Relay back sidelist marker info if Web Browser
-          s.changePlacesInView = () -> 
+          s.webUpdateView = () -> 
             currentBounds = s.currentBounds()
             stuffOnMap = clusterMarkers._featureGroup.getLayers()
             s.placesInView = []
@@ -216,9 +225,10 @@ angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, C
             s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".bucket-list-li"], 'hover')
             s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".context-map-icon-tab"], 'dblclick')
             s.addMouseEvents([".edit-place", ".edit-places"], 'clickControl')
-          s.map.on "moveend", -> s.$apply -> s.changePlacesInView()
-          s.map.on "zoomend", -> setTimeout ( -> s.$apply -> s.changePlacesInView() ), 400
-          s.changePlacesInView()
+            s.updateQuery()
+          s.map.on "moveend", -> s.$apply -> s.webUpdateView()
+          s.map.on "zoomend", -> setTimeout ( -> s.$apply -> s.webUpdateView() ), 400
+          s.webUpdateView()
           # Change Initial Loading Tab for Future Viewing, Recenter 'Lost' Browser to Start
           $(element.find("#no-items-msg")).html('Not All Who Wander Are Lost...')
           element.find("#first-bucket-item")[0].addEventListener 'click', -> s.map.fitBounds(s.totalBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
