@@ -133,7 +133,7 @@ module Completers
           place = PlaceCompleter.new(yml_data('thoumieux-flipped', 'http://www.eater.com/', "Gâteaux Thoumieux")[:place]).complete!
           expect( place.lat ).to be_within(0.01).of(48.85989163257022)
           expect( place.lon ).to be_within(0.01).of(2.3091419555351185)
-          expect( place.flags.find_by(name: "Invalid LatLon found").description ).to eq "Invalid LatLon found - Cleared out LatLon in PlaceAttrs"
+          expect( place.flags.find_by(name: "Invalid LatLon found").description ).to eq "Invalid LatLon found - Cleared out LatLon in PlaceMod::Attrs"
           expect( place.completion_steps ).to eq ["GoogleMaps", "FoursquareExplore", "FoursquareRefine", "TranslateAndRefine"]
           expect( place.hours ).to hash_eq({
             "mon"=>[["1000", "2000"]], 
@@ -154,7 +154,7 @@ module Completers
           place = PlaceCompleter.new(yml_data('apizza-scholls-flipped', 'http://www.eater.com/', "Apizza Scholls")[:place]).complete!
           expect( place.lat ).to be_within(0.01).of(45.512043)
           expect( place.lon ).to be_within(0.01).of(-122.613144)
-          expect( place.flags.find_by(name: "Invalid LatLon found").description ).to eq("Invalid LatLon found - Cleared out LatLon in PlaceAttrs")
+          expect( place.flags.find_by(name: "Invalid LatLon found").description ).to eq("Invalid LatLon found - Cleared out LatLon in PlaceMod::Attrs")
           expect( place.menu ).to eq "https://foursquare.com/v/apizza-scholls/4293c000f964a52038241fe3/menu"
           expect( place.mobile_menu ).to eq "https://foursquare.com/v/4293c000f964a52038241fe3/device_menu"
           expect( place.foursquare_id ).to eq "4293c000f964a52038241fe3"

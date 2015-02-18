@@ -5,7 +5,7 @@ module Completers
 
     attr_accessor :attrs, :place, :photos, :pip, :url
     def initialize(attrs, url=nil)
-      normalizer = PlaceAttrs.new(attrs.merge(scrape_url: url))
+      normalizer = PlaceMod::Attrs.new(attrs.merge(scrape_url: url))
       @photos, @attrs, @flags = normalizer.set_photos, normalizer.normalize, normalizer.flags
       @pip = PlaceInProgress.new @attrs, @flags
       add_state("Start of PlaceCompleter")

@@ -11,7 +11,7 @@ class Place < BaseModel
 
   delegate :open?, :open_again_at, :open_until, to: :hour_calculator
 
-  extend PlaceQueries
+  extend PlaceMod::Queries
 
   def tz; timezone_string; end
 
@@ -20,7 +20,7 @@ class Place < BaseModel
   end
 
   def self.find_or_initialize(atts)
-    Services::PlaceFinder.new(atts).find!
+    PlaceMod::Finder.new(atts).find!
   end
 
   def self.center_coordinate(locations)
@@ -32,7 +32,7 @@ class Place < BaseModel
   end
 
   def validate_and_save!(images=[], flags=[])
-    PlaceSaver.new(self, images, flags).save!
+    PlaceMod::Saver.new(self, images, flags).save!
   end
 
   def image
@@ -63,7 +63,7 @@ class Place < BaseModel
   end
 
   def meta_icon
-    PlaceMetaIcon.new(meta_category).icon
+    PlaceMod::MetaIcon.new(meta_category).icon
   end
 
   def alt_names
@@ -117,6 +117,6 @@ class Place < BaseModel
   end
 
   def hour_calculator
-    PlaceHours.new(hours, tz)
+    PlaceMod::Hours.new(hours, tz)
   end
 end

@@ -1,5 +1,5 @@
-module Services
-  class PlaceFinder
+module PlaceMod
+  class Finder
 
     attr_accessor :atts, :search_atts, :query
     delegate :street_addresses, :names, :full_address, :lat, :lon, :region, :locality, :sublocality, :cross_street, :phones, :foursquare_id,
