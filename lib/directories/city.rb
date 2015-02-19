@@ -16,7 +16,7 @@ module Directories
           string.downcase.match /(?:\A|[ ]|[,]|[;]|[.]|[:]|[()]|[\/]|[\\])#{name}(?:\z|[ ]|[,]|[:]|[;]|[.]|[)]|[\/]|[\\])/
         end
       end
-      city ? city.last[:accented] : nil
+      city
     end
 
     def get_city_country(city)
