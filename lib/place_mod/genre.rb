@@ -16,6 +16,7 @@ module PlaceMod
 
     def determine_genre_of_name(name)
       category_result = includes_destination_category?( name )
+
       return category_result if category_result
       updated, found = name.dup, {}
 
@@ -88,7 +89,7 @@ module PlaceMod
     def includes_destination_category?(name, take_area=false)
       category_set.select{ |k, v| (k == 'area') == take_area }.each do |type, list| 
         list.each do |category|
-          if name.downcase.include?(category.downcase)
+          if name.downcase.scan(/(?:\s|^)#{ category.downcase }(?:\s|\z)/).any?
             return ( take_area ? 'Area' : "Destination" ) 
           end
         end
@@ -118,7 +119,7 @@ module PlaceMod
       carmen_countries.each do |country|
         [:name, :common_name, :code, :alpha_3_code].each do |spelling|
           finder = country.send(spelling)
-          return finder if finder.present? && name.scan( /(?:\s|\z)#{ finder }(?:\s|\z)/ ).any?
+          return finder if finder.present? && name.scan( /(?:\s|^)#{ finder }(?:\s|\z)/ ).any?
         end
       end
       nil
