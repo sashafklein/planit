@@ -55,8 +55,8 @@ class Mark < BaseModel
   end
 
   def self.average_updated
-    array = map(&:updated_at).map{ |updated_at| updated_at.to_i }
-    array.sum/array.count
+    array = map(&:updated_at).map(&:to_i)
+    array.sum/array.count.to_f
   end
 
   def self.coordinates
@@ -87,9 +87,14 @@ class Mark < BaseModel
     places.att_by_frequency(:locality)
   end
   
-  # def self.all_types
-  #   places.countries
-  # end
+  def self.all_tags
+    ["Maine trip with Leah", "foodie recs"] # array of all tags, uniq, alphabetically sorted
+  end
+
+  def self.filtered(array)
+    []
+    # MarkFilterer.new(array).results
+  end
 
   def show_icon
     @show_icon ||= Icon.new(category, lodging, meal, mark).filename

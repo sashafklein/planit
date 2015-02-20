@@ -23,6 +23,26 @@ html, body
   &:hover
     color: #f06
 
+#flash
+  position: fixed
+  top: 0px
+  left: 0px
+  right: 0px
+  width: 100%
+  background: #fafafa
+  z-index: 1000000
+  text-align: center
+
+.flash-alert
+  height: 68px
+  border-top: 3px solid #f06
+  display: block
+  line-height: 65px
+  font-size: 15px
+  text-transform: uppercase
+  color: #333
+  font-weight: bold
+
 .planit-modal
   z-index: 150000 !important
   button.close:hover
@@ -158,16 +178,19 @@ hr.divider
 .band
   &.gray
     background: #dfdfdf
-    border-top: 1px solid #f3f3f3
-    border-bottom: 1px solid #c4c7ca
+    &.bordered
+      border-top: 1px solid #f3f3f3
+      border-bottom: 1px solid #c4c7ca
   &.off-white
     background: #eee
-    border-top: 1px solid #fafafa
-    border-bottom: 1px solid #ddd
+    &.bordered
+      border-top: 1px solid #fafafa
+      border-bottom: 1px solid #ddd
   &.white
     background: #fff
-    border-top: 1px solid #fff
-    border-bottom: 1px solid #eee
+    &.bordered
+      border-top: 1px solid #fff
+      border-bottom: 1px solid #eee
 
 .a-override, a.a-override
   &.a-gray
@@ -480,6 +503,15 @@ hr.divider
     visibility: hidden
     display: none
 
+  #flash
+    background: #000
+
+  .flash-alert
+    height: 55px
+    line-height: 52px
+    font-size: 13px
+    color: #eee
+
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
 
@@ -500,3 +532,12 @@ hr.divider
   .large-screen, .largest-screen, .large-screen-inline
     visibility: hidden
     display: none
+
+  #flash
+    background: #000
+
+  .flash-alert
+    height: 55px
+    line-height: 52px
+    font-size: 13px
+    color: #eee

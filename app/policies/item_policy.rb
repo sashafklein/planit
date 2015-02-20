@@ -11,11 +11,11 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def show?
-    item.published? ? user : admin? || owns?
+    item.published? ? member? : admin? || owns?
   end
 
   def create?
-    user
+    member?
   end
 
   def new?

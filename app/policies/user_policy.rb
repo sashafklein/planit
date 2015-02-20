@@ -6,19 +6,19 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    user
+    member?
   end
 
   def places?
-    user
+    member?
   end
 
   def guides?
-    user
+    member?
   end
 
   def inbox?
-    record == user
+    member? ? record == user : false
   end
 
   # def update?

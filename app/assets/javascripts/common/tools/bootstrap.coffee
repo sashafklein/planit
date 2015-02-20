@@ -9,7 +9,7 @@ angular.module('Common').factory 'Bootstrap', (UserLocation) ->
     @_toggleModals: () ->
       $('#planit-modal').modal()
       $('#planit-modal').on 'shown.bs.modal', -> $('#planit-modal').focus()
-      $('#planit-modal-new').on 'shown.bs.modal', -> UserLocation.showPosition(UserLocation.latLong)
+      $('#planit-modal-new').on 'shown.bs.modal', -> UserLocation.showPositionInNewModal(UserLocation.latLong)
 
     @_clearInputs: () ->
       $('.input-with-clear').keyup -> $(this).next().toggle Boolean($(this).val())

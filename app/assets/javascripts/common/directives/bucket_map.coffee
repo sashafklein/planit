@@ -1,4 +1,4 @@
-angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, ClusterLocator, BasicOperators, ClickControls, QueryString, $compile, $timeout) ->
+angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, ClusterLocator, BasicOperators, ClickControls, QueryString, PlaceFilterer, $compile, $timeout) ->
 
   return {
     restrict: 'E'
@@ -23,8 +23,9 @@ angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, C
       s.requireDoubleClick = if s.mobile then true else false
 
       User.findPlaces( s.userId )
-        .success (places) ->
-          s.primaryPlaces = Place.generateFromJSON(places.user_pins)
+        .success (places) -> 
+          s.primaryPlacesRaw = Place.generateFromJSON(places.user_pins)
+          s.filterPlaces( s.primaryPlacesRaw )
           s.drawMap(s, element)
         .error (response) ->
           console.log("Failed to grab places information!")
@@ -35,49 +36,45 @@ angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, C
       else if s.webPadding && !s.mobile
         s.padding = JSON.parse("[" + s.webPadding + "]")
 
-      s.expanded = -> s.$parent.mapExpanded
-
-      s.$parent.$watch 'mapExpanded', (value) ->
-        if s.map?
-          currentBounds = s.map.getBounds()
-          setTimeout (->
-            s.map.invalidateSize()
-            s.map.fitBounds(currentBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
-            return
-          ), 400
-      
-      # Cluster Locator Functions
-      s.bestListLocation = (places, center) ->
-        location = BasicOperators.commaAndJoin( _(places).map('names').map((p) -> p[0]).value() ) if places.length < 3
-        location ||= Place.lowestCommonArea(places)
-        location ||= ClusterLocator.nearestGlobalRegion(center)
-        return location
-
-      # Disable Map Panning & Zooming for List Box or Item Box
-      fixInfoBox = () ->
-        s.infoBox = if !s.mobile then document.getElementById('in-view-list') else document.getElementById('in-view-item')
-        s.infoBox.addEventListener 'mouseover', -> 
-          s.map.dragging.disable()
-          s.map.doubleClickZoom.disable()
-        s.infoBox.addEventListener 'mouseout', -> 
-          s.map.dragging.enable()
-          s.map.doubleClickZoom.disable()
-      setTimeout ( -> fixInfoBox() ), 1000
-
-      s.generateContextualUserPins = ->
-        if s.currentUserId != s.userId
-          User.findPlaces( s.currentUserId )
-            .success (places) ->
-              places = Place.generateFromJSON(places.current_user_pins)
-              s.contextPlaces = _(places).select (place) ->
-                !_( _(s.primaryPlaces).map('id') ).contains( place.id )
-              for contextPlace in s.contextPlaces.value()
-                PlanitMarker.contextPin(contextPlace).addTo(s.contextGroup)
-            .error (response) ->
-              alert("Failed to grab current user's other places!")
-              console.log response
+      s.filterPlaces = (places) ->
+        s.primaryPlaces = PlaceFilterer.returnFiltered( places )
 
       s.drawMap = (s, elem) ->
+
+        s.$watch 'QueryString.changesInQuery', ->
+          s.filterPlaces(s, elem) # if QueryString.changesInQuery > 1
+          console.log "Map Filter: #{QueryString.changesInQuery}"
+
+        # Cluster Locator Functions
+        s.bestListLocation = (places, center) ->
+          location = BasicOperators.commaAndJoin( _(places).map('names').map((p) -> p[0]).value() ) if places.length < 3
+          location ||= Place.lowestCommonArea(places)
+          location ||= ClusterLocator.nearestGlobalRegion(center)
+          return location
+
+        # Disable Map Panning & Zooming for List Box or Item Box
+        fixInfoBox = () ->
+          s.infoBox = if !s.mobile then document.getElementById('in-view-list') else document.getElementById('in-view-item')
+          s.infoBox.addEventListener 'mouseover', -> 
+            s.map.dragging.disable()
+            s.map.doubleClickZoom.disable()
+          s.infoBox.addEventListener 'mouseout', -> 
+            s.map.dragging.enable()
+            s.map.doubleClickZoom.disable()
+        setTimeout ( -> fixInfoBox() ), 1000
+
+        s.generateContextualUserPins = ->
+          if s.currentUserId != s.userId
+            User.findPlaces( s.currentUserId )
+              .success (places) ->
+                places = Place.generateFromJSON(places.current_user_pins)
+                s.contextPlaces = _(places).select (place) ->
+                  !_( _( s.primaryPlaces ).map('id') ).contains( place.id )
+                for contextPlace in s.contextPlaces.value()
+                  PlanitMarker.contextPin(contextPlace).addTo(s.contextGroup)
+              .error (response) ->
+                alert("Failed to grab current user's other places!")
+                console.log response
 
         scrollWheelZoom = false unless s.scrollWheelZoom
         doubleClickZoom = true

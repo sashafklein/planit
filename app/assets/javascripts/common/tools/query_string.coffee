@@ -4,6 +4,8 @@ angular.module('Common').factory 'QueryString', () ->
 
     # PUBLIC
 
+    @changesInQuery = 0
+
     @centerIs: ->
       if mValue = QueryString._currentParamValue('m')
         string = decodeURI( mValue )
@@ -13,8 +15,20 @@ angular.module('Common').factory 'QueryString', () ->
         else
           null
 
-    # @tagInclude: (tag) ->
-    #   return true if QueryString._currentParamValue('t').indexOf(tag) != -1
+    @paramString: (paramName) ->
+      if paramValue = QueryString._currentParamValue(paramName)
+        string = decodeURI( paramValue )
+        return string
+      return ""
+
+    @paramArray: (paramName) ->
+      if paramValue = QueryString._currentParamValue(paramName)
+        string = decodeURI( paramValue )
+        return _tagsArray = _( string.split('+') ).compact().uniq().value()
+      return []
+
+    @paramIncludes: (paramName, paramValue) ->
+      return true if QueryString.paramArray(paramName).indexOf(paramValue) != -1
       
     # @categoryInclude: (meta_category) ->
     #   return true if QueryString._currentParamValue('c').indexOf(meta_category) != -1
@@ -26,6 +40,8 @@ angular.module('Common').factory 'QueryString', () ->
       query = if QueryString._currentParamValue('q') then decodeURI( QueryString._currentParamValue('q') ) else null
 
     @modifyParamValues: (params_to_sluggify) ->
+      @changesInQuery++ if (params_to_sluggify.q || params_to_sluggify.f)
+      console.log( "QueryString: #{@changesInQuery}" )
       pathArray = window.location.pathname.split('/')
       pathArray.pop()
       newPath = pathArray.join('/') + "/#{QueryString._sluggify(params_to_sluggify,{})}"
@@ -49,6 +65,8 @@ angular.module('Common').factory 'QueryString', () ->
     @_currentOrNewParamValue: (paramName, paramValue) ->
       if cleanParamValue = QueryString._removeBlanks( paramValue )
         return encodeURI( "#{paramName}=#{ cleanParamValue }" ) unless !cleanParamValue.length
+      else if paramValue == ''
+        return ''
       else if currentValue = QueryString._removeBlanks( QueryString._currentParamValue(paramName) )
         return encodeURI( "#{paramName}=#{ currentValue }" ) unless !currentValue.length
       else
@@ -59,21 +77,19 @@ angular.module('Common').factory 'QueryString', () ->
 
     @_currentParamValue: (paramName) -> 
       _slugAfterParamEquals = window.location.href.split('/').pop().split( QueryString._paramRegex(paramName) )
-      return _slugThisParamOnly = decodeURI( _slugAfterParamEquals[1].split(/[&]/).shift() ) unless _slugAfterParamEquals.length < 2
+      return _slugThisParamOnly = decodeURI( _slugAfterParamEquals[1].split(/[&]/).shift().replace('#','') ) unless _slugAfterParamEquals.length < 2
       null
 
     @_sluggify: (params,to_clear) ->
       newSlug = []
-      newSlug.push( QueryString._currentOrNewParamValue('q', params.q) ) unless to_clear.q # search query
-      newSlug.push( QueryString._currentOrNewParamValue('c', params.c) ) unless to_clear.c # meta-categories
-      newSlug.push( QueryString._currentOrNewParamValue('t', params.t) ) unless to_clear.t # tags
-      newSlug.push( QueryString._currentOrNewParamValue('n', params.n) ) unless to_clear.n # nearby in text or lat/lon
       newSlug.push( QueryString._currentOrNewParamValue('m', params.m) ) unless to_clear.m # nearby in text or lat/lon
-      newSlug.push( QueryString._currentOrNewParamValue('z', params.z) ) unless to_clear.z # zoom-level
+      newSlug.push( QueryString._currentOrNewParamValue('v', params.v) ) unless to_clear.v # view type -- map or not?
+      newSlug.push( QueryString._currentOrNewParamValue('n', params.n) ) unless to_clear.n # nearby in text or lat/lon
       newSlug.push( QueryString._currentOrNewParamValue('u', params.u) ) unless to_clear.u # users
       newSlug.push( QueryString._currentOrNewParamValue('p', params.p) ) unless to_clear.p # places
-      newSlug.push( QueryString._currentOrNewParamValue('f', params.f) ) unless to_clear.f # other filters, e.g. 'wifi', 'open'
-      newSlug.push( QueryString._currentOrNewParamValue('v', params.v) ) unless to_clear.v # view type -- map or not?
+      newSlug.push( QueryString._currentOrNewParamValue('t', params.t) ) unless to_clear.t # tags
+      newSlug.push( QueryString._currentOrNewParamValue('f', params.f) ) unless to_clear.f # filters, e.g. 'wifi', 'open'
+      newSlug.push( QueryString._currentOrNewParamValue('q', params.q) ) unless to_clear.q # search query
       if _(newSlug).compact().value().length > 0
         "#{QueryString._currentPage()}?#{_(newSlug).compact().value().join('&')}" 
       else

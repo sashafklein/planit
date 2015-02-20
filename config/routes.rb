@@ -3,10 +3,12 @@ Rails.application.routes.draw do
   devise_for :users
 
   root 'landing#show'
-  get '/save', to: 'statics#save'
+  get '/index', to: 'statics#splash'
+  get '/waitlist', to: 'statics#waitlist'
   get '/welcome', to: 'statics#welcome'
+  get '/save', to: 'statics#save'
 
-  resources :plans, only: [:show, :new] do
+  resources :plans, only: [:show, :new, :index] do
     get :print, on: :member
     get :edit, on: :member
   end
@@ -17,7 +19,7 @@ Rails.application.routes.draw do
     get :inbox, on: :member
   end
 
-  resources :places, only: [:show, :new] do
+  resources :places, only: [:show, :new, :index] do
   end
 
   namespace :api do

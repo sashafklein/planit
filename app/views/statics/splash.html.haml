@@ -1,0 +1,21 @@
+- title('Private Beta')
+- page_title('')
+
+.static-page#splash-page
+
+  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'splash' }
+
+  .band.gray.spaced-extra
+    .container
+      .sixteen.columns.left-section
+        .static-section-header.large= "Planit is in Private Beta"
+        .static-section-content
+          %p
+            %i{ class: 'fa fa-home padded-icon' }
+            We're building a home for all the places you love.
+          %p
+            %i{ class: 'icon-map padded-icon' }
+            Save, curate, and share your favorite spots.
+          %p
+            %i{ class: 'fa fa-heart padded-icon' }
+            Never forget a great recommendation.

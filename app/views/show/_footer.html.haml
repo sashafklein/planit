@@ -29,12 +29,13 @@
         Contact & Support
       .footer-section
         Please share any feedback or issues you have via 
-        %a{href: "mailto:userlove@plan.it"}= "userlove@plan.it"
+        %a{href: "mailto:hello@plan.it"}= "hello@plan.it"
 
 .footer.mobile{ class: page_type }
-  .bottom-nav-bar
-    = current_user.decorate.nav_item_map(page_type)
-    = current_user.decorate.nav_item_list(page_type)
-    = current_user.decorate.nav_item_new(page_type)
-    = current_user.decorate.nav_item_inbox(page_type)
-    = current_user.decorate.nav_item_share(page_type)
+  - if current_user_is_active
+    .bottom-nav-bar
+      = current_user.decorate.nav_item_map(page_type)
+      = current_user.decorate.nav_item_list(page_type)
+      = current_user.decorate.nav_item_new(page_type)
+      = current_user.decorate.nav_item_inbox(page_type)
+      = current_user.decorate.nav_item_share(page_type)

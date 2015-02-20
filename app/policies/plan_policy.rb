@@ -11,11 +11,11 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def show?
-    plan.published? ? user : admin? || owns?
+    plan.published? ? member? : admin? || owns?
   end
 
   def create?
-    user?
+    member?
   end
 
   def new?

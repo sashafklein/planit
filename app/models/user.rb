@@ -1,6 +1,8 @@
 class User < BaseModel
 
-  enum role: { member: 0, admin: 1 }
+  after_create :notify_signup
+
+  enum role: { pending: 0, member: 1, admin: 2 }
 
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -44,12 +46,12 @@ class User < BaseModel
   end
 
   def planify_source_guide(source, source_marks)
-    pseudo_guide = {}
-    pseudo_guide.name = source
-    pseudo_guide.items.marks = source_marks
-    pseudo_guide.permission = 'public'
-    pseudo_guide.slug = source_marks.places.ids.join('+')
-    return pseudo_guide
+    {
+      name: source,
+      items: { marks: source_marks },
+      permission: 'public',
+      slug: source_marks.places.ids.join("+"),
+    }.to_sh 
   end
 
   def chunkify_source_marks_by_tag(source, source_marks, min_threshold=8)
@@ -88,6 +90,12 @@ class User < BaseModel
   def guides
     (plans + source_guides(all_sources, 25))
     # for each plan, get average_updated for items.marks, then sort descending
+  end
+
+  private
+
+  def notify_signup
+    UserMailer.notify_of_signup(self).deliver
   end
   
 end

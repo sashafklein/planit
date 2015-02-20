@@ -4,10 +4,7 @@
     %meta{charset: "utf-8"}/
     %meta{content: "NOODP", name: "ROBOTS"}/
     %meta{content: "initial-scale=1", name: "viewport"}/
-    - if yield(:title).present?
-      %title= ["Planit",yield(:title)].join(" - ")
-    - else
-      %title= "Planit - Save and Share the Places You Love"
+    %title= ["Planit",( yield(:title).present? ? yield(:title) : "Save and Share the Places You Love" )].join(" - ")
 
     = csrf_meta_tags
     = stylesheet_link_tag :application, media: "all"

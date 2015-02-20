@@ -2,8 +2,12 @@ module ApplicationHelper
 
   # TITLE
 
-  def title(page_title)
-    content_for(:title) { page_title }
+  def title(title)
+    content_for(:title) { title }
+  end
+
+  def page_title(page_title)
+    content_for(:page_title) { page_title }
   end
 
   # DATE-BASED LISTS
@@ -16,8 +20,16 @@ module ApplicationHelper
     current_user ? current_user.id : nil
   end
 
-  def current_user_is_user
-    if @user && current_user
+  def current_user_is_active
+    if current_user
+      if current_user.admin? || current_user.member?
+        return true
+      end
+    end
+  end
+
+  def current_user_owns_record
+    if @user && current_user_is_active
       @user == current_user
     end
   end

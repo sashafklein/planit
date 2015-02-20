@@ -50,28 +50,28 @@ class UserDecorator < Draper::Decorator
   # NAVBARS
 
   def nav_item_map(page_type)
-    return nav_item('map', 'my places', 'span', 'icon-map4', nil, nil) if page_type == 'places'
-    nav_item('map', 'my places', 'span', 'icon-map4', user_path(model)+'/places', nil)
+    return nav_item('map', 'my places', 'icon-map4', nil, nil) if page_type == 'places'
+    nav_item('map', 'my places', 'icon-map4', user_path(model)+'/places', nil)
   end
 
   def nav_item_list(page_type)
-    return nav_item('guides', 'my guides', 'i', 'fa fa-list', nil, nil) if (page_type == 'guides' || page_type == 'plan')
-    nav_item('guides', 'my guides', 'i', 'fa fa-list', user_path(model)+'/guides', nil)
+    return nav_item('guides', 'my guides', 'fa fa-list', nil, nil) if (page_type == 'guides' || page_type == 'plan')
+    nav_item('guides', 'my guides', 'fa fa-list', user_path(model)+'/guides', nil)
   end
 
   def nav_item_new(page_type)
-    return nav_item('new', 'add new', 'i', 'fa fa-plus-circle', nil, 'disabled') if page_type == 'new'
-    nav_item('new', 'add new', 'i', 'fa fa-plus-circle', nil, true)
+    return nav_item('new', 'add new', 'fa fa-plus-circle', nil, 'disabled') if page_type == 'new'
+    nav_item('new', 'add new', 'fa fa-plus-circle', nil, true)
   end
 
   def nav_item_inbox(page_type)
-    return nav_item('inbox', 'my inbox', 'i', 'fa fa-inbox', nil, 'disabled') if page_type == 'inbox'
-    nav_item('inbox', 'my inbox', 'i', 'fa fa-inbox', nil, 'disabled') # user_path(model)+'/inbox' 
+    return nav_item('inbox', 'my inbox', 'fa fa-inbox', nil, 'disabled') if page_type == 'inbox'
+    nav_item('inbox', 'my inbox', 'fa fa-inbox', nil, 'disabled') # user_path(model)+'/inbox' 
   end
 
   def nav_item_share(page_type)
-    return nav_item('share', 'share this', 'i', 'fa fa-paper-plane', nil, 'disabled') if (page_type == 'inbox' || page_type == 'howto' || page_type == 'welcome')
-    nav_item('share', 'share this', 'i', 'fa fa-paper-plane', nil, true)
+    return nav_item('share', 'share this', 'fa fa-paper-plane', nil, 'disabled') if (page_type == 'inbox' || page_type == 'howto' || page_type == 'welcome')
+    nav_item('share', 'share this', 'fa fa-paper-plane', nil, true)
   end
 
   # 
@@ -84,69 +84,65 @@ class UserDecorator < Draper::Decorator
   end
 
   def filter_or_tag_button(page_type)
-    return "<i class='fa fa-sliders fa-lg'></i> <i class='fa fa-caret-down'></i>".html_safe if page_type == 'places' 
-    return "<i class='fa fa-tag fa-lg'></i> <i class='fa fa-caret-down'></i>".html_safe if page_type == 'guides' 
+    return "<i class='filter-or-number fa fa-sliders fa-lg' id='number_filtered'></i> <i class='fa fa-caret-down'></i>".html_safe if page_type == 'places' 
+    return "<i class='tag-or-number fa fa-tag fa-lg' id='number_of_tags'></i> <i class='fa fa-caret-down'></i>".html_safe if page_type == 'guides' 
   end
 
   def filter_dropdown_menu(page_type)
     html = "<ul class='dropdown-menu dropdown-menu-left filter-dropdown-menu'>"
     if page_type == 'places'
       html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#' class='apply-filters'>Apply Filters:</a>"
-      html +=   "<a href='#' class='clear-all-filters'>Clear All <b>×</b></a>"
+      html +=   "<div class='apply-filters'>Apply Filters:</div>"
+      html +=   "<div class='clear-all-filters'>Clear All Filters<b>×</b></div>"
+      html += "</li>"
+      html += "<li class='divider nearby-user-location'></li>"
+      html += "<li class='filter-dropdown-menu nearby-user-location'>"
+      html +=   "<label><input type='checkbox' class='filter-dropdown-menu-nearby' id='nearby' disabled='true'>Nearby<i class='filter-dropdown-menu-icon fa fa-compass'></i></label>"
       html += "</li>"
       html += "<li class='divider'></li>"
       html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'><label><input type='checkbox' class='filter-dropdown-menu-checkbox' disabled='disabled'>Nearby Current Location<i class='filter-dropdown-menu-icon fa fa-compass'></i></label></a>"
+      html +=   "<label><input type='checkbox' class='filter-dropdown-menu-checkbox' id='loved'>Only Most Loved<i class='filter-dropdown-menu-icon fa fa-heart'></i></label>"
+      html += "</li>"
+      html += "<li class='filter-dropdown-menu'>"
+      html +=   "<label><input type='checkbox' class='filter-dropdown-menu-checkbox' id='hide-been'>Hide Already Visited<i class='filter-dropdown-menu-icon fa fa-check-square'></i></label>"
       html += "</li>"
       html += "<li class='divider'></li>"
       html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Only Most Loved<i class='filter-dropdown-menu-icon fa fa-heart'></i></label></a>"
+      html +=   "<label><input type='checkbox' class='filter-dropdown-menu-checkbox' id='food'>Food & Markets<i class='filter-dropdown-menu-icon icon-local-restaurant'></i></label>"
       html += "</li>"
       html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Only Saved<i class='filter-dropdown-menu-icon fa fa-bookmark'></i></label></a>"
+      html +=   "<label><input type='checkbox' class='filter-dropdown-menu-checkbox' id='drink'>Drink & Nightlife<i class='filter-dropdown-menu-icon icon-local-bar'></i></label>"
       html += "</li>"
       html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Been<i class='filter-dropdown-menu-icon fa fa-check-square'></i></label></a>"
-      html += "</li>"
-      html += "<li class='divider'></li>"
-      html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Food & Markets<i class='filter-dropdown-menu-icon icon-local-restaurant'></i></label></a>"
+      html +=   "<label><input type='checkbox' class='filter-dropdown-menu-checkbox' id='seedo'>See & Do<i class='filter-dropdown-menu-icon icon-directions-walk'></i></label>"
       html += "</li>"
       html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Drink & Nightlife<i class='filter-dropdown-menu-icon icon-local-bar'></i></label></a>"
+      html +=   "<label><input type='checkbox' class='filter-dropdown-menu-checkbox' id='stay'>Stay<i class='filter-dropdown-menu-icon icon-home'></i></label>"
       html += "</li>"
       html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>See & Do<i class='filter-dropdown-menu-icon icon-directions-walk'></i></label></a>"
+      html +=   "<label><input type='checkbox' class='filter-dropdown-menu-checkbox' id='relax'>Relax<i class='filter-dropdown-menu-icon icon-drink'></i></label>"
       html += "</li>"
       html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Stay<i class='filter-dropdown-menu-icon icon-home'></i></label></a>"
-      html += "</li>"
-      html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Relax<i class='filter-dropdown-menu-icon icon-drink'></i></label></a>"
-      html += "</li>"
-      html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'><label><input type='checkbox' checked class='filter-dropdown-menu-checkbox'>Other<i class='filter-dropdown-menu-icon fa fa-question'></i></label></a>"
+      html +=   "<label><input type='checkbox' class='filter-dropdown-menu-checkbox' id='other'>Other<i class='filter-dropdown-menu-icon fa fa-question'></i></label>"
       html += "</li>"
       html += "<li class='divider'></li>"
       html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'><label><input type='checkbox' class='filter-dropdown-menu-checkbox'>Open<i class='filter-dropdown-menu-icon fa fa-clock-o'></i></label></a>"
+      html +=   "<label><input type='checkbox' class='filter-dropdown-menu-checkbox' id='open'>Open<i class='filter-dropdown-menu-icon fa fa-clock-o'></i></label>"
       html += "</li>"
       html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'><label><input type='checkbox' class='filter-dropdown-menu-checkbox'>Wifi<i class='filter-dropdown-menu-icon fa fa-wifi'></i></label></a>"
+      html +=   "<label><input type='checkbox' class='filter-dropdown-menu-checkbox' id='wifi'>Wifi<i class='filter-dropdown-menu-icon fa fa-wifi'></i></label>"
       html += "</li>"
     elsif page_type == 'guides'
-      html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#' class='apply-filters'>Narrow By Tag:</a>"
-      html +=   "<a href='#' class='clear-all-filters'>See All Guides <b>×</b></a>"
+      html += "<li class='tag-dropdown-menu'>"
+      html +=   "<div class='apply-filters'>Narrow By Tag:</div>"
+      html +=   "<div class='clear-all-filters'>See All Guides <b>×</b></div>"
       html += "</li>"
       html += "<li class='divider'></li>"
-      html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'>Nearby Current Location<i class='filter-dropdown-menu-icon fa fa-compass'></i></a>"
-      html += "</li>"
-      html += "<li class='filter-dropdown-menu'>"
-      html +=   "<a href='#'>Tagged Filter</a>"
-      html += "</li>"
+      marks.all_tags.each do |tag|
+        html += "<li class='tag-dropdown-menu'>"
+        html +=   "<label><input type='checkbox' class='tag-dropdown-menu-checkbox' id='#{tag}'>#{tag}</label>"
+        html += "</li>"
+      end
     end
     html += "</ul>"
     html.html_safe
@@ -155,13 +151,6 @@ class UserDecorator < Draper::Decorator
   def user_dropdown_menu
     html = "<ul class='dropdown-menu dropdown-menu-right user-dropdown-menu'>"
     if current_user
-      # html += "<li class='user-dropdown-menu'>"
-      # html +=   "<a href='#'>Get the Plugin<i class='user-dropdown-menu-icon fa fa-bolt fa-fw'></i></a>"
-      # html += "</li>"
-      # html += "<li class='user-dropdown-menu'>"
-      # html +=   "<a href='#'>Recent Activity<i class='user-dropdown-menu-icon fa fa-history fa-fw'></i></a>"
-      # html += "</li>"
-      # html += "<li class='divider'></li>"
       html += "<li class='user-dropdown-menu'>"
       html +=   "<a href='" + edit_user_registration_path + "'>Update Account<i class='user-dropdown-menu-icon fa fa-user fa-fw'></i></a>"
       html += "</li>"
@@ -228,7 +217,7 @@ class UserDecorator < Draper::Decorator
     end
   end
 
-  def nav_item(type, hint, icon_tag, icon, link_to, modal)
+  def nav_item(type, hint, icon, link_to, modal)
     selected = if (!link_to.present? && !modal.present?) then true else false end
     disabled = if (modal == 'disabled') then true else false end
     html = ''
@@ -243,7 +232,7 @@ class UserDecorator < Draper::Decorator
     html += " selected" if selected
     html += " disabled" if disabled
     html += "'>"
-    html += "<#{icon_tag} class='nav-item-icon #{icon}'></#{icon_tag}><div class='nav-item-hint'><span>#{hint.upcase}</span></div></div>"
+    html += "<i class='nav-item-icon #{icon}'></i><div class='nav-item-hint'><span>#{hint.upcase}</span></div></div>"
     html += "</a>"
     html.html_safe
   end

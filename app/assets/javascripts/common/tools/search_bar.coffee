@@ -21,7 +21,7 @@ angular.module('Common').factory 'SearchBar', (QueryString) ->
       $('#search-input-field').val($('#search-teaser-field').html())
 
     @_searchToggleText: (stay_open=null) ->
-      searchVal = SearchBar.  _removeBlanks( $('#search-input-field').val().replace(/\s\s+/g, ' ').replace(/^\s*/g, '').replace(/\s*$/g, '') )
+      searchVal = SearchBar._removeBlanks( $('#search-input-field').val().replace(/\s\s+/g, ' ').replace(/^\s*/g, '').replace(/\s*$/g, '') )
       QueryString.modifyParamValues(q:searchVal)
       $('#search-teaser-field').html(searchVal)
       @_searchToggleOff() unless ( searchVal.length == 0 || stay_open )
@@ -29,14 +29,15 @@ angular.module('Common').factory 'SearchBar', (QueryString) ->
     # INITIALIZE
 
     @initializePage: () ->
-      $('#search-input-field').val(QueryString.fetchQuery())
-      $('#search-teaser-field').html(QueryString.fetchQuery())
-      $('.search-teaser').click -> SearchBar._searchToggleOn()
-      $(".search-close, html").click -> SearchBar._searchToggleOff()
-      $('.expanded-search-and-filter, .search-teaser, .filter-dropdown-menu').click (event) -> event.stopPropagation()
-      $('#search-input-button').click -> SearchBar._searchToggleText()
-      $('#search-input-field').keyup -> 
-        if event.keyCode == 13 then SearchBar._searchToggleText()
-        if event.keyCode == 32 then SearchBar._searchToggleText(true)
+      if typeof $('#search-input-field').val() == 'string'
+        $('#search-input-field').val(QueryString.fetchQuery())
+        $('#search-teaser-field').html(QueryString.fetchQuery())
+        $('.search-teaser').click -> SearchBar._searchToggleOn()
+        $(".search-close, html").click -> SearchBar._searchToggleOff()
+        $('.expanded-search-and-filter, .search-teaser, .filter-dropdown-menu').click (event) -> event.stopPropagation()
+        $('#search-input-button').click -> SearchBar._searchToggleText()
+        $('#search-input-field').keyup -> 
+          if event.keyCode == 13 then SearchBar._searchToggleText()
+          if event.keyCode == 32 then SearchBar._searchToggleText(true)
 
   return SearchBar

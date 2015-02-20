@@ -15,7 +15,8 @@ class ApplicationPolicy
   end
 
   def create?
-    user.present?
+    member?
+    # user.present?
   end
 
   def new?
@@ -38,6 +39,10 @@ class ApplicationPolicy
 
   def admin?
     user ? user.admin? : false
+  end 
+
+  def member?
+    user ? user.member? || user.admin? : false
   end 
 
   def owns?

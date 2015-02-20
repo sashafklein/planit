@@ -139,35 +139,81 @@
           color: #aaa
           &:hover
             color: #aaa
+      &.on
+        color: #f06
+        &:hover
+          color: #f06
+          .fa-caret-down
+            color: #aaa
+            a
+              color: #aaa
+        .fa-caret-down
+          color: #aaa
+          a
+            color: #aaa
+      .filtered-count
+        display: none
+        position: absolute
+        top: 42px
+        left: 0px
+        text-align: center
+        white-space: nowrap
+        padding: 5px 0 0 0
+        z-index: 950
+        span
+          text-transform: uppercase
+          font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+          font-size: 11px
+          line-height: 11px
+          font-weight: bold
+          padding: 3px 5px
+          border-radius: 3px
+          -webkit-border-radius: 3px
+          background: #fff
+          color: #f06 !important
 
     .search-teaser
-      width: 85%
       padding-bottom: 6px
-      display: inline-block
+      display: block
+      height: 20px
+      margin-left: 65px
       border-bottom: 1px solid #ccc
       cursor: text
       text-align: left
       &.full-width
         width: 100%
+        margin-left: 0
       #search-teaser-field
         font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
         font-size: 14px
         line-height: 14px
+        font-weight: normal
         color: #333
       i
         float: right
         cursor: pointer
         transition: all 0.2s ease
+        font-size: 14px
+        padding: 2px 14px 0 0
         &:hover
           color: #f06
 
     .filter-dropdown
       transition: all 0.2s ease
       color: #aaa
+      position: absolute
+      left: 0
+      width: 60px
+      overflow: hidden
       &:hover
         color: #f06
 
-ul.filter-dropdown-menu
+.filter-or-number
+  &.show-numbers
+    font-style: normal
+    font-weight: bold
+
+ul.filter-dropdown-menu, ul.tag-dropdown-menu
   padding: 15px 0
   text-align: left
   font-size: 14px
@@ -175,23 +221,33 @@ ul.filter-dropdown-menu
   li.divider
     margin: 6px 0
 
-  li.filter-dropdown-menu
+  li.filter-dropdown-menu, li.tag-dropdown-menu
     white-space: nowrap
     overflow: hidden
     width: auto
     transition: all 0.2s ease
-    a
-      cursor: pointer
+    padding: 0 20px
+    label, div
       display: inline-block
-      margin: 2px 20px
-      padding: 1px 5px
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-size: 14px
+      line-height: 14px
+      font-weight: bold
+      cursor: pointer
+      margin: 1px 0
+      padding: 3px 5px
       white-space: nowrap
       overflow: hidden
       border-radius: 3px
       background: #eee
+      color: #999 
+      &.only-this-filter
+        color: #ccc
+        text-transform: uppercase
+        font-size: 11px
       i, span
         float: right
-        padding: 2px 0
+        padding: 0
       &:hover
         color: #fff
         background: #f06
@@ -199,10 +255,6 @@ ul.filter-dropdown-menu
           color: #fff
       &.clear-all-filters
         display: none
-        visibility: hidden
-        padding: 1px 5px
-        margin: 2px 20px
-        border-radius: 3px
         background: #ccc
         color: #fff
         font-weight: bold
@@ -218,28 +270,26 @@ ul.filter-dropdown-menu
         background: transparent
         font-weight: bold
         color: #777 !important
-        &:hover
-          color: #777 !important
-        a
-          color: #777 !important
+        cursor: default
         &:hover
           color: #777 !important
 
-  .filter-dropdown-menu-icon
+  .filter-dropdown-menu-icon, .tag-dropdown-menu-icon
     display: inline-block
     margin-left: 10px
     transition: all 0.2s ease
     color: #777
 
-  .filter-dropdown-menu-checkbox
+  .filter-dropdown-menu-checkbox, .tag-dropdown-menu-checkbox, .filter-dropdown-menu-nearby
     display: inline-block
     margin-right: 10px
+    margin-top: 2px
 
 .page-title
   text-align: center
   display: block
   margin: 0
-  font-size: 24px
+  font-size: 18px
   line-height: 24px
   font-weight: bold
   font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
@@ -285,6 +335,7 @@ ul.filter-dropdown-menu
 #search-input-field, #search-input-button
   height: 28px
   font-family: avenir, 'trebuchet ms', open sans, arial !important
+  font-weight: normal !important
   font-size: 14px !important
   line-height: 28px !important
   padding: 0px 12px !important
@@ -407,6 +458,9 @@ li.user-dropdown-menu
     transition: all 0.2s ease
     overflow: hidden
     max-height: 30px
+    i 
+      display: inline-block
+      width: 20px
     &:hover, &:active
       color: #ff0066
       border-bottom: 3px #ff0066 solid

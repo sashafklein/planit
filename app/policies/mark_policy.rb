@@ -11,11 +11,11 @@ class MarkPolicy < ApplicationPolicy
   end
 
   def show?
-    mark.published? ? user : admin? || owns?
+    mark.published? ? member? : admin? || owns?
   end
 
   def create?
-    user?
+    member?
   end
 
   def new?

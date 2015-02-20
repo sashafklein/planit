@@ -1,4 +1,4 @@
-#how-to-save-page, #welcome-page
+.static-page
   
   .right-section
     text-align: right
@@ -6,13 +6,13 @@
       float: right
       right: 0
       margin-right: -40px
-    .welcome-section-content, .save-section-content
+    .static-section-content
       margin-right: 40px
     .learn-more
       float: left
   .left-section
     text-align: left
-    .welcome-section-content, .save-section-content
+    .static-section-content
       margin-left: 40px
     i.padded-icon
       float: left
@@ -21,35 +21,22 @@
     .learn-more
       float: right
 
-  .welcome-section-header
-    font-family: "Helvetica Neue", 'trebuchet ms'
-    font-size: 32px
-    line-height: 32px
-    font-weight: bold
-    color: #050b28
-    text-shadow: 1px 1px 1px #fff
-    margin-bottom: 20px
-
-  .welcome-section-content
-    padding: 0 20px
-    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-    font-size: 16px
-    line-height: 18px
-    font-weight: normal
-    p
-      position: relative
-
-  .welcome-section-divider
-
-  .save-section-header
+  .static-section-header
     font-family: "Helvetica Neue", 'trebuchet ms'
     font-size: 27px
     line-height: 27px
     font-weight: bold
     text-shadow: 1px 1px 1px #fff
     margin-bottom: 20px
+    &.large
+      font-size: 32px
+      line-height: 32px
+      color: #050b28
 
-  .save-section-content
+  .welcome-section-divider
+    background: #fff
+
+  .static-section-content
     padding: 0 20px
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
     font-size: 16px
