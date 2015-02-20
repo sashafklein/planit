@@ -535,8 +535,6 @@ input.required
 
 #in-view-item
   clear: both
-  display: block
-  visibility: visible
   z-index: 150000 !important
   bottom: 44px
   left: 0
@@ -586,6 +584,10 @@ input.required
 .profile-photo-box
   height: 280px
 
+#in-view-item
+  display: none
+  visibility: hidden
+
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
 
@@ -602,6 +604,10 @@ input.required
   .bucket-map-canvas
     bottom: 0px
 
+  #in-view-item
+    display: none
+    visibility: hidden
+
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
 
@@ -616,6 +622,10 @@ input.required
   #in-view-list
     display: none
     visibility: hidden
+
+  #in-view-item
+    display: block
+    visibility: visible
 
   .bucket-map-canvas
     bottom: 44px
@@ -634,6 +644,10 @@ input.required
   #in-view-list
     display: none
     visibility: hidden
+
+  #in-view-item
+    display: block
+    visibility: visible
 
   .bucket-map-canvas
     bottom: 44px

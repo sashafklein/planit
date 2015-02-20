@@ -41,10 +41,6 @@ angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, C
 
       s.drawMap = (s, elem) ->
 
-        s.$watch 'QueryString.changesInQuery', ->
-          s.filterPlaces(s, elem) # if QueryString.changesInQuery > 1
-          console.log "Map Filter: #{QueryString.changesInQuery}"
-
         # Cluster Locator Functions
         s.bestListLocation = (places, center) ->
           location = BasicOperators.commaAndJoin( _(places).map('names').map((p) -> p[0]).value() ) if places.length < 3
@@ -105,7 +101,7 @@ angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, C
           object.addEventListener 'mouseout', -> $timeout -> $(element.find(".#{id}")).removeClass('highlighted')
         s.doubleClickEvents = (object, id) ->
           object.addEventListener 'dblclick', -> 
-            document.location.href = '/places/' + id.split('p')[1]
+            document.location.href = '/places/' + id.split('p')[1] if id
         s.clickPinEvents = (object, id) -> 
           object.addEventListener 'click', -> s.$apply ->
             $(element.find(".#{s.clickedId}")).removeClass('highlighted') if (s.clickedId && (s.clickedId != id) )
@@ -191,7 +187,7 @@ angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, C
               s.place = undefined
           s.mobileUpdateView = () -> 
             s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".context-map-icon-tab"], 'clickPin')
-            s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".context-map-icon-tab"], 'dblclick')
+            s.addMouseEvents([".default-map-icon-tab", ".context-map-icon-tab"], 'dblclick')
             s.addMouseEvents([".edit-place", ".edit-places"], 'clickControl')
             if ( (s.cluster && !s.currentBounds().contains( s.cluster.clusterObject._bounds ) ) || ( s.place && !s.currentBounds().contains( s.place.leafletLocation ) ) ) then s.clearClicked()
             s.updateQuery()

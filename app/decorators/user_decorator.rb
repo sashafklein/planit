@@ -70,7 +70,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def nav_item_share(page_type)
-    return nav_item('share', 'share this', 'fa fa-paper-plane', nil, 'disabled') if (page_type == 'inbox' || page_type == 'howto' || page_type == 'welcome')
+    return nav_item('share', 'share this', 'fa fa-paper-plane', nil, 'disabled') if (page_type == 'inbox' || page_type == 'howto' || page_type == 'welcome' || page_type == 'static')
     nav_item('share', 'share this', 'fa fa-paper-plane', nil, true)
   end
 
@@ -78,7 +78,7 @@ class UserDecorator < Draper::Decorator
 
   def search_teaser(page_type)
     html = "<div class='search-teaser"
-    html += " full-width" unless ( page_type == 'guides' || page_type == 'places' )
+    html += " full-width" unless ( page_type == 'guides' || page_type == 'places')
     html += "'><span id='search-teaser-field'></span><i class='fa fa-search fa-lg'></i></div>"
     html.html_safe
   end
@@ -154,8 +154,8 @@ class UserDecorator < Draper::Decorator
       html += "<li class='user-dropdown-menu'>"
       html +=   "<a href='" + edit_user_registration_path + "'>Update Account<i class='user-dropdown-menu-icon fa fa-user fa-fw'></i></a>"
       html += "</li>"
-      html += "<li class='user-dropdown-menu'>"
-      html +=   "<a href='#'>Preferences<i class='user-dropdown-menu-icon fa fa-cog fa-fw'></i></a>"
+      html += "<li class='user-dropdown-menu mobile'>"
+      html +=   "<a href='" + legal_support_path + "'>Legal & Support<i class='user-dropdown-menu-icon fa fa-question fa-fw'></i></a>"
       html += "</li>"
       html += "<li class='divider'></li>"
       html += "<li class='user-dropdown-menu'>"

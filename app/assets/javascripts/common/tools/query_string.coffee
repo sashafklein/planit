@@ -41,7 +41,7 @@ angular.module('Common').factory 'QueryString', () ->
 
     @modifyParamValues: (params_to_sluggify) ->
       @changesInQuery++ if (params_to_sluggify.q || params_to_sluggify.f)
-      console.log( "QueryString: #{@changesInQuery}" )
+      console.log( "QueryString: #{@changesInQuery}" ) if (params_to_sluggify.q || params_to_sluggify.f)
       pathArray = window.location.pathname.split('/')
       pathArray.pop()
       newPath = pathArray.join('/') + "/#{QueryString._sluggify(params_to_sluggify,{})}"

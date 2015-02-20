@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   get '/welcome', to: 'statics#welcome'
   get '/save', to: 'statics#save'
 
+  get '/legal_support', to: 'statics#legal_support'
+  get '/legal/dmca', to: 'statics#dmca'
+  get '/legal/privacy', to: 'statics#privacy'
+
   resources :plans, only: [:show, :new, :index] do
     get :print, on: :member
     get :edit, on: :member

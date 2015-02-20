@@ -9,22 +9,23 @@ mod.factory 'PlaceFilterer', ($compile, $filter, QueryString) ->
       return filteredPlaces
 
     @_showNumberFiltered: (number) ->
-      if $('#number_filtered').html() == ""
-        if number > 0
-          $('#number_filtered').html("-#{number}")
-        else
-          $('#number_filtered').html(null)
+      if PlaceFilterer._filtersTriggered()
+        if $('#number_filtered').html() == ""
+          if number > 0
+            $('#number_filtered').html("-#{number}")
+          else
+            $('#number_filtered').html(null)
 
     @_filterPlace: (place) ->
       result = place
       # result = PlaceFilterer._been(result) if result
       # result = PlaceFilterer._loved(result) if result
-      result = PlaceFilterer._metaCategory(result) if result
-      result = PlaceFilterer._wifi(result) if result
-      result = PlaceFilterer._query(result) if result
+      result = PlaceFilterer._metaCategoryFilter(result) if result
+      result = PlaceFilterer._wifiFilter(result) if result
+      result = PlaceFilterer._queryFilter(result) if result
       # result = PlaceFilterer._open(result) if result
 
-    @_metaCategory: (place) ->
+    @_metaCategoryFilter: (place) ->
       filters = PlaceFilterer._params().meta_categories
       if filters && filters.length > 0
         for category in place.meta_categories
@@ -33,16 +34,16 @@ mod.factory 'PlaceFilterer', ($compile, $filter, QueryString) ->
         return null
       place
 
-    @_wifi: (place) ->
+    @_wifiFilter: (place) ->
       filter = PlaceFilterer._params().wifi
       if filter != ''
         return place if place.wifi == filter
         return null
       place
 
-    @_query: (place) ->
-      filter = PlaceFilterer._params().query
-      if filter && typeof filter == 'string'
+    @_queryFilter: (place) ->
+      filter = PlaceFilterer._queryString()
+      if filter
         filter = filter.toLowerCase()
         for name in place.names
           if name.toLowerCase().indexOf(filter) != -1
@@ -57,8 +58,10 @@ mod.factory 'PlaceFilterer', ($compile, $filter, QueryString) ->
         return null
       place
 
-    @_params: () -> 
+    @_queryString: () -> 
       queryString = QueryString.paramString('q')
+
+    @_params: () -> 
       filtersArray = QueryString.paramArray('f')
       params = { meta_categories: [], wifi: '', open: '', been: '', loved: '' }
       params.meta_categories.push "Food" if ( filtersArray.indexOf('food') != -1 )
@@ -78,5 +81,8 @@ mod.factory 'PlaceFilterer', ($compile, $filter, QueryString) ->
       # params.been == false if ( filtersArray.indexOf('hide-been') != -1 )
       # params.loved == true if ( filtersArray.indexOf('loved') != -1 )
       return params
+
+    @_filtersTriggered: () ->
+      QueryString.paramArray('f').length
 
   return PlaceFilterer

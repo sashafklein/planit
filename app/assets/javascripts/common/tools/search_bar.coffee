@@ -21,7 +21,7 @@ angular.module('Common').factory 'SearchBar', (QueryString) ->
       $('#search-input-field').val($('#search-teaser-field').html())
 
     @_searchToggleText: (stay_open=null) ->
-      searchVal = SearchBar._removeBlanks( $('#search-input-field').val().replace(/\s\s+/g, ' ').replace(/^\s*/g, '').replace(/\s*$/g, '') )
+      searchVal = SearchBar._removeBlanks( $('#search-input-field').val() )
       QueryString.modifyParamValues(q:searchVal)
       $('#search-teaser-field').html(searchVal)
       @_searchToggleOff() unless ( searchVal.length == 0 || stay_open )
