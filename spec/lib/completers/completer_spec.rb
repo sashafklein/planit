@@ -226,7 +226,6 @@ module Completers
             binding.pry
           end
 
-
           xit "correctly pins Amelia Toro" do
             # https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=amelia%20toro%20bogota
           end
