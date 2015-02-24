@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module PlaceMod
-  describe Genre do
+  describe FeatureType do
     describe "without database comparison" do
       describe "grabbing from other attrs" do
 
@@ -58,6 +58,11 @@ module PlaceMod
           place = Place.new(names: ["Japan"])
           assert_result place: place, expectation: "Country"
         end
+
+        it "chooses the correct spelling" do
+          place = Place.new(names: ['Marrakech, Morocco'])
+          assert_result place: place, expectation: 'Locality'
+        end
       end
 
       describe "use of Carmen" do
@@ -100,11 +105,6 @@ module PlaceMod
           place = Place.new( names: ["John's Restaurant"])
           assert_result place: place, expectation: "Destination", nearby: "John's Restaurant"
         end
-
-        it "returns 'area' if it is an area category and it hasn't found anything else" do
-          place = Place.new(names: ['Made up Town'])
-          assert_result place: place, expectation: 'Area'
-        end
       end
 
       describe "with anything other than complete location overlap" do
@@ -121,7 +121,7 @@ module PlaceMod
     end
 
     def assert_result(place:, expectation:, nearby: nil)
-      expect( Genre.new(place, nearby).determine ).to eq expectation
+      expect( FeatureType.new(place, nearby).determine ).to eq expectation
     end
   end
 end

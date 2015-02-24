@@ -24,7 +24,7 @@ module Completers
           lat: { val: @attrs[:lat], source: "PlaceInProgress" },
           names: [{ val: @attrs[:names], source: "PlaceInProgress" }],
           phones:[{ val: @attrs[:phones],source: "PlaceInProgress" }]
-        })
+        }, [:feature_type])
       end
     end
 

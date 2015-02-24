@@ -10,6 +10,7 @@ class Place < BaseModel
   validate!
 
   delegate :open?, :open_again_at, :open_until, to: :hour_calculator
+  enum feature_type: [:destination, :sublocality, :locality, :subregion, :region, :country, :area]
 
   extend PlaceMod::Queries
 
@@ -50,7 +51,7 @@ class Place < BaseModel
   def nearby
     list = [locality, subregion, region, country]
     return nil unless list.any?(&:present?)
-    list.reject(&:blank?).join(", ")
+    list.reject(&:blank?).uniq.join(", ")
   end
 
   def find_and_merge

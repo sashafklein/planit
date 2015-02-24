@@ -67,7 +67,7 @@ module Completers
       return false if location_type == "APPROXIMATE"
       return true unless pip.lat && pip.lon
 
-      points_ll_similarity(pip) > points_similarity
+      matcher(pip).ll_fit > points_similarity
     end
 
     def no_parens(val)

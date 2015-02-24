@@ -22,8 +22,8 @@ describe TrackHash do
       expect( @th.attrs.reject{ |k, v| v.blank? } ).to hash_eq({
         lat: { val: @attrs[:lat], source: 'First' },
         names: [{ val: @attrs[:names], source: 'First' }],
-        phones:[{ val: @attrs[:phones],source: 'First' }]
-      })
+        phones:[{ val: @attrs[:phones],source: 'First' }],
+      }, [:feature_type])
     end
   end
 

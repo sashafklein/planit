@@ -14,6 +14,7 @@ module PlaceMod
       format_and_validate_lat_lon
       normalize_json_attrs
       clean_nearby
+      set_feature_type
 
       @attrs = attrs.reject_val(&:nil?)
       found = PlaceMod::Finder.new(attrs).find!
@@ -102,6 +103,10 @@ module PlaceMod
 
     def clean_nearby
       attrs.nearby = attrs.nearby.gsub(/<.*>/, '') if attrs.nearby
+    end
+
+    def set_feature_type
+      attrs[:feature_type] ||= PlaceMod::FeatureType.new(attrs, attrs.nearby).number
     end
   end
 end

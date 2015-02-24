@@ -45,7 +45,6 @@ module Completers
 
     def photos
       venue_photos = json.photos.groups.find{ |h| h['type'] == 'venue' }
-      return [] unless venue_photos
 
       photo_list = venue_photos.items.first(30)
         .map{ |h| [h.prefix, h.suffix].join(FoursquareExploreVenue::IMAGE_SIZE) }
@@ -53,6 +52,8 @@ module Completers
       photo_list.map do |photo|
         Image.where(url: photo).first_or_initialize(source: 'Foursquare')
       end
+    rescue 
+      []
     end
 
     private

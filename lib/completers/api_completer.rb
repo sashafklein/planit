@@ -51,12 +51,12 @@ module Completers
     end
 
     def pick_venue
-      ok_lls = venues.select{ |v| v.points_ll_similarity(pip) >= 2 }
+      ok_lls = venues.select{ |v| v.matcher(pip).ll_fit >= 2 }
       
       @venue = ok_lls.find do |v| 
-        v.matching_ll_and_name_or_address(pip)
+        v.venue_match?(pip)
       end
-
+      
       venue_failure unless @venue
       pip.unsure << class_name if @venue != ok_lls.first
     rescue => e

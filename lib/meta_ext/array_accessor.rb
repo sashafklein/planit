@@ -3,7 +3,7 @@ module MetaExt
       
     module ClassMethods
 
-      def array_accessor(*symbols)
+      def array_accessor(*symbols, omit_scopes: false)
         symbols.each do |singular|
 
           plural = singular.to_s.split("_").join(" ").pluralize.split(" ").join("_")
@@ -14,24 +14,26 @@ module MetaExt
             end
 
             define_method(singular) do
-              send(plural).compact.first
+              respond_to?(plural) ? send(plural).compact.first : nil
             end
           end
 
-          metaclass.instance_eval do 
-            define_method("without_#{singular}") do |arg=nil|
-              if arg.blank?
-                where("? = '{}'", plural)
-              else
-                where.not("? = ANY (#{plural})", arg.is_a?(Array) ? arg.first : arg)
+          unless omit_scopes
+            metaclass.instance_eval do 
+              define_method("without_#{singular}") do |arg=nil|
+                if arg.blank?
+                  where("? = '{}'", plural)
+                else
+                  where.not("? = ANY (#{plural})", arg.is_a?(Array) ? arg.first : arg)
+                end
               end
-            end
 
-            define_method("with_#{singular}") do |arg=nil|
-              if arg.blank?
-                where.not("? = '{}'", plural)
-              else
-                where("? = ANY (#{plural})", arg.is_a?(Array) ? arg.first : arg)
+              define_method("with_#{singular}") do |arg=nil|
+                if arg.blank?
+                  where.not("? = '{}'", plural)
+                else
+                  where("? = ANY (#{plural})", arg.is_a?(Array) ? arg.first : arg)
+                end
               end
             end
           end

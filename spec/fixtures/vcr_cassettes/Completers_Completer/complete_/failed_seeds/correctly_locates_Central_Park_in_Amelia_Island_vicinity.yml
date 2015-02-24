@@ -1,0 +1,722 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=Amelia%20Island,%20Fla.&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Mon, 23 Feb 2015 21:33:56 GMT
+      Expires:
+      - Tue, 24 Feb 2015 21:33:56 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.08
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Amelia Island",
+                       "short_name" : "Amelia Island",
+                       "types" : [ "natural_feature", "establishment" ]
+                    },
+                    {
+                       "long_name" : "Nassau County",
+                       "short_name" : "Nassau County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "32034",
+                       "short_name" : "32034",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "Amelia Island, Florida 32034, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.705708,
+                          "lng" : -81.4267175
+                       },
+                       "southwest" : {
+                          "lat" : 30.515759,
+                          "lng" : -81.488119
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.6265697,
+                       "lng" : -81.46085599999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.705708,
+                          "lng" : -81.4267175
+                       },
+                       "southwest" : {
+                          "lat" : 30.515759,
+                          "lng" : -81.488119
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJ1cmKF4lV5IgRG0ZcW9coKuU",
+                 "types" : [ "natural_feature", "establishment" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Mon, 23 Feb 2015 21:33:56 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?near=Nassau%20County,%20Florida,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=Central%20Park&v=20140819&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 23 Feb 2015 21:33:56 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '231'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '494'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-sjc3132-SJC
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"fallbackCategory":{"target":{"type":"path","url":"\/venue\/explore","params":{"query":"Central
+        Park","sw":"30.262885,-82.084290","ne":"30.849411,-81.339941"}},"refinements":[{"query":"outdoors
+        & recreation"}]},"geocode":{"what":"","where":"nassau county florida united
+        states","center":{"lat":30.61058,"lng":-81.77142},"displayString":"Nassau
+        County, FL, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":30.829924,"lng":-81.346358},"sw":{"lat":30.273336999999998,"lng":-82.050331}}},"slug":"nassau-county-florida","longId":"72057594042093539"},"headerLocation":"Current
+        map view","headerFullLocation":"Current map view","headerLocationGranularity":"unknown","query":"central
+        park","totalResults":7,"suggestedBounds":{"ne":{"lat":30.686774346337298,"lng":-81.44448396566158},"sw":{"lat":30.309863540241377,"lng":-81.67104314449232}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4cd5654489eb6dcb9151281e","name":"Central
+        Park","contact":{},"location":{"address":"1100 Atlantic Avenue","lat":30.6696420369693,"lng":-81.45478211015387,"postalCode":"32034","cc":"US","city":"Fernandina
+        Beach","state":"FL","country":"United States","formattedAddress":["1100 Atlantic
+        Avenue","Fernandina Beach, FL 32034"]},"categories":[{"id":"4bf58dd8d48988d163941735","name":"Park","pluralName":"Parks","shortName":"Park","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/parks_outdoors\/park_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":235,"usersCount":137,"tipCount":0},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":9,"groups":[{"type":"venue","name":"Venue
+        photos","count":9,"items":[{"id":"4f5b85dbe4b0a4baa28f71e8","createdAt":1331398107,"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/fMb8LIaymxXEOjWRfcs47RcLrDNlMBuq_YlyVQFOU3o.jpg","width":612,"height":612,"user":{"id":"905162","firstName":"Ben","lastName":"Whitlock","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/W31XS3XD5ZJRL1XZ.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"4f5b85dbe4b0a4baa28f71e8","createdAt":1331398107,"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/fMb8LIaymxXEOjWRfcs47RcLrDNlMBuq_YlyVQFOU3o.jpg","width":612,"height":612,"user":{"id":"905162","firstName":"Ben","lastName":"Whitlock","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/W31XS3XD5ZJRL1XZ.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true,"exactMatch":true},"referralId":"e-0-4cd5654489eb6dcb9151281e-0"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"53bd5caf498ef1619a0738a3","name":"Central
+        Parking","contact":{"phone":"8777170004","formattedPhone":"(877) 717-0004","twitter":"spplusparking"},"location":{"address":"9810
+        August Dr","crossStreet":"Enter on 9810 August Dr","lat":30.407007,"lng":-81.578679,"postalCode":"32206","cc":"US","city":"Jacksonville","state":"FL","country":"United
+        States","formattedAddress":["9810 August Dr (Enter on 9810 August Dr)","Jacksonville,
+        FL 32206"]},"categories":[{"id":"4c38df4de52ce0d596b336e1","name":"Parking","pluralName":"Parking","shortName":"Parking","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/building\/parking_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":0,"usersCount":0,"tipCount":0},"url":"http:\/\/spplus.com","like":false,"specials":{"count":0,"items":[]},"photos":{"count":0,"groups":[]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"storeId":"JAX6"},"flags":{"exactMatch":true},"referralId":"e-0-53bd5caf498ef1619a0738a3-1"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"53bd5caf498ef1619a073859","name":"Central
+        Parking","contact":{"phone":"9043569841","formattedPhone":"(904) 356-9841","twitter":"spplusparking"},"location":{"address":"100
+        East Church St","crossStreet":"Enter on Newnan St , Church St","lat":30.329708,"lng":-81.655603,"postalCode":"32202","cc":"US","city":"Jacksonville","state":"FL","country":"United
+        States","formattedAddress":["100 East Church St (Enter on Newnan St , Church
+        St)","Jacksonville, FL 32202"]},"categories":[{"id":"4c38df4de52ce0d596b336e1","name":"Parking","pluralName":"Parking","shortName":"Parking","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/building\/parking_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":0,"usersCount":0,"tipCount":0},"url":"http:\/\/spplus.com","like":false,"specials":{"count":0,"items":[]},"photos":{"count":0,"groups":[]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"storeId":"JAX3"},"flags":{"outsideRadius":true,"exactMatch":true},"referralId":"e-0-53bd5caf498ef1619a073859-2"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"53bd5caf498ef1619a07382e","name":"Central
+        Parking","contact":{"phone":"9043569841","formattedPhone":"(904) 356-9841","twitter":"spplusparking"},"location":{"address":"200
+        West Bay St","crossStreet":"Enter on Bay St","lat":30.327111,"lng":-81.660745,"postalCode":"32202","cc":"US","city":"Jacksonville","state":"FL","country":"United
+        States","formattedAddress":["200 West Bay St (Enter on Bay St)","Jacksonville,
+        FL 32202"]},"categories":[{"id":"4c38df4de52ce0d596b336e1","name":"Parking","pluralName":"Parking","shortName":"Parking","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/building\/parking_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":0,"usersCount":0,"tipCount":0},"url":"http:\/\/spplus.com","like":false,"specials":{"count":0,"items":[]},"photos":{"count":0,"groups":[]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"storeId":"JAX1"},"flags":{"outsideRadius":true,"exactMatch":true},"referralId":"e-0-53bd5caf498ef1619a07382e-3"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"53bd5caf498ef1619a073844","name":"Central
+        Parking","contact":{"phone":"9043569841","formattedPhone":"(904) 356-9841","twitter":"spplusparking"},"location":{"address":"22
+        East Monroe St","crossStreet":"Enter on Adams St, Adams St, Monroe St","lat":30.32842,"lng":-81.657001,"postalCode":"32202","cc":"US","city":"Jacksonville","state":"FL","country":"United
+        States","formattedAddress":["22 East Monroe St (Enter on Adams St, Adams St,
+        Monroe St)","Jacksonville, FL 32202"]},"categories":[{"id":"4c38df4de52ce0d596b336e1","name":"Parking","pluralName":"Parking","shortName":"Parking","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/building\/parking_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":0,"usersCount":0,"tipCount":0},"url":"http:\/\/spplus.com","like":false,"specials":{"count":0,"items":[]},"photos":{"count":0,"groups":[]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"storeId":"JAX2"},"flags":{"outsideRadius":true,"exactMatch":true},"referralId":"e-0-53bd5caf498ef1619a073844-4"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"53bd5caf498ef1619a073867","name":"Central
+        Parking","contact":{"phone":"9043569841","formattedPhone":"(904) 356-9841","twitter":"spplusparking"},"location":{"address":"31
+        West Adams St","crossStreet":"Enter on West Adams St","lat":30.328422,"lng":-81.65806,"postalCode":"32202","cc":"US","city":"Jacksonville","state":"FL","country":"United
+        States","formattedAddress":["31 West Adams St (Enter on West Adams St)","Jacksonville,
+        FL 32202"]},"categories":[{"id":"4c38df4de52ce0d596b336e1","name":"Parking","pluralName":"Parking","shortName":"Parking","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/building\/parking_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":0,"usersCount":0,"tipCount":0},"url":"http:\/\/spplus.com","like":false,"specials":{"count":0,"items":[]},"photos":{"count":0,"groups":[]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"storeId":"JAX4"},"flags":{"outsideRadius":true,"exactMatch":true},"referralId":"e-0-53bd5caf498ef1619a073867-5"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"501bd23ae4b084a4c49a9a77","name":"Central
+        Parking","contact":{"phone":"9043569841","formattedPhone":"(904) 356-9841","twitter":"spplusparking"},"location":{"address":"11
+        East Forsyth St","crossStreet":"Enter on East Forsyth St","lat":30.326995849609375,"lng":-81.65619659423828,"postalCode":"32202","cc":"US","city":"Jacksonville","state":"FL","country":"United
+        States","formattedAddress":["11 East Forsyth St (Enter on East Forsyth St)","Jacksonville,
+        FL 32202"]},"categories":[{"id":"4c38df4de52ce0d596b336e1","name":"Parking","pluralName":"Parking","shortName":"Parking","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/building\/parking_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":29,"usersCount":3,"tipCount":0},"url":"http:\/\/spplus.com","like":false,"specials":{"count":0,"items":[]},"photos":{"count":0,"groups":[]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"storeId":"JAX5"},"flags":{"outsideRadius":true,"exactMatch":true},"referralId":"e-0-501bd23ae4b084a4c49a9a77-6"}]}]}}'
+    http_version: 
+  recorded_at: Mon, 23 Feb 2015 21:33:57 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/4cd5654489eb6dcb9151281e?oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 23 Feb 2015 21:33:57 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '51'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '493'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-sjc3125-SJC
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"venue":{"id":"4cd5654489eb6dcb9151281e","name":"Central
+        Park","contact":{},"location":{"address":"1100 Atlantic Avenue","lat":30.6696420369693,"lng":-81.45478211015387,"postalCode":"32034","cc":"US","city":"Fernandina
+        Beach","state":"FL","country":"United States","formattedAddress":["1100 Atlantic
+        Avenue","Fernandina Beach, FL 32034"]},"canonicalUrl":"https:\/\/foursquare.com\/v\/central-park\/4cd5654489eb6dcb9151281e","categories":[{"id":"4bf58dd8d48988d163941735","name":"Park","pluralName":"Parks","shortName":"Park","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/parks_outdoors\/park_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":235,"usersCount":137,"tipCount":0},"likes":{"count":3,"groups":[{"type":"others","count":3,"items":[{"id":"53352570","firstName":"Marie","lastName":"Bucher","gender":"female","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/NPKRCZINVSRWBLRD.jpg"}},{"id":"921271","firstName":"Graeme","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/2RITY5DU3OZRS4GS.jpg"}},{"id":"13162886","firstName":"Nancy","lastName":"Chandler","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/ZIAI1LKRSBSHNFMP.jpg"}}]}],"summary":"Marie
+        Bucher, Graeme & Nancy Chandler"},"like":false,"dislike":false,"ok":false,"specials":{"count":0,"items":[]},"photos":{"count":9,"groups":[{"type":"venue","name":"Venue
+        photos","count":9,"items":[{"id":"4e05fd0940a3786af70b4260","createdAt":1309015305,"source":{"name":"Foursquare
+        for iOS","url":"https:\/\/foursquare.com\/download\/#\/iphone"},"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/VYS2RBQCTJE40PWORHYEVCLJM2E2NVYPC3IZMAR3Z2GLXH0J.jpg","width":540,"height":720,"user":{"id":"8375867","firstName":"Dina","lastName":"Grimes","gender":"female","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/SKASSIFBEZFQGAJY.jpg"}},"visibility":"public"},{"id":"4f523c66e4b0d3a8f4706c55","createdAt":1330789478,"source":{"name":"Foursquare
+        for iOS","url":"https:\/\/foursquare.com\/download\/#\/iphone"},"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/NB9-JEYfXGlZfQeauET5ClNcdSrBURMO8vPJBcAVp_Q.jpg","width":537,"height":720,"user":{"id":"21636340","firstName":"Colin","lastName":"Hetchka","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/K3OK0KYSJJPBWSH5.jpg"}},"visibility":"public"},{"id":"5256acde498ec65c3ab45ec6","createdAt":1381412062,"source":{"name":"Instagram","url":"http:\/\/instagram.com"},"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/28969575_Q2Ue5wEnvkgYzmwAMfWDGlO0SDAVTRm1cT5W0Hn1tQ4.jpg","width":640,"height":640,"user":{"id":"28969575","firstName":"David","lastName":"Hawk","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/DYAAQUGA1RS232OL.jpg"}},"visibility":"public"},{"id":"519787fc498efa68e634240f","createdAt":1368885244,"source":{"name":"Foursquare
+        for Android","url":"https:\/\/foursquare.com\/download\/#\/android"},"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/45018408_7UF9Rqwn0-EnUz56ejeaKYNzASvFzrfk7B9Cy8FHADg.jpg","width":960,"height":720,"user":{"id":"45018408","firstName":"Angela","lastName":"Aarons","gender":"female","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/KRXZXELBPABEIUVU.jpg"}},"visibility":"public"},{"id":"50b7c8bae4b055e6a3b7f57a","createdAt":1354221754,"source":{"name":"Foursquare
+        for Android","url":"https:\/\/foursquare.com\/download\/#\/android"},"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/41890808_wMK_fnYSfEHZn8D9gxxB70dcs7RjJ6896p9vPQmA6FU.jpg","width":720,"height":406,"user":{"id":"41890808","firstName":"JP","lastName":"Quinn","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/0XLT3R42OYYUGZHI.jpg"}},"visibility":"public"},{"id":"4ecffe2e9a52262b824376d3","createdAt":1322253870,"source":{"name":"Instagram","url":"http:\/\/instagram.com"},"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/IIRXHYJHK2YIJCJFJMS1Q0FHSCXRMBZLG3A2RHULDAK1KNBX.jpg","width":612,"height":612,"user":{"id":"12703019","firstName":"Mitch","lastName":"Broadbent","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/TGCWXSBFSGFZYWCX.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"reasons":{"count":0,"items":[]},"createdAt":1289053508,"tips":{"count":0,"groups":[{"type":"following","name":"Tips
+        from people you follow","count":0,"items":[]}]},"tags":[],"shortUrl":"http:\/\/4sq.com\/arEO7K","timeZone":"America\/New_York","listed":{"count":0,"groups":[]},"pageUpdates":{"count":0,"items":[]},"inbox":{"count":0,"items":[]},"attributes":{"groups":[]}}}}'
+    http_version: 
+  recorded_at: Mon, 23 Feb 2015 21:33:57 GMT
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=30.6696420369693,-81.45478211015387&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Mon, 23 Feb 2015 21:33:57 GMT
+      Expires:
+      - Tue, 24 Feb 2015 21:33:57 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.08
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "1200",
+                       "short_name" : "1200",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Atlantic Avenue",
+                       "short_name" : "Atlantic Ave",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Fernandina Beach",
+                       "short_name" : "Fernandina Beach",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Nassau County",
+                       "short_name" : "Nassau County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "32034",
+                       "short_name" : "32034",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "1200 Atlantic Avenue, Fernandina Beach, FL 32034, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 30.668986,
+                       "lng" : -81.454904
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.6703349802915,
+                          "lng" : -81.45355501970849
+                       },
+                       "southwest" : {
+                          "lat" : 30.6676370197085,
+                          "lng" : -81.45625298029151
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJZWNih-b-5IgR0zesA0rvyMM",
+                 "types" : [ "street_address" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Fernandina Beach",
+                       "short_name" : "Fernandina Beach",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Nassau County",
+                       "short_name" : "Nassau County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "32034",
+                       "short_name" : "32034",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "Fernandina Beach, FL 32034, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.7056984,
+                          "lng" : -81.42815349999999
+                       },
+                       "southwest" : {
+                          "lat" : 30.5995321,
+                          "lng" : -81.4834089
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.6696818,
+                       "lng" : -81.46259189999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.7056984,
+                          "lng" : -81.42815349999999
+                       },
+                       "southwest" : {
+                          "lat" : 30.5995321,
+                          "lng" : -81.4834089
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJF7wAluz-5IgR4zzyykZvENM",
+                 "types" : [ "locality", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "32034",
+                       "short_name" : "32034",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "Fernandina Beach",
+                       "short_name" : "Fernandina Beach",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Fernandina Beach, FL 32034, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.726288,
+                          "lng" : -81.42279600000001
+                       },
+                       "southwest" : {
+                          "lat" : 30.5018909,
+                          "lng" : -81.57441799999999
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.59447269999999,
+                       "lng" : -81.49379929999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.726288,
+                          "lng" : -81.42279600000001
+                       },
+                       "southwest" : {
+                          "lat" : 30.5018909,
+                          "lng" : -81.57441799999999
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJOz_cLvT_5IgRK5O0EGenZfo",
+                 "postcode_localities" : [ "FERNANDINA", "Fernandina Beach" ],
+                 "types" : [ "postal_code" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Nassau County",
+                       "short_name" : "Nassau County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Nassau County, FL, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.8297484,
+                          "lng" : -81.42672949999999
+                       },
+                       "southwest" : {
+                          "lat" : 30.2733371,
+                          "lng" : -82.050331
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.5927334,
+                       "lng" : -81.8224362
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.8297484,
+                          "lng" : -81.42672949999999
+                       },
+                       "southwest" : {
+                          "lat" : 30.2733371,
+                          "lng" : -82.050331
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJqbrwpti85YgRwPnj3RzwMuE",
+                 "types" : [ "administrative_area_level_2", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Jacksonville",
+                       "short_name" : "Jacksonville",
+                       "types" : [ "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Jacksonville, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.82749299999999,
+                          "lng" : -81.21286119999999
+                       },
+                       "southwest" : {
+                          "lat" : 29.622406,
+                          "lng" : -82.45954400000001
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.0806477,
+                       "lng" : -81.6911559
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.82749299999999,
+                          "lng" : -81.21286119999999
+                       },
+                       "southwest" : {
+                          "lat" : 29.622406,
+                          "lng" : -82.45954400000001
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJ3RPlMsXA5YgRpaB67lJK_7M",
+                 "types" : [ "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Florida, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 31.000968,
+                          "lng" : -80.0311371
+                       },
+                       "southwest" : {
+                          "lat" : 24.5210795,
+                          "lng" : -87.634896
+                       }
+                    },
+                    "location" : {
+                       "lat" : 27.6648274,
+                       "lng" : -81.5157535
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 31.000968,
+                          "lng" : -80.0311371
+                       },
+                       "southwest" : {
+                          "lat" : 24.5233179,
+                          "lng" : -87.634896
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJvypWkWV2wYgR0E7HW9MTLvc",
+                 "types" : [ "administrative_area_level_1", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "United States",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 71.389888,
+                          "lng" : -66.94539469999999
+                       },
+                       "southwest" : {
+                          "lat" : 18.9110642,
+                          "lng" : 172.4458955
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.09024,
+                       "lng" : -95.712891
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 49.38,
+                          "lng" : -66.94
+                       },
+                       "southwest" : {
+                          "lat" : 25.82,
+                          "lng" : -124.39
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJCzYy5IS16lQRQrfeQ5K5Oxw",
+                 "types" : [ "country", "political" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Mon, 23 Feb 2015 21:33:57 GMT
+- request:
+    method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=30.6696420369693&lng=-81.45478211015387&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 23 Feb 2015 21:33:58 GMT
+      Server:
+      - Apache/2.2.17 (Linux/SUSE)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"time":"2015-02-23 16:33","countryName":"United States","sunset":"2015-02-23
+        18:19","rawOffset":-5,"dstOffset":-4,"countryCode":"US","gmtOffset":-5,"lng":-81.45478211015387,"sunrise":"2015-02-23
+        06:58","timezoneId":"America/New_York","lat":30.6696420369693}'
+    http_version: 
+  recorded_at: Mon, 23 Feb 2015 21:33:58 GMT
+recorded_with: VCR 2.9.3

@@ -26,6 +26,7 @@ module PlaceMod
       expect( p.locality ).to eq 'Seattle'
       expect( p.region ).to eq 'Washington'
       expect( p.country ).to eq "United States"
+      expect( p.feature_type ).to eq "destination"
       expect( p.timezone_string ).to eq 'America/Los_Angeles'
     end
   end

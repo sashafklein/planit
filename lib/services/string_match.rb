@@ -13,6 +13,10 @@ module Services
       (word_match * word_match_weight) + (string_match * string_match_weight)
     end
 
+    def bidirectional_value
+      [value, self.class.new(target, main).value].sum / 2.0      
+    end
+
     private
 
     def string_match
