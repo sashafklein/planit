@@ -1,9 +1,9 @@
 module Completers
   class ApiCompleter::GoogleMaps < ApiCompleter
 
-    attr_reader :pip, :atts, :venue
+    attr_reader :pip, :atts, :venues, :venue
     def initialize(pip, atts, take: nil)
-      @pip, @atts = pip, atts
+      @pip, @atts, @venues = pip, atts, []
     end
 
     def complete
@@ -13,12 +13,25 @@ module Completers
       { place: pip, photos: photos, success: @success }.to_sh
     end
 
+    def get_venues(url, text=nil)
+      json_text = open( url ).read[/{.+}/]
+      json = eval( json_text ).to_sh
+      markers = json.super_fetch(:overlays, :markers) || []
+      markers.map do |marker|
+        ApiVenue::GoogleMapsVenue.new( marker, json_text, json.except(:overlays, :panel, :page_conf, :dopts), text )
+      end.select do |venue|
+        venue.marker.present? && venue.marker.id.length == 1
+      end
+    end
+
     private
 
     def find
       flag_query(url)
-      @venue = ApiVenue::GoogleMapsVenue.new( url )
-      @success = venue.marker.present? && ( triangulate_from_previous! || good_lat_lon? )
+      @venues = get_venues(url)
+      @venue = venues.first
+
+      @success = venue.present? && ( triangulate_from_previous! || good_lat_lon? )
     end
 
     def atts_to_merge
@@ -31,7 +44,7 @@ module Completers
     end
 
     def photos
-      venue.images.map{ |i| Image.new( source: i.credit, source_url: i.source, url: i.url ) }
+      venue ? venue.photos.map{ |i| Image.new( source: i.credit, source_url: i.source, url: i.url ) } : []
     end
 
     def url

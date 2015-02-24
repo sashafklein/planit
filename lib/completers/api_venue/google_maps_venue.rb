@@ -5,13 +5,9 @@ module Completers
     include CssOperators
     include Services::GeoQueries
 
-    attr_reader :json, :link, :text, :json_text, :success
-    def initialize(link, text=nil)
-      @link, @text = link, text
-      @json_text = open( link ).read[/{.+}/]
-      @json = eval( @json_text ).to_sh
-      @json.overlays.try(:delete, :layers)
-      @json.try(:delete, :panel)
+    attr_reader :json, :marker, :text, :json_text, :success
+    def initialize(marker, json_text, json, text=nil)
+      @marker, @json_text, @json, @text = marker, json_text, json, text 
     end
 
     def names
@@ -55,10 +51,6 @@ module Completers
       marker.super_fetch(:infoWindow, :hp, :actual_url)
     end
 
-    def google_place_url
-      marker.super_fetch(:infoWindow, :place_url)
-    end
-
     def phone
       phones.first          
     end
@@ -69,18 +61,28 @@ module Completers
     end
 
     def lat
+      best_guess = marker.latlng.try(:lat)
+      return best_guess.to_f if best_guess
+
       fetched_lat = json.super_fetch(:viewport, :center, :lat)
       chosen_lat = (fetched_lat && fetched_lat != 0) ? fetched_lat : json_text.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=([-]?\d+\.\d+)\,[-]?\d+\.\d+/).flatten.first
       chosen_lat.try(:to_f)
     end
 
     def lon
+      best_guess = marker.latlng.try(:lon)
+      return best_guess.to_f if best_guess
+
       fetched_lon = json.super_fetch(:viewport, :center, :lng)
       chosen_lon = (fetched_lon && fetched_lon != 0) ? fetched_lon : json_text.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=[-]?\d+\.\d+\,([-]?\d+\.\d+)/).flatten.first
       chosen_lon.try(:to_f)
     end
 
-    def images
+    def extra
+      { google_place_url: google_place_url }
+    end
+
+    def photos
       return [] unless original_photo && original_photo.scan("logo.").flatten.first != "logo."
       return [] unless photo = unhex( original_photo )
 
@@ -95,21 +97,17 @@ module Completers
       marker.sxcn
     end
 
-    def extra
-      { google_place_url: google_place_url }
-    end
-
-    def marker
-      json.super_fetch(:overlays, :markers, 0) || {}.to_sh
-    end
-
     private
 
     def original_photo          
       marker.super_fetch(:infoWindow, :photoUrl)
     end
 
+    def google_place_url
+      marker.super_fetch(:infoWindow, :place_url)
+    end
+
     memoize :names, :full_address, :locality, :region, :postal_code, :country, :street_address, 
-            :website, :lat, :lon, :images, :country_code, :original_photo, :google_place_url
+            :website, :lat, :lon, :photos, :country_code, :original_photo, :google_place_url
   end
 end

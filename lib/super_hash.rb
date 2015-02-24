@@ -26,7 +26,7 @@ class SuperHash < Hash
     keys.each do |key|
       hash = hash.reject{ |k, v| k == key.to_sym || k == key.to_s }
     end
-    hash
+    hash.to_sh
   end
 
   def merge(hash)
