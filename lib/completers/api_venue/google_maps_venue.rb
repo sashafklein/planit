@@ -108,6 +108,6 @@ module Completers
     end
 
     memoize :names, :full_address, :locality, :region, :postal_code, :country, :street_address, 
-            :website, :lat, :lon, :photos, :country_code, :original_image, :google_place_url
+            :website, :lat, :lon, :images, :country_code, :original_image, :google_place_url
   end
 end
