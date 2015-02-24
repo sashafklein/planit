@@ -39,15 +39,15 @@ module Completers
     def explore
       get_venues!
       pick_venue
-
-      pip.question!(class_name) unless @success = ( venue.present? && !pip.unsure.include?(class_name) )
+      
+      pip.question!(class_name) unless @success = ( venue.present? && !pip.unsure.include?(class_name) && venue.seems_legit? )
 
       merge!
       getPhotos
     end
 
     def nearby
-      @nearby ||= pip.nearby || alternate_nearby
+      @nearby ||= pip.generate_nearby || alternate_nearby
     end
 
     def get_venues!
@@ -62,7 +62,7 @@ module Completers
     end
 
     def sort_venues
-      @venues.sort!{ |a, b| b.points_ll_similarity(pip) <=> a.points_ll_similarity(pip) }
+      @venues.sort!{ |a, b| b.matcher(pip).ll_fit <=> a.matcher(pip).ll_fit }
       pip.flag( name: "Foursquare Explore Results", info: @venues.map{ |v| { name: v.name, fsid: v.foursquare_id } } )
     end
     
@@ -71,7 +71,7 @@ module Completers
     end
 
     def merge!
-      pip.flag( name: "Name-Lat/Lon Clash", details: "Taking information from identically named, distant FoursquareExplore data.", info: { name: venue.name, venue: { lat: venue.lat, lon: venue.lon }, place: { lat: pip.lat, lon: pip.lon } } ) if venue && venue.name_stringency(pip) == 0.99
+      pip.flag( name: "Name-Lat/Lon Clash", details: "Taking information from identically named, distant FoursquareExplore data.", info: { name: venue.name, venue: { lat: venue.lat, lon: venue.lon }, place: { lat: pip.lat, lon: pip.lon } } ) if venue && venue.matcher(pip).name_stringency == 0.99
       super
     end
 

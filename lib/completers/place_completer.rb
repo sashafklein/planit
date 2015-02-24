@@ -5,8 +5,8 @@ module Completers
 
     attr_accessor :attrs, :place, :photos, :pip, :url
     def initialize(attrs, url=nil)
-      normalizer = PlaceAttrs.new(attrs.merge(scrape_url: url))
-      @photos, @attrs, @flags = normalizer.set_photos, normalizer.normalize, normalizer.flags
+      normalizer = PlaceMod::Attrs.new(attrs.merge(scrape_url: url))
+      @photos, @attrs, @flags, @url = normalizer.set_photos, normalizer.normalize, normalizer.flags, url
       @pip = PlaceInProgress.new @attrs, @flags
       add_state("Start of PlaceCompleter")
     end
@@ -20,13 +20,13 @@ module Completers
     private
 
     def api_complete!
-      if area?
+      if !pip.destination?
         google_maps unless pip.completed("GoogleMaps")
-        narrow if !@google_success
+        narrow if !@google_maps_success
       else
         nearby unless pip.coordinate
         foursquare
-        google_maps if (!pip.completed("FoursquareExplore") || pip.unsure.any?)
+        google_maps if (!pip.completed("FoursquareExplore") || pip.unsure.any?) || !pip.street_address
         foursquare if retry_foursquare?
         pin if (pip.completion_steps - ["Nearby"]).empty?
       end
@@ -76,7 +76,7 @@ module Completers
     end
 
     def add_api_response(name, take: nil)
-      response = api_call(name, take)
+      return unless !pip.completed(name) && response = api_call(name, take)
       return unless instance_variable_set("@#{name.underscore}_success", response[:success])
 
       @pip = response[:place]
@@ -99,14 +99,10 @@ module Completers
     end
 
     def retry_foursquare?
-      pip.unsure.any? || 
-        (pip.completed("FoursquareExplore") && !pip.completed("FoursquareRefine")) ||
+      (pip.unsure.any? && pip.newer_info_on_unsure? ) || 
+        ( pip.completed("FoursquareExplore") && !pip.completed("FoursquareRefine") ) ||
         ( pip.flags.find{ |f| f.name == "Insufficient Atts for FoursquareExplore" } &&
           ApiCompleter::FoursquareExplore.new(pip).sufficient_to_fetch? )
-    end
-
-    def area?
-      false
     end
   end
 end

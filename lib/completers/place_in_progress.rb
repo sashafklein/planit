@@ -3,8 +3,8 @@ module Completers
 
     attr_accessor :unsure, :ds, :completion_steps, :triangulated
 
-    delegate *(Place.attribute_keys + [:coordinate, :pinnable, :nearby, :name, :street_address, :foursquare_id]), to: :place
-    delegate :attrs, :val, :source, :sources, :info, :set_val, :raw_attrs, :clean_attrs, :update, to: :ds
+    delegate *(Place.attribute_keys + [:coordinate, :pinnable, :name, :phone, :street_address, :foursquare_id, :destination?]), to: :place
+    delegate :attrs, :val, :source, :sources, :info, :set_val, :raw_attrs, :clean_attrs, :update, :nearby, to: :ds
 
     def initialize(attributes={}, flags=[])
       @_base = new_datastore(attributes, "Base")
@@ -70,7 +70,7 @@ module Completers
       datastores.select do |d| 
         d.type == type_name &&
           ( d.val(:names).include?(venue.name) || 
-            venue.points_ll_similarity(d.clean_attrs) >= 3 )
+            venue.matcher(d.clean_attrs).ll_fit >= 3 )
       end
     end
 
@@ -80,6 +80,22 @@ module Completers
 
     def question!(completer_name)
       @unsure = (@unsure + [completer_name]).uniq
+    end
+
+    def newer_info_on_unsure?
+      unsure.any? do |step|
+        completion_steps.any? do |done|
+          source_hierarchy.index(done) > source_hierarchy.index(step)
+        end
+      end
+    end
+
+    def generate_nearby
+      place.nearby
+    end
+
+    def nearby
+      ds.val :nearby
     end
 
     private

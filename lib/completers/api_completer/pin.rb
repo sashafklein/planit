@@ -9,9 +9,9 @@ module Completers
       return response_hash unless venue.found?
       
       if pip.coordinate
-        if venue.points_ll_similarity(pip) > 1
+        if venue.matcher(pip).ll_fit > 1
           set_vals fields: take , h_bump: -2
-        elsif venue.points_ll_similarity(pip) > 0 || venue.location_type == "APPROXIMATE"
+        elsif venue.matcher(pip).ll_fit > 0 || venue.location_type == "APPROXIMATE"
           set_vals fields: [:country, :region, :subregion, :locality]
         else
           reverse_lat_lon_if_appropriate

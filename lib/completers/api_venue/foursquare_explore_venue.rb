@@ -76,6 +76,16 @@ module Completers
       json['id']
     end
 
+    def seems_legit?
+      check_ins && check_ins > 50 && photos.any?
+    end
+
+    private
+
+    def check_ins
+      json.super_fetch %w( stats checkinsCount )
+    end
+
     memoize :lat, :lon, :name, :names, :foursquare_id, :full_address, :locality, :region, :country, :menu, :mobile_menu, :website, :phones, :street_addresses, :photos
   end
 end

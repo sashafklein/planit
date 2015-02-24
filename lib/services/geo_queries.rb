@@ -45,9 +45,9 @@ module Services
     def find_locality(string, country=nil)
       if string && country
         #swap out for FULL CITIES database stuff?
-        Directories::City.new.find_in(string)
+        (cluster = Directories::City.new.find_in(string)) ? cluster.last[:accented] : nil
       elsif string
-        Directories::City.new.find_in(string)
+        (cluster = Directories::City.new.find_in(string)) ? cluster.last[:accented] : nil
       end
     end
 

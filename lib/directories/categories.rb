@@ -881,5 +881,9 @@ module Directories
 
     end
 
+    def flat_list
+      list.values.flatten
+    end
+
   end
 end

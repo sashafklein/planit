@@ -50,8 +50,8 @@ module Completers
           expect( place.street_addresses ).to eq( ["701, 957 Calle 51"] )
           expect( place.names ).to eq( ["Penthouse room with a view (Airbnb)"] )
           expect( place.full_address ).to eq("Calle 51 # 9-57 Apt 701, Bogota, Cundinamarca, Colombia")
-          expect( place.lat ).to be_within(0.000001).of(4.6379639)
-          expect( place.lon ).to be_within(0.000001).of(-74.0648845)
+          expect( place.lat ).to float_eq 4.6379639
+          expect( place.lon ).to float_eq -74.0648845
         end
 
         it 'finds La Cevicheria in Cartagena' do
@@ -67,16 +67,16 @@ module Completers
         end
 
         it "locates the Trident hotel in Mumbai, with 'Bombay' as nearby" do
-          place = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: 'Bombay', street_address: 'Nariman Point, Mumbai, India'}).complete!
+          place = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: 'Nariman Point, Bombay'}).complete!
           expect( place.names ).to eq(["Trident Nariman Point", "The Trident"])
           expect( place.reload.phones ).to eq(["912266324343"])
           expect( place.region ).to eq("Maharashtra")
-          expect( place.street_addresses ).to eq(["Nariman Point, Mumbai, India", "Nariman Point"])
+          expect( place.street_addresses ).to eq(["Nariman Point"])
           expect( place.locality ).to eq("Mumbai")
           expect( place.category ).to eq('Hotel')
           expect( place.website ).to eq("http://www.tridenthotels.com")
-          expect( place.lat ).to be_within(0.01).of(18.9255728)
-          expect( place.lon ).to be_within(0.01).of(72.8242221)
+          expect( place.lat ).to float_eq 18.926940497504404
+          expect( place.lon ).to float_eq 72.82050490379333
           expect( place.meta_category ).to eq('Stay')
         end
 
@@ -87,8 +87,8 @@ module Completers
           expect( place.country ).to eq "United States"
           expect( place.region ).to eq "Washington"
           expect( place.locality ).to eq "Seattle"
-          expect( place.lat ).to be_within(0.03).of 47.659109
-          expect( place.lon ).to be_within(0.03).of -122.3503097
+          expect( place.lat ).to float_eq 47.659109
+          expect( place.lon ).to float_eq -122.3503097
           expect( place.website ).to eq "http://www.caffevita.com"
           expect( place.names ).to eq ["Caffe Vita Inc", "Caffé Vita"]
           expect( place.phones ).to eq(["2066323535"])
@@ -131,9 +131,9 @@ module Completers
 
         it "flips L/L if needed (e.g. Gâteaux Thoumieux in Mogadishu)" do
           place = PlaceCompleter.new(yml_data('thoumieux-flipped', 'http://www.eater.com/', "Gâteaux Thoumieux")[:place]).complete!
-          expect( place.lat ).to be_within(0.01).of(48.85989163257022)
-          expect( place.lon ).to be_within(0.01).of(2.3091419555351185)
-          expect( place.flags.find_by(name: "Invalid LatLon found").description ).to eq "Invalid LatLon found - Cleared out LatLon in PlaceAttrs"
+          expect( place.lat ).to float_eq 48.85989163257022
+          expect( place.lon ).to float_eq 2.3091419555351185
+          expect( place.flags.find_by(name: "Invalid LatLon found").description ).to eq "Invalid LatLon found - Cleared out LatLon in PlaceMod::Attrs"
           expect( place.completion_steps ).to eq ["GoogleMaps", "FoursquareExplore", "FoursquareRefine", "TranslateAndRefine"]
           expect( place.hours ).to hash_eq({
             "mon"=>[["1000", "2000"]], 
@@ -152,9 +152,9 @@ module Completers
 
         it "ensures L/L exists within natural bounds (e.g. Apizza Scholls in Antartica) or discards" do
           place = PlaceCompleter.new(yml_data('apizza-scholls-flipped', 'http://www.eater.com/', "Apizza Scholls")[:place]).complete!
-          expect( place.lat ).to be_within(0.01).of(45.512043)
-          expect( place.lon ).to be_within(0.01).of(-122.613144)
-          expect( place.flags.find_by(name: "Invalid LatLon found").description ).to eq("Invalid LatLon found - Cleared out LatLon in PlaceAttrs")
+          expect( place.lat ).to float_eq 45.512043
+          expect( place.lon ).to float_eq -122.613144
+          expect( place.flags.find_by(name: "Invalid LatLon found").description ).to eq("Invalid LatLon found - Cleared out LatLon in PlaceMod::Attrs")
           expect( place.menu ).to eq "https://foursquare.com/v/apizza-scholls/4293c000f964a52038241fe3/menu"
           expect( place.mobile_menu ).to eq "https://foursquare.com/v/4293c000f964a52038241fe3/device_menu"
           expect( place.foursquare_id ).to eq "4293c000f964a52038241fe3"
@@ -177,18 +177,18 @@ module Completers
             "sun"=>[["1600", "2000"]]
           })
           expect( place.phones ).to eq ["5032331286"]
-          expect( place.lat ).to be_within(0.001).of 45.512043
-          expect( place.lon ).to be_within(0.001).of -122.613144
+          expect( place.lat ).to float_eq 45.512043
+          expect( place.lon ).to float_eq -122.613144
         end
 
         it "truly prioritizes nearby in finding matches (e.g. St Peters Episcopal Church in Fernandina Beach FL vs. Gainsville FL)" do
           place = PlaceCompleter.new(yml_data('amelia-island', 'http://www.nytimes.com/', "St. Peter's Episcopal Church Cemetery")[:place]).complete!
           expect( place.locality ).to eq("Fernandina Beach")
-          expect( place.lat ).to be_within(0.001).of(30.669427976988448)
-          expect( place.lon ).to be_within(0.001).of(-81.45895476767303)
+          expect( place.lat ).to float_eq 30.670939
+          expect( place.lon ).to float_eq -81.45853
           expect( place.meta_category ).to eq "See"
-          expect( place.extra ).to hash_eq(section_title: "Favorite Haunts")
-          expect( place.names ).to eq ["St. Peter's Episcopal Church Cemetery", "St Peters Episcopal Church"]
+          expect( place.extra ).to hash_eq({section_title: "Favorite Haunts"}, [:google_place_url])
+          expect( place.names ).to eq ["St. Peter's Episcopal Church Cemetery", "St Peter's Episcopal Church"]
         end
 
         it "generates full completer for O'Connell Bridge" do
@@ -199,8 +199,8 @@ module Completers
           expect( place.street_address ).to eq "Droichead Uí Chonaill"
           expect( place.full_address ).to eq "Droichead Uí Chonaill, Dublin, Ireland"
           expect( place.foursquare_id ).to eq "4afbccfef964a520181f22e3"
-          expect( place.lat ).to be_within(0.04).of 53.3473244
-          expect( place.lon ).to be_within(0.04).of -6.258941099999999
+          expect( place.lat ).to float_eq 53.3473244
+          expect( place.lon ).to float_eq -6.258941099999999
           expect( place.website ).to eq "http://www.bridgesofdublin.ie/bridges/oconnell-bridge"
         end
 
@@ -223,8 +223,8 @@ module Completers
         it "combines locations that are named distinctly only by introductory article (e.g. Casa de Socorro & La Casa de Socorro)" do
           place = PlaceCompleter.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "LA CASA DE SOCORRO")[:place]).complete!
           expect( place.name ).to eq('La Casa de Socorro')
-          expect( place.lat ).to be_within(0.03).of 10.4202192
-          expect( place.lon ).to be_within(0.03).of -75.5475489
+          expect( place.lat ).to float_eq 10.4202192
+          expect( place.lon ).to float_eq -75.5475489
           expect( place.website ).to eq "http://www.restaurantelacasadesocorro.com/"
           expect( place.names ).to eq ["La Casa de Socorro"]
           expect( place.phone ).to eq("5756644658")
@@ -236,7 +236,7 @@ module Completers
       context "with preexisting place in db" do
         it "finds the Trident hotel with less information, and by either name" do
           place = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: 'Bombay', street_address: 'Nariman Point, Mumbai, India'}).complete!
-          place2 = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: 'Mumbai'}).complete!
+          place2 = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: 'Nariman Point, Mumbai'}).complete!
           place3 = PlaceCompleter.new({ name: 'The Trident', nearby: 'Bombay', street_address: 'Nariman Point, Mumbai, India'}).complete!
 
           expect( place ).to eq place2
@@ -258,6 +258,13 @@ module Completers
           place2 = PlaceCompleter.new({ name: 'Trident Nariman Point', locality: 'Mumbai', street_address: 'Nariman Point, Mumbai, India' }).complete!
 
           expect( place1 ).to eq place2
+
+          expect( place1.sublocality ).to eq 'Nariman Point'
+          expect( place1.names ).to include "The Trident"
+          expect( place1.lat ).to float_eq 18.926940497504404
+          expect( place1.lon ).to float_eq 72.82050490379333
+          expect( place1.website ).to eq "http://www.tridenthotels.com"
+          expect( place1.meta_category ).to eq 'Stay'
         end
 
         xit "doesn't skip completion if there is more than one search result" do
@@ -286,8 +293,8 @@ module Completers
           expect(place.locality).to eq('Cambridge')
           expect(place.region).to eq("Massachusetts")
           expect(place.street_addresses).to eq(['364 Broadway'])
-          expect(place.lat).to be_within(0.00001).of 42.3705576508449
-          expect(place.lon).to be_within(0.00001).of -71.1043846607208
+          expect(place.lat).to float_eq 42.3705576508449
+          expect(place.lon).to float_eq -71.1043846607208
           expect(place.category).to eq 'Coffee Shop'
           expect(place.website).to eq 'http://dwelltimecambridge.com'
           expect(place.images.first.url).to eq "https://irs3.4sqi.net/img/general/#{ApiVenue::FoursquareExploreVenue::IMAGE_SIZE}/6026_ruM6F73gjApA1zufxgbscViPgkbrP5HaYi_L8gti6hY.jpg"

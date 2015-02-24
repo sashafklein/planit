@@ -62,7 +62,7 @@ class TrackHash
   end
 
   def default(key)
-    defaults[key]
+    defaults[key].blank? ? defaults[key] : nil
   end
 
   def raw_attrs

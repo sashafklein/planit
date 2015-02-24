@@ -9,6 +9,7 @@ module Completers
     def complete
       find
       merge!
+      
       { place: pip, photos: photos, success: @success }.to_sh
     end
 
@@ -59,7 +60,7 @@ module Completers
     end
 
     def good_lat_lon?
-      answer = venue.acceptably_close_lat_lon_and_name?(pip, overwrite_nil: true)
+      answer = venue.venue_match?(pip, overwrite_nil: true)
       flag_failure(query: url, response: venue.json, error: 'Unacceptable LatLon/Name', extra: { pip: pip.clean_attrs }) unless answer
       answer
     end
