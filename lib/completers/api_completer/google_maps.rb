@@ -10,7 +10,7 @@ module Completers
       find
       merge!
       
-      { place: pip, photos: photos, success: @success }.to_sh
+      { place: pip, images: images, success: @success }.to_sh
     end
 
     def get_venues(url, text=nil)
@@ -43,8 +43,8 @@ module Completers
       super
     end
 
-    def photos
-      venue ? venue.photos.map{ |i| Image.new( source: i.credit, source_url: i.source, url: i.url ) } : []
+    def images
+      venue ? venue.images.map{ |i| Image.new( source: i.credit, source_url: i.source, url: i.url ) } : []
     end
 
     def url

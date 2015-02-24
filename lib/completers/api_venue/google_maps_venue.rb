@@ -82,15 +82,15 @@ module Completers
       { google_place_url: google_place_url }
     end
 
-    def photos
-      return [] unless original_photo && original_photo.scan("logo.").flatten.first != "logo."
-      return [] unless photo = unhex( original_photo )
+    def images
+      return [] unless original_image && original_image.scan("logo.").flatten.first != "logo."
+      return [] unless image = unhex( original_image )
 
       # EDIT UP SIZE BY ONE ZERO
-      photo = photo.gsub(/\/s(\d\d)\//, "/s\\1"+"0/").gsub(/\&w\=(\d\d)\&/, "&w=\\1"+"0&")
+      image = image.gsub(/\/s(\d\d)\//, "/s\\1"+"0/").gsub(/\&w\=(\d\d)\&/, "&w=\\1"+"0&")
                    .gsub(/\&h\=(\d\d)\&/, "&h=\\1"+"0&").gsub(/\&zoom\=0/, "&zoom=3")
                    
-      [{ url: photo, source: unhex( original_photo ), credit: 'Google' }].to_sa
+      [{ url: image, source: unhex( original_image ), credit: 'Google' }].to_sa
     end
 
     def country_code          
@@ -99,7 +99,7 @@ module Completers
 
     private
 
-    def original_photo          
+    def original_image          
       marker.super_fetch(:infoWindow, :photoUrl)
     end
 
@@ -108,6 +108,6 @@ module Completers
     end
 
     memoize :names, :full_address, :locality, :region, :postal_code, :country, :street_address, 
-            :website, :lat, :lon, :photos, :country_code, :original_photo, :google_place_url
+            :website, :lat, :lon, :photos, :country_code, :original_image, :google_place_url
   end
 end

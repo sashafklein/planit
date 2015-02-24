@@ -6,7 +6,7 @@ module Scrapers
     class Starred < Googlemaps
 
       delegate :names, :full_address, :street_address, :locality, :region, :country, :country_code,
-               :postal_code, :website, :phone, :photos, :lat, :lon, to: :bsjson
+               :postal_code, :website, :phone, :images, :lat, :lon, to: :bsjson
 
       attr_reader :bsjson
       def initialize(url, page)
@@ -84,7 +84,7 @@ module Scrapers
               postal_code: unhex( postal_code ),
               website: unhex( website ),
               phone: trim( phone ),
-              images: photos,
+              images: images,
               lat: lat,
               lon: lon,
             },
