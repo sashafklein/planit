@@ -46,7 +46,7 @@ class Mark < BaseModel
 
     matching_sources = base_sources.where(object: self, trimmed_url: parser.trimmed)
     
-    matching_sources.create!(full_url: source_url) unless matching_sources.any?
+    matching_sources.create!(full_url: parser.full) unless matching_sources.any?
   end
 
   class << self

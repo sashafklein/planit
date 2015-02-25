@@ -9,11 +9,18 @@ class UrlParser
   end
 
   def trimmed
+    return name unless real?
     "#{ base }#{ path }#{ relevant_querystring }"
   end
 
   def base
+    return name unless real?
     "#{ scheme }://#{ hostname }"
+  end
+
+  def full
+    return name unless real?
+    url.to_s
   end
 
   def name
@@ -58,5 +65,9 @@ class UrlParser
       yelp: 'Yelp',
       kml: 'KML'
     }
+  end
+
+  def real?
+    !%w(kml email).include? domain
   end
 end

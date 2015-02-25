@@ -404,6 +404,9 @@ module Completers
           it "correctly locates Bite Into Maine" do
             m = completed_data(filename: 'maine', scrape_url: "kml", name: "Bite into Maine")
             expect( m.source.name ).to eq 'KML'
+            expect( m.source.trimmed_url ).to eq 'KML'
+            expect( m.source.full_url ).to eq 'KML'
+            expect( m.source.base_url ).to eq 'KML'
 
             p = m.place
             expect( p.lat ).to float_eq 43.62390
@@ -454,7 +457,7 @@ module Completers
 
     def completed_data(filename:, scrape_url:, name: nil)
       @yml = yml_data(filename, scrape_url, name)
-      Completer.new(@yml, @user, @yml[:scraper_url] || scrape_url).complete!
+      Completer.new(@yml, @user, @yml[:scraper_url]).complete!
     end
 
     def place_hash(overwrite_hash={}, place_additions={})
