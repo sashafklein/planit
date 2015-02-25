@@ -7,6 +7,7 @@ class Mark < BaseModel
   validates :place, presence: true
   validates :user, presence: true
 
+  has_many :sources, as: :object
   has_many :items
 
   delegate :names, :name, :categories, :category, :coordinate, :url, :phones, :phone, :website,
@@ -28,6 +29,24 @@ class Mark < BaseModel
 
   def self.places
     Place.where(id: pluck(:place_id))
+  end
+
+  def save_with_source!(source_url:)
+    save!
+    create_source!(source_url: source_url) if source_url.present?
+  end
+
+  def source
+    sources.first
+  end
+
+  def create_source!(source_url:)
+    parser = UrlParser.new(source_url)
+    base_sources = Source.where(name: parser.name, base_url: parser.base)
+
+    matching_sources = base_sources.where(object: self, trimmed_url: parser.trimmed)
+    
+    matching_sources.create!(full_url: source_url) unless matching_sources.any?
   end
 
   class << self

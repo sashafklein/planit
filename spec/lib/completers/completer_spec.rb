@@ -88,16 +88,20 @@ module Completers
           it "creates an item, associated with day and plan" do
             expect(Item.count).to eq(0)
 
-            c = Completer.new(place_hash(sequence_hash), @user).complete!
-            item = c.items.first
+            m = Completer.new(place_hash(sequence_hash), @user).complete!
+            item = m.items.first
 
             expect(item.plan.name).to eq sequence_hash[:plan][:name]
+            expect(item.plan.source.name).to eq "New York Times"
             expect(item.order).to eq(1)
             expect(item.start_time).to eq('0300')
             expect(item.duration).to eq(0.5)
             expect(item.weekday).to eq('Friday')
             expect(item.day.order).to eq(1)
             expect(item.leg).to be_present # Creates a blank leg inside the plan
+            expect( m.source.name ).to eq 'New York Times'
+            expect( m.source.trimmed_url ).to eq "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html"
+            expect( m.source.full_url ).to eq "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0"
           end
         end
       end
@@ -105,15 +109,14 @@ module Completers
       context "item data outside a plan context" do
         context "without good api data" do
           it "creates the place, mark, plan, and location" do
-            c = Completer.new(yml_data('itinerary', 'https://www.airbnb.com/reservation/itinerary?code=ZBCAT4') , @user)
-            m = c.complete!
+            m = completed_data(filename: 'itinerary', scrape_url: 'https://www.airbnb.com/reservation/itinerary?code=ZBCAT4', name: nil)
 
             expect( m.country ).to eq("Colombia")
             expect( m.locality ).to eq("Bogota")
 
             i = m.items.first
 
-            expect(i.extra).to eq({ 
+            expect(i.extra).to hash_eq({ 
               guests: "2", 
               nights: "3", 
               host_directions: "Host's Directions The apt its located in an area called \"chapinero\" which is a central place of the city helping you get easily to any destination",
@@ -122,23 +125,27 @@ module Completers
               confirmation_code: "ZBCAT4",
               start_date: "Fri, November 21, 2014",
               end_date: "Mon, November 24, 2014"
-            }.stringify_keys)
+            })
+
+            expect( m.source.name ).to eq 'AirBNB'
+            expect( m.source.trimmed_url ).to eq "https://www.airbnb.com/reservation/itinerary?code=ZBCAT4"
           end
         end
 
         context "tricky Google one" do
           it "gets it too" do
-            m = Completer.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "Restaurante Los Almendros"), @user).complete!
+            m = completed_data(filename: 'nikoklein', scrape_url: 'http://www.googlemaps.com/', name: 'Restaurante Los Almendros')
             f = m.place.flags.states
             expect(m.country).to eq "Colombia"
             expect(m.region).to eq "Magdalena"
+            expect( m.source.name ).to eq 'Google Maps'
           end
         end
       end
 
       context "item data with plan" do
         it "creates the Coney Island, and fits it in context" do
-          m = Completer.new(yml_data('nyhigh', 'http://www.stay.com/new-york/', 'Coney Island'), @user).complete!
+          m = completed_data(filename: 'nyhigh', scrape_url: 'http://www.stay.com/new-york/', name: 'Coney Island')
           p = m.place
 
           expect( p.country ).to eq "United States"
@@ -150,10 +157,12 @@ module Completers
           expect( p.categories ).to eq ["Attraction", "Museum", "Performing Arts Venue", "General Entertainment"]
           i = m.items.first
           expect( i.plan.name ).to eq "New York City Guide"
+
+          expect( m.source.name ).to eq "Stay"
         end
 
         it "creates the Plaza in context" do
-          m = Completer.new(yml_data('jetsetters', 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/', 'The Plaza'), @user).complete!
+          m = completed_data(filename: 'jetsetters', scrape_url: 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/', name: 'The Plaza')
 
           expect(m.country).to eq "United States"
           expect(m.region).to eq "New York"
@@ -164,10 +173,11 @@ module Completers
 
           i = m.items.first
           expect(i.plan.name).to eq "New York for Jetsetters"
+          expect( m.source.name ).to eq "Stay"
         end
 
         xit "creates Boom Boom Room in context despite crappy FS data" do
-          m = Completer.new(yml_data('jetsetters', 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/', 'Boom Boom Room'), @user).complete!
+          m = completed_data( filename: 'jetsetters', scrape_url: 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/', name: 'Boom Boom Room' )
 
           expect(m.country).to eq "United States"
           expect(m.region).to eq "New York"
@@ -176,10 +186,11 @@ module Completers
 
           i = m.items.first
           expect(i.plan.name).to eq "New York for Jetsetters"
+          expect( m.source.name ).to eq "Stay"
         end
 
         it "creates Broadway in context" do
-          m = Completer.new(yml_data('nyhigh', 'http://www.stay.com/new-york/', 'Broadway'), @user).complete!
+          m = completed_data( filename: 'nyhigh', scrape_url: 'http://www.stay.com/new-york/', name: 'Broadway' )
 
           expect(m.country).to eq "United States"
           expect(m.region).to eq "New York"
@@ -187,11 +198,11 @@ module Completers
           expect(m.name).to eq "Broadway"
           i = m.items.first
           expect(i.plan.name).to eq "New York City Guide"
+          expect( m.source.name ).to eq "Stay"
         end
 
         it "creates Tribute WTC Visitor Center in context" do
-          url = 'http://www.stay.com/new-york/'
-          m = Completer.new(yml_data('nyhigh', url, 'Tribute WTC Visitor Center'), @user, url).complete!
+          m = completed_data( filename: 'nyhigh', scrape_url: 'http://www.stay.com/new-york/', name: 'Tribute WTC Visitor Center')
 
           expect(m.country).to eq "United States"
           expect(m.region).to eq "New York"
@@ -200,6 +211,7 @@ module Completers
           i = m.items.first
           expect(i.plan.name).to eq "New York City Guide"
           expect(m.place.scrape_url).to eq 'http://www.stay.com/new-york/'
+          expect( m.source.name ).to eq "Stay"
         end
       end
 
@@ -291,6 +303,9 @@ module Completers
 
           it "completes Quiebra-Canto" do
             m = completed_data(filename: 'cartagena', scrape_url: "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0", name: "Quiebra-Canto")
+            expect( m.source.name ).to eq "New York Times"
+            expect( m.source.trimmed_url ).to eq "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html"
+
             p = m.place
             expect( p.lat ).to float_eq 10.421883
             expect( p.lon ).to float_eq -75.547621
@@ -298,6 +313,8 @@ module Completers
 
           it "completes La Mulata and El Mesón de María y Mulata" do
             m = completed_data(filename: 'cartagena', scrape_url: "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0", name: "El Mesón de María y Mulata")
+            expect( m.source.name ).to eq 'New York Times'
+
             p = m.place
             expect( p.lat ).to float_eq 10.419666
             expect( p.lon ).to float_eq -75.54787
@@ -307,6 +324,8 @@ module Completers
           # Doesn't take Google cause of the language disagreement
           it "completes Cartagena Kitesurf School" do
             m = completed_data(filename: 'cartagena', scrape_url: "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0", name: "Cartagena Kitesurf School")
+            expect( m.source.name ).to eq 'New York Times'
+            
             p = m.place
             expect( p.lat ).to float_eq 10.3833262
             expect( p.lon ).to float_eq -75.4675359
@@ -315,6 +334,8 @@ module Completers
 
           it "completes Bogotá Bike Tours" do
             m = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Bogotá Bike Tours")
+            expect( m.source.name ).to eq 'New York Times'
+
             p = m.place
             expect( p.street_address ).to eq "Carrera 3 No. 12-72"
             expect( p.lat ).to float_eq 4.5973219379763
@@ -324,6 +345,8 @@ module Completers
 
           it "completes La Opera (HOTEL)" do
             m = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "La Opera")
+            expect( m.source.name ).to eq 'New York Times'
+
             p = m.place
             expect( p.names ).to include("Hotel de la Opera")
             expect( p.lat ).to float_eq 4.597374
@@ -334,6 +357,8 @@ module Completers
 
           it "completes Gold Museum" do
             m = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Gold Museum")
+            expect( m.source.name ).to eq 'New York Times'
+
             p = m.place
             expect( p.names ).to include "Museo del Oro del Banco de la República"
             expect( p.lat ).to float_eq 4.601646
@@ -342,6 +367,8 @@ module Completers
 
           it "correctly locates Jardin Botanico Jose Celestino Mutis" do
             m = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Jardín Botánico José Celestino Mutis")
+            expect( m.source.name ).to eq 'New York Times'
+
             p = m.place
             expect( p.lat ).to float_eq 4.669729462430818
             expect( p.lon ).to float_eq -74.09898519515991
@@ -351,6 +378,8 @@ module Completers
 
           it "correctly locates Botero Museum" do
             m = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Botero Museum")
+            expect( m.source.name ).to eq 'New York Times'
+
             p = m.place
             expect( p.phones ).to eq ["5713431212"] # Combines identical, but differently formatted phones from Foursquare and Scraper
             expect( p.lat ).to float_eq 4.596761
@@ -363,6 +392,8 @@ module Completers
 
           it "correctly locates Biblioteca Luis Ángel Arango" do
             m = completed_data(filename: 'bogota', scrape_url: "http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0", name: "Biblioteca Luis Ángel Arango")
+            expect( m.source.name ).to eq 'New York Times'
+
             p = m.place
             expect( p.lat ).to float_eq 4.59702249702672
             expect( p.lon ).to float_eq -74.072892665863
@@ -372,6 +403,8 @@ module Completers
 
           it "correctly locates Bite Into Maine" do
             m = completed_data(filename: 'maine', scrape_url: "kml", name: "Bite into Maine")
+            expect( m.source.name ).to eq 'KML'
+
             p = m.place
             expect( p.lat ).to float_eq 43.62390
             expect( p.lon ).to float_eq -70.211276
@@ -382,6 +415,8 @@ module Completers
 
           it "correctly locates Central Park in Amelia Island vicinity" do
             m = completed_data(filename: 'amelia-island', scrape_url: "http://www.nytimes.com/2003/12/12/travel/journeys-36-hours-amelia-island-fla.html?pagewanted=all", name: "Central Park")
+            expect( m.source.name ).to eq 'New York Times'
+
             p = m.place
             expect( p.lat ).to float_eq 30.6696420369693
             expect( p.lon ).to float_eq -81.4547821101539
@@ -391,6 +426,8 @@ module Completers
 
           it "saves Marrakech, Morocco as city not bar" do
             m = completed_data(filename: 'travelmap', scrape_url: "http://www.tripadvisor.com/TravelMapHome", name: "Marrakech, Morocco")
+            expect( m.source.name ).to eq 'Trip Advisor'
+
             p = m.place
             expect( p.feature_type ).to eq 'locality'
             expect( p.name ).to eq 'Marrakech, Morocco' 
@@ -402,6 +439,8 @@ module Completers
 
           it "saves La Cocina de Pepina in Cartagena COLOMBIA" do
             m = completed_data(filename: 'cartagena', scrape_url: "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0", name: "La Cocina de Pepina")
+            expect( m.source.name ).to eq 'New York Times'
+
             p = m.place
             expect( p.feature_type ).to eq 'destination'
             expect( p.country ).to eq 'Colombia'
@@ -415,7 +454,7 @@ module Completers
 
     def completed_data(filename:, scrape_url:, name: nil)
       @yml = yml_data(filename, scrape_url, name)
-      Completer.new(@yml, @user).complete!
+      Completer.new(@yml, @user, @yml[:scraper_url] || scrape_url).complete!
     end
 
     def place_hash(overwrite_hash={}, place_additions={})
@@ -441,7 +480,8 @@ module Completers
           day_of_week: 'FRIDAY'
         },
         day: { order: 1 },
-        plan: { name: "36 Hours in Cartagena, Colombia - NYTimes.com" }
+        plan: { name: "36 Hours in Cartagena, Colombia - NYTimes.com" },
+        scraper_url: "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0"
       }
     end
   end
