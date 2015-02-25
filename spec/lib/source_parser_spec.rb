@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UrlParser do 
+describe SourceParser do 
   
   describe "trimmed" do
     it "gets rid of all unnecessary querystring stuff" do
@@ -29,9 +29,25 @@ describe UrlParser do
     end
   end
 
+  describe "with a fake url ('email.com' or 'kml.com')" do
+    it "ignores all the content and comes up with specialized set of values" do
+      p = parser(base: 'http://www.kml.com')
+      expect( p.name ).to eq 'KML'
+      expect( p.trimmed ).to eq 'KML'
+      expect( p.full ).to eq 'KML'
+      expect( p.base ).to eq 'KML'
+
+      p2 = parser(base: 'https://www.email.com')
+      expect( p2.name ).to eq 'Email'
+      expect( p2.trimmed ).to eq 'Email'
+      expect( p2.full ).to eq 'Email'
+      expect( p2.base ).to eq 'Email'
+    end
+  end
+
   def parser(base: nil, query: nil)
     base ||= "http://www.nytimes.com/2010/07/04/travel/04hours.html"
     query ||= "pagewanted=all&_r=0"
-    UrlParser.new [base, query].join("?") 
+    SourceParser.new [base, query].join("?") 
   end
 end

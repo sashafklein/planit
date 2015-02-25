@@ -1,4 +1,4 @@
-class UrlParser
+class SourceParser
 
   delegate :scheme, :hostname, :path, :query, to: :url
 

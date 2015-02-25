@@ -41,7 +41,7 @@ class Mark < BaseModel
   end
 
   def create_source!(source_url:)
-    parser = UrlParser.new(source_url)
+    parser = SourceParser.new(source_url)
     base_sources = Source.where(name: parser.name, base_url: parser.base)
 
     matching_sources = base_sources.where(object: self, trimmed_url: parser.trimmed)
