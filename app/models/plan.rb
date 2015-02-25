@@ -10,11 +10,15 @@ class Plan < BaseModel
   has_many :items, dependent: :destroy
   has_many :moneyshots, class_name: 'Image', as: :imageable
   has_many :images, as: :imageable
+  has_many :sources, as: :object
 
   boolean_accessor :published
   delegate :last_day, :departure, to: :last_leg
   delegate :arrival, to: :first_leg
 
+  def source
+    sources.first
+  end
 
   def has_lodging?
     items.marks.where(lodging: true).any?

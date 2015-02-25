@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223195513) do
+ActiveRecord::Schema.define(version: 20150224230450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -198,6 +198,20 @@ ActiveRecord::Schema.define(version: 20150223195513) do
 
   add_index "plans", ["slug"], name: "index_plans_on_slug", unique: true, using: :btree
   add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree
+
+  create_table "sources", force: :cascade do |t|
+    t.integer  "object_id"
+    t.string   "object_type"
+    t.string   "name"
+    t.string   "full_url"
+    t.string   "trimmed_url"
+    t.string   "base_url"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "sources", ["object_type", "object_id"], name: "index_sources_on_object_type_and_object_id", using: :btree
 
   create_table "travels", force: :cascade do |t|
     t.string   "mode",               limit: 255

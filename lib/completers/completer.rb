@@ -5,14 +5,14 @@ module Completers
     def initialize(attrs, user, url=nil)
       @attrs, @user = attrs.recursive_symbolize_keys!, user
       @decremented_attrs = @attrs.dup
-      @url = url
+      @url = url || attrs[:scraper_url]
     end
 
     def complete!
       place = PlaceCompleter.new( decremented_attrs.delete(:place), url ).complete!
       return nil unless place
       mark = user.marks.where(place_id: place.id).first_or_initialize
-      mark.save!
+      mark.save_with_source!(source_url: url)
       merge_and_create_associations!(mark)
       mark
     end
@@ -24,18 +24,21 @@ module Completers
     private
 
     def merge_and_create_associations!(mark)
-      plan = create_plan!
+      plan = create_plan!(mark)
       leg = create_leg!(plan)
       day = create_day!(plan, leg)
       item = create_item!(plan, day, mark)
     end
 
-    def create_plan!
+    def create_plan!(mark)
       return unless attrs[:item] || attrs[:plan] || attrs[:day]
       plan_attrs = decremented_attrs.delete(:plan) || {}
       
       name = plan_attrs[:name] || 'Untitled Trip'
       plan = user.plans.where(name: name).first_or_create!
+
+      create_plan_source(plan, mark.source) if mark.source
+      plan
     end
 
     def create_leg!(plan)
@@ -81,6 +84,12 @@ module Completers
         attrs[:extra][key] = attrs.delete(key)
       end
       attrs
+    end
+
+    def create_plan_source(plan, mark_source)
+      source = Source.new(mark_source.attributes.symbolize_keys.except(:id, :object_id, :object_type, :created_at, :updated_at))
+      source.object = plan
+      source.save!
     end
   end
 end
