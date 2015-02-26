@@ -242,7 +242,7 @@ module Scrapers
 
     describe "http://www.mandarinoriental.com/sanfrancisco/" do
       before { @url = "http://www.mandarinoriental.com/sanfrancisco/" }
-      it "parses the page correctly" do
+      xit "parses the page correctly" do
         expect_equal(data, [
           place: {
             name: "Mandarin Oriental, San Francisco",

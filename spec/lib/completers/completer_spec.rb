@@ -240,10 +240,14 @@ module Completers
           end
 
           # Neither Foursquare nor Google finds anything that looks good
-          xit "rejects Palma Cartagena" do
+          it "rejects Palma Cartagena" do
             m = completed_data(filename: 'foodies', scrape_url: "http://www.nytimes.com/2008/10/26/travel/26choice.html?pagewanted=all&_r=0", name: "Palma")
-            p = m.place
-            binding.pry
+            expect( m.place_options.count ).to be > 0
+
+            option = m.place_options.with_name("Las Palmas").first
+            expect( option ).to be_a PlaceOption
+            place = option.choose!
+            expect( place.locality ).to eq 'Cartagena De Indias'
           end
 
           xit "correctly pins Amelia Toro" do
@@ -259,7 +263,6 @@ module Completers
 
           xit "correctly locates Villa De Leyva NOT in Bogota" do
             m = completed_data(filename: 'leyva', scrape_url: "http://www.frommers.com/destinations/bogota/278016", name: "Villa de Leyva")
-            p = m.place
             binding.pry
             # Villa De Leyva
           end
@@ -273,15 +276,14 @@ module Completers
           end
 
           # Google has it, with no notes about its being closed -- not sure what to do about this one
-          xit "rejects The Down Under" do
+          xit "doesn't find The Down Under (but shows options)" do
             m = completed_data(filename: 'amelia-island', scrape_url: "http://www.nytimes.com/2003/12/12/travel/journeys-36-hours-amelia-island-fla.html?pagewanted=all", name: "The Down Under")
-            p = m.place
             binding.pry
           end
 
           xit "completes Tayrona from Mauricio.yml" do
             m = completed_data(filename: 'mauricio', scrape_url: "http://www.email.com/", name: 'Tayrona')
-            p = m.place
+            binding.pry
             # There's just too little info in the @yml
             # Select Parque Tayrona b/c of photos and frequency of visits https://foursquare.com/v/parque-nacional-natural-tayrona/4e9dd4b261af4feab6578266
           end

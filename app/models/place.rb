@@ -1,8 +1,8 @@
 class Place < BaseModel
 
   has_one :item
-  has_many :marks
-  has_many :images, as: :imageable
+  has_many :marks, dependent: :destroy
+  has_many :images, as: :imageable, dependent: :destroy
   has_many :flags, as: :object
 
   array_accessor :completion_step, :street_address, :name, :category, :meta_category, :phone

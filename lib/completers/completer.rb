@@ -24,7 +24,7 @@ module Completers
     private
 
     def create_mark_and_associations!(place:, place_options:)
-      raise "Mark needs either Place or PlaceOptions" if (place && place_options) || (!place && !place_options)
+      raise "Mark needs either Place or PlaceOptions" if (place.present? && place_options.present?) || (!place.present? && !place_options.present?)
 
       mark = place ? user.marks.where(place_id: place.id).first_or_initialize : user.marks.new
       mark.save_with_source!(source_url: url)

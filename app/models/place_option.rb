@@ -28,12 +28,13 @@ class PlaceOption < BaseModel
     
     mark.update_attributes!(place_id: place.id)
     self_and_siblings.destroy_all
+    place
   end
 
   private
 
   def complete
-    Completers::PlaceCompleter.new( attributes.except("mark_id") ).complete!
+    Completers::PlaceCompleter.new( attributes.except("mark_id", "id", "created_at", "updated_at") ).complete!
   end
 
   def self_and_siblings
