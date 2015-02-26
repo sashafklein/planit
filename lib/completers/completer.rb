@@ -18,7 +18,7 @@ module Completers
     end
 
     def delay_complete!
-      Delayed::Job.enqueue CompleterDelayer.new(self)
+      DelayCompleteJob.perform_later(self)
     end
 
     private
