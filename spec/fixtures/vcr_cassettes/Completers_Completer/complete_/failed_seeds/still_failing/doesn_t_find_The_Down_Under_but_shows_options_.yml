@@ -1,0 +1,1429 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=Amelia%20Island,%20Fla.&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Thu, 26 Feb 2015 22:51:50 GMT
+      Expires:
+      - Fri, 27 Feb 2015 22:51:50 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.08
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Amelia Island",
+                       "short_name" : "Amelia Island",
+                       "types" : [ "natural_feature", "establishment" ]
+                    },
+                    {
+                       "long_name" : "Nassau County",
+                       "short_name" : "Nassau County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "32034",
+                       "short_name" : "32034",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "Amelia Island, Florida 32034, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.705708,
+                          "lng" : -81.4267175
+                       },
+                       "southwest" : {
+                          "lat" : 30.515759,
+                          "lng" : -81.488119
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.6265697,
+                       "lng" : -81.46085599999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.705708,
+                          "lng" : -81.4267175
+                       },
+                       "southwest" : {
+                          "lat" : 30.515759,
+                          "lng" : -81.488119
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJ1cmKF4lV5IgRG0ZcW9coKuU",
+                 "types" : [ "natural_feature", "establishment" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Thu, 26 Feb 2015 22:51:50 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?near=Nassau%20County,%20Florida,%20United%20States&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=The%20Down%20Under&v=20140819&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 26 Feb 2015 22:51:51 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '231'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '498'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-lax1422-LAX
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"geocode":{"what":"","where":"nassau
+        county florida united states","center":{"lat":30.61058,"lng":-81.77142},"displayString":"Nassau
+        County, FL, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":30.829924,"lng":-81.346358},"sw":{"lat":30.273336999999998,"lng":-82.050331}}},"slug":"nassau-county-florida","longId":"72057594042093539"},"warning":{"text":"There
+        aren''t a lot of results for \"The Down Under.\" Try something more general,
+        reset your filters, or expand the search area."},"headerLocation":"Current
+        map view","headerFullLocation":"Current map view","headerLocationGranularity":"unknown","query":"the
+        down under","totalResults":2,"suggestedBounds":{"ne":{"lat":30.81002353038005,"lng":-81.55615760532966},"sw":{"lat":30.41785852189782,"lng":-81.91365752823394}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"5480c513498e400fdf734ecd","name":"Walking
+        down Ford Road in the dark","contact":{},"location":{"lat":30.435684204101562,"lng":-81.89740753173828,"cc":"US","state":"Florida","country":"United
+        States","formattedAddress":["Florida"]},"categories":[{"id":"4bf58dd8d48988d159941735","name":"Trail","pluralName":"Trails","shortName":"Trail","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/parks_outdoors\/hikingtrail_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":0,"usersCount":0,"tipCount":0},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":0,"groups":[]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]}},"referralId":"e-0-5480c513498e400fdf734ecd-0"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4edbec432c5b50aba06dda84","name":"Under
+        The Pines Park","contact":{},"location":{"address":"1 Lewis And Clark Rd","lat":30.79219784817631,"lng":-81.5724076018253,"postalCode":"31558","cc":"US","city":"Saint
+        Marys","state":"GA","country":"United States","formattedAddress":["1 Lewis
+        And Clark Rd","Saint Marys, GA 31558"]},"categories":[{"id":"4bf58dd8d48988d1e7941735","name":"Playground","pluralName":"Playgrounds","shortName":"Playground","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/parks_outdoors\/playground_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":73,"usersCount":22,"tipCount":1},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":3,"groups":[{"type":"venue","name":"Venue
+        photos","count":3,"items":[{"id":"4edbf1980e011b46f045c993","createdAt":1323037080,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/CKO3S4PON33TBNZS4ABQBRD1LZXLUVR2V2CTAJHSDOTKMYSA.jpg","width":540,"height":720,"user":{"id":"15772660","firstName":"Ashley","lastName":"Maddox","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/5UQXHJFS5KS0FJ54.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"4edbf1980e011b46f045c993","createdAt":1323037080,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/CKO3S4PON33TBNZS4ABQBRD1LZXLUVR2V2CTAJHSDOTKMYSA.jpg","width":540,"height":720,"user":{"id":"15772660","firstName":"Ashley","lastName":"Maddox","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/5UQXHJFS5KS0FJ54.jpg"}},"visibility":"public"}]}},"tips":[{"id":"4fbcfbbee4b083d188f413ba","createdAt":1337785278,"text":"MWR-Sponsored
+        concert.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/4fbcfbbee4b083d188f413ba","logView":true,"todo":{"count":0},"user":{"id":"16533371","firstName":"Stephanie","lastName":"Davito","gender":"female","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/JB0OTVE5N0MS1W5A.jpg"}}}],"referralId":"e-0-4edbec432c5b50aba06dda84-1"}]}]}}'
+    http_version: 
+  recorded_at: Thu, 26 Feb 2015 22:51:51 GMT
+- request:
+    method: get
+    uri: https://www.google.com/maps?near=Amelia%20Island,%20Fla.&output=json&q=The%20Down%20Under
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 26 Feb 2015 22:51:52 GMT
+      Expires:
+      - "-1"
+      Cache-Control:
+      - private, max-age=0
+      Content-Type:
+      - application/json; charset=ISO-8859-1
+      Set-Cookie:
+      - PREF=ID=16c82f073dc03875:TM=1424991112:LM=1424991112:S=QHJhHf74MBtJk_9j; expires=Sat,
+        25-Feb-2017 22:51:52 GMT; path=/; domain=.google.com
+      X-Content-Type-Options:
+      - nosniff
+      Content-Disposition:
+      - attachment; filename="f.txt"
+      Server:
+      - GFE/2.0
+      Transfer-Encoding:
+      - chunked
+      Alternate-Protocol:
+      - 443:quic,p=0.08
+    body:
+      encoding: UTF-8
+      string: 'while(1);{title:"The Down Under loc: Amelia Island, Fla. - Google Maps",url:"/maps?q=The+Down+Under\x26near=Amelia+Island,+Fla.\x26ie=UTF8\x26hq=The+Down+Under\x26hnear=Amelia+Island",urlViewport:false,ei:"iKPvVLDoCsOAiwK6hIGwAw",form:{selected:"q",q:{q:"The
+        Down Under loc: Amelia Island, Fla.",what:"The Down Under",near:"Amelia Island,
+        Fla."},d:{saddr:"",daddr:"",dfaddr:"Amelia Island, Fla."},geocode:""},query:{type:"l"},viewport:{center:{lat:30.679383000000001,lng:-81.591136000000006},span:{lat:1.2802249999999999,lng:0.36565300000000001},mapType:"",source:0},modules:["","strr","service_areas","pphover","act_s","appiw","rst"],overlays:{sxcar:true,markers:[{id:"A",cid:"17991764359349941606",latlng:{lat:30.627821999999998,lng:-81.485888000000003},image:"https://maps.gstatic.com/intl/en_us/mapfiles/markers2/markerA.png",sprite:{width:20,height:34,top:0,image:"https://maps.gstatic.com/mapfiles/markers2/red_markers_A_J2.png"},icon_id:"A",drg:true,laddr:"Down
+        Under Restaurant, Intracoastal Waterway, Florida A1A, Florida 32034",geocode:"Cda1cFkIv9RiFe5X0wEdwJ8k-ymj4w4pjv_kiDFmNZZBXJav-Q",sxti:"Down
+        Under Restaurant",sxst:"Florida A1A",sxsn:"",sxct:"",sxpr:"Florida",sxpo:"32034",sxcn:"US",sxph:"+19042611001",name:"Down
+        Under Restaurant",infoWindow:{title:"\x3cb\x3eDown\x3c/b\x3e \x3cb\x3eUnder\x3c/b\x3e
+        Restaurant",addressLines:["Intracoastal Waterway","Florida A1A, Florida 32034"],phones:[{number:"(904)
+        261-1001"}],basics:"\x3cdiv transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more
+        info",place_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/100305420221522329249/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7mHa7nRrJTgTqoaIExcr69oIcXOvg",reviews:1,zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D17991764359349941606%26q%3DThe%2BDown%2BUnder%26cd%3D1%26cad%3Dsrc:ppwrev%26ei%3DiKPvVLDoCsOAiwK6hIGwAw%26action%3Dopenratings",photoUrl:"https://cbks0.google.com/cbk?output=thumbnail\x26w=90\x26h=68\x26ll=30.627822,-81.485888\x26thumb=0",photoType:2,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=17991764359349941606\x26q=The+Down+Under\x26near=Amelia+Island,+Fla.",link_jsaction:"",star_score_e3:0,write_review_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/100305420221522329249/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7lAexTDhNtXJ6RmiavcY8CNWsr6Mg",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,elms:[4,1,6,1,10,2,12,1,5,2,11]},{id:"B",cid:"15978337505391861176",latlng:{lat:30.639828000000001,lng:-81.451864},image:"https://maps.gstatic.com/intl/en_us/mapfiles/markers2/markerB.png",sprite:{width:20,height:34,top:34,image:"https://maps.gstatic.com/mapfiles/markers2/red_markers_A_J2.png"},icon_id:"B",drg:true,laddr:"Routine
+        Filmco, 1417 Sadler Road, Fernandina Beach, Florida 32034",geocode:"CYB991E6yRfcFdSG0wEdqCQl-ykdf3IPFf_kiDG43S7mTXW-3Q",sxti:"Routine
+        Filmco",sxst:"Sadler Road",sxsn:"1417",sxct:"Fernandina Beach",sxpr:"Florida",sxpo:"32034",sxcn:"US",sxph:"+15165706861",name:"Routine
+        Filmco",infoWindow:{title:"Routine Filmco",addressLines:["1417 Sadler Road","Fernandina
+        Beach, Florida 32034"],phones:[{number:"(516) 570-6861"}],hp:{url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=http://www.festivaloffilms.com/\x26oi=miw\x26sa=X\x26ct=miw_link\x26cd=1\x26cad=homepage,cid:15978337505391861176\x26ei=iKPvVLDoCsOAiwK6hIGwAw\x26s=ANYYN7kYxWhxuTDTA7MuSBtdL6LULaHKMg",domain:"festivaloffilms.com",actual_url:"http://www.festivaloffilms.com/"},basics:"\x3cdiv
+        transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more info",place_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/117831414890483881141/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7mQ-pKYLxMXzLiSKid6SOryiWVb0g",zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D15978337505391861176%26q%3DThe%2BDown%2BUnder%26cd%3D2%26cad%3Dsrc:ppwrev%26ei%3DiKPvVLDoCsOAiwK6hIGwAw%26action%3Dopenratings",photoUrl:"https://cbks0.google.com/cbk?output=thumbnail\x26w=90\x26h=68\x26ll=30.639828,-81.451864\x26thumb=0",photoType:2,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=15978337505391861176\x26q=The+Down+Under\x26near=Amelia+Island,+Fla.",link_jsaction:"",star_score_e3:0,write_review_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/117831414890483881141/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7k9I400MqhN6kcNASXLO-ENK1NFwA",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,hover_snippet:"The
+        Duel At Blood Creek. The Duel At Blood Creek. On Top \x3cb\x3eDown Under\x3c/b\x3e.
+        On Top \x3cb\x3eDown Under\x3c/b\x3e. Halbschlaf. Halbschlaf. When It Will
+        Be Silent. When It Will Be Silent",hover_snippet_attr:"festivaloffilms.com",elms:[4,1,6,1,10,2,12,1,5,2,11]},{id:"C",cid:"1010564058939345521",latlng:{lat:30.635560999999999,lng:-81.444545000000005},image:"https://maps.gstatic.com/intl/en_us/mapfiles/markers2/markerC.png",sprite:{width:20,height:34,top:68,image:"https://maps.gstatic.com/mapfiles/markers2/red_markers_A_J2.png"},icon_id:"C",drg:true,laddr:"Amsoil
+        Oil Change Authorized Dealer, 2491 Captain Hook Drive, Fernandina Beach, Florida
+        32034",geocode:"Cb_0O2NiSJh1FSl20wEdP0El-ykTDq_KQP_kiDFxSttLqD4GDg",sxti:"Amsoil
+        Oil Change Authorized Dealer",sxst:"Captain Hook Drive",sxsn:"2491",sxct:"Fernandina
+        Beach",sxpr:"Florida",sxpo:"32034",sxcn:"US",sxph:"+19045562050",name:"Amsoil
+        Oil Change Authorized Dealer",infoWindow:{title:"Amsoil Oil Change Authorized
+        Dealer",addressLines:["2491 Captain Hook Drive","Fernandina Beach, Florida
+        32034"],phones:[{number:"(904) 556-2050"}],hp:{url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=http://www.synthetic-oil-tech.com/1477480/\x26oi=miw\x26sa=X\x26ct=miw_link\x26cd=1\x26cad=homepage,cid:1010564058939345521\x26ei=iKPvVLDoCsOAiwK6hIGwAw\x26s=ANYYN7nnZTxBgAeYQ0FPG8QzcQSyXiIkCg",domain:"synthetic-oil-tech.com",actual_url:"http://www.synthetic-oil-tech.com/1477480/"},basics:"\x3cdiv
+        transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more info",place_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/107526721763453344529/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7lWM9WCnfKOqYJW9sdSp54OmYaqFQ",zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D1010564058939345521%26q%3DThe%2BDown%2BUnder%26cd%3D3%26cad%3Dsrc:ppwrev%26ei%3DiKPvVLDoCsOAiwK6hIGwAw%26action%3Dopenratings",photoUrl:"https://lh6.googleusercontent.com/-QcY6iNFvmGY/VNehv-7nx4I/AAAAAAAAAA8/R_YbDOfU5bM/s90/photo.jpg",photoType:1,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=1010564058939345521\x26q=The+Down+Under\x26near=Amelia+Island,+Fla.",link_jsaction:"",star_score_e3:0,write_review_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/107526721763453344529/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7n_t8GqAcKJvyzQ04yVld6R0ki1nA",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,hover_snippet:"Petroleum
+        motor oil breaks \x3cb\x3edown under\x3c/b\x3e heat and stress and leaves
+        carbon, varnish and sludge deposits in your engine and allows your critical
+        engine \x3cb\x3e...\x3c/b\x3e",hover_snippet_attr:"synthetic-oil-tech.com",elms:[4,1,6,1,10,2,12,1,5,2,11]},{id:"D",cid:"1539987468686876043",latlng:{lat:30.63991,lng:-81.438779999999994},image:"https://maps.gstatic.com/intl/en_us/mapfiles/markers2/markerD.png",sprite:{width:20,height:34,top:102,image:"https://maps.gstatic.com/mapfiles/markers2/red_markers_A_J2.png"},icon_id:"D",drg:true,laddr:"Days
+        Inn \x26 Suites Amelia Island At The Beach, 2707 Sadler Road, Amelia Island,
+        Florida 32034",geocode:"CUkKWv69d2z4FSaH0wEdxFcl-yl1vD-BN__kiDGLXaKNcSJfFQ",sxti:"Days
+        Inn \x26 Suites Amelia Island At The Beach",sxst:"",sxsn:"",sxct:"Amelia Island",sxpr:"Florida",sxpo:"32034",sxcn:"US",sxph:"+19042772300",name:"Days
+        Inn \x26 Suites Amelia Island At The Beach",infoWindow:{title:"Days Inn \x26amp;
+        Suites Amelia Island At The Beach",addressLines:["2707 Sadler Road","Amelia
+        Island, Florida 32034"],phones:[{number:"(904) 277-2300"}],hp:{url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=http://www.daysinn.com/hotels/florida/amelia-island/days-inn-and-suites-amelia-island-at-the-beach/hotel-overview%3Fcid%3Dlocal\x26oi=miw\x26sa=X\x26ct=miw_link\x26cd=1\x26cad=homepage,cid:1539987468686876043\x26ei=iKPvVLDoCsOAiwK6hIGwAw\x26s=ANYYN7kCFnbSE35hfYLVP5UFGe9XBmIQ8A",domain:"daysinn.com",actual_url:"http://www.daysinn.com/hotels/florida/amelia-island/days-inn-and-suites-amelia-island-at-the-beach/hotel-overview?cid=local"},basics:"\x3cdiv
+        transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more info",place_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/115481291331333994701/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7k40vWiI0piQBW-u9GSb5DNMg8nyg",reviews:14,zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D1539987468686876043%26q%3DThe%2BDown%2BUnder%26cd%3D4%26cad%3Dsrc:ppwrev%26ei%3DiKPvVLDoCsOAiwK6hIGwAw%26action%3Dopenratings",photoUrl:"https://lh5.googleusercontent.com/-EDt3dtl_rnI/VFsqai7T0hI/AAAAAAABN5o/SvBRfAhCTe0/s90/photo.jpg",photoType:1,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=1539987468686876043\x26q=The+Down+Under\x26near=Amelia+Island,+Fla.",deprecated_stars:3,link_jsaction:"",star_score_e3:3000,write_review_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/115481291331333994701/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7khR6eKKuBE1U9zUmjlk_wvskzNgg",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,viewcode_data:[{preferred_panoid:"JM84FpPuWftNQ4VRDM7kdg",viewcode_lat_e7:306390350,viewcode_lon_e7:3480576720,yaw:20.115989685058594,pitch:11.942809104919434,unsnapped_lat_e7:306390350,unsnapped_lng_e7:3480576720,source:273,debug_key:"15:JM84FpPuWftNQ4VRDM7kdg:2789:9012:4758:11639",horiz_fov_deg:71,pano_lat_e7:306390122,pano_lng_e7:3480577158}],hover_snippet:"I
+        was awakened several times because the air conditioner had shut off and people
+        were talking outside a few doors \x3cb\x3edown\x3c/b\x3e. When we weren\x26#39;t
+        asleep, we had \x3cb\x3e...\x3c/b\x3e",hover_snippet_attr:"priceline.com",elms:[4,1,6,1,10,2,12,1,5,2,11]},{id:"E",cid:"16802089647332236780",latlng:{lat:31.212810000000001,lng:-81.489746999999994},image:"https://maps.gstatic.com/intl/en_us/mapfiles/markers2/markerE.png",sprite:{width:20,height:34,top:136,image:"https://maps.gstatic.com/mapfiles/markers2/red_markers_A_J2.png"},icon_id:"E",drg:true,laddr:"Nalley
+        Auto Honda Buick GMC in Brunswick, 178 Altama Connector, Brunswick, Georgia
+        31525",geocode:"CdMu19WOhMQDFQpF3AEdrZAk-ylFdxecS9bkiDHsnYFRgwMt6Q",sxti:"Nalley
+        Auto Honda Buick GMC in Brunswick",sxst:"Altama Connector",sxsn:"178",sxct:"Brunswick",sxpr:"Georgia",sxpo:"31525",sxcn:"US",sxph:"+19122677000",name:"Nalley
+        Auto Honda Buick GMC in Brunswick",infoWindow:{title:"Nalley Auto Honda Buick
+        GMC in Brunswick",addressLines:["178 Altama Connector","Brunswick, Georgia
+        31525"],phones:[{number:"(912) 267-7000"}],hp:{url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=http://www.nalleyauto.com/\x26oi=miw\x26sa=X\x26ct=miw_link\x26cd=1\x26cad=homepage,cid:16802089647332236780\x26ei=iKPvVLDoCsOAiwK6hIGwAw\x26s=ANYYN7l_d0lnzg4jb7QSSP3WJoI3Za1sYQ",domain:"nalleyauto.com",actual_url:"http://www.nalleyauto.com/"},basics:"\x3cdiv
+        transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more info",place_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/117060350690477805639/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7lgP0cIny0taIZPYxWX4ae6DT2EDw",reviews:20,zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D16802089647332236780%26q%3DThe%2BDown%2BUnder%26cd%3D5%26cad%3Dsrc:ppwrev%26ei%3DiKPvVLDoCsOAiwK6hIGwAw%26action%3Dopenratings",photoUrl:"https://lh4.googleusercontent.com/-6XC1cdw11Bw/U-ueQz7FGFI/AAAAAAAAABw/8nVzrokuVjk/s90/honda1.jpg",photoType:1,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=16802089647332236780\x26q=The+Down+Under\x26near=Amelia+Island,+Fla.",deprecated_stars:3.5,link_jsaction:"",star_score_e3:3800,write_review_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/117060350690477805639/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7nLGg3rewuZIYdipEm_KRrUhyVdfQ",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,service_area:{type:0,name:"Brunswick,
+        GA 31525",show_poly:0},hover_snippet:"Herb Miller inherited our vehicle\x26#39;s
+        problem (headache) from a competitor dealership due to coverage \x3cb\x3eunder\x3c/b\x3e
+        powertrain warranty. He took over and \x3cb\x3e...\x3c/b\x3e",elms:[4,1,6,1,10,2,12,1,5,2,11]},{id:"F",cid:"5051914021902611936",latlng:{lat:30.289688999999999,lng:-81.730969999999999},image:"https://maps.gstatic.com/intl/en_us/mapfiles/markers2/markerF.png",sprite:{width:20,height:34,top:170,image:"https://maps.gstatic.com/mapfiles/markers2/red_markers_A_J2.png"},icon_id:"F",drg:true,laddr:"Duval
+        Ford, 1616 Cassat Avenue, Jacksonville, Florida 32210",geocode:"CWGgXMDZcehnFRkvzgEdZuIg-ynpvvTVX7jliDHg9VFnCQEcRg",sxti:"Duval
+        Ford",sxst:"Cassat Avenue",sxsn:"1616",sxct:"Jacksonville",sxpr:"Florida",sxpo:"32210",sxcn:"US",sxph:"+18664446088",name:"Duval
+        Ford",infoWindow:{title:"Duval Ford",addressLines:["1616 Cassat Avenue","Jacksonville,
+        Florida 32210"],phones:[{number:"(866) 444-6088"}],hp:{url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=http://www.duvalford.com/\x26oi=miw\x26sa=X\x26ct=miw_link\x26cd=1\x26cad=homepage,cid:5051914021902611936\x26ei=iKPvVLDoCsOAiwK6hIGwAw\x26s=ANYYN7m3infeuQFnO1DzO-iQE9XWiYuPXw",domain:"duvalford.com",actual_url:"http://www.duvalford.com/"},basics:"\x3cdiv
+        transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more info",place_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/116277161743867391196/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7nuJQQfxYQ3MAdvnAOG4VkKjE7pUw",reviews:116,zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D5051914021902611936%26q%3DThe%2BDown%2BUnder%26cd%3D6%26cad%3Dsrc:ppwrev%26ei%3DiKPvVLDoCsOAiwK6hIGwAw%26action%3Dopenratings",photoUrl:"https://lh6.googleusercontent.com/-JGs-k8xd3Sc/VGoQ-Nof1GI/AAAAAAAAAdc/9RCDbE9M3GM/s90/IMG_0033.JPG",photoType:1,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=5051914021902611936\x26q=The+Down+Under\x26near=Amelia+Island,+Fla.",deprecated_stars:4.5,link_jsaction:"",star_score_e3:4500,write_review_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/116277161743867391196/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7laX2KObnHWMUyDRXd8A5ncUAEz6g",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,service_area:{type:0,name:"Jacksonville,
+        FL 32210",show_poly:0},hover_snippet:"When I finally sat \x3cb\x3edown\x3c/b\x3e
+        with finance guy, he stated no one leaves a dealership with an actually approval(We
+        only go by what the computer puts out, a \x3cb\x3e...\x3c/b\x3e",hover_snippet_attr:"dealerrater.com",elms:[4,1,6,1,10,2,12,1,5,2,11]},{id:"G",cid:"3561900249296426537",latlng:{lat:30.145956000000002,lng:-81.743491000000006},image:"https://maps.gstatic.com/intl/en_us/mapfiles/markers2/markerG.png",sprite:{width:20,height:34,top:204,image:"https://maps.gstatic.com/mapfiles/markers2/red_markers_A_J2.png"},icon_id:"G",drg:true,laddr:"St.
+        Johns Country Day School, 3100 Doctors Lake Drive, Orange Park, Florida 32073",geocode:"CdtqUMWh293UFaT9ywEdfbEg-yk3v0o7T8TliDEpVrCsZ2luMQ",sxti:"St.
+        Johns Country Day School",sxst:"Doctors Lake Drive",sxsn:"3100",sxct:"Orange
+        Park",sxpr:"Florida",sxpo:"32073",sxcn:"US",sxph:"+19042649572",name:"St.
+        Johns Country Day School",infoWindow:{title:"St. Johns Country Day School",addressLines:["3100
+        Doctors Lake Drive","Orange Park, Florida 32073"],phones:[{number:"(904) 264-9572"}],hp:{url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=http://www.sjcds.net/\x26oi=miw\x26sa=X\x26ct=miw_link\x26cd=1\x26cad=homepage,cid:3561900249296426537\x26ei=iKPvVLDoCsOAiwK6hIGwAw\x26s=ANYYN7n7LosKaUDXxRFB54Z_wBEu4EMKrA",domain:"sjcds.net",actual_url:"http://www.sjcds.net/"},basics:"\x3cdiv
+        transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more info",place_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/103349111832383509511/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7nz9Xo7qerS12ONNkbn0rCfEj1XkQ",reviews:2,zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D3561900249296426537%26q%3DThe%2BDown%2BUnder%26cd%3D7%26cad%3Dsrc:ppwrev%26ei%3DiKPvVLDoCsOAiwK6hIGwAw%26action%3Dopenratings",photoUrl:"https://lh5.googleusercontent.com/-AVc1voLflYc/VNchsJdNrSI/AAAAAAAAAAs/9yp9Dn8mUuM/s90/photo.jpg",photoType:1,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=3561900249296426537\x26q=The+Down+Under\x26near=Amelia+Island,+Fla.",link_jsaction:"",star_score_e3:0,write_review_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/103349111832383509511/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7l0jHEwqfsbt1DGw1Kb-mOh3hp7iA",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,hover_snippet:"Didgeridoo
+        \x3cb\x3eDown Under\x26#39;s\x3c/b\x3e Lindsey Dank engaged, entertained and
+        educated the Lower School audience at a March 11 assembly in the Brown Gym.",hover_snippet_attr:"sjcds.net",elms:[4,1,6,1,10,2,12,1,5,2,11]},{id:"H",cid:"13089495949800660379",latlng:{lat:30.322969000000001,lng:-81.542126999999994},image:"https://maps.gstatic.com/intl/en_us/mapfiles/markers2/markerH.png",sprite:{width:20,height:34,top:238,image:"https://maps.gstatic.com/mapfiles/markers2/red_markers_A_J2.png"},icon_id:"H",drg:true,laddr:"Tom
+        Bush MINI, 9881 Atlantic Boulevard, Jacksonville, Florida 32246",geocode:"CaurJSSaGL9eFRmxzgEdEcQj-ykjIHWtlLTliDGbXcgYNzuntQ",sxti:"Tom
+        Bush MINI",sxst:"Atlantic Boulevard",sxsn:"9881",sxct:"Jacksonville",sxpr:"Florida",sxpo:"32246",sxcn:"US",sxph:"+19043714360",name:"Tom
+        Bush MINI",infoWindow:{title:"Tom Bush MINI",addressLines:["9881 Atlantic
+        Boulevard","Jacksonville, Florida 32246"],phones:[{number:"(904) 371-4360"}],hp:{url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=http://www.tombushmini.com/\x26oi=miw\x26sa=X\x26ct=miw_link\x26cd=1\x26cad=homepage,cid:13089495949800660379\x26ei=iKPvVLDoCsOAiwK6hIGwAw\x26s=ANYYN7kcK-SS2kNkgMLnLAdep19NYpoSjQ",domain:"tombushmini.com",actual_url:"http://www.tombushmini.com/"},basics:"\x3cdiv
+        transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more info",place_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/111086217241726884444/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7lm1GMdTx4k7XRRSmUiXFFo789m2Q",reviews:58,zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D13089495949800660379%26q%3DThe%2BDown%2BUnder%26cd%3D8%26cad%3Dsrc:ppwrev%26ei%3DiKPvVLDoCsOAiwK6hIGwAw%26action%3Dopenratings",photoUrl:"https://lh3.googleusercontent.com/-G5u0h9lIw5s/UCJpY1B5OaI/AAAAAAAAADI/j8pN2_FHGTo/s90/MiniLogo.jpg",photoType:1,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=13089495949800660379\x26q=The+Down+Under\x26near=Amelia+Island,+Fla.",deprecated_stars:5,link_jsaction:"",star_score_e3:4900,write_review_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/111086217241726884444/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7kDNPvSZ7G6HJcKIbGGv6AGE3Ri1Q",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,service_area:{type:0,name:"Jacksonville,
+        FL, USA - Albany, GA, USA - Deltona, FL, USA -...",show_poly:0},viewcode_data:[{preferred_panoid:"d0VhpiYKg2GEojv4nzPLaw",viewcode_lat_e7:303225151,viewcode_lon_e7:3479544467,yaw:-47.121618386967974,pitch:-1.2155654972715499,unsnapped_lat_e7:303225151,unsnapped_lng_e7:3479544467,source:273,debug_key:"15:d0VhpiYKg2GEojv4nzPLaw:3080:776:3428:2872",horiz_fov_deg:56.70973557692308,pano_lat_e7:303223920,pano_lng_e7:3479543420,local_yaw:-130.67307692307691,local_pitch:-2.0012019230769198,viewcode_aspect_ratio:6.0085959885386817},{preferred_panoid:"oekUIMsZbcdj6cdy8PeuOg",viewcode_lat_e7:303226428,viewcode_lon_e7:3479544184,yaw:-23.147180362012698,pitch:-2.9319328747958044,unsnapped_lat_e7:303226428,unsnapped_lng_e7:3479544184,source:273,debug_key:"15:oekUIMsZbcdj6cdy8PeuOg:2868:1180:3484:4292",horiz_fov_deg:84.185697115384613,pano_lat_e7:303224150,pano_lng_e7:3479539702,local_yaw:-106.00961538461539,local_pitch:-4.1105769230769198,viewcode_aspect_ratio:5.0453808752025928},{preferred_panoid:"ZQoErdPM4DDCQDxUennkZQ",viewcode_lat_e7:303226113,viewcode_lon_e7:3479541819,yaw:12.399070500820674,pitch:-5.966771154381477,unsnapped_lat_e7:303226113,unsnapped_lng_e7:3479541819,source:273,debug_key:"15:ZQoErdPM4DDCQDxUennkZQ:3007:9815:3400:11546",horiz_fov_deg:46.838942307692307,pano_lat_e7:303225871,pano_lng_e7:3479544624,local_yaw:108.82211538461536,local_pitch:-3.3804086538461604,viewcode_aspect_ratio:4.3959390862944163},{preferred_panoid:"ZQoErdPM4DDCQDxUennkZQ",viewcode_lat_e7:303224381,viewcode_lon_e7:3479548060,yaw:-146.89205162555319,pitch:1.3099303569734799,unsnapped_lat_e7:303224381,unsnapped_lng_e7:3479548060,source:273,debug_key:"15:ZQoErdPM4DDCQDxUennkZQ:3102:4332:3484:5250",horiz_fov_deg:24.852764423076923,pano_lat_e7:303225871,pano_lng_e7:3479544624,local_yaw:-50.435697115384613,local_pitch:-0.9465144230769198,viewcode_aspect_ratio:2.3994778067885116},{preferred_panoid:"hM89QvLeebN1EC1oFB8C8A",viewcode_lat_e7:303223677,viewcode_lon_e7:3479540615,yaw:-3.9572804457780881,pitch:2.0819555185664185,unsnapped_lat_e7:303223677,unsnapped_lng_e7:3479540615,source:273,debug_key:"15:hM89QvLeebN1EC1oFB8C8A:3220:2817:3473:4136",horiz_fov_deg:35.697115384615387,pano_lat_e7:303223584,pano_lng_e7:3479540107,local_yaw:-85.99759615384616,local_pitch:0.48677884615383959,viewcode_aspect_ratio:5.1968503937007871},{preferred_panoid:"dy-UZugMtg7ikQAnCSoNNA",viewcode_lat_e7:303225146,viewcode_lon_e7:3479534785,yaw:18.306106816379653,pitch:-5.0156667057874902,unsnapped_lat_e7:303225146,unsnapped_lng_e7:3479534785,source:273,debug_key:"15:dy-UZugMtg7ikQAnCSoNNA:3084:10292:3328:11544",horiz_fov_deg:33.885216346153847,pano_lat_e7:303224538,pano_lng_e7:3479538316,local_yaw:115.25841346153845,local_pitch:-3.2992788461538396,viewcode_aspect_ratio:5.1142857142857139},{preferred_panoid:"kOBBdxcSxwaftULd1uRo7Q",viewcode_lat_e7:303227058,viewcode_lon_e7:3479539837,yaw:39.116330109232933,pitch:-5.9672041751996243,unsnapped_lat_e7:303227058,unsnapped_lng_e7:3479539837,source:273,debug_key:"15:kOBBdxcSxwaftULd1uRo7Q:2864:11252:3512:12092",horiz_fov_deg:22.743389423076923,pano_lat_e7:303225655,pano_lng_e7:3479542404,local_yaw:135.64903846153845,local_pitch:-3.7860576923076934,viewcode_aspect_ratio:1.2958397534668722},{preferred_panoid:"uhiwgiUSyGooOnpCKwDeNg",viewcode_lat_e7:303224361,viewcode_lon_e7:3479549010,yaw:-155.4356111751319,pitch:0.094109229379150505,unsnapped_lat_e7:303224361,unsnapped_lng_e7:3479549010,source:273,debug_key:"15:uhiwgiUSyGooOnpCKwDeNg:3057:3897:3459:5048",horiz_fov_deg:31.153846153846153,pano_lat_e7:303225769,pano_lng_e7:3479544071,local_yaw:-59.0625,local_pitch:-1.8930288461538396,viewcode_aspect_ratio:2.8585607940446649},{preferred_panoid:"H1wTBrOLORZJFUs1w03myA",viewcode_lat_e7:303231445,viewcode_lon_e7:3479530892,yaw:154.67118870612961,pitch:-2.2423336489988062,unsnapped_lat_e7:303231445,unsnapped_lng_e7:3479530892,source:273,debug_key:"15:H1wTBrOLORZJFUs1w03myA:3022:5263:3437:6204",horiz_fov_deg:25.474759615384617,pano_lat_e7:303227380,pano_lng_e7:3479533130,local_yaw:-24.9609375,local_pitch:-2.6772836538461604,viewcode_aspect_ratio:2.2644230769230771},{preferred_panoid:"Z6aqWzV2eQWuda-3uX9N5Q",viewcode_lat_e7:303224084,viewcode_lon_e7:3479538577,yaw:-178.53125590428232,pitch:-6.88356505199972,unsnapped_lat_e7:303224084,unsnapped_lng_e7:3479538577,source:273,debug_key:"15:Z6aqWzV2eQWuda-3uX9N5Q:2736:9604:3492:11004",horiz_fov_deg:37.887620192307693,pano_lat_e7:303224281,pano_lng_e7:3479540891,local_yaw:98.653846153846132,local_pitch:-5.7872596153846132,viewcode_aspect_ratio:1.8507265521796565},{preferred_panoid:"Z6aqWzV2eQWuda-3uX9N5Q",viewcode_lat_e7:303224451,viewcode_lon_e7:3479541372,yaw:-15.00001014022094,pitch:1.3320134956838341,unsnapped_lat_e7:303224451,unsnapped_lng_e7:3479541372,source:273,debug_key:"15:Z6aqWzV2eQWuda-3uX9N5Q:3172:2312:3500:3768",horiz_fov_deg:39.402043269230766,pano_lat_e7:303224281,pano_lng_e7:3479540891,local_yaw:-97.788461538461533,local_pitch:0.21634615384616041,viewcode_aspect_ratio:4.4285714285714288},{preferred_panoid:"-mRnQ1pSZZ_jT4s9XVJkFw",viewcode_lat_e7:303226128,viewcode_lon_e7:3479535057,yaw:32.148325029656185,pitch:-6.0926328546597759,unsnapped_lat_e7:303226128,unsnapped_lng_e7:3479535057,source:273,debug_key:"15:-mRnQ1pSZZ_jT4s9XVJkFw:3024:10736:3344:12104",horiz_fov_deg:37.02223557692308,pano_lat_e7:303225107,pano_lng_e7:3479537568,local_yaw:128.83413461538464,local_pitch:-3.8942307692307736,viewcode_aspect_ratio:4.2647975077881624},{preferred_panoid:"mbSQfC2T0BUJAw-2wl9GUQ",viewcode_lat_e7:303225129,viewcode_lon_e7:3479547779,yaw:-37.24906758264656,pitch:-5.820787101921872,unsnapped_lat_e7:303225129,unsnapped_lng_e7:3479547779,source:273,debug_key:"15:mbSQfC2T0BUJAw-2wl9GUQ:2992:8572:3368:9184",horiz_fov_deg:16.57752403846154,pano_lat_e7:303226312,pano_lng_e7:3479549162,local_yaw:60.090144230769226,local_pitch:-4.0024038461538396,viewcode_aspect_ratio:1.6259946949602122},{preferred_panoid:"tl-h9H08ar_QpOGo7QtHSQ",viewcode_lat_e7:303223810,viewcode_lon_e7:3479541422,yaw:-12.914542220889254,pitch:2.5070243843951543,unsnapped_lat_e7:303223810,unsnapped_lng_e7:3479541422,source:273,debug_key:"15:tl-h9H08ar_QpOGo7QtHSQ:3208:2444:3480:3736",horiz_fov_deg:34.966947115384613,pano_lat_e7:303223661,pano_lng_e7:3479540932,local_yaw:-96.43629807692308,local_pitch:0.4326923076923066,viewcode_aspect_ratio:4.7362637362637363}],hover_snippet:"I
+        entered the dealership and to my surprise, was greeted by a Motoring Advisor
+        with an accent from \x3cb\x3eDown Under\x3c/b\x3e (Australia!) Shaan Batten
+        not only was one \x3cb\x3e...\x3c/b\x3e",elms:[4,1,6,1,10,2,12,1,5,2,11]},{id:"I",cid:"1556314854219134500",latlng:{lat:30.32396,lng:-81.524323999999993},image:"https://maps.gstatic.com/intl/en_us/mapfiles/markers2/markerI.png",sprite:{width:20,height:34,top:272,image:"https://maps.gstatic.com/mapfiles/markers2/red_markers_A_J2.png"},icon_id:"I",drg:true,laddr:"Coggin
+        Nissan on Atlantic, 10600 Atlantic Boulevard, Jacksonville, Florida 32225",geocode:"CU8bV5HlKM1aFfi0zgEdnAkk-ykRKwG7t7TliDEkNmU8HSSZFQ",sxti:"Coggin
+        Nissan on Atlantic",sxst:"Atlantic Boulevard",sxsn:"10600",sxct:"Jacksonville",sxpr:"Florida",sxpo:"32225",sxcn:"US",sxph:"+19043028231",name:"Coggin
+        Nissan on Atlantic",infoWindow:{title:"Coggin Nissan on Atlantic",addressLines:["10600
+        Atlantic Boulevard","Jacksonville, Florida 32225"],phones:[{number:"(904)
+        302-8231"}],hp:{url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=http://cogginnissanatlantic.com/\x26oi=miw\x26sa=X\x26ct=miw_link\x26cd=1\x26cad=homepage,cid:1556314854219134500\x26ei=iKPvVLDoCsOAiwK6hIGwAw\x26s=ANYYN7nBeQ01P_ZVgXyPBtngSEzkH3GMdQ",domain:"cogginnissanatlantic.com",actual_url:"http://cogginnissanatlantic.com/"},basics:"\x3cdiv
+        transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more info",place_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/107938825849788503911/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7lAERTmy2Q9bgcpxPcEjujXDqqwSA",reviews:137,zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D1556314854219134500%26q%3DThe%2BDown%2BUnder%26cd%3D9%26cad%3Dsrc:ppwrev%26ei%3DiKPvVLDoCsOAiwK6hIGwAw%26action%3Dopenratings",photoUrl:"https://lh3.googleusercontent.com/-qS-dPx_fFm4/VLmGVKk1o1I/AAAAAAAAAk0/bHExPz_RWqE/s90/f3c0f1ca1b575e31d9d479d5ddf09a93x.jpg",photoType:1,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=1556314854219134500\x26q=The+Down+Under\x26near=Amelia+Island,+Fla.",deprecated_stars:4,link_jsaction:"",star_score_e3:4000,write_review_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/107938825849788503911/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7lTucfxPFD32b_NHxlQxbzB2ft13Q",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,viewcode_data:[{preferred_panoid:"1as_IIgzFbJi05OjPyDO2g",viewcode_lat_e7:303239899,viewcode_lon_e7:3479715003,yaw:145.69181996558689,pitch:-4.953245349057509,unsnapped_lat_e7:303239899,unsnapped_lng_e7:3479715003,source:273,debug_key:"15:1as_IIgzFbJi05OjPyDO2g:3056:7660:3368:10232",horiz_fov_deg:69.582331730769226,pano_lat_e7:303242093,pano_lng_e7:3479717984,local_yaw:61.929086538461547,local_pitch:-3.1370192307692264,viewcode_aspect_ratio:8.2204472843450471}],hover_snippet:"I
+        live out of town, but I had run over some debris and a piece from \x3cb\x3eunder\x3c/b\x3e
+        my car came loose. They took care of the issue, honored my first free oil
+        \x3cb\x3e...\x3c/b\x3e",elms:[4,1,6,1,10,2,12,1,5,2,11]},{id:"J",cid:"15138088088811891123",latlng:{lat:30.620334,lng:-81.530426000000006},image:"https://maps.gstatic.com/intl/en_us/mapfiles/markers2/markerJ.png",sprite:{width:20,height:34,top:306,image:"https://maps.gstatic.com/mapfiles/markers2/red_markers_A_J2.png"},icon_id:"J",drg:true,laddr:"Ron
+        Anderson Chevrolet Buick GMC, 464054 Florida 200, Yulee, Florida 32097",geocode:"CYex0A-Xfg60Fa460wEdxvEj-ykh8_iQCQDliDGzaTRo6UoV0g",sxti:"Ron
+        Anderson Chevrolet Buick GMC",sxst:"Florida 200",sxsn:"464054",sxct:"Yulee",sxpr:"Florida",sxpo:"32097",sxcn:"US",sxph:"+18882616821",name:"Ron
+        Anderson Chevrolet Buick GMC",infoWindow:{title:"Ron Anderson Chevrolet Buick
+        GMC",addressLines:["464054 Florida 200","Yulee, Florida 32097"],phones:[{number:"(888)
+        261-6821"}],hp:{url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=http://www.ronandersonsuperstore.com/\x26oi=miw\x26sa=X\x26ct=miw_link\x26cd=1\x26cad=homepage,cid:15138088088811891123\x26ei=iKPvVLDoCsOAiwK6hIGwAw\x26s=ANYYN7l9-zauMvVxdJin9qZA7KRECtYIuA",domain:"ronandersonsuperstore.com",actual_url:"http://www.ronandersonsuperstore.com/"},basics:"\x3cdiv
+        transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more info",place_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/104209357039282339597/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7lTwrwOlp-C8zpN-V8NO0MfjQTvHA",reviews:10,zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D15138088088811891123%26q%3DThe%2BDown%2BUnder%26cd%3D10%26cad%3Dsrc:ppwrev%26ei%3DiKPvVLDoCsOAiwK6hIGwAw%26action%3Dopenratings",photoUrl:"https://lh3.googleusercontent.com/-MeHRxzXZK-c/VNvZ0EsjJSI/AAAAAAAAAAU/ROtQIiTw26U/s90/photo.jpg",photoType:1,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=15138088088811891123\x26q=The+Down+Under\x26near=Amelia+Island,+Fla.",deprecated_stars:5,link_jsaction:"",star_score_e3:4900,write_review_url:"http://www.google.com/local_url?dq=The+Down+Under\x26q=https://plus.google.com/104209357039282339597/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7lrVxfppvmk4pjdcT6CIBci8UfcPg",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,service_area:{type:0,name:"Jacksonville,
+        FL, USA - Brunswick, GA, USA - Jacksonville, F...",show_poly:0},hover_snippet:"We
+        are also just \x3cb\x3edown\x3c/b\x3e the street from Burger King, KFC, McDonalds,
+        Wendy\x26#39;s and Flash Foods, so you can grab a bite to eat when you get
+        your car serviced \x3cb\x3e...\x3c/b\x3e",hover_snippet_attr:"ronandersonsuperstore.com",elms:[4,1,6,1,10,2,12,1,5,2,11]}],layers:[{composition_type:2,spec:{id:"m"},default_epoch:293000000,pertile_data:{area:[{id:"twuttuw",zrange:[8,8],layer:"m",epoch:293205916},{id:"twuttwut",zrange:[8,8],layer:"m",epoch:293205916},{id:"twuttwuu",zrange:[8,8],layer:"m",epoch:293205916},{id:"twuttwuv",zrange:[8,8],layer:"m",epoch:293206186},{id:"twuttwuw",zrange:[8,8],layer:"m",epoch:293206186},{id:"twuttww",zrange:[8,8],layer:"m",epoch:293206186},{id:"twututv",zrange:[8,8],layer:"m",epoch:293205609},{id:"twututwt",zrange:[8,8],layer:"m",epoch:293205609},{id:"twututwu",zrange:[8,8],layer:"m",epoch:293000000},{id:"twututwv",zrange:[8,8],layer:"m",epoch:293205609},{id:"twututww",zrange:[8,8],layer:"m",epoch:293000000},{id:"twutuuvt",zrange:[8,8],layer:"m",epoch:293000000},{id:"twutuuvv",zrange:[8,8],layer:"m",epoch:293000000},{id:"twutuvt",zrange:[8,8],layer:"m",epoch:293205908},{id:"twutuvut",zrange:[8,8],layer:"m",epoch:293205908},{id:"twutuvuu",zrange:[8,8],layer:"m",epoch:293205362},{id:"twutuvuv",zrange:[8,8],layer:"m",epoch:293205908},{id:"twutuvuw",zrange:[8,8],layer:"m",epoch:293205858},{id:"twutuvvt",zrange:[8,8],layer:"m",epoch:293205908},{id:"twutuvvu",zrange:[8,8],layer:"m",epoch:293205908},{id:"twutuvvv",zrange:[8,8],layer:"m",epoch:293205089},{id:"twutuvvw",zrange:[8,8],layer:"m",epoch:293205858},{id:"twutuvwt",zrange:[8,8],layer:"m",epoch:293205908},{id:"twutuvwu",zrange:[8,8],layer:"m",epoch:293205858},{id:"twutuvwv",zrange:[8,8],layer:"m",epoch:293205858},{id:"twutuvww",zrange:[8,8],layer:"m",epoch:293205858},{id:"twutuwtt",zrange:[8,8],layer:"m",epoch:293204973},{id:"twutuwtv",zrange:[8,8],layer:"m",epoch:293205575},{id:"twutuwvt",zrange:[8,8],layer:"m",epoch:293205575},{id:"twutuwvv",zrange:[8,8],layer:"m",epoch:293205575},{id:"twutvuut",zrange:[8,8],layer:"m",epoch:293203217},{id:"twutvuuu",zrange:[8,8],layer:"m",epoch:293202914},{id:"twutwttt",zrange:[8,8],layer:"m",epoch:293201712},{id:"twutwttu",zrange:[8,8],layer:"m",epoch:293000000},{id:"twutwtut",zrange:[8,8],layer:"m",epoch:293135708},{id:"twutwtuu",zrange:[8,8],layer:"m",epoch:293205393},{id:"twutwutt",zrange:[8,8],layer:"m",epoch:293205393},{id:"twuttuwtv",zrange:[9,9],layer:"m",epoch:293205601},{id:"twuttuwtw",zrange:[9,9],layer:"m",epoch:293205601},{id:"twuttuwuv",zrange:[9,9],layer:"m",epoch:293205601},{id:"twuttuwuw",zrange:[9,9],layer:"m",epoch:293203738},{id:"twuttuwv",zrange:[9,9],layer:"m",epoch:293205923},{id:"twuttuwwt",zrange:[9,9],layer:"m",epoch:293205923},{id:"twuttuwwu",zrange:[9,9],layer:"m",epoch:293203738},{id:"twuttuwwv",zrange:[9,9],layer:"m",epoch:293205923},{id:"twuttuwww",zrange:[9,9],layer:"m",epoch:293203738},{id:"twuttwutt",zrange:[9,9],layer:"m",epoch:293205923},{id:"twuttwutu",zrange:[9,9],layer:"m",epoch:293205923},{id:"twuttwutv",zrange:[9,9],layer:"m",epoch:293205916},{id:"twuttwutw",zrange:[9,9],layer:"m",epoch:293205916},{id:"twuttwuut",zrange:[9,9],layer:"m",epoch:293205923},{id:"twuttwuuu",zrange:[9,9],layer:"m",epoch:293202856},{id:"twuttwuuv",zrange:[9,9],layer:"m",epoch:293202856},{id:"twuttwuuw",zrange:[9,9],layer:"m",epoch:293202856},{id:"twuttwuvt",zrange:[9,9],layer:"m",epoch:293204470},{id:"twuttwuvu",zrange:[9,9],layer:"m",epoch:293203001},{id:"twuttwuvv",zrange:[9,9],layer:"m",epoch:293206186},{id:"twuttwuvw",zrange:[9,9],layer:"m",epoch:293206186},{id:"twuttwuwt",zrange:[9,9],layer:"m",epoch:293202856},{id:"twuttwuwu",zrange:[9,9],layer:"m",epoch:293202856},{id:"twuttwuwv",zrange:[9,9],layer:"m",epoch:293202618},{id:"twuttwuww",zrange:[9,9],layer:"m",epoch:293200157},{id:"twuttwwt",zrange:[9,9],layer:"m",epoch:293206186},{id:"twuttwwut",zrange:[9,9],layer:"m",epoch:293202618},{id:"twuttwwuu",zrange:[9,9],layer:"m",epoch:293202105},{id:"twuttwwuv",zrange:[9,9],layer:"m",epoch:293202105},{id:"twuttwwuw",zrange:[9,9],layer:"m",epoch:293202105},{id:"twuttwwv",zrange:[9,9],layer:"m",epoch:293204779},{id:"twuttwwwt",zrange:[9,9],layer:"m",epoch:293202105},{id:"twuttwwwu",zrange:[9,9],layer:"m",epoch:293202105},{id:"twuttwwwv",zrange:[9,9],layer:"m",epoch:293201712},{id:"twuttwwww",zrange:[9,9],layer:"m",epoch:293201712},{id:"twututvtv",zrange:[9,9],layer:"m",epoch:293202905},{id:"twututvtw",zrange:[9,9],layer:"m",epoch:293205609},{id:"twututvuv",zrange:[9,9],layer:"m",epoch:293205609},{id:"twututvuw",zrange:[9,9],layer:"m",epoch:293205609},{id:"twututvvt",zrange:[9,9],layer:"m",epoch:293202782},{id:"twututvvu",zrange:[9,9],layer:"m",epoch:293204091},{id:"twututvvv",zrange:[9,9],layer:"m",epoch:293202782},{id:"twututvvw",zrange:[9,9],layer:"m",epoch:293204091},{id:"twututvw",zrange:[9,9],layer:"m",epoch:293204390},{id:"twututwtv",zrange:[9,9],layer:"m",epoch:293204390},{id:"twututwtw",zrange:[9,9],layer:"m",epoch:293000000},{id:"twututwuv",zrange:[9,9],layer:"m",epoch:293000000},{id:"twututwuw",zrange:[9,9],layer:"m",epoch:293000000},{id:"twututwvt",zrange:[9,9],layer:"m",epoch:293204390},{id:"twututwvu",zrange:[9,9],layer:"m",epoch:293000000},{id:"twututwvv",zrange:[9,9],layer:"m",epoch:293204390},{id:"twututwvw",zrange:[9,9],layer:"m",epoch:293000000},{id:"twututww",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutuuvtv",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutuuvvt",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutuuvvv",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutuvtt",zrange:[9,9],layer:"m",epoch:293200962},{id:"twutuvtut",zrange:[9,9],layer:"m",epoch:293200962},{id:"twutuvtuu",zrange:[9,9],layer:"m",epoch:293186157},{id:"twutuvtuv",zrange:[9,9],layer:"m",epoch:293205908},{id:"twutuvtuw",zrange:[9,9],layer:"m",epoch:293205908},{id:"twutuvtvt",zrange:[9,9],layer:"m",epoch:293200157},{id:"twutuvtvu",zrange:[9,9],layer:"m",epoch:293202341},{id:"twutuvtvv",zrange:[9,9],layer:"m",epoch:293205089},{id:"twutuvtvw",zrange:[9,9],layer:"m",epoch:293205089},{id:"twutuvtw",zrange:[9,9],layer:"m",epoch:293205908},{id:"twutuvutt",zrange:[9,9],layer:"m",epoch:293143697},{id:"twutuvutu",zrange:[9,9],layer:"m",epoch:293143697},{id:"twutuvutv",zrange:[9,9],layer:"m",epoch:293205908},{id:"twutuvutw",zrange:[9,9],layer:"m",epoch:293204973},{id:"twutuvuut",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutuvuuu",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutuvuuv",zrange:[9,9],layer:"m",epoch:293204973},{id:"twutuvuuw",zrange:[9,9],layer:"m",epoch:293204973},{id:"twutuvuvt",zrange:[9,9],layer:"m",epoch:293205908},{id:"twutuvuvu",zrange:[9,9],layer:"m",epoch:293205362},{id:"twutuvuvv",zrange:[9,9],layer:"m",epoch:293205908},{id:"twutuvuvw",zrange:[9,9],layer:"m",epoch:293205858},{id:"twutuvuwt",zrange:[9,9],layer:"m",epoch:293205362},{id:"twutuvuwu",zrange:[9,9],layer:"m",epoch:293204973},{id:"twutuvuwv",zrange:[9,9],layer:"m",epoch:293205858},{id:"twutuvuww",zrange:[9,9],layer:"m",epoch:293205575},{id:"twutuvvt",zrange:[9,9],layer:"m",epoch:293205089},{id:"twutuvvut",zrange:[9,9],layer:"m",epoch:293205089},{id:"twutuvvuu",zrange:[9,9],layer:"m",epoch:293205858},{id:"twutuvvuv",zrange:[9,9],layer:"m",epoch:293205089},{id:"twutuvvuw",zrange:[9,9],layer:"m",epoch:293205858},{id:"twutuvvvt",zrange:[9,9],layer:"m",epoch:293202105},{id:"twutuvvvu",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutuvvvv",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutuvvvw",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutuvvw",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutuvwt",zrange:[9,9],layer:"m",epoch:293205858},{id:"twutuvwut",zrange:[9,9],layer:"m",epoch:293205858},{id:"twutuvwuu",zrange:[9,9],layer:"m",epoch:293205575},{id:"twutuvwuv",zrange:[9,9],layer:"m",epoch:293205858},{id:"twutuvwuw",zrange:[9,9],layer:"m",epoch:293205575},{id:"twutuvwvt",zrange:[9,9],layer:"m",epoch:293183568},{id:"twutuvwvu",zrange:[9,9],layer:"m",epoch:293183568},{id:"twutuvwvv",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutuvwvw",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutuvwwt",zrange:[9,9],layer:"m",epoch:293199702},{id:"twutuvwwu",zrange:[9,9],layer:"m",epoch:293205338},{id:"twutuvwwv",zrange:[9,9],layer:"m",epoch:293116570},{id:"twutuvwww",zrange:[9,9],layer:"m",epoch:293205338},{id:"twutuwttt",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutuwttv",zrange:[9,9],layer:"m",epoch:293203182},{id:"twutuwtvt",zrange:[9,9],layer:"m",epoch:293204081},{id:"twutuwtvv",zrange:[9,9],layer:"m",epoch:293204081},{id:"twutuwvtt",zrange:[9,9],layer:"m",epoch:293206094},{id:"twutuwvtv",zrange:[9,9],layer:"m",epoch:293206094},{id:"twutuwvvt",zrange:[9,9],layer:"m",epoch:293206094},{id:"twutuwvvv",zrange:[9,9],layer:"m",epoch:293205338},{id:"twutvuutt",zrange:[9,9],layer:"m",epoch:293204779},{id:"twutvuutu",zrange:[9,9],layer:"m",epoch:293204779},{id:"twutvuutv",zrange:[9,9],layer:"m",epoch:293202356},{id:"twutvuutw",zrange:[9,9],layer:"m",epoch:293202356},{id:"twutvuuut",zrange:[9,9],layer:"m",epoch:293188449},{id:"twutvuuuu",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutvuuuv",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutvuuuw",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutwttt",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutwttu",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutwtut",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutwtuut",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutwtuuu",zrange:[9,9],layer:"m",epoch:293141176},{id:"twutwtuuv",zrange:[9,9],layer:"m",epoch:293000000},{id:"twutwtuuw",zrange:[9,9],layer:"m",epoch:293141176},{id:"twutwuttt",zrange:[9,9],layer:"m",epoch:293141176},{id:"twutwuttv",zrange:[9,9],layer:"m",epoch:293141176},{id:"twuttwuuuv",zrange:[10,10],layer:"m",epoch:293202856},{id:"twuttwuuuw",zrange:[10,10],layer:"m",epoch:293199141},{id:"twuttwuuwt",zrange:[10,10],layer:"m",epoch:293202856},{id:"twuttwuuwu",zrange:[10,10],layer:"m",epoch:293179522},{id:"twuttwuuwv",zrange:[10,10],layer:"m",epoch:293202856},{id:"twuttwuuww",zrange:[10,10],layer:"m",epoch:293183106},{id:"twuttwuwu",zrange:[10,10],layer:"m",epoch:293200157},{id:"twuttwuwwt",zrange:[10,10],layer:"m",epoch:293200157},{id:"twuttwuwwu",zrange:[10,10],layer:"m",epoch:293200157},{id:"twuttwuwwv",zrange:[10,10],layer:"m",epoch:293195751},{id:"twuttwuwww",zrange:[10,10],layer:"m",epoch:293195751},{id:"twuttwwuu",zrange:[10,10],layer:"m",epoch:293204526},{id:"twuttwwuwt",zrange:[10,10],layer:"m",epoch:293204526},{id:"twuttwwuwu",zrange:[10,10],layer:"m",epoch:293204526},{id:"twuttwwuwv",zrange:[10,10],layer:"m",epoch:293202105},{id:"twuttwwuww",zrange:[10,10],layer:"m",epoch:293202105},{id:"twuttwwwut",zrange:[10,10],layer:"m",epoch:293200555},{id:"twuttwwwuu",zrange:[10,10],layer:"m",epoch:293000000},{id:"twuttwwwuv",zrange:[10,10],layer:"m",epoch:293200555},{id:"twuttwwwuw",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvtttv",zrange:[10,10],layer:"m",epoch:293199141},{id:"twutuvtttw",zrange:[10,10],layer:"m",epoch:293199141},{id:"twutuvttuv",zrange:[10,10],layer:"m",epoch:293200962},{id:"twutuvttuw",zrange:[10,10],layer:"m",epoch:293200962},{id:"twutuvttvt",zrange:[10,10],layer:"m",epoch:293177669},{id:"twutuvttvu",zrange:[10,10],layer:"m",epoch:293177862},{id:"twutuvttvv",zrange:[10,10],layer:"m",epoch:293177669},{id:"twutuvttvw",zrange:[10,10],layer:"m",epoch:293177669},{id:"twutuvttwt",zrange:[10,10],layer:"m",epoch:293186767},{id:"twutuvttwu",zrange:[10,10],layer:"m",epoch:293193629},{id:"twutuvttwv",zrange:[10,10],layer:"m",epoch:293186767},{id:"twutuvttww",zrange:[10,10],layer:"m",epoch:293193629},{id:"twutuvtutv",zrange:[10,10],layer:"m",epoch:293200962},{id:"twutuvtutw",zrange:[10,10],layer:"m",epoch:293186157},{id:"twutuvtuuv",zrange:[10,10],layer:"m",epoch:293186157},{id:"twutuvtuuw",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvtuv",zrange:[10,10],layer:"m",epoch:293193629},{id:"twutuvtuwt",zrange:[10,10],layer:"m",epoch:293015128},{id:"twutuvtuwu",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvtuwv",zrange:[10,10],layer:"m",epoch:293015128},{id:"twutuvtuww",zrange:[10,10],layer:"m",epoch:293143697},{id:"twutuvtvtt",zrange:[10,10],layer:"m",epoch:293200157},{id:"twutuvtvtu",zrange:[10,10],layer:"m",epoch:293195225},{id:"twutuvtvtv",zrange:[10,10],layer:"m",epoch:293200157},{id:"twutuvtvtw",zrange:[10,10],layer:"m",epoch:293195225},{id:"twutuvtvut",zrange:[10,10],layer:"m",epoch:293195225},{id:"twutuvtvuu",zrange:[10,10],layer:"m",epoch:293195225},{id:"twutuvtvuv",zrange:[10,10],layer:"m",epoch:293203798},{id:"twutuvtvuw",zrange:[10,10],layer:"m",epoch:293203798},{id:"twutuvtvvt",zrange:[10,10],layer:"m",epoch:293200157},{id:"twutuvtvvu",zrange:[10,10],layer:"m",epoch:293195225},{id:"twutuvtvvv",zrange:[10,10],layer:"m",epoch:293193503},{id:"twutuvtvvw",zrange:[10,10],layer:"m",epoch:293205089},{id:"twutuvtvwt",zrange:[10,10],layer:"m",epoch:293203798},{id:"twutuvtvwu",zrange:[10,10],layer:"m",epoch:293203798},{id:"twutuvtvwv",zrange:[10,10],layer:"m",epoch:293205089},{id:"twutuvtvww",zrange:[10,10],layer:"m",epoch:293205089},{id:"twutuvtwtt",zrange:[10,10],layer:"m",epoch:293195225},{id:"twutuvtwtu",zrange:[10,10],layer:"m",epoch:293193629},{id:"twutuvtwtv",zrange:[10,10],layer:"m",epoch:293203798},{id:"twutuvtwtw",zrange:[10,10],layer:"m",epoch:293139400},{id:"twutuvtwu",zrange:[10,10],layer:"m",epoch:293205908},{id:"twutuvtwvt",zrange:[10,10],layer:"m",epoch:293203798},{id:"twutuvtwvu",zrange:[10,10],layer:"m",epoch:293202341},{id:"twutuvtwvv",zrange:[10,10],layer:"m",epoch:293203798},{id:"twutuvtwvw",zrange:[10,10],layer:"m",epoch:293202341},{id:"twutuvtwwt",zrange:[10,10],layer:"m",epoch:293205908},{id:"twutuvtwwu",zrange:[10,10],layer:"m",epoch:293205908},{id:"twutuvtwwv",zrange:[10,10],layer:"m",epoch:293202341},{id:"twutuvtwww",zrange:[10,10],layer:"m",epoch:293202276},{id:"twutuvuttv",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvuttw",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvutuv",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvutvt",zrange:[10,10],layer:"m",epoch:293143697},{id:"twutuvutvu",zrange:[10,10],layer:"m",epoch:293143697},{id:"twutuvutvv",zrange:[10,10],layer:"m",epoch:293195269},{id:"twutuvutvw",zrange:[10,10],layer:"m",epoch:293195269},{id:"twutuvutwt",zrange:[10,10],layer:"m",epoch:293143697},{id:"twutuvutwv",zrange:[10,10],layer:"m",epoch:293195269},{id:"twutuvuvtt",zrange:[10,10],layer:"m",epoch:293205908},{id:"twutuvuvtu",zrange:[10,10],layer:"m",epoch:293195269},{id:"twutuvuvtv",zrange:[10,10],layer:"m",epoch:293205908},{id:"twutuvuvtw",zrange:[10,10],layer:"m",epoch:293195269},{id:"twutuvuvut",zrange:[10,10],layer:"m",epoch:293195269},{id:"twutuvuvuv",zrange:[10,10],layer:"m",epoch:293195269},{id:"twutuvuvvt",zrange:[10,10],layer:"m",epoch:293205908},{id:"twutuvuvvu",zrange:[10,10],layer:"m",epoch:293189814},{id:"twutuvuvvv",zrange:[10,10],layer:"m",epoch:293202276},{id:"twutuvuvvw",zrange:[10,10],layer:"m",epoch:293205858},{id:"twutuvuvwt",zrange:[10,10],layer:"m",epoch:293205362},{id:"twutuvuvwv",zrange:[10,10],layer:"m",epoch:293205858},{id:"twutuvvttt",zrange:[10,10],layer:"m",epoch:293193503},{id:"twutuvvttu",zrange:[10,10],layer:"m",epoch:293205089},{id:"twutuvvttv",zrange:[10,10],layer:"m",epoch:293202105},{id:"twutuvvttw",zrange:[10,10],layer:"m",epoch:293205089},{id:"twutuvvtu",zrange:[10,10],layer:"m",epoch:293205089},{id:"twutuvvtvt",zrange:[10,10],layer:"m",epoch:293202105},{id:"twutuvvtvu",zrange:[10,10],layer:"m",epoch:293148437},{id:"twutuvvtvv",zrange:[10,10],layer:"m",epoch:293202105},{id:"twutuvvtvw",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvvtw",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvvutt",zrange:[10,10],layer:"m",epoch:293202341},{id:"twutuvvutu",zrange:[10,10],layer:"m",epoch:293202341},{id:"twutuvvutv",zrange:[10,10],layer:"m",epoch:293198139},{id:"twutuvvutw",zrange:[10,10],layer:"m",epoch:293198139},{id:"twutuvvuut",zrange:[10,10],layer:"m",epoch:293202341},{id:"twutuvvuuu",zrange:[10,10],layer:"m",epoch:293202276},{id:"twutuvvuuv",zrange:[10,10],layer:"m",epoch:293198139},{id:"twutuvvuuw",zrange:[10,10],layer:"m",epoch:293198606},{id:"twutuvvuv",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvvuwt",zrange:[10,10],layer:"m",epoch:293010154},{id:"twutuvvuwu",zrange:[10,10],layer:"m",epoch:293198606},{id:"twutuvvuwv",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvvuww",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvvvt",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvvvu",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvvwt",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvvwu",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvwttt",zrange:[10,10],layer:"m",epoch:293202276},{id:"twutuvwttu",zrange:[10,10],layer:"m",epoch:293205858},{id:"twutuvwttv",zrange:[10,10],layer:"m",epoch:293198606},{id:"twutuvwttw",zrange:[10,10],layer:"m",epoch:293205858},{id:"twutuvwtut",zrange:[10,10],layer:"m",epoch:293205858},{id:"twutuvwtuv",zrange:[10,10],layer:"m",epoch:293205858},{id:"twutuvwtvt",zrange:[10,10],layer:"m",epoch:293198606},{id:"twutuvwtvu",zrange:[10,10],layer:"m",epoch:293198606},{id:"twutuvwtvv",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvwtvw",zrange:[10,10],layer:"m",epoch:293120888},{id:"twutuvwtwt",zrange:[10,10],layer:"m",epoch:293198606},{id:"twutuvwtwv",zrange:[10,10],layer:"m",epoch:293183568},{id:"twutuvwvt",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvwvut",zrange:[10,10],layer:"m",epoch:293000000},{id:"twutuvwvuv",zrange:[10,10],layer:"m",epoch:293000000}]}}]},panel:"\x3cdiv
+        id=\"resultspanel\" class=\"local\"\x3e\x3cbody\x3e \x3cdiv\x3e \x3cdiv class=\"query\"
+        id=\"qmod\"\x3e   \x3cspan class=\"query_terms\"\x3e\x3cspan class=\"query_terms_light\"\x3e\x3c/span\x3e\x3cspan
+        class=\"query_terms_bold\"\x3eThe Down Under\x3c/span\x3e near \x3cspan class=\"query_terms_bold\"\x3eAmelia
+        Island, Florida\x3c/span\x3e\x3c/span\x3e  \x3c/div\x3e \x3c/div\x3e  \x3c/body\x3e  \x3cdiv
+        class=\"noprint res\"\x3e       \x3cdiv\x3e  \x3cdiv\x3e  \x3cdiv class=\"one\"
+        id=\"one_A_2\" jsprops=''markerid:\"A\";oneId:\"one_A_2\";panelId:\"panel_A_2\"''
+        jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=\"0CFgQpQ0wAA\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
+        \x3cdiv class=\"lsicon\"\x3e \x3cdiv class=\"icon\" log=\"\" jsaction=\"app.openInfoWindow\"
+        jsprops=\"markerid:''A''\" jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=0CFkQ_gswAA
+        id=\"marker_A_2\"\x3e\x3cimg alt=\"A\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"mp iconA\"/\x3e\x3c/div\x3e \x3cspan\x3e \x3cimg class=\"unstarred
+        noprint si_17991764359349941606\" jsaction=\"si.togglePanelStarring\" jsprops=\"markerid:''A'';b_s:2\"
+        data-authtoken=\"54efa389-aY6y_NpyZ0gdBCnAJWH913WUM4\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        id=\"pp-starred-item-star\" log=\"si_lhs\" width=\"21\" height=\"14\"\x3e
+        \x3c/span\x3e \x3c/div\x3e \x3cdiv class=\"text vcard indent block\" id=\"panel_A_2\"\x3e  \x3cdiv
+        class=\"name lname\" id=\"link_A_2\"\x3e \x3cspan class=\"pp-place-title\"\x3e\x3cspan\x3e\x3cb\x3eDown\x3c/b\x3e
+        \x3cb\x3eUnder\x3c/b\x3e Restaurant\x3c/span\x3e\x3c/span\x3e  \x3cspan class=\"actbar-local-wrapper\"\x3e\x3cspan
+        id=\"actbar-A\" class=\"actbar\" markerid=\"A\" panelId=\"actbar-panel-A-pp\"
+        isCompact=\"1\"jsvalues=\"@unique-id: $this.uniqueId;@id: ''actbar-''+$this.uniqueId;@markerid:
+        $this.markerId;@panelId: ''actbar-panel-''+$this.uniqueId;\"\x3e\x3cspan id=\"actbar-btns-A\"
+        jsvalues=\"@id:''actbar-btns-''+$this.uniqueId\" jsdisplay=\"$this.visible!=''none''\"
+        jsskip=\"1\"\x3e\x3cspan jsaction=\"ab.topLevelClick\" action=\"actbar-more\"
+        class=\"actbar-cmpct\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"arrow-down\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e    \x3c/div\x3e
+        \x3cdiv\x3e \x3cdiv\x3e\x3c/div\x3e  \x3cspan class=\"pp-headline-item pp-headline-address\"\x3e
+        \x3cspan\x3eIntracoastal Waterway, Florida A1A, FL\x3c/span\x3e  \x3c/span\x3e  \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e \x3cspan class=\"pp-headline-item pp-headline-phone\"\x3e
+        \x3cspan class=\"telephone\"\x3e \x3cnobr\x3e(904) 261-1001\x3c/nobr\x3e \x3cspan
+        class=\"pp-headline-phone-label\" style=\"display:none\"\x3e ()\x3c/span\x3e  \x3c/span\x3e   \x3c/span\x3e  \x3c/div\x3e  \x3cdiv\x3e  \x3cspan
+        id=\"pp-reviews-headline\"\x3e\x3cspan style=\"margin-right:8px\"\x3e\x3c/span\x3e\x3cspan\x3e\x3ca
+        class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/100305420221522329249/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CF0QlQU\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7l8BklKQQkWBT8BVqU0EMnXVImSkA\"
+        target=\"_blank\"\x3e\x3cspan\x3e1 review\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3cspan style=\"color:#666\"\x3e \x26middot; \x3c/span\x3e \x3c/div\x3e      \x3c/div\x3e  \x3cdiv
+        class=\"actbar-local-wrapper\"\x3e  \x3cspan\x3e\x3cspan id=\"actbar-panel-A-pp\"
+        class=\"actbar\" jsvalues=\"@unique-id: $this.uniqueId;@markerid: $this.markerId;@id:
+        ''actbar-panel-'' + $this.uniqueId;@panelId: ''actbar-panel-'' + $this.uniqueId;\"\x3e\x3cspan
+        jsvalues=\"@id:''actbar-sn-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-sn''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan
+        jsvalues=\"@id:''actbar-saveto-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-saveto''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3c/div\x3e \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e       \x3c/div\x3e\x3cdiv\x3e  \x3cdiv\x3e  \x3cdiv
+        class=\"one\" id=\"one_B_2\" jsprops=''markerid:\"B\";oneId:\"one_B_2\";panelId:\"panel_B_2\"''
+        jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=\"0CF4QpQ0wAQ\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
+        \x3cdiv class=\"lsicon\"\x3e \x3cdiv class=\"icon\" log=\"\" jsaction=\"app.openInfoWindow\"
+        jsprops=\"markerid:''B''\" jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=0CF8Q_gswAQ
+        id=\"marker_B_2\"\x3e\x3cimg alt=\"B\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"mp iconB\"/\x3e\x3c/div\x3e \x3cspan\x3e \x3cimg class=\"unstarred
+        noprint si_15978337505391861176\" jsaction=\"si.togglePanelStarring\" jsprops=\"markerid:''B'';b_s:2\"
+        data-authtoken=\"54efa389-aY6y_NpyZ0gdBCnAJWH913WUM4\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        id=\"pp-starred-item-star\" log=\"si_lhs\" width=\"21\" height=\"14\"\x3e
+        \x3c/span\x3e \x3c/div\x3e \x3cdiv class=\"text vcard indent block\" id=\"panel_B_2\"\x3e  \x3cdiv
+        class=\"name lname\" id=\"link_B_2\"\x3e \x3cspan class=\"pp-place-title\"\x3e\x3cspan\x3eRoutine
+        Filmco\x3c/span\x3e\x3c/span\x3e  \x3cspan class=\"actbar-local-wrapper\"\x3e\x3cspan
+        id=\"actbar-B\" class=\"actbar\" markerid=\"B\" panelId=\"actbar-panel-B-pp\"
+        isCompact=\"1\"jsvalues=\"@unique-id: $this.uniqueId;@id: ''actbar-''+$this.uniqueId;@markerid:
+        $this.markerId;@panelId: ''actbar-panel-''+$this.uniqueId;\"\x3e\x3cspan id=\"actbar-btns-B\"
+        jsvalues=\"@id:''actbar-btns-''+$this.uniqueId\" jsdisplay=\"$this.visible!=''none''\"
+        jsskip=\"1\"\x3e\x3cspan jsaction=\"ab.topLevelClick\" action=\"actbar-more\"
+        class=\"actbar-cmpct\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"arrow-down\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e    \x3c/div\x3e
+        \x3cdiv\x3e \x3cdiv\x3e\x3c/div\x3e  \x3cspan class=\"pp-headline-item pp-headline-address\"\x3e
+        \x3cspan\x3e1417 Sadler Road, Fernandina Beach, FL\x3c/span\x3e  \x3c/span\x3e  \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e \x3cspan class=\"pp-headline-item pp-headline-phone\"\x3e
+        \x3cspan class=\"telephone\"\x3e \x3cnobr\x3e(516) 570-6861\x3c/nobr\x3e \x3cspan
+        class=\"pp-headline-phone-label\" style=\"display:none\"\x3e ()\x3c/span\x3e  \x3c/span\x3e   \x3c/span\x3e  \x3cspan\x3e
+        \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item pp-headline-authority-page\"\x3e
+        \x3cspan\x3e\x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://www.festivaloffilms.com/\x26amp;ved=0CGMQ5AQ\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7mUzpo4-xBgEv_Fah0DeFruFGymzQ\"
+        target=\"_blank\"\x3e\x3cspan\x3efestivaloffilms.com\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e
+        \x3c/span\x3e  \x3c/div\x3e    \x3cdiv align=\"left\"\x3e\x3cspan\x3e \x3cdiv
+        class=\"pp-story pp-description\" id=\"pp-desc-ssj\"\x3e   \x3cdiv\x3e \x3cspan\x3e\"The
+        Duel At Blood Creek. The Duel At Blood Creek. On Top \x3cb\x3eDown Under\x3c/b\x3e.
+        On Top \x3cb\x3eDown Under\x3c/b\x3e. Halbschlaf. Halbschlaf. When It Will
+        Be Silent. When It Will Be Silent\"\x3c/span\x3e  \x3cnobr\x3e \x3cspan class=\"pp-hover-attribution\"\x3e
+        - \x3ca class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://festivaloffilms.com/\x26amp;ved=0CGQQyQkwAQ\x26amp;sa=X\x26amp;geocode=FdSG0wEdqCQl-w\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7lmGRaLc4o_n0_WvD-QvhlUHJ5Hwg\"
+        target=\"_blank\"\x3e\x3cspan\x3efestivaloffilms.com\x3c/span\x3e\x3c/a\x3e
+        \x3c/span\x3e \x3c/nobr\x3e \x3c/div\x3e   \x3c/div\x3e \x3c/span\x3e\x3c/div\x3e    \x3c/div\x3e  \x3cdiv
+        class=\"actbar-local-wrapper\"\x3e  \x3cspan\x3e\x3cspan id=\"actbar-panel-B-pp\"
+        class=\"actbar\" jsvalues=\"@unique-id: $this.uniqueId;@markerid: $this.markerId;@id:
+        ''actbar-panel-'' + $this.uniqueId;@panelId: ''actbar-panel-'' + $this.uniqueId;\"\x3e\x3cspan
+        jsvalues=\"@id:''actbar-sn-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-sn''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan
+        jsvalues=\"@id:''actbar-saveto-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-saveto''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3c/div\x3e \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e       \x3c/div\x3e\x3cdiv\x3e  \x3cdiv\x3e  \x3cdiv
+        class=\"one\" id=\"one_C_2\" jsprops=''markerid:\"C\";oneId:\"one_C_2\";panelId:\"panel_C_2\"''
+        jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=\"0CGUQpQ0wAg\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
+        \x3cdiv class=\"lsicon\"\x3e \x3cdiv class=\"icon\" log=\"\" jsaction=\"app.openInfoWindow\"
+        jsprops=\"markerid:''C''\" jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=0CGYQ_gswAg
+        id=\"marker_C_2\"\x3e\x3cimg alt=\"C\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"mp iconC\"/\x3e\x3c/div\x3e \x3cspan\x3e \x3cimg class=\"unstarred
+        noprint si_1010564058939345521\" jsaction=\"si.togglePanelStarring\" jsprops=\"markerid:''C'';b_s:2\"
+        data-authtoken=\"54efa389-aY6y_NpyZ0gdBCnAJWH913WUM4\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        id=\"pp-starred-item-star\" log=\"si_lhs\" width=\"21\" height=\"14\"\x3e
+        \x3c/span\x3e \x3c/div\x3e \x3cdiv class=\"text vcard indent block\" id=\"panel_C_2\"\x3e  \x3cdiv
+        class=\"name lname\" id=\"link_C_2\"\x3e \x3cspan class=\"pp-place-title\"\x3e\x3cspan\x3eAmsoil
+        Oil Change Authorized Dealer\x3c/span\x3e\x3c/span\x3e  \x3cspan class=\"actbar-local-wrapper\"\x3e\x3cspan
+        id=\"actbar-C\" class=\"actbar\" markerid=\"C\" panelId=\"actbar-panel-C-pp\"
+        isCompact=\"1\"jsvalues=\"@unique-id: $this.uniqueId;@id: ''actbar-''+$this.uniqueId;@markerid:
+        $this.markerId;@panelId: ''actbar-panel-''+$this.uniqueId;\"\x3e\x3cspan id=\"actbar-btns-C\"
+        jsvalues=\"@id:''actbar-btns-''+$this.uniqueId\" jsdisplay=\"$this.visible!=''none''\"
+        jsskip=\"1\"\x3e\x3cspan jsaction=\"ab.topLevelClick\" action=\"actbar-more\"
+        class=\"actbar-cmpct\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"arrow-down\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e   \x3cdiv
+        class=\"pp-coverphoto\"\x3e  \x3cdiv\x3e \x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/107526721763453344529/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CGgQhgU\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7nNXOtqg-U4LArPDrxY1D1zBwRiSQ\"
+        target=\"_blank\"\x3e \x3cdiv\x3e \x3cdiv id=\"photo-stack\"\x3e \x3cimg class=\"photo-stack-background\"
+        src=\"//maps.gstatic.com/mapfiles/thumbnail.png\"\x3e  \x3cdiv class=\"photo-shadow\"\x3e
+        \x3cdiv class=\"photo-border\"\x3e \x3cimg src=\"https://lh6.googleusercontent.com/-QcY6iNFvmGY/VNehv-7nx4I/AAAAAAAAAA8/R_YbDOfU5bM/s85/photo.jpg\"
+        alt=\"Photo\" title=\"Photo\" class=\"pp-linked-photo\"\x3e \x3c/div\x3e \x3c/div\x3e
+        \x3c/div\x3e \x3c/div\x3e \x3c/a\x3e \x3c/div\x3e \x3cdiv class=\"pp-source-name
+        pp-cover-source\"\x3e   \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e  \x3cspan class=\"pp-headline-item pp-headline-address\"\x3e
+        \x3cspan\x3e2491 Captain Hook Drive, Fernandina Beach, FL\x3c/span\x3e  \x3c/span\x3e  \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e \x3cspan class=\"pp-headline-item pp-headline-phone\"\x3e
+        \x3cspan class=\"telephone\"\x3e \x3cnobr\x3e(904) 556-2050\x3c/nobr\x3e \x3cspan
+        class=\"pp-headline-phone-label\" style=\"display:none\"\x3e ()\x3c/span\x3e  \x3c/span\x3e   \x3c/span\x3e  \x3cspan\x3e
+        \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item pp-headline-authority-page\"\x3e
+        \x3cspan\x3e\x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://www.synthetic-oil-tech.com/1477480/\x26amp;ved=0CGwQ5AQ\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7n6lxfQ2mFOxn_HG7wOxlI6new-hQ\"
+        target=\"_blank\"\x3e\x3cspan\x3esynthetic-oil-tech.com\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e
+        \x3c/span\x3e  \x3c/div\x3e    \x3cdiv align=\"left\"\x3e\x3cspan\x3e \x3cdiv
+        class=\"pp-story pp-description\" id=\"pp-desc-ssj\"\x3e   \x3cdiv\x3e \x3cspan\x3e\"Petroleum
+        motor oil breaks \x3cb\x3edown under\x3c/b\x3e heat and stress and leaves
+        carbon, varnish and sludge deposits in your engine and allows your critical
+        engine \x3cb\x3e...\x3c/b\x3e\"\x3c/span\x3e  \x3cnobr\x3e \x3cspan class=\"pp-hover-attribution\"\x3e
+        - \x3ca class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://www.synthetic-oil-tech.com/1477480/\x26amp;ved=0CG0QyQkwAg\x26amp;sa=X\x26amp;geocode=FSl20wEdP0El-w\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7n6lxfQ2mFOxn_HG7wOxlI6new-hQ\"
+        target=\"_blank\"\x3e\x3cspan\x3esynthetic-oil-tech.com\x3c/span\x3e\x3c/a\x3e
+        \x3c/span\x3e \x3c/nobr\x3e \x3c/div\x3e   \x3c/div\x3e \x3c/span\x3e\x3c/div\x3e    \x3c/div\x3e  \x3cdiv
+        class=\"actbar-local-wrapper\"\x3e  \x3cspan\x3e\x3cspan id=\"actbar-panel-C-pp\"
+        class=\"actbar\" jsvalues=\"@unique-id: $this.uniqueId;@markerid: $this.markerId;@id:
+        ''actbar-panel-'' + $this.uniqueId;@panelId: ''actbar-panel-'' + $this.uniqueId;\"\x3e\x3cspan
+        jsvalues=\"@id:''actbar-sn-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-sn''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan
+        jsvalues=\"@id:''actbar-saveto-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-saveto''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3c/div\x3e \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e       \x3c/div\x3e\x3cdiv\x3e  \x3cdiv\x3e  \x3cdiv
+        class=\"one\" id=\"one_D_2\" jsprops=''markerid:\"D\";oneId:\"one_D_2\";panelId:\"panel_D_2\"''
+        jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=\"0CG4QpQ0wAw\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
+        \x3cdiv class=\"lsicon\"\x3e \x3cdiv class=\"icon\" log=\"\" jsaction=\"app.openInfoWindow\"
+        jsprops=\"markerid:''D''\" jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=0CG8Q_gswAw
+        id=\"marker_D_2\"\x3e\x3cimg alt=\"D\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"mp iconD\"/\x3e\x3c/div\x3e \x3cspan\x3e \x3cimg class=\"unstarred
+        noprint si_1539987468686876043\" jsaction=\"si.togglePanelStarring\" jsprops=\"markerid:''D'';b_s:2\"
+        data-authtoken=\"54efa389-aY6y_NpyZ0gdBCnAJWH913WUM4\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        id=\"pp-starred-item-star\" log=\"si_lhs\" width=\"21\" height=\"14\"\x3e
+        \x3c/span\x3e \x3c/div\x3e \x3cdiv class=\"text vcard indent block\" id=\"panel_D_2\"\x3e  \x3cdiv
+        class=\"name lname\" id=\"link_D_2\"\x3e \x3cspan class=\"pp-place-title\"\x3e\x3cspan\x3eDays
+        Inn \x26amp; Suites Amelia Island At The Beach\x3c/span\x3e\x3c/span\x3e  \x3cspan
+        class=\"actbar-local-wrapper\"\x3e\x3cspan id=\"actbar-D\" class=\"actbar\"
+        markerid=\"D\" panelId=\"actbar-panel-D-pp\" isCompact=\"1\"jsvalues=\"@unique-id:
+        $this.uniqueId;@id: ''actbar-''+$this.uniqueId;@markerid: $this.markerId;@panelId:
+        ''actbar-panel-''+$this.uniqueId;\"\x3e\x3cspan id=\"actbar-btns-D\" jsvalues=\"@id:''actbar-btns-''+$this.uniqueId\"
+        jsdisplay=\"$this.visible!=''none''\" jsskip=\"1\"\x3e\x3cspan jsaction=\"ab.topLevelClick\"
+        action=\"actbar-more\" class=\"actbar-cmpct\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"arrow-down\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e   \x3cdiv
+        class=\"pp-coverphoto\"\x3e  \x3cdiv\x3e \x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/115481291331333994701/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CHEQhgU\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7kgTzY2QjScpufP7vDzJD5QAPmwsg\"
+        target=\"_blank\"\x3e \x3cdiv\x3e \x3cdiv id=\"photo-stack\"\x3e \x3cimg class=\"photo-stack-background\"
+        src=\"//maps.gstatic.com/mapfiles/thumbnail.png\"\x3e  \x3cdiv class=\"photo-shadow\"\x3e
+        \x3cdiv class=\"photo-border\"\x3e \x3cimg src=\"https://lh5.googleusercontent.com/-EDt3dtl_rnI/VFsqai7T0hI/AAAAAAABN5o/SvBRfAhCTe0/s85/photo.jpg\"
+        alt=\"Photo\" title=\"Photo\" class=\"pp-linked-photo\"\x3e \x3c/div\x3e \x3c/div\x3e
+        \x3c/div\x3e \x3c/div\x3e \x3c/a\x3e \x3c/div\x3e \x3cdiv class=\"pp-source-name
+        pp-cover-source\"\x3e   \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e  \x3cspan class=\"pp-headline-item pp-headline-address\"\x3e
+        \x3cspan\x3e2707 Sadler Road, Amelia Island, FL\x3c/span\x3e  \x3c/span\x3e  \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e \x3cspan class=\"pp-headline-item pp-headline-phone\"\x3e
+        \x3cspan class=\"telephone\"\x3e \x3cnobr\x3e(904) 277-2300\x3c/nobr\x3e \x3cspan
+        class=\"pp-headline-phone-label\" style=\"display:none\"\x3e ()\x3c/span\x3e  \x3c/span\x3e   \x3c/span\x3e  \x3cspan\x3e
+        \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item pp-headline-authority-page\"\x3e
+        \x3cspan\x3e\x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://www.daysinn.com/hotels/florida/amelia-island/days-inn-and-suites-amelia-island-at-the-beach/hotel-overview%3Fcid%3Dlocal\x26amp;ved=0CHYQ5AQ\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7k7Ij5JPrUmPnNAj0XbX3bimOu94g\"
+        target=\"_blank\"\x3e\x3cspan\x3edaysinn.com\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e
+        \x3c/span\x3e  \x3c/div\x3e  \x3cdiv\x3e  \x3cspan id=\"pp-reviews-headline\"\x3e\x3cspan
+        style=\"margin-right:8px\"\x3e\x3cspan style=\"color:#e7711b;font-size:16px;margin-right:4px\"\x3e3.0\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_empty.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_empty.png\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan\x3e\x3ca
+        class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/115481291331333994701/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CHUQlQU\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7kgTzY2QjScpufP7vDzJD5QAPmwsg\"
+        target=\"_blank\"\x3e\x3cspan\x3e14 reviews\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3cspan style=\"color:#666\"\x3e \x26middot; \x3c/span\x3e \x3c/div\x3e \x3cdiv\x3e\x3cdiv
+        class=\"pp-headline-item pp-knownforterms\"\x3e\x3cspan\x3e\x3cspan\x3ehigh
+        speed internet access\x3c/span\x3e\x3cspan\x3e \x26#183; \x3c/span\x3e\x3c/span\x3e\x3cspan\x3e\x3cspan\x3epool
+        and hot tub\x3c/span\x3e\x3cspan\x3e \x26#183; \x3c/span\x3e\x3c/span\x3e\x3cspan\x3e\x3cspan\x3ebarbecue
+        grills\x3c/span\x3e\x3cspan\x3e \x26#183; \x3c/span\x3e\x3c/span\x3e\x3cspan\x3e\x3cspan\x3ebasketball
+        court\x3c/span\x3e\x3cspan\x3e \x26#183; \x3c/span\x3e\x3c/span\x3e\x3cspan\x3e\x3cspan\x3erefrigerator
+        and microwave\x3c/span\x3e\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e \x3cdiv align=\"left\"\x3e\x3cspan\x3e
+        \x3cdiv class=\"pp-story pp-description\" id=\"pp-desc-ssj\"\x3e   \x3cdiv\x3e
+        \x3cspan\x3e\"I was awakened several times because the air conditioner had
+        shut off and people were talking outside a few doors \x3cb\x3edown\x3c/b\x3e.
+        When we weren\x26#39;t asleep, we had \x3cb\x3e...\x3c/b\x3e\"\x3c/span\x3e  \x3cnobr\x3e
+        \x3cspan class=\"pp-hover-attribution\"\x3e - \x3ca class=\"pp-more-content-link\"
+        href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://jump.priceline.com/days-inn-and-suites-amelia-island-fernandina-beach-florida-FL-98222-hd.hotel-reviews-hotel-guides%3Frefid%3DPLGOOGLELOCAL%26refclickid%3DATTR_ID_98222%26reviewID%3D246705130\x26amp;ved=0CHcQyQkwAw\x26amp;sa=X\x26amp;geocode=FSaH0wEdxFcl-w\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7kMqHfJCdbjLox34sFa3WBJ2Sa7lA\"
+        target=\"_blank\"\x3e\x3cspan\x3epriceline.com\x3c/span\x3e\x3c/a\x3e \x3c/span\x3e
+        \x3c/nobr\x3e \x3c/div\x3e   \x3c/div\x3e \x3c/span\x3e\x3c/div\x3e    \x3c/div\x3e  \x3cdiv
+        class=\"actbar-local-wrapper\"\x3e  \x3cspan\x3e\x3cspan id=\"actbar-panel-D-pp\"
+        class=\"actbar\" jsvalues=\"@unique-id: $this.uniqueId;@markerid: $this.markerId;@id:
+        ''actbar-panel-'' + $this.uniqueId;@panelId: ''actbar-panel-'' + $this.uniqueId;\"\x3e\x3cspan
+        jsvalues=\"@id:''actbar-sn-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-sn''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan
+        jsvalues=\"@id:''actbar-saveto-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-saveto''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3c/div\x3e \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e       \x3c/div\x3e\x3cdiv\x3e  \x3cdiv\x3e  \x3cdiv
+        class=\"one\" id=\"one_E_2\" jsprops=''markerid:\"E\";oneId:\"one_E_2\";panelId:\"panel_E_2\"''
+        jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=\"0CHgQpQ0wBA\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
+        \x3cdiv class=\"lsicon\"\x3e \x3cdiv class=\"icon\" log=\"\" jsaction=\"app.openInfoWindow\"
+        jsprops=\"markerid:''E''\" jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=0CHkQ_gswBA
+        id=\"marker_E_2\"\x3e\x3cimg alt=\"E\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"mp iconE\"/\x3e\x3c/div\x3e \x3cspan\x3e \x3cimg class=\"unstarred
+        noprint si_16802089647332236780\" jsaction=\"si.togglePanelStarring\" jsprops=\"markerid:''E'';b_s:2\"
+        data-authtoken=\"54efa389-aY6y_NpyZ0gdBCnAJWH913WUM4\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        id=\"pp-starred-item-star\" log=\"si_lhs\" width=\"21\" height=\"14\"\x3e
+        \x3c/span\x3e \x3c/div\x3e \x3cdiv class=\"text vcard indent block\" id=\"panel_E_2\"\x3e  \x3cdiv
+        class=\"name lname\" id=\"link_E_2\"\x3e \x3cspan class=\"pp-place-title\"\x3e\x3cspan\x3eNalley
+        Auto Honda Buick GMC in Brunswick\x3c/span\x3e\x3c/span\x3e  \x3cspan class=\"actbar-local-wrapper\"\x3e\x3cspan
+        id=\"actbar-E\" class=\"actbar\" markerid=\"E\" panelId=\"actbar-panel-E-pp\"
+        isCompact=\"1\"jsvalues=\"@unique-id: $this.uniqueId;@id: ''actbar-''+$this.uniqueId;@markerid:
+        $this.markerId;@panelId: ''actbar-panel-''+$this.uniqueId;\"\x3e\x3cspan id=\"actbar-btns-E\"
+        jsvalues=\"@id:''actbar-btns-''+$this.uniqueId\" jsdisplay=\"$this.visible!=''none''\"
+        jsskip=\"1\"\x3e\x3cspan jsaction=\"ab.topLevelClick\" action=\"actbar-more\"
+        class=\"actbar-cmpct\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"arrow-down\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e   \x3cdiv
+        class=\"pp-coverphoto\"\x3e  \x3cdiv\x3e \x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/117060350690477805639/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CHsQhgU\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7kyK5ynMDmXzQI1c4O6B1q6sg0_sg\"
+        target=\"_blank\"\x3e \x3cdiv\x3e \x3cdiv id=\"photo-stack\"\x3e \x3cimg class=\"photo-stack-background\"
+        src=\"//maps.gstatic.com/mapfiles/thumbnail.png\"\x3e  \x3cdiv class=\"photo-shadow\"\x3e
+        \x3cdiv class=\"photo-border\"\x3e \x3cimg src=\"https://lh4.googleusercontent.com/-6XC1cdw11Bw/U-ueQz7FGFI/AAAAAAAAABw/8nVzrokuVjk/s85/honda1.jpg\"
+        alt=\"Photo\" title=\"Photo\" class=\"pp-linked-photo\"\x3e \x3c/div\x3e \x3c/div\x3e
+        \x3c/div\x3e \x3c/div\x3e \x3c/a\x3e \x3c/div\x3e \x3cdiv class=\"pp-source-name
+        pp-cover-source\"\x3e   \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e  \x3cspan class=\"pp-headline-item pp-headline-address\"\x3e
+        \x3cspan\x3e178 Altama Connector, Brunswick, GA\x3c/span\x3e  \x3c/span\x3e  \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e \x3cspan class=\"pp-headline-item pp-headline-phone\"\x3e
+        \x3cspan class=\"telephone\"\x3e \x3cnobr\x3e(912) 267-7000\x3c/nobr\x3e \x3cspan
+        class=\"pp-headline-phone-label\" style=\"display:none\"\x3e ()\x3c/span\x3e  \x3c/span\x3e   \x3c/span\x3e  \x3cspan\x3e
+        \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item pp-headline-authority-page\"\x3e
+        \x3cspan\x3e\x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://www.nalleyauto.com/\x26amp;ved=0CIABEOQE\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7nQeGJa2ijnu8fsvY355E_DQ_GbUw\"
+        target=\"_blank\"\x3e\x3cspan\x3enalleyauto.com\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e
+        \x3c/span\x3e  \x3c/div\x3e  \x3cdiv\x3e  \x3cspan id=\"pp-reviews-headline\"\x3e\x3cspan
+        style=\"margin-right:8px\"\x3e\x3cspan style=\"color:#e7711b;font-size:16px;margin-right:4px\"\x3e3.8\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_empty.png\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan\x3e\x3ca
+        class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/117060350690477805639/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CH8QlQU\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7kyK5ynMDmXzQI1c4O6B1q6sg0_sg\"
+        target=\"_blank\"\x3e\x3cspan\x3e20 reviews\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3cspan style=\"color:#666\"\x3e \x26middot; \x3c/span\x3e \x3c/div\x3e  \x3cdiv
+        align=\"left\"\x3e\x3cspan\x3e \x3cdiv class=\"pp-story pp-description\" id=\"pp-desc-ssj\"\x3e   \x3cdiv\x3e
+        \x3cspan\x3e\"Herb Miller inherited our vehicle\x26#39;s problem (headache)
+        from a competitor dealership due to coverage \x3cb\x3eunder\x3c/b\x3e powertrain
+        warranty. He took over and \x3cb\x3e...\x3c/b\x3e\"\x3c/span\x3e  \x3cnobr\x3e
+        \x3cspan class=\"pp-hover-attribution\"\x3e - \x3cspan\x3e\x3c/span\x3e \x3c/span\x3e
+        \x3c/nobr\x3e \x3c/div\x3e   \x3c/div\x3e \x3c/span\x3e\x3c/div\x3e    \x3c/div\x3e  \x3cdiv
+        class=\"actbar-local-wrapper\"\x3e  \x3cspan\x3e\x3cspan id=\"actbar-panel-E-pp\"
+        class=\"actbar\" jsvalues=\"@unique-id: $this.uniqueId;@markerid: $this.markerId;@id:
+        ''actbar-panel-'' + $this.uniqueId;@panelId: ''actbar-panel-'' + $this.uniqueId;\"\x3e\x3cspan
+        jsvalues=\"@id:''actbar-sn-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-sn''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan
+        jsvalues=\"@id:''actbar-saveto-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-saveto''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3c/div\x3e \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e       \x3c/div\x3e\x3cdiv\x3e  \x3cdiv\x3e  \x3cdiv
+        class=\"one\" id=\"one_F_2\" jsprops=''markerid:\"F\";oneId:\"one_F_2\";panelId:\"panel_F_2\"''
+        jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=\"0CIEBEKUNMAU\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
+        \x3cdiv class=\"lsicon\"\x3e \x3cdiv class=\"icon\" log=\"\" jsaction=\"app.openInfoWindow\"
+        jsprops=\"markerid:''F''\" jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=0CIIBEP4LMAU
+        id=\"marker_F_2\"\x3e\x3cimg alt=\"F\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"mp iconF\"/\x3e\x3c/div\x3e \x3cspan\x3e \x3cimg class=\"unstarred
+        noprint si_5051914021902611936\" jsaction=\"si.togglePanelStarring\" jsprops=\"markerid:''F'';b_s:2\"
+        data-authtoken=\"54efa389-aY6y_NpyZ0gdBCnAJWH913WUM4\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        id=\"pp-starred-item-star\" log=\"si_lhs\" width=\"21\" height=\"14\"\x3e
+        \x3c/span\x3e \x3c/div\x3e \x3cdiv class=\"text vcard indent block\" id=\"panel_F_2\"\x3e  \x3cdiv
+        class=\"name lname\" id=\"link_F_2\"\x3e \x3cspan class=\"pp-place-title\"\x3e\x3cspan\x3eDuval
+        Ford\x3c/span\x3e\x3c/span\x3e  \x3cspan class=\"actbar-local-wrapper\"\x3e\x3cspan
+        id=\"actbar-F\" class=\"actbar\" markerid=\"F\" panelId=\"actbar-panel-F-pp\"
+        isCompact=\"1\"jsvalues=\"@unique-id: $this.uniqueId;@id: ''actbar-''+$this.uniqueId;@markerid:
+        $this.markerId;@panelId: ''actbar-panel-''+$this.uniqueId;\"\x3e\x3cspan id=\"actbar-btns-F\"
+        jsvalues=\"@id:''actbar-btns-''+$this.uniqueId\" jsdisplay=\"$this.visible!=''none''\"
+        jsskip=\"1\"\x3e\x3cspan jsaction=\"ab.topLevelClick\" action=\"actbar-more\"
+        class=\"actbar-cmpct\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"arrow-down\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e   \x3cdiv
+        class=\"pp-coverphoto\"\x3e  \x3cdiv\x3e \x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/116277161743867391196/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CIQBEIYF\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7kiCeO6seFcXLzPBdnuD8M4Aap2lg\"
+        target=\"_blank\"\x3e \x3cdiv\x3e \x3cdiv id=\"photo-stack\"\x3e \x3cimg class=\"photo-stack-background\"
+        src=\"//maps.gstatic.com/mapfiles/thumbnail.png\"\x3e  \x3cdiv class=\"photo-shadow\"\x3e
+        \x3cdiv class=\"photo-border\"\x3e \x3cimg src=\"https://lh6.googleusercontent.com/-JGs-k8xd3Sc/VGoQ-Nof1GI/AAAAAAAAAdc/9RCDbE9M3GM/s85/IMG_0033.JPG\"
+        alt=\"Photo\" title=\"Photo\" class=\"pp-linked-photo\"\x3e \x3c/div\x3e \x3c/div\x3e
+        \x3c/div\x3e \x3c/div\x3e \x3c/a\x3e \x3c/div\x3e \x3cdiv class=\"pp-source-name
+        pp-cover-source\"\x3e   \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e  \x3cspan class=\"pp-headline-item pp-headline-address\"\x3e
+        \x3cspan\x3e1616 Cassat Avenue, Jacksonville, FL\x3c/span\x3e  \x3c/span\x3e  \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e \x3cspan class=\"pp-headline-item pp-headline-phone\"\x3e
+        \x3cspan class=\"telephone\"\x3e \x3cnobr\x3e(866) 444-6088\x3c/nobr\x3e \x3cspan
+        class=\"pp-headline-phone-label\" style=\"display:none\"\x3e ()\x3c/span\x3e  \x3c/span\x3e   \x3c/span\x3e  \x3cspan\x3e
+        \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item pp-headline-authority-page\"\x3e
+        \x3cspan\x3e\x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://www.duvalford.com/\x26amp;ved=0CIkBEOQE\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7nBcovjnU77sPI39nPMKEnaCEagpg\"
+        target=\"_blank\"\x3e\x3cspan\x3eduvalford.com\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e
+        \x3c/span\x3e  \x3c/div\x3e  \x3cdiv\x3e  \x3cspan id=\"pp-reviews-headline\"\x3e\x3cspan
+        style=\"margin-right:8px\"\x3e\x3cspan style=\"color:#e7711b;font-size:16px;margin-right:4px\"\x3e4.5\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_half_LTR.png\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan\x3e\x3ca
+        class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/116277161743867391196/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CIgBEJUF\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7kiCeO6seFcXLzPBdnuD8M4Aap2lg\"
+        target=\"_blank\"\x3e\x3cspan\x3e116 reviews\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3cspan style=\"color:#666\"\x3e \x26middot; \x3c/span\x3e \x3c/div\x3e  \x3cdiv
+        align=\"left\"\x3e\x3cspan\x3e \x3cdiv class=\"pp-story pp-description\" id=\"pp-desc-ssj\"\x3e   \x3cdiv\x3e
+        \x3cspan\x3e\"When I finally sat \x3cb\x3edown\x3c/b\x3e with finance guy,
+        he stated no one leaves a dealership with an actually approval(We only go
+        by what the computer puts out, a \x3cb\x3e...\x3c/b\x3e\"\x3c/span\x3e  \x3cnobr\x3e
+        \x3cspan class=\"pp-hover-attribution\"\x3e - \x3ca class=\"pp-more-content-link\"
+        href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://www.dealerrater.com/dealer/Duval-Ford-review-28189/page2/\x26amp;ved=0CIoBEMkJMAU\x26amp;sa=X\x26amp;geocode=FRkvzgEdZuIg-w\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7m4HemCbKe4lQ0lrPlzGNXDeZbyFg\"
+        target=\"_blank\"\x3e\x3cspan\x3edealerrater.com\x3c/span\x3e\x3c/a\x3e \x3c/span\x3e
+        \x3c/nobr\x3e \x3c/div\x3e   \x3c/div\x3e \x3c/span\x3e\x3c/div\x3e    \x3c/div\x3e  \x3cdiv
+        class=\"actbar-local-wrapper\"\x3e  \x3cspan\x3e\x3cspan id=\"actbar-panel-F-pp\"
+        class=\"actbar\" jsvalues=\"@unique-id: $this.uniqueId;@markerid: $this.markerId;@id:
+        ''actbar-panel-'' + $this.uniqueId;@panelId: ''actbar-panel-'' + $this.uniqueId;\"\x3e\x3cspan
+        jsvalues=\"@id:''actbar-sn-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-sn''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan
+        jsvalues=\"@id:''actbar-saveto-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-saveto''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3c/div\x3e \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e       \x3c/div\x3e\x3cdiv\x3e  \x3cdiv\x3e  \x3cdiv
+        class=\"one\" id=\"one_G_2\" jsprops=''markerid:\"G\";oneId:\"one_G_2\";panelId:\"panel_G_2\"''
+        jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=\"0CIsBEKUNMAY\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
+        \x3cdiv class=\"lsicon\"\x3e \x3cdiv class=\"icon\" log=\"\" jsaction=\"app.openInfoWindow\"
+        jsprops=\"markerid:''G''\" jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=0CIwBEP4LMAY
+        id=\"marker_G_2\"\x3e\x3cimg alt=\"G\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"mp iconG\"/\x3e\x3c/div\x3e \x3cspan\x3e \x3cimg class=\"unstarred
+        noprint si_3561900249296426537\" jsaction=\"si.togglePanelStarring\" jsprops=\"markerid:''G'';b_s:2\"
+        data-authtoken=\"54efa389-aY6y_NpyZ0gdBCnAJWH913WUM4\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        id=\"pp-starred-item-star\" log=\"si_lhs\" width=\"21\" height=\"14\"\x3e
+        \x3c/span\x3e \x3c/div\x3e \x3cdiv class=\"text vcard indent block\" id=\"panel_G_2\"\x3e  \x3cdiv
+        class=\"name lname\" id=\"link_G_2\"\x3e \x3cspan class=\"pp-place-title\"\x3e\x3cspan\x3eSt.
+        Johns Country Day School\x3c/span\x3e\x3c/span\x3e  \x3cspan class=\"actbar-local-wrapper\"\x3e\x3cspan
+        id=\"actbar-G\" class=\"actbar\" markerid=\"G\" panelId=\"actbar-panel-G-pp\"
+        isCompact=\"1\"jsvalues=\"@unique-id: $this.uniqueId;@id: ''actbar-''+$this.uniqueId;@markerid:
+        $this.markerId;@panelId: ''actbar-panel-''+$this.uniqueId;\"\x3e\x3cspan id=\"actbar-btns-G\"
+        jsvalues=\"@id:''actbar-btns-''+$this.uniqueId\" jsdisplay=\"$this.visible!=''none''\"
+        jsskip=\"1\"\x3e\x3cspan jsaction=\"ab.topLevelClick\" action=\"actbar-more\"
+        class=\"actbar-cmpct\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"arrow-down\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e   \x3cdiv
+        class=\"pp-coverphoto\"\x3e  \x3cdiv\x3e \x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/103349111832383509511/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CI4BEIYF\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7l-0TLRwajSOHe4DmL-8feVE05-7A\"
+        target=\"_blank\"\x3e \x3cdiv\x3e \x3cdiv id=\"photo-stack\"\x3e \x3cimg class=\"photo-stack-background\"
+        src=\"//maps.gstatic.com/mapfiles/thumbnail.png\"\x3e  \x3cdiv class=\"photo-shadow\"\x3e
+        \x3cdiv class=\"photo-border\"\x3e \x3cimg src=\"https://lh5.googleusercontent.com/-AVc1voLflYc/VNchsJdNrSI/AAAAAAAAAAs/9yp9Dn8mUuM/s85/photo.jpg\"
+        alt=\"Photo\" title=\"Photo\" class=\"pp-linked-photo\"\x3e \x3c/div\x3e \x3c/div\x3e
+        \x3c/div\x3e \x3c/div\x3e \x3c/a\x3e \x3c/div\x3e \x3cdiv class=\"pp-source-name
+        pp-cover-source\"\x3e   \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e  \x3cspan class=\"pp-headline-item pp-headline-address\"\x3e
+        \x3cspan\x3e3100 Doctors Lake Drive, Orange Park, FL\x3c/span\x3e  \x3c/span\x3e  \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e \x3cspan class=\"pp-headline-item pp-headline-phone\"\x3e
+        \x3cspan class=\"telephone\"\x3e \x3cnobr\x3e(904) 264-9572\x3c/nobr\x3e \x3cspan
+        class=\"pp-headline-phone-label\" style=\"display:none\"\x3e ()\x3c/span\x3e  \x3c/span\x3e   \x3c/span\x3e  \x3cspan\x3e
+        \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item pp-headline-authority-page\"\x3e
+        \x3cspan\x3e\x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://www.sjcds.net/\x26amp;ved=0CJMBEOQE\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7ml5H_Wr8nGlUrgMhWUtEY3YSuyJg\"
+        target=\"_blank\"\x3e\x3cspan\x3esjcds.net\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e
+        \x3c/span\x3e  \x3c/div\x3e  \x3cdiv\x3e  \x3cspan id=\"pp-reviews-headline\"\x3e\x3cspan
+        style=\"margin-right:8px\"\x3e\x3c/span\x3e\x3cspan\x3e\x3ca class=\"pp-more-content-link\"
+        href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/103349111832383509511/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CJIBEJUF\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7l-0TLRwajSOHe4DmL-8feVE05-7A\"
+        target=\"_blank\"\x3e\x3cspan\x3e2 reviews\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3cspan style=\"color:#666\"\x3e \x26middot; \x3c/span\x3e \x3c/div\x3e  \x3cdiv
+        align=\"left\"\x3e\x3cspan\x3e \x3cdiv class=\"pp-story pp-description\" id=\"pp-desc-ssj\"\x3e   \x3cdiv\x3e
+        \x3cspan\x3e\"Didgeridoo \x3cb\x3eDown Under\x26#39;s\x3c/b\x3e Lindsey Dank
+        engaged, entertained and educated the Lower School audience at a March 11
+        assembly in the Brown Gym.\"\x3c/span\x3e  \x3cnobr\x3e \x3cspan class=\"pp-hover-attribution\"\x3e
+        - \x3ca class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://www.sjcds.net/\x26amp;ved=0CJQBEMkJMAY\x26amp;sa=X\x26amp;geocode=FaT9ywEdfbEg-w\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7ml5H_Wr8nGlUrgMhWUtEY3YSuyJg\"
+        target=\"_blank\"\x3e\x3cspan\x3esjcds.net\x3c/span\x3e\x3c/a\x3e \x3c/span\x3e
+        \x3c/nobr\x3e \x3c/div\x3e   \x3c/div\x3e \x3c/span\x3e\x3c/div\x3e    \x3c/div\x3e  \x3cdiv
+        class=\"actbar-local-wrapper\"\x3e  \x3cspan\x3e\x3cspan id=\"actbar-panel-G-pp\"
+        class=\"actbar\" jsvalues=\"@unique-id: $this.uniqueId;@markerid: $this.markerId;@id:
+        ''actbar-panel-'' + $this.uniqueId;@panelId: ''actbar-panel-'' + $this.uniqueId;\"\x3e\x3cspan
+        jsvalues=\"@id:''actbar-sn-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-sn''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan
+        jsvalues=\"@id:''actbar-saveto-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-saveto''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3c/div\x3e \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e       \x3c/div\x3e\x3cdiv\x3e  \x3cdiv\x3e  \x3cdiv
+        class=\"one\" id=\"one_H_2\" jsprops=''markerid:\"H\";oneId:\"one_H_2\";panelId:\"panel_H_2\"''
+        jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=\"0CJUBEKUNMAc\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
+        \x3cdiv class=\"lsicon\"\x3e \x3cdiv class=\"icon\" log=\"\" jsaction=\"app.openInfoWindow\"
+        jsprops=\"markerid:''H''\" jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=0CJYBEP4LMAc
+        id=\"marker_H_2\"\x3e\x3cimg alt=\"H\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"mp iconH\"/\x3e\x3c/div\x3e \x3cspan\x3e \x3cimg class=\"unstarred
+        noprint si_13089495949800660379\" jsaction=\"si.togglePanelStarring\" jsprops=\"markerid:''H'';b_s:2\"
+        data-authtoken=\"54efa389-aY6y_NpyZ0gdBCnAJWH913WUM4\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        id=\"pp-starred-item-star\" log=\"si_lhs\" width=\"21\" height=\"14\"\x3e
+        \x3c/span\x3e \x3c/div\x3e \x3cdiv class=\"text vcard indent block\" id=\"panel_H_2\"\x3e  \x3cdiv
+        class=\"name lname\" id=\"link_H_2\"\x3e \x3cspan class=\"pp-place-title\"\x3e\x3cspan\x3eTom
+        Bush MINI\x3c/span\x3e\x3c/span\x3e  \x3cspan class=\"actbar-local-wrapper\"\x3e\x3cspan
+        id=\"actbar-H\" class=\"actbar\" markerid=\"H\" panelId=\"actbar-panel-H-pp\"
+        isCompact=\"1\"jsvalues=\"@unique-id: $this.uniqueId;@id: ''actbar-''+$this.uniqueId;@markerid:
+        $this.markerId;@panelId: ''actbar-panel-''+$this.uniqueId;\"\x3e\x3cspan id=\"actbar-btns-H\"
+        jsvalues=\"@id:''actbar-btns-''+$this.uniqueId\" jsdisplay=\"$this.visible!=''none''\"
+        jsskip=\"1\"\x3e\x3cspan jsaction=\"ab.topLevelClick\" action=\"actbar-more\"
+        class=\"actbar-cmpct\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"arrow-down\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e   \x3cdiv
+        class=\"pp-coverphoto\"\x3e  \x3cdiv\x3e \x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/111086217241726884444/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CJgBEIYF\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7n_WOynESnsqZBHO8p4cY5yYQR9vQ\"
+        target=\"_blank\"\x3e \x3cdiv\x3e \x3cdiv id=\"photo-stack\"\x3e \x3cimg class=\"photo-stack-background\"
+        src=\"//maps.gstatic.com/mapfiles/thumbnail.png\"\x3e  \x3cdiv class=\"photo-shadow\"\x3e
+        \x3cdiv class=\"photo-border\"\x3e \x3cimg src=\"https://lh3.googleusercontent.com/-G5u0h9lIw5s/UCJpY1B5OaI/AAAAAAAAADI/j8pN2_FHGTo/s85/MiniLogo.jpg\"
+        alt=\"Photo\" title=\"Photo\" class=\"pp-linked-photo\"\x3e \x3c/div\x3e \x3c/div\x3e
+        \x3c/div\x3e \x3c/div\x3e \x3c/a\x3e \x3c/div\x3e \x3cdiv class=\"pp-source-name
+        pp-cover-source\"\x3e   \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e  \x3cspan class=\"pp-headline-item pp-headline-address\"\x3e
+        \x3cspan\x3e9881 Atlantic Boulevard, Jacksonville, FL\x3c/span\x3e  \x3c/span\x3e  \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e \x3cspan class=\"pp-headline-item pp-headline-phone\"\x3e
+        \x3cspan class=\"telephone\"\x3e \x3cnobr\x3e(904) 371-4360\x3c/nobr\x3e \x3cspan
+        class=\"pp-headline-phone-label\" style=\"display:none\"\x3e ()\x3c/span\x3e  \x3c/span\x3e   \x3c/span\x3e  \x3cspan\x3e
+        \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item pp-headline-authority-page\"\x3e
+        \x3cspan\x3e\x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://www.tombushmini.com/\x26amp;ved=0CJ0BEOQE\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7kWOMKEwOp_Q6aSnTlsDEfujfIXbA\"
+        target=\"_blank\"\x3e\x3cspan\x3etombushmini.com\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e
+        \x3c/span\x3e  \x3c/div\x3e  \x3cdiv\x3e  \x3cspan id=\"pp-reviews-headline\"\x3e\x3cspan
+        style=\"margin-right:8px\"\x3e\x3cspan style=\"color:#e7711b;font-size:16px;margin-right:4px\"\x3e4.9\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan\x3e\x3ca
+        class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/111086217241726884444/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CJwBEJUF\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7n_WOynESnsqZBHO8p4cY5yYQR9vQ\"
+        target=\"_blank\"\x3e\x3cspan\x3e58 reviews\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3cspan style=\"color:#666\"\x3e \x26middot; \x3c/span\x3e \x3c/div\x3e  \x3cdiv
+        align=\"left\"\x3e\x3cspan\x3e \x3cdiv class=\"pp-story pp-description\" id=\"pp-desc-ssj\"\x3e   \x3cdiv\x3e
+        \x3cspan\x3e\"I entered the dealership and to my surprise, was greeted by
+        a Motoring Advisor with an accent from \x3cb\x3eDown Under\x3c/b\x3e (Australia!)
+        Shaan Batten not only was one \x3cb\x3e...\x3c/b\x3e\"\x3c/span\x3e  \x3cnobr\x3e
+        \x3cspan class=\"pp-hover-attribution\"\x3e - \x3cspan\x3e\x3c/span\x3e \x3c/span\x3e
+        \x3c/nobr\x3e \x3c/div\x3e   \x3c/div\x3e \x3c/span\x3e\x3c/div\x3e    \x3c/div\x3e  \x3cdiv
+        class=\"actbar-local-wrapper\"\x3e  \x3cspan\x3e\x3cspan id=\"actbar-panel-H-pp\"
+        class=\"actbar\" jsvalues=\"@unique-id: $this.uniqueId;@markerid: $this.markerId;@id:
+        ''actbar-panel-'' + $this.uniqueId;@panelId: ''actbar-panel-'' + $this.uniqueId;\"\x3e\x3cspan
+        jsvalues=\"@id:''actbar-sn-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-sn''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan
+        jsvalues=\"@id:''actbar-saveto-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-saveto''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3c/div\x3e \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e       \x3c/div\x3e\x3cdiv\x3e  \x3cdiv\x3e  \x3cdiv
+        class=\"one\" id=\"one_I_2\" jsprops=''markerid:\"I\";oneId:\"one_I_2\";panelId:\"panel_I_2\"''
+        jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=\"0CJ4BEKUNMAg\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
+        \x3cdiv class=\"lsicon\"\x3e \x3cdiv class=\"icon\" log=\"\" jsaction=\"app.openInfoWindow\"
+        jsprops=\"markerid:''I''\" jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=0CJ8BEP4LMAg
+        id=\"marker_I_2\"\x3e\x3cimg alt=\"I\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"mp iconI\"/\x3e\x3c/div\x3e \x3cspan\x3e \x3cimg class=\"unstarred
+        noprint si_1556314854219134500\" jsaction=\"si.togglePanelStarring\" jsprops=\"markerid:''I'';b_s:2\"
+        data-authtoken=\"54efa389-aY6y_NpyZ0gdBCnAJWH913WUM4\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        id=\"pp-starred-item-star\" log=\"si_lhs\" width=\"21\" height=\"14\"\x3e
+        \x3c/span\x3e \x3c/div\x3e \x3cdiv class=\"text vcard indent block\" id=\"panel_I_2\"\x3e  \x3cdiv
+        class=\"name lname\" id=\"link_I_2\"\x3e \x3cspan class=\"pp-place-title\"\x3e\x3cspan\x3eCoggin
+        Nissan on Atlantic\x3c/span\x3e\x3c/span\x3e  \x3cspan class=\"actbar-local-wrapper\"\x3e\x3cspan
+        id=\"actbar-I\" class=\"actbar\" markerid=\"I\" panelId=\"actbar-panel-I-pp\"
+        isCompact=\"1\"jsvalues=\"@unique-id: $this.uniqueId;@id: ''actbar-''+$this.uniqueId;@markerid:
+        $this.markerId;@panelId: ''actbar-panel-''+$this.uniqueId;\"\x3e\x3cspan id=\"actbar-btns-I\"
+        jsvalues=\"@id:''actbar-btns-''+$this.uniqueId\" jsdisplay=\"$this.visible!=''none''\"
+        jsskip=\"1\"\x3e\x3cspan jsaction=\"ab.topLevelClick\" action=\"actbar-more\"
+        class=\"actbar-cmpct\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"arrow-down\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e   \x3cdiv
+        class=\"pp-coverphoto\"\x3e  \x3cdiv\x3e \x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/107938825849788503911/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CKEBEIYF\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7ml64y0S1uMPbMExqjKTIO6wZdmzg\"
+        target=\"_blank\"\x3e \x3cdiv\x3e \x3cdiv id=\"photo-stack\"\x3e \x3cimg class=\"photo-stack-background\"
+        src=\"//maps.gstatic.com/mapfiles/thumbnail.png\"\x3e  \x3cdiv class=\"photo-shadow\"\x3e
+        \x3cdiv class=\"photo-border\"\x3e \x3cimg src=\"https://lh3.googleusercontent.com/-qS-dPx_fFm4/VLmGVKk1o1I/AAAAAAAAAk0/bHExPz_RWqE/s85/f3c0f1ca1b575e31d9d479d5ddf09a93x.jpg\"
+        alt=\"Photo\" title=\"Photo\" class=\"pp-linked-photo\"\x3e \x3c/div\x3e \x3c/div\x3e
+        \x3c/div\x3e \x3c/div\x3e \x3c/a\x3e \x3c/div\x3e \x3cdiv class=\"pp-source-name
+        pp-cover-source\"\x3e   \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e  \x3cspan class=\"pp-headline-item pp-headline-address\"\x3e
+        \x3cspan\x3e10600 Atlantic Boulevard, Jacksonville, FL\x3c/span\x3e  \x3c/span\x3e  \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e \x3cspan class=\"pp-headline-item pp-headline-phone\"\x3e
+        \x3cspan class=\"telephone\"\x3e \x3cnobr\x3e(904) 302-8231\x3c/nobr\x3e \x3cspan
+        class=\"pp-headline-phone-label\" style=\"display:none\"\x3e ()\x3c/span\x3e  \x3c/span\x3e   \x3c/span\x3e  \x3cspan\x3e
+        \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item pp-headline-authority-page\"\x3e
+        \x3cspan\x3e\x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://cogginnissanatlantic.com/\x26amp;ved=0CKYBEOQE\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7lXnYlqlByw1qrxUGUYcaZK-ZUDYA\"
+        target=\"_blank\"\x3e\x3cspan\x3ecogginnissanatlantic.com\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e
+        \x3c/span\x3e  \x3c/div\x3e  \x3cdiv\x3e  \x3cspan id=\"pp-reviews-headline\"\x3e\x3cspan
+        style=\"margin-right:8px\"\x3e\x3cspan style=\"color:#e7711b;font-size:16px;margin-right:4px\"\x3e4.0\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_empty.png\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan\x3e\x3ca
+        class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/107938825849788503911/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CKUBEJUF\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7ml64y0S1uMPbMExqjKTIO6wZdmzg\"
+        target=\"_blank\"\x3e\x3cspan\x3e137 reviews\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3cspan style=\"color:#666\"\x3e \x26middot; \x3c/span\x3e \x3c/div\x3e  \x3cdiv
+        align=\"left\"\x3e\x3cspan\x3e \x3cdiv class=\"pp-story pp-description\" id=\"pp-desc-ssj\"\x3e   \x3cdiv\x3e
+        \x3cspan\x3e\"I live out of town, but I had run over some debris and a piece
+        from \x3cb\x3eunder\x3c/b\x3e my car came loose. They took care of the issue,
+        honored my first free oil \x3cb\x3e...\x3c/b\x3e\"\x3c/span\x3e  \x3cnobr\x3e
+        \x3cspan class=\"pp-hover-attribution\"\x3e - \x3cspan\x3e\x3c/span\x3e \x3c/span\x3e
+        \x3c/nobr\x3e \x3c/div\x3e   \x3c/div\x3e \x3c/span\x3e\x3c/div\x3e    \x3c/div\x3e  \x3cdiv
+        class=\"actbar-local-wrapper\"\x3e  \x3cspan\x3e\x3cspan id=\"actbar-panel-I-pp\"
+        class=\"actbar\" jsvalues=\"@unique-id: $this.uniqueId;@markerid: $this.markerId;@id:
+        ''actbar-panel-'' + $this.uniqueId;@panelId: ''actbar-panel-'' + $this.uniqueId;\"\x3e\x3cspan
+        jsvalues=\"@id:''actbar-sn-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-sn''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan
+        jsvalues=\"@id:''actbar-saveto-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-saveto''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3c/div\x3e \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e       \x3c/div\x3e\x3cdiv\x3e  \x3cdiv\x3e  \x3cdiv
+        class=\"one\" id=\"one_J_2\" jsprops=''markerid:\"J\";oneId:\"one_J_2\";panelId:\"panel_J_2\"''
+        jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=\"0CKcBEKUNMAk\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
+        \x3cdiv class=\"lsicon\"\x3e \x3cdiv class=\"icon\" log=\"\" jsaction=\"app.openInfoWindow\"
+        jsprops=\"markerid:''J''\" jstrack=\"iKPvVLDoCsOAiwK6hIGwAw\" ved=0CKgBEP4LMAk
+        id=\"marker_J_2\"\x3e\x3cimg alt=\"J\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"mp iconJ\"/\x3e\x3c/div\x3e \x3cspan\x3e \x3cimg class=\"unstarred
+        noprint si_15138088088811891123\" jsaction=\"si.togglePanelStarring\" jsprops=\"markerid:''J'';b_s:2\"
+        data-authtoken=\"54efa389-aY6y_NpyZ0gdBCnAJWH913WUM4\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        id=\"pp-starred-item-star\" log=\"si_lhs\" width=\"21\" height=\"14\"\x3e
+        \x3c/span\x3e \x3c/div\x3e \x3cdiv class=\"text vcard indent block\" id=\"panel_J_2\"\x3e  \x3cdiv
+        class=\"name lname\" id=\"link_J_2\"\x3e \x3cspan class=\"pp-place-title\"\x3e\x3cspan\x3eRon
+        Anderson Chevrolet Buick GMC\x3c/span\x3e\x3c/span\x3e  \x3cspan class=\"actbar-local-wrapper\"\x3e\x3cspan
+        id=\"actbar-J\" class=\"actbar\" markerid=\"J\" panelId=\"actbar-panel-J-pp\"
+        isCompact=\"1\"jsvalues=\"@unique-id: $this.uniqueId;@id: ''actbar-''+$this.uniqueId;@markerid:
+        $this.markerId;@panelId: ''actbar-panel-''+$this.uniqueId;\"\x3e\x3cspan id=\"actbar-btns-J\"
+        jsvalues=\"@id:''actbar-btns-''+$this.uniqueId\" jsdisplay=\"$this.visible!=''none''\"
+        jsskip=\"1\"\x3e\x3cspan jsaction=\"ab.topLevelClick\" action=\"actbar-more\"
+        class=\"actbar-cmpct\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"arrow-down\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e   \x3cdiv
+        class=\"pp-coverphoto\"\x3e  \x3cdiv\x3e \x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/104209357039282339597/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CKoBEIYF\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7l6WiMI4ix2WrdOuJ8EFcvH0K-z4A\"
+        target=\"_blank\"\x3e \x3cdiv\x3e \x3cdiv id=\"photo-stack\"\x3e \x3cimg class=\"photo-stack-background\"
+        src=\"//maps.gstatic.com/mapfiles/thumbnail.png\"\x3e  \x3cdiv class=\"photo-shadow\"\x3e
+        \x3cdiv class=\"photo-border\"\x3e \x3cimg src=\"https://lh3.googleusercontent.com/-MeHRxzXZK-c/VNvZ0EsjJSI/AAAAAAAAAAU/ROtQIiTw26U/s85/photo.jpg\"
+        alt=\"Photo\" title=\"Photo\" class=\"pp-linked-photo\"\x3e \x3c/div\x3e \x3c/div\x3e
+        \x3c/div\x3e \x3c/div\x3e \x3c/a\x3e \x3c/div\x3e \x3cdiv class=\"pp-source-name
+        pp-cover-source\"\x3e   \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e  \x3cspan class=\"pp-headline-item pp-headline-address\"\x3e
+        \x3cspan\x3e464054 Florida 200, Yulee, FL\x3c/span\x3e  \x3c/span\x3e  \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e \x3cspan class=\"pp-headline-item pp-headline-phone\"\x3e
+        \x3cspan class=\"telephone\"\x3e \x3cnobr\x3e(888) 261-6821\x3c/nobr\x3e \x3cspan
+        class=\"pp-headline-phone-label\" style=\"display:none\"\x3e ()\x3c/span\x3e  \x3c/span\x3e   \x3c/span\x3e  \x3cspan\x3e
+        \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item pp-headline-authority-page\"\x3e
+        \x3cspan\x3e\x3ca href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://www.ronandersonsuperstore.com/\x26amp;ved=0CK8BEOQE\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7nU70X_wJRBw02QSPj4Bid-Adgopg\"
+        target=\"_blank\"\x3e\x3cspan\x3eronandersonsuperstore.com\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e
+        \x3c/span\x3e  \x3c/div\x3e  \x3cdiv\x3e  \x3cspan id=\"pp-reviews-headline\"\x3e\x3cspan
+        style=\"margin-right:8px\"\x3e\x3cspan style=\"color:#e7711b;font-size:16px;margin-right:4px\"\x3e4.9\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3cspan
+        style=\"margin-right:1px\"\x3e\x3cimg src=\"https://maps.gstatic.com/intl/en_us/mapfiles/rating_scale/overall_filled.png\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan\x3e\x3ca
+        class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=https://plus.google.com/104209357039282339597/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CK4BEJUF\x26amp;sa=X\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7l6WiMI4ix2WrdOuJ8EFcvH0K-z4A\"
+        target=\"_blank\"\x3e\x3cspan\x3e10 reviews\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3cspan style=\"color:#666\"\x3e \x26middot; \x3c/span\x3e \x3c/div\x3e  \x3cdiv
+        align=\"left\"\x3e\x3cspan\x3e \x3cdiv class=\"pp-story pp-description\" id=\"pp-desc-ssj\"\x3e   \x3cdiv\x3e
+        \x3cspan\x3e\"We are also just \x3cb\x3edown\x3c/b\x3e the street from Burger
+        King, KFC, McDonalds, Wendy\x26#39;s and Flash Foods, so you can grab a bite
+        to eat when you get your car serviced \x3cb\x3e...\x3c/b\x3e\"\x3c/span\x3e  \x3cnobr\x3e
+        \x3cspan class=\"pp-hover-attribution\"\x3e - \x3ca class=\"pp-more-content-link\"
+        href=\"http://www.google.com/local_url?dq=The+Down+Under\x26amp;q=http://www.ronandersonsuperstore.com/\x26amp;ved=0CLABEMkJMAk\x26amp;sa=X\x26amp;geocode=Fa460wEdxvEj-w\x26amp;ei=iKPvVLDoCsOAiwK6hIGwAw\x26amp;s=ANYYN7nU70X_wJRBw02QSPj4Bid-Adgopg\"
+        target=\"_blank\"\x3e\x3cspan\x3eronandersonsuperstore.com\x3c/span\x3e\x3c/a\x3e
+        \x3c/span\x3e \x3c/nobr\x3e \x3c/div\x3e   \x3c/div\x3e \x3c/span\x3e\x3c/div\x3e    \x3c/div\x3e  \x3cdiv
+        class=\"actbar-local-wrapper\"\x3e  \x3cspan\x3e\x3cspan id=\"actbar-panel-J-pp\"
+        class=\"actbar\" jsvalues=\"@unique-id: $this.uniqueId;@markerid: $this.markerId;@id:
+        ''actbar-panel-'' + $this.uniqueId;@panelId: ''actbar-panel-'' + $this.uniqueId;\"\x3e\x3cspan
+        jsvalues=\"@id:''actbar-sn-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-sn''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan
+        jsvalues=\"@id:''actbar-saveto-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-saveto''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3c/div\x3e \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e       \x3c/div\x3e \x3c/div\x3e\x3cdiv
+        id=\"bottomads\" class=\"ads noprint\" style=\"display:none\"\x3e\x3cdiv\x3e\x3cdiv
+        class=\"adsmessage v3\" id=\"bottomads_origin\"\x3eAd\x3c/div\x3e\x3cdiv id=\"bottomads_contents\"\x3e\x3c/div\x3e\x3cdiv
+        class=\"awpromo\"\x3e\x3ca href=\"//www.google.com/adwords/express/#utm_campaign=en\x26utm_medium=et\x26utm_source=us-en-et-awx-q411-maps-syah\x26utm_content=us-en-et-awx-q411-maps-syah\"
+        target=\"_blank\"\x3eSee your ad here\x26nbsp;\x26raquo;\x3c/a\x3e\x3c/div\x3e\x3c/div\x3e\x3c/div\x3e\x3cdiv
+        class=\"noprint\"\x3e\x3cdiv class=\"ca\"\x3e\x3cspan class=\"num_results\"
+        style=\"padding-right:4em\"dir=ltr\x3e \x3cb\x3e1,492\x3c/b\x3e\x26nbsp;results\x3c/span\x3e\x3c/div\x3e\x3cdiv
+        id=\"navbar\" class=n\x3e\x3ctable border=0 cellpadding=0 width=\"1%\" cellspacing=0
+        align=center\x3e\x3ctr align=center style=text-align:center valign=top\x3e\x3ctd
+        nowrap\x3e\x3cdiv id=nf\x3e\x3c/div\x3e\x3c/td\x3e\x3ctd nowrap\x3e\x3cdiv
+        id=nc\x3e\x3c/div\x3e\x3cspan class=i\x3e1\x3c/span\x3e\x3c/td\x3e\x3ctd nowrap\x3e\x3ca
+        onclick=\"return loadUrl(this.href,{''loadInPlace'': true})\" href=\"/maps?q=The+Down+Under\x26near=Amelia+Island,+Fla.\x26ie=UTF8\x26hl=en\x26sa=N\x26start=10\"\x3e\x3cdiv
+        class=nr\x3e\x3c/div\x3e2\x3c/a\x3e\x3c/td\x3e\x3ctd nowrap\x3e\x3ca onclick=\"return
+        loadUrl(this.href,{''loadInPlace'': true})\" href=\"/maps?q=The+Down+Under\x26near=Amelia+Island,+Fla.\x26ie=UTF8\x26hl=en\x26sa=N\x26start=20\"\x3e\x3cdiv
+        class=nr\x3e\x3c/div\x3e3\x3c/a\x3e\x3c/td\x3e\x3ctd nowrap\x3e\x3ca onclick=\"return
+        loadUrl(this.href,{''loadInPlace'': true})\" href=\"/maps?q=The+Down+Under\x26near=Amelia+Island,+Fla.\x26ie=UTF8\x26hl=en\x26sa=N\x26start=30\"\x3e\x3cdiv
+        class=nr\x3e\x3c/div\x3e4\x3c/a\x3e\x3c/td\x3e\x3ctd nowrap class=b\x3e\x3ca
+        onclick=\"return loadUrl(this.href,{''loadInPlace'': true})\" href=\"/maps?q=The+Down+Under\x26near=Amelia+Island,+Fla.\x26ie=UTF8\x26hl=en\x26sa=N\x26start=10\"\x3e\x3cdiv
+        id=nn\x3e\x3c/div\x3eNext\x3c/a\x3e\x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e\x3c/div\x3e\x3cbr/\x3e\x3c/div\x3e\x3cdiv
+        class=\"notices\" id=\"localpanelnotices\"\x3e\x3cdiv\x3e  \x3c/div\x3e\x3c/div\x3e\x3cdiv
+        class=\"lhsf rmi-rpl-k gmnoprint\" jsattrs=\"class.rmi-base-k?panel_footer.anchor_footer;\"
+        id=\"lhsf\"\x3e \x3cdiv class=\"rmi-rpl-top secondary\"\x3e \x3ca jsdisplay=\"panel_footer.report_action\"
+        href=\"javascript:void(0)\" jsaction=\"rmi.open-mps-switchbox\" jsattrs=\"jsaction:panel_footer.report_action;id?panel_footer.is_basepage;id:''suck_lhp_link'';\"\x3e
+        Report a problem\x3c/a\x3e \x3cspan jsdisplay=\"panel_footer.report_action\"
+        jsattrs=\"id?panel_footer.is_basepage;id:''suck_lhp_sep'';\"\x3e - \x3c/span\x3e
+        \x3ca href=\"javascript:void(0)\" jsaction=\"ml.openDialog\"\x3e Maps Labs\x3c/a\x3e
+        \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://maps.google.com/support?hl=en\"
+        jsattrs=\"href:panel_footer.help_url;\"\x3e Help\x3c/a\x3e \x3c/div\x3e \x3cdiv
+        class=\"rmi-rpl-bottom secondary\"\x3e \x3cspan\x3eGoogle Maps \x3c/span\x3e
+        \x3cspan\x3e\x3c/span\x3e \x3cspan jscontent=\"panel_footer.country_msg\"
+        jsvars=\"__new_dir:bidiDir(panel_footer.country_msg);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
+        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x3c/span\x3e \x3cspan\x3e\x3c/span\x3e
+        \x3cspan\x3e - \x3c/span\x3e \x3cspan jscontent=\"raw:panel_footer.copyright\"
+        jsvars=\"__new_dir:bidiDir(panel_footer.copyright);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
+        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x26#169;2015 Google\x3c/span\x3e
+        \x3cspan\x3e\x3c/span\x3e \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/help/terms_maps.html\"
+        jsattrs=\"href:panel_footer.terms_url;\" target=\"_blank\"\x3e Terms of Use\x3c/a\x3e
+        \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/policies/privacy/\"
+        jsattrs=\"href:panel_footer.privacy_url;\" target=\"_blank\"\x3e Privacy\x3c/a\x3e
+        \x3c/div\x3e \x3c/div\x3e\x3c/div\x3e",panelId:0,sign_in_url:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=http://www.google.com/maps%3Fq%3DThe%2BDown%2BUnder%26near%3DAmelia%2BIsland,%2BFla.%26num%3D10",is_details_req:false,dopts:{dtm:"d",atms:["d","r","w","b"],ddu:"m",transit:{hts:true,tmos:["now","dep","arr"],tm:{d:"now"},date:{},time:{v:"utc:1424991060"},sos:["def","num","walk"],st:{d:"def"},ne:{h:true},na:{h:true},ptmos:["","B","S","T","R"]}},slayers_trigger:false,timeformat:{ampm:true,dp:"mdy"},activityType:1,panel_modules:["pplhs"],page_conf:{topbar_config:{show_panel_toggler:true,directions_url:"javascript:void(0)",show_directions_link:true,startcol_only:true,show_my_places_link:true,my_places_url:"javascript:void(0)",enabled_kennedy_ui:true},panel_display:true}}'
+    http_version: 
+  recorded_at: Thu, 26 Feb 2015 22:51:52 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?ll=30.679383,-81.591136&oauth_token=MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&query=The%20Down%20Under&v=20140819&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 26 Feb 2015 22:51:53 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '187'
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '497'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-lax1429-LAX
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":63}}],"response":{"suggestedFilters":{"header":"Tap
+        to show:","filters":[{"name":"Open now","key":"openNow"}]},"suggestedRadius":30000,"headerLocation":"Yulee","headerFullLocation":"Yulee","headerLocationGranularity":"city","query":"the
+        down under","totalResults":12,"suggestedBounds":{"ne":{"lat":30.796331872808494,"lng":-81.18401041365208},"sw":{"lat":29.65198689502376,"lng":-82.15225087358859}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4b805c07f964a5202c6b30e3","name":"Florida
+        \/ Georgia State Line","contact":{},"location":{"address":"Interstate 95","crossStreet":"btwn
+        US 17 & St. Marys Rd.","lat":30.7443161920001,"lng":-81.65421545505524,"distance":9417,"postalCode":"32097","cc":"US","city":"Yulee","state":"FL","country":"United
+        States","formattedAddress":["Interstate 95 (btwn US 17 & St. Marys Rd.)","Yulee,
+        FL 32097"]},"categories":[{"id":"52f2ab2ebcbc57f1066b8b4b","name":"Border
+        Crossing","pluralName":"Border Crossings","shortName":"Border Crossing","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/travel\/default_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":34144,"usersCount":18706,"tipCount":85},"like":false,"rating":7.9,"ratingSignals":291,"hours":{"status":"Likely
+        open","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":364,"groups":[{"type":"venue","name":"Venue
+        photos","count":364,"items":[{"id":"5230c6fa11d2efdcdeb4e3dc","createdAt":1378928378,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/20087628_4U6zZrde3Q_a2weknQIg7ShQwDxFI_Jx5L1m7zl0VKM.jpg","width":960,"height":720,"user":{"id":"20087628","firstName":"Alison","lastName":"Christopher","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/20087628-3A3S3UDH3NFGJW23.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":1,"summary":"One
+        person is checked in here","groups":[{"type":"others","name":"Other people
+        here","count":1,"items":[]}]},"featuredPhotos":{"count":1,"items":[{"id":"5230c6fa11d2efdcdeb4e3dc","createdAt":1378928378,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/20087628_4U6zZrde3Q_a2weknQIg7ShQwDxFI_Jx5L1m7zl0VKM.jpg","width":960,"height":720,"user":{"id":"20087628","firstName":"Alison","lastName":"Christopher","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/20087628-3A3S3UDH3NFGJW23.jpg"}},"visibility":"public"}]}},"tips":[{"id":"4c6ae86c0cb99c74fa26621f","createdAt":1282074732,"text":"Its
+        where FL and GA meet.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/4c6ae86c0cb99c74fa26621f","likes":{"count":24,"groups":[],"summary":"24
+        likes"},"logView":true,"todo":{"count":2},"user":{"id":"2220892","firstName":"Ashley","lastName":"Muttillo","gender":"female","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/2220892-43PSHRKFX5SKTNGZ.jpg"}}}],"referralId":"e-0-4b805c07f964a5202c6b30e3-0"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4d84fa948de9721e87fd3c51","name":"Down
+        Under","contact":{},"location":{"address":"2589 Woolery Dr","lat":30.348497836111115,"lng":-81.56286957968635,"distance":36933,"postalCode":"32277","cc":"US","city":"Jacksonville","state":"FL","country":"United
+        States","formattedAddress":["2589 Woolery Dr","Jacksonville, FL 32277"]},"categories":[{"id":"4bf58dd8d48988d1d4941735","name":"Speakeasy","pluralName":"Speakeasies","shortName":"Speakeasy","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/nightlife\/secretbar_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":3,"usersCount":1,"tipCount":0},"price":{"tier":3,"message":"Expensive","currency":"$"},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":0,"groups":[]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]}},"flags":{"outsideRadius":true,"exactMatch":true},"referralId":"e-0-4d84fa948de9721e87fd3c51-1"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4dfc011152b18923030add6b","name":"The
+        Downtown Grill","contact":{"phone":"9049649253","formattedPhone":"(904) 964-9253"},"location":{"address":"301
+        E Call St","lat":29.94384557620368,"lng":-82.10823994359147,"distance":95779,"postalCode":"32091","cc":"US","city":"Starke","state":"FL","country":"United
+        States","formattedAddress":["301 E Call St","Starke, FL 32091"]},"categories":[{"id":"4bf58dd8d48988d1c4941735","name":"Restaurant","pluralName":"Restaurants","shortName":"Restaurant","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/default_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":129,"usersCount":76,"tipCount":3},"price":{"tier":2,"message":"Moderate","currency":"$"},"like":false,"rating":6.7,"ratingSignals":10,"specials":{"count":0,"items":[]},"photos":{"count":11,"groups":[{"type":"venue","name":"Venue
+        photos","count":11,"items":[{"id":"5146406ee4b0702d304229cd","createdAt":1363558510,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/961306_akWHliRwEi7IhwyDGD-bUtD-hgM_lm6epVgPG7-pzVM.jpg","width":720,"height":960,"user":{"id":"961306","firstName":"honey
+        badger","gender":"none","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/961306-RCJXZVSDXNSTUBYR.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"5146406ee4b0702d304229cd","createdAt":1363558510,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/961306_akWHliRwEi7IhwyDGD-bUtD-hgM_lm6epVgPG7-pzVM.jpg","width":720,"height":960,"user":{"id":"961306","firstName":"honey
+        badger","gender":"none","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/961306-RCJXZVSDXNSTUBYR.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"503d1c06e4b0ae1644a64719","createdAt":1346182150,"text":"Karaoke
+        every Thursday & Saturday...","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/503d1c06e4b0ae1644a64719","logView":true,"todo":{"count":0},"user":{"id":"30827712","firstName":"Justin","lastName":"Nelson","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/30827712-IL4U0OMKIMPWY4EP.jpg"}}}],"referralId":"e-0-4dfc011152b18923030add6b-2"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4b64cee1f964a520b0d12ae3","name":"Times-Union
+        Center for the Performing Arts","contact":{"phone":"9046336110","formattedPhone":"(904)
+        633-6110","twitter":"jaxevents"},"location":{"address":"300 Water St","crossStreet":"at
+        S Pearl St","lat":30.3254792500327,"lng":-81.66234572405824,"distance":39983,"postalCode":"32202","cc":"US","city":"Jacksonville","state":"FL","country":"United
+        States","formattedAddress":["300 Water St (at S Pearl St)","Jacksonville,
+        FL 32202"]},"categories":[{"id":"5032792091d4c4b30a586d5c","name":"Concert
+        Hall","pluralName":"Concert Halls","shortName":"Concert Hall","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/arts_entertainment\/musicvenue_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":4724,"usersCount":2429,"tipCount":16},"url":"http:\/\/www.jaxevents.com\/venues\/times-union-center-for-the-performing-arts\/","like":false,"rating":9.2,"ratingSignals":90,"hours":{"isOpen":false},"specials":{"count":0,"items":[]},"photos":{"count":295,"groups":[{"type":"venue","name":"Venue
+        photos","count":295,"items":[{"id":"4e79f144b0fb56198fbb5df1","createdAt":1316614468,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/QAODL50Q1CT4DMNKSFWKMLBMTM3M5CQUUGYQA5MQUIZQTFGO.jpg","width":537,"height":720,"user":{"id":"13311435","firstName":"Kelly","lastName":"Raven","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/blank_boy.png","default":true}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"4e79f144b0fb56198fbb5df1","createdAt":1316614468,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/QAODL50Q1CT4DMNKSFWKMLBMTM3M5CQUUGYQA5MQUIZQTFGO.jpg","width":537,"height":720,"user":{"id":"13311435","firstName":"Kelly","lastName":"Raven","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/blank_boy.png","default":true}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"4bd5cdf670c603bb8b4f99b4","createdAt":1272303094,"text":"Built
+        in 1997, Jacoby Symphony Hall is the only true orchestra hall in Florida and
+        is home to the Jacksonville Symphony Orchestra.","type":"user","url":"http:\/\/www.visitjacksonville.com\/listings\/index.cfm?action=display&listingID=4147&hit=1","canonicalUrl":"https:\/\/foursquare.com\/item\/4bd5cdf670c603bb8b4f99b4","likes":{"count":39,"groups":[],"summary":"39
+        likes"},"logView":true,"todo":{"count":4},"user":{"id":"1047080","firstName":"Visit_Jax","gender":"none","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/IXL4YIZTESKBPNGR.jpg"}}}],"referralId":"e-0-4b64cee1f964a520b0d12ae3-3"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4b38db45f964a520355125e3","name":"The
+        Avenues Mall","contact":{"phone":"9043633060","formattedPhone":"(904) 363-3060","twitter":"simonmalls","facebook":"131525243536711","facebookUsername":"FashionValleyMall","facebookName":"Fashion
+        Valley Mall"},"location":{"address":"10300 Southside Blvd","lat":30.18479119,"lng":-81.55391693,"distance":55173,"postalCode":"32256","cc":"US","city":"Jacksonville","state":"FL","country":"United
+        States","formattedAddress":["10300 Southside Blvd","Jacksonville, FL 32256"]},"categories":[{"id":"4bf58dd8d48988d1fd941735","name":"Mall","pluralName":"Malls","shortName":"Mall","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/shops\/mall_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":30886,"usersCount":8564,"tipCount":18},"url":"https:\/\/www.facebook.com\/simonmalls","like":false,"rating":7.2,"ratingSignals":245,"hours":{"status":"Open
+        until 9:00 PM","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":172,"groups":[{"type":"venue","name":"Venue
+        photos","count":172,"items":[{"id":"51ef1fd3498e8d7856f8ff5f","createdAt":1374625747,"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/31852392_2mAL3dlDT1XuY5g-sJxmdJUbTHM8sP7ggI4mtqru6L8.jpg","width":960,"height":720,"user":{"id":"31852392","firstName":"Shoug","lastName":"Altamimi","gender":"female","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/XPA3SD4TSFT3UOME.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"storeId":"","featuredPhotos":{"count":1,"items":[{"id":"51ef1fd3498e8d7856f8ff5f","createdAt":1374625747,"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/31852392_2mAL3dlDT1XuY5g-sJxmdJUbTHM8sP7ggI4mtqru6L8.jpg","width":960,"height":720,"user":{"id":"31852392","firstName":"Shoug","lastName":"Altamimi","gender":"female","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/XPA3SD4TSFT3UOME.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"4caead573f0676b0e99dfa0c","createdAt":1286516055,"text":"The
+        Avenues Mall has free WiFi throughout the mall","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/4caead573f0676b0e99dfa0c","likes":{"count":28,"groups":[],"summary":"28
+        likes"},"logView":true,"todo":{"count":0},"user":{"id":"3382080","firstName":"The
+        Avenues Mall","gender":"none","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/PBEG3H3ZUHLKL2L1.jpg"}}}],"referralId":"e-0-4b38db45f964a520355125e3-4"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4c44b38a36d6a5932cdb6aa8","name":"Under
+        Armour Outlet","contact":{"phone":"9048199667","formattedPhone":"(904) 819-9667"},"location":{"address":"2700
+        State Road 16","crossStreet":"at St. Augustine Premium Outlets","lat":29.924377763040194,"lng":-81.41729834273578,"distance":85690,"postalCode":"32092","cc":"US","city":"St.
+        Augustine","state":"FL","country":"United States","formattedAddress":["2700
+        State Road 16 (at St. Augustine Premium Outlets)","St. Augustine, FL 32092"]},"categories":[{"id":"4bf58dd8d48988d103951735","name":"Clothing
+        Store","pluralName":"Clothing Stores","shortName":"Apparel","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/shops\/apparel_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":730,"usersCount":461,"tipCount":3},"like":false,"rating":6.5,"ratingSignals":11,"hours":{"status":"Likely
+        open","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":4,"groups":[{"type":"venue","name":"Venue
+        photos","count":4,"items":[{"id":"501ed328e4b075c1f0c66afc","createdAt":1344197416,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/Mo0bkDbt0Wkvb7E__4DfhmhwtsN-LKmovDc-zv6XaMI.jpg","width":405,"height":540,"user":{"id":"14955748","firstName":"Nate","lastName":"Dissmeyer","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/0JKRYAKVN4S0WXAE.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"501ed328e4b075c1f0c66afc","createdAt":1344197416,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/Mo0bkDbt0Wkvb7E__4DfhmhwtsN-LKmovDc-zv6XaMI.jpg","width":405,"height":540,"user":{"id":"14955748","firstName":"Nate","lastName":"Dissmeyer","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/0JKRYAKVN4S0WXAE.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"4d72928a8e12b1f71e773d05","createdAt":1299354250,"text":"10%
+        Military Discount!","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/4d72928a8e12b1f71e773d05","likes":{"count":5,"groups":[],"summary":"5
+        likes"},"logView":true,"todo":{"count":0},"user":{"id":"2708342","firstName":"Cisco","lastName":"Rodillas","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/NRCAH11XB1Z5F33D.jpg"}}}],"referralId":"e-0-4c44b38a36d6a5932cdb6aa8-5"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4edd49765c5c96a201b88d81","name":"Under
+        The Bridge Downtown","contact":{},"location":{"lat":30.32711883231944,"lng":-81.62631927458209,"distance":39358,"postalCode":"32202","cc":"US","city":"Jacksonville","state":"FL","country":"United
+        States","formattedAddress":["Jacksonville, FL 32202"]},"categories":[{"id":"4bf58dd8d48988d1df941735","name":"Bridge","pluralName":"Bridges","shortName":"Bridge","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/parks_outdoors\/bridge_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":367,"usersCount":56,"tipCount":2},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":4,"groups":[{"type":"venue","name":"Venue
+        photos","count":4,"items":[{"id":"50507180e4b056062120e19d","createdAt":1347449216,"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/9mfBbNo75M2heEcQYU0w-k6_2wIoKl0YjRxYfIfgOP0.jpg","width":406,"height":720,"user":{"id":"4977822","firstName":"Jessika","lastName":"S","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/RSZH0GYAVB5QCNTU.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"50507180e4b056062120e19d","createdAt":1347449216,"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/9mfBbNo75M2heEcQYU0w-k6_2wIoKl0YjRxYfIfgOP0.jpg","width":406,"height":720,"user":{"id":"4977822","firstName":"Jessika","lastName":"S","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/RSZH0GYAVB5QCNTU.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"52707cd911d2a82f08836265","createdAt":1383103705,"text":"Let''s
+        hope it really is properly repaired.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/52707cd911d2a82f08836265","logView":true,"todo":{"count":0},"user":{"id":"4977822","firstName":"Jessika","lastName":"S","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/RSZH0GYAVB5QCNTU.jpg"}}}],"referralId":"e-0-4edd49765c5c96a201b88d81-6"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4cbc73714352a1cdea569ef5","name":"Interstate
+        295 & Beach Blvd.","contact":{},"location":{"address":"I-295","crossStreet":"Beach
+        Blvd","lat":30.286969,"lng":-81.521752,"distance":44187,"postalCode":"32224","cc":"US","city":"Jacksonville","state":"FL","country":"United
+        States","formattedAddress":["I-295 (Beach Blvd)","Jacksonville, FL 32224"]},"categories":[{"id":"52f2ab2ebcbc57f1066b8b4c","name":"Intersection","pluralName":"Intersections","shortName":"Intersection","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/travel\/default_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":4108,"usersCount":382,"tipCount":2},"like":false,"hours":{"status":"Likely
+        open","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":8,"groups":[{"type":"venue","name":"Venue
+        photos","count":8,"items":[{"id":"4e4d0dffb0fb57f6f22571db","createdAt":1313672703,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/MATK2IYOWORIFTLHD1TCOA1LFCWI32RX04QMDN1SRNIWMNRB.jpg","width":537,"height":720,"user":{"id":"5114676","firstName":"Doug","lastName":"Lewis","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/I42OMKHRQUTB1JCB.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"4e4d0dffb0fb57f6f22571db","createdAt":1313672703,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/MATK2IYOWORIFTLHD1TCOA1LFCWI32RX04QMDN1SRNIWMNRB.jpg","width":537,"height":720,"user":{"id":"5114676","firstName":"Doug","lastName":"Lewis","gender":"male","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/I42OMKHRQUTB1JCB.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"5020facde4b0aa8c32608339","createdAt":1344338637,"text":"Dont
+        ever run the red light.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/5020facde4b0aa8c32608339","logView":true,"todo":{"count":0},"user":{"id":"9542867","firstName":"Josh","lastName":"B","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/9542867-EATG4U0HO1RYFKDK.jpg"}}}],"referralId":"e-0-4cbc73714352a1cdea569ef5-7"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"5026c69fe4b07a366c268b4a","name":"Under
+        The Dames Point :)","contact":{},"location":{"lat":30.37246867983733,"lng":-81.55204478424983,"distance":34370,"cc":"US","state":"Florida","country":"United
+        States","formattedAddress":["Florida"]},"categories":[{"id":"4bf58dd8d48988d1df941735","name":"Bridge","pluralName":"Bridges","shortName":"Bridge","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/parks_outdoors\/bridge_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":84,"usersCount":63,"tipCount":1},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":12,"groups":[{"type":"venue","name":"Venue
+        photos","count":12,"items":[{"id":"51fed7e7498ef01cd82474d0","createdAt":1375655911,"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/62697065_d-B3PCWei4n3I0BCRlvtXdUH_FdM5Yx1dDiju3U7vtU.jpg","width":960,"height":720,"user":{"id":"62697065","firstName":"Feras","lastName":"Abduljawad","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/Q4YVN2CJAXCNUOZ1.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"51fed7e7498ef01cd82474d0","createdAt":1375655911,"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/62697065_d-B3PCWei4n3I0BCRlvtXdUH_FdM5Yx1dDiju3U7vtU.jpg","width":960,"height":720,"user":{"id":"62697065","firstName":"Feras","lastName":"Abduljawad","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/Q4YVN2CJAXCNUOZ1.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"51fed806498e320d08fb5009","createdAt":1375655942,"text":"WoW
+        I love it","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/51fed806498e320d08fb5009","likes":{"count":4,"groups":[],"summary":"4
+        likes"},"logView":true,"todo":{"count":0},"user":{"id":"62697065","firstName":"Feras","lastName":"Abduljawad","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/Q4YVN2CJAXCNUOZ1.jpg"}}}],"referralId":"e-0-5026c69fe4b07a366c268b4a-8"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"508a0a2ae4b0c3505266ecea","name":"Under
+        The Hart Bridge In Jax Tailgating","contact":{},"location":{"lat":30.320535431199648,"lng":-81.63232846088205,"distance":40141,"postalCode":"32202","cc":"US","city":"Jacksonville","state":"FL","country":"United
+        States","formattedAddress":["Jacksonville, FL 32202"]},"categories":[{"id":"4f4528bc4b90abdf24c9de85","name":"Athletics
+        & Sports","pluralName":"Athletics & Sports","shortName":"Athletics & Sports","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/shops\/sports_outdoors_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":10,"usersCount":7,"tipCount":0},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":0,"groups":[]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]}},"flags":{"outsideRadius":true},"referralId":"e-0-508a0a2ae4b0c3505266ecea-9"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4e4c5e8722717c65ac9c3531","name":"Down
+        By The St. Johns River","contact":{},"location":{"lat":30.176908920190982,"lng":-81.6997660543432,"distance":56898,"cc":"US","state":"Florida","country":"United
+        States","formattedAddress":["Florida"]},"categories":[{"id":"4bf58dd8d48988d165941735","name":"Scenic
+        Lookout","pluralName":"Scenic Lookouts","shortName":"Scenic Lookout","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/parks_outdoors\/sceniclookout_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":402,"usersCount":71,"tipCount":0},"like":false,"hours":{"status":"Likely
+        open","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":9,"groups":[{"type":"venue","name":"Venue
+        photos","count":9,"items":[{"id":"4fb98113e4b01ebaad468b2b","createdAt":1337557267,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/WU0RyW-N22v-jGL0WGMRNnhT4H2lDHL6g4i69hCOtXw.jpg","width":540,"height":720,"user":{"id":"18647433","firstName":"Marsha","lastName":"Hart","gender":"female","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/R2Z3WST2GKIZ4OFW.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"4fb98113e4b01ebaad468b2b","createdAt":1337557267,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/WU0RyW-N22v-jGL0WGMRNnhT4H2lDHL6g4i69hCOtXw.jpg","width":540,"height":720,"user":{"id":"18647433","firstName":"Marsha","lastName":"Hart","gender":"female","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/R2Z3WST2GKIZ4OFW.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"referralId":"e-0-4e4c5e8722717c65ac9c3531-10"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4db896acf7b1b4c54f3ffae6","name":"Matanzas
+        Inlet Under The Bridge On The Beach","contact":{},"location":{"lat":29.704002575832156,"lng":-81.22802134364919,"distance":114060,"cc":"US","city":"St.
+        Augustine","state":"FL","country":"United States","formattedAddress":["St.
+        Augustine, FL"]},"categories":[{"id":"4bf58dd8d48988d1e3941735","name":"Surf
+        Spot","pluralName":"Surf Spots","shortName":"Surf Spot","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/parks_outdoors\/surfspot_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":84,"usersCount":65,"tipCount":2},"like":false,"specials":{"count":0,"items":[]},"photos":{"count":10,"groups":[{"type":"venue","name":"Venue
+        photos","count":10,"items":[{"id":"511e5d87e4b037cb0f8aead2","createdAt":1360944519,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/10394942_R2z76K6ngMNQIauxjBmWW4AG10ei5un8xzZxZhdUO4k.jpg","width":720,"height":540,"user":{"id":"10394942","firstName":"Justeen","lastName":"Keller","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/10394942-II5VNXQHA04BINR3.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"511e5d87e4b037cb0f8aead2","createdAt":1360944519,"prefix":"https:\/\/irs1.4sqi.net\/img\/general\/","suffix":"\/10394942_R2z76K6ngMNQIauxjBmWW4AG10ei5un8xzZxZhdUO4k.jpg","width":720,"height":540,"user":{"id":"10394942","firstName":"Justeen","lastName":"Keller","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/10394942-II5VNXQHA04BINR3.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"511e67b9e4b00c9518dfe8c2","createdAt":1360947129,"text":"Best
+        fish tacos ever!","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/511e67b9e4b00c9518dfe8c2","logView":true,"todo":{"count":0},"user":{"id":"10394942","firstName":"Justeen","lastName":"Keller","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/10394942-II5VNXQHA04BINR3.jpg"}}}],"referralId":"e-0-4db896acf7b1b4c54f3ffae6-11"}]}]}}'
+    http_version: 
+  recorded_at: Thu, 26 Feb 2015 22:51:53 GMT
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=30.679383,-81.591136&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Thu, 26 Feb 2015 22:51:54 GMT
+      Expires:
+      - Fri, 27 Feb 2015 22:51:54 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.08
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Unnamed Road",
+                       "short_name" : "Unnamed Road",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Yulee",
+                       "short_name" : "Yulee",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Nassau County",
+                       "short_name" : "Nassau County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "32097",
+                       "short_name" : "32097",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "Unnamed Road, Yulee, FL 32097, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.6816124,
+                          "lng" : -81.5809829
+                       },
+                       "southwest" : {
+                          "lat" : 30.6794399,
+                          "lng" : -81.59324409999999
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.6809779,
+                       "lng" : -81.58727879999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.6818751302915,
+                          "lng" : -81.5809829
+                       },
+                       "southwest" : {
+                          "lat" : 30.6791771697085,
+                          "lng" : -81.59324409999999
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJk6lPVTsB5YgRPD9FUeTU4Eg",
+                 "types" : [ "route" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "32097",
+                       "short_name" : "32097",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "Yulee",
+                       "short_name" : "Yulee",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Yulee, FL 32097, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.7544021,
+                          "lng" : -81.48463
+                       },
+                       "southwest" : {
+                          "lat" : 30.5226769,
+                          "lng" : -81.7811299
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.6487176,
+                       "lng" : -81.6254283
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.7544021,
+                          "lng" : -81.48463
+                       },
+                       "southwest" : {
+                          "lat" : 30.5226769,
+                          "lng" : -81.7811299
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJfRvZ4hL-5IgRcR0bWBq6lRo",
+                 "types" : [ "postal_code" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Nassau County",
+                       "short_name" : "Nassau County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Nassau County, FL, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.8297484,
+                          "lng" : -81.42672949999999
+                       },
+                       "southwest" : {
+                          "lat" : 30.2733371,
+                          "lng" : -82.050331
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.5927334,
+                       "lng" : -81.8224362
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.8297484,
+                          "lng" : -81.42672949999999
+                       },
+                       "southwest" : {
+                          "lat" : 30.2733371,
+                          "lng" : -82.050331
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJqbrwpti85YgRwPnj3RzwMuE",
+                 "types" : [ "administrative_area_level_2", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Jacksonville",
+                       "short_name" : "Jacksonville",
+                       "types" : [ "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Jacksonville, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 30.82749299999999,
+                          "lng" : -81.21286119999999
+                       },
+                       "southwest" : {
+                          "lat" : 29.622406,
+                          "lng" : -82.45954400000001
+                       }
+                    },
+                    "location" : {
+                       "lat" : 30.0806477,
+                       "lng" : -81.6911559
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 30.82749299999999,
+                          "lng" : -81.21286119999999
+                       },
+                       "southwest" : {
+                          "lat" : 29.622406,
+                          "lng" : -82.45954400000001
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJ3RPlMsXA5YgRpaB67lJK_7M",
+                 "types" : [ "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Florida",
+                       "short_name" : "FL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Florida, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 31.000968,
+                          "lng" : -80.0311371
+                       },
+                       "southwest" : {
+                          "lat" : 24.5210795,
+                          "lng" : -87.634896
+                       }
+                    },
+                    "location" : {
+                       "lat" : 27.6648274,
+                       "lng" : -81.5157535
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 31.000968,
+                          "lng" : -80.0311371
+                       },
+                       "southwest" : {
+                          "lat" : 24.5233179,
+                          "lng" : -87.634896
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJvypWkWV2wYgR0E7HW9MTLvc",
+                 "types" : [ "administrative_area_level_1", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "United States",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 71.389888,
+                          "lng" : -66.94539469999999
+                       },
+                       "southwest" : {
+                          "lat" : 18.9110642,
+                          "lng" : 172.4458955
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.09024,
+                       "lng" : -95.712891
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 49.38,
+                          "lng" : -66.94
+                       },
+                       "southwest" : {
+                          "lat" : 25.82,
+                          "lng" : -124.39
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJCzYy5IS16lQRQrfeQ5K5Oxw",
+                 "types" : [ "country", "political" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Thu, 26 Feb 2015 22:51:54 GMT
+- request:
+    method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=30.679383&lng=-81.591136&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 26 Feb 2015 22:51:54 GMT
+      Server:
+      - Apache/2.2.17 (Linux/SUSE)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"time":"2015-02-26 17:51","countryName":"United States","sunset":"2015-02-26
+        18:22","rawOffset":-5,"dstOffset":-4,"countryCode":"US","gmtOffset":-5,"lng":-81.591136,"sunrise":"2015-02-26
+        06:56","timezoneId":"America/New_York","lat":30.679383}'
+    http_version: 
+  recorded_at: Thu, 26 Feb 2015 22:51:54 GMT
+recorded_with: VCR 2.9.3

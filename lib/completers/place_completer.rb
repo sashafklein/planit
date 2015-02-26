@@ -35,7 +35,7 @@ module Completers
     end
 
     def foursquare
-      foursquare_explore unless pip.completed("FoursquareExplore")
+      foursquare_explore unless pip.completed("FoursquareExplore") || ( pip.complete("FoursquareExplore") if pip.foursquare_id.present? )
       foursquare_refine unless pip.completed("FoursquareRefine") || !pip.foursquare_id.present? || pip.unsure.include?("FoursquareExplore")
     end
 
@@ -95,7 +95,7 @@ module Completers
       @place = pip.place.find_and_merge
       @place.validate_and_save!( @photos.uniq{ |p| p.url }, pip.flags ) 
     rescue => e
-      nil
+      place_options.any? ? place_options : nil
     end
 
     def retry_foursquare?
@@ -103,6 +103,10 @@ module Completers
         ( pip.completed("FoursquareExplore") && !pip.completed("FoursquareRefine") ) ||
         ( pip.flags.find{ |f| f.name == "Insufficient Atts for FoursquareExplore" } &&
           ApiCompleter::FoursquareExplore.new(pip).sufficient_to_fetch? )
+    end
+
+    def place_options
+      pip.datastores.reject{ |d| d._name == 'Base' }.map{ |d| PlaceOption.new(d.clean_attrs.merge(feature_type: pip.feature_type)) }
     end
   end
 end

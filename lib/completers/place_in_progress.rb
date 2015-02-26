@@ -30,7 +30,7 @@ module Completers
     end
 
     def complete(step)
-      completion_steps << step
+      completion_steps = ( @completion_steps + Array(step) ).flatten.uniq
     end
 
     def flush!(ds_name=:base)

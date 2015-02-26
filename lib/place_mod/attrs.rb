@@ -70,7 +70,7 @@ module PlaceMod
     end
 
     def extra_attrs
-      attrs.except(*Place.attribute_keys + [:nearby, :images])
+      attrs.except(*Place.attribute_keys + [:nearby, :images, :foursquare_id])
     end
 
     def normalize_phones
