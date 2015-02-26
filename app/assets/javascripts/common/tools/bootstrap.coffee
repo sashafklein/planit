@@ -7,8 +7,6 @@ angular.module('Common').factory 'Bootstrap', (UserLocation) ->
       $('.popover-toggle').popover({ html: true })
 
     @_toggleModals: () ->
-      # $('#planit-modal').modal()
-      # $('#planit-modal').on 'shown.bs.modal', -> $('#planit-modal').focus()
       $('#planit-modal-new').on 'shown.bs.modal', -> UserLocation.showPositionInNewModal(UserLocation.latLong)
 
     @_clearInputs: () ->

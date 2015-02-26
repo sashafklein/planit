@@ -11,7 +11,7 @@ class UserMailer < ActionMailer::Base
   private
 
   def recipients
-    ['Sasha <sasha@plan.it>', 'Niko <niko@plan.it>' ]
+    [ "Notifications <notifications@plan.it>" ]
   end
 
 end

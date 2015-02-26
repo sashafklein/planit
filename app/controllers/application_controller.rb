@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   private
  
   def permission_denied
-    flash[:error] = "You can't do that."
+    flash[:error] = "No Public Access"
     redirect_to root_path
   end
 

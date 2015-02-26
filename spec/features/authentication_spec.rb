@@ -5,13 +5,14 @@ describe 'Authentication' do
   describe "sign in" do
     it "is linked to on the landing page" do
       user = create(:user)
+      user.member!
       visit root_path
-      
+      click_link 'LOG IN'
+
       expect( page ).to have_content 'LOG IN' # On sign-in page
       fill_in 'Email', with: user.email
       fill_in "Password", with: user.password
       click_button 'Sign in'
-
       expect( current_path ).to eq user_path(user)
     end
   end

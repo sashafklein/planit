@@ -2,6 +2,8 @@ class User < BaseModel
 
   after_create :notify_signup
 
+  validates :first_name, :last_name, presence: true
+
   enum role: { pending: 0, member: 1, admin: 2 }
 
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -105,7 +107,7 @@ class User < BaseModel
   private
 
   def notify_signup
-    UserMailer.notify_of_signup(self).deliver
+    UserMailer.notify_of_signup(self).deliver_later
   end
   
 end
