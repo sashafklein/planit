@@ -18,7 +18,7 @@ module Completers
     end
 
     def delay_complete!
-      DelayCompleteJob.perform_later(self)
+      DelayCompleteJob.perform_later(attrs, user, url)
     end
 
     private
