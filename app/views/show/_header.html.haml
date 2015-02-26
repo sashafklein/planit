@@ -80,5 +80,6 @@
             %span.divider= "|"
             %strong.a-override.a-gray.h-neon= link_to "LOG IN", new_user_session_path
 
-.init-header-space
+- unless page_type == 'places'
+  .init-header-space
 = current_user.decorate.inject_modals(['share', 'love', 'new']) if current_user_is_active

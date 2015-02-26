@@ -41,6 +41,7 @@ gem "timezone"
 gem "newrelic_rpm"
 
 gem "pundit"
+gem "acts-as-taggable-on"
 
 gem "compass"
 gem "compass-rails"

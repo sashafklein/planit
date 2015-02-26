@@ -10,6 +10,8 @@ class User < BaseModel
 
   has_many :plans
   has_many :marks
+  has_many :nps_feedbacks
+  has_many :page_feedbacks
   has_many :items, through: :marks
 
   extend FriendlyId
@@ -72,6 +74,10 @@ class User < BaseModel
     return chunked_array
   end
 
+  def tags
+    marks.all_tags
+  end
+
   def source_guides(array_of_sources, max_threshold)
     array_of_guides = []
     array_of_sources.each do |source|
@@ -90,6 +96,10 @@ class User < BaseModel
   def guides
     (plans + source_guides(all_sources, 25))
     # for each plan, get average_updated for items.marks, then sort descending
+  end
+
+  def years_on_planit
+    (Time.now().to_f - created_at.to_f) / (60*60*24*365.25)
   end
 
   private

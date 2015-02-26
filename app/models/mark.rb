@@ -15,7 +15,7 @@ class Mark < BaseModel
            :country, :region, :locality, :sublocality, :images, :image, :street_address, to: :place
 
   delegate :full, :lodging, to: :place, prefix: true
-  boolean_accessor :lodging, :meal, :published
+  boolean_accessor :lodging, :meal, :published, :been, :loved, :deleted
 
   has_one :arrival, class_name: 'Travel', foreign_key: 'to_id'
   has_one :departure, class_name: 'Travel', foreign_key: 'from_id'
@@ -27,6 +27,8 @@ class Mark < BaseModel
   scope :marked_up,     ->        { with_mark('up') }
   scope :marked_down,   ->        { with_mark('up') }
   scope :starred,       ->        { with_mark('star') }
+
+  make_taggable
 
   def self.places
     Place.where(id: pluck(:place_id))
@@ -88,7 +90,8 @@ class Mark < BaseModel
   end
   
   def self.all_tags
-    ["Maine trip with Leah", "foodie recs"] # array of all tags, uniq, alphabetically sorted
+    taggings = Tagging.where(taggable_type: 'Mark', taggable_id: self.pluck(:id))
+    Tag.where(id: taggings.pluck(:tag_id) ).pluck(:name)
   end
 
   def self.filtered(array)

@@ -25,7 +25,6 @@ class Api::V1::Users::MarksController < ApiController
 
   def bucket
     return error(404, "User not found") unless @user
-
     @marks = @user.marks
   end
 

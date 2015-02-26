@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225223123) do
+ActiveRecord::Schema.define(version: 20150226002451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,9 @@ ActiveRecord::Schema.define(version: 20150225223123) do
     t.string   "groupable_type", limit: 255
     t.integer  "groupable_id"
     t.boolean  "published",                  default: true
+    t.boolean  "been",                       default: false
+    t.boolean  "loved",                      default: false
+    t.boolean  "deleted",                    default: false
   end
 
   add_index "marks", ["arrival_id"], name: "index_marks_on_arrival_id", using: :btree
@@ -140,6 +143,27 @@ ActiveRecord::Schema.define(version: 20150225223123) do
   add_index "marks", ["leg_id"], name: "index_marks_on_leg_id", using: :btree
   add_index "marks", ["place_id"], name: "index_marks_on_place_id", using: :btree
   add_index "marks", ["user_id"], name: "index_marks_on_user_id", using: :btree
+
+  create_table "nps_feedbacks", force: :cascade do |t|
+    t.integer  "rating"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "nps_feedbacks", ["user_id"], name: "index_nps_feedbacks_on_user_id", using: :btree
+
+  create_table "page_feedbacks", force: :cascade do |t|
+    t.text     "details"
+    t.string   "url"
+    t.integer  "nps_feedback_id"
+    t.integer  "user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "page_feedbacks", ["nps_feedback_id"], name: "index_page_feedbacks_on_nps_feedback_id", using: :btree
+  add_index "page_feedbacks", ["user_id"], name: "index_page_feedbacks_on_user_id", using: :btree
 
   create_table "place_options", force: :cascade do |t|
     t.float    "lat"
@@ -253,6 +277,26 @@ ActiveRecord::Schema.define(version: 20150225223123) do
   end
 
   add_index "sources", ["object_type", "object_id"], name: "index_sources_on_object_type_and_object_id", using: :btree
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.string  "name"
+    t.integer "taggings_count", default: 0
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "travels", force: :cascade do |t|
     t.string   "mode",               limit: 255
