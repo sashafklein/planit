@@ -37,11 +37,11 @@
   display: block
   visibility: visible
   z-index: 150000 !important
-  top: 85px
-  max-height: 80%
+  top: 15px
+  max-height: 90%
   left: 15px
-  position: fixed
-  overflow: hidden
+  position: relative
+  overflow: scroll
   width: 360px
   box-shadow: rgba(0, 0, 0, 0.65098) 0px 1px 5px 0px
   border-radius: 4px
@@ -62,10 +62,11 @@
 #in-view-list, #in-view-item
 
   ul
-    min-height: 0px
-    margin: 0
+    -webkit-padding-start: 0
     padding: 0
+    margin: 0
     background-color: #ccc
+    width: 352px
   li
     color: #000
     height: 75px
@@ -87,9 +88,7 @@
     margin-top: 1px
 
   .bucket-list-container
-    height: 100% 
-    overflow-y: auto
-    overflow-x: hidden
+    width: 352px
 
   .bucket-list-tab
     display: block
