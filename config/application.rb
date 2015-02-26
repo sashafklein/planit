@@ -34,6 +34,7 @@ module Planit
       g.stylesheets false
       g.test_framework :rspec
       g.factory_girl false
+      g.job_specs false
     end
 
     config.action_mailer.default_url_options = { :host => "www.plan.it" }
