@@ -18,6 +18,10 @@ class PlaceOption < BaseModel
 
   delegate :open?, :open_again_at, :open_until, to: :hour_calculator
 
+  def self.clean_old!
+    where('created_at < ?', 1.month.ago)
+  end
+
   def choose!
     place = complete
     
@@ -27,7 +31,6 @@ class PlaceOption < BaseModel
     end
     
     mark.update_attributes!(place_id: place.id)
-    self_and_siblings.destroy_all
     place
   end
 
@@ -35,9 +38,5 @@ class PlaceOption < BaseModel
 
   def complete
     Completers::PlaceCompleter.new( attributes.except("mark_id", "id", "created_at", "updated_at") ).complete!
-  end
-
-  def self_and_siblings
-    mark.place_options
   end
 end

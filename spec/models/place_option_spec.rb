@@ -10,12 +10,6 @@ describe "choose!", :vcr do
     @option = @mark.place_options.first
   end
 
-  it "deletes all sibling options (and self)" do
-    expect( PlaceOption.count ).to be > 0
-    @option.choose!
-    expect( PlaceOption.count ).to eq 0
-  end
-
   it "returns the created or found right place for the option" do
     expect{ @option.choose! }.to change{ Place.count }.by 1
 
