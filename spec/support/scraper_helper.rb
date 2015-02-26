@@ -53,6 +53,11 @@ module ScraperHelper
     search_term ? expectations.find{ |p| p[:place][:name] == search_term || Array(p[:place][:names]).include?(search_term) } : expectations.first
   end
 
+  def completed_data(filename:, scrape_url:, name: nil)
+    @yml = yml_data(filename, scrape_url, name)
+    Completers::Completer.new(@yml, @user, @yml[:scraper_url]).complete!
+  end
+
   private
 
   def deep_sort_hash(object)

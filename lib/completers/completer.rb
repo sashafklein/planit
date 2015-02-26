@@ -9,12 +9,12 @@ module Completers
     end
 
     def complete!
-      place = PlaceCompleter.new( decremented_attrs.delete(:place), url ).complete!
-      return nil unless place
-      mark = user.marks.where(place_id: place.id).first_or_initialize
-      mark.save_with_source!(source_url: url)
-      merge_and_create_associations!(mark)
-      mark
+      return unless response = PlaceCompleter.new( decremented_attrs.delete(:place), url ).complete!
+      
+      create_mark_and_associations!(
+        place:         ( response.is_a?(Place) ? response : nil),
+        place_options: ( response.is_a?(Array) ? response : nil)
+      )
     end
 
     def delay_complete!
@@ -22,6 +22,18 @@ module Completers
     end
 
     private
+
+    def create_mark_and_associations!(place:, place_options:)
+      raise "Mark needs either Place or PlaceOptions" if (place && place_options) || (!place && !place_options)
+
+      mark = place ? user.marks.where(place_id: place.id).first_or_initialize : user.marks.new
+      mark.save_with_source!(source_url: url)
+
+      place_options.each{ |po| po.mark = mark; po.save! } if place_options      
+      
+      merge_and_create_associations!(mark)
+      mark
+    end
 
     def merge_and_create_associations!(mark)
       plan = create_plan!(mark)
@@ -87,7 +99,7 @@ module Completers
     end
 
     def create_plan_source(plan, mark_source)
-      source = Source.new(mark_source.attributes.symbolize_keys.except(:id, :object_id, :object_type, :created_at, :updated_at))
+      source = Source.new( mark_source.generic_attrs )
       source.object = plan
       source.save!
     end

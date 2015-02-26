@@ -1,19 +1,42 @@
 class PlaceOption < BaseModel
 
+  include ActsLikePlace
+    # Instance: tz, validate_and_save!, image, coordinate, full, nearby, find_and_merge, meta_icon, 
+              # alt_names, pinnable, not_in_usa?, in_usa?, other_info?, has_sources?, foursquare_rating, 
+              # yelp_id, yelp_rating, tracking_data, tz_object, is?, hour_calculator
+    # Class: att_by_frequency, find_or_initialize, center_coordinate, coordinates
+
   belongs_to :mark
   validates :mark, :mark_id, presence: :true
 
-  def place
-    Place.new( attributes.except("mark_id") )
+  enum feature_type: [:destination, :sublocality, :locality, :subregion, :region, :country, :area]
+
+  default_scope { order('created_at ASC') }
+
+  array_accessor :completion_step, :street_address, :name, :category, :meta_category, :phone
+  json_accessor :hours, :extra
+
+  delegate :open?, :open_again_at, :open_until, to: :hour_calculator
+
+  def choose!
+    place = complete
+    
+    unless place && place.is_a?(Place) && place.persisted?
+      Flag.create(name: "Place couldn't be created!", details: "Completion failed during PlaceOption choosing", info: self.attributes)
+      return false 
+    end
+    
+    mark.update_attributes!(place_id: place.id)
+    self_and_siblings.destroy_all
   end
 
-  def self.place
-    Place
+  private
+
+  def complete
+    Completers::PlaceCompleter.new( attributes.except("mark_id") ).complete!
   end
 
-  delegate *Place.instance_methods(false), to: :place
-
-  class << self
-    delegate *Place.methods(false), to: :place
+  def self_and_siblings
+    mark.place_options
   end
 end

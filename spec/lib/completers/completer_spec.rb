@@ -219,16 +219,24 @@ module Completers
 
         describe "still failing" do
 
-          xit 'completes Alma from HuffPo' do
+          it 'suggests good options for Alma from HuffPo' do
             m = completed_data(filename: 'cartagena', scrape_url: "http://www.huffingtonpost.com/curtis-ellis/cartagena-eat-pray-love-d_b_3479981.html", name: 'Alma')
-            binding.pry
-            # Finds Alma in Casa San Agustin https://foursquare.com/v/restaurante-alma/50d11a74e4b00e3143cbf000
+            expect( m.place ).to be_nil
+            expect( m.place_options.count ).to be > 1
+
+            option = m.place_options.with_name("Restaurante Alma").first
+            expect( option ).to be_a PlaceOption
+            expect( option.foursquare_id ).to be_present
           end
 
-          xit 'completes Alma from NYTimes' do
+          it 'suggests good options for Alma from NYTimes' do
             m = completed_data(filename: 'cartagena', scrape_url: "http://www.huffingtonpost.com/curtis-ellis/cartagena-eat-pray-love-d_b_3479981.html", name: 'Alma')
-            p = m.place
-            binding.pry
+            expect( m.place ).to be_nil
+            expect( m.place_options.count ).to be > 1
+
+            option = m.place_options.with_name("Restaurante Alma").first
+            expect( option ).to be_a PlaceOption
+            expect( option.foursquare_id ).to be_present
           end
 
           # Neither Foursquare nor Google finds anything that looks good
@@ -453,11 +461,6 @@ module Completers
           end
         end
       end
-    end
-
-    def completed_data(filename:, scrape_url:, name: nil)
-      @yml = yml_data(filename, scrape_url, name)
-      Completer.new(@yml, @user, @yml[:scraper_url]).complete!
     end
 
     def place_hash(overwrite_hash={}, place_additions={})
