@@ -4,7 +4,7 @@ module PlaceMod
     attr_accessor :place, :images, :flags
     delegate :uniqify_array_attrs, :array_attrs_unique?, to: :place
     def initialize(place, images=[], flags=[])
-      @place = place.persisted? ? place : Place.new(place.attributes)
+      @place = place.persisted? ? place : place.class.new(place.attributes)
       @images, @flags = images, flags
     end
 

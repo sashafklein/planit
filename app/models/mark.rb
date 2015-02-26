@@ -4,11 +4,12 @@ class Mark < BaseModel
   
   belongs_to :place
   belongs_to :user
-  validates :place, presence: true
-  validates :user, presence: true
+
+  validate!
 
   has_many :sources, as: :object
-  has_many :items
+  has_many :items, dependent: :destroy
+  has_many :place_options, dependent: :destroy
 
   delegate :names, :name, :categories, :category, :coordinate, :url, :phones, :phone, :website,
            :country, :region, :locality, :sublocality, :images, :image, :street_address, to: :place

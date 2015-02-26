@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224230450) do
+ActiveRecord::Schema.define(version: 20150225223123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,47 @@ ActiveRecord::Schema.define(version: 20150224230450) do
   add_index "marks", ["leg_id"], name: "index_marks_on_leg_id", using: :btree
   add_index "marks", ["place_id"], name: "index_marks_on_place_id", using: :btree
   add_index "marks", ["user_id"], name: "index_marks_on_user_id", using: :btree
+
+  create_table "place_options", force: :cascade do |t|
+    t.float    "lat"
+    t.float    "lon"
+    t.integer  "price_tier"
+    t.integer  "feature_type"
+    t.integer  "mark_id"
+    t.boolean  "wifi",              default: false
+    t.boolean  "reservations",      default: false
+    t.text     "description"
+    t.text     "sublocality"
+    t.text     "completion_steps",  default: [],                 array: true
+    t.string   "street_addresses",  default: [],                 array: true
+    t.string   "names",             default: [],                 array: true
+    t.string   "meta_categories",   default: [],                 array: true
+    t.string   "categories",        default: [],                 array: true
+    t.string   "phones",            default: [],                 array: true
+    t.string   "full_address"
+    t.string   "subregion"
+    t.string   "menu"
+    t.string   "mobile_menu"
+    t.string   "foursquare_id"
+    t.string   "scrape_url"
+    t.string   "timezone_string"
+    t.string   "reservations_link"
+    t.string   "website"
+    t.string   "email"
+    t.string   "contact_name"
+    t.string   "postal_code"
+    t.string   "cross_street"
+    t.string   "country"
+    t.string   "region"
+    t.string   "locality"
+    t.string   "price_note"
+    t.json     "extra",             default: {}
+    t.json     "hours",             default: {}
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "place_options", ["mark_id"], name: "index_place_options_on_mark_id", using: :btree
 
   create_table "places", force: :cascade do |t|
     t.string   "postal_code",       limit: 255
