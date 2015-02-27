@@ -1,40 +1,13 @@
-.footer-spacing
+.footer-spacing.mobile
 .footer.large-screen{ class: page_type }
-  .container
 
-    %div{ class: 'one-third column' }
-      .footer-title
-        Attribution & Credits
-      .footer-section
-        User-submitted images and content, unless otherwise attributed, are the exclusive copyright of Planit and its users, who may freely share access to their private travel plans
-
-    %div{ class: 'one-third column' }
-      .footer-title
-        Partners & Sources
-      .footer-section
-        In-app search is powered by the
-        %a{href: "http://www.foursquare.com/"}= "Foursquare"
-        Venues API
-      .footer-section
-        All maps are deployed with the 
-        %a{href: "http://leafletjs.com/"}= "Leaflet"
-        open-source JavaScript library, leverage
-        %a{href: "http://www.openstreetmap.org/"}= "OpenStreetMaps"
-        data, and contain
-        %a{href: "http://developer.mapquest.com/web/products/open/map/"}= "Mapquest"
-        map tiles
-
-    %div{ class: 'one-third column' }
-      .footer-title
-        Contact & Support
-      .footer-section
-        Please share any feedback or issues you have via 
-        %a{href: "mailto:support@plan.it"}= "support@plan.it"
+  = render 'show/legal_info'
 
 .footer.mobile{ class: page_type }
-  .bottom-nav-bar
-    = current_user.decorate.nav_item_map(page_type)
-    = current_user.decorate.nav_item_list(page_type)
-    = current_user.decorate.nav_item_new(page_type)
-    = current_user.decorate.nav_item_inbox(page_type)
-    = current_user.decorate.nav_item_share(page_type)
+  - if current_user_is_active
+    .bottom-nav-bar
+      = current_user.decorate.nav_item_map(page_type)
+      = current_user.decorate.nav_item_list(page_type)
+      = current_user.decorate.nav_item_new(page_type)
+      = current_user.decorate.nav_item_inbox(page_type)
+      = current_user.decorate.nav_item_share(page_type)

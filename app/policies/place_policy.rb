@@ -11,11 +11,11 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def show?
-    user
+    member?
   end
 
   def create?
-    user
+    member?
   end
 
   def update?

@@ -1,4 +1,4 @@
-angular.module("Common").directive 'bucketMap', (MapOptions, F, Place, User, PlanitMarker, ClusterLocator, BasicOperators, ClickControls, $compile, $timeout) ->
+angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, ClusterLocator, BasicOperators, ClickControls, QueryString, PlaceFilterer, $compile, $timeout) ->
 
   return {
     restrict: 'E'
@@ -23,8 +23,9 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, Place, User, Pla
       s.requireDoubleClick = if s.mobile then true else false
 
       User.findPlaces( s.userId )
-        .success (places) ->
-          s.primaryPlaces = Place.generateFromJSON(places.user_pins)
+        .success (places) -> 
+          s.primaryPlacesRaw = Place.generateFromJSON(places.user_pins)
+          s.filterPlaces( s.primaryPlacesRaw )
           s.drawMap(s, element)
         .error (response) ->
           console.log("Failed to grab places information!")
@@ -35,49 +36,41 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, Place, User, Pla
       else if s.webPadding && !s.mobile
         s.padding = JSON.parse("[" + s.webPadding + "]")
 
-      s.expanded = -> s.$parent.mapExpanded
-
-      s.$parent.$watch 'mapExpanded', (value) ->
-        if s.map?
-          currentBounds = s.map.getBounds()
-          setTimeout (->
-            s.map.invalidateSize()
-            s.map.fitBounds(currentBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
-            return
-          ), 400
-      
-      # Cluster Locator Functions
-      s.bestListLocation = (places, center) ->
-        location = BasicOperators.commaAndJoin( _(places).map('names').map((p) -> p[0]).value() ) if places.length < 3
-        location ||= Place.lowestCommonArea(places)
-        location ||= ClusterLocator.nearestGlobalRegion(center)
-        return location
-
-      # Disable Map Panning & Zooming for List Box or Item Box
-      fixInfoBox = () ->
-        s.infoBox = if !s.mobile then document.getElementById('in-view-list') else document.getElementById('in-view-item')
-        s.infoBox.addEventListener 'mouseover', -> 
-          s.map.dragging.disable()
-          s.map.doubleClickZoom.disable()
-        s.infoBox.addEventListener 'mouseout', -> 
-          s.map.dragging.enable()
-          s.map.doubleClickZoom.disable()
-      setTimeout ( -> fixInfoBox() ), 1000
-
-      s.generateContextualUserPins = ->
-        if s.currentUserId != s.userId
-          User.findPlaces( s.currentUserId )
-            .success (places) ->
-              places = Place.generateFromJSON(places.current_user_pins)
-              s.contextPlaces = _(places).select (place) ->
-                !_( _(s.primaryPlaces).map('id') ).contains( place.id )
-              for contextPlace in s.contextPlaces.value()
-                PlanitMarker.contextPin(contextPlace).addTo(s.contextGroup)
-            .error (response) ->
-              alert("Failed to grab current user's other places!")
-              console.log response
+      s.filterPlaces = (places) ->
+        s.primaryPlaces = PlaceFilterer.returnFiltered( places )
 
       s.drawMap = (s, elem) ->
+
+        # Cluster Locator Functions
+        s.bestListLocation = (places, center) ->
+          location = BasicOperators.commaAndJoin( _(places).map('names').map((p) -> p[0]).value() ) if places.length < 3
+          location ||= Place.lowestCommonArea(places)
+          location ||= ClusterLocator.nearestGlobalRegion(center)
+          return location
+
+        # Disable Map Panning & Zooming for List Box or Item Box
+        fixInfoBox = () ->
+          s.infoBox = if !s.mobile then document.getElementById('in-view-list') else document.getElementById('in-view-item')
+          s.infoBox.addEventListener 'mouseover', -> 
+            s.map.dragging.disable()
+            s.map.doubleClickZoom.disable()
+          s.infoBox.addEventListener 'mouseout', -> 
+            s.map.dragging.enable()
+            s.map.doubleClickZoom.disable()
+        setTimeout ( -> fixInfoBox() ), 1000
+
+        s.generateContextualUserPins = ->
+          if s.currentUserId != s.userId
+            User.findPlaces( s.currentUserId )
+              .success (places) ->
+                places = Place.generateFromJSON(places.current_user_pins)
+                s.contextPlaces = _(places).select (place) ->
+                  !_( _( s.primaryPlaces ).map('id') ).contains( place.id )
+                for contextPlace in s.contextPlaces.value()
+                  PlanitMarker.contextPin(contextPlace).addTo(s.contextGroup)
+              .error (response) ->
+                alert("Failed to grab current user's other places!")
+                console.log response
 
         scrollWheelZoom = false unless s.scrollWheelZoom
         doubleClickZoom = true
@@ -108,7 +101,7 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, Place, User, Pla
           object.addEventListener 'mouseout', -> $timeout -> $(element.find(".#{id}")).removeClass('highlighted')
         s.doubleClickEvents = (object, id) ->
           object.addEventListener 'dblclick', -> 
-            document.location.href = '/places/' + id.split('p')[1]
+            document.location.href = '/places/' + id.split('p')[1] if id
         s.clickPinEvents = (object, id) -> 
           object.addEventListener 'click', -> s.$apply ->
             $(element.find(".#{s.clickedId}")).removeClass('highlighted') if (s.clickedId && (s.clickedId != id) )
@@ -155,9 +148,13 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, Place, User, Pla
           i++
         s.map.addLayer(clusterMarkers)
 
-        # Center map and inject zoom control
-        s.totalBounds = new L.LatLngBounds(s.primaryCoordinates)
-        s.map.fitBounds(s.totalBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
+        # Start map (either center or with QueryString) and inject zoom control
+        queryCenter = QueryString.centerIs()
+        if queryCenter
+          s.map.setView( [ parseFloat( queryCenter.lat ), parseFloat( queryCenter.lon ) ], parseInt( queryCenter.zoom ) )
+        else
+          s.totalBounds = new L.LatLngBounds(s.primaryCoordinates)
+          s.map.fitBounds(s.totalBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
 
         # Control whether or not context pins are viewable
@@ -176,6 +173,9 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, Place, User, Pla
           center = cluster._latlng
           return { id: "c#{cluster._leaflet_id}", count: cluster._childCount, center: center, places: places, location: s.bestListLocation(places, center), clusterObject: cluster }
 
+        s.updateQuery = ->
+          QueryString.modifyParamValues( m:"#{s.map.getCenter().lat.toFixed(4)},#{s.map.getCenter().lng.toFixed(4)},#{s.map.getZoom()}" )
+
         if s.mobile
           # Relay clicked marker to infoBox if Mobile
           s.clickedId = undefined
@@ -187,16 +187,17 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, Place, User, Pla
               s.place = undefined
           s.mobileUpdateView = () -> 
             s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".context-map-icon-tab"], 'clickPin')
-            s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".context-map-icon-tab"], 'dblclick')
+            s.addMouseEvents([".default-map-icon-tab", ".context-map-icon-tab"], 'dblclick')
             s.addMouseEvents([".edit-place", ".edit-places"], 'clickControl')
             if ( (s.cluster && !s.currentBounds().contains( s.cluster.clusterObject._bounds ) ) || ( s.place && !s.currentBounds().contains( s.place.leafletLocation ) ) ) then s.clearClicked()
+            s.updateQuery()
           s.map.on "moveend", -> s.mobileUpdateView()
           s.map.on "zoomend", -> setTimeout ( -> s.mobileUpdateView() ), 400
           s.mobileUpdateView()
 
         if !s.mobile
           # Relay back sidelist marker info if Web Browser
-          s.changePlacesInView = () -> 
+          s.webUpdateView = () -> 
             currentBounds = s.currentBounds()
             stuffOnMap = clusterMarkers._featureGroup.getLayers()
             s.placesInView = []
@@ -216,9 +217,10 @@ angular.module("Common").directive 'bucketMap', (MapOptions, F, Place, User, Pla
             s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".bucket-list-li"], 'hover')
             s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".context-map-icon-tab"], 'dblclick')
             s.addMouseEvents([".edit-place", ".edit-places"], 'clickControl')
-          s.map.on "moveend", -> s.$apply -> s.changePlacesInView()
-          s.map.on "zoomend", -> setTimeout ( -> s.$apply -> s.changePlacesInView() ), 400
-          s.changePlacesInView()
+            s.updateQuery()
+          s.map.on "moveend", -> s.$apply -> s.webUpdateView()
+          s.map.on "zoomend", -> setTimeout ( -> s.$apply -> s.webUpdateView() ), 400
+          s.webUpdateView()
           # Change Initial Loading Tab for Future Viewing, Recenter 'Lost' Browser to Start
           $(element.find("#no-items-msg")).html('Not All Who Wander Are Lost...')
           element.find("#first-bucket-item")[0].addEventListener 'click', -> s.map.fitBounds(s.totalBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )

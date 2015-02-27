@@ -1,0 +1,44 @@
+.container
+
+  %div{ class: 'one-third column' }
+    .static-section-header
+      Attribution & Credits
+    .static-section-content
+      %p.text-spaced
+        User-submitted images and content, unless otherwise attributed, are the exclusive copyright of Planit and its users, who may freely share access to their private travel plans
+    .static-section-content
+      %p.text-spaced
+        Any perceived
+        = link_to 'copyright', legal_dmca_path
+        issues should be reported immediately
+
+
+  %div{ class: 'one-third column' }
+    .static-section-header
+      Partners & Sources
+    .static-section-content
+      %p.text-spaced
+        In-app search is powered by the
+        %a{href: "http://www.foursquare.com/"}= "Foursquare"
+        Venues API
+    .static-section-content
+      %p.text-spaced
+        All maps are deployed with the 
+        %a{href: "http://leafletjs.com/"}= "Leaflet"
+        open-source JavaScript library, leverage
+        %a{href: "http://www.openstreetmap.org/"}= "OpenStreetMaps"
+        data, and contain
+        %a{href: "http://developer.mapquest.com/web/products/open/map/"}= "Mapquest"
+        map tiles
+
+  %div{ class: 'one-third column' }
+    .static-section-header
+      Customer Support
+    .static-section-content
+      %p.text-spaced
+        Please share any user feedback or issues you have via 
+        %a{href: "mailto:hello@plan.it"}= "hello@plan.it"
+    .static-section-content
+      %p.text-spaced
+        If you have any concerns about your data, contact us with any questions not otherwise addressed in our
+        = link_to 'Privacy Policy', legal_privacy_path

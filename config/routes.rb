@@ -3,8 +3,16 @@ Rails.application.routes.draw do
   devise_for :users
 
   root 'landing#show'
+  get '/index', to: 'statics#splash'
+  get '/waitlist', to: 'statics#waitlist'
+  get '/welcome', to: 'statics#welcome'
+  get '/save', to: 'statics#save'
 
-  resources :plans, only: [:show, :new] do
+  get '/legal_support', to: 'statics#legal_support'
+  get '/legal/dmca', to: 'statics#dmca'
+  get '/legal/privacy', to: 'statics#privacy'
+
+  resources :plans, only: [:show, :new, :index] do
     get :print, on: :member
     get :edit, on: :member
   end
@@ -15,7 +23,7 @@ Rails.application.routes.draw do
     get :inbox, on: :member
   end
 
-  resources :places, only: [:show, :new] do
+  resources :places, only: [:show, :new, :index] do
   end
 
   namespace :api do

@@ -6,6 +6,7 @@
   background: #000
   padding: 45px 0 50px 0
   margin: 0
+  position: relative
 
   &.mobile
     position: fixed !important
@@ -15,6 +16,25 @@
     padding: 0px 0px
     z-index: 100000
  
+  .static-section-header
+    margin: auto
+    padding-bottom: 15px
+    font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 16px
+    font-weight: bold
+    color: #fff
+    -webkit-font-smoothing: antialiased
+
+  .static-section-content
+    padding-bottom: 15px
+    font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 14px
+    color: #fff
+    -webkit-font-smoothing: antialiased
+    p
+      margin: 0
+      padding: 0
+
 .bottom-nav-bar
   cursor: pointer
   width: 100%
@@ -48,6 +68,9 @@
     border-bottom: #000 3px solid
     font-size: 18px
     line-height: 18px
+    i 
+      display: inline-block
+      width: 20px
     &.selected
       background: #2f2f2f
       border-bottom: #aaa 3px solid
@@ -62,11 +85,11 @@
     &.disabled
       background: #000
       border-bottom: #000 3px solid
-      color: #111
+      color: #222
       &:hover, &:active
         background: #000
         border-bottom: #000 3px solid
-        color: #111
+        color: #222
         .nav-item-hint
           display: none
           visibility: hidden
@@ -105,25 +128,14 @@
       border-radius: 3px
       -webkit-border-radius: 3px
 
-.footer-title
-  margin: auto
-  padding-bottom: 15px
-  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  font-size: 16px
-  font-weight: bold
-  color: #fff
-  -webkit-font-smoothing: antialiased
-
-.footer-section
-  padding-bottom: 15px
-  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  font-size: 14px
-  color: #fff
-  -webkit-font-smoothing: antialiased
-
 // VARIABLE SIZING
 
 // *Computer (Regular)
+
+.static-page#support-page
+  .footer.large-screen
+    display: none
+    visibility: hidden
 
 .footer-spacing
   height: 0px
@@ -135,6 +147,11 @@
 
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
+
+  .static-page#support-page
+    .footer.large-screen
+      display: none
+      visibility: hidden
 
   .footer-spacing
     height: 0px

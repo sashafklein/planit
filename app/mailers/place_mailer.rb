@@ -25,6 +25,6 @@ class PlaceMailer < ActionMailer::Base
   private
 
   def recipients
-    ['Sasha <sasha@plan.it>', 'Niko <niko@planit.it>' ]
+    ['Sasha <sasha@plan.it>', 'Niko <niko@plan.it>' ]
   end
 end

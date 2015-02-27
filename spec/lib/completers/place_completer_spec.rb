@@ -18,7 +18,7 @@ module Completers
           expect( place.phones ).to eq( [] )
           expect( place.phone ).to eq nil
           expect( place.category ).to eq('Hotel')
-          expect( place.full_address ).to eq("20 South 3rd Street, Amelia Island, FL 32034")
+          expect( place.full_address ).to eq("20 South 3rd Street, Amelia Island, FL 32034, United States")
           expect( place.meta_category ).to eq('Stay')
         end
 
@@ -103,7 +103,7 @@ module Completers
           } )
           expect( place.subregion ).to eq "King County"
           expect( place.street_addresses ).to eq ["4301 Fremont Avenue North"]
-          expect( place.full_address ).to eq "4301 Fremont Avenue North (at North 43rd St), Seattle, WA 98103"
+          expect( place.full_address ).to eq "4301 Fremont Avenue North (at North 43rd St), Seattle, WA 98103, United States"
           expect( place.categories ).to eq ["Coffee Shop"]
           expect( place.wifi ).to eq false
           expect( place.foursquare_id ).to eq "4a7f3209f964a5203bf31fe3"

@@ -11,51 +11,75 @@
         .logo-container
           = image_tag "logo_only_#{color}.png", alt: '', class: "logo-image-top large-screen"
           = image_tag "logo_only_white.png", alt: '', class: "logo-image-top mobile"
-          = image_tag "logo_my_only.png", alt: 'MY', class: "logo-my-top large-screen #{page_type}" if current_user_is_user
+          = image_tag "logo_my_only.png", alt: 'MY', class: "logo-my-top large-screen #{page_type}" if current_user_owns_record
           = image_tag "logo_name_only_#{color}.png", alt: 'PLANIT', class: "logo-name-top #{page_type}"
-          = current_user.decorate.page_type_title(page_type) if current_user && @user && @user == current_user
-        .search-and-filter-wrap{ class: page_type }
-          %a.dropdown-toggle.filter-dropdown{ "data-toggle" => "dropdown", :href => "#" }
-            .filter-button= current_user.decorate.filter_or_tag_button(page_type) if current_user
-          = current_user.decorate.filter_dropdown_menu(page_type) if current_user
-          = current_user.decorate.search_teaser(page_type) if current_user
-        .expanded-search-and-filter{ class: page_type }
-          .search-bar-wrap
-            .input-group
-              %input.form-control.input-with-clear#input-search-field{ :name  => "input-search", :placeholder => "Search #{page_type.titleize}", :type => "text"}
-              %span.clear-input-button#clear-search-input
-                %i.fa.fa-times-circle
-              %span.input-group-btn
-                %button.btn.btn-default#input-search-button{:type => "button"}
-                  %i.fa.fa-search.fa-lg
-          %button.close.search-close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
-            %span{"aria-hidden" => "true"} ×
-        .page-title-wrap{ class: page_type }
-          .page-title{ class: color }= yield(:title)
-        .top-menu-container
-          - if page_type == 'new'
-            .main-menu-container{ class: color }
-              = link_to user_path(current_user), class: "a-override a-#{background} h-#{background}" do
-                %i.fa.fa-arrow-left.main-menu-icon
-          - else
-            %a.dropdown-toggle.a-override{ class: "a-#{background} h-#{background}", "data-toggle" => "dropdown", :href => "#" }
-              .main-menu-container.user-icon{ class: color }
-                %i.fa.fa-user.main-menu-icon
-              .main-menu-container.main-menu.mobile.white
-                %i.fa.fa-bars.a-override.main-menu-icon{ class: "a-black h-black" }
-              = current_user.decorate.user_dropdown_menu if current_user
-          .side-menu-container{ class: "#{color} #{page_type}" }
-            - if current_user
+          = current_user.decorate.page_type_title(page_type) if current_user_owns_record
+
+        - if current_user_is_active
+          .search-and-filter-wrap{ class: page_type }
+            %a.dropdown-toggle.filter-dropdown{ "data-toggle" => "dropdown", :href => "#" }
+              .filter-button= current_user.decorate.filter_or_tag_button(page_type)
+            = current_user.decorate.filter_dropdown_menu(page_type)
+            = current_user.decorate.search_teaser(page_type)
+          .expanded-search-and-filter{ class: page_type }
+            .search-bar-wrap
+              .input-group
+                %input.form-control.input-with-clear#search-input-field{ :name  => "input-search", :placeholder => "Search #{page_type.titleize}", :type => "text"}
+                %span.clear-input-button#clear-search-input
+                  %i.fa.fa-times-circle
+                %span.input-group-btn
+                  %button.btn.btn-default#search-input-button{:type => "button"}
+                    %i.fa.fa-search.fa-lg
+            %button.close.search-close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+              %span{"aria-hidden" => "true"} ×
+          .page-title-wrap{ class: page_type }
+            .page-title{ class: color }= yield(:page_title) || yield(:title)
+          .top-menu-container
+            - if page_type == 'new'
+              .main-menu-container{ class: color }
+                = link_to user_path(current_user), class: "a-override a-#{background} h-#{background}" do
+                  %i.fa.fa-arrow-left.main-menu-icon
+            - else
+              %a.dropdown-toggle.a-override{ class: "a-#{background} h-#{background}", "data-toggle" => "dropdown", :href => "#" }
+                .main-menu-container.user-icon{ class: color }
+                  %i.fa.fa-user.main-menu-icon
+                .main-menu-container.main-menu.mobile.white
+                  %i.fa.fa-bars.a-override.main-menu-icon{ class: "a-black h-black" }
+                = current_user.decorate.user_dropdown_menu
+            .side-menu-container{ class: "#{color} #{page_type}" }
               .top-nav-bar
                 = current_user.decorate.nav_item_map(page_type)
                 = current_user.decorate.nav_item_list(page_type)
                 = current_user.decorate.nav_item_new(page_type)
                 = current_user.decorate.nav_item_inbox(page_type)
                 = current_user.decorate.nav_item_share(page_type)
-            - else
-              %strong.a-override.h-neon{ class: "a-#{color}" }= link_to "SIGN UP", new_user_registration_path
-              %span.divider= "|"
-              %strong.a-override.a-gray.h-neon= link_to "LOG IN", new_user_session_path
 
-.init-header-space
-= current_user.decorate.inject_modals(['share', 'love', 'new']) if current_user
+        - elsif current_user
+          .page-title-wrap{ class: page_type }
+            .page-title{ class: color }= yield(:page_title) || yield(:title)
+          .top-menu-container
+            = link_to destroy_user_session_path, :method => 'delete' do
+              .main-menu-container.user-icon{ class: color }
+                %i.fa.fa-user.main-menu-icon
+              .main-menu-container.main-menu.mobile.white
+                %i.fa.fa-user.a-override.main-menu-icon{ class: "a-black h-black" }
+          .side-menu-container{ class: "#{color} #{page_type}" }
+            %strong.a-override.a-gray.h-neon= link_to "LOG OUT", destroy_user_session_path, :method => 'delete'
+
+        - else
+          .page-title-wrap{ class: page_type }
+            .page-title{ class: color }= yield(:page_title) || yield(:title)
+          .top-menu-container
+            = link_to new_user_registration_path do
+              .main-menu-container.user-icon{ class: color }
+                %i.fa.fa-user.main-menu-icon
+              .main-menu-container.main-menu.mobile.white
+                %i.fa.fa-user.a-override.main-menu-icon{ class: "a-black h-black" }
+          .side-menu-container{ class: "#{color} #{page_type}" }
+            %strong.a-override.h-neon{ class: "a-#{color}" }= link_to "SIGN UP FOR BETA INVITE", new_user_registration_path
+            %span.divider= "|"
+            %strong.a-override.a-gray.h-neon= link_to "LOG IN", new_user_session_path
+
+- unless page_type == 'places'
+  .init-header-space
+= current_user.decorate.inject_modals(['share', 'love', 'new']) if current_user_is_active
