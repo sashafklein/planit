@@ -1,7 +1,6 @@
 module Completers
   class ApiCompleter::FoursquareExplore < ApiCompleter
-
-    FS_AUTH_TOKEN = "MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR&v=20140819"
+    # Old OAuth "MLVKPP02MXONRZ1AJO0XAXIE4WCWSKUOIFPPQCERTNTQBXZR"
     FS_URL = 'https://api.foursquare.com/v2/venues'
 
     delegate :name, :phone, :street_address, :lat, :lon, :country, :region, :locality, 
@@ -16,8 +15,8 @@ module Completers
       @success = false
     end
 
-    def self.auth_token
-      FS_AUTH_TOKEN
+    def self.auth
+      "client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&v=#{ Date.today.strftime("%Y%m%d") }"
     end
 
     def complete
@@ -96,7 +95,7 @@ module Completers
 
     def full_fs_url
       return @full_fs_url if @full_fs_url
-      url = "#{ FS_URL }/explore?#{ nearby_parameter }&query=#{ query }&oauth_token=#{ FS_AUTH_TOKEN }&venuePhotos=1"
+      url = "#{ FS_URL }/explore?#{ nearby_parameter }&query=#{ query }&#{ self.class.auth }&venuePhotos=1"
       flag_query(url)
       url
     end

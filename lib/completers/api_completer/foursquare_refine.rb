@@ -34,7 +34,7 @@ module Completers
     end
 
     def full_fs_url
-      url = "#{ FoursquareExplore::FS_URL }/#{ fsid }?oauth_token=#{ FoursquareExplore.auth_token }"
+      url = "#{ FoursquareExplore::FS_URL }/#{ fsid }?#{ FoursquareExplore.auth }"
       flag_query(url)
       url
     end
