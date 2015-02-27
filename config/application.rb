@@ -34,6 +34,7 @@ module Planit
       g.stylesheets false
       g.test_framework :rspec
       g.factory_girl false
+      g.job_specs false
     end
 
     config.action_mailer.default_url_options = { :host => "www.plan.it" }
@@ -64,6 +65,8 @@ module Planit
     config.assets.configure do |env|
       env.cache = ThreadSafe::Cache.new
     end
+
+    config.active_job.queue_adapter = :delayed_job
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
