@@ -208,10 +208,10 @@ module Scrapers
       it "parses the page correctly" do
         expect_equal(data, [
           place: {
-            country: "California, United States",
+            country: "United States of America",
             locality: "San Francisco", 
             name: "The Fairmont San Francisco Hotel",
-            nearby: "San Francisco, California, United States",
+            nearby: "San Francisco, United States of America",
             full_address: "The Fairmont San Francisco: 950 Mason Street San Francisco California, United States 94108",
             phones: "1 866 540 4491",
             postal_code: "94108",

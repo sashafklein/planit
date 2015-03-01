@@ -82,7 +82,8 @@ module Scrapers
 
       def images
         image_list = []
-        container = first_css_match([".widget-gallery", ".gallery"])
+        return [] unless container = first_css_match([".widget-gallery", ".gallery"])
+
         container.css("img").each do |img_in_container|
           if img_in_container.attribute('src')
             img_url = img_in_container.attribute('src').value
@@ -95,7 +96,7 @@ module Scrapers
       end
 
       def map_string
-        container = first_css_match([".static-map"])
+        return unless container = first_css_match([".static-map"])
         if string = container.css("img").first.attribute("src").value
           return ( CGI.unescape( string ) ).scan(find_lat_lon_regex).flatten.first
         end
