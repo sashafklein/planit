@@ -18,6 +18,12 @@ class Api::V1::Users::MarksController < ApiController
     return error(500, "Missing url param") unless params[:url]    
 
     scraped = Array Services::SiteScraper.build(params[:url], params[:page]).data
+
+    unless good_data?(scraped)
+      @user.flags.create!( name: 'Scrape and completion failed', info: { url: params[:url] , data: scraped } )
+      return error(417, "Insufficient information")
+    end 
+
     Completers::MassCompleter.new(scraped, @user, params[:url]).delay_complete!(delay?)
 
     render json: { success: true }
@@ -42,5 +48,14 @@ class Api::V1::Users::MarksController < ApiController
 
   def delay?
     params.fetch(:delay, true)
+  end
+
+  def good_data?(scraped)
+    scraped.to_super.any? do |hash| 
+      return false unless p = hash.place
+      p.locality || p.region || p.nearby.present? || p.country || p.street_address || p.street_addresses.present? || (p.lat && p.lon)
+    end
+  rescue
+    false
   end
 end

@@ -96,7 +96,8 @@ module Scrapers
 
       def images
         image_list = []
-        container = first_css_match(["div.sizedThumb_container", "div.photo_slideshow", "div.photoGrid.photoBx", "div.full_meta_photo "])
+        return [] unless container = first_css_match(["div.sizedThumb_container", "div.photo_slideshow", "div.photoGrid.photoBx", "div.full_meta_photo"])
+        
         container.css("img").each do |img_in_container|
           if img_in_container.attribute('src')
             img_url = img_in_container.attribute('src').value

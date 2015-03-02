@@ -83,7 +83,7 @@ describe Api::V1::Users::MarksController, :vcr do
       end
 
       it "calls the right scraper" do
-        fake_scraper_data = [{ key: 'whatever'}]
+        fake_scraper_data = [{ place: { nearby: 'whatever'} }]
         expect(Scrapers::TripadvisorMod::ItemReview).to receive(:new).with(fuunji_url, fuunji_doc) { double({ data: fake_scraper_data }) }
         expect(Completers::MassCompleter).to receive(:new).with(fake_scraper_data, @user, fuunji_url).and_return( double(delay_complete!: true) )
         post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id, delay: false
@@ -124,6 +124,37 @@ describe Api::V1::Users::MarksController, :vcr do
         expect(mark.place.name).to eq "Tayrona Tented Lodge"
         expect(mark.place.full_address).to eq "Km 38 +300 mts, vía Santa Marta- Rioacha, Santa Marta, 575000, Colombia"
         expect(mark.place.images.first).to be_a Image
+      end
+
+      it "flags the failure if it doesn't scrape enough data" do
+        expect{
+          post :scrape, url: "http://stackoverflow.com/questions/10113366/load-jquery-with-javascript-and-use-jquery", user_id: @user.id, delay: false
+        }.to change{ @user.flags.count }.by 1
+
+        expect( @user.marks.first ).to be_nil 
+        expect( @user.flags.first.name ).to eq "Scrape and completion failed"
+        expect( @user.flags.first.info ).to hash_eq( {
+          "url"=>"http://stackoverflow.com/questions/10113366/load-jquery-with-javascript-and-use-jquery",
+          "data"=>
+            [{"place"=>
+              {
+                "lat"=>nil,
+                "lon"=>nil,
+                "name"=>"Load jQuery with Javascript and use jQuery",
+                "nearby"=>"",
+                "full_address"=>nil,
+                "street_address"=>nil,
+                "locality"=>nil,
+                "region"=>nil,
+                "postal_code"=>nil,
+                "country"=>nil,
+                "phones"=>nil,
+                "hours"=>nil,
+                "map_href"=>nil
+              },
+              "scraper_url"=>"http://stackoverflow.com/questions/10113366/load-jquery-with-javascript-and-use-jquery"
+            }]
+        }) 
       end
       
     end

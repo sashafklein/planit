@@ -12,6 +12,7 @@ class User < BaseModel
 
   has_many :plans
   has_many :marks
+  has_many :flags, as: :object
   has_many :nps_feedbacks
   has_many :page_feedbacks
   has_many :items, through: :marks

@@ -12,7 +12,8 @@ module Completers
     end
 
     def complete!
-      return nil unless @pip.names.any?
+      return nil unless @pip.names.any? && some_location_data?
+
       api_complete! unless @pip.completed("FoursquareRefine")
       merge_and_save_with_photos!
     end
@@ -107,6 +108,10 @@ module Completers
 
     def place_options
       pip.datastores.reject{ |d| d._name == 'Base' }.map{ |d| PlaceOption.new(d.clean_attrs.merge(feature_type: pip.feature_type)) }
+    end
+
+    def some_location_data?
+      (pip.coordinate) || pip.locality || pip.region || pip.subregion || pip.sublocality || pip.country || pip.street_address || pip.full_address || attrs.nearby
     end
   end
 end

@@ -79,5 +79,17 @@ module Scrapers
       end
     end
 
+    describe "kokkari" do
+      before do 
+        @base_name = 'kokkari'
+        @url = "http://www.tripadvisor.com/Restaurant_Review-g60713-d353917-Reviews-Kokkari_Estiatorio-San_Francisco_California.html"
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect_equal(data, expectations)
+      end
+    end
+
   end
 end 
