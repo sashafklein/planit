@@ -1,11 +1,5 @@
 planit =
 
-  timeoutDiv: ->
-    setTimeout( 
-      => @hideAll(),
-      3000
-    )
-
   setLoadingTimeouts: ->
     $('#planit-bookmarklet').show()
     $('#planit-wrapper').show()
@@ -100,8 +94,27 @@ do ->
         return if ++loaded == 1
 
         document.body.removeChild iframe
-        $.get("HOSTNAME/api/v1/bookmarklets/view?user_id=USER_ID&url=#{ window.location.href }")
-          .success (response) ->
+
+        # $.get("HOSTNAME/api/v1/bookmarklets/view?user_id=USER_ID&url=#{ window.location.href }")
+        $.get("HOSTNAME/api/v1/bookmarklets/test?user_id=USER_ID&url=#{ window.location.href }")
+          .success (source) ->
+            if source.plan
+
+            else if source.mark
+              planit.displaySuccess(mark)
+            else
+              planit.displayOrMaintingLoading()
+
+
+
+
+
+
+
+
+
+
+
             body = document.getElementsByTagName('body')[0]
             div = document.createElement('div')
             div.innerHTML = response

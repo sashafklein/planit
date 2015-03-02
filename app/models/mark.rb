@@ -56,6 +56,21 @@ class Mark < BaseModel
     # delegate :coordinates, to: :places
   end
 
+  def self.create_for_user_from_source!(user, source, url)
+    mark = source.object
+    return mark if mark.user == user
+
+    if mark.place_id
+      new_mark = user.marks.where(place_id: mark.place_id).first_or_initialize
+      new_mark.save_with_source!(source_url: url)
+    else
+      new_mark = user.marks.new
+      new_mark.save_with_source!(source_url: url)
+      mark.place_options.each { |po| po.duplicate(mark_id: new_mark.id).save! }
+    end
+    new_mark
+  end
+  
   def self.average_updated
     array = map(&:updated_at).map(&:to_i)
     array.sum/array.count.to_f

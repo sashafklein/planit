@@ -21,10 +21,16 @@ class Api::V1::BookmarkletsController < ApiController
     end
   end
 
-  def view
-    @user = User.friendly.find(params[:user_id])
-    @url = params[:url]
-    render 'api/v1/bookmarklets/base', layout: false
+  def test
+    scraped_sources = Source.for_url_and_type(params[:url], 'Mark').includes(:object)
+    
+    if scraped_sources.any?
+      source = sort_by_object_place_id(scraped_sources).first
+      mark = Mark.create_for_user_from_source! User.friendly.find( params[:user_id] ), source, params[:url]
+      render json: { mark_id: mark.id }
+    else
+      render json: { success: false }
+    end
   end
 
   private
@@ -42,5 +48,9 @@ class Api::V1::BookmarkletsController < ApiController
   def file_name(web_url)
     web_url = web_url.split('www.')[1] if web_url.include? 'www.'
     web_url.split('.')[0] + '.coffee'
+  end
+
+  def sort_by_object_place_id(sources)
+    sources.sort_by{ |s| s.object.place_id || 0 }.reverse
   end
 end

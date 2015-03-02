@@ -10,7 +10,7 @@ end
 module Controllers
   def response_body
     body = JSON.parse(response.body)
-    body.is_a?(Hash) ? body.to_sh : body.map(&:to_sh)
+    body.to_super
   end
 end
 

@@ -35,7 +35,7 @@ Rails.application.routes.draw do
 
       resources :bookmarklets, only: [] do
         match '/script' => 'bookmarklets#script', on: :collection, via: [:options, :get]
-        match '/view' => 'bookmarklets#view', on: :collection, via: [:options, :get]
+        match '/test' => 'bookmarklets#test', on: :collection, via: [:options, :get]
       end
 
       resources :users, only: [:show] do

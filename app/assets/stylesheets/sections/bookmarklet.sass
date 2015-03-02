@@ -1,9 +1,99 @@
-#planit-bookmarklet
-  margin: 0 !important
+#planit-iframe
+  transition: 0.2
+  margin: 0
+  padding: 0
+  overflow: hidden
+  transition-property: all
+  transition-duration: .5s
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
 
-  form
-    padding: 0 !important
-    margin: 0 !important
+body, html
+  margin: 0
+  padding: 0
+  max-height: 90px
+
+  #planit-bookmarklet-bar
+    z-index: 2147483646
+    top: 0px
+    padding: 0
+    margin: 0
+    width: 100%
+    text-align: center
+    display: none
+    height: 83px
+    opacity: 1
+    visibility: visible
+    background: rgb(250, 250, 250)
+    border-top: 3px solid rgb(28, 48, 147)
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.15) 0px 2px 7px 0px
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.15) 0px 2px 7px 0px
+
+    .planit-success-actions
+      display: none
+      text-align: right
+
+    .planit-working-actions
+      display: block
+      text-align: right
+
+    #planit-x-button
+      transition: 0.2s ease all
+      font-size: 15px
+      font-weight: bold
+      color: #777
+      position: absolute
+      right: 5px
+      top: 5px
+      padding: 5px
+      cursor: pointer
+      &:hover
+        color: #000
+
+    a, a:hover, a:active, a:visited
+      text-decoration: none
+
+    .extras-container
+      float: right
+      visibility: visible
+      display: inline-block
+      cursor: pointer
+      margin: 23px 0 0 0
+      z-index: 2
+
+      input.planit-tag-field
+        display: inline-block
+        border: 1px solid #ccc
+        padding: 0 10px
+        font-family: arial, 'trebuchet ms', avenir, arial
+        font-size: 14px
+        line-height: 14px
+        height: 33px
+        -webkit-border-radius: 4px
+        -moz-border-radius: 4px
+        -o-border-radius: 4px
+        border-radius: 4px
+        max-width: 100px
+
+      #tags
+        display: none
+
+    .logo-container
+      float: left
+      visibility: visible
+      display: inline-block
+      cursor: pointer
+      z-index: 2
+      img
+        float: left
+        margin: 15px 10px 0 0
+       
+      .logo-image-top
+        width: 42px
+        height: 50px
+
+      .logo-name-top
+        width: 86px
+        height: 50px
 
   #planit-close-btn
     width: 15px
@@ -17,275 +107,130 @@
     font-size: 10px
     line-height: 13px
     text-align: center
-    -webkit-border-radius: 2px
-    -moz-border-radius: 2px
-    -o-border-radius: 2px
-    border-radius: 2px
     cursor: pointer
 
-  #planit-manual
+  .planit-message
+    display: inline-block
+    max-width: 300px
+    left: 0
+    right: 0
+    position: absolute
+    margin: 30px auto 0 auto
+    padding: 0
+    font-family: open sans, 'trebuchet ms', avenir, arial
+    font-size: 18px
+    line-height: 18px
+    font-weight: bold
+    color: #333
+    z-index: 0
+
+  #planit-success, #planit-loading, #planit-error
     display: none
-    margin: 0 !important
-    position: fixed
-    height: 75px
-    width: 100%
-    top: 0px
-    left: 0px
-    background: #fff
-    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
-    -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
-    -o-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4)
-    z-index: 2147483644
-    font-family: open sans, avenir, calibri !important
+    visibility: visible
+
+  a, a:hover, a:visited, a:active
+    .planit-button
+      color: #fff
+      border-bottom: 0
+      text-decoration: none !important
+      text-shadow: rgb(118, 4, 0) 0px -1px 0px
+      cursor: pointer
+
+  .planit-button
+    display: inline-block
+    transition: 0.2s all ease
+    padding: 8px 10px 10px 10px
+    border-bottom: 1px solid #700
+    -webkit-border-radius: 4px
+    -moz-border-radius: 4px
+    -o-border-radius: 4px
+    border-radius: 4px
+    font-family: arial, 'trebuchet ms', avenir, arial
+    font-size: 14px
+    line-height: 14px
+    font-weight: bold
     box-sizing: border-box
     ms-box-sizing: border-box
     webkit-box-sizing: border-box
     moz-box-sizing: border-box
-
-  #planit-topper
-    width: 100%
-    height: 5px
-    background: #152678
-
-  #planit-horizontal-wrapper
-    margin: 0 auto
-    min-width: 200px
-    max-width: 1060px
-    padding: 0 10px
-    height: 70px
-    overflow: hidden
-
-  #planit-logo
-    height: 70px
-    float: left
-    img
-      margin: 10px 0
-
-  #planit-logo-name
-    height: 70px
-    margin-left: 10px
-    float: left
-
-  #planit-dropdown-title
-    height: 70px
-    margin-left: 10px
-    float: left
-    line-height: 70px
-    font-size: 21px
-    color: rgba(248, 56, 96, 1)
-
-  #planit-logo-name img
-    margin: 10px 0
-
-  #planit-inputs
-    height: 70px
-    float: right
-    line-height: 70px
-
-  .planit-button
-    &.right
-      position: absolute
-      right: 10px
-
-  .centered
-    margin: auto 0
-
-  #planit-wrapper
-    display: none
-    visibility: visible
-    position: fixed
-    top: 22px
-    right: 25px
-    margin: 0 !important
-    min-height: 300px
-    z-index: 2147483646
-
-    #planit-success, #planit-loading, #planit-error
-      display: none 
-      visibility: visible
-
-    #planit-wrapper-shadow
-      padding: 10px !important
-      margin: 0 !important
-      background: rgba(127, 127, 127, 0.5)
-      border: 0
-      -webkit-border-radius: 4px
-      -moz-border-radius: 4px
-      -o-border-radius: 4px
-      border-radius: 4px
-      overflow: hidden !important
-      z-index: 2147483646
-      box-sizing: border-box
-      ms-box-sizing: border-box
-      webkit-box-sizing: border-box
-      moz-box-sizing: border-box
-
-    #planit-wrapper-content
-      font-family: open sans, avenir, calibri !important
-      margin: 0 !important
-      padding: 15px 15px 18px 15px !important
-      width: 210px !important
-      text-align: center
-      font-size: 12px
-      line-height: 13px
-      background: rgba(248, 56, 96, 1)
-      border-bottom: #a30 solid 1px
-      -webkit-border-radius: 4px
-      -moz-border-radius: 4px
-      -o-border-radius: 4px
-      border-radius: 4px
-      overflow: hidden !important
-      z-index: 2147483646
+    &.neon
       color: #fff
-      -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4)
-      -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4)
-      -o-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4)
-      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4)
-      box-shadow: rgb(228, 40, 78) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.0392157) 0px 1.77776002883911px 0px 0px
-      box-sizing: border-box
-      ms-box-sizing: border-box
-      webkit-box-sizing: border-box
-      moz-box-sizing: border-box
-      img
-        border: 0
-
-    .planit-saved-demo-title
-      font-family: open sans, avenir, calibri !important
-      font-weight: bold !important
-      text-align: center
-      width: 180px
-      color: #fff !important
-      background: rgba(248, 56, 96, 1) !important
-      margin: 0px
-      border: 0px
-      padding: 8px 0
-      text-overflow: ellipsis
-
-    .planit-saved-demo-details
-      font-family: open sans, avenir, calibri !important
-      text-align: left
-      padding: 0
-      width: 180px
-      color: #fff !important
-      background: rgba(248, 56, 96, 1) !important
-      // background: #fff !important
-      margin: 0px
-      border: 0px
-      text-overflow: ellipsis
-
-    .planit-saved-demo-title:hover, .planit-saved-demo-details:hover
-      background: #fff !important
-      color: #000 !important
-      cursor: text
-      box-shadow: rgba(0,0,0,0.75) 0 0 1px inset
-      moz-box-shadow: rgba(0,0,0,0.75) 0 0 1px inset
-      webkit-box-shadow: rgba(0,0,0,0.75) 0 0 1px inset
-      o-box-shadow: rgba(0,0,0,0.75) 0 0 1px inset
-
-    .planit-saved-link
-      text-decoration: none
-      color: #fff !important
-
-    #planit-saved-logo
-      height: 38px
-      margin: -5px 0 0 0
-      position: fixed
-      top: 72px
-      right: 218px
-      z-index: 2147483647
-      img
-        border: 0
-
-    #planit-saved-close-btn
-      width: 15px
-      height: 15px
+      text-shadow: 1px 1px 1px #b28
+      background: #f06
+      border: 1px solid #c03
+      box-shadow: rgb(228, 40, 78) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
+      &:hover
+        text-shadow: 1px 1px 1px #c39
+        background: rgb(238, 50, 88)
+        box-shadow: rgb(218, 30, 68) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
+    &.gray
+      color: #444
+      text-shadow: 1px 1px 1px #ccc
       background: #ccc
-      position: absolute
-      border: #ddd solid 1px
-      border-bottom: #999 solid 1px
-      font-size: 10px
-      line-height: 13px
-      text-align: center
-      -webkit-border-radius: 2px
-      -moz-border-radius: 2px
-      -o-border-radius: 2px
-      border-radius: 2px
-      cursor: pointer
-      z-index: 2147483647
+      border: 1px solid #afafaf
+      box-shadow: #c3c3c3 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
+      &:hover
+        color: #333
+        background: #bbb
+        box-shadow: #b3b3b3 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
 
-      #planit-saved-demo
-        display: block
-        margin: 10px 0 0 0
-        background-color: #fff
-        border: 1px solid #c4c7ca
-        border-bottom-color: #b7babe
-        padding: 0.75em 0.75em 0.9em
-        position: relative
-        text-align: left
-        -webkit-border-radius: 0.25em
-        -moz-border-radius: 0.25em
-        border-radius: 0.25em
-        -webkit-box-shadow: #ecedee 0 -0.1875em 0 inset, rgba(0, 0, 0, 0.04) 0 0.11111em 0
-        -moz-box-shadow: #ecedee 0 -0.1875em 0 inset, rgba(0, 0, 0, 0.04) 0 0.11111em 0
-        box-shadow: #ecedee 0 -0.1875em 0 inset, rgba(0, 0, 0, 0.04) 0 0.11111em 0
+// TAB SIZING
 
-    #planit-noteWrap
-      display: none
-      visibility: visible
-      z-index: 2147483646
-      width: 210px
-      margin: 10px 0 0 0
+// *Computer (Regular)
 
-    #add-another-flash
-      display: none
-      .add-another
-        visibility: visible
-        position: fixed
-        height: 70px
-        width: 100%
-        top: 5px
-        left: 0px
-        z-index: 2147483645 !important
-        font-family: open sans, avenir, calibri !important
-        background: rgb(255, 255, 255)
-        background: rgba(255, 255, 255, 0.9)
-        text-align: center
-        line-height: 70px
+.large-screen
+  visibility: visible
+  display: block
 
-      .add-another-button-wrap
-        height: 70px
-        margin-left: 52px
-        float: left
+.mobile
+  visibility: hidden
+  display: none !important
 
-      .add-another-arrow
-        height: 70px
-        margin-right: 145px
-        float: right
+.bookmarklet-container
+  width: 960px
+  margin: 0 auto
 
-      #test-environment
-        display: none
-        visibility: hidden
+// #Tablet (Portrait)
+@media only screen and (min-width: 768px) and (max-width: 959px)
 
-      #planit-saved-in-image
-        position: absolute
+  .large-screen
+    visibility: visible
+    display: block
 
-      #planit-imageCount
-        position: absolute !important
-        left: 45% !important
-        top: 50px !important
-        background: #fff !important
-        padding: 3px !important
-        color: #000 !important
+  .mobile
+    visibility: hidden
+    display: none !important
 
-    .planit-img-container
-      width: 180px
-      height: 120px
-      margin: 0
-      overflow: hidden
-      background: #ccc
-      img 
-        box-shadow: rgba(0,0,0,0.75) 0 0 3px inset
-        moz-box-shadow: rgba(0,0,0,0.75) 0 0 3px inset
-        webkit-box-shadow: rgba(0,0,0,0.75) 0 0 3px inset
-        o-box-shadow: rgba(0,0,0,0.75) 0 0 3px inset
+  .bookmarklet-container
+    width: 768px
+    margin: 0 auto
+
+// #Mobile (Portrait) <-- smallest
+@media only screen and (max-width: 767px)
+
+  .large-screen
+    visibility: hidden
+    display: none
+
+  .mobile
+    visibility: visible
+    display: block !important
+
+  .bookmarklet-container
+    width: 90%
+    margin: 0 auto
+
+// #Mobile (Landscape)
+@media only screen and (min-width: 480px) and (max-width: 767px)
+
+  .large-screen
+    visibility: hidden
+    display: none
+
+  .mobile
+    visibility: visible
+    display: block !important
+
+  .bookmarklet-container
+    width: 90%
+    margin: 0 auto
