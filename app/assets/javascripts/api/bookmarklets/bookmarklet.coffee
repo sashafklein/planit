@@ -4,16 +4,19 @@ planit =
     return @showError('Oops! Something went wrong.') unless secondsLeft >= 0
 
     $.ajax
-      url: @_testPath()
+      crossDomain: true
+      dataType: 'json'
+      url: planit._testPath()
       success: (response) ->
-        if response.mark_id
+        window.response = response
+        if response && response.mark_id
           planit.showSuccess( response.mark_id, response.place_id )
         else # Hasn't saved
           planit._submitData() if shouldSubmitData
           setTimeout( (-> planit.pollForSuccess( false, secondsLeft - 1 )), 1000 )
       error: (response) ->
         console.log response
-        alert( "ERROR" )
+        @showError('Oops! No network connection.')
 
   injectView: ->
     head = document.getElementsByTagName('head')[0]
@@ -33,24 +36,17 @@ planit =
     $('#planit-bookmarklet-bar').slideDown(200)
     $('#planit-close-button, #planit-x-button').click -> planit.hideAll()
     $('#planit-message').fadeIn(400)
-    @cycleMessages([
-      "Working on it!",
-      "Hold tight.",
-      "This can take a while.",
-      "Uh, everything's under control...",
-      "Wow, complicated page!",
-      "As Justin Bieber said...",
-      "The force is strong with this one!",
-      "Almost there...",
-      "It's a trap!?",
-    ])
+    setTimeout(
+      => @cycleMessages(@messageCarousel), 
+      3500
+    )
 
   showSuccess: (markId, placeId) -> 
     $('.planit-working-actions').hide(0)
     if placeId
       @setPlanitMessage( 'Page Saved!' )
     else
-      @setPlanitMessage( "Well, we got something..." )
+      @setPlanitMessage( "Well, we got <i>something</i>..." )
       $('#see-places').html( "Take a Look" )
     $('#planit-success-link').attr( 'href', @_markPath(markId) )
     $('.planit-success-actions').fadeIn('slow')
@@ -74,6 +70,17 @@ planit =
       if $('.planit-working-actions').css('display') == 'none'
         planit.disappearingAct(2000)
 
+  messageCarousel: [
+    "Hold tight.",
+    "This can take a while.",
+    "Uh, everything's under control...",
+    "Wow, complicated page!",
+    "As Justin Bieber said...",
+    "The force is strong with this one!",
+    "Almost there...",
+    "It's a trap!?",
+  ]
+
   hideAll: -> 
     $('#planit-bookmarklet-bar').slideUp(450)
     setTimeout(
@@ -90,7 +97,7 @@ planit =
     unless $('.planit-working-actions').css('display') == 'none'
       @setPlanitMessage(messages.shift())
       if messages.length
-        setTimeout((=> @cycleMessages(messages)), 2500 )
+        setTimeout((=> @cycleMessages(messages)), 3500 )
 
   _markPath: (markId) -> "HOSTNAME/marks/#{markId}"
 
@@ -124,6 +131,10 @@ planit =
     form.submit()
 
   _styles: '''
+    body, html {
+      margin: 0px;
+      padding: 0px;
+    }
     body #planit-bookmarklet-bar, html #planit-bookmarklet-bar {
       position: fixed;
       z-index: 2147483646;
@@ -365,7 +376,7 @@ planit =
           <img src="ASSET_PATH/logo_only_black.png" alt='' class="logo-image-top" >
           <img src="ASSET_PATH/logo_name_only_black.png" alt='PLANIT' class="logo-name-top large-screen" >
         </div>
-        <div id="planit-message"></div>
+        <div id="planit-message">Working on it!</div>
         <div class="extras-container">
           <div class="planit-success-actions">
             <a id='planit-success-link' target="_blank">

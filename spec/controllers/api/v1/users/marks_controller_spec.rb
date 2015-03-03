@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 describe Api::V1::Users::MarksController, :vcr do
+
+  include ScraperHelper
+  
   describe "create" do
 
     before do
@@ -65,7 +68,6 @@ describe Api::V1::Users::MarksController, :vcr do
         post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id
         expect(response.headers).to eq(
           {
-            "X-Frame-Options"=>"SAMEORIGIN",
             "X-XSS-Protection"=>"1; mode=block",
             "X-Content-Type-Options"=>"nosniff",
             "Access-Control-Allow-Origin"=>"*",
@@ -108,6 +110,43 @@ describe Api::V1::Users::MarksController, :vcr do
         }.to change{ Mark.count }.by 1
         options = Mark.all.first.place_options
         expect( options.first.name ).to include "Hotel Century Southern"
+      end
+
+      it "gets The Hall without erroring on the hours" do
+        expect{ 
+          post :scrape, url: "http://www.yelp.com/biz/the-hall-san-francisco", user_id: @user.id, page: read('yelp', 'the_hall.html'), delay: false
+        }.to change{ Mark.count }.by 1
+        place = Mark.first.place
+        expect( place.name ).to eq "The Hall"
+        hour_flag = place.flags.where(name: 'Conflicting Hash Values').first
+        expect( hour_flag.details ).to eq "Hours"
+
+        expect( hour_flag.info ).to hash_eq({
+          place_in_progress: {
+            mon: [["0900", "2000"]], 
+            tue: [["0900", "2000"]], 
+            wed: [["0900", "2000"]], 
+            thu: [["0900", "2000"]], 
+            fri: [["0900", "2000"]]
+          },
+          foursquare_refine: {
+            mon: [["0800", "2000"]],
+            tue: [["0800", "2000"]],
+            wed: [["0800", "2000"]],
+            thu: [["0800", "2000"]],
+            fri: [["0800", "2000"]],
+            sat: [["0800", "2000"]]
+          }
+        })
+        
+        expect( place.hours ).to hash_eq({
+          mon: [["0900", "2000"]],
+          tue: [["0900", "2000"]],
+          wed: [["0900", "2000"]],
+          thu: [["0900", "2000"]],
+          fri: [["0900", "2000"]],
+          sat: [["0800", "2000"]]
+        }) # Combines additively
       end
 
       xit "works identically without the page" do

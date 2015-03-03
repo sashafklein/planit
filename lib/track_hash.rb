@@ -1,8 +1,8 @@
 class TrackHash
 
-  attr_reader :attrs, :defaults, :hierarchy, :_name
+  attr_reader :attrs, :defaults, :hierarchy, :_name, :flags
   def initialize(defaults, attrs=nil, acceptance_hierarchy=[], name=nil, i=nil)
-    @hierarchy, @_name, @_i = acceptance_hierarchy, name, i
+    @hierarchy, @_name, @_i, @flags = acceptance_hierarchy, name, i, []
     @defaults, @attrs = defaults.symbolize_keys.to_sh, defaults.symbolize_keys.to_sh
     defaults.each{ |k, v| build_accessor(k) }
     set_attrs(attrs) if attrs
@@ -35,7 +35,7 @@ class TrackHash
   end
 
   def flag(name:, details: nil, info: nil)
-    @flags << place.flag(name: name, details: details, info: info)
+    @flags << Flag.new(name: name, details: details, info: info)
   end
 
   def clean_attrs
@@ -84,6 +84,8 @@ class TrackHash
   private
 
   def set_hash(sym, val, source)
+    flag_hash_conflict(sym, val, source)
+
     val.each do |k, v|
       hash = { val: v, source: source }
       if attrs.super_fetch( sym, k.to_sym ) && attrs.super_fetch( sym, k.to_sym ) != hash
@@ -122,5 +124,11 @@ class TrackHash
 
   def accept?(sym, val, source, hierarchy_bump=0)
     default(sym).is_a_or_h? || ( !val(sym).is_defined? || greater_hierarchy?( incoming: source, previous: source(sym), bump: hierarchy_bump ) ) && val.is_defined?
+  end
+
+  def flag_hash_conflict(sym, val, source)
+    if val(sym).present? && val.present? && val(sym) != val
+      flag(name: "Conflicting Hash Values", details: "#{sym.to_s.capitalize}", info: { source(sym).first.last.underscore.to_sym => val(sym), source.underscore.to_sym => val })
+    end
   end
 end

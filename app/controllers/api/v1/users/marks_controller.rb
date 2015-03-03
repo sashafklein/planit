@@ -26,7 +26,7 @@ class Api::V1::Users::MarksController < ApiController
 
     Completers::MassCompleter.new(scraped, @user, params[:url]).delay_complete!(delay?)
 
-    render json: { success: true }
+    head(200)
   end
 
   def bucket
