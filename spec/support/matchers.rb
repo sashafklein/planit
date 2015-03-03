@@ -1,8 +1,10 @@
-RSpec::Matchers.define :hash_eq do |expected_hash, expected_keys = []|
+RSpec::Matchers.define :hash_eq do |expected_hash, expected_keys = [], ignore_keys=[]|
   match do |actual|
-    dupl, expected_hash = [actual.dup, expected_hash].map(&:recursive_symbolize_keys)
-    
-    ( dupl.except( *(expected_keys.flatten) ) == expected_hash ) &&
+    expected_keys.map!(&:to_sym)
+    ignore_keys.map!(&:to_sym)
+    dupl, expected_hash = [actual.dup, expected_hash].map(&:recursive_symbolize_keys).map(&:to_sh)
+
+    ( dupl.except( *((expected_keys + ignore_keys).flatten) ) == expected_hash ) &&
       ( dupl.keys & expected_keys == expected_keys )
   end
 
