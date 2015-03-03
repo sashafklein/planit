@@ -7,7 +7,7 @@ class Mark < BaseModel
 
   validate!
 
-  has_many :sources, as: :object
+  has_many :sources, as: :object, dependent: :destroy
   has_many :items, dependent: :destroy
   has_many :place_options, dependent: :destroy
 

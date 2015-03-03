@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     get :edit, on: :member
   end
 
+  resources :marks, only: [:show]
+
   resources :users, only: [:show] do
     get :places, on: :member
     get :guides, on: :member

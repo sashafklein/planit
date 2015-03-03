@@ -1,17 +1,18 @@
 class Api::V1::BookmarkletsController < ApiController
   
   # Seems like both were necessary, for both pre-flight and actual requests
-  before_filter :cors_set_access_control_headers, only: [:script, :view]
-  after_filter :cors_set_access_control_headers, only: [:script, :view]
-  before_filter :allow_iframe_requests, only: [:view]
+  before_filter :cors_set_access_control_headers, only: [:script, :test]
+  after_filter :cors_set_access_control_headers, only: [:script, :test]
+  before_filter :allow_iframe_requests, only: [:test]
 
   def script
-    path = File.join Rails.root, 'app', 'assets', 'javascripts', 'api', 'bookmarklets', "base.coffee"
+    path = File.join Rails.root, 'app', 'assets', 'javascripts', 'api', 'bookmarklets', "bookmarklet.coffee"
     if File.exists? path
 
       js = CoffeeScript.compile File.read(path)
           .gsub("HOSTNAME", request.base_url)
           .gsub("USER_ID", params[:user_id])
+          .gsub(/["']ASSET_PATH\/(.*?)["']/) { "\"#{ asset_path($1) }\"" }
 
       complete_js = Uglifier.compile js
             
@@ -27,7 +28,7 @@ class Api::V1::BookmarkletsController < ApiController
     if scraped_sources.any?
       source = sort_by_object_place_id(scraped_sources).first
       mark = Mark.create_for_user_from_source! User.friendly.find( params[:user_id] ), source, params[:url]
-      render json: { mark_id: mark.id }
+      render json: { mark_id: mark.id , place_id: mark.place_id }
     else
       render json: { success: false }
     end
@@ -52,5 +53,9 @@ class Api::V1::BookmarkletsController < ApiController
 
   def sort_by_object_place_id(sources)
     sources.sort_by{ |s| s.object.place_id || 0 }.reverse
+  end
+
+  def asset_path(path)
+    ActionController::Base.helpers.asset_url(path)
   end
 end

@@ -35,7 +35,7 @@ class PlaceOption < BaseModel
   end
 
   def duplicate(mark_id: nil)
-    PlaceOption.new( generic_attrs.symbolize_keys.merge({ mark_id: mark_id}) )
+    PlaceOption.new( generic_attrs.symbolize_keys.merge({ mark_id: mark_id }) )
   end
 
   private

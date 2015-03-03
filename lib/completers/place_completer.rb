@@ -88,7 +88,7 @@ module Completers
 
     def flag_it_up
       pip.flag(name: "Triangulated", details: "Save as alternative in future", info: pip.attrs) if pip.triangulated
-      pip.flag(name: "Tracking Data", info: pip.attrs)
+      pip.flag(name: "Tracking Data", info: { attrs: pip.attrs, images: @photos } )
     end
 
     def merge_and_save_with_photos!

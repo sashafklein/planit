@@ -1,28 +1,6 @@
 = stylesheet_link_tag 'sections/bookmarklet'
 
-%form{ id: 'submit-form', action: scrape_api_v1_user_marks_path(@user), method: 'post' }
-  = hidden_field_tag :url, @url, id: 'planit-current-url'
-
 #planit-wrapper
-  #planit-wrapper-shadow
-
-<<<<<<< HEAD
-    #planit-wrapper-content
-
-      #planit-loading
-        Working on it ;-)
-
-      #planit-error
-        Error.  Bummer ;-(
-
-      #planit-success
-        Success.
-
-    #planit-noteWrap
-      %input#planit-note.planit-input#planit-addNote{placeholder: "Note-to-Self?"}/
-
-.planit-current-page-content{ style: 'display: none'}
-=======
   #planit-bookmarklet-bar
 
     #planit-x-button
@@ -50,6 +28,3 @@
         .planit-working-actions
           .planit-button.gray#planit-close-button
             Close
-
-= javascript_include_tag 'api/bookmarklets/view'
->>>>>>> bookmarklet design

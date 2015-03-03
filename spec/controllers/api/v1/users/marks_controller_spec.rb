@@ -102,6 +102,14 @@ describe Api::V1::Users::MarksController, :vcr do
         expect(mark.place.images.first).to be_a Image
       end
 
+      it "gets the Hotel Century Southern" do
+        expect{
+          post :scrape, url: 'http://www.tripadvisor.com/Hotel_Review-g1066456-d307326-Reviews-Hotel_Century_Southern_Tower-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html', page: hotel_century_southern_doc, user_id: @user.id, delay: false
+        }.to change{ Mark.count }.by 1
+        options = Mark.all.first.place_options
+        expect( options.first.name ).to include "Hotel Century Southern"
+      end
+
       xit "works identically without the page" do
         expect( @user.marks.count ).to eq 0
         
@@ -177,6 +185,10 @@ describe Api::V1::Users::MarksController, :vcr do
         expect( @user.items.pluck(:id).sort ).to eq plan.items.pluck(:id).sort
       end
     end
+  end
+
+  def hotel_century_southern_doc
+    File.read File.join( Rails.root, 'spec', 'support', 'pages', 'tripadvisor', 'hotel_century_southern.html')
   end
 
   def mark_params
