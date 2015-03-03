@@ -1,8 +1,1 @@
-javascript:(
-  function(){
-    path=window.location.href;
-    script=document.createElement('script');
-    script.src='<%= host %>/api/v1/bookmarklets/script?user_id=<%= user.slug %>&web_url='+path;
-    script.type='text/javascript';document.body.appendChild(script);
-  }
-)();
+javascript:(function(){path=window.location.href;script=document.createElement('script');script.src='<%= host %>/api/v1/bookmarklets/script?user_id=<%= user.slug %>&web_url='+path;script.type='text/javascript';document.body.appendChild(script);})();

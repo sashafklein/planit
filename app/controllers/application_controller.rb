@@ -20,9 +20,14 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :permission_denied
  
   private
- 
+
+  def not_authorized_redirect
+    flash[:error] = "Woops! Doesn't look like that page is yours!"
+    redirect_to root_path
+  end 
+
   def permission_denied
-    flash[:error] = "No Public Access"
+    flash[:error] = "Sorry! No public access to this page. Sign in to continue."
     redirect_to root_path
   end
 

@@ -19,9 +19,6 @@ class MarksController < ApplicationController
   end
 
   def ensure_right_user!
-    unless @mark.user == current_user
-      flash[:error] = "That URL leads to fear. Fear leads to anger. Anger leads to hatred. And hatred... leads to the dark side."
-      redirect_to root_path
-    end
+    not_authorized_redirect unless @mark.user == current_user
   end
 end
