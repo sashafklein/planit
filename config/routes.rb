@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     get :edit, on: :member
   end
 
+  resources :marks, only: [:show]
+
   resources :users, only: [:show] do
     get :places, on: :member
     get :guides, on: :member
@@ -25,6 +27,8 @@ Rails.application.routes.draw do
 
   resources :places, only: [:show, :new, :index] do
   end
+
+  resources :page_feedbacks, only: [:create]
 
   namespace :api do
     namespace :v1 do
@@ -35,7 +39,8 @@ Rails.application.routes.draw do
 
       resources :bookmarklets, only: [] do
         match '/script' => 'bookmarklets#script', on: :collection, via: [:options, :get]
-        match '/view' => 'bookmarklets#view', on: :collection, via: [:options, :get]
+        match '/test' => 'bookmarklets#test', on: :collection, via: [:options, :get]
+        match '/error' => 'bookmarklets#error', on: :collection, via: [:options, :get]
       end
 
       resources :users, only: [:show] do

@@ -17,6 +17,10 @@ module Completers
       @ds = new_ds
     end
 
+    def all_flags
+      ([flags] + [ds.flags]).flatten
+    end
+
     def place
       Place.new(raw_attrs)
     end

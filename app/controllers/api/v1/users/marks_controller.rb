@@ -16,8 +16,9 @@ class Api::V1::Users::MarksController < ApiController
   def scrape
     return error(404, "User not found") unless @user
     return error(500, "Missing url param") unless params[:url]    
-
-    scraped = Array Services::SiteScraper.build(params[:url], params[:page]).data
+    
+    scraper = Services::SiteScraper.build(params[:url], params[:page]) || Scrapers::General.new(params[:url], params[:page])
+    scraped = Array scraper.data
 
     unless good_data?(scraped)
       @user.flags.create!( name: 'Scrape and completion failed', info: { url: params[:url] , data: scraped } )
@@ -26,7 +27,7 @@ class Api::V1::Users::MarksController < ApiController
 
     Completers::MassCompleter.new(scraped, @user, params[:url]).delay_complete!(delay?)
 
-    render json: { success: true }
+    head(200)
   end
 
   def bucket

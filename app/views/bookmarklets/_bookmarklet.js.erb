@@ -1,1 +1,1 @@
-javascript:(function(){path=window.location.href;document.body.appendChild(document.createElement('script')).src='<%= host %>/api/v1/bookmarklets/script?user_id=<%= user.slug %>&web_url='+path;})();
+javascript:(function(){path=window.location.href;script=document.createElement('script');script.src='<%= host %>/api/v1/bookmarklets/script?user_id=<%= user.slug %>&web_url='+path;script.type='text/javascript';document.body.appendChild(script);})();

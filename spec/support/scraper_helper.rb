@@ -26,7 +26,7 @@ module ScraperHelper
 
   def expect_equal(array1, array2)
     array1.each_with_index do |hash, index|
-      expect( deep_sort_hash(array1[index]) ).to eq( deep_sort_hash(array2[index]) )
+      expect( array1[index] ).to hash_eq( array2[index] )
     end
   end
 
@@ -53,19 +53,12 @@ module ScraperHelper
     search_term ? expectations.find{ |p| p[:place][:name] == search_term || Array(p[:place][:names]).include?(search_term) } : expectations.first
   end
 
+  def read(folder, name)
+    File.read File.join( Rails.root, 'spec', 'support', 'pages', folder, name )
+  end
+
   def completed_data(filename:, scrape_url:, name: nil)
     @yml = yml_data(filename, scrape_url, name)
     Completers::Completer.new(@yml, @user, @yml[:scraper_url]).complete!
   end
-
-  private
-
-  def deep_sort_hash(object)
-    return object unless object.is_a?(Hash)
-    hash = ActiveSupport::OrderedHash.new
-    object.each { |k, v| hash[k] = deep_sort_hash(v) }
-    sorted = hash.sort { |a, b| a[0].to_s <=> b[0].to_s }
-    hash.class[sorted]
-  end
-
 end

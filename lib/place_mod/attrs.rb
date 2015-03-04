@@ -96,7 +96,7 @@ module PlaceMod
     def normalized_hours(hours)
       normalized = {}
       (hours || {}).each do |k, v|
-        normalized[k.to_s.downcase] = v.stringify_keys
+        normalized[k.to_s.downcase] = v.stringify_keys if v
       end
       Services::TimeConverter.convert_hours(normalized)
     end

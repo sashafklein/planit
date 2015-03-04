@@ -39,6 +39,7 @@ module Completers
 
     def set_val(field:, val:, hierarchy_bump: 0, allow_a_or_h: true)
       pip_val = pip.val(field)
+
       if dont_override?(pip_val, allow_a_or_h)
         flag_field_clash(field, val)
       else

@@ -29,6 +29,7 @@ class ApiController < ApplicationController
     headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
     headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization, Token, Data-Type, X-Requested-With'
     headers['Access-Control-Max-Age'] = "1728000"
+    headers.except!('X-Frame-Options')
   end
 
   def allow_iframe_requests

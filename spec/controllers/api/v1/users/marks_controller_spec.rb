@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 describe Api::V1::Users::MarksController, :vcr do
+
+  include ScraperHelper
+  
   describe "create" do
 
     before do
@@ -63,17 +66,15 @@ describe Api::V1::Users::MarksController, :vcr do
       
       it "sets CORS headers" do
         post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id
-        expect(response.headers).to eq(
+        expect(response.headers).to hash_eq(
           {
-            "X-Frame-Options"=>"SAMEORIGIN",
             "X-XSS-Protection"=>"1; mode=block",
             "X-Content-Type-Options"=>"nosniff",
             "Access-Control-Allow-Origin"=>"*",
             "Access-Control-Allow-Methods"=>"POST, GET, PUT, DELETE, OPTIONS",
             "Access-Control-Allow-Headers"=>"Origin, Content-Type, Accept, Authorization, Token, Data-Type, X-Requested-With",
-            "Access-Control-Max-Age"=>"1728000",
-            "Content-Type"=>"application/json; charset=utf-8"
-          }
+            "Access-Control-Max-Age"=>"1728000"
+          }, [], ['Content-Type']
         )
       end
 
@@ -100,6 +101,51 @@ describe Api::V1::Users::MarksController, :vcr do
         expect(mark.place.name).to eq "Fuunji"
         expect(mark.place.street_addresses).to include "代々木2-14-3" # TODO -- get rid of the shitty Yoyogi address
         expect(mark.place.images.first).to be_a Image
+      end
+
+      it "gets the Hotel Century Southern" do
+        expect{
+          post :scrape, url: 'http://www.tripadvisor.com/Hotel_Review-g1066456-d307326-Reviews-Hotel_Century_Southern_Tower-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html', page: read('tripadvisor', 'hotel_century_southern.html'), user_id: @user.id, delay: false
+        }.to change{ Mark.count }.by 1
+        options = Mark.all.first.place_options
+        expect( options.first.name ).to include "Hotel Century Southern"
+      end
+
+      it "gets The Hall without erroring on the hours" do
+        expect{ 
+          post :scrape, url: "http://www.yelp.com/biz/the-hall-san-francisco", user_id: @user.id, page: read('yelp', 'the_hall.html'), delay: false
+        }.to change{ Mark.count }.by 1
+        place = Mark.first.place
+        expect( place.name ).to eq "The Hall"
+        hour_flag = place.flags.where(name: 'Conflicting Hash Values').first
+        expect( hour_flag.details ).to eq "Hours"
+
+        expect( hour_flag.info ).to hash_eq({
+          place_in_progress: {
+            mon: [["0900", "2000"]], 
+            tue: [["0900", "2000"]], 
+            wed: [["0900", "2000"]], 
+            thu: [["0900", "2000"]], 
+            fri: [["0900", "2000"]]
+          },
+          foursquare_refine: {
+            mon: [["0800", "2000"]],
+            tue: [["0800", "2000"]],
+            wed: [["0800", "2000"]],
+            thu: [["0800", "2000"]],
+            fri: [["0800", "2000"]],
+            sat: [["0800", "2000"]]
+          }
+        })
+        
+        expect( place.hours ).to hash_eq({
+          mon: [["0900", "2000"]],
+          tue: [["0900", "2000"]],
+          wed: [["0900", "2000"]],
+          thu: [["0900", "2000"]],
+          fri: [["0900", "2000"]],
+          sat: [["0800", "2000"]]
+        }) # Combines additively
       end
 
       xit "works identically without the page" do

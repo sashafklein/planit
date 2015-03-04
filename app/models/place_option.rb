@@ -34,9 +34,17 @@ class PlaceOption < BaseModel
     place
   end
 
+  def duplicate(mark_id: nil)
+    PlaceOption.new( generic_attrs.symbolize_keys.merge({ mark_id: mark_id }) )
+  end
+
   private
 
+  def generic_attrs
+    attributes.except("mark_id", "id", "created_at", "updated_at")
+  end
+
   def complete
-    Completers::PlaceCompleter.new( attributes.except("mark_id", "id", "created_at", "updated_at") ).complete!
+    Completers::PlaceCompleter.new( generic_attrs ).complete!
   end
 end
