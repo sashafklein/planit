@@ -1,8 +1,8 @@
 class Api::V1::BookmarkletsController < ApiController
   
   # Seems like both were necessary, for both pre-flight and actual requests
-  before_filter :cors_set_access_control_headers, only: [:script, :test]
-  after_filter :cors_set_access_control_headers, only: [:script, :test]
+  before_filter :cors_set_access_control_headers, only: [:script, :test, :error]
+  after_filter :cors_set_access_control_headers, only: [:script, :test, :error]
   before_filter :allow_iframe_requests, only: [:test]
 
   def script
@@ -32,6 +32,11 @@ class Api::V1::BookmarkletsController < ApiController
     else
       render json: { success: false }
     end
+  end
+
+  def error
+    AdminMailer.bookmarklet_failure(params[:user_id], params[:url]).deliver_later
+    head(200)
   end
 
   private

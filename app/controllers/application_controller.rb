@@ -21,6 +21,11 @@ class ApplicationController < ActionController::Base
  
   private
 
+  def redirect_back(key: nil, msg: nil)
+    flash[key] = msg if key && msg
+    redirect_to :back || root_path
+  end
+
   def not_authorized_redirect
     flash[:error] = "Woops! Doesn't look like that page is yours!"
     redirect_to root_path

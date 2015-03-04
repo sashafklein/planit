@@ -1,22 +1,20 @@
 planit =
 
   pollForSuccess: (shouldSubmitData, secondsLeft) ->
-    return @showError('Oops! Something went wrong.') unless secondsLeft >= 0
+    return @showError() unless secondsLeft >= 0
 
     $.ajax
       crossDomain: true
       dataType: 'json'
       url: planit._testPath()
       success: (response) ->
-        window.response = response
         if response && response.mark_id
           planit.showSuccess( response.mark_id, response.place_id )
         else # Hasn't saved
           planit._submitData() if shouldSubmitData
           setTimeout( (-> planit.pollForSuccess( false, secondsLeft - 1 )), 1000 )
       error: (response) ->
-        console.log response
-        @showError('Oops! No network connection.')
+        @showError()
 
   injectView: ->
     head = document.getElementsByTagName('head')[0]
@@ -54,7 +52,24 @@ planit =
     @mouseEvents() 
 
   showError: (errorMsg) -> 
-    @setPlanitMessage( errorMsg )
+    if errorMsg
+      @setErrorMessage(errorMsg)
+    else
+      @setErrorMessage("Oops! Something went wrong.")
+      $.ajax
+        crossDomain: true
+        dataType: 'json'
+        url: planit._errorPath()
+        success: (response) ->
+          setTimeout( (-> @setErrorMessage("We've been notified")), 1000)
+        error: (response) ->
+          setTimeout( 
+            -> @setErrorMessage("Auto-reporting also failed! Please <a href='mailto:hello@plan.it?subject=Bookmarklet%20Failure&content=Page:%20#{window.location.href}'>let us know!</a>"),
+            1000
+          )    
+
+  setErrorMessage: (message) ->
+    @setPlanitMessage( message )
     @disappearingAct(4000)
     @mouseEvents()
 
@@ -103,6 +118,8 @@ planit =
 
   _testPath: -> "HOSTNAME/api/v1/bookmarklets/test?user_id=USER_ID&url=#{ window.location.href }"
 
+  _errorPath: -> "HOSTNAME/api/v1/bookmarklets/error?user_id=USER_ID&url=#{ window.location.href }"
+
   _submitData: ->
     html = document.documentElement.innerHTML
 
@@ -127,7 +144,7 @@ planit =
     form.appendChild textarea
     iframe.appendChild form
     document.body.appendChild iframe
-
+    
     form.submit()
 
   _styles: '''
