@@ -8,8 +8,9 @@ class Plan < BaseModel
   has_many :legs
   has_many :days, through: :legs
   has_many :items, dependent: :destroy
-  has_many :images, as: :imageable
-  has_many :sources, as: :object
+  
+  has_many_polymorphic table: :images, name: :imageable
+  has_many_polymorphic table: :sources
 
   boolean_accessor :published
   delegate :last_day, :departure, to: :last_leg
