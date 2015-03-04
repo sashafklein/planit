@@ -55,6 +55,29 @@ module MetaExt
         end
       end
 
+      def has_many_polymorphic(table:, name: :object, options: { dependent: :destroy })
+        has_many table, options.merge({ as: name })
+
+        metaclass.instance_eval do
+          define_method( table ) do
+            table.to_s.singularize.capitalize.constantize.where( 
+              "#{name.to_s}_type".to_sym => self.name, 
+              "#{name.to_s}_id".to_sym => pluck(:id)
+            )
+          end
+        end
+
+      Image.where( imageable_type: 'Place', imageable_id: 
+        Place.where(id: 
+          Mark.where(id:
+            Item.where( plan_id: 
+              Plan.where(id: ids)
+            ).pluck(:mark_id)
+          ).pluck(:place_id)
+        ).pluck(:id)
+      )
+      
+      end
     end
 
     def self.included(base)

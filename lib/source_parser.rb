@@ -32,7 +32,8 @@ class SourceParser
   private
 
   def domain
-    hostname.split('.')[1]
+    s = hostname.split(".")
+    s.length > 2 ? s[1] : s[0]
   end
 
   def relevant_querystring

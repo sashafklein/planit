@@ -2,8 +2,8 @@ class Place < BaseModel
 
   has_one :item
   has_many :marks, dependent: :destroy
-  has_many :images, as: :imageable, dependent: :destroy
-  has_many :flags, as: :object
+  has_many_polymorphic table: :images, name: :imageable
+  has_many_polymorphic table: :flags, options: {}
 
   array_accessor :completion_step, :street_address, :name, :category, :meta_category, :phone
   json_accessor :hours, :extra
