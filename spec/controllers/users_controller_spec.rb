@@ -15,7 +15,7 @@ describe UsersController do
     it "rejects non-users" do
       get :show, id: @user.id
       expect( response ).to redirect_to root_path
-      expect( flash[:error] ).to eq "No Public Access"
+      expect( flash[:error] ).to eq "Sorry! No public access to this page. Sign in to continue."
     end
 
     it "shows only published plans for non-admins or users" do
