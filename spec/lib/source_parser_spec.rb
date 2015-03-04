@@ -45,6 +45,13 @@ describe SourceParser do
     end
   end
 
+  describe "tricky stuff" do
+    it "handles a naked url" do
+      parser = SourceParser.new("http://softwareas.com/injecting-html-into-an-iframe/")
+      expect( parser.name ).to eq 'Softwareas'
+    end
+  end
+
   def parser(base: nil, query: nil)
     base ||= "http://www.nytimes.com/2010/07/04/travel/04hours.html"
     query ||= "pagewanted=all&_r=0"
