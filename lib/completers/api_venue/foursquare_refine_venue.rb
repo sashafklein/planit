@@ -49,11 +49,9 @@ module Completers
       photo_list = venue_photos.items.first(30)
         .map{ |h| [h.prefix, h.suffix].join(FoursquareExploreVenue::IMAGE_SIZE) }
 
-      photo_list.map do |photo|
-        Image.where(url: photo).first_or_initialize(source: 'Foursquare')
-      end
+      { photos: photo_list, source: 'Foursquare' }
     rescue 
-      []
+      nil
     end
 
     private

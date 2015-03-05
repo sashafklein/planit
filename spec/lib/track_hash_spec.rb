@@ -4,7 +4,7 @@ describe TrackHash do
   before do 
     @attrs = {phones: ['123456789'], lat: 12.345678, names: ["Whatever"]}
     hierarchy = %w( First Second Third )
-    @th = TrackHash.new(Place.new.attributes, @attrs, hierarchy)
+    @th = TrackHash.new(defaults: Place.new.attributes, attrs: @attrs, acceptance_hierarchy: hierarchy)
   end
 
   describe "initialization" do
@@ -24,6 +24,16 @@ describe TrackHash do
         names: [{ val: @attrs[:names], source: 'First' }],
         phones:[{ val: @attrs[:phones],source: 'First' }],
       }, [:feature_type])
+    end
+
+    it "lets you set instance variable pairs" do
+      th = TrackHash.new(defaults: Place.new.attributes, attrs: @attrs, instance_vars: { things: [1,2,3,4] })
+      expect( th.things ).to eq [1,2,3,4]
+      th.things = th.things + [5]
+      expect( th.things ).to eq [1,2,3,4,5]
+
+      th2 = TrackHash.new(defaults: Place.new.attributes)
+      expect{ th2.things }.to raise_error NameError
     end
   end
 

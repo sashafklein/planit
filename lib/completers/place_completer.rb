@@ -3,11 +3,11 @@ Dir["./api_completer/*.rb"].each {|file| require_relative file }
 module Completers
   class PlaceCompleter
 
-    attr_accessor :attrs, :place, :photos, :pip, :url
+    attr_accessor :attrs, :place, :pip, :url
     def initialize(attrs, url=nil)
       normalizer = PlaceMod::Attrs.new(attrs.merge(scrape_url: url))
-      @photos, @attrs, @flags, @url = normalizer.set_photos, normalizer.normalize, normalizer.flags, url
-      @pip = PlaceInProgress.new @attrs, @flags
+      @attrs, @flags, @url = normalizer.normalize, normalizer.flags, url
+      @pip = PlaceInProgress.new @attrs, @flags, normalizer.set_photos
       add_state("Start of PlaceCompleter")
     end
 
@@ -81,20 +81,19 @@ module Completers
       return unless instance_variable_set("@#{name.underscore}_success", response[:success])
 
       @pip = response[:place]
-      @photos += Array(response[:photos]).flatten
       pip.set_val(field: :completion_steps, val: name, source: name)
       add_state("After #{name}")
     end
 
     def flag_it_up
       pip.flag(name: "Triangulated", details: "Save as alternative in future", info: pip.attrs) if pip.triangulated
-      pip.flag(name: "Tracking Data", info: { attrs: pip.attrs, images: @photos } )
+      pip.flag(name: "Tracking Data", info: { attrs: pip.attrs, images: pip.photos } )
     end
 
     def merge_and_save_with_photos!
       add_state("Before final merge")
       @place = pip.place.find_and_merge
-      @place.validate_and_save!( @photos.uniq{ |p| p.url }, pip.all_flags ) 
+      @place.validate_and_save!( pip.photos.uniq{ |p| p.url }, pip.all_flags ) 
     rescue => e
       place_options.any? ? place_options : nil
     end
@@ -107,7 +106,7 @@ module Completers
     end
 
     def place_options
-      pip.datastores.reject{ |d| d._name == 'Base' }.map{ |d| PlaceOption.new(d.clean_attrs.merge(feature_type: pip.feature_type)) }
+      pip.datastores.reject{ |d| d._name == 'Base' }.map{ |d| PlaceOption.from_datastore(d, pip.feature_type) }
     end
 
     def some_location_data?

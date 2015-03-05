@@ -29,7 +29,7 @@ module Completers
 
           c_place = completed[:place].place
 
-          img = completed[:photos].first
+          img = completed[:place].photos.first
           expect(img).to be_present
           expect( %w(png jpg jpeg) ).to include img.url.split('.').last
           expect(img.source).to eq 'Foursquare'

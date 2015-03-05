@@ -10,9 +10,10 @@ module Completers
 
     def photos
       return [] unless photos = json.super_fetch( *['featuredPhotos', 'items'] )
-      photos.map do |photo|
+      list = photos.map do |photo|
         [photo['prefix'], photo['suffix']].join(IMAGE_SIZE)
       end
+      { photos: list, source: "Foursquare" }
     end   
     
     def website

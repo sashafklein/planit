@@ -4,10 +4,10 @@ module Completers
     attr_accessor :unsure, :ds, :completion_steps, :triangulated
 
     delegate *(Place.attribute_keys + [:coordinate, :pinnable, :name, :phone, :street_address, :foursquare_id, :destination?]), to: :place
-    delegate :attrs, :val, :source, :sources, :info, :set_val, :raw_attrs, :clean_attrs, :update, :nearby, to: :ds
+    delegate :attrs, :val, :source, :sources, :info, :set_val, :raw_attrs, :clean_attrs, :update, :nearby, :photos, to: :ds
 
-    def initialize(attributes={}, flags=[])
-      @_base = new_datastore(attributes, "Base")
+    def initialize(attributes={}, flags=[], photos=[])
+      @_base = new_datastore(seed: attributes, name: "Base", instance_vars: { photos: photos })
       @flags, @completion_steps, @unsure, @triangulated = flags, [], [], false
       @ds = @_base
     end
@@ -102,6 +102,10 @@ module Completers
       ds.val :nearby
     end
 
+    def add_photos(to_add)
+      ds.photos = [ds.photos + Array(to_add)].flatten.compact
+    end
+
     private
 
     def get_datastore(ds_name)
@@ -114,7 +118,7 @@ module Completers
     end
 
     def make_datastore(ds_name)
-      instance_variable_set("@_#{ds_name}", new_datastore(nil, ds_name.to_s.camelize))
+      instance_variable_set("@_#{ds_name}", new_datastore(name: ds_name.to_s.camelize))
     end
 
     # Rightmost has greatest overwrite permissions
@@ -122,8 +126,8 @@ module Completers
       %w(PlaceInProgress Pin Nearby Narrow FoursquareExplore FoursquareRefine GoogleMaps TranslateAndRefine)
     end
 
-    def new_datastore(seed=nil, name=nil)
-      TrackHash.new(Place.new.attributes, seed, source_hierarchy, name)
+    def new_datastore(seed: nil, name: nil, instance_vars: {photos: []})
+      TrackHash.new(defaults: Place.new.attributes, attrs: seed, acceptance_hierarchy: source_hierarchy, name: name, instance_vars: instance_vars)
     end
   end
 end

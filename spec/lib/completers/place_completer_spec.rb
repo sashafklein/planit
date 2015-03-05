@@ -331,6 +331,15 @@ module Completers
           expect( place.sublocality ).to eq "代々木" # Translate didn't give English Sublocality
         end
       end
+
+      describe "how it preserves place_options" do
+        it "keeps their photos" do
+          @user = create(:user)
+          mark = completed_data(filename: 'cartagena', scrape_url: "http://www.huffingtonpost.com/curtis-ellis/cartagena-eat-pray-love-d_b_3479981.html", name: 'Alma')
+          expect( mark.place ).to be_nil
+          expect( mark.place_options.images.count ).to be > 0
+        end
+      end
     end
   end
 end

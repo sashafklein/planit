@@ -27,9 +27,9 @@ module Completers
 
     def merge!
       if pip.unsure.include?(class_name)
-        venues.each_with_index do |v, i|
+        venues.each_with_index do |venue, i|
           pip.set_ds("#{class_name.underscore}#{i}")
-          set_vals(fields: atts_to_merge, v: v)
+          set_vals(fields: atts_to_merge, v: venue)
         end
         pip.set_ds(:base)
       else
@@ -40,7 +40,9 @@ module Completers
     def set_val(field:, val:, hierarchy_bump: 0, allow_a_or_h: true)
       pip_val = pip.val(field)
 
-      if dont_override?(pip_val, allow_a_or_h)
+      if field == :photos && val.present?
+        add_photos(val)
+      elsif dont_override?(pip_val, allow_a_or_h)
         flag_field_clash(field, val)
       else
         pip.set_val( field: field, val: val, source: class_name, hierarchy_bump: hierarchy_bump )
@@ -85,6 +87,15 @@ module Completers
       pip.triangulated = true
       pip.load_and_flush_siblings!( matches.first )
       set_val field: :completion_steps, val: pip.unsure.delete(completer_name)
+    end
+
+    def add_photos(val)
+      if val.is_a?(Hash)
+        array, source = val[:photos], val[:source]
+      else
+        array, source = val, class_name
+      end
+      pip.add_photos array.map{ |p| Image.where(url: p).first_or_initialize(source: source) }
     end
   end
 end

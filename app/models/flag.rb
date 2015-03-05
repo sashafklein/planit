@@ -1,6 +1,6 @@
 class Flag < BaseModel
-  belongs_to :object, polymorphic: true
-
+  
+  is_polymorphic should_validate: false
   json_accessor :info
 
   default_scope { order('created_at ASC') }

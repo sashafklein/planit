@@ -60,7 +60,8 @@ group :development do
   gem "foreman"
   gem "binding_of_caller"
   gem "bullet"
-  gem "web-console"
+  # gem "web-console"
+  gem 'better_errors'
 end
 
 group :development, :test do

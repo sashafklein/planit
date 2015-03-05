@@ -1,11 +1,12 @@
 class TrackHash
 
   attr_reader :attrs, :defaults, :hierarchy, :_name, :flags
-  def initialize(defaults, attrs=nil, acceptance_hierarchy=[], name=nil, i=nil)
-    @hierarchy, @_name, @_i, @flags = acceptance_hierarchy, name, i, []
+  def initialize(defaults:, attrs: nil, acceptance_hierarchy: [], name: nil, instance_vars: nil)
+    @hierarchy, @_name, @flags = acceptance_hierarchy, name, []
     @defaults, @attrs = defaults.symbolize_keys.to_sh, defaults.symbolize_keys.to_sh
     defaults.each{ |k, v| build_accessor(k) }
     set_attrs(attrs) if attrs
+    set_vars(instance_vars) if instance_vars
   end
 
   def val(sym)
@@ -129,6 +130,13 @@ class TrackHash
   def flag_hash_conflict(sym, val, source)
     if val(sym).present? && val.present? && val(sym) != val
       flag(name: "Conflicting Hash Values", details: "#{sym.to_s.capitalize}", info: { source(sym).first.last.underscore.to_sym => val(sym), source.underscore.to_sym => val })
+    end
+  end
+
+  def set_vars(hash)
+    hash.each_pair do |k, v| 
+      instance_variable_set("@#{k}", v)
+      singleton_class.class_eval { attr_accessor k }
     end
   end
 end

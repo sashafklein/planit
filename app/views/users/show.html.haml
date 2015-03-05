@@ -1,8 +1,6 @@
-- title( [@user.first_name,@user.last_name].compact.join(' ') )
-
+- title( @user.name )
+- page_type('dashboard')
 #user-show-page
-
-  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'dashboard' }
 
   .band.gray.spaced.large-screen
     .container
@@ -20,5 +18,3 @@
 
         .profile-and-info-wrap
           .profile-photo-box
-
-  = render 'show/footer', { :page_type => 'dashboard' }

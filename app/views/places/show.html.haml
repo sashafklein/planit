@@ -1,8 +1,7 @@
 - title(@place.name)
+- page_type('place')
 
 #show-place-page
-
-  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'place' }
 
   .place-page-splash
     .container
@@ -43,5 +42,3 @@
             = @place.decorate.show_foursquare_link
 
   = @place.decorate.next_image_script
-
-  = render 'show/footer', { :page_type => 'place' }

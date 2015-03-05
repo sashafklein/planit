@@ -1,6 +1,7 @@
-#show-plan-page{ ng_controller: 'Plans.ShowCtrl' }
+- page_type('plan')
 
-  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'plan' }
+
+#show-plan-page{ ng_controller: 'Plans.ShowCtrl' }
 
   .plan-map-container{ ng_class: "{'expanded': mapExpanded}" }
     %div#expand-map-button{ ng_click: 'contractOrExpandMap()', ng_class: "{'expanded': mapExpanded}" }
@@ -42,6 +43,3 @@
           - @plan.bucket.each_with_index do |item, item_index|
             = render partial: 'items/item_tab', locals: { item: item, item_index: item_index }
           = render partial: 'items/add_item_tab'
-
-  .plan-footer-container{ ng_show: '!mapExpanded' }
-    = render 'show/footer', { :page_type => 'plan' }

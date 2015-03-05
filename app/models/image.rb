@@ -1,4 +1,4 @@
 class Image < BaseModel
-  belongs_to :object, polymorphic: true
+  is_polymorphic name: :imageable
   belongs_to :uploader, class_name: 'User'
 end

@@ -4,14 +4,14 @@
     %meta{charset: "utf-8"}/
     %meta{content: "NOODP", name: "ROBOTS"}/
     %meta{content: "initial-scale=1", name: "viewport"}/
-    %title= ["Planit",( yield(:title).present? ? yield(:title) : "Save and Share the Places You Love" )].join(" - ")
-    :javascript
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-60141309-1','auto');ga('send','pageview');
-
+    %title= content_for?(:title) ? yield(:title) : "Planit - Save and Share the Places You Love"
+    = render 'application/google_analytics'
     = csrf_meta_tags
     = stylesheet_link_tag :application, media: "all"
-  %body{class: body_class, ng_controller: 'ApplicationCtrl' }
-    = render "flashes"
+  %body{ class: body_class, ng_controller: 'ApplicationCtrl' }
+    = content_for?(:header) ? yield_with_blank(:header) : render_header
+    = render "application/flashes"
     = yield
-    = render "javascript"
-    = render 'show/feedback'
+    = content_for?(:footer) ? yield_with_blank(:footer) : render_footer
+    = render "application/javascript"
+    = render 'application/feedback'

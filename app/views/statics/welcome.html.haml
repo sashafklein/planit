@@ -1,9 +1,7 @@
 - title('Welcome!')
+- page_type('welcome')
 
 .static-page#welcome-page
-
-  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'welcome' }
-
   .band.gray.spaced-extra.main-content
     .container
       .sixteen.columns.left-section
@@ -42,6 +40,3 @@
         .static-section-header= "Got it! Let's Build My Planit"
         .static-section-center-item-wrap
           .planit-button.blue= "Get Started"
-
-
-  = render 'show/footer', { :page_type => 'welcome' }
