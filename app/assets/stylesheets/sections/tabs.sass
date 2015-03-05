@@ -1,20 +1,27 @@
-
 // TAB ENVIRONMENT
 
 .tab-section-header
   display: block
-  padding: 8px 5px 3px 5px
+  padding: 8px 5px 10px 5px
   font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
   font-size: 15px
   line-height: 18px
+  cursor: pointer
+
+  i.tab-section-is-hidden
+    display: none
+    &.collapsed
+      display: inline-block
+      color: #f06
 
   .bubble-span
+    transition: 0.5s ease all
     &.medium
       font-family: avenir, "open sans", "Myriad W01", "Helvetica Neue", 'trebuchet ms'
       font-size: 15px
       line-height: 18px
       margin: 5px 0px
-      padding: 3px 9px 4px 9px
+      padding: 4px 9px 4px 9px
     &.primary
       font-weight: bold
       color: #222
@@ -24,6 +31,14 @@
       -webkit-box-shadow: #eee 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
       -moz-box-shadow: #eee 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
       box-shadow: #eee 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+      &:hover, &.collapsed
+        color: #fff
+        background: #f06
+        border: #d04 1px solid
+        border-bottom: #b02 1px solid
+        -webkit-box-shadow: #e05 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+        -moz-box-shadow: #e05 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+        box-shadow: #e05 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
     &.secondary
       font-weight: normal
       font-size: 14.5px
@@ -47,8 +62,26 @@
 .any-tab-wrapper
   display: block
   cursor: default
+  position: relative
+  transition: 0.2 ease all
 
-.mark-tab
+  .guide-item-count
+    transition: 0.2 ease all
+    position: absolute
+    display: inline-block
+    top: -15px
+    right: -10px
+    z-index: 10
+    line-height: 34px
+    min-width: 34px
+    height: 34px
+
+  &:hover
+    .guide-item-count
+      background: #333
+      border-bottom: #000 solid 1px
+
+.content-tab
   display: block
   position: relative
   padding: 8px
@@ -69,6 +102,8 @@
     .tab-operations
       visibility: visible
       display: block
+    .content-tab-title.guide-tab
+      background: #fff
 
   .tab-operations
     visibility: hidden
@@ -98,44 +133,52 @@
     &:hover
       background: rgba( 255, 255, 255, 0.4 )
 
-.mark-tab-title
+.content-tab-title
   margin: 12px 0px 6px 0px
-  padding: 0px
   font-size: 12px
-  line-height: 12px
   text-align: center
   font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
   font-weight: bold
   position: relative
   display: inherit
   text-transform: capitalize
-  overflow: hidden
-  text-overflow: ellipsis
-  white-space: nowrap
-  word-wrap: normal
-  max-height: 12px
+  &.guide-tab
+    padding: 8px 4px 4px 4px
+    line-height: 15px
+    position: absolute
+    bottom: 0
+    background: #f3f3f3
+  &.mark-tab
+    padding: 0px
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+    word-wrap: normal
+    max-height: 12px
+    line-height: 12px
 
-.mark-tab-img
+.content-tab-img
   -webkit-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.1)
   -moz-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.1)
   box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.1)
   background: #999
   text-align: center
   color: #aaa
-
+  position: relative
   &.add-photo
     background: #999
     color: #ccc
   &.add-new
     background: transparent
-
-.add-photo-camera
-  position: relative
-  margin: auto
-  top: 50%
-  transform: translateY(-50%)
-  &:hover
-    color: #fff
+  i
+    position: absolute
+    margin: auto
+    text-align: center
+    top: 0
+    left: 0
+    right: 0
+    &.guide-tab:hover
+      color: #fff
 
 .tab-load-more
   text-align: center
@@ -151,6 +194,7 @@
   -webkit-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
   -moz-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
   box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  padding: 0 3px
   &:hover
     background-color: #fff
     cursor: pointer
@@ -166,27 +210,72 @@
 
 // *Computer (Regular)
 
-.any-tab-wrapper
-  margin: 15px 0
+.any-tab-wrapper.guide-tab
+  margin: 25px 10px
 
-.mark-tab
+.any-tab-wrapper.mark-tab
+  margin: 15px 3px
+
+.content-tab.guide-tab
   margin: 4px
 
-.mark-tab.add-new
+.content-tab.add-new.guide-tab
   display: block !important
   visibility: visible !important
 
-.mark-tab-img
+.content-tab-img.guide-tab
+  font-size: 2em
+  width: 210px !important
+  height: 160px !important
+  img
+    width: 210px !important
+    height: 160px !important
+  i
+    height: 25px
+    width: 30px
+    bottom: 30px
+
+.content-tab-title.guide-tab
+  width: 210px !important
+
+.tab-operations.guide-tab
+  width: 212px
+  font-size: 1.5em
+  padding: 0 0 5px 0
+  i
+    margin: 0 5px
+
+// .content-tab-img.guide-tab
+//   font-size: 2em
+//   width: 172px !important
+//   height: 131px !important
+//   img
+//     width: 172px !important
+//     height: 131px !important
+
+// .content-tab-title.guide-tab
+//   width: 172px !important
+
+// .tab-operations.guide-tab
+//   width: 174px
+//   font-size: 1.25em
+//   padding: 0 0 5px 0
+
+.content-tab-img.mark-tab
   width: 144px !important
   height: 110px !important
   img
     width: 144px !important
     height: 110px !important
+  i
+    height: 25px
+    width: 30px
+    bottom: 15px
 
-.mark-tab-title
+.content-tab-title.mark-tab
   width: 144px !important
 
-.tab-operations
+.tab-operations.mark-tab
   width: 146px
 
 .tab-load-more
@@ -195,13 +284,13 @@
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
 
-  .mark-tab
+  .content-tab
     margin: 5px
 
   .tab-operations
     width: 146px
 
-  .mark-tab.add-new
+  .content-tab.add-new
     display: block !important
     visibility: visible !important
 
@@ -211,11 +300,11 @@
   .any-tab-wrapper
     margin: 0
 
-  .mark-tab.add-new
+  .content-tab.add-new
     display: none !important
     visibility: hidden !important
 
-  .mark-tab-img
+  .content-tab-img
     font-size: 1em
     width: 124px !important
     height: 89px !important
@@ -223,16 +312,16 @@
       width: 124px !important
       height: 89px !important
 
-  .mark-tab-title
+  .content-tab-title
     width: 124px !important
   
   .tab-operations
     width: 126px
     font-size: 0.8em
-    padding: 0 0 3px 0
+    padding: 0 0 5px 0
 
   // single-tab
-  // .mark-tab-img
+  // .content-tab-img
   //   font-size: 3em
   //   width: 272px !important
   //   height: 208px !important
@@ -240,7 +329,7 @@
   //     width: 272px !important
   //     height: 208px !important
 
-  // .mark-tab-title
+  // .content-tab-title
   //   width: 272px !important
   
   // .tab-operations
@@ -257,14 +346,17 @@
   .any-tab-wrapper
     margin: 10px 0
 
-  .mark-tab
+  .any-tab-wrapper.guide-tab
+    margin: 10px 0
+
+  .content-tab
     margin: 10px
 
-  .mark-tab.add-new
+  .content-tab.add-new
     display: block !important
     visibility: visible !important
 
-  .mark-tab-img
+  .content-tab-img.mark-tab
     font-size: 2em
     width: 172px !important
     height: 131px !important
@@ -272,13 +364,35 @@
       width: 172px !important
       height: 131px !important
 
-  .mark-tab-title
+  .content-tab-title.mark-tab
     width: 172px !important
 
-  .tab-operations
+  .tab-operations.mark-tab
     width: 174px
     font-size: 1.25em
-    padding: 0 0 3px 0
+    padding: 0 0 5px 0
+
+  .content-tab-img.guide-tab
+    font-size: 2em
+    width: 160px !important
+    height: 145px !important
+    img
+      width: 160px !important
+      height: 145px !important
+    i
+      height: 25px
+      width: 30px
+      bottom: 30px
+
+  .content-tab-title.guide-tab
+    width: 160px !important
+
+  .tab-operations.guide-tab
+    width: 162px
+    font-size: 1.5em
+    padding: 0 0 5px 0
+    i
+      margin: 0 5px
 
   .tab-load-more
     margin: 10px 10px 20px 10px

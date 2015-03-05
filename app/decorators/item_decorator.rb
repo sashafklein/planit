@@ -20,8 +20,8 @@ class ItemDecorator < Draper::Decorator
   # TAB_SHOW
 
   def show_image_or_noimage
-    if image
-      link_to image_tag(image.url), place_path(place), :class => 'mark-tab-img'
+    if image.url
+      link_to image_tag(image.url), place_path(place), :class => 'mark-tab content-tab-img'
     else
       link_to show_noimage_icon.html_safe, place_path(place)
     end
@@ -30,7 +30,7 @@ class ItemDecorator < Draper::Decorator
   private
 
   def show_noimage_icon
-    content_tag :div, "<i class='add-photo-camera fa fa-camera-retro fa-2x'></i>".html_safe, :class => 'mark-tab-img add-photo'
+    content_tag :div, "<i class='add-photo-camera fa fa-camera-retro fa-2x'></i>".html_safe, :class => 'mark-tab content-tab-img add-photo'
   end
 
 end

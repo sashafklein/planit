@@ -5,6 +5,33 @@ body
 html, body
   height: 100% !important
 
+// COMMON VISUALS
+
+.numbered-box
+  transition: 0.2 ease all
+  background: #f06
+  border-bottom: #990033 solid 1px
+  border-radius: 3px
+  text-align: center
+  font-size: 16px
+  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  font-weight: bold
+  color: #fff
+  &:hover, .highlighted
+    background: #333
+    border-bottom: #000 solid 1px
+
+strong.neon
+  color: #f06
+
+// ?
+
+.container.collapsed
+  transition: 0.3s ease all
+  -webkit-transition-duration: 0.3s
+  height: 0px
+  overflow: hidden
+
 .simple-entry-form
   font-family: avenir, 'Myriad W01', 'Helvetica Neue', 'trebuchet ms'
 
@@ -356,48 +383,48 @@ hr.divider
 .strong
   font-weight: bold
 
-  .planit-input
-    padding: 5px 8px !important
-    border: 1px solid #a4a4a4 !important
-    border-bottom: 1px solid #fff !important
-    -webkit-border-radius: 3px
-    -moz-border-radius: 3px
-    -o-border-radius: 3px
-    border-radius: 3px !important
-    -webkit-box-shadow: 0px 1px 0px #a4a4a4
-    -moz-box-shadow: 0px 1px 0px #a4a4a4
-    -o-box-shadow: 0px 1px 0px #a4a4a4
-    box-shadow: 0px 1px 0px #a4a4a4
-    box-sizing: border-box
-    ms-box-sizing: border-box
-    webkit-box-sizing: border-box
-    moz-box-sizing: border-box
-    display: inline-block
-    font-size: 12px !important
-    font-family: open sans, avenir, calibri !important
-    font-style: normal !important
-    color: black !important
+.planit-input
+  padding: 5px 8px !important
+  border: 1px solid #a4a4a4 !important
+  border-bottom: 1px solid #fff !important
+  -webkit-border-radius: 3px
+  -moz-border-radius: 3px
+  -o-border-radius: 3px
+  border-radius: 3px !important
+  -webkit-box-shadow: 0px 1px 0px #a4a4a4
+  -moz-box-shadow: 0px 1px 0px #a4a4a4
+  -o-box-shadow: 0px 1px 0px #a4a4a4
+  box-shadow: 0px 1px 0px #a4a4a4
+  box-sizing: border-box
+  ms-box-sizing: border-box
+  webkit-box-sizing: border-box
+  moz-box-sizing: border-box
+  display: inline-block
+  font-size: 12px !important
+  font-family: open sans, avenir, calibri !important
+  font-style: normal !important
+  color: black !important
+  height: 26px !important
+  line-height: 16px !important
+  margin: 0 !important
+  &.saved-check-results
+    input::-webkit-input-placeholder
+      opacity: 1
+      color: #fff
+    input:-moz-placeholder
+      opacity: 1
+      color: #fff  
+    input::-moz-placeholder
+      opacity: 1
+      color: #fff  
+    input:-ms-input-placeholder
+      opacity: 1
+      color: #fff  
+  &#planit-addNote
+    width: 210px !important
     height: 26px !important
-    line-height: 16px !important
-    margin: 0 !important
-    &.saved-check-results
-      input::-webkit-input-placeholder
-        opacity: 1
-        color: #fff
-      input:-moz-placeholder
-        opacity: 1
-        color: #fff  
-      input::-moz-placeholder
-        opacity: 1
-        color: #fff  
-      input:-ms-input-placeholder
-        opacity: 1
-        color: #fff  
-    &#planit-addNote
-      width: 210px !important
-      height: 26px !important
-      padding: 3px 5px !important
-      opacity: 1 !important
+    padding: 3px 5px !important
+    opacity: 1 !important
 
 .planit-button
   display: inline-block
@@ -457,9 +484,9 @@ hr.divider
 
 .band
   &.spaced
-    padding: 17px 0
-  &.spaced-extra
     padding: 25px 0
+  &.spaced-extra
+    padding: 45px 0
 
 .planit-modal
   .modal-dialog
@@ -482,9 +509,9 @@ hr.divider
 
   .band
     &.spaced
-      padding: 8px 0
+      padding: 25px 0
     &.spaced-extra
-      padding: 40px 0
+      padding: 45px 0
 
   .planit-modal
     .modal-dialog
@@ -511,9 +538,9 @@ hr.divider
 
   .band
     &.spaced
-      padding: 8px 0
-    &.spaced-extra
       padding: 12px 0
+    &.spaced-extra
+      padding: 18px 0
 
   .planit-modal
     .modal-dialog
@@ -545,9 +572,9 @@ hr.divider
 
   .band
     &.spaced
-      padding: 8px 0
-    &.spaced-extra
       padding: 12px 0
+    &.spaced-extra
+      padding: 18px 0
 
   .planit-modal
     .modal-dialog

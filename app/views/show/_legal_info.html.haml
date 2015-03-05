@@ -36,8 +36,15 @@
       Customer Support
     .static-section-content
       %p.text-spaced
-        Please share any user feedback or issues you have via 
-        %a{href: "mailto:hello@plan.it"}= "hello@plan.it"
+        We love feedback!  Please share what you can
+        - if current_user && current_user.member?
+          = 'with a' 
+          %a{ href: '#planit-modal-feedback', data: { toggle: 'modal', target: '#planit-modal-feedback', backdrop: 'static', keyboard: 'false' } }
+            quick note
+          = 'or'
+        = 'by emailing us at' 
+        %a{href: "mailto:hello@plan.it"}= "hello plan.it"
+
     .static-section-content
       %p.text-spaced
         If you have any concerns about your data, contact us with any questions not otherwise addressed in our

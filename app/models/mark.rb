@@ -27,6 +27,7 @@ class Mark < BaseModel
   scope :marked_up,     ->        { with_mark('up') }
   scope :marked_down,   ->        { with_mark('up') }
   scope :starred,       ->        { with_mark('star') }
+  scope :sourced_with,  -> (source_name) { where(id: Source.where(name: source_name, object_type: 'Mark').pluck(:object_id)) }
 
   make_taggable
 

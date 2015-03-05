@@ -20,6 +20,10 @@ class Plan < BaseModel
     sources.first
   end
 
+  def best_image
+    images.first || Image.where(imageable_type: 'Place', imageable_id: items.marks.places.pluck(:id)).first
+  end
+
   def has_lodging?
     items.marks.where(lodging: true).any?
   end

@@ -6,7 +6,7 @@ angular.module('Common').factory 'SearchBar', (QueryString) ->
       string.replace(/\s\s+/g, ' ').replace(/^\s*/g, '').replace(/\s*$/g, '') unless !string
 
     @_searchToggleOn: () -> 
-      $(".search-and-filter-wrap, .logo-container, .top-menu-container").fadeOut("fast")
+      $(".logo-container, .side-menu-container, .top-menu-container, .search-and-filter-wrap").fadeOut("fast")
       $(".expanded-search-and-filter").fadeIn("fast")
       $('.initial-header').addClass("focused")
       $("#search-input-field").focus()
@@ -14,7 +14,7 @@ angular.module('Common').factory 'SearchBar', (QueryString) ->
     @_searchToggleOff: () -> 
       $('.initial-header').removeClass("focused")
       $(".expanded-search-and-filter").fadeOut('fast')
-      $(".logo-container, .top-menu-container, .search-and-filter-wrap").fadeIn("fast")
+      $(".logo-container, .side-menu-container, .top-menu-container, .search-and-filter-wrap").fadeIn("fast")
       if $('#search-input-field').val().length == 0 
         QueryString.clearParamValues(q:'clear')
         $('#search-teaser-field').html('')

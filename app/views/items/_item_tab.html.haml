@@ -1,8 +1,8 @@
 
 .column
-  .any-tab-wrapper
-    .mark-tab
-      .tab-operations
+  .any-tab-wrapper.mark-tab
+    .content-tab.mark-tab
+      .tab-operations.mark-tab
         .tab-operations-button
           .i.fa.fa-pencil
         .tab-operations-button
@@ -15,5 +15,11 @@
           .i.fa.fa-times-circle
         .tab-operations-button
           .i.fa.fa-trash
-      = item.decorate.show_image_or_noimage
-      = link_to item.name, place_path(item.place), class: "mark-tab-title a-override a-black h-black u-none"
+      - image = item.image
+      - if image && image.url.present?
+        = link_to image_tag(image.url), place_path(item.mark.place_id), :class => 'content-tab-img mark-tab'
+      - else
+        = link_to place_path(item.mark.place_id) do
+          .content-tab-img.mark-tab.add-new
+            %i.add-photo-camera.fa.fa-camera-retro.fa-2x
+      = link_to item.name, place_path(item.mark.place), class: "content-tab-title mark-tab a-override a-black h-black u-none"

@@ -30,12 +30,6 @@ class UserDecorator < Draper::Decorator
     "You don't have any places saved in the last month!  Do you have the planit 'save' tool?  Drag and drop the icon into your browser's bookmark bar -- and use it to save destination reviews and websites:"
   end
 
-  def show_create_plan_button
-    h.content_tag :div, :class => 'no-activity-button blue planit-button enabled' do
-      "<i class='fa fa-paper-plane'></i> #{link_to "Create a Plan!", new_plan_path()}".html_safe
-    end
-  end
-
   def show_bookmarklet_button_with_text
     "#{show_bookmarklet_button} Planit Bookmarklet".html_safe
   end
@@ -55,7 +49,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def nav_item_list(page_type)
-    return nav_item('guides', 'my guides', 'fa fa-list', nil, nil) if (page_type == 'guides' || page_type == 'plan')
+    return nav_item('guides', 'my guides', 'fa fa-list', nil, nil) if (page_type == 'guides')
     nav_item('guides', 'my guides', 'fa fa-list', user_path(model)+'/guides', nil)
   end
 
@@ -83,9 +77,15 @@ class UserDecorator < Draper::Decorator
     html.html_safe
   end
 
-  def filter_or_tag_button(page_type)
-    return "<i class='filter-or-number fa fa-sliders fa-lg' id='number_filtered'></i> <i class='fa fa-caret-down'></i>".html_safe if page_type == 'places' 
-    return "<i class='tag-or-number fa fa-tag fa-lg' id='number_of_tags'></i> <i class='fa fa-caret-down'></i>".html_safe if page_type == 'guides' 
+  def filter_button(page_type)
+    if page_type == 'places' || page_type == 'guides'
+      html = ''
+      html += "<div class='filter-button"
+      html += " disabled" if page_type == 'guides' && current_user && current_user.plans.length == 0
+      html += "'><i class='filter-or-number fa fa-sliders fa-lg' id='number_filtered'></i> <i class='fa fa-caret-down'></i></div>" if page_type == 'places' 
+      html += "'><i class='fa fa-globe fa-lg'></i> <i class='fa fa-caret-down'></i></div>" if page_type == 'guides' 
+      return html.html_safe
+    end
   end
 
   def filter_dropdown_menu(page_type)
@@ -134,8 +134,8 @@ class UserDecorator < Draper::Decorator
       html += "</li>"
     elsif page_type == 'guides'
       html += "<li class='tag-dropdown-menu'>"
-      html +=   "<div class='apply-filters'>Narrow By Tag:</div>"
-      html +=   "<div class='clear-all-filters'>See All Guides <b>×</b></div>"
+      html +=   "<div class='apply-filters'>Narrow By Geography:</div>"
+      html +=   "<div class='clear-all-filters'>See All Geographies <b>×</b></div>"
       html += "</li>"
       html += "<li class='divider'></li>"
       marks.all_tags.each do |tag|
@@ -150,7 +150,11 @@ class UserDecorator < Draper::Decorator
 
   def user_dropdown_menu
     html = "<ul class='dropdown-menu dropdown-menu-right user-dropdown-menu'>"
-    if current_user
+    if current_user.member?
+      html += "<li class='user-dropdown-menu'>"
+      html +=   "<a href='" + save_path + "'>How to Save<i class='user-dropdown-menu-icon fa fa-bolt fa-fw'></i></a>"
+      html += "</li>"
+      html += "<li class='divider'></li>"
       html += "<li class='user-dropdown-menu'>"
       html +=   "<a href='" + edit_user_registration_path + "'>Update Account<i class='user-dropdown-menu-icon fa fa-user fa-fw'></i></a>"
       html += "</li>"
@@ -158,6 +162,13 @@ class UserDecorator < Draper::Decorator
       html +=   "<a href='" + legal_support_path + "'>Legal & Support<i class='user-dropdown-menu-icon fa fa-question fa-fw'></i></a>"
       html += "</li>"
       html += "<li class='divider'></li>"
+      html += "<li class='user-dropdown-menu'>"
+      html +=   "<a href='" + destroy_user_session_path + "' data-method='delete'>Log Out<i class='user-dropdown-menu-icon fa fa-times fa-fw'></i></a>"
+      html += "</li>"
+    elsif current_user
+      html += "<li class='user-dropdown-menu mobile'>"
+      html +=   "<a href='" + legal_support_path + "'>Legal & Support<i class='user-dropdown-menu-icon fa fa-question fa-fw'></i></a>"
+      html += "</li>"
       html += "<li class='user-dropdown-menu'>"
       html +=   "<a href='" + destroy_user_session_path + "' data-method='delete'>Log Out<i class='user-dropdown-menu-icon fa fa-times fa-fw'></i></a>"
       html += "</li>"
