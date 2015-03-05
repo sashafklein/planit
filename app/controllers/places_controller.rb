@@ -1,7 +1,7 @@
 class PlacesController < ApplicationController
 
   before_action :load_place, only: [:show]
-  before_action :authenticate_user!, only: [:new]
+  before_action :authenticate_user!, only: [:new, :show]
 
   def show
   end

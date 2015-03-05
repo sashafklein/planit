@@ -1,0 +1,21 @@
+.column
+  .any-tab-wrapper.guide-tab
+    .guide-item-count.numbered-box= plan.items.count
+    .content-tab.guide-tab
+      .tab-operations.guide-tab
+        .tab-operations-button
+          .i.fa.fa-calendar
+        .tab-operations-button
+          .i.fa.fa-pencil
+        .tab-operations-button
+          .i.fa.fa-heart
+        .tab-operations-button
+          .i.fa.fa-check-circle
+        .tab-operations-button
+          .i.fa.fa-trash
+      - image = plan.best_image
+      - if image.url.present?
+        = link_to image_tag(image.url), plan_path(plan), :class => 'content-tab-img guide-tab'
+      - else
+        = link_to "<div class='content-tab-img guide-tab add-photo'><i class='add-photo-camera fa fa-camera-retro'></i></div>".html_safe, plan_path(plan)
+      = link_to plan.name, plan_path(plan), class: "guide-tab content-tab-title a-override a-black h-black u-none"

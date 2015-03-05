@@ -6,7 +6,7 @@
       = image_tag "logo_name_only_#{color}.png", style: "width: 86px; height: 50px;"
       = image_tag "ellipsis_#{color}.png", style: "width: 20px; height: 50px;"
   - else  
-    .container.pseudo{ class: page_type }
+    .container.none{ class: "#{'pseudo' if page_type == 'places'}"}
       .header-container
         .logo-container
           = image_tag "logo_only_#{color}.png", alt: '', class: "logo-image-top large-screen"
@@ -18,7 +18,7 @@
         - if current_user_is_active
           .search-and-filter-wrap{ class: page_type }
             %a.dropdown-toggle.filter-dropdown{ "data-toggle" => "dropdown", :href => "#" }
-              .filter-button= current_user.decorate.filter_or_tag_button(page_type)
+              = current_user.decorate.filter_button(page_type)
             = current_user.decorate.filter_dropdown_menu(page_type)
             = current_user.decorate.search_teaser(page_type)
           .expanded-search-and-filter{ class: page_type }
@@ -40,19 +40,19 @@
                 = link_to user_path(current_user), class: "a-override a-#{background} h-#{background}" do
                   %i.fa.fa-arrow-left.main-menu-icon
             - else
-              %a.dropdown-toggle.a-override{ class: "a-#{background} h-#{background}", "data-toggle" => "dropdown", :href => "#" }
+              %a.main-menu-dropdown.dropdown-toggle.a-override{ class: "a-#{background} h-#{background}", "data-toggle" => "dropdown", :href => "#" }
                 .main-menu-container.user-icon{ class: color }
                   %i.fa.fa-user.main-menu-icon
                 .main-menu-container.main-menu.mobile.white
                   %i.fa.fa-bars.a-override.main-menu-icon{ class: "a-black h-black" }
-                = current_user.decorate.user_dropdown_menu
-            .side-menu-container{ class: "#{color} #{page_type}" }
-              .top-nav-bar
-                = current_user.decorate.nav_item_map(page_type)
-                = current_user.decorate.nav_item_list(page_type)
-                = current_user.decorate.nav_item_new(page_type)
-                = current_user.decorate.nav_item_inbox(page_type)
-                = current_user.decorate.nav_item_share(page_type)
+              = current_user.decorate.user_dropdown_menu
+          .side-menu-container{ class: "#{color} #{page_type}" }
+            .top-nav-bar
+              = current_user.decorate.nav_item_map(page_type)
+              = current_user.decorate.nav_item_list(page_type)
+              = current_user.decorate.nav_item_new(page_type)
+              = current_user.decorate.nav_item_inbox(page_type)
+              = current_user.decorate.nav_item_share(page_type)
 
         - elsif current_user
           .page-title-wrap{ class: page_type }

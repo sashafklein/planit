@@ -4,24 +4,23 @@
 
   = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'guides' }
 
-  .band.gray.spaced
-    .container
+  .band.gray.spaced-extra.padded
+    - if @user.plans.present?
+      - @user.plans.order('updated_at DESC').group_by{ |p| p.updated_at.strftime("%Y") }.each do |year, plans| 
+        .container
+          .column.alpha.tab-section-header{ class: "collapses", id: "contains_#{year}" }
+            %span.bubble-span.medium.primary{ class: "contains_#{year} #{'collapsed' if year != current_year }" }= year
+            = ":"
+            %span.bubble-span.medium.secondary= "#{@user.first_name} #{@user.last_name}'s' Guides"
+            = "("
+            %strong= "#{plans.length}"
+            = ")"
+            %i.fa.fa-caret-down.tab-section-is-hidden{ class: "contains_#{year} #{'collapsed' if year != current_year }" }
+        .container.centered{ class: "contains_#{year} #{'collapsed' if year != current_year }" }
+          - plans.each do |plan|
+            = render partial: 'plans/guide_tab', locals: { plan: plan }
 
-      .sixteen.columns
-
-        - if @user == current_user
-          = @user.decorate.show_create_plan_button
-        - if @user.plans.present?
-          - @user.plans.order('updated_at DESC').group_by{ |p| p.updated_at.to_date }.each do |date, plans| 
-            %ul.activity-list= days_since_string(date)
-            - plans.each do |plan|
-              %li.activity-line= plan.decorate.created_or_updated_at_link
-
-        - else
-
-          .dashboard-header= "No Guides Yet?"
-          .no-activity-alert
-            .no-activity-note= @user.decorate.show_no_plans_alert
-            = @user.decorate.show_create_plan_button
+    - else
+      .dashboard-header= "No Guides Yet?"
 
   = render 'show/footer', { :page_type => 'guides' }

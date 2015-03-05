@@ -22,22 +22,26 @@
             %i{ class: 'fa fa-group padded-icon' }
             Share tips on your favorite haunts with your friends & family
           %p
-            %i{ class: 'fa fa-globe padded-icon black' }
-            %strong= "It's your Planit"
-        %span.learn-more
+            %i{ class: 'fa fa-globe padded-icon' }
+            %strong.neon= "It's <i>Your</i> Planit".html_safe
+        %span.learn-more.planit-button.neon
           Get Started
 
   .band.off-white.spaced-extra.main-content
     .container
       .sixteen.columns.right-section
-        .welcome-section-divider= "Band"
+        .static-section-whitebox
+          Testing
+
 
   = render 'show/save'
 
   .band.off-white.spaced-extra.main-content
     .container
       .sixteen.columns.right-section
-        .static-section-header.large= "Save and Share the Places You Love"
-        .static-section-content
+        .static-section-header= "Got it! Let's Build My Planit"
+        .static-section-center-item-wrap
+          .planit-button.blue= "Get Started"
+
 
   = render 'show/footer', { :page_type => 'welcome' }
