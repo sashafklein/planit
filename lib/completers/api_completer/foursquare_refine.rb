@@ -10,10 +10,10 @@ module Completers
       return pip unless fsid.present?
 
       refine
-      { place: pip, photos: venue.photos || [], success: true }
+      { place: pip || [], success: true }
     rescue => e
       flag_failure(query: full_fs_url, response: @response, error: e)
-      { place: pip, photos: venue.try(:photos) || [], success: false}
+      { place: pip || [], success: false}
     end
 
     private
@@ -30,7 +30,7 @@ module Completers
     end
 
     def atts_to_merge
-      [:menu, :mobile_menu, :wifi, :cross_street, :hours, :categories, :reservations, :reservations_link]
+      [:menu, :mobile_menu, :wifi, :cross_street, :hours, :categories, :reservations, :reservations_link, :photos]
     end
 
     def full_fs_url

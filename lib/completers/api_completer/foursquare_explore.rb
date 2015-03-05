@@ -22,11 +22,11 @@ module Completers
     def complete
       unless sufficient_to_fetch?
         pip.flag(name: "Insufficient Atts for FoursquareExplore", info: { missing: pip.attrs.slice(:lat, :lon, :locality, :region, :country).select_val(&:blank?).map{ |k, v| k } } )
-        return place_with_photos
+        return return_hash
       end
 
       explore
-      place_with_photos
+      return_hash
     end
 
     def sufficient_to_fetch?
@@ -42,7 +42,6 @@ module Completers
       pip.question!(class_name) unless @success = ( venue.present? && !pip.unsure.include?(class_name) && venue.seems_legit? )
 
       merge!
-      getPhotos
     end
 
     def nearby
@@ -66,7 +65,7 @@ module Completers
     end
     
     def atts_to_merge
-      [:website, :locality, :country, :region, :lat, :lon, :menu, :mobile_menu, :foursquare_id, :names, :street_addresses, :phones, :full_address, :sublocality]
+      [:website, :locality, :country, :region, :lat, :lon, :menu, :mobile_menu, :foursquare_id, :names, :street_addresses, :phones, :full_address, :sublocality, :photos]
     end
 
     def merge!
@@ -74,15 +73,8 @@ module Completers
       super
     end
 
-    def getPhotos
-      return place_with_photos unless venue
-      venue.photos.each do |photo|
-        @photos << Image.where(url: photo).first_or_initialize(source: 'Foursquare')
-      end
-    end
-
-    def place_with_photos
-      { place: pip, photos: photos, success: @success }.to_sh
+    def return_hash
+      { place: pip, success: @success }.to_sh
     end
     
     def nearby_parameter

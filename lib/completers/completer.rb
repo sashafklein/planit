@@ -29,8 +29,8 @@ module Completers
       mark = place ? user.marks.where(place_id: place.id).first_or_initialize : user.marks.new
       mark.save_with_source!(source_url: url)
 
-      place_options.each{ |po| po.mark = mark; po.save! } if place_options      
-      
+      place_options.each{ |po| po.update_attributes!(mark_id: mark.id) } if place_options
+
       merge_and_create_associations!(mark)
       mark
     end

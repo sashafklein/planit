@@ -8,6 +8,8 @@ class PlaceOption < BaseModel
 
   belongs_to :mark
   validates :mark, :mark_id, presence: :true
+  has_many_polymorphic table: :flags
+  has_many_polymorphic table: :images, name: :imageable
 
   enum feature_type: [:destination, :sublocality, :locality, :subregion, :region, :country, :area]
 
@@ -22,6 +24,18 @@ class PlaceOption < BaseModel
     where('created_at < ?', 1.month.ago)
   end
 
+  def self.from_datastore(ds, feature_type)
+    option = new(ds.clean_attrs.merge(feature_type: feature_type))
+    option.save(validate: false)
+
+    ds.photos.each do |photo|
+      photo.imageable = option
+      photo.save!
+    end
+
+    option
+  end
+
   def choose!
     place = complete
     
@@ -31,6 +45,7 @@ class PlaceOption < BaseModel
     end
     
     mark.update_attributes!(place_id: place.id)
+    [images, flags].map{ |a| a.repoint!(place) }
     place
   end
 
