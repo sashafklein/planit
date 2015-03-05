@@ -3,16 +3,6 @@ module MetaExt
     module ClassMethods
       def has_many_polymorphic(table:, name: :object, options: { dependent: :destroy })
         has_many table, options.merge({ as: name })
-
-        class_eval do
-          define_method( table.to_s.singularize ) do |name:, details: nil, info: {}|
-            flags.where(name: name, details: details).first_or_initialize(info: info)
-          end
-
-          define_method( "#{table.to_s.singularize}!" ) do |name:, details: nil, info: {}|
-            flags.where(name: name, details: details).first_or_initialize(info: info).save!
-          end
-        end
         
         metaclass.instance_eval do
           define_method( table ) do

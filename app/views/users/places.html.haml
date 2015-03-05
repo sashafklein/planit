@@ -1,16 +1,12 @@
-- title( [@user.first_name,@user.last_name].compact.join(' ') + "’s Places" )
+- title( "#{@user.name}'s Places" )
+- page_type('places')
 
 #user-places-page
 
   %img{ src: "/assets/loader.gif", width: '0', height: '0', style: 'display: none; visibility: hidden;' }
-
-  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'places' }
-
   #user-bucket-map
 
     %bucket_map.bucket-map-canvas{ user_id: @user.id, current_user_id: current_user_id, web_padding: '45,45,15,400', mobile_padding: '40,15,80,15', scroll_wheel_zoom: true }
-
-  = render 'show/footer', { :page_type => 'places' }
 
 = render 'modals/controls'
 = render 'templates/bucket_map'

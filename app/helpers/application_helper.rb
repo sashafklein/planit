@@ -1,13 +1,35 @@
 module ApplicationHelper
 
-  # TITLE
-
   def title(title)
-    content_for(:title) { title }
+    content_for(:title) { "Planit - #{ title.gsub("'", "’") }" }
   end
 
   def page_title(page_title)
     content_for(:page_title) { page_title }
+  end
+
+  def header(options={})
+    content_for(:header) { options ? render_header(options) : 'false' }
+  end
+
+  def page_type(name)
+    header(page_type: name); footer(page_type: name)
+  end
+
+  def footer(options={})
+    content_for(:footer) { options ? render_footer(options) : 'false' }
+  end
+
+  def render_header(options={})
+    render 'application/header', { background: 'white', color: 'black', start: '', page_type: '' }.merge(options)
+  end
+
+  def render_footer(options={})
+    render 'application/footer', { page_type: '' }.merge(options)
+  end
+
+  def yield_with_blank(name, &block)
+    content_for(name) == 'false' ? '' : content_for(name)
   end
 
   # DATE-BASED LISTS

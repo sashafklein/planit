@@ -5,4 +5,4 @@ mod.controller 'Plans.ShowCtrl', ($scope, Flash, $http, $q) ->
   $s.mapExpanded = false
 
   $s.contractOrExpandMap = ->
-    $s.mapExpanded = !$s.mapExpanded
+    $s.$root.mapExpanded = $s.mapExpanded = !$s.mapExpanded

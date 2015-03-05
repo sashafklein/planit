@@ -1,9 +1,7 @@
-- title( [@user.first_name,@user.last_name].compact.join(' ') + "’s Guides" )
+- title( "#{@user.name}'s Guides" )
+- page_type('guides')
 
 #user-guides-page
-
-  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'guides' }
-
   .band.gray.spaced-extra.padded
     - if @user.plans.present?
       - @user.plans.order('updated_at DESC').group_by{ |p| p.updated_at.strftime("%Y") }.each do |year, plans| 
@@ -22,5 +20,3 @@
 
     - else
       .dashboard-header= "No Guides Yet?"
-
-  = render 'show/footer', { :page_type => 'guides' }
