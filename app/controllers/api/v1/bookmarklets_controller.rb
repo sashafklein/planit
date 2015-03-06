@@ -6,6 +6,8 @@ class Api::V1::BookmarkletsController < ApiController
   before_filter :allow_iframe_requests, only: [:test]
 
   def script
+    return permission_denied_error unless params[:user_id]
+
     path = File.join Rails.root, 'app', 'assets', 'javascripts', 'api', 'bookmarklets', "bookmarklet.coffee"
     if File.exists? path
 
@@ -34,7 +36,7 @@ class Api::V1::BookmarkletsController < ApiController
     end
   end
 
-  def error
+  def report_error
     AdminMailer.bookmarklet_failure(params[:user_id], params[:url]).deliver_later
     head(200)
   end

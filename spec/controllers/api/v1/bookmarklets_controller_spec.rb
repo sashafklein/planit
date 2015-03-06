@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe Api::V1::BookmarkletsController do
 
-  describe "error" do
+  describe "report_error" do
     it "shoots off a (delayed) email" do
       expect( AdminMailer ).to receive(:bookmarklet_failure).twice.with('1', 'whatever.com').and_call_original
-      get :error, user_id: 1, url: 'whatever.com'
+      get :report_error, user_id: 1, url: 'whatever.com'
       expect( Delayed::Job.count ).not_to eq 0
       Delayed::Worker.new.work_off 1
       expect( ActionMailer::Base.deliveries.count ).to eq 1

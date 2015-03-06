@@ -11,4 +11,7 @@ class StaticsController < ApplicationController
   def waitlist
   end
 
+  def privacy
+  end
+
 end
