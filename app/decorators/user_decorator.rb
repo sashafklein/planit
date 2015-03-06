@@ -49,8 +49,8 @@ class UserDecorator < Draper::Decorator
   end
 
   def nav_item_list(page_type)
-    return nav_item('guides', 'my guides', 'fa fa-list', nil, nil) if (page_type == 'guides')
-    nav_item('guides', 'my guides', 'fa fa-list', user_path(model)+'/guides', nil)
+    return nav_item('guides', 'my guides', 'fa fa-book', nil, nil) if (page_type == 'guides')
+    nav_item('guides', 'my guides', 'fa fa-book', user_path(model)+'/guides', nil)
   end
 
   def nav_item_new(page_type)
@@ -72,18 +72,18 @@ class UserDecorator < Draper::Decorator
 
   def search_teaser(page_type)
     html = "<div class='search-teaser"
-    html += " full-width" unless ( page_type == 'guides' || page_type == 'places')
+    html += " full-width" unless ( page_type == 'places') # page_type == 'guides' || 
     html += "'><span id='search-teaser-field'></span><i class='fa fa-search fa-lg'></i></div>"
     html.html_safe
   end
 
   def filter_button(page_type)
-    if page_type == 'places' || page_type == 'guides'
+    if page_type == 'places' # || page_type == 'guides'
       html = ''
       html += "<div class='filter-button"
       html += " disabled" if page_type == 'guides' && current_user && current_user.plans.length == 0
       html += "'><i class='filter-or-number fa fa-sliders fa-lg' id='number_filtered'></i> <i class='fa fa-caret-down'></i></div>" if page_type == 'places' 
-      html += "'><i class='fa fa-globe fa-lg'></i> <i class='fa fa-caret-down'></i></div>" if page_type == 'guides' 
+      # html += "'><i class='fa fa-globe fa-lg'></i> <i class='fa fa-caret-down'></i></div>" if page_type == 'guides' 
       return html.html_safe
     end
   end
@@ -193,13 +193,15 @@ class UserDecorator < Draper::Decorator
         html += "            <input type='text' class='form-control share-with' id='recipient' placeholder='Email Address'>"
         html += "          </div>"
         html += "          <div class='form-group'>"
-        html += "            <label for='message-text' class='control-label'>Note:</label>"
+        html += "            <label for='message-text' class='control-label'>Personal Note:</label>"
         html += "            <textarea class='form-control' id='message-text'></textarea>"
       elsif type == 'new'
-        html += "            <input type='text' class='form-control new-pin-nearby input-with-clear' id='nearby' placeholder='Nearby Location'><span class='clear-input-button' id='clear-new-pin-nearby'><i class='fa fa-times-circle'></i></span>"
+        html += "            <label for='new-pin-nearby' class='control-label'>Near:</label>"
+        html += "            <input type='text' class='form-control new-pin-nearby input-with-clear' id='nearby' placeholder='Location'><span class='clear-input-button' id='clear-new-pin-nearby'><i class='fa fa-times-circle'></i></span>"
         html += "          </div>"
         html += "          <div class='form-group'>"
-        html += "            <input type='text' class='form-control new-pin-query' id='query' placeholder='Place Name'>"
+        html += "            <label for='new-pin-query' class='control-label'>Name:</label>"
+        html += "            <input type='text' class='form-control new-pin-query' id='query' placeholder='Place or Destination'>"
       end
       title = 'Share the Love' if type == 'share'
       title = 'Add a New Pin' if type == 'new'
@@ -272,7 +274,7 @@ class UserDecorator < Draper::Decorator
     html += "    </div>"
     html += "  </div>"
     html += "</div>"
-    html.html_safe
+    html.html_safe  
   end
 
 end

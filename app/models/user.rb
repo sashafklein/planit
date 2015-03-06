@@ -44,6 +44,10 @@ class User < BaseModel
     bucket = plans.where(bucket: true).first_or_create(name: "#{name} Bucket")
   end
 
+  def marks_to_review
+    Mark.where( place_id: nil )
+  end
+
   # USER GUIDES LOGIC
 
   def years_on_planit

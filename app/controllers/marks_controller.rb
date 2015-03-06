@@ -7,8 +7,6 @@ class MarksController < ApplicationController
   def show
     if @mark.place
       redirect_to @mark.place
-    else
-      redirect_to root_path
     end
   end
 

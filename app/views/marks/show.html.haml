@@ -1,0 +1,9 @@
+#show-marks-page
+
+  = render 'show/header', { :background => 'white', :color => 'black', :start => '', :page_type => 'place' }
+
+  .band.spaced-extra
+    = render 'marks/place_options_context', { mark: mark, inbox: false, index: 0 }
+    = render 'marks/choose_place', { :mark => @mark }
+
+  = render 'show/footer', { :page_type => 'place' }

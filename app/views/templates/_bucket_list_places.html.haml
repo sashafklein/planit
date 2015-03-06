@@ -10,9 +10,9 @@
           %i{ class: '{{place.meta-icon}}'}
           {{ place.categories.join(', ') }}
       .bucket-list-controls
-        .bucket-list-control{ class: "edit-place", id: 'tag', data: { place_ids: "{{[place.id]}}" } }
-          %span.bucket-list-control-hint= "Tag"
-          %i.fa.fa-tag
+        .bucket-list-control{ class: "edit-place", id: 'guide', data: { place_ids: "{{[place.id]}}" } }
+          %span.bucket-list-control-hint= "Add to Guide"
+          %i.fa.fa-book
         .bucket-list-control{ class: "edit-place", id: 'note', data: { place_ids: "{{[place.id]}}" } }
           %span.bucket-list-control-hint= "Add Note"
           %i.fa.fa-pencil
@@ -25,9 +25,6 @@
         .bucket-list-control{ class: "edit-place", id: 'save', data: { place_ids: "{{[place.id]}}" } }
           %span.bucket-list-control-hint= "Save"
           %i.fa.fa-bookmark
-        / .bucket-list-control{ class: "edit-place", ng_class: "{'enabled':user_tags([place.id])}", id: 'tag', data: { place_ids: "{{[place.id]}}" } }
-        /   %span.bucket-list-control-hint= "Tag"
-        /   %i.fa.fa-tag
         / .bucket-list-control{ class: "edit-place", ng_class: "{'enabled':user_notes([place.id])}", id: 'note', data: { place_ids: "{{[place.id]}}" } }
         /   %span.bucket-list-control-hint= "Add Note"
         /   %i.fa.fa-pencil

@@ -30,6 +30,10 @@
   right: 0px
   z-index: 10000
 
+.place-option-map-canvas
+  margin: 10px 0
+  background: #ccc
+
 // INFOBOXES > MULTI-ITEM
 
 #in-view-list
@@ -382,7 +386,7 @@ path.leaflet-clickable
 .default-map-icon-tab
   display: inline-block
   text-align: center
-  -webkit-font-smoothing: antialiased
+  
   font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
   font-size: 15px
   font-weight: bold
@@ -533,6 +537,10 @@ path.leaflet-clickable
 
 // *Computer (Regular)
 
+.place-option-map-canvas
+  width: 340px
+  height: 340px
+
 .empty-map-box.world-view
   height: 387px
 
@@ -545,6 +553,10 @@ path.leaflet-clickable
 
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
+
+  .place-option-map-canvas
+    width: 268px
+    height: 268px
 
   .bucket-map-canvas
     top: 68px
@@ -564,6 +576,11 @@ path.leaflet-clickable
 
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
+
+  .place-option-map-canvas
+    margin-left: 5px
+    width: 295px
+    height: 295px
 
   .bucket-map-canvas
     top: 55px
@@ -586,6 +603,11 @@ path.leaflet-clickable
 
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
+
+  .place-option-map-canvas
+    margin-left: 5px
+    width: 415px
+    height: 300px
 
   .bucket-map-canvas
     top: 55px

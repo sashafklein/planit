@@ -25,9 +25,9 @@ class PlaceDecorator < Draper::Decorator
   def show_place_controls
     html = """
     <div class='place-controls'>
-      <div class='place-control edit-place' id='tag' data-place-ids='#{[place.id]}'>
-        <span class='place-control-hint'>Tag</span>
-        <i class='fa fa-tag'></i>
+      <div class='place-control edit-place' id='guide' data-place-ids='#{[place.id]}'>
+        <span class='place-control-hint'>Add to Guide</span>
+        <i class='fa fa-book'></i>
       </div>   
       <div class='place-control edit-place' id='note' data-place-ids='#{[place.id]}'>
         <span class='place-control-hint'>Add Note</span>

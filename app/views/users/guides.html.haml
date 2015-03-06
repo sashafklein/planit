@@ -2,8 +2,9 @@
 - page_type('guides')
 
 #user-guides-page
-  .band.gray.spaced-extra.padded
-    - if @user.plans.present?
+
+  - if @user.plans.present?
+    .band.gray.spaced-extra.padded
       - @user.plans.order('updated_at DESC').group_by{ |p| p.updated_at.strftime("%Y") }.each do |year, plans| 
         .container
           .column.alpha.tab-section-header{ class: "collapses", id: "contains_#{year}" }
@@ -15,8 +16,11 @@
             = ")"
             %i.fa.fa-caret-down.tab-section-is-hidden{ class: "contains_#{year} #{'collapsed' if year != current_year }" }
         .container.centered{ class: "contains_#{year} #{'collapsed' if year != current_year }" }
+          - if year == current_year
+            = render partial: 'plans/guide_tab', locals: { plan: nil }
           - plans.each do |plan|
             = render partial: 'plans/guide_tab', locals: { plan: plan }
 
-    - else
-      .dashboard-header= "No Guides Yet?"
+  - else
+    .band.gray.spaced.padded
+      .static-page= render 'show/add_to_guide'

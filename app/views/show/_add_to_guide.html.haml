@@ -1,0 +1,67 @@
+.band.gray.spaced-extra.main-content
+  .container
+    .sixteen.columns.left-section
+      .section-header= "Your Guides"
+      .static-section-content
+        %p
+          %i{ class: 'fa fa-list padded-icon' }
+          Guides can be Simple Wanderlists - or Complex Trip Itineraries
+        %p 
+          %i{ class: 'fa fa-book padded-icon' }
+          Start or Add To a Guide by Clicking on your 'Guidebook' (
+          %i.fa.fa-book.neon
+          )
+        %p
+          %i{ class: 'fa fa-paper-plane padded-icon' }
+          Share with your Friends and Family by clicking on 'Share This' (
+          %i.fa.fa-paper-plane-o.neon
+          )
+        %p.disabled
+          %i{ class: 'fa fa-group padded-icon' }
+          Add Collaborators to your Guides
+          %span.coming-soon= "COMING SOON"
+        %p.disabled
+          %i{ class: 'fa fa-calendar padded-icon' }
+          When You're Ready, Start Booking places to Eat, Stay, and See
+          %span.coming-soon= "COMING SOON"
+      - if current_user && current_user.member?
+        %a{ href: '#planit-modal-guide', data: { toggle: 'modal', target: '#planit-modal-guide', backdrop: 'static', keyboard: 'false' } }
+          %span.learn-more.planit-button.neon
+            Start a Guide Now
+            .i.fa.fa-book
+
+.band.off-white.spaced-extra.main-content
+  .container
+    .sixteen.columns.right-section
+      .section-header= "Whenever you Save Places, Easily Add them to a Guide"
+      .static-section-content
+        %p
+          Just Click (
+          %i.fa.fa-book.neon
+          %strong.neon= '+'
+          ) and Link Any Place to your Guides
+          %i{ class: 'fa fa-plus-circle padded-icon' }
+      .static-float-image.hug-tight-bottom
+
+
+.band.gray.spaced-extra.main-content
+  .container
+    .sixteen.columns.left-section
+      .section-header.disabled= "Easily Convert Guides to Travel Itineraries"
+      .static-section-content
+        %p.disabled
+          %i{ class: 'fa fa-envelope padded-icon' }
+          Forward Email Confirmations to Automatically Import Confirmation Codes, Dates and Times for Reserved Events
+          %span.coming-soon= "COMING SOON"
+        %p.disabled
+          %i{ class: 'fa fa-clock-o padded-icon' }
+          If you like, Manually Set Dates and Times for each Place you want to Visit
+          %span.coming-soon= "COMING SOON"
+        %p.disabled
+          %i{ class: 'fa fa-calendar padded-icon' }
+          Make Bookings and Reservations from Planit
+          %span.coming-soon= "COMING SOON"
+        %p.disabled
+          %i{ class: 'fa fa-wifi padded-icon' }
+          Carry your Plans with you Offline in Airplane-Mode
+          %span.coming-soon= "COMING SOON"
