@@ -5,8 +5,8 @@
 
   .band.spaced-extra
 
-    .band.inbox-folder.lighter
-      .container.collapses#recommendations
+    .band.inbox-folder.collapses#recommendations.lighter
+      .container
         .sixteen.columns.alpha
           %i.fa{ class: "#{'fa-caret-right' if true} #{'transparent' if true}"}
           %span.bubbled
@@ -16,8 +16,8 @@
             .display-hidden= "Show Hidden Items"
     .recommendations
 
-    .band.inbox-folder
-      .container.collapses#subscriptions
+    .band.inbox-folder.collapses#subscriptions
+      .container
         .sixteen.columns.alpha
           %i.fa{ class: "#{'fa-caret-right' if true} #{'transparent' if true}"}
           %span.bubbled
@@ -27,8 +27,8 @@
             .display-hidden= "Show Hidden Items"
     .subscriptions
 
-    .band.inbox-folder.lighter
-      .container.collapses#marks-to-review
+    .band.inbox-folder.collapses#marks-to-review.lighter
+      .container
         .sixteen.columns.alpha
           %i.fa.fa-caret-down{ class: "#{'transparent' if @user.marks_to_review.count == 0}"}
           %span.bubbled
