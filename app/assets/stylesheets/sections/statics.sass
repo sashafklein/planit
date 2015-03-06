@@ -12,6 +12,10 @@
         margin-right: 40px
       .learn-more
         float: left
+        i
+          padding-right: 5px
+      .static-float-image
+        float: left
     .left-section
       text-align: left
       .static-section-content
@@ -22,18 +26,10 @@
         margin-left: -40px
       .learn-more
         float: right
-
-    .static-section-header
-      font-family: "Helvetica Neue", 'trebuchet ms'
-      font-size: 27px
-      line-height: 27px
-      font-weight: bold
-      text-shadow: 1px 1px 1px #fff
-      margin: 30px 0
-      &.large
-        font-size: 32px
-        line-height: 32px
-        color: #050b28
+        i
+          padding-left: 5px
+      .static-float-image
+        float: right
 
     .static-section-whitebox
       background: rgba(255,255,255,0.8)
@@ -92,6 +88,12 @@
       margin-top: 10px
       color: #fff !important
 
+    .static-float-image
+      transition: 0.2s ease all
+      opacity: 0.8
+      &:hover
+        opacity: 1
+
 // TAB SIZING 
 
 // *Computer (Regular)
@@ -102,7 +104,7 @@
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
 
-  .static-section-header
+  .section-header
     margin: 15px 0
 
   .static-section-content
@@ -118,7 +120,7 @@
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
 
-  .static-section-header
+  .section-header
     margin: 15px 0
 
   .static-section-content

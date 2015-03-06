@@ -2,20 +2,44 @@
 - page_type('inbox')
 
 #user-inbox-page
-  .band.gray.spaced
-    .container
 
-      .sixteen.columns
-        .dashboard-header= "Future Home of the Planit Inbox"
+  .band.spaced-extra
 
-        %h4
-          %p
-            Personal Reco's
-          %p
-            Subscriptions (Professional Reco's)
-          %p
-            Saved Items
-          %p
-            (Trending)
+    .band.inbox-folder.collapses#recommendations.lighter
+      .container
+        .sixteen.columns.alpha
+          %i.fa{ class: "#{'fa-caret-right' if true} #{'transparent' if true}"}
+          %span.bubbled
+            .inbox-folder-count.numbered-box{ class: "#{'gray' if true}" }= 0
+            = "Personal Recommendations"
+          - if false
+            .display-hidden= "Show Hidden Items"
+    .recommendations
 
-= render 'templates/bucket_map'
+    .band.inbox-folder.collapses#subscriptions
+      .container
+        .sixteen.columns.alpha
+          %i.fa{ class: "#{'fa-caret-right' if true} #{'transparent' if true}"}
+          %span.bubbled
+            .inbox-folder-count.numbered-box{ class: "#{'gray' if true}" }= 0
+            = "Subscriptions"
+          - if false
+            .display-hidden= "Show Hidden Items"
+    .subscriptions
+
+    .band.inbox-folder.collapses#marks-to-review.lighter
+      .container
+        .sixteen.columns.alpha
+          %i.fa.fa-caret-down{ class: "#{'transparent' if @user.marks_to_review.count == 0}"}
+          %span.bubbled
+            .inbox-folder-count.numbered-box{ class: "#{'gray' if @user.marks_to_review.count == 0}" }= @user.marks_to_review.count
+            = "In-Progress Saves"
+          - if @user.marks_to_review.count != 0
+            .display-hidden= "Show Hidden Items"
+    .marks-to-review
+      - @user.marks_to_review.each_with_index do |mark, index|
+        .band{ class: "#{'darker' if index.even?}" }
+          .inbox-message-header.collapses{ id: "mark_message_#{mark.id}_#{index}" }
+            = render 'marks/place_options_context', { mark: mark, inbox: true, index: index }
+          .inbox-message-body.collapsed{ class: "mark_message_#{mark.id}_#{index}" }
+            = render 'marks/choose_place', { mark: mark }

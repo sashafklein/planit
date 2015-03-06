@@ -1,18 +1,23 @@
 .initial-header{ class: "#{start} #{background} #{page_type}" }
   - if page_type == 'simple'
-    .simple-header-top
-      = image_tag "its_your_#{color}.png", style: "width: 117px; height: 50px;"
-      = image_tag "logo_only_#{color}.png", style: "width: 42px; height: 50px;"
-      = image_tag "logo_name_only_#{color}.png", style: "width: 86px; height: 50px;"
-      = image_tag "ellipsis_#{color}.png", style: "width: 20px; height: 50px;"
+    .simple-header-top.large-screen
+      = image_tag "its_your_black.png", alt: "IT'S YOUR", class: "logo-itsyour-top large-screen"
+      = image_tag "logo_only_black.png", alt: "o", class: "logo-image-top large-screen"
+      = image_tag "logo_name_only_black.png", alt: "PLANIT", class: "logo-name-top large-screen"
+      = image_tag "ellipsis_black.png", alt: "...", class: "logo-ellipsis-top large-screen"
+    .simple-header-top.mobile
+      = image_tag "its_your_white.png", alt: "IT'S YOUR", class: "logo-itsyour-top mobile"
+      = image_tag "logo_only_white.png", alt: "o", class: "logo-image-top mobile"
+      = image_tag "logo_name_only_white.png", alt: "PLANIT", class: "logo-name-top mobile"
+      = image_tag "ellipsis_white.png", alt: "...", class: "logo-ellipsis-top mobile"
   - else  
     .container.none{ class: "#{'pseudo' if page_type == 'places'}"}
       .header-container
         .logo-container
-          = image_tag "logo_only_#{color}.png", alt: '', class: "logo-image-top large-screen"
+          = image_tag "logo_only_black.png", alt: '', class: "logo-image-top large-screen"
           = image_tag "logo_only_white.png", alt: '', class: "logo-image-top mobile"
           = image_tag "logo_my_only.png", alt: 'MY', class: "logo-my-top large-screen #{page_type}" if current_user_owns_record
-          = image_tag "logo_name_only_#{color}.png", alt: 'PLANIT', class: "logo-name-top #{page_type}"
+          = image_tag "logo_name_only_#{color}.png", alt: 'PLANIT', class: "logo-name-top main-page #{page_type}"
           = current_user.decorate.page_type_title(page_type) if current_user_owns_record
 
         - if current_user_is_active

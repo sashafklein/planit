@@ -1,0 +1,40 @@
+.container.options-box
+  .ten.columns
+    .see-options.section-header= "See the Place you Wanted to Save?"
+    %ul.options-list
+      - mark.place_options.each_with_index do |place_option, option_index|
+        %li
+          .place-option-wrap
+            .place-option-index.numbered-box= option_index + 1
+            - if false # place_option.image
+              .place-option-img{ style: "background-image: url('');" } 
+              / #{place_option.image}
+            - else
+              .place-option-no-img
+            .place-option-profile
+              .place-option-title
+                - place_option.names.each do |name|
+                  %p= name
+              - if place_option.categories.present?
+                .place-option-category
+                  %i.place-page-meta-category{ class: place_option.meta_icon }
+                  = place_option.categories.join(", ")
+              .place-option-control.planit-button.neon
+                %i.fa.fa-bookmark.pad-right
+                = 'This One'
+            .place-option-address
+              %p= place_option.street_address
+              %p= [place_option.locality, place_option.region, place_option.postal_code].join(", ")
+              %p= place_option.country
+
+  .six.columns
+    .map-and-feedback
+      .options-map
+        / %place_options_map
+        .place-option-map-canvas{ mark_id: mark.id }
+      .not-here-box
+        %h2= "Not here?"
+        %h3= "Sorry about that!  Help us improve by reporting places or destinations that we can't find for you automatically:"
+        .planit-button.neon
+          Report
+          %i.fa.fa-exclamation-triangle.pad-left

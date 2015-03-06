@@ -5,7 +5,7 @@ angular.module('Common').factory 'UserFlow', () ->
     @_setCollapsibles: () ->
       $('.collapses').click( -> 
         $(".#{this.id}").toggleClass('collapsed')
-        this.toggleClass('collapsed')
+        $(this).toggleClass('collapsed-on')
       )
 
     # INITIALIZE

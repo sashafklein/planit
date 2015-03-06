@@ -9,9 +9,9 @@
           %span.bucket-list-cluster-size {{ cluster.count }}
           {{ pinsDetails(cluster.places) }}
       .bucket-list-controls
-        .bucket-list-control{ class: 'edit-places', id: 'tag', :data => {:place_ids => "{{cluster_places_ids()}}" } }
-          %span.bucket-list-control-hint= "Tag All"
-          %i.fa.fa-tags
+        .bucket-list-control{ class: 'edit-places', id: 'guide', :data => {:place_ids => "{{cluster_places_ids()}}" } }
+          %span.bucket-list-control-hint= "Add All to Guide"
+          %i.fa.fa-book
         .bucket-list-control.disabled
           %i.fa.fa-pencil
         .bucket-list-control.disabled

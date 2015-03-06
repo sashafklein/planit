@@ -7,6 +7,25 @@ html, body
 
 // COMMON VISUALS
 
+.container.divider
+  border-top: 1px solid #777
+  margin: 0
+  padding: 0
+
+.section-header
+  font-family: "Helvetica Neue", 'trebuchet ms'
+  font-size: 27px
+  line-height: 27px
+  font-weight: bold
+  text-shadow: 1px 1px 1px #fff
+  margin: 30px 0
+  &.large
+    font-size: 32px
+    line-height: 32px
+    color: #050b28
+  &.disabled
+    color: #777
+
 .numbered-box
   transition: 0.2 ease all
   background: #f06
@@ -17,16 +36,94 @@ html, body
   font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
   font-weight: bold
   color: #fff
+  text-align: center
   &:hover, .highlighted
     background: #333
     border-bottom: #000 solid 1px
+  &.gray
+    background: #ccc
+    border-bottom: #aaa solid 1px
 
-strong.neon
-  color: #f06
+i.pad-left
+  padding-left: 5px
+i.pad-right
+  padding-right: 5px
+
+strong, .in-caps-header, i
+  &.neon
+    color: #f06
+
+.planit-button, a.planit-button, a .planit-button
+  display: inline-block
+  transition: 0.2s all ease
+  padding: 8px 10px 10px 10px
+  -webkit-border-radius: 4px
+  -moz-border-radius: 4px
+  -o-border-radius: 4px
+  border-radius: 4px
+  font-family: arial, 'trebuchet ms', avenir, arial
+  font-size: 14px
+  line-height: 14px
+  font-weight: bold
+  text-decoration: none
+  box-sizing: border-box
+  ms-box-sizing: border-box
+  webkit-box-sizing: border-box
+  moz-box-sizing: border-box
+  cursor: pointer
+  &.neon
+    color: #fff
+    text-shadow: 1px 1px 1px #b28
+    background: #f06
+    border: 1px solid #c03
+    box-shadow: rgb(228, 40, 78) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
+    &:hover, &:active
+      text-shadow: 1px 1px 1px #c39
+      background: rgb(238, 50, 88)
+      box-shadow: rgb(218, 30, 68) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
+  // &.blue
+  //   color: #fff
+  //   text-shadow: 1px 1px 1px #b28
+  //   background: #0b1756
+  //   border: 1px solid #050b28
+  //   box-shadow: #08113f 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
+  //   &:hover, &:active
+  //     text-shadow: 1px 1px 1px #c39
+  //     background: rgb(238, 50, 88)
+  //     box-shadow: rgb(218, 30, 68) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
+  &.gray, &.disabled
+    color: #444 !important
+    text-shadow: 1px 1px 1px #ccc !important
+    background: #ccc !important
+    border: 1px solid #afafaf !important
+    box-shadow: #c3c3c3 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px !important
+  &.disabled:hover, &.disabled:active
+    cursor: default
+  &.gray:hover, &.gray:active
+    color: #333 !important
+    background: #bbb !important
+    box-shadow: #b3b3b3 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px !important
+
+.in-caps-header
+  padding: 10px 15px 5px 15px
+  margin: 10px 0 30px 0
+  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  font-size: 22px
+  line-height: 25px
+  font-weight: bold
+  color: #000
+  text-shadow: 0px 1px 1px #fff
+  text-align: center
+  text-transform: uppercase
+  .response
+    display: inline-block
+    font-weight: normal
+    color: #f06
+    font-style: italic
 
 // ?
 
-.container.collapsed
+.collapsed
   transition: 0.3s ease all
   -webkit-transition-duration: 0.3s
   height: 0px
@@ -199,8 +296,6 @@ a.feedback-button, a.feedback-button:hover
     width: 100%
     padding: 6px 12px
     position: relative
-  .new-pin-nearby
-    margin-top: 10px
   .form-group
     position: relative !important
   .modal-mini
@@ -307,6 +402,10 @@ hr.divider
   margin: 0 auto
 
 .band
+  &.darker
+    background: rgba(0,0,0,0.05)
+  &.lighter
+    background: rgba(255,255,255,0.15)
   &.gray
     background: #dfdfdf
     &.bordered
@@ -426,54 +525,6 @@ hr.divider
     padding: 3px 5px !important
     opacity: 1 !important
 
-.planit-button
-  display: inline-block
-  transition: 0.2s all ease
-  padding: 8px 10px 10px 10px
-  border-bottom: 1px solid #700
-  -webkit-border-radius: 4px
-  -moz-border-radius: 4px
-  -o-border-radius: 4px
-  border-radius: 4px
-  font-family: arial, 'trebuchet ms', avenir, arial
-  font-size: 14px
-  line-height: 14px
-  font-weight: bold
-  box-sizing: border-box
-  ms-box-sizing: border-box
-  webkit-box-sizing: border-box
-  moz-box-sizing: border-box
-  &.neon
-    color: #fff
-    text-shadow: 1px 1px 1px #b28
-    background: #f06
-    border: 1px solid #c03
-    box-shadow: rgb(228, 40, 78) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
-    &:hover, &:active
-      text-shadow: 1px 1px 1px #c39
-      background: rgb(238, 50, 88)
-      box-shadow: rgb(218, 30, 68) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
-  // &.blue
-  //   color: #fff
-  //   text-shadow: 1px 1px 1px #b28
-  //   background: #0b1756
-  //   border: 1px solid #050b28
-  //   box-shadow: #08113f 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
-  //   &:hover, &:active
-  //     text-shadow: 1px 1px 1px #c39
-  //     background: rgb(238, 50, 88)
-  //     box-shadow: rgb(218, 30, 68) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
-  &.gray, &.disabled
-    color: #444
-    text-shadow: 1px 1px 1px #ccc
-    background: #ccc
-    border: 1px solid #afafaf
-    box-shadow: #c3c3c3 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
-    &:hover, &:active
-      color: #333
-      background: #bbb
-      box-shadow: #b3b3b3 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
-
 .hidden_button_name
   display: none
   visibility: hidden
@@ -485,8 +536,12 @@ hr.divider
 .band
   &.spaced
     padding: 25px 0
+    .hug-tight-bottom
+      margin-bottom: -25px
   &.spaced-extra
     padding: 45px 0
+    .hug-tight-bottom
+      margin-bottom: -45px
 
 .planit-modal
   .modal-dialog
@@ -524,10 +579,6 @@ hr.divider
   .large-screen
     visibility: visible
     display: inherit
-
-  .largest-screen
-    visibility: hidden
-    display: none
 
   .large-screen-inline
     visibility: visible
