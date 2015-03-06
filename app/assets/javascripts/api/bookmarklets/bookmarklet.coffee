@@ -118,7 +118,7 @@ planit =
 
   _testPath: -> "HOSTNAME/api/v1/bookmarklets/test?user_id=USER_ID&url=#{ window.location.href }"
 
-  _errorPath: -> "HOSTNAME/api/v1/bookmarklets/error?user_id=USER_ID&url=#{ window.location.href }"
+  _errorPath: -> "HOSTNAME/api/v1/bookmarklets/report_error?user_id=USER_ID&url=#{ window.location.href }"
 
   _submitData: ->
     html = document.documentElement.innerHTML

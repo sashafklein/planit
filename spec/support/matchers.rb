@@ -36,6 +36,16 @@ RSpec::Matchers.define :float_eq do |expected, points_agreement = 3|
   end
 end
 
+RSpec::Matchers.define :render_or_redirect do |action, context|
+  match do |actual| 
+    actual.status >= 200 && actual.status <= 308
+  end
+
+  failure_message do |actual|
+    "Action threw an error: #{action} - Context: #{context}"
+  end
+end
+
 def recursive_delete_differences(diff, actual, expected)
   differences = diff.dup
   differences.each do |key, value|

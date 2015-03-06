@@ -5,10 +5,10 @@ require 'spec_helper'
 require "shoulda/matchers"
 require "webmock/rspec"
 require 'vcr'
+require 'factory_girl'
+require 'formulaic'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
-
-ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -19,6 +19,7 @@ RSpec.configure do |config|
   end
 
   config.include Features, type: :feature
+  config.include Features, type: :request
   config.include Controllers, type: :controller
   config.include Mock
   config.include Formulaic::Dsl, type: :feature

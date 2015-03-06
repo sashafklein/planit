@@ -40,7 +40,7 @@ Rails.application.routes.draw do
       resources :bookmarklets, only: [] do
         match '/script' => 'bookmarklets#script', on: :collection, via: [:options, :get]
         match '/test' => 'bookmarklets#test', on: :collection, via: [:options, :get]
-        match '/error' => 'bookmarklets#error', on: :collection, via: [:options, :get]
+        match '/report_error' => 'bookmarklets#report_error', on: :collection, via: [:options, :get]
       end
 
       resources :users, only: [:show] do
@@ -50,21 +50,7 @@ Rails.application.routes.draw do
           match '/scrape' => 'users/marks#scrape', on: :collection, via: [:options, :post]
         end
       end
-
-      resources :plans, only: [:show] do
-        resources :places, only: [:index], controller: 'plans/places'
-      end
       
-      resources :legs, only: [] do
-        get :map, on: :member
-      end
-      
-      resources :days, only: [] do
-        get :map, on: :member
-      end
-
-      resources :items, only: [:index, :show]
-
       resources :places, only: [:show, :index]
 
     end
