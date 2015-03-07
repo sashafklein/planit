@@ -1,0 +1,9 @@
+= image_tag "logo_only_black.png", alt: 'o', class: "logo-image-top large-screen"
+= image_tag "logo_only_white.png", alt: 'o', class: "logo-image-top mobile"
+= image_tag "logo_my_only.png", alt: 'MY', class: "logo-my-top large-screen" if current_user_owns_record
+= image_tag "logo_name_only_black.png", alt: 'PLANIT', class: "logo-name-top large-screen"
+= image_tag('logo_guides_only.png', alt: 'GUIDES', class: 'logo-title-top guides largest-screen') if page_type == 'guides'
+= image_tag('logo_map_only.png', alt: 'MAP', class: 'logo-title-top map largest-screen') if page_type == 'places'
+= image_tag('logo_inbox_only.png', alt: 'INBOX', class: 'logo-title-top inbox largest-screen') if page_type == 'inbox'
+= image_tag('logo_new_only.png', alt: 'ADD NEW', class: 'logo-title-top new largest-screen') if page_type == 'new'
+

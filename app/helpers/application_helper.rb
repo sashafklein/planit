@@ -32,14 +32,30 @@ module ApplicationHelper
     content_for(name) == 'false' ? '' : content_for(name)
   end
 
+  def show_filter?(page_type)
+    [ 'places', 'guides' ].include?(page_type)
+  end
+
+  def show_search?(page_type)
+    [ 'places', 'guides', 'plans', 'inbox' ].include?(page_type)
+  end
+
+  def show_share?(page_type)
+    [ 'places', 'place', 'guides', 'plans' ].include?(page_type)
+  end
+
+  def show_back?(page_type)
+    [ 'new' ].include?(page_type)
+  end
+
   # DATE-BASED LISTS
 
   def days_since_string(date)
     "#{(date).strftime('%d %b, %Y')} #{days_ago((Date.today - date.to_date).to_i)}"
   end
 
-  def current_year
-    (Date.today).strftime('%Y')
+  def current_year(year)
+    year == (Date.today).strftime('%Y')
   end
 
   def current_user_id

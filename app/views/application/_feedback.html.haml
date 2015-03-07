@@ -10,7 +10,7 @@
       .modal-content
         = form_for(PageFeedback.new) do |f|
           .modal-header
-            %button.close{ aria_label: "Close", data_dismiss: 'modal', type: "button" }
+            %button.close{ "data-dismiss" => "modal", aria_label: "Close", type: "button" }
               %span{ aria_hidden: "true"} ×
             %h4.modal-title Share Feedback!
           .modal-body

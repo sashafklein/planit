@@ -391,13 +391,13 @@ module Completers
             expect( m.source.name ).to eq 'New York Times'
 
             p = m.place
-            expect( p.phones ).to eq ["5713431212"] # Combines identical, but differently formatted phones from Foursquare and Scraper
+            expect( p.phones ).to eq ["5713431212","5712845335"] # Combines identical, but differently formatted phones from Foursquare and Scraper
             expect( p.lat ).to float_eq 4.596761
             expect( p.lon ).to float_eq -74.073145
             expect( p.sublocality ).to eq 'La Candelaria'
             expect( p.hours ).to be_present
             expect( p.website ).to eq "http://www.banrepcultural.org/museo-botero"
-            expect( p.names ).to eq ["Botero Museum", "Museo Botero", "Donación Botero"]
+            expect( p.names ).to eq ["Botero Museum", "Café La Manzana (great Coffee Shop) Inside BOTERO Museum", "Donación Botero"]
           end
 
           it "correctly locates Biblioteca Luis Ángel Arango" do
@@ -413,6 +413,7 @@ module Completers
 
           it "correctly locates Bite Into Maine" do
             m = completed_data(filename: 'maine', scrape_url: "kml", name: "Bite into Maine")
+
             expect( m.source.name ).to eq 'KML'
             expect( m.source.trimmed_url ).to eq 'KML'
             expect( m.source.full_url ).to eq 'KML'

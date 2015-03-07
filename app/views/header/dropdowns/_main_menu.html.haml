@@ -1,0 +1,41 @@
+%ul.dropdown-menu.dropdown-menu-right.user-dropdown-menu
+
+  - if current_user.member?
+    %li.user-dropdown-menu
+      %a{ :href => save_path }
+        How to Save
+        %i.user-dropdown-menu-icon.fa.fa-bolt.fa-fw
+    %li.divider
+    %li.user-dropdown-menu
+      %a{ :href => edit_user_registration_path }
+        Update Account
+        %i.user-dropdown-menu-icon.fa.fa-user.fa-fw
+    %li.user-dropdown-menu.mobile
+      %a{ :href => legal_support_path }
+        Legal  Support
+        %i.user-dropdown-menu-icon.fa.fa-question.fa-fw
+    %li.divider
+    %li.user-dropdown-menu
+      %a{ "data-method" => "delete", :href => destroy_user_session_path }
+        Log Out
+        %i.user-dropdown-menu-icon.fa.fa-times.fa-fw
+
+  - elsif current_user
+    %li.user-dropdown-menu.mobile
+      %a{ :href => legal_support_path }
+        Legal  Support
+        %i.user-dropdown-menu-icon.fa.fa-question.fa-fw
+    %li.user-dropdown-menu
+      %a{ "data-method" => "delete", :href => destroy_user_session_path }
+        Log Out
+        %i.user-dropdown-menu-icon.fa.fa-times.fa-fw
+
+  - else
+    %li.user-dropdown-menu
+      %a{ :href => new_user_session_path }
+        Log In
+        %i.user-dropdown-menu-icon.fa.fa-user.fa-fw
+    %li.user-dropdown-menu
+      %a{ :href => new_user_registration_path }
+        Sign Up
+        %i.user-dropdown-menu-icon.fa.fa-user.fa-fw

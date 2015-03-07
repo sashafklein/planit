@@ -10,7 +10,6 @@ module Completers
 
     def complete!
       return unless response = PlaceCompleter.new( decremented_attrs.delete(:place), url ).complete!
-      
       create_mark_and_associations!(
         place:         ( response.is_a?(Place) ? response : nil),
         place_options: ( response.is_a?(Array) ? response : nil)

@@ -1,18 +1,9 @@
-#user-places-page, #user-show-page, #show-plan-page, #show-place-page
-  height: 100%
-  
-// HEADER
-
-.init-header-space
-  margin: 68px 0 0 0
-
-.initial-header
+#planit-header
   position: fixed
   top: 0px
   padding: 0
-  margin: 0 auto
+  margin: 0
   width: 100%
-  display: block
   height: 68px
   opacity: 1
   visibility: visible
@@ -33,622 +24,468 @@
   &.focused
     border-top: 3px solid #f06 !important
 
-.header-title
-  display: inline-block
-  padding: 0 20px 0 20px
-  margin: 0
-  max-width: 350px
-  height: 100%
-  overflow: hidden
-  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  font-size: 14px
-  font-weight: normal
-  word-wrap: break-word
-  word-break: break-all
-  &.active
-    background: #fff
-    position: absolute
-    max-width: 100%
-
-.simple-header-top
-  display: block
-  width: 100%
-  text-align: center
-  white-space: nowrap
-  overflow: hidden
-  img
-    display: inline-block
-    margin: 7px 5px 0 5px
-
-.header-container
-  width: 100%
-  height: 65px
-  padding: 0
-  overflow: hidden
-  margin-left: auto
-  margin-right: auto
-  text-align: left
-  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  font-size: 14px
-  font-weight: bold
-  
-
-  .page-title-wrap
-    display: inline-block
-    visibility: visible
-    position: absolute
-    margin: 0 auto
-    left: 0
-    right: 0
-    text-align: center
-    &.dashboard, &.guides, &.places, &.inbox, &.plan, &.place
-      display: none
-      visibility: hidden
-
-  .expanded-search-and-filter
-    display: none
-    position: fixed
-    top: 0
-    left: 0
-    right: 0
-    height: 68px
-    z-index: 750
-    white-space: nowrap
-    overflow: none
-    text-align: center
-    button.close:hover
-      background: transparent !important
-
-    .search-bar-wrap
-      margin: 21px auto
-
-  .search-close
-    display: inline-block
-    position: absolute
-    top: 10px
-    right: 10px
-    color: #333
-    &:hover
-      color: #000
-
-  .search-and-filter-wrap
-    display: inline-block
-    visibility: visible
-    position: absolute
-    top: 23px
-    margin: 0 auto
+  .header-container
+    width: 100%
+    height: 65px
+    padding: 0
+    overflow: hidden
+    margin-left: auto
+    margin-right: auto
+    text-align: left
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
     font-size: 14px
-    line-height: 14px
-    font-weight: normal
-    color: #aaa
-    text-align: right
-    &.new, &.simple, &.howto, &.welcome
+    font-weight: bold
+    
+    .expanded-search-and-filter
       display: none
-      visibility: hidden
-    .filter-button
-      overflow: auto
-      float: left
-      padding: 2px 2px 6px 2px
+      position: fixed
+      top: 0
+      left: 0
+      right: 0
+      height: 68px
+      z-index: 750
+      white-space: nowrap
+      overflow: none
+      text-align: center
+      button.close:hover
+        background: transparent !important
+
+      .search-bar-wrap
+        margin: 21px auto
+
+    .search-close
       display: inline-block
-      cursor: pointer
-      transition: all 0.2s ease
+      position: absolute
+      top: 10px
+      right: 10px
+      color: #333
       &:hover
-        color: #f06
-      .fa-caret-down
-        color: #aaa
-        a
-          color: #aaa
-          &:hover
-            color: #aaa
-      &.on
-        color: #f06
+        color: #000
+
+    .search-and-filter-wrap
+      display: inline-block
+      visibility: visible
+      position: absolute
+      top: 23px
+      margin: 0 auto
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-size: 14px
+      line-height: 14px
+      font-weight: normal
+      color: #aaa
+      text-align: right
+      .filter-button
+        overflow: auto
+        float: left
+        padding: 2px 2px 6px 2px
+        display: inline-block
+        cursor: pointer
+        transition: all 0.2s ease
         &:hover
           color: #f06
-          .fa-caret-down
-            color: #aaa
-            a
-              color: #aaa
         .fa-caret-down
           color: #aaa
           a
             color: #aaa
-      .filtered-count
-        display: none
-        position: absolute
-        top: 42px
-        left: 0px
-        text-align: center
-        white-space: nowrap
-        padding: 5px 0 0 0
-        z-index: 950
-        span
-          text-transform: uppercase
-          font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-          font-size: 11px
-          line-height: 11px
-          font-weight: bold
-          padding: 3px 5px
-          border-radius: 3px
-          -webkit-border-radius: 3px
-          background: #fff
-          color: #f06 !important
+            &:hover
+              color: #aaa
+        &.on
+          color: #f06
+          &:hover
+            color: #f06
+            .fa-caret-down
+              color: #aaa
+              a
+                color: #aaa
+          .fa-caret-down
+            color: #aaa
+            a
+              color: #aaa
+        .filtered-count
+          display: none
+          position: absolute
+          top: 42px
+          left: 0px
+          text-align: center
+          white-space: nowrap
+          padding: 5px 0 0 0
+          z-index: 950
+          span
+            text-transform: uppercase
+            font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+            font-size: 11px
+            line-height: 11px
+            font-weight: bold
+            padding: 3px 5px
+            border-radius: 3px
+            -webkit-border-radius: 3px
+            background: #fff
+            color: #f06 !important
 
-    .search-teaser
-      padding-top: 2px
-      padding-left: 6px
-      padding-bottom: 6px
-      display: block
-      height: 20px
-      margin-left: 65px
-      border-bottom: 1px solid #ddd
-      cursor: text
-      text-align: left
-      &.full-width
-        width: 100%
-        margin-left: 0
-      #search-teaser-field
-        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-        font-size: 14px
-        line-height: 14px
-        font-weight: normal
-        color: #333
-      i
-        float: right
-        cursor: pointer
+      .search-teaser
+        padding-top: 2px
+        padding-left: 6px
+        padding-bottom: 6px
+        display: block
+        height: 20px
+        margin-left: 65px
+        border-bottom: 1px solid #ddd
+        cursor: text
+        text-align: left
+        &.full-width
+          width: 100%
+          margin-left: 0
+        #search-teaser-field
+          font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+          font-size: 14px
+          line-height: 14px
+          font-weight: normal
+          color: #333
+        i
+          float: right
+          cursor: pointer
+          transition: all 0.2s ease
+          font-size: 14px
+          padding: 2px 14px 0 0
+          background: #fafafa
+          &:hover
+            color: #f06
+
+      .filter-dropdown
         transition: all 0.2s ease
-        font-size: 14px
-        padding: 2px 14px 0 0
-        background: #fafafa
+        color: #aaa
+        position: absolute
+        left: 0
+        width: 60px
+        overflow: hidden
         &:hover
           color: #f06
 
-    .filter-dropdown
-      transition: all 0.2s ease
-      color: #aaa
-      position: absolute
-      left: 0
-      width: 60px
-      overflow: hidden
-      &:hover
-        color: #f06
-
-.filter-or-number
-  &.show-numbers
-    font-style: normal
-    font-weight: bold
-
-ul.filter-dropdown-menu, ul.tag-dropdown-menu
-  padding: 15px 0
-  text-align: left
-  font-size: 14px
-  line-height: 14px
-  li.divider
-    margin: 6px 0
-
-  li.filter-dropdown-menu, li.tag-dropdown-menu
-    white-space: nowrap
-    overflow: hidden
-    width: auto
-    transition: all 0.2s ease
-    padding: 0 20px
-    label, div
-      display: inline-block
-      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-      font-size: 14px
-      line-height: 14px
+  .filter-or-number
+    &.show-numbers
+      font-style: normal
       font-weight: bold
-      cursor: pointer
-      margin: 1px 0
-      padding: 3px 5px
+
+  ul.filter-dropdown-menu
+    padding: 15px 0
+    text-align: left
+    font-size: 14px
+    line-height: 14px
+    li.divider
+      margin: 6px 0
+
+    li.filter-dropdown-menu
       white-space: nowrap
       overflow: hidden
-      border-radius: 3px
-      background: #eee
-      color: #999 
-      &.only-this-filter
-        color: #ccc
-        text-transform: uppercase
-        font-size: 11px
-      i, span
-        float: right
-        padding: 0
-      &:hover
-        color: #fff
-        background: #f06
-        .filter-dropdown-menu-icon
-          color: #fff
-      &.clear-all-filters
-        display: none
-        background: #ccc
-        color: #fff
+      width: auto
+      transition: all 0.2s ease
+      padding: 0 20px
+      label, div
+        display: inline-block
+        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+        font-size: 14px
+        line-height: 14px
         font-weight: bold
-        transition: all 0.2s ease
-        b
+        cursor: pointer
+        margin: 1px 0
+        padding: 3px 5px
+        white-space: nowrap
+        overflow: hidden
+        border-radius: 3px
+        background: #eee
+        color: #999 
+        &.only-this-filter
+          color: #ccc
+          text-transform: uppercase
+          font-size: 11px
+        i, span
           float: right
+          padding: 0
         &:hover
           color: #fff
           background: #f06
-      &.apply-filters
-        display: block
-        visibility: visible
-        background: transparent
-        font-weight: bold
-        color: #777 !important
-        cursor: default
-        &:hover
+          .filter-dropdown-menu-icon
+            color: #fff
+        &.clear-all-filters
+          display: none
+          background: #ccc
+          color: #fff
+          font-weight: bold
+          transition: all 0.2s ease
+          b
+            float: right
+          &:hover
+            color: #fff
+            background: #f06
+        &.apply-filters
+          display: block
+          visibility: visible
+          background: transparent
+          font-weight: bold
           color: #777 !important
+          cursor: default
+          &:hover
+            color: #777 !important
 
-  .filter-dropdown-menu-icon, .tag-dropdown-menu-icon
+    .filter-dropdown-menu-icon
+      display: inline-block
+      margin-left: 10px
+      transition: all 0.2s ease
+      color: #777
+
+    .filter-dropdown-menu-checkbox, .filter-dropdown-menu-nearby
+      display: inline-block
+      margin-right: 10px
+      margin-top: 2px
+
+  .logo-container
+    visibility: visible
     display: inline-block
-    margin-left: 10px
-    transition: all 0.2s ease
-    color: #777
-
-  .filter-dropdown-menu-checkbox, .tag-dropdown-menu-checkbox, .filter-dropdown-menu-nearby
-    display: inline-block
-    margin-right: 10px
-    margin-top: 2px
-
-.page-title
-  text-align: center
-  display: block
-  margin: 0
-  font-size: 18px
-  line-height: 24px
-  font-weight: bold
-  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  text-transform: uppercase
-  cursor: default
-  white-space: nowrap
-  overflow: hidden
-  &.black
-    color: #333
-    text-shadow: #fff 1px 1px 1px
-  &.white
-    color: #eee
-    text-shadow: #fff -1px -1px 1px
-
-.logo-container
-  visibility: visible
-  display: inline-block
-  cursor: pointer
-  float: left
-  img
+    cursor: pointer
     float: left
-    margin: 7px 10px 0 0
-   
-.logo-container, .simple-header-top
+    img
+      float: left
+      margin: 7px 10px 0 0
+     
+  .logo-container, .simple-header-top
 
-  img.logo-ellipsis-top
-    width: 20px
-    height: 50px
+    img.logo-ellipsis-top
+      width: 20px
+      height: 50px
 
-  img.logo-itsyour-top
-    width: 117px
-    height: 50px
+    img.logo-itsyour-top
+      width: 117px
+      height: 50px
 
-  img.logo-image-top
-    width: 42px
-    height: 50px
+    img.logo-image-top
+      width: 42px
+      height: 50px
 
-  img.logo-name-top
-    width: 86px
-    height: 50px
+    img.logo-name-top
+      width: 86px
+      height: 50px
+      &.new
+        display: none
+        visibility: hidden
+
+    img.logo-my-top
+      width: 39px
+      height: 50px
+      margin: 7px 2px 0 0
+
+    img.logo-title-top
+      height: 50px
+      margin: 7px 0px 0 0
+      &.map
+        width: 55px
+      &.guides
+        width: 88px
+      &.new
+        width: 117px
+      &.inbox
+        width: 80px
+
+  #search-input-field, #search-input-button
+    height: 28px
+    font-family: avenir, 'trebuchet ms', open sans, arial !important
+    font-weight: normal !important
+    font-size: 14px !important
+    line-height: 28px !important
+    padding: 0px 12px !important
+    i
+      margin: auto
+      font-size: 14px !important
+      line-height: 14px !important
+      overflow: hidden !important
+      height: 14px !important
+  #clear-search-input
+    right: 45px !important
+
+  .side-menu-container
+    float: right
+    font-size: 14px
+    line-height: 23px
+    font-weight: normal
+    font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    cursor: default
+
+    .divider
+      padding: 0px 4px
+    strong
+      &:hover
+        cursor: pointer
     &.new
       display: none
       visibility: hidden
+    &.black
+      color: #000
+    &.white
+      color: #fff
 
-  img.logo-my-top
-    width: 39px
-    height: 50px
-    margin: 7px 2px 0 0
+  .top-menu-container
+    float: right
+    display: block
 
-  img.logo-title-top
-    height: 50px
-    margin: 7px 0px 0 0
-
-#search-input-field, #search-input-button
-  height: 28px
-  font-family: avenir, 'trebuchet ms', open sans, arial !important
-  font-weight: normal !important
-  font-size: 14px !important
-  line-height: 28px !important
-  padding: 0px 12px !important
-  i
-    margin: auto
-    font-size: 14px !important
-    line-height: 14px !important
-    overflow: hidden !important
-    height: 14px !important
-#clear-search-input
-  right: 45px !important
-
-.side-menu-container
-  float: right
-  font-size: 14px
-  line-height: 23px
-  font-weight: normal
-  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  cursor: default
-
-  .divider
-    padding: 0px 4px
-  strong
-    &:hover
-      cursor: pointer
-  &.new
-    display: none
-    visibility: hidden
-  &.black
-    color: #000
-  &.white
-    color: #fff
-
-.top-menu-container
-  float: right
-  display: block
-
-.main-menu-container
-  cursor: pointer
-  float: right
-  height: 36px
-  width: 36px
-  border-radius: 18px
-  webkit-border-radius: 18px
-  moz-border-radius: 18px
-  text-align: center
-  overflow: hidden
-  transition: all 0.2s ease
-  &.black
-    color: #fff
-    background: rgb(20, 35, 125) 
-    border: 2px solid #000
-    &:hover
-      background: #ff0066
-      border: 2px solid #ff0066
-  &.white
-    color: #000
-    background: #fff
-    border: 2px solid #fff
-    &:hover
-      background: rgb(213, 44, 111)
-      border: 2px solid rgb(213, 44, 111)
-  .main-menu-icon
-    height: 21px
-    width: 18px
-    font-size: 1.25em
-    position: relative
-    margin: auto
-    top: 50%
-    transform: translateY(-50%)
-
-ul.user-dropdown-menu
-  padding: 15px 0
-  margin-right: 3px
-  font-size: 15px
-  line-height: 18px
-  text-align: right
-
-li.user-dropdown-menu
-  white-space: nowrap
-  overflow: hidden
-  width: auto
-  &:hover
-    .user-dropdown-menu-icon
-      color: #f06
-
-.user-dropdown-menu-icon
-  width: 30px
-  text-align: center
-  margin-left: 10px
-  transition: all 0.2s ease
-
-.top-nav-bar
-  cursor: pointer
-  text-align: center
-  display: table
-  table-layout: fixed
-  white-space: nowrap
-  overflow: hidden
-  a.nav-item-link
-    display: table-cell
-    &.selected
-      cursor: default
-  a:visited, a:link
-    text-decoration: none
-    color: #777
-  a:hover, a:active
-    text-decoration: none
-    color: #ff0066
-
-  .nav-item
-    display: table-cell
-    padding: 0px 15px 19px 15px
-    box-sizing: border-box
-    -moz-box-sizing: border-box
-    -webkit-box-sizing: border-box
-    width: auto
-    color: #777
-    font-size: 18px
-    line-height: 18px
-    text-shadow: 1px 1px 1px #fff
-    border-bottom: 3px transparent solid
-    transition: all 0.2s ease
+  .main-menu-container
+    cursor: pointer
+    float: right
+    height: 36px
+    width: 36px
+    border-radius: 18px
+    webkit-border-radius: 18px
+    moz-border-radius: 18px
+    text-align: center
     overflow: hidden
-    max-height: 30px
-    i 
-      display: inline-block
-      width: 20px
-    &:hover, &:active
-      color: #ff0066
-      border-bottom: 3px #ff0066 solid
-      a:visited, a:link, a:hover, a:active
+    transition: all 0.2s ease
+    &.black
+      color: #fff
+      background: rgb(20, 35, 125) 
+      border: 2px solid #000
+      &:hover
+        background: #ff0066
+        border: 2px solid #ff0066
+    &.white
+      color: #000
+      background: #fff
+      border: 2px solid #fff
+      &:hover
+        background: rgb(213, 44, 111)
+        border: 2px solid rgb(213, 44, 111)
+    .main-menu-icon
+      height: 21px
+      width: 18px
+      font-size: 1.25em
+      position: relative
+      margin: auto
+      top: 50%
+      transform: translateY(-50%)
+
+  ul.user-dropdown-menu
+    padding: 15px 0
+    margin-right: 3px
+    font-size: 15px
+    line-height: 18px
+    text-align: right
+
+  li.user-dropdown-menu
+    white-space: nowrap
+    overflow: hidden
+    width: auto
+    &:hover
+      .user-dropdown-menu-icon
         color: #f06
-        text-decoration: none
-      .nav-item-hint
-        opacity: 1
+
+  .user-dropdown-menu-icon
+    width: 30px
+    text-align: center
+    margin-left: 10px
+    transition: all 0.2s ease
+
+  .top-nav-bar
+    cursor: pointer
+    text-align: center
+    display: table
+    table-layout: fixed
+    white-space: nowrap
+    overflow: hidden
+    a.nav-item-link
+      display: table-cell
+      &.selected
+        cursor: default
+    a:visited, a:link
+      text-decoration: none
+      color: #777
+    a:hover, a:active
+      text-decoration: none
+      color: #ff0066
+
+    .nav-item
+      display: table-cell
+      padding: 0px 15px 19px 15px
+      box-sizing: border-box
+      -moz-box-sizing: border-box
+      -webkit-box-sizing: border-box
+      width: auto
+      color: #777
+      font-size: 18px
+      line-height: 18px
+      text-shadow: 1px 1px 1px #fff
+      border-bottom: 3px transparent solid
+      transition: all 0.2s ease
+      overflow: hidden
+      max-height: 30px
+      i 
         display: inline-block
-        visibility: visible
-        span
-          color: #ff0066
-          background: rgba( 255,255,255,1 )
-    &.selected
-      color: #333
-      border-bottom: #aaa 3px solid 
+        width: 20px
       &:hover, &:active
-        color: #000
-        border-bottom: #000 3px solid
+        color: #ff0066
+        border-bottom: 3px #ff0066 solid
+        a:visited, a:link, a:hover, a:active
+          color: #f06
+          text-decoration: none
         .nav-item-hint
-          display: none
-          visibility: hidden
-    &.disabled
-      cursor: default
-      color: #ddd
-      border-bottom: none
-      &:hover, &:active
+          opacity: 1
+          display: inline-block
+          visibility: visible
+          span
+            color: #ff0066
+            background: rgba( 255,255,255,1 )
+      &.selected
+        color: #333
+        border-bottom: #aaa 3px solid 
+        &:hover, &:active
+          color: #000
+          border-bottom: #000 3px solid
+          .nav-item-hint
+            display: none
+            visibility: hidden
+      &.disabled
+        cursor: default
         color: #ddd
         border-bottom: none
-        .nav-item-hint
-          display: none
-          visibility: hidden
+        &:hover, &:active
+          color: #ddd
+          border-bottom: none
+          .nav-item-hint
+            display: none
+            visibility: hidden
 
-  .nav-item-hint
-    display: none
-    visibility: hidden
-    position: absolute
-    opacity: 0
-    top: 65px
-    width: 150px
-    margin-left: -84px
-    text-align: center
-    white-space: nowrap
-    padding: 5px 0 0 0
-    z-index: 950
-    span
-      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-      font-size: 11px
-      line-height: 11px
-      font-weight: bold
-      padding: 3px 5px
-      border-radius: 3px
-      -webkit-border-radius: 3px
+    .nav-item-hint
+      display: none
+      visibility: hidden
+      position: absolute
+      opacity: 0
+      top: 65px
+      width: 150px
+      margin-left: -84px
+      text-align: center
+      white-space: nowrap
+      padding: 5px 0 0 0
+      z-index: 950
+      span
+        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+        font-size: 11px
+        line-height: 11px
+        font-weight: bold
+        padding: 3px 5px
+        border-radius: 3px
+        -webkit-border-radius: 3px
 
-.page-header-band
-  position: fixed
-  top: 68px
-  height: 32px
-  padding: 0
-  margin: 0 auto
-  width: 100%
-  display: block
-  background: #1b1a33
-  border-top: #3a395a solid 1px
-  border-bottom: #0c0c1e solid 1px
-  opacity: 1
-  visibility: visible
-  z-index: 16777269
-  &.place, &.user, &.plan, &.new, &.simple, &.places
-    display: none
-    visibility: none
 
-.page-header-container
-  padding: 3px 2px
-  color: #fff
-  text-align: center
-  font-size: 14px
-  line-height: 14px
-  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  .filter-icon
-    padding: 0 3px
 
-.bubble-span
-  display: inline-block
-  -moz-border-radius: 2px
-  -webkit-border-radius: 2px
-  border-radius: 2px
-  white-space: nowrap
-  cursor: pointer
-  background: #5b5e67
-  border: 1px solid #82848e
-  border-bottom: 1px solid #393b45
-  &.small
-    margin: 3px 3px
-    padding: 0px 3px
-    font-size: 13px
-    line-height: 14px
-  &:active
-    background: #38546c
-    border: 1px solid #899fb6
-    border-bottom: 1px solid #344964  
-  &:hover
-    background: #861d45
-    border: 1px solid #ac486e
-    border-bottom: 1px solid #732650
-  &.off
-    border: 1px solid #273571
-    background: #1c295d
-    border-bottom: 1px solid #020412
-    color: #a7a5e8
-    &:hover
-      background: #cc4e64
-      border: 1px solid #ff8693
-      border-bottom: 1px solid #ae3a3d
-      color: #fff
-  &.gray
-    background: #898876
-    border: 1px solid #aeab98
-    border-bottom: 1px solid #837d67
-  &.backset
-    background: #101b2f
-    border: 1px solid #16223a
-    border-bottom: 1px solid #071224
 
-.page-header-category
-  display: inline-block
-  margin: 0px 0px
-  padding: 3px 6px 3px 3px
-  -moz-border-radius: 2px
-  -webkit-border-radius: 2px
-  border-radius: 2px
-  white-space: nowrap
-  font-size: 14px
-  line-height: 14px
-  cursor: pointer
-  background: rgba(255, 255, 255, 0) 
-  border: 1px solid rgba(255, 255, 255, 0)
-  border-bottom: 1px solid rgba(0, 0, 0, 0)
-  &.map
-    &:hover
-      background: #ff0066
-      border: 1px solid #e44557
-      border-bottom: 1px solid #840c1a
-  &.share
-    &:hover
-      background: #ff0066
-      border: 1px solid #e44557
-      border-bottom: 1px solid #840c1a
 
-.page-header-divider
-  display: inline-block
-  padding: 0px 4px
-  margin: 0px 3px
-  color: #485395
-  text-shadow: 1px 1px 4px #000
 
-// VARIABLE SIZING
 
-// *Computer (Regular)
 
-.logo-name-top
-  display: inline-block !important
-  visibility: visible !important
 
-.page-title-wrap
-  top: 20px
-  width: 350px
 
-.initial-header
+
+
+  // VARIABLE SIZING RULES
+
+  // *Computer (Regular)
+
   .search-and-filter-wrap
     left: 0
     right: 0
@@ -658,53 +495,23 @@ li.user-dropdown-menu
     width: 30%
     margin: 21px auto
 
-.side-menu-container
-  visibility: visible
-  display: inline-block
-  margin: 22px 0 0 0
-
-.main-menu-container
-  margin: 14px 0 0 15px
-
-.main-menu
-  visibility: hidden
-  display: none
-
-.user-icon
-  visibility: visible
-  display: inline-block
-
-.i.user-icon
-  position: relative
-  margin: auto
-  top: 50%
-  transform: translateY(-50%)
-
-.page-header-container
-  .shrink
+  .side-menu-container
     visibility: visible
-    display: inline
+    display: inline-block
+    margin: 22px 0 0 0
 
-.page-header-category
-  &.sort
-    &:hover
-      background: rgba(255, 255, 255, 0) 
-      border: 1px solid rgba(255, 255, 255, 0)
-      border-bottom: 1px solid rgba(0, 0, 0, 0)
-      cursor: default
+  .main-menu-container
+    margin: 14px 0 0 15px
 
-// #Tablet (Portrait)
-@media only screen and (min-width: 768px) and (max-width: 959px)
+  .i.user-icon
+    position: relative
+    margin: auto
+    top: 50%
+    transform: translateY(-50%)
 
-  .logo-name-top
-    display: inline-block !important
-    visibility: visible !important
+  // #Tablet (Portrait)
+  @media only screen and (min-width: 768px) and (max-width: 959px)
 
-  .page-title-wrap
-    top: 20px
-    width: 288px
-
-  .initial-header
     .search-and-filter-wrap
       left: 0
       right: 0
@@ -714,79 +521,51 @@ li.user-dropdown-menu
       width: 45%
       margin: 21px auto
 
-  .side-menu-container
-    visibility: visible
-    display: inline-block
+    .side-menu-container
+      visibility: visible
+      display: inline-block
 
-  .main-menu-container
-    margin: 14px 0 0 15px
+    .main-menu-container
+      margin: 14px 0 0 15px
 
-  .main-menu
-    visibility: hidden
-    display: none
+    .i.user-icon
+      position: relative
+      margin: auto
+      top: 50%
+      transform: translateY(-50%)
 
-  .user-icon
-    visibility: visible
-    display: inline-block
+    .page-header-category
+      &.sort
+        &:hover
+          background: rgba(255, 255, 255, 0) 
+          border: 1px solid rgba(255, 255, 255, 0)
+          border-bottom: 1px solid rgba(0, 0, 0, 0)
+          cursor: default
 
-  .i.user-icon
-    position: relative
-    margin: auto
-    top: 50%
-    transform: translateY(-50%)
+    .top-nav-bar
+      .nav-item
+        padding: 0px 11px 19px 11px
 
-  .page-header-container
-    .shrink
-      visibility: hidden
-      display: none
+  // #Mobile (Portrait) <-- smallest
+  @media only screen and (max-width: 767px)
 
-  .page-header-category
-    &.sort
-      &:hover
-        background: rgba(255, 255, 255, 0) 
-        border: 1px solid rgba(255, 255, 255, 0)
-        border-bottom: 1px solid rgba(0, 0, 0, 0)
-        cursor: default
-
-  .top-nav-bar
-    .nav-item
-      padding: 0px 11px 19px 11px
-
-// #Mobile (Portrait) <-- smallest
-@media only screen and (max-width: 767px)
-
-  .simple-header-top
-    img
-      margin: 2px 5px 0 5px
-
-  .logo-container
-    img
-      margin: 2px 10px 0 0
-
-  .header-container
-    height: 55px
-
-  .init-header-space
-    margin: 55px 0 0 0 !important
-
-  .initial-header
     height: 55px
     background: #000 !important
     border-top: 0px !important
+    &.focused
+      border-top: 0px !important
 
-  .logo-name-top.main-page
-    display: none !important
-    visibility: hidden !important
-  
-  .page-title-wrap
-    top: 17px
-    width: 205px
+    .simple-header-top
+      img
+        margin: 2px 5px 0 5px
 
-  .page-title.extra
-    visibility: hidden
-    display: none
+    .logo-container
+      img
+        margin: 2px 10px 0 0
 
-  .initial-header
+    .header-container
+      height: 55px
+
     .expanded-search-and-filter
       height: 55px
       .search-bar-wrap
@@ -809,84 +588,51 @@ li.user-dropdown-menu
       margin: 14px auto
       padding: 0 35px 
       width: auto
-  .initial-header.focused
-    border-top: 0px !important
 
-  #search-teaser-field
-    color: #fff !important
+    #search-teaser-field
+      color: #fff !important
 
-  .side-menu-container
-    visibility: hidden
-    display: none
-
-  .main-menu-container
-    margin: 9px 0 0 0px
-
-  .user-icon
-    visibility: hidden
-    display: none
-
-  .main-menu
-    visibility: visible
-    display: block
-
-  .filter-content
-    visibility: hidden
-    display: none    
-
-  .page-header-container
-    .shrink
+    .side-menu-container
       visibility: hidden
       display: none
 
-  .page-header-category
-    &.sort
-      &:hover
-        background: #ff0066
-        border: 1px solid #e44557
-        border-bottom: 1px solid #840c1a
-        cursor: pointer
+    .main-menu-container
+      margin: 9px 0 0 0px
 
-  .page-title
-    &.black
-      color: #ccc
-      text-shadow: none
+    .page-header-category
+      &.sort
+        &:hover
+          background: #ff0066
+          border: 1px solid #e44557
+          border-bottom: 1px solid #840c1a
+          cursor: pointer
 
-  .search-teaser
-    padding-left: 2px !important
-    i
-      padding: 2px 2px 0 0 !important
-      background: #000 !important
+    .search-teaser
+      padding-left: 2px !important
+      i
+        padding: 2px 2px 0 0 !important
+        background: #000 !important
 
-// #Mobile (Landscape)
-@media only screen and (min-width: 480px) and (max-width: 767px)
+  // #Mobile (Landscape)
+  @media only screen and (min-width: 480px) and (max-width: 767px)
 
-  .simple-header-top
-    img
-      margin: 2px 5px 0 5px
-
-  .logo-container
-    img
-      margin: 2px 10px 0 0
-
-  .logo-name-top.main-page
-    display: none !important
-    visibility: hidden !important
-  
-  .page-title-wrap
-    top: 17px
-    width: 302px
-
-  .header-container
-    height: 55px
-
-  .init-header-space
-    margin: 55px 0 0 0 !important
-
-  .initial-header
     height: 55px
     background: #000 !important
     border-top: 0px !important
+    &.focused
+      border-top: 0px !important
+
+    .simple-header-top
+      img
+        margin: 2px 5px 0 5px
+
+    .logo-container
+      img
+        margin: 2px 10px 0 0
+
+    .header-container
+      height: 55px
+
     .expanded-search-and-filter
       height: 55px
       .search-bar-wrap
@@ -909,51 +655,28 @@ li.user-dropdown-menu
       padding: 0 35px 
       margin: 14px auto
       width: auto
-  .initial-header.focused
-    border-top: 0px !important
 
-  #search-teaser-field
-    color: #fff !important
+    #search-teaser-field
+      color: #fff !important
 
-  .side-menu-container
-    visibility: hidden
-    display: none
-  
-  .main-menu-container
-    margin: 7px 0 0 0px
-
-  .user-icon
-    visibility: hidden
-    display: none
-
-  .main-menu
-    visibility: visible
-    display: block
-
-  .filter-content
-    visibility: hidden
-    display: none
-
-  .page-header-container
-    .shrink
+    .side-menu-container
       visibility: hidden
       display: none
+    
+    .main-menu-container
+      margin: 7px 0 0 0px
 
-  .page-header-category
-    &.sort
-      &:hover
-        background: #ff0066
-        border: 1px solid #e44557
-        border-bottom: 1px solid #840c1a
-        cursor: pointer
+    .search-teaser
+      padding-left: 2px !important
+      i
+        padding: 2px 2px 0 0 !important
+        background: #000 !important
 
-  .page-title
-    &.black
-      color: #ccc
-      text-shadow: none
-
-  .search-teaser
-    padding-left: 2px !important
-    i
-      padding: 2px 2px 0 0 !important
-      background: #000 !important
+#header-spacing
+  padding: 68px 0 0 0
+  @media only screen and (min-width: 768px) and (max-width: 959px)
+    padding: 68px 0 0 0
+  @media only screen and (max-width: 767px)
+    padding: 55px 0 0 0
+  @media only screen and (min-width: 480px) and (max-width: 767px)
+    padding: 55px 0 0 0

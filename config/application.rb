@@ -62,9 +62,9 @@ module Planit
     require 'draper'
     Draper::Railtie.initializers.delete_if {|initializer| initializer.name == 'draper.setup_active_model_serializers' }
 
-    config.assets.configure do |env|
-      env.cache = ThreadSafe::Cache.new
-    end
+    # config.assets.configure do |env|
+    #   env.cache = ThreadSafe::Cache.new
+    # end
 
     config.active_job.queue_adapter = :delayed_job
 
