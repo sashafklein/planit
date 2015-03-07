@@ -1,25 +1,31 @@
+- if item.present?
 
-.column
-  .any-tab-wrapper.mark-tab
-    .content-tab.mark-tab
-      .tab-operations.mark-tab
+  .any-tab-wrapper
+    .content-tab
+      .tab-operations
+        .tab-operations-button
+          .i.fa.fa-book
         .tab-operations-button
           .i.fa.fa-pencil
-        .tab-operations-button
-          .i.fa.fa-calendar
         .tab-operations-button
           .i.fa.fa-heart
         .tab-operations-button
           .i.fa.fa-check-circle
         .tab-operations-button
-          .i.fa.fa-times-circle
-        .tab-operations-button
           .i.fa.fa-trash
       - image = item.image
       - if image && image.url.present?
-        = link_to image_tag(image.url), place_path(item.mark.place_id), :class => 'content-tab-img mark-tab'
+        = link_to image_tag(image.url), place_path(item.mark.place_id), class: 'content-tab-img'
       - else
         = link_to place_path(item.mark.place_id) do
-          .content-tab-img.mark-tab.add-new
-            %i.add-photo-camera.fa.fa-camera-retro.fa-2x
-      = link_to item.name, place_path(item.mark.place), class: "content-tab-title mark-tab a-override a-black h-black u-none"
+          .content-tab-img.add-photo
+            %i.add-photo-camera.fa.fa-camera-retro
+      = link_to item.name, place_path(item.mark.place), class: "content-tab-title a-override a-black h-black u-none"
+
+- else
+
+  .any-tab-wrapper
+    .content-tab.add-new
+      .content-tab-img.add-new
+        %i.add-photo-camera.fa.fa-globe.fa-2x
+      .content-tab-title= "Add New"

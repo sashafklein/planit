@@ -1,5 +1,5 @@
+- title( @plan.name )
 - page_type('plan')
-
 
 #show-plan-page{ ng_controller: 'Plans.ShowCtrl' }
 
@@ -28,8 +28,8 @@
               .day-wingtip
             .thirteen.columns.day-tab-wrap
               - day.items.sort {|a,b| a[:order] <=> b[:order]}.each_with_index do |item, item_index|
-                = render partial: 'items/item_tab', locals: { item: item, row_index: item_index, item_index: item_index }
-              = render partial: 'items/add_item_tab'
+                .column= render 'items/item_tab', { item: item }
+              .column= render 'items/item_tab', { item: nil }
 
     .band.gray.spaced
       .container
@@ -41,5 +41,5 @@
           .day-wingtip
         .thirteen.columns.day-tab-wrap
           - @plan.bucket.each_with_index do |item, item_index|
-            = render partial: 'items/item_tab', locals: { item: item, item_index: item_index }
-          = render partial: 'items/add_item_tab'
+            .column= render 'items/item_tab', { item: item }
+          .column= render 'items/item_tab', { item: nil }

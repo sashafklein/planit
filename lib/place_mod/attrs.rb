@@ -23,7 +23,7 @@ module PlaceMod
     end
 
     def set_photos
-      photo_array = Array( attrs.delete(:images) ).flatten.compact
+      photo_array = Array( attrs.delete(:images) ).flatten.compact.reject{ |i| i.url.nil? || i.source.nil? }
       photo_array.map{ |a| Image.new({ url: a[:url], source_url: a[:source], source: a[:credit] }) }
     end
 

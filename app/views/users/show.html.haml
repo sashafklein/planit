@@ -1,5 +1,6 @@
 - title( @user.name )
 - page_type('dashboard')
+
 #user-show-page
 
   .band.gray.spaced.large-screen
@@ -11,7 +12,7 @@
         .world-view-map-wrap
           .empty-map-box.world-view
             / %worldview_map.world-view-canvas{ user_id: @user.id, current_user_id: current_user_id, type: 'worldview' }
-          .tab-caption= @user.decorate.show_travel_stats_as_caption
+          .tab-caption= @user.decorate.travel_stats_string
 
       .one-third.column
         .in-caps-header= "Profile & Info"

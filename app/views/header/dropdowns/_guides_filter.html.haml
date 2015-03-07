@@ -1,0 +1,16 @@
+%a.dropdown-toggle.filter-dropdown{ "data-toggle" => "dropdown", :href => "#" }
+  .filter-button{ class: "#{'disabled' if user.plans.count == 0 }" }
+    %i.fa.fa-globe.fa-lg
+    %i.fa.fa-caret-down 
+%ul.dropdown-menu.dropdown-menu-left.filter-dropdown-menu
+  %li.filter-dropdown-menu
+    .apply-filters Narrow By Geography:
+    .clear-all-filters
+      See All Geographies
+      %b ×
+  %li.divider.nearby-user-location
+  %li.filter-dropdown-menu.nearby-user-location
+    %label
+      %input#nearby.filter-dropdown-menu-nearby{:disabled => "true", :type => "checkbox"}
+        Nearby
+        %i.filter-dropdown-menu-icon.fa.fa-compass

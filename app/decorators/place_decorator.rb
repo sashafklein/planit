@@ -201,7 +201,9 @@ class PlaceDecorator < Draper::Decorator
         end
       end
     else
-      "<i class='fa fa-calendar place-show-icon'></i>No Reservations".html_safe
+      content_tag :div, :class => 'more-info-line ' do
+        "<i class='fa fa-calendar place-show-icon'></i>No Reservations".html_safe
+      end
     end      
   end
 
@@ -222,7 +224,7 @@ class PlaceDecorator < Draper::Decorator
   def show_view_menu
     if menu.present?
       content_tag :div, :class => 'more-info-line' do
-        "<i class='fa fa-cutlery place-show-icon'></i> #{link_to menu, 'View Menu'}".html_safe
+        "<i class='fa fa-cutlery place-show-icon'></i> #{link_to 'View Menu', menu}".html_safe
       end
     end
   end

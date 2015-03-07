@@ -5,7 +5,7 @@
 
   .band.spaced-extra
 
-    .band.inbox-folder.collapses#recommendations.lighter
+    .band.inbox-folder.collapses#recommendations
       .container
         .sixteen.columns.alpha
           %i.fa{ class: "#{'fa-caret-right' if true} #{'transparent' if true}"}
@@ -27,7 +27,7 @@
             .display-hidden= "Show Hidden Items"
     .subscriptions
 
-    .band.inbox-folder.collapses#marks-to-review.lighter
+    .band.inbox-folder.collapses#marks-to-review
       .container
         .sixteen.columns.alpha
           %i.fa.fa-caret-down{ class: "#{'transparent' if @user.marks_to_review.count == 0}"}

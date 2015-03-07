@@ -8,11 +8,11 @@ angular.module('Common').factory 'SearchBar', (QueryString) ->
     @_searchToggleOn: () -> 
       $(".logo-container, .side-menu-container, .top-menu-container, .search-and-filter-wrap").fadeOut("fast")
       $(".expanded-search-and-filter").fadeIn("fast")
-      $('.initial-header').addClass("focused")
+      $('#planit-header').addClass("focused")
       $("#search-input-field").focus()
 
     @_searchToggleOff: () -> 
-      $('.initial-header').removeClass("focused")
+      $('#planit-header').removeClass("focused")
       $(".expanded-search-and-filter").fadeOut('fast')
       $(".logo-container, .side-menu-container, .top-menu-container, .search-and-filter-wrap").fadeIn("fast")
       if $('#search-input-field').val().length == 0 

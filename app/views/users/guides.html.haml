@@ -7,20 +7,19 @@
     .band.gray.spaced-extra.padded
       - @user.plans.order('updated_at DESC').group_by{ |p| p.updated_at.strftime("%Y") }.each do |year, plans| 
         .container
-          .column.alpha.tab-section-header{ class: "collapses", id: "contains_#{year}" }
-            %span.bubble-span.medium.primary{ class: "contains_#{year} #{'collapsed' if year != current_year }" }= year
+          .column.alpha.tab-section-header{ class: "collapses #{'collapsed-on' if !current_year(year) }", id: "contains_#{year}" }
+            %span.bubble-span.medium.primary= year
             = ":"
             %span.bubble-span.medium.secondary= "#{@user.first_name} #{@user.last_name}'s' Guides"
             = "("
             %strong= "#{plans.length}"
             = ")"
-            %i.fa.fa-caret-down.tab-section-is-hidden{ class: "contains_#{year} #{'collapsed' if year != current_year }" }
-        .container.centered{ class: "contains_#{year} #{'collapsed' if year != current_year }" }
-          - if year == current_year
-            = render partial: 'plans/guide_tab', locals: { plan: nil }
+            %i.fa.fa-caret-down.tab-section-is-hidden
+        .container.centered{ class: "contains_#{year} #{'collapsed' if !current_year(year) }" }
+          .column= render partial: 'plans/guide_tab', locals: { plan: nil } if current_user_owns_record && current_year(year)
           - plans.each do |plan|
-            = render partial: 'plans/guide_tab', locals: { plan: plan }
+            .column= render partial: 'plans/guide_tab', locals: { plan: plan }
 
   - else
     .band.gray.spaced.padded
-      .static-page= render 'show/add_to_guide'
+      .static-page= render 'statics/add_to_guide'

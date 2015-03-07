@@ -9,9 +9,10 @@
     = csrf_meta_tags
     = stylesheet_link_tag :application, media: "all"
   %body{ class: body_class, ng_controller: 'ApplicationCtrl' }
-    = content_for?(:header) ? yield_with_blank(:header) : render_header
-    = render "application/flashes"
-    = yield
-    = content_for?(:footer) ? yield_with_blank(:footer) : render_footer
+    #planit-wrapper
+      = content_for?(:header) ? yield_with_blank(:header) : render_header
+      = render "application/flashes"
+      = yield
+      = content_for?(:footer) ? yield_with_blank(:footer) : render_footer
     = render "application/javascript"
     = render 'application/feedback'

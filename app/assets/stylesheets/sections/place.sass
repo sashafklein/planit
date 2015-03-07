@@ -1,181 +1,4 @@
-#show-place-page, #new-place-page, #show-marks-page
-
-  // MARK PLACE OPTIONS
-
-.original-reminder
-  display: block
-  overflow: hidden
-  white-space: nowrap
-  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  font-size: 14px
-  line-height: 22px
-  color: #333
-  padding: 10px 5px 10px 5px
-  span
-    padding: 3px 0px
-  span.bubbled    
-    border-radius: 3px
-    padding: 2px 8px
-    border: 1px solid rgba(0,0,0,0.2)
-    color: #777
-    font-weight: normal
-    background: rgba(255,255,255,0.4)
-    &.original-date
-      float: right
-      z-index: 10px
-    &.remove-pending-mark
-      float: right
-      margin-left: 8px
-      font-weight: bold
-      text-align: center
-      &:hover
-        background: #000
-        color: #fff
-        border: 1px solid #000
-  &:hover
-    span.bubbled
-      background: #f06
-      border: 1px #f06 solid
-      color: #fff
-  a.original-source
-    color: #777
-    text-decoration: none
-    position: relative
-    &:hover, &:active
-      color: #000
-      text-decoration: none
-      .original-source-hint
-        display: inline-block
-    .original-source-hint
-      padding: 3px 0 0 10px
-      position: absolute
-      display: none
-      overflow: hidden
-      text-overflow: ellipsis
-      white-space: nowrap
-
-.options-box
-  .see-options
-    padding-left: 5px
-    margin: 10px 0
-  ul.options-list
-    margin: 0 5px
-    padding: 0
-    -webkit-padding-start: 0
-    list-style-type: none
-    li
-      position: relative
-      border-top: 1px solid #777
-      margin: 0
-      padding: 10px 0
-      color: #000
-      box-sizing: border-box
-      -moz-box-sizing: border-box
-      -webkit-box-sizing: border-box
-      overflow: hidden
-      vertical-align: top
-
-      .place-option-wrap
-        transition: 0.2 ease all
-        display: block
-        white-space: nowrap
-        overflow: none
-        padding: 5px
-        border-radius: 3px
-        &:hover, &.highlighted
-          background: #fff
-
-      .place-option-img
-        display: inline-block
-        height: 100px
-        width: 100px
-        background-color: #ddd
-        background: no-repeat center center
-        -webkit-background-size: cover
-        -moz-background-size: cover
-        -o-background-size: cover
-        background-size: cover
-        text-align: center
-
-      .place-option-no-img
-        display: inline-block
-        height: 100px
-        width: 100px
-        background-color: #ccc
-        text-align: center
-
-      .place-option-profile
-        padding: 0 5px
-        width: 295px
-        display: inline-block
-        vertical-align: top
-        overflow: hidden
-
-        .place-option-title
-          display: block
-          font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-          font-weight: bold
-          font-size: 15px
-          line-height: 19px
-          white-space: normal
-          overflow-y: visible
-          height: auto
-
-        .place-option-category
-          display: block
-          padding-top: 5px
-          font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-          font-weight: normal
-          font-size: 14px
-          line-height: 17px
-          overflow: hidden
-          text-overflow: ellipsis
-          white-space: nowrap
-
-        .place-option-control
-          margin-top: 8px
-
-      .place-option-address
-        display: inline-block
-        width: 250px
-        vertical-align: top
-        overflow: hidden
-        color: #777
-
-      p
-        margin: 0 0 2px 0
-        -webkit-margin-before: 0px
-        -webkit-margin-after: 2px
-        -webkit-margin-start: 0px
-        -webkit-margin-end: 0px
-  
-    .place-option-index
-      position: absolute
-      min-width: 20px
-      top: 15px
-      left: 5px
-
-  .not-here-box
-    display: block
-    padding: 15px 15px
-    border-radius: 3px
-    background: rgba(255,255,255,0.4)
-    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-    text-align: center
-    h2
-      margin: 0 0 10px 0
-      padding: 0
-      text-align: left
-      font-size: 18px
-      line-height: 22px
-      font-weight: bold
-    h3
-      margin: 0 0 10px 0
-      padding: 0
-      text-align: left
-      font-size: 14px
-      line-height: 18px
-      font-weight: normal
+#show-place-page, #new-place-page
 
   // PLACE NEW
 
@@ -284,7 +107,10 @@
       color: #777
       background: #ddd
 
-  // 
+  // PLACE PAGE SHOW
+
+  .place-page-splash
+    padding: 40px 0
 
   .directions-link
     span
@@ -559,103 +385,16 @@
     width: 40px
     font-style: none
 
-  // TAB SIZING
+  // VARIABLE SIZING
 
-// *Computer (Regular)
-
-.original-source-hint
-  max-width: 500px
-
-.add-new-form
-  .add-new-input
-    input
-      width: 308px
-  .on-off-button
-    width: 308px
-
-.book-been-save-wrap
-  padding: 15px 0px 5px 0px
-  text-align: right
-
-.book-been-save-bar
-  display: inline-block
-
-.empty-map-box
-  height: 262px
-
-.map-canvas
-  height: 262px
-
-.photos-wrap
-  margin-top: 28px
-
-.photos-gallery
-  height: 440px
-  &.new
-    height: 187px
-    margin-bottom: 10px
-
-.photos-gallery-image
-  height: 440px
-  width: 100%
-
-.reviews-and-sources-wrap
-  padding-right: 20px
-  border-right: 1px solid #ddd
-  border-bottom: none
-  padding-bottom: 0px
-  margin-bottom: 20px
-
-.more-info-wrap
-  padding-top: 0px
-
-.other-info-wrap
-  display: block
-  padding: 25px
-  margin-bottom: 10px
-  &.hours-availability-booking
-    border: 1px solid #eee
-    background: #efefef
-
-.menu-cost-reservations-content
-  padding: 0px 0px 10px 0px
-  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  font-size: 14px
-  line-height: 17px
-  font-weight: bold
-  color: #000
-  text-align: left
-  i
-    width: 40px
-
-.hours-availability-booking-content
-  padding: 0px 0px 10px 0px
-  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  font-size: 14px
-  line-height: 17px
-  font-weight: bold
-  color: #000
-  text-align: left
-  i
-    width: 40px
-
-  &.open-now
-    color: #3a0
-  &.closed-now
-    color: #f30
-
-// #Tablet (Portrait)
-@media only screen and (min-width: 768px) and (max-width: 959px)
-
-  .original-source-hint
-    max-width: 300px
+  // *Computer (Regular)
 
   .add-new-form
     .add-new-input
       input
-        width: 236px
+        width: 308px
     .on-off-button
-      width: 236px
+      width: 308px
 
   .book-been-save-wrap
     padding: 15px 0px 5px 0px
@@ -665,21 +404,22 @@
     display: inline-block
 
   .empty-map-box
-    height: 202px
+    height: 262px
 
   .map-canvas
-    height: 202px
+    height: 262px
 
   .photos-wrap
     margin-top: 28px
 
   .photos-gallery
-    height: 350px
+    height: 440px
     &.new
-      height: 144px
+      height: 187px
+      margin-bottom: 10px
 
   .photos-gallery-image
-    height: 350px
+    height: 440px
     width: 100%
 
   .reviews-and-sources-wrap
@@ -687,94 +427,177 @@
     border-right: 1px solid #ddd
     border-bottom: none
     padding-bottom: 0px
+    margin-bottom: 20px
 
   .more-info-wrap
     padding-top: 0px
 
-// #Mobile (Portrait) <-- smallest
-@media only screen and (max-width: 767px)
+  .other-info-wrap
+    display: block
+    padding: 25px
+    margin-bottom: 10px
+    border: 1px solid #eee
+    background: #efefef
+    border-radius: 3px
+    &.hours-availability-booking
+      border: 1px solid #eee
+      background: #efefef
 
-  .add-new-form
-    .add-new-input
-      input
+  .menu-cost-reservations-content
+    padding: 0px 0px 10px 0px
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 14px
+    line-height: 17px
+    font-weight: bold
+    color: #000
+    text-align: left
+    i
+      width: 40px
+
+  .hours-availability-booking-content
+    padding: 0px 0px 10px 0px
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 14px
+    line-height: 17px
+    font-weight: bold
+    color: #000
+    text-align: left
+    i
+      width: 40px
+
+    &.open-now
+      color: #3a0
+    &.closed-now
+      color: #f30
+
+  // #Tablet (Portrait)
+  @media only screen and (min-width: 768px) and (max-width: 959px)
+
+    .add-new-form
+      .add-new-input
+        input
+          width: 236px
+      .on-off-button
+        width: 236px
+
+    .book-been-save-wrap
+      padding: 15px 0px 5px 0px
+      text-align: right
+
+    .book-been-save-bar
+      display: inline-block
+
+    .empty-map-box
+      height: 202px
+
+    .map-canvas
+      height: 202px
+
+    .photos-wrap
+      margin-top: 28px
+
+    .photos-gallery
+      height: 350px
+      &.new
+        height: 144px
+
+    .photos-gallery-image
+      height: 350px
+      width: 100%
+
+    .reviews-and-sources-wrap
+      padding-right: 20px
+      border-right: 1px solid #ddd
+      border-bottom: none
+      padding-bottom: 0px
+
+    .more-info-wrap
+      padding-top: 0px
+
+  // #Mobile (Portrait) <-- smallest
+  @media only screen and (max-width: 767px)
+
+    .add-new-form
+      .add-new-input
+        input
+          width: 268px
+      .on-off-button
         width: 268px
-    .on-off-button
-      width: 268px
 
-  .book-been-save-wrap
-    padding: 0px 0px 10px 0px
+    .book-been-save-wrap
+      padding: 0px 0px 10px 0px
 
-  .book-been-save-bar
-    display: block
+    .book-been-save-bar
+      display: block
 
-  .empty-map-box
-    height: 282px
+    .empty-map-box
+      height: 282px
 
-  .map-canvas
-    height: 282px
+    .map-canvas
+      height: 282px
 
-  .photos-wrap
-    margin-top: 0px
+    .photos-wrap
+      margin-top: 0px
 
-  .photos-gallery
-    height: 200px
+    .photos-gallery
+      height: 200px
 
-  .photos-gallery-image
-    height: 200px
-    width: 100%
+    .photos-gallery-image
+      height: 200px
+      width: 100%
 
-  .reviews-and-sources-wrap
-    padding-right: 0px
-    border-right: none
-    border-bottom: 1px solid #ddd
-    padding-bottom: 10px
+    .reviews-and-sources-wrap
+      padding-right: 0px
+      border-right: none
+      border-bottom: 1px solid #ddd
+      padding-bottom: 10px
 
-  .more-info-wrap
-    padding-top: 10px
+    .more-info-wrap
+      padding-top: 10px
 
-// #Mobile (Landscape)
-@media only screen and (min-width: 480px) and (max-width: 767px)
+  // #Mobile (Landscape)
+  @media only screen and (min-width: 480px) and (max-width: 767px)
 
-  .add-new-form
-    .add-new-input
-      input
+    .add-new-form
+      .add-new-input
+        input
+          width: 388px
+      .on-off-button
         width: 388px
-    .on-off-button
-      width: 388px
 
-  .book-been-save-wrap
-    padding: 0px 0px 10px 0px
+    .book-been-save-wrap
+      padding: 0px 0px 10px 0px
 
-  .book-been-save-bar
-    display: block
+    .book-been-save-bar
+      display: block
 
-  .empty-map-box
-    height: 287px
-    &.new
-      height: 191px
+    .empty-map-box
+      height: 287px
+      &.new
+        height: 191px
 
-  .map-canvas
-    height: 287px
-    &.new
-      height: 191px
+    .map-canvas
+      height: 287px
+      &.new
+        height: 191px
 
-  .photos-wrap
-    margin-top: 0px
+    .photos-wrap
+      margin-top: 0px
 
-  .photos-gallery
-    height: 287px
-    &.new
-      height: 191px
+    .photos-gallery
+      height: 287px
+      &.new
+        height: 191px
 
-  .photos-gallery-image
-    height: 287px
-    width: 100%
-    
-  .reviews-and-sources-wrap
-    padding-right: 0px
-    border-right: none
-    border-bottom: 1px solid #ddd
-    padding-bottom: 10px
+    .photos-gallery-image
+      height: 287px
+      width: 100%
+      
+    .reviews-and-sources-wrap
+      padding-right: 0px
+      border-right: none
+      border-bottom: 1px solid #ddd
+      padding-bottom: 10px
 
-  .more-info-wrap
-    padding-top: 10px
+    .more-info-wrap
+      padding-top: 10px
