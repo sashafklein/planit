@@ -127,7 +127,6 @@ module Scrapers
               image_list.push( { url: img_url, source: @url, credit: site_name } )
             end
           else
-            binding.pry
           end
         end
         return image_list

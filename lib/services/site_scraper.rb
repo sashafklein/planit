@@ -105,7 +105,7 @@ module Services
 
     def progressive_merge(array_of_hashes)
       @test = array_of_hashes
-      array_of_hashes.inject({}) { |f, h| f.deep_merge(h) } ; rescue binding.pry
+      array_of_hashes.inject({}) { |f, h| f.deep_merge(h) }
     end
 
   end

@@ -263,7 +263,6 @@ module Completers
 
           xit "correctly locates Villa De Leyva NOT in Bogota" do
             m = completed_data(filename: 'leyva', scrape_url: "http://www.frommers.com/destinations/bogota/278016", name: "Villa de Leyva")
-            binding.pry
             # Villa De Leyva
           end
 
@@ -271,19 +270,16 @@ module Completers
           xit "correctly locates Hospedería Duruelo NOT in Bogota" do
             m = completed_data(filename: 'leyva', scrape_url: "http://www.frommers.com/destinations/bogota/278016", name: "Hospedería Duruelo")
             p = m.place
-            binding.pry
             # See https://www.google.com/maps/place/Hotel+el+Duruelo/@5.628924,-73.517965,14z/data=!4m2!3m1!1s0x8e41d708ca5087e9:0xaca8b4ef69ec38e6
           end
 
           # Google has it, with no notes about its being closed -- not sure what to do about this one
           xit "doesn't find The Down Under (but shows options)" do
             m = completed_data(filename: 'amelia-island', scrape_url: "http://www.nytimes.com/2003/12/12/travel/journeys-36-hours-amelia-island-fla.html?pagewanted=all", name: "The Down Under")
-            binding.pry
           end
 
           xit "completes Tayrona from Mauricio.yml" do
             m = completed_data(filename: 'mauricio', scrape_url: "http://www.email.com/", name: 'Tayrona')
-            binding.pry
             # There's just too little info in the @yml
             # Select Parque Tayrona b/c of photos and frequency of visits https://foursquare.com/v/parque-nacional-natural-tayrona/4e9dd4b261af4feab6578266
           end
@@ -292,14 +288,12 @@ module Completers
           xit "correctly locates Fatehpur Sikri outside of Delhi and not in Agra" do
             m = completed_data(filename: 'india', scrape_url: "http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0", name: "Fatehpur Sikri")
             p = m.place
-            binding.pry
           end
 
           # Again, doesn't find it at all
           xit "doesn't put Fatehpur Sikri on the highway to Fatehpur Sikri" do
             m = completed_data(filename: 'india', scrape_url: "http://www.nytimes.com/2012/03/25/travel/through-indias-desert-cities-three-itineraries.html?pagewanted=all&_r=0", name: "Fatehpur Sikri")
             p = m.place
-            binding.pry
             # What happens if we hit Foursquare API after Google?
           end
 
