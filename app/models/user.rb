@@ -53,7 +53,7 @@ class User < BaseModel
   def save_as_beta
     password = Devise.friendly_token.first(8)
     update_attributes({ password: password, password_confirmation: password })
-    notify_signup(password) if self.persisted?
+    notify_signup if self.persisted?
     return self
   end
 
@@ -65,7 +65,7 @@ class User < BaseModel
 
   private
 
-  def notify_signup()
+  def notify_signup
     AdminMailer.notify_of_signup(self).deliver_later
     UserMailer.welcome_beta(self).deliver_later if pending?
   end
