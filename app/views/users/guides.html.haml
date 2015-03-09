@@ -7,12 +7,12 @@
     .band.gray.spaced-extra.padded
       - @user.plans.order('updated_at DESC').group_by{ |p| p.updated_at.strftime("%Y") }.each do |year, plans| 
         .container
-          .column.alpha.tab-section-header{ class: "collapses #{'collapsed-on' if !current_year(year) }", id: "contains_#{year}" }
-            %span.bubble-span.medium.primary= year
+          .column.alpha.bubbled-header-block.tab-section-header{ class: "collapses #{'collapsed-on' if !current_year(year) }", id: "contains_#{year}" }
+            %span.bubbled.medium.primary.enabled= year
             = ":"
-            %span.bubble-span.medium.secondary= "#{@user.first_name} #{@user.last_name}'s' Guides"
+            %span.bubbled.medium.secondary= "#{@user.first_name} #{@user.last_name}'s' Guides"
             = "("
-            %strong= "#{plans.length}"
+            %strong= plans.length
             = ")"
             %i.fa.fa-caret-down.tab-section-is-hidden
         .container.centered{ class: "contains_#{year} #{'collapsed' if !current_year(year) }" }

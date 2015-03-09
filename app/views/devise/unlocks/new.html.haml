@@ -6,7 +6,7 @@
       .center-box
 
         .simple-entry-header Resend unlock instructions
-        %hr.divider{ style: "width: 300px;"}
+        %hr.divider{ style: "width: 300px; margin-bottom: 18px"}
 
         .simple-entry-form
           = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
@@ -16,7 +16,7 @@
               %i.fa.fa-envelope.simple-form-icon
               = f.input :email, required: true, autofocus: true, placeholder: 'Email'
             .simple-entry-form-section.form-actions.right
-              = f.button :submit, "Resend Unlock"
+              = f.button :submit, "Resend Unlock", class: "planit-button neon"
 
         %hr.divider{ style: "width: 300px;"}
         .simple-entry-links

@@ -1,7 +1,5 @@
 class User < BaseModel
 
-  after_create :notify_signup
-
   validates :first_name, :last_name, presence: true
 
   enum role: { pending: 0, member: 1, admin: 2 }
@@ -48,6 +46,17 @@ class User < BaseModel
     Mark.where( place_id: nil )
   end
 
+  def messages
+    marks_to_review.count
+  end
+
+  def save_as_beta
+    password = Devise.friendly_token.first(8)
+    update_attributes({ password: password, password_confirmation: password })
+    notify_signup(password) if self.persisted?
+    return self
+  end
+
   # USER GUIDES LOGIC
 
   def years_on_planit
@@ -56,8 +65,9 @@ class User < BaseModel
 
   private
 
-  def notify_signup
-    UserMailer.notify_of_signup(self).deliver_later
+  def notify_signup()
+    AdminMailer.notify_of_signup(self).deliver_later
+    UserMailer.welcome_beta(self).deliver_later if pending?
   end
   
 end

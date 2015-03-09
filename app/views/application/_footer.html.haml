@@ -1,15 +1,11 @@
-#footer-spacing
-#planit-footer
+- if current_user_is_active
+  - if !fullscreen?(page_type)
+    #footer-spacing
+  #planit-footer
 
-  .footer-container.large-screen{ class: page_type, ng_hide: '$root.mapExpanded' }
-    = render 'statics/legal_info' unless page_type == 'legal_support'
+    .footer-container.large-screen{ class: page_type, ng_hide: '$root.mapExpanded' }
+      = render 'statics/legal_info' unless page_type == 'legal_support'
 
-  .footer-container.mobile{ class: page_type }
-    - if current_user_is_active
-      .bottom-nav-bar
-        = current_user.decorate.nav_item_map(page_type)
-        = current_user.decorate.nav_item_list(page_type)
-        = current_user.decorate.nav_item_new(page_type)
-        = current_user.decorate.nav_item_inbox(page_type)
-        = current_user.decorate.nav_item_share(page_type)
-
+    .footer-container.mobile{ class: page_type }
+      - if current_user_is_active
+        .bottom-nav-bar= render 'application/nav_bar', { page_type: page_type, current_user: current_user }

@@ -1,3 +1,10 @@
+#beta-page 
+  .beta-list-registration
+    width: 300px
+    margin: 0 0 0 auto
+  &.pad-top
+    margin-top: 80px
+
 .static-page
   
   .main-content
@@ -8,7 +15,7 @@
         float: right
         right: 0
         margin-right: -40px
-      .static-section-content
+      .static-section-content, .static-whitebox-content
         margin-right: 40px
       .learn-more
         float: left
@@ -16,9 +23,11 @@
           padding-right: 5px
       .static-float-image
         float: left
+      &.padded
+        padding: 50px 60px 50px 0
     .left-section
       text-align: left
-      .static-section-content
+      .static-section-content, .static-whitebox-content
         margin-left: 40px
       i.padded-icon
         float: left
@@ -30,10 +39,17 @@
           padding-left: 5px
       .static-float-image
         float: right
+      &.padded
+        padding: 50px 0 50px 60px
 
-    .static-section-whitebox
-      background: rgba(255,255,255,0.8)
+    .static-section-columned
+      width: 100%
+      display: table
+      table-layout: fixed
       padding: 25px 40px
+      .column
+        display: table-cell
+        text-align: left
 
     .static-section-content
       padding: 0 20px
@@ -56,10 +72,6 @@
         margin: 30px 0
       li
         margin: 25px 0
-
-    .static-section-center-item-wrap
-      padding: 80px 0
-      text-align: center
 
     i.padded-icon
       top: 0px
@@ -104,9 +116,6 @@
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
 
-  .section-header
-    margin: 15px 0
-
   .static-section-content
     p
       margin: 10px 0
@@ -116,13 +125,16 @@
       margin: 15px 0
     li
       margin: 12px 0
+
+  .main-content .right-section.padded, .left-section.padded
+    padding: 0 !important
+
+  #beta-page.pad-top
+    margin-top: 15px
 
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
 
-  .section-header
-    margin: 15px 0
-
   .static-section-content
     p
       margin: 10px 0
@@ -133,3 +145,8 @@
     li
       margin: 12px 0
 
+  .main-content .right-section.padded, .left-section.padded
+    padding: 15px 40px !important
+
+  #beta-page.pad-top
+    margin-top: 15px

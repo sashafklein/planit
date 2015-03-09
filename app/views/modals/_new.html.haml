@@ -1,0 +1,26 @@
+.modal.planit-modal.fade#planit-modal-new{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4.modal-title= "Add a New Pin"
+      .modal-body
+        %form{:id => "planit-modal-form-new"}
+          .form-group
+            %label.control-label{:for => "new-pin-nearby"} Near:
+            .clear-input-box
+              %input#nearby.form-control.input-with-clear.new-pin-nearby{:placeholder => "Location", :type => "text"}/
+              %span.clear-input-button
+                %i.fa.fa-times-circle
+          .form-group
+            %label.control-label{:for => "new-pin-query"} Name:
+            .clear-input-box
+              %input#query.form-control.input-with-clear.new-pin-query{:placeholder => "Place or Destination", :type => "text"}/
+              %span.clear-input-button
+                %i.fa.fa-times-circle
+      .modal-footer
+        %a{:href => "https://developer.foursquare.com/"}
+          %img.poweredbyfoursquare{:alt => "foursquare", :src => "https://ss0.4sqi.net/img/devsite/img_poweredby-181a0c7c0fe5f3576d97bcf29ce69d24.png"}/
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
+        %button.btn.btn-primary{:id => "planit-modal-submit-share", :type => "button"}= "Add"

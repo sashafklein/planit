@@ -18,7 +18,7 @@
                 = render 'header/user_avatar'
               = render 'header/dropdowns/main_menu', { current_user: current_user, background: background, color: color }
           .side-menu-container{ class: "#{color} #{page_type}" }
-            .top-nav-bar= render 'application/nav_bar', { page_type: page_type }
+            .top-nav-bar= render 'application/nav_bar', { page_type: page_type, current_user: current_user }
 
         - elsif current_user
           .top-menu-container
@@ -29,16 +29,12 @@
 
         - else
           .top-menu-container
-            = link_to new_user_registration_path do
+            = link_to new_user_session_path do # new_user_registration_path
               = render 'header/user_avatar'
           .side-menu-container{ class: "#{color} #{page_type}" }
-            %strong.a-override.h-neon{ class: "a-#{color}" }= link_to "SIGN UP FOR BETA INVITE", new_user_registration_path
+            %strong= "REQUEST INVITE"
             %span.divider= "|"
             %strong.a-override.a-gray.h-neon= link_to "LOG IN", new_user_session_path
 
-- unless page_type == 'places'
+- unless fullscreen?(page_type)
   #header-spacing
-    
-- if current_user_is_active
-  = current_user.decorate.new_place_modal
-  = current_user.decorate.share_modal if show_share?(page_type)

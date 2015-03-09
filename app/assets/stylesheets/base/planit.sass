@@ -1,3 +1,5 @@
+// PAGE STRUCTURE
+
 html, body
   margin: 0
   padding: 0
@@ -11,6 +13,84 @@ body
   position: relative
 
 // COMMON VISUALS
+
+.whitebox
+  background: rgba(255,255,255,0.8)
+
+span.bubbled, span.flat
+  font-family: avenir, "open sans", "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  padding: 4px 9px
+  margin: 2px 0px
+  line-height: 18px
+
+span.flat
+  transition: 0.5s ease all
+  font-size: 14px
+  color: #333
+  border-radius: 3px
+  border: 1px solid rgba(0,0,0,0.2)
+  font-weight: normal
+  background: rgba(255,255,255,0.4)
+  &.delete-right
+    float: right
+    font-weight: bold
+    text-align: center
+    cursor: pointer
+    &:hover
+      background: #000
+      color: #fff
+      border: 1px solid #000
+  &:hover
+    background: #f06
+    border: 1px #f06 solid
+    color: #fff
+
+.bubbled-header-block
+  display: block
+  padding: 10px 5px
+  font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+  font-size: 15px
+  line-height: 18px
+
+span.bubbled
+  transition: 0.5s ease all
+  font-size: 15px
+  &.primary
+    font-weight: bold
+    color: #222
+    background: #fff
+    border: #ccc 1px solid
+    border-bottom: #aaa 1px solid
+    -webkit-box-shadow: #eee 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+    -moz-box-shadow: #eee 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+    box-shadow: #eee 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  &.primary.enabled:hover
+    color: #fff
+    background: #f06
+    border: #d04 1px solid
+    border-bottom: #b02 1px solid
+    -webkit-box-shadow: #e05 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+    -moz-box-shadow: #e05 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+    box-shadow: #e05 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  &.secondary
+    font-weight: normal
+    font-size: 14.5px
+    color: #000
+    text-shadow: 0px 1px 1px #fff
+    background: #eee
+    border: #ccc 1px solid
+    border-bottom: #aaa 1px solid
+    -webkit-box-shadow: #ddd 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+    -moz-box-shadow: #ddd 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+    box-shadow: #ddd 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+  &.tertiary
+    font-weight: normal
+    font-size: 14.5px
+    color: #000
+    text-shadow: 0px 1px 1px #fff
+    background: #e497e1
+    border: #b86db5 1px solid
+    border-bottom: #91508f 1px solid
 
 .container.divider
   border-top: 1px solid #777
@@ -53,6 +133,9 @@ i.pad-left
   padding-left: 5px
 i.pad-right
   padding-right: 5px
+
+strong, .strong
+  font-weight: bold
 
 strong, .in-caps-header, i
   &.neon
@@ -479,9 +562,6 @@ hr.divider
       span
         background: #ff0066
 
-.strong
-  font-weight: bold
-
 .planit-input
   padding: 5px 8px !important
   border: 1px solid #a4a4a4 !important
@@ -618,6 +698,12 @@ hr.divider
     bottom: 45px
     left: 0px
 
+  .whitebox.no-mobile-portrait
+    background: none
+
+  .section-header
+    margin: 15px 0
+
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
 
@@ -651,3 +737,9 @@ hr.divider
   .feedback-button
     bottom: 45px
     left: 0px
+
+  .section-header
+    margin: 15px 0
+
+  .whitebox.no-mobile-portrait
+    background: rgba(255,255,255,0.8)

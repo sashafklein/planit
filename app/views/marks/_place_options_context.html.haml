@@ -1,12 +1,12 @@
 .container
   .sixteen.columns.original-reminder{ id: "index_#{index}" }
-    %span.bubbled.remove-pending-mark{ id: "mark_#{mark.id}" }= "×"
-    %span.bubbled.original-date= mark.created_at.strftime("%d/%m/%y")
-    %span.bubbled.original-query="Test"
+    %span.flat.delete-right{ id: "mark_#{mark.id}" }= "×"
+    %span.flat= mark.created_at.strftime("%d/%m/%y")
+    %span.flat="Original Query"
     %span.large-screen-inline= "near"
-    %span.bubbled.original-nearby.large-screen-inline="Location"
+    %span.flat.large-screen-inline="Original Location"
     - if mark.source.present?
       %span= "on"
       = link_to mark.source.full_url, :target => "_blank", :class => 'original-source', id: "source_link_#{index}" do
         %span= mark.source.name
-        .original-source-hint.large-screen-inline= " #{mark.source.trimmed_url.gsub(/((?:http[s]?[:]\/\/)?(?:www[.])?)/, '')}"
+        

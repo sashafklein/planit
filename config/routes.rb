@@ -3,10 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   root 'landing#show'
-  get '/index', to: 'statics#splash'
-  get '/waitlist', to: 'statics#waitlist'
-  get '/welcome', to: 'statics#welcome'
-  get '/save', to: 'statics#save'
+  get '/beta', to: 'statics#beta'
+  get '/about', to: 'statics#about'
+  get '/save', to: 'places#new'
 
   get '/legal_support', to: 'statics#legal_support'
   get '/legal/dmca', to: 'statics#dmca'
@@ -23,6 +22,7 @@ Rails.application.routes.draw do
     get :places, on: :member
     get :guides, on: :member
     get :inbox, on: :member
+    post :beta, on: :collection
   end
 
   resources :places, only: [:show, :new, :index] do

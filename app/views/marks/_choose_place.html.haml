@@ -1,3 +1,8 @@
+- if mark.source && mark.source.trimmed_url
+  .container
+    .sixteen.columns.full-original-source
+      = link_to mark.source.full_url, target: '_blank' do
+        %span.flat= "Saved from: #{mark.source.trimmed_url.gsub(/((?:http[s]?[:]\/\/)?(?:www[.])?)/, '')}"
 .container.options-box
   .ten.columns
     .see-options.section-header= "See the Place you Wanted to Save?"

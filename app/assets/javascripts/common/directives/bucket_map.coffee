@@ -218,7 +218,7 @@ angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, C
             s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".context-map-icon-tab"], 'dblclick')
             s.addMouseEvents([".edit-place", ".edit-places"], 'clickControl')
             s.updateQuery()
-          s.map.on "moveend", -> s.$apply -> s.webUpdateView()
+          s.map.on "moveend", -> s.webUpdateView()
           s.map.on "zoomend", -> setTimeout ( -> s.$apply -> s.webUpdateView() ), 400
           s.webUpdateView()
           # Change Initial Loading Tab for Future Viewing, Recenter 'Lost' Browser to Start

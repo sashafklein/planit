@@ -3,7 +3,7 @@ mod.controller "ApplicationCtrl", ($scope, ClickControls, SearchBar, UserFlow, Q
 
   # Universal to all users/non-users
 
-  UserLocation.initializePage()
+  UserLocation.initializePage() # if current_user_is_active
   Bootstrap.initializePage()
   UserFlow.initializePage()
   Flashes.initializePage()
