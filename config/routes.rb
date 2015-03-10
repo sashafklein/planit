@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   root 'landing#show'
   get '/beta', to: 'statics#beta'
+  get '/invite', to: 'statics#invite'
   get '/about', to: 'statics#about'
   get '/save', to: 'places#new'
 

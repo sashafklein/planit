@@ -20,7 +20,7 @@ class Api::V1::Users::MarksController < ApiController
     scraper = Services::SiteScraper.build(params[:url], params[:page]) || Scrapers::General.new(params[:url], params[:page])
     scraped = Array scraper.data
 
-    unless good_data?(scraped)
+    if !good_data?(scraped)
       @user.flags.create!( name: 'Scrape and completion failed', info: { url: params[:url] , data: scraped } )
       return error(417, "Insufficient information")
     end 
@@ -54,7 +54,7 @@ class Api::V1::Users::MarksController < ApiController
   def good_data?(scraped)
     scraped.to_super.any? do |hash| 
       return false unless p = hash.place
-      p.locality || p.region || p.nearby.present? || p.country || p.street_address || p.street_addresses.present? || (p.lat && p.lon)
+      p.locality || p.region || p.nearby.present? || p.country || p.full_address || (p.lat && p.lon) # p.street_address || p.street_addresses.present?
     end
   rescue
     false
