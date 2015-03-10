@@ -1,7 +1,7 @@
 - title('Private Beta Invitation')
 - page_type('invite')
 
-.static-page.container.whitebox.no-mobile-portrait.pad-top#beta-page
+.static-page.container.whitebox.no-mobile-portrait#beta-page
   .eight.columns.main-content
     .left-section.padded
 
@@ -16,6 +16,9 @@
         %p
           %i{ class: 'fa fa-heart padded-icon' }
           Never forget a great recommendation.
+        %p
+          %i{ class: 'fa fa-group padded-icon' }
+          %strong.neon Please invite friends who you think would enjoy Planit, but also give constructive feedback!  We're always looking for ways to improve.
 
   .eight.columns.main-content
     .right-section.padded
@@ -23,7 +26,7 @@
       .section-header= "Extend an Invite!"
       .beta-list-registration
         .simple-entry-form
-          = simple_form_for(User.new, url: beta_users_path) do |f|
+          = simple_form_for(User.new, url: beta_users_path) do |f| #NEEDSFOLLOWUP
             = f.error_notification
             .simple-entry-form-section
               %span.icomoon.icon-user.simple-form-icon

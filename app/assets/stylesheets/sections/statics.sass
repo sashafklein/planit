@@ -1,9 +1,9 @@
 #beta-page 
+  margin-top: 85px
+  margin-bottom: 85px
   .beta-list-registration
     width: 300px
-    margin: 0 0 0 auto
-  &.pad-top
-    margin-top: 80px
+    margin: 0 0 0 auto      
 
 .static-page
   
@@ -46,10 +46,31 @@
       width: 100%
       display: table
       table-layout: fixed
-      padding: 25px 40px
-      .column
+      padding: 30px 30px
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-size: 16px
+      line-height: 18px
+      .static-column
+        padding: 0 15px
         display: table-cell
         text-align: left
+        strong
+          font-size: 125%
+        ul
+          list-style-type: none
+          padding-top: 15px 
+          -webkit-padding-start: 0
+          padding-left: 0
+        li
+          padding: 10px 0
+          margin-left: 30px
+          i
+            width: 30px
+            position: absolute
+            float: left
+            margin-left: -30px
+            color: #f06
+            text-shadow: 1px 1px 1px #fff
 
     .static-section-content
       padding: 0 20px
@@ -129,8 +150,9 @@
   .main-content .right-section.padded, .left-section.padded
     padding: 0 !important
 
-  #beta-page.pad-top
+  #beta-page
     margin-top: 15px
+    margin-bottom: 15px
 
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
@@ -148,5 +170,6 @@
   .main-content .right-section.padded, .left-section.padded
     padding: 15px 40px !important
 
-  #beta-page.pad-top
+  #beta-page
     margin-top: 15px
+    margin-bottom: 15px

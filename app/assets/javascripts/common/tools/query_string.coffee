@@ -15,7 +15,7 @@ angular.module('Common').factory 'QueryString', () ->
       @set( null ) 
 
     @set: (hash) ->
-      hash = QueryString._clean(hash)
+      hash = QueryString._stringify( QueryString._clean( hash ) )
       return window.history.pushState("object or string", "Title", QueryString._path() ) if !hash
       newPath = QueryString._generate( hash )
       window.history.pushState("object or string", "Title", newPath )
@@ -24,7 +24,7 @@ angular.module('Common').factory 'QueryString', () ->
       hash = QueryString.get()
       key = Object.keys(object)[0]
       hash[key] = object[key]
-      hash = QueryString._clean( hash )
+      hash = QueryString._stringify( QueryString._clean( hash ) )
       return window.history.pushState("object or string", "Title", QueryString._path() ) if !hash
       newPath = QueryString._generate( hash )
       window.history.pushState("object or string", "Title", newPath )
@@ -35,9 +35,9 @@ angular.module('Common').factory 'QueryString', () ->
       _.pick(hash, _.identity)
 
     @_generate: (hash) ->
-      "#{QueryString._path()}?#{ QueryString._join( hash ) }"
+      "#{QueryString._path()}?#{ hash }"
 
-    @_join: (hash) ->
+    @_stringify: (hash) ->
       _.map(hash, ( (v,k) -> "#{k}=#{ encodeURI( v ) }" )).join("&")
 
     @_slug: ->

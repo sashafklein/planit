@@ -17,7 +17,7 @@
     .container.marks-to-review
       - @user.marks_to_review.each_with_index do |mark, index|
         .band{ class: "#{'darker' if index.even?}" }
-          .inbox-message-header.collapses{ id: "mark_message_#{mark.id}_#{index}" }
-            = render 'marks/place_options_context', { mark: mark, inbox: true, index: index }
-          .inbox-message-body.collapsed{ class: "mark_message_#{mark.id}_#{index}" }
-            = render 'marks/choose_place', { mark: mark }
+          .inbox-message-header.collapses{ id: "mark_#{mark.id}_#{index}" }
+            = render 'marks/place_option_header', { mark: mark, inbox: true, index: index }
+          .inbox-message-body.collapsed{ class: "mark_#{mark.id}_#{index}" }
+            = render 'marks/place_option', { mark: mark }

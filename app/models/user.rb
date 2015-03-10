@@ -50,10 +50,10 @@ class User < BaseModel
     marks_to_review.count
   end
 
-  def save_as_beta
+  def save_as(status)
     password = Devise.friendly_token.first(8)
-    update_attributes({ password: password, password_confirmation: password })
-    notify_signup if self.persisted?
+    update_attributes({ password: password, password_confirmation: password, role: status })
+    notify_signup(password) if self.persisted?
     return self
   end
 
@@ -65,9 +65,10 @@ class User < BaseModel
 
   private
 
-  def notify_signup
+  def notify_signup(password)
     AdminMailer.notify_of_signup(self).deliver_later
-    UserMailer.welcome_beta(self).deliver_later if pending?
+    UserMailer.welcome_waitlist(self).deliver_later if pending?
+    UserMailer.welcome_invited(self, password).deliver_later if member?
   end
   
 end
