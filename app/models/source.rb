@@ -8,4 +8,9 @@ class Source < BaseModel
   def generic_attrs
     attributes.symbolize_keys.except(:id, :object_id, :object_type, :created_at, :updated_at)
   end
+
+  def path_only_url
+    trimmed_url.gsub(/((?:http[s]?[:]\/\/)?(?:www[.])?)/, '') if trimmed_url
+  end
+
 end

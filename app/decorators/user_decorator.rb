@@ -23,9 +23,9 @@ class UserDecorator < Draper::Decorator
     nav_item(type: 'map', hint: 'my places', icon: 'icon-map4', link_to: user_path(model)+'/places')
   end
 
-  def nav_item_list(page_type)
+  def nav_item_guides(page_type)
     return nav_item(type: 'guides', hint: 'my guides', icon: 'fa fa-book') if page_type == 'guides'
-    nav_item(type: 'guides', hint: 'my guides', icon: 'fa fa-book', link_to: user_path(model)+'/guides')
+    nav_item(type: 'guides', hint: 'my guides', icon: 'fa fa-book', link_to: user_path(model)+"/guides?v=in_"+current_year() )
   end
 
   def nav_item_new(page_type)

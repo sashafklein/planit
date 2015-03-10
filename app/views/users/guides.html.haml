@@ -7,7 +7,7 @@
     .band.gray.spaced-extra.padded
       - @user.plans.order('updated_at DESC').group_by{ |p| p.updated_at.strftime("%Y") }.each do |year, plans| 
         .container
-          .column.alpha.bubbled-header-block.tab-section-header{ class: "collapses #{'collapsed-on' if !current_year(year) }", id: "contains_#{year}" }
+          .column.alpha.bubbled-header-block.tab-section-header{ class: "collapses collapsed-on", id: "in_#{year}" }
             %span.bubbled.medium.primary.enabled= year
             = ":"
             %span.bubbled.medium.secondary= "#{@user.first_name} #{@user.last_name}'s' Guides"
@@ -15,7 +15,7 @@
             %strong= plans.length
             = ")"
             %i.fa.fa-caret-down.tab-section-is-hidden
-        .container.centered{ class: "contains_#{year} #{'collapsed' if !current_year(year) }" }
+        .container.centered{ class: "in_#{year} collapsed" }
           .column= render partial: 'plans/guide_tab', locals: { plan: nil } if current_user_owns_record && current_year(year)
           - plans.each do |plan|
             .column= render partial: 'plans/guide_tab', locals: { plan: plan }

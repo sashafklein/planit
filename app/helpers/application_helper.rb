@@ -59,8 +59,12 @@ module ApplicationHelper
     "#{(date).strftime('%d %b, %Y')} #{days_ago((Date.today - date.to_date).to_i)}"
   end
 
-  def current_year(year)
-    year == (Date.today).strftime('%Y')
+  def current_year(year=nil)
+    if year
+      year == (Date.today).strftime('%Y')
+    else
+      return (Date.today).strftime('%Y')
+    end
   end
 
   def current_user_id

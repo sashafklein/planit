@@ -38,5 +38,50 @@ describe UsersController do
       get :show, id: @user.id
       expect( assigns[:marks].count ).to eq 2
     end
+
+    it "rejects attempt to invite by non-user" do
+      params = { first_name: 'test', last_name: 'tests', email: 'test@tests.com' }
+
+      expect_any_instance_of(User).not_to receive(:save_as).with(:member).and_call_original
+
+      expect{
+        post :invite, user: params
+      }.to change{ User.where(params).count }.by 0
+    end
+
+    it "rejects attempt to invite by non-member" do
+      @user.pending!
+      sign_in @user
+      params = { first_name: 'test', last_name: 'tests', email: 'test@tests.com' }
+
+      expect_any_instance_of(User).not_to receive(:save_as).with(:member).and_call_original
+
+      expect{
+        post :invite, user: params
+      }.to change{ User.where(params).count }.by 0
+    end
+
+    it "shares correct invitee info with save as member" do
+      @user.admin!
+      sign_in @user
+      params = { first_name: 'test', last_name: 'tests', email: 'test@tests.com' }
+
+      expect_any_instance_of(User).to receive(:save_as).with(:member).and_call_original
+
+      expect{
+        post :invite, user: params
+      }.to change{ User.where(params).count }.by 1
+    end
+
+    it "shares correct beta info with save as pending" do
+      params = { first_name: 'test', last_name: 'tests', email: 'test@tests.com' }
+
+      expect_any_instance_of(User).to receive(:save_as).with(:pending).and_call_original
+
+      expect{
+        post :beta, user: params
+      }.to change{ User.where(params).count }.by 1
+    end
+
   end
 end

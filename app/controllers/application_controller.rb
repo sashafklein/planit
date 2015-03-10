@@ -31,6 +31,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end 
 
+  def authenticate_admin!
+    not_authorized_redirect unless admin?
+  end 
+
   def permission_denied
     flash[:error] = "Sorry! No public access to this page. Sign in to continue."
     redirect_to root_path

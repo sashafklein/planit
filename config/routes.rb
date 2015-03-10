@@ -4,9 +4,10 @@ Rails.application.routes.draw do
 
   root 'landing#show'
   get '/beta', to: 'statics#beta'
-  get '/invite', to: 'statics#invite'
+  get '/invite', to: 'statics#invite' #NEEDSFOLLOWUP
   get '/about', to: 'statics#about'
   get '/save', to: 'places#new'
+  get '/import', to: 'places#new' #NEEDSFOLLOWUP
 
   get '/legal_support', to: 'statics#legal_support'
   get '/legal/dmca', to: 'statics#dmca'
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
     get :guides, on: :member
     get :inbox, on: :member
     post :beta, on: :collection
+    post :invite, on: :collection
   end
 
   resources :places, only: [:show, :new, :index] do

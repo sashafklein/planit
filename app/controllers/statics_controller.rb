@@ -1,17 +1,18 @@
 class StaticsController < ApplicationController
   
-  before_action :authenticate_user!, only: [:save, :waitlist, :welcome]
+  before_action :authenticate_user!, only: [:save, :about, :invite]
+  before_action :authenticate_admin!, only: [:invite]
 
   def save
   end
 
-  def welcome
+  def about
   end
 
-  def waitlist
+  def invite
   end
 
-  def privacy
+  def beta
   end
 
 end
