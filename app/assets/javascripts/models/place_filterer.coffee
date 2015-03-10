@@ -42,7 +42,7 @@ mod.factory 'PlaceFilterer', ($compile, $filter, QueryString) ->
       place
 
     @_queryFilter: (place) ->
-      filter = PlaceFilterer._queryString()
+      filter = QueryString.get()['q']
       if filter
         filter = filter.toLowerCase()
         for name in place.names
@@ -58,12 +58,11 @@ mod.factory 'PlaceFilterer', ($compile, $filter, QueryString) ->
         return null
       place
 
-    @_queryString: () -> 
-      queryString = QueryString.paramString('q')
-
     @_params: () -> 
-      filtersArray = QueryString.paramArray('f')
       params = { meta_categories: [], wifi: '', open: '', been: '', loved: '' }
+      filtersString = QueryString.get()['f']
+      return params unless filtersString
+      filtersArray = filtersString.split("+")
       params.meta_categories.push "Food" if ( filtersArray.indexOf('food') != -1 )
       params.meta_categories.push "Drink" if ( filtersArray.indexOf('drink') != -1 )
       params.meta_categories.push "See" if ( filtersArray.indexOf('seedo') != -1 )
@@ -83,6 +82,6 @@ mod.factory 'PlaceFilterer', ($compile, $filter, QueryString) ->
       return params
 
     @_filtersTriggered: () ->
-      QueryString.paramArray('f').length
+      QueryString.get()['f']
 
   return PlaceFilterer
