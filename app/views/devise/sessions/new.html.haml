@@ -6,7 +6,7 @@
       .center-box
 
         .simple-entry-header LOG IN
-        %hr.divider{ style: "width: 300px;"}
+        %hr.divider{ style: "width: 300px; margin-bottom: 18px"}
 
         .simple-entry-form
           = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
@@ -16,10 +16,10 @@
             .simple-entry-form-section
               %i.fa.fa-key.simple-form-icon
               = f.input :password, required: true, placeholder: 'Password'
-            .simple-entry-form-section.left
+            .simple-entry-form-section.left.remember-me
               = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
             .simple-entry-form-section.form-actions.right
-              = f.button :submit, "Sign in"
+              = f.button :submit, "Sign in", class: "planit-button neon"
         %hr.divider{ style: "width: 300px;"}
         .simple-entry-links
           = render "devise/shared/links"

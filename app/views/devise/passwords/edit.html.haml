@@ -6,7 +6,7 @@
       .center-box
 
         .simple-entry-header Change your password
-        %hr.divider{ style: "width: 300px;"}
+        %hr.divider{ style: "width: 300px; margin-bottom: 18px"}
 
         .simple-entry-form
           = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
@@ -23,7 +23,7 @@
               %i.fa.fa-key.simple-form-icon
               = f.input :password_confirmation, required: true, placeholder: 'Confirm Password'
             .simple-entry-form-section.form-actions.right
-              = f.button :submit, "Change"
+              = f.button :submit, "Change", class: "planit-button neon"
 
         %hr.divider{ style: "width: 300px;"}
         .simple-entry-links

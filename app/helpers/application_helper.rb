@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def title(title)
-    content_for(:title) { "Planit - #{ title.gsub("'", "’") }" }
+    content_for(:title) { title.gsub("'", "’") }
   end
 
   def page_title(page_title)
@@ -13,6 +13,7 @@ module ApplicationHelper
   end
 
   def page_type(name)
+    content_for(:page_type) { name }
     header(page_type: name); footer(page_type: name)
   end
 
@@ -40,12 +41,16 @@ module ApplicationHelper
     [ 'places', 'guides', 'plans', 'inbox' ].include?(page_type)
   end
 
-  def show_share?(page_type)
+  def rich_content?(page_type)
     [ 'places', 'place', 'guides', 'plans' ].include?(page_type)
   end
 
   def show_back?(page_type)
     [ 'new' ].include?(page_type)
+  end
+
+  def fullscreen?(page_type)
+    [ 'places' ].include?(page_type)
   end
 
   # DATE-BASED LISTS

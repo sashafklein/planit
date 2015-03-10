@@ -31,7 +31,7 @@
     text-align: center
     display: table
     table-layout: fixed
-    a.nav-item-link
+    .nav-item-link
       display: table-cell
       box-sizing: border-box
       -moz-box-sizing: border-box
@@ -59,8 +59,10 @@
       font-size: 18px
       line-height: 18px
       i 
+        position: relative
         display: inline-block
         width: 20px
+        height: 18px
       &.selected
         background: #2f2f2f
         border-bottom: #aaa 3px solid
@@ -96,6 +98,21 @@
           span
             color: #fff
             background: rgba( 0,0,0,1 )
+
+    span.inbox-count
+      position: absolute
+      right: -4px
+      top: 8px
+      padding: 2px
+      border-radius: 2px
+      background: #f06
+      font-size: 10px
+      line-height: 10px
+      font-weight: bold
+      color: #000
+      text-shadow: none
+      &.chill
+        background: #ccc
 
     .nav-item-hint
       display: none

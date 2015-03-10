@@ -48,7 +48,6 @@ module Scrapers
               scraper_url: @url,
             ])
           end
-          binding.pry
           return @data
         else
           return nil

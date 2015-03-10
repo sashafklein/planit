@@ -40,7 +40,6 @@ module Scrapers
         #     }
         #   end
         # end
-        # binding.pry
         return link_array
       end
 
@@ -48,7 +47,6 @@ module Scrapers
         processed_array = []
         link_array.each do |each_link|
           if each_link[:text].include?("El Coro Lounge Bar")
-            binding.pry
           end
           if each_link[:href].include?("?cid=")
             processed_array << google_clear_cid_hash(each_link)

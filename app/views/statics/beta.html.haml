@@ -1,0 +1,38 @@
+- title('Private Beta')
+- page_type('beta')
+
+.static-page.container.whitebox.no-mobile-portrait.pad-top#beta-page
+  .eight.columns.main-content
+    .left-section.padded
+
+      .section-header= "Planit is in Private Beta"
+      .static-section-content
+        %p
+          %i{ class: 'fa fa-home padded-icon' }
+          We're building a home for all the places you love.
+        %p
+          %i{ class: 'icon-map padded-icon' }
+          Save, curate, and share your favorite spots.
+        %p
+          %i{ class: 'fa fa-heart padded-icon' }
+          Never forget a great recommendation.
+
+  .eight.columns.main-content
+    .right-section.padded
+
+      .section-header= "Request an Invite!"
+      .beta-list-registration
+        .simple-entry-form
+          = simple_form_for(User.new, url: beta_users_path) do |f|
+            = f.error_notification
+            .simple-entry-form-section
+              %span.icomoon.icon-user.simple-form-icon
+              = f.input :first_name, required: true, placeholder: 'First Name'
+            .simple-entry-form-section
+              %i.simple-form-icon
+              = f.input :last_name, required: true, placeholder: 'Last Name'
+            .simple-entry-form-section
+              %i.fa.fa-envelope.simple-form-icon
+              = f.input :email, required: true, placeholder: 'Email Address'
+            .simple-entry-form-section.form-actions.right
+              = f.button :submit, "Sign up", class: 'planit-button neon'

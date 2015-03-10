@@ -1,0 +1,12 @@
+- if current_user
+  = render 'modals/feedback'
+- if current_user_is_active
+  = render 'modals/new', { page_type: page_type }
+  - if rich_content?(page_type)
+    = render 'modals/share', { title: title }
+    = render 'modals/note'
+    = render 'modals/guide'
+    - unless false # add when ready
+      / = render 'modals/plan'
+      / = render 'modals/been'
+      / = render 'modals/delete', { page_type: page_type }

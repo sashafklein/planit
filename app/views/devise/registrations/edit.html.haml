@@ -6,7 +6,7 @@
       .center-box
 
         .simple-entry-header= "Edit #{resource_name.to_s.humanize}"
-        %hr.divider{ style: "width: 300px;"}
+        %hr.divider{ style: "width: 300px; margin-bottom: 18px"}
 
         .simple-entry-form
           = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
@@ -33,7 +33,7 @@
               %i.fa.fa-key.simple-form-icon
               = f.input :current_password, required: true, placeholder: 'Current Password (Required)'
             .simple-entry-form-section.form-actions.right
-              = f.button :submit, "Update"
+              = f.button :submit, "Update", class: "planit-button neon"
               
         .simple-entry-links
           = link_to "Back", :back

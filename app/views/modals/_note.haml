@@ -1,0 +1,12 @@
+.modal.fade.planit-modal#planit-modal-note{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
+  .modal-dialog
+    .modal-content
+      .modal-mini
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %form
+          %h4 Edit Notes
+          %input{ type: 'hidden', id: 'places_to_control' }
+          %button.btn.btn-primary.mini-button{:id => "planit-modal-submit-note", :type => "button" } Save
+          .form-group
+            %textarea.form-control{:id => "place_note" }

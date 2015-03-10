@@ -1,56 +1,33 @@
 #show-marks-page, #user-inbox-page
 
+  .full-original-source
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 14px
+    line-height: 22px
+    padding: 0px 5px 10px 5px
+    overflow: hidden
+    white-space: nowrap
+    span
+      text-overflow: ellipsis
+
   .original-reminder
     display: block
     overflow: hidden
-    white-space: nowrap
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
     font-size: 14px
     line-height: 22px
     color: #333
-    padding: 10px 5px 10px 5px
-    span
-      padding: 3px 0px
-    span.bubbled    
-      border-radius: 3px
-      padding: 2px 8px
-      border: 1px solid rgba(0,0,0,0.2)
-      color: #777
-      font-weight: normal
-      background: rgba(255,255,255,0.4)
-      &.original-date
-        float: right
-        z-index: 10px
-      &.remove-pending-mark
-        float: right
-        margin-left: 8px
-        font-weight: bold
-        text-align: center
-        &:hover
-          background: #000
-          color: #fff
-          border: 1px solid #000
-    &:hover
-      span.bubbled
-        background: #f06
-        border: 1px #f06 solid
-        color: #fff
+    padding: 10px 5px
+    .original-date
+      float: right
+      margin-right: 8px
+      z-index: 10px
     a.original-source
       color: #777
       text-decoration: none
-      position: relative
       &:hover, &:active
         color: #000
         text-decoration: none
-        .original-source-hint
-          display: inline-block
-      .original-source-hint
-        padding: 3px 0 0 10px
-        position: absolute
-        display: none
-        overflow: hidden
-        text-overflow: ellipsis
-        white-space: nowrap
 
   .options-box
     .see-options
@@ -184,14 +161,8 @@
 
   // *Computer (Regular)
 
-  .original-source-hint
-    max-width: 500px
-
   // #Tablet (Portrait)
   @media only screen and (min-width: 768px) and (max-width: 959px)
-
-    .original-source-hint
-      max-width: 300px
 
   // #Mobile (Portrait) <-- smallest
   @media only screen and (max-width: 767px)

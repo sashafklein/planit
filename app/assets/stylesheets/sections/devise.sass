@@ -1,4 +1,4 @@
-body.devise-registrations
+body.devise-registrations, body.devise-sessions, .beta-list-registration
 
   .simple-header-top
     display: block
@@ -9,15 +9,6 @@ body.devise-registrations
     img
       display: inline-block
       margin: 7px 5px 0 5px
-
-  p.help-block
-    position: absolute
-    font-size: 10px
-    background: #f06
-    padding: 3px 8px
-
-  input.required
-    border: 1px solid #6666a3 !important
 
   .tagline-band
     display: block
@@ -42,40 +33,11 @@ body.devise-registrations
     color: #000
     text-shadow: 0px 1px 1px #fff
     text-align: center
-    
     text-transform: uppercase
 
   .simple-entry-form
-    .simple-entry-form-section
-      display: block
-      white-space: nowrap
-      overflow: hidden
-      width: 300px
-      padding: 10px 0
-      font-size: 16px
-      line-height: 22px
-      text-align: center
-      &.left
-        text-align: left
-      &.right
-        text-align: right
-    .form-group.email, .form-group.password, .form-group.user_first_name, .form-group.user_last_name
-      display: inline-block
-      margin: 0
-      padding: 0
-    .form-group.boolean
-      display: block
-      margin: 0
-      padding: 0
-      label
-        padding: 0
-        margin: 0
-        display: inline
-        position: relative
-        input
-          margin: 0 10px 0 6px
-          display: inline-block
-          position: relative
+    margin-top: -10px
+    width: 300px
     input
       font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
       font-size: 16px
@@ -121,6 +83,7 @@ body.devise-registrations
           -webkit-box-shadow: #353848 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
           -moz-box-shadow: #353848 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
           box-shadow: #353848 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+
     .simple-form-icon
       display: inline-block
       text-align: center
@@ -149,16 +112,62 @@ body.devise-registrations
       color: #aaa
       padding-left: 4px
 
-  .simple-entry-links
-    width: 300px
-    padding: 10px 0px 5px 0px
-    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-    font-size: 13px
-    line-height: 17px
-    font-weight: normal
-    color: #000
-    text-align: left
+    .remember-me
+      float: left
+      position: absolute
 
+    p.help-block
+      position: absolute
+      font-size: 10px
+      background: #f06
+      padding: 3px 8px
+
+    input.required
+      border: 1px solid #6666a3 !important
+
+    .simple-entry-form-section
+      display: block
+      white-space: nowrap
+      overflow: hidden
+      width: 300px
+      padding: 10px 0
+      font-size: 16px
+      line-height: 22px
+      text-align: center
+      &.left
+        text-align: left
+      &.right
+        text-align: right
+    .form-group.email, .form-group.password, .form-group.user_first_name, .form-group.user_last_name
+      display: inline-block
+      margin: 0
+      padding: 0
+    .form-group.boolean
+      display: block
+      margin: 0
+      padding: 0
+      label
+        padding: 0
+        margin: 0
+        display: inline
+        position: relative
+        input
+          margin: 0 10px 0 6px
+          display: inline-block
+          position: relative
+
+    .simple-entry-links
+      width: 300px
+      padding: 10px 0px 5px 0px
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-size: 13px
+      line-height: 17px
+      font-weight: normal
+      color: #000
+      text-align: left
+
+    .planit-button
+      margin-right: 1px
 
 
 
