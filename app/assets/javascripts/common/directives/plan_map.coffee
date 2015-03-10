@@ -112,12 +112,13 @@ angular.module("Common").directive 'planMap', (F, Place, Plan, User, PlanitMarke
         s.map.addLayer(clusterMarkers)
 
         # Start map (either center or with QueryString) and inject zoom control
-        queryCenter = QueryString.centerIs()
-        if queryCenter
+        queryCenter = QueryString.get()["m"]
+        if queryCenter && !queryCenter.replace(/[-0-9.,]/g,'').length && queryCenter.split(',').length == 3
+          queryCenter = { lat: queryCenter.split(',')[0], lon: queryCenter.split(',')[1], zoom: queryCenter.split(',')[2] }
           s.map.setView( [ parseFloat( queryCenter.lat ), parseFloat( queryCenter.lon ) ], parseInt( queryCenter.zoom ) )
         else
-          s.bounds = new L.LatLngBounds(s.primaryCoordinates)
-          s.map.fitBounds(s.bounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
+          s.totalBounds = new L.LatLngBounds(s.primaryCoordinates)
+          s.map.fitBounds(s.totalBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
         new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
 
         # Control whether or not context pins are viewable
@@ -130,7 +131,7 @@ angular.module("Common").directive 'planMap', (F, Place, Plan, User, PlanitMarke
 
         # On Zoom and Move End
         s.updateQuery = ->
-          QueryString.modifyParamValues( m:"#{s.map.getCenter().lat.toFixed(4)},#{s.map.getCenter().lng.toFixed(4)},#{s.map.getZoom()}" )
+          QueryString.modify( m:"#{s.map.getCenter().lat.toFixed(4)},#{s.map.getCenter().lng.toFixed(4)},#{s.map.getZoom()}" )
         s.map.on "moveend", -> s.updateQuery()
         s.map.on "zoomend", -> 
           s.showHideContext()

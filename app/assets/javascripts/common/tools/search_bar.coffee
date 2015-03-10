@@ -16,13 +16,13 @@ angular.module('Common').factory 'SearchBar', (QueryString) ->
       $(".expanded-search-and-filter").fadeOut('fast')
       $(".logo-container, .side-menu-container, .top-menu-container, .search-and-filter-wrap").fadeIn("fast")
       if $('#search-input-field').val().length == 0 
-        QueryString.clearParamValues(q:'clear')
+        QueryString.modify(q:null)
         $('#search-teaser-field').html('')
       $('#search-input-field').val($('#search-teaser-field').html())
 
     @_searchToggleText: (stay_open=null) ->
       searchVal = SearchBar._removeBlanks( $('#search-input-field').val() )
-      QueryString.modifyParamValues(q:searchVal)
+      QueryString.modify(q:searchVal) if searchVal
       $('#search-teaser-field').html(searchVal)
       @_searchToggleOff() unless ( searchVal.length == 0 || stay_open )
 
@@ -30,8 +30,8 @@ angular.module('Common').factory 'SearchBar', (QueryString) ->
 
     @initializePage: () ->
       if typeof $('#search-input-field').val() == 'string'
-        $('#search-input-field').val(QueryString.fetchQuery())
-        $('#search-teaser-field').html(QueryString.fetchQuery())
+        $('#search-input-field').val(QueryString.get()['q'])
+        $('#search-teaser-field').html(QueryString.get()['q'])
         $('.search-teaser').click -> SearchBar._searchToggleOn()
         $(".search-close, html").click -> SearchBar._searchToggleOff()
         $('.expanded-search-and-filter, .search-teaser, .filter-dropdown-menu').click (event) -> event.stopPropagation()

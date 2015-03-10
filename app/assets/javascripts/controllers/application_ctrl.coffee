@@ -12,5 +12,4 @@ mod.controller "ApplicationCtrl", ($scope, ClickControls, SearchBar, UserFlow, Q
 
   ClickControls.initializePage()
   SearchBar.initializePage()
-  QueryString.initializePage()
   Filters.initializePage()
