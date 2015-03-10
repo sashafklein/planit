@@ -51,8 +51,9 @@ class User < BaseModel
   end
 
   def save_as(status)
-    password = Devise.friendly_token.first(8)
-    update_attributes({ password: password, password_confirmation: password, role: status })
+    password = Devise.friendly_token.first(8) if !self.encrypted_password.present?
+    new_attrs = { role: status }.merge({password: password, password_confirmation: password}.to_sh.reject_val(&:nil?))
+    update_attributes( new_attrs )
     notify_signup(password) if self.persisted?
     return self
   end

@@ -10,10 +10,11 @@
       %b= "your Planit!"  
       Save your favorite haunts, your wanderlist to-do's, and your friends' recommendations -- all with a click.  Curate, filter, and share back with friends and family in a plug-and-play format they can easily save and personalize.  Your data will be downloadable, exportable, and available soon both offline and in mobile applications.  For now, get started by:
       %ul
-        %li
-          = link_to "Setting your own password", edit_user_registration_path + "#" + @password #NEEDSFOLLOWUP
-          with the temporary invitation passcode of
-          %b= @password #NEEDSFOLLOWUP
+        - if @password
+          %li
+            = link_to "Setting your own password", edit_user_registration_path + "#" + @password #NEEDSFOLLOWUP
+            with the temporary invitation passcode of
+            %b= @password #NEEDSFOLLOWUP
         %li
           Installing 
           = link_to "Planit's browser-save button", about_path + "#browser"

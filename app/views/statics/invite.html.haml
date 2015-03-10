@@ -26,7 +26,7 @@
       .section-header= "Extend an Invite!"
       .beta-list-registration
         .simple-entry-form
-          = simple_form_for(User.new, url: beta_users_path) do |f| #NEEDSFOLLOWUP
+          = simple_form_for(User.new, url: invite_users_path) do |f| #NEEDSFOLLOWUP
             = f.error_notification
             .simple-entry-form-section
               %span.icomoon.icon-user.simple-form-icon

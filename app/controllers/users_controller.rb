@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   
   before_action :load_user, only: [:places, :guides, :inbox, :show]
   before_action :authorize_user, only: [:places, :guides, :inbox, :show]
+  before_action :authenticate_admin!, only: [:invite]
 
   def beta
     user = User.new( user_params ).save_as(:pending)
