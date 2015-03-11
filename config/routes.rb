@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get '/invite', to: 'statics#invite' #NEEDSFOLLOWUP
   get '/about', to: 'statics#about'
   get '/save', to: 'places#new'
-  get '/import', to: 'places#new' #NEEDSFOLLOWUP
+  get '/feedback', to: 'statics#feedback' #NEEDSFOLLOWUP
+  get '/import', to: 'statics#about' #NEEDSFOLLOWUP
+  get '/button', to: 'statics#about' #NEEDSFOLLOWUP
 
   get '/legal_support', to: 'statics#legal_support'
   get '/legal/dmca', to: 'statics#dmca'
@@ -20,6 +22,8 @@ Rails.application.routes.draw do
 
   resources :marks, only: [:show]
 
+  resources :places, only: [:show, :new, :index]
+
   resources :users, only: [:show] do
     get :places, on: :member
     get :guides, on: :member
@@ -28,10 +32,9 @@ Rails.application.routes.draw do
     post :invite, on: :collection
   end
 
-  resources :places, only: [:show, :new, :index] do
-  end
-
   resources :page_feedbacks, only: [:create]
+
+  resources :shares, only: [:create]
 
   namespace :api do
     namespace :v1 do

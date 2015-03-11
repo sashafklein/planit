@@ -58,5 +58,5 @@
                   = text_area_tag "page_feedback[awesome]", nil, class: 'form-control feedback-textarea'
 
           .modal-footer
-            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
-            = f.submit 'Share', class: 'btn btn-primary', id: 'planit-modal-submit-feedback', disabled: (current_user && !current_user.nps_feedbacks.in_last_months(2).any?)
+            %button.planit-button.gray{"data-dismiss" => "modal", :type => "button"} Cancel
+            = f.submit 'Share', class: 'planit-button neon', id: 'planit-modal-submit-feedback', disabled: (current_user && !current_user.nps_feedbacks.in_last_months(2).any?)

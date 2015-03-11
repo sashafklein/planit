@@ -4,6 +4,7 @@ html, body
   margin: 0
   padding: 0
   height: 100% !important
+  font-family: avenir, "open sans", "Myriad W01", "Helvetica Neue", 'trebuchet ms'
 
 body
   background: #dfdfdf
@@ -144,7 +145,9 @@ strong, .strong
 
 strong, .in-caps-header, i
   &.neon
-    color: #f06
+    color: #f06 // neon
+  &.green
+    #c8e052 // green
 
 .planit-button, a.planit-button, a .planit-button
   display: inline-block
@@ -312,6 +315,11 @@ a.feedback-button, a.feedback-button:hover
     vertical-align: top
   &:hover
     color: #f06
+
+.alert.alert-danger
+  background: #f06
+  border: 1px solid #c03
+  color: #000
 
 #flash
   position: fixed

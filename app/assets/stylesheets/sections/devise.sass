@@ -1,5 +1,9 @@
 body.devise-registrations, body.devise-sessions, .beta-list-registration
 
+  .center-box
+    width: 300px
+    margin: auto
+
   .simple-header-top
     display: block
     width: 100%
@@ -35,6 +39,29 @@ body.devise-registrations, body.devise-sessions, .beta-list-registration
     text-align: center
     text-transform: uppercase
 
+  .simple-entry-links
+    width: 300px
+    margin: 10px 0 25px 0
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 13px
+    line-height: 17px
+    font-weight: normal
+    color: #000
+    text-align: left
+
+  p.help-block, span.help-block, span.hint, span.token label
+    display: block
+    text-align: left
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    text-transform: capitalize
+    margin: 10px 0
+    font-size: 14px
+    line-height: 14px
+    color: #f06
+  span.token
+    margin-left: 30px
+    color: #f06
+
   .simple-entry-form
     margin-top: -10px
     width: 300px
@@ -51,6 +78,8 @@ body.devise-registrations, body.devise-sessions, .beta-list-registration
         border: 1px solid #bbb
         padding: 3px 8px
         margin: 0
+        &.neon
+          color: #f06
       &.boolean
         padding: 0
         margin: 4px
@@ -84,48 +113,33 @@ body.devise-registrations, body.devise-sessions, .beta-list-registration
           -moz-box-shadow: #353848 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
           box-shadow: #353848 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
 
-    .simple-form-icon
+    i.simple-form-icon
       display: inline-block
       text-align: center
       width: 22px
       margin-right: 3px
-      vertical-align: middle
-      span, i
-        display: inline-block
-        text-align: center
-        width: 22px
-        margin-right: 3px
-        vertical-align: middle
-    label
-      display: inline
-      padding: 0 0 0 7px
-      &.password, &.email, &.user_first_name, &.user_last_name, &.string.required
-        display: none
-        visibility: hidden
-    span.hint
-      display: block
       position: absolute
-      font-style: italic
-      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-      font-size: 12px
-      line-height: 14px
-      color: #aaa
-      padding-left: 4px
+      float: left
+      top: 18px
+      text-align: center
+      width: 22px
+      margin-right: 3px
+      vertical-align: middle
 
     .remember-me
       float: left
       position: absolute
 
-    p.help-block
-      position: absolute
-      font-size: 10px
-      background: #f06
-      padding: 3px 8px
+    label
+      &.password, &.email, &.user_first_name, &.user_last_name, &.string.required
+        display: none
+        visibility: hidden
 
     input.required
       border: 1px solid #6666a3 !important
 
     .simple-entry-form-section
+      position: relative
       display: block
       white-space: nowrap
       overflow: hidden
@@ -138,9 +152,14 @@ body.devise-registrations, body.devise-sessions, .beta-list-registration
         text-align: left
       &.right
         text-align: right
+      p
+        text-align: left
+        font-size: 13px
+        margin: 5px 0 5px 30px
+        color: #777
     .form-group.email, .form-group.password, .form-group.user_first_name, .form-group.user_last_name
       display: inline-block
-      margin: 0
+      margin: 0 0 0 30px
       padding: 0
     .form-group.boolean
       display: block
@@ -155,16 +174,6 @@ body.devise-registrations, body.devise-sessions, .beta-list-registration
           margin: 0 10px 0 6px
           display: inline-block
           position: relative
-
-    .simple-entry-links
-      width: 300px
-      padding: 10px 0px 5px 0px
-      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-      font-size: 13px
-      line-height: 17px
-      font-weight: normal
-      color: #000
-      text-align: left
 
     .planit-button
       margin-right: 1px

@@ -1,16 +1,6 @@
-!!!
-%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-%html
-  %body
-    %p        
-    %h1
-      Welcome to Planit, #{@user.first_name}!
-    %p
-      Thanks for signing up for Planit's Beta!  We're wrapping up a few initial features and will be opening to the public shortly.  When we do, you'll be the first we reach out to.
-      %br/
-    %p
-      When we're ready, we'll send instructions for how to login to the site.
-    %p 
-      Excited to have you on board!  Thanks for joining and have a great day!
-    %p
-      The Planit Team
+%h2= "Welcome to <b>Planit</b>, #{@user.first_name}!".html_safe
+%p= "Thanks for signing up for Planit's public Beta!  We're wrapping up a few initial features and will be opening to the public shortly.  When we do, you'll be the first we reach out to."
+%p= "As soon as we're ready, we'll send instructions for how to login to the site."
+%p= "Excited to have you on board!  Thanks for joining and have a great day!"
+%p= "The Planit Team"
+  

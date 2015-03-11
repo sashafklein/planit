@@ -54,7 +54,7 @@ class User < BaseModel
     password = Devise.friendly_token.first(8) if !self.encrypted_password.present?
     new_attrs = { role: status }.merge({password: password, password_confirmation: password}.to_sh.reject_val(&:nil?))
     update_attributes( new_attrs )
-    notify_signup(password) if self.persisted?
+    notify_signup( password ) if self.persisted?
     return self
   end
 
@@ -67,9 +67,9 @@ class User < BaseModel
   private
 
   def notify_signup(password)
-    AdminMailer.notify_of_signup(self).deliver_later
-    UserMailer.welcome_waitlist(self).deliver_later if pending?
-    UserMailer.welcome_invited(self, password).deliver_later if member?
+    AdminMailer.notify_of_signup(self).deliver_now
+    UserMailer.welcome_waitlist(self).deliver_now if pending?
+    UserMailer.welcome_invited(self, password).deliver_now if member?
   end
   
 end

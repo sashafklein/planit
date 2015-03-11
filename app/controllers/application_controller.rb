@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
 
   def update_sanitized_params
     devise_parameter_sanitizer.for(:sign_up).push(:first_name, :last_name)
+    devise_parameter_sanitizer.for(:account_update).push(:first_name, :last_name)
   end
 
   rescue_from Pundit::NotAuthorizedError, with: :permission_denied
@@ -30,6 +31,10 @@ class ApplicationController < ActionController::Base
     flash[:error] = "Woops! Doesn't look like that page is yours!"
     redirect_to root_path
   end 
+
+  def authenticate_member!
+    not_authorized_redirect unless member? || admin?
+  end
 
   def authenticate_admin!
     not_authorized_redirect unless admin?
