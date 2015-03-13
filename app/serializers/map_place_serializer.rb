@@ -8,7 +8,4 @@ class MapPlaceSerializer < ActiveModel::Serializer
     [object.lat,object.lon]
   end
 
-  # def open
-  # end
-
 end

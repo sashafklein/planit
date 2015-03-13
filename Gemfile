@@ -58,6 +58,7 @@ source "https://rails-assets.org" do
   gem "rails-assets-async"
   gem "rails-assets-lodash"
   gem "rails-assets-leaflet"
+  gem "rails-assets-angular-leaflet-directive"
 end
 
 group :development do

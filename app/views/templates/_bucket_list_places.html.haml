@@ -1,7 +1,7 @@
 %script{ type: 'text/ng-template', id: 'bucket_list_places.html' }
   .bucket-list-tab
     .bucket-list-no-img{ ng_if: "!place.hasImage()", ng_href: "/places/{{place.id}}" }
-    .bucket-list-img{ ng_if: "place.hasImage()", style: "background-image: url('{{place.images[0].url}}');", id: "{{'p' + place.id}}", ng_href: "/places/{{place.id}}" }
+    .bucket-list-img{ ng_if: "place.hasImage()", id: "{{'p' + place.id}}", ng_href: "/places/{{place.id}}", style: "background-image: url('{{place.images[0].url}}');" }
     .bucket-list-wrap
       .bucket-list-profile{ id: "{{'p' + place.id}}" }
         %a.bucket-list-title{ ng_href: "/places/{{place.id}}" }
