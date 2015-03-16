@@ -1,4 +1,4 @@
-body.devise-registrations, body.devise-sessions, .beta-list-registration
+body.devise-registrations, body.devise-sessions, body.devise-passwords, .small-form-box
 
   .center-box
     width: 300px
@@ -128,8 +128,10 @@ body.devise-registrations, body.devise-sessions, .beta-list-registration
 
     .remember-me
       float: left
-      position: absolute
-
+      width: 200px !important
+      position: absolute !important
+      z-index: 3
+      
     label
       &.password, &.email, &.user_first_name, &.user_last_name, &.string.required
         display: none

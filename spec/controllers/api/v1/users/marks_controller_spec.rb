@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Api::V1::Users::MarksController, :vcr do
 
   include ScraperHelper
-  
+
   describe "create" do
 
     before do
@@ -109,6 +109,20 @@ describe Api::V1::Users::MarksController, :vcr do
         }.to change{ Mark.count }.by 1
         options = Mark.all.first.place_options
         expect( options.first.name ).to include "Hotel Century Southern"
+      end
+
+      it "gets full data from 36 hours los cabos" do
+        expect{
+          post :scrape,
+            url: 'http://www.nytimes.com/2015/03/15/travel/what-to-do-in-36-hours-in-los-cabos-mexico.html?rref=collection/column/36-hours', page: read('nytimes', 'los_cabos.html'), user_id: @user.id, delay: false
+        }.to change{ Mark.count }.by 18
+      end
+
+      it "gets full data from 36 hours berkeley" do
+        expect{
+          post :scrape,
+            url: 'http://www.nytimes.com/2014/10/12/travel/things-to-do-in-36-hours-in-berkeley-calif.html', page: read('nytimes', 'berkeley_new.html'), user_id: @user.id, delay: false
+        }.to change{ Mark.count }.by 16
       end
 
       it "gets The Hall without erroring on the hours" do

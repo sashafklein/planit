@@ -4,12 +4,13 @@ Rails.application.routes.draw do
 
   root 'landing#show'
   get '/beta', to: 'statics#beta'
-  get '/invite', to: 'statics#invite' #NEEDSFOLLOWUP
+  get '/invite', to: 'statics#invite'
   get '/about', to: 'statics#about'
   get '/save', to: 'places#new'
-  get '/feedback', to: 'statics#feedback' #NEEDSFOLLOWUP
+  get '/feedback', to: 'statics#feedback'
   get '/import', to: 'statics#about' #NEEDSFOLLOWUP
   get '/button', to: 'statics#about' #NEEDSFOLLOWUP
+  # get '/inbox', to: 'users#inbox' #NEEDSFOLLOWUP
 
   get '/legal_support', to: 'statics#legal_support'
   get '/legal/dmca', to: 'statics#dmca'
@@ -28,7 +29,7 @@ Rails.application.routes.draw do
     get :places, on: :member
     get :guides, on: :member
     get :inbox, on: :member
-    post :beta, on: :collection
+    post :waitlist, on: :collection
     post :invite, on: :collection
   end
 

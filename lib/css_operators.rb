@@ -100,18 +100,19 @@ module CssOperators
   end
 
   def split_by(selectors, split_array)
-    Array(selectors).each do |selector|
+    Array(selectors).flatten.each do |selector|
       
       if ( node = css(selector) ).any?
         split_array.each do |split_by_element|
           splitter, index = split_by_element
           if node.inner_html.include?( splitter )
-            return split(node, split_by_element.first, split_by_element.last)
+            return split(node, splitter, index)
           end
         end
       end
 
     end
+    nil
   end
 
   def split(node, splitter, index)

@@ -1,5 +1,5 @@
 = current_user.decorate.nav_item_map(page_type)
 = current_user.decorate.nav_item_guides(page_type)
 = current_user.decorate.nav_item_new(page_type)
-= current_user.decorate.nav_item_inbox(page_type, current_user.messages)
-= current_user.decorate.nav_item_share(page_type)
+= current_user.decorate.nav_item_inbox(page_type, current_user)
+= current_user.decorate.nav_item_share(page_type, (@user if page_type == 'places' || page_type == 'guides') )

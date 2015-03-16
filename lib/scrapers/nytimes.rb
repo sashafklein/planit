@@ -35,7 +35,7 @@ module Scrapers
     end
 
     def self.thirty_six_new?(url)
-      url.include?('things-to-do-in-36-hours') && url.include?('/travel/')
+      url.include?('to-do-in-36-hours') && url.include?('/travel/')
     end
 
     def self.google_map_enabled?(url, page)

@@ -1,26 +1,65 @@
 #user-inbox-page
   
   .inbox-folder
-    padding: 0
-    background: #aaa
+    padding: 0 10px
+    background: #007 // dark blue
+    color: #fff
     position: relative
+    margin-top: 10px
+    span.flat
+      background: #33a
+      color: #fff
+      border: 1px solid #229
+      &:hover
+        background: #fff
+        color: #000
+        border: 1px solid #fff
   
+  .inbox-folder-contents
+    padding: 0
+    border-bottom: 3px solid #007
+    margin-bottom: 10px
+
   .inbox-message-header
+    padding: 0 10px
+    min-height: 10px
     cursor: pointer
+    transition: 0.2s all ease
+    background: rgba(0,0,0,0)
+    &.darker
+      background: rgba(0,0,0,0.05)
+    &:hover
+      background: #f06
 
-
-
-
+  .modal-body.inbox-message
+    -webkit-border-bottom-left-radius: 5px
+    -webkit-border-bottom-right-radius: 5px
+    -moz-border-radius-bottomleft: 5px
+    -moz-border-radius-bottomright: 5px
+    border-bottom-left-radius: 5px
+    border-bottom-right-radius: 5px    
 
   // VARIABLE SIZING RULES
 
   // *Computer (Regular)
 
+  .modal-dialog.inbox-message
+    width: 960px
+
   // #Tablet (Portrait)
   @media only screen and (min-width: 768px) and (max-width: 959px)
+
+    .modal-dialog.inbox-message
+      width: 780px
 
   // #Mobile (Portrait) <-- smallest
   @media only screen and (max-width: 767px)
 
+    .modal-dialog.inbox-message
+      width: 100%
+
   // #Mobile (Landscape)
   @media only screen and (min-width: 480px) and (max-width: 767px)
+
+    .modal-dialog.inbox-message
+      width: 100%

@@ -12,10 +12,12 @@
           = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
             .simple-entry-form-section
               %i.fa.fa-envelope.simple-form-icon
-              = f.input :email, required: true, autofocus: true, placeholder: 'Email'
+              = f.input :email, required: true, autofocus: true, placeholder: 'Email', input_html: { value: params["email"], class: "#{'neon' if params['token'].present?}" }
+            - if params["token"]
+              %span.token= "Passcode Token Entered"
             .simple-entry-form-section
               %i.fa.fa-key.simple-form-icon
-              = f.input :password, required: true, placeholder: 'Password'
+              = f.input :password, required: true, placeholder: 'Password', input_html: { value: params["token"], class: "#{'neon' if params['token'].present?}" }
             .simple-entry-form-section.left.remember-me
               = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
             .simple-entry-form-section.form-actions.right

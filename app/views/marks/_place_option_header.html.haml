@@ -1,12 +1,10 @@
-.container
-  .sixteen.columns.original-reminder{ id: "index_#{index}" }
-    %span.flat.delete-right{ id: "mark_#{mark.id}" }= "×"
-    %span.flat= mark.created_at.strftime("%d/%m/%y")
-    %span.flat="Original Query"
-    %span.large-screen-inline= "near"
-    %span.flat.large-screen-inline="Original Location"
-    - if mark.source.present?
-      %span= "on"
-      = link_to mark.source.full_url, :target => "_blank", :class => 'original-source', id: "source_link_#{index}" do
-        %span= mark.source.name
-        
+%span.flat.delete-right{ id: "mark_#{mark.id}" }
+  %i.fa.fa-trash
+%span.flat= mark.created_at.strftime("%d/%m/%y")
+%span.flat="Original Query"
+%span.large-screen-inline= "near"
+%span.flat.large-screen-inline="Original Location"
+- if mark.source.present?
+  %span= "on"
+  %span= mark.source.name
+    

@@ -21,9 +21,9 @@
     .right-section.padded
 
       .section-header= "Request an Invite!"
-      .beta-list-registration
+      .small-form-box
         .simple-entry-form
-          = simple_form_for(User.new, url: beta_users_path) do |f|
+          = simple_form_for(User.new, url: waitlist_users_path) do |f|
             = f.error_notification
             .simple-entry-form-section
               %i.icomoon.icon-user.simple-form-icon

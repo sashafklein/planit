@@ -1,6 +1,7 @@
 #mailer-header
   .logo-container
-    = image_tag attachments["logo_only_white.png"].url, alt: '', class: "logo-image-top"
-    = image_tag attachments["logo_name_only_white.png"].url, alt: 'PLANIT', class: "logo-name-top"
+    = link_to root_url do
+      / = image_tag attachments["logo_only_white.png"].url, alt: '', class: "logo-image-top"
+      / = image_tag attachments["logo_name_only_white.png"].url, alt: 'PLANIT', class: "logo-name-top"
   .quote
     = ""

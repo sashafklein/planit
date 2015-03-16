@@ -1,13 +1,13 @@
-%h2= "Welcome to <b>Planit</b>'s Private Beta, #{@user.first_name}!".html_safe
+%h2= "Welcome to <b>Planit</b>'s Private Beta, #{@user.casual_name}!".html_safe
 %p
   = """ We've been building a home for all the places you love.  Save your favorite haunts, your wanderlist to-do's, and your friends' recommendations - all with one click.  Curate, filter, and share back with friends and family in a plug-and-play format they can easily save and personalize.  Your data will be downloadable, exportable, and available across web and your smartphone.  For now, get started by: """.html_safe
   %ul
-    - if @password
+    - if @user.reset_password_token && @user.sign_in_count == 0
       %li
         = "Signing in with your" 
-        = link_to "temporary password", edit_user_registration_url + "?token=" + @password 
+        = link_to "temporary password", new_user_session_url + @user.tokened_email
         = "["
-        %span.password= @password
+        %span.password= @user.reset_password_token
         = "]"
     %li
       = "Installing Planit's"

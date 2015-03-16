@@ -3,9 +3,45 @@
 
 #user-places-page
 
-  %img{ src: "/assets/loader.gif", width: '0', height: '0', style: 'visibility: hidden;' }
-  #user-bucket-map
+  - if @user.marks.count > 0
 
-    %bucket_map.bucket-map-canvas{ user_id: @user.id, current_user_id: current_user_id, web_padding: '45,45,15,400', mobile_padding: '40,15,80,15', scroll_wheel_zoom: true }
+    %img{ src: "/assets/loader.gif", width: '0', height: '0', style: 'visibility: hidden;' }
+    #user-bucket-map
 
-= render 'templates/bucket_map'
+      %bucket_map.bucket-map-canvas{ user_id: @user.id, current_user_id: current_user_id, web_padding: '45,45,15,400', mobile_padding: '40,15,80,15', scroll_wheel_zoom: true }
+
+    = render 'templates/bucket_map'
+
+  - elsif current_user.marks.count == 0
+
+    #header-spacing
+    .static-page= render 'statics/save'
+    #footer-spacing
+
+  - elsif current_user_is_active
+
+    #header-spacing
+    .static-page.container.whitebox.no-mobile-portrait.pad-top#beta-page
+      .sixteen.columns.main-content
+        .left-section.padded
+          .section-header= "Places?  #{@user.casual_name} doesn't have any saved yet"
+          .static-section-content
+            %p
+              %i{ class: 'fa fa-heart padded-icon' }
+              %strong.neon Show some love.
+
+      .eight.columns.main-content
+        .right-section.padded
+
+          .section-header= "Share a Recommendation!"
+          .small-form-box
+            .simple-entry-form
+              / = simple_form_for(Mark.new, url: waitlist_users_path) do |f|
+              /   = f.error_notification
+              /   .simple-entry-form-section
+              /     %i.fa.fa-map-marker.simple-form-icon
+              /     = f.input :name, required: true, placeholder: 'Place Name'
+              /   .simple-entry-form-section.form-actions.right
+              /     = f.button :submit, "Recommend", class: 'planit-button neon'
+
+    #footer-spacing

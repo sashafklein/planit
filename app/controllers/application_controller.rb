@@ -6,7 +6,11 @@ class ApplicationController < ActionController::Base
   before_action :update_sanitized_params, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
-    root_path
+    if current_user.valid_password?(current_user.reset_password_token)
+      edit_user_registration_path + current_user.tokened_email
+    else
+      root_path
+    end
   end
 
   def after_sign_out_path_for(resource_or_scope)
@@ -43,6 +47,10 @@ class ApplicationController < ActionController::Base
   def permission_denied
     flash[:error] = "Sorry! No public access to this page. Sign in to continue."
     redirect_to root_path
+  end
+
+  def current_user_is_active
+    admin? || member?
   end
 
   def admin?

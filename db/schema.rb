@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226002451) do
+ActiveRecord::Schema.define(version: 20150313220008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,15 +45,15 @@ ActiveRecord::Schema.define(version: 20150226002451) do
 
   create_table "flags", force: :cascade do |t|
     t.text     "details"
-    t.string   "name",        limit: 255
+    t.string   "name"
     t.integer  "object_id"
-    t.string   "object_type", limit: 255
+    t.string   "object_type"
     t.json     "info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "flags", ["object_id", "object_type"], name: "index_flags_on_object_id_and_object_type", using: :btree
+  add_index "flags", ["object_type", "object_id"], name: "index_flags_on_object_type_and_object_id", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",           limit: 255, null: false
@@ -153,6 +153,21 @@ ActiveRecord::Schema.define(version: 20150226002451) do
 
   add_index "nps_feedbacks", ["user_id"], name: "index_nps_feedbacks_on_user_id", using: :btree
 
+  create_table "one_time_tasks", force: :cascade do |t|
+    t.string   "action"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.integer  "agent_id"
+    t.string   "agent_type"
+    t.string   "detail"
+    t.json     "extras"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "one_time_tasks", ["agent_type", "agent_id"], name: "index_one_time_tasks_on_agent_type_and_agent_id", using: :btree
+  add_index "one_time_tasks", ["target_type", "target_id"], name: "index_one_time_tasks_on_target_type_and_target_id", using: :btree
+
   create_table "page_feedbacks", force: :cascade do |t|
     t.text     "details"
     t.string   "url"
@@ -166,11 +181,11 @@ ActiveRecord::Schema.define(version: 20150226002451) do
   add_index "page_feedbacks", ["user_id"], name: "index_page_feedbacks_on_user_id", using: :btree
 
   create_table "place_options", force: :cascade do |t|
-    t.float    "lat"
-    t.float    "lon"
     t.integer  "price_tier"
     t.integer  "feature_type"
     t.integer  "mark_id"
+    t.float    "lat"
+    t.float    "lon"
     t.boolean  "wifi",              default: false
     t.boolean  "reservations",      default: false
     t.text     "description"
@@ -263,6 +278,23 @@ ActiveRecord::Schema.define(version: 20150226002451) do
 
   add_index "plans", ["slug"], name: "index_plans_on_slug", unique: true, using: :btree
   add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree
+
+  create_table "shares", force: :cascade do |t|
+    t.integer  "object_id"
+    t.string   "object_type"
+    t.text     "notes"
+    t.integer  "sharer_id"
+    t.integer  "sharee_id"
+    t.string   "url"
+    t.boolean  "viewed",      default: false
+    t.boolean  "accepted",    default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "shares", ["object_type", "object_id"], name: "index_shares_on_object_type_and_object_id", using: :btree
+  add_index "shares", ["sharee_id"], name: "index_shares_on_sharee_id", using: :btree
+  add_index "shares", ["sharer_id"], name: "index_shares_on_sharer_id", using: :btree
 
   create_table "sources", force: :cascade do |t|
     t.integer  "object_id"

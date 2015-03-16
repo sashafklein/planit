@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authorize_user, only: [:places, :guides, :inbox, :show]
   before_action :authenticate_member!, only: [:invite, :places, :guides, :inbox, :show, :share]
 
-  def beta
+  def waitlist
     if existing_user = User.where( email: user_params[:email] ).first
       user_exists(existing_user)
     else
@@ -43,6 +43,13 @@ class UsersController < ApplicationController
   end
 
   def inbox
+    if @user != current_user
+      flash[:error] = "Not your inbox!"
+      redirect_to user_path
+    elsif @user.messages == 0
+      flash[:error] = "No Messages!"
+      redirect_to user_path
+    end
   end
 
   private
@@ -65,7 +72,7 @@ class UsersController < ApplicationController
 
   def user_exists(user)
     flash[:error] = "#{user.first_name} is already a Planit member!" if user.member?
-    flash[:error] = "#{user.first_name} is already on the Beta list!" if user.pending?    
+    flash[:error] = "#{user.first_name} is already on the Waitlist!" if user.pending?    
   end
 
   def user_params

@@ -9,11 +9,15 @@ class StaticsController < ApplicationController
   end
 
   def invite
-    redirect_to beta_path unless current_user.member? || current_user.admin?
+    redirect_to beta_path unless current_user_is_active
+  end
+
+  def feedback
+    redirect_to beta_path unless current_user_is_active
   end
 
   def beta
-    redirect_to invite_path if current_user.member?
+    redirect_to invite_path if current_user_is_active
   end
 
 end

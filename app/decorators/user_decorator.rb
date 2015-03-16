@@ -25,7 +25,7 @@ class UserDecorator < Draper::Decorator
 
   def nav_item_guides(page_type)
     return nav_item(type: 'guides', hint: 'my guides', icon: 'fa fa-book') if page_type == 'guides'
-    nav_item(type: 'guides', hint: 'my guides', icon: 'fa fa-book', link_to: user_path(model)+"/guides?v=in_"+current_year() )
+    nav_item(type: 'guides', hint: 'my guides', icon: 'fa fa-book', link_to: user_path(model)+"/guides?y=in_"+current_year() )
   end
 
   def nav_item_new(page_type)
@@ -33,14 +33,14 @@ class UserDecorator < Draper::Decorator
     nav_item(type: 'new', hint: 'add new', icon: 'fa fa-plus-circle', modal: true)
   end
 
-  def nav_item_inbox(page_type, messages)
-    return nav_item(type: 'inbox', hint: 'my inbox', icon: 'fa fa-inbox', messages: messages) if page_type == 'inbox' && messages
-    return nav_item(type: 'inbox', hint: 'my inbox', icon: 'fa fa-inbox', link_to: user_path(model)+'/inbox', messages: messages) if messages
+  def nav_item_inbox(page_type, current_user)
+    return nav_item(type: 'inbox', hint: 'my inbox', icon: 'fa fa-inbox', messages: current_user.messages) if page_type == 'inbox' && current_user.messages > 0
+    return nav_item(type: 'inbox', hint: 'my inbox', icon: 'fa fa-inbox', link_to: user_path(current_user)+'/inbox', messages: current_user.messages) if current_user.messages > 0
     nav_item(type: 'inbox', hint: 'my inbox', icon: 'fa fa-inbox', disabled: true)
   end
 
-  def nav_item_share(page_type)
-    return nav_item(type: 'share', hint: 'share this', icon: 'fa fa-paper-plane', disabled: true) if !rich_content?(page_type)
+  def nav_item_share(page_type, user=nil)
+    return nav_item(type: 'share', hint: 'share this', icon: 'fa fa-paper-plane', disabled: true) if !rich_content?(page_type) || !shareable_content?(page_type, user)
     nav_item(type: 'share', hint: 'share this', icon: 'fa fa-paper-plane', modal: true)
   end
 
@@ -61,5 +61,12 @@ class UserDecorator < Draper::Decorator
     html += "</a>" if link_to || modal
     html += "</div>" if selected || disabled
     html.html_safe
+  end
+
+  # PRIVATE
+
+  def shareable_content?(page_type, user)
+    return true if user && page_type == 'places' && user.marks.count > 0
+    return true if user && page_type == 'guides' && user.plans.count > 0    
   end
 end
