@@ -20,6 +20,7 @@ for module in planitModules
 
 @ngApp = angular.module("ngApp", otherModules.concat(planitModules))
 
-@ngApp.config ($compileProvider) ->
+@ngApp.config ($compileProvider, $locationProvider) ->
   # Prevent angular from marking links with a variety of protocols "unsafe"
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|webcal|mailto|file|tel):/)
+  $locationProvider.html5Mode(true)

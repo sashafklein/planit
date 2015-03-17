@@ -3,7 +3,6 @@ mod.controller "ApplicationCtrl", ($scope, ClickControls, Collapsibles, Bootstra
 
   # Universal to all users/non-users
 
-  UserLocation.initializePage() # if current_user_is_active
   Bootstrap.initializePage()
   Collapsibles.initializePage()
   Flashes.initializePage()
@@ -11,3 +10,4 @@ mod.controller "ApplicationCtrl", ($scope, ClickControls, Collapsibles, Bootstra
   if CurrentUser.role != 'pending'
     ClickControls.initializePage()
     Filters.initializePage()
+    UserLocation.initializePage()

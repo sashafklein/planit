@@ -1,5 +1,5 @@
 mod = angular.module("Models")
-mod.factory 'BucketEventManager', (F) ->
+mod.factory 'BucketEventManager', (F, $timeout) ->
 
   class BucketEventManager
 
@@ -10,6 +10,7 @@ mod.factory 'BucketEventManager', (F) ->
       return unless target = @_climbToCorrectElement(e.target)
       id = @_id(target)
       @_markerAndLiForClusterId( @s.selectedClusterId = id ).addClass('highlighted')
+      @_scrollToSidebarItem("c#{ id }")
 
     deselectCluster: =>
       @_markerAndLiForClusterId( @s.selectedClusterId ).removeClass('highlighted')
@@ -18,6 +19,7 @@ mod.factory 'BucketEventManager', (F) ->
     selectPlace: (e, args) =>
       return unless place = args?.leafletEvent?.target?.options
       @_markerAndLiForPlaceId( @s.selectedPlaceId = place.id ).addClass('highlighted')
+      @_scrollToSidebarItem("p#{ place.id }")
     
     deselectPlace: () =>
       @_markerAndLiForPlaceId( @s.selectedPlaceId ).removeClass('highlighted')
@@ -25,6 +27,11 @@ mod.factory 'BucketEventManager', (F) ->
 
     deselectAll: => @s.selectedClusterId = @s.selectedPlaceId = null
 
+    redirect: (e, args) => 
+      return alert("Redirect didn't work") unless id = args?.leafletEvent?.target?.options?.id
+      document.location.href = "/places/#{id}"
+
+    # TODO - also seems to fire too many times?
     zoomToCluster: (e) => 
       e.stopPropagation()
       alert('Zoom!')
@@ -32,7 +39,14 @@ mod.factory 'BucketEventManager', (F) ->
     _fullId: (target) -> $(target).attr('id')
     _id: (target) -> @_fullId(target).slice(1)
 
-    _climbToCorrectElement: (target, e) ->
+    # TODO -- not working, I think because scrolling seems disabled for the sidebar
+    _scrollToSidebarItem: (id) -> 
+      $timeout ->
+        $('#in-view-list').animate({
+          scrollTop: $("##{id}").offset().top - $('#top-of-list').offset().top
+        }, 0)
+
+    _climbToCorrectElement: (target) ->
       if @_hasValidId(target)
         target
       else
@@ -76,13 +90,14 @@ mod.factory 'BucketEventManager', (F) ->
         @_setEventBehavior(objectType, eventType, screenWidthMethodHash)
       ).value()
 
-    _setMouseEvents: -> 
-      return unless @s.mapRendered() && $(".bucket-list-li.cluster-li").length
-      _( @_eventLogic() ).forEach( (behaviorList, objectType) => 
+    _setMouseEvents: (eventLogic) -> 
+      _( eventLogic ).forEach( (behaviorList, objectType) => 
         @_setObjectBehavior(behaviorList, objectType)
       ).value()
       @_eventsSet = true
 
-    waitAndSetMouseEvents: -> F.stagger( ( => @_setMouseEvents() ), 100, 10, ( => @_eventsSet ) )
+    resetClusterEvents: -> @_setMouseEvents( _( @_eventLogic() ).pick('Cluster') ) 
+      
+    waitAndSetMouseEvents: -> $timeout( ( => @_setMouseEvents( @_eventLogic() ) ), 400 )
 
   return BucketEventManager
