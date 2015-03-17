@@ -6,8 +6,8 @@
         %p 
           %i{ class: 'fa fa-plus-circle padded-icon' }
           Add new places with a quick 
-          = "<a href='#planit-modal-new' data-toggle='modal' data-target='#planit-modal-new' data-backdrop='static' data-keyboard='false'>Foursquare</a>".html_safe if current_user && current_user.member?
-          = "Foursquare" if !current_user || !current_user.member?
+          = "<a href='#planit-modal-new' data-toggle='modal' data-target='#planit-modal-new' data-backdrop='static' data-keyboard='false'>Foursquare</a>".html_safe if current_user_is_active
+          = "Foursquare" if !current_user_is_active
           search
         %p
           %i{ class: 'fa fa-bookmark padded-icon' }
@@ -20,7 +20,7 @@
           %i{ class: 'fa fa-inbox padded-icon' }
           Receive and review place recommendations from friends
           %span.coming-soon= "COMING SOON"
-      - if current_user && current_user.member?
+      - if current_user_is_active
         %a{ href: '#planit-modal-new', data: { toggle: 'modal', target: '#planit-modal-new', backdrop: 'static', keyboard: 'false' } }
           %span.learn-more.planit-button.neon
             Add a Place Now

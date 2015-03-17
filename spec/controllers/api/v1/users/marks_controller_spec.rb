@@ -220,7 +220,7 @@ describe Api::V1::Users::MarksController, :vcr do
     end
 
     context "whole lotta places" do
-      it "serializes and saves EVERYTHING" do
+      xit "serializes and saves EVERYTHING" do
         expect( @user.marks.count ).to eq 0
         
         post :scrape, url: 'http://www.nytimes.com/2010/07/04/travel/04hours.html?pagewanted=all&_r=0', user_id: @user.id, delay: false
