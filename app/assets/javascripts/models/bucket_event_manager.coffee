@@ -7,7 +7,7 @@ mod.factory 'BucketEventManager', (F, $timeout) ->
       @s = scope
 
     selectCluster: (e, args) =>
-      return unless target = @_climbToCorrectElement(e.target)
+      return unless id = @_idFromEvent(e) || @_idFromArgs(args)
       id = @_id(target)
       @_markerAndLiForClusterId( @s.selectedClusterId = id ).addClass('highlighted')
       @_scrollToSidebarItem("c#{ id }")
@@ -17,9 +17,9 @@ mod.factory 'BucketEventManager', (F, $timeout) ->
       @s.selectedClusterId = null
 
     selectPlace: (e, args) =>
-      return unless place = args?.leafletEvent?.target?.options
-      @_markerAndLiForPlaceId( @s.selectedPlaceId = place.id ).addClass('highlighted')
-      @_scrollToSidebarItem("p#{ place.id }")
+      return unless id = @_idFromArgs(args) || @_idFromEvent(e)
+      @_markerAndLiForPlaceId( @s.selectedPlaceId = id ).addClass('highlighted')
+      @_scrollToSidebarItem("p#{ id }")
     
     deselectPlace: () =>
       @_markerAndLiForPlaceId( @s.selectedPlaceId ).removeClass('highlighted')
@@ -28,7 +28,7 @@ mod.factory 'BucketEventManager', (F, $timeout) ->
     deselectAll: => @s.selectedClusterId = @s.selectedPlaceId = null
 
     redirect: (e, args) => 
-      return alert("Redirect didn't work") unless id = args?.leafletEvent?.target?.options?.id
+      return alert("Redirect didn't work") unless id = @_idFromArgs(args)
       document.location.href = "/places/#{id}"
 
     # TODO - also seems to fire too many times?
@@ -38,6 +38,8 @@ mod.factory 'BucketEventManager', (F, $timeout) ->
 
     _fullId: (target) -> $(target).attr('id')
     _id: (target) -> @_fullId(target).slice(1)
+    _idFromArgs: (args) -> args?.leafletEvent?.target?.options?.id
+    _idFromEvent: (e) -> if e.target? then @_id @_climbToCorrectElement(e.target) else null
 
     # TODO -- not working, I think because scrolling seems disabled for the sidebar
     _scrollToSidebarItem: (id) -> 
@@ -60,14 +62,23 @@ mod.factory 'BucketEventManager', (F, $timeout) ->
     _markerAndLiForClusterId: (id) -> $(".cluster-map-icon-tab\#c#{id}, .bucket-list-li.cluster-li\#c#{id}")
 
     _ClusterDivs: -> [".cluster-map-icon-tab", ".bucket-list-li.cluster-li"]
+    _MarkerDivs: -> [".bucket-list-li.place-li"]
     _EditDivs: -> [".edit-place", ".edit-places"]
 
     _setEventBehavior: (oType, eventType, screenWidthMethodHash) ->
       return unless methodToFire = screenWidthMethodHash[@s.screenWidth]
-      if _(["Cluster", "Edit"]).some( (w) -> oType == w )
-        $(div)[eventType]( methodToFire ) for div in $( @["_#{oType}Divs"]?() )
-      else 
+      attachBehavior = (div, eventType, methodToFire) -> $(div).on( eventType, methodToFire )
+
+      if !_.some(["Cluster", "Edit"], (w) -> oType == w )
         @s.$on( "leafletDirective#{oType}.#{eventType}", methodToFire )
+
+      if (divs = @["_#{oType}Divs"])?
+        for div in divs()
+          if $(div).length
+            attachBehavior(div, eventType, methodToFire)
+          else
+            $timeout( ( => attachBehavior(div, eventType, methodToFire) ), 400 )
+        
         
 
     _eventLogic: ->
@@ -86,17 +97,17 @@ mod.factory 'BucketEventManager', (F, $timeout) ->
         click: { mobile: @deselectAll }
 
     _setObjectBehavior: (behaviorList, objectType) ->
-      _( behaviorList ).forEach( (screenWidthMethodHash, eventType) =>
+      _.forEach behaviorList, (screenWidthMethodHash, eventType) =>
         @_setEventBehavior(objectType, eventType, screenWidthMethodHash)
-      ).value()
 
     _setMouseEvents: (eventLogic) -> 
-      _( eventLogic ).forEach( (behaviorList, objectType) => 
+      _.forEach eventLogic, (behaviorList, objectType) =>
         @_setObjectBehavior(behaviorList, objectType)
-      ).value()
+
       @_eventsSet = true
 
-    resetClusterEvents: -> @_setMouseEvents( _( @_eventLogic() ).pick('Cluster') ) 
+    resetClusterEvents: () -> 
+      $timeout( (=> @_setMouseEvents( _( @_eventLogic() ).pick('Cluster', 'Marker').value() ) ), 400 )
       
     waitAndSetMouseEvents: -> $timeout( ( => @_setMouseEvents( @_eventLogic() ) ), 400 )
 

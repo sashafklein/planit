@@ -14,6 +14,8 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
     # - All who wander
     # - Side bar scroll
     # - Remove reusable stuff into more general directives (or rename?)
+    # - Use m to choose start bounds
+    # - Filter can make places in view disappear?
     link: (s, elem) ->
       s.marker = new PlanitMarker(s)
       s.mobile = elem.width() < 768
@@ -30,7 +32,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
         scrollWheelZoom: false
         doubleClickZoom: true
         zoomControlPosition: 'topright'
-        layersControl: false
+        layerControl: false
 
       s.bounds = leafletBoundsHelpers.createBoundsFromArray [[-84,-400], [84,315]]
 
@@ -151,8 +153,9 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
       
       s.$on '$locationChangeSuccess', (event, next) -> 
         s._filterPlaces()
-        s._getPlacesAndClustersInView()
+        $timeout( s.recalculateInView, 200 )
 
       # INIT
+      window.s = s
       s._getPlaces(s.userId, s.currentUserId)
   }
