@@ -27,7 +27,7 @@
                 - lodging_list = get_lodging_list(day.items)
               .day-wingtip
             .thirteen.columns.day-tab-wrap
-              - day.items.sort {|a,b| a[:order] <=> b[:order]}.each_with_index do |item, item_index|
+              - day.items.includes(mark: :place).sort {|a,b| a[:order] <=> b[:order]}.each_with_index do |item, item_index|
                 .column= render 'items/item_tab', { item: item }
               .column= render 'items/item_tab', { item: nil }
 
@@ -40,6 +40,6 @@
             = @plan.decorate.show_locales_in_bucket
           .day-wingtip
         .thirteen.columns.day-tab-wrap
-          - @plan.bucket.each_with_index do |item, item_index|
+          - @plan.bucket.includes(mark: :place).each_with_index do |item, item_index|
             .column= render 'items/item_tab', { item: item }
           .column= render 'items/item_tab', { item: nil }

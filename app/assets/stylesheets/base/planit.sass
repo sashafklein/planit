@@ -1,9 +1,13 @@
 // PAGE STRUCTURE
 
+a, a:link, a:hover, a:active
+  text-decoration: none !important
+
 html, body
   margin: 0
   padding: 0
   height: 100% !important
+  font-family: avenir, "open sans", "Myriad W01", "Helvetica Neue", 'trebuchet ms'
 
 body
   background: #dfdfdf
@@ -60,6 +64,7 @@ span.flat
 span.bubbled
   transition: 0.5s ease all
   font-size: 15px
+  display: inline-block
   &.primary
     font-weight: bold
     color: #222
@@ -108,7 +113,7 @@ span.bubbled
   line-height: 27px
   font-weight: bold
   text-shadow: 1px 1px 1px #fff
-  margin: 30px 0
+  margin: 0 0 30px 0
   &.large
     font-size: 32px
     line-height: 32px
@@ -144,7 +149,9 @@ strong, .strong
 
 strong, .in-caps-header, i
   &.neon
-    color: #f06
+    color: #f06 // neon
+  &.green
+    #c8e052 // green
 
 .planit-button, a.planit-button, a .planit-button
   display: inline-block
@@ -186,6 +193,10 @@ strong, .in-caps-header, i
     color: #333 !important
     background: #bbb !important
     box-shadow: #b3b3b3 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px !important
+  &.right
+    float: right
+  &.left
+    float: left
 
 .in-caps-header
   padding: 10px 15px 5px 15px
@@ -250,7 +261,7 @@ a.feedback-button, a.feedback-button:hover
     .feedback-button-hint
       background: #000
 
-#planit-modal-feedback
+#planit-modal-feedback, .feedback-form
   .modal-body
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
     p
@@ -260,12 +271,15 @@ a.feedback-button, a.feedback-button:hover
       opacity: 0.8
 
   .radio-collection
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
     display: table !important
     table-layout: fixed !important
     width: 100% !important
     .radio-item
-      padding: 10px 0
+      padding: 20px 0
       display: table-cell !important
+      font-size: 14px
+      line-height: 20px
       text-align: center
       input
         display: block
@@ -280,6 +294,7 @@ a.feedback-button, a.feedback-button:hover
       text-align: center
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
       font-size: 14px
+      line-height: 20px
       &.left
         text-align: left
       &.center
@@ -312,6 +327,11 @@ a.feedback-button, a.feedback-button:hover
     vertical-align: top
   &:hover
     color: #f06
+
+.alert.alert-danger
+  background: #f06
+  border: 1px solid #c03
+  color: #000
 
 #flash
   position: fixed
@@ -624,25 +644,25 @@ hr.divider
     .hug-tight-bottom
       margin-bottom: -25px
   &.spaced-extra
-    padding: 45px 0
+    padding: 80px 0
     .hug-tight-bottom
-      margin-bottom: -45px
+      margin-bottom: -80px
 
 .planit-modal
   .modal-dialog
     margin: 85px auto
     
 .mobile
-  visibility: hidden
-  display: none
+  visibility: hidden !important
+  display: none !important
 
 .large-screen, .largest-screen
-  visibility: visible
-  display: inherit
+  visibility: visible !important
+  display: inherit !important
 
 .large-screen-inline
-  visibility: visible
-  display: inline-block
+  visibility: visible !important
+  display: inline-block !important
   
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
@@ -658,16 +678,16 @@ hr.divider
       margin: 85px auto
       
   .mobile
-    visibility: hidden
-    display: none
+    visibility: hidden !important
+    display: none !important
 
   .large-screen
-    visibility: visible
-    display: inherit
+    visibility: visible !important
+    display: inherit !important
 
   .large-screen-inline
-    visibility: visible
-    display: inline-block
+    visibility: visible !important
+    display: inline-block !important
 
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
@@ -683,12 +703,12 @@ hr.divider
       margin: 30px auto
 
   .mobile
-    visibility: visible
-    display: inherit
+    visibility: visible !important
+    display: inherit !important
 
   .large-screen, .largest-screen, .large-screen-inline
-    visibility: hidden
-    display: none
+    visibility: hidden !important
+    display: none !important
 
   #flash
     background: #000
@@ -723,12 +743,12 @@ hr.divider
       margin: 30px auto
       
   .mobile
-    visibility: visible
-    display: inherit
+    visibility: visible !important
+    display: inherit !important
 
   .large-screen, .largest-screen, .large-screen-inline
-    visibility: hidden
-    display: none
+    visibility: hidden !important
+    display: none !important
 
   #flash
     background: #000

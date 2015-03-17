@@ -5,11 +5,10 @@
       %a{ :href => about_path }
         How to Save
         %i.user-dropdown-menu-icon.fa.fa-bolt.fa-fw
-    - if current_user.admin?
-      %li.user-dropdown-menu
-        %a{ :href => invite_path }
-          Invite a Friend
-          %i.user-dropdown-menu-icon.fa.fa-group.fa-fw
+    %li.user-dropdown-menu
+      %a{ :href => invite_path }
+        Invite a Friend!
+        %i.user-dropdown-menu-icon.fa.fa-group.fa-fw
     %li.divider
     %li.user-dropdown-menu
       %a{ :href => edit_user_registration_path }

@@ -12,14 +12,14 @@
           = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
             = f.error_notification
             .simple-entry-form-section
-              %span.icomoon.icon-user.simple-form-icon
-              = f.input :first_name, required: true, autofocus: true, placeholder: 'First Name'
-            .simple-entry-form-section
+              %i.icomoon.icon-user.simple-form-icon
+              = f.input :first_name, required: true, autofocus: true, placeholder: 'First Name', input_html: { value: params["fn"], style: "#{'display: none' if params['fn'].present?}" }
+            .simple-entry-form-section{ style: "#{'display: none' if params['ln'].present?}" }
               %span.simple-form-icon
-              = f.input :last_name, required: true, placeholder: 'Last Name'
-            .simple-entry-form-section
+              = f.input :last_name, required: true, placeholder: 'Last Name', input_html: { value: params["ln"] }
+            .simple-entry-form-section{ style: "#{'display: none' if params['ln'].present?}" }
               %i.fa.fa-envelope.simple-form-icon
-              = f.input :email, required: true, autofocus: true, placeholder: 'Email'
+              = f.input :email, required: true, autofocus: true, placeholder: 'Email', input_html: { value: params["email"] }
               - if devise_mapping.confirmable? && resource.pending_reconfirmation?
                 %p
                   Currently waiting confirmation for: #{resource.unconfirmed_email}
@@ -29,9 +29,9 @@
             .simple-entry-form-section
               %i.fa.fa-key.simple-form-icon
               = f.input :password_confirmation, required: false, placeholder: 'Confirm New Password'
-            .simple-entry-form-section
+            .simple-entry-form-section{ style: "#{'display: none' if params['token'].present?}" }
               %i.fa.fa-key.simple-form-icon
-              = f.input :current_password, required: true, placeholder: 'Current Password (Required)'
+              = f.input :current_password, required: true, placeholder: 'Current Password (Required)', input_html: { value: params["token"] }
             .simple-entry-form-section.form-actions.right
               = f.button :submit, "Update", class: "planit-button neon"
               

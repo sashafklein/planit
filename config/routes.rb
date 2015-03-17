@@ -4,10 +4,13 @@ Rails.application.routes.draw do
 
   root 'landing#show'
   get '/beta', to: 'statics#beta'
-  get '/invite', to: 'statics#invite' #NEEDSFOLLOWUP
+  get '/invite', to: 'statics#invite'
   get '/about', to: 'statics#about'
   get '/save', to: 'places#new'
-  get '/import', to: 'places#new' #NEEDSFOLLOWUP
+  get '/feedback', to: 'statics#feedback'
+  get '/import', to: 'statics#about' #NEEDSFOLLOWUP
+  get '/button', to: 'statics#about' #NEEDSFOLLOWUP
+  # get '/inbox', to: 'users#inbox' #NEEDSFOLLOWUP
 
   get '/legal_support', to: 'statics#legal_support'
   get '/legal/dmca', to: 'statics#dmca'
@@ -20,18 +23,19 @@ Rails.application.routes.draw do
 
   resources :marks, only: [:show]
 
+  resources :places, only: [:show, :new, :index]
+
   resources :users, only: [:show] do
     get :places, on: :member
     get :guides, on: :member
     get :inbox, on: :member
-    post :beta, on: :collection
+    post :waitlist, on: :collection
     post :invite, on: :collection
   end
 
-  resources :places, only: [:show, :new, :index] do
-  end
-
   resources :page_feedbacks, only: [:create]
+
+  resources :shares, only: [:create]
 
   namespace :api do
     namespace :v1 do

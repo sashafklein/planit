@@ -3,6 +3,9 @@
 
 #show-marks-page
 
-  .band.spaced-extra
-    = render 'marks/place_options_context', { mark: @mark, inbox: false, index: 0 }
-    = render 'marks/choose_place', { :mark => @mark }
+  .band.spaced
+    .container
+      .sixteen.columns
+        .see-options.section-header= "See the Place you Wanted to Save?"
+      .sixteen.columns.original-reminder= render 'marks/place_option_header', { mark: @mark, inbox: false, index: 0 }
+    = render 'marks/place_option', { :mark => @mark }

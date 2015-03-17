@@ -1,0 +1,29 @@
+/ Test
+
+%h2= "#{@sharer.casual_name} wanted to share this with you:".html_safe
+- if @notes.present?
+  = "'#{@notes}' -"
+  = link_to @sharer.casual_name, user_url(@sharer.id)
+.indented-content
+  = link_to @url do
+    %h3= @title
+    - if @images.count > 1
+      .images
+        - @images.each do |image|
+          = image_tag image, class: 'image-grid'
+    - elsif @images.count == 1
+      .images
+        = image_tag image, class: 'image-single'
+    - else # fake image
+      .images
+        = image_tag 'http://www.nikoklein.com/images/blank.gif', class: 'image-single'
+- if @user.sign_in_count == 0
+  %p= "<b>First time seeing Planit</b>?  By sharing this note with you, #{@sharer.casual_name} also extended to you an invitation to <b>Planit</b>'s Private Beta.  We're delighted to have you!".html_safe
+  %p
+    = link_to "Log in", ( new_user_session_url + @user.tokened_email )
+    = "and start commenting, saving and personalizing your <b>Planit</b> using your email address and your invitation-only passcode token [<span class='password'> #{@user.reset_password_token} </span>].".html_safe
+- else
+  %p
+    = link_to "Log in", user_url
+    = "to comment, save, and personalize"
+%p= "The Planit Team"

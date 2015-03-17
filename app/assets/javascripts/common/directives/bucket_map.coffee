@@ -175,7 +175,8 @@ angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, C
           return { id: "c#{cluster._leaflet_id}", count: cluster._childCount, center: center, places: places, location: s.bestListLocation(places, center), clusterObject: cluster }
 
         s.updateQuery = ->
-          QueryString.modify( m: "#{s.map.getCenter().lat.toFixed(4)},#{s.map.getCenter().lng.toFixed(4)},#{s.map.getZoom()}" )
+          centerMap = s.map.getCenter()
+          QueryString.modify( m: "#{centerMap.lat.toFixed(4)},#{centerMap.lng.toFixed(4)},#{s.map.getZoom()}" )
 
         if s.mobile
           # Relay clicked marker to infoBox if Mobile

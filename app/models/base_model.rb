@@ -8,4 +8,6 @@ class BaseModel < ActiveRecord::Base
 
   # scope :in_last_months, -> (months) { where("#{self.class.to_s.pluralize}.created_at" > ?', months.months.ago) }
 
+  has_many_polymorphic table: :one_time_tasks, name: :target
+
 end

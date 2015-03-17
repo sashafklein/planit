@@ -19,6 +19,7 @@ gem "sass-rails"
 gem "uglifier"
 gem "unicorn"
 gem "memoist"
+gem "premailer-rails"
 
 gem "nokogiri"
 gem "font-awesome-sass"

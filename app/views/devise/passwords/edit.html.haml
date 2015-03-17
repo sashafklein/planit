@@ -13,9 +13,9 @@
             = f.error_notification
             = f.input :reset_password_token, as: :hidden
             = f.full_error :reset_password_token
-            .simple-entry-form-section
+            .simple-entry-form-section{ style: "#{'display: none' if !@resource}" }
               %i.fa.fa-envelope.simple-form-icon
-              = f.input :email, required: true, disabled: true, placeholder: @resource.email
+              = f.input :email, required: true, disabled: true, placeholder: ( @resource.email if @resource )
             .simple-entry-form-section
               %i.fa.fa-key.simple-form-icon
               = f.input :password, required: true, autofocus: true, placeholder: 'New password'

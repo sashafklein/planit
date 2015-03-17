@@ -1,4 +1,4 @@
-.band.gray.spaced-extra.main-content
+.band.gray.spaced-extra.main-content#save
   .container
     .sixteen.columns.left-section
       .section-header= "Add to your Planit at Any Time"
@@ -6,8 +6,8 @@
         %p 
           %i{ class: 'fa fa-plus-circle padded-icon' }
           Add new places with a quick 
-          = "<a href='#planit-modal-new' data-toggle='modal' data-target='#planit-modal-new' data-backdrop='static' data-keyboard='false'>Foursquare</a>".html_safe if current_user && current_user.member?
-          = "Foursquare" if !current_user || !current_user.member?
+          = "<a href='#planit-modal-new' data-toggle='modal' data-target='#planit-modal-new' data-backdrop='static' data-keyboard='false'>Foursquare</a>".html_safe if current_user_is_active
+          = "Foursquare" if !current_user_is_active
           search
         %p
           %i{ class: 'fa fa-bookmark padded-icon' }
@@ -20,7 +20,7 @@
           %i{ class: 'fa fa-inbox padded-icon' }
           Receive and review place recommendations from friends
           %span.coming-soon= "COMING SOON"
-      - if current_user && current_user.member?
+      - if current_user_is_active
         %a{ href: '#planit-modal-new', data: { toggle: 'modal', target: '#planit-modal-new', backdrop: 'static', keyboard: 'false' } }
           %span.learn-more.planit-button.neon
             Add a Place Now
@@ -54,7 +54,7 @@
         Connect to Chrome now
         / = link_to 'Connect to Chrome now', 'chrome'
 
-.band.gray.spaced-extra.main-content
+.band.gray.spaced-extra.main-content#email
   .container
     .sixteen.columns.left-section
       .section-header.disabled= "Email Links to Planit"
@@ -76,7 +76,7 @@
         /     = "[your-username] @ plan.it"
         /   %span.coming-soon= "COMING SOON"
 
-.band.off-white.spaced-extra.main-content
+.band.off-white.spaced-extra.main-content#import
   .container
     .sixteen.columns.right-section
       .section-header.disabled

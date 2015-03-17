@@ -7,7 +7,7 @@
         %form
           %h4 Add to Guide(s)
           %input{ type: 'hidden', id: 'places_to_control' }
-          %button.btn.btn-primary.mini-button{:id => "planit-modal-submit-tag", :type => "button" } Save
+          %button.planit-button.neon.mini-button{:id => "planit-modal-submit-tag", :type => "button" } Save
           .form-group
             %input.form-control{ type: 'text', placeholder: 'Add New Tag' }
             / = text_field_with_auto_complete :tagging, :name, { :class => 'form-control', :placeholder => 'Add New Tag' }, { :url => formatted_tag_names(:js), :method => :get, :param_name => 'search' }

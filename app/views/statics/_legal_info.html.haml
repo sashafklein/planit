@@ -36,14 +36,12 @@
       Customer Support
     .static-section-content
       %p.text-spaced
-        We love feedback!  Please share what you can
-        - if current_user && current_user.member?
-          = 'with a' 
-          %a{ href: '#planit-modal-feedback', data: { toggle: 'modal', target: '#planit-modal-feedback', backdrop: 'static', keyboard: 'false' } }
-            quick note
-          = 'or'
-        = 'by emailing us at' 
-        %a{href: "mailto:hello@plan.it"}= "hello plan.it"
+        We love feedback!  Please share 
+        - if current_user_is_active
+          %a{ href: '#planit-modal-feedback', data: { toggle: 'modal', target: '#planit-modal-feedback', backdrop: 'static', keyboard: 'false' } }= "a quick note"
+        - else 
+          %a{href: "mailto:hello@plan.it"}= "a quick note"
+        with us
 
     .static-section-content
       %p.text-spaced

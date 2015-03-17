@@ -5,19 +5,32 @@
 
   .band.spaced-extra
 
-    .container.inbox-folder
-      .sixteen.columns.bubbled-header-block
-        %span.bubbled.medium.primary= "In-Progress Saves"
-        = ":"
-        %span.bubbled.medium.secondary.large-screen-inline= "Review Your Pending Places"
-        = "("
-        %strong= @user.marks_to_review.count
-        = ")"
-        %span.flat.delete-right= "Clear All &nbsp; ×".html_safe
-    .container.marks-to-review
-      - @user.marks_to_review.each_with_index do |mark, index|
-        .band{ class: "#{'darker' if index.even?}" }
-          .inbox-message-header.collapses{ id: "mark_#{mark.id}_#{index}" }
-            = render 'marks/place_option_header', { mark: mark, inbox: true, index: index }
-          .inbox-message-body.collapsed{ class: "mark_#{mark.id}_#{index}" }
-            = render 'marks/place_option', { mark: mark }
+    - if current_user.messages > 0
+
+      - if current_user.shares_to_review.count > 0
+        .container.none.inbox-folder
+          .bubbled-header-block
+            %span.bubbled.medium.primary= "Shared With Me"
+            = "(<strong> #{current_user.shares_to_review.count} </strong>)".html_safe
+            %span.flat.delete-right
+              = "Clear All &nbsp;".html_safe # NEEDSFOLLOWUP
+              %i.fa.fa-trash
+        .container.none.inbox-folder-contents
+          - current_user.shares_to_review.each_with_index do |mark, index|
+            = link_to mark_path(mark.id) do
+              .container.none.inbox-message-header{ class: "#{'darker' if index.even?}" }
+                .original-reminder= render 'marks/place_option_header', { mark: mark, inbox: true, index: index }
+
+      - if current_user.saves_to_review.count > 0
+        .container.none.inbox-folder
+          .bubbled-header-block
+            %span.bubbled.medium.primary= "My In-Progress Saves"
+            = "(<strong> #{current_user.saves_to_review.count} </strong>)".html_safe
+            %span.flat.delete-right
+              = "Clear All &nbsp;".html_safe # NEEDSFOLLOWUP
+              %i.fa.fa-trash
+        .container.none.inbox-folder-contents
+          - current_user.saves_to_review.each_with_index do |mark, index|
+            = link_to mark_path(mark.id) do
+              .container.none.inbox-message-header{ class: "#{'darker' if index.even?}" }
+                .original-reminder= render 'marks/place_option_header', { mark: mark, inbox: true, index: index }

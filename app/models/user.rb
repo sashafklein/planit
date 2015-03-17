@@ -1,6 +1,6 @@
 class User < BaseModel
 
-  validates :first_name, :last_name, presence: true
+  # validates :first_name, :last_name, presence: true
 
   enum role: { pending: 0, member: 1, admin: 2 }
 
@@ -15,8 +15,14 @@ class User < BaseModel
   has_many :page_feedbacks
   has_many :items, through: :marks
 
+  has_many_polymorphic table: :one_time_tasks, name: :agent
+
   extend FriendlyId
   friendly_id :name, use: :slugged
+
+  def casual_name
+    first_name || email.gsub(/[@].*/, '')
+  end
 
   def name
     [first_name, last_name].compact.join(" ")
@@ -24,10 +30,6 @@ class User < BaseModel
 
   def icon
     false
-  end
-
-  def items_and_marks
-    [items, marks].flatten
   end
 
   def items_in_last_month?
@@ -38,24 +40,40 @@ class User < BaseModel
     marks.where('updated_at > ?', 1.month.ago).present? || marks.where('created_at > ?', 1.month.ago).present? 
   end
 
-  def bucket_plan
-    bucket = plans.where(bucket: true).first_or_create(name: "#{name} Bucket")
+  # INBOX MESSAGES
+
+  def saves_to_review
+    marks.where( place_id: nil ).includes(:place_options, :sources)
   end
 
-  def marks_to_review
-    Mark.where( place_id: nil )
+  def shares_to_review
+    Mark.where( id: Share.where( sharee: self, object_type: 'Mark' ).pluck(:object_id) )
   end
 
   def messages
-    marks_to_review.count
+    saves_to_review.count + shares_to_review.count
   end
 
-  def save_as(status)
-    password = Devise.friendly_token.first(8) if !self.encrypted_password.present?
-    new_attrs = { role: status }.merge({password: password, password_confirmation: password}.to_sh.reject_val(&:nil?))
+  # INVITATION, STATUS
+
+  def save_as(status, new_password=Devise.friendly_token.first(8))
+    password = new_password if !self.encrypted_password.present?
+    new_attrs = { role: status }.merge({
+      password: password, password_confirmation: password, 
+      reset_password_token: password, # set temp passcode as reset token
+      sign_in_count: (0 if status == :member && status.to_s != role) # reset signincount if upgrading
+    }.to_sh.reject_val(&:nil?))
     update_attributes( new_attrs )
-    notify_signup(password) if self.persisted?
+    notify_signup() if self.persisted?
     return self
+  end
+
+  def tokened_email
+    if reset_password_token.present?
+      "?token=" + reset_password_token + "&email=" + email
+    else
+      ''
+    end
   end
 
   # USER GUIDES LOGIC
@@ -66,10 +84,18 @@ class User < BaseModel
 
   private
 
-  def notify_signup(password)
-    AdminMailer.notify_of_signup(self).deliver_later
-    UserMailer.welcome_waitlist(self).deliver_later if pending?
-    UserMailer.welcome_invited(self, password).deliver_later if member?
+  def notify_signup()
+    if pending?
+      OneTimeTask.execute( { action: "WaitlistUser", target: self } ) do
+        UserMailer.welcome_waitlist(self).deliver_now
+        AdminMailer.notify_of_signup(self).deliver_now
+      end
+    elsif member?
+      OneTimeTask.execute( { action: "InviteUser", target: self } ) do
+        UserMailer.welcome_invited(self).deliver_now
+        AdminMailer.notify_of_signup(self).deliver_now
+      end
+    end
   end
   
 end

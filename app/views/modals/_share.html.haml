@@ -1,21 +1,21 @@
 .modal.planit-modal.fade#planit-modal-share{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1"}
   .modal-dialog
     .modal-content
-      .modal-header
-        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-          %span{"aria-hidden" => "true"} ×
-        %h4.modal-title= "Share the Love"
-      .modal-body
-        %form{:id => "planit-modal-form-share"}
+      = form_for(Share.new) do |f|
+        .modal-header
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} ×
+          %h4.modal-title= "Share the Love"
+        .modal-body
           .form-group
-            %label.control-label{:for => "recipient-name"}= "Share #{title} with:"
+            %label.control-label{:for => "email"}= "Share #{title} with:"
             .clear-input-box
-              %input#recipient.form-control.input-with-clear.share-with{:placeholder => "Email Address", :type => "text"}/
+              = text_field_tag "share[email]", nil, class: 'form-control input-with-clear', :placeholder => "Email Address"
               %span.clear-input-button
                 %i.fa.fa-times-circle
           .form-group
-            %label.control-label{:for => "message-text"} Personal Note:
-            %textarea#message-text.form-control
-      .modal-footer
-        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
-        %button.btn.btn-primary{:id => "planit-modal-submit-share", :type => "button"}= "Share!"
+            %label.control-label{:for => "note"} Personal Note:
+            = text_area_tag "share[notes]", nil, class: 'form-control share-textarea'
+        .modal-footer
+          %button.planit-button.gray{"data-dismiss" => "modal", :type => "button"} Cancel
+          = f.submit 'Share', class: 'planit-button neon', id: 'planit-modal-submit-share'

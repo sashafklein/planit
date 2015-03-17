@@ -1,15 +1,54 @@
 class UserMailer < ActionMailer::Base
   default from: "New User <newuser@plan.it>"
 
+  layout 'layouts/mailer.html.haml'
+
   def welcome_waitlist(user)
+    include_inline_images()
     @user = user
     mail(to: user.email, subject: "Thanks for Signing up for Planit Beta!")
   end
 
-  def welcome_invited(user, password) #NEEDSFOLLOWUP
+  def welcome_invited(user)
+    include_inline_images()
     @user = user
-    @password = password
-    mail(to: user.email, subject: "Welcome to Planit Beta!", password: @password)
+    mail(to: user.email, subject: "Welcome to Planit Beta!")
+  end
+
+  def share_love(share: share, title: title)
+    @object = share.object
+    @sharer = share.sharer
+    @user = share.sharee
+    @url = share.url
+    @notes = share.notes
+    @title = title
+    @images = get_images(@object)
+
+    include_inline_images(@images)
+
+    mail(from: @sharer.email, to: @user.email, subject: "#{@title} from #{@sharer.first_name}")
+  end
+
+  private
+
+  def get_images(object)
+    if object.class.to_s == "User"
+      # Places -> maybe include captured image of map of filtered places, bounded, formatted to 600x600?
+      # Guides -> maybe include captured image of cluster of filtered guides, formatted to 600x600?
+      # See -> https://github.com/csquared/IMGKit
+      return []
+    else
+      return object.images.pluck(:url).first(4) || []
+    end    
+  end
+
+  def include_inline_images(image_array=[])
+    # ['logo_name_only_white.png', 'logo_only_white.png'].concat(image_array).each do |image|
+    #   attachments.inline[image.split('/').pop()] = File.read("#{Rails.root}/app/assets/images/#{image}") if image.split('/').length == 1
+    #   attachments.inline[image.split('/').pop()] = URI(image).read if image.split('/').length > 1
+    # end
+    # attachments.inline['logo_name_only_white.png'] = File.read("app/assets/images/logo_name_only_white.png")
+    # attachments.inline['logo_only_white.png'] = File.read("app/assets/images/logo_only_white.png")
   end
 
 end

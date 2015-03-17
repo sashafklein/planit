@@ -1,45 +1,37 @@
-!!!
-%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-%html
-  %body
-    %p        
-    %h1
-      Welcome to Planit's Private Beta, #{@user.first_name}!
-    %p
-      We've been building a home for all the places you love -- 
-      %b= "your Planit!"  
-      Save your favorite haunts, your wanderlist to-do's, and your friends' recommendations -- all with a click.  Curate, filter, and share back with friends and family in a plug-and-play format they can easily save and personalize.  Your data will be downloadable, exportable, and available soon both offline and in mobile applications.  For now, get started by:
-      %ul
-        - if @password
-          %li
-            = link_to "Setting your own password", edit_user_registration_path + "#" + @password #NEEDSFOLLOWUP
-            with the temporary invitation passcode of
-            %b= @password #NEEDSFOLLOWUP
-        %li
-          Installing 
-          = link_to "Planit's browser-save button", about_path + "#browser"
-        %li
-          Importing your disparate lists (
-          = link_to "Yelp Bookmarked", import_path
-          = ","
-          = link_to "GoogleMaps Starred", import_path
-          = ","
-          = link_to "TripAdvisor Saved", import_path
-          = ","
-          = link_to "GoogleDocs spreadsheets", import_path
-          = ","
-          = link_to "Foursquare Lists", import_path
-          or
-          = link_to "KML files", import_path
-          )
-        %li
-          Adding in ideas through our 
-          = link_to "simple search feature", save_path
-    %p 
-      You're one of the first users -- so please share any feedback you have either through the feedback form or by emailing us at 
-      = mail_to "hello@plan.it"
-      .
-    %p 
-      Excited to have you on board!
-    %p
-      The Planit Team
+%h2= "Welcome to <b>Planit</b>'s Private Beta, #{@user.casual_name}!".html_safe
+%p
+  = """ We've been building a home for all the places you love.  Save your favorite haunts, your wanderlist to-do's, and your friends' recommendations - all with one click.  Curate, filter, and share back with friends and family in a plug-and-play format they can easily save and personalize.  Your data will be downloadable, exportable, and available across web and your smartphone.  For now, get started by: """.html_safe
+  %ul
+    - if @user.reset_password_token && @user.sign_in_count == 0
+      %li
+        = "Signing in with your" 
+        = link_to "temporary password", new_user_session_url + @user.tokened_email
+        = "["
+        %span.password= @user.reset_password_token
+        = "]"
+    %li
+      = "Installing Planit's"
+      = link_to "browser-save button", about_url + "#browser"
+    %li
+      = "Importing your disparate lists ("
+      = link_to "Yelp", about_url + "#import"
+      = "Bookmarked,"
+      = link_to "GoogleMaps", about_url + "#import"
+      = "Starred,"
+      = link_to "TripAdvisor", about_url + "#import"
+      = "Saved,"
+      = link_to "GoogleDocs", about_url + "#import"
+      = "spreadsheets,"
+      = link_to "Foursquare", about_url + "#import"
+      = "Lists or"
+      = link_to "KML/KMZ", about_url + "#import"
+      = "files )"
+    %li
+      = "Adding in ideas through our"
+      = link_to "simple search feature", about_url + "#save"
+%p
+  = "You're one of our first users - so please share any feedback you have either through the"
+  = link_to "feedback form", feedback_url
+  = "or by emailing us at <a href='hello@plan.it'>hello@plan.it</a>.".html_safe
+%p= "Excited to have you on board!"
+%p= "The Planit Team"

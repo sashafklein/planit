@@ -79,7 +79,7 @@ describe UsersController do
       expect_any_instance_of(User).to receive(:save_as).with(:pending).and_call_original
 
       expect{
-        post :beta, user: params
+        post :waitlist, user: params
       }.to change{ User.where(params).count }.by 1
     end
 

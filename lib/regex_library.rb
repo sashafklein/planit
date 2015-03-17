@@ -180,11 +180,27 @@ module RegexLibrary
     end
 
     def upcase_latinate_thread
-      "ÄÀÁÇÈÉËÌÍÎÏÖÒÓÜŪÑÇ"
+      upcase_latinate_vowel_thread + upcase_latinate_consonant_thread
     end
 
     def downcase_latinate_thread
-      "äàáçèéëìîïíöòóüūñç"
+      downcase_latinate_vowel_thread + downcase_latinate_consonant_thread
+    end
+
+    def upcase_latinate_vowel_thread
+      "ÀÁÂÄÆÃAĀÈÉÊËĒĖĘÌĪĮÎÏÍÖÔŒØŌÕÒÓÜÛÙÚŪ"
+    end
+
+    def downcase_latinate_vowel_thread
+      "àáâäæãaāèéêëēėęìīįîïíöôœøōõòóüûùúū"
+    end
+
+    def upcase_latinate_consonant_thread
+      "ŸSSŚŠŁŽŹŻÑŃÇĆČ"
+    end
+
+    def downcase_latinate_consonant_thread
+      "ÿßśšłžźżñńçćč"
     end
 
     def normal_punctuation_thread

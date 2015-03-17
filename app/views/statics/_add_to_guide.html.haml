@@ -24,7 +24,7 @@
           %i{ class: 'fa fa-calendar padded-icon' }
           When You're Ready, Start Booking places to Eat, Stay, and See
           %span.coming-soon= "COMING SOON"
-      - if current_user && current_user.member?
+      - if current_user_is_active
         %a{ href: '#planit-modal-guide', data: { toggle: 'modal', target: '#planit-modal-guide', backdrop: 'static', keyboard: 'false' } }
           %span.learn-more.planit-button.neon
             Start a Guide Now

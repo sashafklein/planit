@@ -1,4 +1,4 @@
-- if current_user && current_user.member?
+- if current_user_is_active
   %a{ class: 'feedback-button', href: '#planit-modal-feedback', data: { toggle: 'modal', target: '#planit-modal-feedback', backdrop: 'static', keyboard: 'false' } }
     %span 
       %i.fa.fa-share-square
@@ -13,50 +13,7 @@
             %button.close{ "data-dismiss" => "modal", aria_label: "Close", type: "button" }
               %span{ aria_hidden: "true"} ×
             %h4.modal-title Share Feedback!
-          .modal-body
-            .form-group
-              = hidden_field_tag :page, request.path, type: 'hidden', class: 'form-control', id: 'page'
-            - if current_user
-              - if current_user.nps_feedbacks.in_last_months(2).any?
-                .form-group.basic-feedback
-                  = "#{current_user.first_name}, How Can We Improve?"
-                  = text_area_tag "page_feedback[basic]", nil, id: 'basic', class: 'form-control feedback-textarea'
-              - else
-                .form-group.happiness-feedback 
-                  %p
-                    %strong= "Thanks for taking the time, #{current_user.first_name}!"
-                  - if !current_user.page_feedbacks.any? && !current_user.nps_feedbacks.any?
-                    How Would You Rate Your First Impressions of Planit?
-                  - else 
-                    How Likely Are You to Recommend Planit to Your Friends?  
-                  = f.fields_for :nps_feedback do |n|
-                    .radio-collection
-                      - 1.upto(10).each do |num|
-                        %label.radio-item
-                          = n.radio_button :rating, num, class: 'happiness'
-                          = num
-                    .radio-labels
-                      - if !current_user.page_feedbacks.any? && !current_user.nps_feedbacks.any?
-                        .radio-label.left Not Great
-                        .radio-label.right I Love It!
-                      - else 
-                        .radio-label.left Not At All
-                        .radio-label.right Absolutely
-                .form-group.improve-feedback
-                  = "#{current_user.first_name}, How Can We Improve Planit?"
-                  = text_area_tag "page_feedback[suggestion]", nil, class: 'form-control feedback-textarea'
-                .form-group.improve-feedback
-                  What Apps Should We Be More Like?
-                  = text_area_tag "page_feedback[imitation]", nil, class: 'form-control feedback-textarea'
-                %p.loving-feedback 
-                  %strong Aww Thanks, We Love You Too!
-                .form-group.loving-feedback
-                  How Would You Describe Planit To Your Friends?
-                  = text_area_tag "page_feedback[description]", nil, class: 'form-control feedback-textarea'
-                .form-group.loving-feedback
-                  = "#{current_user.first_name}, How Can We Be Even Better?"
-                  = text_area_tag "page_feedback[awesome]", nil, class: 'form-control feedback-textarea'
-
+          .modal-body= render 'feedback/page', {f: f}
           .modal-footer
-            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
-            = f.submit 'Share', class: 'btn btn-primary', id: 'planit-modal-submit-feedback', disabled: (current_user && !current_user.nps_feedbacks.in_last_months(2).any?)
+            %button.planit-button.gray{"data-dismiss" => "modal", :type => "button"} Cancel
+            = f.submit 'Share', class: 'planit-button neon', id: 'planit-modal-submit-feedback', disabled: !current_user.nps_feedbacks.in_last_months(2).any?
