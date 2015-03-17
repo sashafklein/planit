@@ -14,14 +14,18 @@
           .i.fa.fa-check-circle
         .tab-operations-button
           .i.fa.fa-trash
-      - image = plan.best_image
-      - if image.url.present?
-        = link_to image_tag(image.url), plan_path(plan), class: 'content-tab-img'
+      - if image = plan.best_image
+        - if image.url.present?
+          = link_to image_tag(image.url), plan_path(plan), class: 'content-tab-img'
+        - else
+          = link_to plan_path(plan) do
+            .content-tab-img.add-photo
+              %i.add-photo-camera.fa.fa-camera-retro
       - else
         = link_to plan_path(plan) do
           .content-tab-img.add-photo
             %i.add-photo-camera.fa.fa-camera-retro
-      = link_to plan.name, plan_path(plan), class: "content-tab-title a-override a-black h-black u-none"
+    = link_to plan.name, plan_path(plan), class: "content-tab-title a-override a-black h-black u-none"
 - else
 
   .any-tab-wrapper
