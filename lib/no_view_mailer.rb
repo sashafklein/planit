@@ -18,11 +18,11 @@ module NoViewMailer
   private
 
   def stringify(content:, tag:)
-    content.is_a? Array ? content.map{ |l| "<#{ tag }>#{ l }#</#{ tag }" }.join("") : content
+    content.is_a?(Array) ? content.map{ |l| "<#{ tag }>#{ l }#</#{ tag }" }.join("") : content
   end
 
   def encase_in_view(content)
-    path = File.join(Rails.root, 'app', 'views', 'layouts', 'base_mailer.html.haml')
+    path = File.join(Rails.root, 'app', 'views', 'layouts', 'mailer.html.haml')
     file = File.read(path).gsub('= yield', "INSERT_CONTENT_HERE")
     html = Haml::Engine.new(file).render
     html.gsub("INSERT_CONTENT_HERE", content)
