@@ -445,18 +445,6 @@ module Scrapers
       # rescue ; nil
       end
 
-      def before_divider(string)
-        trimmed = string
-        trimmed = trimmed.gsub(/[ ]{3}.*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/ \- .*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/\:.*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/\;.*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/\/.*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/\|.*/, '') unless !trimmed
-        return trim( trimmed ) unless trimmed == '' || !trimmed
-        return nil
-      end
-
       def name_attempts
         name
         return @name_guesses

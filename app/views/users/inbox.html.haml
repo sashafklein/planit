@@ -3,7 +3,7 @@
 
 #user-inbox-page
 
-  .band.spaced-extra
+  .band.spaced
 
     - if current_user.messages > 0
 
@@ -11,7 +11,7 @@
         .container.none.inbox-folder
           .bubbled-header-block
             %span.bubbled.medium.primary= "Shared With Me"
-            = "(<strong> #{current_user.shares_to_review.count} </strong>)".html_safe
+            = "&nbsp; (<strong> #{current_user.shares_to_review.count} </strong>)".html_safe
             %span.flat.delete-right
               = "Clear All &nbsp;".html_safe # NEEDSFOLLOWUP
               %i.fa.fa-trash
@@ -25,7 +25,7 @@
         .container.none.inbox-folder
           .bubbled-header-block
             %span.bubbled.medium.primary= "My In-Progress Saves"
-            = "(<strong> #{current_user.saves_to_review.count} </strong>)".html_safe
+            = "&nbsp; (<strong> #{current_user.saves_to_review.count} </strong>)".html_safe
             %span.flat.delete-right
               = "Clear All &nbsp;".html_safe # NEEDSFOLLOWUP
               %i.fa.fa-trash

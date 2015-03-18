@@ -53,6 +53,14 @@ class ApplicationController < ActionController::Base
     admin? || member?
   end
 
+  def current_user_owns(record=nil)
+    if @user && current_user_is_active
+      @user == current_user
+    elsif record && current_user_is_active
+      record.user_id == current_user.id
+    end
+  end
+
   def admin?
     current_user ? current_user.admin? : false
   end 

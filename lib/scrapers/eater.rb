@@ -11,7 +11,7 @@ module Scrapers
     def self.specific_scraper(url, page)
       if venue?(url)
         EaterMod::Venue.new(url, page)
-      elsif heatmap?(url) || bestmap?(url)
+      elsif heatmap?(url) || bestmap?(url) || map38?(url)
         EaterMod::Heatmap.new(url, page)
       elsif review?(page)
         EaterMod::Review.new(url, page)
@@ -20,6 +20,13 @@ module Scrapers
 
     def self.venue?(url)
       if url.include?("/venue/") && !url.split("/venue/")[1].blank?
+        return true
+      end
+      return false
+    end
+
+    def self.map38?(url)
+      if url.include?("/maps/") && url.include?("the-38-essential")
         return true
       end
       return false

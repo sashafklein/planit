@@ -57,6 +57,10 @@ Rails.application.routes.draw do
           match '/scrape' => 'users/marks#scrape', on: :collection, via: [:options, :post]
         end
       end
+
+      resources :plans, only: [] do
+        resources :places, only: [:index], controller: 'plans/places'
+      end
       
       resources :places, only: [:show, :index]
 

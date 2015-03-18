@@ -31,11 +31,23 @@ class Item < BaseModel
     Mark.where(id: pluck(:mark_id))
   end
 
+  def self.with_places
+    where( mark_id: Mark.with_places )
+  end
+
+  def self.without_places
+    where( mark_id: Mark.without_places )
+  end
+
   def self.with_lodging
     where(mark_id: Mark.where(id: pluck(:mark_id), lodging: true).pluck(:id))
   end
   
   # INSTANCE METHODS
+
+  def has_place?
+    Mark.find( mark_id ).has_place?
+  end
 
   def next
     return nil if last_in_day?

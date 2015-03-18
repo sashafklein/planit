@@ -95,7 +95,7 @@ module Completers
       @place = pip.place.find_and_merge
       @place.validate_and_save!( pip.photos.uniq{ |p| p.url }, pip.all_flags ) 
     rescue => e
-      place_options.any? ? place_options : nil
+      place_options.any? ? { place_options: place_options, attrs: attrs } : nil
     end
 
     def retry_foursquare?

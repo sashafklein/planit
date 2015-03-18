@@ -16,33 +16,33 @@ class Day < BaseModel
   # DAY OPERATORS
 
   def has_lodging?
-    items.marks.where(lodging: true).any?
+    items.with_places.marks.where(lodging: true).any?
   end
 
   def last_item
-    items.last
+    items.with_places.last
   end
 
   def first_item
-    items.first
+    items.with_places.first
   end
 
   def should_be_mapped(item_index)
-    !first_in_leg? && items.find_by_order(item_index-1)
+    !first_in_leg? && items.with_places.find_by_order(item_index-1)
   end
 
   def previous_lodging
     return nil unless previous
-    previous.items.with_lodging.last
+    previous.items.with_places.with_lodging.last
   end
 
   def items_including_prior_days_lodging
-    [previous_lodging].compact + items
+    [previous_lodging].compact + items.with_places
   end
 
   def coordinates_including_prior_days_lodging
     previous_coordinate = previous_lodging.coordinate unless !previous_lodging
-    [previous_coordinate, items.coordinates].compact.join("+")
+    [previous_coordinate, items.with_places.coordinates].compact.join("+")
   end
 
   def next
@@ -60,7 +60,7 @@ class Day < BaseModel
   end
 
   def has_lodging?
-    items.with_lodging.any?
+    items.with_places.with_lodging.any?
   end
 
   def first_in_leg?
@@ -76,11 +76,11 @@ class Day < BaseModel
   end
 
   def coordinates
-    items.map(&:coordinate).join("+")
+    items.with_places.map(&:coordinate).join("+")
   end
 
   def center_coordinate
-    items.center_coordinate
+    items.with_places.center_coordinate
   end
 
   private

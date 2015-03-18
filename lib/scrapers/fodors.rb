@@ -17,7 +17,7 @@ module Scrapers
     end
 
     def self.review?(url)
-      url.include?('/world/') && url.include?('/review-') 
+      url.include?('/world/') && url.include?('/review') 
     end
 
   end

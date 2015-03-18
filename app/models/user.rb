@@ -32,12 +32,8 @@ class User < BaseModel
     false
   end
 
-  def items_in_last_month?
-    items.where('items.updated_at > ?', 1.month.ago).present? || items.where('items.created_at > ?', 1.month.ago).present? 
-  end
-
-  def marks_in_last_month?
-    marks.where('updated_at > ?', 1.month.ago).present? || marks.where('created_at > ?', 1.month.ago).present? 
+  def marks_with_places
+    marks.where.not( place_id: nil).order('updated_at DESC')
   end
 
   # INBOX MESSAGES

@@ -3,9 +3,11 @@
 
 #show-marks-page
 
-  .band.spaced
-    .container
-      .sixteen.columns
-        .see-options.section-header= "See the Place you Wanted to Save?"
-      .sixteen.columns.original-reminder= render 'marks/place_option_header', { mark: @mark, inbox: false, index: 0 }
-    = render 'marks/place_option', { :mark => @mark }
+  - if current_user_owns(@mark)
+
+    .band.spaced
+      .container
+        .sixteen.columns
+          %strong.large.see-options= "See the Place you Wanted to Save?"
+        .sixteen.columns.original-reminder= render 'marks/place_option_header', { mark: @mark, inbox: false, index: 0 }
+      = render 'marks/place_option', { :mark => @mark }

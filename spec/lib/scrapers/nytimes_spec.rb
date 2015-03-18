@@ -70,6 +70,19 @@ module Scrapers
 
     # NEW 36 HOUR FORMATS
 
+    describe "tahoe" do
+      before do 
+        @base_name = 'tahoe'
+        @url = 'http://www.nytimes.com/2015/03/01/travel/what-to-do-in-36-hours-lake-tahoe.html?rref=collection/column/36-hours&module=Ribbon&version=origin&region=Header&action=click&contentCollection=36%20Hours&pgtype=article'
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect_equal(data, expectations)
+        expect(data).to eq expectations
+      end
+    end
+
     describe "dublin" do
 
       before do 

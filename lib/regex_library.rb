@@ -1029,6 +1029,10 @@ module RegexLibrary
       %r!#{regex_string.join}!      
     end
 
+    def find_lat_lon_in_href
+      /(?:[&?](?:ll|center|marker)[,&@=\/]|\/[@])([-]?\d+\.\d+\,[-]?\d+\.\d+)(?:[,&@]|\Z)/
+    end
+
     def find_lat_lon_in_script_format_center_colon
       regex_string = [
         "center:",

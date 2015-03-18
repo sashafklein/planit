@@ -79,9 +79,11 @@ module ApplicationHelper
     end
   end
 
-  def current_user_owns_record
+  def current_user_owns(record=nil)
     if @user && current_user_is_active
       @user == current_user
+    elsif record && current_user_is_active
+      record.user_id == current_user.id
     end
   end
 

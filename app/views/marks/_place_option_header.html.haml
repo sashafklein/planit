@@ -1,10 +1,12 @@
 %span.flat.delete-right{ id: "mark_#{mark.id}" }
   %i.fa.fa-trash
 %span.flat= mark.created_at.strftime("%d/%m/%y")
-%span.flat="Original Query"
-%span.large-screen-inline= "near"
-%span.flat.large-screen-inline="Original Location"
+- if mark.query.exists?
+  %span.flat= mark.query.names.first
+  %span.large-screen-inline= "near"
+  %span.flat.large-screen-inline
+    = mark.query.nearby
 - if mark.source.present?
   %span= "on"
   %span= mark.source.name
-    
+  

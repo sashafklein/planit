@@ -41,6 +41,8 @@ module Scrapers
               order: day_index + 1,
             },
           }
+        else
+          {}
         end
       end
 
@@ -73,6 +75,8 @@ module Scrapers
               duration_info: trim( duration_info(guide_no) ),
             },
           }
+        else
+          {}
         end
       end
 

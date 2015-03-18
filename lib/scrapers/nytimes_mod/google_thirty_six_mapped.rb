@@ -7,7 +7,7 @@ module Scrapers
       
       def initialize(url, page)
         super(url, page)
-        @scrape_target = %w(#area-main #article article)
+        @scrape_target = %w(#story-body #area-main #article article)
       end
 
       def global_data

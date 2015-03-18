@@ -17,6 +17,7 @@ module PlaceMod
       set_feature_type
 
       @attrs = attrs.reject_val(&:nil?)
+
       found = PlaceMod::Finder.new(attrs).find!
       @attrs = attrs.merge( found.attributes.symbolize_keys.to_sh.reject_val(&:nil?) ) if found.persisted?
       @attrs

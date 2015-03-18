@@ -2,6 +2,18 @@ module ScraperOperators
 
   # OPERATIONS
 
+  def before_divider(string)
+    trim(
+      string
+        .try( :gsub, /[ ]{3}.*/, '' )
+        .try( :gsub, / \- .*/, '' )
+        .try( :gsub, /\:.*/, '' )
+        .try( :gsub, /\;.*/, '' )
+        .try( :gsub, /\/.*/, '' )
+        .try( :gsub, /\|.*/, '' )
+    )
+  end
+
   def remove_plan_name_fluff(text)
     text = text.gsub(/\s*on TripAdvisor\s*\Z/, '') unless !text
     text = text.gsub(/\s*[|] Frommer[']s\s*\Z/, '') unless !text
@@ -70,12 +82,6 @@ module ScraperOperators
       @scrape_content = @scrape_content.gsub(%r!#{illegal_content[i]}!, '')
     end
     return @scrape_content
-  end
-
-  def no_accents(string)
-    if string && string.length > 0
-      I18n.transliterate string
-    end
   end
 
   def reject_long(string, max_words=10, max_chars=30)

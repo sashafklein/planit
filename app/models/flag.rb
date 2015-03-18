@@ -4,7 +4,8 @@ class Flag < BaseModel
   json_accessor :info
 
   default_scope { order('created_at ASC') }
-  scope :states, -> { where(name: 'State').order('created_at ASC') }
+  scope :named, -> (name) { where(name: name) }
+  scope :states, -> { named('State') }
 
   def self.print_states
     states.each(&:print)

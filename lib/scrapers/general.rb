@@ -10,19 +10,20 @@ module Scrapers
 
     def map_href
       return @map_href if @map_href
-      map_links ? @map_href = map_links.map{ |l| l.last } : nil
+      map_links.present? ? @map_href = map_links.compact.uniq : @map_href = nil
     end
     
     def self.specific_scraper(url, page)
-      if is_article?(page)
-        GeneralMod::Article.new(url, page)
+      GeneralMod::Catchall.new(url, page)
+      # if is_article?(page)
+      #   GeneralMod::Article.new(url, page)
       # elsif is_travel_site?(page)
       #   GeneralMod::Travel.new(url, page)
       # elsif is_blog?(url, page)
       #   GeneralMod::Blog.new(url, page)
-      else
-        GeneralMod::Catchall.new(url, page)
-      end
+      # else
+      #   GeneralMod::Catchall.new(url, page)
+      # end
     end
 
     def self.is_article?(page)

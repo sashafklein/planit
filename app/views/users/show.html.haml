@@ -6,16 +6,19 @@
   .band.gray.spaced.large-screen
     .container
 
-      .two-thirds.column
-        .in-caps-header= "World View"
+      - @user.marks_with_places.includes(:place).each do |mark|
+        %p= link_to mark.place.name + " " + mark.updated_at.strftime('%d %b, %Y'), mark.place
 
-        .world-view-map-wrap
-          .empty-map-box.world-view
-            / %worldview_map.world-view-canvas{ user_id: @user.id, current_user_id: current_user_id, type: 'worldview' }
-          .tab-caption= @user.decorate.travel_stats_string
+      / .two-thirds.column
+      /   .in-caps-header= "World View"
 
-      .one-third.column
-        .in-caps-header= "Profile & Info"
+      /   .world-view-map-wrap
+      /     .empty-map-box.world-view
+      /       / %worldview_map.world-view-canvas{ user_id: @user.id, current_user_id: current_user_id, type: 'worldview' }
+      /     .tab-caption= @user.decorate.travel_stats_string
 
-        .profile-and-info-wrap
-          .profile-photo-box
+      / .one-third.column
+      /   .in-caps-header= "Profile & Info"
+
+      /   .profile-and-info-wrap
+      /     .profile-photo-box

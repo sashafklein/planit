@@ -9,11 +9,18 @@ module Directories
     end
 
     def find_in(string)
-      city = cities.find do |name, accented|
-        if string.match(%r!\A#{is_website_link?}!)
-          string.downcase.match /#{name}/
-        else
-          string.downcase.match /(?:\A|[ ]|[,]|[;]|[.]|[:]|[()]|[\/]|[\\])#{name}(?:\z|[ ]|[,]|[:]|[;]|[.]|[)]|[\/]|[\\])/
+      city = cities.find do |name, hash|
+        unless string.match(%r!\A#{is_website_link?}!)
+          string.downcase.match /(?:\A|[ ]|[,]|[;]|[.]|[:]|[()]|[\/]|[\\])#{ name }(?:\z|[ ]|[,]|[:]|[;]|[.]|[)]|[\/]|[\\])/
+        end
+      end
+      city
+    end
+
+    def find_accented_in(string)
+      city = cities.find do |name, hash|
+        unless string.match(%r!\A#{is_website_link?}!)
+          string.downcase.match /(?:\A|[ ]|[,]|[;]|[.]|[:]|[()]|[\/]|[\\])(?:#{ hash[:no_accent].downcase }|#{ hash[:accented].downcase })(?:\z|[ ]|[,]|[:]|[;]|[.]|[)]|[\/]|[\\])/
         end
       end
       city

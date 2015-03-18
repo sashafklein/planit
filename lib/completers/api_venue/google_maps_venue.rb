@@ -39,7 +39,7 @@ module Completers
     def street_address
       lines = marker.super_fetch(:infoWindow, :addressLines)
       ( lines.try(:first) ||
-          trim_full_to_street_address(full_address, country, postal_code, region, locality, names.first) 
+          trim_full_to_street_address(full_address: full_address, country: country, postal_code: postal_code, region: region, locality: locality, name: names.first) || ''
       ).decode_characters
     end
 

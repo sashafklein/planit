@@ -26,6 +26,17 @@
   box-sizing: border-box
   vertical-align: top
   transition: 0.2 ease all
+  &:hover
+    .content-tab
+      background-color: #fff
+      -webkit-box-shadow: #eee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+      -moz-box-shadow: #eee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+      box-shadow: #eee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+    .tab-operations
+      visibility: visible
+      display: block
+    .content-tab-title
+      background: #fff
 
   .guide-item-count
     transition: 0.2 ease all
@@ -43,6 +54,20 @@
       background: #333
       border-bottom: #000 solid 1px
 
+  .content-tab-title
+    position: absolute
+    bottom: 8px
+    left: 7px
+    right: 7px
+    padding: 8px 4px 4px 4px
+    font-size: 12px
+    text-align: center
+    font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
+    font-weight: bold
+    text-transform: capitalize
+    line-height: 15px
+    background: #f3f3f3
+
   .content-tab
     display: block
     position: relative
@@ -56,16 +81,6 @@
     -webkit-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
     -moz-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
     box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
-    &:hover
-      background-color: #fff
-      -webkit-box-shadow: #eee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
-      -moz-box-shadow: #eee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
-      box-shadow: #eee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
-      .tab-operations
-        visibility: visible
-        display: block
-      .content-tab-title
-        background: #fff
 
     .tab-operations
       visibility: hidden
@@ -93,20 +108,6 @@
         .content-tab-title
           background-color: #f3f3f3
 
-  .content-tab-title
-    position: absolute
-    bottom: 8px
-    left: 8px
-    right: 8px
-    padding: 8px 4px 4px 4px
-    font-size: 12px
-    text-align: center
-    font-family: "open sans", "Myriad W01", "Helvetica Neue", avenir, 'trebuchet ms'
-    font-weight: bold
-    text-transform: capitalize
-    line-height: 15px
-    background: #f3f3f3
-
   .content-tab-img
     -webkit-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.1)
     -moz-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.1)
@@ -120,6 +121,9 @@
       color: #ccc
     &.add-new
       background: #bbb
+      color: #eee
+    &.uncertain
+      background: #f60
       color: #eee
     i
       position: absolute
@@ -151,7 +155,9 @@
     height: 25px
     width: 30px
     bottom: 25px
-  .content-tab-title, .content-tab-img, .tab-operations, .content-tab-img img
+  .content-tab-title
+    width: 148px
+  .content-tab-img, .tab-operations, .content-tab-img img
     width: 144px
   .content-tab-img, .content-tab-img img
     height: 124px
@@ -175,7 +181,9 @@
       height: 25px
       width: 30px
       bottom: 30px
-    .content-tab-title, .content-tab-img, .tab-operations, .content-tab-img img
+    .content-tab-title
+      width: 216px
+    .content-tab-img, .tab-operations, .content-tab-img img
       width: 210px
     .content-tab-img, .content-tab-img img
       height: 180px
@@ -188,7 +196,9 @@
       padding: 4px 6px
     .content-tab-img i
       font-size: 2em
-    .content-tab-title, .content-tab-img, .tab-operations, .content-tab-img img
+    .content-tab-title
+      width: 176px
+    .content-tab-img, .tab-operations, .content-tab-img img
       width: 172px
     .content-tab-img, .content-tab-img img   
       height: 147px
@@ -209,7 +219,9 @@
     height: 25px
     width: 30px
     bottom: 30px
-  .content-tab-title, .content-tab-img, .tab-operations, .content-tab-img img
+  .content-tab-title
+    width: 216px
+  .content-tab-img, .tab-operations, .content-tab-img img
     width: 210px
   .content-tab-img, .content-tab-img img
     height: 180px
@@ -227,7 +239,9 @@
       height: 25px
       width: 30px
       bottom: 30px
-    .content-tab-title, .content-tab-img, .tab-operations, .content-tab-img img
+    .content-tab-title
+      width: 216px
+    .content-tab-img, .tab-operations, .content-tab-img img
       width: 210px
     .content-tab-img, .content-tab-img img
       height: 180px
@@ -245,7 +259,9 @@
       height: 25px
       width: 30px
       bottom: 30px
-    .content-tab-title, .content-tab-img, .tab-operations, .content-tab-img img
+    .content-tab-title
+      width: 216px
+    .content-tab-img, .tab-operations, .content-tab-img img
       width: 210px
     .content-tab-img, .content-tab-img img
       height: 180px
@@ -265,7 +281,9 @@
       height: 25px
       width: 30px
       bottom: 30px
-    .content-tab-title, .content-tab-img, .tab-operations, .content-tab-img img
+    .content-tab-title
+      width: 166px
+    .content-tab-img, .tab-operations, .content-tab-img img
       width: 160px
     .content-tab-img, .content-tab-img img
       height: 138px
