@@ -433,7 +433,6 @@ do ->
     checkReady ($) ->
       $ ->
         unless $('#planit-bookmarklet')[0]
-          console.log('starting up')
           planit.injectView()
           planit.setLoadingTimeouts()
           planit.mouseEvents()

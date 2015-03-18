@@ -56,8 +56,9 @@ class Api::V1::Users::MarksController < ApiController
   end
 
   def delay?
-    false
     # params.fetch(:delay, true)
+    # binding.pry
+    false
   end
 
   def good_data?(scraped)
