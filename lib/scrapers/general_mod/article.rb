@@ -610,18 +610,6 @@ module Scrapers
         end
       end
 
-      def before_divider(string)
-        trimmed = string
-        trimmed = trimmed.gsub(/[ ]{3}.*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/ \- .*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/\:.*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/\;.*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/\/.*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/\|.*/, '') unless !trimmed
-        return trim( trimmed ) unless trimmed == '' || !trimmed
-        return nil
-      end
-
       def searchable_text
         text = ""
         text += " . " + de_tag( heading ) unless !heading

@@ -3,7 +3,7 @@ class DayDecorator < Draper::Decorator
   include Draper::LazyHelpers
 
   def show_locales_in_day
-    locale_list = get_locale_list(items)
+    locale_list = get_locale_list(items.with_places)
     html = ''
     if locale_list.present?
       locale_list.each do |l|

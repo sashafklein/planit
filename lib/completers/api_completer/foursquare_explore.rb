@@ -4,8 +4,10 @@ module Completers
     FS_URL = 'https://api.foursquare.com/v2/venues'
 
     delegate :name, :phone, :street_address, :lat, :lon, :country, :region, :locality, 
-             :category, :meal, :lodging, :coordinate,
+             :category, :meal, :lodging, :coordinate, :full_address, :postal_code,
              to: :pip
+
+    include Services::GeoQueries
 
     attr_accessor :pip, :venues, :venue, :geocoded, :photos, :alternate_nearby, :response
     def initialize(pip, attrs={}, take: nil)
@@ -30,7 +32,8 @@ module Completers
     end
 
     def sufficient_to_fetch?
-      (name.present? || street_address.present?) && (nearby || (lat && lon))
+      (full_address.present? && name.present?) || 
+        (name.present? || street_address.present?) && (nearby || (lat && lon))
     end
 
     private
@@ -78,11 +81,21 @@ module Completers
     end
     
     def nearby_parameter
-      URI.escape( coordinate ? "ll=#{coordinate(',')}" : "near=#{nearby}" )
+      URI.escape( coordinate ? "ll=#{coordinate(',')}" : "near=#{ nearby || nearby_via_full_address }" )
     end
 
     def query
       URI.escape( name || street_address )
+    end
+
+    def nearby_via_full_address
+      if full_address.present?
+        n = full_address.split(",")
+        n.shift
+        n.join(", ")
+          .scan(/\A[-0-9,\. ]*(.*?)\Z/)
+          .flatten.first 
+      end
     end
 
     def full_fs_url

@@ -3,42 +3,47 @@
 
 #show-place-page
 
-  .place-page-splash
-    .container
-      .sixteen.columns.name-essentials-wrap
-        .place-page-name= @place.name
-        = @place.decorate.show_categories
+  / .place-page-splash
+  / %svg.triangle{:preserveaspectratio => "none", :viewbox => "0 0 24 23.8"}
+  /   %use{"xlink:href" => "#triangle", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
 
-    .container
-      .five.columns
-        .place-controls= @place.decorate.show_place_controls
-        .map-address-wrap
-          .empty-map-box
-            %place_map.map-canvas.places-single{ place_id: @place.id, current_user_id: current_user_id }
-          = @place.decorate.show_alt_names_in_parens
-          = @place.decorate.show_address_linked_to_directions
-          = @place.decorate.show_website
-          = @place.decorate.show_phones
+  .container
+    .sixteen.columns.name-essentials-wrap
+      .place-page-name= @place.name
+      = @place.decorate.show_categories
 
-        - if @place.hours.present?
-          .hours.other-info-wrap.hours-availability-booking
-            = @place.decorate.show_open_today
-            = @place.decorate.show_hours
-        - if @place.other_info?
-          .other-info-wrap
-            .menu-cost-reservations
-              = @place.decorate.show_reservations
-              = @place.decorate.show_price_info
-              = @place.decorate.show_view_menu
-              = @place.decorate.show_has_wifi
+  .container
+    .five.columns
+      .place-controls= @place.decorate.show_place_controls
+      .map-address-wrap
+        .empty-map-box
+          %place_map.map-canvas.places-single{ place_id: @place.id, current_user_id: current_user_id }
+        = @place.decorate.show_alt_names_in_parens
+        = @place.decorate.show_address_linked_to_directions
+        = @place.decorate.show_website
+        = @place.decorate.show_phones
 
-      .eleven.columns.photos-wrap
-        = @place.decorate.show_photos_or_noimage
+      - if @place.hours.present?
+        .hours.other-info-wrap.hours-availability-booking
+          = @place.decorate.show_open_today
+          = @place.decorate.show_hours
+      - if @place.other_info?
+        .other-info-wrap
+          .menu-cost-reservations
+            = @place.decorate.show_reservations
+            = @place.decorate.show_price_info
+            = @place.decorate.show_view_menu
+            = @place.decorate.show_has_wifi
 
-    .container
-      .sixteen.columns
-        - if @place.has_sources?
-          .more-info-wrap
-            = @place.decorate.show_foursquare_link
+    .eleven.columns.photos-wrap
+      = @place.decorate.show_photos_or_noimage
+
+  .container
+    .sixteen.columns
+      - if @place.has_sources?
+        .more-info-wrap
+          = @place.decorate.show_foursquare_link
+          - @place.sources.each do |source|
+            = link_to source.name, source.full_url
 
   = @place.decorate.next_image_script

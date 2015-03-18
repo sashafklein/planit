@@ -1,26 +1,37 @@
 - if item.present?
 
-  .any-tab-wrapper
-    .content-tab
-      .tab-operations
-        .tab-operations-button
-          .i.fa.fa-book
-        .tab-operations-button
-          .i.fa.fa-pencil
-        .tab-operations-button
-          .i.fa.fa-heart
-        .tab-operations-button
-          .i.fa.fa-check-circle
-        .tab-operations-button
-          .i.fa.fa-trash
-      - image = item.image
-      - if image && image.url.present?
-        = link_to image_tag(image.url), place_path(item.mark.place_id), class: 'content-tab-img'
-      - else
-        = link_to place_path(item.mark.place_id) do
-          .content-tab-img.add-photo
-            %i.add-photo-camera.fa.fa-camera-retro
-      = link_to item.name, place_path(item.mark.place), class: "content-tab-title a-override a-black h-black u-none"
+  - if item.has_place?
+
+    .any-tab-wrapper
+      .content-tab
+        .tab-operations
+          .tab-operations-button
+            .i.fa.fa-book
+          .tab-operations-button
+            .i.fa.fa-pencil
+          .tab-operations-button
+            .i.fa.fa-heart
+          .tab-operations-button
+            .i.fa.fa-check-circle
+          .tab-operations-button
+            .i.fa.fa-trash
+        - image = item.image
+        - if image && image.url.present?
+          = link_to image_tag(image.url), place_path(item.mark.place_id), class: 'content-tab-img'
+        - else
+          = link_to place_path(item.mark.place_id) do
+            .content-tab-img.add-photo
+              %i.add-photo-camera.fa.fa-camera-retro
+        = link_to item.name, place_path(item.mark.place), class: "content-tab-title a-override a-black h-black u-none"
+
+  - elsif !item.has_place?
+
+    .any-tab-wrapper
+      .content-tab.add-new
+        = link_to mark_path(item.mark_id) do
+          .content-tab-img.uncertain
+            %i.add-photo-camera.fa.fa-exclamation-triangle.fa-2x
+          .content-tab-title= "Uncertain Save"
 
 - else
 

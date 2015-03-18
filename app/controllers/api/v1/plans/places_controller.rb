@@ -20,7 +20,7 @@ class Api::V1::Plans::PlacesController < ApiController
   end
 
   def serialize_places(user, published=false)
-    places = published ? @plan.items.marks.published.places : @plan.items.marks.places
+    places = published ? @plan.items.with_places.marks.published.places : @plan.items.with_places.marks.places
     ActiveModel::ArraySerializer.new(places, each_serializer: MapPlaceSerializer)
   end
 

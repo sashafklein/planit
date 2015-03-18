@@ -17,6 +17,7 @@ planit =
         @showError()
 
   injectView: ->
+    $('.header-wrapper').css('z-index', 100) if $('.header-wrapper')
     head = document.getElementsByTagName('head')[0]
     stylesheet = document.createElement('style')
     stylesheet.type = 'text/css'
@@ -61,12 +62,9 @@ planit =
         dataType: 'json'
         url: planit._errorPath()
         success: (response) ->
-          setTimeout( (-> @setErrorMessage("We've been notified")), 1000)
+          setTimeout( (-> @setErrorMessage("We've been notified")), 1000 )
         error: (response) ->
-          setTimeout( 
-            -> @setErrorMessage("Auto-reporting also failed! Please <a href='mailto:hello@plan.it?subject=Bookmarklet%20Failure&content=Page:%20#{window.location.href}'>let us know!</a>"),
-            1000
-          )    
+          setTimeout( (-> @setErrorMessage("Auto-reporting also failed! Please <a href='mailto:hello@plan.it?subject=Bookmarklet%20Failure&content=Page:%20#{window.location.href}'>let us know!</a>")), 1000 )
 
   setErrorMessage: (message) ->
     @setPlanitMessage( message )
@@ -417,22 +415,28 @@ planit =
 
 do ->
 
-  unless window.jQuery
+  $ = window.$ = $ || window.jQuery
+  unless $
     script = document.createElement("SCRIPT")
     script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
     script.type = 'text/javascript'
     document.getElementsByTagName("head")[0].appendChild(script)
 
-  checkReady = (callback) ->
-    if (window.jQuery)
-      callback(jQuery)
-    else
-      window.setTimeout( (-> checkReady(callback)), 20)
+  setTimeout((->
 
-  checkReady ($) ->
-    $ ->
-      unless $('#planit-bookmarklet')[0]
-        planit.injectView()
-        planit.setLoadingTimeouts()
-        planit.mouseEvents()
-        planit.pollForSuccess(true, 25)
+    checkReady = (callback) ->
+      if $
+        callback($)
+      else
+        window.setTimeout( (-> checkReady(callback)), 20)
+
+    checkReady ($) ->
+      $ ->
+        unless $('#planit-bookmarklet')[0]
+          console.log('starting up')
+          planit.injectView()
+          planit.setLoadingTimeouts()
+          planit.mouseEvents()
+          planit.pollForSuccess(true, 25)
+
+  ))

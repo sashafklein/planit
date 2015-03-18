@@ -1,5 +1,7 @@
 module CssOperators
 
+  include TrimFunctions
+
   # ERRATA
 
   def null_phone_text 
@@ -181,37 +183,12 @@ module CssOperators
     string.scan(find_lat_lon_regex).flatten.first
   end
 
-  def de_tag(html)
-    if html
-      html.gsub(/<(?:.|\n)*?>/, '')
-    end
-  end
-
   def trim_url(url)
-    if url && url.length > 0
-      string = url.gsub(/\s*/, '') unless !url
-      string = string.gsub(/(?:\A[ ]*|[ ]*\Z)/, '') unless !string
-      string = string.gsub(/[.&()]\Z/, '') unless !string
-      return string
-    end
-  end
-
-  def trim(html)
-    if html && html.length > 0
-      string = URI.unescape(html) unless !html
-      string = string.gsub(/(\r\n|\n|\r)/, ' ') unless !string
-      string = string.gsub(/([\\]{1,}\n|[\\]{2,}n|\\n)/, ' ') unless !string
-      string = string.gsub(/( {2,})/, ' ') unless !string
-      string = string.gsub(/^\s+|\s+$/, '') unless !string
-      string = string.gsub(/\s+/, ' ') unless !string
-      string = string.gsub(/\s([,:;.!|@\?])/, '\1') unless !string
-      string = string.gsub(/(\t)/, '') unless !string
-      string = string.gsub(/[.]{3}\Z/, '....') unless !string # prep elipses for end punctuation removal (below)
-      string = string.gsub(/(?:\s| )?[,.!|@\?](?:\s| )?\Z/, '') unless !string #removed ';' in case of ASCII/HEX
-      string = string.gsub(/\A[,:;.!|@\?](?:\s| )*/, '') unless !string
-      string = string.gsub(/(?:\A[ ]*|[ ]*\Z)/, '') unless !string
-      string = string.gsub(/(?:\A[-](?:[ ]|\s))/, '') unless !string
-      return string
+    if url.present?
+      url
+        .try( :gsub, /\s*/, '' )
+        .try( :gsub, /(?:\A[ ]*|[ ]*\Z)/, '' )
+        .try( :gsub, /[.&()]\Z/, '' )
     end
   end
 

@@ -52,7 +52,7 @@ class PlaceDecorator < Draper::Decorator
   def show_categories
     html = "<i class='#{meta_icon} place-page-meta-category'></i>"
     html += "<div class='place-page-category"
-    html += if ( categories && categories.length > 0 ) then "'>#{categories.join(', ').titleize}</div>" else "gray '>Edit Destination Type</div>" end
+    html += if ( categories && categories.length > 0 ) then "'>#{categories.join(', ').titleize}</div>" else " gray'>Edit Destination Type</div>" end
     html.html_safe
   end
 
@@ -224,7 +224,7 @@ class PlaceDecorator < Draper::Decorator
   def show_view_menu
     if menu.present?
       content_tag :div, :class => 'more-info-line' do
-        "<i class='fa fa-cutlery place-show-icon'></i> #{link_to 'View Menu', menu}".html_safe
+        "<i class='fa fa-cutlery place-show-icon'></i>#{link_to 'View Menu', menu}".html_safe
       end
     end
   end

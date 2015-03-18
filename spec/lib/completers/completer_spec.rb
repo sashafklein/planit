@@ -227,6 +227,9 @@ module Completers
             option = m.place_options.with_name("Restaurante Alma").first
             expect( option ).to be_a PlaceOption
             expect( option.foursquare_id ).to be_present
+            attrflag = m.flags.find_by(name: 'Original Attrs')
+            expect( attrflag.info.nearby ).to eq 'Cartagena, Colombia'
+            expect( attrflag.info.names.first ).to eq 'Alma'
           end
 
           it 'suggests good options for Alma from NYTimes' do

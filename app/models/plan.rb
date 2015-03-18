@@ -22,7 +22,7 @@ class Plan < BaseModel
   end
 
   def best_image
-    images.first || Image.where(imageable_type: 'Place', imageable_id: items.marks.places.pluck(:id)).first
+    images.first || Image.where(imageable_type: 'Place', imageable_id: items.with_places.marks.places.pluck(:id)).first
   end
 
   def has_lodging?
@@ -38,7 +38,7 @@ class Plan < BaseModel
   end
 
   def coordinates
-    items.coordinates
+    items.with_places.coordinates
   end
 
   def maptype

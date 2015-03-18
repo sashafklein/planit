@@ -8,6 +8,7 @@ class Mark < BaseModel
   validate!
 
   has_many_polymorphic table: :sources
+  has_many_polymorphic table: :flags, options: {}
   has_many :items, dependent: :destroy
   has_many :place_options, dependent: :destroy
 
@@ -32,7 +33,15 @@ class Mark < BaseModel
   make_taggable
 
   def self.places
-    Place.where(id: pluck(:place_id))
+    Place.where( id: pluck(:place_id) )
+  end
+
+  def self.with_places
+    where.not( place_id: nil )
+  end
+
+  def self.without_places
+    where( place_id: nil )
   end
 
   def save_with_source!(source_url:)
@@ -78,7 +87,7 @@ class Mark < BaseModel
   end
 
   def self.coordinates
-    places.map(&:coordinate)
+    with_places.places.map(&:coordinate)
   end
 
   def self.center_coordinate
@@ -113,6 +122,16 @@ class Mark < BaseModel
   def self.filtered(array)
     []
     # MarkFilterer.new(array).results
+  end
+
+  # INSTANCE METHODS
+
+  def query
+    @query ||= MarkMod::Query.new(self)
+  end
+
+  def has_place?
+    place.present?
   end
 
   def show_icon

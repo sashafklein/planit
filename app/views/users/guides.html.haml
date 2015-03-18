@@ -17,7 +17,7 @@
             = ")"
             %i.fa.fa-caret-down.tab-section-is-hidden
         .container.centered{ class: "in_#{year} collapsed" }
-          .column= render partial: 'plans/guide_tab', locals: { plan: nil } if current_user_owns_record && current_year(year)
+          .column= render partial: 'plans/guide_tab', locals: { plan: nil } if current_user_owns && current_year(year)
           - plans.each do |plan|
             .column= render partial: 'plans/guide_tab', locals: { plan: plan }
 

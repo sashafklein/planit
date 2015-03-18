@@ -11,8 +11,8 @@ module Completers
     def complete!
       return unless response = PlaceCompleter.new( decremented_attrs.delete(:place), url ).complete!
       create_mark_and_associations!(
-        place:         ( response.is_a?(Place) ? response : nil),
-        place_options: ( response.is_a?(Array) ? response : nil)
+        place:              ( response.is_a?(Place) ? response : nil),
+        place_option_hash:  ( response.is_a?(Hash) ? response : nil)
       )
     end
 
@@ -22,13 +22,16 @@ module Completers
 
     private
 
-    def create_mark_and_associations!(place:, place_options:)
-      raise "Mark needs either Place or PlaceOptions" if (place.present? && place_options.present?) || (!place.present? && !place_options.present?)
+    def create_mark_and_associations!(place:, place_option_hash:)
+      raise "Mark needs either Place or PlaceOptions" if (place.present? && place_option_hash.present?) || (!place.present? && !place_option_hash.present?)
 
       mark = place ? user.marks.where(place_id: place.id).first_or_initialize : user.marks.new
       mark.save_with_source!(source_url: url)
 
-      place_options.each{ |po| po.update_attributes!(mark_id: mark.id) } if place_options
+      if place_option_hash
+        place_option_hash[:place_options].each{ |po| po.update_attributes!(mark_id: mark.id) }
+        mark.flags.create!(name: 'Original Attrs', info: place_option_hash[:attrs])
+      end
 
       merge_and_create_associations!(mark)
       mark

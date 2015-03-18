@@ -39,66 +39,21 @@ module Scrapers
       # DOES IT HAVE MAP LINKS? PARSE LINKS, LINK TEXT
 
       def map_images
-        image_array = []
-        page_map_images = page.css("img")
-        page_map_images.each_with_index do |image, index|
-          alt = image.attribute("alt").value unless !image.attribute("alt")
-          src = image.attribute("src").value unless !image.attribute("src")
-          map_link_src_usual_suspects.each do |attempt|          
-            if src && src.include?(attempt)
-              image_array << [index, alt, src]
-            end
-          end
-        end
-        if image_array && image_array.length > 0 && image_array.compact.uniq{ |a| a[2] }.length == 1
-          return [return_link_and_text(image_array)]
-        elsif image_array && image_array.length > 0 && image_array.compact.uniq{ |a| a[2] }.length > 1 
-          to_return = []
-          images_index = image_array.compact.uniq{ |a| a[2] }
-          images_index.each do |image_to_index|
-            sub_array = image_array.map{ |e| e[2]==image_to_index }
-            to_return << return_link_and_text(sub_array)
-          end
-          return to_return unless to_return.length == 0          
-        end
-        return nil
+        page.css("img")
+          .map{ |img| img.attribute('src').try(:value) }
+          .compact
+          .select{ |src| map_link_src_usual_suspects
+            .any?{ |s| src.include?(s) }
+          }
       end
 
       def map_links
-        link_array = []
-        page_map_links = page.css("a")
-        page_map_links.each_with_index do |link, index|
-          text = link.text
-          href = link.attribute("href").value unless !link.attribute("href")
-          map_link_src_usual_suspects.each do |attempt|          
-            if href && href.include?(attempt)
-              link_array << [index, text, href]
-            end
-          end
-        end
-        if link_array && link_array.length > 0 && link_array.compact.uniq{ |a| a[2] }.length == 1
-          return [return_link_and_text(link_array)]
-        elsif link_array && link_array.length > 0 && link_array.compact.uniq{ |a| a[2] }.length > 1 
-          to_return = []
-          links_index = link_array.compact.uniq{ |a| a[2] }
-          links_index.each do |link_to_index|
-            sub_array = link_array.map{ |e| e[2]==link_to_index }
-            to_return << return_link_and_text(sub_array)
-          end
-        end          
-      # rescue ; nil
-      end
-
-      def return_link_and_text(link_array)
-        link_text = link_array.sort_by {|x| x[1].length}.last[1]
-        link_array.sort_by {|x| x[0] }
-        link_array.each do |link|
-          if !link_text.include? trim(link[1])
-            link_text += link[1]
-          end
-        end
-        return link_text, link_array.first[2]
-      # rescue ; nil
+        page.css("a")
+          .map{ |link| link.attribute('href').try(:value) }
+          .compact
+          .select{ |href| map_link_src_usual_suspects
+            .any?{ |s| href.include?(s) }
+          }
       end
 
       # SOCIAL DATA SCRAPING
@@ -111,7 +66,6 @@ module Scrapers
             return @google = trim( query )
           end
         end
-      # rescue ; nil
       end
 
       def twitter
@@ -130,7 +84,6 @@ module Scrapers
           end
         end
         return nil
-      # rescue ; nil
       end
 
       def facebook
@@ -161,11 +114,9 @@ module Scrapers
           end
         end
         return nil
-      # rescue ; nil
       end
 
       def yelp
-      # rescue ; nil
       end
 
       def tripadvisor
@@ -176,7 +127,6 @@ module Scrapers
       def title
         return @title if @title
         @title = trim( page.css("title").text ) 
-      # rescue; nil
       end
 
       def meta_description
@@ -185,7 +135,6 @@ module Scrapers
           return @meta_description = meta_tag.attribute("content").value
         end
         return nil
-      # rescue; nil
       end
 
       def meta_keywords
@@ -194,14 +143,12 @@ module Scrapers
           return @meta_keywords = meta_tag.attribute("content").value
         end
         return nil
-      # rescue; nil
       end
 
       def meta_name
         return @meta_name if @meta_name
         return @meta_name = get_usual_suspect_text(meta_name_usual_suspects)
         return nil
-      # rescue; nil
       end
 
       # ON PAGE DATA SCRAPING
@@ -210,7 +157,6 @@ module Scrapers
         return @heading if @heading
         return @heading = get_usual_suspect_text(heading_usual_suspects)
         return nil
-      # rescue; nil
       end
 
       def details_name
@@ -251,7 +197,6 @@ module Scrapers
           return @full_address = full_address_from_map  
         end
         return nil
-      # rescue ; nil
       end
 
       def street_address
@@ -290,7 +235,6 @@ module Scrapers
         end
         return @phone = get_usual_suspect_text(phone_usual_suspects)
         return nil
-      # rescue ; nil
       end
 
       def nearby
@@ -332,24 +276,11 @@ module Scrapers
             return @nearby = [@locality, @region, @country].compact.join(", ")
           end
         end
-      # rescue ; nil
       end
 
       def map_string
         return @map_string if @map_string
-        map_string_array = []
-        if map_links
-          map_links.each do |map|
-            map_string_array << map.last
-          end
-          return @map_string = map_string_array
-        elsif map_images
-          map_images.each do |map|
-            map_string_array << map.last
-          end
-          return @map_string = map_string_array
-        end
-      # rescue ; nil
+        return @map_string = (map_links + map_images).compact
       end
 
       def lat
@@ -357,7 +288,7 @@ module Scrapers
         if map_string
           map_string.each do |string|
             string = string.gsub("%2C", ",") || ''
-            latlon = string.scan(/[,&@=\/]([-]?\d+\.\d+\,[-]?\d+\.\d+)(?:[,&@]|\Z)/).flatten.first
+            latlon = string.scan( find_lat_lon_in_href ).flatten.first
             return @lat = latlon.split(",")[0] unless !latlon
           end
         end
@@ -365,7 +296,6 @@ module Scrapers
           return @lat = lat_on_page
         end
         return nil
-      # rescue ; nil
       end
 
       def lon
@@ -373,7 +303,7 @@ module Scrapers
         if map_string
           map_string.each do |string|
             string = string.gsub("%2C", ",") || ''
-            latlon = string.scan(/[,&@=\/]([-]?\d+\.\d+\,[-]?\d+\.\d+)(?:[,&@]|\Z)/).flatten.first
+            latlon = string.scan( find_lat_lon_in_href ).flatten.first
             return @lon = latlon.split(",")[1] unless !latlon
           end
         end
@@ -381,7 +311,6 @@ module Scrapers
           return @lon = lon_on_page
         end
         return nil
-      # rescue ; nil
       end
 
       def hours
@@ -439,18 +368,6 @@ module Scrapers
         elsif muddy_choice = dominant_pick(guesses.compact)
           return @name = muddy_choice unless ( !page.text || !page.text.include?(muddy_choice) ) && ( !heading || !heading.include?(muddy_choice) )
         end
-        return nil
-      end
-
-      def before_divider(string)
-        trimmed = string
-        trimmed = trimmed.gsub(/[ ]{3}.*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/ \- .*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/\:.*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/\;.*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/\/.*/, '') unless !trimmed
-        trimmed = trimmed.gsub(/\|.*/, '') unless !trimmed
-        return trim( trimmed ) unless trimmed == '' || !trimmed
         return nil
       end
 

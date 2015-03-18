@@ -68,7 +68,7 @@ module PlaceMod
 
       place.names = ( place.names + place_atts.fetch(:names, []) ).compact.uniq
       place.phones = ( place.phones + place_atts.fetch(:phones, []) ).compact.uniq
-      place.hours = place_atts.fetch(:hours, {}).merge place.hours
+      place.hours = place_atts.fetch(:hours, {}).merge place.hours || {}.to_sh
 
       place
     end

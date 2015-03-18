@@ -113,16 +113,66 @@ describe Api::V1::Users::MarksController, :vcr do
 
       it "gets full data from 36 hours los cabos" do
         expect{
-          post :scrape,
-            url: 'http://www.nytimes.com/2015/03/15/travel/what-to-do-in-36-hours-in-los-cabos-mexico.html?rref=collection/column/36-hours', page: read('nytimes', 'los_cabos.html'), user_id: @user.id, delay: false
+          post :scrape, url: 'http://www.nytimes.com/2015/03/15/travel/what-to-do-in-36-hours-in-los-cabos-mexico.html?rref=collection/column/36-hours', page: read('nytimes', 'los_cabos.html'), user_id: @user.id, delay: false
         }.to change{ Mark.count }.by 18
       end
 
       it "gets full data from 36 hours berkeley" do
         expect{
-          post :scrape,
-            url: 'http://www.nytimes.com/2014/10/12/travel/things-to-do-in-36-hours-in-berkeley-calif.html', page: read('nytimes', 'berkeley_new.html'), user_id: @user.id, delay: false
+          post :scrape, url: 'http://www.nytimes.com/2014/10/12/travel/things-to-do-in-36-hours-in-berkeley-calif.html', page: read('nytimes', 'berkeley_new.html'), user_id: @user.id, delay: false
         }.to change{ Mark.count }.by 16
+      end
+
+      it "doesn't 500 error on nytimes tahoe" do
+        expect{
+          post :scrape, url: 'http://www.nytimes.com/2015/03/01/travel/what-to-do-in-36-hours-lake-tahoe.html?rref=collection/column/36-hours&module=Ribbon&version=origin&region=Header&action=click&contentCollection=36%20Hours&pgtype=article', page: read('nytimes', 'tahoe.html'), user_id: @user.id, delay: false
+        }.to change{ Mark.count }.by 16
+      end
+
+      it "doesn't 500 error on tripadvisor bogota free" do
+        expect{
+          post :scrape, url: 'http://www.tripadvisor.com/Guide-g294074-l190-Bogota.html', page: read('tripadvisor', 'bogotafree.html'), user_id: @user.id, delay: false
+        }.to change{ Mark.count }.by 5
+      end
+
+      it "doesn't 417 error on travel and leisure" do
+        expect{
+          post :scrape, url: 'http://www.travelandleisure.com/travel-guide/cartagena/hotels/casa-pestagua', page: read('travelandleisure', 'pestagua.html'), user_id: @user.id, delay: false
+        }.to change{ Mark.count }.by 1
+        expect( Place.last.name ).to eq "Casa Pestagua"
+      end
+
+      it "doesn't 417 error on fodors" do
+        expect{
+          post :scrape, url: 'http://www.fodors.com/world/south-america/colombia/bogota/restaurants/reviews/sol-de-napoles-137666/', page: read('fodors', 'sol.html'), user_id: @user.id, delay: false
+        }.to change{ Mark.count }.by 1
+      end
+
+      xit "doesn't 417 error on eatermaps" do
+        expect{
+          post :scrape, url: 'http://sf.eater.com/maps/the-38-essential-san-francisco-restaurants-july-2014', page: read('eater', 'sf38.html'), user_id: @user.id, delay: false
+        }.to change{ Mark.count }.by 38
+      end
+
+      xit "doesn't 500 error on booking" do
+        expect{
+          post :scrape, url: 'http://www.booking.com/hotel/co/tayrona-tented-lodge.html', page: read('booking', 'tayrona.html'), user_id: @user.id, delay: false
+        }.to change{ Mark.count }.by 38
+      end
+
+      it "doesn't 500 error on eater sitka spruce review" do
+        expect{
+          post :scrape, url: 'http://www.eater.com/2014/10/17/6994765/sitka-and-spruce-restaurant-review', page: read('eater', 'sitka.html'), user_id: @user.id, delay: false
+        }.to change{ Mark.count }.by 1
+        expect( Place.last.name ).to eq "Sitka and Spruce"
+        expect( Place.last.locality ).to eq "Seattle"
+      end
+
+      it "chooses contigo among options in SF via comparison of street addresses, phone numbers, etc" do
+        expect{
+          post :scrape, url: 'http://inpraiseofsardines.typepad.com/contigosf/', page: read('contigosf', 'contigo.html'), user_id: @user.id, delay: false
+        }.to change{ Place.count }.by 1
+        expect( Place.last.name ).to eq "Contigo"
       end
 
       it "gets The Hall without erroring on the hours" do

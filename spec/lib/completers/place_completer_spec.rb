@@ -134,7 +134,7 @@ module Completers
           expect( place.lat ).to float_eq 48.85989163257022
           expect( place.lon ).to float_eq 2.3091419555351185
           expect( place.flags.find_by(name: "Invalid LatLon found").description ).to eq "Invalid LatLon found - Cleared out LatLon in PlaceMod::Attrs"
-          expect( place.completion_steps ).to eq ["GoogleMaps", "FoursquareExplore", "FoursquareRefine", "TranslateAndRefine"]
+          expect( place.completion_steps ).to eq ["FoursquareExplore", "FoursquareRefine", "TranslateAndRefine"]
           expect( place.hours ).to hash_eq({
             "mon"=>[["1000", "2000"]], 
             "wed"=>[["1000", "2000"]], 
@@ -159,7 +159,7 @@ module Completers
           expect( place.mobile_menu ).to eq "https://foursquare.com/v/4293c000f964a52038241fe3/device_menu"
           expect( place.foursquare_id ).to eq "4293c000f964a52038241fe3"
           expect( place.timezone_string ).to eq "America/Los_Angeles"
-          expect( place.website ).to eq "http://www.apizzascholls.com/"
+          expect( place.website ).to eq "http://www.apizzascholls.com"
           expect( place.reservations ).to eq true
           expect( place.reservations_link ).to eq nil
           expect( place.categories ).to eq( ["Pizza Place"] )
@@ -179,6 +179,16 @@ module Completers
           expect( place.phones ).to eq ["5032331286"]
           expect( place.lat ).to float_eq 45.512043
           expect( place.lon ).to float_eq -122.613144
+        end
+
+        xit "rejects pin-only?" do
+          place = PlaceCompleter.new(yml_data('amelia-island', 'http://www.nytimes.com/', "St. Peter's Episcopal Church Cemetery")[:place]).complete!
+          # expect( place.locality ).to eq("Fernandina Beach")
+          # expect( place.lat ).to float_eq 30.670939
+          # expect( place.lon ).to float_eq -81.45853
+          # expect( place.meta_category ).to eq "See"
+          # expect( place.extra ).to hash_eq({section_title: "Favorite Haunts"}, [:google_place_url])
+          # expect( place.names ).to eq ["St. Peter's Episcopal Church Cemetery", "St Peter's Episcopal Church"]
         end
 
         it "truly prioritizes nearby in finding matches (e.g. St Peters Episcopal Church in Fernandina Beach FL vs. Gainsville FL)" do

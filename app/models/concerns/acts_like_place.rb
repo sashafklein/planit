@@ -81,6 +81,10 @@ module ActsLikePlace
     (foursquare_id) ? true : false # ADD OTHER || SOURCES
   end
 
+  def sources
+    Source.where(object_type: 'Mark', object_id: Mark.where(place_id: id) )
+  end
+
   def foursquare_rating
     false # REPLACE WHEN WE INTRODUCE TO DATABASE
   end
