@@ -1,0 +1,22 @@
+%script{ type: 'text/ng-template', id: 'full_site_search_field.html' }
+  .place-search-bar
+    .search-teaser{ ng_class: "{'full-width': !showFilter }", ng_click: 'showSearch()' }
+      %span#search-teaser-field
+      %i.fa.fa-search.fa-lg
+    .expanded-search-and-filter
+      .search-bar-wrap
+        .input-group
+          %input.form-control.input-with-clear#search-input-field{ name: "input-search", placeholder: "Search Places", type: "text", ng_model: 'query', ng_change: 'search()' }
+          %span.clear-input-button#clear-search-input{ ng_click: 'clearSearch()' } 
+            %i.fa.fa-times-circle
+          %span.input-group-btn
+            %button.btn.btn-default#search-input-button{ type: "button", ng_click: 'search()' }
+              %i.fa.fa-search.fa-lg
+    .place-search-results{ ng_if: 'places.length' }
+      %a.search-result{ ng_repeat: 'place in places', ng_href: '{{place.href}}' }
+        .search-result-left
+          .search-image
+            %img{ ng_src: '{{place.image_url}}', alt: '{{place.image_source}}' }
+        .search-result-right
+          .name {{ place.name }}
+          .address {{ place.address }}

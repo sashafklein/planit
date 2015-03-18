@@ -5,7 +5,7 @@ Rails.application.config.assets.version = (ENV["ASSETS_VERSION"] || "1.0")
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-icons = %w( icons.eot icons.svg icons.ttf icons.woff )
+icons = %w( icons icomoon ).map{ |f| %w(eot svg ttf woff).map{ |t| "fonts/#{f}.#{t}" } }.flatten
 teaspoon = %w( teaspoon.css jasmine/1.3.1.js teaspoon-teaspoon.js teaspoon-jasmine.js )
 bookmarklet = %w( api/bookmarklets/view.js sections/bookmarklet.css )
 mailer = %w( mailer.css )

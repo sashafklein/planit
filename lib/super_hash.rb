@@ -29,6 +29,14 @@ class SuperHash < Hash
     hash.to_sh
   end
 
+  def only(*keys)
+    hash = {}
+    keys.each do |key|
+      hash[key.to_sym] = self[key] if self[key]
+    end
+    hash.to_sh
+  end
+
   def merge(hash)
     recursive_symbolize_keys.to_h.merge( hash.recursive_symbolize_keys ).to_sh
   end

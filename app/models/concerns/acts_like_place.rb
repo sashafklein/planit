@@ -1,7 +1,7 @@
 module ActsLikePlace
 
   extend ActiveSupport::Concern
-  
+
   class_methods do
     def att_by_frequency(att)
       where.not(att => nil).select("#{att}, count(#{att}) as frequency").order('frequency desc').group(att).map(&att)
