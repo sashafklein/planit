@@ -1,18 +1,18 @@
-class UserMailer < ActionMailer::Base
+class UserMailer < BaseMailer
   default from: "New User <newuser@plan.it>"
 
   layout 'layouts/mailer.html.haml'
 
   def welcome_waitlist(user)
-    include_inline_images()
+    include_inline_images
     @user = user
-    mail(to: user.email, subject: "Thanks for Signing up for Planit Beta!")
+    roadie_mail(to: user.email, subject: "Thanks for Signing up for Planit Beta!")
   end
 
   def welcome_invited(user)
-    include_inline_images()
+    include_inline_images
     @user = user
-    mail(to: user.email, subject: "Welcome to Planit Beta!")
+    roadie_mail(to: user.email, subject: "Welcome to Planit Beta!")
   end
 
   def share_love(share:, title:)
@@ -26,7 +26,7 @@ class UserMailer < ActionMailer::Base
 
     include_inline_images(@images)
 
-    mail(from: @sharer.email, to: @user.email, subject: "#{@title} from #{@sharer.first_name}")
+    roadie_mail(from: @sharer.email, to: @user.email, subject: "#{@title} from #{@sharer.first_name}")
   end
 
   private
@@ -40,15 +40,6 @@ class UserMailer < ActionMailer::Base
     else
       return object.images.pluck(:url).first(4) || []
     end    
-  end
-
-  def include_inline_images(image_array=[])
-    # ['logo_name_only_white.png', 'logo_only_white.png'].concat(image_array).each do |image|
-    #   attachments.inline[image.split('/').pop()] = File.read("#{Rails.root}/app/assets/images/#{image}") if image.split('/').length == 1
-    #   attachments.inline[image.split('/').pop()] = URI(image).read if image.split('/').length > 1
-    # end
-    # attachments.inline['logo_name_only_white.png'] = File.read("app/assets/images/logo_name_only_white.png")
-    # attachments.inline['logo_only_white.png'] = File.read("app/assets/images/logo_only_white.png")
   end
 
 end

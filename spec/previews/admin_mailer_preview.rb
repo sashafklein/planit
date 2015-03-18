@@ -1,5 +1,4 @@
-class UserMailerPreview < ActionMailer::Preview
-
+class AdminMailerPreview < ActionMailer::Preview
   def bookmarklet_failure
     AdminMailer.bookmarklet_failure(User.first.id, 'nytimes.com')
   end
@@ -15,5 +14,4 @@ class UserMailerPreview < ActionMailer::Preview
   def notify_of_signup
     AdminMailer.notify_of_signup(User.first)
   end
-
 end
