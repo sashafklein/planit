@@ -96,10 +96,10 @@ describe Api::V1::Users::MarksController, :vcr do
         post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id, delay: false
         mark = @user.marks.first
         
-        # expect( mark.place.flags.where(name: "Triangulated").count ).to eq 1
+        expect( mark.place.flags.where(name: "Triangulated").count ).to eq 1
         
         expect(mark.place.name).to eq "Fuunji"
-        # expect(mark.place.street_addresses).to include "代々木2-14-3" # TODO -- get rid of the shitty Yoyogi address
+        expect(mark.place.street_addresses).to include "代々木2-14-3" # TODO -- get rid of the shitty Yoyogi address
         expect(mark.place.images.first).to be_a Image
       end
 

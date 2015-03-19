@@ -4,7 +4,7 @@ class Share < BaseModel
   belongs_to :sharer, class_name: "User"
   belongs_to :sharee, class_name: "User"
 
-  def self.save_and_send(sharer: sharer, sharee: sharee, url: url, object: object, notes: notess)
+  def self.save_and_send(sharer:, sharee:, url:, object:, notes:)
     if new_share = create(sharer: sharer, sharee: sharee, url: url, object: object, notes: notes)
       title = build_title( new_share.object, extras_hash(url) )
       UserMailer.share_love(share: new_share, title: title).deliver_now

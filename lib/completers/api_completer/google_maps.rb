@@ -49,7 +49,7 @@ module Completers
     end
 
     def url
-      URI.escape("https://www.google.com/maps?q=#{query}&output=json").to_s
+      URI.escape("https://maps.google.com/?q=#{query}&output=json").to_s
     end
 
     def query

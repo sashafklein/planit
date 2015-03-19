@@ -15,7 +15,7 @@ class UserMailer < ActionMailer::Base
     mail(to: user.email, subject: "Welcome to Planit Beta!")
   end
 
-  def share_love(share: share, title: title)
+  def share_love(share:, title:)
     @object = share.object
     @sharer = share.sharer
     @user = share.sharee
