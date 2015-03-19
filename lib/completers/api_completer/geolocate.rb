@@ -24,13 +24,13 @@ module Completers
       { place: pip, success: @success.present? }
     end
 
-    def update_location_basics(overwrite=false)
-      set_vals fields: [:country, :region].select{ |k| take?(k) }
+    def update_location_basics(overwrite=false, block_non_latinate: false)
+      set_vals fields: [:country, :region].select{ |k| take?(k) }, block_non_latinate: block_non_latinate
       update_locale(overwrite)
     end
 
-    def update_locale(overwrite=false)
-      set_vals fields: [:subregion, :locality, :sublocality].select{ |k| take?(k) }
+    def update_locale(overwrite=false, block_non_latinate: false)
+      set_vals fields: [:subregion, :locality, :sublocality].select{ |k| take?(k) }, block_non_latinate: block_non_latinate
     end
 
     def reverse_lat_lon_if_appropriate
@@ -47,7 +47,7 @@ module Completers
 
     def get_query
       @query = 
-        if    pip.coordinate pip.coordinate(", ")
+        if    pip.coordinate then pip.coordinate(", ")
         elsif pip.street_address then [:street_address, :locality, :sublocality, :subregion, :region, :country].map{ |v| pip.send(v) }.reject(&:blank?).join(", ")
         else  pip.full_address
         end

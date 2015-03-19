@@ -154,7 +154,7 @@ module Completers
           expect( p.extra['ratings'] ).to be_present
 
           expect( p.sublocality ).to eq("Brooklyn")
-          expect( p.categories ).to eq ["Attraction", "Museum", "Performing Arts Venue", "General Entertainment"]
+          expect( p.categories ).to eq ["Attraction", "Beach", "Theme Park"]
           i = m.items.first
           expect( i.plan.name ).to eq "New York City Guide"
 

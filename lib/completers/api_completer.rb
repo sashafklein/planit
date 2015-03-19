@@ -37,20 +37,22 @@ module Completers
       end
     end
 
-    def set_val(field:, val:, hierarchy_bump: 0, allow_a_or_h: true)
+    def set_val(field:, val:, hierarchy_bump: 0, allow_a_or_h: true, block_non_latinate: false)
       pip_val = pip.val(field)
 
       if field == :photos && val.present?
         add_photos(val)
       elsif dont_override?(pip_val, allow_a_or_h)
         flag_field_clash(field, val)
+      elsif block_non_latinate && pip.val(field) && pip.val(field).is_a?(String) && pip.val(field).latinate? && val.non_latinate?
+        flag_field_clash(field, val)
       else
         pip.set_val( field: field, val: val, source: class_name, hierarchy_bump: hierarchy_bump )
       end
     end
 
-    def set_vals(fields:, h_bump: 0, allow_a_or_h: true, v: venue)
-      fields.each{ |field| set_val(field: field, val: v.send(field), hierarchy_bump: h_bump, allow_a_or_h: allow_a_or_h) }
+    def set_vals(fields:, h_bump: 0, allow_a_or_h: true, v: venue, block_non_latinate: false)
+      fields.each{ |field| set_val(field: field, val: v.send(field), hierarchy_bump: h_bump, allow_a_or_h: allow_a_or_h, block_non_latinate: block_non_latinate) }
     end
 
     def pick_venue

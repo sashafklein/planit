@@ -4,7 +4,6 @@ describe Mark do
 
   describe "validations" do
     it "needs a user (and user_id)" do
-      raise StandardError.new("Here's an error message!")
       user = build(:user)
       mark = Mark.new
       expect( mark.valid? ).to eq false
