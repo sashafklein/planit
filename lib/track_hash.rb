@@ -39,10 +39,6 @@ class TrackHash
     @flags << Flag.new(name: name, details: details, info: info)
   end
 
-  def clean_attrs
-    attrs.reduce_to_hash{ |k, v| val(k) }.select_val(&:present?)
-  end
-
   def defines?(*atts, all: false)
     defined = vals(atts).select(&:is_defined?)
     all ? vals.all?(&:is_defined?) : vals.any?(&:is_defined?)
@@ -67,11 +63,11 @@ class TrackHash
   end
 
   def raw_attrs
-    attrs.except(:nearby).reduce_to_hash{ |k, v| val(k) }.select_val(&:present?)
+    clean_attrs attrs.except(:nearby)
   end
 
-  def clean_attrs
-    attrs.reduce_to_hash{ |k, v| val(k) }.select_val(&:present?)
+  def clean_attrs(attr_subset=attrs)
+    attr_subset.reduce_to_hash{ |k, v| val(k) }.select_val(&:is_defined?)
   end
 
   def defines?(atts, all=false)

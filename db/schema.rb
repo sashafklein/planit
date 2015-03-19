@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150313220008) do
+ActiveRecord::Schema.define(version: 20150318233109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,15 +45,15 @@ ActiveRecord::Schema.define(version: 20150313220008) do
 
   create_table "flags", force: :cascade do |t|
     t.text     "details"
-    t.string   "name"
+    t.string   "name",        limit: 255
     t.integer  "object_id"
-    t.string   "object_type"
+    t.string   "object_type", limit: 255
     t.json     "info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "flags", ["object_type", "object_id"], name: "index_flags_on_object_type_and_object_id", using: :btree
+  add_index "flags", ["object_id", "object_type"], name: "index_flags_on_object_id_and_object_type", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",           limit: 255, null: false
@@ -181,11 +181,11 @@ ActiveRecord::Schema.define(version: 20150313220008) do
   add_index "page_feedbacks", ["user_id"], name: "index_page_feedbacks_on_user_id", using: :btree
 
   create_table "place_options", force: :cascade do |t|
+    t.float    "lat"
+    t.float    "lon"
     t.integer  "price_tier"
     t.integer  "feature_type"
     t.integer  "mark_id"
-    t.float    "lat"
-    t.float    "lon"
     t.boolean  "wifi",              default: false
     t.boolean  "reservations",      default: false
     t.text     "description"
@@ -257,6 +257,7 @@ ActiveRecord::Schema.define(version: 20150313220008) do
     t.json     "extra",                         default: {}
     t.json     "hours",                         default: {}
     t.integer  "feature_type",                  default: 0
+    t.boolean  "published",                     default: true
   end
 
   create_table "plans", force: :cascade do |t|

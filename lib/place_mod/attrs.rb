@@ -8,6 +8,7 @@ module PlaceMod
     end
 
     def normalize
+      hide_if_shouldnt_be_published
       pluralize_singular_array_attrs
       prioritize_latinate_names
       encode_characters_in_names
@@ -20,6 +21,7 @@ module PlaceMod
 
       found = PlaceMod::Finder.new(attrs).find!
       @attrs = attrs.merge( found.attributes.symbolize_keys.to_sh.reject_val(&:nil?) ) if found.persisted?
+
       @attrs
     end
 
@@ -29,6 +31,12 @@ module PlaceMod
     end
 
     private
+
+    def hide_if_shouldnt_be_published
+      private_sites = %w( airbnb.com )
+
+      attrs[:published] = false if private_sites.any?{ |s| attrs.scrape_url.try(:include?, s) }
+    end
 
     def pluralize_singular_array_attrs
       [:name, :street_address, :category].each do |singular|

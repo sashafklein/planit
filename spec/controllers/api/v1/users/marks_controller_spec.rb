@@ -68,15 +68,16 @@ describe Api::V1::Users::MarksController, :vcr do
       
       it "sets CORS headers" do
         post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id
+
         expect(response.headers).to hash_eq(
           {
-            "X-XSS-Protection"=>"1; mode=block",
-            "X-Content-Type-Options"=>"nosniff",
-            "Access-Control-Allow-Origin"=>"*",
-            "Access-Control-Allow-Methods"=>"POST, GET, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers"=>"Origin, Content-Type, Accept, Authorization, Token, Data-Type, X-Requested-With",
-            "Access-Control-Max-Age"=>"1728000"
-          }, [], ['Content-Type']
+            "X-XSS-Protection" => "1; mode=block", 
+            "X-Content-Type-Options" => "nosniff", 
+            "Access-Control-Allow-Origin" => "*", 
+            "Access-Control-Allow-Methods" => "POST, GET, PUT, DELETE, OPTIONS", 
+            "Access-Control-Max-Age" => "1728000", 
+            "Content-Type" => "text/html"
+          }
         )
       end
 
