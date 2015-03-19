@@ -27,6 +27,7 @@ gem "image_size"
 gem "simple_form"
 gem "elasticsearch-rails"
 gem "elasticsearch-model"
+gem "rspec-instafail", require: false
 
 gem "haml-rails"
 gem "geocoder"
