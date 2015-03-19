@@ -93,13 +93,13 @@ module Scrapers
 
       def nearby        
         if page.css("h1.title").first
-          if guess = guess_locale(page.css("h1.title").first.inner_html)[3]
+          if guess = guess_locale(page.css("h1.title").first.inner_html).values.compact.join(", ")
             return guess
           elsif page_title
-            if guess = guess_locale(page_title)[3]
+            if guess = guess_locale(page_title).values.compact.join(", ")
               return guess
             elsif article_content
-              if guess = guess_locale_rough(article_content.inner_html)[3]
+              if guess = guess_locale_rough(article_content.inner_html).values.compact.join(", ")
                 return guess 
               end
             end

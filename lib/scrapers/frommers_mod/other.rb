@@ -91,13 +91,13 @@ module Scrapers
 
       def nearby        
         if !breadcrumb.include?("Side Trips")
-          return guess_locale([breadcrumb])[3]
+          return guess_locale([breadcrumb]).values.compact.join(", ")
         elsif breadcrumb.include?("Side Trips")
           sub_locale = trim( breadcrumb.split("Side Trips")[1].split("&")[0] )
           if sub_locale.blank?
-            return guess_locale([breadcrumb])[3]
+            return guess_locale([breadcrumb]).values.compact.join(", ")
           else
-            return [sub_locale, guess_locale([breadcrumb])[1], guess_locale([breadcrumb])[2]].reject(&:blank?).compact.join(", ")
+            return [sub_locale, guess_locale([breadcrumb])[:region], guess_locale([breadcrumb])[:country]].reject(&:blank?).compact.join(", ")
           end
         end
       rescue ; nil

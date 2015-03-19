@@ -40,38 +40,35 @@ module Scrapers
       # OPERATIONS
 
       def name
-        trim( page.css("h1").first.text ) 
-      rescue ; nil
+        trim( page.css("h1").first.try( :text ) ) 
       end
 
       def extra_address_or_note
-        trim( page.css("h1").first.next_element.text )
-      rescue ; nil
+        trim( page.css("h1").first.try( :next_element ).try( :text ) )
       end
 
       def property_table
         page.css(".table-properties").first
-      rescue ; nil
       end
 
       def neighborhood
-        trim( de_tag( CGI.unescape( property_table.css("th:contains('Neighborhood')").first.next_element.text ) ) )
-      rescue ; nil
+        result = property_table.css("th:contains('Neighborhood')").first.try( :next_element ).try( :text )
+        trim( de_tag( CGI.unescape( result ) ) ) if result
       end
 
       def hours_note
-        trim( de_tag( CGI.unescape( property_table.css("th:contains('Hours')").first.next_element.text ) ) )
-      rescue ; nil
+        result = property_table.css("th:contains('Hours')").first.try( :next_element ).try( :text )
+        trim( de_tag( CGI.unescape( result ) ) ) if result
       end
 
       def phone
-        trim( de_tag( CGI.unescape( property_table.css("th:contains('Phone')").first.next_element.text ) ) )
-      rescue ; nil
+        result = property_table.css("th:contains('Phone')").first.try( :next_element ).try( :text )
+        trim( de_tag( CGI.unescape( result ) ) ) if result
       end
 
       def price_note
-        trim( de_tag( CGI.unescape( property_table.css("th:contains('Prices')").first.next_element.text ) ) )
-      rescue ; nil
+        result = property_table.css("th:contains('Prices')").first.try( :next_element ).try( :text )
+        trim( de_tag( CGI.unescape( result ) ) ) if result
       end
 
       def website
@@ -80,12 +77,10 @@ module Scrapers
         elsif guess = property_table.css("th:contains('Web site')").first
           return guess.next_element.css("a").first.attribute("href").value 
         end
-      rescue ; nil
       end
 
       def nearby
-        guess_locale([de_tag(page.css(".breadcrumbs").first.inner_html.gsub("❭", ' '))])[3]
-      rescue ; nil
+        guess_locale([de_tag(page.css(".breadcrumbs").first.inner_html.gsub("❭", ' '))]).values.compact.join(", ")
       end
 
       def site_name
@@ -106,10 +101,9 @@ module Scrapers
           category.push "nightlife"
         end
         if another = property_table.css("th:contains('Cuisine Type')").first
-          category << trim( de_tag( CGI.unescape( property_table.css("th:contains('Cuisine Type')").first.next_element.text ) ) )
+          category << trim( de_tag( CGI.unescape( property_table.css("th:contains('Cuisine Type')").first.try( :next_element ).try( :text ) ) ) )
         end
         return category
-      rescue ; nil
       end
 
       def ranking
@@ -120,7 +114,6 @@ module Scrapers
             return "#{star} stars"
           end
         end
-      rescue ; nil
       end
 
     end

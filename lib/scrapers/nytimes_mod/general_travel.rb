@@ -83,7 +83,6 @@ module Scrapers
 
       def name(activity)
         name = trim( de_tag( activity.first ).split("(")[0] )
-      rescue ; nil
       end
 
       def website(activity)
@@ -93,27 +92,21 @@ module Scrapers
           end
           return website
         end
-      rescue ; nil
       end
 
       def phone(activity)
         phone = trim( de_tag( activity.first ) ).scan(%r!#{find_phone_number_between_comma_or_semicolon_or_parens}!).flatten.first
-      rescue ; nil
       end
 
       def nearby(activity)
-        @guessed_locale = guessed_locale
-        if activity.last.present? && @guessed_locale.present?
-          nearby = [trim(activity.last), @guessed_locale[1], @guessed_locale[2]].compact.join(", ")
-        elsif @guessed_locale.present?
-          nearby = @guessed_locale[3]
+        if guessed_locale.values.compact.present?
+          return [trim(activity.last), guessed_locale[:region], guessed_locale[:country]].compact.join(", ") if activity.last.present?
+          return guessed_locale.values.compact.join(", ")
         end
-      rescue ; nil
       end
 
       def extra_address_or_note(activity)
         extra_address_or_note = trim( de_tag( activity.first).scan(/.*?\((.*?)(?:\)|\<|#{find_phone_number_between_comma_or_semicolon_or_parens}|[a-z]*?\.[a-z])/).flatten.first )
-      rescue ; nil
       end
 
       def wrapper
@@ -122,13 +115,11 @@ module Scrapers
             return page.css(try_wrapper)
           end
         end
-      rescue ; nil
       end
 
       def guessed_locale
-        return @guessed_locale unless !@guessed_locale.present?
-        @guessed_locale = guess_locale([ page.css("title").text, page.css("h1").text, url ]) #returns locality, region, country, full_string
-      rescue ; nil
+        return @guessed_locale if @guessed_locale.present?
+        @guessed_locale = guess_locale([ page.css("title").text, page.css("h1").text, url ])
       end
 
     end

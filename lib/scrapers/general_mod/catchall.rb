@@ -251,26 +251,26 @@ module Scrapers
             # shovel guesses in, chose top
             unless @locality
               locality_guesses = []
-              locality_guesses << keyword_guesses[0] unless !keyword_guesses
-              locality_guesses << title_guesses[0] unless !title_guesses
-              locality_guesses << description_guesses[0] unless !description_guesses
-              locality_guesses << page_guesses[0] unless !page_guesses
+              locality_guesses << keyword_guesses[:locality] unless !keyword_guesses
+              locality_guesses << title_guesses[:locality] unless !title_guesses
+              locality_guesses << description_guesses[:locality] unless !description_guesses
+              locality_guesses << page_guesses[:locality] unless !page_guesses
               @locality = top_pick(locality_guesses)[0]
             end
             unless @region
               region_guesses = []
-              region_guesses << keyword_guesses[1] unless !keyword_guesses
-              region_guesses << title_guesses[1] unless !title_guesses
-              region_guesses << description_guesses[1] unless !description_guesses
-              region_guesses << page_guesses[1] unless !page_guesses
+              region_guesses << keyword_guesses[:region] unless !keyword_guesses
+              region_guesses << title_guesses[:region] unless !title_guesses
+              region_guesses << description_guesses[:region] unless !description_guesses
+              region_guesses << page_guesses[:region] unless !page_guesses
               @region = top_pick(region_guesses)[0]
             end
             unless @country
               country_guesses = []
-              country_guesses << keyword_guesses[2] unless !keyword_guesses
-              country_guesses << title_guesses[2] unless !title_guesses
-              country_guesses << description_guesses[2] unless !description_guesses
-              country_guesses << page_guesses[2] unless !page_guesses
+              country_guesses << keyword_guesses[:country] unless !keyword_guesses
+              country_guesses << title_guesses[:country] unless !title_guesses
+              country_guesses << description_guesses[:country] unless !description_guesses
+              country_guesses << page_guesses[:country] unless !page_guesses
               @country = top_pick(country_guesses)[0]
             end
             return @nearby = [@locality, @region, @country].compact.join(", ")

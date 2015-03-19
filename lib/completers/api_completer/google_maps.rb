@@ -16,6 +16,7 @@ module Completers
     def get_venues(url, text=nil)
       json_text = open( url ).read[/{.+}/]
       json = eval( json_text ).to_sh
+      
       markers = json.super_fetch(:overlays, :markers) || []
 
       markers.map do |marker|
@@ -49,7 +50,7 @@ module Completers
     end
 
     def url
-      URI.escape("https://maps.google.com/?q=#{query}&output=json").to_s
+      URI.escape("https://maps.google.com/maps?q=#{query}&ie=UTF8&hq=&hnear=&output=json").to_s
     end
 
     def query
