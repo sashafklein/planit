@@ -11,6 +11,7 @@
   %body{ class: body_class, ng_controller: 'ApplicationCtrl' }
     = render "application/modals", { page_type: content_for(:page_type) || '', title: content_for(:title) || 'This Page' }
     #planit-wrapper
+      .searching-mask
       = content_for?(:header) ? yield_with_blank(:header) : render_header
       = render "application/flashes"
       = yield

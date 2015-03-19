@@ -1,4 +1,4 @@
-class PlaceSerializer < BaseSerializer
+class PlanSerializer < BaseSerializer
   attributes :id, :lat, :lon, :names, :street_addresses, :region, 
              :locality, :country, :images, :menu, :mobile_menu, 
              :reservations, :reservations_link, :hours, :meta_categories, :meta_icon

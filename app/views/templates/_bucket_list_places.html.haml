@@ -7,7 +7,7 @@
         %a.bucket-list-title{ ng_href: "/places/{{place.id}}" }
           {{ place.name() }}
         .bucket-list-more-info
-          %i{ class: '{{place.meta-icon}}'}
+          %i{ class: '{{place.meta_icon}}'}
           {{ place.categories.join(', ') }}
       .bucket-list-controls
         .bucket-list-control{ class: "edit-place", id: 'guide', data: { place_ids: "{{[place.id]}}" } }

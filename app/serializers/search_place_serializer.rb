@@ -1,6 +1,6 @@
 class SearchPlaceSerializer < BaseSerializer
-  attributes :id, :name, :image_url, :image_source, :address, :href
-  delegate :street_address, :sublocality, :locality, :subregion, :region, :country, to: :object
+  attributes :id, :name, :image_url, :image_source, :address, :href, :categories, :meta_icon
+  delegate :street_address, :sublocality, :locality, :subregion, :region, :country, :categories, :meta_icon, :meta_categories, to: :object
 
   def name
     object.names.first

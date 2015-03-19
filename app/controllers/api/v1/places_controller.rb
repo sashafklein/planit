@@ -16,7 +16,7 @@ class Api::V1::PlacesController < ApiController
 
   def search
     permission_denied_error unless current_user
-    return { } unless params[:q]
+    render json: { } unless params[:q]
 
     places = Place.search( params[:q] ).records.limit(5)
     render json: places, each_serializer: SearchPlaceSerializer

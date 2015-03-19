@@ -11,18 +11,22 @@ angular.module("Common").directive 'fullSiteSearchField', (Place) ->
     link: (s, element) ->
 
       s.showSearch = ->
-        element.find(".logo-container, .side-menu-container, .top-menu-container, .search-and-filter-wrap").fadeOut("fast")
+        $(".logo-container, .side-menu-container, .top-menu-container, .search-teaser").fadeOut("fast")
+        $('#planit-header').addClass("focused")
+        $('.searching-mask').fadeIn("fast")
         element.find(".expanded-search-and-filter").fadeIn("fast")
-        element.find('#planit-header').addClass("focused")
         element.find("#search-input-field").focus()
         return true
 
-      s.clearSearch = -> s.query = null
+      s.clearSearch = -> 
+        s.query = null
+        s.places = null
 
       s.hideSearch = -> 
-        element.find('#planit-header').removeClass("focused")
+        $('.searching-mask').hide()
+        $('#planit-header').removeClass("focused")
+        $(".logo-container, .side-menu-container, .top-menu-container, .search-teaser").fadeIn("fast")
         element.find(".expanded-search-and-filter").fadeOut('fast')
-        element.find(".logo-container, .side-menu-container, .top-menu-container, .search-and-filter-wrap").fadeIn("fast")
         if element.find('#search-input-field').val().length == 0 
           element.find('#search-teaser-field').html('')
         element.find('#search-input-field').val($('#search-teaser-field').html())
@@ -42,6 +46,8 @@ angular.module("Common").directive 'fullSiteSearchField', (Place) ->
 
       s._searchFunction = _.debounce( s._makeSearchRequest, 300 )
       s.search = -> s._searchFunction()
+
+      $('.searching-mask').click -> s.hideSearch()
 
       window.s = s
 

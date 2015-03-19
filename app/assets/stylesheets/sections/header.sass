@@ -36,44 +36,7 @@
     font-size: 14px
     font-weight: bold
     
-    .expanded-search-and-filter
-      display: none
-      position: fixed
-      top: 0
-      left: 0
-      right: 0
-      height: 68px
-      z-index: 750
-      white-space: nowrap
-      overflow: none
-      text-align: center
-      button.close:hover
-        background: transparent !important
-
-      .search-bar-wrap
-        margin: 21px auto
-
-    .search-close
-      display: inline-block
-      position: absolute
-      top: 10px
-      right: 10px
-      color: #333
-      &:hover
-        color: #000
-
     .search-and-filter-wrap
-      display: inline-block
-      visibility: visible
-      position: absolute
-      top: 23px
-      margin: 0 auto
-      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-      font-size: 14px
-      line-height: 14px
-      font-weight: normal
-      color: #aaa
-      text-align: right
       .filter-button
         overflow: auto
         float: left
@@ -121,35 +84,6 @@
             -webkit-border-radius: 3px
             background: #fff
             color: #f06 !important
-
-      .search-teaser
-        padding-top: 2px
-        padding-left: 6px
-        padding-bottom: 6px
-        display: block
-        height: 20px
-        margin-left: 65px
-        border-bottom: 1px solid #ddd
-        cursor: text
-        text-align: left
-        &.full-width
-          width: 100%
-          margin-left: 0
-        #search-teaser-field
-          font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-          font-size: 14px
-          line-height: 14px
-          font-weight: normal
-          color: #333
-        i
-          float: right
-          cursor: pointer
-          transition: all 0.2s ease
-          font-size: 14px
-          padding: 2px 14px 0 0
-          background: #fafafa
-          &:hover
-            color: #f06
 
       .filter-dropdown
         transition: all 0.2s ease
@@ -284,22 +218,6 @@
         width: 117px
       &.inbox
         width: 80px
-
-  #search-input-field, #search-input-button
-    height: 28px
-    font-family: avenir, 'trebuchet ms', open sans, arial !important
-    font-weight: normal !important
-    font-size: 14px !important
-    line-height: 28px !important
-    padding: 0px 12px !important
-    i
-      margin: auto
-      font-size: 14px !important
-      line-height: 14px !important
-      overflow: hidden !important
-      height: 14px !important
-  #clear-search-input
-    right: 45px !important
 
   .side-menu-container
     float: right
@@ -499,15 +417,6 @@
 
   // *Computer (Regular)
 
-  .search-and-filter-wrap
-    left: 0
-    right: 0
-    width: 30%
-    margin: 0 auto
-  .search-bar-wrap
-    width: 30%
-    margin: 21px auto
-
   .side-menu-container
     visibility: visible
     display: inline-block
@@ -524,15 +433,6 @@
 
   // #Tablet (Portrait)
   @media only screen and (min-width: 768px) and (max-width: 959px)
-
-    .search-and-filter-wrap
-      left: 0
-      right: 0
-      width: 30%
-      margin: 0 auto
-    .search-bar-wrap
-      width: 45%
-      margin: 21px auto
 
     .side-menu-container
       visibility: visible
@@ -579,32 +479,6 @@
     .header-container
       height: 55px
 
-    .expanded-search-and-filter
-      height: 55px
-      .search-bar-wrap
-        margin: 13px auto
-      .search-close
-        color: #fff !important
-        text-shadow: none
-        opacity: 0.7
-        &:hover
-          opacity: 0.9
-          color: #fff !important        
-    .search-and-filter-wrap
-      top: 18px
-      left: 80px
-      right: 80px
-      width: auto
-    .search-bar-wrap
-      left: 0px
-      right: 0px
-      margin: 14px auto
-      padding: 0 35px 
-      width: auto
-
-    #search-teaser-field
-      color: #fff !important
-
     .side-menu-container
       visibility: hidden
       display: none
@@ -619,12 +493,6 @@
           border: 1px solid #e44557
           border-bottom: 1px solid #840c1a
           cursor: pointer
-
-    .search-teaser
-      padding-left: 2px !important
-      i
-        padding: 2px 2px 0 0 !important
-        background: #000 !important
 
   // #Mobile (Landscape)
   @media only screen and (min-width: 480px) and (max-width: 767px)
@@ -646,44 +514,12 @@
     .header-container
       height: 55px
 
-    .expanded-search-and-filter
-      height: 55px
-      .search-bar-wrap
-        margin: 13px auto
-      .search-close
-        color: #fff !important
-        text-shadow: none
-        opacity: 0.7
-        &:hover
-          opacity: 0.9
-          color: #fff !important        
-    .search-and-filter-wrap
-      top: 18px
-      left: 80px
-      right: 80px
-      width: auto
-    .search-bar-wrap
-      left: 0px
-      right: 0px
-      padding: 0 35px 
-      margin: 14px auto
-      width: auto
-
-    #search-teaser-field
-      color: #fff !important
-
     .side-menu-container
       visibility: hidden
       display: none
     
     .main-menu-container
       margin: 7px 0 0 0px
-
-    .search-teaser
-      padding-left: 2px !important
-      i
-        padding: 2px 2px 0 0 !important
-        background: #000 !important
 
 #header-spacing
   padding: 68px 0 0 0
