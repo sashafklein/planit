@@ -62,7 +62,9 @@ Rails.application.routes.draw do
         resources :places, only: [:index], controller: 'plans/places'
       end
       
-      resources :places, only: [:show, :index]
+      resources :places, only: [:show, :index] do
+        get :search, on: :collection
+      end
 
     end
   end

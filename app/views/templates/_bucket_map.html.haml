@@ -1,13 +1,13 @@
 %script{ type: 'text/ng-template', id: 'bucket_map.html' }
   .ng-map-div{"ng-class" => "{'expanded': expanded()}", "ng-cloak" => "true", render_html: true}
-    #in-view-item{ ng_if: "mobile"}
+    .map-highlight-result#in-view-item{ ng_if: "mobile"}
       .bucket-item-container
         %ul
           %li{ ng_if: "cluster", class: "bucket-list-li", id: "in-view-li" }
             <bucket-list-clusters cluster='cluster' map='map' padding='padding'></bucket-list-clusters>
           %li{ ng_if: "place", class: "bucket-list-li", id: "in-view-li" }
             <bucket-list-places place='place'></bucket-list-places>
-    #in-view-list{ ng_if: "!mobile"}
+    .map-filter-results#in-view-list{ ng_if: "!mobile"}
       .bucket-list-container
         %ul
           #top-of-list

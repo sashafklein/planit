@@ -49,30 +49,26 @@ module Scrapers
 
       def name(row)
         trim( row.css("td")[2].text )
-      rescue ; nil
       end
 
       def more_info(row)
         if link = row.css("td")[2].css("a").first.attribute("href").value
           return "http://www.frommers.com#{link}"
         end
-      rescue ; nil
       end
 
       def neighborhood(row)
         trim( row.css("td")[4].text )
-      rescue ; nil
       end
 
       def nearby
         breadcrumb = de_tag(page.css(".breadcrumbs").first.inner_html.gsub("❭", ' '))
         if !breadcrumb.include?("Side Trips")
-          return guess_locale([breadcrumb])[3]
+          return guess_locale([breadcrumb]).values.compact.join(", ")
         elsif breadcrumb.include?("Side Trips")
           sub_locale = trim( breadcrumb.split("Side Trips")[1].split("&")[0] ) 
-          return [sub_locale, guess_locale([breadcrumb])[1], guess_locale([breadcrumb])[2]].join(", ")
+          return [sub_locale, guess_locale([breadcrumb])[:region], guess_locale([breadcrumb])[:country]].join(", ")
         end
-      rescue ; nil
       end
 
       def site_name
@@ -96,7 +92,6 @@ module Scrapers
           category.push trim( row.css("td")[3].text )
         end
         return category
-      rescue ; nil
       end
 
       def price_note(row)
@@ -106,7 +101,6 @@ module Scrapers
           end
           return ("$" * dollar)
         end
-      rescue ; nil
       end
 
       def ranking(row)
@@ -117,7 +111,6 @@ module Scrapers
             return "#{star} stars"
           end
         end
-      rescue ; nil
       end
 
     end

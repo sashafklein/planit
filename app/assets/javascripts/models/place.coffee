@@ -1,5 +1,5 @@
 mod = angular.module("Models")
-mod.factory "Place", (BaseModel, BasicOperators) ->
+mod.factory "Place", (BaseModel, BasicOperators, $http) ->
   
   class Place extends BaseModel
     @generateFromJSON: (json) -> BaseModel.generateFromJSON(Place, json)
@@ -16,6 +16,8 @@ mod.factory "Place", (BaseModel, BasicOperators) ->
       area ||= BasicOperators.commaAndJoin( regions )
       area ||= BasicOperators.commaAndJoin( countries, 2 ) unless _.contains(countries, "United States")
       return area
+
+    @search: (query) -> $http.get("#{@basePath}/search", { params: { q: query } } )
 
     url: -> "/places/#{@id}"
     name: -> @names[0]

@@ -9,6 +9,8 @@ class Place < BaseModel
   array_accessor :completion_step, :street_address, :name, :category, :meta_category, :phone
   json_accessor :hours, :extra
 
+  elastic_searchable columns_and_weights: ['names^10', 'locality^5', 'sublocality', 'categories']
+
   validate!
 
   delegate :open?, :open_again_at, :open_until, to: :hour_calculator

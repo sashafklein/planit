@@ -19,27 +19,29 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 02 Mar 2015 22:49:19 GMT
+      - Thu, 19 Mar 2015 17:45:07 GMT
       Server:
-      - Apache/2.4.6 (Linux/SUSE)
+      - Apache/2.2.15 (CentOS)
       Cache-Control:
       - no-cache
       Access-Control-Allow-Origin:
       - "*"
-      Transfer-Encoding:
-      - chunked
+      Content-Length:
+      - '225'
+      Connection:
+      - close
       Content-Type:
       - application/json;charset=UTF-8
     body:
       encoding: UTF-8
-      string: '{"sunrise":"2015-03-03 06:11","lng":139.700409,"countryCode":"JP","gmtOffset":9,"rawOffset":9,"sunset":"2015-03-03
-        17:36","timezoneId":"Asia/Tokyo","dstOffset":9,"countryName":"Japan","time":"2015-03-03
-        07:49","lat":35.68652}'
+      string: '{"time":"2015-03-20 02:45","countryName":"Japan","sunset":"2015-03-20
+        17:51","rawOffset":9,"dstOffset":9,"countryCode":"JP","gmtOffset":9,"lng":139.700409,"sunrise":"2015-03-20
+        05:47","timezoneId":"Asia/Tokyo","lat":35.68652}'
     http_version: 
-  recorded_at: Mon, 02 Mar 2015 22:49:20 GMT
+  recorded_at: Thu, 19 Mar 2015 17:44:52 GMT
 - request:
     method: get
-    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=35.68652,139.700409&query=Hotel%20Century%20Southern%20Tower&v=20150302&venuePhotos=1
+    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=35.68652,139.700409&query=Hotel%20Century%20Southern%20Tower&v=20150319&venuePhotos=1
     body:
       encoding: US-ASCII
       string: ''
@@ -56,7 +58,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 02 Mar 2015 22:49:21 GMT
+      - Thu, 19 Mar 2015 17:44:53 GMT
       Server:
       - nginx
       Content-Type:
@@ -64,11 +66,11 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Tracer-Time:
-      - '231'
+      - '223'
       X-Ratelimit-Limit:
       - '5000'
       X-Ratelimit-Remaining:
-      - '4924'
+      - '4615'
       Strict-Transport-Security:
       - max-age=864000
       X-Ex:
@@ -78,7 +80,7 @@ http_interactions:
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-ord1722-ORD
+      - cache-sjc3135-SJC
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -122,13 +124,13 @@ http_interactions:
         IiwiaWNvbiI6eyJwcmVmaXgiOiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9p
         bWdcL2NhdGVnb3JpZXNfdjJcL3RyYXZlbFwvaG90ZWxfIiwic3VmZml4Ijoi
         LnBuZyJ9LCJwcmltYXJ5Ijp0cnVlfV0sInZlcmlmaWVkIjpmYWxzZSwic3Rh
-        dHMiOnsiY2hlY2tpbnNDb3VudCI6NTIzOSwidXNlcnNDb3VudCI6MTkyOCwi
+        dHMiOnsiY2hlY2tpbnNDb3VudCI6NTI2MywidXNlcnNDb3VudCI6MTk0MSwi
         dGlwQ291bnQiOjIwfSwidXJsIjoiaHR0cDpcL1wvd3d3LnNvdXRoZXJudG93
-        ZXIuY28uanAiLCJyYXRpbmciOjcuOCwicmF0aW5nQ29sb3IiOiJDNURFMzUi
+        ZXIuY28uanAiLCJyYXRpbmciOjcuNywicmF0aW5nQ29sb3IiOiJDNURFMzUi
         LCJyYXRpbmdTaWduYWxzIjoyOSwiaG91cnMiOnsic3RhdHVzIjoiT3BlbiIs
         ImlzT3BlbiI6dHJ1ZX0sInNwZWNpYWxzIjp7ImNvdW50IjowLCJpdGVtcyI6
-        W119LCJwaG90b3MiOnsiY291bnQiOjI4NywiZ3JvdXBzIjpbeyJ0eXBlIjoi
-        dmVudWUiLCJuYW1lIjoiVmVudWUgcGhvdG9zIiwiY291bnQiOjI4NywiaXRl
+        W119LCJwaG90b3MiOnsiY291bnQiOjI5MCwiZ3JvdXBzIjpbeyJ0eXBlIjoi
+        dmVudWUiLCJuYW1lIjoiVmVudWUgcGhvdG9zIiwiY291bnQiOjI5MCwiaXRl
         bXMiOlt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRl
         ZEF0IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3Fp
         Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThR
@@ -163,82 +165,7 @@ http_interactions:
         TUxaUVhQS1kuanBnIn19fV0sInJlZmVycmFsSWQiOiJlLTAtNGI2MTFiMDdm
         OTY0YTUyMGU2MDkyYWUzLTAifV19XX19
     http_version: 
-  recorded_at: Mon, 02 Mar 2015 22:49:21 GMT
-- request:
-    method: get
-    uri: https://www.google.com/maps?near=Shibuya,%2520Tokyo%2520Prefecture&output=json&q=Hotel%20Century%20Southern%20Tower
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Mon, 02 Mar 2015 22:51:59 GMT
-      Expires:
-      - "-1"
-      Cache-Control:
-      - private, max-age=0
-      Content-Type:
-      - application/json; charset=ISO-8859-1
-      Set-Cookie:
-      - PREF=ID=9ce55b1962140b7f:TM=1425336719:LM=1425336719:S=oxEy1AqpqKTGAD0u; expires=Wed,
-        01-Mar-2017 22:51:59 GMT; path=/; domain=.google.com
-      X-Content-Type-Options:
-      - nosniff
-      Content-Disposition:
-      - attachment; filename="f.txt"
-      Server:
-      - GFE/2.0
-      Transfer-Encoding:
-      - chunked
-      Alternate-Protocol:
-      - 443:quic,p=0.08
-    body:
-      encoding: UTF-8
-      string: 'while(1);{title:"Hotel Century Southern Tower loc: Shibuya,%20Tokyo%20Prefecture
-        - Google Maps",url:"/maps?q=Hotel+Century+Southern+Tower\x26near=Shibuya,%2520Tokyo%2520Prefecture\x26ie=UTF8",urlViewport:false,ei:"j-n0VPLQGcqpigLExoHADg",form:{selected:"q",q:{q:"Hotel
-        Century Southern Tower loc: Shibuya,%20Tokyo%20Prefecture",what:"",near:"Shibuya,%20Tokyo%20Prefecture"},d:{saddr:"",daddr:"Shibuya,%20Tokyo%20Prefecture"},geocode:"",d_edit:{saddr:"",daddr:"Shibuya,%20Tokyo%20Prefecture"}},viewport:{center:{lat:37.0625,lng:-95.677068000000006},span:{lat:23.875,lng:57.630032999999997},mapType:"",source:1},modules:["","pphover","act_s","appiw","rst"],overlays:{sxcar:false,layers:[{composition_type:2,spec:{id:"m"},default_epoch:293000000,pertile_data:{area:[{id:"t",zrange:[3,3],layer:"m",epoch:293000000},{id:"ut",zrange:[3,3],layer:"m",epoch:293000000},{id:"uut",zrange:[3,3],layer:"m",epoch:293000000},{id:"uuv",zrange:[3,3],layer:"m",epoch:293000000},{id:"uv",zrange:[3,3],layer:"m",epoch:293000000},{id:"uwt",zrange:[3,3],layer:"m",epoch:293000000},{id:"uwv",zrange:[3,3],layer:"m",epoch:293000000},{id:"vtt",zrange:[3,3],layer:"m",epoch:293000000},{id:"vtu",zrange:[3,3],layer:"m",epoch:293000000},{id:"vut",zrange:[3,3],layer:"m",epoch:293000000},{id:"vuu",zrange:[3,3],layer:"m",epoch:293000000},{id:"vv",zrange:[3,3],layer:"m",epoch:293000000},{id:"vw",zrange:[3,3],layer:"m",epoch:293000000},{id:"wtt",zrange:[3,3],layer:"m",epoch:293000000},{id:"wtu",zrange:[3,3],layer:"m",epoch:293000000},{id:"wut",zrange:[3,3],layer:"m",epoch:293000000},{id:"wv",zrange:[3,3],layer:"m",epoch:293000000},{id:"wwt",zrange:[3,3],layer:"m",epoch:293000000},{id:"wwv",zrange:[3,3],layer:"m",epoch:293000000},{id:"t",zrange:[4,4],layer:"m",epoch:293000000},{id:"ut",zrange:[4,4],layer:"m",epoch:293000000},{id:"uutt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uutv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uuvt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uuvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwtt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwvt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vtt",zrange:[4,4],layer:"m",epoch:293000000},{id:"vtu",zrange:[4,4],layer:"m",epoch:293000000},{id:"vut",zrange:[4,4],layer:"m",epoch:293000000},{id:"vuu",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvtw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvuv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvuw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwtw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwuv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwuw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vww",zrange:[4,4],layer:"m",epoch:293000000},{id:"wtt",zrange:[4,4],layer:"m",epoch:293000000},{id:"wtu",zrange:[4,4],layer:"m",epoch:293000000},{id:"wutt",zrange:[4,4],layer:"m",epoch:293000000},{id:"wutv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvtw",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvuv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvuw",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvw",zrange:[4,4],layer:"m",epoch:293000000},{id:"wwtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wwvt",zrange:[4,4],layer:"m",epoch:293000000},{id:"wwvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"ttuuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttuuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttwu",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttww",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuttv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuttw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuutv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuutw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tvuu",zrange:[5,5],layer:"m",epoch:293000000},{id:"tvuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tvwu",zrange:[5,5],layer:"m",epoch:293000000},{id:"twt",zrange:[5,5],layer:"m",epoch:293000000},{id:"twu",zrange:[5,5],layer:"m",epoch:293000000},{id:"twvt",zrange:[5,5],layer:"m",epoch:293000000},{id:"twvu",zrange:[5,5],layer:"m",epoch:293000000},{id:"twwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"twwu",zrange:[5,5],layer:"m",epoch:293000000},{id:"utttv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utttw",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttwv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvt",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvut",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvwv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtut",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtwv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvvt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvvut",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvvuv",zrange:[5,5],layer:"m",epoch:293000000}]}}]},panel:"\x3cdiv
-        id=\"resultspanel\" class=\"local\"\x3e  \x3cdiv class=\"noprint res\"\x3e  \x3c/div\x3e\x3cdiv
-        class=\"sp-error-msg\"\x3e\x3cp\x3eWe could not understand the location \x3cb\x3e\x3c/b\x3e\x3c/p\x3e\x3cp\x3eSuggestions:\x3c/p\x3e\x3cul  class=\"errortips\"\x3e\x3cli\x3eMake
-        sure all street and city names are spelled correctly.\x3c/li\x3e\x3cli\x3eMake
-        sure your address includes a city and state.\x3c/li\x3e\x3cli\x3eTry entering
-        a zip code.\x3c/li\x3e\x3c/ul\x3e\x3c/div\x3e\x3cdiv id=\"bottomads\" class=\"ads
-        noprint\" style=\"display:none\"\x3e\x3cdiv\x3e\x3cdiv class=\"adsmessage
-        v3\" id=\"bottomads_origin\"\x3eAd\x3c/div\x3e\x3cdiv id=\"bottomads_contents\"\x3e\x3c/div\x3e\x3cdiv
-        class=\"awpromo\"\x3e\x3ca href=\"//www.google.com/adwords/express/#utm_campaign=en\x26utm_medium=et\x26utm_source=us-en-et-awx-q411-maps-syah\x26utm_content=us-en-et-awx-q411-maps-syah\"
-        target=\"_blank\"\x3eSee your ad here\x26nbsp;\x26raquo;\x3c/a\x3e\x3c/div\x3e\x3c/div\x3e\x3c/div\x3e\x3cdiv
-        class=\"lhsf rmi-rpl-k gmnoprint\" jsattrs=\"class.rmi-base-k?panel_footer.anchor_footer;\"
-        id=\"lhsf\"\x3e \x3cdiv class=\"rmi-rpl-top secondary\"\x3e \x3ca jsdisplay=\"panel_footer.report_action\"
-        href=\"javascript:void(0)\" jsattrs=\"jsaction:panel_footer.report_action;id?panel_footer.is_basepage;id:''suck_lhp_link'';\"
-        style=\"display:none\"\x3e Report a problem\x3c/a\x3e \x3cspan jsdisplay=\"panel_footer.report_action\"
-        jsattrs=\"id?panel_footer.is_basepage;id:''suck_lhp_sep'';\" style=\"display:none\"\x3e
-        - \x3c/span\x3e \x3ca href=\"javascript:void(0)\" jsaction=\"ml.openDialog\"\x3e
-        Maps Labs\x3c/a\x3e \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://maps.google.com/support?hl=en\"
-        jsattrs=\"href:panel_footer.help_url;\"\x3e Help\x3c/a\x3e \x3c/div\x3e \x3cdiv
-        class=\"rmi-rpl-bottom secondary\"\x3e \x3cspan\x3eGoogle Maps \x3c/span\x3e
-        \x3cspan\x3e\x3c/span\x3e \x3cspan jscontent=\"panel_footer.country_msg\"
-        jsvars=\"__new_dir:bidiDir(panel_footer.country_msg);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
-        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x3c/span\x3e \x3cspan\x3e\x3c/span\x3e
-        \x3cspan\x3e - \x3c/span\x3e \x3cspan jscontent=\"raw:panel_footer.copyright\"
-        jsvars=\"__new_dir:bidiDir(panel_footer.copyright);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
-        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x26#169;2015 Google\x3c/span\x3e
-        \x3cspan\x3e\x3c/span\x3e \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/help/terms_maps.html\"
-        jsattrs=\"href:panel_footer.terms_url;\" target=\"_blank\"\x3e Terms of Use\x3c/a\x3e
-        \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/policies/privacy/\"
-        jsattrs=\"href:panel_footer.privacy_url;\" target=\"_blank\"\x3e Privacy\x3c/a\x3e
-        \x3c/div\x3e \x3c/div\x3e\x3c/div\x3e",panelId:0,sign_in_url:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=http://www.google.com/maps%3Fq%3DHotel%2BCentury%2BSouthern%2BTower%26near%3DShibuya,%252520Tokyo%252520Prefecture%26num%3D10",is_details_req:false,dopts:{dtm:"d",atms:["d","r","w","b"],ddu:"m",transit:{hts:true,tmos:["now","dep","arr"],tm:{d:"now"},date:{},time:{v:"utc:1425336660"},sos:["def","num","walk"],st:{d:"def"},ne:{h:true},na:{h:true},ptmos:["","B","S","T","R"]}},slayers_trigger:false,timeformat:{ampm:true,dp:"mdy"},activityType:1,panel_modules:["pplhs"],page_conf:{topbar_config:{show_panel_toggler:true,directions_url:"javascript:void(0)",show_directions_link:true,startcol_only:true,show_my_places_link:true,my_places_url:"javascript:void(0)",enabled_kennedy_ui:true},panel_display:true}}'
-    http_version: 
-  recorded_at: Mon, 02 Mar 2015 22:52:00 GMT
+  recorded_at: Thu, 19 Mar 2015 17:44:53 GMT
 - request:
     method: get
     uri: https://www.google.com/maps?near=Shibuya,%20Tokyo%20Prefecture&output=json&q=Hotel%20Century%20Southern%20Tower
@@ -258,7 +185,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 02 Mar 2015 22:53:30 GMT
+      - Thu, 19 Mar 2015 17:44:54 GMT
       Expires:
       - "-1"
       Cache-Control:
@@ -266,8 +193,8 @@ http_interactions:
       Content-Type:
       - application/json; charset=ISO-8859-1
       Set-Cookie:
-      - PREF=ID=d093bda0584754a5:TM=1425336810:LM=1425336810:S=gG58druqSqD-XTKz; expires=Wed,
-        01-Mar-2017 22:53:30 GMT; path=/; domain=.google.com
+      - PREF=ID=387fd75f12c44c60:TM=1426787093:LM=1426787094:S=v92tAZeJzvHSHJEZ; expires=Sat,
+        18-Mar-2017 17:44:54 GMT; path=/; domain=.google.com
       X-Content-Type-Options:
       - nosniff
       Content-Disposition:
@@ -277,14 +204,14 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Alternate-Protocol:
-      - 443:quic,p=0.08
+      - 443:quic,p=0.5
     body:
       encoding: UTF-8
       string: 'while(1);{title:"Hotel Century Southern Tower loc: Shibuya, Tokyo Prefecture
-        - Google Maps",url:"/maps?q=Hotel+Century+Southern+Tower\x26near=Shibuya,+Tokyo+Prefecture\x26ie=UTF8",urlViewport:false,ei:"6un0VMqpEcj2iQKntYDIDw",form:{selected:"q",q:{q:"Hotel
+        - Google Maps",url:"/maps?q=Hotel+Century+Southern+Tower\x26near=Shibuya,+Tokyo+Prefecture\x26ie=UTF8",urlViewport:false,ei:"FQsLVfPRNanUiwLc8oDYCg",form:{selected:"q",q:{q:"Hotel
         Century Southern Tower loc: Shibuya, Tokyo Prefecture",what:"",near:"Shibuya,
         Tokyo Prefecture"},d:{saddr:"",daddr:"Shibuya, Tokyo Prefecture"},geocode:"",d_edit:{saddr:"",daddr:"Shibuya,
-        Tokyo Prefecture"}},viewport:{center:{lat:37.0625,lng:-95.677068000000006},span:{lat:23.875,lng:57.630032999999997},mapType:"",source:1},modules:["","pphover","act_s","appiw","rst"],overlays:{sxcar:false,layers:[{composition_type:2,spec:{id:"m"},default_epoch:293000000,pertile_data:{area:[{id:"t",zrange:[3,3],layer:"m",epoch:293000000},{id:"ut",zrange:[3,3],layer:"m",epoch:293000000},{id:"uut",zrange:[3,3],layer:"m",epoch:293000000},{id:"uuv",zrange:[3,3],layer:"m",epoch:293000000},{id:"uv",zrange:[3,3],layer:"m",epoch:293000000},{id:"uwt",zrange:[3,3],layer:"m",epoch:293000000},{id:"uwv",zrange:[3,3],layer:"m",epoch:293000000},{id:"vtt",zrange:[3,3],layer:"m",epoch:293000000},{id:"vtu",zrange:[3,3],layer:"m",epoch:293000000},{id:"vut",zrange:[3,3],layer:"m",epoch:293000000},{id:"vuu",zrange:[3,3],layer:"m",epoch:293000000},{id:"vv",zrange:[3,3],layer:"m",epoch:293000000},{id:"vw",zrange:[3,3],layer:"m",epoch:293000000},{id:"wtt",zrange:[3,3],layer:"m",epoch:293000000},{id:"wtu",zrange:[3,3],layer:"m",epoch:293000000},{id:"wut",zrange:[3,3],layer:"m",epoch:293000000},{id:"wv",zrange:[3,3],layer:"m",epoch:293000000},{id:"wwt",zrange:[3,3],layer:"m",epoch:293000000},{id:"wwv",zrange:[3,3],layer:"m",epoch:293000000},{id:"t",zrange:[4,4],layer:"m",epoch:293000000},{id:"ut",zrange:[4,4],layer:"m",epoch:293000000},{id:"uutt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uutv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uuvt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uuvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwtt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwvt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vtt",zrange:[4,4],layer:"m",epoch:293000000},{id:"vtu",zrange:[4,4],layer:"m",epoch:293000000},{id:"vut",zrange:[4,4],layer:"m",epoch:293000000},{id:"vuu",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvtw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvuv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvuw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwtw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwuv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwuw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vww",zrange:[4,4],layer:"m",epoch:293000000},{id:"wtt",zrange:[4,4],layer:"m",epoch:293000000},{id:"wtu",zrange:[4,4],layer:"m",epoch:293000000},{id:"wutt",zrange:[4,4],layer:"m",epoch:293000000},{id:"wutv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvtw",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvuv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvuw",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvw",zrange:[4,4],layer:"m",epoch:293000000},{id:"wwtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wwvt",zrange:[4,4],layer:"m",epoch:293000000},{id:"wwvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"ttuuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttuuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttwu",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttww",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuttv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuttw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuutv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuutw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tvuu",zrange:[5,5],layer:"m",epoch:293000000},{id:"tvuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tvwu",zrange:[5,5],layer:"m",epoch:293000000},{id:"twt",zrange:[5,5],layer:"m",epoch:293000000},{id:"twu",zrange:[5,5],layer:"m",epoch:293000000},{id:"twvt",zrange:[5,5],layer:"m",epoch:293000000},{id:"twvu",zrange:[5,5],layer:"m",epoch:293000000},{id:"twwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"twwu",zrange:[5,5],layer:"m",epoch:293000000},{id:"utttv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utttw",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttwv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvt",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvut",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvwv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtut",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtwv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvvt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvvut",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvvuv",zrange:[5,5],layer:"m",epoch:293000000}]}}]},panel:"\x3cdiv
+        Tokyo Prefecture"}},viewport:{center:{lat:37.0625,lng:-95.677068000000006},span:{lat:23.875,lng:57.630032999999997},mapType:"",source:1},modules:["","pphover","act_s","appiw","rst"],overlays:{sxcar:false,layers:[{composition_type:2,spec:{id:"m"},default_epoch:295000000,pertile_data:{area:[{id:"ttt",zrange:[3,3],layer:"m",epoch:295067208},{id:"ttu",zrange:[3,3],layer:"m",epoch:295112569},{id:"ttv",zrange:[3,3],layer:"m",epoch:295067208},{id:"ttw",zrange:[3,3],layer:"m",epoch:295115452},{id:"tu",zrange:[3,3],layer:"m",epoch:295116893},{id:"tvt",zrange:[3,3],layer:"m",epoch:295000000},{id:"tvu",zrange:[3,3],layer:"m",epoch:295115452},{id:"tvv",zrange:[3,3],layer:"m",epoch:295072249},{id:"tvw",zrange:[3,3],layer:"m",epoch:295116175},{id:"twt",zrange:[3,3],layer:"m",epoch:295116893},{id:"twu",zrange:[3,3],layer:"m",epoch:295116893},{id:"twv",zrange:[3,3],layer:"m",epoch:295116175},{id:"tww",zrange:[3,3],layer:"m",epoch:295116175},{id:"utt",zrange:[3,3],layer:"m",epoch:295116893},{id:"utu",zrange:[3,3],layer:"m",epoch:295094568},{id:"utv",zrange:[3,3],layer:"m",epoch:295116893},{id:"utw",zrange:[3,3],layer:"m",epoch:295099610},{id:"uut",zrange:[3,3],layer:"m",epoch:295033368},{id:"uuv",zrange:[3,3],layer:"m",epoch:295062891},{id:"uvt",zrange:[3,3],layer:"m",epoch:295116893},{id:"uvu",zrange:[3,3],layer:"m",epoch:295099610},{id:"uvv",zrange:[3,3],layer:"m",epoch:295115452},{id:"uvw",zrange:[3,3],layer:"m",epoch:295099610},{id:"uwt",zrange:[3,3],layer:"m",epoch:295062891},{id:"uwv",zrange:[3,3],layer:"m",epoch:295062891},{id:"vtt",zrange:[3,3],layer:"m",epoch:295098892},{id:"vtu",zrange:[3,3],layer:"m",epoch:295116175},{id:"vut",zrange:[3,3],layer:"m",epoch:295116175},{id:"vuu",zrange:[3,3],layer:"m",epoch:295116175},{id:"vvt",zrange:[3,3],layer:"m",epoch:295098892},{id:"vvu",zrange:[3,3],layer:"m",epoch:295103929},{id:"vvv",zrange:[3,3],layer:"m",epoch:295067208},{id:"vvw",zrange:[3,3],layer:"m",epoch:295103929},{id:"vw",zrange:[3,3],layer:"m",epoch:295114729},{id:"wtt",zrange:[3,3],layer:"m",epoch:295114729},{id:"wtu",zrange:[3,3],layer:"m",epoch:295062891},{id:"wut",zrange:[3,3],layer:"m",epoch:295000000},{id:"wvt",zrange:[3,3],layer:"m",epoch:295114729},{id:"wvu",zrange:[3,3],layer:"m",epoch:295094568},{id:"wvv",zrange:[3,3],layer:"m",epoch:295114729},{id:"wvw",zrange:[3,3],layer:"m",epoch:295094568},{id:"wwt",zrange:[3,3],layer:"m",epoch:295033368},{id:"wwv",zrange:[3,3],layer:"m",epoch:295033368},{id:"tttt",zrange:[4,4],layer:"m",epoch:295000000},{id:"tttu",zrange:[4,4],layer:"m",epoch:295067208},{id:"tttv",zrange:[4,4],layer:"m",epoch:295000000},{id:"tttw",zrange:[4,4],layer:"m",epoch:295067208},{id:"ttut",zrange:[4,4],layer:"m",epoch:295067208},{id:"ttuu",zrange:[4,4],layer:"m",epoch:295098169},{id:"ttuv",zrange:[4,4],layer:"m",epoch:295067208},{id:"ttuw",zrange:[4,4],layer:"m",epoch:295098169},{id:"ttvt",zrange:[4,4],layer:"m",epoch:295000000},{id:"ttvu",zrange:[4,4],layer:"m",epoch:295067208},{id:"ttvv",zrange:[4,4],layer:"m",epoch:295000000},{id:"ttvw",zrange:[4,4],layer:"m",epoch:295000000},{id:"ttwt",zrange:[4,4],layer:"m",epoch:295067208},{id:"ttwu",zrange:[4,4],layer:"m",epoch:295075852},{id:"ttwv",zrange:[4,4],layer:"m",epoch:295000000},{id:"ttww",zrange:[4,4],layer:"m",epoch:295075852},{id:"tutt",zrange:[4,4],layer:"m",epoch:295098169},{id:"tutu",zrange:[4,4],layer:"m",epoch:295098169},{id:"tutv",zrange:[4,4],layer:"m",epoch:295101050},{id:"tutw",zrange:[4,4],layer:"m",epoch:295116893},{id:"tuut",zrange:[4,4],layer:"m",epoch:295074411},{id:"tuuu",zrange:[4,4],layer:"m",epoch:295069369},{id:"tuuv",zrange:[4,4],layer:"m",epoch:295116893},{id:"tuuw",zrange:[4,4],layer:"m",epoch:295116893},{id:"tuv",zrange:[4,4],layer:"m",epoch:295116893},{id:"tuw",zrange:[4,4],layer:"m",epoch:295116893},{id:"tvt",zrange:[4,4],layer:"m",epoch:295000000},{id:"tvut",zrange:[4,4],layer:"m",epoch:295000000},{id:"tvuu",zrange:[4,4],layer:"m",epoch:295000000},{id:"tvuv",zrange:[4,4],layer:"m",epoch:295000000},{id:"tvuw",zrange:[4,4],layer:"m",epoch:295004209},{id:"tvv",zrange:[4,4],layer:"m",epoch:295000000},{id:"tvwt",zrange:[4,4],layer:"m",epoch:295000000},{id:"tvwu",zrange:[4,4],layer:"m",epoch:295058569},{id:"tvwv",zrange:[4,4],layer:"m",epoch:295062891},{id:"tvww",zrange:[4,4],layer:"m",epoch:295116175},{id:"twt",zrange:[4,4],layer:"m",epoch:295116893},{id:"twu",zrange:[4,4],layer:"m",epoch:295116893},{id:"twvt",zrange:[4,4],layer:"m",epoch:295098892},{id:"twvu",zrange:[4,4],layer:"m",epoch:295114729},{id:"twvv",zrange:[4,4],layer:"m",epoch:295116175},{id:"twvw",zrange:[4,4],layer:"m",epoch:295116175},{id:"tww",zrange:[4,4],layer:"m",epoch:295114729},{id:"uttt",zrange:[4,4],layer:"m",epoch:295069369},{id:"uttu",zrange:[4,4],layer:"m",epoch:295073689},{id:"uttv",zrange:[4,4],layer:"m",epoch:295094568},{id:"uttw",zrange:[4,4],layer:"m",epoch:295069369},{id:"utut",zrange:[4,4],layer:"m",epoch:295073689},{id:"utuu",zrange:[4,4],layer:"m",epoch:295073689},{id:"utuv",zrange:[4,4],layer:"m",epoch:295000000},{id:"utuw",zrange:[4,4],layer:"m",epoch:295000000},{id:"utvt",zrange:[4,4],layer:"m",epoch:295094568},{id:"utvu",zrange:[4,4],layer:"m",epoch:295006369},{id:"utvv",zrange:[4,4],layer:"m",epoch:295095288},{id:"utvw",zrange:[4,4],layer:"m",epoch:295095288},{id:"utwt",zrange:[4,4],layer:"m",epoch:295000000},{id:"utwu",zrange:[4,4],layer:"m",epoch:295000000},{id:"utwv",zrange:[4,4],layer:"m",epoch:295062891},{id:"utww",zrange:[4,4],layer:"m",epoch:295062891},{id:"uutt",zrange:[4,4],layer:"m",epoch:295000000},{id:"uutv",zrange:[4,4],layer:"m",epoch:295000000},{id:"uuvt",zrange:[4,4],layer:"m",epoch:295000000},{id:"uuvv",zrange:[4,4],layer:"m",epoch:295062891},{id:"uvtt",zrange:[4,4],layer:"m",epoch:295106810},{id:"uvtu",zrange:[4,4],layer:"m",epoch:295099610},{id:"uvtv",zrange:[4,4],layer:"m",epoch:295106810},{id:"uvtw",zrange:[4,4],layer:"m",epoch:295099610},{id:"uvut",zrange:[4,4],layer:"m",epoch:295095288},{id:"uvuu",zrange:[4,4],layer:"m",epoch:295062891},{id:"uvuv",zrange:[4,4],layer:"m",epoch:295095288},{id:"uvuw",zrange:[4,4],layer:"m",epoch:295062891},{id:"uvvt",zrange:[4,4],layer:"m",epoch:295106810},{id:"uvvu",zrange:[4,4],layer:"m",epoch:295099610},{id:"uvvv",zrange:[4,4],layer:"m",epoch:295098892},{id:"uvvw",zrange:[4,4],layer:"m",epoch:295062891},{id:"uvwt",zrange:[4,4],layer:"m",epoch:295095288},{id:"uvwu",zrange:[4,4],layer:"m",epoch:295062891},{id:"uvwv",zrange:[4,4],layer:"m",epoch:295057132},{id:"uvww",zrange:[4,4],layer:"m",epoch:295000000},{id:"uwtt",zrange:[4,4],layer:"m",epoch:295062891},{id:"uwtv",zrange:[4,4],layer:"m",epoch:295062891},{id:"uwvt",zrange:[4,4],layer:"m",epoch:295062891},{id:"uwvv",zrange:[4,4],layer:"m",epoch:295000000},{id:"vtt",zrange:[4,4],layer:"m",epoch:295000000},{id:"vtut",zrange:[4,4],layer:"m",epoch:295072249},{id:"vtuu",zrange:[4,4],layer:"m",epoch:295116175},{id:"vtuv",zrange:[4,4],layer:"m",epoch:295072249},{id:"vtuw",zrange:[4,4],layer:"m",epoch:295116175},{id:"vut",zrange:[4,4],layer:"m",epoch:295116175},{id:"vuut",zrange:[4,4],layer:"m",epoch:295114729},{id:"vuuu",zrange:[4,4],layer:"m",epoch:295114729},{id:"vuuv",zrange:[4,4],layer:"m",epoch:295116175},{id:"vuuw",zrange:[4,4],layer:"m",epoch:295116175},{id:"vvtv",zrange:[4,4],layer:"m",epoch:295000000},{id:"vvtw",zrange:[4,4],layer:"m",epoch:295000000},{id:"vvuv",zrange:[4,4],layer:"m",epoch:295051370},{id:"vvuw",zrange:[4,4],layer:"m",epoch:295051370},{id:"vvvt",zrange:[4,4],layer:"m",epoch:295000000},{id:"vvvu",zrange:[4,4],layer:"m",epoch:295000000},{id:"vvvv",zrange:[4,4],layer:"m",epoch:295000000},{id:"vvvw",zrange:[4,4],layer:"m",epoch:295067208},{id:"vvwt",zrange:[4,4],layer:"m",epoch:295000000},{id:"vvwu",zrange:[4,4],layer:"m",epoch:295039238},{id:"vvwv",zrange:[4,4],layer:"m",epoch:295067208},{id:"vvww",zrange:[4,4],layer:"m",epoch:295098169},{id:"vwtv",zrange:[4,4],layer:"m",epoch:295051370},{id:"vwtw",zrange:[4,4],layer:"m",epoch:295114729},{id:"vwuv",zrange:[4,4],layer:"m",epoch:295114729},{id:"vwuw",zrange:[4,4],layer:"m",epoch:295114729},{id:"vwvt",zrange:[4,4],layer:"m",epoch:295039238},{id:"vwvu",zrange:[4,4],layer:"m",epoch:295039238},{id:"vwvv",zrange:[4,4],layer:"m",epoch:295098169},{id:"vwvw",zrange:[4,4],layer:"m",epoch:295098169},{id:"vwwt",zrange:[4,4],layer:"m",epoch:295111849},{id:"vwwu",zrange:[4,4],layer:"m",epoch:295111849},{id:"vwwv",zrange:[4,4],layer:"m",epoch:295074411},{id:"vwww",zrange:[4,4],layer:"m",epoch:295069369},{id:"wttt",zrange:[4,4],layer:"m",epoch:295098892},{id:"wttu",zrange:[4,4],layer:"m",epoch:295068648},{id:"wttv",zrange:[4,4],layer:"m",epoch:295098892},{id:"wttw",zrange:[4,4],layer:"m",epoch:295068648},{id:"wtut",zrange:[4,4],layer:"m",epoch:295045613},{id:"wtuu",zrange:[4,4],layer:"m",epoch:295000000},{id:"wtuv",zrange:[4,4],layer:"m",epoch:295045613},{id:"wtuw",zrange:[4,4],layer:"m",epoch:295000000},{id:"wutt",zrange:[4,4],layer:"m",epoch:295000000},{id:"wutv",zrange:[4,4],layer:"m",epoch:295000000},{id:"wvtv",zrange:[4,4],layer:"m",epoch:295114729},{id:"wvtw",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvuv",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvuw",zrange:[4,4],layer:"m",epoch:295000000},{id:"wvvt",zrange:[4,4],layer:"m",epoch:295111849},{id:"wvvu",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvvv",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvvw",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvwt",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvwu",zrange:[4,4],layer:"m",epoch:295073689},{id:"wvwv",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvww",zrange:[4,4],layer:"m",epoch:295073689},{id:"wwtv",zrange:[4,4],layer:"m",epoch:295000000},{id:"wwvt",zrange:[4,4],layer:"m",epoch:295000000},{id:"wwvv",zrange:[4,4],layer:"m",epoch:295000000},{id:"ttuuv",zrange:[5,5],layer:"m",epoch:295067208},{id:"ttuuw",zrange:[5,5],layer:"m",epoch:295067208},{id:"ttuw",zrange:[5,5],layer:"m",epoch:295067208},{id:"ttwut",zrange:[5,5],layer:"m",epoch:295067208},{id:"ttwuu",zrange:[5,5],layer:"m",epoch:295067208},{id:"ttwuv",zrange:[5,5],layer:"m",epoch:295000000},{id:"ttwuw",zrange:[5,5],layer:"m",epoch:295000000},{id:"ttww",zrange:[5,5],layer:"m",epoch:295000000},{id:"tuttv",zrange:[5,5],layer:"m",epoch:295098169},{id:"tuttw",zrange:[5,5],layer:"m",epoch:295098169},{id:"tutuv",zrange:[5,5],layer:"m",epoch:295098169},{id:"tutuw",zrange:[5,5],layer:"m",epoch:295074411},{id:"tutvt",zrange:[5,5],layer:"m",epoch:295098169},{id:"tutvu",zrange:[5,5],layer:"m",epoch:295098169},{id:"tutvv",zrange:[5,5],layer:"m",epoch:295075852},{id:"tutvw",zrange:[5,5],layer:"m",epoch:295075852},{id:"tutwt",zrange:[5,5],layer:"m",epoch:295098169},{id:"tutwu",zrange:[5,5],layer:"m",epoch:295074411},{id:"tutwv",zrange:[5,5],layer:"m",epoch:295099610},{id:"tutww",zrange:[5,5],layer:"m",epoch:295099610},{id:"tuutv",zrange:[5,5],layer:"m",epoch:295012849},{id:"tuutw",zrange:[5,5],layer:"m",epoch:295039238},{id:"tuuuv",zrange:[5,5],layer:"m",epoch:295039238},{id:"tuuuw",zrange:[5,5],layer:"m",epoch:295039238},{id:"tuuvt",zrange:[5,5],layer:"m",epoch:295006369},{id:"tuuvu",zrange:[5,5],layer:"m",epoch:295031928},{id:"tuuvv",zrange:[5,5],layer:"m",epoch:295099610},{id:"tuuvw",zrange:[5,5],layer:"m",epoch:295099610},{id:"tuuwt",zrange:[5,5],layer:"m",epoch:295039238},{id:"tuuwu",zrange:[5,5],layer:"m",epoch:295039238},{id:"tuuwv",zrange:[5,5],layer:"m",epoch:295031928},{id:"tuuww",zrange:[5,5],layer:"m",epoch:295031928},{id:"tuvtt",zrange:[5,5],layer:"m",epoch:295075852},{id:"tuvtu",zrange:[5,5],layer:"m",epoch:295114009},{id:"tuvtv",zrange:[5,5],layer:"m",epoch:295039238},{id:"tuvtw",zrange:[5,5],layer:"m",epoch:295115452},{id:"tuvut",zrange:[5,5],layer:"m",epoch:295115452},{id:"tuvuu",zrange:[5,5],layer:"m",epoch:295116893},{id:"tuvuv",zrange:[5,5],layer:"m",epoch:295115452},{id:"tuvuw",zrange:[5,5],layer:"m",epoch:295116893},{id:"tuvvt",zrange:[5,5],layer:"m",epoch:295000000},{id:"tuvvu",zrange:[5,5],layer:"m",epoch:295115452},{id:"tuvvv",zrange:[5,5],layer:"m",epoch:295000000},{id:"tuvvw",zrange:[5,5],layer:"m",epoch:295115452},{id:"tuvwt",zrange:[5,5],layer:"m",epoch:295115452},{id:"tuvwu",zrange:[5,5],layer:"m",epoch:295116893},{id:"tuvwv",zrange:[5,5],layer:"m",epoch:295116893},{id:"tuvww",zrange:[5,5],layer:"m",epoch:295116893},{id:"tuwt",zrange:[5,5],layer:"m",epoch:295116893},{id:"tuwut",zrange:[5,5],layer:"m",epoch:295116893},{id:"tuwuu",zrange:[5,5],layer:"m",epoch:295000000},{id:"tuwuv",zrange:[5,5],layer:"m",epoch:295116893},{id:"tuwuw",zrange:[5,5],layer:"m",epoch:295115452},{id:"tuwv",zrange:[5,5],layer:"m",epoch:295116893},{id:"tuwwt",zrange:[5,5],layer:"m",epoch:295116893},{id:"tuwwu",zrange:[5,5],layer:"m",epoch:295115452},{id:"tuwwv",zrange:[5,5],layer:"m",epoch:295116175},{id:"tuwww",zrange:[5,5],layer:"m",epoch:295115452},{id:"tvuu",zrange:[5,5],layer:"m",epoch:295000000},{id:"tvuw",zrange:[5,5],layer:"m",epoch:295000000},{id:"tvwut",zrange:[5,5],layer:"m",epoch:295000000},{id:"tvwuu",zrange:[5,5],layer:"m",epoch:295004209},{id:"tvwuv",zrange:[5,5],layer:"m",epoch:295000000},{id:"tvwuw",zrange:[5,5],layer:"m",epoch:295004209},{id:"twttt",zrange:[5,5],layer:"m",epoch:295000000},{id:"twttu",zrange:[5,5],layer:"m",epoch:295004928},{id:"twttv",zrange:[5,5],layer:"m",epoch:295000000},{id:"twttw",zrange:[5,5],layer:"m",epoch:295063611},{id:"twtu",zrange:[5,5],layer:"m",epoch:295116893},{id:"twtvt",zrange:[5,5],layer:"m",epoch:295000000},{id:"twtvu",zrange:[5,5],layer:"m",epoch:295063611},{id:"twtvv",zrange:[5,5],layer:"m",epoch:295000000},{id:"twtvw",zrange:[5,5],layer:"m",epoch:295063611},{id:"twtw",zrange:[5,5],layer:"m",epoch:295115452},{id:"twut",zrange:[5,5],layer:"m",epoch:295116893},{id:"twuu",zrange:[5,5],layer:"m",epoch:295115452},{id:"twuv",zrange:[5,5],layer:"m",epoch:295115452},{id:"twuw",zrange:[5,5],layer:"m",epoch:295115452},{id:"twvtt",zrange:[5,5],layer:"m",epoch:295004209},{id:"twvtu",zrange:[5,5],layer:"m",epoch:295005648},{id:"twvtv",zrange:[5,5],layer:"m",epoch:295004209},{id:"twvtw",zrange:[5,5],layer:"m",epoch:295004209},{id:"twvut",zrange:[5,5],layer:"m",epoch:295005648},{id:"twvuu",zrange:[5,5],layer:"m",epoch:295005648},{id:"twvuv",zrange:[5,5],layer:"m",epoch:295000000},{id:"twvuw",zrange:[5,5],layer:"m",epoch:295000000},{id:"twwtt",zrange:[5,5],layer:"m",epoch:295005648},{id:"twwtu",zrange:[5,5],layer:"m",epoch:295037690},{id:"twwtv",zrange:[5,5],layer:"m",epoch:295109688},{id:"twwtw",zrange:[5,5],layer:"m",epoch:295115452},{id:"twwut",zrange:[5,5],layer:"m",epoch:295111129},{id:"twwuu",zrange:[5,5],layer:"m",epoch:295115452},{id:"twwuv",zrange:[5,5],layer:"m",epoch:295115452},{id:"twwuw",zrange:[5,5],layer:"m",epoch:295115452},{id:"utttv",zrange:[5,5],layer:"m",epoch:295115452},{id:"utttw",zrange:[5,5],layer:"m",epoch:295115452},{id:"uttuv",zrange:[5,5],layer:"m",epoch:295115452},{id:"uttvt",zrange:[5,5],layer:"m",epoch:295039238},{id:"uttvu",zrange:[5,5],layer:"m",epoch:295039238},{id:"uttvv",zrange:[5,5],layer:"m",epoch:295006369},{id:"uttvw",zrange:[5,5],layer:"m",epoch:295006369},{id:"uttwt",zrange:[5,5],layer:"m",epoch:295039238},{id:"uttwv",zrange:[5,5],layer:"m",epoch:295000000},{id:"utvt",zrange:[5,5],layer:"m",epoch:295000000},{id:"utvut",zrange:[5,5],layer:"m",epoch:295000000},{id:"utvuv",zrange:[5,5],layer:"m",epoch:295000000},{id:"utvvt",zrange:[5,5],layer:"m",epoch:295004209},{id:"utvvu",zrange:[5,5],layer:"m",epoch:295004209},{id:"utvvv",zrange:[5,5],layer:"m",epoch:295115452},{id:"utvvw",zrange:[5,5],layer:"m",epoch:295115452},{id:"utvwt",zrange:[5,5],layer:"m",epoch:295000000},{id:"utvwv",zrange:[5,5],layer:"m",epoch:295000000},{id:"uvtt",zrange:[5,5],layer:"m",epoch:295115452},{id:"uvtut",zrange:[5,5],layer:"m",epoch:295115452},{id:"uvtuv",zrange:[5,5],layer:"m",epoch:295115452},{id:"uvtv",zrange:[5,5],layer:"m",epoch:295116893},{id:"uvtwt",zrange:[5,5],layer:"m",epoch:295116893},{id:"uvtwv",zrange:[5,5],layer:"m",epoch:295116893},{id:"uvvtt",zrange:[5,5],layer:"m",epoch:295116893},{id:"uvvtu",zrange:[5,5],layer:"m",epoch:295116893},{id:"uvvtv",zrange:[5,5],layer:"m",epoch:295115452},{id:"uvvtw",zrange:[5,5],layer:"m",epoch:295115452},{id:"uvvut",zrange:[5,5],layer:"m",epoch:295116893},{id:"uvvuv",zrange:[5,5],layer:"m",epoch:295115452}]}}]},panel:"\x3cdiv
         id=\"resultspanel\" class=\"local\"\x3e  \x3cdiv class=\"noprint res\"\x3e  \x3c/div\x3e\x3cdiv
         class=\"sp-error-msg\"\x3e\x3cp\x3eWe could not understand the location \x3cb\x3e\x3c/b\x3e\x3c/p\x3e\x3cp\x3eSuggestions:\x3c/p\x3e\x3cul  class=\"errortips\"\x3e\x3cli\x3eMake
         sure all street and city names are spelled correctly.\x3c/li\x3e\x3cli\x3eMake
@@ -313,161 +240,9 @@ http_interactions:
         jsattrs=\"href:panel_footer.terms_url;\" target=\"_blank\"\x3e Terms of Use\x3c/a\x3e
         \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/policies/privacy/\"
         jsattrs=\"href:panel_footer.privacy_url;\" target=\"_blank\"\x3e Privacy\x3c/a\x3e
-        \x3c/div\x3e \x3c/div\x3e\x3c/div\x3e",panelId:0,sign_in_url:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=http://www.google.com/maps%3Fq%3DHotel%2BCentury%2BSouthern%2BTower%26near%3DShibuya,%2BTokyo%2BPrefecture%26num%3D10",is_details_req:false,dopts:{dtm:"d",atms:["d","r","w","b"],ddu:"m",transit:{hts:true,tmos:["now","dep","arr"],tm:{d:"now"},date:{},time:{v:"utc:1425336780"},sos:["def","num","walk"],st:{d:"def"},ne:{h:true},na:{h:true},ptmos:["","B","S","T","R"]}},slayers_trigger:false,timeformat:{ampm:true,dp:"mdy"},activityType:1,panel_modules:["pplhs"],page_conf:{topbar_config:{show_panel_toggler:true,directions_url:"javascript:void(0)",show_directions_link:true,startcol_only:true,show_my_places_link:true,my_places_url:"javascript:void(0)",enabled_kennedy_ui:true},panel_display:true}}'
+        \x3c/div\x3e \x3c/div\x3e\x3c/div\x3e",panelId:0,sign_in_url:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=http://www.google.com/maps%3Fq%3DHotel%2BCentury%2BSouthern%2BTower%26near%3DShibuya,%2BTokyo%2BPrefecture%26num%3D10",is_details_req:false,dopts:{dtm:"d",atms:["d","r","w","b"],ddu:"m",transit:{hts:true,tmos:["now","dep","arr"],tm:{d:"now"},date:{},time:{v:"utc:1426787040"},sos:["def","num","walk"],st:{d:"def"},ne:{h:true},na:{h:true},ptmos:["","B","S","T","R"]}},slayers_trigger:false,timeformat:{ampm:true,dp:"mdy"},activityType:1,panel_modules:["pplhs"],page_conf:{topbar_config:{show_panel_toggler:true,directions_url:"javascript:void(0)",show_directions_link:true,startcol_only:true,show_my_places_link:true,my_places_url:"javascript:void(0)",enabled_kennedy_ui:true},panel_display:true}}'
     http_version: 
-  recorded_at: Mon, 02 Mar 2015 22:53:30 GMT
-- request:
-    method: get
-    uri: https://www.google.com/maps?near=Shibuya,%20Tokyo%20Prefecture&output=json&q=Hotel%20Century%20Southern%20Tower
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Mon, 02 Mar 2015 22:53:42 GMT
-      Expires:
-      - "-1"
-      Cache-Control:
-      - private, max-age=0
-      Content-Type:
-      - application/json; charset=ISO-8859-1
-      Set-Cookie:
-      - PREF=ID=a7c9adc642c26278:TM=1425336821:LM=1425336822:S=Zcuk28vB1vN_7LQQ; expires=Wed,
-        01-Mar-2017 22:53:42 GMT; path=/; domain=.google.com
-      X-Content-Type-Options:
-      - nosniff
-      Content-Disposition:
-      - attachment; filename="f.txt"
-      Server:
-      - GFE/2.0
-      Transfer-Encoding:
-      - chunked
-      Alternate-Protocol:
-      - 443:quic,p=0.08
-    body:
-      encoding: UTF-8
-      string: 'while(1);{title:"Hotel Century Southern Tower loc: Shibuya, Tokyo Prefecture
-        - Google Maps",url:"/maps?q=Hotel+Century+Southern+Tower\x26near=Shibuya,+Tokyo+Prefecture\x26ie=UTF8",urlViewport:false,ei:"9en0VKy1Os-YigLPrYH4Dw",form:{selected:"q",q:{q:"Hotel
-        Century Southern Tower loc: Shibuya, Tokyo Prefecture",what:"",near:"Shibuya,
-        Tokyo Prefecture"},d:{saddr:"",daddr:"Shibuya, Tokyo Prefecture"},geocode:"",d_edit:{saddr:"",daddr:"Shibuya,
-        Tokyo Prefecture"}},viewport:{center:{lat:37.0625,lng:-95.677068000000006},span:{lat:23.875,lng:57.630032999999997},mapType:"",source:1},modules:["","pphover","act_s","appiw","rst"],overlays:{sxcar:false,layers:[{composition_type:2,spec:{id:"m"},default_epoch:293000000,pertile_data:{area:[{id:"t",zrange:[3,3],layer:"m",epoch:293000000},{id:"ut",zrange:[3,3],layer:"m",epoch:293000000},{id:"uut",zrange:[3,3],layer:"m",epoch:293000000},{id:"uuv",zrange:[3,3],layer:"m",epoch:293000000},{id:"uv",zrange:[3,3],layer:"m",epoch:293000000},{id:"uwt",zrange:[3,3],layer:"m",epoch:293000000},{id:"uwv",zrange:[3,3],layer:"m",epoch:293000000},{id:"vtt",zrange:[3,3],layer:"m",epoch:293000000},{id:"vtu",zrange:[3,3],layer:"m",epoch:293000000},{id:"vut",zrange:[3,3],layer:"m",epoch:293000000},{id:"vuu",zrange:[3,3],layer:"m",epoch:293000000},{id:"vv",zrange:[3,3],layer:"m",epoch:293000000},{id:"vw",zrange:[3,3],layer:"m",epoch:293000000},{id:"wtt",zrange:[3,3],layer:"m",epoch:293000000},{id:"wtu",zrange:[3,3],layer:"m",epoch:293000000},{id:"wut",zrange:[3,3],layer:"m",epoch:293000000},{id:"wv",zrange:[3,3],layer:"m",epoch:293000000},{id:"wwt",zrange:[3,3],layer:"m",epoch:293000000},{id:"wwv",zrange:[3,3],layer:"m",epoch:293000000},{id:"t",zrange:[4,4],layer:"m",epoch:293000000},{id:"ut",zrange:[4,4],layer:"m",epoch:293000000},{id:"uutt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uutv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uuvt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uuvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwtt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwvt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vtt",zrange:[4,4],layer:"m",epoch:293000000},{id:"vtu",zrange:[4,4],layer:"m",epoch:293000000},{id:"vut",zrange:[4,4],layer:"m",epoch:293000000},{id:"vuu",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvtw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvuv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvuw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwtw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwuv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwuw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vww",zrange:[4,4],layer:"m",epoch:293000000},{id:"wtt",zrange:[4,4],layer:"m",epoch:293000000},{id:"wtu",zrange:[4,4],layer:"m",epoch:293000000},{id:"wutt",zrange:[4,4],layer:"m",epoch:293000000},{id:"wutv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvtw",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvuv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvuw",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvw",zrange:[4,4],layer:"m",epoch:293000000},{id:"wwtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wwvt",zrange:[4,4],layer:"m",epoch:293000000},{id:"wwvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"ttuuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttuuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttwu",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttww",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuttv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuttw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuutv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuutw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tvuu",zrange:[5,5],layer:"m",epoch:293000000},{id:"tvuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tvwu",zrange:[5,5],layer:"m",epoch:293000000},{id:"twt",zrange:[5,5],layer:"m",epoch:293000000},{id:"twu",zrange:[5,5],layer:"m",epoch:293000000},{id:"twvt",zrange:[5,5],layer:"m",epoch:293000000},{id:"twvu",zrange:[5,5],layer:"m",epoch:293000000},{id:"twwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"twwu",zrange:[5,5],layer:"m",epoch:293000000},{id:"utttv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utttw",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttwv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvt",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvut",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvwv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtut",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtwv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvvt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvvut",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvvuv",zrange:[5,5],layer:"m",epoch:293000000}]}}]},panel:"\x3cdiv
-        id=\"resultspanel\" class=\"local\"\x3e  \x3cdiv class=\"noprint res\"\x3e  \x3c/div\x3e\x3cdiv
-        class=\"sp-error-msg\"\x3e\x3cp\x3eWe could not understand the location \x3cb\x3e\x3c/b\x3e\x3c/p\x3e\x3cp\x3eSuggestions:\x3c/p\x3e\x3cul  class=\"errortips\"\x3e\x3cli\x3eMake
-        sure all street and city names are spelled correctly.\x3c/li\x3e\x3cli\x3eMake
-        sure your address includes a city and state.\x3c/li\x3e\x3cli\x3eTry entering
-        a zip code.\x3c/li\x3e\x3c/ul\x3e\x3c/div\x3e\x3cdiv id=\"bottomads\" class=\"ads
-        noprint\" style=\"display:none\"\x3e\x3cdiv\x3e\x3cdiv class=\"adsmessage
-        v3\" id=\"bottomads_origin\"\x3eAd\x3c/div\x3e\x3cdiv id=\"bottomads_contents\"\x3e\x3c/div\x3e\x3cdiv
-        class=\"awpromo\"\x3e\x3ca href=\"//www.google.com/adwords/express/#utm_campaign=en\x26utm_medium=et\x26utm_source=us-en-et-awx-q411-maps-syah\x26utm_content=us-en-et-awx-q411-maps-syah\"
-        target=\"_blank\"\x3eSee your ad here\x26nbsp;\x26raquo;\x3c/a\x3e\x3c/div\x3e\x3c/div\x3e\x3c/div\x3e\x3cdiv
-        class=\"lhsf rmi-rpl-k gmnoprint\" jsattrs=\"class.rmi-base-k?panel_footer.anchor_footer;\"
-        id=\"lhsf\"\x3e \x3cdiv class=\"rmi-rpl-top secondary\"\x3e \x3ca jsdisplay=\"panel_footer.report_action\"
-        href=\"javascript:void(0)\" jsattrs=\"jsaction:panel_footer.report_action;id?panel_footer.is_basepage;id:''suck_lhp_link'';\"
-        style=\"display:none\"\x3e Report a problem\x3c/a\x3e \x3cspan jsdisplay=\"panel_footer.report_action\"
-        jsattrs=\"id?panel_footer.is_basepage;id:''suck_lhp_sep'';\" style=\"display:none\"\x3e
-        - \x3c/span\x3e \x3ca href=\"javascript:void(0)\" jsaction=\"ml.openDialog\"\x3e
-        Maps Labs\x3c/a\x3e \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://maps.google.com/support?hl=en\"
-        jsattrs=\"href:panel_footer.help_url;\"\x3e Help\x3c/a\x3e \x3c/div\x3e \x3cdiv
-        class=\"rmi-rpl-bottom secondary\"\x3e \x3cspan\x3eGoogle Maps \x3c/span\x3e
-        \x3cspan\x3e\x3c/span\x3e \x3cspan jscontent=\"panel_footer.country_msg\"
-        jsvars=\"__new_dir:bidiDir(panel_footer.country_msg);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
-        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x3c/span\x3e \x3cspan\x3e\x3c/span\x3e
-        \x3cspan\x3e - \x3c/span\x3e \x3cspan jscontent=\"raw:panel_footer.copyright\"
-        jsvars=\"__new_dir:bidiDir(panel_footer.copyright);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
-        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x26#169;2015 Google\x3c/span\x3e
-        \x3cspan\x3e\x3c/span\x3e \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/help/terms_maps.html\"
-        jsattrs=\"href:panel_footer.terms_url;\" target=\"_blank\"\x3e Terms of Use\x3c/a\x3e
-        \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/policies/privacy/\"
-        jsattrs=\"href:panel_footer.privacy_url;\" target=\"_blank\"\x3e Privacy\x3c/a\x3e
-        \x3c/div\x3e \x3c/div\x3e\x3c/div\x3e",panelId:0,sign_in_url:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=http://www.google.com/maps%3Fq%3DHotel%2BCentury%2BSouthern%2BTower%26near%3DShibuya,%2BTokyo%2BPrefecture%26num%3D10",is_details_req:false,dopts:{dtm:"d",atms:["d","r","w","b"],ddu:"m",transit:{hts:true,tmos:["now","dep","arr"],tm:{d:"now"},date:{},time:{v:"utc:1425336780"},sos:["def","num","walk"],st:{d:"def"},ne:{h:true},na:{h:true},ptmos:["","B","S","T","R"]}},slayers_trigger:false,timeformat:{ampm:true,dp:"mdy"},activityType:1,panel_modules:["pplhs"],page_conf:{topbar_config:{show_panel_toggler:true,directions_url:"javascript:void(0)",show_directions_link:true,startcol_only:true,show_my_places_link:true,my_places_url:"javascript:void(0)",enabled_kennedy_ui:true},panel_display:true}}'
-    http_version: 
-  recorded_at: Mon, 02 Mar 2015 22:53:42 GMT
-- request:
-    method: get
-    uri: https://www.google.com/maps?near=Shibuya,%2520Tokyo%2520Prefecture&output=json&q=Hotel%20Century%20Southern%20Tower
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Mon, 02 Mar 2015 22:54:03 GMT
-      Expires:
-      - "-1"
-      Cache-Control:
-      - private, max-age=0
-      Content-Type:
-      - application/json; charset=ISO-8859-1
-      Set-Cookie:
-      - PREF=ID=18cd728dc78b826c:TM=1425336843:LM=1425336843:S=B1p52ap4Cb0Hd_el; expires=Wed,
-        01-Mar-2017 22:54:03 GMT; path=/; domain=.google.com
-      X-Content-Type-Options:
-      - nosniff
-      Content-Disposition:
-      - attachment; filename="f.txt"
-      Server:
-      - GFE/2.0
-      Transfer-Encoding:
-      - chunked
-      Alternate-Protocol:
-      - 443:quic,p=0.08
-    body:
-      encoding: UTF-8
-      string: 'while(1);{title:"Hotel Century Southern Tower loc: Shibuya,%20Tokyo%20Prefecture
-        - Google Maps",url:"/maps?q=Hotel+Century+Southern+Tower\x26near=Shibuya,%2520Tokyo%2520Prefecture\x26ie=UTF8",urlViewport:false,ei:"C-r0VPbmDoqOiwLyooG4Cw",form:{selected:"q",q:{q:"Hotel
-        Century Southern Tower loc: Shibuya,%20Tokyo%20Prefecture",what:"",near:"Shibuya,%20Tokyo%20Prefecture"},d:{saddr:"",daddr:"Shibuya,%20Tokyo%20Prefecture"},geocode:"",d_edit:{saddr:"",daddr:"Shibuya,%20Tokyo%20Prefecture"}},viewport:{center:{lat:37.0625,lng:-95.677068000000006},span:{lat:23.875,lng:57.630032999999997},mapType:"",source:1},modules:["","pphover","act_s","appiw","rst"],overlays:{sxcar:false,layers:[{composition_type:2,spec:{id:"m"},default_epoch:293000000,pertile_data:{area:[{id:"t",zrange:[3,3],layer:"m",epoch:293000000},{id:"ut",zrange:[3,3],layer:"m",epoch:293000000},{id:"uut",zrange:[3,3],layer:"m",epoch:293000000},{id:"uuv",zrange:[3,3],layer:"m",epoch:293000000},{id:"uv",zrange:[3,3],layer:"m",epoch:293000000},{id:"uwt",zrange:[3,3],layer:"m",epoch:293000000},{id:"uwv",zrange:[3,3],layer:"m",epoch:293000000},{id:"vtt",zrange:[3,3],layer:"m",epoch:293000000},{id:"vtu",zrange:[3,3],layer:"m",epoch:293000000},{id:"vut",zrange:[3,3],layer:"m",epoch:293000000},{id:"vuu",zrange:[3,3],layer:"m",epoch:293000000},{id:"vv",zrange:[3,3],layer:"m",epoch:293000000},{id:"vw",zrange:[3,3],layer:"m",epoch:293000000},{id:"wtt",zrange:[3,3],layer:"m",epoch:293000000},{id:"wtu",zrange:[3,3],layer:"m",epoch:293000000},{id:"wut",zrange:[3,3],layer:"m",epoch:293000000},{id:"wv",zrange:[3,3],layer:"m",epoch:293000000},{id:"wwt",zrange:[3,3],layer:"m",epoch:293000000},{id:"wwv",zrange:[3,3],layer:"m",epoch:293000000},{id:"t",zrange:[4,4],layer:"m",epoch:293000000},{id:"ut",zrange:[4,4],layer:"m",epoch:293000000},{id:"uutt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uutv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uuvt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uuvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwtt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwvt",zrange:[4,4],layer:"m",epoch:293000000},{id:"uwvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vtt",zrange:[4,4],layer:"m",epoch:293000000},{id:"vtu",zrange:[4,4],layer:"m",epoch:293000000},{id:"vut",zrange:[4,4],layer:"m",epoch:293000000},{id:"vuu",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvtw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvuv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvuw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vvw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwtw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwuv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwuw",zrange:[4,4],layer:"m",epoch:293000000},{id:"vwv",zrange:[4,4],layer:"m",epoch:293000000},{id:"vww",zrange:[4,4],layer:"m",epoch:293000000},{id:"wtt",zrange:[4,4],layer:"m",epoch:293000000},{id:"wtu",zrange:[4,4],layer:"m",epoch:293000000},{id:"wutt",zrange:[4,4],layer:"m",epoch:293000000},{id:"wutv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvtw",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvuv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvuw",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wvw",zrange:[4,4],layer:"m",epoch:293000000},{id:"wwtv",zrange:[4,4],layer:"m",epoch:293000000},{id:"wwvt",zrange:[4,4],layer:"m",epoch:293000000},{id:"wwvv",zrange:[4,4],layer:"m",epoch:293000000},{id:"ttuuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttuuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttwu",zrange:[5,5],layer:"m",epoch:293000000},{id:"ttww",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuttv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuttw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tutw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuutv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuutw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"tuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tvuu",zrange:[5,5],layer:"m",epoch:293000000},{id:"tvuw",zrange:[5,5],layer:"m",epoch:293000000},{id:"tvwu",zrange:[5,5],layer:"m",epoch:293000000},{id:"twt",zrange:[5,5],layer:"m",epoch:293000000},{id:"twu",zrange:[5,5],layer:"m",epoch:293000000},{id:"twvt",zrange:[5,5],layer:"m",epoch:293000000},{id:"twvu",zrange:[5,5],layer:"m",epoch:293000000},{id:"twwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"twwu",zrange:[5,5],layer:"m",epoch:293000000},{id:"utttv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utttw",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uttwv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvt",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvut",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvv",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"utvwv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtut",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtuv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtwt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvtwv",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvvt",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvvut",zrange:[5,5],layer:"m",epoch:293000000},{id:"uvvuv",zrange:[5,5],layer:"m",epoch:293000000}]}}]},panel:"\x3cdiv
-        id=\"resultspanel\" class=\"local\"\x3e  \x3cdiv class=\"noprint res\"\x3e  \x3c/div\x3e\x3cdiv
-        class=\"sp-error-msg\"\x3e\x3cp\x3eWe could not understand the location \x3cb\x3e\x3c/b\x3e\x3c/p\x3e\x3cp\x3eSuggestions:\x3c/p\x3e\x3cul  class=\"errortips\"\x3e\x3cli\x3eMake
-        sure all street and city names are spelled correctly.\x3c/li\x3e\x3cli\x3eMake
-        sure your address includes a city and state.\x3c/li\x3e\x3cli\x3eTry entering
-        a zip code.\x3c/li\x3e\x3c/ul\x3e\x3c/div\x3e\x3cdiv id=\"bottomads\" class=\"ads
-        noprint\" style=\"display:none\"\x3e\x3cdiv\x3e\x3cdiv class=\"adsmessage
-        v3\" id=\"bottomads_origin\"\x3eAd\x3c/div\x3e\x3cdiv id=\"bottomads_contents\"\x3e\x3c/div\x3e\x3cdiv
-        class=\"awpromo\"\x3e\x3ca href=\"//www.google.com/adwords/express/#utm_campaign=en\x26utm_medium=et\x26utm_source=us-en-et-awx-q411-maps-syah\x26utm_content=us-en-et-awx-q411-maps-syah\"
-        target=\"_blank\"\x3eSee your ad here\x26nbsp;\x26raquo;\x3c/a\x3e\x3c/div\x3e\x3c/div\x3e\x3c/div\x3e\x3cdiv
-        class=\"lhsf rmi-rpl-k gmnoprint\" jsattrs=\"class.rmi-base-k?panel_footer.anchor_footer;\"
-        id=\"lhsf\"\x3e \x3cdiv class=\"rmi-rpl-top secondary\"\x3e \x3ca jsdisplay=\"panel_footer.report_action\"
-        href=\"javascript:void(0)\" jsattrs=\"jsaction:panel_footer.report_action;id?panel_footer.is_basepage;id:''suck_lhp_link'';\"
-        style=\"display:none\"\x3e Report a problem\x3c/a\x3e \x3cspan jsdisplay=\"panel_footer.report_action\"
-        jsattrs=\"id?panel_footer.is_basepage;id:''suck_lhp_sep'';\" style=\"display:none\"\x3e
-        - \x3c/span\x3e \x3ca href=\"javascript:void(0)\" jsaction=\"ml.openDialog\"\x3e
-        Maps Labs\x3c/a\x3e \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://maps.google.com/support?hl=en\"
-        jsattrs=\"href:panel_footer.help_url;\"\x3e Help\x3c/a\x3e \x3c/div\x3e \x3cdiv
-        class=\"rmi-rpl-bottom secondary\"\x3e \x3cspan\x3eGoogle Maps \x3c/span\x3e
-        \x3cspan\x3e\x3c/span\x3e \x3cspan jscontent=\"panel_footer.country_msg\"
-        jsvars=\"__new_dir:bidiDir(panel_footer.country_msg);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
-        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x3c/span\x3e \x3cspan\x3e\x3c/span\x3e
-        \x3cspan\x3e - \x3c/span\x3e \x3cspan jscontent=\"raw:panel_footer.copyright\"
-        jsvars=\"__new_dir:bidiDir(panel_footer.copyright);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
-        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x26#169;2015 Google\x3c/span\x3e
-        \x3cspan\x3e\x3c/span\x3e \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/help/terms_maps.html\"
-        jsattrs=\"href:panel_footer.terms_url;\" target=\"_blank\"\x3e Terms of Use\x3c/a\x3e
-        \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/policies/privacy/\"
-        jsattrs=\"href:panel_footer.privacy_url;\" target=\"_blank\"\x3e Privacy\x3c/a\x3e
-        \x3c/div\x3e \x3c/div\x3e\x3c/div\x3e",panelId:0,sign_in_url:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=http://www.google.com/maps%3Fq%3DHotel%2BCentury%2BSouthern%2BTower%26near%3DShibuya,%252520Tokyo%252520Prefecture%26num%3D10",is_details_req:false,dopts:{dtm:"d",atms:["d","r","w","b"],ddu:"m",transit:{hts:true,tmos:["now","dep","arr"],tm:{d:"now"},date:{},time:{v:"utc:1425336840"},sos:["def","num","walk"],st:{d:"def"},ne:{h:true},na:{h:true},ptmos:["","B","S","T","R"]}},slayers_trigger:false,timeformat:{ampm:true,dp:"mdy"},activityType:1,panel_modules:["pplhs"],page_conf:{topbar_config:{show_panel_toggler:true,directions_url:"javascript:void(0)",show_directions_link:true,startcol_only:true,show_my_places_link:true,my_places_url:"javascript:void(0)",enabled_kennedy_ui:true},panel_display:true}}'
-    http_version: 
-  recorded_at: Mon, 02 Mar 2015 22:54:04 GMT
+  recorded_at: Thu, 19 Mar 2015 17:44:54 GMT
 - request:
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=35.68652,139.700409&sensor=false
@@ -489,9 +264,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Mon, 02 Mar 2015 22:54:04 GMT
+      - Thu, 19 Mar 2015 17:44:54 GMT
       Expires:
-      - Tue, 03 Mar 2015 22:54:04 GMT
+      - Fri, 20 Mar 2015 17:44:54 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -503,7 +278,7 @@ http_interactions:
       X-Frame-Options:
       - SAMEORIGIN
       Alternate-Protocol:
-      - 80:quic,p=0.08
+      - 80:quic,p=0.5
       Accept-Ranges:
       - none
       Vary:
@@ -768,10 +543,10 @@ http_interactions:
         IiwgInBvbGl0aWNhbCIgXQogICAgICB9CiAgIF0sCiAgICJzdGF0dXMiIDog
         Ik9LIgp9Cg==
     http_version: 
-  recorded_at: Mon, 02 Mar 2015 22:54:04 GMT
+  recorded_at: Thu, 19 Mar 2015 17:44:54 GMT
 - request:
     method: get
-    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=35.68652,139.700409&query=Hotel%20Century%20Southern%20Tower&v=20150303&venuePhotos=1
+    uri: https://maps.google.com/maps?hnear=&hq=&ie=UTF8&near=Shibuya,%20Tokyo%20Prefecture&output=json&q=Hotel%20Century%20Southern%20Tower
     body:
       encoding: US-ASCII
       string: ''
@@ -788,1038 +563,62 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 03 Mar 2015 19:03:56 GMT
-      Server:
-      - nginx
-      Content-Type:
-      - application/json; charset=utf-8
-      Access-Control-Allow-Origin:
-      - "*"
-      Tracer-Time:
-      - '215'
-      X-Ratelimit-Limit:
-      - '5000'
-      X-Ratelimit-Remaining:
-      - '4860'
-      Strict-Transport-Security:
-      - max-age=864000
-      X-Ex:
-      - fastly_cdn
-      Accept-Ranges:
-      - bytes
-      Via:
-      - 1.1 varnish
-      X-Served-By:
-      - cache-lax1420-LAX
-      X-Cache:
-      - MISS
-      X-Cache-Hits:
-      - '0'
-      Vary:
-      - Accept-Encoding,User-Agent,Accept-Language
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eyJtZXRhIjp7ImNvZGUiOjIwMH0sInJlc3BvbnNlIjp7Indhcm5pbmciOnsi
-        dGV4dCI6IlRoZXJlIGFyZW4ndCBhIGxvdCBvZiByZXN1bHRzIGZvciBcIkhv
-        dGVsIENlbnR1cnkgU291dGhlcm4gVG93ZXIuXCIgVHJ5IHNvbWV0aGluZyBt
-        b3JlIGdlbmVyYWwsIHJlc2V0IHlvdXIgZmlsdGVycywgb3IgZXhwYW5kIHRo
-        ZSBzZWFyY2ggYXJlYS4ifSwic3VnZ2VzdGVkUmFkaXVzIjoxODAwLCJoZWFk
-        ZXJMb2NhdGlvbiI6Ik5pc2hpc2hpbmp1a3UiLCJoZWFkZXJGdWxsTG9jYXRp
-        b24iOiJOaXNoaXNoaW5qdWt1LCBUb2t5byIsImhlYWRlckxvY2F0aW9uR3Jh
-        bnVsYXJpdHkiOiJuZWlnaGJvcmhvb2QiLCJxdWVyeSI6ImhvdGVsIGNlbnR1
-        cnkgc291dGhlcm4gdG93ZXIiLCJ0b3RhbFJlc3VsdHMiOjEsInN1Z2dlc3Rl
-        ZEJvdW5kcyI6eyJuZSI6eyJsYXQiOjM1LjY4Nzg5NjIyODc4NjI4NiwibG5n
-        IjoxMzkuNjk3Mjk2MDc1NjI4MTd9LCJzdyI6eyJsYXQiOjM1LjY4NTE5NjU2
-        OTAwMDg0LCJsbmciOjEzOS43MDM2MTA0ODcxNzd9fSwiZ3JvdXBzIjpbeyJ0
-        eXBlIjoiUmVjb21tZW5kZWQgUGxhY2VzIiwibmFtZSI6InJlY29tbWVuZGVk
-        IiwiaXRlbXMiOlt7InJlYXNvbnMiOnsiY291bnQiOjAsIml0ZW1zIjpbeyJz
-        dW1tYXJ5IjoiVGhpcyBzcG90IGlzIHBvcHVsYXIiLCJ0eXBlIjoiZ2VuZXJh
-        bCIsInJlYXNvbk5hbWUiOiJnbG9iYWxJbnRlcmFjdGlvblJlYXNvbiJ9XX0s
-        InZlbnVlIjp7ImlkIjoiNGI2MTFiMDdmOTY0YTUyMGU2MDkyYWUzIiwibmFt
-        ZSI6IuWwj+eUsOaApSDjg5vjg4bjg6sg44K744Oz44OB44Ol44Oq44O8IOOC
-        teOCtuODs+OCv+ODr+ODvCAoSG90ZWwgQ2VudHVyeSBTb3V0aGVybiBUb3dl
-        cikiLCJjb250YWN0Ijp7InBob25lIjoiKzgxMzUzNTQwMTExIiwiZm9ybWF0
-        dGVkUGhvbmUiOiIrODEgMy01MzU0LTAxMTEifSwibG9jYXRpb24iOnsiYWRk
-        cmVzcyI6IuS7o+OAheacqDItMi0xIiwibGF0IjozNS42ODY1NDYzOTg4OTM1
-        NiwibG5nIjoxMzkuNzAwNDUzMjgxNDAyNiwiZGlzdGFuY2UiOjQsInBvc3Rh
-        bENvZGUiOiIxNTEtODU4MyIsImNjIjoiSlAiLCJjaXR5Ijoi5riL6LC35Yy6
-        Iiwic3RhdGUiOiLmnbHkuqzpg70iLCJjb3VudHJ5Ijoi5pel5pysIiwiZm9y
-        bWF0dGVkQWRkcmVzcyI6WyLku6PjgIXmnKgyLTItMSIsIua4i+iwt+WMuiwg
-        5p2x5Lqs6YO9IiwiMTUxLTg1ODMiLCLml6XmnKwiXX0sImNhdGVnb3JpZXMi
-        Olt7ImlkIjoiNGJmNThkZDhkNDg5ODhkMWZhOTMxNzM1IiwibmFtZSI6Ikhv
-        dGVsIiwicGx1cmFsTmFtZSI6IkhvdGVscyIsInNob3J0TmFtZSI6IkhvdGVs
-        IiwiaWNvbiI6eyJwcmVmaXgiOiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9p
-        bWdcL2NhdGVnb3JpZXNfdjJcL3RyYXZlbFwvaG90ZWxfIiwic3VmZml4Ijoi
-        LnBuZyJ9LCJwcmltYXJ5Ijp0cnVlfV0sInZlcmlmaWVkIjpmYWxzZSwic3Rh
-        dHMiOnsiY2hlY2tpbnNDb3VudCI6NTI0MCwidXNlcnNDb3VudCI6MTkyOSwi
-        dGlwQ291bnQiOjIwfSwidXJsIjoiaHR0cDpcL1wvd3d3LnNvdXRoZXJudG93
-        ZXIuY28uanAiLCJyYXRpbmciOjcuNywicmF0aW5nQ29sb3IiOiJDNURFMzUi
-        LCJyYXRpbmdTaWduYWxzIjoyOSwiaG91cnMiOnsic3RhdHVzIjoiT3BlbiIs
-        ImlzT3BlbiI6dHJ1ZX0sInNwZWNpYWxzIjp7ImNvdW50IjowLCJpdGVtcyI6
-        W119LCJwaG90b3MiOnsiY291bnQiOjI4NywiZ3JvdXBzIjpbeyJ0eXBlIjoi
-        dmVudWUiLCJuYW1lIjoiVmVudWUgcGhvdG9zIiwiY291bnQiOjI4NywiaXRl
-        bXMiOlt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRl
-        ZEF0IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3Fp
-        Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThR
-        aHI0S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgi
-        OjYxMiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmly
-        c3ROYW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1h
-        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQ
-        NVI1WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19XX0sImhl
-        cmVOb3ciOnsiY291bnQiOjAsInN1bW1hcnkiOiJOb2JvZHkgaGVyZSIsImdy
-        b3VwcyI6W119LCJmZWF0dXJlZFBob3RvcyI6eyJjb3VudCI6MSwiaXRlbXMi
-        Olt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRlZEF0
-        IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThRaHI0
-        S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgiOjYx
-        MiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmlyc3RO
-        YW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1hbGUi
-        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwv
-        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQNVI1
-        WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19fSwiZmxhZ3Mi
-        OnsiZXhhY3RNYXRjaCI6dHJ1ZX0sInRpcHMiOlt7ImlkIjoiNGVhZWI2ZGM3
-        ZWU1OWYxNjA5NzhmNDU0IiwiY3JlYXRlZEF0IjoxMzIwMDcyOTI0LCJ0ZXh0
-        IjoiMjDpmo7vvJ/jga7jg4jjgqTjg6zjga7opovmmbTjgonjgZfjgYzjgYvj
-        garjgoroia/pgY7jgY7jgovjgIIiLCJ0eXBlIjoidXNlciIsImNhbm9uaWNh
-        bFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGVhZWI2
-        ZGM3ZWU1OWYxNjA5NzhmNDU0IiwibGlrZXMiOnsiY291bnQiOjYsImdyb3Vw
-        cyI6W10sInN1bW1hcnkiOiI2IGxpa2VzIn0sImxvZ1ZpZXciOnRydWUsInRv
-        ZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNTk5MjY4MSIsImZpcnN0
-        TmFtZSI6Ikhha2EiLCJsYXN0TmFtZSI6IkdhdSByYXUiLCJnZW5kZXIiOiJt
-        YWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5u
-        ZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC81OTkyNjgxLUMzNVBXS1JL
-        TUxaUVhQS1kuanBnIn19fV0sInJlZmVycmFsSWQiOiJlLTAtNGI2MTFiMDdm
-        OTY0YTUyMGU2MDkyYWUzLTAifV19XX19
-    http_version: 
-  recorded_at: Tue, 03 Mar 2015 19:03:56 GMT
-- request:
-    method: get
-    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=35.68652,139.700409&query=Hotel%20Century%20Southern%20Tower&v=20150304&venuePhotos=1
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Thu, 05 Mar 2015 01:49:09 GMT
-      Server:
-      - nginx
-      Content-Type:
-      - application/json; charset=utf-8
-      Access-Control-Allow-Origin:
-      - "*"
-      Tracer-Time:
-      - '173'
-      X-Ratelimit-Limit:
-      - '5000'
-      X-Ratelimit-Remaining:
-      - '4890'
-      Strict-Transport-Security:
-      - max-age=864000
-      X-Ex:
-      - fastly_cdn
-      Accept-Ranges:
-      - bytes
-      Via:
-      - 1.1 varnish
-      X-Served-By:
-      - cache-sjc3126-SJC
-      X-Cache:
-      - MISS
-      X-Cache-Hits:
-      - '0'
-      Vary:
-      - Accept-Encoding,User-Agent,Accept-Language
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eyJtZXRhIjp7ImNvZGUiOjIwMH0sInJlc3BvbnNlIjp7Indhcm5pbmciOnsi
-        dGV4dCI6IlRoZXJlIGFyZW4ndCBhIGxvdCBvZiByZXN1bHRzIGZvciBcIkhv
-        dGVsIENlbnR1cnkgU291dGhlcm4gVG93ZXIuXCIgVHJ5IHNvbWV0aGluZyBt
-        b3JlIGdlbmVyYWwsIHJlc2V0IHlvdXIgZmlsdGVycywgb3IgZXhwYW5kIHRo
-        ZSBzZWFyY2ggYXJlYS4ifSwic3VnZ2VzdGVkUmFkaXVzIjoxODAwLCJoZWFk
-        ZXJMb2NhdGlvbiI6Ik5pc2hpc2hpbmp1a3UiLCJoZWFkZXJGdWxsTG9jYXRp
-        b24iOiJOaXNoaXNoaW5qdWt1LCBUb2t5byIsImhlYWRlckxvY2F0aW9uR3Jh
-        bnVsYXJpdHkiOiJuZWlnaGJvcmhvb2QiLCJxdWVyeSI6ImhvdGVsIGNlbnR1
-        cnkgc291dGhlcm4gdG93ZXIiLCJ0b3RhbFJlc3VsdHMiOjEsInN1Z2dlc3Rl
-        ZEJvdW5kcyI6eyJuZSI6eyJsYXQiOjM1LjY4Nzg5NjIyODc4NjI4NiwibG5n
-        IjoxMzkuNjk3Mjk2MDc1NjI4MTd9LCJzdyI6eyJsYXQiOjM1LjY4NTE5NjU2
-        OTAwMDg0LCJsbmciOjEzOS43MDM2MTA0ODcxNzd9fSwiZ3JvdXBzIjpbeyJ0
-        eXBlIjoiUmVjb21tZW5kZWQgUGxhY2VzIiwibmFtZSI6InJlY29tbWVuZGVk
-        IiwiaXRlbXMiOlt7InJlYXNvbnMiOnsiY291bnQiOjAsIml0ZW1zIjpbeyJz
-        dW1tYXJ5IjoiVGhpcyBzcG90IGlzIHBvcHVsYXIiLCJ0eXBlIjoiZ2VuZXJh
-        bCIsInJlYXNvbk5hbWUiOiJnbG9iYWxJbnRlcmFjdGlvblJlYXNvbiJ9XX0s
-        InZlbnVlIjp7ImlkIjoiNGI2MTFiMDdmOTY0YTUyMGU2MDkyYWUzIiwibmFt
-        ZSI6IuWwj+eUsOaApSDjg5vjg4bjg6sg44K744Oz44OB44Ol44Oq44O8IOOC
-        teOCtuODs+OCv+ODr+ODvCAoSG90ZWwgQ2VudHVyeSBTb3V0aGVybiBUb3dl
-        cikiLCJjb250YWN0Ijp7InBob25lIjoiKzgxMzUzNTQwMTExIiwiZm9ybWF0
-        dGVkUGhvbmUiOiIrODEgMy01MzU0LTAxMTEifSwibG9jYXRpb24iOnsiYWRk
-        cmVzcyI6IuS7o+OAheacqDItMi0xIiwibGF0IjozNS42ODY1NDYzOTg4OTM1
-        NiwibG5nIjoxMzkuNzAwNDUzMjgxNDAyNiwiZGlzdGFuY2UiOjQsInBvc3Rh
-        bENvZGUiOiIxNTEtODU4MyIsImNjIjoiSlAiLCJjaXR5Ijoi5riL6LC35Yy6
-        Iiwic3RhdGUiOiLmnbHkuqzpg70iLCJjb3VudHJ5Ijoi5pel5pysIiwiZm9y
-        bWF0dGVkQWRkcmVzcyI6WyLku6PjgIXmnKgyLTItMSIsIua4i+iwt+WMuiwg
-        5p2x5Lqs6YO9IiwiMTUxLTg1ODMiLCLml6XmnKwiXX0sImNhdGVnb3JpZXMi
-        Olt7ImlkIjoiNGJmNThkZDhkNDg5ODhkMWZhOTMxNzM1IiwibmFtZSI6Ikhv
-        dGVsIiwicGx1cmFsTmFtZSI6IkhvdGVscyIsInNob3J0TmFtZSI6IkhvdGVs
-        IiwiaWNvbiI6eyJwcmVmaXgiOiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9p
-        bWdcL2NhdGVnb3JpZXNfdjJcL3RyYXZlbFwvaG90ZWxfIiwic3VmZml4Ijoi
-        LnBuZyJ9LCJwcmltYXJ5Ijp0cnVlfV0sInZlcmlmaWVkIjpmYWxzZSwic3Rh
-        dHMiOnsiY2hlY2tpbnNDb3VudCI6NTI0MiwidXNlcnNDb3VudCI6MTkzMSwi
-        dGlwQ291bnQiOjIwfSwidXJsIjoiaHR0cDpcL1wvd3d3LnNvdXRoZXJudG93
-        ZXIuY28uanAiLCJyYXRpbmciOjcuOCwicmF0aW5nQ29sb3IiOiJDNURFMzUi
-        LCJyYXRpbmdTaWduYWxzIjoyOSwiaG91cnMiOnsic3RhdHVzIjoiT3BlbiIs
-        ImlzT3BlbiI6dHJ1ZX0sInNwZWNpYWxzIjp7ImNvdW50IjowLCJpdGVtcyI6
-        W119LCJwaG90b3MiOnsiY291bnQiOjI4NywiZ3JvdXBzIjpbeyJ0eXBlIjoi
-        dmVudWUiLCJuYW1lIjoiVmVudWUgcGhvdG9zIiwiY291bnQiOjI4NywiaXRl
-        bXMiOlt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRl
-        ZEF0IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3Fp
-        Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThR
-        aHI0S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgi
-        OjYxMiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmly
-        c3ROYW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1h
-        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQ
-        NVI1WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19XX0sImhl
-        cmVOb3ciOnsiY291bnQiOjAsInN1bW1hcnkiOiJOb2JvZHkgaGVyZSIsImdy
-        b3VwcyI6W119LCJmZWF0dXJlZFBob3RvcyI6eyJjb3VudCI6MSwiaXRlbXMi
-        Olt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRlZEF0
-        IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThRaHI0
-        S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgiOjYx
-        MiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmlyc3RO
-        YW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1hbGUi
-        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwv
-        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQNVI1
-        WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19fSwiZmxhZ3Mi
-        OnsiZXhhY3RNYXRjaCI6dHJ1ZX0sInRpcHMiOlt7ImlkIjoiNGVhZWI2ZGM3
-        ZWU1OWYxNjA5NzhmNDU0IiwiY3JlYXRlZEF0IjoxMzIwMDcyOTI0LCJ0ZXh0
-        IjoiMjDpmo7vvJ/jga7jg4jjgqTjg6zjga7opovmmbTjgonjgZfjgYzjgYvj
-        garjgoroia/pgY7jgY7jgovjgIIiLCJ0eXBlIjoidXNlciIsImNhbm9uaWNh
-        bFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGVhZWI2
-        ZGM3ZWU1OWYxNjA5NzhmNDU0IiwibGlrZXMiOnsiY291bnQiOjYsImdyb3Vw
-        cyI6W10sInN1bW1hcnkiOiI2IGxpa2VzIn0sImxvZ1ZpZXciOnRydWUsInRv
-        ZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNTk5MjY4MSIsImZpcnN0
-        TmFtZSI6Ikhha2EiLCJsYXN0TmFtZSI6IkdhdSByYXUiLCJnZW5kZXIiOiJt
-        YWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5u
-        ZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC81OTkyNjgxLUMzNVBXS1JL
-        TUxaUVhQS1kuanBnIn19fV0sInJlZmVycmFsSWQiOiJlLTAtNGI2MTFiMDdm
-        OTY0YTUyMGU2MDkyYWUzLTAifV19XX19
-    http_version: 
-  recorded_at: Thu, 05 Mar 2015 01:49:09 GMT
-- request:
-    method: get
-    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=35.68652,139.700409&query=Hotel%20Century%20Southern%20Tower&v=20150305&venuePhotos=1
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Fri, 06 Mar 2015 03:28:15 GMT
-      Server:
-      - nginx
-      Content-Type:
-      - application/json; charset=utf-8
-      Access-Control-Allow-Origin:
-      - "*"
-      Tracer-Time:
-      - '250'
-      X-Ratelimit-Limit:
-      - '5000'
-      X-Ratelimit-Remaining:
-      - '4648'
-      Strict-Transport-Security:
-      - max-age=864000
-      X-Ex:
-      - fastly_cdn
-      Accept-Ranges:
-      - bytes
-      Via:
-      - 1.1 varnish
-      X-Served-By:
-      - cache-sjc3126-SJC
-      X-Cache:
-      - MISS
-      X-Cache-Hits:
-      - '0'
-      Vary:
-      - Accept-Encoding,User-Agent,Accept-Language
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eyJtZXRhIjp7ImNvZGUiOjIwMH0sInJlc3BvbnNlIjp7Indhcm5pbmciOnsi
-        dGV4dCI6IlRoZXJlIGFyZW4ndCBhIGxvdCBvZiByZXN1bHRzIGZvciBcIkhv
-        dGVsIENlbnR1cnkgU291dGhlcm4gVG93ZXIuXCIgVHJ5IHNvbWV0aGluZyBt
-        b3JlIGdlbmVyYWwsIHJlc2V0IHlvdXIgZmlsdGVycywgb3IgZXhwYW5kIHRo
-        ZSBzZWFyY2ggYXJlYS4ifSwic3VnZ2VzdGVkUmFkaXVzIjoxODAwLCJoZWFk
-        ZXJMb2NhdGlvbiI6Ik5pc2hpc2hpbmp1a3UiLCJoZWFkZXJGdWxsTG9jYXRp
-        b24iOiJOaXNoaXNoaW5qdWt1LCBUb2t5byIsImhlYWRlckxvY2F0aW9uR3Jh
-        bnVsYXJpdHkiOiJuZWlnaGJvcmhvb2QiLCJxdWVyeSI6ImhvdGVsIGNlbnR1
-        cnkgc291dGhlcm4gdG93ZXIiLCJ0b3RhbFJlc3VsdHMiOjEsInN1Z2dlc3Rl
-        ZEJvdW5kcyI6eyJuZSI6eyJsYXQiOjM1LjY4Nzg5NjIyODc4NjI4NiwibG5n
-        IjoxMzkuNjk3Mjk2MDc1NjI4MTd9LCJzdyI6eyJsYXQiOjM1LjY4NTE5NjU2
-        OTAwMDg0LCJsbmciOjEzOS43MDM2MTA0ODcxNzd9fSwiZ3JvdXBzIjpbeyJ0
-        eXBlIjoiUmVjb21tZW5kZWQgUGxhY2VzIiwibmFtZSI6InJlY29tbWVuZGVk
-        IiwiaXRlbXMiOlt7InJlYXNvbnMiOnsiY291bnQiOjAsIml0ZW1zIjpbeyJz
-        dW1tYXJ5IjoiVGhpcyBzcG90IGlzIHBvcHVsYXIiLCJ0eXBlIjoiZ2VuZXJh
-        bCIsInJlYXNvbk5hbWUiOiJnbG9iYWxJbnRlcmFjdGlvblJlYXNvbiJ9XX0s
-        InZlbnVlIjp7ImlkIjoiNGI2MTFiMDdmOTY0YTUyMGU2MDkyYWUzIiwibmFt
-        ZSI6IuWwj+eUsOaApSDjg5vjg4bjg6sg44K744Oz44OB44Ol44Oq44O8IOOC
-        teOCtuODs+OCv+ODr+ODvCAoSG90ZWwgQ2VudHVyeSBTb3V0aGVybiBUb3dl
-        cikiLCJjb250YWN0Ijp7InBob25lIjoiKzgxMzUzNTQwMTExIiwiZm9ybWF0
-        dGVkUGhvbmUiOiIrODEgMy01MzU0LTAxMTEifSwibG9jYXRpb24iOnsiYWRk
-        cmVzcyI6IuS7o+OAheacqDItMi0xIiwibGF0IjozNS42ODY1NDYzOTg4OTM1
-        NiwibG5nIjoxMzkuNzAwNDUzMjgxNDAyNiwiZGlzdGFuY2UiOjQsInBvc3Rh
-        bENvZGUiOiIxNTEtODU4MyIsImNjIjoiSlAiLCJjaXR5Ijoi5riL6LC35Yy6
-        Iiwic3RhdGUiOiLmnbHkuqzpg70iLCJjb3VudHJ5Ijoi5pel5pysIiwiZm9y
-        bWF0dGVkQWRkcmVzcyI6WyLku6PjgIXmnKgyLTItMSIsIua4i+iwt+WMuiwg
-        5p2x5Lqs6YO9IiwiMTUxLTg1ODMiLCLml6XmnKwiXX0sImNhdGVnb3JpZXMi
-        Olt7ImlkIjoiNGJmNThkZDhkNDg5ODhkMWZhOTMxNzM1IiwibmFtZSI6Ikhv
-        dGVsIiwicGx1cmFsTmFtZSI6IkhvdGVscyIsInNob3J0TmFtZSI6IkhvdGVs
-        IiwiaWNvbiI6eyJwcmVmaXgiOiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9p
-        bWdcL2NhdGVnb3JpZXNfdjJcL3RyYXZlbFwvaG90ZWxfIiwic3VmZml4Ijoi
-        LnBuZyJ9LCJwcmltYXJ5Ijp0cnVlfV0sInZlcmlmaWVkIjpmYWxzZSwic3Rh
-        dHMiOnsiY2hlY2tpbnNDb3VudCI6NTI0NSwidXNlcnNDb3VudCI6MTkzMywi
-        dGlwQ291bnQiOjIwfSwidXJsIjoiaHR0cDpcL1wvd3d3LnNvdXRoZXJudG93
-        ZXIuY28uanAiLCJyYXRpbmciOjcuOCwicmF0aW5nQ29sb3IiOiJDNURFMzUi
-        LCJyYXRpbmdTaWduYWxzIjoyOSwiaG91cnMiOnsic3RhdHVzIjoiT3BlbiIs
-        ImlzT3BlbiI6dHJ1ZX0sInNwZWNpYWxzIjp7ImNvdW50IjowLCJpdGVtcyI6
-        W119LCJwaG90b3MiOnsiY291bnQiOjI4NywiZ3JvdXBzIjpbeyJ0eXBlIjoi
-        dmVudWUiLCJuYW1lIjoiVmVudWUgcGhvdG9zIiwiY291bnQiOjI4NywiaXRl
-        bXMiOlt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRl
-        ZEF0IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3Fp
-        Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThR
-        aHI0S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgi
-        OjYxMiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmly
-        c3ROYW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1h
-        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQ
-        NVI1WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19XX0sImhl
-        cmVOb3ciOnsiY291bnQiOjAsInN1bW1hcnkiOiJOb2JvZHkgaGVyZSIsImdy
-        b3VwcyI6W119LCJmZWF0dXJlZFBob3RvcyI6eyJjb3VudCI6MSwiaXRlbXMi
-        Olt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRlZEF0
-        IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThRaHI0
-        S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgiOjYx
-        MiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmlyc3RO
-        YW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1hbGUi
-        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwv
-        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQNVI1
-        WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19fSwiZmxhZ3Mi
-        OnsiZXhhY3RNYXRjaCI6dHJ1ZX0sInRpcHMiOlt7ImlkIjoiNGVhZWI2ZGM3
-        ZWU1OWYxNjA5NzhmNDU0IiwiY3JlYXRlZEF0IjoxMzIwMDcyOTI0LCJ0ZXh0
-        IjoiMjDpmo7vvJ/jga7jg4jjgqTjg6zjga7opovmmbTjgonjgZfjgYzjgYvj
-        garjgoroia/pgY7jgY7jgovjgIIiLCJ0eXBlIjoidXNlciIsImNhbm9uaWNh
-        bFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGVhZWI2
-        ZGM3ZWU1OWYxNjA5NzhmNDU0IiwibGlrZXMiOnsiY291bnQiOjYsImdyb3Vw
-        cyI6W10sInN1bW1hcnkiOiI2IGxpa2VzIn0sImxvZ1ZpZXciOnRydWUsInRv
-        ZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNTk5MjY4MSIsImZpcnN0
-        TmFtZSI6Ikhha2EiLCJsYXN0TmFtZSI6IkdhdSByYXUiLCJnZW5kZXIiOiJt
-        YWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5u
-        ZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC81OTkyNjgxLUMzNVBXS1JL
-        TUxaUVhQS1kuanBnIn19fV0sInJlZmVycmFsSWQiOiJlLTAtNGI2MTFiMDdm
-        OTY0YTUyMGU2MDkyYWUzLTAifV19XX19
-    http_version: 
-  recorded_at: Fri, 06 Mar 2015 03:28:15 GMT
-- request:
-    method: get
-    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=35.68652,139.700409&query=Hotel%20Century%20Southern%20Tower&v=20150306&venuePhotos=1
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Sat, 07 Mar 2015 01:06:40 GMT
-      Server:
-      - nginx
-      Content-Type:
-      - application/json; charset=utf-8
-      Access-Control-Allow-Origin:
-      - "*"
-      Tracer-Time:
-      - '188'
-      X-Ratelimit-Limit:
-      - '5000'
-      X-Ratelimit-Remaining:
-      - '4997'
-      Strict-Transport-Security:
-      - max-age=864000
-      X-Ex:
-      - fastly_cdn
-      Accept-Ranges:
-      - bytes
-      Via:
-      - 1.1 varnish
-      X-Served-By:
-      - cache-sjc3122-SJC
-      X-Cache:
-      - MISS
-      X-Cache-Hits:
-      - '0'
-      Vary:
-      - Accept-Encoding,User-Agent,Accept-Language
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eyJtZXRhIjp7ImNvZGUiOjIwMH0sInJlc3BvbnNlIjp7Indhcm5pbmciOnsi
-        dGV4dCI6IlRoZXJlIGFyZW4ndCBhIGxvdCBvZiByZXN1bHRzIGZvciBcIkhv
-        dGVsIENlbnR1cnkgU291dGhlcm4gVG93ZXIuXCIgVHJ5IHNvbWV0aGluZyBt
-        b3JlIGdlbmVyYWwsIHJlc2V0IHlvdXIgZmlsdGVycywgb3IgZXhwYW5kIHRo
-        ZSBzZWFyY2ggYXJlYS4ifSwic3VnZ2VzdGVkUmFkaXVzIjoxODAwLCJoZWFk
-        ZXJMb2NhdGlvbiI6Ik5pc2hpc2hpbmp1a3UiLCJoZWFkZXJGdWxsTG9jYXRp
-        b24iOiJOaXNoaXNoaW5qdWt1LCBUb2t5byIsImhlYWRlckxvY2F0aW9uR3Jh
-        bnVsYXJpdHkiOiJuZWlnaGJvcmhvb2QiLCJxdWVyeSI6ImhvdGVsIGNlbnR1
-        cnkgc291dGhlcm4gdG93ZXIiLCJ0b3RhbFJlc3VsdHMiOjEsInN1Z2dlc3Rl
-        ZEJvdW5kcyI6eyJuZSI6eyJsYXQiOjM1LjY4Nzg5NjIyODc4NjI4NiwibG5n
-        IjoxMzkuNjk3Mjk2MDc1NjI4MTd9LCJzdyI6eyJsYXQiOjM1LjY4NTE5NjU2
-        OTAwMDg0LCJsbmciOjEzOS43MDM2MTA0ODcxNzd9fSwiZ3JvdXBzIjpbeyJ0
-        eXBlIjoiUmVjb21tZW5kZWQgUGxhY2VzIiwibmFtZSI6InJlY29tbWVuZGVk
-        IiwiaXRlbXMiOlt7InJlYXNvbnMiOnsiY291bnQiOjAsIml0ZW1zIjpbeyJz
-        dW1tYXJ5IjoiVGhpcyBzcG90IGlzIHBvcHVsYXIiLCJ0eXBlIjoiZ2VuZXJh
-        bCIsInJlYXNvbk5hbWUiOiJnbG9iYWxJbnRlcmFjdGlvblJlYXNvbiJ9XX0s
-        InZlbnVlIjp7ImlkIjoiNGI2MTFiMDdmOTY0YTUyMGU2MDkyYWUzIiwibmFt
-        ZSI6IuWwj+eUsOaApSDjg5vjg4bjg6sg44K744Oz44OB44Ol44Oq44O8IOOC
-        teOCtuODs+OCv+ODr+ODvCAoSG90ZWwgQ2VudHVyeSBTb3V0aGVybiBUb3dl
-        cikiLCJjb250YWN0Ijp7InBob25lIjoiKzgxMzUzNTQwMTExIiwiZm9ybWF0
-        dGVkUGhvbmUiOiIrODEgMy01MzU0LTAxMTEifSwibG9jYXRpb24iOnsiYWRk
-        cmVzcyI6IuS7o+OAheacqDItMi0xIiwibGF0IjozNS42ODY1NDYzOTg4OTM1
-        NiwibG5nIjoxMzkuNzAwNDUzMjgxNDAyNiwiZGlzdGFuY2UiOjQsInBvc3Rh
-        bENvZGUiOiIxNTEtODU4MyIsImNjIjoiSlAiLCJjaXR5Ijoi5riL6LC35Yy6
-        Iiwic3RhdGUiOiLmnbHkuqzpg70iLCJjb3VudHJ5Ijoi5pel5pysIiwiZm9y
-        bWF0dGVkQWRkcmVzcyI6WyLku6PjgIXmnKgyLTItMSIsIua4i+iwt+WMuiwg
-        5p2x5Lqs6YO9IiwiMTUxLTg1ODMiLCLml6XmnKwiXX0sImNhdGVnb3JpZXMi
-        Olt7ImlkIjoiNGJmNThkZDhkNDg5ODhkMWZhOTMxNzM1IiwibmFtZSI6Ikhv
-        dGVsIiwicGx1cmFsTmFtZSI6IkhvdGVscyIsInNob3J0TmFtZSI6IkhvdGVs
-        IiwiaWNvbiI6eyJwcmVmaXgiOiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9p
-        bWdcL2NhdGVnb3JpZXNfdjJcL3RyYXZlbFwvaG90ZWxfIiwic3VmZml4Ijoi
-        LnBuZyJ9LCJwcmltYXJ5Ijp0cnVlfV0sInZlcmlmaWVkIjpmYWxzZSwic3Rh
-        dHMiOnsiY2hlY2tpbnNDb3VudCI6NTI0NywidXNlcnNDb3VudCI6MTkzNCwi
-        dGlwQ291bnQiOjIwfSwidXJsIjoiaHR0cDpcL1wvd3d3LnNvdXRoZXJudG93
-        ZXIuY28uanAiLCJyYXRpbmciOjcuOCwicmF0aW5nQ29sb3IiOiJDNURFMzUi
-        LCJyYXRpbmdTaWduYWxzIjoyOSwiaG91cnMiOnsic3RhdHVzIjoiT3BlbiIs
-        ImlzT3BlbiI6dHJ1ZX0sInNwZWNpYWxzIjp7ImNvdW50IjowLCJpdGVtcyI6
-        W119LCJwaG90b3MiOnsiY291bnQiOjI4NywiZ3JvdXBzIjpbeyJ0eXBlIjoi
-        dmVudWUiLCJuYW1lIjoiVmVudWUgcGhvdG9zIiwiY291bnQiOjI4NywiaXRl
-        bXMiOlt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRl
-        ZEF0IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3Fp
-        Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThR
-        aHI0S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgi
-        OjYxMiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmly
-        c3ROYW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1h
-        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQ
-        NVI1WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19XX0sImhl
-        cmVOb3ciOnsiY291bnQiOjAsInN1bW1hcnkiOiJOb2JvZHkgaGVyZSIsImdy
-        b3VwcyI6W119LCJmZWF0dXJlZFBob3RvcyI6eyJjb3VudCI6MSwiaXRlbXMi
-        Olt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRlZEF0
-        IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThRaHI0
-        S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgiOjYx
-        MiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmlyc3RO
-        YW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1hbGUi
-        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwv
-        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQNVI1
-        WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19fSwiZmxhZ3Mi
-        OnsiZXhhY3RNYXRjaCI6dHJ1ZX0sInRpcHMiOlt7ImlkIjoiNGVhZWI2ZGM3
-        ZWU1OWYxNjA5NzhmNDU0IiwiY3JlYXRlZEF0IjoxMzIwMDcyOTI0LCJ0ZXh0
-        IjoiMjDpmo7vvJ/jga7jg4jjgqTjg6zjga7opovmmbTjgonjgZfjgYzjgYvj
-        garjgoroia/pgY7jgY7jgovjgIIiLCJ0eXBlIjoidXNlciIsImNhbm9uaWNh
-        bFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGVhZWI2
-        ZGM3ZWU1OWYxNjA5NzhmNDU0IiwibGlrZXMiOnsiY291bnQiOjYsImdyb3Vw
-        cyI6W10sInN1bW1hcnkiOiI2IGxpa2VzIn0sImxvZ1ZpZXciOnRydWUsInRv
-        ZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNTk5MjY4MSIsImZpcnN0
-        TmFtZSI6Ikhha2EiLCJsYXN0TmFtZSI6IkdhdSByYXUiLCJnZW5kZXIiOiJt
-        YWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5u
-        ZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC81OTkyNjgxLUMzNVBXS1JL
-        TUxaUVhQS1kuanBnIn19fV0sInJlZmVycmFsSWQiOiJlLTAtNGI2MTFiMDdm
-        OTY0YTUyMGU2MDkyYWUzLTAifV19XX19
-    http_version: 
-  recorded_at: Sat, 07 Mar 2015 01:06:40 GMT
-- request:
-    method: get
-    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=35.68652,139.700409&query=Hotel%20Century%20Southern%20Tower&v=20150309&venuePhotos=1
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Mon, 09 Mar 2015 22:13:26 GMT
-      Server:
-      - nginx
-      Content-Type:
-      - application/json; charset=utf-8
-      Access-Control-Allow-Origin:
-      - "*"
-      Tracer-Time:
-      - '210'
-      X-Ratelimit-Limit:
-      - '5000'
-      X-Ratelimit-Remaining:
-      - '4958'
-      Strict-Transport-Security:
-      - max-age=864000
-      X-Ex:
-      - fastly_cdn
-      Accept-Ranges:
-      - bytes
-      Via:
-      - 1.1 varnish
-      X-Served-By:
-      - cache-sjc3130-SJC
-      X-Cache:
-      - MISS
-      X-Cache-Hits:
-      - '0'
-      Vary:
-      - Accept-Encoding,User-Agent,Accept-Language
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eyJtZXRhIjp7ImNvZGUiOjIwMH0sInJlc3BvbnNlIjp7Indhcm5pbmciOnsi
-        dGV4dCI6IlRoZXJlIGFyZW4ndCBhIGxvdCBvZiByZXN1bHRzIGZvciBcIkhv
-        dGVsIENlbnR1cnkgU291dGhlcm4gVG93ZXIuXCIgVHJ5IHNvbWV0aGluZyBt
-        b3JlIGdlbmVyYWwsIHJlc2V0IHlvdXIgZmlsdGVycywgb3IgZXhwYW5kIHRo
-        ZSBzZWFyY2ggYXJlYS4ifSwic3VnZ2VzdGVkUmFkaXVzIjoxODAwLCJoZWFk
-        ZXJMb2NhdGlvbiI6Ik5pc2hpc2hpbmp1a3UiLCJoZWFkZXJGdWxsTG9jYXRp
-        b24iOiJOaXNoaXNoaW5qdWt1LCBUb2t5byIsImhlYWRlckxvY2F0aW9uR3Jh
-        bnVsYXJpdHkiOiJuZWlnaGJvcmhvb2QiLCJxdWVyeSI6ImhvdGVsIGNlbnR1
-        cnkgc291dGhlcm4gdG93ZXIiLCJ0b3RhbFJlc3VsdHMiOjEsInN1Z2dlc3Rl
-        ZEJvdW5kcyI6eyJuZSI6eyJsYXQiOjM1LjY4Nzg5NjIyODc4NjI4NiwibG5n
-        IjoxMzkuNjk3Mjk2MDc1NjI4MTd9LCJzdyI6eyJsYXQiOjM1LjY4NTE5NjU2
-        OTAwMDg0LCJsbmciOjEzOS43MDM2MTA0ODcxNzd9fSwiZ3JvdXBzIjpbeyJ0
-        eXBlIjoiUmVjb21tZW5kZWQgUGxhY2VzIiwibmFtZSI6InJlY29tbWVuZGVk
-        IiwiaXRlbXMiOlt7InJlYXNvbnMiOnsiY291bnQiOjAsIml0ZW1zIjpbeyJz
-        dW1tYXJ5IjoiVGhpcyBzcG90IGlzIHBvcHVsYXIiLCJ0eXBlIjoiZ2VuZXJh
-        bCIsInJlYXNvbk5hbWUiOiJnbG9iYWxJbnRlcmFjdGlvblJlYXNvbiJ9XX0s
-        InZlbnVlIjp7ImlkIjoiNGI2MTFiMDdmOTY0YTUyMGU2MDkyYWUzIiwibmFt
-        ZSI6IuWwj+eUsOaApSDjg5vjg4bjg6sg44K744Oz44OB44Ol44Oq44O8IOOC
-        teOCtuODs+OCv+ODr+ODvCAoSG90ZWwgQ2VudHVyeSBTb3V0aGVybiBUb3dl
-        cikiLCJjb250YWN0Ijp7InBob25lIjoiKzgxMzUzNTQwMTExIiwiZm9ybWF0
-        dGVkUGhvbmUiOiIrODEgMy01MzU0LTAxMTEifSwibG9jYXRpb24iOnsiYWRk
-        cmVzcyI6IuS7o+OAheacqDItMi0xIiwibGF0IjozNS42ODY1NDYzOTg4OTM1
-        NiwibG5nIjoxMzkuNzAwNDUzMjgxNDAyNiwiZGlzdGFuY2UiOjQsInBvc3Rh
-        bENvZGUiOiIxNTEtODU4MyIsImNjIjoiSlAiLCJjaXR5Ijoi5riL6LC35Yy6
-        Iiwic3RhdGUiOiLmnbHkuqzpg70iLCJjb3VudHJ5Ijoi5pel5pysIiwiZm9y
-        bWF0dGVkQWRkcmVzcyI6WyLku6PjgIXmnKgyLTItMSIsIua4i+iwt+WMuiwg
-        5p2x5Lqs6YO9IiwiMTUxLTg1ODMiLCLml6XmnKwiXX0sImNhdGVnb3JpZXMi
-        Olt7ImlkIjoiNGJmNThkZDhkNDg5ODhkMWZhOTMxNzM1IiwibmFtZSI6Ikhv
-        dGVsIiwicGx1cmFsTmFtZSI6IkhvdGVscyIsInNob3J0TmFtZSI6IkhvdGVs
-        IiwiaWNvbiI6eyJwcmVmaXgiOiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9p
-        bWdcL2NhdGVnb3JpZXNfdjJcL3RyYXZlbFwvaG90ZWxfIiwic3VmZml4Ijoi
-        LnBuZyJ9LCJwcmltYXJ5Ijp0cnVlfV0sInZlcmlmaWVkIjpmYWxzZSwic3Rh
-        dHMiOnsiY2hlY2tpbnNDb3VudCI6NTI0OCwidXNlcnNDb3VudCI6MTkzNCwi
-        dGlwQ291bnQiOjIwfSwidXJsIjoiaHR0cDpcL1wvd3d3LnNvdXRoZXJudG93
-        ZXIuY28uanAiLCJyYXRpbmciOjcuOCwicmF0aW5nQ29sb3IiOiJDNURFMzUi
-        LCJyYXRpbmdTaWduYWxzIjoyOSwiaG91cnMiOnsic3RhdHVzIjoiT3BlbiIs
-        ImlzT3BlbiI6dHJ1ZX0sInNwZWNpYWxzIjp7ImNvdW50IjowLCJpdGVtcyI6
-        W119LCJwaG90b3MiOnsiY291bnQiOjI4NywiZ3JvdXBzIjpbeyJ0eXBlIjoi
-        dmVudWUiLCJuYW1lIjoiVmVudWUgcGhvdG9zIiwiY291bnQiOjI4NywiaXRl
-        bXMiOlt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRl
-        ZEF0IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3Fp
-        Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThR
-        aHI0S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgi
-        OjYxMiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmly
-        c3ROYW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1h
-        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQ
-        NVI1WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19XX0sImhl
-        cmVOb3ciOnsiY291bnQiOjAsInN1bW1hcnkiOiJOb2JvZHkgaGVyZSIsImdy
-        b3VwcyI6W119LCJmZWF0dXJlZFBob3RvcyI6eyJjb3VudCI6MSwiaXRlbXMi
-        Olt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRlZEF0
-        IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThRaHI0
-        S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgiOjYx
-        MiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmlyc3RO
-        YW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1hbGUi
-        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwv
-        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQNVI1
-        WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19fSwiZmxhZ3Mi
-        OnsiZXhhY3RNYXRjaCI6dHJ1ZX0sInRpcHMiOlt7ImlkIjoiNGVhZWI2ZGM3
-        ZWU1OWYxNjA5NzhmNDU0IiwiY3JlYXRlZEF0IjoxMzIwMDcyOTI0LCJ0ZXh0
-        IjoiMjDpmo7vvJ/jga7jg4jjgqTjg6zjga7opovmmbTjgonjgZfjgYzjgYvj
-        garjgoroia/pgY7jgY7jgovjgIIiLCJ0eXBlIjoidXNlciIsImNhbm9uaWNh
-        bFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGVhZWI2
-        ZGM3ZWU1OWYxNjA5NzhmNDU0IiwibGlrZXMiOnsiY291bnQiOjYsImdyb3Vw
-        cyI6W10sInN1bW1hcnkiOiI2IGxpa2VzIn0sImxvZ1ZpZXciOnRydWUsInRv
-        ZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNTk5MjY4MSIsImZpcnN0
-        TmFtZSI6Ikhha2EiLCJsYXN0TmFtZSI6IkdhdSByYXUiLCJnZW5kZXIiOiJt
-        YWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5u
-        ZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC81OTkyNjgxLUMzNVBXS1JL
-        TUxaUVhQS1kuanBnIn19fV0sInJlZmVycmFsSWQiOiJlLTAtNGI2MTFiMDdm
-        OTY0YTUyMGU2MDkyYWUzLTAifV19XX19
-    http_version: 
-  recorded_at: Mon, 09 Mar 2015 22:13:26 GMT
-- request:
-    method: get
-    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=35.68652,139.700409&query=Hotel%20Century%20Southern%20Tower&v=20150316&venuePhotos=1
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Mon, 16 Mar 2015 17:28:15 GMT
-      Server:
-      - nginx
-      Content-Type:
-      - application/json; charset=utf-8
-      Access-Control-Allow-Origin:
-      - "*"
-      Tracer-Time:
-      - '308'
-      X-Ratelimit-Limit:
-      - '5000'
-      X-Ratelimit-Remaining:
-      - '4999'
-      Strict-Transport-Security:
-      - max-age=864000
-      X-Ex:
-      - fastly_cdn
-      Accept-Ranges:
-      - bytes
-      Via:
-      - 1.1 varnish
-      X-Served-By:
-      - cache-sjc3135-SJC
-      X-Cache:
-      - MISS
-      X-Cache-Hits:
-      - '0'
-      Vary:
-      - Accept-Encoding,User-Agent,Accept-Language
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eyJtZXRhIjp7ImNvZGUiOjIwMH0sInJlc3BvbnNlIjp7Indhcm5pbmciOnsi
-        dGV4dCI6IlRoZXJlIGFyZW4ndCBhIGxvdCBvZiByZXN1bHRzIGZvciBcIkhv
-        dGVsIENlbnR1cnkgU291dGhlcm4gVG93ZXIuXCIgVHJ5IHNvbWV0aGluZyBt
-        b3JlIGdlbmVyYWwsIHJlc2V0IHlvdXIgZmlsdGVycywgb3IgZXhwYW5kIHRo
-        ZSBzZWFyY2ggYXJlYS4ifSwic3VnZ2VzdGVkUmFkaXVzIjoxODAwLCJoZWFk
-        ZXJMb2NhdGlvbiI6Ik5pc2hpc2hpbmp1a3UiLCJoZWFkZXJGdWxsTG9jYXRp
-        b24iOiJOaXNoaXNoaW5qdWt1LCBUb2t5byIsImhlYWRlckxvY2F0aW9uR3Jh
-        bnVsYXJpdHkiOiJuZWlnaGJvcmhvb2QiLCJxdWVyeSI6ImhvdGVsIGNlbnR1
-        cnkgc291dGhlcm4gdG93ZXIiLCJ0b3RhbFJlc3VsdHMiOjEsInN1Z2dlc3Rl
-        ZEJvdW5kcyI6eyJuZSI6eyJsYXQiOjM1LjY4Nzg5NjIyODc4NjI4NiwibG5n
-        IjoxMzkuNjk3Mjk2MDc1NjI4MTd9LCJzdyI6eyJsYXQiOjM1LjY4NTE5NjU2
-        OTAwMDg0LCJsbmciOjEzOS43MDM2MTA0ODcxNzd9fSwiZ3JvdXBzIjpbeyJ0
-        eXBlIjoiUmVjb21tZW5kZWQgUGxhY2VzIiwibmFtZSI6InJlY29tbWVuZGVk
-        IiwiaXRlbXMiOlt7InJlYXNvbnMiOnsiY291bnQiOjAsIml0ZW1zIjpbeyJz
-        dW1tYXJ5IjoiVGhpcyBzcG90IGlzIHBvcHVsYXIiLCJ0eXBlIjoiZ2VuZXJh
-        bCIsInJlYXNvbk5hbWUiOiJnbG9iYWxJbnRlcmFjdGlvblJlYXNvbiJ9XX0s
-        InZlbnVlIjp7ImlkIjoiNGI2MTFiMDdmOTY0YTUyMGU2MDkyYWUzIiwibmFt
-        ZSI6IuWwj+eUsOaApSDjg5vjg4bjg6sg44K744Oz44OB44Ol44Oq44O8IOOC
-        teOCtuODs+OCv+ODr+ODvCAoSG90ZWwgQ2VudHVyeSBTb3V0aGVybiBUb3dl
-        cikiLCJjb250YWN0Ijp7InBob25lIjoiKzgxMzUzNTQwMTExIiwiZm9ybWF0
-        dGVkUGhvbmUiOiIrODEgMy01MzU0LTAxMTEifSwibG9jYXRpb24iOnsiYWRk
-        cmVzcyI6IuS7o+OAheacqDItMi0xIiwibGF0IjozNS42ODY1NDYzOTg4OTM1
-        NiwibG5nIjoxMzkuNzAwNDUzMjgxNDAyNiwiZGlzdGFuY2UiOjQsInBvc3Rh
-        bENvZGUiOiIxNTEtODU4MyIsImNjIjoiSlAiLCJjaXR5Ijoi5riL6LC35Yy6
-        Iiwic3RhdGUiOiLmnbHkuqzpg70iLCJjb3VudHJ5Ijoi5pel5pysIiwiZm9y
-        bWF0dGVkQWRkcmVzcyI6WyLku6PjgIXmnKgyLTItMSIsIua4i+iwt+WMuiwg
-        5p2x5Lqs6YO9IiwiMTUxLTg1ODMiLCLml6XmnKwiXX0sImNhdGVnb3JpZXMi
-        Olt7ImlkIjoiNGJmNThkZDhkNDg5ODhkMWZhOTMxNzM1IiwibmFtZSI6Ikhv
-        dGVsIiwicGx1cmFsTmFtZSI6IkhvdGVscyIsInNob3J0TmFtZSI6IkhvdGVs
-        IiwiaWNvbiI6eyJwcmVmaXgiOiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9p
-        bWdcL2NhdGVnb3JpZXNfdjJcL3RyYXZlbFwvaG90ZWxfIiwic3VmZml4Ijoi
-        LnBuZyJ9LCJwcmltYXJ5Ijp0cnVlfV0sInZlcmlmaWVkIjpmYWxzZSwic3Rh
-        dHMiOnsiY2hlY2tpbnNDb3VudCI6NTI1NiwidXNlcnNDb3VudCI6MTkzOSwi
-        dGlwQ291bnQiOjIwfSwidXJsIjoiaHR0cDpcL1wvd3d3LnNvdXRoZXJudG93
-        ZXIuY28uanAiLCJyYXRpbmciOjcuOCwicmF0aW5nQ29sb3IiOiJDNURFMzUi
-        LCJyYXRpbmdTaWduYWxzIjoyOSwiaG91cnMiOnsic3RhdHVzIjoiT3BlbiIs
-        ImlzT3BlbiI6dHJ1ZX0sInNwZWNpYWxzIjp7ImNvdW50IjowLCJpdGVtcyI6
-        W119LCJwaG90b3MiOnsiY291bnQiOjI4OCwiZ3JvdXBzIjpbeyJ0eXBlIjoi
-        dmVudWUiLCJuYW1lIjoiVmVudWUgcGhvdG9zIiwiY291bnQiOjI4OCwiaXRl
-        bXMiOlt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRl
-        ZEF0IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3Fp
-        Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThR
-        aHI0S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgi
-        OjYxMiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmly
-        c3ROYW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1h
-        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQ
-        NVI1WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19XX0sImhl
-        cmVOb3ciOnsiY291bnQiOjAsInN1bW1hcnkiOiJOb2JvZHkgaGVyZSIsImdy
-        b3VwcyI6W119LCJmZWF0dXJlZFBob3RvcyI6eyJjb3VudCI6MSwiaXRlbXMi
-        Olt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRlZEF0
-        IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThRaHI0
-        S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgiOjYx
-        MiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmlyc3RO
-        YW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1hbGUi
-        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwv
-        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQNVI1
-        WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19fSwiZmxhZ3Mi
-        OnsiZXhhY3RNYXRjaCI6dHJ1ZX0sInRpcHMiOlt7ImlkIjoiNGVhZWI2ZGM3
-        ZWU1OWYxNjA5NzhmNDU0IiwiY3JlYXRlZEF0IjoxMzIwMDcyOTI0LCJ0ZXh0
-        IjoiMjDpmo7vvJ/jga7jg4jjgqTjg6zjga7opovmmbTjgonjgZfjgYzjgYvj
-        garjgoroia/pgY7jgY7jgovjgIIiLCJ0eXBlIjoidXNlciIsImNhbm9uaWNh
-        bFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGVhZWI2
-        ZGM3ZWU1OWYxNjA5NzhmNDU0IiwibGlrZXMiOnsiY291bnQiOjYsImdyb3Vw
-        cyI6W10sInN1bW1hcnkiOiI2IGxpa2VzIn0sImxvZ1ZpZXciOnRydWUsInRv
-        ZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNTk5MjY4MSIsImZpcnN0
-        TmFtZSI6Ikhha2EiLCJsYXN0TmFtZSI6IkdhdSByYXUiLCJnZW5kZXIiOiJt
-        YWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5u
-        ZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC81OTkyNjgxLUMzNVBXS1JL
-        TUxaUVhQS1kuanBnIn19fV0sInJlZmVycmFsSWQiOiJlLTAtNGI2MTFiMDdm
-        OTY0YTUyMGU2MDkyYWUzLTAifV19XX19
-    http_version: 
-  recorded_at: Mon, 16 Mar 2015 17:28:15 GMT
-- request:
-    method: get
-    uri: http://api.geonames.org/timezoneJSON?lat&lng&username=sashafklein
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 503
-      message: Service Unavailable
-    headers:
-      Date:
-      - Tue, 17 Mar 2015 00:05:08 GMT
-      Server:
-      - Apache/2.2.15 (CentOS)
+      - Thu, 19 Mar 2015 22:09:47 GMT
+      Expires:
+      - "-1"
       Cache-Control:
-      - no-cache
-      Access-Control-Allow-Origin:
-      - "*"
-      Content-Length:
-      - '54'
-      Connection:
-      - close
+      - private, max-age=0
       Content-Type:
-      - application/json;charset=UTF-8
+      - application/json; charset=ISO-8859-1
+      Set-Cookie:
+      - PREF=ID=753eb7d4952256e1:TM=1426802987:LM=1426802987:S=dZ8BFc9Vfb94R1HY; expires=Sat,
+        18-Mar-2017 22:09:47 GMT; path=/; domain=.google.com
+      X-Content-Type-Options:
+      - nosniff
+      Content-Disposition:
+      - attachment; filename="f.txt"
+      Server:
+      - GFE/2.0
+      Transfer-Encoding:
+      - chunked
+      Alternate-Protocol:
+      - 443:quic,p=0.5
     body:
       encoding: UTF-8
-      string: '{"status":{"message":"missing parameter ","value":12}}'
+      string: 'while(1);{title:"Hotel Century Southern Tower loc: Shibuya, Tokyo Prefecture
+        - Google Maps",url:"/maps?q=Hotel+Century+Southern+Tower\x26near=Shibuya,+Tokyo+Prefecture\x26ie=UTF8\x26hq=\x26hnear=",urlViewport:false,ei:"K0kLVd7qCYyaigLY8YGoBA",form:{selected:"q",q:{q:"Hotel
+        Century Southern Tower loc: Shibuya, Tokyo Prefecture",what:"",near:"Shibuya,
+        Tokyo Prefecture"},d:{saddr:"",daddr:"Shibuya, Tokyo Prefecture"},geocode:"",d_edit:{saddr:"",daddr:"Shibuya,
+        Tokyo Prefecture"}},viewport:{center:{lat:37.0625,lng:-95.677068000000006},span:{lat:23.875,lng:57.630032999999997},mapType:"",source:1},modules:["","pphover","act_s","appiw","rst"],overlays:{sxcar:false,layers:[{composition_type:2,spec:{id:"m"},default_epoch:295000000,pertile_data:{area:[{id:"ttt",zrange:[3,3],layer:"m",epoch:295067208},{id:"ttu",zrange:[3,3],layer:"m",epoch:295112569},{id:"ttv",zrange:[3,3],layer:"m",epoch:295067208},{id:"ttw",zrange:[3,3],layer:"m",epoch:295124088},{id:"tu",zrange:[3,3],layer:"m",epoch:295124088},{id:"tvt",zrange:[3,3],layer:"m",epoch:295000000},{id:"tvu",zrange:[3,3],layer:"m",epoch:295124088},{id:"tvv",zrange:[3,3],layer:"m",epoch:295124808},{id:"tvw",zrange:[3,3],layer:"m",epoch:295124808},{id:"twt",zrange:[3,3],layer:"m",epoch:295124088},{id:"twu",zrange:[3,3],layer:"m",epoch:295124088},{id:"twv",zrange:[3,3],layer:"m",epoch:295124808},{id:"tww",zrange:[3,3],layer:"m",epoch:295124088},{id:"ut",zrange:[3,3],layer:"m",epoch:295124088},{id:"uut",zrange:[3,3],layer:"m",epoch:295033368},{id:"uuv",zrange:[3,3],layer:"m",epoch:295062891},{id:"uvt",zrange:[3,3],layer:"m",epoch:295124088},{id:"uvu",zrange:[3,3],layer:"m",epoch:295099610},{id:"uvv",zrange:[3,3],layer:"m",epoch:295124088},{id:"uvw",zrange:[3,3],layer:"m",epoch:295099610},{id:"uwt",zrange:[3,3],layer:"m",epoch:295062891},{id:"uwv",zrange:[3,3],layer:"m",epoch:295062891},{id:"vtt",zrange:[3,3],layer:"m",epoch:295124808},{id:"vtu",zrange:[3,3],layer:"m",epoch:295124808},{id:"vut",zrange:[3,3],layer:"m",epoch:295124808},{id:"vuu",zrange:[3,3],layer:"m",epoch:295124088},{id:"vvt",zrange:[3,3],layer:"m",epoch:295098892},{id:"vvu",zrange:[3,3],layer:"m",epoch:295103929},{id:"vvv",zrange:[3,3],layer:"m",epoch:295067208},{id:"vvw",zrange:[3,3],layer:"m",epoch:295103929},{id:"vw",zrange:[3,3],layer:"m",epoch:295124808},{id:"wtt",zrange:[3,3],layer:"m",epoch:295124088},{id:"wtu",zrange:[3,3],layer:"m",epoch:295062891},{id:"wut",zrange:[3,3],layer:"m",epoch:295000000},{id:"wvt",zrange:[3,3],layer:"m",epoch:295124808},{id:"wvu",zrange:[3,3],layer:"m",epoch:295094568},{id:"wvv",zrange:[3,3],layer:"m",epoch:295124808},{id:"wvw",zrange:[3,3],layer:"m",epoch:295124088},{id:"wwt",zrange:[3,3],layer:"m",epoch:295033368},{id:"wwv",zrange:[3,3],layer:"m",epoch:295033368},{id:"tttt",zrange:[4,4],layer:"m",epoch:295000000},{id:"tttu",zrange:[4,4],layer:"m",epoch:295067208},{id:"tttv",zrange:[4,4],layer:"m",epoch:295000000},{id:"tttw",zrange:[4,4],layer:"m",epoch:295067208},{id:"ttut",zrange:[4,4],layer:"m",epoch:295067208},{id:"ttuu",zrange:[4,4],layer:"m",epoch:295098169},{id:"ttuv",zrange:[4,4],layer:"m",epoch:295067208},{id:"ttuw",zrange:[4,4],layer:"m",epoch:295098169},{id:"ttvt",zrange:[4,4],layer:"m",epoch:295000000},{id:"ttvu",zrange:[4,4],layer:"m",epoch:295067208},{id:"ttvv",zrange:[4,4],layer:"m",epoch:295000000},{id:"ttvw",zrange:[4,4],layer:"m",epoch:295000000},{id:"ttwt",zrange:[4,4],layer:"m",epoch:295067208},{id:"ttwu",zrange:[4,4],layer:"m",epoch:295075852},{id:"ttwv",zrange:[4,4],layer:"m",epoch:295000000},{id:"ttww",zrange:[4,4],layer:"m",epoch:295075852},{id:"tutt",zrange:[4,4],layer:"m",epoch:295098169},{id:"tutu",zrange:[4,4],layer:"m",epoch:295098169},{id:"tutv",zrange:[4,4],layer:"m",epoch:295101050},{id:"tutw",zrange:[4,4],layer:"m",epoch:295124088},{id:"tuut",zrange:[4,4],layer:"m",epoch:295074411},{id:"tuuu",zrange:[4,4],layer:"m",epoch:295069369},{id:"tuuv",zrange:[4,4],layer:"m",epoch:295124088},{id:"tuuw",zrange:[4,4],layer:"m",epoch:295124088},{id:"tuvt",zrange:[4,4],layer:"m",epoch:295116893},{id:"tuvu",zrange:[4,4],layer:"m",epoch:295124088},{id:"tuvv",zrange:[4,4],layer:"m",epoch:295124088},{id:"tuvw",zrange:[4,4],layer:"m",epoch:295124088},{id:"tuw",zrange:[4,4],layer:"m",epoch:295124088},{id:"tvt",zrange:[4,4],layer:"m",epoch:295000000},{id:"tvut",zrange:[4,4],layer:"m",epoch:295000000},{id:"tvuu",zrange:[4,4],layer:"m",epoch:295000000},{id:"tvuv",zrange:[4,4],layer:"m",epoch:295000000},{id:"tvuw",zrange:[4,4],layer:"m",epoch:295004209},{id:"tvv",zrange:[4,4],layer:"m",epoch:295000000},{id:"tvwt",zrange:[4,4],layer:"m",epoch:295000000},{id:"tvwu",zrange:[4,4],layer:"m",epoch:295058569},{id:"tvwv",zrange:[4,4],layer:"m",epoch:295062891},{id:"tvww",zrange:[4,4],layer:"m",epoch:295116175},{id:"tw",zrange:[4,4],layer:"m",epoch:295124088},{id:"uttt",zrange:[4,4],layer:"m",epoch:295069369},{id:"uttu",zrange:[4,4],layer:"m",epoch:295073689},{id:"uttv",zrange:[4,4],layer:"m",epoch:295094568},{id:"uttw",zrange:[4,4],layer:"m",epoch:295069369},{id:"utut",zrange:[4,4],layer:"m",epoch:295073689},{id:"utuu",zrange:[4,4],layer:"m",epoch:295073689},{id:"utuv",zrange:[4,4],layer:"m",epoch:295000000},{id:"utuw",zrange:[4,4],layer:"m",epoch:295000000},{id:"utvt",zrange:[4,4],layer:"m",epoch:295094568},{id:"utvu",zrange:[4,4],layer:"m",epoch:295006369},{id:"utvv",zrange:[4,4],layer:"m",epoch:295095288},{id:"utvw",zrange:[4,4],layer:"m",epoch:295095288},{id:"utwt",zrange:[4,4],layer:"m",epoch:295000000},{id:"utwu",zrange:[4,4],layer:"m",epoch:295000000},{id:"utwv",zrange:[4,4],layer:"m",epoch:295062891},{id:"utww",zrange:[4,4],layer:"m",epoch:295062891},{id:"uutt",zrange:[4,4],layer:"m",epoch:295000000},{id:"uutv",zrange:[4,4],layer:"m",epoch:295000000},{id:"uuvt",zrange:[4,4],layer:"m",epoch:295000000},{id:"uuvv",zrange:[4,4],layer:"m",epoch:295062891},{id:"uvtt",zrange:[4,4],layer:"m",epoch:295106810},{id:"uvtu",zrange:[4,4],layer:"m",epoch:295099610},{id:"uvtv",zrange:[4,4],layer:"m",epoch:295106810},{id:"uvtw",zrange:[4,4],layer:"m",epoch:295099610},{id:"uvut",zrange:[4,4],layer:"m",epoch:295095288},{id:"uvuu",zrange:[4,4],layer:"m",epoch:295062891},{id:"uvuv",zrange:[4,4],layer:"m",epoch:295095288},{id:"uvuw",zrange:[4,4],layer:"m",epoch:295062891},{id:"uvvt",zrange:[4,4],layer:"m",epoch:295106810},{id:"uvvu",zrange:[4,4],layer:"m",epoch:295099610},{id:"uvvv",zrange:[4,4],layer:"m",epoch:295098892},{id:"uvvw",zrange:[4,4],layer:"m",epoch:295062891},{id:"uvwt",zrange:[4,4],layer:"m",epoch:295095288},{id:"uvwu",zrange:[4,4],layer:"m",epoch:295062891},{id:"uvwv",zrange:[4,4],layer:"m",epoch:295057132},{id:"uvww",zrange:[4,4],layer:"m",epoch:295000000},{id:"uwtt",zrange:[4,4],layer:"m",epoch:295062891},{id:"uwtv",zrange:[4,4],layer:"m",epoch:295062891},{id:"uwvt",zrange:[4,4],layer:"m",epoch:295062891},{id:"uwvv",zrange:[4,4],layer:"m",epoch:295000000},{id:"vtt",zrange:[4,4],layer:"m",epoch:295000000},{id:"vtu",zrange:[4,4],layer:"m",epoch:295124808},{id:"vutt",zrange:[4,4],layer:"m",epoch:295124808},{id:"vutu",zrange:[4,4],layer:"m",epoch:295124088},{id:"vutv",zrange:[4,4],layer:"m",epoch:295124808},{id:"vutw",zrange:[4,4],layer:"m",epoch:295124088},{id:"vuu",zrange:[4,4],layer:"m",epoch:295124088},{id:"vvtv",zrange:[4,4],layer:"m",epoch:295000000},{id:"vvtw",zrange:[4,4],layer:"m",epoch:295000000},{id:"vvuv",zrange:[4,4],layer:"m",epoch:295051370},{id:"vvuw",zrange:[4,4],layer:"m",epoch:295051370},{id:"vvvt",zrange:[4,4],layer:"m",epoch:295000000},{id:"vvvu",zrange:[4,4],layer:"m",epoch:295000000},{id:"vvvv",zrange:[4,4],layer:"m",epoch:295000000},{id:"vvvw",zrange:[4,4],layer:"m",epoch:295067208},{id:"vvwt",zrange:[4,4],layer:"m",epoch:295000000},{id:"vvwu",zrange:[4,4],layer:"m",epoch:295039238},{id:"vvwv",zrange:[4,4],layer:"m",epoch:295067208},{id:"vvww",zrange:[4,4],layer:"m",epoch:295098169},{id:"vwtv",zrange:[4,4],layer:"m",epoch:295124088},{id:"vwtw",zrange:[4,4],layer:"m",epoch:295124088},{id:"vwuv",zrange:[4,4],layer:"m",epoch:295124808},{id:"vwuw",zrange:[4,4],layer:"m",epoch:295124808},{id:"vwvt",zrange:[4,4],layer:"m",epoch:295039238},{id:"vwvu",zrange:[4,4],layer:"m",epoch:295039238},{id:"vwvv",zrange:[4,4],layer:"m",epoch:295098169},{id:"vwvw",zrange:[4,4],layer:"m",epoch:295098169},{id:"vwwt",zrange:[4,4],layer:"m",epoch:295124808},{id:"vwwu",zrange:[4,4],layer:"m",epoch:295124808},{id:"vwwv",zrange:[4,4],layer:"m",epoch:295074411},{id:"vwww",zrange:[4,4],layer:"m",epoch:295069369},{id:"wtt",zrange:[4,4],layer:"m",epoch:295124088},{id:"wtut",zrange:[4,4],layer:"m",epoch:295124088},{id:"wtuu",zrange:[4,4],layer:"m",epoch:295000000},{id:"wtuv",zrange:[4,4],layer:"m",epoch:295124088},{id:"wtuw",zrange:[4,4],layer:"m",epoch:295000000},{id:"wutt",zrange:[4,4],layer:"m",epoch:295000000},{id:"wutv",zrange:[4,4],layer:"m",epoch:295000000},{id:"wvtv",zrange:[4,4],layer:"m",epoch:295124808},{id:"wvtw",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvuv",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvuw",zrange:[4,4],layer:"m",epoch:295000000},{id:"wvvt",zrange:[4,4],layer:"m",epoch:295124808},{id:"wvvu",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvvv",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvvw",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvwt",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvwu",zrange:[4,4],layer:"m",epoch:295073689},{id:"wvwv",zrange:[4,4],layer:"m",epoch:295108248},{id:"wvww",zrange:[4,4],layer:"m",epoch:295073689},{id:"wwtv",zrange:[4,4],layer:"m",epoch:295000000},{id:"wwvt",zrange:[4,4],layer:"m",epoch:295000000},{id:"wwvv",zrange:[4,4],layer:"m",epoch:295000000},{id:"ttuuv",zrange:[5,5],layer:"m",epoch:295067208},{id:"ttuuw",zrange:[5,5],layer:"m",epoch:295067208},{id:"ttuw",zrange:[5,5],layer:"m",epoch:295067208},{id:"ttwut",zrange:[5,5],layer:"m",epoch:295067208},{id:"ttwuu",zrange:[5,5],layer:"m",epoch:295067208},{id:"ttwuv",zrange:[5,5],layer:"m",epoch:295000000},{id:"ttwuw",zrange:[5,5],layer:"m",epoch:295000000},{id:"ttww",zrange:[5,5],layer:"m",epoch:295000000},{id:"tuttv",zrange:[5,5],layer:"m",epoch:295098169},{id:"tuttw",zrange:[5,5],layer:"m",epoch:295098169},{id:"tutuv",zrange:[5,5],layer:"m",epoch:295098169},{id:"tutuw",zrange:[5,5],layer:"m",epoch:295074411},{id:"tutvt",zrange:[5,5],layer:"m",epoch:295098169},{id:"tutvu",zrange:[5,5],layer:"m",epoch:295098169},{id:"tutvv",zrange:[5,5],layer:"m",epoch:295075852},{id:"tutvw",zrange:[5,5],layer:"m",epoch:295075852},{id:"tutwt",zrange:[5,5],layer:"m",epoch:295098169},{id:"tutwu",zrange:[5,5],layer:"m",epoch:295074411},{id:"tutwv",zrange:[5,5],layer:"m",epoch:295099610},{id:"tutww",zrange:[5,5],layer:"m",epoch:295099610},{id:"tuutv",zrange:[5,5],layer:"m",epoch:295012849},{id:"tuutw",zrange:[5,5],layer:"m",epoch:295039238},{id:"tuuuv",zrange:[5,5],layer:"m",epoch:295124088},{id:"tuuuw",zrange:[5,5],layer:"m",epoch:295124088},{id:"tuuvt",zrange:[5,5],layer:"m",epoch:295006369},{id:"tuuvu",zrange:[5,5],layer:"m",epoch:295031928},{id:"tuuvv",zrange:[5,5],layer:"m",epoch:295099610},{id:"tuuvw",zrange:[5,5],layer:"m",epoch:295099610},{id:"tuuw",zrange:[5,5],layer:"m",epoch:295124088},{id:"tuvtt",zrange:[5,5],layer:"m",epoch:295075852},{id:"tuvtu",zrange:[5,5],layer:"m",epoch:295124808},{id:"tuvtv",zrange:[5,5],layer:"m",epoch:295039238},{id:"tuvtw",zrange:[5,5],layer:"m",epoch:295124808},{id:"tuvu",zrange:[5,5],layer:"m",epoch:295124808},{id:"tuvvt",zrange:[5,5],layer:"m",epoch:295000000},{id:"tuvvu",zrange:[5,5],layer:"m",epoch:295124808},{id:"tuvvv",zrange:[5,5],layer:"m",epoch:295000000},{id:"tuvvw",zrange:[5,5],layer:"m",epoch:295115452},{id:"tuvw",zrange:[5,5],layer:"m",epoch:295124808},{id:"tuwt",zrange:[5,5],layer:"m",epoch:295124808},{id:"tuwut",zrange:[5,5],layer:"m",epoch:295124088},{id:"tuwuu",zrange:[5,5],layer:"m",epoch:295000000},{id:"tuwuv",zrange:[5,5],layer:"m",epoch:295124808},{id:"tuwuw",zrange:[5,5],layer:"m",epoch:295124808},{id:"tuwv",zrange:[5,5],layer:"m",epoch:295124808},{id:"tuww",zrange:[5,5],layer:"m",epoch:295124808},{id:"tvuu",zrange:[5,5],layer:"m",epoch:295000000},{id:"tvuw",zrange:[5,5],layer:"m",epoch:295000000},{id:"tvwut",zrange:[5,5],layer:"m",epoch:295000000},{id:"tvwuu",zrange:[5,5],layer:"m",epoch:295004209},{id:"tvwuv",zrange:[5,5],layer:"m",epoch:295000000},{id:"tvwuw",zrange:[5,5],layer:"m",epoch:295004209},{id:"twttt",zrange:[5,5],layer:"m",epoch:295000000},{id:"twttu",zrange:[5,5],layer:"m",epoch:295004928},{id:"twttv",zrange:[5,5],layer:"m",epoch:295000000},{id:"twttw",zrange:[5,5],layer:"m",epoch:295063611},{id:"twtu",zrange:[5,5],layer:"m",epoch:295124808},{id:"twtvt",zrange:[5,5],layer:"m",epoch:295000000},{id:"twtvu",zrange:[5,5],layer:"m",epoch:295063611},{id:"twtvv",zrange:[5,5],layer:"m",epoch:295000000},{id:"twtvw",zrange:[5,5],layer:"m",epoch:295063611},{id:"twtw",zrange:[5,5],layer:"m",epoch:295124808},{id:"twut",zrange:[5,5],layer:"m",epoch:295124808},{id:"twuu",zrange:[5,5],layer:"m",epoch:295124808},{id:"twuvt",zrange:[5,5],layer:"m",epoch:295124808},{id:"twuvu",zrange:[5,5],layer:"m",epoch:295124808},{id:"twuvv",zrange:[5,5],layer:"m",epoch:295124808},{id:"twuvw",zrange:[5,5],layer:"m",epoch:295124088},{id:"twuw",zrange:[5,5],layer:"m",epoch:295124808},{id:"twvtt",zrange:[5,5],layer:"m",epoch:295004209},{id:"twvtu",zrange:[5,5],layer:"m",epoch:295005648},{id:"twvtv",zrange:[5,5],layer:"m",epoch:295004209},{id:"twvtw",zrange:[5,5],layer:"m",epoch:295004209},{id:"twvut",zrange:[5,5],layer:"m",epoch:295005648},{id:"twvuu",zrange:[5,5],layer:"m",epoch:295005648},{id:"twvuv",zrange:[5,5],layer:"m",epoch:295000000},{id:"twvuw",zrange:[5,5],layer:"m",epoch:295000000},{id:"twwtt",zrange:[5,5],layer:"m",epoch:295005648},{id:"twwtu",zrange:[5,5],layer:"m",epoch:295037690},{id:"twwtv",zrange:[5,5],layer:"m",epoch:295124808},{id:"twwtw",zrange:[5,5],layer:"m",epoch:295124808},{id:"twwut",zrange:[5,5],layer:"m",epoch:295111129},{id:"twwuu",zrange:[5,5],layer:"m",epoch:295124808},{id:"twwuv",zrange:[5,5],layer:"m",epoch:295124808},{id:"twwuw",zrange:[5,5],layer:"m",epoch:295124808},{id:"utttv",zrange:[5,5],layer:"m",epoch:295124088},{id:"utttw",zrange:[5,5],layer:"m",epoch:295115452},{id:"uttuv",zrange:[5,5],layer:"m",epoch:295115452},{id:"uttvt",zrange:[5,5],layer:"m",epoch:295124088},{id:"uttvu",zrange:[5,5],layer:"m",epoch:295039238},{id:"uttvv",zrange:[5,5],layer:"m",epoch:295124088},{id:"uttvw",zrange:[5,5],layer:"m",epoch:295006369},{id:"uttwt",zrange:[5,5],layer:"m",epoch:295039238},{id:"uttwv",zrange:[5,5],layer:"m",epoch:295000000},{id:"utvt",zrange:[5,5],layer:"m",epoch:295000000},{id:"utvut",zrange:[5,5],layer:"m",epoch:295000000},{id:"utvuv",zrange:[5,5],layer:"m",epoch:295000000},{id:"utvvt",zrange:[5,5],layer:"m",epoch:295004209},{id:"utvvu",zrange:[5,5],layer:"m",epoch:295004209},{id:"utvvv",zrange:[5,5],layer:"m",epoch:295124808},{id:"utvvw",zrange:[5,5],layer:"m",epoch:295124808},{id:"utvwt",zrange:[5,5],layer:"m",epoch:295000000},{id:"utvwv",zrange:[5,5],layer:"m",epoch:295000000},{id:"uvtt",zrange:[5,5],layer:"m",epoch:295124808},{id:"uvtut",zrange:[5,5],layer:"m",epoch:295124808},{id:"uvtuv",zrange:[5,5],layer:"m",epoch:295124808},{id:"uvtv",zrange:[5,5],layer:"m",epoch:295124808},{id:"uvtwt",zrange:[5,5],layer:"m",epoch:295124808},{id:"uvtwv",zrange:[5,5],layer:"m",epoch:295124808},{id:"uvvt",zrange:[5,5],layer:"m",epoch:295124808},{id:"uvvut",zrange:[5,5],layer:"m",epoch:295124808},{id:"uvvuv",zrange:[5,5],layer:"m",epoch:295124808}]}}]},panel:"\x3cdiv
+        id=\"resultspanel\" class=\"local\"\x3e  \x3cdiv class=\"noprint res\"\x3e  \x3c/div\x3e\x3cdiv
+        class=\"sp-error-msg\"\x3e\x3cp\x3eWe could not understand the location \x3cb\x3e\x3c/b\x3e\x3c/p\x3e\x3cp\x3eSuggestions:\x3c/p\x3e\x3cul  class=\"errortips\"\x3e\x3cli\x3eMake
+        sure all street and city names are spelled correctly.\x3c/li\x3e\x3cli\x3eMake
+        sure your address includes a city and state.\x3c/li\x3e\x3cli\x3eTry entering
+        a zip code.\x3c/li\x3e\x3c/ul\x3e\x3c/div\x3e\x3cdiv id=\"bottomads\" class=\"ads
+        noprint\" style=\"display:none\"\x3e\x3cdiv\x3e\x3cdiv class=\"adsmessage
+        v3\" id=\"bottomads_origin\"\x3eAd\x3c/div\x3e\x3cdiv id=\"bottomads_contents\"\x3e\x3c/div\x3e\x3cdiv
+        class=\"awpromo\"\x3e\x3ca href=\"//www.google.com/adwords/express/#utm_campaign=en\x26utm_medium=et\x26utm_source=us-en-et-awx-q411-maps-syah\x26utm_content=us-en-et-awx-q411-maps-syah\"
+        target=\"_blank\"\x3eSee your ad here\x26nbsp;\x26raquo;\x3c/a\x3e\x3c/div\x3e\x3c/div\x3e\x3c/div\x3e\x3cdiv
+        class=\"lhsf rmi-rpl-k gmnoprint\" jsattrs=\"class.rmi-base-k?panel_footer.anchor_footer;\"
+        id=\"lhsf\"\x3e \x3cdiv class=\"rmi-rpl-top secondary\"\x3e \x3ca jsdisplay=\"panel_footer.report_action\"
+        href=\"javascript:void(0)\" jsattrs=\"jsaction:panel_footer.report_action;id?panel_footer.is_basepage;id:''suck_lhp_link'';\"
+        style=\"display:none\"\x3e Report a problem\x3c/a\x3e \x3cspan jsdisplay=\"panel_footer.report_action\"
+        jsattrs=\"id?panel_footer.is_basepage;id:''suck_lhp_sep'';\" style=\"display:none\"\x3e
+        - \x3c/span\x3e \x3ca href=\"javascript:void(0)\" jsaction=\"ml.openDialog\"\x3e
+        Maps Labs\x3c/a\x3e \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://maps.google.com/support?hl=en\"
+        jsattrs=\"href:panel_footer.help_url;\"\x3e Help\x3c/a\x3e \x3c/div\x3e \x3cdiv
+        class=\"rmi-rpl-bottom secondary\"\x3e \x3cspan\x3eGoogle Maps \x3c/span\x3e
+        \x3cspan\x3e\x3c/span\x3e \x3cspan jscontent=\"panel_footer.country_msg\"
+        jsvars=\"__new_dir:bidiDir(panel_footer.country_msg);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
+        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x3c/span\x3e \x3cspan\x3e\x3c/span\x3e
+        \x3cspan\x3e - \x3c/span\x3e \x3cspan jscontent=\"raw:panel_footer.copyright\"
+        jsvars=\"__new_dir:bidiDir(panel_footer.copyright);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
+        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x26#169;2015 Google\x3c/span\x3e
+        \x3cspan\x3e\x3c/span\x3e \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/help/terms_maps.html\"
+        jsattrs=\"href:panel_footer.terms_url;\" target=\"_blank\"\x3e Terms of Use\x3c/a\x3e
+        \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/policies/privacy/\"
+        jsattrs=\"href:panel_footer.privacy_url;\" target=\"_blank\"\x3e Privacy\x3c/a\x3e
+        \x3c/div\x3e \x3c/div\x3e\x3c/div\x3e",panelId:0,sign_in_url:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=http://maps.google.com/maps%3Fq%3DHotel%2BCentury%2BSouthern%2BTower%26near%3DShibuya,%2BTokyo%2BPrefecture%26ie%3DUTF8%26hq%3D%26hnear%3D%26num%3D10",is_details_req:false,dopts:{dtm:"d",atms:["d","r","w","b"],ddu:"m",transit:{hts:true,tmos:["now","dep","arr"],tm:{d:"now"},date:{},time:{v:"utc:1426802940"},sos:["def","num","walk"],st:{d:"def"},ne:{h:true},na:{h:true},ptmos:["","B","S","T","R"]}},slayers_trigger:false,timeformat:{ampm:true,dp:"mdy"},activityType:1,panel_modules:["pplhs"],page_conf:{topbar_config:{show_panel_toggler:true,directions_url:"javascript:void(0)",show_directions_link:true,startcol_only:true,show_my_places_link:true,my_places_url:"javascript:void(0)",enabled_kennedy_ui:true},panel_display:true}}'
     http_version: 
-  recorded_at: Tue, 17 Mar 2015 00:04:53 GMT
-- request:
-    method: get
-    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=35.68652,139.700409&query=Hotel%20Century%20Southern%20Tower&v=20150317&venuePhotos=1
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Wed, 18 Mar 2015 06:21:12 GMT
-      Server:
-      - nginx
-      Content-Type:
-      - application/json; charset=utf-8
-      Access-Control-Allow-Origin:
-      - "*"
-      Tracer-Time:
-      - '219'
-      X-Ratelimit-Limit:
-      - '5000'
-      X-Ratelimit-Remaining:
-      - '4676'
-      Strict-Transport-Security:
-      - max-age=864000
-      X-Ex:
-      - fastly_cdn
-      Accept-Ranges:
-      - bytes
-      Via:
-      - 1.1 varnish
-      X-Served-By:
-      - cache-dfw1824-DFW
-      X-Cache:
-      - MISS
-      X-Cache-Hits:
-      - '0'
-      Vary:
-      - Accept-Encoding,User-Agent,Accept-Language
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eyJtZXRhIjp7ImNvZGUiOjIwMH0sInJlc3BvbnNlIjp7Indhcm5pbmciOnsi
-        dGV4dCI6IlRoZXJlIGFyZW4ndCBhIGxvdCBvZiByZXN1bHRzIGZvciBcIkhv
-        dGVsIENlbnR1cnkgU291dGhlcm4gVG93ZXIuXCIgVHJ5IHNvbWV0aGluZyBt
-        b3JlIGdlbmVyYWwsIHJlc2V0IHlvdXIgZmlsdGVycywgb3IgZXhwYW5kIHRo
-        ZSBzZWFyY2ggYXJlYS4ifSwic3VnZ2VzdGVkUmFkaXVzIjoxODAwLCJoZWFk
-        ZXJMb2NhdGlvbiI6Ik5pc2hpc2hpbmp1a3UiLCJoZWFkZXJGdWxsTG9jYXRp
-        b24iOiJOaXNoaXNoaW5qdWt1LCBUb2t5byIsImhlYWRlckxvY2F0aW9uR3Jh
-        bnVsYXJpdHkiOiJuZWlnaGJvcmhvb2QiLCJxdWVyeSI6ImhvdGVsIGNlbnR1
-        cnkgc291dGhlcm4gdG93ZXIiLCJ0b3RhbFJlc3VsdHMiOjEsInN1Z2dlc3Rl
-        ZEJvdW5kcyI6eyJuZSI6eyJsYXQiOjM1LjY4Nzg5NjIyODc4NjI4NiwibG5n
-        IjoxMzkuNjk3Mjk2MDc1NjI4MTd9LCJzdyI6eyJsYXQiOjM1LjY4NTE5NjU2
-        OTAwMDg0LCJsbmciOjEzOS43MDM2MTA0ODcxNzd9fSwiZ3JvdXBzIjpbeyJ0
-        eXBlIjoiUmVjb21tZW5kZWQgUGxhY2VzIiwibmFtZSI6InJlY29tbWVuZGVk
-        IiwiaXRlbXMiOlt7InJlYXNvbnMiOnsiY291bnQiOjAsIml0ZW1zIjpbeyJz
-        dW1tYXJ5IjoiVGhpcyBzcG90IGlzIHBvcHVsYXIiLCJ0eXBlIjoiZ2VuZXJh
-        bCIsInJlYXNvbk5hbWUiOiJnbG9iYWxJbnRlcmFjdGlvblJlYXNvbiJ9XX0s
-        InZlbnVlIjp7ImlkIjoiNGI2MTFiMDdmOTY0YTUyMGU2MDkyYWUzIiwibmFt
-        ZSI6IuWwj+eUsOaApSDjg5vjg4bjg6sg44K744Oz44OB44Ol44Oq44O8IOOC
-        teOCtuODs+OCv+ODr+ODvCAoSG90ZWwgQ2VudHVyeSBTb3V0aGVybiBUb3dl
-        cikiLCJjb250YWN0Ijp7InBob25lIjoiKzgxMzUzNTQwMTExIiwiZm9ybWF0
-        dGVkUGhvbmUiOiIrODEgMy01MzU0LTAxMTEifSwibG9jYXRpb24iOnsiYWRk
-        cmVzcyI6IuS7o+OAheacqDItMi0xIiwibGF0IjozNS42ODY1NDYzOTg4OTM1
-        NiwibG5nIjoxMzkuNzAwNDUzMjgxNDAyNiwiZGlzdGFuY2UiOjQsInBvc3Rh
-        bENvZGUiOiIxNTEtODU4MyIsImNjIjoiSlAiLCJjaXR5Ijoi5riL6LC35Yy6
-        Iiwic3RhdGUiOiLmnbHkuqzpg70iLCJjb3VudHJ5Ijoi5pel5pysIiwiZm9y
-        bWF0dGVkQWRkcmVzcyI6WyLku6PjgIXmnKgyLTItMSIsIua4i+iwt+WMuiwg
-        5p2x5Lqs6YO9IiwiMTUxLTg1ODMiLCLml6XmnKwiXX0sImNhdGVnb3JpZXMi
-        Olt7ImlkIjoiNGJmNThkZDhkNDg5ODhkMWZhOTMxNzM1IiwibmFtZSI6Ikhv
-        dGVsIiwicGx1cmFsTmFtZSI6IkhvdGVscyIsInNob3J0TmFtZSI6IkhvdGVs
-        IiwiaWNvbiI6eyJwcmVmaXgiOiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9p
-        bWdcL2NhdGVnb3JpZXNfdjJcL3RyYXZlbFwvaG90ZWxfIiwic3VmZml4Ijoi
-        LnBuZyJ9LCJwcmltYXJ5Ijp0cnVlfV0sInZlcmlmaWVkIjpmYWxzZSwic3Rh
-        dHMiOnsiY2hlY2tpbnNDb3VudCI6NTI1OSwidXNlcnNDb3VudCI6MTk0MCwi
-        dGlwQ291bnQiOjIwfSwidXJsIjoiaHR0cDpcL1wvd3d3LnNvdXRoZXJudG93
-        ZXIuY28uanAiLCJyYXRpbmciOjcuNywicmF0aW5nQ29sb3IiOiJDNURFMzUi
-        LCJyYXRpbmdTaWduYWxzIjoyOSwiaG91cnMiOnsic3RhdHVzIjoiT3BlbiIs
-        ImlzT3BlbiI6dHJ1ZX0sInNwZWNpYWxzIjp7ImNvdW50IjowLCJpdGVtcyI6
-        W119LCJwaG90b3MiOnsiY291bnQiOjI4OSwiZ3JvdXBzIjpbeyJ0eXBlIjoi
-        dmVudWUiLCJuYW1lIjoiVmVudWUgcGhvdG9zIiwiY291bnQiOjI4OSwiaXRl
-        bXMiOlt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRl
-        ZEF0IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3Fp
-        Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThR
-        aHI0S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgi
-        OjYxMiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmly
-        c3ROYW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1h
-        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQ
-        NVI1WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19XX0sImhl
-        cmVOb3ciOnsiY291bnQiOjAsInN1bW1hcnkiOiJOb2JvZHkgaGVyZSIsImdy
-        b3VwcyI6W119LCJmZWF0dXJlZFBob3RvcyI6eyJjb3VudCI6MSwiaXRlbXMi
-        Olt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRlZEF0
-        IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThRaHI0
-        S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgiOjYx
-        MiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmlyc3RO
-        YW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1hbGUi
-        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwv
-        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQNVI1
-        WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19fSwiZmxhZ3Mi
-        OnsiZXhhY3RNYXRjaCI6dHJ1ZX0sInRpcHMiOlt7ImlkIjoiNGVhZWI2ZGM3
-        ZWU1OWYxNjA5NzhmNDU0IiwiY3JlYXRlZEF0IjoxMzIwMDcyOTI0LCJ0ZXh0
-        IjoiMjDpmo7vvJ/jga7jg4jjgqTjg6zjga7opovmmbTjgonjgZfjgYzjgYvj
-        garjgoroia/pgY7jgY7jgovjgIIiLCJ0eXBlIjoidXNlciIsImNhbm9uaWNh
-        bFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGVhZWI2
-        ZGM3ZWU1OWYxNjA5NzhmNDU0IiwibGlrZXMiOnsiY291bnQiOjYsImdyb3Vw
-        cyI6W10sInN1bW1hcnkiOiI2IGxpa2VzIn0sImxvZ1ZpZXciOnRydWUsInRv
-        ZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNTk5MjY4MSIsImZpcnN0
-        TmFtZSI6Ikhha2EiLCJsYXN0TmFtZSI6IkdhdSByYXUiLCJnZW5kZXIiOiJt
-        YWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5u
-        ZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC81OTkyNjgxLUMzNVBXS1JL
-        TUxaUVhQS1kuanBnIn19fV0sInJlZmVycmFsSWQiOiJlLTAtNGI2MTFiMDdm
-        OTY0YTUyMGU2MDkyYWUzLTAifV19XX19
-    http_version: 
-  recorded_at: Wed, 18 Mar 2015 06:21:12 GMT
-- request:
-    method: get
-    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=35.68652,139.700409&query=Hotel%20Century%20Southern%20Tower&v=20150318&venuePhotos=1
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Wed, 18 Mar 2015 19:43:55 GMT
-      Server:
-      - nginx
-      Content-Type:
-      - application/json; charset=utf-8
-      Access-Control-Allow-Origin:
-      - "*"
-      Tracer-Time:
-      - '195'
-      X-Ratelimit-Limit:
-      - '5000'
-      X-Ratelimit-Remaining:
-      - '4863'
-      Strict-Transport-Security:
-      - max-age=864000
-      X-Ex:
-      - fastly_cdn
-      Accept-Ranges:
-      - bytes
-      Via:
-      - 1.1 varnish
-      X-Served-By:
-      - cache-sjc3131-SJC
-      X-Cache:
-      - MISS
-      X-Cache-Hits:
-      - '0'
-      Vary:
-      - Accept-Encoding,User-Agent,Accept-Language
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eyJtZXRhIjp7ImNvZGUiOjIwMH0sInJlc3BvbnNlIjp7Indhcm5pbmciOnsi
-        dGV4dCI6IlRoZXJlIGFyZW4ndCBhIGxvdCBvZiByZXN1bHRzIGZvciBcIkhv
-        dGVsIENlbnR1cnkgU291dGhlcm4gVG93ZXIuXCIgVHJ5IHNvbWV0aGluZyBt
-        b3JlIGdlbmVyYWwsIHJlc2V0IHlvdXIgZmlsdGVycywgb3IgZXhwYW5kIHRo
-        ZSBzZWFyY2ggYXJlYS4ifSwic3VnZ2VzdGVkUmFkaXVzIjoxODAwLCJoZWFk
-        ZXJMb2NhdGlvbiI6Ik5pc2hpc2hpbmp1a3UiLCJoZWFkZXJGdWxsTG9jYXRp
-        b24iOiJOaXNoaXNoaW5qdWt1LCBUb2t5byIsImhlYWRlckxvY2F0aW9uR3Jh
-        bnVsYXJpdHkiOiJuZWlnaGJvcmhvb2QiLCJxdWVyeSI6ImhvdGVsIGNlbnR1
-        cnkgc291dGhlcm4gdG93ZXIiLCJ0b3RhbFJlc3VsdHMiOjEsInN1Z2dlc3Rl
-        ZEJvdW5kcyI6eyJuZSI6eyJsYXQiOjM1LjY4Nzg5NjIyODc4NjI4NiwibG5n
-        IjoxMzkuNjk3Mjk2MDc1NjI4MTd9LCJzdyI6eyJsYXQiOjM1LjY4NTE5NjU2
-        OTAwMDg0LCJsbmciOjEzOS43MDM2MTA0ODcxNzd9fSwiZ3JvdXBzIjpbeyJ0
-        eXBlIjoiUmVjb21tZW5kZWQgUGxhY2VzIiwibmFtZSI6InJlY29tbWVuZGVk
-        IiwiaXRlbXMiOlt7InJlYXNvbnMiOnsiY291bnQiOjAsIml0ZW1zIjpbeyJz
-        dW1tYXJ5IjoiVGhpcyBzcG90IGlzIHBvcHVsYXIiLCJ0eXBlIjoiZ2VuZXJh
-        bCIsInJlYXNvbk5hbWUiOiJnbG9iYWxJbnRlcmFjdGlvblJlYXNvbiJ9XX0s
-        InZlbnVlIjp7ImlkIjoiNGI2MTFiMDdmOTY0YTUyMGU2MDkyYWUzIiwibmFt
-        ZSI6IuWwj+eUsOaApSDjg5vjg4bjg6sg44K744Oz44OB44Ol44Oq44O8IOOC
-        teOCtuODs+OCv+ODr+ODvCAoSG90ZWwgQ2VudHVyeSBTb3V0aGVybiBUb3dl
-        cikiLCJjb250YWN0Ijp7InBob25lIjoiKzgxMzUzNTQwMTExIiwiZm9ybWF0
-        dGVkUGhvbmUiOiIrODEgMy01MzU0LTAxMTEifSwibG9jYXRpb24iOnsiYWRk
-        cmVzcyI6IuS7o+OAheacqDItMi0xIiwibGF0IjozNS42ODY1NDYzOTg4OTM1
-        NiwibG5nIjoxMzkuNzAwNDUzMjgxNDAyNiwiZGlzdGFuY2UiOjQsInBvc3Rh
-        bENvZGUiOiIxNTEtODU4MyIsImNjIjoiSlAiLCJjaXR5Ijoi5riL6LC35Yy6
-        Iiwic3RhdGUiOiLmnbHkuqzpg70iLCJjb3VudHJ5Ijoi5pel5pysIiwiZm9y
-        bWF0dGVkQWRkcmVzcyI6WyLku6PjgIXmnKgyLTItMSIsIua4i+iwt+WMuiwg
-        5p2x5Lqs6YO9IiwiMTUxLTg1ODMiLCLml6XmnKwiXX0sImNhdGVnb3JpZXMi
-        Olt7ImlkIjoiNGJmNThkZDhkNDg5ODhkMWZhOTMxNzM1IiwibmFtZSI6Ikhv
-        dGVsIiwicGx1cmFsTmFtZSI6IkhvdGVscyIsInNob3J0TmFtZSI6IkhvdGVs
-        IiwiaWNvbiI6eyJwcmVmaXgiOiJodHRwczpcL1wvc3MzLjRzcWkubmV0XC9p
-        bWdcL2NhdGVnb3JpZXNfdjJcL3RyYXZlbFwvaG90ZWxfIiwic3VmZml4Ijoi
-        LnBuZyJ9LCJwcmltYXJ5Ijp0cnVlfV0sInZlcmlmaWVkIjpmYWxzZSwic3Rh
-        dHMiOnsiY2hlY2tpbnNDb3VudCI6NTI2MCwidXNlcnNDb3VudCI6MTk0MCwi
-        dGlwQ291bnQiOjIwfSwidXJsIjoiaHR0cDpcL1wvd3d3LnNvdXRoZXJudG93
-        ZXIuY28uanAiLCJyYXRpbmciOjcuNywicmF0aW5nQ29sb3IiOiJDNURFMzUi
-        LCJyYXRpbmdTaWduYWxzIjoyOSwiaG91cnMiOnsic3RhdHVzIjoiT3BlbiIs
-        ImlzT3BlbiI6dHJ1ZX0sInNwZWNpYWxzIjp7ImNvdW50IjowLCJpdGVtcyI6
-        W119LCJwaG90b3MiOnsiY291bnQiOjI4OSwiZ3JvdXBzIjpbeyJ0eXBlIjoi
-        dmVudWUiLCJuYW1lIjoiVmVudWUgcGhvdG9zIiwiY291bnQiOjI4OSwiaXRl
-        bXMiOlt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRl
-        ZEF0IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3Fp
-        Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThR
-        aHI0S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgi
-        OjYxMiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmly
-        c3ROYW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1h
-        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQ
-        NVI1WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19XX0sImhl
-        cmVOb3ciOnsiY291bnQiOjAsInN1bW1hcnkiOiJOb2JvZHkgaGVyZSIsImdy
-        b3VwcyI6W119LCJmZWF0dXJlZFBob3RvcyI6eyJjb3VudCI6MSwiaXRlbXMi
-        Olt7ImlkIjoiNGY4YTQ3NjNlNGIwMDg5ZGU5YmFmNDBhIiwiY3JlYXRlZEF0
-        IjoxMzM0NDYyMzA3LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5l
-        dFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL2wwbnpMMm40ZThRaHI0
-        S2w3NGxLb09LeXljN0ZobmIwRVphNVF3NkxhcXMuanBnIiwid2lkdGgiOjYx
-        MiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQiOiI2ODg5MzI1IiwiZmlyc3RO
-        YW1lIjoiSm9vbiIsImxhc3ROYW1lIjoiUGFyayIsImdlbmRlciI6Im1hbGUi
-        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwv
-        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzY4ODkzMjUtTUhRVUlJUVFQNVI1
-        WlIzTC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifV19fSwiZmxhZ3Mi
-        OnsiZXhhY3RNYXRjaCI6dHJ1ZX0sInRpcHMiOlt7ImlkIjoiNGVhZWI2ZGM3
-        ZWU1OWYxNjA5NzhmNDU0IiwiY3JlYXRlZEF0IjoxMzIwMDcyOTI0LCJ0ZXh0
-        IjoiMjDpmo7vvJ/jga7jg4jjgqTjg6zjga7opovmmbTjgonjgZfjgYzjgYvj
-        garjgoroia/pgY7jgY7jgovjgIIiLCJ0eXBlIjoidXNlciIsImNhbm9uaWNh
-        bFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGVhZWI2
-        ZGM3ZWU1OWYxNjA5NzhmNDU0IiwibGlrZXMiOnsiY291bnQiOjYsImdyb3Vw
-        cyI6W10sInN1bW1hcnkiOiI2IGxpa2VzIn0sImxvZ1ZpZXciOnRydWUsInRv
-        ZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNTk5MjY4MSIsImZpcnN0
-        TmFtZSI6Ikhha2EiLCJsYXN0TmFtZSI6IkdhdSByYXUiLCJnZW5kZXIiOiJt
-        YWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5u
-        ZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC81OTkyNjgxLUMzNVBXS1JL
-        TUxaUVhQS1kuanBnIn19fV0sInJlZmVycmFsSWQiOiJlLTAtNGI2MTFiMDdm
-        OTY0YTUyMGU2MDkyYWUzLTAifV19XX19
-    http_version: 
-  recorded_at: Wed, 18 Mar 2015 19:43:55 GMT
+  recorded_at: Thu, 19 Mar 2015 22:09:47 GMT
 recorded_with: VCR 2.9.3

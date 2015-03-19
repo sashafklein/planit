@@ -25,6 +25,8 @@ gem "nokogiri"
 gem "font-awesome-sass"
 gem "image_size"
 gem "simple_form"
+gem "elasticsearch-rails"
+gem "elasticsearch-model"
 
 gem "haml-rails"
 gem "geocoder"

@@ -27,8 +27,8 @@ module Directories
     end
 
     def get_city_country(city)
-      city = cities.find do |name, country|
-        city.downcase.match /#{name}/
+      city = cities.find do |name, hash|
+        city.downcase.match /(?:#{name}|#{hash[:no_accent].downcase}|#{hash[:accented].downcase})/
       end
       city ? city.last[:country] : nil
     end

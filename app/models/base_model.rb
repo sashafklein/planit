@@ -5,6 +5,7 @@ class BaseModel < ActiveRecord::Base
   include MetaExt::ArrayAccessor
   include MetaExt::JsonAccessor
   include MetaExt::Polymorphism
+  include MetaExt::Searchable
 
   # scope :in_last_months, -> (months) { where("#{self.class.to_s.pluralize}.created_at" > ?', months.months.ago) }
 

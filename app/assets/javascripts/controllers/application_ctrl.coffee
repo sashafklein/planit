@@ -1,5 +1,5 @@
 mod = angular.module('Controllers')
-mod.controller "ApplicationCtrl", ($scope, ClickControls, SearchBar, Collapsibles, QueryString, Bootstrap, UserLocation, Filters, Flashes, $rootScope) ->
+mod.controller "ApplicationCtrl", ($scope, ClickControls, Collapsibles, Bootstrap, UserLocation, Filters, Flashes, $rootScope) ->
 
   # Universal to all users/non-users
 
@@ -11,5 +11,4 @@ mod.controller "ApplicationCtrl", ($scope, ClickControls, SearchBar, Collapsible
   # if Current_User_Is_Active
 
   ClickControls.initializePage()
-  SearchBar.initializePage()
   Filters.initializePage()

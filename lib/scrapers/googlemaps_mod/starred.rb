@@ -49,7 +49,9 @@ module Scrapers
           if each_link[:text].include?("El Coro Lounge Bar")
           end
           if each_link[:href].include?("?cid=")
-            processed_array << google_clear_cid_hash(each_link)
+            cid = each_link[:href].scan(/[?]cid[=](.*?)[&]/).flatten.first
+            new_link = { text: each_link[:text], href: "https://maps.google.com/maps?cid=#{ cid }&ie=UTF8&hq=&hnear=&output=json" }
+            processed_array << google_clear_cid_hash(new_link)
           elsif latlon = each_link[:href].scan(/(?:\/\?q=|maps\?q=)([-]?\d+\.\d+[,][-]?\d+\.\d+)(?:[&]|\Z)/).flatten.first
             # IF GOOGLE LINK PROVIDES LAT/LON AS IS
             if !each_link[:text].scan(/[-.,0-9 ]*/).flatten.first # no result if only lat/lon
