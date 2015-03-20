@@ -6,7 +6,7 @@
     .expanded-search-and-filter
       .search-bar-wrap
         .input-group
-          %input.form-control.input-with-clear#search-input-field{ name: "input-search", placeholder: "Search Places", type: "text", ng_model: 'query', ng_change: 'search()' }
+          %input.form-control.input-with-clear#search-input-field{ name: "input-search", placeholder: "Search Places", type: "text", ng_model: 'query', ng_change: 'search()', ng_keydown: "handleKeydown($event)" }
           %span.clear-input-button#clear-search-input{ ng_show: 'query', ng_click: 'clearSearch()' } 
             %i.fa.fa-times-circle
           %span.input-group-btn
@@ -15,7 +15,7 @@
         .place-search-results{ ng_if: 'places.length' }
           %ul
             .search-results-container
-              %li{ ng_repeat: 'place in places' }
+              %li{ ng_repeat: 'place in places', ng_mouseenter: 'selectPlace(place)', ng_mouseleave: 'deselectPlace()', ng_class: '{highlighted: currentPlaceId == place.viewId}' }
                 .bucket-list-tab
                   %a{ ng_href: '{{place.href}}' }
                     .bucket-list-no-img{ ng_if: "!place.image_url" }

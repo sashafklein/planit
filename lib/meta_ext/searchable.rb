@@ -1,7 +1,7 @@
 module MetaExt
   module Searchable
     module ClassMethods
-      def elastic_searchable(columns_and_weights: [])
+      def elastic_searchable(columns_and_weights: [], fuzziness: 'AUTO')
         include Elasticsearch::Model
 
         import
@@ -14,7 +14,8 @@ module MetaExt
                 query: {
                   multi_match: {
                     query: query,
-                    fields: columns_and_weights
+                    fields: columns_and_weights,
+                    fuzziness: fuzziness
                   }
                 }
               }
