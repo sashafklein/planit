@@ -18,6 +18,9 @@ mod.factory "Place", (BaseModel, BasicOperators, $http) ->
       return area
 
     @search: (query) -> $http.get("#{@basePath}/search", { params: { q: query } } )
+    @complete: (obj) -> 
+      $http.post "/api/v1/users/#{obj.user_id}/marks/create", 
+        mark: { place: { name: obj.name, nearby: obj.nearby } }
 
     url: -> "/places/#{@id}"
     name: -> @names[0]
@@ -27,5 +30,4 @@ mod.factory "Place", (BaseModel, BasicOperators, $http) ->
     @_locality = (places) -> _(places).map('locality').compact().uniq().value()
     @_region = (places) -> _(places).map('region').compact().uniq().value()
     @_country = (places) -> _(places).map('country').compact().uniq().value()
-
   return Place

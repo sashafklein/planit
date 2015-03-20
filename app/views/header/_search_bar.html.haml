@@ -2,5 +2,5 @@
   - if show_filter?(page_type)
     = render 'header/dropdowns/places_filter', { user: user } if page_type == 'places'
     = render 'header/dropdowns/guides_filter', { user: user } if page_type == 'guides'
-  %full_site_search_field{ show_filter: show_filter?(page_type) }
+  %full_site_search_field{ show_filter: show_filter?(page_type), user_id: current_user_id }
   = render 'templates/full_site_search_field'

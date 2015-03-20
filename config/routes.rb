@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
 
+      resources :errors, only: [:create]
       resources :allowable_sites, only: [] do
         match '/test' => 'allowable_sites#test', on: :collection, via: [:options, :get]
       end

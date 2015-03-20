@@ -22,6 +22,11 @@ class AdminMailer < ActionMailer::Base
     mail_no_layout({subject: "New Planit #{user.role.capitalize} Sign up!", content: "<ul>#{list}</ul>"})
   end
 
+  def report_error(details)
+    @details = details
+    mail( subject: "An error occurred!" )
+  end
+
   private
 
   def mail_no_layout(subject:, content: '', overrides: {})
