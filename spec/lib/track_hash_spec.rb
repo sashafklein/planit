@@ -23,7 +23,7 @@ describe TrackHash do
         lat: { val: @attrs[:lat], source: 'First' },
         names: [{ val: @attrs[:names], source: 'First' }],
         phones:[{ val: @attrs[:phones],source: 'First' }],
-      }, [:feature_type])
+      }, [:feature_type, :published])
     end
 
     it "lets you set instance variable pairs" do

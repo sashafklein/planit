@@ -154,7 +154,7 @@ module Completers
           expect( p.extra['ratings'] ).to be_present
 
           expect( p.sublocality ).to eq("Brooklyn")
-          expect( p.categories ).to eq ["Attraction", "Museum", "Performing Arts Venue", "General Entertainment"]
+          expect( p.categories ).to eq ["Attraction", "Beach", "Theme Park"]
           i = m.items.first
           expect( i.plan.name ).to eq "New York City Guide"
 
@@ -306,6 +306,15 @@ module Completers
 
         end
 
+        describe "hiding private places" do
+          it "marks an AirBNB place as private" do
+            m = completed_data(filename: 'reservation', scrape_url: "https://www.airbnb.com/reservation/itinerary?code=ZBCAT4")
+
+            p = m.place
+            expect( p.published ).to eq false
+          end
+        end
+
         describe "fixed" do
 
           it "completes Quiebra-Canto" do
@@ -316,6 +325,7 @@ module Completers
             p = m.place
             expect( p.lat ).to float_eq 10.421883
             expect( p.lon ).to float_eq -75.547621
+            expect( p.published ).to eq true
           end
 
           it "completes La Mulata and El Mesón de María y Mulata" do
@@ -326,6 +336,7 @@ module Completers
             expect( p.lat ).to float_eq 10.419666
             expect( p.lon ).to float_eq -75.54787
             expect( p.locality ).to eq 'Cartagena De Indias'
+            expect( p.published ).to eq true
           end
 
           # Doesn't take Google cause of the language disagreement
@@ -337,6 +348,7 @@ module Completers
             expect( p.lat ).to float_eq 10.3833262
             expect( p.lon ).to float_eq -75.4675359
             expect( p.tz ).to eq 'America/Bogota'
+            expect( p.published ).to eq true
           end
 
           it "completes Bogotá Bike Tours" do
@@ -348,6 +360,7 @@ module Completers
             expect( p.lat ).to float_eq 4.5973219379763
             expect( p.lon ).to float_eq -74.0708756446838
             expect( p.sublocality ).to eq "La Candelaria"
+            expect( p.published ).to eq true
           end
 
           it "completes La Opera (HOTEL)" do
@@ -360,6 +373,7 @@ module Completers
             expect( p.lon ).to float_eq -74.075269
             expect( p.category ).to eq 'Hotel'
             expect( p.meta_category ).to eq 'Stay'
+            expect( p.published ).to eq true
           end
 
           it "completes Gold Museum" do
@@ -370,6 +384,7 @@ module Completers
             expect( p.names ).to include "Museo del Oro del Banco de la República"
             expect( p.lat ).to float_eq 4.601646
             expect( p.lon ).to float_eq -74.071975
+            expect( p.published ).to eq true
           end
 
           it "correctly locates Jardin Botanico Jose Celestino Mutis" do
@@ -381,6 +396,7 @@ module Completers
             expect( p.lon ).to float_eq -74.09898519515991
             expect( p.sublocality ).to eq "Engativá"
             expect( p.categories ).to array_eq ["Botanical Garden", "Garden"]
+            expect( p.published ).to eq true
           end
 
           it "correctly locates Botero Museum" do
@@ -395,6 +411,7 @@ module Completers
             expect( p.hours ).to be_present
             expect( p.website ).to eq "http://www.banrepcultural.org/museo-botero"
             expect( p.names ).to eq ["Botero Museum", "Café La Manzana (great Coffee Shop) Inside BOTERO Museum", "Donación Botero"]
+            expect( p.published ).to eq true
           end
 
           it "correctly locates Biblioteca Luis Ángel Arango" do

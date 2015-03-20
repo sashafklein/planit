@@ -19,6 +19,14 @@ class String
     base
   end
 
+  def cut_words(*words)
+    base = dup
+    words = words.first.is_a?(Array) ? words.first : words
+
+    words.each{ |w| base = base.gsub(%r{(\s|^)+#{w}(\s|$)}) { ($1.length > 0 && $2.length > 0) ? ' ' : '' } }
+    base
+  end
+
   def match_distance(string)
     return nil if non_latinate? || string.nil? || string.non_latinate?
     algorithm = FuzzyStringMatch::JaroWinkler.create( :native )

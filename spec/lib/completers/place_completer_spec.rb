@@ -27,7 +27,7 @@ module Completers
           expect( place.country ).to eq('Japan')
           expect( place.region ).to eq('Tokyo-to')
           expect( place.subregion ).to eq(nil)
-          expect( place.locality ).to eq('Shibuya-ku')
+          expect( place.locality ).to eq('Shinjuku-ku')
           expect( place.street_addresses ).to eq( ["代々木2-14-3", "2 Chome-１４−3 Yoyogi"] )
           expect( place.names ).to eq( ["Fuunji", "風雲児"] )
           expect( place.phones ).to eq(["81364138480"])
@@ -338,7 +338,7 @@ module Completers
           expect( place.extra.except(:google_place_url) ).to hash_eq({ rating: 5, rating_tier: '5 star', twitter: '@fuunjiIsTheShit' })
           expect( place.foursquare_id ).to eq "4b5983faf964a520ca8a28e3"
           expect( place.completion_steps ).to array_eq ["FoursquareExplore", "GoogleMaps", "FoursquareRefine", "TranslateAndRefine"]
-          expect( place.sublocality ).to eq "代々木" # Translate didn't give English Sublocality
+          expect( place.sublocality ).to eq "Kabukichō"
         end
       end
 

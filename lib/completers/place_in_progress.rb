@@ -22,7 +22,7 @@ module Completers
     end
 
     def place
-      Place.new(raw_attrs)
+      Place.new raw_attrs.to_h
     end
 
     def flag(name:, details: nil, info: nil)

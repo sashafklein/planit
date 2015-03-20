@@ -64,19 +64,20 @@ describe Api::V1::Users::MarksController, :vcr do
     context "single place" do
 
       let(:fuunji_url) { 'http://www.tripadvisor.com/Restaurant_Review-g1066456-d1679642-Reviews-Fuunji-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html' }
-      let(:fuunji_doc) { File.read File.join(File.join('spec', 'support', 'pages', 'tripadvisor', "fuunji.html")) } 
+      let(:fuunji_doc) { read('tripadvisor', "fuunji.html") } 
       
       it "sets CORS headers" do
         post :scrape, url: fuunji_url, page: fuunji_doc, user_id: @user.id
+
         expect(response.headers).to hash_eq(
           {
-            "X-XSS-Protection"=>"1; mode=block",
-            "X-Content-Type-Options"=>"nosniff",
-            "Access-Control-Allow-Origin"=>"*",
-            "Access-Control-Allow-Methods"=>"POST, GET, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers"=>"Origin, Content-Type, Accept, Authorization, Token, Data-Type, X-Requested-With",
-            "Access-Control-Max-Age"=>"1728000"
-          }, [], ['Content-Type']
+            "X-XSS-Protection" => "1; mode=block", 
+            "X-Content-Type-Options" => "nosniff", 
+            "Access-Control-Allow-Origin" => "*", 
+            "Access-Control-Allow-Methods" => "POST, GET, PUT, DELETE, OPTIONS", 
+            "Access-Control-Max-Age" => "1728000", 
+            "Content-Type" => "text/html"
+          }
         )
       end
 
@@ -115,8 +116,15 @@ describe Api::V1::Users::MarksController, :vcr do
         expect{
           post :scrape, url: 'http://www.tripadvisor.com/Hotel_Review-g1066456-d307326-Reviews-Hotel_Century_Southern_Tower-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html', page: read('tripadvisor', 'hotel_century_southern.html'), user_id: @user.id, delay: false
         }.to change{ Mark.count }.by 1
-        options = Mark.all.first.place_options
-        expect( options.first.name ).to include "Hotel Century Southern"
+
+        place = Mark.first.place
+        expect( place.name ).to include "Hotel Century Southern"
+        expect( place.country ).to eq "Japan"
+        expect( place.region ).to eq "Tokyo"
+        expect( place.locality ).to eq "Shibuya"
+        expect( place.lat ).to float_eq 35.68652
+        expect( place.lon ).to float_eq 139.70041
+        expect( place.website ).to eq "http://www.southerntower.co.jp/"
       end
 
       it "gets full data from 36 hours los cabos" do

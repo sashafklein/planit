@@ -61,21 +61,19 @@ module Completers
     end
 
     def lat
-      best_guess = marker.latlng.try(:lat)
-      return best_guess.to_f if best_guess
+      best_guess_lat = marker.latlng.try(:lat).try(:to_f)
+      scanned_lat = json_text.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=([-]?\d+\.\d+)\,[-]?\d+\.\d+/).flatten.first.try(:to_f)
+      viewport_lat = json.super_fetch(:viewport, :center, :lat).try(:to_f)
 
-      fetched_lat = json.super_fetch(:viewport, :center, :lat)
-      chosen_lat = (fetched_lat && fetched_lat != 0) ? fetched_lat : json_text.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=([-]?\d+\.\d+)\,[-]?\d+\.\d+/).flatten.first
-      chosen_lat.try(:to_f)
+      best_guess_lat || scanned_lat || viewport_lat
     end
 
     def lon
-      best_guess = marker.latlng.try(:lon)
-      return best_guess.to_f if best_guess
-
-      fetched_lon = json.super_fetch(:viewport, :center, :lng)
-      chosen_lon = (fetched_lon && fetched_lon != 0) ? fetched_lon : json_text.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=[-]?\d+\.\d+\,([-]?\d+\.\d+)/).flatten.first
-      chosen_lon.try(:to_f)
+      best_guess_lon = marker.latlng.try(:lon).try(:to_f)
+      scanned_lon = json_text.scan(/https[:]\/\/.*?\.google\.com\/cbk\?output[=]thumbnail.*?ll=[-]?\d+\.\d+\,([-]?\d+\.\d+)/).flatten.first.try(:to_f)
+      viewport_lon = json.super_fetch(:viewport, :center, :lng).try(:to_f)
+      
+      best_guess_lon || scanned_lon || viewport_lon
     end
 
     def extra

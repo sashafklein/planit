@@ -1,5 +1,7 @@
 class Place < BaseModel
 
+  boolean_accessor :published
+
   has_one :item
   has_many :marks, dependent: :destroy
   has_many_polymorphic table: :images, name: :imageable

@@ -22,11 +22,11 @@ class SuperHash < Hash
   end
 
   def except(*keys)
-    hash = dup
-    keys.each do |key|
-      hash = hash.reject{ |k, v| k == key.to_sym || k == key.to_s }
-    end
-    hash.to_sh
+    reject{ |k, v| keys.map(&:to_sym).include?(k.to_sym) }.to_sh
+  end
+
+  def only(*keys)
+    select{ |k, v| keys.map(&:to_sym).include?(k.to_sym) }.to_sh
   end
 
   def only(*keys)

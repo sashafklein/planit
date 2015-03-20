@@ -6,7 +6,7 @@ module Completers
 
       return response_hash unless venue.found?
       
-      update_location_basics( true )
+      update_location_basics( true , block_non_latinate: true)
       response_hash
     end
   end
