@@ -7,10 +7,15 @@ class Api::V1::Users::MarksController < ApiController
 
   def create
     return error(404, "User not found") unless @user
+    return permission_denied_error unless @user == current_user
     
-    completed = Completers::Completer.new(mark_params, @user).complete!
+    mark = Completers::Completer.new(mark_params, @user).complete!
 
-    render json: completed, serializer: TotalMarkSerializer
+    if mark
+      render json: mark, serializer: SearchMarkSerializer
+    else
+      error(500, "Bookmark completion failed.")
+    end
   end
 
   def scrape

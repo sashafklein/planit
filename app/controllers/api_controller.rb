@@ -20,6 +20,10 @@ class ApiController < ApplicationController
     render json: response.to_json, status: status
   end
 
+  def success
+    render json: { success: true }
+  end
+
   def default_serializer_options
     { root: false }
   end
