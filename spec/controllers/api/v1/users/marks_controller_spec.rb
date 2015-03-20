@@ -18,38 +18,40 @@ describe Api::V1::Users::MarksController, :vcr do
       expect{ post :create, mark: mark_params }.to raise_error
     end
 
-    it "successfully serializes a mark with its place, place's photos, and empty item array" do
+    it "successfully serializes a mark and responds with the mark and limited place" do
       expect(Completers::Completer).to receive(:new).and_call_original
+      sign_in @user
       post :create, mark: mark_params, user_id: @user.id
 
+      expect( response_body.href ).to eq "/marks/#{Mark.last.id}"
+
       place = response_body.place
-      expect( place.id ).to be_a Integer
-      expect( place.lat ).to be_within(0.001).of mark_params[:place][:lat]
-      expect( place.lon ).to be_within(0.001).of mark_params[:place][:lon]
-      expect( place.names ).to eq( [mark_params[:place][:name]] )
-      expect( place.locality ).to eq(mark_params[:place][:locality])
-      expect( place.region ).to eq("California") # Expanded
-      expect( place.street_addresses ).to eq( [mark_params[:place][:street_address]].map{ |a| a.gsub("St", "Street") } )
+      expect( place.id ).not_to be_nil
+      expect( place.name ).to eq "Contigo"
+      expect( place.image_url.length ).to be > 15
+      expect( place.image_source.length ).to be > 5
+      expect( place.address ).to eq "1320 Castro St (at 24th St), San Francisco, CA 94114, United States"
+      expect( place.href ).to eq "/places/#{place.id}"
+      expect( place.categories ).to eq ["Spanish Restaurant", "Tapas Restaurant", "Food"]
+      expect( place.meta_icon ).to eq "icon-local-restaurant"
+    end
 
-      expect( place.menu ).to eq( "https://foursquare.com/v/contigo/49c6bdfef964a52077571fe3/menu" )
-      expect( place.mobile_menu ).to eq( "https://foursquare.com/v/49c6bdfef964a52077571fe3/device_menu" )
-      expect( place.reservations ).to eq true
-      expect( place.reservations_link ).to eq 'http://www.opentable.com/single.aspx?rid=45052&ref=9601'
+    it "returns the mark (for linking) if it just got place options" do
+      sign_in @user
+      post :create, mark: { place: {name: "Alma", nearby: "Cartagena, Colombia"} }, user_id: @user.id
 
-      expect( place.hours ).to hash_eq({
-        "tue"=>[["1730", "2200"]], 
-        "wed"=>[["1730", "2200"]],
-        "thu"=>[["1730", "2200"]],
-        "fri"=>[["1730", "2200"]], 
-        "sat"=>[["1730", "2200"]], 
-        "sun"=>[["1730", "2130"]] 
-      })
-      expect( response_body.items.any? ).to eq false
+      expect( response_body.href ).to eq "/marks/#{Mark.last.id}"
+      expect( response_body.place ).to be_nil
+      expect( Mark.last.place_options.count ).to be > 0
+    end
 
-      img = place.images.find{ |i| i.url == "https://irs3.4sqi.net/img/general/#{Completers::ApiVenue::FoursquareExploreVenue::IMAGE_SIZE}/2261_a2HV5M7fSEIO1oiL0DHbvHMGdJ3xHEozUVUY0U5w0ag.jpg"}
-      expect( img.source ).to eq "Foursquare"
-
-      expect( response_body.user.email ).to eq @user.email
+    it "doesn't let you create if you're not a user or not the same user" do
+      post :create, mark: mark_params, user_id: @user.id
+      expect( response_body.error ).to eq true
+      
+      sign_in create(:user)
+      post :create, mark: mark_params, user_id: @user.id
+      expect( response_body.error ).to eq true
     end
   end
 
