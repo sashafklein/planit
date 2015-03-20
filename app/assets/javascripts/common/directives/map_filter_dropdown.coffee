@@ -36,8 +36,8 @@ mod.directive 'mapFilterDropdown', (QueryString, UserLocation) ->
         { slug: 'stay', name: 'Stay', icon: 'icon-home' }
         { slug: 'relax', name: 'Relax', icon: 'icon-drink' }
         { divider: true }
-        { slug: 'open', name: 'Open', icon: 'fa.fa-clock' }
-        { slug: 'wifi', name: 'Wifi', icon: 'fa.fa-wifi' }
+        { slug: 'open', name: 'Open Only', icon: 'fa.fa-clock' }
+        { slug: 'wifi', name: 'Wifi Only', icon: 'fa.fa-wifi' }
       ]
 
       s.clearFilters = () -> s.filters = {}

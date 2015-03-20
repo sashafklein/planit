@@ -78,6 +78,193 @@
   .bucket-list-profile
     height: 46px
 
+  ul
+    -webkit-padding-start: 0
+    padding: 0
+    margin: 0
+    background-color: #ccc
+    width: 352px
+  li
+    color: #000
+    height: 75px
+    margin: 0
+    padding: 3px
+    box-sizing: border-box
+    -moz-box-sizing: border-box
+    -webkit-box-sizing: border-box
+    background: #eee
+    &:hover, &.highlighted
+      background: #fff
+      .bucket-list-control
+        color: #ccc
+      .bucket-list-cluster-size
+        color: #fff
+        background: #000
+
+  .bucket-list-li + .bucket-list-li
+    margin-top: 1px
+
+  .bucket-list-container
+    width: 352px
+
+  .bucket-list-tab
+    display: block
+    height: 69px
+    overflow: hidden
+    vertical-align: top
+
+  .bucket-list-no-icon
+    display: inline-block
+    height: 69px
+    width: 69px
+    text-align: center
+    i
+      font-size: 23px
+      line-height: 69px
+
+  .bucket-list-img
+    display: inline-block
+    height: 69px
+    width: 69px
+    background-color: #ddd
+    background: no-repeat center center
+    -webkit-background-size: cover
+    -moz-background-size: cover
+    -o-background-size: cover
+    background-size: cover
+    text-align: center
+
+  .bucket-list-no-img
+    display: inline-block
+    height: 69px
+    width: 69px
+    background-color: #ccc
+    text-align: center
+
+  .bucket-list-wrap
+    display: inline-block
+    vertical-align: top
+    height: 69px
+    padding: 0 0 0 7px
+    margin: 0
+    overflow: hidden
+
+  .bucket-list-profile
+    display: block
+    vertical-align: top
+    width: auto
+    height: 46px
+    overflow: hidden
+
+  a.bucket-list-title
+    display: block
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-weight: bold
+    font-size: 15px
+    line-height: 19px
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap    
+    color: #003380 // dark blue
+    text-decoration: none
+    &:hover
+      color: #0047b3 // light blue
+      text-decoration: none
+
+  .bucket-list-more-info
+    display: block
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 13px
+    line-height: 15px
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+    i
+      color: #777
+      font-size: 13px
+      &.sm
+        font-size: 11px
+      &.xsm
+        font-size: 9px
+      &.pad-two-top
+        vertical-align: top
+        margin-top: 2px
+
+  .bucket-list-cluster-size
+    display: inline-block
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-size: 14px
+    font-weight: bold
+    color: #eee
+    background: #ff0066
+    padding: 2px 4px
+    border-radius: 2px
+    a, a:hover
+      color: #eee
+      background: #ff0066
+      text-decoration: none
+
+  .bucket-list-controls
+    display: block
+    position: relative
+    height: 23px
+    overflow: hidden
+    padding: 0
+    margin: 0
+    text-align: right
+    vertical-align: top
+
+  .bucket-list-control
+    display: inline-block
+    width: 23px
+    height: 23px
+    margin: 0
+    padding: 0
+    text-align: center
+    font-size: 18px
+    line-height: 23px
+    color: #eee
+    cursor: pointer
+    -webkit-transition: -webkit-transform 1s
+    transition: transform 1s
+    &:hover
+      i, a
+        color: #f06
+      .bucket-list-control-hint
+        display: inline-block
+        visibility: visible
+    &.disabled
+      i, a
+        color: #eee
+      &:hover
+        i
+          color: #eee
+        .bucket-list-control-hint
+          display: none
+          visibility: hidden
+    &.enabled
+      i, a
+        color: rgb(20, 35, 125)
+      
+    .bucket-list-control-hint
+      display: none
+      visibility: hidden
+      position: absolute
+      overflow: hidden
+      left: 0
+      top: 0
+      bottom: 0
+      margin: auto 0
+      color: #fff
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-size: 13px
+      font-weight: bold
+      border-radius: 3px
+      -webkit-border-radius: 3px
+      padding: 1px 4px
+      background: #ff0066
+
+>>>>>>> niko now working on maps
   #top-of-list
     height: 0
     width: 0

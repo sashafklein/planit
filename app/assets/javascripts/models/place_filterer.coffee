@@ -40,7 +40,7 @@ mod.factory 'PlaceFilterer', ($filter) ->
     _containsFilter: (collection, filter) -> _(collection).some( (val) -> val.toLowerCase().indexOf(filter) != -1 )
     
     _roundOut: (qHash) ->
-      newObj = _({ meta_categories: [], wifi: '', open: '', been: '', loved: '' }).extend(qHash).value()
+      newObj = _({ meta_categories: [], wifi: null, open: null, been: null, loved: null }).extend(qHash).value()
 
       if newObj.f
         for val in newObj.f.split(",")

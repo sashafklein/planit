@@ -15,6 +15,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
     # - Side bar scroll
     # - Remove reusable stuff into more general directives (or rename?)
     # - Use m to choose start bounds
+    # - Clusters sorted by size
     # - Filter can make places in view disappear?
     link: (s, elem) ->
       s.marker = new PlanitMarker(s)
@@ -152,8 +153,9 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
         return location
       
       s.$on '$locationChangeSuccess', (event, next) -> 
-        s._filterPlaces()
-        $timeout( s.recalculateInView, 200 )
+        if s.allPlaces?.length
+          s._filterPlaces()
+          $timeout( s.recalculateInView, 200 )
 
       # INIT
       window.s = s
