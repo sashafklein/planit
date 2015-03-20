@@ -16,10 +16,7 @@ module Completers
     def get_venues(given_url=nil, text=nil)
       json_text = open( given_url || url ).read[/{.+}/]
       json = eval( json_text ).to_sh
-<<<<<<< HEAD
-      
-=======
->>>>>>> GoogleMaps only double-searches (with reduced query) if first query doesn't work; Translate won't override if it's foreign
+
       markers = json.super_fetch(:overlays, :markers) || []
 
       markers.map do |marker|
@@ -60,13 +57,8 @@ module Completers
       venue ? venue.images.map{ |i| Image.new( source: i.credit, source_url: i.source, url: i.url ) } : []
     end
 
-<<<<<<< HEAD
-    def url
-      URI.escape("https://maps.google.com/maps?q=#{query}&ie=UTF8&hq=&hnear=&output=json").to_s
-=======
     def url(q=nil)
       URI.escape("https://www.google.com/maps?q=#{q || query}&output=json").to_s
->>>>>>> GoogleMaps only double-searches (with reduced query) if first query doesn't work; Translate won't override if it's foreign
     end
 
     def query
