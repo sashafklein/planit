@@ -45,9 +45,6 @@ GEM
     acts-as-taggable-on (3.4.4)
       activerecord (>= 3.2, < 5)
     addressable (2.3.6)
-    airbrake (4.1.0)
-      builder
-      multi_json
     arel (6.0.0)
     autoprefixer-rails (5.0.0.3)
       execjs
@@ -299,6 +296,8 @@ GEM
     request_store (1.1.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    rollbar (1.4.4)
+      multi_json (~> 1.3)
     rspec-core (3.1.7)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.2)
@@ -381,7 +380,6 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   acts-as-taggable-on
-  airbrake
   autoprefixer-rails
   awesome_print
   better_errors
@@ -436,6 +434,7 @@ DEPENDENCIES
   rails-assets-lodash!
   rails_12factor
   recipient_interceptor
+  rollbar
   rspec-rails
   sass-rails
   selenium-webdriver

@@ -3,7 +3,7 @@ source "https://rails-assets.org"
 
 ruby "2.2.0"
 
-gem "airbrake"
+gem "rollbar"
 gem "bourbon"
 gem "coffee-rails"
 gem "delayed_job_active_record"
@@ -63,8 +63,7 @@ group :development do
   gem "foreman"
   gem "binding_of_caller"
   gem "bullet"
-  # gem "web-console"
-  gem 'better_errors'
+  gem 'better_errors' # disable to run Teaspon JS tests
 end
 
 group :development, :test do
