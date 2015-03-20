@@ -1,0 +1,4 @@
+angular.module("Services").service('CurrentUser', function(User){
+  var naked =  <%= current_user ? JsUserSerializer.new(current_user).to_json.html_safe : {} %>;
+  return User.generateFromJSON([naked])[0];
+});

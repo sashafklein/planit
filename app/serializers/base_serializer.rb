@@ -7,4 +7,8 @@ class BaseSerializer < ActiveModel::Serializer
   def object_path(path)
     Rails.application.routes.url_helpers.send( "#{object.class.to_s.downcase}_path", object)
   end
+
+  def encode(input, salt: 'Tinalp')
+    Digest::SHA2.hexdigest("#{ salt }#{input}")
+  end
 end

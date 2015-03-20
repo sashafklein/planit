@@ -1,4 +1,4 @@
-angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, ErrorReporter, $sce) ->
+angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, ErrorReporter, $sce, CurrentUser) ->
 
   return {
     restrict: 'E'
@@ -7,12 +7,12 @@ angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, Erro
     templateUrl: "full_site_search_field.html"
     scope:
       showFilter: '@'
-      userId: '@'
 
     link: (s, element) ->
 
       s.currentPlaceId = 0 
       s.typing = false
+      s.userId = CurrentUser.id
 
       s.showSearch = ->
         $(".logo-container, .side-menu-container, .top-menu-container, .search-teaser").fadeOut("fast")

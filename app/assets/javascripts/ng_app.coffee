@@ -9,6 +9,7 @@ planitModules = [
   'Common'
   'Models'
   'Controllers'
+  'Services'
 ]
 
 otherModules = [
