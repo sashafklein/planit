@@ -294,43 +294,13 @@ module Scrapers
       def nearby
         return @nearby if @nearby
         unless lat && lon
-          if @locality && @country
-            return @nearby = [@locality, @region, @country].join(", ")
-          else
-            # scan page at meta tags, title and text-level
-            keyword_guesses = guess_locale( meta_keywords )
-            description_guesses = guess_locale( meta_description )
-            title_guesses = guess_locale( title )
-            page_guesses = guess_locale_rough( page.text )
-            # shovel guesses in, chose top
-            unless @locality
-              locality_guesses = []
-              locality_guesses << keyword_guesses[0] unless !keyword_guesses
-              locality_guesses << title_guesses[0] unless !title_guesses
-              locality_guesses << description_guesses[0] unless !description_guesses
-              locality_guesses << page_guesses[0] unless !page_guesses
-              @locality = top_pick(locality_guesses)[0]
-            end
-            unless @region
-              region_guesses = []
-              region_guesses << keyword_guesses[1] unless !keyword_guesses
-              region_guesses << title_guesses[1] unless !title_guesses
-              region_guesses << description_guesses[1] unless !description_guesses
-              region_guesses << page_guesses[1] unless !page_guesses
-              @region = top_pick(region_guesses)[0]
-            end
-            unless @country
-              country_guesses = []
-              country_guesses << keyword_guesses[2] unless !keyword_guesses
-              country_guesses << title_guesses[2] unless !title_guesses
-              country_guesses << description_guesses[2] unless !description_guesses
-              country_guesses << page_guesses[2] unless !page_guesses
-              @country = top_pick(country_guesses)[0]
-            end
-            return @nearby = [@locality, @region, @country].compact.join(", ")
-          end
+          page_content_to_scan = [ meta_keywords, meta_description, title, page.text ]
+          guesses = page_content_to_scan.map{ |content| guess_locale( content ) }
+          @locality ||= top_pick( guesses.compact.map{ |g| g[:locality] } )[:is]
+          @region ||= top_pick( guesses.compact.map{ |g| g[:region] } )[:is]
+          @country ||= top_pick( guesses.compact.map{ |g| g[:country] } )[:is]
+          @nearby = [@locality, @region, @country].compact.join(", ")
         end
-      # rescue ; nil
       end
 
       def map_string
@@ -418,7 +388,7 @@ module Scrapers
 
         delete_items_from_array_case_insensitive(list_of_null_page_titles, guesses)
 
-        if clear_choice = top_pick(guesses.compact, 0.4999)[0]
+        if clear_choice = top_pick(guesses.compact, 0.4999)[:is]
           return @name = clear_choice
         else
           # remove common destination suffix/prefixes
@@ -438,7 +408,7 @@ module Scrapers
             new_array << guess unless guess == ''
           end
           guesses = new_array
-          if ok_choice = top_pick(guesses, 0.2)[0]
+          if ok_choice = top_pick(guesses, 0.2)[:is]
             return @name = ok_choice.titleize
           end
         end

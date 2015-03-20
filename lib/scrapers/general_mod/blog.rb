@@ -59,7 +59,6 @@ module Scrapers
             to_return << return_link_and_text(sub_array)
           end
         end          
-      # rescue ; nil
       end
 
       def map_links
@@ -84,7 +83,6 @@ module Scrapers
             to_return << return_link_and_text(sub_array)
           end
         end          
-      # rescue ; nil
       end
 
       def return_link_and_text(link_array)
@@ -96,7 +94,6 @@ module Scrapers
           end
         end
         return link_text, link_array.first[2]
-      # rescue ; nil
       end
 
       # SOCIAL DATA SCRAPING
@@ -109,7 +106,6 @@ module Scrapers
             return @google = trim( query )
           end
         end
-      # rescue ; nil
       end
 
       def twitter
@@ -128,7 +124,6 @@ module Scrapers
           end
         end
         return nil
-      # rescue ; nil
       end
 
       def facebook
@@ -159,11 +154,9 @@ module Scrapers
           end
         end
         return nil
-      # rescue ; nil
       end
 
       def yelp
-      # rescue ; nil
       end
 
       def tripadvisor
@@ -248,7 +241,6 @@ module Scrapers
           return @full_address = full_address_from_map  
         end
         return nil
-      # rescue ; nil
       end
 
       def street_address
@@ -287,49 +279,18 @@ module Scrapers
         end
         return @phone = get_usual_suspect_text(phone_usual_suspects)
         return nil
-      # rescue ; nil
       end
 
       def nearby
         return @nearby if @nearby
         unless lat && lon
-          if @locality && @country
-            return @nearby = [@locality, @region, @country].join(", ")
-          else
-            # scan page at meta tags, title and text-level
-            keyword_guesses = guess_locale( meta_keywords )
-            description_guesses = guess_locale( meta_description )
-            title_guesses = guess_locale( title )
-            page_guesses = guess_locale_rough( page.text )
-            # shovel guesses in, chose top
-            unless @locality
-              locality_guesses = []
-              locality_guesses << keyword_guesses[:locality] unless !keyword_guesses
-              locality_guesses << title_guesses[:locality] unless !title_guesses
-              locality_guesses << description_guesses[:locality] unless !description_guesses
-              locality_guesses << page_guesses[:locality] unless !page_guesses
-              @locality = top_pick(locality_guesses)[0]
-            end
-            unless @region
-              region_guesses = []
-              region_guesses << keyword_guesses[:region] unless !keyword_guesses
-              region_guesses << title_guesses[:region] unless !title_guesses
-              region_guesses << description_guesses[:region] unless !description_guesses
-              region_guesses << page_guesses[:region] unless !page_guesses
-              @region = top_pick(region_guesses)[0]
-            end
-            unless @country
-              country_guesses = []
-              country_guesses << keyword_guesses[:country] unless !keyword_guesses
-              country_guesses << title_guesses[:country] unless !title_guesses
-              country_guesses << description_guesses[:country] unless !description_guesses
-              country_guesses << page_guesses[:country] unless !page_guesses
-              @country = top_pick(country_guesses)[0]
-            end
-            return @nearby = [@locality, @region, @country].compact.join(", ")
-          end
+          page_content_to_scan = [ meta_keywords, meta_description, title, page.text ]
+          guesses = page_content_to_scan.map{ |content| guess_locale( content ) }
+          @locality ||= top_pick( guesses.compact.map{ |g| g[:locality] } )[:is]
+          @region ||= top_pick( guesses.compact.map{ |g| g[:region] } )[:is]
+          @country ||= top_pick( guesses.compact.map{ |g| g[:country] } )[:is]
+          @nearby = [@locality, @region, @country].compact.join(", ")
         end
-      # rescue ; nil
       end
 
       def map_string
@@ -346,7 +307,6 @@ module Scrapers
           end
           return @map_string = map_string_array
         end
-      # rescue ; nil
       end
 
       def lat
@@ -362,7 +322,6 @@ module Scrapers
           return @lat = lat_on_page
         end
         return nil
-      # rescue ; nil
       end
 
       def lon
@@ -378,7 +337,6 @@ module Scrapers
           return @lon = lon_on_page
         end
         return nil
-      # rescue ; nil
       end
 
       def hours
@@ -417,7 +375,7 @@ module Scrapers
 
         delete_items_from_array_case_insensitive(list_of_null_page_titles, guesses)
 
-        if clear_choice = top_pick(guesses.compact, 0.4999)[0]
+        if clear_choice = top_pick(guesses.compact, 0.4999)[:is]
           return @name = clear_choice
         else
           # remove common destination suffix/prefixes
@@ -437,11 +395,10 @@ module Scrapers
             new_array << guess unless guess == ''
           end
           guesses = new_array
-          if ok_choice = top_pick(guesses, 0.2)[0]
+          if ok_choice = top_pick(guesses, 0.2)[:is]
             return @name = ok_choice.titleize
           end
         end
-      # rescue ; nil
       end
 
       def name_attempts

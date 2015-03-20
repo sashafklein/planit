@@ -95,7 +95,7 @@ module ScraperOperators
 
   def top_pick(guesses, threshold=0.5)
     if guesses && guesses.compact.uniq.length == 1
-      return [guesses.compact.uniq.first, 1]
+      return { is: guesses.compact.uniq.first, confidence: 1 }
     elsif guesses && guesses.compact.uniq.length > 1
       top = 0
       top_guess = ""
@@ -110,16 +110,14 @@ module ScraperOperators
       end
       confidence = (top.to_f / guesses.compact.length.to_f)
       if confidence > threshold
-        return [top_guess, confidence]
+        return { is: top_guess, confidence: confidence }
       end
     end
-    return []
-  rescue ; nil
+    return { is: nil, confidence: 0 }
   end
 
   def dominant_pick(guesses)
     top_score = 0
-    top_pick = nil
     guesses = guesses.sort_by! { |s| -s.length }
     guesses.compact.uniq.each do |guess|
       score = 0
@@ -128,9 +126,7 @@ module ScraperOperators
           score += 1
         end
       end
-      if score > top_score
-        return top_pick = guess 
-      end
+      return guess if score > top_score
     end
     return nil
   end
