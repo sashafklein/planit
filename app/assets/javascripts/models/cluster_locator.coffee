@@ -3,7 +3,7 @@ mod.factory 'ClusterLocator', (BasicOperators) ->
 
   class ClusterLocator
 
-    @pinsDetails = (places) ->
+    @clusterDetails = (places) ->
       types = _(places).map('meta_categories').flatten().uniq().value()
       # return types.join(' & ') + ' spots' if types.length < 3
       return 'pins'

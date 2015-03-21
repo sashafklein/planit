@@ -7,8 +7,8 @@
             .bucket-item-container
               %ul
                 %li{ class: "bucket-list-li", id: "in-view-li", ng_if: "selectedClusterId || selectedPlaceId" }
-                  %bucket_list_clusters{ ng_if: "selectedClusterId", cluster: 'clusterFromId(selectedClusterId)', changes: 'changes', zoom_to: 'zoomToCluster(clusterFromId(selectedClusterId))' }
-                  %bucket_list_places{ ng_if: "selectedPlaceId", place: 'placeFromId(selectedPlaceId)' }
+                  %bucket_list_clusters{ cluster: 'clusterFromId(selectedClusterId)', padding: 'padding', changes: 'padding', parent_scope: 'self', ng_if: 'selectedClusterId' }
+                  %bucket_list_places{ place: 'placeFromId(selectedPlaceId)', ng_if: "selectedPlaceId" }
           .map-filter-results#in-view-list{ ng_if: "!mobile" }
             .bucket-list-container
               %ul

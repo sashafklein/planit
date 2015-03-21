@@ -1,13 +1,13 @@
 %script{ type: 'text/ng-template', id: 'bucket_list_clusters.html' }
   .bucket-list-tab
-    .bucket-list-no-img{ ng_if: "!clusterImage()", ng_click: 'clusterZoom()' }
-    .bucket-list-img{ ng_if: "clusterImage()", style: "background-image: url('{{ clusterImage() }}');", id: "{{cluster.id}}", ng_click: 'clusterZoom()'  }
+    .bucket-list-no-img{ ng_if: "!clusterImage()", ng_click: 'zoomTo()' }
+    .bucket-list-img{ ng_if: "clusterImage()", style: "background-image: url('{{ clusterImage() }}');", id: "{{cluster.id}}", ng_click: 'zoomTo()'  }
     .bucket-list-wrap
-      .bucket-list-profile{ id: "{{cluster.id}}", ng_click: 'clusterZoom()' }
+      .bucket-list-profile{ id: "{{cluster.id}}", ng_click: 'zoomTo()' }
         %a.bucket-list-title {{ cluster.location }}
         .bucket-list-more-info 
           %span.bucket-list-cluster-size {{ cluster.count }}
-          {{ pinsDetails(cluster.places) }}
+          {{ clusterDetails(cluster.places) }}
       .bucket-list-controls
         .bucket-list-control{ class: 'edit-places', id: 'guide', :data => {:place_ids => "{{clusterPlaceIds()}}" } }
           %span.bucket-list-control-hint= "Add All to Guide"

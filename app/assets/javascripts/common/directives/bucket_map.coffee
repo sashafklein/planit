@@ -13,6 +13,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
       mobilePadding: '@'
 
     link: (s, elem) ->
+
       s.marker = new PlanitMarker(s)
       s.mobile = elem.width() < 768
       s.web = !s.mobile
@@ -20,9 +21,12 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
       s.padding = [35, 25, 15, 25]
       s.padding = JSON.parse("[" + s.mobilePadding + "]") if s.mobilePadding && s.mobile
       s.padding = JSON.parse("[" + s.webPadding + "]") if s.webPadding && s.web
+      s.changes = 0
       s.maxBounds = [[-84,-400], [84,315]]
       s.centerPoint = { lat: 0, lng: 0, zoom: 2 }
-      
+      s.placesInView = s.clustersInView = []
+      s.leaf = leafletData
+
       s.defaults = 
         minZoom: 2
         maxZoom: 18
@@ -30,9 +34,6 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
         doubleClickZoom: true
         zoomControlPosition: 'topright'
         layerControl: false
-
-      s.self = s
-      s.leaf = leafletData
 
       s.layers = 
         baselayers: 
@@ -59,8 +60,6 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
                 initial = 0
                 s.marker.clusterPin(cluster, initial)
 
-      s.placesInView = s.clustersInView = []
-
       s._getPlaces = (userId, currentUserId) ->
         s._getPrimaryPlaces(userId).then ->
           if currentUserId && currentUserId != userId
@@ -72,6 +71,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
 
       s.recalculateInView = -> 
         return unless s.places
+        s.changes++
         $timeout ( -> 
           s._setCurrentLayers( s._setItemsInView )
           s._setCurrentMap( s._updateQuery )
@@ -165,6 +165,10 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
         return location
       
       s.mouse = (type, id) -> new BucketEventManager(s).mouseEvent( type, id )
+      s.zoomToCluster = (cluster) ->
+        leafletData.getMap().then (m) ->
+          m.fitBounds( cluster.bounds , { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
+          new BucketEventManager(s).deselectAll()
 
       s.$on 'leafletDirectiveMap.moveend', -> s.recalculateInView()
 
@@ -177,6 +181,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
             infoBox.addEventListener 'mouseout', -> m.dragging.enable() ; m.doubleClickZoom.disable()
 
       # INIT
+      s.self = s
       window.s = s
       s._getPlaces(s.userId, s.currentUserId)
   }

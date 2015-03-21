@@ -12,7 +12,7 @@ mod.factory 'PlanitMarker', ($timeout) ->
         icon:
           type: 'div'
           className: 'default-map-div-icon'
-          html: """ <div onclick="s.mouse('pinClick', id)" ondblclick="s.mouse('pinDblClick', id)" onmouseenter="s.mouse('pinMouseenter', id)" onmouseleave="s.mouse('pinMouseleave', id)" class="default-map-icon-tab #{id}" id="#{id}" ><i class="#{place.meta_icon || ''}" ></i><div class="arrow" /></div> """
+          html: """ <div onclick="s.mouse('pinClick', id)" ondblclick="s.mouse('pinDblClick', id)" onmouseenter="s.mouse('pinMouseenterScroll', id)" onmouseleave="s.mouse('pinMouseleave', id)" class="default-map-icon-tab #{id}" id="#{id}" ><i class="#{place.meta_icon || ''}" ></i><div class="arrow" /></div> """
           iconSize: null
       ).value()
       # if show_popup
@@ -34,7 +34,7 @@ mod.factory 'PlanitMarker', ($timeout) ->
     clusterPin: (cluster) ->
       children = cluster.getAllChildMarkers().length
       id = "c#{cluster._leaflet_id}"
-      events = """ onclick="s.mouse('clusterClick', id)" onmouseenter="s.mouse('clusterMouseenter', id)" onmouseleave="s.mouse('clusterMouseleave', id)" """
+      events = """ onclick="s.mouse('clusterClick', id)" onmouseenter="s.mouse('clusterMouseenterScroll', id)" onmouseleave="s.mouse('clusterMouseleave', id)" """
       if children > 99
         L.divIcon
           className: "cluster-map-div-container",
