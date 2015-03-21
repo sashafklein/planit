@@ -1,15 +1,15 @@
 %script{ type: 'text/ng-template', id: 'bucket_list_clusters.html' }
   .bucket-list-tab
-    .bucket-list-no-img{ ng_if: "!clusterImage(cluster.location)", ng_click: 'clusterZoom(cluster.id)' }
-    .bucket-list-img{ ng_if: "clusterImage(cluster.location)", style: "background-image: url('{{ clusterImage(cluster.location) }}');", id: "{{cluster.id}}", ng_click: 'clusterZoom(cluster.id)'  }
+    .bucket-list-no-img{ ng_if: "!clusterImage()", ng_click: 'clusterZoom()' }
+    .bucket-list-img{ ng_if: "clusterImage()", style: "background-image: url('{{ clusterImage() }}');", id: "{{cluster.id}}", ng_click: 'clusterZoom()'  }
     .bucket-list-wrap
-      .bucket-list-profile{ id: "{{cluster.id}}", ng_click: 'clusterZoom(cluster.id)' }
+      .bucket-list-profile{ id: "{{cluster.id}}", ng_click: 'clusterZoom()' }
         %a.bucket-list-title {{ cluster.location }}
         .bucket-list-more-info 
           %span.bucket-list-cluster-size {{ cluster.count }}
           {{ pinsDetails(cluster.places) }}
       .bucket-list-controls
-        .bucket-list-control{ class: 'edit-places', id: 'guide', :data => {:place_ids => "{{cluster_places_ids()}}" } }
+        .bucket-list-control{ class: 'edit-places', id: 'guide', :data => {:place_ids => "{{clusterPlaceIds()}}" } }
           %span.bucket-list-control-hint= "Add All to Guide"
           %i.fa.fa-book
         .bucket-list-control.disabled
@@ -18,6 +18,6 @@
           %i.fa.fa-check-square
         .bucket-list-control.disabled
           %i.fa.fa-heart  
-        .bucket-list-control{ class: 'edit-places', id: 'save', :data => {:place_ids => "{{cluster_places_ids()}}" } }
+        .bucket-list-control{ class: 'edit-places', id: 'save', :data => {:place_ids => "{{clusterPlaceIds()}}" } }
           %span.bucket-list-control-hint= "Save All"
           %i.fa.fa-bookmark

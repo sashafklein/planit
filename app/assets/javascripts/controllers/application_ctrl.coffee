@@ -1,5 +1,5 @@
 mod = angular.module('Controllers')
-mod.controller "ApplicationCtrl", ($scope, ClickControls, Collapsibles, Bootstrap, UserLocation, Filters, Flashes, $rootScope, CurrentUser) ->
+mod.controller "ApplicationCtrl", ($scope, ClickControls, Collapsibles, Bootstrap, UserLocation, Flashes, $rootScope, CurrentUser) ->
 
   # Universal to all users/non-users
 

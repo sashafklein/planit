@@ -1,5 +1,8 @@
 // CANVASES
 
+.leaflet-wrapper
+  height: 100%
+
 .world-view-map-wrap
   display: block
   position: relative
@@ -34,6 +37,12 @@
   margin: 10px 0
   background: #ccc
 
+// HIDE LAYER THING
+
+.leaflet-control-layers
+  display: none !important
+  visibility: hidden !important
+
 // INFOBOXES > MULTI-ITEM
 
 .map-filter-results
@@ -42,8 +51,8 @@
   visibility: visible
   z-index: 150000 !important
   top: 15px
-  max-height: 90%
   left: 15px
+  max-height: 650px
   position: relative
   overflow: scroll
   box-shadow: rgba(0, 0, 0, 0.65098) 0px 1px 5px 0px
@@ -264,7 +273,6 @@
       padding: 1px 4px
       background: #ff0066
 
->>>>>>> niko now working on maps
   #top-of-list
     height: 0
     width: 0

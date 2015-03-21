@@ -8,24 +8,20 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
     scope:
       userId: '@'
       currentUserId: '@'
-      centerPoint: '@'
+      centerAndZoom: '@'
+      webPadding: '@'
+      mobilePadding: '@'
 
-    # TODO 
-    # - All who wander
-    # - Side bar scroll
-    # - Remove reusable stuff into more general directives (or rename?)
-    # - Use m to choose start bounds
-    # - Clusters sorted by size
-    # - Filter can make places in view disappear?
     link: (s, elem) ->
       s.marker = new PlanitMarker(s)
       s.mobile = elem.width() < 768
+      s.web = !s.mobile
       s.screenWidth = if s.mobile then 'mobile' else 'web'
       s.padding = [35, 25, 15, 25]
-      s.centerPoint = { zoom: 3, lat: 1, lng: 1 }
+      s.padding = JSON.parse("[" + s.mobilePadding + "]") if s.mobilePadding && s.mobile
+      s.padding = JSON.parse("[" + s.webPadding + "]") if s.webPadding && s.web
       s.maxBounds = [[-84,-400], [84,315]]
-
-      s.events = { map: { enable: ['moveend', 'click'], logic: 'emit' } } # Handle map events using Angular-Leaflet event logic
+      s.centerPoint = { lat: 0, lng: 0, zoom: 2 }
       
       s.defaults = 
         minZoom: 2
@@ -35,7 +31,8 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
         zoomControlPosition: 'topright'
         layerControl: false
 
-      s.bounds = leafletBoundsHelpers.createBoundsFromArray [[-84,-400], [84,315]]
+      s.self = s
+      s.leaf = leafletData
 
       s.layers = 
         baselayers: 
@@ -58,7 +55,9 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
               spiderifyDistanceMultiplier: 2
               requireDoubleClick: s.mobile
               paddingToFocusArea: s.padding
-              iconCreateFunction: (cluster) -> s.marker.clusterPin(cluster)
+              iconCreateFunction: (cluster) -> 
+                initial = 0
+                s.marker.clusterPin(cluster, initial)
 
       s.placesInView = s.clustersInView = []
 
@@ -69,46 +68,69 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
           else
             s._definePlaces()
 
-      s._getPlacesAndClustersInView = ->
+      # ON MAP MOVEMENT
+
+      s.recalculateInView = -> 
         return unless s.places
-        s._filterPlaces()
-        leafletData.getMap().then (m) ->
-          [s.map, s.bounds] = [ m, m.getBounds() ]
-          [s.sw, s.ne] = [s.bounds._southWest, s.bounds._northEast]
-          s._updateQuery()
-          $timeout ( -> s._getClustersInView( s._getPlacesInView  ) ) , 400
+        $timeout ( -> 
+          s._setCurrentLayers( s._setItemsInView )
+          s._setCurrentMap( s._updateQuery )
+        ), 400
 
-      s._getPlacesInView = (callback) ->
-        s.placesInView = _(s.places).filter( (p) -> 
-          s._inBounds(p) && !_(s.clustersInView).some( (c) => _(c.places).map('id').includes(p.id) ) 
-        ).value()
-
-        callback?()
-
-      s._getClustersInView = (callback) ->
-        return unless s.places
-        leafletData.getLayers().then (layers) ->
-          s.markerClusterGroup = layers.overlays.primary._featureGroup._layers
-          clusters = _(s.markerClusterGroup).filter( (l) -> l._childCount > 1 && s.bounds.contains( l._bounds ) ).value()
-          s.clustersInView = _(clusters).map( (c) -> s._clusterObj(c) ).value()
-
+      s._setCurrentLayers = (callback) ->
+        leafletData.getLayers().then (l) ->
+          s.currentLayers = l.overlays.primary._featureGroup._layers
           callback?()
 
-      s._inBounds = (o) ->
-        F.within([s.sw.lat, s.ne.lat], o.lat) && F.within([s.sw.lng, s.ne.lng], o.lon)
-        
-      s._definePlaces = ->
-        s.allPlaces = s.primaryPlaces.concat( if s.contextPlaces then s.contextPlaces else [] )
-        s._filterPlaces()
-        s.recalculateInView(false) # Don't reset cluster events, cause we're about to set all events
-        s._setMouseEvents()
-        s.loadedData = true # Hide the spinner from now on
+      s._setItemsInView = ->
+        return unless s.currentLayers
+        leafletData.getMap().then (m) ->
+          s.currentBounds = m.getBounds()
+          s.clustersInView = _(s.currentLayers)
+            .filter( (l) -> l._childCount > 1 && s.currentBounds.contains( l._bounds ) )
+            .map( (c) -> s._clusterObj c )
+            .sortBy( (c) -> -1*c.count )
+            .value()
+          s.placesInView = _(s.currentLayers)
+            .filter( (l) -> l.options.id && s.currentBounds.contains( l._latlng ) )
+            .map( (p) -> p.options )
+            .value()
+
+      s._setCurrentMap = (callback) ->
+        leafletData.getMap().then (m) ->
+          s.currentLLZoom = { lat: m.getCenter().lat, lon: m.getCenter().lng, zoom: m.getZoom() }
+          callback?()
 
       s._updateQuery = ->
-        [latLon, zoom] = [s.map.getCenter(), s.map.getZoom()]
-        QueryString.modify( m: "#{ latLon.lat.toFixed(4) },#{ latLon.lng.toFixed(4) },#{ zoom }" )
+        if s.mOkay && s.currentLLZoom
+          QueryString.modify( m: "#{ s.currentLLZoom.lat.toFixed(4) },#{ s.currentLLZoom.lon.toFixed(4) },#{ s.currentLLZoom.zoom }" )
 
-      s._filterPlaces = -> s.places = new PlaceFilterer( QueryString.get() ).returnFiltered( s.allPlaces )
+      # SET MAP DATA
+
+      s._definePlaces = ->
+        s.allPlaces = s.primaryPlaces.concat( if s.contextPlaces then s.contextPlaces else [] )
+        s._filterPlaces( s.recalculateInView )
+        s._initiateCenterAndBounds()
+
+      s._initiateCenterAndBounds = ->
+        if !s.centerAndZoom
+          s.lats = _.map( s.places, (p) -> p.lat )
+          s.lons = _.map( s.places, (p) -> p.lon )
+          leafletData.getMap().then (m) ->
+            m.fitBounds( 
+              L.latLngBounds( L.latLng(_.min(s.lats),_.min(s.lons)),L.latLng(_.max(s.lats),_.max(s.lons)) ),
+              { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] }
+            )
+        else
+          s.centerPoint = { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) }
+        $timeout (-> 
+          s.mOkay = true 
+          s._disableMapManipulationOnInfoBox()
+          ), 2000
+
+      s._filterPlaces = (callback) -> 
+        s.places = new PlaceFilterer( QueryString.get() ).returnFiltered( s.allPlaces )
+        $timeout(-> callback?() )
 
       s._getPrimaryPlaces = (userId) ->
         User.findPlaces( userId )
@@ -126,25 +148,15 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
           .error (response) ->
             console.log response
 
-      s._clusterOn = (eventType, methodToFire) ->
-        return s.markerClusterGroup.on(eventType, methodToFire) if s.markerClusterGroup
-        s.setLayers( -> s.markerClusterGroup.on( eventType, methodToFire ) )
+      s.clusterFromId = (id) ->
+        _.filter( s.clustersInView , (c) -> c.id == id )[0]
 
-      s.recalculateInView = (setClusterEvents = true) -> 
-        s._getPlacesAndClustersInView()
-        new BucketEventManager(s).resetClusterEvents() if setClusterEvents
-
-      s._setMouseEvents = -> new BucketEventManager(s).waitAndSetMouseEvents()
-
-      s.isSelectedPlace = (place) -> s.selectedPlaceId == place.id
-
-      s._markerForPlaceId = (id) -> $(".default-map-icon-tab\#p#{id}")
-
-      s._markerForClusterId = (id) -> $(".cluster-map-icon-tab\##{id}")
+      s.placeFromId = (id) ->
+        _.filter( s.placesInView , (p) -> 'p' + p.id == id )[0]
 
       s._clusterObj = (c) ->
         places = _( c.getAllChildMarkers() ).map('options').value()
-        { id: "c#{c._leaflet_id}", count: c._childCount, center: c._latlng, places: places, location: s._bestListLocation(places, c._latlng), clusterObject: c }
+        { id: "c#{c._leaflet_id}", count: c._childCount, center: c._latlng, bounds: c._bounds, places: places, location: s._bestListLocation(places, c._latlng), clusterObject: c }
 
       s._bestListLocation = (places, center) ->
         location = BasicOperators.commaAndJoin( _(places).map('names').map((p) -> p[0]).value() ) if places.length < 3
@@ -152,10 +164,17 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
         location ||= ClusterLocator.nearestGlobalRegion(center)
         return location
       
-      s.$on '$locationChangeSuccess', (event, next) -> 
-        if s.allPlaces?.length
-          s._filterPlaces()
-          $timeout( s.recalculateInView, 200 )
+      s.mouse = (type, id) -> new BucketEventManager(s).mouseEvent( type, id )
+
+      s.$on 'leafletDirectiveMap.moveend', -> s.recalculateInView()
+
+      s.$on '$locationChangeSuccess', (event, next) -> s._filterPlaces( s.recalculateInView ) if s.allPlaces?.length
+
+      s._disableMapManipulationOnInfoBox = ->
+        if infoBox = document.getElementById('map-info-box')
+          leafletData.getMap().then (m) ->
+            infoBox.addEventListener 'mouseover', -> m.dragging.disable() ; m.doubleClickZoom.disable()
+            infoBox.addEventListener 'mouseout', -> m.dragging.enable() ; m.doubleClickZoom.disable()
 
       # INIT
       window.s = s

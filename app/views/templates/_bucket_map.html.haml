@@ -1,30 +1,30 @@
 %script{ type: 'text/ng-template', id: 'bucket_map.html' }
-  .bucket-map
+  .map-canvas-box.bucket-map
     .leaflet-wrapper{ ng_if: 'layers' }
-      %leaflet{ markers: 'places', defaults: 'defaults', height: '800px', width: '100%', center: 'centerPoint', layers: "layers", bounds: 'bounds', watch_markers: 'false' }
-        #in-view-item{ ng_if: "mobile", ng_show: 'places.length'}
-          .bucket-item-container
-            %ul
-              %li{ ng_if: "cluster", class: "bucket-list-li", id: "in-view-li" }
-                %bucket_list_clusters{ cluster: 'cluster cluster-li', map: 'map', padding: 'padding', ng_click: 'selectCluster(cluster)' }
-              %li{ ng_if: "place", class: "bucket-list-li place-li", id: "in-view-li",  }
-                %bucket_list_places{ place: 'place' }
-        #in-view-list{ ng_if: "!mobile" }
-          .bucket-list-container
-            %ul
-              #top-of-list
-              %li{ class: "bucket-list-li-first", id: "first-bucket-item", ng_show: '!places.length || !placesInView.length' }
-                .bucket-list-tab
-                  .bucket-list-no-icon
-                    %i.fa.fa-spinner.fa-spin{ ng_show: '!allPlaces.length' }
-                    %i.fa.fa-exclamation-triangle{ ng_show: 'allPlaces.length' }
-                  .bucket-list-wrap#no-items-msg
-                    %span{ ng_show: '!allPlaces.length' }= "Loading Places..."
-                    %span{ ng_show: 'allPlaces.length && !places.length' }= "You're all Filtered Out..."
-                    %span{ ng_show: 'allPlaces.length && places.length && !placesInView.length && !clustersInView.length' }= "Not All Who Wander Are Lost..."
-              %li{ ng_repeat: "cluster in clustersInView", class: "bucket-list-li cluster-li {{cluster.id}}", id: "{{cluster.id}}"}
-                %bucket_list_clusters{ cluster: 'cluster', map: 'map', padding: 'padding' }
-              %li{ ng_repeat: "place in placesInView", class: "bucket-list-li place-li {{'p' + place.id}}", id: "{{'p' + place.id}}" }
-                %bucket_list_places{ place: 'place' }
+      %leaflet{ markers: 'places', defaults: 'defaults', height: '100%', width: '100%', center:'centerPoint', layers: 'layers', watch_markers: 'false' }
+        #map-info-box
+          .map-highlight-result#in-view-item{ ng_if: "mobile", ng_show: 'places.length'}
+            .bucket-item-container
+              %ul
+                %li{ class: "bucket-list-li", id: "in-view-li", ng_if: "selectedClusterId || selectedPlaceId" }
+                  %bucket_list_clusters{ cluster: 'clusterFromId(selectedClusterId)', padding: 'padding', ng_if: "selectedClusterId", parent_scope: 'self' }
+                  %bucket_list_places{ place: 'placeFromId(selectedPlaceId)', ng_if: "selectedPlaceId" }
+          .map-filter-results#in-view-list{ ng_if: "!mobile" }
+            .bucket-list-container
+              %ul
+                #top-of-list
+                %li{ class: "bucket-list-li-first", id: "first-bucket-item", ng_show: '!places.length || ( !placesInView.length && !clustersInView.length ) ' }
+                  .bucket-list-tab
+                    .bucket-list-no-icon
+                      %i.fa.fa-spinner.fa-spin{ ng_show: '!allPlaces.length' }
+                      %i.fa.fa-exclamation-triangle{ ng_show: 'allPlaces.length' }
+                    .bucket-list-wrap#no-items-msg
+                      %span{ ng_show: '!allPlaces.length' }= "Loading Places..."
+                      %span{ ng_show: 'allPlaces.length && !places.length' }= "You're all Filtered Out..."
+                      %span{ ng_show: 'allPlaces.length && places.length && !placesInView.length && !clustersInView.length' }= "Not All Who Wander Are Lost..."
+                %li{ ng_repeat: "cluster in clustersInView", class: "bucket-list-li cluster-li {{cluster.id}}", id: "{{cluster.id}}", ng_mouseenter: "mouse('clusterMouseenter',cluster.id, false)", ng_mouseleave: "mouse('clusterMouseleave', cluster.id)"}
+                  %bucket_list_clusters{ cluster: 'cluster', map: 'map', padding: 'padding' }
+                %li{ ng_repeat: "place in placesInView", class: "bucket-list-li place-li {{'p' + place.id}}", id: "{{'p' + place.id}}", ng_mouseenter: "mouse('pinMouseenter', 'p' + place.id, false)", ng_mouseleave: "mouse('pinMouseleave', 'p' + place.id)" }
+                  %bucket_list_places{ place: 'place' }
         = render 'templates/bucket_list_places'
         = render 'templates/bucket_list_clusters'
