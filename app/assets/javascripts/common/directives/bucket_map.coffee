@@ -1,4 +1,4 @@
-angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, BucketEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser) ->
+angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, BucketEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser, ErrorReporter) ->
 
   return {
     restrict: 'E'
@@ -36,7 +36,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
 
       s.layers = 
         baselayers: 
-          xyz:
+          mq:
             name: 'MapQuest'
             url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'
             type: 'xyz'
@@ -137,7 +137,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
             places = Place.generateFromJSON(places.user_pins)
             s.primaryPlaces = _(places).map( (p) -> s.marker.primaryPin(p) ).value()
           .error (response) ->
-            console.log response
+            ErrorReporter.report({ userId: userId })
 
       s._getContextPlaces = (currentUserId) ->
         User.findPlaces( currentUserId )
@@ -145,7 +145,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
             places = Place.generateFromJSON( places.current_user_pins )
             s.contextPlaces = _(places).map( (p) -> s.marker.contextPin(p) ).value()
           .error (response) ->
-            console.log response
+            ErrorReporter.report({ userId: userId })
 
       s.clusterFromId = (id) ->
         _.filter( s.clustersInView , (c) -> c.id == id )[0]
@@ -180,7 +180,5 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
             infoBox.addEventListener 'mouseout', -> m.dragging.enable() ; m.doubleClickZoom.disable()
 
       # INIT
-      s.self = s
-      window.s = s
       s._getPlaces(s.userId, s.currentUserId)
   }
