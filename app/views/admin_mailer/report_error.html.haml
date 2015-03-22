@@ -2,5 +2,5 @@
 %ul
   - @details.each do |key, value|
     %li
-      %b= "#{key}: "
+      %b= "#{key.to_s.split("_").map(&:capitalize).join(" ")}: "
       = value

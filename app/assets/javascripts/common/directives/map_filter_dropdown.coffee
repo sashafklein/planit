@@ -18,13 +18,9 @@ mod.directive 'mapFilterDropdown', (QueryString, UserLocation) ->
       s._initFilters = ->
         filters = _.compact QueryString.get()['f']?.split(",")
 
-        _(filters).forEach( (v, k) => s.filters[v] = true ).value()
+        _.forEach(filters,  (v, k) => s.filters[v] = true )
 
       s.filtersSet = -> _.some(s.filters, (v) -> v )
-
-      $('.filter-dropdown-menu').click (e) -> e.stopPropagation()
-
-      s._initFilters()
 
       s.filterList = [
         { slug: 'loved', name: 'Only Most Loved', icon: "fa.fa-heart" }
@@ -41,7 +37,14 @@ mod.directive 'mapFilterDropdown', (QueryString, UserLocation) ->
       ]
 
       s.clearFilters = () -> s.filters = {}
-      window.sf = s
+      
+      # INIT
+
+      # Click on the div doesn't automatically close it
+      $('.filter-dropdown-menu').click (e) -> e.stopPropagation()
+      s._initFilters()
+
+      # On filter change, update the QueryString
       s.$watch('filters', ( 
         -> 
           QueryString.modify( f: s._filterString() ) )

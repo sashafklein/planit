@@ -1,4 +1,4 @@
-angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leafletBoundsHelpers, leafletData, F, BasicOperators, ClusterLocator, BucketEventManager, $timeout, QueryString, PlaceFilterer) ->
+angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, BucketEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser) ->
 
   return {
     restrict: 'E'
@@ -7,13 +7,12 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
     templateUrl: 'bucket_map.html'
     scope:
       userId: '@'
-      currentUserId: '@'
       centerAndZoom: '@'
       webPadding: '@'
       mobilePadding: '@'
 
     link: (s, elem) ->
-
+      s.currentUserId = CurrentUser.id
       s.marker = new PlanitMarker(s)
       s.mobile = elem.width() < 768
       s.web = !s.mobile

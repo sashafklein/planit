@@ -23,4 +23,6 @@ for module in planitModules
 @ngApp.config ($compileProvider, $locationProvider) ->
   # Prevent angular from marking links with a variety of protocols "unsafe"
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|webcal|mailto|file|tel):/)
+  
+  # Stop angular from prefixing all ng-changed URLs with a # sign
   $locationProvider.html5Mode(true)
