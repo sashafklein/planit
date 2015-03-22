@@ -10,8 +10,4 @@ class PlaceSerializer < ActiveModel::Serializer
     [object.lat,object.lon]
   end
 
-  def lng
-    object.lng
-  end
-
 end
