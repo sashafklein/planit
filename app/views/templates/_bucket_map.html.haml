@@ -3,12 +3,8 @@
     .leaflet-wrapper{ ng_if: 'layers' }
       %leaflet{ markers: 'places', defaults: 'defaults', height: '100%', width: '100%', center:'centerPoint', layers: 'layers', watch_markers: 'false' }
         #map-info-box
-          .map-highlight-result#in-view-item{ ng_if: "mobile", ng_show: 'places.length'}
-            .bucket-item-container
-              %ul
-                %li{ class: "bucket-list-li", id: "in-view-li", ng_if: "selectedClusterId || selectedPlaceId" }
-                  %bucket_list_clusters{ ng_if: "selectedClusterId", cluster: 'clusterFromId(selectedClusterId)', changes: 'changes', zoom_to: 'zoomToCluster(clusterFromId(selectedClusterId))' }
-                  %bucket_list_places{ ng_if: "selectedPlaceId", place: 'placeFromId(selectedPlaceId)' }
+
+          // WEB!!!
           .map-filter-results#in-view-list{ ng_if: "!mobile" }
             .bucket-list-container
               %ul
@@ -23,8 +19,16 @@
                       %span{ ng_show: 'allPlaces.length && !places.length' }= "You're all Filtered Out..."
                       %span{ ng_show: 'allPlaces.length && places.length && !placesInView.length && !clustersInView.length' }= "Not All Who Wander Are Lost..."
                 %li{ ng_repeat: "cluster in clustersInView", class: "bucket-list-li cluster-li {{cluster.id}}", id: "{{cluster.id}}", ng_mouseenter: "mouse('clusterMouseenter', cluster.id)", ng_mouseleave: "mouse('clusterMouseleave', cluster.id)"}
-                  %bucket_list_clusters{ cluster: 'cluster', map: 'map', padding: 'padding' }
+                  %bucket_list_clusters{ cluster: 'cluster', map: 'map', padding: 'padding', zoom_to: 'zoomToCluster(clusterFromId(selectedClusterId))', changes: 'changes' }
                 %li{ ng_repeat: "place in placesInView", class: "bucket-list-li place-li {{'p' + place.id}}", id: "{{'p' + place.id}}", ng_mouseenter: "mouse('pinMouseenter', 'p' + place.id)", ng_mouseleave: "mouse('pinMouseleave', 'p' + place.id)" }
                   %bucket_list_places{ place: 'place' }
+
+          // MOBILE!!!
+          .map-highlight-result#in-view-item{ ng_if: "mobile", ng_show: 'places.length'}
+            .bucket-item-container
+              %ul
+                %li{ class: "bucket-list-li", id: "in-view-li", ng_if: "selectedClusterId || selectedPlaceId" }
+                  %bucket_list_clusters{ ng_if: "selectedClusterId", cluster: 'clusterFromId(selectedClusterId)', changes: 'changes', zoom_to: 'zoomToCluster(clusterFromId(selectedClusterId))' }
+                  %bucket_list_places{ ng_if: "selectedPlaceId", place: 'placeFromId(selectedPlaceId)' }
         = render 'templates/bucket_list_places'
         = render 'templates/bucket_list_clusters'

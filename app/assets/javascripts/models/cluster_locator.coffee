@@ -19,10 +19,11 @@ mod.factory 'ClusterLocator', (BasicOperators) ->
       return nearestRegion
 
     @imageForLocation = (location, places) ->
-      image = _(@globalRegions()).select((g) -> if location == g.name then return g.image ).value()[0]
+      
+      image = _(@globalRegions()).filter( (g) -> location == g.name ).map('image').value()[0]
       unless image
-        images = _.find(places, (p) -> p?.images?.length )?.images
-        image = _.find(images, (i) -> i?.url?.length )?.url
+        images = _.find(places, (p) -> p.images?.length )?.images || []
+        image = _.find(images, (i) -> i.url?.length )?.url
       return image
 
     @globalRegions = () ->

@@ -9,5 +9,4 @@ mod.controller "ApplicationCtrl", ($scope, ClickControls, Collapsibles, Bootstra
 
   if CurrentUser.role != 'pending'
     ClickControls.initializePage()
-    Filters.initializePage()
     UserLocation.initializePage()
