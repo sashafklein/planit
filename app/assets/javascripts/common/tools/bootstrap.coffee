@@ -23,6 +23,11 @@ angular.module('Common').factory 'Bootstrap', (UserLocation) ->
           $('.improve-feedback').show('fast')
         $('#planit-modal-submit-feedback').removeAttr('disabled')
 
+    @_resetNewModal: () ->
+      $('#planit-modal-new .loading, #planit-modal-new .confirm, #planit-modal-new .choose, #planit-modal-new .error').hide()
+      $('#planit-modal-new .initiate').show()
+      $('#planit-modal-new .new-pin-nearby, #planit-modal-new .new-pin-query').val(null)
+
     # INITIALIZE
 
     @initializePage: () ->
@@ -30,5 +35,7 @@ angular.module('Common').factory 'Bootstrap', (UserLocation) ->
       Bootstrap._toggleModals()
       Bootstrap._toggleDropDowns()
       Bootstrap._feedback()
+
+    $('#planit-modal-new .close, #planit-modal-new .cancel').on 'click', -> Bootstrap._resetNewModal()
 
   return Bootstrap
