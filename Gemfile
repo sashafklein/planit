@@ -26,8 +26,9 @@ gem "image_size"
 gem "simple_form"
 gem "elasticsearch-rails"
 gem "elasticsearch-model"
+gem "bonsai-elasticsearch-rails"
 gem "rspec-instafail", require: false
-gem 'roadie-rails'
+gem "roadie-rails"
 
 gem "haml-rails"
 gem "geocoder"
