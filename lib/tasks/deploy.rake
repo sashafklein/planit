@@ -110,6 +110,8 @@ namespace :deploy do
   end
  
   namespace :production do
+
+    # RUN THIS GUY 99% OF THE TIME
     task :migrations do
       deployer = RakeHerokuDeployer.new(:production)
       deployer.run_migrations
@@ -121,6 +123,7 @@ namespace :deploy do
     end
   end
  
+  # THIS DOESN'T RUN MIGRATIONS!!!
   task :production do
     deployer = RakeHerokuDeployer.new(:production)
     deployer.deploy
