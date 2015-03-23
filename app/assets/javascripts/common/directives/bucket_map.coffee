@@ -38,7 +38,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
         baselayers: 
           xyz:
             name: 'MapQuest'
-            url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'
+            url: 'https://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'
             type: 'xyz'
             attribution: "&copy; <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a>"
         overlays: 
