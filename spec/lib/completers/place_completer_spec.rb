@@ -148,6 +148,7 @@ module Completers
           expect( place.meta_category ).to eq 'Food'
           expect( place.timezone_string ).to eq 'Europe/Paris'
           expect( place.phones ).to eq ["33145511212"]
+          expect( place.images.map(&:url) ).not_to include 'http://'
         end
 
         it "ensures L/L exists within natural bounds (e.g. Apizza Scholls in Antartica) or discards" do

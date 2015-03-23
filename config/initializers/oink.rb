@@ -1,1 +1,3 @@
-Rails.application.middleware.use( Oink::Middleware, logger: Hodel3000CompliantLogger.new(STDOUT) )
+if !Rails.env.test?
+  Rails.application.middleware.use( Oink::Middleware, logger: Hodel3000CompliantLogger.new(STDOUT) )
+end
