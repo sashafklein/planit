@@ -152,6 +152,4 @@ angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, Erro
         $('#planit-modal-new .error').show()
         return true
 
-      window.s = s
-
   }

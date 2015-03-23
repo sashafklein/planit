@@ -36,7 +36,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
 
       s.layers = 
         baselayers: 
-          mq:
+          xyz:
             name: 'MapQuest'
             url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'
             type: 'xyz'
@@ -164,6 +164,10 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
         return location
       
       s.mouse = (type, id) -> new BucketEventManager(s).mouseEvent( type, id )
+
+      # Gives jQuery access to map events
+      window.mapMouseEvent = s.mouse
+
       s.zoomToCluster = (cluster) ->
         leafletData.getMap().then (m) ->
           m.fitBounds( cluster.bounds , { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )

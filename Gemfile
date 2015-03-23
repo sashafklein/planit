@@ -30,6 +30,7 @@ gem "bonsai-elasticsearch-rails"
 gem "rspec-instafail", require: false
 gem "roadie-rails"
 gem "oink"
+gem "informant-rails"
 
 gem "haml-rails"
 gem "geocoder"

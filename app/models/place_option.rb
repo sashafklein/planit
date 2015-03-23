@@ -21,7 +21,7 @@ class PlaceOption < BaseModel
   delegate :open?, :open_again_at, :open_until, to: :hour_calculator
 
   def self.clean_old!
-    where('created_at < ?', 1.month.ago)
+    where('created_at < ?', 1.month.ago).destroy_all
   end
 
   def self.from_datastore(ds, feature_type)

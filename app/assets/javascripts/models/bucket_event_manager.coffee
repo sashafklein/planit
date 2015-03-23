@@ -9,12 +9,12 @@ mod.factory 'BucketEventManager', (F, $timeout) ->
     selectCluster: (id, scroll) =>
       return unless id
       @_markerAndLiForClusterId( @s.selectedClusterId = id ).addClass('highlighted')
-      @_scrollToSidebarItem(id) if scroll == true && s.web
+      @_scrollToSidebarItem(id) if scroll == true && @s.web
 
     selectPlace: (id, scroll) =>
       return unless id
       @_markerAndLiForPlaceId( @s.selectedPlaceId = id ).addClass('highlighted')
-      @_scrollToSidebarItem(id) if scroll == true && s.web
+      @_scrollToSidebarItem(id) if scroll == true && @s.web
 
     deselectAll: => 
       @_markerAndLiForClusterId( @s.selectedClusterId ).removeClass('highlighted') if @s.selectedClusterId
@@ -27,12 +27,12 @@ mod.factory 'BucketEventManager', (F, $timeout) ->
 
     mouseEvent: (type, id) =>
       return unless type && id
-      if s.mobile
+      if @s.mobile
         switch type
           when 'pinClick' then @deselectAll() ; @selectPlace(id, false)
           when 'pinDblClick' then @redirect(id)
           when 'clusterClick' then @deselectAll() ; @selectCluster(id, false)
-      else if s.web
+      else if @s.web
         switch type
           when 'pinClick' then @redirect(id)
           when 'pinMouseenter' then @selectPlace(id, false)
