@@ -170,18 +170,18 @@ module Services
 
         locality_guesses = string_array.map{ |string| scan_locality(string) }.flatten.compact 
         locality = locality_guesses.first if locality_guesses.uniq.length == 1
-        locality ||= top_pick(locality_guesses)[0]
+        locality ||= top_pick(locality_guesses)[:is]
         locality ||= nil
 
         country_guesses = string_array.map{ |string| scan_country(string) }.flatten.compact
         country = country_guesses.first if country_guesses.uniq.length == 1
-        country ||= top_pick(country_guesses)[0]
+        country ||= top_pick(country_guesses)[:is]
         country ||= find_country_by_locality(locality.downcase) if locality
         country ||= nil
 
         region_guesses = string_array.map{ |string| scan_region( string, country ) }.flatten.compact if country
         region = region_guesses.first if country && region_guesses.uniq.length == 1
-        region ||= top_pick(region_guesses)[0] if country                
+        region ||= top_pick(region_guesses)[:is] if country                
         region ||= nil
 
         { locality: locality, region: region, country: country }
@@ -189,7 +189,7 @@ module Services
       end
     end
     
-    def guess_locale_rough(string_array) # returns locality [0], region [1], country [2], full_string [3]
+    def guess_locale_rough(string_array) # ideally what differentiates this?
       guess_locale(string_array, true)
     end
 

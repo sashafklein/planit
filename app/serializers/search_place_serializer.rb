@@ -1,5 +1,5 @@
 class SearchPlaceSerializer < BaseSerializer
-  attributes :id, :name, :image_url, :image_source, :address, :href, :categories, :meta_icon
+  attributes :id, :name, :image_url, :image_source, :address, :locale, :href, :categories, :meta_icon
   delegate :street_address, :sublocality, :locality, :subregion, :region, :country, :categories, :meta_icon, :meta_categories, to: :object
 
   def name
@@ -19,7 +19,11 @@ class SearchPlaceSerializer < BaseSerializer
   end
 
   def address
-    object.full_address || constructed_full_address
+    constructed_full_address || object.full_address
+  end
+
+  def locale
+    constructed_locale
   end
 
   def href
@@ -33,8 +37,11 @@ class SearchPlaceSerializer < BaseSerializer
   end
 
   def constructed_full_address
-    [street_address, sublocality, locality, subregion, region, country]
-      .compact.first(3).join(", ")
+    [street_address, sublocality].compact.join(", ")
+  end
+
+  def constructed_locale
+    [locality, subregion, region, country].compact.join(", ")
   end
 
 end

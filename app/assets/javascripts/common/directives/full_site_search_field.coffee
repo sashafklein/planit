@@ -14,6 +14,10 @@ angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, Erro
       s.typing = false
       s.userId = CurrentUser.id
 
+      # BAR VISUALS
+
+      $('.searching-mask').click -> s.hideSearch()
+
       s.showSearch = ->
         $(".logo-container, .side-menu-container, .top-menu-container, .search-teaser").fadeOut("fast")
         $('#planit-header').addClass("focused")
@@ -24,7 +28,8 @@ angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, Erro
 
       s.clearSearch = -> s.query = s.places = s.nearby = s.currentEvent = s.makingRequest = null
 
-      s.showResults = -> !s.typing && (s.query?.length) || (s.places?.length)
+      s.showResults = -> !s.typing && ( s.query?.length || s.places?.length )
+
       s.hideSearch = -> 
         $('.searching-mask').hide()
         $('#planit-header').removeClass("focused")
@@ -35,10 +40,11 @@ angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, Erro
         element.find('#search-input-field').val($('#search-teaser-field').html())
         return true
 
+      # SEARCH GUTS
+
       s._makeSearchRequest = ->
         return if s.makingRequest
         s.makingRequest = true
-
         Place.search(s.query)
           .success (response) ->
             s.places = Place.generateFromJSON(response)
@@ -49,17 +55,36 @@ angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, Erro
 
       s.handleKeydown = (event) ->
         if _.contains([13, 40, 38, 91, 18, 17, 9], event.keyCode)
-          event.preventDefault()
+          event.preventDefault() unless event.keyCode
           switch event.keyCode
             when 13 then s._goTo(s.currentPlaceId) # enter
             when 40 then s.togglePosition(1) # down arrow
             when 38 then s.togglePosition(-1) # up arrow
-            when 9 then  s._focusOnNearby()
+            when 9 then  s._focusOnNearby() # tab
         else
           s.typing = true unless s.typing
+        return true
+
+      s._checkNearbySplit = ->
+        s.typing = true unless s.typing
+        splitTerms = [ ' in ', ' near ', ' nearby ', ' around ', ', ' ].join('|')
+        splitTerm = s.query.match(new RegExp(splitTerms))
+        if splitTerm?.length
+          s.splitTerm = splitTerm[0]
+        else
+          s.splitTerm = s.nearbyOnly = s.queryOnly = null
+        return true
 
       s._turnOffTyping = _.debounce( (=> s.typing = false), 300)
-      s.handleKeyup = -> s._turnOffTyping()
+      s.handleKeyup = -> 
+        s._turnOffTyping()
+        s._checkNearbySplit() if _.contains([32, 8, 46], event.keyCode) # space, backspace, delete
+        if s.splitTerm
+          s.nearbyOnly = s.query.split(s.splitTerm)[1]
+          s.queryOnly = s.query.split(s.splitTerm)[0]
+        else
+          s.queryOnly = s.nearbyOnly = null
+        return true
 
       s.togglePosition = (num) ->
         return s.currentPlaceId = 0 unless s.places?.length
@@ -72,50 +97,60 @@ angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, Erro
       s._searchFunction = _.debounce( s._makeSearchRequest, 300 )
       s.search = -> s._searchFunction()
 
-      s.canCreatePlace = -> s.query?.length && s.nearby?.length
-      s.createPlace = ->
-        return unless s.canCreatePlace() && s.userId && !s.currentEvent
-
-        s.currentEvent = s._loadingEvent()
-        Place.complete({ user_id: s.userId, name: s.query, nearby: s.nearby })
-          .success (response) ->
-            s.query = s.nearby  = null
-            if response.place
-              s.currentEvent = null
-              s.places = [Place.generateFromJSON(response.place)]
-            else
-              s.currentEvent = s._markEvent(response)
-          .error ->
-            s.currentEvent = s._errorEvent()
-            ErrorReporter.report({ userId: s.userId, nearby: s.nearby, query: s.query })
-            s.query = s.nearby = null
-            s.error = true
-
-      s._markEvent = (mark) ->
-        href: mark.href
-        tabClass: 'place-options-mark'
-        iconClass: 'fa-exclamation-triangle'
-        text: $sce.trustAsHtml '<p>Well, we found <em>something...</em></p><p>Click to check it out.</p>'
-
-      s._errorEvent = ->
-        tabClass: 'error'
-        iconClass: 'fa-exclamation-triangle'
-        text: $sce.trustAsHtml "<p>We couldn't find a place by that name and location!</p><p>We've been notified.</p>"
-
-      s._loadingEvent = ->
-        tabClass: 'loading'
-        iconClass: 'fa-spin fa-spinner'
-        text: $sce.trustAsHtml "<p>We're scouring the internet.</p><p>This may take a second.</p>"
-
       s._goTo = (viewId) ->
         place = _.find(s.places, (p) -> p.viewId == viewId)
         window.location.href = "/places/#{place.id}"
 
       s._focusOnNearby = ->
-        element.find('.input-group.new-entry-nearby input').focus()
-        true
+        if !s.nearbyOnly
+          element.find('.entry-form input').focus()
+        return true
 
-      $('.searching-mask').click -> s.hideSearch()
+      s.canCreatePlace = -> (s.queryOnly?.length || s.query?.length) && ( s.nearby?.length || s.nearbyOnly?.length )
+
+      # NEW PLACE
+
+      s.createPlace = ->
+        return unless s.canCreatePlace() && s.userId && !s.currentEvent
+        s.hideSearch()
+        $('#planit-modal-new .initiate').hide()
+        $('#planit-modal-new .loading').show()
+        $('#planit-modal-new').modal('toggle')
+        Place.complete({ user_id: s.userId, name: (s.queryOnly || s.query), nearby: (s.nearby || s.nearbyOnly) })
+          .success (response) ->
+            s.query = s.nearby = s.queryOnly = s.nearbyOnly = null
+            if place = response.place
+              s._confirmEvent(place)
+            else
+              s._markEvent(response)
+          .error ->
+            s._errorEvent()
+            ErrorReporter.report({ userId: s.userId, nearby: s.nearby || s.nearbyOnly, query: s.queryOnly || s.query })
+            s.query = s.nearby = s.queryOnly = s.nearbyOnly = null
+        return true
+
+      s._confirmEvent = (place) ->
+        $('#planit-modal-new .loading').hide()
+        $('#planit-modal-new .confirm').show()
+        $('#planit-modal-new .confirm .bucket-list-title').html( place.name )
+        $('#planit-modal-new .confirm .icon').addClass( place.meta_icon )
+        $('#planit-modal-new .confirm .categories').html( place.categories.join(', ') )
+        $('#planit-modal-new .confirm .bucket-list-img').css( "background-image", "url(#{place.image_url})" )
+        $('#planit-modal-new .confirm .place-link').attr( "href", place.href )
+        $('#planit-modal-new .confirm .bucket-list-address').html( place.address )
+        $('#planit-modal-new .confirm .bucket-list-locale').html( place.locale )
+        return true
+
+      s._markEvent = (mark) ->
+        $('#planit-modal-new .loading').hide()
+        $('#planit-modal-new .choose').show()
+        $('#planit-modal-new .choose .choices').attr( "href", mark.href )
+        return true
+
+      s._errorEvent = ->
+        $('#planit-modal-new .loading').hide()
+        $('#planit-modal-new .error').show()
+        return true
 
       window.s = s
 

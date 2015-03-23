@@ -148,7 +148,7 @@ module Scrapers
       def at_place(text)
         at_strings = text.scan(/(?:#{normal_punctuation_thread}[Aa]|\A[A]| [Aa])t (#{title_or_upper_cased_or_exceptions_thread})/).flatten
         if pick = top_pick(at_strings.compact, 0.85)
-          return pick.first
+          return pick[:is]
         end
         return nil
       end
@@ -204,7 +204,7 @@ module Scrapers
       def in_locale(text)
         in_strings = text.scan(/(?:#{normal_punctuation_thread}[Ii]|\A[I]| [Ii])n (#{title_or_upper_cased_or_exceptions_thread})/).flatten
         if pick = top_pick(in_strings.compact, 0.35)
-          return pick.first
+          return pick[:is]
         end
         return nil
       end
@@ -431,58 +431,12 @@ module Scrapers
       def nearby
         return @nearby if @nearby
         unless lat && lon
-          if @locality && @country
-            return @nearby = [@locality, @region, @country].join(", ")
-          else
-            # scan page at meta tags, title and text-level, ALSO INFOBOX
-            locality_confidence = []
-            region_confidence = []
-            country_confidence = []
-            in_locale_guesses = guess_locale( in_locale(article_text) )
-            details_guesses = guess_locale( more_info_box )
-            keyword_guesses = guess_locale( meta_keywords )
-            description_guesses = guess_locale( meta_description )
-            title_guesses = guess_locale( title )
-            page_guesses = guess_locale_rough( page.text )
-            # shovel guesses in, chose top
-            unless @locality
-              locality_guesses = []
-              locality_guesses << in_locale_guesses[:locality] unless !in_locale_guesses
-              locality_guesses << details_guesses[:locality] unless !details_guesses
-              locality_guesses << keyword_guesses[:locality] unless !keyword_guesses
-              locality_guesses << title_guesses[:locality] unless !title_guesses
-              locality_guesses << description_guesses[:locality] unless !description_guesses
-              # locality_guesses << page_guesses[:locality] unless !page_guesses
-              @locality = top_pick(locality_guesses)[:locality] unless !top_pick(locality_guesses)
-              locality_confidence = [top_pick(locality_guesses)[1], (locality_guesses.length)]
-            end
-            unless @region
-              region_guesses = []
-              region_guesses << in_locale_guesses[:region] unless !in_locale_guesses
-              region_guesses << details_guesses[:region] unless !details_guesses
-              region_guesses << keyword_guesses[:region] unless !keyword_guesses
-              region_guesses << title_guesses[:region] unless !title_guesses
-              region_guesses << description_guesses[:region] unless !description_guesses
-              # region_guesses << page_guesses[:region] unless !page_guesses
-              @region = top_pick(region_guesses)[0] unless !top_pick(region_guesses)
-              region_confidence = [top_pick(region_guesses)[1], (region_guesses.length)]
-            end
-            unless @country
-              country_guesses = []
-              country_guesses << in_locale_guesses[:country] unless !in_locale_guesses
-              country_guesses << details_guesses[:country] unless !details_guesses
-              country_guesses << keyword_guesses[:country] unless !keyword_guesses
-              country_guesses << title_guesses[:country] unless !title_guesses
-              country_guesses << description_guesses[:country] unless !description_guesses
-              # country_guesses << page_guesses[:country] unless !page_guesses
-              @country = top_pick(country_guesses)[0] unless !top_pick(country_guesses)
-              country_confidence = [top_pick(country_guesses)[1], (country_guesses.length)]
-            end
-            # test for congruence
-            # NEEDS FOLLOWUP
-
-            return @nearby = [@locality, @region, @country].compact.join(", ")
-          end
+          page_content_to_scan = [ in_locale(article_box), more_info_box, meta_keywords, meta_description, title, page.text ]
+          guesses = page_content_to_scan.map{ |content| guess_locale( content ) }
+          @locality ||= top_pick( guesses.compact.map{ |g| g[:locality] } )[:is]
+          @region ||= top_pick( guesses.compact.map{ |g| g[:region] } )[:is]
+          @country ||= top_pick( guesses.compact.map{ |g| g[:country] } )[:is]
+          @nearby = [@locality, @region, @country].compact.join(", ")
         end
       end
 
@@ -603,7 +557,7 @@ module Scrapers
         end
         guesses = new_array
 
-        if clear_choice = top_pick(guesses.compact, 0.50001)[0]
+        if clear_choice = top_pick(guesses.compact, 0.50001)[:is]
           return @name = clear_choice
         else
           return @names = guesses.compact.uniq        
