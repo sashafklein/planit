@@ -28,11 +28,11 @@ module MetaExt
 
           metaclass.instance_eval do 
             define_method(symbol) do
-              where(symbol => true)
+              where("#{table_name}.#{symbol} = ?", true)
             end
 
             define_method("not_#{symbol}") do
-              where(symbol => false)
+              where("#{table_name}.#{symbol} = ?", false)
             end
           end
 

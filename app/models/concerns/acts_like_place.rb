@@ -112,6 +112,6 @@ module ActsLikePlace
   end
 
   def hour_calculator
-    PlaceMod::Hours.new(hours, tz)
+    PlaceMod::Hours.new(hours, tz); rescue {}.to_sh
   end
 end

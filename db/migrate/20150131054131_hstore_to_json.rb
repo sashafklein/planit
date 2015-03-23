@@ -14,7 +14,7 @@ class HstoreToJson < ActiveRecord::Migration
   def change_hash_column_type(class_name, column_name, new_type)
     array = []
 
-    class_name.order('id ASC').each do |object|
+    class_name.order('id ASC').find_each do |object|
       array << (new_type == :json ? ParsedHstore.new(object[:column_name]).hash_value : object[:column_name])
     end
 

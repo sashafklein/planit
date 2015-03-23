@@ -4,7 +4,7 @@ module PlaceMod
     attr_accessor :place, :value, :names, :nearby
 
     def initialize(place, nearby=nil)
-      @place, @nearby = place, nearby.to_s.downcase.no_accents.without_common_symbols.downcase
+      @place, @nearby = place, nearby.to_s.downcase.no_accents.without_common_symbols
       @names = place.names.compact.map(&:no_accents).map(&:without_common_symbols).map(&:downcase)
     end
 

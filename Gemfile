@@ -29,6 +29,7 @@ gem "elasticsearch-model"
 gem "bonsai-elasticsearch-rails"
 gem "rspec-instafail", require: false
 gem "roadie-rails"
+gem "oink"
 
 gem "haml-rails"
 gem "geocoder"

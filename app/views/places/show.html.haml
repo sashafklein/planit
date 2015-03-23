@@ -43,7 +43,7 @@
       - if @place.has_sources?
         .more-info-wrap
           = @place.decorate.show_foursquare_link
-          - @place.sources.each do |source|
+          - @place.sources.find_each do |source|
             = link_to source.name, source.full_url
 
   = @place.decorate.next_image_script

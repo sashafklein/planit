@@ -7,14 +7,13 @@ class Api::V1::Users::PlacesController < ApiController
 
     if @user == current_user
       render json: {
-        current_user_pins: serialize_places( current_user ),
-        user_pins: serialize_places( @user )
-        # user_pins: serialize_places( @user, true )
+        current_user_pins: [],
+        user_pins: serialize_places( @user ),
       }
     else
       render json: {
         current_user_pins: serialize_places( current_user ),
-        user_pins: serialize_places( @user )
+        user_pins: serialize_places( @user, false )
       }
     end
   end
@@ -25,8 +24,9 @@ class Api::V1::Users::PlacesController < ApiController
     @user = User.friendly.find params[:user_id]
   end
 
-  def serialize_places(user, published=false)
-    places = published ? user.marks.with_places.published.places.includes(:images) : user.marks.with_places.places.includes(:images)
+  def serialize_places(user, open=true)
+    base_search = user.marks.with_places
+    places = open ? base_search.places.includes(:images) : base_search.published.places.published.includes(:images)
     ActiveModel::ArraySerializer.new(places, each_serializer: MapPlaceSerializer)
   end
 

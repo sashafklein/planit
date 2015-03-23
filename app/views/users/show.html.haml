@@ -6,7 +6,7 @@
   .band.gray.spaced.large-screen
     .container
 
-      - @user.marks_with_places.includes(:place).each do |mark|
+      - @user.marks_with_places.includes(:place).find_each do |mark|
         %p= link_to mark.place.name + " " + mark.updated_at.strftime('%d %b, %Y'), mark.place
 
       / .two-thirds.column
