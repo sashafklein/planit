@@ -3,55 +3,65 @@ mod.factory 'PlanitMarker', ($timeout) ->
 
   class PlanitMarker
 
-    @primaryPin: (place, show_popup = false) ->
-      primaryMarker = L.marker(new L.LatLng(place.lat, place.lon), options={
-        title: place.names[0],
-        alt: place.names[0],
-        placeObject: place,
-        riseOnHover: true,
-        properties: {
-          placeObject: place,
-        },
-        icon: L.divIcon({
-          className: 'default-map-div-icon',
-          html: """ <div class='default-map-icon-tab p#{place.id}' id='p#{place.id}'><i class='#{place.meta_icon || ''}'></i><div class='arrow' /></div> """,
-          iconSize: null,
-        }),
-      })
-      if show_popup
-        primaryMarker.bindPopup("<a href='/places/#{place.id}'>#{ place.name() }</a>", {offset: new L.Point(0,8)})
-      else
-        primaryMarker
+    constructor: (scope) ->
+      @scope = scope
 
-    @contextPin: (place) ->
-      L.marker([place.lat, place.lon], {
-        icon: L.divIcon({
-          className: 'contextual-map-div-icon',
-          html: """ <div class='contextual-map-icon-tab p#{place.id}' id='p#{place.id}'><i class='#{place.meta_icon}'></i></div> """,
-          iconSize: new L.Point(18,18),
-          iconAnchor: [9,9],
-        })
-      }).bindPopup("<a href='/places/#{place.id}'>#{ place.name() }</a>", {offset: new L.Point(0,3), className: 'mini-popup'})
+    primaryPin: (place, show_popup = false) ->
+      id = "p#{place.id}"
+      _( @_basicPin(place) ).extend(
+        icon:
+          type: 'div'
+          className: 'default-map-div-icon'
+          html: """ <div onclick="s.mouse('pinClick', id)" ondblclick="s.mouse('pinDblClick', id)" onmouseenter="s.mouse('pinMouseenterScroll', id)" onmouseleave="s.mouse('pinMouseleave', id)" class="default-map-icon-tab #{id}" id="#{id}" ><i class="#{place.meta_icon || ''}" ></i><div class="arrow" /></div> """
+          iconSize: null
+      ).value()
+      # if show_popup
+      #   primaryMarker.bindPopup("<a href='/places/#{place.id}'>#{ place.name() }</a>", {offset: new L.Point(0,8)})
+      # else
+      #   primaryMarker
 
-    @clusterPin: (cluster) ->
+    contextPin: (place) ->
+      _( @_basicPin(place) ).extend(
+        icon: 
+          type: 'div'
+          className: 'contextual-map-div-icon'
+          html: """ <div onclick="s.mouse('pinClick', id)" ondblclick="s.mouse('pinDblClick', id)" class='contextual-map-icon-tab p#{place.id}' id='p#{place.id}'><i class='#{place.meta_icon}'></i></div> """
+          iconSize: [18,18]
+          iconAnchor: [9,9]
+      ).value()
+      # .bindPopup("<a href='/places/#{place.id}'>#{ place.name() }</a>", {offset: new L.Point(0,3), className: 'mini-popup'})
+
+    clusterPin: (cluster) ->
       children = cluster.getAllChildMarkers().length
+      id = "c#{cluster._leaflet_id}"
+      events = """ onclick="s.mouse('clusterClick', id)" onmouseenter="s.mouse('clusterMouseenterScroll', id)" onmouseleave="s.mouse('clusterMouseleave', id)" """
       if children > 99
         L.divIcon
           className: "cluster-map-div-container",
-          html: """ <span class='cluster-map-icon-tab large c#{cluster._leaflet_id}' id='c#{cluster._leaflet_id}'>#{children}</span> """,
+          html: """ <span class='cluster-map-icon-tab large #{id}' id='#{id}' #{events}>#{children}</span> """,
           iconSize: new L.Point(40,40),
           iconAnchor: [20,20],
       else if children > 9
         L.divIcon
           className: "cluster-map-div-container",
-          html: """ <span class='cluster-map-icon-tab medium c#{cluster._leaflet_id}' id='c#{cluster._leaflet_id}'>#{children}</span> """,
+          html: """ <span class='cluster-map-icon-tab medium #{id}' id='#{id}' #{events}>#{children}</span> """,
           iconSize: new L.Point(36,36),
           iconAnchor: [18,18],
       else
         L.divIcon
           className: "cluster-map-div-container",
-          html: """ <span class='cluster-map-icon-tab small c#{cluster._leaflet_id}' id='c#{cluster._leaflet_id}'>#{children}</span> """,
+          html: """ <span class='cluster-map-icon-tab small #{id}' id='#{id}' #{events}>#{children}</span> """,
           iconSize: new L.Point(34,34),
           iconAnchor: [17,17],
+
+    _basicPin: (place) ->
+      _(place).extend(
+        hasImg: place.hasImage()
+        name: place.name()
+        title: place.name()
+        alt: place.name()
+        riseOnHover: true
+        layer: 'primary'
+      ).value()
 
   return PlanitMarker

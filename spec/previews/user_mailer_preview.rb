@@ -5,7 +5,7 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   def welcome_invited
-    UserMailer.welcome_invited( User.first, 'xxxxxxx' )
+    UserMailer.welcome_invited( User.first )
   end
 
   def share_love_user_guides

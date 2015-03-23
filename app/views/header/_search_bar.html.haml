@@ -1,6 +1,9 @@
 .search-and-filter-wrap
   - if show_filter?(page_type)
-    = render 'header/dropdowns/places_filter', { user: user } if page_type == 'places'
-    = render 'header/dropdowns/guides_filter', { user: user } if page_type == 'guides'
+    - if page_type == 'places'
+      %map_filter_dropdown
+    / # - elsif page_type == 'guides'
+    / #   = render 'header/dropdowns/guides_filter', { user: user } 
   %full_site_search_field{ show_filter: show_filter?(page_type) }
   = render 'templates/full_site_search_field'
+  = render 'templates/place_filter_dropdown.html'

@@ -1,230 +1,184 @@
-angular.module("Common").directive 'bucketMap', (F, Place, User, PlanitMarker, ClusterLocator, BasicOperators, ClickControls, QueryString, PlaceFilterer, $compile, $timeout) ->
+angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, BucketEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser, ErrorReporter) ->
 
   return {
     restrict: 'E'
     transclude: false
     replace: true
-    templateUrl: "bucket_map.html"
+    templateUrl: 'bucket_map.html'
     scope:
       userId: '@'
-      currentUserId: '@'
-      type: '@'
-      zoomControl: '@'
-      scrollWheelZoom: '@'
+      centerAndZoom: '@'
       webPadding: '@'
       mobilePadding: '@'
-      showList: '@'
 
-    link: (s, element) ->
+    link: (s, elem) ->
+      s.currentUserId = CurrentUser.id
+      s.marker = new PlanitMarker(s)
+      s.mobile = elem.width() < 768
+      s.web = !s.mobile
+      s.screenWidth = if s.mobile then 'mobile' else 'web'
+      s.padding = [35, 25, 15, 25]
+      s.padding = JSON.parse("[" + s.mobilePadding + "]") if s.mobilePadding && s.mobile
+      s.padding = JSON.parse("[" + s.webPadding + "]") if s.webPadding && s.web
+      s.changes = 0
+      s.maxBounds = [[-84,-400], [84,315]]
+      s.centerPoint = { lat: 0, lng: 0, zoom: 2 }
+      s.placesInView = s.clustersInView = []
+      s.leaf = leafletData
 
-      s.showList = true unless s.showList
-      s.mobile = if element.width() < 768 then true else false
-      s.padding = [35, 25, 15, 25] # default
-      s.requireDoubleClick = if s.mobile then true else false
+      s.defaults = 
+        minZoom: 2
+        maxZoom: 18
+        scrollWheelZoom: false
+        doubleClickZoom: true
+        zoomControlPosition: 'topright'
+        layerControl: false
 
-      User.findPlaces( s.userId )
-        .success (places) -> 
-          s.primaryPlacesRaw = Place.generateFromJSON(places.user_pins)
-          s.filterPlaces( s.primaryPlacesRaw )
-          s.drawMap(s, element)
-        .error (response) ->
-          console.log("Failed to grab places information!")
-          console.log response
+      s.layers = 
+        baselayers: 
+          mq:
+            name: 'MapQuest'
+            url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'
+            type: 'xyz'
+            attribution: "&copy; <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a>"
+        overlays: 
+          primary:
+            name: "Primary Places"
+            type: "markercluster"
+            visible: true
+            layerOptions:
+              chunkedLoading: true #?look at
+              showCoverageOnHover: true
+              removeOutsideVisibleBounds: true
+              polygonOptions: { color: "#ff0066", opacity: 1.0, fillColor: "#ff0066", fillOpacity: 0.4, weight: 3  }
+              maxClusterRadius: 50
+              spiderifyDistanceMultiplier: 2
+              requireDoubleClick: s.mobile
+              paddingToFocusArea: s.padding
+              iconCreateFunction: (cluster) -> 
+                initial = 0
+                s.marker.clusterPin(cluster, initial)
 
-      if s.mobilePadding && s.mobile
-        s.padding = JSON.parse("[" + s.mobilePadding + "]")
-      else if s.webPadding && !s.mobile
-        s.padding = JSON.parse("[" + s.webPadding + "]")
-
-      s.filterPlaces = (places) ->
-        s.primaryPlaces = PlaceFilterer.returnFiltered( places )
-
-      s.drawMap = (s, elem) ->
-
-        # Cluster Locator Functions
-        s.bestListLocation = (places, center) ->
-          location = BasicOperators.commaAndJoin( _(places).map('names').map((p) -> p[0]).value() ) if places.length < 3
-          location ||= Place.lowestCommonArea(places)
-          location ||= ClusterLocator.nearestGlobalRegion(center)
-          return location
-
-        # Disable Map Panning & Zooming for List Box or Item Box
-        fixInfoBox = () ->
-          s.infoBox = if !s.mobile then document.getElementById('in-view-list') else document.getElementById('in-view-item')
-          s.infoBox.addEventListener 'mouseover', -> 
-            s.map.dragging.disable()
-            s.map.doubleClickZoom.disable()
-          s.infoBox.addEventListener 'mouseout', -> 
-            s.map.dragging.enable()
-            s.map.doubleClickZoom.disable()
-        setTimeout ( -> fixInfoBox() ), 1000
-
-        s.generateContextualUserPins = ->
-          if s.currentUserId != s.userId
-            User.findPlaces( s.currentUserId )
-              .success (places) ->
-                places = Place.generateFromJSON(places.current_user_pins)
-                s.contextPlaces = _(places).select (place) ->
-                  !_( _( s.primaryPlaces ).map('id') ).contains( place.id )
-                for contextPlace in s.contextPlaces.value()
-                  PlanitMarker.contextPin(contextPlace).addTo(s.contextGroup)
-              .error (response) ->
-                alert("Failed to grab current user's other places!")
-                console.log response
-
-        scrollWheelZoom = false unless s.scrollWheelZoom
-        doubleClickZoom = true
-        zoomControl = s.zoomControl || false
-        minZoom = 2
-        maxZoom = 18
-
-        id = "main_map"
-        elem.attr('id', id)
-
-        s.map = L.map(id, { scrollWheelZoom: scrollWheelZoom, doubleClickZoom: doubleClickZoom, zoomControl: zoomControl, minZoom: minZoom, maxZoom: maxZoom, maxBounds: [[-84,-400],[84,315]] } )
-        
-        L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
-          attribution: "&copy; <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a>"
-        ).addTo(s.map)
-
-        # s.map.setView( [0,0], 2 )
-          
-        # Initialize and Execute hoverEvents
-        s.webHoverEvents = (object, id) ->
-          object.addEventListener 'mouseover', -> $timeout -> 
-            $(element.find(".#{id}")).addClass('highlighted')
-            unless object.className.indexOf('bucket-list-li') != -1
-              $timeout ->
-                $('#in-view-list').animate({
-                  scrollTop: $("##{id}").offset().top - $('#top-of-list').offset().top
-                }, 0)
-          object.addEventListener 'mouseout', -> $timeout -> $(element.find(".#{id}")).removeClass('highlighted')
-        s.doubleClickEvents = (object, id) ->
-          object.addEventListener 'dblclick', -> 
-            document.location.href = '/places/' + id.split('p')[1] if id
-        s.clickPinEvents = (object, id) -> 
-          object.addEventListener 'click', -> s.$apply ->
-            $(element.find(".#{s.clickedId}")).removeClass('highlighted') if (s.clickedId && (s.clickedId != id) )
-            $(element.find(".#{id}")).addClass('highlighted')
-            s.clickedId = id
-            s.place = if (id.split('p') && id.split('p').length > 1) then _(s.primaryPlaces).find( (obj) -> obj.id == parseInt( id.split('p')[1]) ) else null
-            s.cluster = if (id.split('c') && id.split('c').length > 1) then s._clusterObject( clusterMarkers._featureGroup.getLayer( parseInt( id.split('c')[1] ) ) ) else null
-        s.clickControlEvents = (object, id) ->
-          object.addEventListener 'click', -> 
-            ClickControls.placeEdits( $(this).attr('id'), $(this).attr('data-place-ids') )
-        s.addMouseEvents = (arrayOfClasses, focus_on) ->
-          $timeout -> 
-            for className in arrayOfClasses
-              for item in element.find(className)
-                s.webHoverEvents( item, $(item).attr('id') ) if focus_on == 'hover'
-                s.clickPinEvents( item, $(item).attr('id') ) if focus_on == 'clickPin'
-                s.clickControlEvents( item, $(item).attr('id') ) if focus_on == 'clickControl'
-                s.doubleClickEvents( item, $(item).attr('id') ) if focus_on == 'dblclick'
-
-        # Create context layer and pins
-        s.contextGroup = L.layerGroup()
-        s.map.addLayer(s.contextGroup)
-        s.generateContextualUserPins() if s.currentUserId
-
-        # Primary Pins in Clusters if Plan, WorldView
-        clusterMarkers = new L.MarkerClusterGroup({
-          maxClusterRadius: 50,
-          requireDoubleClick: s.requireDoubleClick,
-          showCoverageOnHover: true,
-          disableClusteringAtZoom: 15,
-          spiderfyDistanceMultiplier: 2,
-          polygonOptions: { color: '#ff0066', opacity: 1.0, fillColor: '#ff0066', fillOpacity: 0.4, weight: 3 },
-          paddingToFocusArea: s.padding,
-          iconCreateFunction: (cluster) -> PlanitMarker.clusterPin( cluster ),
-        }) 
-        i = 0
-        s.primaryCoordinates = []
-        while i < s.primaryPlaces.length
-          place = s.primaryPlaces[i]
-          place.leafletLocation = new L.LatLng( place.lat, place.lon )
-          s.primaryCoordinates.push [place.lat,place.lon]
-          clusterMarker = PlanitMarker.primaryPin(place)
-          clusterMarkers.addLayer clusterMarker
-          i++
-        s.map.addLayer(clusterMarkers)
-
-        # Start map (either center or with QueryString) and inject zoom control
-        queryCenter = QueryString.get()["m"]
-        if queryCenter && !queryCenter.replace(/[-0-9.,]/g,'').length && queryCenter.split(',').length == 3
-          queryCenter = { lat: queryCenter.split(',')[0], lon: queryCenter.split(',')[1], zoom: queryCenter.split(',')[2] }
-          s.map.setView( [ parseFloat( queryCenter.lat ), parseFloat( queryCenter.lon ) ], parseInt( queryCenter.zoom ) )
-        else
-          s.totalBounds = new L.LatLngBounds(s.primaryCoordinates)
-          s.map.fitBounds(s.totalBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
-        new L.Control.Zoom({ position: 'topright' }).addTo(s.map)
-
-        # Control whether or not context pins are viewable
-        s.showHideContext = () ->
-          if s.map.getZoom() > 11
-            s.map.addLayer(s.contextGroup)
+      s._getPlaces = (userId, currentUserId) ->
+        s._getPrimaryPlaces(userId).then ->
+          if currentUserId && currentUserId != userId
+            s._getContextPlaces(currentUserId).then( s._definePlaces() )
           else
-            s.map.removeLayer(s.contextGroup)
-        s.showHideContext()
-        s.map.on "zoomend", -> s.showHideContext()
+            s._definePlaces()
 
-        # Retrieve Cluster Info and Produce Object
-        s.currentBounds = -> s.map.getBounds()
-        s._clusterObject = (cluster) ->
-          places = _( cluster.getAllChildMarkers() ).map('options').map('placeObject').value()
-          center = cluster._latlng
-          return { id: "c#{cluster._leaflet_id}", count: cluster._childCount, center: center, places: places, location: s.bestListLocation(places, center), clusterObject: cluster }
+      # ON MAP MOVEMENT
 
-        s.updateQuery = ->
-          centerMap = s.map.getCenter()
-          QueryString.modify( m: "#{centerMap.lat.toFixed(4)},#{centerMap.lng.toFixed(4)},#{s.map.getZoom()}" )
+      s.recalculateInView = -> 
+        return unless s.places
+        s.changes++
+        $timeout ( -> 
+          s._setCurrentLayers( s._setItemsInView )
+          s._setCurrentMap( s._updateQuery )
+        ), 400
 
-        if s.mobile
-          # Relay clicked marker to infoBox if Mobile
-          s.clickedId = undefined
-          s.clearClicked = () -> 
-            s.$apply ->
-              $(element.find(".#{s.clickedId}")).removeClass('highlighted')
-              s.clickedId = undefined 
-              s.cluster = undefined
-              s.place = undefined
-          s.mobileUpdateView = () -> 
-            s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".context-map-icon-tab"], 'clickPin')
-            s.addMouseEvents([".default-map-icon-tab", ".context-map-icon-tab"], 'dblclick')
-            s.addMouseEvents([".edit-place", ".edit-places"], 'clickControl')
-            if ( (s.cluster && !s.currentBounds().contains( s.cluster.clusterObject._bounds ) ) || ( s.place && !s.currentBounds().contains( s.place.leafletLocation ) ) ) then s.clearClicked()
-            s.updateQuery()
-          s.map.on "moveend", -> s.mobileUpdateView()
-          s.map.on "zoomend", -> setTimeout ( -> s.mobileUpdateView() ), 400
-          s.mobileUpdateView()
+      s._setCurrentLayers = (callback) ->
+        leafletData.getLayers().then (l) ->
+          s.currentLayers = l.overlays.primary._featureGroup._layers
+          callback?()
 
-        if !s.mobile
-          # Relay back sidelist marker info if Web Browser
-          s.webUpdateView = () -> 
-            currentBounds = s.currentBounds()
-            stuffOnMap = clusterMarkers._featureGroup.getLayers()
-            s.placesInView = []
-            s.clustersInView = []
-            for layer in stuffOnMap
-              s.placesInView.push( layer.options.placeObject ) if layer.options.placeObject && currentBounds.contains( layer._latlng )
-              s.clustersInView.push( s._clusterObject(layer) ) if layer._childCount > 1 && currentBounds.contains( layer._bounds )
-            if s.placesInView.length == 0 && s.clustersInView.length == 0
-              $(element.find("#first-bucket-item")).removeClass('invisible')
-            else
-              $(element.find("#first-bucket-item")).addClass('invisible')
-            s.clustersInView.sort( BasicOperators.dynamicSort('-count') )
-            $timeout ->
-              $('#in-view-list').animate({
-                scrollTop: $('#first-bucket-item').offset().top
-              }, 0)
-            s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".bucket-list-li"], 'hover')
-            s.addMouseEvents([".cluster-map-icon-tab", ".default-map-icon-tab", ".context-map-icon-tab"], 'dblclick')
-            s.addMouseEvents([".edit-place", ".edit-places"], 'clickControl')
-            s.updateQuery()
-          s.map.on "moveend", -> s.webUpdateView()
-          s.map.on "zoomend", -> setTimeout ( -> s.$apply -> s.webUpdateView() ), 400
-          s.webUpdateView()
-          # Change Initial Loading Tab for Future Viewing, Recenter 'Lost' Browser to Start
-          $(element.find("#no-items-msg")).html('Not All Who Wander Are Lost...')
-          element.find("#first-bucket-item")[0].addEventListener 'click', -> s.map.fitBounds(s.totalBounds, { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
+      s._setItemsInView = ->
+        return unless s.currentLayers
+        leafletData.getMap().then (m) ->
+          s.currentBounds = m.getBounds()
+          s.clustersInView = _(s.currentLayers)
+            .filter( (l) -> l._childCount > 1 && s.currentBounds.contains( l._bounds ) )
+            .map( (c) -> s._clusterObj c )
+            .sortBy( (c) -> -1*c.count )
+            .value()
+          s.placesInView = _(s.currentLayers)
+            .filter( (l) -> l.options.id && s.currentBounds.contains( l._latlng ) )
+            .map( (p) -> p.options )
+            .value()
 
+      s._setCurrentMap = (callback) ->
+        leafletData.getMap().then (m) ->
+          s.currentLLZoom = { lat: m.getCenter().lat, lon: m.getCenter().lng, zoom: m.getZoom() }
+          callback?()
+
+      s._updateQuery = ->
+        if s.mOkay && s.currentLLZoom
+          QueryString.modify( m: "#{ s.currentLLZoom.lat.toFixed(4) },#{ s.currentLLZoom.lon.toFixed(4) },#{ s.currentLLZoom.zoom }" )
+
+      # SET MAP DATA
+
+      s._definePlaces = ->
+        s.allPlaces = s.primaryPlaces.concat( if s.contextPlaces then s.contextPlaces else [] )
+        s._filterPlaces( s.recalculateInView )
+        s._initiateCenterAndBounds()
+
+      s._initiateCenterAndBounds = ->
+        if !s.centerAndZoom
+          s.lats = _.map( s.places, (p) -> p.lat )
+          s.lons = _.map( s.places, (p) -> p.lon )
+          leafletData.getMap().then (m) ->
+            m.fitBounds( 
+              L.latLngBounds( L.latLng(_.min(s.lats),_.min(s.lons)),L.latLng(_.max(s.lats),_.max(s.lons)) ),
+              { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] }
+            )
+        else
+          s.centerPoint = { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) }
+        $timeout (-> 
+          s.mOkay = true 
+          s._disableMapManipulationOnInfoBox()
+          ), 2000
+
+      s._filterPlaces = (callback) -> 
+        s.places = new PlaceFilterer( QueryString.get() ).returnFiltered( s.allPlaces )
+        $timeout(-> callback?() )
+
+      s._getPrimaryPlaces = (userId) ->
+        User.findPlaces( userId )
+          .success (places) ->
+            places = Place.generateFromJSON(places.user_pins)
+            s.primaryPlaces = _(places).map( (p) -> s.marker.primaryPin(p) ).value()
+          .error (response) ->
+            ErrorReporter.report({ userId: userId })
+
+      s._getContextPlaces = (currentUserId) ->
+        User.findPlaces( currentUserId )
+          .success (places) ->
+            places = Place.generateFromJSON( places.current_user_pins )
+            s.contextPlaces = _(places).map( (p) -> s.marker.contextPin(p) ).value()
+          .error (response) ->
+            ErrorReporter.report({ userId: userId })
+
+      s.clusterFromId = (id) ->
+        _.filter( s.clustersInView , (c) -> c.id == id )[0]
+
+      s.placeFromId = (id) ->
+        _.filter( s.placesInView , (p) -> 'p' + p.id == id )[0]
+
+      s._clusterObj = (c) ->
+        places = _( c.getAllChildMarkers() ).map('options').value()
+        { id: "c#{c._leaflet_id}", count: c._childCount, center: c._latlng, bounds: c._bounds, places: places, location: s._bestListLocation(places, c._latlng), clusterObject: c }
+
+      s._bestListLocation = (places, center) ->
+        location = BasicOperators.commaAndJoin( _(places).map('names').map((p) -> p[0]).value() ) if places.length < 3
+        location ||= Place.lowestCommonArea(places)
+        location ||= ClusterLocator.nearestGlobalRegion(center)
+        return location
+      
+      s.mouse = (type, id) -> new BucketEventManager(s).mouseEvent( type, id )
+      s.zoomToCluster = (cluster) ->
+        leafletData.getMap().then (m) ->
+          m.fitBounds( cluster.bounds , { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
+          new BucketEventManager(s).deselectAll()
+
+      s.$on 'leafletDirectiveMap.moveend', -> s.recalculateInView()
+
+      s.$on '$locationChangeSuccess', (event, next) -> s._filterPlaces( s.recalculateInView ) if s.allPlaces?.length
+
+      s._disableMapManipulationOnInfoBox = ->
+        if infoBox = document.getElementById('map-info-box')
+          leafletData.getMap().then (m) ->
+            infoBox.addEventListener 'mouseover', -> m.dragging.disable() ; m.doubleClickZoom.disable()
+            infoBox.addEventListener 'mouseout', -> m.dragging.enable() ; m.doubleClickZoom.disable()
+
+      # INIT
+      s._getPlaces(s.userId, s.currentUserId)
   }

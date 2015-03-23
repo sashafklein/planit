@@ -22,7 +22,6 @@ class Api::V1::Users::MarksController < ApiController
     return error(404, "User not found") unless @user
     return error(500, "Missing url param") unless params[:url]    
     
-    # DEBUGGER
     # File.open('~log.html', 'w') { |file| file.write(params[:page]) }
 
     scraper = Services::SiteScraper.build(params[:url], params[:page]) || Scrapers::General.new(params[:url], params[:page])

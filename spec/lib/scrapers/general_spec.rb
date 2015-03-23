@@ -135,20 +135,21 @@ module Scrapers
       end
     end
 
-    describe "http://www.biteintomaine.com" do
-      before { @url = "http://www.biteintomaine.com" }
-      it "parses the page" do 
-        expect_equal(data, [
-          place: {
-            name: "Bite into Maine",
-            locality: "Portland",
-            country: "United States of America",
-            nearby: "Portland, United States of America",
-          },
-          scraper_url: "http://www.biteintomaine.com",
-          ])
-      end
-    end
+    # NOW COMPLETELY LACKING IN DATA
+    # describe "http://www.biteintomaine.com" do
+    #   before { @url = "http://www.biteintomaine.com" }
+    #   it "parses the page" do 
+    #     expect_equal(data, [
+    #       place: {
+    #         name: "Bite into Maine",
+    #         locality: "Portland",
+    #         country: "United States of America",
+    #         nearby: "Portland, United States of America",
+    #       },
+    #       scraper_url: "http://www.biteintomaine.com",
+    #       ])
+    #   end
+    # end
 
     # GNARLY LACK OF ACTUAL DATA
     # describe "http://dwelltimecambridge.com" do

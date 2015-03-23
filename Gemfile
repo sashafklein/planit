@@ -19,7 +19,6 @@ gem "sass-rails"
 gem "uglifier"
 gem "unicorn"
 gem "memoist"
-gem "premailer-rails"
 
 gem "nokogiri"
 gem "font-awesome-sass"
@@ -28,6 +27,7 @@ gem "simple_form"
 gem "elasticsearch-rails"
 gem "elasticsearch-model"
 gem "rspec-instafail", require: false
+gem 'roadie-rails'
 
 gem "haml-rails"
 gem "geocoder"
@@ -58,6 +58,7 @@ source "https://rails-assets.org" do
   gem "rails-assets-async"
   gem "rails-assets-lodash"
   gem "rails-assets-leaflet"
+  gem "rails-assets-angular-leaflet-directive"
 end
 
 group :development do

@@ -1,4 +1,4 @@
-angular.module("Common").directive 'bucketListClusters', (ClusterLocator) ->
+angular.module("Common").directive 'bucketListClusters', (BucketEventManager, ClusterLocator, leafletData) ->
 
   return {
     restrict: 'E'
@@ -7,19 +7,34 @@ angular.module("Common").directive 'bucketListClusters', (ClusterLocator) ->
     templateUrl: "bucket_list_clusters.html"
     scope:
       cluster: '='
-      map: '='
-      padding: '='
+      changes: '='
+      zoomTo: '&'
 
-    link: (s, element) ->
+    link: (s, element, attrs) ->
 
-      s.cluster_places_ids = () ->
-        return s._cluster_places_ids if s._cluster_places_ids
-        s._cluster_places_ids = _(s.cluster.places).map('id').value()
+      s.latestChange = s.changes - 1
+
+      s.clusterPlaceIds = ->
+        return s._clusterPlaceIds if s._clusterPlaceIds
+        if s._changeReady()
+          s._clusterPlaceIds = _(s.cluster.places).map('id').value()
       
-      s.clusterZoom = (id) ->
-        s.map.fitBounds( s.map._layers[ parseInt(id.split('c')[1]) ]._bounds , { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
+      s.clusterImage = () -> 
 
-      s.clusterImage = (location) -> ClusterLocator.imageForLocation(location)
-      s.pinsDetails = (places) -> ClusterLocator.pinsDetails(places)
+        return s.clusterImageIs if s.clusterImageIs
+        if s._changeReady()
+          s.clusterImageIs = ClusterLocator.imageForLocation(s.cluster.location, s.cluster.places)
+
+      s.pinsDetails = () -> 
+        return s.pinsDetailsAre if s.pinDetailsAre
+        if s._changeReady()
+          s.pinDetailsAre = ClusterLocator.pinsDetails(s.cluster.places)
+      
+      s._changeReady = ->
+        if s.latestChange != s.changes
+          s.latestChange++
+          return true
+        else
+          return false
         
   }

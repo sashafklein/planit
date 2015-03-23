@@ -1,5 +1,5 @@
 class MapPlaceSerializer < ActiveModel::Serializer
-  attributes :id, :lat, :lon, :names, :categories, :meta_categories, :sublocality, :locality, :region, :country, :meta_icon, :meta_category, :wifi
+  attributes :id, :lat, :lon, :names, :categories, :meta_categories, :sublocality, :locality, :region, :country, :meta_icon, :meta_category, :wifi, :open
   delegate   :meta_icon, :meta_category, to: :object
 
   has_many :images
@@ -8,7 +8,8 @@ class MapPlaceSerializer < ActiveModel::Serializer
     [object.lat,object.lon]
   end
 
-  # def open
-  # end
+  def open
+    object.open?
+  end
 
 end

@@ -1,87 +1,58 @@
 mod = angular.module('Models')
-mod.factory 'PlaceFilterer', ($compile, $filter, QueryString) ->
+mod.factory 'PlaceFilterer', ($filter) ->
 
   class PlaceFilterer
 
-    @returnFiltered: (places) -> 
-      filteredPlaces = $filter('filter')( places, PlaceFilterer._filterPlace )
-      PlaceFilterer._showNumberFiltered((places.length - filteredPlaces.length))
-      return filteredPlaces
+    constructor: (queryHash) ->
+      @queryHash = @_roundOut queryHash
 
-    @_showNumberFiltered: (number) ->
-      if PlaceFilterer._filtersTriggered()
-        if $('#number_filtered').html() == ""
-          if number > 0
-            $('#number_filtered').html("-#{number}")
+    returnFiltered: (places) -> 
+      return [] unless places
+      filteredPlaces = $filter('filter')( places, ( (place) => @_filterPlace(place) ) )
+      # @_showNumberFiltered( places.length - filteredPlaces.length )
+      filteredPlaces
+
+    # _showNumberFiltered: (number) ->
+    #   if @queryHash.f? || $('#number_filtered').html() != ''
+    #     $('#number_filtered').html ( if number > 0 then "-#{number}" else null )
+
+    _filterPlace: (place) ->
+      [context, filters] = [@, [ '_metaCategoryFilter', '_wifiFilter', '_queryFilter' ]] # @_been, @_loved, @_open
+      runFilter = (place, filterMethod) => if place then context[filterMethod](place) else null
+      _(filters).reduce( runFilter, place )
+
+    _metaCategoryFilter: (place) ->
+      return place unless (filters = @queryHash.meta_categories)?.length
+      if _(filters).some( (cat) -> _(place.meta_categories).includes(cat) ) then place else null
+
+    _wifiFilter: (place) ->
+      return place unless filter = @queryHash.wifi?
+      if place.wifi == filter then place else null
+
+    _queryFilter: (place) ->
+      return place unless (filter = @queryHash.q)?.toLowerCase()
+
+      areaTypes = _(['sublocality', 'locality', 'region', 'country']).map( (at) => place[at] ).compact.value()
+
+      anyMatches = _([place.names, areaTypes, place.categories]).some( (possibleMatch) => return place if @_containsFilter(possibleMatch, filter) )
+      if anyMatches then place else null
+
+    _containsFilter: (collection, filter) -> _(collection).some( (val) -> val.toLowerCase().indexOf(filter) != -1 )
+    
+    _roundOut: (qHash) ->
+      newObj = _({ meta_categories: [], wifi: null, open: null, been: null, loved: null }).extend(qHash).value()
+
+      if newObj.f
+        for val in newObj.f.split(",")
+          if val == "seedo"
+            newObj.meta_categories.push("See", "Do")
+          else if val == 'wifi'
+            newObj.wifi = true    
           else
-            $('#number_filtered').html(null)
+            newObj.meta_categories.push( @_capitalize(val) )
 
-    @_filterPlace: (place) ->
-      result = place
-      # result = PlaceFilterer._been(result) if result
-      # result = PlaceFilterer._loved(result) if result
-      result = PlaceFilterer._metaCategoryFilter(result) if result
-      result = PlaceFilterer._wifiFilter(result) if result
-      result = PlaceFilterer._queryFilter(result) if result
-      # result = PlaceFilterer._open(result) if result
+      newObj
 
-    @_metaCategoryFilter: (place) ->
-      filters = PlaceFilterer._params().meta_categories
-      if filters && filters.length > 0
-        for category in place.meta_categories
-          if filters.indexOf(category) != -1
-            return place
-        return null
-      place
-
-    @_wifiFilter: (place) ->
-      filter = PlaceFilterer._params().wifi
-      if filter != ''
-        return place if place.wifi == filter
-        return null
-      place
-
-    @_queryFilter: (place) ->
-      filter = QueryString.get()['q']
-      if filter
-        filter = filter.toLowerCase()
-        for name in place.names
-          if name.toLowerCase().indexOf(filter) != -1
-            return place
-        return place if place.sublocality && place.sublocality.toLowerCase().indexOf(filter) != -1
-        return place if place.locality && place.locality.toLowerCase().indexOf(filter) != -1
-        return place if place.region && place.region.toLowerCase().indexOf(filter) != -1
-        return place if place.country && place.country.toLowerCase().indexOf(filter) != -1
-        for category in place.categories
-          if category.toLowerCase().indexOf(filter) != -1
-            return place
-        return null
-      place
-
-    @_params: () -> 
-      params = { meta_categories: [], wifi: '', open: '', been: '', loved: '' }
-      filtersString = QueryString.get()['f']
-      return params unless filtersString
-      filtersArray = filtersString.split("+")
-      params.meta_categories.push "Food" if ( filtersArray.indexOf('food') != -1 )
-      params.meta_categories.push "Drink" if ( filtersArray.indexOf('drink') != -1 )
-      params.meta_categories.push "See" if ( filtersArray.indexOf('seedo') != -1 )
-      params.meta_categories.push "Do" if ( filtersArray.indexOf('seedo') != -1 )
-      params.meta_categories.push "Stay" if ( filtersArray.indexOf('stay') != -1 )
-      params.meta_categories.push "Relax" if ( filtersArray.indexOf('relax') != -1 )
-      params.meta_categories.push "Money" if ( filtersArray.indexOf('other') != -1 )
-      params.meta_categories.push "Help" if ( filtersArray.indexOf('other') != -1 )
-      params.meta_categories.push "Transit" if ( filtersArray.indexOf('other') != -1 )
-      params.meta_categories.push "Shop" if ( filtersArray.indexOf('other') != -1 )
-      params.meta_categories.push "Area" if ( filtersArray.indexOf('other') != -1 )
-      params.meta_categories.push "Other" if ( filtersArray.indexOf('other') != -1 )
-      params.wifi == true if ( filtersArray.indexOf('wifi') != -1 )
-      # params.open == true if ( filtersArray.indexOf('open') != -1 )
-      # params.been == false if ( filtersArray.indexOf('hide-been') != -1 )
-      # params.loved == true if ( filtersArray.indexOf('loved') != -1 )
-      return params
-
-    @_filtersTriggered: () ->
-      QueryString.get()['f']
+    _capitalize: (word) -> word.substr(0, 1).toUpperCase() + word.substr(1)
 
   return PlaceFilterer

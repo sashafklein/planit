@@ -24,6 +24,6 @@
     = "and start commenting, saving and personalizing your <b>Planit</b> using your email address and your invitation-only passcode token [<span class='password'> #{@user.reset_password_token} </span>].".html_safe
 - else
   %p
-    = link_to "Log in", user_url
+    = link_to "Log in", user_url(@user)
     = "to comment, save, and personalize"
 %p= "The Planit Team"

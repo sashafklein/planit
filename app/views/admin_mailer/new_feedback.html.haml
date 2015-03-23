@@ -1,0 +1,5 @@
+%ul
+  - [:user_id, :details, :nps_feedback_id].each do |attr|
+    %li
+      %b= attr.to_s.split('_').map(&:capitalize).join(' ') + ': '
+      = @page[attr]

@@ -1,0 +1,5 @@
+%ul
+  - [:id, :first_name, :last_name, :email, :role].each do |attr|
+    %li
+      %b= "#{attr.to_s.capitalize}: "
+      = @user[attr]

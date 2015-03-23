@@ -3,7 +3,7 @@ mod.factory 'ClusterLocator', (BasicOperators) ->
 
   class ClusterLocator
 
-    @pinsDetails = (places) ->
+    @clusterDetails = (places) ->
       types = _(places).map('meta_categories').flatten().uniq().value()
       # return types.join(' & ') + ' spots' if types.length < 3
       return 'pins'
@@ -18,9 +18,13 @@ mod.factory 'ClusterLocator', (BasicOperators) ->
           nearestRegion = globalRegion.name
       return nearestRegion
 
-    @imageForLocation = (location) ->
-      gr = _( @globalRegions() ).select( (g) -> location == g.name ).value()
-      gr.image
+    @imageForLocation = (location, places) ->
+      
+      image = _(@globalRegions()).filter( (g) -> location == g.name ).map('image').value()[0]
+      unless image
+        images = _.find(places, (p) -> p.images?.length )?.images || []
+        image = _.find(images, (i) -> i.url?.length )?.url
+      return image
 
     @globalRegions = () ->
       [

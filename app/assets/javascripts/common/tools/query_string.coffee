@@ -1,55 +1,29 @@
-angular.module('Common').factory 'QueryString', () ->
+angular.module('Common').factory 'QueryString', ($location) ->
 
   class QueryString
 
     # PUBLIC
 
-    @get: ->
-      hash = {}
-      if slug = QueryString._slug()
-        for kv in slug.split("&")
-          hash["#{ kv.split("=").shift() }"] = decodeURI( kv.split("=").pop() )
-      return hash
+    @get: -> $location.search()
 
-    @reset: ->
-      @set( null ) 
+    @reset: -> @set( null ) 
 
-    @set: (hash) ->
-      hash = QueryString._stringify( QueryString._clean( hash ) )
-      return window.history.pushState("object or string", "Title", QueryString._path() ) if !hash
-      newPath = QueryString._generate( hash )
-      window.history.pushState("object or string", "Title", newPath )
+    @set: (hash) -> $location.search(hash).replace()
 
     @modify: (object) ->
-      hash = QueryString.get()
-      key = Object.keys(object)[0]
-      hash[key] = object[key]
-      hash = QueryString._stringify( QueryString._clean( hash ) )
-      return window.history.pushState("object or string", "Title", QueryString._path() ) if !hash
-      newPath = QueryString._generate( hash )
-      window.history.pushState("object or string", "Title", newPath )
+      [newObj, clone] = [ {}, QueryString._clone( $location.search() ) ]
 
-    # PRIVATE
+      _.forEach object, (v,k) ->
+        newObj[k] = if (!k? || typeof(k) == 'string') then v else v.join(",")
 
-    @_clean: (hash) ->
-      _.pick(hash, _.identity)
+      $location.search( QueryString._combine(clone, newObj) ).replace()
 
-    @_generate: (hash) ->
-      "#{QueryString._path()}?#{ hash }"
+    # PRIVATE 
 
-    @_stringify: (hash) ->
-      _.map(hash, ( (v,k) -> "#{k}=#{ encodeURI( v ) }" )).join("&")
+    @_clone: (search) -> 
+      JSON.parse JSON.stringify $location.search()
 
-    @_slug: ->
-      initial = window.location.href.split('/').pop()
-      unless initial.indexOf("?") == -1
-        return initial.split("?").pop()
-      return null
-
-    @_path: -> 
-      patharray = window.location.href.split('/')
-      page = patharray.pop()
-      page = page.split('?').shift()
-      patharray.concat(page).join("/")
+    @_combine: (clone, newObj) ->
+      _(clone).extend(newObj).pick( (v,k) -> v? ).value()
 
   return QueryString
