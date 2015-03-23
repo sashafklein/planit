@@ -1,6 +1,7 @@
 // PAGE STRUCTURE
 
 a, a:link, a:hover, a:active
+  transition: 0.2s all ease
   text-decoration: none !important
   color: inherit !important
 
@@ -251,30 +252,21 @@ a.feedback-button, a.feedback-button:hover
   left: 0px
   z-index: 15000
   cursor: pointer
-  span
-    transition: all 0.2s ease
-    display: inline-block
-    height: 25px
-    width: 25px
-    font-size: 14px
-    line-height: 25px
-    text-align: center
-    background: #f06
-  .feedback-button-hint
-    transition: all 0.2s ease
-    display: inline-block
-    height: 25px
-    padding: 0 4px
-    font-weight: bold
-    font-size: 14px
-    line-height: 25px
-    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-    background: #f06
+  transition: all 0.2s ease
+  display: block
+  height: 25px
+  font-size: 14px
+  line-height: 25px
+  background: #f06
+  font-weight: bold
+  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  white-space: nowrap
+  overflow: hidden
+  padding: 0 6px
   &:hover
-    span
-      background: #000
-    .feedback-button-hint
-      background: #000
+    background: #000
+  i
+    display: inline-block
 
 .clear-input-box
   position: relative
@@ -546,14 +538,13 @@ hr.divider
 .mobile
   visibility: hidden !important
   display: none !important
-
-.large-screen, .largest-screen
+  &.inline
+    display: none !important
+.except-landscape, .large-screen, .largest-screen
   visibility: visible !important
   display: inherit !important
-
-.large-screen-inline
-  visibility: visible !important
-  display: inline-block !important
+  &.inline
+    display: inline-block !important
   
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
@@ -568,38 +559,29 @@ hr.divider
     .modal-dialog
       margin: 85px auto
       
-  .mobile
+  .mobile, .largest-screen
     visibility: hidden !important
     display: none !important
-
-  .large-screen
+    &.inline
+      display: none !important
+  .except-landscape, .large-screen
     visibility: visible !important
     display: inherit !important
-
-  .large-screen-inline
-    visibility: visible !important
-    display: inline-block !important
+    &.inline
+      display: inline-block !important
 
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
 
   .band
     &.spaced
-      padding: 12px 0
+      padding: 20px 0
     &.spaced-extra
-      padding: 18px 0
+      padding: 30px 0
 
   .planit-modal
     .modal-dialog
       margin: 30px auto
-
-  .mobile
-    visibility: visible !important
-    display: inherit !important
-
-  .large-screen, .largest-screen, .large-screen-inline
-    visibility: hidden !important
-    display: none !important
 
   #flash
     background: #000
@@ -611,7 +593,7 @@ hr.divider
     color: #eee
 
   .feedback-button
-    bottom: 45px
+    bottom: 42px
     left: 0px
 
   .whitebox.no-mobile-portrait
@@ -619,6 +601,17 @@ hr.divider
 
   .section-header
     margin: 15px 0
+
+  .mobile, .except-landscape
+    visibility: visible !important
+    display: inherit !important
+    &.inline
+      display: inline-block !important
+  .large-screen, .largest-screen
+    visibility: hidden !important
+    display: none !important
+    &.inline
+      display: none !important
 
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
@@ -633,14 +626,6 @@ hr.divider
     .modal-dialog
       margin: 30px auto
       
-  .mobile
-    visibility: visible !important
-    display: inherit !important
-
-  .large-screen, .largest-screen, .large-screen-inline
-    visibility: hidden !important
-    display: none !important
-
   #flash
     background: #000
 
@@ -651,11 +636,22 @@ hr.divider
     color: #eee
 
   .feedback-button
-    bottom: 45px
-    left: 0px
+    bottom: 0
+    left: 0
 
   .section-header
     margin: 15px 0
 
   .whitebox.no-mobile-portrait
     background: rgba(255,255,255,0.8)
+
+  .mobile
+    visibility: visible !important
+    display: inherit !important
+    &.inline
+      display: inline-block !important
+  .mobile-portrait, .except-landscape, .large-screen, .largest-screen
+    visibility: hidden !important
+    display: none !important
+    &.inline
+      display: none !important

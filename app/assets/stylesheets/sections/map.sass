@@ -27,8 +27,6 @@
   background: #ccc
   position: fixed
   height: inherit
-  top: 68px
-  bottom: 0px
   left: 0px
   right: 0px
   z-index: 10000
@@ -52,7 +50,6 @@
   z-index: 150000 !important
   top: 15px
   left: 15px
-  max-height: 650px
   position: relative
   overflow: scroll
   box-shadow: rgba(0, 0, 0, 0.65098) 0px 1px 5px 0px
@@ -576,6 +573,10 @@ path.leaflet-clickable
   width: 100%
   height: 500px
 
+.bucket-map-canvas
+  top: 68px
+  bottom: 0px
+
 .empty-map-box.world-view
   height: 387px
 
@@ -595,15 +596,13 @@ path.leaflet-clickable
 
   .bucket-map-canvas
     top: 68px
+    bottom: 0px
 
   .empty-map-box.world-view
     height: 339px
 
   .world-view-canvas
     height: 337px
-
-  .bucket-map-canvas
-    bottom: 0px
 
   #in-view-item
     display: none
@@ -617,7 +616,8 @@ path.leaflet-clickable
     height: 350px
 
   .bucket-map-canvas
-    top: 55px
+    top: 44px
+    bottom: 44px
 
   .empty-map-box.world-view
     height: 201px
@@ -632,9 +632,6 @@ path.leaflet-clickable
     display: block
     visibility: visible
 
-  .bucket-map-canvas
-    bottom: 44px
-
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
 
@@ -643,7 +640,8 @@ path.leaflet-clickable
     height: 350px
 
   .bucket-map-canvas
-    top: 55px
+    top: 0
+    bottom: 0
 
   .empty-map-box.world-view
     height: 287px
@@ -657,7 +655,4 @@ path.leaflet-clickable
   #in-view-item
     display: block
     visibility: visible
-
-  .bucket-map-canvas
-    bottom: 44px
 

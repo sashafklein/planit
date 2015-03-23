@@ -3,7 +3,7 @@ class MapPlaceSerializer < ActiveModel::Serializer
   delegate   :meta_icon, :meta_category, to: :object
   
   has_many :images
-  
+
   def coordinates
     [object.lat,object.lon]
   end

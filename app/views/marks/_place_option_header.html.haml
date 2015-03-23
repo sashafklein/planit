@@ -3,8 +3,8 @@
 %span.flat= mark.created_at.strftime("%d/%m/%y")
 - if mark.query.exists?
   %span.flat= mark.query.names.first
-  %span.large-screen-inline= "near"
-  %span.flat.large-screen-inline
+  %span.large-screen.inline= "near"
+  %span.flat.large-screen.inline
     = mark.query.nearby
 - if mark.source.present?
   %span= "on"

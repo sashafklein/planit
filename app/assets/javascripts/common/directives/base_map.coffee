@@ -41,7 +41,7 @@ angular.module("Common").directive 'baseMap', (PlanitMarker, leafletData, MapEve
         maxZoom: 18
         scrollWheelZoom: false
         doubleClickZoom: true
-        zoomControl: if s.zoomControl then true else false
+        zoomControl: if ( s.zoomControl && s.web ) then true else false
         zoomControlPosition: s.zoomControl
 
       s.layers = 

@@ -8,6 +8,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
     scope:
       userId: '@'
       centerAndZoom: '@'
+      zoomControl: '='
       webPadding: '@'
       mobilePadding: '@'
 
@@ -31,8 +32,8 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
         maxZoom: 18
         scrollWheelZoom: false
         doubleClickZoom: true
+        zoomControl: if ( s.zoomControl && s.web ) then true else false
         zoomControlPosition: 'topright'
-        layerControl: false
 
       s.layers = 
         baselayers: 
@@ -40,7 +41,6 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
             name: 'MapQuest'
             url: 'https://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'
             type: 'xyz'
-            attribution: "&copy; <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a>"
         overlays: 
           primary:
             name: "Primary Places"
@@ -125,6 +125,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
         $timeout (-> 
           s.mOkay = true 
           s._disableMapManipulationOnInfoBox()
+          s._adjustInfoBoxSize()
           ), 2000
 
       s._filterPlaces = (callback) -> 
@@ -173,9 +174,12 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
           m.fitBounds( cluster.bounds , { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
           new BucketEventManager(s).deselectAll()
 
-      s.$on 'leafletDirectiveMap.moveend', -> s.recalculateInView()
+      s.$on 'leafletDirectiveMap.moveend', -> s.recalculateInView() if s.web
 
       s.$on '$locationChangeSuccess', (event, next) -> s._filterPlaces( s.recalculateInView ) if s.allPlaces?.length
+
+      s._adjustInfoBoxSize = ->
+        $('#in-view-list').css('max-height', (parseInt( $('.bucket-map-canvas').height() * 0.9 )).toString() + 'px') if s.web
 
       s._disableMapManipulationOnInfoBox = ->
         if infoBox = document.getElementById('map-info-box')
