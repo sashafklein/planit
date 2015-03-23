@@ -1,0 +1,1581 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=37.78639&lng=-122.414982&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 23 Mar 2015 02:16:01 GMT
+      Server:
+      - Apache/2.2.17 (Linux/SUSE)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"time":"2015-03-22 19:16","countryName":"United States","sunset":"2015-03-23
+        19:24","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.414982,"sunrise":"2015-03-23
+        07:08","timezoneId":"America/Los_Angeles","lat":37.78639}'
+    http_version: 
+  recorded_at: Mon, 23 Mar 2015 02:16:01 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=37.78639,-122.414982&query=Trocadero%20Club&v=20150322&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 23 Mar 2015 02:16:02 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '154'
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4042'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-sjc3133-SJC
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"code":200},"response":{"warning":{"text":"There aren''t a
+        lot of results for \"Trocadero Club.\" Try something more general, reset your
+        filters, or expand the search area."},"suggestedRadius":2079,"headerLocation":"Tenderloin","headerFullLocation":"Tenderloin,
+        San Francisco","headerLocationGranularity":"neighborhood","query":"trocadero
+        club","totalResults":2,"suggestedBounds":{"ne":{"lat":37.82994492610862,"lng":-122.26593001180746},"sw":{"lat":37.82724526632317,"lng":-122.26865246190502}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"51dc511e498e55380951d3de","name":"Trocadero
+        Club","contact":{},"location":{"address":"701 Geary St","crossStreet":"Geary
+        St. & Leavenworth St.","lat":37.82859509621589,"lng":-122.26729123685624,"distance":13812,"postalCode":"94109","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["701
+        Geary St (Geary St. & Leavenworth St.)","San Francisco, CA 94109","United
+        States"]},"categories":[{"id":"4bf58dd8d48988d11e941735","name":"Cocktail
+        Bar","pluralName":"Cocktail Bars","shortName":"Cocktail","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/nightlife\/cocktails_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":74,"usersCount":24,"tipCount":2},"price":{"tier":3,"message":"Expensive","currency":"$"},"specials":{"count":0,"items":[]},"photos":{"count":1,"groups":[{"type":"venue","name":"Venue
+        photos","count":1,"items":[{"id":"526df39511d2f424800d9494","createdAt":1382937493,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/516329_f1UDRyk8GIi7paohrwEDxssFy9IuDW5Gxkm6cQ5AtBk.jpg","width":960,"height":720,"user":{"id":"516329","firstName":"Ricardo","lastName":"A.","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/516329-YKRFOC4H44ER0J3N.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"526df39511d2f424800d9494","createdAt":1382937493,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/516329_f1UDRyk8GIi7paohrwEDxssFy9IuDW5Gxkm6cQ5AtBk.jpg","width":960,"height":720,"user":{"id":"516329","firstName":"Ricardo","lastName":"A.","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/516329-YKRFOC4H44ER0J3N.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true,"exactMatch":true},"tips":[{"id":"526d3b9c498e87a6e82c5a2d","createdAt":1382890396,"text":"a
+        gorgeous new addition to the neighborhood.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/526d3b9c498e87a6e82c5a2d","logView":true,"todo":{"count":0},"user":{"id":"46471068","firstName":"Ben","lastName":"Larson","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/-ECLD4HQZ13DP4HBY.jpg"}}}],"referralId":"e-0-51dc511e498e55380951d3de-0"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4ec6e4a3f5b9e88191da1b94","name":"Stern
+        Grove Trocadero Clubhouse","contact":{"phone":"4152522590","formattedPhone":"(415)
+        252-2590"},"location":{"address":"Stern Grove, Trocadero Clubhouse","lat":37.73600565625829,"lng":-122.47807767720364,"distance":7892,"postalCode":"94103","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["Stern
+        Grove, Trocadero Clubhouse","San Francisco, CA 94103","United States"]},"categories":[{"id":"4bf58dd8d48988d1e2931735","name":"Art
+        Gallery","pluralName":"Art Galleries","shortName":"Art Gallery","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/arts_entertainment\/artgallery_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":169,"usersCount":131,"tipCount":2},"url":"http:\/\/www.sfartscommission.org","specials":{"count":0,"items":[]},"photos":{"count":19,"groups":[{"type":"venue","name":"Venue
+        photos","count":19,"items":[{"id":"51395658e4b01c34d4406f1f","createdAt":1362712152,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/31534_bCZQmPWDTfRKaWnocgcY2vfKC6Ub9lDYOx55pQ5aRcg.jpg","width":720,"height":960,"user":{"id":"31534","firstName":"Holger","lastName":"Luedorf","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QUUZEGVHPZMSZ4X2.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"51395658e4b01c34d4406f1f","createdAt":1362712152,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/31534_bCZQmPWDTfRKaWnocgcY2vfKC6Ub9lDYOx55pQ5aRcg.jpg","width":720,"height":960,"user":{"id":"31534","firstName":"Holger","lastName":"Luedorf","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QUUZEGVHPZMSZ4X2.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"51d0cf3a498e44d6b90a9503","createdAt":1372639034,"text":"Pre
+        concert talks happen here!","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/51d0cf3a498e44d6b90a9503","logView":true,"todo":{"count":0},"user":{"id":"7415299","firstName":"Koko","lastName":"Darling","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/TYFDM0BKB1MMJXOC.jpg"}}}],"referralId":"e-0-4ec6e4a3f5b9e88191da1b94-1"}]}]}}'
+    http_version: 
+  recorded_at: Mon, 23 Mar 2015 02:16:02 GMT
+- request:
+    method: get
+    uri: https://www.google.com/maps?near=San%20Francisco,%20California,%20United%20States&output=json&q=Trocadero%20Club
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 23 Mar 2015 02:16:02 GMT
+      Expires:
+      - "-1"
+      Cache-Control:
+      - private, max-age=0
+      Content-Type:
+      - application/json; charset=ISO-8859-1
+      Set-Cookie:
+      - PREF=ID=5a841f67d1ab5a91:TM=1427076962:LM=1427076962:S=K0DQzVJv9EZpi6ID; expires=Wed,
+        22-Mar-2017 02:16:02 GMT; path=/; domain=.google.com
+      X-Content-Type-Options:
+      - nosniff
+      Content-Disposition:
+      - attachment; filename="f.txt"
+      Server:
+      - GFE/2.0
+      Transfer-Encoding:
+      - chunked
+      Alternate-Protocol:
+      - 443:quic,p=0.5
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        d2hpbGUoMSk7e3RpdGxlOiJUcm9jYWRlcm8gQ2x1YiBsb2M6IFNhbiBGcmFu
+        Y2lzY28sIENhbGlmb3JuaWEsIFVuaXRlZCBTdGF0ZXMgLSBHb29nbGUgTWFw
+        cyIsdXJsOiIvbWFwcz9xPVRyb2NhZGVybytDbHViXHgyNm5lYXI9U2FuK0Zy
+        YW5jaXNjbywrQ2FsaWZvcm5pYSwrVW5pdGVkK1N0YXRlc1x4MjZpZT1VVEY4
+        XHgyNmhxPVRyb2NhZGVybytDbHViXHgyNmhuZWFyPVNhbitGcmFuY2lzY28s
+        K1NhbitGcmFuY2lzY28rQ291bnR5LCtDYWxpZm9ybmlhIix1cmxWaWV3cG9y
+        dDpmYWxzZSxlaToiWW5jUFZidmVGYVg5aUFLZThJR1lDdyIsZm9ybTp7c2Vs
+        ZWN0ZWQ6InEiLHE6e3E6IlRyb2NhZGVybyBDbHViIGxvYzogU2FuIEZyYW5j
+        aXNjbywgQ2FsaWZvcm5pYSwgVW5pdGVkIFN0YXRlcyIsd2hhdDoiVHJvY2Fk
+        ZXJvIENsdWIiLG5lYXI6IlNhbiBGcmFuY2lzY28sIENhbGlmb3JuaWEsIFVu
+        aXRlZCBTdGF0ZXMifSxkOntzYWRkcjoiIixkYWRkcjoiIixkZmFkZHI6IlNh
+        biBGcmFuY2lzY28sIENhbGlmb3JuaWEsIFVuaXRlZCBTdGF0ZXMifSxnZW9j
+        b2RlOiIifSxxdWVyeTp7dHlwZToibCJ9LHZpZXdwb3J0OntjZW50ZXI6e2xh
+        dDozNy43ODA2NTk5OTk5OTk5OTcsbG5nOi0xMjIuNDE5MTkzMDAwMDAwMDF9
+        LHNwYW46e2xhdDowLjAxMzc1Myxsbmc6MC4wMTAxMDZ9LG1hcFR5cGU6IiIs
+        c291cmNlOjB9LG1vZHVsZXM6WyIiLCJzdHJyIiwicHBob3ZlciIsImFjdF9z
+        IiwiYXBwaXciLCJyc3QiXSxvdmVybGF5czp7c3hjYXI6dHJ1ZSxtYXJrZXJz
+        Olt7aWQ6IkEiLGNpZDoiMTU5MzAzMTk3OTMwMzk2OTI0NTYiLGxhdGxuZzp7
+        bGF0OjM3Ljc4NjM4OTk5OTk5OTk5Nyxsbmc6LTEyMi40MTQ5ODE5OTk5OTk5
+        OX0saW1hZ2U6Imh0dHBzOi8vbWFwcy5nc3RhdGljLmNvbS9pbnRsL2VuX3Vz
+        L21hcGZpbGVzL21hcmtlcnMyL21hcmtlckEucG5nIixzcHJpdGU6e3dpZHRo
+        OjIwLGhlaWdodDozNCx0b3A6MCxpbWFnZToiaHR0cHM6Ly9tYXBzLmdzdGF0
+        aWMuY29tL21hcGZpbGVzL21hcmtlcnMyL3JlZF9tYXJrZXJzX0FfSjIucG5n
+        In0saWNvbl9pZDoiQSIsZHJnOnRydWUsbGFkZHI6IlJ4QmFyLCA3MDEgR2Vh
+        cnkgU3RyZWV0LCBTYW4gRnJhbmNpc2NvLCBDYWxpZm9ybmlhIDk0MTA5Iixn
+        ZW9jb2RlOiJDZFBxWkVuclVrbElGUmFUUUFJZGVoaTAtQ2t6Z3QtaWtZQ0Zn
+        REdvVW9FR2M5MFQzUSIsc3h0aToiUnhCYXIiLHN4c3Q6IkdlYXJ5IFN0cmVl
+        dCIsc3hzbjoiNzAxIixzeGN0OiJTYW4gRnJhbmNpc2NvIixzeHByOiJDYWxp
+        Zm9ybmlhIixzeHBvOiI5NDEwOSIsc3hjbjoiVVMiLHN4cGg6IisxNDE1OTUy
+        MDQ4MSIsbmFtZToiUnhCYXIiLGluZm9XaW5kb3c6e3RpdGxlOiJSeEJhciIs
+        YWRkcmVzc0xpbmVzOlsiNzAxIEdlYXJ5IFN0cmVldCIsIlNhbiBGcmFuY2lz
+        Y28sIENhbGlmb3JuaWEgOTQxMDkiXSxwaG9uZXM6W3tudW1iZXI6Iig0MTUp
+        IDk1Mi0wNDgxIn1dLGhwOnt1cmw6Imh0dHA6Ly93d3cuZ29vZ2xlLmNvbS9s
+        b2NhbF91cmw/ZHE9VHJvY2FkZXJvK0NsdWJceDI2cT1odHRwOi8vd3d3LnJ4
+        YmFyc2YuY29tL1x4MjZvaT1taXdceDI2c2E9WFx4MjZjdD1taXdfbGlua1x4
+        MjZjZD0xXHgyNmNhZD1ob21lcGFnZSxjaWQ6MTU5MzAzMTk3OTMwMzk2OTI0
+        NTZceDI2ZWk9WW5jUFZidmVGYVg5aUFLZThJR1lDd1x4MjZzPUFOWVlON20w
+        a1VaVUNkWU9UR0lfdkpNbDljUXFtMDZmdHciLGRvbWFpbjoicnhiYXJzZi5j
+        b20iLGFjdHVhbF91cmw6Imh0dHA6Ly93d3cucnhiYXJzZi5jb20vIn0sYmFz
+        aWNzOiJceDNjZGl2IHRyYW5zY2x1ZGU9XCJpd1wiXHgzZVx4M2MvZGl2XHgz
+        ZSIsbW9yZUluZm86Im1vcmUgaW5mbyIscGxhY2VfdXJsOiJodHRwOi8vd3d3
+        Lmdvb2dsZS5jb20vbG9jYWxfdXJsP2RxPVRyb2NhZGVybytDbHViXHgyNnE9
+        aHR0cHM6Ly9wbHVzLmdvb2dsZS5jb20vMTE2MTMxMDI4MTk2NjE2NjQxMjI5
+        L2Fib3V0JTNGZ2wlM0R1cyUyNmhsJTNEZW5ceDI2cz1BTllZTjdtTFdSNjJC
+        T01jV3pMTFRGQUg0cjRNVHI2VHBRIixyZXZpZXdzOjMsenJ2T2s6dHJ1ZSxs
+        b2dpblVybDoiaHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS9hY2NvdW50cy9TZXJ2
+        aWNlTG9naW4/c2VydmljZT1sb2NhbFx4MjZobD1lblx4MjZudWk9MVx4MjZj
+        b250aW51ZT1odHRwczovL3d3dy5nb29nbGUuY29tL21hcHMvcGxhY2UlM0Zj
+        aWQlM0QxNTkzMDMxOTc5MzAzOTY5MjQ1NiUyNnElM0RUcm9jYWRlcm8lMkJD
+        bHViJTI2Y2QlM0QxJTI2Y2FkJTNEc3JjOnBwd3JldiUyNmVpJTNEWW5jUFZi
+        dmVGYVg5aUFLZThJR1lDdyUyNmFjdGlvbiUzRG9wZW5yYXRpbmdzIixwaG90
+        b1VybDoiaHR0cHM6Ly9jYmtzMC5nb29nbGUuY29tL2Niaz9vdXRwdXQ9dGh1
+        bWJuYWlsXHgyNnc9OTBceDI2aD02OFx4MjZsbD0zNy43ODYzOTAsLTEyMi40
+        MTQ5ODJceDI2dGh1bWI9MCIscGhvdG9UeXBlOjIsbGJjdXJsOiJodHRwOi8v
+        d3d3Lmdvb2dsZS5jb20vbG9jYWwvYWRkL2Nob2ljZT9obD1lblx4MjZnbD1V
+        U1x4MjZsYXRsbmc9MTU5MzAzMTk3OTMwMzk2OTI0NTZceDI2cT1Ucm9jYWRl
+        cm8rQ2x1Ylx4MjZuZWFyPVNhbitGcmFuY2lzY28sK0NhbGlmb3JuaWEsK1Vu
+        aXRlZCtTdGF0ZXMiLGxpbmtfanNhY3Rpb246IiIsc3Rhcl9zY29yZV9lMzow
+        LHdyaXRlX3Jldmlld191cmw6Imh0dHA6Ly93d3cuZ29vZ2xlLmNvbS9sb2Nh
+        bF91cmw/ZHE9VHJvY2FkZXJvK0NsdWJceDI2cT1odHRwczovL3BsdXMuZ29v
+        Z2xlLmNvbS8xMTYxMzEwMjgxOTY2MTY2NDEyMjkvYWJvdXQlM0ZnbCUzRHVz
+        JTI2aGwlM0RlbiUyNnJldmlldyUzRDFceDI2cz1BTllZTjdsYnFHQmJQcWd3
+        OXNhNTIyWTQ3ZnYzd0RXUEtBIixjbGllbnRfY2FuX21ha2VfY2FsbHM6ZmFs
+        c2V9LHNzOntlZGl0OnRydWUsZGV0YWlsc2VkaXRhYmxlOnRydWUsZGVsZXRl
+        ZDpmYWxzZSxyYXBlbmFibGVkOnRydWUsbW1lbmFibGVkOnRydWV9LGJfczoy
+        LGVsbXM6WzQsMSw2LDEsMTAsMiwxMiwxLDUsMiwxMV19LHtpZDoiQiIsY2lk
+        OiIyNTUxNDA3OTIxMzk0MjAyODQ0IixsYXRsbmc6e2xhdDozNy43NzUyNjkw
+        MDAwMDAwMDIsbG5nOi0xMjIuNDIzNDA0fSxpbWFnZToiaHR0cHM6Ly9tYXBz
+        LmdzdGF0aWMuY29tL2ludGwvZW5fdXMvbWFwZmlsZXMvbWFya2VyczIvbWFy
+        a2VyQi5wbmciLHNwcml0ZTp7d2lkdGg6MjAsaGVpZ2h0OjM0LHRvcDozNCxp
+        bWFnZToiaHR0cHM6Ly9tYXBzLmdzdGF0aWMuY29tL21hcGZpbGVzL21hcmtl
+        cnMyL3JlZF9tYXJrZXJzX0FfSjIucG5nIn0saWNvbl9pZDoiQiIsZHJnOnRy
+        dWUsbGFkZHI6IkNoYXJsZXMgZGUgTGlzbGUsIDI0OSBIaWNrb3J5IFN0cmVl
+        dCwgU2FuIEZyYW5jaXNjbywgQ2FsaWZvcm5pYSA5NDEwMiIsZ2VvY29kZToi
+        Q1Zic1k3OFJnNmdzRmFWblFBSWRsUGV6LUNuRFVmTllLMzZQZ0RIY3VOR1Bf
+        R3RvSXciLHN4dGk6IkNoYXJsZXMgZGUgTGlzbGUiLHN4c3Q6IkhpY2tvcnkg
+        U3RyZWV0IixzeHNuOiIyNDkiLHN4Y3Q6IlNhbiBGcmFuY2lzY28iLHN4cHI6
+        IkNhbGlmb3JuaWEiLHN4cG86Ijk0MTAyIixzeGNuOiJVUyIsc3hwaDoiKzE0
+        MTU1NjU2NzY3IixuYW1lOiJDaGFybGVzIGRlIExpc2xlIixpbmZvV2luZG93
+        Ont0aXRsZToiQ2hhcmxlcyBceDNjYlx4M2VkZVx4M2MvYlx4M2UgTGlzbGUi
+        LGFkZHJlc3NMaW5lczpbIjI0OSBIaWNrb3J5IFN0cmVldCIsIlNhbiBGcmFu
+        Y2lzY28sIENhbGlmb3JuaWEgOTQxMDIiXSxwaG9uZXM6W3tudW1iZXI6Iig0
+        MTUpIDU2NS02NzY3In1dLGhwOnt1cmw6Imh0dHA6Ly93d3cuZ29vZ2xlLmNv
+        bS9sb2NhbF91cmw/ZHE9VHJvY2FkZXJvK0NsdWJceDI2cT1odHRwOi8vd3d3
+        LmNoYXJsZXNkZWxpc2xlLmNvbS9ceDI2b2k9bWl3XHgyNnNhPVhceDI2Y3Q9
+        bWl3X2xpbmtceDI2Y2Q9MVx4MjZjYWQ9aG9tZXBhZ2UsY2lkOjI1NTE0MDc5
+        MjEzOTQyMDI4NDRceDI2ZWk9WW5jUFZidmVGYVg5aUFLZThJR1lDd1x4MjZz
+        PUFOWVlON25SQ0ZQNUFVWEYyTnBiSW1MRTNWUTg5N3BIWnciLGRvbWFpbjoi
+        Y2hhcmxlc2RlbGlzbGUuY29tIixhY3R1YWxfdXJsOiJodHRwOi8vd3d3LmNo
+        YXJsZXNkZWxpc2xlLmNvbS8ifSxiYXNpY3M6Ilx4M2NkaXYgdHJhbnNjbHVk
+        ZT1cIml3XCJceDNlXHgzYy9kaXZceDNlIixtb3JlSW5mbzoibW9yZSBpbmZv
+        IixwbGFjZV91cmw6Imh0dHA6Ly93d3cuZ29vZ2xlLmNvbS9sb2NhbF91cmw/
+        ZHE9VHJvY2FkZXJvK0NsdWJceDI2cT1odHRwczovL3BsdXMuZ29vZ2xlLmNv
+        bS8xMDk3ODM2NDkxNDU0OTE0OTg2NzEvYWJvdXQlM0ZnbCUzRHVzJTI2aGwl
+        M0Rlblx4MjZzPUFOWVlON21WVDNhYU1xZmtGdnEwY3ZxNFUwODZ4RVZnNlEi
+        LHpydk9rOnRydWUsbG9naW5Vcmw6Imh0dHBzOi8vd3d3Lmdvb2dsZS5jb20v
+        YWNjb3VudHMvU2VydmljZUxvZ2luP3NlcnZpY2U9bG9jYWxceDI2aGw9ZW5c
+        eDI2bnVpPTFceDI2Y29udGludWU9aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS9t
+        YXBzL3BsYWNlJTNGY2lkJTNEMjU1MTQwNzkyMTM5NDIwMjg0NCUyNnElM0RU
+        cm9jYWRlcm8lMkJDbHViJTI2Y2QlM0QyJTI2Y2FkJTNEc3JjOnBwd3JldiUy
+        NmVpJTNEWW5jUFZidmVGYVg5aUFLZThJR1lDdyUyNmFjdGlvbiUzRG9wZW5y
+        YXRpbmdzIixwaG90b1VybDoiaHR0cHM6Ly9jYmtzMC5nb29nbGUuY29tL2Ni
+        az9vdXRwdXQ9dGh1bWJuYWlsXHgyNnc9OTBceDI2aD02OFx4MjZsbD0zNy43
+        NzUyNjksLTEyMi40MjM0MDRceDI2dGh1bWI9MCIscGhvdG9UeXBlOjIsbGJj
+        dXJsOiJodHRwOi8vd3d3Lmdvb2dsZS5jb20vbG9jYWwvYWRkL2Nob2ljZT9o
+        bD1lblx4MjZnbD1VU1x4MjZsYXRsbmc9MjU1MTQwNzkyMTM5NDIwMjg0NFx4
+        MjZxPVRyb2NhZGVybytDbHViXHgyNm5lYXI9U2FuK0ZyYW5jaXNjbywrQ2Fs
+        aWZvcm5pYSwrVW5pdGVkK1N0YXRlcyIsbGlua19qc2FjdGlvbjoiIixzdGFy
+        X3Njb3JlX2UzOjAsd3JpdGVfcmV2aWV3X3VybDoiaHR0cDovL3d3dy5nb29n
+        bGUuY29tL2xvY2FsX3VybD9kcT1Ucm9jYWRlcm8rQ2x1Ylx4MjZxPWh0dHBz
+        Oi8vcGx1cy5nb29nbGUuY29tLzEwOTc4MzY0OTE0NTQ5MTQ5ODY3MS9hYm91
+        dCUzRmdsJTNEdXMlMjZobCUzRGVuJTI2cmV2aWV3JTNEMVx4MjZzPUFOWVlO
+        N25tNkFFYm43azZIZnNQZ0hvaFAtaG1lTWxHcnciLGNsaWVudF9jYW5fbWFr
+        ZV9jYWxsczpmYWxzZX0sc3M6e2VkaXQ6dHJ1ZSxkZXRhaWxzZWRpdGFibGU6
+        dHJ1ZSxkZWxldGVkOmZhbHNlLHJhcGVuYWJsZWQ6dHJ1ZSxtbWVuYWJsZWQ6
+        dHJ1ZX0sYl9zOjIsaG92ZXJfc25pcHBldDoiVGhlIFx4M2NiXHgzZVRyb2Nh
+        ZGVybyBDbHViXHgzYy9iXHgzZSBvcGVuZWQgdGhpcyB3ZWVrLiBMb29rIGZv
+        ciB0aGUgc2Nvb3AgaW4gdGhlIHRhYmxlaG9wcGVyIGFuZCBzZi5lYXRlciBi
+        bG9ncy4gXHgzY2JceDNlVHJvY2FkZXJvXHgzYy9iXHgzZS4gOS4yNi4yMDEz
+        LiBMaW5kZW4gQ2hhbmRlbGllciBpcyCTV2hhdFx4MjYjMzk7cyBIb3QgXHgz
+        Y2JceDNlLi4uXHgzYy9iXHgzZSIsaG92ZXJfc25pcHBldF9hdHRyOiJjaGFy
+        bGVzZGVsaXNsZS5jb20iLGVsbXM6WzQsMSw2LDEsMTAsMiwxMiwxLDUsMiwx
+        MV19XSxsYXllcnM6W3tjb21wb3NpdGlvbl90eXBlOjIsc3BlYzp7aWQ6Im0i
+        fSxkZWZhdWx0X2Vwb2NoOjI5NTAwMDAwMCxwZXJ0aWxlX2RhdGE6e2FyZWE6
+        W3tpZDoidHV3dHZ0dXR3d3d0dHciLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJt
+        IixlcG9jaDoyOTUxMDE3NzJ9LHtpZDoidHV3dHZ0dXR3d3d0dXYiLHpyYW5n
+        ZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUxMDg5Njh9LHtpZDoidHV3
+        dHZ0dXR3d3d0dXciLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoy
+        OTUxMzQ4ODh9LHtpZDoidHV3dHZ0dXR3d3d0dnUiLHpyYW5nZTpbMTQsMTRd
+        LGxheWVyOiJtIixlcG9jaDoyOTUxMDE3NzJ9LHtpZDoidHV3dHZ0dXR3d3d0
+        dnciLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUxMDUzNjl9
+        LHtpZDoidHV3dHZ0dXR3d3d0d3QiLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJt
+        IixlcG9jaDoyOTUxMDg5Njh9LHtpZDoidHV3dHZ0dXR3d3d0d3UiLHpyYW5n
+        ZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3
+        dHZ0dXR3d3d0d3YiLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoy
+        OTUxMjQwODh9LHtpZDoidHV3dHZ0dXR3d3d0d3ciLHpyYW5nZTpbMTQsMTRd
+        LGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3dHZ0dXR3d3d1
+        dHYiLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9
+        LHtpZDoidHV3dHZ0dXR3d3d1dHciLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJt
+        IixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3dHZ0dXR3d3d1dXYiLHpyYW5n
+        ZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3
+        dHZ0dXR3d3d1dXciLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoy
+        OTUxMjQ4MDh9LHtpZDoidHV3dHZ0dXR3d3d1diIsenJhbmdlOlsxNCwxNF0s
+        bGF5ZXI6Im0iLGVwb2NoOjI5NTEzNDg4OH0se2lkOiJ0dXd0dnR1dHd3d3V3
+        dCIsenJhbmdlOlsxNCwxNF0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzNDg4OH0s
+        e2lkOiJ0dXd0dnR1dHd3d3V3dSIsenJhbmdlOlsxNCwxNF0sbGF5ZXI6Im0i
+        LGVwb2NoOjI5NTEyNDgwOH0se2lkOiJ0dXd0dnR1dHd3d3V3diIsenJhbmdl
+        OlsxNCwxNF0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzNDg4OH0se2lkOiJ0dXd0
+        dnR1dHd3d3V3dyIsenJhbmdlOlsxNCwxNF0sbGF5ZXI6Im0iLGVwb2NoOjI5
+        NTEyNDgwOH0se2lkOiJ0dXd0dnR1dHd3d3Z0dSIsenJhbmdlOlsxNCwxNF0s
+        bGF5ZXI6Im0iLGVwb2NoOjI5NTEwNTM2OX0se2lkOiJ0dXd0dnR1dHd3d3Z0
+        dyIsenJhbmdlOlsxNCwxNF0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEyNDA4OH0s
+        e2lkOiJ0dXd0dnR1dHd3d3Z1Iix6cmFuZ2U6WzE0LDE0XSxsYXllcjoibSIs
+        ZXBvY2g6Mjk1MTM2MzI5fSx7aWQ6InR1d3R2dHV0d3d3dnZ1Iix6cmFuZ2U6
+        WzE0LDE0XSxsYXllcjoibSIsZXBvY2g6Mjk1MTM2MzI5fSx7aWQ6InR1d3R2
+        dHV0d3d3dnZ3Iix6cmFuZ2U6WzE0LDE0XSxsYXllcjoibSIsZXBvY2g6Mjk1
+        MTM2MzI5fSx7aWQ6InR1d3R2dHV0d3d3dnciLHpyYW5nZTpbMTQsMTRdLGxh
+        eWVyOiJtIixlcG9jaDoyOTUxMzYzMjl9LHtpZDoidHV3dHZ0dXR3d3d3dHQi
+        LHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUxMzYzMjl9LHtp
+        ZDoidHV3dHZ0dXR3d3d3dHUiLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixl
+        cG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3dHZ0dXR3d3d3dHYiLHpyYW5nZTpb
+        MTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUxMzYzMjl9LHtpZDoidHV3dHZ0
+        dXR3d3d3dHciLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUx
+        MzQ4ODh9LHtpZDoidHV3dHZ0dXR3d3d3dXQiLHpyYW5nZTpbMTQsMTRdLGxh
+        eWVyOiJtIixlcG9jaDoyOTUxMzEyOTN9LHtpZDoidHV3dHZ0dXR3d3d3dXUi
+        LHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUxMDI0OTJ9LHtp
+        ZDoidHV3dHZ0dXR3d3d3dXYiLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixl
+        cG9jaDoyOTUxMzEyOTN9LHtpZDoidHV3dHZ0dXR3d3d3dXciLHpyYW5nZTpb
+        MTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUxMDEwNTB9LHtpZDoidHV3dHZ0
+        dXR3d3d3dnQiLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUx
+        MzYzMjl9LHtpZDoidHV3dHZ0dXR3d3d3dnUiLHpyYW5nZTpbMTQsMTRdLGxh
+        eWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3dHZ0dXR3d3d3dnYi
+        LHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUxMjQwODh9LHtp
+        ZDoidHV3dHZ0dXR3d3d3dnciLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixl
+        cG9jaDoyOTUwMDAwMDB9LHtpZDoidHV3dHZ0dXR3d3d3d3QiLHpyYW5nZTpb
+        MTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUxMDEwNTB9LHtpZDoidHV3dHZ0
+        dXR3d3d3d3UiLHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUx
+        MDEwNTB9LHtpZDoidHV3dHZ0dXR3d3d3d3YiLHpyYW5nZTpbMTQsMTRdLGxh
+        eWVyOiJtIixlcG9jaDoyOTUwMDAwMDB9LHtpZDoidHV3dHZ0dXR3d3d3d3ci
+        LHpyYW5nZTpbMTQsMTRdLGxheWVyOiJtIixlcG9jaDoyOTUwMDAwMDB9LHtp
+        ZDoidHV3dHZ0dXR3d3d0dHd2Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIs
+        ZXBvY2g6Mjk1MTExMTI5fSx7aWQ6InR1d3R2dHV0d3d3dHR3dyIsenJhbmdl
+        OlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTExMTEyOX0se2lkOiJ0dXd0
+        dnR1dHd3d3R1dnYiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoy
+        OTUxMTExMjl9LHtpZDoidHV3dHZ0dXR3d3d0dXZ3Iix6cmFuZ2U6WzE1LDE1
+        XSxsYXllcjoibSIsZXBvY2g6Mjk1MTAxNzcyfSx7aWQ6InR1d3R2dHV0d3d3
+        dHV3diIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEwMTc3
+        Mn0se2lkOiJ0dXd0dnR1dHd3d3R1d3ciLHpyYW5nZTpbMTUsMTVdLGxheWVy
+        OiJtIixlcG9jaDoyOTUxMDE3NzJ9LHtpZDoidHV3dHZ0dXR3d3d0dnUiLHpy
+        YW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMTExMjl9LHtpZDoi
+        dHV3dHZ0dXR3d3d0dnd0Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBv
+        Y2g6Mjk1MDEzNTcwfSx7aWQ6InR1d3R2dHV0d3d3dHZ3dSIsenJhbmdlOlsx
+        NSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEwMTc3Mn0se2lkOiJ0dXd0dnR1
+        dHd3d3R2d3YiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUw
+        NDA1Njh9LHtpZDoidHV3dHZ0dXR3d3d0dnd3Iix6cmFuZ2U6WzE1LDE1XSxs
+        YXllcjoibSIsZXBvY2g6Mjk1MDY2NDg4fSx7aWQ6InR1d3R2dHV0d3d3dHd0
+        dCIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTExMTEyOX0s
+        e2lkOiJ0dXd0dnR1dHd3d3R3dHUiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJt
+        IixlcG9jaDoyOTUxMDg5Njh9LHtpZDoidHV3dHZ0dXR3d3d0d3R2Iix6cmFu
+        Z2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTAxNzcyfSx7aWQ6InR1
+        d3R2dHV0d3d3dHd0dyIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2No
+        OjI5NTEwODk2OH0se2lkOiJ0dXd0dnR1dHd3d3R3dXQiLHpyYW5nZTpbMTUs
+        MTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMDg5Njh9LHtpZDoidHV3dHZ0dXR3
+        d3d0d3V1Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTA4
+        OTY4fSx7aWQ6InR1d3R2dHV0d3d3dHd1diIsenJhbmdlOlsxNSwxNV0sbGF5
+        ZXI6Im0iLGVwb2NoOjI5NTEwODk2OH0se2lkOiJ0dXd0dnR1dHd3d3R3dXci
+        LHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMzEyOTN9LHtp
+        ZDoidHV3dHZ0dXR3d3d0d3Z0Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIs
+        ZXBvY2g6Mjk1MTAxNzcyfSx7aWQ6InR1d3R2dHV0d3d3dHd2dSIsenJhbmdl
+        OlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEwODk2OH0se2lkOiJ0dXd0
+        dnR1dHd3d3R3dnYiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoy
+        OTUxMDUzNjl9LHtpZDoidHV3dHZ0dXR3d3d0d3Z3Iix6cmFuZ2U6WzE1LDE1
+        XSxsYXllcjoibSIsZXBvY2g6Mjk1MTA1MzY5fSx7aWQ6InR1d3R2dHV0d3d3
+        dHd3dCIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEwODk2
+        OH0se2lkOiJ0dXd0dnR1dHd3d3R3d3UiLHpyYW5nZTpbMTUsMTVdLGxheWVy
+        OiJtIixlcG9jaDoyOTUxMzEyOTN9LHtpZDoidHV3dHZ0dXR3d3d0d3d2Iix6
+        cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTA1MzY5fSx7aWQ6
+        InR1d3R2dHV0d3d3dHd3dyIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVw
+        b2NoOjI5NTEzMTI5M30se2lkOiJ0dXd0dnR1dHd3d3V0dnYiLHpyYW5nZTpb
+        MTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3dHZ0
+        dXR3d3d1dHZ3Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1
+        MTM0ODg4fSx7aWQ6InR1d3R2dHV0d3d3dXR3diIsenJhbmdlOlsxNSwxNV0s
+        bGF5ZXI6Im0iLGVwb2NoOjI5NTEzNDg4OH0se2lkOiJ0dXd0dnR1dHd3d3V0
+        d3ciLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9
+        LHtpZDoidHV3dHZ0dXR3d3d1dXZ2Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoi
+        bSIsZXBvY2g6Mjk1MTM0ODg4fSx7aWQ6InR1d3R2dHV0d3d3dXV2dyIsenJh
+        bmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEyNDgwOH0se2lkOiJ0
+        dXd0dnR1dHd3d3V1d3YiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9j
+        aDoyOTUxMjQ4MDh9LHtpZDoidHV3dHZ0dXR3d3d1dnQiLHpyYW5nZTpbMTUs
+        MTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3dHZ0dXR3
+        d3d1dnUiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4
+        ODh9LHtpZDoidHV3dHZ0dXR3d3d1dnZ0Iix6cmFuZ2U6WzE1LDE1XSxsYXll
+        cjoibSIsZXBvY2g6Mjk1MTM0ODg4fSx7aWQ6InR1d3R2dHV0d3d3dXZ2dSIs
+        enJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzNDg4OH0se2lk
+        OiJ0dXd0dnR1dHd3d3V2dnYiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixl
+        cG9jaDoyOTUxMzEyOTN9LHtpZDoidHV3dHZ0dXR3d3d1dnZ3Iix6cmFuZ2U6
+        WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTMxMjkzfSx7aWQ6InR1d3R2
+        dHV0d3d3dXZ3dCIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5
+        NTEzNDg4OH0se2lkOiJ0dXd0dnR1dHd3d3V2d3UiLHpyYW5nZTpbMTUsMTVd
+        LGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3dHZ0dXR3d3d1
+        dnd2Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTMxMjkz
+        fSx7aWQ6InR1d3R2dHV0d3d3dXZ3dyIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6
+        Im0iLGVwb2NoOjI5NTEzMTI5M30se2lkOiJ0dXd0dnR1dHd3d3V3dHQiLHpy
+        YW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoi
+        dHV3dHZ0dXR3d3d1d3R1Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBv
+        Y2g6Mjk1MTI0ODA4fSx7aWQ6InR1d3R2dHV0d3d3dXd0diIsenJhbmdlOlsx
+        NSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzNDg4OH0se2lkOiJ0dXd0dnR1
+        dHd3d3V3dHciLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUx
+        MjQ4MDh9LHtpZDoidHV3dHZ0dXR3d3d1d3V0Iix6cmFuZ2U6WzE1LDE1XSxs
+        YXllcjoibSIsZXBvY2g6Mjk1MTI0ODA4fSx7aWQ6InR1d3R2dHV0d3d3dXd1
+        diIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEyNDgwOH0s
+        e2lkOiJ0dXd0dnR1dHd3d3V3dnQiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJt
+        IixlcG9jaDoyOTUxMjQ4MDh9LHtpZDoidHV3dHZ0dXR3d3d1d3Z1Iix6cmFu
+        Z2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTI0ODA4fSx7aWQ6InR1
+        d3R2dHV0d3d3dXd2diIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2No
+        OjI5NTEwMjQ5Mn0se2lkOiJ0dXd0dnR1dHd3d3V3dnciLHpyYW5nZTpbMTUs
+        MTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMDI0OTJ9LHtpZDoidHV3dHZ0dXR3
+        d3d1d3d0Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTI0
+        ODA4fSx7aWQ6InR1d3R2dHV0d3d3dXd3diIsenJhbmdlOlsxNSwxNV0sbGF5
+        ZXI6Im0iLGVwb2NoOjI5NTEwMjQ5Mn0se2lkOiJ0dXd0dnR1dHd3d3Z0dXQi
+        LHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUwNDA1Njh9LHtp
+        ZDoidHV3dHZ0dXR3d3d2dHV1Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIs
+        ZXBvY2g6Mjk1MDY2NDg4fSx7aWQ6InR1d3R2dHV0d3d3dnR1diIsenJhbmdl
+        OlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTA0MDU2OH0se2lkOiJ0dXd0
+        dnR1dHd3d3Z0dXciLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoy
+        OTUwNjIxNzF9LHtpZDoidHV3dHZ0dXR3d3d2dHd0Iix6cmFuZ2U6WzE1LDE1
+        XSxsYXllcjoibSIsZXBvY2g6Mjk1MDQwNTY4fSx7aWQ6InR1d3R2dHV0d3d3
+        dnR3dSIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTA2MjE3
+        MX0se2lkOiJ0dXd0dnR1dHd3d3Z0d3YiLHpyYW5nZTpbMTUsMTVdLGxheWVy
+        OiJtIixlcG9jaDoyOTUxMDc1MzF9LHtpZDoidHV3dHZ0dXR3d3d2dHd3Iix6
+        cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTI0MDg4fSx7aWQ6
+        InR1d3R2dHV0d3d3dnV0Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBv
+        Y2g6Mjk1MTI0MDg4fSx7aWQ6InR1d3R2dHV0d3d3dnV1dCIsenJhbmdlOlsx
+        NSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEyNDA4OH0se2lkOiJ0dXd0dnR1
+        dHd3d3Z1dXUiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUx
+        MjQwODh9LHtpZDoidHV3dHZ0dXR3d3d2dXV2Iix6cmFuZ2U6WzE1LDE1XSxs
+        YXllcjoibSIsZXBvY2g6Mjk1MTM2MzI5fSx7aWQ6InR1d3R2dHV0d3d3dnV1
+        dyIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzNjMyOX0s
+        e2lkOiJ0dXd0dnR1dHd3d3Z1diIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0i
+        LGVwb2NoOjI5NTEyNDA4OH0se2lkOiJ0dXd0dnR1dHd3d3Z1dyIsenJhbmdl
+        OlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzNjMyOX0se2lkOiJ0dXd0
+        dnR1dHd3d3Z2dXQiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoy
+        OTUxMDc1MzF9LHtpZDoidHV3dHZ0dXR3d3d2dnV1Iix6cmFuZ2U6WzE1LDE1
+        XSxsYXllcjoibSIsZXBvY2g6Mjk1MTI0MDg4fSx7aWQ6InR1d3R2dHV0d3d3
+        dnZ1diIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEwNzUz
+        MX0se2lkOiJ0dXd0dnR1dHd3d3Z2dXciLHpyYW5nZTpbMTUsMTVdLGxheWVy
+        OiJtIixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3dHZ0dXR3d3d2dnd0Iix6
+        cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTA3NTMxfSx7aWQ6
+        InR1d3R2dHV0d3d3dnZ3dSIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVw
+        b2NoOjI5NTEzNDg4OH0se2lkOiJ0dXd0dnR1dHd3d3Z2d3YiLHpyYW5nZTpb
+        MTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMjQwODh9LHtpZDoidHV3dHZ0
+        dXR3d3d2dnd3Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1
+        MTM0ODg4fSx7aWQ6InR1d3R2dHV0d3d3dnd0dCIsenJhbmdlOlsxNSwxNV0s
+        bGF5ZXI6Im0iLGVwb2NoOjI5NTEyNDA4OH0se2lkOiJ0dXd0dnR1dHd3d3Z3
+        dHUiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMjQwODh9
+        LHtpZDoidHV3dHZ0dXR3d3d2d3R2Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoi
+        bSIsZXBvY2g6Mjk1MTM2MzI5fSx7aWQ6InR1d3R2dHV0d3d3dnd0dyIsenJh
+        bmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzNjMyOX0se2lkOiJ0
+        dXd0dnR1dHd3d3Z3dXQiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9j
+        aDoyOTUxMzYzMjl9LHtpZDoidHV3dHZ0dXR3d3d2d3V1Iix6cmFuZ2U6WzE1
+        LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTM2MzI5fSx7aWQ6InR1d3R2dHV0
+        d3d3dnd1diIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEz
+        NjMyOX0se2lkOiJ0dXd0dnR1dHd3d3Z3dXciLHpyYW5nZTpbMTUsMTVdLGxh
+        eWVyOiJtIixlcG9jaDoyOTUxMjQwODh9LHtpZDoidHV3dHZ0dXR3d3d2d3Yi
+        LHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMzYzMjl9LHtp
+        ZDoidHV3dHZ0dXR3d3d2d3d0Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIs
+        ZXBvY2g6Mjk1MTM2MzI5fSx7aWQ6InR1d3R2dHV0d3d3dnd3dSIsenJhbmdl
+        OlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEyNDA4OH0se2lkOiJ0dXd0
+        dnR1dHd3d3Z3d3YiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoy
+        OTUxMzYzMjl9LHtpZDoidHV3dHZ0dXR3d3d2d3d3Iix6cmFuZ2U6WzE1LDE1
+        XSxsYXllcjoibSIsZXBvY2g6Mjk1MDAwMDAwfSx7aWQ6InR1d3R2dHV0d3d3
+        d3R0dCIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTExMTEy
+        OX0se2lkOiJ0dXd0dnR1dHd3d3d0dHUiLHpyYW5nZTpbMTUsMTVdLGxheWVy
+        OiJtIixlcG9jaDoyOTUxMzEyOTN9LHtpZDoidHV3dHZ0dXR3d3d3dHR2Iix6
+        cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTM2MzI5fSx7aWQ6
+        InR1d3R2dHV0d3d3d3R0dyIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVw
+        b2NoOjI5NTEzNDg4OH0se2lkOiJ0dXd0dnR1dHd3d3d0dSIsenJhbmdlOlsx
+        NSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzMTI5M30se2lkOiJ0dXd0dnR1
+        dHd3d3d0dnQiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUx
+        MzYzMjl9LHtpZDoidHV3dHZ0dXR3d3d3dHZ1Iix6cmFuZ2U6WzE1LDE1XSxs
+        YXllcjoibSIsZXBvY2g6Mjk1MTM0ODg4fSx7aWQ6InR1d3R2dHV0d3d3d3R2
+        diIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzNjMyOX0s
+        e2lkOiJ0dXd0dnR1dHd3d3d0dnciLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJt
+        IixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3dHZ0dXR3d3d3dHd0Iix6cmFu
+        Z2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTMxMjkzfSx7aWQ6InR1
+        d3R2dHV0d3d3d3R3dSIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2No
+        OjI5NTEzMTI5M30se2lkOiJ0dXd0dnR1dHd3d3d0d3YiLHpyYW5nZTpbMTUs
+        MTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMjQwODh9LHtpZDoidHV3dHZ0dXR3
+        d3d3dHd3Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTAx
+        MDUwfSx7aWQ6InR1d3R2dHV0d3d3d3V0dCIsenJhbmdlOlsxNSwxNV0sbGF5
+        ZXI6Im0iLGVwb2NoOjI5NTEzMTI5M30se2lkOiJ0dXd0dnR1dHd3d3d1dHUi
+        LHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMDI0OTJ9LHtp
+        ZDoidHV3dHZ0dXR3d3d3dXR2Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIs
+        ZXBvY2g6Mjk1MTMxMjkzfSx7aWQ6InR1d3R2dHV0d3d3d3V0dyIsenJhbmdl
+        OlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEwMTA1MH0se2lkOiJ0dXd0
+        dnR1dHd3d3d1dXQiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoy
+        OTUxMDI0OTJ9LHtpZDoidHV3dHZ0dXR3d3d3dXV2Iix6cmFuZ2U6WzE1LDE1
+        XSxsYXllcjoibSIsZXBvY2g6Mjk1MTAxMDUwfSx7aWQ6InR1d3R2dHV0d3d3
+        d3V2dCIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzMTI5
+        M30se2lkOiJ0dXd0dnR1dHd3d3d1dnUiLHpyYW5nZTpbMTUsMTVdLGxheWVy
+        OiJtIixlcG9jaDoyOTUxMDEwNTB9LHtpZDoidHV3dHZ0dXR3d3d3dXZ2Iix6
+        cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTAxMDUwfSx7aWQ6
+        InR1d3R2dHV0d3d3d3V2dyIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVw
+        b2NoOjI5NTEwMTA1MH0se2lkOiJ0dXd0dnR1dHd3d3d1d3QiLHpyYW5nZTpb
+        MTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMDEwNTB9LHtpZDoidHV3dHZ0
+        dXR3d3d3dXd2Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1
+        MTAxMDUwfSx7aWQ6InR1d3R2dHV0d3d3d3Z0dCIsenJhbmdlOlsxNSwxNV0s
+        bGF5ZXI6Im0iLGVwb2NoOjI5NTEzNjMyOX0se2lkOiJ0dXd0dnR1dHd3d3d2
+        dHUiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMjQwODh9
+        LHtpZDoidHV3dHZ0dXR3d3d3dnR2Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoi
+        bSIsZXBvY2g6Mjk1MTI0MDg4fSx7aWQ6InR1d3R2dHV0d3d3d3Z0dyIsenJh
+        bmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTAwMDAwMH0se2lkOiJ0
+        dXd0dnR1dHd3d3d2dXQiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJtIixlcG9j
+        aDoyOTUwOTM4NDh9LHtpZDoidHV3dHZ0dXR3d3d3dnV1Iix6cmFuZ2U6WzE1
+        LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTAxMDUwfSx7aWQ6InR1d3R2dHV0
+        d3d3d3Z1diIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTAw
+        MDAwMH0se2lkOiJ0dXd0dnR1dHd3d3d2dXciLHpyYW5nZTpbMTUsMTVdLGxh
+        eWVyOiJtIixlcG9jaDoyOTUwMDAwMDB9LHtpZDoidHV3dHZ0dXR3d3d3dnZ0
+        Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MTI0MDg4fSx7
+        aWQ6InR1d3R2dHV0d3d3d3Z2dSIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0i
+        LGVwb2NoOjI5NTAwMDAwMH0se2lkOiJ0dXd0dnR1dHd3d3d2dnYiLHpyYW5n
+        ZTpbMTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUwMDAwMDB9LHtpZDoidHV3
+        dHZ0dXR3d3d3dnZ3Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6
+        Mjk1MDAwMDAwfSx7aWQ6InR1d3R2dHV0d3d3d3Z3Iix6cmFuZ2U6WzE1LDE1
+        XSxsYXllcjoibSIsZXBvY2g6Mjk1MDAwMDAwfSx7aWQ6InR1d3R2dHV0d3d3
+        d3d0dCIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEwMTA1
+        MH0se2lkOiJ0dXd0dnR1dHd3d3d3dHUiLHpyYW5nZTpbMTUsMTVdLGxheWVy
+        OiJtIixlcG9jaDoyOTUxMDEwNTB9LHtpZDoidHV3dHZ0dXR3d3d3d3R2Iix6
+        cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1MDAwMDAwfSx7aWQ6
+        InR1d3R2dHV0d3d3d3d0dyIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVw
+        b2NoOjI5NTAwMDAwMH0se2lkOiJ0dXd0dnR1dHd3d3d3dXQiLHpyYW5nZTpb
+        MTUsMTVdLGxheWVyOiJtIixlcG9jaDoyOTUxMDEwNTB9LHtpZDoidHV3dHZ0
+        dXR3d3d3d3V2Iix6cmFuZ2U6WzE1LDE1XSxsYXllcjoibSIsZXBvY2g6Mjk1
+        MDAwMDAwfSx7aWQ6InR1d3R2dHV0d3d3d3d2Iix6cmFuZ2U6WzE1LDE1XSxs
+        YXllcjoibSIsZXBvY2g6Mjk1MDAwMDAwfSx7aWQ6InR1d3R2dHV0d3d3d3d3
+        dCIsenJhbmdlOlsxNSwxNV0sbGF5ZXI6Im0iLGVwb2NoOjI5NTAwMDAwMH0s
+        e2lkOiJ0dXd0dnR1dHd3d3d3d3YiLHpyYW5nZTpbMTUsMTVdLGxheWVyOiJt
+        IixlcG9jaDoyOTUwMDAwMDB9LHtpZDoidHV3dHZ0dXR3d3d0d3Z1dSIsenJh
+        bmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEwODk2OH0se2lkOiJ0
+        dXd0dnR1dHd3d3R3dnV3Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBv
+        Y2g6Mjk1MDY1NzcyfSx7aWQ6InR1d3R2dHV0d3d3dHd2d3UiLHpyYW5nZTpb
+        MTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUwNjU3NzJ9LHtpZDoidHV3dHZ0
+        dXR3d3d0d3Z3dyIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5
+        NTA2NTc3Mn0se2lkOiJ0dXd0dnR1dHd3d3R3d3R0Iix6cmFuZ2U6WzE2LDE2
+        XSxsYXllcjoibSIsZXBvY2g6Mjk1MTA4OTY4fSx7aWQ6InR1d3R2dHV0d3d3
+        dHd3dHUiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMDg5
+        Njh9LHtpZDoidHV3dHZ0dXR3d3d0d3d0diIsenJhbmdlOlsxNiwxNl0sbGF5
+        ZXI6Im0iLGVwb2NoOjI5NTA2NTc3Mn0se2lkOiJ0dXd0dnR1dHd3d3R3d3R3
+        Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MDY1NzcyfSx7
+        aWQ6InR1d3R2dHV0d3d3dHd3dXQiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJt
+        IixlcG9jaDoyOTUwNjUwNTF9LHtpZDoidHV3dHZ0dXR3d3d0d3d1dSIsenJh
+        bmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzMTI5M30se2lkOiJ0
+        dXd0dnR1dHd3d3R3d3V2Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBv
+        Y2g6Mjk1MDY1NzcyfSx7aWQ6InR1d3R2dHV0d3d3dHd3dXciLHpyYW5nZTpb
+        MTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMzEyOTN9LHtpZDoidHV3dHZ0
+        dXR3d3d0d3d2Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1
+        MDg0NDkwfSx7aWQ6InR1d3R2dHV0d3d3dHd3d3QiLHpyYW5nZTpbMTYsMTZd
+        LGxheWVyOiJtIixlcG9jaDoyOTUwODQ0OTB9LHtpZDoidHV3dHZ0dXR3d3d0
+        d3d3dSIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzMTI5
+        M30se2lkOiJ0dXd0dnR1dHd3d3R3d3d2Iix6cmFuZ2U6WzE2LDE2XSxsYXll
+        cjoibSIsZXBvY2g6Mjk1MDg0NDkwfSx7aWQ6InR1d3R2dHV0d3d3dHd3d3ci
+        LHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMDAzMzF9LHtp
+        ZDoidHV3dHZ0dXR3d3d1dnZ0dCIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0i
+        LGVwb2NoOjI5NTEzMTI5M30se2lkOiJ0dXd0dnR1dHd3d3V2dnR1Iix6cmFu
+        Z2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTM0ODg4fSx7aWQ6InR1
+        d3R2dHV0d3d3dXZ2dHYiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9j
+        aDoyOTUxMzEyOTN9LHtpZDoidHV3dHZ0dXR3d3d1dnZ0dyIsenJhbmdlOlsx
+        NiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzMTI5M30se2lkOiJ0dXd0dnR1
+        dHd3d3V2dnV0Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1
+        MTM0ODg4fSx7aWQ6InR1d3R2dHV0d3d3dXZ2dXUiLHpyYW5nZTpbMTYsMTZd
+        LGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3dHZ0dXR3d3d1
+        dnZ1diIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzMTI5
+        M30se2lkOiJ0dXd0dnR1dHd3d3V2dnV3Iix6cmFuZ2U6WzE2LDE2XSxsYXll
+        cjoibSIsZXBvY2g6Mjk1MTA1MzY5fSx7aWQ6InR1d3R2dHV0d3d3dXZ2dnQi
+        LHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMzEyOTN9LHtp
+        ZDoidHV3dHZ0dXR3d3d1dnZ2dSIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0i
+        LGVwb2NoOjI5NTEzMTI5M30se2lkOiJ0dXd0dnR1dHd3d3V2dnZ2Iix6cmFu
+        Z2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTAwMzMxfSx7aWQ6InR1
+        d3R2dHV0d3d3dXZ2dnciLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9j
+        aDoyOTUxMTExMjl9LHtpZDoidHV3dHZ0dXR3d3d1dnZ3dCIsenJhbmdlOlsx
+        NiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEwNTM2OX0se2lkOiJ0dXd0dnR1
+        dHd3d3V2dnd1Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1
+        MTA1MzY5fSx7aWQ6InR1d3R2dHV0d3d3dXZ2d3YiLHpyYW5nZTpbMTYsMTZd
+        LGxheWVyOiJtIixlcG9jaDoyOTUxMTExMjl9LHtpZDoidHV3dHZ0dXR3d3d1
+        dnZ3dyIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTExMTEy
+        OX0se2lkOiJ0dXd0dnR1dHd3d3V2d3R0Iix6cmFuZ2U6WzE2LDE2XSxsYXll
+        cjoibSIsZXBvY2g6Mjk1MTM0ODg4fSx7aWQ6InR1d3R2dHV0d3d3dXZ3dHUi
+        LHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9LHtp
+        ZDoidHV3dHZ0dXR3d3d1dnd0diIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0i
+        LGVwb2NoOjI5NTEwNTM2OX0se2lkOiJ0dXd0dnR1dHd3d3V2d3R3Iix6cmFu
+        Z2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MDY2NDg4fSx7aWQ6InR1
+        d3R2dHV0d3d3dXZ3dXQiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9j
+        aDoyOTUxMzQ4ODh9LHtpZDoidHV3dHZ0dXR3d3d1dnd1dSIsenJhbmdlOlsx
+        NiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTExMTg0OX0se2lkOiJ0dXd0dnR1
+        dHd3d3V2d3V2Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1
+        MDY2NDg4fSx7aWQ6InR1d3R2dHV0d3d3dXZ3dXciLHpyYW5nZTpbMTYsMTZd
+        LGxheWVyOiJtIixlcG9jaDoyOTUxMDI0OTJ9LHtpZDoidHV3dHZ0dXR3d3d1
+        dnd2dCIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEwNTM2
+        OX0se2lkOiJ0dXd0dnR1dHd3d3V2d3Z1Iix6cmFuZ2U6WzE2LDE2XSxsYXll
+        cjoibSIsZXBvY2g6Mjk1MDY2NDg4fSx7aWQ6InR1d3R2dHV0d3d3dXZ3dnYi
+        LHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMTExMjl9LHtp
+        ZDoidHV3dHZ0dXR3d3d1dnd2dyIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0i
+        LGVwb2NoOjI5NTA2NjQ4OH0se2lkOiJ0dXd0dnR1dHd3d3V2d3d0Iix6cmFu
+        Z2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MDY2NDg4fSx7aWQ6InR1
+        d3R2dHV0d3d3dXZ3d3UiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9j
+        aDoyOTUxMDI0OTJ9LHtpZDoidHV3dHZ0dXR3d3d1dnd3diIsenJhbmdlOlsx
+        NiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTA2NjQ4OH0se2lkOiJ0dXd0dnR1
+        dHd3d3V2d3d3Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1
+        MTAyNDkyfSx7aWQ6InR1d3R2dHV0d3d3dnV0dXUiLHpyYW5nZTpbMTYsMTZd
+        LGxheWVyOiJtIixlcG9jaDoyOTUxMDUzNjl9LHtpZDoidHV3dHZ0dXR3d3d2
+        dXR1dyIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEwNTM2
+        OX0se2lkOiJ0dXd0dnR1dHd3d3Z1dHd1Iix6cmFuZ2U6WzE2LDE2XSxsYXll
+        cjoibSIsZXBvY2g6Mjk1MTI0MDg4fSx7aWQ6InR1d3R2dHV0d3d3dnV0d3ci
+        LHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMjQwODh9LHtp
+        ZDoidHV3dHZ0dXR3d3d2dXV0dCIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0i
+        LGVwb2NoOjI5NTEwNTM2OX0se2lkOiJ0dXd0dnR1dHd3d3Z1dXR1Iix6cmFu
+        Z2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MDg0NDkwfSx7aWQ6InR1
+        d3R2dHV0d3d3dnV1dHYiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9j
+        aDoyOTUxMjQwODh9LHtpZDoidHV3dHZ0dXR3d3d2dXV0dyIsenJhbmdlOlsx
+        NiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEyNDA4OH0se2lkOiJ0dXd0dnR1
+        dHd3d3Z1dXV0Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1
+        MDg0NDkwfSx7aWQ6InR1d3R2dHV0d3d3dnV1dXUiLHpyYW5nZTpbMTYsMTZd
+        LGxheWVyOiJtIixlcG9jaDoyOTUxMDAzMzF9LHtpZDoidHV3dHZ0dXR3d3d2
+        dXV1diIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEyNDA4
+        OH0se2lkOiJ0dXd0dnR1dHd3d3Z1dXV3Iix6cmFuZ2U6WzE2LDE2XSxsYXll
+        cjoibSIsZXBvY2g6Mjk1MTAwMzMxfSx7aWQ6InR1d3R2dHV0d3d3dnV1diIs
+        enJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEyNDA4OH0se2lk
+        OiJ0dXd0dnR1dHd3d3Z1dXd0Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIs
+        ZXBvY2g6Mjk1MTI0MDg4fSx7aWQ6InR1d3R2dHV0d3d3dnV1d3UiLHpyYW5n
+        ZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3
+        dHZ0dXR3d3d2dXV3diIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2No
+        OjI5NTE0MzUyOX0se2lkOiJ0dXd0dnR1dHd3d3Z1dXd3Iix6cmFuZ2U6WzE2
+        LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTQzNTI5fSx7aWQ6InR1d3R2dHV0
+        d3d3dnV2dXUiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUx
+        MjQwODh9LHtpZDoidHV3dHZ0dXR3d3d2dXZ1dyIsenJhbmdlOlsxNiwxNl0s
+        bGF5ZXI6Im0iLGVwb2NoOjI5NTEwMTc3Mn0se2lkOiJ0dXd0dnR1dHd3d3Z1
+        dnd1Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTAxNzcy
+        fSx7aWQ6InR1d3R2dHV0d3d3dnV2d3ciLHpyYW5nZTpbMTYsMTZdLGxheWVy
+        OiJtIixlcG9jaDoyOTUxMjQwODh9LHtpZDoidHV3dHZ0dXR3d3d2dXd0dCIs
+        enJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEyNDA4OH0se2lk
+        OiJ0dXd0dnR1dHd3d3Z1d3R1Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIs
+        ZXBvY2g6Mjk1MTM2MzI5fSx7aWQ6InR1d3R2dHV0d3d3dnV3dHYiLHpyYW5n
+        ZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMDk2ODh9LHtpZDoidHV3
+        dHZ0dXR3d3d2dXd0dyIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2No
+        OjI5NTEzNjMyOX0se2lkOiJ0dXd0dnR1dHd3d3Z1d3UiLHpyYW5nZTpbMTYs
+        MTZdLGxheWVyOiJtIixlcG9jaDoyOTUxNDM1Mjl9LHtpZDoidHV3dHZ0dXR3
+        d3d2dXd2dCIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEw
+        MTc3Mn0se2lkOiJ0dXd0dnR1dHd3d3Z1d3Z1Iix6cmFuZ2U6WzE2LDE2XSxs
+        YXllcjoibSIsZXBvY2g6Mjk1MTM2MzI5fSx7aWQ6InR1d3R2dHV0d3d3dnV3
+        dnYiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMjQwODh9
+        LHtpZDoidHV3dHZ0dXR3d3d2dXd2dyIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6
+        Im0iLGVwb2NoOjI5NTEzNjMyOX0se2lkOiJ0dXd0dnR1dHd3d3Z1d3ciLHpy
+        YW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMzcwNDl9LHtpZDoi
+        dHV3dHZ0dXR3d3d2d3R1dSIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVw
+        b2NoOjI5NTEyNDA4OH0se2lkOiJ0dXd0dnR1dHd3d3Z3dXR0Iix6cmFuZ2U6
+        WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTI0MDg4fSx7aWQ6InR1d3R2
+        dHV0d3d3dnd1dHUiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoy
+        OTUxMjQwODh9LHtpZDoidHV3dHZ0dXR3d3d2d3V1dCIsenJhbmdlOlsxNiwx
+        Nl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzNzA0OX0se2lkOiJ0dXd0dnR1dHd3
+        d3Z3dXV1Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTM3
+        MDQ5fSx7aWQ6InR1d3R2dHV0d3d3d3R0dHQiLHpyYW5nZTpbMTYsMTZdLGxh
+        eWVyOiJtIixlcG9jaDoyOTUxMDAzMzF9LHtpZDoidHV3dHZ0dXR3d3d3dHR0
+        dSIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTExMTEyOX0s
+        e2lkOiJ0dXd0dnR1dHd3d3d0dHR2Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoi
+        bSIsZXBvY2g6Mjk1MTAwMzMxfSx7aWQ6InR1d3R2dHV0d3d3d3R0dHciLHpy
+        YW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMTExMjl9LHtpZDoi
+        dHV3dHZ0dXR3d3d3dHR1dCIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVw
+        b2NoOjI5NTExMTEyOX0se2lkOiJ0dXd0dnR1dHd3d3d0dHV1Iix6cmFuZ2U6
+        WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTMxMjkzfSx7aWQ6InR1d3R2
+        dHV0d3d3d3R0dXYiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoy
+        OTUxMTExMjl9LHtpZDoidHV3dHZ0dXR3d3d3dHR1dyIsenJhbmdlOlsxNiwx
+        Nl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzMTI5M30se2lkOiJ0dXd0dnR1dHd3
+        d3d0dHZ0Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTM0
+        ODg4fSx7aWQ6InR1d3R2dHV0d3d3d3R0dnUiLHpyYW5nZTpbMTYsMTZdLGxh
+        eWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9LHtpZDoidHV3dHZ0dXR3d3d3dHR2
+        diIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTE0MzUyOX0s
+        e2lkOiJ0dXd0dnR1dHd3d3d0dHZ3Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoi
+        bSIsZXBvY2g6Mjk1MTQzNTI5fSx7aWQ6InR1d3R2dHV0d3d3d3R0d3QiLHpy
+        YW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMDAzMzF9LHtpZDoi
+        dHV3dHZ0dXR3d3d3dHR3dSIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVw
+        b2NoOjI5NTEzMTI5M30se2lkOiJ0dXd0dnR1dHd3d3d0dHd2Iix6cmFuZ2U6
+        WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTM0ODg4fSx7aWQ6InR1d3R2
+        dHV0d3d3d3R0d3ciLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoy
+        OTUxMzEyOTN9LHtpZDoidHV3dHZ0dXR3d3d3dHV0Iix6cmFuZ2U6WzE2LDE2
+        XSxsYXllcjoibSIsZXBvY2g6Mjk1MTMxMjkzfSx7aWQ6InR1d3R2dHV0d3d3
+        d3R1dXQiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMzEy
+        OTN9LHtpZDoidHV3dHZ0dXR3d3d3dHV1dSIsenJhbmdlOlsxNiwxNl0sbGF5
+        ZXI6Im0iLGVwb2NoOjI5NTEwMjQ5Mn0se2lkOiJ0dXd0dnR1dHd3d3d0dXV2
+        Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTMxMjkzfSx7
+        aWQ6InR1d3R2dHV0d3d3d3R1dXciLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJt
+        IixlcG9jaDoyOTUxMzEyOTN9LHtpZDoidHV3dHZ0dXR3d3d3dHV2Iix6cmFu
+        Z2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTMxMjkzfSx7aWQ6InR1
+        d3R2dHV0d3d3d3R1dyIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2No
+        OjI5NTEzMTI5M30se2lkOiJ0dXd0dnR1dHd3d3d0dnQiLHpyYW5nZTpbMTYs
+        MTZdLGxheWVyOiJtIixlcG9jaDoyOTUxNDM1Mjl9LHtpZDoidHV3dHZ0dXR3
+        d3d3dHZ1dCIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEz
+        NDg4OH0se2lkOiJ0dXd0dnR1dHd3d3d0dnV1Iix6cmFuZ2U6WzE2LDE2XSxs
+        YXllcjoibSIsZXBvY2g6Mjk1MTMxMjkzfSx7aWQ6InR1d3R2dHV0d3d3d3R2
+        dXYiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMzQ4ODh9
+        LHtpZDoidHV3dHZ0dXR3d3d3dHZ1dyIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6
+        Im0iLGVwb2NoOjI5NTEzMTI5M30se2lkOiJ0dXd0dnR1dHd3d3d0dnZ0Iix6
+        cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTM3MDQ5fSx7aWQ6
+        InR1d3R2dHV0d3d3d3R2dnUiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixl
+        cG9jaDoyOTUxMzEyOTN9LHtpZDoidHV3dHZ0dXR3d3d3dHZ2diIsenJhbmdl
+        OlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEzNzA0OX0se2lkOiJ0dXd0
+        dnR1dHd3d3d0dnZ3Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6
+        Mjk1MTMxMjkzfSx7aWQ6InR1d3R2dHV0d3d3d3R2d3QiLHpyYW5nZTpbMTYs
+        MTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMzEyOTN9LHtpZDoidHV3dHZ0dXR3
+        d3d3dHZ3dSIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEy
+        NDA4OH0se2lkOiJ0dXd0dnR1dHd3d3d0dnd2Iix6cmFuZ2U6WzE2LDE2XSxs
+        YXllcjoibSIsZXBvY2g6Mjk1MTMxMjkzfSx7aWQ6InR1d3R2dHV0d3d3d3R2
+        d3ciLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUwOTM4NDh9
+        LHtpZDoidHV3dHZ0dXR3d3d3dHd0dCIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6
+        Im0iLGVwb2NoOjI5NTEzMTI5M30se2lkOiJ0dXd0dnR1dHd3d3d0d3R1Iix6
+        cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTMxMjkzfSx7aWQ6
+        InR1d3R2dHV0d3d3d3R3dHYiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixl
+        cG9jaDoyOTUxMzEyOTN9LHtpZDoidHV3dHZ0dXR3d3d3dHd0dyIsenJhbmdl
+        OlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTA5Mzg0OH0se2lkOiJ0dXd0
+        dnR1dHd3d3d0d3V0Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6
+        Mjk1MTMxMjkzfSx7aWQ6InR1d3R2dHV0d3d3d3R3dXUiLHpyYW5nZTpbMTYs
+        MTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMzEyOTN9LHtpZDoidHV3dHZ0dXR3
+        d3d3dHd1diIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTA5
+        Mzg0OH0se2lkOiJ0dXd0dnR1dHd3d3d0d3V3Iix6cmFuZ2U6WzE2LDE2XSxs
+        YXllcjoibSIsZXBvY2g6Mjk1MTAxMDUwfSx7aWQ6InR1d3R2dHV0d3d3d3R3
+        diIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTE0NjQwOX0s
+        e2lkOiJ0dXd0dnR1dHd3d3d0d3d0Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoi
+        bSIsZXBvY2g6Mjk1MTQ2NDA5fSx7aWQ6InR1d3R2dHV0d3d3d3R3d3UiLHpy
+        YW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxMDEwNTB9LHtpZDoi
+        dHV3dHZ0dXR3d3d3dHd3diIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVw
+        b2NoOjI5NTE0NjQwOX0se2lkOiJ0dXd0dnR1dHd3d3d0d3d3Iix6cmFuZ2U6
+        WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MTAxMDUwfSx7aWQ6InR1d3R2
+        dHV0d3d3d3Z0dHQiLHpyYW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoy
+        OTUxMzcwNDl9LHtpZDoidHV3dHZ0dXR3d3d3dnR0dSIsenJhbmdlOlsxNiwx
+        Nl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTEyNDA4OH0se2lkOiJ0dXd0dnR1dHd3
+        d3d2dHV0Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoibSIsZXBvY2g6Mjk1MDU4
+        NTY5fSx7aWQ6InR1d3R2dHV0d3d3d3Z0dXUiLHpyYW5nZTpbMTYsMTZdLGxh
+        eWVyOiJtIixlcG9jaDoyOTUwOTM4NDh9LHtpZDoidHV3dHZ0dXR3d3d3dnV0
+        dCIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVwb2NoOjI5NTE0NjQwOX0s
+        e2lkOiJ0dXd0dnR1dHd3d3d2dXR1Iix6cmFuZ2U6WzE2LDE2XSxsYXllcjoi
+        bSIsZXBvY2g6Mjk1MTQ2NDA5fSx7aWQ6InR1d3R2dHV0d3d3d3Z1dXQiLHpy
+        YW5nZTpbMTYsMTZdLGxheWVyOiJtIixlcG9jaDoyOTUxNDY0MDl9LHtpZDoi
+        dHV3dHZ0dXR3d3d3dnV1dSIsenJhbmdlOlsxNiwxNl0sbGF5ZXI6Im0iLGVw
+        b2NoOjI5NTEwMTA1MH1dfX1dfSxwYW5lbDoiXHgzY2RpdiBpZD1cInJlc3Vs
+        dHNwYW5lbFwiIGNsYXNzPVwibG9jYWxcIlx4M2VceDNjYm9keVx4M2UgXHgz
+        Y2Rpdlx4M2UgXHgzY2RpdiBjbGFzcz1cInF1ZXJ5XCIgaWQ9XCJxbW9kXCJc
+        eDNlICAgXHgzY3NwYW4gY2xhc3M9XCJxdWVyeV90ZXJtc1wiXHgzZVx4M2Nz
+        cGFuIGNsYXNzPVwicXVlcnlfdGVybXNfbGlnaHRcIlx4M2VceDNjL3NwYW5c
+        eDNlXHgzY3NwYW4gY2xhc3M9XCJxdWVyeV90ZXJtc19ib2xkXCJceDNlVHJv
+        Y2FkZXJvIENsdWJceDNjL3NwYW5ceDNlIG5lYXIgXHgzY3NwYW4gY2xhc3M9
+        XCJxdWVyeV90ZXJtc19ib2xkXCJceDNlU2FuIEZyYW5jaXNjbywgQ0FceDNj
+        L3NwYW5ceDNlXHgzYy9zcGFuXHgzZSAgXHgzYy9kaXZceDNlIFx4M2MvZGl2
+        XHgzZSAgXHgzYy9ib2R5XHgzZSAgXHgzY2RpdiBjbGFzcz1cIm5vcHJpbnQg
+        cmVzXCJceDNlICAgICAgIFx4M2NkaXZceDNlICBceDNjZGl2XHgzZSAgXHgz
+        Y2RpdiBjbGFzcz1cIm9uZVwiIGlkPVwib25lX0FfMlwiIGpzcHJvcHM9J21h
+        cmtlcmlkOlwiQVwiO29uZUlkOlwib25lX0FfMlwiO3BhbmVsSWQ6XCJwYW5l
+        bF9BXzJcIicganN0cmFjaz1cIlluY1BWYnZlRmFYOWlBS2U4SUdZQ3dcIiB2
+        ZWQ9XCIwQ0JJUXBRMHdBQVwiIGpzYWN0aW9uPVwiYXBwLm9uZVJlc3VsdENs
+        aWNrO21vdXNlb3ZlcjphcHAuaGlnaGxpZ2h0TWFya2VyO21vdXNlb3V0OmFw
+        cC5oaWdobGlnaHRNYXJrZXJPdXRcIlx4M2UgXHgzY2RpdiBjbGFzcz1cImxz
+        aWNvblwiXHgzZSBceDNjZGl2IGNsYXNzPVwiaWNvblwiIGxvZz1cIlwiIGpz
+        YWN0aW9uPVwiYXBwLm9wZW5JbmZvV2luZG93XCIganNwcm9wcz1cIm1hcmtl
+        cmlkOidBJ1wiIGpzdHJhY2s9XCJZbmNQVmJ2ZUZhWDlpQUtlOElHWUN3XCIg
+        dmVkPTBDQk1RX2dzd0FBIGlkPVwibWFya2VyX0FfMlwiXHgzZVx4M2NpbWcg
+        YWx0PVwiQVwiIHNyYz1cImh0dHBzOi8vbWFwcy5nc3RhdGljLmNvbS9pbnRs
+        L2VuX3VzL21hcGZpbGVzL3RyYW5zcGFyZW50LnBuZ1wiIGNsYXNzPVwibXAg
+        aWNvbkFcIi9ceDNlXHgzYy9kaXZceDNlIFx4M2NzcGFuXHgzZSBceDNjaW1n
+        IGNsYXNzPVwidW5zdGFycmVkIG5vcHJpbnQgc2lfMTU5MzAzMTk3OTMwMzk2
+        OTI0NTZcIiBqc2FjdGlvbj1cInNpLnRvZ2dsZVBhbmVsU3RhcnJpbmdcIiBq
+        c3Byb3BzPVwibWFya2VyaWQ6J0EnO2JfczoyXCIgZGF0YS1hdXRodG9rZW49
+        XCI1NTBmNzc2M0xVQ1JHeEVwUlZELXJ0YlpubU14SEJab05UUVwiIHNyYz1c
+        Imh0dHBzOi8vbWFwcy5nc3RhdGljLmNvbS9pbnRsL2VuX3VzL21hcGZpbGVz
+        L3RyYW5zcGFyZW50LnBuZ1wiIGlkPVwicHAtc3RhcnJlZC1pdGVtLXN0YXJc
+        IiBsb2c9XCJzaV9saHNcIiB3aWR0aD1cIjIxXCIgaGVpZ2h0PVwiMTRcIlx4
+        M2UgXHgzYy9zcGFuXHgzZSBceDNjL2Rpdlx4M2UgXHgzY2RpdiBjbGFzcz1c
+        InRleHQgdmNhcmQgaW5kZW50IGJsb2NrXCIgaWQ9XCJwYW5lbF9BXzJcIlx4
+        M2UgIFx4M2NkaXYgY2xhc3M9XCJuYW1lIGxuYW1lXCIgaWQ9XCJsaW5rX0Ff
+        MlwiXHgzZSBceDNjc3BhbiBjbGFzcz1cInBwLXBsYWNlLXRpdGxlXCJceDNl
+        XHgzY3NwYW5ceDNlUnhCYXJceDNjL3NwYW5ceDNlXHgzYy9zcGFuXHgzZSAg
+        XHgzY3NwYW4gY2xhc3M9XCJhY3RiYXItbG9jYWwtd3JhcHBlclwiXHgzZVx4
+        M2NzcGFuIGlkPVwiYWN0YmFyLUFcIiBjbGFzcz1cImFjdGJhclwiIG1hcmtl
+        cmlkPVwiQVwiIHBhbmVsSWQ9XCJhY3RiYXItcGFuZWwtQS1wcFwiIGlzQ29t
+        cGFjdD1cIjFcImpzdmFsdWVzPVwiQHVuaXF1ZS1pZDogJHRoaXMudW5pcXVl
+        SWQ7QGlkOiAnYWN0YmFyLScrJHRoaXMudW5pcXVlSWQ7QG1hcmtlcmlkOiAk
+        dGhpcy5tYXJrZXJJZDtAcGFuZWxJZDogJ2FjdGJhci1wYW5lbC0nKyR0aGlz
+        LnVuaXF1ZUlkO1wiXHgzZVx4M2NzcGFuIGlkPVwiYWN0YmFyLWJ0bnMtQVwi
+        IGpzdmFsdWVzPVwiQGlkOidhY3RiYXItYnRucy0nKyR0aGlzLnVuaXF1ZUlk
+        XCIganNkaXNwbGF5PVwiJHRoaXMudmlzaWJsZSE9J25vbmUnXCIganNza2lw
+        PVwiMVwiXHgzZVx4M2NzcGFuIGpzYWN0aW9uPVwiYWIudG9wTGV2ZWxDbGlj
+        a1wiIGFjdGlvbj1cImFjdGJhci1tb3JlXCIgY2xhc3M9XCJhY3RiYXItY21w
+        Y3RcIlx4M2VceDNjaW1nIHNyYz1cImh0dHBzOi8vbWFwcy5nc3RhdGljLmNv
+        bS9pbnRsL2VuX3VzL21hcGZpbGVzL3RyYW5zcGFyZW50LnBuZ1wiIGNsYXNz
+        PVwiYXJyb3ctZG93blwiXHgzZVx4M2Mvc3Bhblx4M2VceDNjL3NwYW5ceDNl
+        XHgzYy9zcGFuXHgzZVx4M2Mvc3Bhblx4M2UgICAgXHgzYy9kaXZceDNlIFx4
+        M2NkaXZceDNlIFx4M2NkaXZceDNlXHgzYy9kaXZceDNlICBceDNjc3BhbiBj
+        bGFzcz1cInBwLWhlYWRsaW5lLWl0ZW0gcHAtaGVhZGxpbmUtYWRkcmVzc1wi
+        XHgzZSBceDNjc3Bhblx4M2U3MDEgR2VhcnkgU3RyZWV0LCBTYW4gRnJhbmNp
+        c2NvLCBDQVx4M2Mvc3Bhblx4M2UgIFx4M2Mvc3Bhblx4M2UgIFx4M2NkaXZc
+        eDNlIFx4M2NkaXZceDNlXHgzYy9kaXZceDNlIFx4M2NzcGFuIGNsYXNzPVwi
+        cHAtaGVhZGxpbmUtaXRlbSBwcC1oZWFkbGluZS1waG9uZVwiXHgzZSBceDNj
+        c3BhbiBjbGFzcz1cInRlbGVwaG9uZVwiXHgzZSBceDNjbm9iclx4M2UoNDE1
+        KSA5NTItMDQ4MVx4M2Mvbm9iclx4M2UgXHgzY3NwYW4gY2xhc3M9XCJwcC1o
+        ZWFkbGluZS1waG9uZS1sYWJlbFwiIHN0eWxlPVwiZGlzcGxheTpub25lXCJc
+        eDNlICgpXHgzYy9zcGFuXHgzZSAgXHgzYy9zcGFuXHgzZSAgIFx4M2Mvc3Bh
+        blx4M2UgIFx4M2NzcGFuXHgzZSBceDI2bWlkZG90OyBceDNjL3NwYW5ceDNl
+        IFx4M2NzcGFuIGNsYXNzPVwicHAtaGVhZGxpbmUtaXRlbSBwcC1oZWFkbGlu
+        ZS1hdXRob3JpdHktcGFnZVwiXHgzZSBceDNjc3Bhblx4M2VceDNjYSBocmVm
+        PVwiaHR0cDovL3d3dy5nb29nbGUuY29tL2xvY2FsX3VybD9kcT1Ucm9jYWRl
+        cm8rQ2x1Ylx4MjZhbXA7cT1odHRwOi8vd3d3LnJ4YmFyc2YuY29tL1x4MjZh
+        bXA7dmVkPTBDQmdRNUFRXHgyNmFtcDtzYT1YXHgyNmFtcDtlaT1ZbmNQVmJ2
+        ZUZhWDlpQUtlOElHWUN3XHgyNmFtcDtzPUFOWVlON2xHWHJEakx0cFlKdWhF
+        ZE9GN2VMcGVtUkJPcmdcIiB0YXJnZXQ9XCJfYmxhbmtcIlx4M2VceDNjc3Bh
+        blx4M2VyeGJhcnNmLmNvbVx4M2Mvc3Bhblx4M2VceDNjL2FceDNlXHgzYy9z
+        cGFuXHgzZSBceDNjL3NwYW5ceDNlICBceDNjL2Rpdlx4M2UgIFx4M2NkaXZc
+        eDNlICBceDNjc3BhbiBpZD1cInBwLXJldmlld3MtaGVhZGxpbmVcIlx4M2Vc
+        eDNjc3BhbiBzdHlsZT1cIm1hcmdpbi1yaWdodDo4cHhcIlx4M2VceDNjL3Nw
+        YW5ceDNlXHgzY3NwYW5ceDNlXHgzY2EgY2xhc3M9XCJwcC1tb3JlLWNvbnRl
+        bnQtbGlua1wiIGhyZWY9XCJodHRwOi8vd3d3Lmdvb2dsZS5jb20vbG9jYWxf
+        dXJsP2RxPVRyb2NhZGVybytDbHViXHgyNmFtcDtxPWh0dHBzOi8vcGx1cy5n
+        b29nbGUuY29tLzExNjEzMTAyODE5NjYxNjY0MTIyOS9hYm91dCUzRmdsJTNE
+        VVMlMjZobCUzRGVuLVVTXHgyNmFtcDt2ZWQ9MENCY1FsUVVceDI2YW1wO3Nh
+        PVhceDI2YW1wO2VpPVluY1BWYnZlRmFYOWlBS2U4SUdZQ3dceDI2YW1wO3M9
+        QU5ZWU43bUhkTXJaNWF0dnV6cXB6VEVCeERCSWhrQllXQVwiIHRhcmdldD1c
+        Il9ibGFua1wiXHgzZVx4M2NzcGFuXHgzZTMgcmV2aWV3c1x4M2Mvc3Bhblx4
+        M2VceDNjL2FceDNlXHgzYy9zcGFuXHgzZVx4M2Mvc3Bhblx4M2UgXHgzY3Nw
+        YW4gc3R5bGU9XCJjb2xvcjojNjY2XCJceDNlIFx4MjZtaWRkb3Q7IFx4M2Mv
+        c3Bhblx4M2UgXHgzY3NwYW4gY2xhc3M9XCJwcC1oZWFkbGluZS1pdGVtIHBw
+        LWxocy1wcmljZS1hdHRyaWJ1dGVcIlx4M2UkJCRceDNjL3NwYW5ceDNlICBc
+        eDNjL2Rpdlx4M2UgICAgICBceDNjL2Rpdlx4M2UgIFx4M2NkaXYgY2xhc3M9
+        XCJhY3RiYXItbG9jYWwtd3JhcHBlclwiXHgzZSAgXHgzY3NwYW5ceDNlXHgz
+        Y3NwYW4gaWQ9XCJhY3RiYXItcGFuZWwtQS1wcFwiIGNsYXNzPVwiYWN0YmFy
+        XCIganN2YWx1ZXM9XCJAdW5pcXVlLWlkOiAkdGhpcy51bmlxdWVJZDtAbWFy
+        a2VyaWQ6ICR0aGlzLm1hcmtlcklkO0BpZDogJ2FjdGJhci1wYW5lbC0nICsg
+        JHRoaXMudW5pcXVlSWQ7QHBhbmVsSWQ6ICdhY3RiYXItcGFuZWwtJyArICR0
+        aGlzLnVuaXF1ZUlkO1wiXHgzZVx4M2NzcGFuIGpzdmFsdWVzPVwiQGlkOidh
+        Y3RiYXItc24tJyArICR0aGlzLnVuaXF1ZUlkO1wiXHgzZVx4M2NzcGFuIGpz
+        ZGlzcGxheT1cIiR0aGlzLnZpc2libGU9PSdhY3RiYXItc24nXCJceDNlXHgz
+        Yy9zcGFuXHgzZVx4M2Mvc3Bhblx4M2VceDNjc3BhbiBqc3ZhbHVlcz1cIkBp
+        ZDonYWN0YmFyLXNhdmV0by0nICsgJHRoaXMudW5pcXVlSWQ7XCJceDNlXHgz
+        Y3NwYW4ganNkaXNwbGF5PVwiJHRoaXMudmlzaWJsZT09J2FjdGJhci1zYXZl
+        dG8nXCJceDNlXHgzYy9zcGFuXHgzZVx4M2Mvc3Bhblx4M2VceDNjL3NwYW5c
+        eDNlXHgzYy9zcGFuXHgzZSBceDNjL2Rpdlx4M2UgXHgzYy9kaXZceDNlICBc
+        eDNjL2Rpdlx4M2UgXHgzYy9kaXZceDNlICAgICAgIFx4M2MvZGl2XHgzZVx4
+        M2NkaXZceDNlICBceDNjZGl2XHgzZSAgXHgzY2RpdiBjbGFzcz1cIm9uZVwi
+        IGlkPVwib25lX0JfMlwiIGpzcHJvcHM9J21hcmtlcmlkOlwiQlwiO29uZUlk
+        Olwib25lX0JfMlwiO3BhbmVsSWQ6XCJwYW5lbF9CXzJcIicganN0cmFjaz1c
+        IlluY1BWYnZlRmFYOWlBS2U4SUdZQ3dcIiB2ZWQ9XCIwQ0JrUXBRMHdBUVwi
+        IGpzYWN0aW9uPVwiYXBwLm9uZVJlc3VsdENsaWNrO21vdXNlb3ZlcjphcHAu
+        aGlnaGxpZ2h0TWFya2VyO21vdXNlb3V0OmFwcC5oaWdobGlnaHRNYXJrZXJP
+        dXRcIlx4M2UgXHgzY2RpdiBjbGFzcz1cImxzaWNvblwiXHgzZSBceDNjZGl2
+        IGNsYXNzPVwiaWNvblwiIGxvZz1cIlwiIGpzYWN0aW9uPVwiYXBwLm9wZW5J
+        bmZvV2luZG93XCIganNwcm9wcz1cIm1hcmtlcmlkOidCJ1wiIGpzdHJhY2s9
+        XCJZbmNQVmJ2ZUZhWDlpQUtlOElHWUN3XCIgdmVkPTBDQm9RX2dzd0FRIGlk
+        PVwibWFya2VyX0JfMlwiXHgzZVx4M2NpbWcgYWx0PVwiQlwiIHNyYz1cImh0
+        dHBzOi8vbWFwcy5nc3RhdGljLmNvbS9pbnRsL2VuX3VzL21hcGZpbGVzL3Ry
+        YW5zcGFyZW50LnBuZ1wiIGNsYXNzPVwibXAgaWNvbkJcIi9ceDNlXHgzYy9k
+        aXZceDNlIFx4M2NzcGFuXHgzZSBceDNjaW1nIGNsYXNzPVwidW5zdGFycmVk
+        IG5vcHJpbnQgc2lfMjU1MTQwNzkyMTM5NDIwMjg0NFwiIGpzYWN0aW9uPVwi
+        c2kudG9nZ2xlUGFuZWxTdGFycmluZ1wiIGpzcHJvcHM9XCJtYXJrZXJpZDon
+        Qic7Yl9zOjJcIiBkYXRhLWF1dGh0b2tlbj1cIjU1MGY3NzYzTFVDUkd4RXBS
+        VkQtcnRiWm5tTXhIQlpvTlRRXCIgc3JjPVwiaHR0cHM6Ly9tYXBzLmdzdGF0
+        aWMuY29tL2ludGwvZW5fdXMvbWFwZmlsZXMvdHJhbnNwYXJlbnQucG5nXCIg
+        aWQ9XCJwcC1zdGFycmVkLWl0ZW0tc3RhclwiIGxvZz1cInNpX2xoc1wiIHdp
+        ZHRoPVwiMjFcIiBoZWlnaHQ9XCIxNFwiXHgzZSBceDNjL3NwYW5ceDNlIFx4
+        M2MvZGl2XHgzZSBceDNjZGl2IGNsYXNzPVwidGV4dCB2Y2FyZCBpbmRlbnQg
+        YmxvY2tcIiBpZD1cInBhbmVsX0JfMlwiXHgzZSAgXHgzY2RpdiBjbGFzcz1c
+        Im5hbWUgbG5hbWVcIiBpZD1cImxpbmtfQl8yXCJceDNlIFx4M2NzcGFuIGNs
+        YXNzPVwicHAtcGxhY2UtdGl0bGVcIlx4M2VceDNjc3Bhblx4M2VDaGFybGVz
+        IFx4M2NiXHgzZWRlXHgzYy9iXHgzZSBMaXNsZVx4M2Mvc3Bhblx4M2VceDNj
+        L3NwYW5ceDNlICBceDNjc3BhbiBjbGFzcz1cImFjdGJhci1sb2NhbC13cmFw
+        cGVyXCJceDNlXHgzY3NwYW4gaWQ9XCJhY3RiYXItQlwiIGNsYXNzPVwiYWN0
+        YmFyXCIgbWFya2VyaWQ9XCJCXCIgcGFuZWxJZD1cImFjdGJhci1wYW5lbC1C
+        LXBwXCIgaXNDb21wYWN0PVwiMVwianN2YWx1ZXM9XCJAdW5pcXVlLWlkOiAk
+        dGhpcy51bmlxdWVJZDtAaWQ6ICdhY3RiYXItJyskdGhpcy51bmlxdWVJZDtA
+        bWFya2VyaWQ6ICR0aGlzLm1hcmtlcklkO0BwYW5lbElkOiAnYWN0YmFyLXBh
+        bmVsLScrJHRoaXMudW5pcXVlSWQ7XCJceDNlXHgzY3NwYW4gaWQ9XCJhY3Ri
+        YXItYnRucy1CXCIganN2YWx1ZXM9XCJAaWQ6J2FjdGJhci1idG5zLScrJHRo
+        aXMudW5pcXVlSWRcIiBqc2Rpc3BsYXk9XCIkdGhpcy52aXNpYmxlIT0nbm9u
+        ZSdcIiBqc3NraXA9XCIxXCJceDNlXHgzY3NwYW4ganNhY3Rpb249XCJhYi50
+        b3BMZXZlbENsaWNrXCIgYWN0aW9uPVwiYWN0YmFyLW1vcmVcIiBjbGFzcz1c
+        ImFjdGJhci1jbXBjdFwiXHgzZVx4M2NpbWcgc3JjPVwiaHR0cHM6Ly9tYXBz
+        LmdzdGF0aWMuY29tL2ludGwvZW5fdXMvbWFwZmlsZXMvdHJhbnNwYXJlbnQu
+        cG5nXCIgY2xhc3M9XCJhcnJvdy1kb3duXCJceDNlXHgzYy9zcGFuXHgzZVx4
+        M2Mvc3Bhblx4M2VceDNjL3NwYW5ceDNlXHgzYy9zcGFuXHgzZSAgICBceDNj
+        L2Rpdlx4M2UgXHgzY2Rpdlx4M2UgXHgzY2Rpdlx4M2VceDNjL2Rpdlx4M2Ug
+        IFx4M2NzcGFuIGNsYXNzPVwicHAtaGVhZGxpbmUtaXRlbSBwcC1oZWFkbGlu
+        ZS1hZGRyZXNzXCJceDNlIFx4M2NzcGFuXHgzZTI0OSBIaWNrb3J5IFN0cmVl
+        dCwgU2FuIEZyYW5jaXNjbywgQ0FceDNjL3NwYW5ceDNlICBceDNjL3NwYW5c
+        eDNlICBceDNjZGl2XHgzZSBceDNjZGl2XHgzZVx4M2MvZGl2XHgzZSBceDNj
+        c3BhbiBjbGFzcz1cInBwLWhlYWRsaW5lLWl0ZW0gcHAtaGVhZGxpbmUtcGhv
+        bmVcIlx4M2UgXHgzY3NwYW4gY2xhc3M9XCJ0ZWxlcGhvbmVcIlx4M2UgXHgz
+        Y25vYnJceDNlKDQxNSkgNTY1LTY3NjdceDNjL25vYnJceDNlIFx4M2NzcGFu
+        IGNsYXNzPVwicHAtaGVhZGxpbmUtcGhvbmUtbGFiZWxcIiBzdHlsZT1cImRp
+        c3BsYXk6bm9uZVwiXHgzZSAoKVx4M2Mvc3Bhblx4M2UgIFx4M2Mvc3Bhblx4
+        M2UgICBceDNjL3NwYW5ceDNlICBceDNjc3Bhblx4M2UgXHgyNm1pZGRvdDsg
+        XHgzYy9zcGFuXHgzZSBceDNjc3BhbiBjbGFzcz1cInBwLWhlYWRsaW5lLWl0
+        ZW0gcHAtaGVhZGxpbmUtYXV0aG9yaXR5LXBhZ2VcIlx4M2UgXHgzY3NwYW5c
+        eDNlXHgzY2EgaHJlZj1cImh0dHA6Ly93d3cuZ29vZ2xlLmNvbS9sb2NhbF91
+        cmw/ZHE9VHJvY2FkZXJvK0NsdWJceDI2YW1wO3E9aHR0cDovL3d3dy5jaGFy
+        bGVzZGVsaXNsZS5jb20vXHgyNmFtcDt2ZWQ9MENCNFE1QVFceDI2YW1wO3Nh
+        PVhceDI2YW1wO2VpPVluY1BWYnZlRmFYOWlBS2U4SUdZQ3dceDI2YW1wO3M9
+        QU5ZWU43bnJ3anZsbVlWTkhDZGpybzlHc0NXY04xaXl5QVwiIHRhcmdldD1c
+        Il9ibGFua1wiXHgzZVx4M2NzcGFuXHgzZWNoYXJsZXNkZWxpc2xlLmNvbVx4
+        M2Mvc3Bhblx4M2VceDNjL2FceDNlXHgzYy9zcGFuXHgzZSBceDNjL3NwYW5c
+        eDNlICBceDNjL2Rpdlx4M2UgICAgXHgzY2RpdiBhbGlnbj1cImxlZnRcIlx4
+        M2VceDNjc3Bhblx4M2UgXHgzY2RpdiBjbGFzcz1cInBwLXN0b3J5IHBwLWRl
+        c2NyaXB0aW9uXCIgaWQ9XCJwcC1kZXNjLXNzalwiXHgzZSAgIFx4M2NkaXZc
+        eDNlIFx4M2NzcGFuXHgzZVwiVGhlIFx4M2NiXHgzZVRyb2NhZGVybyBDbHVi
+        XHgzYy9iXHgzZSBvcGVuZWQgdGhpcyB3ZWVrLiBMb29rIGZvciB0aGUgc2Nv
+        b3AgaW4gdGhlIHRhYmxlaG9wcGVyIGFuZCBzZi5lYXRlciBibG9ncy4gXHgz
+        Y2JceDNlVHJvY2FkZXJvXHgzYy9iXHgzZS4gOS4yNi4yMDEzLiBMaW5kZW4g
+        Q2hhbmRlbGllciBpcyCTV2hhdFx4MjYjMzk7cyBIb3QgXHgzY2JceDNlLi4u
+        XHgzYy9iXHgzZVwiXHgzYy9zcGFuXHgzZSAgXHgzY25vYnJceDNlIFx4M2Nz
+        cGFuIGNsYXNzPVwicHAtaG92ZXItYXR0cmlidXRpb25cIlx4M2UgLSBceDNj
+        YSBjbGFzcz1cInBwLW1vcmUtY29udGVudC1saW5rXCIgaHJlZj1cImh0dHA6
+        Ly93d3cuZ29vZ2xlLmNvbS9sb2NhbF91cmw/ZHE9VHJvY2FkZXJvK0NsdWJc
+        eDI2YW1wO3E9aHR0cDovL3d3dy5jaGFybGVzZGVsaXNsZS5jb20vXHgyNmFt
+        cDt2ZWQ9MENCOFF5UWt3QVFceDI2YW1wO3NhPVhceDI2YW1wO2dlb2NvZGU9
+        RmFWblFBSWRsUGV6LUFceDI2YW1wO2VpPVluY1BWYnZlRmFYOWlBS2U4SUdZ
+        Q3dceDI2YW1wO3M9QU5ZWU43bnJ3anZsbVlWTkhDZGpybzlHc0NXY04xaXl5
+        QVwiIHRhcmdldD1cIl9ibGFua1wiXHgzZVx4M2NzcGFuXHgzZWNoYXJsZXNk
+        ZWxpc2xlLmNvbVx4M2Mvc3Bhblx4M2VceDNjL2FceDNlIFx4M2Mvc3Bhblx4
+        M2UgXHgzYy9ub2JyXHgzZSBceDNjL2Rpdlx4M2UgICBceDNjL2Rpdlx4M2Ug
+        XHgzYy9zcGFuXHgzZVx4M2MvZGl2XHgzZSAgICBceDNjL2Rpdlx4M2UgIFx4
+        M2NkaXYgY2xhc3M9XCJhY3RiYXItbG9jYWwtd3JhcHBlclwiXHgzZSAgXHgz
+        Y3NwYW5ceDNlXHgzY3NwYW4gaWQ9XCJhY3RiYXItcGFuZWwtQi1wcFwiIGNs
+        YXNzPVwiYWN0YmFyXCIganN2YWx1ZXM9XCJAdW5pcXVlLWlkOiAkdGhpcy51
+        bmlxdWVJZDtAbWFya2VyaWQ6ICR0aGlzLm1hcmtlcklkO0BpZDogJ2FjdGJh
+        ci1wYW5lbC0nICsgJHRoaXMudW5pcXVlSWQ7QHBhbmVsSWQ6ICdhY3RiYXIt
+        cGFuZWwtJyArICR0aGlzLnVuaXF1ZUlkO1wiXHgzZVx4M2NzcGFuIGpzdmFs
+        dWVzPVwiQGlkOidhY3RiYXItc24tJyArICR0aGlzLnVuaXF1ZUlkO1wiXHgz
+        ZVx4M2NzcGFuIGpzZGlzcGxheT1cIiR0aGlzLnZpc2libGU9PSdhY3RiYXIt
+        c24nXCJceDNlXHgzYy9zcGFuXHgzZVx4M2Mvc3Bhblx4M2VceDNjc3BhbiBq
+        c3ZhbHVlcz1cIkBpZDonYWN0YmFyLXNhdmV0by0nICsgJHRoaXMudW5pcXVl
+        SWQ7XCJceDNlXHgzY3NwYW4ganNkaXNwbGF5PVwiJHRoaXMudmlzaWJsZT09
+        J2FjdGJhci1zYXZldG8nXCJceDNlXHgzYy9zcGFuXHgzZVx4M2Mvc3Bhblx4
+        M2VceDNjL3NwYW5ceDNlXHgzYy9zcGFuXHgzZSBceDNjL2Rpdlx4M2UgXHgz
+        Yy9kaXZceDNlICBceDNjL2Rpdlx4M2UgXHgzYy9kaXZceDNlICAgICAgIFx4
+        M2MvZGl2XHgzZSBceDNjZGl2IGNsYXNzPVwid3B0XCJceDNlXHgzY2EgaHJl
+        Zj1cIi9tYXBzP3E9VHJvY2FkZXJvK0NsdWJceDI2YW1wO25lYXI9U2FuK0Zy
+        YW5jaXNjbywrQ2FsaWZvcm5pYSwrVW5pdGVkK1N0YXRlc1x4MjZhbXA7aWU9
+        VVRGOFx4MjZhbXA7aHE9VHJvY2FkZXJvK0NsdWJceDI2YW1wO2huZWFyPVNh
+        bitGcmFuY2lzY28sK1NhbitGcmFuY2lzY28rQ291bnR5LCtDYWxpZm9ybmlh
+        XHgyNmFtcDtmaWx0ZXI9MFx4MjZhbXA7dXBkYXRlPTFceDI2YW1wO29pPWx3
+        cF90aHJlc2hceDI2YW1wO3NhPVhcIiBvbmNsaWNrPVwicmV0dXJuIGxvYWRV
+        cmwodGhpcy5ocmVmKVwiXHgzZVNlZSBhbGwgNCByZXN1bHRzIGZvciBceDNj
+        Ylx4M2VUcm9jYWRlcm8gQ2x1Ylx4M2MvYlx4M2VceDNjL2FceDNlXHgzYy9k
+        aXZceDNlXHgzYy9kaXZceDNlXHgzY2RpdiBpZD1cImJvdHRvbWFkc1wiIGNs
+        YXNzPVwiYWRzIG5vcHJpbnRcIiBzdHlsZT1cImRpc3BsYXk6bm9uZVwiXHgz
+        ZVx4M2NkaXZceDNlXHgzY2RpdiBjbGFzcz1cImFkc21lc3NhZ2UgdjNcIiBp
+        ZD1cImJvdHRvbWFkc19vcmlnaW5cIlx4M2VBZFx4M2MvZGl2XHgzZVx4M2Nk
+        aXYgaWQ9XCJib3R0b21hZHNfY29udGVudHNcIlx4M2VceDNjL2Rpdlx4M2Vc
+        eDNjZGl2IGNsYXNzPVwiYXdwcm9tb1wiXHgzZVx4M2NhIGhyZWY9XCIvL3d3
+        dy5nb29nbGUuY29tL2Fkd29yZHMvZXhwcmVzcy8jdXRtX2NhbXBhaWduPWVu
+        XHgyNnV0bV9tZWRpdW09ZXRceDI2dXRtX3NvdXJjZT11cy1lbi1ldC1hd3gt
+        cTQxMS1tYXBzLXN5YWhceDI2dXRtX2NvbnRlbnQ9dXMtZW4tZXQtYXd4LXE0
+        MTEtbWFwcy1zeWFoXCIgdGFyZ2V0PVwiX2JsYW5rXCJceDNlU2VlIHlvdXIg
+        YWQgaGVyZVx4MjZuYnNwO1x4MjZyYXF1bztceDNjL2FceDNlXHgzYy9kaXZc
+        eDNlXHgzYy9kaXZceDNlXHgzYy9kaXZceDNlXHgzY2RpdiBjbGFzcz1cIm5v
+        cHJpbnRcIlx4M2VceDNjL2Rpdlx4M2VceDNjZGl2IGNsYXNzPVwibm90aWNl
+        c1wiIGlkPVwibG9jYWxwYW5lbG5vdGljZXNcIlx4M2VceDNjZGl2XHgzZSAg
+        XHgzYy9kaXZceDNlXHgzYy9kaXZceDNlXHgzY2RpdiBjbGFzcz1cImxoc2Yg
+        cm1pLXJwbC1rIGdtbm9wcmludFwiIGpzYXR0cnM9XCJjbGFzcy5ybWktYmFz
+        ZS1rP3BhbmVsX2Zvb3Rlci5hbmNob3JfZm9vdGVyO1wiIGlkPVwibGhzZlwi
+        XHgzZSBceDNjZGl2IGNsYXNzPVwicm1pLXJwbC10b3Agc2Vjb25kYXJ5XCJc
+        eDNlIFx4M2NhIGpzZGlzcGxheT1cInBhbmVsX2Zvb3Rlci5yZXBvcnRfYWN0
+        aW9uXCIgaHJlZj1cImphdmFzY3JpcHQ6dm9pZCgwKVwiIGpzYWN0aW9uPVwi
+        cm1pLm9wZW4tbXBzLXN3aXRjaGJveFwiIGpzYXR0cnM9XCJqc2FjdGlvbjpw
+        YW5lbF9mb290ZXIucmVwb3J0X2FjdGlvbjtpZD9wYW5lbF9mb290ZXIuaXNf
+        YmFzZXBhZ2U7aWQ6J3N1Y2tfbGhwX2xpbmsnO1wiXHgzZSBSZXBvcnQgYSBw
+        cm9ibGVtXHgzYy9hXHgzZSBceDNjc3BhbiBqc2Rpc3BsYXk9XCJwYW5lbF9m
+        b290ZXIucmVwb3J0X2FjdGlvblwiIGpzYXR0cnM9XCJpZD9wYW5lbF9mb290
+        ZXIuaXNfYmFzZXBhZ2U7aWQ6J3N1Y2tfbGhwX3NlcCc7XCJceDNlIC0gXHgz
+        Yy9zcGFuXHgzZSBceDNjYSBocmVmPVwiamF2YXNjcmlwdDp2b2lkKDApXCIg
+        anNhY3Rpb249XCJtbC5vcGVuRGlhbG9nXCJceDNlIE1hcHMgTGFic1x4M2Mv
+        YVx4M2UgXHgzY3NwYW5ceDNlIC0gXHgzYy9zcGFuXHgzZSBceDNjYSBocmVm
+        PVwiaHR0cDovL21hcHMuZ29vZ2xlLmNvbS9zdXBwb3J0P2hsPWVuXCIganNh
+        dHRycz1cImhyZWY6cGFuZWxfZm9vdGVyLmhlbHBfdXJsO1wiXHgzZSBIZWxw
+        XHgzYy9hXHgzZSBceDNjL2Rpdlx4M2UgXHgzY2RpdiBjbGFzcz1cInJtaS1y
+        cGwtYm90dG9tIHNlY29uZGFyeVwiXHgzZSBceDNjc3Bhblx4M2VHb29nbGUg
+        TWFwcyBceDNjL3NwYW5ceDNlIFx4M2NzcGFuXHgzZVx4M2Mvc3Bhblx4M2Ug
+        XHgzY3NwYW4ganNjb250ZW50PVwicGFuZWxfZm9vdGVyLmNvdW50cnlfbXNn
+        XCIganN2YXJzPVwiX19uZXdfZGlyOmJpZGlEaXIocGFuZWxfZm9vdGVyLmNv
+        dW50cnlfbXNnKTtfX2Rpcl9jaGFuZ2VkOidsdHInIT1fX25ld19kaXI7X19k
+        aXI6X19kaXJfY2hhbmdlZD9fX25ld19kaXI6J2x0cic7XCIganNhdHRycz1c
+        ImRpcj9fX2Rpcl9jaGFuZ2VkO2RpcjpfX2RpcjtcIlx4M2VceDNjL3NwYW5c
+        eDNlIFx4M2NzcGFuXHgzZVx4M2Mvc3Bhblx4M2UgXHgzY3NwYW5ceDNlIC0g
+        XHgzYy9zcGFuXHgzZSBceDNjc3BhbiBqc2NvbnRlbnQ9XCJyYXc6cGFuZWxf
+        Zm9vdGVyLmNvcHlyaWdodFwiIGpzdmFycz1cIl9fbmV3X2RpcjpiaWRpRGly
+        KHBhbmVsX2Zvb3Rlci5jb3B5cmlnaHQpO19fZGlyX2NoYW5nZWQ6J2x0cich
+        PV9fbmV3X2RpcjtfX2RpcjpfX2Rpcl9jaGFuZ2VkP19fbmV3X2RpcjonbHRy
+        JztcIiBqc2F0dHJzPVwiZGlyP19fZGlyX2NoYW5nZWQ7ZGlyOl9fZGlyO1wi
+        XHgzZVx4MjYjMTY5OzIwMTUgR29vZ2xlXHgzYy9zcGFuXHgzZSBceDNjc3Bh
+        blx4M2VceDNjL3NwYW5ceDNlIFx4M2NzcGFuXHgzZSAtIFx4M2Mvc3Bhblx4
+        M2UgXHgzY2EgaHJlZj1cImh0dHA6Ly93d3cuZ29vZ2xlLmNvbS9pbnRsL2Vu
+        X3VzL2hlbHAvdGVybXNfbWFwcy5odG1sXCIganNhdHRycz1cImhyZWY6cGFu
+        ZWxfZm9vdGVyLnRlcm1zX3VybDtcIiB0YXJnZXQ9XCJfYmxhbmtcIlx4M2Ug
+        VGVybXMgb2YgVXNlXHgzYy9hXHgzZSBceDNjc3Bhblx4M2UgLSBceDNjL3Nw
+        YW5ceDNlIFx4M2NhIGhyZWY9XCJodHRwOi8vd3d3Lmdvb2dsZS5jb20vaW50
+        bC9lbl91cy9wb2xpY2llcy9wcml2YWN5L1wiIGpzYXR0cnM9XCJocmVmOnBh
+        bmVsX2Zvb3Rlci5wcml2YWN5X3VybDtcIiB0YXJnZXQ9XCJfYmxhbmtcIlx4
+        M2UgUHJpdmFjeVx4M2MvYVx4M2UgXHgzYy9kaXZceDNlIFx4M2MvZGl2XHgz
+        ZVx4M2MvZGl2XHgzZSIscGFuZWxJZDowLHNpZ25faW5fdXJsOiJodHRwczov
+        L3d3dy5nb29nbGUuY29tL2FjY291bnRzL1NlcnZpY2VMb2dpbj9zZXJ2aWNl
+        PWxvY2FsXHgyNmhsPWVuXHgyNm51aT0xXHgyNmNvbnRpbnVlPWh0dHA6Ly93
+        d3cuZ29vZ2xlLmNvbS9tYXBzJTNGcSUzRFRyb2NhZGVybyUyQkNsdWIlMjZu
+        ZWFyJTNEU2FuJTJCRnJhbmNpc2NvLCUyQkNhbGlmb3JuaWEsJTJCVW5pdGVk
+        JTJCU3RhdGVzJTI2bnVtJTNEMTAiLGlzX2RldGFpbHNfcmVxOmZhbHNlLGRv
+        cHRzOntkdG06ImQiLGF0bXM6WyJkIiwiciIsInciLCJiIl0sZGR1OiJtIix0
+        cmFuc2l0OntodHM6dHJ1ZSx0bW9zOlsibm93IiwiZGVwIiwiYXJyIl0sdG06
+        e2Q6Im5vdyJ9LGRhdGU6e30sdGltZTp7djoidXRjOjE0MjcwNzY5NjAifSxz
+        b3M6WyJkZWYiLCJudW0iLCJ3YWxrIl0sc3Q6e2Q6ImRlZiJ9LG5lOntoOnRy
+        dWV9LG5hOntoOnRydWV9LHB0bW9zOlsiIiwiQiIsIlMiLCJUIiwiUiJdfX0s
+        c2xheWVyc190cmlnZ2VyOmZhbHNlLHRpbWVmb3JtYXQ6e2FtcG06dHJ1ZSxk
+        cDoibWR5In0sYWN0aXZpdHlUeXBlOjEscGFuZWxfbW9kdWxlczpbInBwbGhz
+        Il0scGFnZV9jb25mOnt0b3BiYXJfY29uZmlnOntzaG93X3BhbmVsX3RvZ2ds
+        ZXI6dHJ1ZSxkaXJlY3Rpb25zX3VybDoiamF2YXNjcmlwdDp2b2lkKDApIixz
+        aG93X2RpcmVjdGlvbnNfbGluazp0cnVlLHN0YXJ0Y29sX29ubHk6dHJ1ZSxz
+        aG93X215X3BsYWNlc19saW5rOnRydWUsbXlfcGxhY2VzX3VybDoiamF2YXNj
+        cmlwdDp2b2lkKDApIixlbmFibGVkX2tlbm5lZHlfdWk6dHJ1ZX0scGFuZWxf
+        ZGlzcGxheTp0cnVlfX0=
+    http_version: 
+  recorded_at: Mon, 23 Mar 2015 02:16:02 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=37.78639,-122.414982&query=Trocadero%20Club&v=20150322&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 23 Mar 2015 02:16:03 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '149'
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4040'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-sjc3130-SJC
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"code":200},"response":{"warning":{"text":"There aren''t a
+        lot of results for \"Trocadero Club.\" Try something more general, reset your
+        filters, or expand the search area."},"suggestedRadius":2079,"headerLocation":"Tenderloin","headerFullLocation":"Tenderloin,
+        San Francisco","headerLocationGranularity":"neighborhood","query":"trocadero
+        club","totalResults":2,"suggestedBounds":{"ne":{"lat":37.82994492610862,"lng":-122.26593001180746},"sw":{"lat":37.82724526632317,"lng":-122.26865246190502}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"51dc511e498e55380951d3de","name":"Trocadero
+        Club","contact":{},"location":{"address":"701 Geary St","crossStreet":"Geary
+        St. & Leavenworth St.","lat":37.82859509621589,"lng":-122.26729123685624,"distance":13812,"postalCode":"94109","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["701
+        Geary St (Geary St. & Leavenworth St.)","San Francisco, CA 94109","United
+        States"]},"categories":[{"id":"4bf58dd8d48988d11e941735","name":"Cocktail
+        Bar","pluralName":"Cocktail Bars","shortName":"Cocktail","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/nightlife\/cocktails_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":74,"usersCount":24,"tipCount":2},"price":{"tier":3,"message":"Expensive","currency":"$"},"specials":{"count":0,"items":[]},"photos":{"count":1,"groups":[{"type":"venue","name":"Venue
+        photos","count":1,"items":[{"id":"526df39511d2f424800d9494","createdAt":1382937493,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/516329_f1UDRyk8GIi7paohrwEDxssFy9IuDW5Gxkm6cQ5AtBk.jpg","width":960,"height":720,"user":{"id":"516329","firstName":"Ricardo","lastName":"A.","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/516329-YKRFOC4H44ER0J3N.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"526df39511d2f424800d9494","createdAt":1382937493,"prefix":"https:\/\/irs0.4sqi.net\/img\/general\/","suffix":"\/516329_f1UDRyk8GIi7paohrwEDxssFy9IuDW5Gxkm6cQ5AtBk.jpg","width":960,"height":720,"user":{"id":"516329","firstName":"Ricardo","lastName":"A.","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/516329-YKRFOC4H44ER0J3N.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true,"exactMatch":true},"tips":[{"id":"526d3b9c498e87a6e82c5a2d","createdAt":1382890396,"text":"a
+        gorgeous new addition to the neighborhood.","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/526d3b9c498e87a6e82c5a2d","logView":true,"todo":{"count":0},"user":{"id":"46471068","firstName":"Ben","lastName":"Larson","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/-ECLD4HQZ13DP4HBY.jpg"}}}],"referralId":"e-0-51dc511e498e55380951d3de-0"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4ec6e4a3f5b9e88191da1b94","name":"Stern
+        Grove Trocadero Clubhouse","contact":{"phone":"4152522590","formattedPhone":"(415)
+        252-2590"},"location":{"address":"Stern Grove, Trocadero Clubhouse","lat":37.73600565625829,"lng":-122.47807767720364,"distance":7892,"postalCode":"94103","cc":"US","city":"San
+        Francisco","state":"CA","country":"United States","formattedAddress":["Stern
+        Grove, Trocadero Clubhouse","San Francisco, CA 94103","United States"]},"categories":[{"id":"4bf58dd8d48988d1e2931735","name":"Art
+        Gallery","pluralName":"Art Galleries","shortName":"Art Gallery","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/arts_entertainment\/artgallery_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":169,"usersCount":131,"tipCount":2},"url":"http:\/\/www.sfartscommission.org","specials":{"count":0,"items":[]},"photos":{"count":19,"groups":[{"type":"venue","name":"Venue
+        photos","count":19,"items":[{"id":"51395658e4b01c34d4406f1f","createdAt":1362712152,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/31534_bCZQmPWDTfRKaWnocgcY2vfKC6Ub9lDYOx55pQ5aRcg.jpg","width":720,"height":960,"user":{"id":"31534","firstName":"Holger","lastName":"Luedorf","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QUUZEGVHPZMSZ4X2.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"featuredPhotos":{"count":1,"items":[{"id":"51395658e4b01c34d4406f1f","createdAt":1362712152,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/31534_bCZQmPWDTfRKaWnocgcY2vfKC6Ub9lDYOx55pQ5aRcg.jpg","width":720,"height":960,"user":{"id":"31534","firstName":"Holger","lastName":"Luedorf","gender":"male","photo":{"prefix":"https:\/\/irs0.4sqi.net\/img\/user\/","suffix":"\/QUUZEGVHPZMSZ4X2.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"51d0cf3a498e44d6b90a9503","createdAt":1372639034,"text":"Pre
+        concert talks happen here!","type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/51d0cf3a498e44d6b90a9503","logView":true,"todo":{"count":0},"user":{"id":"7415299","firstName":"Koko","lastName":"Darling","gender":"female","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/TYFDM0BKB1MMJXOC.jpg"}}}],"referralId":"e-0-4ec6e4a3f5b9e88191da1b94-1"}]}]}}'
+    http_version: 
+  recorded_at: Mon, 23 Mar 2015 02:16:03 GMT
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=37.78639,-122.414982&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Mon, 23 Mar 2015 02:16:03 GMT
+      Expires:
+      - Tue, 24 Mar 2015 02:16:03 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.5
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "701",
+                       "short_name" : "701",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Geary Street",
+                       "short_name" : "Geary St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Tenderloin",
+                       "short_name" : "Tenderloin",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "94109",
+                       "short_name" : "94109",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "701 Geary Street, San Francisco, CA 94109, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 37.7863814,
+                       "lng" : -122.4150367
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.7877303802915,
+                          "lng" : -122.4136877197085
+                       },
+                       "southwest" : {
+                          "lat" : 37.7850324197085,
+                          "lng" : -122.4163856802915
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJq7xmo5GAhYAR6o-sdn-DWY8",
+                 "types" : [ "street_address" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Geary Blvd & Leavenworth St",
+                       "short_name" : "Geary Blvd & Leavenworth St",
+                       "types" : [ "bus_station", "transit_station", "establishment" ]
+                    },
+                    {
+                       "long_name" : "Lower Nob Hill",
+                       "short_name" : "Lower Nob Hill",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "94109",
+                       "short_name" : "94109",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "Geary Blvd & Leavenworth St, San Francisco, CA 94109, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 37.786556,
+                       "lng" : -122.414971
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.7879049802915,
+                          "lng" : -122.4136220197085
+                       },
+                       "southwest" : {
+                          "lat" : 37.7852070197085,
+                          "lng" : -122.4163199802915
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJOd-eopGAhYARyUCrRV9cqLk",
+                 "types" : [ "bus_station", "transit_station", "establishment" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Tenderloin",
+                       "short_name" : "Tenderloin",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Tenderloin, San Francisco, CA, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.7878162,
+                          "lng" : -122.4046888
+                       },
+                       "southwest" : {
+                          "lat" : 37.780043,
+                          "lng" : -122.421416
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.7846598,
+                       "lng" : -122.4145058
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.7878162,
+                          "lng" : -122.4046888
+                       },
+                       "southwest" : {
+                          "lat" : 37.780043,
+                          "lng" : -122.421416
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJyzeuaJCAhYARCmK0UthwWrY",
+                 "types" : [ "neighborhood", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "94109",
+                       "short_name" : "94109",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "San Francisco, CA 94109, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.8128889,
+                          "lng" : -122.411699
+                       },
+                       "southwest" : {
+                          "lat" : 37.7811169,
+                          "lng" : -122.4326081
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.7929789,
+                       "lng" : -122.4212424
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.8128889,
+                          "lng" : -122.411699
+                       },
+                       "southwest" : {
+                          "lat" : 37.7811169,
+                          "lng" : -122.4326081
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJy0ilcOmAhYARCLOo6oZQNxk",
+                 "types" : [ "postal_code" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "San Francisco, CA, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.9297707,
+                          "lng" : -122.3279149
+                       },
+                       "southwest" : {
+                          "lat" : 37.6933354,
+                          "lng" : -123.1077733
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.7749295,
+                       "lng" : -122.4194155
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.812,
+                          "lng" : -122.3482
+                       },
+                       "southwest" : {
+                          "lat" : 37.70339999999999,
+                          "lng" : -122.527
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJIQBpAG2ahYAR_6128GcTUEo",
+                 "types" : [ "locality", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "San Francisco County, CA, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.9297707,
+                          "lng" : -122.3279149
+                       },
+                       "southwest" : {
+                          "lat" : 37.6933354,
+                          "lng" : -123.1077733
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.7749073,
+                       "lng" : -122.4193878
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.8332484,
+                          "lng" : -122.3570189
+                       },
+                       "southwest" : {
+                          "lat" : 37.7080859,
+                          "lng" : -122.5177237
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJIQBpAG2ahYARUksNqd0_1h8",
+                 "types" : [ "administrative_area_level_2", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "California, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 42.0095169,
+                          "lng" : -114.131211
+                       },
+                       "southwest" : {
+                          "lat" : 32.5342321,
+                          "lng" : -124.4096196
+                       }
+                    },
+                    "location" : {
+                       "lat" : 36.778261,
+                       "lng" : -119.4179324
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 42.0095169,
+                          "lng" : -114.131211
+                       },
+                       "southwest" : {
+                          "lat" : 32.5342321,
+                          "lng" : -124.4096196
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJPV4oX_65j4ARVW8IJ6IJUYs",
+                 "types" : [ "administrative_area_level_1", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "United States",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 71.389888,
+                          "lng" : -66.94539469999999
+                       },
+                       "southwest" : {
+                          "lat" : 18.9110642,
+                          "lng" : 172.4458955
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.09024,
+                       "lng" : -95.712891
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 49.38,
+                          "lng" : -66.94
+                       },
+                       "southwest" : {
+                          "lat" : 25.82,
+                          "lng" : -124.39
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJCzYy5IS16lQRQrfeQ5K5Oxw",
+                 "types" : [ "country", "political" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Mon, 23 Mar 2015 02:16:03 GMT
+recorded_with: VCR 2.9.3

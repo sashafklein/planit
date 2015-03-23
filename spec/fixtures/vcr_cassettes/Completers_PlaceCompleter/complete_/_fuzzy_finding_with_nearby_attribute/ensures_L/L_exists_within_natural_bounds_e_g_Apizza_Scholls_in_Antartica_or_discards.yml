@@ -1,0 +1,1447 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=-122.613144&lng=45.512043&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Date:
+      - Mon, 23 Mar 2015 02:15:59 GMT
+      Server:
+      - Apache/2.2.17 (Linux/SUSE)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Length:
+      - '51'
+      Connection:
+      - close
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"status":{"message":"invalid lat/lng","value":12}}'
+    http_version: 
+  recorded_at: Mon, 23 Mar 2015 02:15:59 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&near=Portland,%20%20OR%2097215&query=Apizza%20Scholls&v=20150322&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 23 Mar 2015 02:15:59 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '121'
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4045'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-sjc3124-SJC
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"code":200},"response":{"geocode":{"what":"","where":"portland
+        or 97215","center":{"lat":45.5143,"lng":-122.599},"displayString":"97215,
+        OR, United States","cc":"US","geometry":{"bounds":{"ne":{"lat":45.524369,"lng":-122.57866899999999},"sw":{"lat":45.504821,"lng":-122.620169}}},"longId":"162411061581201771"},"warning":{"text":"There
+        aren''t a lot of results for \"Apizza Scholls.\" Try something more general,
+        reset your filters, or expand the search area."},"headerLocation":"Current
+        map view","headerFullLocation":"Current map view","headerLocationGranularity":"unknown","query":"apizza
+        scholls","totalResults":2,"suggestedBounds":{"ne":{"lat":45.51339282989272,"lng":-122.58025256551905},"sw":{"lat":45.510693170107274,"lng":-122.64603543448094}},"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4293c000f964a52038241fe3","name":"Apizza
+        Scholls","contact":{"phone":"5032331286","formattedPhone":"(503) 233-1286","twitter":"apizzascholls"},"location":{"address":"4741
+        SE Hawthorne Blvd","crossStreet":"at SE 47th Ave.","lat":45.512043,"lng":-122.613144,"postalCode":"97215","cc":"US","city":"Portland","state":"OR","country":"United
+        States","formattedAddress":["4741 SE Hawthorne Blvd (at SE 47th Ave.)","Portland,
+        OR 97215","United States"]},"categories":[{"id":"4bf58dd8d48988d1ca941735","name":"Pizza
+        Place","pluralName":"Pizza Places","shortName":"Pizza","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/pizza_","suffix":".png"},"primary":true}],"verified":false,"stats":{"checkinsCount":3168,"usersCount":1962,"tipCount":59},"url":"http:\/\/www.apizzascholls.com","price":{"tier":3,"message":"Expensive","currency":"$"},"hasMenu":true,"rating":8.9,"ratingColor":"73CF42","ratingSignals":139,"menu":{"type":"Menu","label":"Menu","anchor":"View
+        Menu","url":"https:\/\/foursquare.com\/v\/apizza-scholls\/4293c000f964a52038241fe3\/menu","mobileUrl":"https:\/\/foursquare.com\/v\/4293c000f964a52038241fe3\/device_menu"},"hours":{"status":"Open
+        until 8:00 PM","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":143,"groups":[{"type":"venue","name":"Venue
+        photos","count":143,"items":[{"id":"4e642c12d164ddd5e685ccef","createdAt":1315187730,"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/2RG3GFVAMQKCKDJITXHAVSD034RBNS0JD1KRAT43IQ3ZRQ5T.jpg","width":720,"height":537,"user":{"id":"12332736","firstName":"Tejandrea","gender":"female","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/ICEY35VPLNJRQSZH.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":1,"summary":"One
+        person is checked in here","groups":[{"type":"others","name":"Other people
+        here","count":1,"items":[]}]},"featuredPhotos":{"count":1,"items":[{"id":"4e642c12d164ddd5e685ccef","createdAt":1315187730,"prefix":"https:\/\/irs2.4sqi.net\/img\/general\/","suffix":"\/2RG3GFVAMQKCKDJITXHAVSD034RBNS0JD1KRAT43IQ3ZRQ5T.jpg","width":720,"height":537,"user":{"id":"12332736","firstName":"Tejandrea","gender":"female","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/ICEY35VPLNJRQSZH.jpg"}},"visibility":"public"}]}},"flags":{"exactMatch":true},"tips":[{"id":"4d2be469ec272d43dd89394c","createdAt":1294722153,"text":"Thin-crust
+        East Coast\/New Haven-style pizza, this southeast joint closes when they out
+        of dough, which they stick in a 650-900-degree oven and char the daylights
+        out of.  [Eater 38 Member]","type":"user","url":"http:\/\/pdx.eater.com\/places\/apizza-scholls","canonicalUrl":"https:\/\/foursquare.com\/item\/4d2be469ec272d43dd89394c","likes":{"count":72,"groups":[],"summary":"72
+        likes"},"logView":true,"todo":{"count":65},"user":{"id":"3343327","firstName":"Eater","gender":"none","photo":{"prefix":"https:\/\/irs1.4sqi.net\/img\/user\/","suffix":"\/4HBAAMCL4WUF3IEU.png"},"type":"page"}}],"referralId":"e-0-4293c000f964a52038241fe3-0"},{"reasons":{"count":0,"items":[{"summary":"This
+        spot is popular","type":"general","reasonName":"globalInteractionReason"}]},"venue":{"id":"4a3ab616f964a52024a01fe3","name":"Hilton
+        Portland & Executive Tower","contact":{"phone":"5032261611","formattedPhone":"(503)
+        226-1611","twitter":"hiltonhotels","facebook":"137619719644857","facebookUsername":"HiltonBonn","facebookName":"Hilton
+        Bonn"},"location":{"address":"921 SW 6th Ave","crossStreet":"at SW Taylor
+        St","lat":45.51728,"lng":-122.67955,"postalCode":"97204","cc":"US","city":"Portland","state":"OR","country":"United
+        States","formattedAddress":["921 SW 6th Ave (at SW Taylor St)","Portland,
+        OR 97204","United States"]},"categories":[{"id":"4bf58dd8d48988d1fa931735","name":"Hotel","pluralName":"Hotels","shortName":"Hotel","icon":{"prefix":"https:\/\/ss3.4sqi.net\/img\/categories_v2\/travel\/hotel_","suffix":".png"},"primary":true}],"verified":true,"stats":{"checkinsCount":10683,"usersCount":4579,"tipCount":44},"url":"http:\/\/www3.hilton.com\/en\/hotels\/oregon\/hilton-portland-and-executive-tower-PDXPHHH\/index.html","rating":7.3,"ratingColor":"C5DE35","ratingSignals":47,"hours":{"status":"Open","isOpen":true},"specials":{"count":0,"items":[]},"photos":{"count":317,"groups":[{"type":"venue","name":"Venue
+        photos","count":317,"items":[{"id":"4f6181aee4b0fcf230018f3b","createdAt":1331790254,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/fiN9zYibdcWIKbHtFekmvK8n-NpOPVrDHEUdEu2V_tg.jpg","width":612,"height":612,"user":{"id":"297829","firstName":"Benton
+        Kealii","lastName":"Pang, Ph.D.","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/PF2TNH43JZDSPX5P.jpg"}},"visibility":"public"}]}]},"hereNow":{"count":0,"summary":"Nobody
+        here","groups":[]},"storeId":"PDXPHHH","featuredPhotos":{"count":1,"items":[{"id":"4f6181aee4b0fcf230018f3b","createdAt":1331790254,"prefix":"https:\/\/irs3.4sqi.net\/img\/general\/","suffix":"\/fiN9zYibdcWIKbHtFekmvK8n-NpOPVrDHEUdEu2V_tg.jpg","width":612,"height":612,"user":{"id":"297829","firstName":"Benton
+        Kealii","lastName":"Pang, Ph.D.","gender":"male","photo":{"prefix":"https:\/\/irs2.4sqi.net\/img\/user\/","suffix":"\/PF2TNH43JZDSPX5P.jpg"}},"visibility":"public"}]}},"flags":{"outsideRadius":true},"tips":[{"id":"5035a3ffe4b0573430c16746","createdAt":1345692671,"text":"Check
+        out apizza scholls.  Best pizza I''ve ever had.","entities":[{"indices":[10,16],"type":"search_match"},{"indices":[17,24],"type":"search_match"}],"type":"user","canonicalUrl":"https:\/\/foursquare.com\/item\/5035a3ffe4b0573430c16746","logView":true,"todo":{"count":0},"user":{"id":"67904","firstName":"doak","lastName":"williford","gender":"male","photo":{"prefix":"https:\/\/irs3.4sqi.net\/img\/user\/","suffix":"\/NIRKUI5LUHVOQJ1C.jpg"}}}],"referralId":"e-0-4a3ab616f964a52024a01fe3-1"}]}]}}'
+    http_version: 
+  recorded_at: Mon, 23 Mar 2015 02:15:59 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/4293c000f964a52038241fe3?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&v=20150322
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 23 Mar 2015 02:15:59 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '61'
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4043'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-sjc3130-SJC
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJtZXRhIjp7ImNvZGUiOjIwMH0sInJlc3BvbnNlIjp7InZlbnVlIjp7Imlk
+        IjoiNDI5M2MwMDBmOTY0YTUyMDM4MjQxZmUzIiwibmFtZSI6IkFwaXp6YSBT
+        Y2hvbGxzIiwiY29udGFjdCI6eyJwaG9uZSI6IjUwMzIzMzEyODYiLCJmb3Jt
+        YXR0ZWRQaG9uZSI6Iig1MDMpIDIzMy0xMjg2IiwidHdpdHRlciI6ImFwaXp6
+        YXNjaG9sbHMifSwibG9jYXRpb24iOnsiYWRkcmVzcyI6IjQ3NDEgU0UgSGF3
+        dGhvcm5lIEJsdmQiLCJjcm9zc1N0cmVldCI6ImF0IFNFIDQ3dGggQXZlLiIs
+        ImxhdCI6NDUuNTEyMDQzLCJsbmciOi0xMjIuNjEzMTQ0LCJwb3N0YWxDb2Rl
+        IjoiOTcyMTUiLCJjYyI6IlVTIiwiY2l0eSI6IlBvcnRsYW5kIiwic3RhdGUi
+        OiJPUiIsImNvdW50cnkiOiJVbml0ZWQgU3RhdGVzIiwiZm9ybWF0dGVkQWRk
+        cmVzcyI6WyI0NzQxIFNFIEhhd3Rob3JuZSBCbHZkIChhdCBTRSA0N3RoIEF2
+        ZS4pIiwiUG9ydGxhbmQsIE9SIDk3MjE1IiwiVW5pdGVkIFN0YXRlcyJdfSwi
+        Y2Fub25pY2FsVXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC92XC9h
+        cGl6emEtc2Nob2xsc1wvNDI5M2MwMDBmOTY0YTUyMDM4MjQxZmUzIiwiY2F0
+        ZWdvcmllcyI6W3siaWQiOiI0YmY1OGRkOGQ0ODk4OGQxY2E5NDE3MzUiLCJu
+        YW1lIjoiUGl6emEgUGxhY2UiLCJwbHVyYWxOYW1lIjoiUGl6emEgUGxhY2Vz
+        Iiwic2hvcnROYW1lIjoiUGl6emEiLCJpY29uIjp7InByZWZpeCI6Imh0dHBz
+        OlwvXC9zczMuNHNxaS5uZXRcL2ltZ1wvY2F0ZWdvcmllc192MlwvZm9vZFwv
+        cGl6emFfIiwic3VmZml4IjoiLnBuZyJ9LCJwcmltYXJ5Ijp0cnVlfV0sInZl
+        cmlmaWVkIjpmYWxzZSwic3RhdHMiOnsiY2hlY2tpbnNDb3VudCI6MzE2OCwi
+        dXNlcnNDb3VudCI6MjA5NywidGlwQ291bnQiOjU5fSwidXJsIjoiaHR0cDpc
+        L1wvd3d3LmFwaXp6YXNjaG9sbHMuY29tIiwicHJpY2UiOnsidGllciI6Mywi
+        bWVzc2FnZSI6IkV4cGVuc2l2ZSIsImN1cnJlbmN5IjoiJCJ9LCJoYXNNZW51
+        Ijp0cnVlLCJsaWtlcyI6eyJjb3VudCI6OTksImdyb3VwcyI6W3sidHlwZSI6
+        Im90aGVycyIsImNvdW50Ijo5OSwiaXRlbXMiOltdfV0sInN1bW1hcnkiOiI5
+        OSBMaWtlcyJ9LCJkaXNsaWtlIjpmYWxzZSwib2siOmZhbHNlLCJyYXRpbmci
+        OjguOSwicmF0aW5nQ29sb3IiOiI3M0NGNDIiLCJyYXRpbmdTaWduYWxzIjox
+        MzksIm1lbnUiOnsidHlwZSI6Ik1lbnUiLCJsYWJlbCI6Ik1lbnUiLCJhbmNo
+        b3IiOiJWaWV3IE1lbnUiLCJ1cmwiOiJodHRwczpcL1wvZm91cnNxdWFyZS5j
+        b21cL3ZcL2FwaXp6YS1zY2hvbGxzXC80MjkzYzAwMGY5NjRhNTIwMzgyNDFm
+        ZTNcL21lbnUiLCJtb2JpbGVVcmwiOiJodHRwczpcL1wvZm91cnNxdWFyZS5j
+        b21cL3ZcLzQyOTNjMDAwZjk2NGE1MjAzODI0MWZlM1wvZGV2aWNlX21lbnUi
+        fSwic3BlY2lhbHMiOnsiY291bnQiOjAsIml0ZW1zIjpbXX0sInBob3RvcyI6
+        eyJjb3VudCI6MTQzLCJncm91cHMiOlt7InR5cGUiOiJ2ZW51ZSIsIm5hbWUi
+        OiJWZW51ZSBwaG90b3MiLCJjb3VudCI6MTQzLCJpdGVtcyI6W3siaWQiOiI0
+        ZTY0MmMxMmQxNjRkZGQ1ZTY4NWNjZWYiLCJjcmVhdGVkQXQiOjEzMTUxODc3
+        MzAsInNvdXJjZSI6eyJuYW1lIjoiRm91cnNxdWFyZSBmb3IgaU9TIiwidXJs
+        IjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9kb3dubG9hZFwvI1wvaXBo
+        b25lIn0sInByZWZpeCI6Imh0dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9pbWdc
+        L2dlbmVyYWxcLyIsInN1ZmZpeCI6IlwvMlJHM0dGVkFNUUtDS0RKSVRYSEFW
+        U0QwMzRSQk5TMEpEMUtSQVQ0M0lRM1pSUTVULmpwZyIsIndpZHRoIjo3MjAs
+        ImhlaWdodCI6NTM3LCJ1c2VyIjp7ImlkIjoiMTIzMzI3MzYiLCJmaXJzdE5h
+        bWUiOiJUZWphbmRyZWEiLCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90byI6eyJw
+        cmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwvaW1nXC91c2VyXC8i
+        LCJzdWZmaXgiOiJcL0lDRVkzNVZQTE5KUlFTWkguanBnIn19LCJ2aXNpYmls
+        aXR5IjoicHVibGljIn0seyJpZCI6IjUwZjM4MjQ4ZTRiMDI2MGE5ZmI3NzI2
+        NyIsImNyZWF0ZWRBdCI6MTM1ODEzNTg4MCwic291cmNlIjp7Im5hbWUiOiJJ
+        bnN0YWdyYW0iLCJ1cmwiOiJodHRwOlwvXC9pbnN0YWdyYW0uY29tIn0sInBy
+        ZWZpeCI6Imh0dHBzOlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL2dlbmVyYWxc
+        LyIsInN1ZmZpeCI6IlwvNzA5NDA1OF9fOF80dEZEMGVnamtCYkZGTkZhNmZk
+        dmhKWVJFWEU4YjZBSU1kaXl4R3MwLmpwZyIsIndpZHRoIjo2MTIsImhlaWdo
+        dCI6NjEyLCJ1c2VyIjp7ImlkIjoiNzA5NDA1OCIsImZpcnN0TmFtZSI6IlNh
+        bmRyYSIsImdlbmRlciI6ImZlbWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0
+        dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6
+        IlwvTDRIWlNSR1ExWlMxTlVJRy5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJs
+        aWMifSx7ImlkIjoiNTE5MDUwMTA0OThlMDFiNTI5MDE5MWRhIiwiY3JlYXRl
+        ZEF0IjoxMzY4NDEyMTc2LCJzb3VyY2UiOnsibmFtZSI6Ikluc3RhZ3JhbSIs
+        InVybCI6Imh0dHA6XC9cL2luc3RhZ3JhbS5jb20ifSwicHJlZml4IjoiaHR0
+        cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvZ2VuZXJhbFwvIiwic3VmZml4
+        IjoiXC8xMDgzNzI1X3loT2Q2VnU1SFN3SC1xUVNfOVpYdnN6Q0I4aDMwQlk4
+        eThoUlJoNlp1MWsuanBnIiwid2lkdGgiOjYxMiwiaGVpZ2h0Ijo2MTIsInVz
+        ZXIiOnsiaWQiOiIxMDgzNzI1IiwiZmlyc3ROYW1lIjoiRnJhbmsiLCJsYXN0
+        TmFtZSI6IkJlbm5ldHQiLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsicHJl
+        Zml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwi
+        c3VmZml4IjoiXC9LMVJRSlVYV1hSQTBIT1RMLmpwZyJ9fSwidmlzaWJpbGl0
+        eSI6InB1YmxpYyJ9LHsiaWQiOiI0ZjkwYmQyNmU0YjA2YTNhNGJlNDk3NmQi
+        LCJjcmVhdGVkQXQiOjEzMzQ4ODU2NzAsInNvdXJjZSI6eyJuYW1lIjoiRm91
+        cnNxdWFyZSBmb3IgaU9TIiwidXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUu
+        Y29tXC9kb3dubG9hZFwvI1wvaXBob25lIn0sInByZWZpeCI6Imh0dHBzOlwv
+        XC9pcnMyLjRzcWkubmV0XC9pbWdcL2dlbmVyYWxcLyIsInN1ZmZpeCI6Ilwv
+        NFV1UHh2emZEV0FoT2liYW95VGFsM0EyMlpJN2N4NzRkdHdZZDM4R3luMC5q
+        cGciLCJ3aWR0aCI6NzIwLCJoZWlnaHQiOjUzNywidXNlciI6eyJpZCI6IjU4
+        OTM2OTkiLCJmaXJzdE5hbWUiOiJHcmlmZmluIiwibGFzdE5hbWUiOiJMYWN5
+        IiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwv
+        XC9pcnMwLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvT05U
+        RE1GTkVaWkFTMEhUMC5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifSx7
+        ImlkIjoiNGViOGFmOGVkM2UzNjQ0Y2E3OTliNmZhIiwiY3JlYXRlZEF0Ijox
+        MzIwNzI2NDE0LCJzb3VyY2UiOnsibmFtZSI6Ikluc3RhZ3JhbSIsInVybCI6
+        Imh0dHA6XC9cL2luc3RhZ3JhbS5jb20ifSwicHJlZml4IjoiaHR0cHM6XC9c
+        L2lyczIuNHNxaS5uZXRcL2ltZ1wvZ2VuZXJhbFwvIiwic3VmZml4IjoiXC9L
+        R0RVUkdPTFBOQTU0UERHUDAzS1lGTVRJVzVTRE1OVUVSS1ZVSFhKUFJESEFW
+        TjUuanBnIiwid2lkdGgiOjYxMiwiaGVpZ2h0Ijo2MTIsInVzZXIiOnsiaWQi
+        OiI1ODY4Mzg5IiwiZmlyc3ROYW1lIjoiQ29sZSIsImxhc3ROYW1lIjoiV2ls
+        c29uIiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBz
+        OlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6Ilwv
+        MjQzWENBV0RGRDNCMkhUUy5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMi
+        fSx7ImlkIjoiNTE3NDQ0NmRlNGIwZDhmMzM3YjYwYzM4IiwiY3JlYXRlZEF0
+        IjoxMzY2NTc0MTg5LCJzb3VyY2UiOnsibmFtZSI6IkZvdXJzcXVhcmUgZm9y
+        IGlPUyIsInVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvZG93bmxv
+        YWRcLyNcL2lwaG9uZSJ9LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3Fp
+        Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzE1NzM2MTM4X0hU
+        cEdweHpLNHZ1dVkzOEkyMFoydG1tYU9kMkhHM2lXTl9BVFRtcVpuZW8uanBn
+        Iiwid2lkdGgiOjE0NDAsImhlaWdodCI6MTkyMCwidXNlciI6eyJpZCI6IjE1
+        NzM2MTM4IiwiZmlyc3ROYW1lIjoiTHluZGEiLCJsYXN0TmFtZSI6IlZ1b25n
+        IiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6
+        XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC8x
+        NTczNjEzOC1HSE5YMkhMMk9XMElTUFFOLmpwZyJ9fSwidmlzaWJpbGl0eSI6
+        InB1YmxpYyJ9XX1dfSwiaGVyZU5vdyI6eyJjb3VudCI6MSwic3VtbWFyeSI6
+        Ik9uZSBwZXJzb24gaXMgY2hlY2tlZCBpbiBoZXJlIiwiZ3JvdXBzIjpbeyJ0
+        eXBlIjoib3RoZXJzIiwibmFtZSI6Ik90aGVyIHBlb3BsZSBoZXJlIiwiY291
+        bnQiOjEsIml0ZW1zIjpbXX1dfSwicmVhc29ucyI6eyJjb3VudCI6MSwiaXRl
+        bXMiOlt7InN1bW1hcnkiOiJMb3RzIG9mIHBlb3BsZSBsaWtlIHRoaXMgcGxh
+        Y2UiLCJ0eXBlIjoiZ2VuZXJhbCIsInJlYXNvbk5hbWUiOiJyYXdMaWtlc1Jl
+        YXNvbiJ9XX0sImNyZWF0ZWRBdCI6MTExNjk3OTIwMCwidGlwcyI6eyJjb3Vu
+        dCI6NTksImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsIm5hbWUiOiJBbGwg
+        dGlwcyIsImNvdW50Ijo1OSwiaXRlbXMiOlt7ImlkIjoiNGQyYmU0NjllYzI3
+        MmQ0M2RkODkzOTRjIiwiY3JlYXRlZEF0IjoxMjk0NzIyMTUzLCJ0ZXh0Ijoi
+        VGhpbi1jcnVzdCBFYXN0IENvYXN0XC9OZXcgSGF2ZW4tc3R5bGUgcGl6emEs
+        IHRoaXMgc291dGhlYXN0IGpvaW50IGNsb3NlcyB3aGVuIHRoZXkgb3V0IG9m
+        IGRvdWdoLCB3aGljaCB0aGV5IHN0aWNrIGluIGEgNjUwLTkwMC1kZWdyZWUg
+        b3ZlbiBhbmQgY2hhciB0aGUgZGF5bGlnaHRzIG91dCBvZi4gIFtFYXRlciAz
+        OCBNZW1iZXJdIiwidHlwZSI6InVzZXIiLCJ1cmwiOiJodHRwOlwvXC9wZHgu
+        ZWF0ZXIuY29tXC9wbGFjZXNcL2FwaXp6YS1zY2hvbGxzIiwiY2Fub25pY2Fs
+        VXJsIjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC80ZDJiZTQ2
+        OWVjMjcyZDQzZGQ4OTM5NGMiLCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJjb3Vu
+        dCI6NzIsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50Ijo3Miwi
+        aXRlbXMiOltdfV0sInN1bW1hcnkiOiI3MiBsaWtlcyJ9LCJsb2dWaWV3Ijp0
+        cnVlLCJ0b2RvIjp7ImNvdW50Ijo2NX0sInVzZXIiOnsiaWQiOiIzMzQzMzI3
+        IiwiZmlyc3ROYW1lIjoiRWF0ZXIiLCJnZW5kZXIiOiJub25lIiwicGhvdG8i
+        OnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvdXNl
+        clwvIiwic3VmZml4IjoiXC80SEJBQU1DTDRXVUYzSUVVLnBuZyJ9LCJ0eXBl
+        IjoicGFnZSJ9fSx7ImlkIjoiNGVjZjgwMjJiOGY3OTcxZDY5N2U5MzhkIiwi
+        Y3JlYXRlZEF0IjoxMzIyMjIxNjAyLCJ0ZXh0IjoiVGhpcyBwbGFjZSB0cmFu
+        c2NlbmRzIEZvdXJzcXVhcmUgdGlwcy4gSXQgaXMgc2ltcGx5IG5vdCBwb3Nz
+        aWJsZSB0byBjb252ZXkganVzdCBob3cgZ29vZCB0aGlzIHBpenphIGlzLCBv
+        ciBldmVuIHN1Z2dlc3QgYSBwaWUgdGhhdCBzdGFuZHMgYWJvdmUgdGhlIG90
+        aGVycy4gQnV0IG9yZGVyIHRoZSBtYXJnYXJpdGEgd2l0aCB0cnVmZmxlIG9p
+        bC4iLCJ0eXBlIjoidXNlciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9m
+        b3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGVjZjgwMjJiOGY3OTcxZDY5N2U5Mzhk
+        IiwibGFuZyI6ImVuIiwibGlrZXMiOnsiY291bnQiOjgsImdyb3VwcyI6W3si
+        dHlwZSI6Im90aGVycyIsImNvdW50Ijo4LCJpdGVtcyI6W3siaWQiOiI0NTk0
+        NDEiLCJmaXJzdE5hbWUiOiJSeWFuIiwibGFzdE5hbWUiOiJHYW50eiIsImdl
+        bmRlciI6Im1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJz
+        Mi40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL0ZHU0JIWFpC
+        UEtTUUVMMDMuanBnIn19LHsiaWQiOiIxNjc1NzkiLCJmaXJzdE5hbWUiOiJT
+        aGF3biIsImxhc3ROYW1lIjoiU2FuZGVycyIsImdlbmRlciI6Im1hbGUiLCJw
+        aG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3FpLm5ldFwvaW1n
+        XC91c2VyXC8iLCJzdWZmaXgiOiJcLzE2NzU3OS1XTjJNRldFUU5ZTDI0Tk8y
+        LmpwZyJ9fSx7ImlkIjoiNDUyNDg2IiwiZmlyc3ROYW1lIjoiY2F0aGVyaW5l
+        IiwibGFzdE5hbWUiOiJEYWx0b24iLCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90
+        byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwvaW1nXC91
+        c2VyXC8iLCJzdWZmaXgiOiJcL1hGVkhaTEZJSURPVFZHT1UuanBnIn19LHsi
+        aWQiOiI3ODE4Njk4OSIsImZpcnN0TmFtZSI6Ik1hcmsiLCJsYXN0TmFtZSI6
+        IkhuYXRoIiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0
+        dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6
+        IlwvNzgxODY5ODktWVJKRUZDWFBDMVdORkpZSi5qcGcifX1dfV0sInN1bW1h
+        cnkiOiI4IGxpa2VzIn0sImxvZ1ZpZXciOnRydWUsImVkaXRlZEF0IjoxMzYy
+        ODU2MDk4LCJ0b2RvIjp7ImNvdW50Ijo1fSwidXNlciI6eyJpZCI6IjQ2Mjgw
+        MjQiLCJmaXJzdE5hbWUiOiJBbmR5IiwibGFzdE5hbWUiOiJNY01pbGxhbiIs
+        ImdlbmRlciI6Im1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wv
+        aXJzMC40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL0ZLVFFI
+        NVBHVURYRjNQU1gucG5nIn19fSx7ImlkIjoiNGQ3N2M0OGU5YjQ3NmEzMThh
+        OTcyOWY5IiwiY3JlYXRlZEF0IjoxMjk5Njk0NzM0LCJ0ZXh0IjoiSG9tZW1h
+        ZGUgc2F1c2FnZSB3aXRoIE1hbWEgTGlsXHUyMDE5cyBwZXBwZXJzV2l0aCBh
+        IHJlY2VwdGlvbiBhcyBjaGlsbHkgYXMgYSB3YXJkZW4gZ3JlZXRpbmcgYSBy
+        ZWNpZGl2aXN0LCBBcGl6emEgd2lucyBubyBhdG1vc3BoZXJlIGF3YXJkcy4i
+        LCJ0eXBlIjoidXNlciIsInVybCI6Imh0dHA6XC9cL3d3dy5wb3J0bGFuZG1v
+        bnRobHltYWcuY29tXC9lYXQtYW5kLWRyaW5rXC9hcnRpY2xlc1wvbWFzdGVy
+        LWNsYXNzLW1hcmNoLTIwMTFcLyNrZW5zIiwiY2Fub25pY2FsVXJsIjoiaHR0
+        cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC80ZDc3YzQ4ZTliNDc2YTMx
+        OGE5NzI5ZjkiLCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJjb3VudCI6NiwiZ3Jv
+        dXBzIjpbeyJ0eXBlIjoib3RoZXJzIiwiY291bnQiOjYsIml0ZW1zIjpbXX1d
+        LCJzdW1tYXJ5IjoiNiBsaWtlcyJ9LCJsb2dWaWV3Ijp0cnVlLCJ0b2RvIjp7
+        ImNvdW50IjoxfSwidXNlciI6eyJpZCI6IjE3MzU1NjYiLCJmaXJzdE5hbWUi
+        OiJQb3J0bGFuZCBNb250aGx5IiwiZ2VuZGVyIjoibm9uZSIsInBob3RvIjp7
+        InByZWZpeCI6Imh0dHBzOlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL3VzZXJc
+        LyIsInN1ZmZpeCI6IlwvNEk1UkExUVJKS1gwWVNQVi5qcGcifX19LHsiaWQi
+        OiI0YmRlY2ZiOTcwYzYwM2JiNDQxZjlhYjQiLCJjcmVhdGVkQXQiOjEyNzI4
+        OTMzNjksInRleHQiOiJKdXN0IHBoZW5vbWluYWwuICBHZXQgc29tZXRoaW5n
+        IHNpbXBsZSwgbGlrZSB0aGUgcGVwcGVycyBhbmQgc2F1c2FnZS4iLCJ0eXBl
+        IjoidXNlciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJl
+        LmNvbVwvaXRlbVwvNGJkZWNmYjk3MGM2MDNiYjQ0MWY5YWI0IiwibGFuZyI6
+        ImVuIiwibGlrZXMiOnsiY291bnQiOjQsImdyb3VwcyI6W3sidHlwZSI6Im90
+        aGVycyIsImNvdW50Ijo0LCJpdGVtcyI6W3siaWQiOiIzNDc3NjA5OCIsImZp
+        cnN0TmFtZSI6IkFyaXMiLCJsYXN0TmFtZSI6IkdvbnphbGVzIiwiZ2VuZGVy
+        IjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMzLjRz
+        cWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvMzQ3NzYwOTgtMFFH
+        RTRKUVhIVFpSMkoyMy5qcGcifX0seyJpZCI6IjI4NjA0IiwiZmlyc3ROYW1l
+        Ijoi4piDIiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0
+        dHBzOlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6
+        IlwvUk9UMldPWkRRT1oxQk1GQy5qcGcifX1dfV0sInN1bW1hcnkiOiI0IGxp
+        a2VzIn0sImxvZ1ZpZXciOnRydWUsInRvZG8iOnsiY291bnQiOjB9LCJ1c2Vy
+        Ijp7ImlkIjoiMjg2MDQiLCJmaXJzdE5hbWUiOiLimIMiLCJnZW5kZXIiOiJt
+        YWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczMuNHNxaS5u
+        ZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9ST1QyV09aRFFPWjFCTUZD
+        LmpwZyJ9fX0seyJpZCI6IjU0M2RjNmRmNDk4ZWE4OTBlNTZhNDk0ZiIsImNy
+        ZWF0ZWRBdCI6MTQxMzMzNDc1MSwidGV4dCI6IlBlb3BsZSBnbyBoZXJlIHRv
+        IGVhdCB0aGUgb3V0c3RhbmRpbmcgaGFuZG1hZGUgZnJlc2ggcGl6emEuIE9u
+        ZSBvZiB0aGUgYmVzdCBQaXp6YSBwbGFjZXMgaW4gUG9ydGxhbmQhIiwidHlw
+        ZSI6InVzZXIiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFy
+        ZS5jb21cL2l0ZW1cLzU0M2RjNmRmNDk4ZWE4OTBlNTZhNDk0ZiIsImxhbmci
+        OiJlbiIsImxpa2VzIjp7ImNvdW50IjozLCJncm91cHMiOlt7InR5cGUiOiJv
+        dGhlcnMiLCJjb3VudCI6MywiaXRlbXMiOlt7ImlkIjoiMTExNDMxNDI4Iiwi
+        Zmlyc3ROYW1lIjoiRGVhbiIsImxhc3ROYW1lIjoiS2lya2xhbmQiLCJnZW5k
+        ZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczEu
+        NHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC8xMTE0MzE0Mjgt
+        TVVMSk1YRTJMTFAzNTVOUS5qcGcifX0seyJpZCI6IjU0ODg3NTQ3IiwiZmly
+        c3ROYW1lIjoiQnJ1Y2UiLCJsYXN0TmFtZSI6IldpbmVydCIsImdlbmRlciI6
+        Im1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3Fp
+        Lm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzU0ODg3NTQ3LUZHWjRB
+        WEMyVzNWT0dIVEIifX0seyJpZCI6IjUxMjA1MDQ5IiwiZmlyc3ROYW1lIjoi
+        R3JlZyIsImxhc3ROYW1lIjoiQmVkZG9yIiwiZ2VuZGVyIjoibWFsZSIsInBo
+        b3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9pbWdc
+        L3VzZXJcLyIsInN1ZmZpeCI6IlwvQTNDRVBZUTRNTEZQSkZSNC5qcGcifX1d
+        fV0sInN1bW1hcnkiOiIzIGxpa2VzIn0sImxvZ1ZpZXciOnRydWUsImVkaXRl
+        ZEF0IjoxNDE0NDM0ODQyLCJ0b2RvIjp7ImNvdW50IjowfSwidXNlciI6eyJp
+        ZCI6IjU0ODg3NTQ3IiwiZmlyc3ROYW1lIjoiQnJ1Y2UiLCJsYXN0TmFtZSI6
+        IldpbmVydCIsImdlbmRlciI6Im1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJo
+        dHRwczpcL1wvaXJzMi40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgi
+        OiJcLzU0ODg3NTQ3LUZHWjRBWEMyVzNWT0dIVEIifX19LHsiaWQiOiI0Y2Ri
+        MjEzNjUyZDg4ZWVjN2IwNGY5MjgiLCJjcmVhdGVkQXQiOjEyODk0MjkzMDIs
+        InRleHQiOiJHZXQgaW4gbGluZSBiZWZvcmUgb3BlbmluZy4gUXVpdGUgcG9z
+        c2libHkgb25lIG9mIHRoZSBiZXN0IHBpenphJ3MgSSd2ZSBldmVyIGhhZCBh
+        bmQgYXMgYSBOZXcgWW9ya2VyLCBJIGRvbid0IGdpdmUgdGhhdCBwcmFpc2Ug
+        bGlnaHRseS4iLCJ0eXBlIjoidXNlciIsImNhbm9uaWNhbFVybCI6Imh0dHBz
+        OlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGNkYjIxMzY1MmQ4OGVlYzdi
+        MDRmOTI4IiwibGFuZyI6ImVuIiwibGlrZXMiOnsiY291bnQiOjMsImdyb3Vw
+        cyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50IjozLCJpdGVtcyI6W3siaWQi
+        OiIyOTA2OTgwNyIsImZpcnN0TmFtZSI6IkxhdXJlbiIsImxhc3ROYW1lIjoi
+        Qmxvb21xdWlzdCIsImdlbmRlciI6ImZlbWFsZSIsInBob3RvIjp7InByZWZp
+        eCI6Imh0dHBzOlwvXC9pcnMwLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1
+        ZmZpeCI6IlwvMjkwNjk4MDctVjBZS1hRRVNXTlhSSlJVTC5qcGcifX1dfV0s
+        InN1bW1hcnkiOiIzIGxpa2VzIn0sImxvZ1ZpZXciOnRydWUsInRvZG8iOnsi
+        Y291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiNDE1MDcyNSIsImZpcnN0TmFtZSI6
+        IkJpbGwiLCJsYXN0TmFtZSI6IkgiLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8i
+        OnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczAuNHNxaS5uZXRcL2ltZ1wvdXNl
+        clwvIiwic3VmZml4IjoiXC9EUFFLT1lCV0pKWFhYWDJGLmpwZyJ9fX0seyJp
+        ZCI6IjRjNGE5MWY4YzhiNmI3MTNhZDdhMWRmYiIsImNyZWF0ZWRBdCI6MTI3
+        OTk1NTQ0OCwidGV4dCI6IkkgdmlzaXRlZCB0aGlzIHBsYWNlIGF0IGEgZnJp
+        ZW5kcyBpbnZpdGF0aW9uIC4uLiB3ZW50IGFzIGEgZmFtaWx5IGFuZCBtdXN0
+        IHNheSBJIGxvdmVkIGl0ISBJIGxpa2UgaXQgc2ltcGxlIHNvIG9yZGVyIHRo
+        ZSBNYXJnbydyaXRhIGFuZCBnb29kIGRhcmsgYmVlciBhbmQgeW91ciBkYXkg
+        aXMgc2V0ISBHbyBlYXJseSBhbmQgZW5qb3khIiwidHlwZSI6InVzZXIiLCJ1
+        cmwiOiJodHRwOlwvXC93d3cuYXBpenphc2Nob2xscy5jb21cLyIsImNhbm9u
+        aWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGM0
+        YTkxZjhjOGI2YjcxM2FkN2ExZGZiIiwibGFuZyI6ImVuIiwibGlrZXMiOnsi
+        Y291bnQiOjMsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50Ijoz
+        LCJpdGVtcyI6W3siaWQiOiIzNjgyMzE2MSIsImZpcnN0TmFtZSI6IlNoYXVu
+        YSIsImxhc3ROYW1lIjoiWmlubiIsImdlbmRlciI6ImZlbWFsZSIsInBob3Rv
+        Ijp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL3Vz
+        ZXJcLyIsInN1ZmZpeCI6IlwvR0lHV1dET0hNSlhMTDFFUS5qcGcifX1dfV0s
+        InN1bW1hcnkiOiIzIGxpa2VzIn0sImxvZ1ZpZXciOnRydWUsInRvZG8iOnsi
+        Y291bnQiOjF9LCJ1c2VyIjp7ImlkIjoiMTk5Njc2MyIsImZpcnN0TmFtZSI6
+        Ikpvc2VwaCIsImxhc3ROYW1lIjoiQXZha2lhbiIsImdlbmRlciI6Im1hbGUi
+        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwv
+        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL0pYRURUTjA0U0gwUjFYTDUuanBn
+        In19fSx7ImlkIjoiNGFlZTM0NjQ3MGM2MDNiYmM4YzM4ZWI0IiwiY3JlYXRl
+        ZEF0IjoxMjU3MTI0OTY0LCJ0ZXh0IjoiZ2V0IHRoZXJlIHByb21wdGx5IHdo
+        ZW4gaXQgb3BlbnMgZm9yIG1heGltdW0gc2VhdGFnZS4iLCJ0eXBlIjoidXNl
+        ciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwv
+        aXRlbVwvNGFlZTM0NjQ3MGM2MDNiYmM4YzM4ZWI0IiwibGFuZyI6ImVuIiwi
+        bGlrZXMiOnsiY291bnQiOjMsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIs
+        ImNvdW50IjozLCJpdGVtcyI6W119XSwic3VtbWFyeSI6IjMgbGlrZXMifSwi
+        bG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MX0sInVzZXIiOnsiaWQi
+        OiI4NTM3NyIsImZpcnN0TmFtZSI6Ik1lcmVkaXRoIiwibGFzdE5hbWUiOiJH
+        cmFuIiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0
+        cHM6XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4Ijoi
+        XC84NTM3N18xMjU3MTMwMTE5MzM5LnBuZyJ9fX0seyJpZCI6IjUyM2U0MjA5
+        MTFkMjViZDI5ZmZmYjJhOSIsImNyZWF0ZWRBdCI6MTM3OTgxMTg0OSwidGV4
+        dCI6Ik1peCBpdCB1cCEiLCJ0eXBlIjoidXNlciIsImNhbm9uaWNhbFVybCI6
+        Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNTIzZTQyMDkxMWQy
+        NWJkMjlmZmZiMmE5IiwicGhvdG8iOnsiaWQiOiI1MjNlNDIwYTExZDIzZDFj
+        NjhhZjVjMmEiLCJjcmVhdGVkQXQiOjEzNzk4MTE4NTAsInNvdXJjZSI6eyJu
+        YW1lIjoiRm91cnNxdWFyZSBmb3IgaU9TIiwidXJsIjoiaHR0cHM6XC9cL2Zv
+        dXJzcXVhcmUuY29tXC9kb3dubG9hZFwvI1wvaXBob25lIn0sInByZWZpeCI6
+        Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdcL2dlbmVyYWxcLyIsInN1
+        ZmZpeCI6IlwvNjcxODYwMzRfYmNqY3piVWZZLUxUMTVBOXd2QkxKaHBxMjdh
+        UXhMX0xBTDNXRXF1dWxhWS5qcGciLCJ3aWR0aCI6OTYwLCJoZWlnaHQiOjcy
+        MH0sInBob3RvdXJsIjoiaHR0cHM6XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wv
+        Z2VuZXJhbFwvb3JpZ2luYWxcLzY3MTg2MDM0X2JjamN6YlVmWS1MVDE1QTl3
+        dkJMSmhwcTI3YVF4TF9MQUwzV0VxdXVsYVkuanBnIiwibGFuZyI6ImVuIiwi
+        bGlrZXMiOnsiY291bnQiOjIsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIs
+        ImNvdW50IjoyLCJpdGVtcyI6W3siaWQiOiI2NzE5MTYyNCIsImZpcnN0TmFt
+        ZSI6IlNodW1laSIsImxhc3ROYW1lIjoiV3UiLCJnZW5kZXIiOiJmZW1hbGUi
+        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwv
+        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL1ozMVBBWk1JU1VIM1BIQ0cuanBn
+        In19LHsiaWQiOiI5MTE4NjIiLCJmaXJzdE5hbWUiOiJDaHVuZyIsImxhc3RO
+        YW1lIjoiV3UiLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4Ijoi
+        aHR0cHM6XC9cL2lyczMuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4
+        IjoiXC9WQkczMlkzNEFZSEhHMFRJLmpwZyJ9fV19XSwic3VtbWFyeSI6IjIg
+        bGlrZXMifSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0sInVz
+        ZXIiOnsiaWQiOiI2NzE4NjAzNCIsImZpcnN0TmFtZSI6IkRhdmUiLCJsYXN0
+        TmFtZSI6IkNhbWFyaWxsbyIsImdlbmRlciI6Im1hbGUiLCJwaG90byI6eyJw
+        cmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwvaW1nXC91c2VyXC8i
+        LCJzdWZmaXgiOiJcL1REVDREQTVMRTBDWkJINFQuanBnIn19fSx7ImlkIjoi
+        NTFkZjQ2ZmU0OThlZjcwMjkxMDg4M2QyIiwiY3JlYXRlZEF0IjoxMzczNTg3
+        MTk4LCJ0ZXh0IjoiUHJlcGFyZSB0byB3YWl0IGluIGxpbmUuIiwidHlwZSI6
+        InVzZXIiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFyZS5j
+        b21cL2l0ZW1cLzUxZGY0NmZlNDk4ZWY3MDI5MTA4ODNkMiIsInBob3RvIjp7
+        ImlkIjoiNTFkZjQ3MDI0OThlZjNkZjNmZmUyZWVlIiwiY3JlYXRlZEF0Ijox
+        MzczNTg3MjAyLCJzb3VyY2UiOnsibmFtZSI6IkZvdXJzcXVhcmUgZm9yIGlP
+        UyIsInVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvZG93bmxvYWRc
+        LyNcL2lwaG9uZSJ9LCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3FpLm5l
+        dFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzMyMTAyNjg5X2o0dHl5
+        endmZ0FZZGJMM2JqV2tiUUFBTVM2TEliRHo5MmdXbXdWb0xZbE0uanBnIiwi
+        d2lkdGgiOjcxNywiaGVpZ2h0Ijo5NTl9LCJwaG90b3VybCI6Imh0dHBzOlwv
+        XC9pcnMwLjRzcWkubmV0XC9pbWdcL2dlbmVyYWxcL29yaWdpbmFsXC8zMjEw
+        MjY4OV9qNHR5eXp3ZmdBWWRiTDNialdrYlFBQU1TNkxJYkR6OTJnV213Vm9M
+        WWxNLmpwZyIsImxhbmciOiJlbiIsImxpa2VzIjp7ImNvdW50IjoyLCJncm91
+        cHMiOlt7InR5cGUiOiJvdGhlcnMiLCJjb3VudCI6MiwiaXRlbXMiOlt7Imlk
+        IjoiMTkyMzE5MTIiLCJmaXJzdE5hbWUiOiJNYXJ0aW4iLCJsYXN0TmFtZSI6
+        IvCfh7rwn4e4IiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6
+        Imh0dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZp
+        eCI6IlwvMTkyMzE5MTItTUM1NUJBWFNBM0hOMEFYTy5qcGcifX0seyJpZCI6
+        IjM3ODM1NDg3IiwiZmlyc3ROYW1lIjoic2V4eHBhbnRoZXIiLCJnZW5kZXIi
+        OiJtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczMuNHNx
+        aS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC8zNzgzNTQ4Ny1DQzBE
+        WjBCMlZES1hNQUFILmpwZyJ9fV19XSwic3VtbWFyeSI6IjIgbGlrZXMifSwi
+        bG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0sInVzZXIiOnsiaWQi
+        OiIzMjEwMjY4OSIsImZpcnN0TmFtZSI6IlR1Y2tlciIsImdlbmRlciI6Im1h
+        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5l
+        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzMyMTAyNjg5LTEyTVBaV1dW
+        MUtOT1FQT0YuanBnIn19fSx7ImlkIjoiNTA4OWYyNzllNGIwYmEzMjhmOWMx
+        OWFkIiwiY3JlYXRlZEF0IjoxMzUxMjE3Nzg1LCJ0ZXh0IjoiVGhleSBoYXZl
+        IElUJ1MtSVRzIG9uIHRoZSBtZW51ISAgQW5kIG5vdCBqdXN0IHZhbmlsbGE6
+        ICBNSU5ULiIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6
+        XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC81MDg5ZjI3OWU0YjBiYTMyOGY5
+        YzE5YWQiLCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJjb3VudCI6MiwiZ3JvdXBz
+        IjpbeyJ0eXBlIjoib3RoZXJzIiwiY291bnQiOjIsIml0ZW1zIjpbeyJpZCI6
+        IjI5MDY5ODA3IiwiZmlyc3ROYW1lIjoiTGF1cmVuIiwibGFzdE5hbWUiOiJC
+        bG9vbXF1aXN0IiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4
+        IjoiaHR0cHM6XC9cL2lyczAuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3Vm
+        Zml4IjoiXC8yOTA2OTgwNy1WMFlLWFFFU1dOWFJKUlVMLmpwZyJ9fSx7Imlk
+        IjoiMTExNDg5MzciLCJmaXJzdE5hbWUiOiJEb3JvdGh5IiwibGFzdE5hbWUi
+        OiJEIiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0
+        cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4Ijoi
+        XC9DV0VYMDVPUDVRS1EzM0IyLmpwZyJ9fV19XSwic3VtbWFyeSI6IjIgbGlr
+        ZXMifSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MX0sInVzZXIi
+        OnsiaWQiOiIxNjMxOCIsImZpcnN0TmFtZSI6IlNjb3R0IiwibGFzdE5hbWUi
+        OiJNYWlud2FyaW5nIiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZp
+        eCI6Imh0dHBzOlwvXC9pcnMwLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1
+        ZmZpeCI6IlwvMTYzMTgtVTBKT001UkdNUDVVRDFKTi5qcGcifX19LHsiaWQi
+        OiI0ZTRhMDkwMDE4Mzg3NDE4ZDZlOWIxMTkiLCJjcmVhdGVkQXQiOjEzMTM0
+        NzQ4MTYsInRleHQiOiJCYWNvbiBCaWFuY2EgaXMgZGVsaWNpb3VzIiwidHlw
+        ZSI6InVzZXIiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFy
+        ZS5jb21cL2l0ZW1cLzRlNGEwOTAwMTgzODc0MThkNmU5YjExOSIsImxhbmci
+        OiJlbiIsImxpa2VzIjp7ImNvdW50IjoyLCJncm91cHMiOlt7InR5cGUiOiJv
+        dGhlcnMiLCJjb3VudCI6MiwiaXRlbXMiOlt7ImlkIjoiOTE2MDM5IiwiZmly
+        c3ROYW1lIjoiQnJhZCIsImxhc3ROYW1lIjoiSG9sdCIsImdlbmRlciI6Im1h
+        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3FpLm5l
+        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzkxNjAzOS1DQlNKUk8wM0NM
+        SzBOTkVCLmpwZyJ9fSx7ImlkIjoiMjkwNjk4MDciLCJmaXJzdE5hbWUiOiJM
+        YXVyZW4iLCJsYXN0TmFtZSI6IkJsb29tcXVpc3QiLCJnZW5kZXIiOiJmZW1h
+        bGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMC40c3FpLm5l
+        dFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzI5MDY5ODA3LVYwWUtYUUVT
+        V05YUkpSVUwuanBnIn19XX1dLCJzdW1tYXJ5IjoiMiBsaWtlcyJ9LCJsb2dW
+        aWV3Ijp0cnVlLCJ0b2RvIjp7ImNvdW50IjowfSwidXNlciI6eyJpZCI6Ijg2
+        NDU5MzQiLCJmaXJzdE5hbWUiOiJDb3Jpbm5lIiwibGFzdE5hbWUiOiJTY2ht
+        aWR0IiwiZ2VuZGVyIjoibm9uZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBz
+        OlwvXC9pcnMwLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6Ilwv
+        YmxhbmtfYm95LnBuZyIsImRlZmF1bHQiOnRydWV9fX0seyJpZCI6IjRlMmU0
+        MGIyZDRjMDU4ZmRiZWU4Mzk2YSIsImNyZWF0ZWRBdCI6MTMxMTY1NDA2Niwi
+        dGV4dCI6ImEgc3RlcCBhYm92ZSBQaXp6aWNhdG8iLCJ0eXBlIjoidXNlciIs
+        InVybCI6Imh0dHA6XC9cL3d3dy5nb3Njb3ZpbGxlLmNvbSIsImNhbm9uaWNh
+        bFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGUyZTQw
+        YjJkNGMwNThmZGJlZTgzOTZhIiwibGFuZyI6ImVuIiwibGlrZXMiOnsiY291
+        bnQiOjIsImdyb3VwcyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50IjoyLCJp
+        dGVtcyI6W3siaWQiOiI5NzUzMjAiLCJmaXJzdE5hbWUiOiJDb3VydG5leSIs
+        Imxhc3ROYW1lIjoiU2hhbm5vbiIsImdlbmRlciI6ImZlbWFsZSIsInBob3Rv
+        Ijp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdcL3Vz
+        ZXJcLyIsInN1ZmZpeCI6IlwvTFpNSFdJWEJCTU5RNUM1Vi5qcGcifX1dfV0s
+        InN1bW1hcnkiOiIyIGxpa2VzIn0sImxvZ1ZpZXciOnRydWUsInRvZG8iOnsi
+        Y291bnQiOjF9LCJ1c2VyIjp7ImlkIjoiMTM0MzExIiwiZmlyc3ROYW1lIjoi
+        SmFuZXQiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUi
+        LCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3FpLm5ldFwv
+        aW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcL1k1RjVNRktETzJGUzBLUkouanBn
+        In19fSx7ImlkIjoiNGJmOTkyODA3MGM2MDNiYjM1YjU5Y2I0IiwiY3JlYXRl
+        ZEF0IjoxMjc0NjQ3MTY4LCJ0ZXh0IjoiR2V0IHRoZXJlIGVhcmx5IGFuZCBl
+        YXQgaXQgdXAiLCJ0eXBlIjoidXNlciIsImNhbm9uaWNhbFVybCI6Imh0dHBz
+        OlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNGJmOTkyODA3MGM2MDNiYjM1
+        YjU5Y2I0IiwibGFuZyI6ImVuIiwibGlrZXMiOnsiY291bnQiOjIsImdyb3Vw
+        cyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50IjoyLCJpdGVtcyI6W119XSwi
+        c3VtbWFyeSI6IjIgbGlrZXMifSwibG9nVmlldyI6dHJ1ZSwidG9kbyI6eyJj
+        b3VudCI6MH0sInVzZXIiOnsiaWQiOiIxMDczMDI2IiwiZmlyc3ROYW1lIjoi
+        SnVsaWFuIiwibGFzdE5hbWUiOiJXYWluIiwiZ2VuZGVyIjoibWFsZSIsInBo
+        b3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdc
+        L3VzZXJcLyIsInN1ZmZpeCI6IlwvNFpBS0hFU0UzS1JVU0dQRi5qcGcifX19
+        LHsiaWQiOiI1NDNiMjM4NjQ5OGU2N2JhNzE4ZWQ4ZDIiLCJjcmVhdGVkQXQi
+        OjE0MTMxNjE4NjIsInRleHQiOiJTYXVzYWdlIGFuZCBNYW1hJ3MiLCJ0eXBl
+        IjoidXNlciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJl
+        LmNvbVwvaXRlbVwvNTQzYjIzODY0OThlNjdiYTcxOGVkOGQyIiwibGFuZyI6
+        ImVuIiwibGlrZXMiOnsiY291bnQiOjEsImdyb3VwcyI6W3sidHlwZSI6Im90
+        aGVycyIsImNvdW50IjoxLCJpdGVtcyI6W3siaWQiOiI4NjYxMTA0NCIsImZp
+        cnN0TmFtZSI6IlJ5YW4iLCJsYXN0TmFtZSI6Ikhvd2V5IiwiZ2VuZGVyIjoi
+        bWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMwLjRzcWku
+        bmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvODY2MTEwNDQtRllOMUwz
+        TjNHSkhOR0NVUi5qcGcifX1dfV0sInN1bW1hcnkiOiIxIGxpa2UifSwibG9n
+        VmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0sInVzZXIiOnsiaWQiOiI4
+        NjYxMTA0NCIsImZpcnN0TmFtZSI6IlJ5YW4iLCJsYXN0TmFtZSI6Ikhvd2V5
+        IiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwv
+        XC9pcnMwLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvODY2
+        MTEwNDQtRllOMUwzTjNHSkhOR0NVUi5qcGcifX19LHsiaWQiOiI1NDJlM2Ex
+        NzQ5OGUwZGUzNTkxMDYwMDQiLCJjcmVhdGVkQXQiOjE0MTIzMTU2NzEsInRl
+        eHQiOiJHb3JnZW91cyBnb3JnZW91cyBjcnVtYiEiLCJ0eXBlIjoidXNlciIs
+        ImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRl
+        bVwvNTQyZTNhMTc0OThlMGRlMzU5MTA2MDA0IiwicGhvdG8iOnsiaWQiOiI1
+        NDJlM2ExOTQ5OGVkNWNhNWUxZmEwOWUiLCJjcmVhdGVkQXQiOjE0MTIzMTU2
+        NzMsInNvdXJjZSI6eyJuYW1lIjoiRm91cnNxdWFyZSBmb3IgaU9TIiwidXJs
+        IjoiaHR0cHM6XC9cL2ZvdXJzcXVhcmUuY29tXC9kb3dubG9hZFwvI1wvaXBo
+        b25lIn0sInByZWZpeCI6Imh0dHBzOlwvXC9pcnMwLjRzcWkubmV0XC9pbWdc
+        L2dlbmVyYWxcLyIsInN1ZmZpeCI6IlwvMTY2NTBfRnUtQlJoc3psUE9LQUYz
+        bGhNamI3dXo4cFJLUUs0RGVlQ2JPSXN1Z252US5qcGciLCJ3aWR0aCI6NzIw
+        LCJoZWlnaHQiOjcyMH0sInBob3RvdXJsIjoiaHR0cHM6XC9cL2lyczAuNHNx
+        aS5uZXRcL2ltZ1wvZ2VuZXJhbFwvb3JpZ2luYWxcLzE2NjUwX0Z1LUJSaHN6
+        bFBPS0FGM2xoTWpiN3V6OHBSS1FLNERlZUNiT0lzdWdudlEuanBnIiwibGFu
+        ZyI6ImVuIiwibGlrZXMiOnsiY291bnQiOjEsImdyb3VwcyI6W3sidHlwZSI6
+        Im90aGVycyIsImNvdW50IjoxLCJpdGVtcyI6W3siaWQiOiIxNDY5NjA4Iiwi
+        Zmlyc3ROYW1lIjoiUGF0cmljayIsImxhc3ROYW1lIjoiUyIsImdlbmRlciI6
+        Im1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3Fp
+        Lm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJcLzRSRUJSR1JUWVRVVVdF
+        RkcuanBnIn19XX1dLCJzdW1tYXJ5IjoiMSBsaWtlIn0sImxvZ1ZpZXciOnRy
+        dWUsInRvZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7ImlkIjoiMTY2NTAiLCJm
+        aXJzdE5hbWUiOiJLZWxseSIsImxhc3ROYW1lIjoiQm9uZSIsImdlbmRlciI6
+        ImZlbWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRz
+        cWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvSDE0UEJSUkFXTldF
+        R0E0Sy5qcGcifX19LHsiaWQiOiI1MzQyMGNjMTExZDJlMDkwNjFiZjE3MTgi
+        LCJjcmVhdGVkQXQiOjEzOTY4Mzc1NjksInRleHQiOiJFdmVyeXRoaW5nIGlz
+        IGdvb2QgISEhISEiLCJ0eXBlIjoidXNlciIsImNhbm9uaWNhbFVybCI6Imh0
+        dHBzOlwvXC9mb3Vyc3F1YXJlLmNvbVwvaXRlbVwvNTM0MjBjYzExMWQyZTA5
+        MDYxYmYxNzE4IiwibGFuZyI6ImVuIiwibGlrZXMiOnsiY291bnQiOjEsImdy
+        b3VwcyI6W3sidHlwZSI6Im90aGVycyIsImNvdW50IjoxLCJpdGVtcyI6W3si
+        aWQiOiIxMDQwOTAyIiwiZmlyc3ROYW1lIjoiTWlkbmlnaHQiLCJsYXN0TmFt
+        ZSI6Ik1vbmtleSIsImdlbmRlciI6Im1hbGUiLCJwaG90byI6eyJwcmVmaXgi
+        OiJodHRwczpcL1wvaXJzMC40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZm
+        aXgiOiJcL1dCMFJTUDJHV0sxQVJYU0cuanBnIn19XX1dLCJzdW1tYXJ5Ijoi
+        MSBsaWtlIn0sImxvZ1ZpZXciOnRydWUsInRvZG8iOnsiY291bnQiOjB9LCJ1
+        c2VyIjp7ImlkIjoiMTA1NDI2MSIsImZpcnN0TmFtZSI6IlRpbW90aHkiLCJs
+        YXN0TmFtZSI6IkphY2tzb24iLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsi
+        cHJlZml4IjoiaHR0cHM6XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvdXNlclwv
+        Iiwic3VmZml4IjoiXC8xMDU0MjYxLU5QWUFOTzJPVlAwUUdDTEMuanBnIn19
+        fSx7ImlkIjoiNTFkY2M2YzU0OThlZTQxMGM3NWVjYTQ3IiwiY3JlYXRlZEF0
+        IjoxMzczNDIzMzAxLCJ0ZXh0IjoiQmVzdCBQaXp6YSBpbiBQb3J0bGFuZC4g
+        QmUgbWluZGZ1bCB0aGF0IHdoaWxlIHRoZXkgYXJlIHB1cmlzdHMsIHRoZSBw
+        aXp6YSBpcyBjb21wbGV0ZWx5IHdvcnRoIGl0LiwgVHJ5IHRoZSBBbW9yZSEi
+        LCJ0eXBlIjoidXNlciIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vy
+        c3F1YXJlLmNvbVwvaXRlbVwvNTFkY2M2YzU0OThlZTQxMGM3NWVjYTQ3Iiwi
+        bGFuZyI6ImVuIiwibGlrZXMiOnsiY291bnQiOjEsImdyb3VwcyI6W3sidHlw
+        ZSI6Im90aGVycyIsImNvdW50IjoxLCJpdGVtcyI6W119XSwic3VtbWFyeSI6
+        IjEgbGlrZSJ9LCJsb2dWaWV3Ijp0cnVlLCJ0b2RvIjp7ImNvdW50IjowfSwi
+        dXNlciI6eyJpZCI6IjU4ODcwNiIsImZpcnN0TmFtZSI6IlNvY2lhbCIsImxh
+        c3ROYW1lIjoiRXNwaW9uYWdlLCBMTEMiLCJnZW5kZXIiOiJmZW1hbGUiLCJw
+        aG90byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwvaW1n
+        XC91c2VyXC8iLCJzdWZmaXgiOiJcL001WDFCUFlDTTNQUk9HVEcuanBnIn19
+        fSx7ImlkIjoiNTFjZGQwMzc0OThlNmJlNzE5NmY4ZGViIiwiY3JlYXRlZEF0
+        IjoxMzcyNDQyNjc5LCJ0ZXh0IjoiTWF5YmUgdGhlcmUncyBzb21ldGhpbmcg
+        d3Jvbmcgd2l0aCBtZSBidXQgSSBkb24ndCB0aGluayB0aGUgcGl6emEgaGVy
+        ZSBsaXZlcyB1cCB0byB0aGUgaHlwZS4gSSBwcmVmZXIgS2VuJ3MgQXJ0aXNh
+        biBQaXp6YSBhbnkgZGF5LiBPciBpZiB5b3UncmUgdXAgZm9yIGEgZHJpdmUs
+        IERvdWJsZSBNb3VudGFpbiBCcmV3ZXJ5IGluIEhvb2QgUml2ZXIuIiwidHlw
+        ZSI6InVzZXIiLCJjYW5vbmljYWxVcmwiOiJodHRwczpcL1wvZm91cnNxdWFy
+        ZS5jb21cL2l0ZW1cLzUxY2RkMDM3NDk4ZTZiZTcxOTZmOGRlYiIsImxhbmci
+        OiJlbiIsImxpa2VzIjp7ImNvdW50IjoxLCJncm91cHMiOlt7InR5cGUiOiJv
+        dGhlcnMiLCJjb3VudCI6MSwiaXRlbXMiOlt7ImlkIjoiMjY1OTM4OCIsImZp
+        cnN0TmFtZSI6IlN0ZXBoYW5pZSIsImxhc3ROYW1lIjoiQnJ1aG5rZSIsImdl
+        bmRlciI6ImZlbWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9p
+        cnMxLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvSFFWWFcw
+        M0ZUSU5DMDQzQi5qcGcifX1dfV0sInN1bW1hcnkiOiIxIGxpa2UifSwibG9n
+        VmlldyI6dHJ1ZSwidG9kbyI6eyJjb3VudCI6MH0sInVzZXIiOnsiaWQiOiIx
+        MTI4NTI3IiwiZmlyc3ROYW1lIjoiSmltbXkiLCJsYXN0TmFtZSI6IkRvdWds
+        YXMiLCJnZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6
+        XC9cL2lyczEuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC8x
+        MTI4NTI3LUJOVFdFRElHQVpDWlJWWEsuanBnIn19fSx7ImlkIjoiNTFhZmY5
+        ZTQ0OThlODQxMzJmOTU0NDljIiwiY3JlYXRlZEF0IjoxMzcwNDg3MjY4LCJ0
+        ZXh0IjoiTWFrZSBzdXJlIHlvdSBzZXQgYSBzYWZlIHdvcmQgYmVmb3JlIG9y
+        ZGVyaW5nLiIsInR5cGUiOiJ1c2VyIiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6
+        XC9cL2ZvdXJzcXVhcmUuY29tXC9pdGVtXC81MWFmZjllNDQ5OGU4NDEzMmY5
+        NTQ0OWMiLCJsYW5nIjoiZW4iLCJsaWtlcyI6eyJjb3VudCI6MSwiZ3JvdXBz
+        IjpbeyJ0eXBlIjoib3RoZXJzIiwiY291bnQiOjEsIml0ZW1zIjpbeyJpZCI6
+        Ijc4MjIyIiwiZmlyc3ROYW1lIjoiTWluZHkiLCJsYXN0TmFtZSI6IkdlcmVj
+        a2UiLCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRw
+        czpcL1wvaXJzMC40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJc
+        LzRZVVRORkEwSk5HRFJVUlAuanBnIn19XX1dLCJzdW1tYXJ5IjoiMSBsaWtl
+        In0sImxvZ1ZpZXciOnRydWUsInRvZG8iOnsiY291bnQiOjB9LCJ1c2VyIjp7
+        ImlkIjoiODcxMzg2OCIsImZpcnN0TmFtZSI6Ik1hdHRoZXciLCJsYXN0TmFt
+        ZSI6IkgiLCJnZW5kZXIiOiJub25lIiwicGhvdG8iOnsicHJlZml4IjoiaHR0
+        cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4Ijoi
+        XC9EV1AwWkRCUFJGUEFRWkNVLmpwZyJ9fX1dfV19LCJ0YWdzIjpbImJlZXIi
+        LCJjcm93ZGVkIiwibG9uZyBsaW5lcyIsInphZ2F0LXJhdGVkIl0sInNob3J0
+        VXJsIjoiaHR0cDpcL1wvNHNxLmNvbVwvNUswdVJ5IiwidGltZVpvbmUiOiJB
+        bWVyaWNhXC9Mb3NfQW5nZWxlcyIsImxpc3RlZCI6eyJjb3VudCI6Mjk5LCJn
+        cm91cHMiOlt7InR5cGUiOiJvdGhlcnMiLCJuYW1lIjoiTGlzdHMgZnJvbSBv
+        dGhlciBwZW9wbGUiLCJjb3VudCI6Mjk5LCJpdGVtcyI6W3siaWQiOiI0ZjI1
+        ODdlMWU0YjAwNmU1YzM0MjFjMzkiLCJuYW1lIjoi4piFIFBvcnRsYW5kIiwi
+        ZGVzY3JpcHRpb24iOiJBIG1ldGljdWxvdXNseSByZXNlYXJjaGVkIGFuZCBy
+        ZWd1bGFybHkgdXBkYXRlZCBsaXN0IG9mIG15IGFsbC10aW1lIGZhdm91cml0
+        ZSByZXN0YXVyYW50cywgY29mZmVlIHNob3BzLCBiYXJzLCBhbmQgc3RvcmVz
+        IGluIFBvcnRsYW5kLCBPUi4gKFBTQTogQ3VycmVudGx5IGJlaW5nIHJld3Jp
+        dHRlbi4pIiwidHlwZSI6Im90aGVycyIsInVzZXIiOnsiaWQiOiI0NjI4MDI0
+        IiwiZmlyc3ROYW1lIjoiQW5keSIsImxhc3ROYW1lIjoiTWNNaWxsYW4iLCJn
+        ZW5kZXIiOiJtYWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2ly
+        czAuNHNxaS5uZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9GS1RRSDVQ
+        R1VEWEYzUFNYLnBuZyJ9fSwiZWRpdGFibGUiOmZhbHNlLCJwdWJsaWMiOnRy
+        dWUsImNvbGxhYm9yYXRpdmUiOmZhbHNlLCJ1cmwiOiJcL2FuZHltY21pbGxh
+        blwvbGlzdFwvLXBvcnRsYW5kIiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6XC9c
+        L2ZvdXJzcXVhcmUuY29tXC9hbmR5bWNtaWxsYW5cL2xpc3RcLy1wb3J0bGFu
+        ZCIsImNyZWF0ZWRBdCI6MTMyNzg1OTY4MSwidXBkYXRlZEF0IjoxNDE1OTc5
+        OTUzLCJwaG90byI6eyJpZCI6IjRmMmIzM2U0ZTRiMGQ0NjQ4Njk2YTBkMyIs
+        ImNyZWF0ZWRBdCI6MTMyODIzMTM5NiwicHJlZml4IjoiaHR0cHM6XC9cL2ly
+        czEuNHNxaS5uZXRcL2ltZ1wvZ2VuZXJhbFwvIiwic3VmZml4IjoiXC9UZFJz
+        dk5ieGVpemlCTzhqb1lrekhEXzVJZkJrRkxmNzdOWFd5RnVRMG9rLmpwZyIs
+        IndpZHRoIjo1NDAsImhlaWdodCI6NTQwLCJ1c2VyIjp7ImlkIjoiNDYyODAy
+        NCIsImZpcnN0TmFtZSI6IkFuZHkiLCJsYXN0TmFtZSI6Ik1jTWlsbGFuIiwi
+        Z2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9p
+        cnMwLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvRktUUUg1
+        UEdVRFhGM1BTWC5wbmcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifSwiZm9s
+        bG93ZXJzIjp7ImNvdW50IjoxMjh9LCJsaXN0SXRlbXMiOnsiY291bnQiOjc3
+        LCJpdGVtcyI6W3siaWQiOiJ0NGVjZjgwMjJiOGY3OTcxZDY5N2U5MzhkIiwi
+        Y3JlYXRlZEF0IjoxMzI3ODU5Njk1fV19fSx7ImlkIjoiNGVlNzhmYmE2MWFm
+        NmRjYjE5N2YyZDcwIiwibmFtZSI6IkJlc3QgUGl6emEiLCJkZXNjcmlwdGlv
+        biI6Ik5ldyBZb3JrLCBDaGljYWdvLCBOZWFwb2xpdGFuLCBDYWxpZm9ybmlh
+        LCBhbmQgYWxsIHN0eWxlcyBpbiBiZXR3ZWVuLiBXZSd2ZSBnb3QgYWxsIG9m
+        IHRoZSBjb3VudHJ5J3MgYmVzdCBzbGljZXMgbGlzdGVkIHJpZ2h0IGhlcmUs
+        IGZyb20gaGlnaC1lbmQgcGllcyB0byB3aWNrZWQgYXdlc29tZSBzdHJlZXQg
+        c2xpY2VzLiIsInR5cGUiOiJvdGhlcnMiLCJ1c2VyIjp7ImlkIjoiOTUyMDkw
+        MCIsImZpcnN0TmFtZSI6IkJlc3RPZiIsImdlbmRlciI6Im5vbmUiLCJwaG90
+        byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5ldFwvaW1nXC91
+        c2VyXC8iLCJzdWZmaXgiOiJcL1lWUENBWEE1Qk5LMTNYMk8ucG5nIn0sInR5
+        cGUiOiJwYWdlIn0sImVkaXRhYmxlIjpmYWxzZSwicHVibGljIjp0cnVlLCJj
+        b2xsYWJvcmF0aXZlIjpmYWxzZSwidXJsIjoiXC9iZXN0b2Z2cFwvbGlzdFwv
+        YmVzdC1waXp6YSIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1
+        YXJlLmNvbVwvYmVzdG9mdnBcL2xpc3RcL2Jlc3QtcGl6emEiLCJjcmVhdGVk
+        QXQiOjEzMjM3OTg0NTgsInVwZGF0ZWRBdCI6MTM2MjM5NjI4OSwicGhvdG8i
+        OnsiaWQiOiI0ZWNmZjZjYzZkYTE2MmYxYmRmNzI4YTciLCJjcmVhdGVkQXQi
+        OjEzMjIyNTE5ODAsInByZWZpeCI6Imh0dHBzOlwvXC9pcnMwLjRzcWkubmV0
+        XC9pbWdcL2dlbmVyYWxcLyIsInN1ZmZpeCI6IlwvMzBLNU9XTkpLM01VRlYw
+        VkpXRVFBQUtTWEw1Q1VTMUIyT1lVMkcyTk1GRVZQVVdMLmpwZyIsIndpZHRo
+        Ijo1MzcsImhlaWdodCI6NzIwLCJ1c2VyIjp7ImlkIjoiOTk0NjEzNCIsImZp
+        cnN0TmFtZSI6IkNvdXJ0bmV5IiwibGFzdE5hbWUiOiJTbWl0aCIsImdlbmRl
+        ciI6ImZlbWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMy
+        LjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvT0FTVjI1VUZL
+        UFhCMVhWVi5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifSwibG9nVmll
+        dyI6dHJ1ZSwiZm9sbG93ZXJzIjp7ImNvdW50Ijo4M30sImxpc3RJdGVtcyI6
+        eyJjb3VudCI6NzEsIml0ZW1zIjpbeyJpZCI6InY0MjkzYzAwMGY5NjRhNTIw
+        MzgyNDFmZTMiLCJjcmVhdGVkQXQiOjEzMjQ0MDI5MDksInBob3RvIjp7Imlk
+        IjoiNGU2NDJjMTJkMTY0ZGRkNWU2ODVjY2VmIiwiY3JlYXRlZEF0IjoxMzE1
+        MTg3NzMwLCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMi40c3FpLm5ldFwvaW1n
+        XC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzJSRzNHRlZBTVFLQ0tESklUWEhB
+        VlNEMDM0UkJOUzBKRDFLUkFUNDNJUTNaUlE1VC5qcGciLCJ3aWR0aCI6NzIw
+        LCJoZWlnaHQiOjUzNywidXNlciI6eyJpZCI6IjEyMzMyNzM2IiwiZmlyc3RO
+        YW1lIjoiVGVqYW5kcmVhIiwiZ2VuZGVyIjoiZmVtYWxlIiwicGhvdG8iOnsi
+        cHJlZml4IjoiaHR0cHM6XC9cL2lyczMuNHNxaS5uZXRcL2ltZ1wvdXNlclwv
+        Iiwic3VmZml4IjoiXC9JQ0VZMzVWUExOSlJRU1pILmpwZyJ9fSwidmlzaWJp
+        bGl0eSI6InB1YmxpYyJ9fV19fSx7ImlkIjoiNGUzMDJhMTZiNjFjODhjM2E3
+        OWY2NWI4IiwibmFtZSI6IlBvcnRsYW5kIEVhdGVyIDM4IiwiZGVzY3JpcHRp
+        b24iOiJUaGUgRWF0ZXIgMzggaXMgb3VyIGV2ZXItZXZvbHZpbmcgbGlzdCBv
+        ZiBvdXIgMzggbW9zdCBmYXZvcml0ZSByZXN0YXVyYW50cywgYXQgdGhpcyBl
+        eGFjdCBtb21lbnQgb2YgdGltZSwgaW4gdGhpcyBoZXJlIGNpdHkuIERvIGVu
+        am95LiIsInR5cGUiOiJvdGhlcnMiLCJ1c2VyIjp7ImlkIjoiMzM0MzMyNyIs
+        ImZpcnN0TmFtZSI6IkVhdGVyIiwiZ2VuZGVyIjoibm9uZSIsInBob3RvIjp7
+        InByZWZpeCI6Imh0dHBzOlwvXC9pcnMxLjRzcWkubmV0XC9pbWdcL3VzZXJc
+        LyIsInN1ZmZpeCI6IlwvNEhCQUFNQ0w0V1VGM0lFVS5wbmcifSwidHlwZSI6
+        InBhZ2UifSwiZWRpdGFibGUiOmZhbHNlLCJwdWJsaWMiOnRydWUsImNvbGxh
+        Ym9yYXRpdmUiOmZhbHNlLCJ1cmwiOiJcL2VhdGVyXC9saXN0XC9wb3J0bGFu
+        ZC1lYXRlci0zOCIsImNhbm9uaWNhbFVybCI6Imh0dHBzOlwvXC9mb3Vyc3F1
+        YXJlLmNvbVwvZWF0ZXJcL2xpc3RcL3BvcnRsYW5kLWVhdGVyLTM4IiwiY3Jl
+        YXRlZEF0IjoxMzExNzc5MzUwLCJ1cGRhdGVkQXQiOjE0MDUwMjU1MDMsInBo
+        b3RvIjp7ImlkIjoiNTMxNGRlZjIxMWQyZGM1MzAwMjc0NmEyIiwiY3JlYXRl
+        ZEF0IjoxMzkzODc2NzIyLCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMy40c3Fp
+        Lm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcLzMzNDMzMjdfMnJT
+        bldTaGZObUI2M2lVZW5WM2UzcENOZG1TMmQ1VE5GWHBVWnhlTm03TS5wbmci
+        LCJ3aWR0aCI6NzA4LCJoZWlnaHQiOjQ3MywidXNlciI6eyJpZCI6IjMzNDMz
+        MjciLCJmaXJzdE5hbWUiOiJFYXRlciIsImdlbmRlciI6Im5vbmUiLCJwaG90
+        byI6eyJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40c3FpLm5ldFwvaW1nXC91
+        c2VyXC8iLCJzdWZmaXgiOiJcLzRIQkFBTUNMNFdVRjNJRVUucG5nIn0sInR5
+        cGUiOiJwYWdlIn0sInZpc2liaWxpdHkiOiJwdWJsaWMifSwibG9nVmlldyI6
+        dHJ1ZSwiZm9sbG93ZXJzIjp7ImNvdW50IjoxMjYwfSwibGlzdEl0ZW1zIjp7
+        ImNvdW50IjozOCwiaXRlbXMiOlt7ImlkIjoidDRkMmJlNDY5ZWMyNzJkNDNk
+        ZDg5Mzk0YyIsImNyZWF0ZWRBdCI6MTMxMTc3OTM1MCwicGhvdG8iOnsiaWQi
+        OiI1MzA5ODUyNTQ5OGUwOTk2YWMzOTE5N2EiLCJjcmVhdGVkQXQiOjEzOTMx
+        MzI4MzcsInByZWZpeCI6Imh0dHBzOlwvXC9pcnMzLjRzcWkubmV0XC9pbWdc
+        L2dlbmVyYWxcLyIsInN1ZmZpeCI6IlwvMTYzNDQwMzVfZElGX3RoR3dibkZZ
+        TnhYa0Y4Rzc2N3Q1RHdQQnRqSVZzc2RUanctUl95SS5qcGciLCJ3aWR0aCI6
+        NzIwLCJoZWlnaHQiOjk2MCwidXNlciI6eyJpZCI6IjE2MzQ0MDM1IiwiZmly
+        c3ROYW1lIjoiSm9hbm5hIiwibGFzdE5hbWUiOiJGIiwiZ2VuZGVyIjoiZmVt
+        YWxlIiwicGhvdG8iOnsicHJlZml4IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5u
+        ZXRcL2ltZ1wvdXNlclwvIiwic3VmZml4IjoiXC9LUzJBTlNaWFI1TFlORUJQ
+        LmpwZyJ9fSwidmlzaWJpbGl0eSI6InB1YmxpYyJ9fV19fSx7ImlkIjoiNGU0
+        YzQ1MGIxNDk1NjNiY2YyZmY5ZTY2IiwibmFtZSI6IkJlc3QgUGxhY2VzIHRv
+        IENoZWNrIG91dCBpbiBVbml0ZWQgU3RhdGVzIFB0IDUiLCJkZXNjcmlwdGlv
+        biI6IldoZW4gbGlzdCBpcyBjb21wbGV0ZWQgd2lsbCBoYXZlIHRvcCBwbGFj
+        ZXMgaW4gVW5pdGVkIFN0YXRlcyBmcm9tIG91ciBsaXN0IGF0IFdhbm5hIFNl
+        ZSBJdCBBbGwgd2Vic2l0ZS4gQ2FuIG9ubHkgc2F2ZSAyMDAgbG9jYXRpb25z
+        IHBlciBsaXN0LiBGb2xsb3cgdXMgb24gdHdpdHRlci4gQWxzbyBjaGVjayBv
+        dXQgb3VyIHdlYnNpdGUuIiwidHlwZSI6Im90aGVycyIsInVzZXIiOnsiaWQi
+        OiI2NjYwMDEwIiwiZmlyc3ROYW1lIjoiV2FubmFTZWUiLCJsYXN0TmFtZSI6
+        Ikl0QWxsIiwiZ2VuZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0
+        dHBzOlwvXC9pcnMzLjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6
+        IlwvWFJaMVNYVkRLWUwyQUVBSy5qcGcifX0sImVkaXRhYmxlIjpmYWxzZSwi
+        cHVibGljIjp0cnVlLCJjb2xsYWJvcmF0aXZlIjpmYWxzZSwidXJsIjoiXC93
+        YW5uYXNlZWl0YWxsXC9saXN0XC9iZXN0LXBsYWNlcy10by1jaGVjay1vdXQt
+        aW4tdW5pdGVkLXN0YXRlcy1wdC01IiwiY2Fub25pY2FsVXJsIjoiaHR0cHM6
+        XC9cL2ZvdXJzcXVhcmUuY29tXC93YW5uYXNlZWl0YWxsXC9saXN0XC9iZXN0
+        LXBsYWNlcy10by1jaGVjay1vdXQtaW4tdW5pdGVkLXN0YXRlcy1wdC01Iiwi
+        Y3JlYXRlZEF0IjoxMzEzNjIxMjU5LCJ1cGRhdGVkQXQiOjE0MjMxNDQ5ODgs
+        InBob3RvIjp7ImlkIjoiNGUzNTk2MmM2Mjg0ZWE3ZTExMDFjMTMzIiwiY3Jl
+        YXRlZEF0IjoxMzEyMTM0NzAwLCJwcmVmaXgiOiJodHRwczpcL1wvaXJzMS40
+        c3FpLm5ldFwvaW1nXC9nZW5lcmFsXC8iLCJzdWZmaXgiOiJcL0xWWk5JMURB
+        SEM0VFJMMVY1RUoyQk5BUk1NTElNRkpZU1lIMFNXRUFXSFQxMVRSSi5qcGci
+        LCJ3aWR0aCI6NTM3LCJoZWlnaHQiOjcyMCwidXNlciI6eyJpZCI6IjYxODky
+        MCIsImZpcnN0TmFtZSI6IkNocmlzIiwibGFzdE5hbWUiOiJSeWFuIiwiZ2Vu
+        ZGVyIjoibWFsZSIsInBob3RvIjp7InByZWZpeCI6Imh0dHBzOlwvXC9pcnMy
+        LjRzcWkubmV0XC9pbWdcL3VzZXJcLyIsInN1ZmZpeCI6IlwvTDBCNUtEUlpV
+        MFJCS1hLVi5qcGcifX0sInZpc2liaWxpdHkiOiJwdWJsaWMifSwiZm9sbG93
+        ZXJzIjp7ImNvdW50IjoyODZ9LCJsaXN0SXRlbXMiOnsiY291bnQiOjIwMCwi
+        aXRlbXMiOlt7ImlkIjoidDRjZGIyMTM2NTJkODhlZWM3YjA0ZjkyOCIsImNy
+        ZWF0ZWRBdCI6MTMxNzY1NTE4NywicGhvdG8iOnsiaWQiOiI0ZTY0MmMxMmQx
+        NjRkZGQ1ZTY4NWNjZWYiLCJjcmVhdGVkQXQiOjEzMTUxODc3MzAsInByZWZp
+        eCI6Imh0dHBzOlwvXC9pcnMyLjRzcWkubmV0XC9pbWdcL2dlbmVyYWxcLyIs
+        InN1ZmZpeCI6IlwvMlJHM0dGVkFNUUtDS0RKSVRYSEFWU0QwMzRSQk5TMEpE
+        MUtSQVQ0M0lRM1pSUTVULmpwZyIsIndpZHRoIjo3MjAsImhlaWdodCI6NTM3
+        LCJ1c2VyIjp7ImlkIjoiMTIzMzI3MzYiLCJmaXJzdE5hbWUiOiJUZWphbmRy
+        ZWEiLCJnZW5kZXIiOiJmZW1hbGUiLCJwaG90byI6eyJwcmVmaXgiOiJodHRw
+        czpcL1wvaXJzMy40c3FpLm5ldFwvaW1nXC91c2VyXC8iLCJzdWZmaXgiOiJc
+        L0lDRVkzNVZQTE5KUlFTWkguanBnIn19LCJ2aXNpYmlsaXR5IjoicHVibGlj
+        In19XX19XX1dfSwicGhyYXNlcyI6W3sicGhyYXNlIjoiYXBpenphIG1hcmdo
+        ZXJpdGEiLCJzYW1wbGUiOnsiZW50aXRpZXMiOlt7ImluZGljZXMiOlsyMiwz
+        OV0sInR5cGUiOiJrZXlQaHJhc2UifV0sInRleHQiOiIuLi4gb2ZmLiBIZSBs
+        b3ZlcyB0aGUgQXBpenphIE1hcmdoZXJpdGEuIn0sImNvdW50IjoyfSx7InBo
+        cmFzZSI6ImtlbidzIGFydGlzYW4gcGl6emEiLCJzYW1wbGUiOnsiZW50aXRp
+        ZXMiOlt7ImluZGljZXMiOlsyNiw0NV0sInR5cGUiOiJrZXlQaHJhc2UifV0s
+        InRleHQiOiIuLi4gdHJ5IExvdmVseSdzIDUwXC81MCBvciBLZW4ncyBBcnRp
+        c2FuIFBpenphKSJ9LCJjb3VudCI6Mn0seyJwaHJhc2UiOiJiZXN0IHBpenph
+        Iiwic2FtcGxlIjp7ImVudGl0aWVzIjpbeyJpbmRpY2VzIjpbMjUsMzVdLCJ0
+        eXBlIjoia2V5UGhyYXNlIn1dLCJ0ZXh0IjoiLi4uIG5vIHdvcmRzLiBPbmUg
+        b2YgdGhlIGJlc3QgcGl6emEncyB5b3Ugd2lsbCBldmVyIGNvbWUgYWNyb3Nz
+        LiBHZXQgYSByZWd1bGFyLi4uIn0sImNvdW50Ijo4fV0sImhvdXJzIjp7InN0
+        YXR1cyI6Ik9wZW4gdW50aWwgODowMCBQTSIsImlzT3BlbiI6dHJ1ZSwidGlt
+        ZWZyYW1lcyI6W3siZGF5cyI6Ik1vblx1MjAxM1NhdCIsIm9wZW4iOlt7InJl
+        bmRlcmVkVGltZSI6IjU6MDAgUE1cdTIwMTM5OjMwIFBNIn1dLCJzZWdtZW50
+        cyI6W119LHsiZGF5cyI6IlN1biIsImluY2x1ZGVzVG9kYXkiOnRydWUsIm9w
+        ZW4iOlt7InJlbmRlcmVkVGltZSI6IjQ6MDAgUE1cdTIwMTM4OjAwIFBNIn1d
+        LCJzZWdtZW50cyI6W119XX0sInBvcHVsYXIiOnsic3RhdHVzIjoiTGlrZWx5
+        IG9wZW4iLCJpc09wZW4iOnRydWUsInRpbWVmcmFtZXMiOlt7ImRheXMiOiJU
+        b2RheSIsImluY2x1ZGVzVG9kYXkiOnRydWUsIm9wZW4iOlt7InJlbmRlcmVk
+        VGltZSI6IjM6MDAgUE1cdTIwMTM5OjAwIFBNIn1dLCJzZWdtZW50cyI6W119
+        LHsiZGF5cyI6Ik1vbiIsIm9wZW4iOlt7InJlbmRlcmVkVGltZSI6IjU6MDAg
+        UE1cdTIwMTM5OjAwIFBNIn1dLCJzZWdtZW50cyI6W119LHsiZGF5cyI6IlR1
+        ZSIsIm9wZW4iOlt7InJlbmRlcmVkVGltZSI6IjQ6MDAgUE1cdTIwMTM5OjAw
+        IFBNIn1dLCJzZWdtZW50cyI6W119LHsiZGF5cyI6IldlZFx1MjAxM1RodSIs
+        Im9wZW4iOlt7InJlbmRlcmVkVGltZSI6IjU6MDAgUE1cdTIwMTM5OjAwIFBN
+        In1dLCJzZWdtZW50cyI6W119LHsiZGF5cyI6IkZyaVx1MjAxM1NhdCIsIm9w
+        ZW4iOlt7InJlbmRlcmVkVGltZSI6IjQ6MDAgUE1cdTIwMTMxMDowMCBQTSJ9
+        XSwic2VnbWVudHMiOltdfV19LCJwYWdlVXBkYXRlcyI6eyJjb3VudCI6MCwi
+        aXRlbXMiOltdfSwiaW5ib3giOnsiY291bnQiOjAsIml0ZW1zIjpbXX0sImF0
+        dHJpYnV0ZXMiOnsiZ3JvdXBzIjpbeyJ0eXBlIjoicHJpY2UiLCJuYW1lIjoi
+        UHJpY2UiLCJzdW1tYXJ5IjoiJCQkIiwiY291bnQiOjEsIml0ZW1zIjpbeyJk
+        aXNwbGF5TmFtZSI6IlByaWNlIiwiZGlzcGxheVZhbHVlIjoiJCQkIiwicHJp
+        Y2VUaWVyIjozfV19LHsidHlwZSI6InJlc2VydmF0aW9ucyIsIm5hbWUiOiJS
+        ZXNlcnZhdGlvbnMiLCJzdW1tYXJ5IjoiUmVzZXJ2YXRpb25zIiwiY291bnQi
+        OjMsIml0ZW1zIjpbeyJkaXNwbGF5TmFtZSI6IlJlc2VydmF0aW9ucyIsImRp
+        c3BsYXlWYWx1ZSI6IlllcyJ9XX0seyJ0eXBlIjoicGF5bWVudHMiLCJuYW1l
+        IjoiQ3JlZGl0IENhcmRzIiwic3VtbWFyeSI6IkNyZWRpdCBDYXJkcyIsImNv
+        dW50Ijo3LCJpdGVtcyI6W3siZGlzcGxheU5hbWUiOiJDcmVkaXQgQ2FyZHMi
+        LCJkaXNwbGF5VmFsdWUiOiJZZXMgKGluY2wuIERpc2NvdmVyICYgVmlzYSki
+        fV19LHsidHlwZSI6Im91dGRvb3JTZWF0aW5nIiwibmFtZSI6Ik91dGRvb3Ig
+        U2VhdGluZyIsInN1bW1hcnkiOiJPdXRkb29yIFNlYXRpbmciLCJjb3VudCI6
+        MSwiaXRlbXMiOlt7ImRpc3BsYXlOYW1lIjoiT3V0ZG9vciBTZWF0aW5nIiwi
+        ZGlzcGxheVZhbHVlIjoiWWVzIn1dfSx7InR5cGUiOiJzZXJ2ZXMiLCJuYW1l
+        IjoiTWVudXMiLCJzdW1tYXJ5IjoiRGlubmVyIiwiY291bnQiOjgsIml0ZW1z
+        IjpbeyJkaXNwbGF5TmFtZSI6IkRpbm5lciIsImRpc3BsYXlWYWx1ZSI6IkRp
+        bm5lciJ9XX0seyJ0eXBlIjoiZHJpbmtzIiwibmFtZSI6IkRyaW5rcyIsInN1
+        bW1hcnkiOiJCZWVyLCBXaW5lLCBGdWxsIEJhciAmIENvY2t0YWlscyIsImNv
+        dW50Ijo1LCJpdGVtcyI6W3siZGlzcGxheU5hbWUiOiJCZWVyIiwiZGlzcGxh
+        eVZhbHVlIjoiQmVlciJ9LHsiZGlzcGxheU5hbWUiOiJXaW5lIiwiZGlzcGxh
+        eVZhbHVlIjoiV2luZSJ9LHsiZGlzcGxheU5hbWUiOiJGdWxsIEJhciIsImRp
+        c3BsYXlWYWx1ZSI6IkZ1bGwgQmFyIn0seyJkaXNwbGF5TmFtZSI6IkNvY2t0
+        YWlscyIsImRpc3BsYXlWYWx1ZSI6IkNvY2t0YWlscyJ9XX0seyJ0eXBlIjoi
+        ZGluaW5nT3B0aW9ucyIsIm5hbWUiOiJEaW5pbmcgT3B0aW9ucyIsInN1bW1h
+        cnkiOiJUYWtlLW91dCIsImNvdW50Ijo1LCJpdGVtcyI6W3siZGlzcGxheU5h
+        bWUiOiJUYWtlLW91dCIsImRpc3BsYXlWYWx1ZSI6IlRha2Utb3V0In0seyJk
+        aXNwbGF5TmFtZSI6IkRlbGl2ZXJ5IiwiZGlzcGxheVZhbHVlIjoiTm8gRGVs
+        aXZlcnkifV19XX0sImJlc3RQaG90byI6eyJpZCI6IjRlNjQyYzEyZDE2NGRk
+        ZDVlNjg1Y2NlZiIsImNyZWF0ZWRBdCI6MTMxNTE4NzczMCwic291cmNlIjp7
+        Im5hbWUiOiJGb3Vyc3F1YXJlIGZvciBpT1MiLCJ1cmwiOiJodHRwczpcL1wv
+        Zm91cnNxdWFyZS5jb21cL2Rvd25sb2FkXC8jXC9pcGhvbmUifSwicHJlZml4
+        IjoiaHR0cHM6XC9cL2lyczIuNHNxaS5uZXRcL2ltZ1wvZ2VuZXJhbFwvIiwi
+        c3VmZml4IjoiXC8yUkczR0ZWQU1RS0NLREpJVFhIQVZTRDAzNFJCTlMwSkQx
+        S1JBVDQzSVEzWlJRNVQuanBnIiwid2lkdGgiOjcyMCwiaGVpZ2h0Ijo1Mzcs
+        InZpc2liaWxpdHkiOiJwdWJsaWMifX19fQ==
+    http_version: 
+  recorded_at: Mon, 23 Mar 2015 02:15:59 GMT
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=45.512043,-122.613144&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Mon, 23 Mar 2015 02:16:00 GMT
+      Expires:
+      - Tue, 24 Mar 2015 02:16:00 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.5
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "4713-4717",
+                       "short_name" : "4713-4717",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Southeast Hawthorne Boulevard",
+                       "short_name" : "SE Hawthorne Blvd",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Sunnyside",
+                       "short_name" : "Sunnyside",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Portland",
+                       "short_name" : "Portland",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Multnomah County",
+                       "short_name" : "Multnomah County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Oregon",
+                       "short_name" : "OR",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "97215",
+                       "short_name" : "97215",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "4713-4717 Southeast Hawthorne Boulevard, Portland, OR 97215, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 45.51203049999999,
+                          "lng" : -122.6130917
+                       },
+                       "southwest" : {
+                          "lat" : 45.5120297,
+                          "lng" : -122.6134679
+                       }
+                    },
+                    "location" : {
+                       "lat" : 45.51204269999999,
+                       "lng" : -122.613144
+                    },
+                    "location_type" : "RANGE_INTERPOLATED",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 45.51337908029149,
+                          "lng" : -122.6119308197085
+                       },
+                       "southwest" : {
+                          "lat" : 45.5106811197085,
+                          "lng" : -122.6146287802915
+                       }
+                    }
+                 },
+                 "place_id" : "EkA0NzEzLTQ3MTcgU291dGhlYXN0IEhhd3Rob3JuZSBCb3VsZXZhcmQsIFBvcnRsYW5kLCBPUiA5NzIxNSwgVVNB",
+                 "types" : [ "street_address" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "SE Hawthorne & 47th",
+                       "short_name" : "SE Hawthorne & 47th",
+                       "types" : [ "bus_station", "transit_station", "establishment" ]
+                    },
+                    {
+                       "long_name" : "Richmond",
+                       "short_name" : "Richmond",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Portland",
+                       "short_name" : "Portland",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Multnomah County",
+                       "short_name" : "Multnomah County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Oregon",
+                       "short_name" : "OR",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "97215",
+                       "short_name" : "97215",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "SE Hawthorne & 47th, Portland, OR 97215, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 45.511958,
+                       "lng" : -122.613832
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 45.5133069802915,
+                          "lng" : -122.6124830197085
+                       },
+                       "southwest" : {
+                          "lat" : 45.5106090197085,
+                          "lng" : -122.6151809802915
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJDamtmfOglVQRbGTjJckxCHo",
+                 "types" : [ "bus_station", "transit_station", "establishment" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Sunnyside",
+                       "short_name" : "Sunnyside",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Portland",
+                       "short_name" : "Portland",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Multnomah County",
+                       "short_name" : "Multnomah County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Oregon",
+                       "short_name" : "OR",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Sunnyside, Portland, OR, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 45.519312,
+                          "lng" : -122.6123578
+                       },
+                       "southwest" : {
+                          "lat" : 45.51202300000001,
+                          "lng" : -122.6371298
+                       }
+                    },
+                    "location" : {
+                       "lat" : 45.51608179999999,
+                       "lng" : -122.6267903
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 45.519312,
+                          "lng" : -122.6123578
+                       },
+                       "southwest" : {
+                          "lat" : 45.51202300000001,
+                          "lng" : -122.6371298
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJCbMmKZOglVQRxiRG-qlS1kY",
+                 "types" : [ "neighborhood", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "97215",
+                       "short_name" : "97215",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "Portland",
+                       "short_name" : "Portland",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Multnomah County",
+                       "short_name" : "Multnomah County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Oregon",
+                       "short_name" : "OR",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Portland, OR 97215, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 45.524366,
+                          "lng" : -122.5786791
+                       },
+                       "southwest" : {
+                          "lat" : 45.5048211,
+                          "lng" : -122.620169
+                       }
+                    },
+                    "location" : {
+                       "lat" : 45.5162412,
+                       "lng" : -122.5975269
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 45.524366,
+                          "lng" : -122.5786791
+                       },
+                       "southwest" : {
+                          "lat" : 45.5048211,
+                          "lng" : -122.620169
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJQUiMCvmglVQRHtSHSR6rSzo",
+                 "types" : [ "postal_code" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Southeast Portland",
+                       "short_name" : "Southeast Portland",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Portland",
+                       "short_name" : "Portland",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Multnomah County",
+                       "short_name" : "Multnomah County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Oregon",
+                       "short_name" : "OR",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Southeast Portland, Portland, OR, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 45.523515,
+                          "lng" : -122.479533
+                       },
+                       "southwest" : {
+                          "lat" : 45.4529704,
+                          "lng" : -122.6707108
+                       }
+                    },
+                    "location" : {
+                       "lat" : 45.49142150000001,
+                       "lng" : -122.5929657
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 45.523515,
+                          "lng" : -122.479533
+                       },
+                       "southwest" : {
+                          "lat" : 45.4529704,
+                          "lng" : -122.6707108
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJv0622aeglVQR9V-uTvtZZKM",
+                 "types" : [ "neighborhood", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Portland",
+                       "short_name" : "Portland",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Multnomah County",
+                       "short_name" : "Multnomah County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Oregon",
+                       "short_name" : "OR",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Portland, OR, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 45.6524799,
+                          "lng" : -122.4718489
+                       },
+                       "southwest" : {
+                          "lat" : 45.432393,
+                          "lng" : -122.8369952
+                       }
+                    },
+                    "location" : {
+                       "lat" : 45.5230622,
+                       "lng" : -122.6764816
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 45.6524799,
+                          "lng" : -122.4718489
+                       },
+                       "southwest" : {
+                          "lat" : 45.432393,
+                          "lng" : -122.8369952
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJJ3SpfQsLlVQRkYXR9ua5Nhw",
+                 "types" : [ "locality", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Multnomah County",
+                       "short_name" : "Multnomah County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Oregon",
+                       "short_name" : "OR",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Multnomah County, OR, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 45.728573,
+                          "lng" : -121.8202881
+                       },
+                       "southwest" : {
+                          "lat" : 45.432541,
+                          "lng" : -122.929222
+                       }
+                    },
+                    "location" : {
+                       "lat" : 45.5145659,
+                       "lng" : -122.5863212
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 45.728573,
+                          "lng" : -121.8202881
+                       },
+                       "southwest" : {
+                          "lat" : 45.432541,
+                          "lng" : -122.929222
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJsbYckviDlVQR6bqXj-gieh8",
+                 "types" : [ "administrative_area_level_2", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Oregon",
+                       "short_name" : "OR",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Oregon, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 46.2920157,
+                          "lng" : -116.463262
+                       },
+                       "southwest" : {
+                          "lat" : 41.9917941,
+                          "lng" : -124.6129365
+                       }
+                    },
+                    "location" : {
+                       "lat" : 43.8041334,
+                       "lng" : -120.5542012
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 46.2920157,
+                          "lng" : -116.463262
+                       },
+                       "southwest" : {
+                          "lat" : 41.9917941,
+                          "lng" : -124.6129365
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJVWqfm3xuk1QRdrgLettlTH0",
+                 "types" : [ "administrative_area_level_1", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "United States",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 71.389888,
+                          "lng" : -66.94539469999999
+                       },
+                       "southwest" : {
+                          "lat" : 18.9110642,
+                          "lng" : 172.4458955
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.09024,
+                       "lng" : -95.712891
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 49.38,
+                          "lng" : -66.94
+                       },
+                       "southwest" : {
+                          "lat" : 25.82,
+                          "lng" : -124.39
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJCzYy5IS16lQRQrfeQ5K5Oxw",
+                 "types" : [ "country", "political" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Mon, 23 Mar 2015 02:16:00 GMT
+- request:
+    method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=45.512043&lng=-122.613144&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 23 Mar 2015 02:16:00 GMT
+      Server:
+      - Apache/2.2.17 (Linux/SUSE)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"time":"2015-03-22 19:16","countryName":"United States","sunset":"2015-03-23
+        19:26","rawOffset":-8,"dstOffset":-7,"countryCode":"US","gmtOffset":-8,"lng":-122.613144,"sunrise":"2015-03-23
+        07:08","timezoneId":"America/Los_Angeles","lat":45.512043}'
+    http_version: 
+  recorded_at: Mon, 23 Mar 2015 02:16:00 GMT
+recorded_with: VCR 2.9.3
