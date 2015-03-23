@@ -41,14 +41,18 @@ module TaskRunners
 
     def complete_place(place_hash)
       sleep 0.7 # To avoid Google Api request/second limit
-      save(place_hash, name_from_place_hash(place_hash))
+      save(place_hash, name_from_place_hash(place_hash), path)
     end
 
     def save(place_hash, name)
-      print "#{@current += 1}: Saving #{name}"
+      print "#{@current += 1}: Saving #{name} -- Path: #{place_hash[:place][:filepath]}"
       completed = Completers::Completer.new(place_hash, niko, place_hash[:scraper_url]).complete!
       if completed
-        print "Saved #{name} as Place ##{completed.place.id} -- hit #{completed.place.completion_steps.join(", ")}"
+        if completed.place
+          print "Saved #{name} as Place ##{completed.place.id} -- hit #{completed.place.completion_steps.join(", ")}"
+        else # place options
+          print "Saved Place Options for #{name} -- ids #{completed.place_options.pluck(:id)}"
+        end
       else
         print "FAILURE: Failed to save #{name}. Incoming data: #{place_hash.to_s}", :red
       end
