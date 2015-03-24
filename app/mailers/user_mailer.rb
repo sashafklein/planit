@@ -1,5 +1,5 @@
 class UserMailer < BaseMailer
-  default from: "New User <newuser@plan.it>"
+  default from: "Planit <hello@plan.it>"
 
   layout 'layouts/mailer.html.haml'
 

@@ -3,7 +3,7 @@ class UserDecorator < Draper::Decorator
   include Draper::LazyHelpers
 
   def travel_stats_string
-    "#{pin_on_circle_icon} <span class='gray'>#{marks.count} pins and #{plans.count} plans</span> <span class='gray large-screen-inline'>across #{marks.all_localities.count} cities & #{marks.all_countries.count} countries</span>".html_safe
+    "#{pin_on_circle_icon} <span class='gray'>#{marks.count} pins and #{plans.count} plans</span> <span class='gray large-screen inline'>across #{marks.all_localities.count} cities & #{marks.all_countries.count} countries</span>".html_safe
   end
 
   def bookmarklet_link_to
@@ -25,7 +25,7 @@ class UserDecorator < Draper::Decorator
 
   def nav_item_guides(page_type)
     return nav_item(type: 'guides', hint: 'my guides', icon: 'fa fa-book') if page_type == 'guides'
-    nav_item(type: 'guides', hint: 'my guides', icon: 'fa fa-book', link_to: user_path(model)+"/guides?y=in_"+current_year() )
+    nav_item(type: 'guides', hint: 'my guides', icon: 'fa fa-book', link_to: user_path(model)+"/guides#?y=in_"+current_year() )
   end
 
   def nav_item_new(page_type)
@@ -48,8 +48,8 @@ class UserDecorator < Draper::Decorator
     selected = (!link_to.present? && !modal.present?)
     message_count = "<span class='inbox-count #{'chill' if !link_to}'>#{messages}</span>" if messages
     html = ''
-    html += "<a href='#{link_to}'" if link_to
     html += "<div" if selected || disabled
+    html += "<a href='#{link_to}'" if link_to
     html += "<a href='#planit-modal-#{type}' data-toggle='modal' data-target='#planit-modal-#{type}' data-backdrop='static' data-keyboard='false'" if ( modal && !disabled )
     html += " class='nav-item-link"
     html += " selected" if selected

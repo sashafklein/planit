@@ -54,15 +54,17 @@ class Share < BaseModel
   end
 
   def self.extras_hash(url)
-    extras = {}
-    page_and_querystring = url.split("/").last.split("?")
-    query = page_and_querystring.last.split("&").inject({}) { |hash, string| hash[string.split("=").first] = string.split("=").last; hash } if page_and_querystring.length == 2
-    extras[:subtype] = page_and_querystring.first.capitalize
-    extras[:years] = clean_query( query["y"] ) if query["y"].present?
-    extras[:filters] = clean_query( query["f"] ) if query["f"].present?
-    extras[:geographies] = "near " + clean_query( query["n"] ) if query["n"].present?
-    # extras[:search] = " narrowed with " + clean_query( query["q"], true ) if query["q"].present?
-    return extras.to_sh
+    uri = URI.parse(url)
+    query = CGI::parse(uri.query || '')
+    { subtype: uri.path.split("/").last.try(:capitalize),
+      years: clean_query( query["y"] ),
+      filters: clean_query( query["f"] ),
+      geographies: clean_query( query["n"] ) ? "near #{clean_query( query['n'] ) }" : nil
+    }.to_sh
+  end
+
+  def self.query_from_page_and_querystring( page_and_querystring )
+    ( ( page_and_querystring.try( :last ).try( :split, "&" ).inject({}) { |hash, string| hash[string.split("=").first] = string.split("=").last; hash } ) if page_and_querystring.length == 2 ) || {}
   end
 
   def self.is_id?(id_or_slug)
@@ -74,8 +76,9 @@ class Share < BaseModel
     searcher.find( id_or_slug )
   end
 
-  def self.clean_query(query, quotes=false)
-    URI.decode( query ).gsub("in_", '').split("+").to_sentence(last_word_connector: " & ")
+  def self.clean_query(value, quotes=false)
+    return if !value.present?
+    URI.decode( value.first ).gsub("in_", '').split(",").to_sentence(last_word_connector: " & ")
   end
 
 end

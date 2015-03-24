@@ -1,4 +1,4 @@
-#planit-header{ class: "#{background} #{page_type}" }
+#planit-header.except-landscape{ class: "#{background} #{page_type}" }
   - if page_type == 'simple'
     .simple-header-top.large-screen= render 'header/simple', { color: 'black' }
     .simple-header-top.mobile= render 'header/simple', { color: 'white' }
@@ -17,24 +17,24 @@
               %a.main-menu-dropdown.dropdown-toggle.a-override{ class: "a-#{background} h-#{background}", "data-toggle" => "dropdown", :href => "#" }
                 = render 'header/user_avatar'
               = render 'header/dropdowns/main_menu', { current_user: current_user, background: background, color: color }
-          .side-menu-container{ class: "#{color} #{page_type}" }
+          .side-menu-container.large-screen.inline{ class: "#{color} #{page_type}" }
             .top-nav-bar= render 'application/nav_bar', { page_type: page_type, current_user: current_user }
 
         - elsif current_user
           .top-menu-container
             = link_to destroy_user_session_path, :method => 'delete' do
               = render 'header/user_avatar'
-          .side-menu-container{ class: "#{color} #{page_type}" }
+          .side-menu-container.large-screen.inline{ class: "#{color} #{page_type}" }
             %strong.a-override.a-gray.h-neon= link_to "LOG OUT", destroy_user_session_path, :method => 'delete'
 
         - else
           .top-menu-container
             = link_to new_user_session_path do # new_user_registration_path
               = render 'header/user_avatar'
-          .side-menu-container{ class: "#{color} #{page_type}" }
+          .side-menu-container.large-screen.inline{ class: "#{color} #{page_type}" }
             %strong= "REQUEST INVITE"
             %span.divider= "|"
             %strong.a-override.a-gray.h-neon= link_to "LOG IN", new_user_session_path
 
 - unless fullscreen?(page_type)
-  #header-spacing
+  #header-spacing.except-landscape
