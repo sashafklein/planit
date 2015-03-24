@@ -3,22 +3,48 @@
 
 #user-show-page
 
-  .band.gray.spaced.large-screen
-    .container
+  - if current_user_owns
 
-      - @user.marks_with_places.includes(:place).find_each do |mark|
-        %p= link_to mark.place.name + " " + mark.updated_at.strftime('%d %b, %Y'), mark.place
+    - if !browser.mobile?
 
-      / .two-thirds.column
-      /   .in-caps-header= "World View"
+      .band.gray.spaced.large-screen
+        .container
 
-      /   .world-view-map-wrap
-      /     .empty-map-box.world-view
-      /       / %worldview_map.world-view-canvas{ user_id: @user.id, current_user_id: current_user_id, type: 'worldview' }
-      /     .tab-caption= @user.decorate.travel_stats_string
+          Recent Activity
+          - @user.marks_with_places.includes(:place).find_each do |mark|
+            %p= link_to mark.place.name + " : " + mark.updated_at.strftime('%d %b, %Y'), mark.place
 
-      / .one-third.column
-      /   .in-caps-header= "Profile & Info"
+    - else
 
-      /   .profile-and-info-wrap
-      /     .profile-photo-box
+      .mobile-half-screen.top
+        .centering-box
+          
+          .centered-item.input-box
+            .input-group
+              %input.form-control.input-with-clear{ placeholder: 'Add new place' }
+              %span.clear-input-button
+                %i.fa.fa-times-circle
+              %span.input-group-btn
+                %button.btn.btn-default
+                  %i.fa.fa-plus
+
+      .mobile-half-screen.bottom
+        .centering-box
+          .centered-item.box-link-group
+            = link_to user_path(current_user) do
+              .box-link.left
+                .icon-and-hint.centered-item
+                  %i.fa.fa-bullseye
+                  .hint Nearby
+            = link_to user_path(current_user) do
+              .box-link.right
+                .icon-and-hint.centered-item
+                  %i.fa.fa-clock-o
+                  .hint Recent
+
+  - else
+
+    .band.gray.spaced.large-screen
+      .container
+
+        = @user.decorate.travel_stats_string

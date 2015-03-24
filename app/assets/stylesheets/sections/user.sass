@@ -111,6 +111,52 @@
         color: #fff
         text-decoration: none
 
+  .centered-item.input-box
+    width: 100%
+    height: 34px
+    padding: 0 75px
+
+  .centered-item.box-link-group
+    width: 100%
+    height: 100px
+    padding: 0 75px
+  
+    .box-link
+      display: inline-block
+      position: relative
+      height: 100px
+      width: 100px
+      background: #fff
+      border-radius: 3px
+      border: 1px solid #ddd
+      color: #333
+      transition: 0.2 all ease
+      -webkit-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+      -moz-box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+      box-shadow: #ecedee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+      cursor: pointer
+      &:hover
+        color: #f06
+      &.left
+        float: left
+      &.right
+        float: right
+      .icon-and-hint
+        height: 50px
+        text-align: center
+        i
+          font-size: 25px
+          line-height: 25px
+          height: 35px
+          width: 25px
+          padding-bottom: 10px
+        .hint
+          display: block
+          height: 15px
+          font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+          font-size: 14px
+          line-height: 15px
+
   // *Computer (Regular)
 
   .profile-photo-box
@@ -125,5 +171,17 @@
   // #Mobile (Portrait) <-- smallest
   @media only screen and (max-width: 767px)
 
+    .centered-item.input-box
+      padding: 0 75px
+
+    .centered-item.box-link-group
+      padding: 0 75px
+
   // #Mobile (Landscape)
   @media only screen and (min-width: 480px) and (max-width: 767px)
+
+    .centered-item.input-box
+      padding: 0 50px
+
+    .centered-item.box-link-group
+      padding: 0 50px

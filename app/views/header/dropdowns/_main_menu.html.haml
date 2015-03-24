@@ -1,21 +1,26 @@
 %ul.dropdown-menu.dropdown-menu-right.user-dropdown-menu
 
-  - if current_user.member? || current_user.admin?
+  - if current_user_is_active
+
     %li.user-dropdown-menu
-      %a{ :href => about_path }
+      = link_to user_path(current_user) do
+        My Planit
+        %i.user-dropdown-menu-icon.fa.fa-home.fa-fw
+    %li.user-dropdown-menu
+      = link_to save_path do
         How to Save
         %i.user-dropdown-menu-icon.fa.fa-bolt.fa-fw
     %li.user-dropdown-menu
-      %a{ :href => invite_path }
+      = link_to invite_path do
         Invite a Friend!
         %i.user-dropdown-menu-icon.fa.fa-group.fa-fw
     %li.divider
     %li.user-dropdown-menu
-      %a{ :href => edit_user_registration_path }
+      = link_to edit_user_registration_path do
         Update Account
         %i.user-dropdown-menu-icon.fa.fa-user.fa-fw
     %li.user-dropdown-menu.mobile
-      %a{ :href => legal_support_path }
+      = link_to legal_support_path do
         Legal  Support
         %i.user-dropdown-menu-icon.fa.fa-question.fa-fw
     %li.divider
@@ -25,8 +30,9 @@
         %i.user-dropdown-menu-icon.fa.fa-times.fa-fw
 
   - elsif current_user
+
     %li.user-dropdown-menu.mobile
-      %a{ :href => legal_support_path }
+      = link_to legal_support_path do
         Legal  Support
         %i.user-dropdown-menu-icon.fa.fa-question.fa-fw
     %li.user-dropdown-menu
@@ -35,11 +41,12 @@
         %i.user-dropdown-menu-icon.fa.fa-times.fa-fw
 
   - else
+
     %li.user-dropdown-menu
-      %a{ :href => new_user_session_path }
+      = link_to new_user_session_path do
         Log In
         %i.user-dropdown-menu-icon.fa.fa-user.fa-fw
     %li.user-dropdown-menu
-      %a{ :href => new_user_registration_path }
+      = link_to new_user_registration_path do
         Sign Up
         %i.user-dropdown-menu-icon.fa.fa-user.fa-fw

@@ -2,10 +2,16 @@ class StaticsController < ApplicationController
   
   before_action :authenticate_user!, only: [:save, :about, :invite]
 
-  def save
+  def about
+    redirect_to save_path
   end
 
-  def about
+  def save
+    redirect_to beta_path unless current_user_is_active
+  end
+
+  def button
+    redirect_to beta_path unless current_user_is_active
   end
 
   def invite

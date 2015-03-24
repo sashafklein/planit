@@ -3,56 +3,75 @@ source "https://rails-assets.org"
 
 ruby "2.2.0"
 
-gem "rollbar"
-gem "bourbon"
-gem "coffee-rails"
-gem "delayed_job_active_record"
-gem "email_validator"
-gem "flutie"
-gem "jquery-rails"
-gem "neat"
-gem "pg"
-gem "rack-timeout"
 gem "rails", "4.2.0"
-gem "recipient_interceptor"
-gem "sass-rails"
-gem "uglifier"
-gem "unicorn"
-gem "memoist"
 
-gem "nokogiri"
-gem "font-awesome-sass"
-gem "image_size"
-gem "simple_form"
-gem "elasticsearch-rails"
-gem "elasticsearch-model"
-gem "bonsai-elasticsearch-rails"
-gem "rspec-instafail", require: false
-gem "roadie-rails"
+# error reporting
+gem "rollbar"
+gem "newrelic_rpm"
 gem "oink"
 gem "informant-rails"
+gem "rack-mini-profiler", require: false
+gem "rack-timeout"
 
+# emailing
+gem "recipient_interceptor"
+gem "email_validator"
+gem "roadie-rails"
+
+# css and page-interactions
+gem "font-awesome-sass"
+gem "bootstrap-sass"
+gem "jquery-rails"
+
+# scraping
+gem "nokogiri"
+
+# coding efficiency
 gem "haml-rails"
+gem "coffee-rails"
+gem "sass-rails"
+gem "uglifier"
+gem "draper", require: false
+gem "autoprefixer-rails" # in-use & non-overlapping to compass?
+
+# database / server
+gem "pg"
+gem "delayed_job_active_record"
+gem "unicorn"
+gem "memoist"
+gem "active_model_serializers"
+
+# services
+gem "browser"
+gem "image_size"
+gem "simple_form"
 gem "geocoder"
 gem "carmen"
 gem "httparty"
-gem "devise"
-gem "friendly_id"
-gem "rack-mini-profiler", require: false
-gem "active_model_serializers"
-gem "fuzzy-string-match"
-gem "bootstrap-sass"
-gem "autoprefixer-rails"
-gem "draper", require: false
 gem "timezone"
-gem "newrelic_rpm"
 
+# security
+gem "devise"
 gem "pundit"
-gem "acts-as-taggable-on"
 
+# search
+gem "elasticsearch-rails"
+gem "elasticsearch-model"
+gem "bonsai-elasticsearch-rails"
+gem "fuzzy-string-match"
+gem "friendly_id"
+gem "acts-as-taggable-on" # not using
+
+# terminal
+gem "colorize"
+gem "rspec-instafail", require: false
+
+# unsure
+gem "flutie"
 gem "compass"
 gem "compass-rails"
-gem "colorize"
+gem "bourbon"
+gem "neat"
 
 source "https://rails-assets.org" do
   gem "rails-assets-angular"

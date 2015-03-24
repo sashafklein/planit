@@ -144,7 +144,7 @@
   .confirm
     display: none
     ul
-      padding: 10px 8px
+      padding: 0
       li
         background: #fff
         height: 150px
@@ -154,10 +154,25 @@
           line-height: 22px
         .bucket-list-tab
           height: 138px
+        .choose-another-img
+          position: absolute
         .bucket-list-img
           border: 1px solid #eee
           width: 138px
           height: 138px
+          position: relative
+          .choose-another-img
+            display: none
+          &:hover
+            .choose-another-img
+              position: absolute
+              display: block
+              text-align: center
+              left: 0
+              right: 0
+              top: 0
+              bottom: 0
+              margin: auto
         .bucket-list-more-info.bucket-list-address
           margin-top: 10px
 

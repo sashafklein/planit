@@ -9,6 +9,11 @@
   
   .main-content
 
+    a:link, a:visited
+      color: #33b !important
+    a:hover, a:active
+      color: #66d !important
+
     .right-section
       text-align: right
       i.padded-icon
@@ -43,16 +48,13 @@
         padding: 50px 0 50px 60px
 
     .static-section-columned
-      width: 100%
-      display: table
-      table-layout: fixed
+      position: relative
       padding: 30px 30px
       font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
       font-size: 16px
       line-height: 18px
+      width: 100%
       .static-column
-        padding: 0 15px
-        display: table-cell
         text-align: left
         strong
           font-size: 125%
@@ -131,24 +133,52 @@
 
 // *Computer (Regular)
 
+.static-page
+
+  .static-column.center
+    margin: 0 30px
+  .static-column
+    float: left
+    display: inline
+    width: 273px
+
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
+
+  .static-page
+
+    .static-column.center
+      margin: 0 30px
+    .static-column
+      float: left
+      display: inline
+      width: 209px
 
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
 
-  .static-section-content
-    p
-      margin: 10px 0
-    p.text-spaced
-      margin: 15px 0
-    p.paragraph-header
-      margin: 15px 0
-    li
-      margin: 12px 0
+  .static-page
 
-  .main-content .right-section.padded, .left-section.padded
-    padding: 0 !important
+    .static-column.center
+      margin: 0
+    .static-column
+      float: none
+      display: block
+      width: 100%
+      padding-bottom: 10px
+
+    .static-section-content
+      p
+        margin: 10px 0
+      p.text-spaced
+        margin: 15px 0
+      p.paragraph-header
+        margin: 15px 0
+      li
+        margin: 12px 0
+
+    .main-content .right-section.padded, .left-section.padded
+      padding: 0 !important
 
   #beta-page
     margin-top: 15px
@@ -157,18 +187,28 @@
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
 
-  .static-section-content
-    p
-      margin: 10px 0
-    p.text-spaced
-      margin: 15px 0
-    p.paragraph-header
-      margin: 15px 0
-    li
-      margin: 12px 0
+  .static-page
 
-  .main-content .right-section.padded, .left-section.padded
-    padding: 15px 40px !important
+    .static-column.center
+      margin: 0
+    .static-column
+      float: none
+      display: block
+      width: 100%
+      padding-bottom: 10px
+
+    .static-section-content
+      p
+        margin: 10px 0
+      p.text-spaced
+        margin: 15px 0
+      p.paragraph-header
+        margin: 15px 0
+      li
+        margin: 12px 0
+
+    .main-content .right-section.padded, .left-section.padded
+      padding: 15px 40px !important
 
   #beta-page
     margin-top: 15px

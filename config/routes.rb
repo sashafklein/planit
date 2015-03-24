@@ -3,13 +3,18 @@ Rails.application.routes.draw do
   devise_for :users
 
   root 'landing#show'
+
   get '/beta', to: 'statics#beta'
   get '/invite', to: 'statics#invite'
+
   get '/about', to: 'statics#about'
-  get '/save', to: 'places#new'
+  get '/save', to: 'statics#save'
+  get '/button', to: 'statics#button'
+
   get '/feedback', to: 'statics#feedback'
+
   get '/import', to: 'statics#about' #NEEDSFOLLOWUP
-  get '/button', to: 'statics#about' #NEEDSFOLLOWUP
+  get '/export', to: 'statics#about' #NEEDSFOLLOWUP
   # get '/inbox', to: 'users#inbox' #NEEDSFOLLOWUP
 
   get '/legal_support', to: 'statics#legal_support'

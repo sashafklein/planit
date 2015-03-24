@@ -28,7 +28,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
       s.leaf = leafletData
 
       s.defaults = 
-        minZoom: 2
+        minZoom: if s.mobile then 1 else 2
         maxZoom: 18
         scrollWheelZoom: false
         doubleClickZoom: true

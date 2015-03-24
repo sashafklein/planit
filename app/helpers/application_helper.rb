@@ -34,15 +34,15 @@ module ApplicationHelper
   end
 
   def show_filter?(page_type)
-    [ 'places', 'guides' ].include?(page_type)
+    [ 'places' ].include?(page_type)
   end
 
   def show_search?(page_type)
-    [ 'places', 'guides', 'plans', 'inbox' ].include?(page_type)
+    [ 'places', 'guides', 'plan' ].include?(page_type)
   end
 
   def rich_content?(page_type)
-    [ 'places', 'place', 'guides', 'plans' ].include?(page_type)
+    [ 'places', 'place', 'guides', 'plan' ].include?(page_type)
   end
 
   def show_back?(page_type)

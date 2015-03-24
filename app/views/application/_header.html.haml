@@ -8,6 +8,7 @@
         .logo-container= render 'header/logo_container', { color: 'black', page_type: page_type }
         - if current_user_is_active
           = render 'header/search_bar', { page_type: page_type, user: @user } if show_search?(page_type)
+          .mobile.page-title= "PLANIT" if !show_search?(page_type)
           .top-menu-container
             - if show_back?(page_type)
               .main-menu-container{ class: color }
