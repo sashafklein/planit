@@ -23,16 +23,19 @@
                         %span.categories
                       .bucket-list-more-info.bucket-list-address
                       .bucket-list-more-info.bucket-list-locale
-                    .add-to-extras
-                      %input{ value: 'Add to plan'}
-                    .add-to-extras
-                      %input{ value: 'Add note'}
-                    .add-to-extras
-                      %input{ value: 'Recommended by'}
+                    / .add-to-extras
+                    /   %input{ value: 'Add to plan'}
+                    / .add-to-extras
+                    /   %input{ value: 'Add note'}
+                    / .add-to-extras
+                    /   %input{ value: 'Recommended by'}
         .modal-footer
           %button.planit-button.cancel.gray{"data-dismiss" => "modal", :type => "button"} 
             Reject
             %i.fa.fa-times.pad-left
+          %button.planit-button.blue{:id => "planit-modal-submit-new", :type => "button"} 
+            Edit
+            %i.fa.fa-pencil.pad-left
           %button.planit-button.neon{:id => "planit-modal-submit-new", :type => "button"} 
             Confirm & Save
             %i.fa.fa-check.pad-left

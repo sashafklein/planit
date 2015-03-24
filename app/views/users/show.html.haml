@@ -31,12 +31,12 @@
       .mobile-half-screen.bottom
         .centering-box
           .centered-item.box-link-group
-            = link_to user_path do
+            = link_to user_path(current_user) do
               .box-link.left
                 .icon-and-hint.centered-item
                   %i.fa.fa-bullseye
                   .hint Nearby
-            = link_to user_path do
+            = link_to user_path(current_user) do
               .box-link.right
                 .icon-and-hint.centered-item
                   %i.fa.fa-clock-o

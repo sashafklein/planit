@@ -186,23 +186,24 @@ module Scrapers
     #   end
     # end
     
-    describe "http://www.frenchie-restaurant.com/" do
-      before { @url = "http://www.frenchie-restaurant.com/" }
-      it "parses the page" do 
-        expect_equal(data, [
-          place: {
-            name: "Frenchie Restaurant",
-            locality: "Paris", 
-            country: "France",
-            nearby: "Paris, France",
-            full_address: "Restaurant Frenchie 5-6, rue du Nil 75002 Paris Métro 3: Sentier",
-            phones: "+33 (0)1.40.39.96.19",
-            postal_code: "75002",
-          },
-          scraper_url: "http://www.frenchie-restaurant.com/",
-          ])
-      end
-    end
+    # DELETED THEIR DATA, AGAIN
+    # describe "http://www.frenchie-restaurant.com/" do
+    #   before { @url = "http://www.frenchie-restaurant.com/" }
+    #   it "parses the page" do 
+    #     expect_equal(data, [
+    #       place: {
+    #         name: "Frenchie Restaurant",
+    #         locality: "Paris", 
+    #         country: "France",
+    #         nearby: "Paris, France",
+    #         full_address: "Restaurant Frenchie 5-6, rue du Nil 75002 Paris Métro 3: Sentier",
+    #         phones: "+33 (0)1.40.39.96.19",
+    #         postal_code: "75002",
+    #       },
+    #       scraper_url: "http://www.frenchie-restaurant.com/",
+    #       ])
+    #   end
+    # end
 
     describe "http://www.fairmont.com/san-francisco/" do
       before { @url = "http://www.fairmont.com/san-francisco/" }
