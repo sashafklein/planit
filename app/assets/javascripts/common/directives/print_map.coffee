@@ -33,7 +33,7 @@ angular.module("Common").directive 'printMap', (MapOptions, F, Place, User) ->
 
         scope.map = L.map(id, { scrollWheelZoom: scrollWheelZoom, doubleClickZoom: doubleClickZoom, zoomControl: zoomControl, minZoom: minZoom, maxZoom: maxZoom } )
         
-        L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
+        L.tileLayer("https://otile#{ Math.floor(Math.random() * (4 - 1 + 1)) + 1 }-s.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg",
           attribution: "&copy; <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a>"
         ).addTo(scope.map)
 
