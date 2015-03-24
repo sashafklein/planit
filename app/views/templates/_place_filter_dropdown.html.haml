@@ -6,7 +6,7 @@
         %i.fa.fa-caret-down 
     %ul.dropdown-menu.dropdown-menu-left.filter-dropdown-menu
       %li.filter-dropdown-menu
-        .apply-filters Apply Filters: 
+        .apply-filters{ ng_show: '!filtersSet()' } Apply Filters: 
         .clear-all-filters{ ng_click: 'clearFilters()', ng_show: 'filtersSet()' }
           Clear All Filters
           %b ×

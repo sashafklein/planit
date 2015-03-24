@@ -16,6 +16,8 @@ angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, Erro
 
       # BAR VISUALS
 
+      s.fullWidth = -> return true if s.showFilter == 'false'
+
       $('.searching-mask').click -> s.hideSearch()
 
       s.showSearch = ->

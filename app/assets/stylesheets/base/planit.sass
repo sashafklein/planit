@@ -18,7 +18,27 @@ body
   min-height: 100%
   position: relative
 
+.centering-box
+  position: relative
+  height: 100%
+  width: 100%
+  .centered-item
+    position: absolute
+    text-align: center
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    margin: auto auto
+
 // COMMON VISUALS
+
+.like-container:after 
+  content: "\0020"
+  display: block
+  height: 0
+  clear: both
+  visibility: hidden
 
 a.no-under, a.no-under:hover
   text-decoration: none
@@ -517,6 +537,17 @@ hr.divider
   display: none
   visibility: hidden
 
+
+
+
+
+
+
+
+
+
+
+
 // TAB SIZING
 
 // *Computer (Regular)
@@ -535,16 +566,16 @@ hr.divider
   .modal-dialog
     margin: 85px auto
     
-.mobile
-  visibility: hidden !important
-  display: none !important
-  &.inline
-    display: none !important
 .except-landscape, .large-screen, .largest-screen
-  visibility: visible !important
-  display: inherit !important
+  visibility: visible
+  display: inherit
   &.inline
-    display: inline-block !important
+    display: inline-block
+.mobile
+  visibility: hidden
+  display: none
+  &.inline
+    display: none
   
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
@@ -559,16 +590,16 @@ hr.divider
     .modal-dialog
       margin: 85px auto
       
-  .mobile, .largest-screen
-    visibility: hidden !important
-    display: none !important
-    &.inline
-      display: none !important
   .except-landscape, .large-screen
-    visibility: visible !important
-    display: inherit !important
+    visibility: visible
+    display: inherit
     &.inline
-      display: inline-block !important
+      display: inline-block
+  .mobile, .largest-screen
+    visibility: hidden
+    display: none
+    &.inline
+      display: none
 
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
@@ -602,16 +633,30 @@ hr.divider
   .section-header
     margin: 15px 0
 
+  .mobile-half-screen
+    display: block
+    position: absolute
+    width: 100%
+    height: 50%
+    &.top
+      top: 0
+      padding-top: 44px
+      background: #f06
+    &.bottom
+      bottom: 0
+      padding-bottom: 44px
+      background: #007
+
   .mobile, .except-landscape
-    visibility: visible !important
-    display: inherit !important
+    visibility: visible
+    display: inherit
     &.inline
-      display: inline-block !important
+      display: inline-block
   .large-screen, .largest-screen
-    visibility: hidden !important
-    display: none !important
+    visibility: hidden
+    display: none
     &.inline
-      display: none !important
+      display: none
 
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
@@ -645,13 +690,27 @@ hr.divider
   .whitebox.no-mobile-portrait
     background: rgba(255,255,255,0.8)
 
+  .mobile-half-screen
+    display: block
+    position: absolute
+    width: 50%
+    height: 100%
+    &.top
+      left: 0
+      padding-top: 0
+      background: #f06
+    &.bottom
+      right: 0
+      padding-bottom: 0
+      background: #007
+
   .mobile
-    visibility: visible !important
-    display: inherit !important
+    visibility: visible
+    display: inherit
     &.inline
-      display: inline-block !important
+      display: inline-block
   .mobile-portrait, .except-landscape, .large-screen, .largest-screen
-    visibility: hidden !important
-    display: none !important
+    visibility: hidden
+    display: none
     &.inline
-      display: none !important
+      display: none

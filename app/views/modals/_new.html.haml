@@ -9,11 +9,12 @@
       .confirm
         .modal-body
           %ul
-            %li
-              .bucket-list-tab
+            %li.like-container
+              .bucket-list-tab.like-container
                 %a.place-link
                   .bucket-list-img
-                .bucket-list-wrap
+                    .choose-another-img= "Another"
+                .bucket-list-wrap.like-container
                   .bucket-list-profile
                     %a.place-link
                       .bucket-list-title
@@ -22,9 +23,19 @@
                         %span.categories
                       .bucket-list-more-info.bucket-list-address
                       .bucket-list-more-info.bucket-list-locale
+                    .add-to-extras
+                      %input{ value: 'Add to plan'}
+                    .add-to-extras
+                      %input{ value: 'Add note'}
+                    .add-to-extras
+                      %input{ value: 'Recommended by'}
         .modal-footer
-          %button.planit-button.cancel.gray{"data-dismiss" => "modal", :type => "button"} Cancel
-          %button.planit-button.neon{:id => "planit-modal-submit-new", :type => "button"} Confirm
+          %button.planit-button.cancel.gray{"data-dismiss" => "modal", :type => "button"} 
+            Reject
+            %i.fa.fa-times.pad-left
+          %button.planit-button.neon{:id => "planit-modal-submit-new", :type => "button"} 
+            Confirm & Save
+            %i.fa.fa-check.pad-left
 
       .loading
         .modal-body
@@ -41,7 +52,9 @@
             %a.choices= "Well we found something..."
         .modal-footer
           %button.planit-button.cancel.gray{"data-dismiss" => "modal", :type => "button"} Cancel
-          %button.planit-button.blue{"data-dismiss" => "modal", :type => "button"} Retry
+          %button.planit-button.blue{"data-dismiss" => "modal", :type => "button"}
+            Retry
+            %i.fa.fa-times.pad-left
 
       .error
         .modal-body

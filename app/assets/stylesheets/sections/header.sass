@@ -36,6 +36,18 @@
     font-size: 14px
     font-weight: bold
     
+    .page-title
+      position: absolute
+      left: 0
+      right: 0
+      top: 12px
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      font-size: 20px
+      line-height: 20px
+      font-weight: bold
+      text-align: center
+      color: #fff
+
     .search-and-filter-wrap
       .filter-button
         overflow: auto
@@ -141,6 +153,7 @@
           .filter-dropdown-menu-icon
             color: #fff
         &.clear-all-filters
+          display: block
           background: #ccc
           color: #fff
           font-weight: bold
@@ -182,32 +195,30 @@
      
   .logo-container, .simple-header-top
 
+    img
+      height: 50px
     img.logo-ellipsis-top
       width: 20px
-      height: 50px
     img.logo-itsyour-top
       width: 117px
-      height: 50px
     img.logo-image-top
       width: 42px
-      height: 50px
     img.logo-name-top
       width: 86px
-      height: 50px
       &.new
         display: none
         visibility: hidden
     img.logo-my-top
       width: 39px
-      height: 50px
       margin: 7px 2px 0 0
     img.logo-title-top
-      height: 50px
       margin: 7px 0px 0 0
       &.map
         width: 55px
       &.guides
         width: 88px
+      &.guide
+        width: 74px
       &.new
         width: 117px
       &.inbox

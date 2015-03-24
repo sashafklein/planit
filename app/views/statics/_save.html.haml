@@ -12,14 +12,15 @@
         %p
           %i{ class: 'fa fa-bookmark padded-icon' }
           Save friends' places to your own Planit
-        %p.disabled
+        %p
           %i{ class: 'fa fa-bolt padded-icon' }
-          <b>Save with a single click</b> with the Planit Bookmarklet & Chrome Extension
-          %span.coming-soon= "COMING SOON"
-        %p.disabled
+          <b>Save with a single click</b> with the 
+          =link_to button_path do 
+            Planit Saver
+            = browser.chrome? ? "Chrome Extension" : "Bookmarklet Button"
+        %p
           %i{ class: 'fa fa-inbox padded-icon' }
           Receive and review place recommendations from friends
-          %span.coming-soon= "COMING SOON"
       - if current_user_is_active
         %a{ href: '#planit-modal-new', data: { toggle: 'modal', target: '#planit-modal-new', backdrop: 'static', keyboard: 'false' } }
           %span.learn-more.planit-button.neon
@@ -40,19 +41,14 @@
         %p
           Your tastes are personal, and so is your curated map
           %i{ class: 'fa fa-thumbs-o-up padded-icon' }
-        %p.disabled
-          %span.coming-soon= "COMING SOON"
-          <b>Save with a single click</b> with the Planit Chrome Extension
+        %p
+          =link_to button_path do 
+            Get the Planit Saver
+            = browser.chrome? ? "Chrome Extension" : "Bookmarklet Button"
           %i{ class: 'fa fa-bolt padded-icon' }
-        / %p
-        /   Save on IExplorer or Firefox with the Bookmarklet
-        /   %i{ class: 'fa fa-globe padded-icon' }
-        /   / %i{ class: 'icomoon icon-firefox padded-icon' }
-        /   / %i{ class: 'icomoon icon-IE padded-icon' }
-        /   / %i{ class: 'icomoon icon-chrome padded-icon' }
-      %span.learn-more.planit-button.neon.disabled
-        Connect to Chrome now
-        / = link_to 'Connect to Chrome now', 'chrome'
+      = link_to button_path do
+        %span.learn-more.planit-button.neon
+          = browser.chrome? ? "Connect to Chrome now" : "Get the Bookmarklet now"
 
 .band.gray.spaced-extra.main-content#email
   .container

@@ -1,0 +1,33 @@
+- title('Get the Button')
+- page_type('button')
+
+.static-page#button-page
+  .band.gray.spaced-extra.main-content
+    .container
+      .sixteen.columns.left-section
+
+        - if !browser.mobile?
+          .section-header.large
+            = "Get the &quot;Planit Saver&quot;".html_safe
+            = browser.chrome? ? "Extension" : "Button"
+          .static-section-content
+            %p
+              %i{ class: 'fa fa-book padded-icon' }
+              Easily gather and curate your ultimate travel notebook
+            %p 
+              %i{ class: 'icomoon icon-map padded-icon' }
+              All your saves will be charted on your map
+            %p
+              %i{ class: 'fa fa-laptop padded-icon' }
+              When browsing on other sites, just click and we'll save your places & plans 
+          - if browser.chrome?
+            %a{ href: "" }
+              %span.learn-more.planit-button.neon Add to Chrome
+          - else
+            .drag-me drag me image
+            %a{ href: "#{render 'bookmarklets/bookmarklet.js.erb', host: request.base_url, user: current_user}" }
+              %span.learn-more.planit-button.neon + Planit
+        - else
+
+          .section-header.large
+            = "Mobile Planit Saving Button Not Available Yet"

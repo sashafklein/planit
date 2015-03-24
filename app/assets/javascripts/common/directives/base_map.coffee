@@ -37,7 +37,7 @@ angular.module("Common").directive 'baseMap', (PlanitMarker, leafletData, MapEve
       s.list ||= false
 
       s.defaults = 
-        minZoom: 2
+        minZoom: if s.mobile then 1 else 2
         maxZoom: 18
         scrollWheelZoom: false
         doubleClickZoom: true
