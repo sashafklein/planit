@@ -30,7 +30,7 @@ class PlaceOption < BaseModel
 
     ds.photos.each do |photo|
       photo.imageable = option
-      photo.save!
+      photo.save_https!
     end
 
     option

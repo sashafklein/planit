@@ -70,8 +70,9 @@ module PlaceMod
 
     def save_images!
       images.each do |photo|
-        next if place.images.find_by(url: photo.url)
-        photo.update_attributes!(imageable_type: place.class.to_s, imageable_id: place.id)
+        next if photo.exists?(place)
+        photo.imageable = place
+        photo.save_https!
       end
     end
 

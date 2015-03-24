@@ -39,7 +39,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
         baselayers: 
           xyz:
             name: 'MapQuest'
-            url: 'https://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'
+            url: "https://otile#{ Math.floor(Math.random() * (4 - 1 + 1)) + 1 }-s.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg"
             type: 'xyz'
         overlays: 
           primary:

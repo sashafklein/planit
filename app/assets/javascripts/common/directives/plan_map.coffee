@@ -81,7 +81,7 @@ angular.module("Common").directive 'planMap', (F, Place, Plan, User, PlanitMarke
         s.map = L.map(id, { scrollWheelZoom: scrollWheelZoom, doubleClickZoom: doubleClickZoom, zoomControl: zoomControl, minZoom: minZoom, maxZoom: maxZoom, maxBounds: [[-86,-315],[86,315]] } )
         
         # Tiles
-        L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg', attribution: "&copy; <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a>").addTo(s.map)
+        L.tileLayer("https://otile#{ Math.floor(Math.random() * (4 - 1 + 1)) + 1 }-s.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg", attribution: "&copy; <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a>").addTo(s.map)
           
         # Create context layer and pins
         s.contextGroup = L.layerGroup()
