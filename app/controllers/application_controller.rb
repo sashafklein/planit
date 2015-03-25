@@ -23,7 +23,16 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from Pundit::NotAuthorizedError, with: :permission_denied
- 
+
+  def catch_404_error
+    @from = request.referrer ? " from #{request.referrer}" : ''
+    @to = request.env['REQUEST_URI'] ? " to #{ request.env['REQUEST_URI'] }" : ''
+    respond_to do |format|
+      format.html { render template: 'errors/404', status: 404 }
+      format.all  { render nothing: true, status: 404 }
+    end
+  end
+
   private
 
   def redirect_back(key: nil, msg: nil)
@@ -72,4 +81,5 @@ class ApplicationController < ActionController::Base
   def same_user?
     current_user == @user
   end
+
 end

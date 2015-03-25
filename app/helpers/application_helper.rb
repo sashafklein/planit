@@ -92,6 +92,10 @@ module ApplicationHelper
     end
   end
 
+  def email_help_path(subject='Ran into a bug')
+    "mailto:hello@plan.it?subject=#{ URI.escape(subject) }"
+  end
+
   private
 
   # DATE-BASED LISTS

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   devise_for :users
 
@@ -75,5 +76,9 @@ Rails.application.routes.draw do
       end
 
     end
+  end
+
+  unless Rails.application.config.consider_all_requests_local
+    get '*unmatched_route', to: 'application#catch_404_error'
   end
 end
