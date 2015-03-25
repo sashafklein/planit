@@ -17,6 +17,11 @@ module ApplicationHelper
     header(page_type: name); footer(page_type: name)
   end
 
+  def include_templates(*templates)
+    @directive_templates ||= []
+    templates.each{ |t| @directive_templates << t }
+  end
+
   def footer(options={})
     content_for(:footer) { options ? render_footer(options) : 'false' }
   end

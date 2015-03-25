@@ -122,27 +122,24 @@
   .improve-feedback, .loving-feedback
     display: none
 
-#planit-modal-new
 
-  .loading, .error, .choose
-    display: none
-    .message-box
-      padding: 30px 20px
-      text-align: center
-      font-family: avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif
-      font-size: 18px
-      line-height: 25px
-      font-weight: bold
-      i
-        font-size: 21px
-        width: 21px
-        height: 21px
-        display: inline-block
-      span
-        margin-left: 10px
-
-  .confirm
-    display: none
+.loading, .error, .choose
+  .message-box
+    padding: 30px 20px
+    text-align: center
+    font-family: avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif
+    font-size: 18px
+    line-height: 25px
+    font-weight: bold
+    i
+      font-size: 21px
+      width: 21px
+      height: 21px
+      display: inline-block
+    span
+      margin-left: 10px
+.modal-dialog
+  .custom
     ul
       padding: 0
       li
@@ -154,15 +151,16 @@
           line-height: 22px
         .bucket-list-tab
           height: 138px
+          .bucket-list-img
+            border: 1px solid #eee
+            width: 138px !important
+            height: 138px !important
+            position: relative
+            .choose-another-img
+              color: white
+              font-weight: bold
         .choose-another-img
           position: absolute
-        .bucket-list-img
-          border: 1px solid #eee
-          width: 138px
-          height: 138px
-          position: relative
-          .choose-another-img
-            display: none
           &:hover
             .choose-another-img
               position: absolute
@@ -175,6 +173,3 @@
               margin: auto
         .bucket-list-more-info.bucket-list-address
           margin-top: 10px
-
-  .choose
-    display: none

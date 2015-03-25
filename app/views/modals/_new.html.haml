@@ -1,10 +1,15 @@
 .modal.planit-modal.fade#planit-modal-new{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1"}
   .modal-dialog
     .modal-content
-      .modal-header
-        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-          %span{"aria-hidden" => "true"} ×
-        %h4.modal-title= "Add a New Pin"
+
+      .inner-directive-container{ ng_if: 'directive' }
+        {{ directive }}
+        .modal-header
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} ×
+          %h4.modal-title= "Add a New Pin"
+
+        %directive 
 
       .confirm
         .modal-body
