@@ -92,8 +92,8 @@ module ApplicationHelper
     end
   end
 
-  def email_help_path(subject='Ran into a bug')
-    "mailto:hello@plan.it?subject=#{ URI.escape(subject) }"
+  def link_to_email_help(subject: 'Ran into a bug', content: '', link_text: 'let us know', opts: { class: 'linky'})
+    (mail_to 'hello@plan.it', link_text, { subject: subject, body: content}.merge(opts)).to_s.gsub("&amp;", '&').html_safe
   end
 
   private

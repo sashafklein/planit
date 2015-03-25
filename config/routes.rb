@@ -78,7 +78,7 @@ Rails.application.routes.draw do
     end
   end
 
-  unless Rails.application.config.consider_all_requests_local
+  unless false
     get '*unmatched_route', to: 'application#catch_404_error'
   end
 end

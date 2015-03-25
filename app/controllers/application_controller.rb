@@ -23,13 +23,34 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from Pundit::NotAuthorizedError, with: :permission_denied
+  rescue_from ActiveRecord::RecordNotFound, with: :catch_500_error
 
   def catch_404_error
-    @from = request.referrer ? " from #{request.referrer}" : ''
-    @to = request.env['REQUEST_URI'] ? " to #{ request.env['REQUEST_URI'] }" : ''
+    details = []
+    details << "To: #{ request.url }" if request.url
+    details << "From: #{ request.referrer }" if request.referrer
+    @details = details.join("\n")
+
     respond_to do |format|
       format.html { render template: 'errors/404', status: 404 }
       format.all  { render nothing: true, status: 404 }
+    end
+  end
+
+  def catch_500_error
+    controller_class = self.class.to_s.demodulize.split("Controller")[0].singularize
+    
+    if Object.const_defined?( controller_class ) && controller_class.constantize < ActiveRecord::Base
+      @object = controller_class.downcase
+    else
+      @object = 'record'
+    end
+    
+    report_error "500 coming from #{request.referrer}."
+
+    respond_to do |format|
+      format.html { render template: 'errors/500', status: 500 }
+      format.all  { render nothing: true, status: 500 }
     end
   end
 
@@ -80,6 +101,10 @@ class ApplicationController < ActionController::Base
 
   def same_user?
     current_user == @user
+  end
+
+  def report_error(message)
+    Rollbar.log('error', message)
   end
 
 end
