@@ -40,6 +40,7 @@ gem "delayed_job_active_record"
 gem "unicorn"
 gem "memoist"
 gem "active_model_serializers"
+gem "hirefire-resource"
 
 # services
 gem "browser"
