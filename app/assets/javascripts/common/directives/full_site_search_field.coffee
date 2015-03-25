@@ -1,4 +1,4 @@
-angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, ErrorReporter, $sce, CurrentUser) ->
+angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, ErrorReporter, $sce, CurrentUser, Modal) ->
 
   return {
     restrict: 'E'
@@ -13,6 +13,7 @@ angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, Erro
       s.currentPlaceId = 0 
       s.typing = false
       s.userId = CurrentUser.id
+      s.modal = new Modal('addPin')
 
       # BAR VISUALS
 
@@ -59,7 +60,7 @@ angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, Erro
         if _.contains([13, 40, 38, 91, 18, 17, 9], event.keyCode)
           event.preventDefault() unless event.keyCode
           switch event.keyCode
-            when 13 then s._goTo(s.currentPlaceId) # enter
+            when 13 then (if s.currentPlaceId then s._goTo(s.currentPlaceId) else s.createPlace()) # enter
             when 40 then s.togglePosition(1) # down arrow
             when 38 then s.togglePosition(-1) # up arrow
             when 9 then  s._focusOnNearby() # tab
@@ -69,6 +70,7 @@ angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, Erro
 
       s._checkNearbySplit = ->
         s.typing = true unless s.typing
+        # TODO split error on escape
         splitTerms = [ ' in ', ' near ', ' nearby ', ' around ', ', ' ].join('|')
         splitTerm = s.query.match(new RegExp(splitTerms))
         if splitTerm?.length
@@ -115,43 +117,18 @@ angular.module("Common").directive 'fullSiteSearchField', (Place, $timeout, Erro
       s.createPlace = ->
         return unless s.canCreatePlace() && s.userId && !s.currentEvent
         s.hideSearch()
-        $('#planit-modal-new .initiate').hide()
-        $('#planit-modal-new .loading').show()
-        $('#planit-modal-new').modal('toggle')
+        s.modal.show({ loading: 'longer' })
+
         Place.complete({ user_id: s.userId, name: (s.queryOnly || s.query), nearby: (s.nearby || s.nearbyOnly) })
           .success (response) ->
-            s.query = s.nearby = s.queryOnly = s.nearbyOnly = null
             if place = response.place
-              s._confirmEvent(place)
+              s.modal.show({ nearby: s.nearby, query: s.query, mark: response })
             else
-              s._markEvent(response)
+              s.modal.show({ nearby: s.nearby, query: s.query })
+            s.query = s.nearby = s.queryOnly = s.nearbyOnly = null
           .error ->
-            s._errorEvent()
+            s.modal.show({ error: true })
             ErrorReporter.report({ userId: s.userId, nearby: s.nearby || s.nearbyOnly, query: s.queryOnly || s.query })
             s.query = s.nearby = s.queryOnly = s.nearbyOnly = null
-        return true
-
-      s._confirmEvent = (place) ->
-        $('#planit-modal-new .loading').hide()
-        $('#planit-modal-new .confirm').show()
-        $('#planit-modal-new .confirm .bucket-list-title').html( place.name )
-        $('#planit-modal-new .confirm .icon').addClass( place.meta_icon )
-        $('#planit-modal-new .confirm .categories').html( place.categories.join(', ') )
-        $('#planit-modal-new .confirm .bucket-list-img').css( "background-image", "url(#{place.image_url})" )
-        $('#planit-modal-new .confirm .place-link').attr( "href", place.href )
-        $('#planit-modal-new .confirm .bucket-list-address').html( place.address )
-        $('#planit-modal-new .confirm .bucket-list-locale').html( place.locale )
-        return true
-
-      s._markEvent = (mark) ->
-        $('#planit-modal-new .loading').hide()
-        $('#planit-modal-new .choose').show()
-        $('#planit-modal-new .choose .choices').attr( "href", mark.href )
-        return true
-
-      s._errorEvent = ->
-        $('#planit-modal-new .loading').hide()
-        $('#planit-modal-new .error').show()
-        return true
 
   }

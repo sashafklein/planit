@@ -2,6 +2,8 @@ class SearchPlaceSerializer < BaseSerializer
   attributes :id, :name, :image_url, :image_source, :address, :locale, :href, :categories, :meta_icon
   delegate :street_address, :sublocality, :locality, :subregion, :region, :country, :categories, :meta_icon, :meta_categories, to: :object
 
+  has_many :images
+
   def name
     object.names.first
   end
@@ -33,7 +35,7 @@ class SearchPlaceSerializer < BaseSerializer
   private
 
   def image
-    object.images.first
+    images.first
   end
 
   def constructed_full_address

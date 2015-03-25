@@ -1,5 +1,5 @@
 class SearchMarkSerializer < BaseSerializer
-  attributes :href
+  attributes :href, :id
 
   has_one :place, serializer: SearchPlaceSerializer
 

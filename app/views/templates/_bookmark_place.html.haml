@@ -1,0 +1,27 @@
+%script{ type: 'text/ng-template', id: 'bookmark_place.html' }
+  .custom
+    %modal_header{ title: '{{title}}' }
+    .modal-body
+      %ul
+        %li.like-container
+          .bucket-list-tab.like-container
+            %a.place-link
+              .bucket-list-img{ style: "background: url('{{ place.images[currentImageIndex].url }}')", ng_if: 'place.images.length', ng_click: 'nextImage()', title: 'Click to Cycle' }
+                .choose-another-img Click to Cycle
+            .bucket-list-wrap.like-container
+              .bucket-list-profile
+                %a.place-link
+                  .bucket-list-title {{ place.name }}
+                  .bucket-list-more-info
+                    %i.icon{ ng_class: 'place.meta_icon' }
+                    %span.categories 
+                      %span {{ categories() }}
+                  .bucket-list-more-info.bucket-list-address {{ place.address }}
+                  .bucket-list-more-info.bucket-list-locale
+    %modal_footer{ extra_buttons: 'extraButtons', cancel_text: 'Reject', cancel_method: 'cancel' }
+    / .add-to-extras
+    /   %input{ value: 'Add to plan'}
+    / .add-to-extras
+    /   %input{ value: 'Add note'}
+    / .add-to-extras
+    /   %input{ value: 'Recommended by'}

@@ -1,7 +1,9 @@
 - if current_user
   = render 'modals/feedback'
 - if current_user_is_active
-  = render 'modals/new', { page_type: page_type }
+  %modal
+  - include_templates :modal, :bookmark_place
+  / = render 'modals/new', { page_type: page_type }
   - if rich_content?(page_type)
     = render 'modals/share', { title: title }
     = render 'modals/note'

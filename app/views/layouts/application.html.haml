@@ -18,3 +18,5 @@
       = yield
       = content_for?(:footer) ? yield_with_blank(:footer) : render_footer
     = render "application/javascript"
+    - (@directive_templates || []).uniq.each do |template_path|
+      = render "templates/#{template_path}"
