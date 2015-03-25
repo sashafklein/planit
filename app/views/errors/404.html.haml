@@ -1,0 +1,13 @@
+- title('404 - Page Not Found!')
+- page_type("error")
+
+.band.spaced-extra
+  .centering-box
+    .centered-item
+      %h1{ style: 'font-size: 120px; font-weight: bold'} Uh Oh: 404
+      %h1 The page you're looking for doesn't exist!
+      %h3 Please double-check the URL if you typed it. 
+
+      %h3
+        Or if you followed an internal link, please 
+        = link_to_email_help subject: 'Broken Link 404', content: @details, link_text: "let us know!"
