@@ -9,6 +9,7 @@
     = render 'application/google_analytics'
     = csrf_meta_tags
     = stylesheet_link_tag :application, media: "all"
+    = favicon_link_tag 'fav_ico.png'
   %body{ class: body_class, ng_controller: 'ApplicationCtrl' }
     = render "application/modals", { page_type: content_for(:page_type) || '', title: content_for(:title) || 'This Page' }
     #planit-wrapper

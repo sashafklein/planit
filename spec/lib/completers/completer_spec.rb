@@ -317,6 +317,13 @@ module Completers
 
         describe "fixed" do
 
+          it "completes Yelp's Inn At Little Washington" do
+            m = completed_data(filename: 'inn_at_little_washington', scrape_url: 'http://www.yelp.com/biz/the-inn-at-little-washington-washington')
+            expect( m.place.name ).to eq 'The Inn at Little Washington'
+            expect( m.place.phones ).to eq ["5406753800"]
+            expect( m.place.categories ).to include "Bed & Breakfast"
+          end
+          
           it "completes Quiebra-Canto" do
             m = completed_data(filename: 'cartagena', scrape_url: "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0", name: "Quiebra-Canto")
             expect( m.source.name ).to eq "New York Times"

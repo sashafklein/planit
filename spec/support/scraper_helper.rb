@@ -61,4 +61,11 @@ module ScraperHelper
     @yml = yml_data(filename, scrape_url, name)
     Completers::Completer.new(@yml, @user, @yml[:scraper_url]).complete!
   end
+
+  # Creates YML file from HTML file
+  def scrape!(file, url)
+    full_path = File.join( Rails.root, 'spec', 'support', 'pages', "#{file}")
+    s = Services::SiteScraper.build(url, File.read("#{full_path}.html") )
+    File.open("#{full_path}.yml", 'w') { |file| file.write(s.data.to_yaml) }
+  end
 end
