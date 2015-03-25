@@ -31,12 +31,13 @@ module Completers
       end
 
       it "finds Wagas with a full address" do
-        v = completer("Wagas", { full_address: "796 Dongfang Rd, Shanghai, China"})
+        v = completer("Wagas", { full_address: "86 Xianxia Road, Shanghai, China"})
         expect( v.website ).to eq "http://www.wagas.com.cn/"
         expect( v.names ).to eq ["Wagas"]
-        expect( v.street_addresses ).to eq ["796 Dongfang Road"]
-        expect( v.full_address ).to eq "796 Dongfang Road, Pudong, Shanghai, China"
-        expect( v.phones ).to eq ["+86 21 6194 0298"]
+
+        expect( v.street_addresses ).to eq ["86 Xianxia Road"]
+        expect( v.full_address ).to eq "86 Xianxia Road, Changning, Shanghai, China, 200051"
+        expect( v.phones ).to eq ["+86 21 5208 1978"]
       end
 
       it "finds Wagas with a foreign full address" do
@@ -64,7 +65,7 @@ module Completers
         expect( v.region ).to eq "Tokyo"
         expect( v.locality ).to eq "Shibuya"
         expect( v.lat ).to float_eq 35.693757
-        expect( v.lon ).to float_eq 139.702594
+        expect( v.lon ).to float_eq 139.70138
         expect( v.website ).to eq "http://www.fu-unji.com/"
         expect( v.names ).to eq ["風雲児"]
         expect( v.street_addresses ).to eq ["2 Chome-１４−3 Yoyogi"]
@@ -78,7 +79,7 @@ module Completers
         expect( v.region ).to eq "Tokyo"
         expect( v.locality ).to eq "Shibuya"
         expect( v.lat ).to float_eq 35.693757
-        expect( v.lon ).to float_eq 139.702594
+        expect( v.lon ).to float_eq 139.70138
         expect( v.website ).to eq "http://www.fu-unji.com/"
         expect( v.names ).to eq ["風雲児"]
         expect( v.street_addresses ).to eq ["2 Chome-１４−3 Yoyogi"]
@@ -94,7 +95,7 @@ module Completers
         expect( v.region ).to eq "Tokyo"
         expect( v.locality ).to eq "Shibuya"
         expect( v.lat ).to float_eq 35.693757
-        expect( v.lon ).to float_eq 139.702594
+        expect( v.lon ).to float_eq 139.70138
         expect( v.website ).to eq "http://www.fu-unji.com/"
         expect( v.names ).to eq ["風雲児"]
         expect( v.street_addresses ).to eq ["2 Chome-１４−3 Yoyogi"]

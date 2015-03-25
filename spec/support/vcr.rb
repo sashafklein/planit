@@ -5,6 +5,5 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
   c.ignore_hosts '127.0.0.1', 'localhost:3000'
 
-  # Set when regularly recording new episodes
   # c.default_cassette_options = { record: :new_episodes } 
 end
