@@ -49,11 +49,12 @@ class PlaceDecorator < Draper::Decorator
     """.html_safe 
   end
 
-  def show_categories
-    html = "<i class='#{meta_icon} place-page-meta-category'></i>"
-    html += "<div class='place-page-category"
-    html += if ( categories && categories.length > 0 ) then "'>#{categories.join(', ').titleize}</div>" else " gray'>Edit Destination Type</div>" end
-    html.html_safe
+  def has_category
+    categories.present?
+  end
+
+  def category
+    categories.present? ? categories.join(', ').titleize : "Edit Destination Type"
   end
 
   def show_alt_names_in_parens

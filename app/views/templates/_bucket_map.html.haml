@@ -30,5 +30,6 @@
                 %li{ class: "bucket-list-li", id: "in-view-li", ng_if: "selectedClusterId || selectedPlaceId" }
                   %bucket_list_clusters{ ng_if: "selectedClusterId", cluster: 'clusterFromId(selectedClusterId)', changes: 'changes', zoom_to: 'zoomToCluster(clusterFromId(selectedClusterId))' }
                   %bucket_list_places{ ng_if: "selectedPlaceId", place: 'placeFromId(selectedPlaceId)' }
-        = render 'templates/bucket_list_places'
-        = render 'templates/bucket_list_clusters'
+
+  - include_template( 'bucket_list_places' )
+  - include_template( 'bucket_list_clusters' )

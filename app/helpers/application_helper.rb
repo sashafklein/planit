@@ -12,6 +12,11 @@ module ApplicationHelper
     content_for(:header) { options ? render_header(options) : 'false' }
   end
 
+  def include_template(template)
+    @directive_templates ||= []
+    @directive_templates << template
+  end
+
   def page_type(name)
     content_for(:page_type) { name }
     header(page_type: name); footer(page_type: name)
@@ -43,7 +48,7 @@ module ApplicationHelper
   end
 
   def show_search?(page_type)
-    [ 'places', 'guides', 'plan' ].include?(page_type)
+    [ 'places', 'guides', 'plan', 'dashboard' ].include?(page_type)
   end
 
   def rich_content?(page_type)
@@ -85,11 +90,7 @@ module ApplicationHelper
   end
 
   def current_user_owns(record=nil)
-    if @user && current_user_is_active
-      @user == current_user
-    elsif record && current_user_is_active
-      record.user_id == current_user.id
-    end
+    current_user_is_active && ( current_user.owns?(record) || current_user.is?(record) )
   end
 
   def link_to_email_help(subject: 'Ran into a bug', content: '', link_text: 'let us know', opts: { class: 'linky'})

@@ -5,5 +5,6 @@
     / # - elsif page_type == 'guides'
     / #   = render 'header/dropdowns/guides_filter', { user: user } 
   %full_site_search_field{ show_filter: "#{show_filter?(page_type)}" }
-  = render 'templates/full_site_search_field'
-  = render 'templates/place_filter_dropdown.html'
+  
+  - include_template( 'full_site_search_field' )
+  - include_template( 'place_filter_dropdown' )

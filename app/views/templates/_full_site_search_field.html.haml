@@ -4,43 +4,8 @@
       %span#search-teaser-field
       %i.fa.fa-search.fa-lg
     .expanded-search-and-filter
-      .search-bar-wrap
-        .input-group
-          %input.form-control.input-with-clear#search-input-field{ name: "input-search", placeholder: "Search Places", type: "text", ng_model: 'query', ng_change: 'search()', ng_keydown: "handleKeydown($event)", ng_keyup: 'handleKeyup()', ng_on_esc_key: 'clearSearch();hideSearch()', ng_trim: "false" }
-          %span.clear-input-button#clear-search-input{ ng_show: 'query', ng_click: 'clearSearch()' } 
-            %i.fa.fa-times-circle
-          %span.input-group-btn
-            %button.btn.btn-default#search-input-button{ type: "button", ng_click: 'search()' }
-              %i.fa.fa-search.fa-lg{ ng_if: '!query || places.length' }
-              %i.fa.fa-plus.fa-lg{ ng_if: 'query && !places.length' }
-        .place-search-results{ ng_show: 'query' }
-          %ul
-            .search-results-container
-
-              // Search results 
-              %li{ ng_repeat: 'place in places', ng_mouseenter: 'selectPlace(place)', ng_mouseleave: 'deselectPlace()', ng_class: '{highlighted: currentPlaceId == place.viewId}', ng_show: 'showResults() && !currentEvent' }
-                .bucket-list-tab
-                  %a{ ng_href: '{{place.href}}' }
-                    .bucket-list-no-img{ ng_if: "!place.image_url" }
-                    .bucket-list-img{ alt: '{{place.image_source}}', ng_if: "place.image_url", style: "background-image: url('{{ place.image_url }}');" }
-                  .bucket-list-wrap
-                    .bucket-list-profile
-                      %a{ ng_href: '{{place.href}}' }
-                        .bucket-list-title
-                          {{ place.name }}
-                        .bucket-list-more-info
-                          %i{ class: "{{ place.meta_icon }}"}
-                          {{ place.categories.join(', ') }}
-
-              // Allow for new place addition
-              %li.entry-form{ ng_show: 'userId && !currentEvent' }
-                .bucket-list-tab
-                  .planit-button{ ng_click: 'createPlace()', ng_class: "{'neon': canCreatePlace(), 'disabled': !canCreatePlace()}" } Add
-                  .bucket-list-wrap
-                    {{ queryOnly || query }}
-                    %label= "near"
-                    {{ nearbyOnly }}
-                    %input{ ng_model: 'nearby', ng_on_enter_key: 'createPlace()', ng_on_esc_key: 'clearSearch();hideSearch()', placeholder: 'Enter Nearby', ng_class: "{'nearby-included': canCreatePlace()}", ng_show: '!nearbyOnly' }
-                        
+      %search_and_add
       %button.close.search-close{ ng_click: 'hideSearch()' }
         %span ×
+    
+  - include_template( 'search_and_add' )

@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get '/legal/dmca', to: 'statics#dmca'
   get '/legal/privacy', to: 'statics#privacy'
 
+  get '/nearby', to: 'users#nearby'
+
   resources :plans, only: [:show, :new, :index] do
     get :print, on: :member
     get :edit, on: :member
@@ -35,6 +37,8 @@ Rails.application.routes.draw do
     get :places, on: :member
     get :guides, on: :member
     get :inbox, on: :member
+    get :recent, on: :member
+    get :nearby, on: :member
     post :waitlist, on: :collection
     post :invite, on: :collection
   end

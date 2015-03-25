@@ -1,41 +1,39 @@
 #planit-header.except-landscape{ class: "#{background} #{page_type}" }
-  - if page_type == 'simple'
-    .simple-header-top.large-screen= render 'header/simple', { color: 'black' }
-    .simple-header-top.mobile= render 'header/simple', { color: 'white' }
-  - else  
-    .container.none{ class: "#{'pseudo' if page_type == 'places'}"}
-      .header-container
-        .logo-container= render 'header/logo_container', { color: 'black', page_type: page_type }
-        - if current_user_is_active
-          = render 'header/search_bar', { page_type: page_type, user: @user } if show_search?(page_type)
-          .mobile.page-title= "PLANIT" if !show_search?(page_type)
-          .top-menu-container
-            - if show_back?(page_type)
-              .main-menu-container{ class: color }
-                = link_to user_path(current_user), class: "a-override a-#{background} h-#{background}" do
-                  %i.fa.fa-arrow-left.main-menu-icon
-            - else
-              %a.main-menu-dropdown.dropdown-toggle.a-override{ class: "a-#{background} h-#{background}", "data-toggle" => "dropdown", :href => "#" }
-                = render 'header/user_avatar'
-              = render 'header/dropdowns/main_menu', { current_user: current_user, background: background, color: color }
-          .side-menu-container.large-screen.inline{ class: "#{color} #{page_type}" }
-            .top-nav-bar= render 'application/nav_bar', { page_type: page_type, current_user: current_user }
 
-        - elsif current_user
+  - if page_type != 'simple' && page_type != 'beta'
+
+    .container.none{ class: "#{'pseudo' if page_type == 'places'}"}
+      .header-wrapper
+        = render 'header/logo_container', { page_type: page_type }
+
+        - if current_user_is_active # admin or member
+
+          .mobile.page-title= "PLANIT" if browser.mobile? && !show_search(page_type)
           .top-menu-container
-            = link_to destroy_user_session_path, :method => 'delete' do
-              = render 'header/user_avatar'
-          .side-menu-container.large-screen.inline{ class: "#{color} #{page_type}" }
+            %a.main-menu-dropdown.dropdown-toggle{ "data-toggle" => "dropdown", :href => "#" }=render 'header/user_avatar', { current_user: current_user }
+            = render 'header/dropdowns/main_menu', { current_user: current_user }
+          - if !browser.mobile?
+            .side-menu-container.large-screen.inline
+              .top-nav-bar= render 'application/nav_bar', { page_type: page_type, current_user: current_user }
+          = render 'header/search_bar', { page_type: page_type } if show_search?(page_type)
+
+        - elsif current_user # inactive user
+
+          .top-menu-container= link_to render 'header/user_avatar', destroy_user_session_path, :method => 'delete'
+          .side-menu-container.large-screen.inline
             %strong.a-override.a-gray.h-neon= link_to "LOG OUT", destroy_user_session_path, :method => 'delete'
 
-        - else
-          .top-menu-container
-            = link_to new_user_session_path do # new_user_registration_path
-              = render 'header/user_avatar'
-          .side-menu-container.large-screen.inline{ class: "#{color} #{page_type}" }
+        - else # no log-in yet / beta splash
+
+          .top-menu-container= link_to render 'header/user_avatar', new_user_session_path
+          .side-menu-container.large-screen.inline
             %strong= "REQUEST INVITE"
             %span.divider= "|"
             %strong.a-override.a-gray.h-neon= link_to "LOG IN", new_user_session_path
+
+  - else # mostly devise pages
+
+    .simple-header-top= render 'header/simple', { color: "#{browser.mobile? ? 'white' : 'black'}" }
 
 - unless fullscreen?(page_type)
   #header-spacing.except-landscape

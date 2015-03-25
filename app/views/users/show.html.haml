@@ -1,32 +1,26 @@
 - title( @user.name )
-- page_type('dashboard')
+- page_type( (browser.mobile? ? 'mobilehome' : 'dashboard') )
 
 #user-show-page
 
-  - if current_user_owns
+  - if current_user == @user # personal startpage
 
     - if !browser.mobile?
 
       .band.gray.spaced.large-screen
         .container
 
-          Recent Activity
-          - @user.marks_with_places.includes(:place).find_each do |mark|
-            %p= link_to mark.place.name + " : " + mark.updated_at.strftime('%d %b, %Y'), mark.place
+          .sixteen.columns
 
-    - else
+            %p= "#{@user.name}'s Dashboard"
+
+    - else # mobile
 
       .mobile-half-screen.top
         .centering-box
           
           .centered-item.input-box
-            .input-group
-              %input.form-control.input-with-clear{ placeholder: 'Add new place' }
-              %span.clear-input-button
-                %i.fa.fa-times-circle
-              %span.input-group-btn
-                %button.btn.btn-default
-                  %i.fa.fa-plus
+            %search_and_add
 
       .mobile-half-screen.bottom
         .centering-box
@@ -42,7 +36,7 @@
                   %i.fa.fa-clock-o
                   .hint Recent
 
-  - else
+  - else # public 'dashboard'
 
     .band.gray.spaced.large-screen
       .container

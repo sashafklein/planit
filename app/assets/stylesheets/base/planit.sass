@@ -1,10 +1,5 @@
 // PAGE STRUCTURE
 
-a, a:link, a:hover, a:active
-  transition: 0.2s all ease
-  text-decoration: none !important
-  color: inherit !important
-
 html, body
   margin: 0
   padding: 0
@@ -17,6 +12,25 @@ body
 #planit-wrapper
   min-height: 100%
   position: relative
+
+a, a:link, a:hover, a:active
+  transition: 0.2s all ease
+  text-decoration: none !important
+  color: inherit !important
+
+a.linky
+  &.neon
+    color: #f06 !important // neon
+    &:hover, &:active
+      color: #c03 // dark-neon
+  &.light-blue
+    color: #33a !important // light-blue
+    &:hover, &:active
+      color: #66d !important // lightest-blue 
+  &.dark-blue
+    color: #007 !important // dark-blue
+    &:hover, &:active
+      color: #33a !important // light-blue
 
 .centering-box
   position: relative
@@ -32,6 +46,9 @@ body
     margin: auto auto
 
 // COMMON VISUALS
+
+.input-group .clear-input-button, .input-group .unsplit-input-button
+  background: #fff
 
 .like-container:after 
   content: "\0020"
@@ -293,7 +310,7 @@ a.feedback-button, a.feedback-button:hover
   &.inline
     display: inline-block
 
-.clear-input-button
+.clear-input-button, .unsplit-input-button
   position: absolute
   right: 5px
   top: 0

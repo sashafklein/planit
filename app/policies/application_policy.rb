@@ -11,7 +11,7 @@ class ApplicationPolicy
   end
 
   def show?
-    admin? || record.user_id == user.id
+    admin? || owns?
   end
 
   def create?
@@ -46,7 +46,7 @@ class ApplicationPolicy
   end 
 
   def owns?
-    record.user_id == user.id
+    user.owns?(record) || user.is?(record)
   end
 end
 

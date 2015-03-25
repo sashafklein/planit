@@ -18,7 +18,15 @@ class UserPolicy < ApplicationPolicy
   end
 
   def inbox?
-    member? ? record == user : false
+    owns?
+  end
+
+  def recent?
+    owns?
+  end
+
+  def nearby?
+    owns?
   end
 
   # def update?
