@@ -62,11 +62,11 @@ module Scrapers
             website: activity.venue.url,
           },
           mark: {
-            notes: activity.tip.text,
+            notes: ( activity.tip.text if activity.tip ),
           },
           sources: {
-            full_url: ( activity.tip.url if activity.tip.url && !activity.tip.url.include?('foursquare') ),
-            name: activity.tip.user.firstName,
+            full_url: ( activity.tip.url if activity.tip && activity.tip.url && !activity.tip.url.include?('foursquare') ),
+            name: ( activity.tip.user.firstName if activity.tip ),
           }
         }
       end
@@ -76,22 +76,9 @@ module Scrapers
       def list_json
         return @list_json unless !@list_json
         script = page.css('script').select{ |s| s.inner_html.scan(/fourSq\.views\.ListPage\.init/).flatten.first }
-        to_parse = script.first.text.split(/\}\]\}\}\,/).first.split(/listJson[:]\s*/).last + "}]}}"
+        from_first_bracket = script.first.text.split(/listJson[:]\s*/).last
+        to_parse = get_parseable_hash( from_first_bracket )
         return @list_json = JSON.parse( to_parse ).to_sh
-      end
-
-      # NO-ERROR FUNCTIONS
-
-      def safe_categories(categories)
-        if categories.is_a? Object
-          categories.map{ |c| c.name }
-        end
-      end
-
-      def safe_phones(phones)
-        if phones.is_a? Object
-          phones.select{ |k,v| k == 'phone' }.map{ |k,v| v }
-        end
       end
 
       # PLAN DATA
@@ -111,11 +98,11 @@ module Scrapers
       end
 
       def list_created_at
-        json = Time.at list_json.createdAt
-        # 
-        metadata = page.css("#listMetadata").text
-        return metadata.split('Created').last
-        return nil
+        json = list_json.createdAt
+        return nil unless json.is_a? Integer
+        timestamp = Time.at list_json.createdAt
+        return timestamp.strftime('%Y-%m-%d')
+      rescue ; nil
       end
 
       def list_owner_data

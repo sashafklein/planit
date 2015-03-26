@@ -27,10 +27,21 @@ module Scrapers
       # PAGE 
       
       def data
-        binding.pry
         [{
           place:{
-            foursquare_id: venue_json
+            foursquare_id: venue_json.id,
+            name: venue_json.name,
+            categories: safe_categories( venue_json.categories ),
+            lat: venue_json.location.lat,
+            lon: venue_json.location.lng,
+            street_address: venue_json.location.address,
+            sublocality: venue_json.location.neighborhood,
+            locality: venue_json.location.city,
+            state: venue_json.location.state,
+            country: venue_json.location.country,
+            postal_code: venue_json.location.postalCode,
+            phones: safe_phones( venue_json.contact ),
+            website: venue_json.url,
           }
         }.merge(global_data)]
       end

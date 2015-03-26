@@ -3,7 +3,7 @@ module Scrapers
 
     # PAGE SETUP
 
-    class Item < Foursquare
+    class SingleItem < Foursquare
 
       def initialize(url, page)
         super(url, page)
@@ -72,20 +72,6 @@ module Scrapers
         from_first_bracket = json_bundle.split(/[}][,]\s*venue[:]\s*/).last
         to_parse = get_parseable_hash from_first_bracket
         return @venue_json = JSON.parse( to_parse ).to_sh
-      end
-
-      # NO-ERROR FUNCTIONS
-
-      def safe_categories(categories)
-        if categories.is_a? Object
-          categories.map{ |c| c.name }
-        end
-      end
-
-      def safe_phones(phones)
-        if phones.is_a? Object
-          phones.select{ |k,v| k == 'phone' }.map{ |k,v| v }
-        end
       end
 
       # USER DATA

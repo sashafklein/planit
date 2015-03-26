@@ -6,6 +6,8 @@ module Scrapers
 
     include ScraperHelper
 
+    # VENUE
+
     describe "contigo" do
 
       before do 
@@ -19,6 +21,22 @@ module Scrapers
         expect(data).to eq expectations
       end
     end
+
+    describe "fuunji" do
+
+      before do 
+        @base_name = 'fuunji'
+        @url = 'https://foursquare.com/v/%E9%A2%A8%E9%9B%B2%E5%85%90/4b5983faf964a520ca8a28e3'
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect_equal(data, expectations)
+        expect(data).to eq expectations
+      end
+    end
+
+    # ITEM
 
     describe "artoftable" do
 
@@ -34,11 +52,27 @@ module Scrapers
       end
     end
 
+    # LIST
+
     describe "38list" do
 
       before do 
         @base_name = '38list'
         @url = 'https://foursquare.com/eater/list/seattle-eater-38'
+        @base_domain = get_domain(@url)
+      end
+
+      it "parses the page correctly" do
+        expect_equal(data, expectations)
+        expect(data).to eq expectations
+      end
+    end
+
+    describe "todo" do
+
+      before do 
+        @base_name = 'todo'
+        @url = 'https://foursquare.com/user/632549/list/todos'
         @base_domain = get_domain(@url)
       end
 

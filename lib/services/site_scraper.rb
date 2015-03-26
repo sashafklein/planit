@@ -15,6 +15,7 @@ module Services
     extend ScraperOperators
     include GeoQueries
     include TrimFunctions
+    include JsonFunctions
 
     def self.build(url, page=nil)
       specific_scraper(url, page)
