@@ -57,7 +57,7 @@ module Completers
         it 'finds La Cevicheria in Cartagena' do
           place = PlaceCompleter.new({name: 'La Cevicheria', street_address: "Calle Stuart No 7-14", nearby: "Cartagena, Colombia"} ).complete!
           
-          expect( place.locality ).to eq "Cartagena De Indias"
+          expect( place.locality ).to eq "Cartagena de Indias"
           expect( place.country ).to eq "Colombia"
           expect( place.region ).to eq "Bolivar"
           expect( place.category ).to eq 'Seafood Restaurant'

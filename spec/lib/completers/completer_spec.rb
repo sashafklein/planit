@@ -22,7 +22,7 @@ module Completers
             place = mark.place
             expect(place.name).to eq place_hash[:place][:names][0]
             expect(place.street_address).to eq place_hash[:place][:street_addresses].first
-            expect(place.locality).to eq "Cartagena De Indias"
+            expect(place.locality).to eq "Cartagena de Indias"
             expect(place.country).to eq place_hash[:place][:country]
             expect(place.foursquare_id).to be_present
             expect(place.categories).to include "Ice Cream Shop"
@@ -352,8 +352,8 @@ module Completers
             expect( m.source.name ).to eq 'New York Times'
             
             p = m.place
-            expect( p.lat ).to float_eq 10.3833262
-            expect( p.lon ).to float_eq -75.4675359
+            expect( p.lat ).to float_eq 10.4042588
+            expect( p.lon ).to float_eq -75.4689454
             expect( p.tz ).to eq 'America/Bogota'
             expect( p.published ).to eq true
           end

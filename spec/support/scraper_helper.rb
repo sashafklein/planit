@@ -13,6 +13,11 @@ module ScraperHelper
     ''
   end
 
+  # def set_yaml
+  #   # FIX
+  #   data.to_yaml # to file, gsub \n for line break, gsub \" for quote "
+  # end
+
   def data
     dup_data = scraper.data.dup
     dup_data.map do |hash|
