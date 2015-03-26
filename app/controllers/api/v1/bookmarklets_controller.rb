@@ -26,7 +26,7 @@ class Api::V1::BookmarkletsController < ApiController
 
   def test
     scraped_sources = Source.for_url_and_type(params[:url], 'Mark').includes(:object)
-
+    Logger.new(STDOUT).info "IN TEST"
     if scraped_sources.any?
       source = sort_by_object_place_id(scraped_sources).first
       mark = Mark.create_for_user_from_source! User.friendly.find( params[:user_id] ), source, params[:url]
