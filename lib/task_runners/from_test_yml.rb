@@ -1,6 +1,10 @@
 module TaskRunners
   class FromTestYml
 
+    def self.destroy_all
+      [Place, Mark, Item, Plan, Leg, Day, Image, Flag].map(&:destroy_all)
+    end
+    
     def seed(folder='', filename=nil, name=nil)
       @current = 0
       File.open(log_file, 'w') { |file| Date.today.strftime("Seeded %b %d, %Y")   }
@@ -41,7 +45,7 @@ module TaskRunners
 
     def complete_place(place_hash)
       sleep 0.7 # To avoid Google Api request/second limit
-      save(place_hash, name_from_place_hash(place_hash), path)
+      save(place_hash, name_from_place_hash(place_hash))
     end
 
     def save(place_hash, name)
