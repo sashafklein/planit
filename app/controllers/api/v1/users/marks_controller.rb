@@ -24,7 +24,7 @@ class Api::V1::Users::MarksController < ApiController
     
     # File.open('~log.html', 'w') { |file| file.write(params[:page]) }
 
-    puts "URL: #{params[:url]}"
+    Logger.new(STDOUT).info "URL: #{params[:url]}"
     scraper = Services::SiteScraper.build(params[:url], params[:page]) || Scrapers::General.new(params[:url], params[:page])
     scraped = Array scraper.data
     
@@ -33,10 +33,10 @@ class Api::V1::Users::MarksController < ApiController
       return error(417, "Insufficient information")
     end 
 
-    puts "DELAYING COMPLETION: #{delay?}"
-    puts "DATA: #{scraped}\n\n"
+    Logger.new(STDOUT).info "DELAYING COMPLETION: #{delay?}"
+    Logger.new(STDOUT).info "DATA: #{scraped}\n\n"
     Completers::MassCompleter.new(scraped, @user, params[:url]).delay_complete!(delay?)
-    puts "AFTER COMPLETION HAS BEEN BACKGROUNDED"
+    Logger.new(STDOUT).info "AFTER COMPLETION HAS BEEN BACKGROUNDED"
     head(200)
   end
 
