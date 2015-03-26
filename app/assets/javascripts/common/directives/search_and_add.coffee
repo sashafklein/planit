@@ -23,7 +23,7 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
       # SEARCH GUTS
 
       s._makeSearchRequest = ->
-        return if s.makingRequest
+        return if s.makingRequest || !(s.query || s.queryOnly)
         s.makingRequest = true
         Place.search( (s.queryOnly || s.query), (s.nearby || null) )
           .success (response) ->
@@ -41,30 +41,30 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
             when 40 then s.togglePosition(1) # down arrow
             when 38 then s.togglePosition(-1) # up arrow
             when 9 then  s._focusOnNearby() # tab
+        else if _.contains([32, 8, 46], event.keyCode)
+          switch event.keyCode
+            when 32 then s._checkNearbySplit() # space
+            when 8 then s._checkNearbySplit() # backspace
+          s._unSplit('') if s.queryOnly && !s.nearby?.length
+          s._calcNearbySplit() 
+          s.clearSearch() if !s.query?.length
         else
           s.typing = true unless s.typing
-          s.clearSearch() if !s.query?.length
-        console.log( "q:#{s.query},qo:#{s.queryOnly},s:#{s.splitTerm},n:#{s.nearby}" )
         return true
 
       s._turnOffTyping = _.debounce( (=> s.$apply(s.typing = false)), 300)
       s.handleKeyup = (event) -> 
         s._turnOffTyping()
-        s._checkNearbySplit() if _.contains([32, 8, 46], event.keyCode) # space, backspace, delete
-        s._unSplit('') if s.queryOnly && !s.nearby?.length && _.contains([8], event.keyCode)
-        s._calcNearbySplit() 
 
       s._spacedBefore = (phrase) -> if phrase && phrase.length then " " + phrase else ''
         
       s.clearNearby = () -> 
         s.nearby = null
-        console.log( "q:#{s.query},qo:#{s.queryOnly},s:#{s.splitTerm},n:#{s.nearby}" )
 
       s._unSplit = () ->
-        s.query = s.queryOnly + s.splitTerm?.replace(' ', '') + s._spacedBefore(s.nearby)
+        s.query = s.queryOnly + " " + s.splitTerm?.replace(' ', '') + s._spacedBefore(s.nearby)
         s.queryOnly = s.splitTerm = s.nearby = null
-        console.log($('#primary').css('display'))
-        $(".expanded-search-and-filter input#primary").focus()
+        $timeout(-> $(".expanded-search-and-filter input#primary").focus() if $(".expanded-search-and-filter input#primary") )
         return true
 
       s._calcNearbySplit = ->
@@ -75,9 +75,9 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
 
       s._executeSplit = (split) ->
         s.queryOnly = split[0]
+        console.log ('"'+s.queryOnly+'"')
         s.nearby ||= split[1]
-        console.log($('#secondary').css('display'))
-        $(".expanded-search-and-filter input#secondary").focus()
+        $timeout(-> $(".expanded-search-and-filter input#secondary").focus() if $(".expanded-search-and-filter input#secondary") )
         return true
 
       s._checkNearbySplit = ->
@@ -85,8 +85,7 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
         splitTerms = [ ' in ', ' near ', ' nearby ', ' around ', ' @ ', ", " ].join('|') if !s.overrideSplit
         splitTerms = ' @@ ' if s.overrideSplit
         splitTerm = s.query.match(new RegExp(splitTerms)) unless !s.query
-        if splitTerm?.length
-          s.splitTerm = splitTerm[0].replace(' ', '') # first split term used
+        s.splitTerm = splitTerm.first if splitTerm?.length # first split term used
         return true
 
       s.overrideSplit = false
