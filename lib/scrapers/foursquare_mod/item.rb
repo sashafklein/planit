@@ -3,7 +3,7 @@ module Scrapers
 
     # PAGE SETUP
 
-    class Single < Foursquare
+    class Item < Foursquare
 
       def initialize(url, page)
         super(url, page)
@@ -24,23 +24,71 @@ module Scrapers
         }
       end
 
-      # PAGE 
-      
+      # OPERATIONS
+
       def data
         [{
           place:{
-            foursquare_id: foursquare_id
+            foursquare_id: venue_json.id,
+            name: venue_json.name,
+            categories: safe_categories( venue_json.categories ),
+            lat: venue_json.location.lat,
+            lon: venue_json.location.lng,
+            street_address: venue_json.location.address,
+            sublocality: venue_json.location.neighborhood,
+            locality: venue_json.location.city,
+            state: venue_json.location.state,
+            country: venue_json.location.country,
+            postal_code: venue_json.location.postalCode,
+            phones: safe_phones( venue_json.contact ),
+            website: venue_json.url,
+          },
+          mark: {
+            notes: tip_json.text,
+          },
+          sources: {
+            full_url: ( tip_json.url if !tip_json.url.include?('foursquare') ),
+            name: tip_json.user.firstName,
           }
         }.merge(global_data)]
       end
 
-      # OPERATIONS
+      # JSON
 
-      def foursquare_id
-        ids_on_page = page.inner_html.scan(/venue: {"id":"(.*?)"/).flatten
-        in_url = ids_on_page.select{ |id| url.include?(id) }
-        return in_url.length == 1 ? in_url.first : nil
+      def json_bundle
+        return @json_bundle unless !@json_bundle
+        return @json_bundle = page.css('script').select{ |s| s.inner_html.scan(/fourSq\.views\.TipPage\.init/).flatten.first }.first.text
       end
+
+      def tip_json
+        return @tip_json unless !@tip_json
+        from_first_bracket = json_bundle.split(/fourSq\.views\.TipPage\.init[(][{]tip[:]\s*/).last
+        to_parse = get_parseable_hash from_first_bracket
+        return @tip_json = JSON.parse( to_parse ).to_sh
+      end
+
+      def venue_json
+        return @venue_json unless !@venue_json
+        from_first_bracket = json_bundle.split(/[}][,]\s*venue[:]\s*/).last
+        to_parse = get_parseable_hash from_first_bracket
+        return @venue_json = JSON.parse( to_parse ).to_sh
+      end
+
+      # NO-ERROR FUNCTIONS
+
+      def safe_categories(categories)
+        if categories.is_a? Object
+          categories.map{ |c| c.name }
+        end
+      end
+
+      def safe_phones(phones)
+        if phones.is_a? Object
+          phones.select{ |k,v| k == 'phone' }.map{ |k,v| v }
+        end
+      end
+
+      # USER DATA
 
       def foursquare_user_id
         return @user_id unless !@user_id
