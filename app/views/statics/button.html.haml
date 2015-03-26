@@ -2,14 +2,26 @@
 - page_type('button')
 
 .static-page#button-page
-  .band.gray.spaced-extra.main-content
-    .container
-      .sixteen.columns.left-section
 
-        - if !browser.mobile?
+  - if !browser.mobile?
+
+    .band.gray.spaced-extra.main-content
+      .container
+        .ten.columns.left-section
           .section-header.large
             = "Get the &quot;Planit Saver&quot;".html_safe
-            = browser.chrome? ? "Extension" : "Button"
+            = "Button"
+            / = browser.chrome? ? "Extension" : "Button"
+        .six.columns.left-section
+          .drag-me
+            .halo
+              %a{ href: "#{render 'bookmarklets/bookmarklet.js.erb', host: request.base_url, user: current_user}" }
+                %span.planit-button.neon + Planit
+            .hint Drag your button into the Bookmarklet Bar:
+      .container
+        .sixteen.columns.left-section
+          .static-float-image.right.hug-tight-bottom
+            = image_tag "bookmarklet.png", alt: "DRAG TO YOUR BOOKMARK BAR"
           .static-section-content
             %p
               %i{ class: 'fa fa-book padded-icon' }
@@ -20,14 +32,11 @@
             %p
               %i{ class: 'fa fa-laptop padded-icon' }
               When browsing on other sites, just click and we'll save your places & plans 
-          - if browser.chrome?
-            %a{ href: "" }
-              %span.learn-more.planit-button.neon Add to Chrome
-          - else
-            .drag-me drag me image
-            %a{ href: "#{render 'bookmarklets/bookmarklet.js.erb', host: request.base_url, user: current_user}" }
-              %span.learn-more.planit-button.neon + Planit
-        - else
+          / - if browser.chrome?
+          /   %a{ href: "" }
+          /     %span.learn-more.planit-button.neon Add to Chrome
+          / - else
 
-          .section-header.large
-            = "Mobile Planit Saving Button Not Available Yet"
+  - else
+
+    = "Mobile Planit Saving Button Not Available Yet"

@@ -12,7 +12,7 @@
             {{ splitTerm }}
         %li.real-input{ ng_show: "queryOnly" }
           %input#secondary.input-with-clear{ name: "input-search-nearby", placeholder: "Location", type: "text", ng_model: 'nearby', ng_change: 'search()', ng_keydown: "handleKeydown($event)", ng_keyup: 'handleKeyup($event)', ng_on_esc_key: 'clearSearch();hideSearch()', ng_trim: "false" }
-          %i.fa.fa-times-circle.clear-input-button{ ng_click: 'clearNearby()' }
+          %i.fa.fa-times-circle.clear-input-button{ ng_click: 'clearSearch()' }
       %span.input-group-btn
         %button.btn.btn-default#search-input-button{ type: "button", ng_click: 'search()' }
           %i.fa.fa-search.fa-lg{ ng_if: '!query || places.length' }
@@ -37,5 +37,9 @@
 
           %li.add-new-places.entry-form{ ng_show: 'userId && !currentEvent' }
             .bucket-list-tab
-              .bucket-list-wrap{ ng_show: '!nearby' }= "* Specify a '<b>nearby</b>' to narrow search or add as a new place".html_safe
+              .bucket-list-wrap{ ng_show: '!nearby' }
+                = "* Specify '"
+                %b{ ng_class: "{neon: overrideSplit}" }
+                  {{ splitKey }} 
+                = "' to narrow search or add as a new place"
               .planit-button.neon{ ng_click: 'createPlace()', ng_show: "canCreatePlace()" } Add New
