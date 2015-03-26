@@ -217,8 +217,7 @@ module Completers
 
       describe "failed seeds" do
 
-        describe "still failing" do
-
+        describe "finds only options" do
           it 'suggests good options for Alma from HuffPo' do
             m = completed_data(filename: 'cartagena', scrape_url: "http://www.huffingtonpost.com/curtis-ellis/cartagena-eat-pray-love-d_b_3479981.html", name: 'Alma')
             expect( m.place ).to be_nil
@@ -251,6 +250,15 @@ module Completers
             expect( option ).to be_a PlaceOption
             place = option.choose!
             expect( place.locality ).to eq 'Cartagena De Indias'
+          end
+        end
+        
+        describe "still failing" do
+
+          it "gets the Arch of Constantine from Frommers" do
+            data = {:place=>{:category=>["attraction"], :extra=>"Btw Colosseum and Palatine Hill", :name=>"Arco di Costantino (Arch of Constantine)", :nearby=>"Roma, Italy", :ratings=>{:ranking=>"2 stars", :site_name=>"Frommers"}, :filepath=>"/Users/sasha/code/planit/spec/support/pages/frommers/arch.yml"}, :scraper_url=>"http://www.frommers.com/destinations/rome/attractions/866798"}
+            m = Completer.new(data).complete!
+            binding.pry
           end
 
           xit "correctly pins Amelia Toro" do
