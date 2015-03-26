@@ -16,7 +16,7 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
 
       # BAR VISUALS
 
-      s.clearSearch = -> s.query = s.places = s.nearby = s.currentEvent = s.makingRequest = s.overrideSplit = null
+      s.clearSearch = -> s.query = s.places = s.nearby = s.makingRequest = s.overrideSplit = null
 
       s.showResults = -> !s.typing && ( s.query?.length || s.places?.length )
 
@@ -25,7 +25,7 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
       s._makeSearchRequest = ->
         return if s.makingRequest
         s.makingRequest = true
-        Place.search( (s.queryOnly || s.query), (s.nearbyOnly || s.nearby || null) )
+        Place.search( (s.queryOnly || s.query), (s.nearby || null) )
           .success (response) ->
             s.places = Place.generateFromJSON(response)
             _.forEach(s.places, (p, k) -> _.extend(p, { viewId: k + 1} ) )
@@ -48,7 +48,7 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
         return true
 
       s._turnOffTyping = _.debounce( (=> s.$apply(s.typing = false)), 300)
-      s.handleKeyup = -> 
+      s.handleKeyup = (event) -> 
         s._turnOffTyping()
         s._checkNearbySplit() if _.contains([32, 8, 46], event.keyCode) # space, backspace, delete
         s._unSplit('') if s.queryOnly && !s.nearby?.length && _.contains([8], event.keyCode)
@@ -58,37 +58,33 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
         
       s.clearNearby = () -> 
         s.nearby = null
-        s._unsplit()
+        console.log( "q:#{s.query},qo:#{s.queryOnly},s:#{s.splitTerm},n:#{s.nearby}" )
 
       s._unSplit = () ->
         s.query = s.queryOnly + s.splitTerm?.replace(' ', '') + s._spacedBefore(s.nearby)
-        s.queryOnly = s.splitTerm = null
-        console.log($('#primary'))
-        element.find('#primary').focus()
+        s.queryOnly = s.splitTerm = s.nearby = null
+        console.log($('#primary').css('display'))
+        $(".expanded-search-and-filter input#primary").focus()
         return true
 
       s._calcNearbySplit = ->
         if s.splitTerm
           split = s.query.split(s.splitTerm)
-          s._executeSplit(split) if !s.queryOnly && split[1]?.length > 1
-        # else
-        #   s.queryOnly = s.nearbyOnly = null
-        #   element.find('input#primary').focus()
+          s._executeSplit(split) if !s.queryOnly # && split[1]?.length > 1
         return true
 
       s._executeSplit = (split) ->
         s.queryOnly = split[0]
-        s.nearbyOnly = split[1]
-        s.nearby ||= s.nearbyOnly
-        console.log($('#secondary'))
-        element.find('#secondary').focus()
+        s.nearby ||= split[1]
+        console.log($('#secondary').css('display'))
+        $(".expanded-search-and-filter input#secondary").focus()
         return true
 
       s._checkNearbySplit = ->
         s.typing = true unless s.typing
         splitTerms = [ ' in ', ' near ', ' nearby ', ' around ', ' @ ', ", " ].join('|') if !s.overrideSplit
         splitTerms = ' @@ ' if s.overrideSplit
-        splitTerm = s.query.match(new RegExp(splitTerms))
+        splitTerm = s.query.match(new RegExp(splitTerms)) unless !s.query
         if splitTerm?.length
           s.splitTerm = splitTerm[0].replace(' ', '') # first split term used
         return true
@@ -98,8 +94,6 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
       s.forceUnSplit = ->
         s.overrideSplit = true
         s._unSplit()
-
-      s.inSplit = -> s.nearbyOnly && !s.overrideSplit
 
       s.togglePosition = (num) ->
         return s.currentPlaceId = 0 unless s.places?.length
@@ -116,12 +110,7 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
         place = _.find(s.places, (p) -> p.viewId == viewId)
         window.location.href = "/places/#{place.id}"
 
-      s._focusOnNearby = ->
-        if !s.nearbyOnly
-          element.find('.entry-form input').focus()
-        return true
-
-      s.canCreatePlace = -> (s.queryOnly?.length || s.query?.length) && ( s.nearby?.length || s.nearbyOnly?.length )
+      s.canCreatePlace = -> (s.queryOnly?.length || s.query?.length) && s.nearby?.length 
 
       # NEW PLACE
 
@@ -145,22 +134,22 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
             s.query = s.nearby = s.queryOnly = s.nearbyOnly = null
 
       s.createPlace = ->
-        return unless s.canCreatePlace() && s.userId && !s.currentEvent
+        return unless s.canCreatePlace() && s.userId
         s.hideSearch()
         $('#planit-modal-new .initiate').hide()
         $('#planit-modal-new .loading').show()
         $('#planit-modal-new').modal('toggle')
-        Place.complete({ user_id: s.userId, name: (s.queryOnly || s.query), nearby: (s.nearby || s.nearbyOnly) })
+        Place.complete({ user_id: s.userId, name: (s.queryOnly || s.query), nearby: s.nearby })
           .success (response) ->
-            s.query = s.nearby = s.queryOnly = s.nearbyOnly = s.overrideSplit = null
+            s.query = s.nearby = s.queryOnly = s.overrideSplit = null
             if place = response.place
               s._confirmEvent(place)
             else
               s._markEvent(response)
           .error ->
             s._errorEvent()
-            ErrorReporter.report({ userId: s.userId, nearby: s.nearby || s.nearbyOnly, query: s.queryOnly || s.query })
-            s.query = s.nearby = s.queryOnly = s.nearbyOnly = s.overrideSplit = null
+            ErrorReporter.report({ userId: s.userId, nearby: s.nearby, query: s.queryOnly || s.query })
+            s.query = s.nearby = s.queryOnly = s.overrideSplit = null
         return true
 
       s._confirmEvent = (place) ->

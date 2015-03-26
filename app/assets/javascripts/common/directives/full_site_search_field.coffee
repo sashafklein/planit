@@ -26,7 +26,10 @@ angular.module("Common").directive 'fullSiteSearchField', () ->
         $(".logo-container, .side-menu-container, .top-menu-container, .search-teaser").fadeOut("fast")
         $('#planit-header').addClass("focused")
         $(".searching-mask, .expanded-search-and-filter").fadeIn("fast")
-        $(".expanded-search-and-filter input#primary").focus()
+        if $(".expanded-search-and-filter input#primary").css('display') != 'none'
+          $(".expanded-search-and-filter input#primary").focus()
+        else if $(".expanded-search-and-filter input#secondary").css('display') != 'none'
+          $(".expanded-search-and-filter input#secondary").focus()
         return true
 
       s.hideSearch = -> 

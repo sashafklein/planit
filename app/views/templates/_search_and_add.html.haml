@@ -3,16 +3,16 @@
     .input-group.faux-input
       %ul.faux-input.form-control
         %li.real-input{ ng_show: "!queryOnly" }
-          %input#primary.input-with-clear{ name: "input-search-query", placeholder: "Search or Add places", type: "text", ng_model: 'query', ng_change: 'search()', ng_keydown: "handleKeydown($event)", ng_keyup: 'handleKeyup()', ng_on_esc_key: 'clearSearch();hideSearch()', ng_trim: "false" }
-          %i.fa.fa-times-circle.clear-input-button{ ng_show: 'query && !inSplit()', ng_click: 'clearSearch()' }
+          %input#primary.input-with-clear{ name: "input-search-query", placeholder: "Search or Add places", type: "text", ng_model: 'query', ng_change: 'search()', ng_keydown: "handleKeydown($event)", ng_keyup: 'handleKeyup($event)', ng_on_esc_key: 'clearSearch();hideSearch()', ng_trim: "false" }
+          %i.fa.fa-times-circle.clear-input-button{ ng_show: 'query && !nearby', ng_click: 'clearSearch()' }
         %li.faux-input{ ng_show: "queryOnly" }
           {{ queryOnly }}
         %li.symbol{ ng_show: "queryOnly" }
           %span{ ng_click: 'forceUnSplit()' }
             {{ splitTerm }}
         %li.real-input{ ng_show: "queryOnly" }
-          %input#secondary.input-with-clear{ name: "input-search-nearby", placeholder: "Location", type: "text", ng_model: 'nearby', ng_change: 'search()', ng_keydown: "handleKeydown($event)", ng_keyup: 'handleKeyup()', ng_on_esc_key: 'clearSearch();hideSearch()', ng_trim: "false" }
-          %i.fa.fa-times-circle.clear-input-button{ ng_click: 'clearNearby' }
+          %input#secondary.input-with-clear{ name: "input-search-nearby", placeholder: "Location", type: "text", ng_model: 'nearby', ng_change: 'search()', ng_keydown: "handleKeydown($event)", ng_keyup: 'handleKeyup($event)', ng_on_esc_key: 'clearSearch();hideSearch()', ng_trim: "false" }
+          %i.fa.fa-times-circle.clear-input-button{ ng_click: 'clearNearby()' }
       %span.input-group-btn
         %button.btn.btn-default#search-input-button{ type: "button", ng_click: 'search()' }
           %i.fa.fa-search.fa-lg{ ng_if: '!query || places.length' }
@@ -20,11 +20,6 @@
     .place-search-results{ ng_show: 'query' }
       %ul
         .search-results-container
-
-          %li.add-new-places.entry-form{ ng_show: 'userId && !currentEvent' }
-            .bucket-list-tab
-              .bucket-list-wrap{ ng_show: '!nearbyOnly' }= "Specify '<b>nearby</b>' to narrow search or add a new place".html_safe
-              .planit-button.neon{ ng_click: 'createPlace()', ng_show: "canCreatePlace()" } Add New
 
           %li.search-results-list{ ng_repeat: 'place in places', ng_mouseenter: 'selectPlace(place)', ng_mouseleave: 'deselectPlace()', ng_class: '{highlighted: currentPlaceId == place.viewId}', ng_show: 'showResults() && !currentEvent' }
             .bucket-list-tab
@@ -39,3 +34,8 @@
                     .bucket-list-more-info
                       %i{ class: "{{ place.meta_icon }}"}
                       {{ place.categories.join(', ') }}
+
+          %li.add-new-places.entry-form{ ng_show: 'userId && !currentEvent' }
+            .bucket-list-tab
+              .bucket-list-wrap{ ng_show: '!nearby' }= "* Specify a '<b>nearby</b>' to narrow search or add as a new place".html_safe
+              .planit-button.neon{ ng_click: 'createPlace()', ng_show: "canCreatePlace()" } Add New
