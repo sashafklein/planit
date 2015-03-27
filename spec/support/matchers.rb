@@ -57,6 +57,20 @@ RSpec::Matchers.define :render_or_redirect do |action, context|
   end
 end
 
+RSpec::Matchers.define :sorta_eq do |expected|
+  match do |actual| 
+    if actual.nil? || expected.nil?
+      actual.nil? && expected.nil?
+    else 
+      actual.downcase.no_accents.include?(expected.downcase.no_accents)
+    end
+  end
+
+  failure_message do |actual|
+    "Expected '#{actual}' to include '#{expected}' (case-insensitive)"
+  end
+end
+
 def recursive_delete_differences(diff, actual, expected)
   differences = diff.dup
   differences.each do |key, value|
