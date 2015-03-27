@@ -35,7 +35,7 @@ describe String do
     end
 
     it "can take an article array" do
-      expect( "A string with a bunch of the article things".without_articles( %w(a the of)) ).to eq("string with bunch article things")
+      expect( "A string with a bunch of the article things".without_articles( articles: %w(a the of)) ).to eq("string with bunch article things")
     end
   end
 end

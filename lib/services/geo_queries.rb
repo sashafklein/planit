@@ -63,7 +63,7 @@ module Services
     def find_locality(string, country=nil)
       if string.present?
         cluster = Directories::City.new.find_accented_in(string)
-        cluster ? cluster.last[:accented] : nil
+        cluster ? cluster.last[:no_accent] : nil
       end
     end
 
@@ -90,7 +90,7 @@ module Services
         locality_array = []
         Directories::City.new.cities.each do |c, hash|
           if match = test_string.match(%r!(?:\A|[ ]|\>)#{c.no_accents}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!)
-            name = hash[:accented]
+            name = hash[:no_accent]
             count = test_string.scan(%r!(?:\A|[ ]|\>)#{c.no_accents}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!).length
             locality_array << [name, count]
           end
@@ -139,7 +139,7 @@ module Services
         Directories::City.new.cities.each do |c, hash|
           if match = test_string.match(%r!(?:\A|[ ]|\>)#{c.no_accents}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!)
             test_string.scan(%r!(?:\A|[ ]|\>)#{c.no_accents}(?:['’]s)?(?:\Z|[ ]|[,]|[;]|[.]|[:]|[)]|[\/]|[\\])!).each do 
-              locality_array << hash[:accented]
+              locality_array << hash[:no_accent]
             end
           end
         end

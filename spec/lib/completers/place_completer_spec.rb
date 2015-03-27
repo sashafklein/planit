@@ -57,7 +57,7 @@ module Completers
         it 'finds La Cevicheria in Cartagena' do
           place = PlaceCompleter.new({name: 'La Cevicheria', street_address: "Calle Stuart No 7-14", nearby: "Cartagena, Colombia"} ).complete!
           
-          expect( place.locality ).to eq "Cartagena De Indias"
+          expect( place.locality.downcase ).to eq "cartagena de indias"
           expect( place.country ).to eq "Colombia"
           expect( place.region ).to eq "Bolivar"
           expect( place.category ).to eq 'Seafood Restaurant'
@@ -198,7 +198,7 @@ module Completers
           expect( place.lat ).to float_eq 30.670939
           expect( place.lon ).to float_eq -81.45853
           expect( place.meta_category ).to eq "See"
-          expect( place.extra ).to hash_eq({section_title: "Favorite Haunts"}, [:google_place_url])
+          expect( place.extra ).to hash_eq({section_title: "Favorite Haunts"}, { ignore_keys: [:google_place_url] })
           expect( place.names ).to eq ["St. Peter's Episcopal Church Cemetery", "St Peter's Episcopal Church"]
         end
 
@@ -314,7 +314,7 @@ module Completers
         it "combines locations that are named distinctly only by introductory article (e.g. Casa de Socorro & La Casa de Socorro)" do
           place1 = PlaceCompleter.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "LA CASA DE SOCORRO")[:place]).complete!
           place2 = PlaceCompleter.new(yml_data('cartagena', 'http://www.huffingtonpost.com/', "Casa de Socorro")[:place]).complete!
-          expect( place2.names ).to eq(['La Casa de Socorro'])
+          expect( place2.names ).to eq(['La Casa de Socorro', 'Casa de Socorro'])
           expect( place1 ).to eq place2
         end
 
