@@ -16,7 +16,6 @@ module Scrapers
 
       it "parses the page correctly" do
         expect_equal(data, expectations)
-        expect(data).to eq expectations
       end
     end
 
@@ -30,7 +29,6 @@ module Scrapers
 
       it "parses the page correctly" do
         expect_equal(data, expectations)
-        expect(data).to eq expectations
       end
     end
 
@@ -46,7 +44,6 @@ module Scrapers
 
       it "parses the page correctly" do
         expect_equal(data, expectations)
-        expect(data).to eq expectations
       end
     end
 
@@ -62,7 +59,6 @@ module Scrapers
 
       it "parses the page correctly" do
         expect_equal(data, expectations)
-        expect(data).to eq expectations
       end
     end
 
@@ -76,7 +72,6 @@ module Scrapers
 
       it "parses the page correctly" do
         expect_equal(data, expectations)
-        expect(data).to eq expectations
       end
     end
 
@@ -90,7 +85,6 @@ module Scrapers
 
       it "parses the page correctly" do
         expect_equal(data, expectations)
-        expect(data).to eq expectations
       end
     end
 
@@ -104,7 +98,6 @@ module Scrapers
 
       it "parses the page correctly" do
         expect_equal(data, expectations)
-        expect(data).to eq expectations
       end
     end
 

@@ -54,6 +54,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def log(msg:, test: false)
+    Logger.new(STDOUT).info(msg) unless (Rails.env.test? && !test)
+  end
+
   private
 
   def redirect_back(key: nil, msg: nil)

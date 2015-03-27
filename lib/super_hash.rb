@@ -1,10 +1,16 @@
 class SuperHash < Hash
 
+  include SuperBase
+
   def initialize(hash = {})
-    raise "Bad input: #{hash}" unless is_a_or_h?(hash)
+    raise "Bad input: #{hash}" unless hash.is_a_or_h?
 
     hash.each_pair do |key, val|
-      self[key] = compute_value(val)
+      if val.is_a_or_h?
+        self[key] = val.to_super
+      else
+        self[key] = val
+      end
     end
     self
   end
@@ -81,10 +87,19 @@ class SuperHash < Hash
     hash
   end
 
+  def to_h
+    new_hash = {}
+    super.each_pair do |k, v|
+      new_hash[k] = v.is_a_or_h? ? v.try(:to_normal) || v : v
+    end
+    new_hash
+  end
+
+
   private
 
   def method_missing(m, *args, &block)
-    return super(m, *args, &block) if args.count > 1
+    return super(m, *args, &block) if self.class.superclass.new.respond_to?(m)
 
     if is_setter?(m)
       set_val(m, args.first)
@@ -94,6 +109,7 @@ class SuperHash < Hash
   end
 
   def compute_value(val)
+
     if val.is_a?(Array)
       val.map{ |v| compute_value(v) }
     elsif val.is_a?(Hash)
@@ -101,10 +117,6 @@ class SuperHash < Hash
     else
       val
     end
-  end
-
-  def is_a_or_h?(hash)
-    hash.is_a?(Array) || hash.is_a?(Hash) || hash.is_a?(SuperHash)
   end
 
   def is_setter?(sym)

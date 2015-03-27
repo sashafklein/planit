@@ -1,15 +1,18 @@
 class SuperArray < Array
+
+  include SuperBase
+
   def initialize(array=[])
     array.each_with_index do |v, i|
-      if v.is_a?(Hash)
-        self[i] = v.to_sh
-      elsif v.is_a?(Array)
-        self[i] = self.class.new(v)
-      else
-        self[i] = v
-      end
+      self[i] = v.is_a_or_h? ? v.to_super : v
     end
 
     self
+  end
+
+  def to_a
+    super.map do |e|
+      e.is_a_or_h? ? e.try(:to_normal) || e : e
+    end
   end
 end

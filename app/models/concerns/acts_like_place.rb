@@ -39,9 +39,13 @@ module ActsLikePlace
   end
 
   def nearby
-    list = [locality, subregion, region, country]
-    return nil unless list.any?(&:present?)
-    list.reject(&:blank?).uniq.join(", ")
+    list, final_list = [locality, subregion, region, country].select(&:present?), []
+    return nil unless list.any?
+    list.each_with_index do |item, index|
+      # Reject items which appear to be redundant city-regions, eg "Municipality of Rome" as a subregion
+      final_list << item unless item.include?(list[index]) && %w( Municip State Region Province Metrop ).any?{ |modifier| item.include?(modifier) || item.include?(modifier.downcase) }
+    end
+    final_list.uniq.join(", ")
   end
 
   def find_and_merge

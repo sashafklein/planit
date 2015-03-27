@@ -22,8 +22,8 @@ module Completers
             place = mark.place
             expect(place.name).to eq place_hash[:place][:names][0]
             expect(place.street_address).to eq place_hash[:place][:street_addresses].first
-            expect(place.locality).to eq "Cartagena de Indias"
-            expect(place.country).to eq place_hash[:place][:country]
+            expect(place.locality).to sorta_eq "Cartagena"
+            expect(place.country).to sorta_eq place_hash[:place][:country]
             expect(place.foursquare_id).to be_present
             expect(place.categories).to include "Ice Cream Shop"
             expect(place.meta_category).to eq "Food"
@@ -111,8 +111,8 @@ module Completers
           it "creates the place, mark, plan, and location" do
             m = completed_data(filename: 'itinerary', scrape_url: 'https://www.airbnb.com/reservation/itinerary?code=ZBCAT4', name: nil)
 
-            expect( m.country ).to eq("Colombia")
-            expect( m.locality ).to eq("Bogota")
+            expect( m.country ).to sorta_eq("Colombia")
+            expect( m.locality ).to sorta_eq("Bogota")
 
             i = m.items.first
 
@@ -136,8 +136,8 @@ module Completers
           it "gets it too" do
             m = completed_data(filename: 'nikoklein', scrape_url: 'http://www.googlemaps.com/', name: 'Restaurante Los Almendros')
             f = m.place.flags.states
-            expect(m.country).to eq "Colombia"
-            expect(m.region).to eq "Magdalena"
+            expect(m.country).to sorta_eq "Colombia"
+            expect(m.region).to sorta_eq "Magdalena"
             expect( m.source.name ).to eq 'Google Maps'
           end
         end
@@ -148,12 +148,12 @@ module Completers
           m = completed_data(filename: 'nyhigh', scrape_url: 'http://www.stay.com/new-york/', name: 'Coney Island')
           p = m.place
 
-          expect( p.country ).to eq "United States"
-          expect( p.region ).to eq "New York"
+          expect( p.country ).to sorta_eq "United States"
+          expect( p.region ).to sorta_eq "New York"
 
           expect( p.extra['ratings'] ).to be_present
 
-          expect( p.sublocality ).to eq("Brooklyn")
+          expect( p.sublocality ).to sorta_eq("Brooklyn")
           expect( p.categories ).to eq ["Attraction", "Beach", "Theme Park"]
           i = m.items.first
           expect( i.plan.name ).to eq "New York City Guide"
@@ -164,12 +164,12 @@ module Completers
         it "creates the Plaza in context" do
           m = completed_data(filename: 'jetsetters', scrape_url: 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/', name: 'The Plaza')
 
-          expect(m.country).to eq "United States"
-          expect(m.region).to eq "New York"
-          expect(m.locality).to eq "New York"
+          expect(m.country).to sorta_eq "United States"
+          expect(m.region).to sorta_eq "New York"
+          expect(m.locality).to sorta_eq "New York"
           
           p = m.place
-          expect(m.place.sublocality).to eq "Manhattan"
+          expect(m.place.sublocality).to sorta_eq "Manhattan"
 
           i = m.items.first
           expect(i.plan.name).to eq "New York for Jetsetters"
@@ -179,9 +179,9 @@ module Completers
         xit "creates Boom Boom Room in context despite crappy FS data" do
           m = completed_data( filename: 'jetsetters', scrape_url: 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/', name: 'Boom Boom Room' )
 
-          expect(m.country).to eq "United States"
-          expect(m.region).to eq "New York"
-          expect(m.locality).to eq "New York"
+          expect(m.country).to sorta_eq "United States"
+          expect(m.region).to sorta_eq "New York"
+          expect(m.locality).to sorta_eq "New York"
           expect(m.place.completion_steps).to eq ["Pin"]
 
           i = m.items.first
@@ -192,9 +192,9 @@ module Completers
         it "creates Broadway in context" do
           m = completed_data( filename: 'nyhigh', scrape_url: 'http://www.stay.com/new-york/', name: 'Broadway' )
 
-          expect(m.country).to eq "United States"
-          expect(m.region).to eq "New York"
-          expect(m.locality).to eq "New York"
+          expect(m.country).to sorta_eq "United States"
+          expect(m.region).to sorta_eq "New York"
+          expect(m.locality).to sorta_eq "New York"
           expect(m.name).to eq "Broadway"
           i = m.items.first
           expect(i.plan.name).to eq "New York City Guide"
@@ -204,9 +204,9 @@ module Completers
         it "creates Tribute WTC Visitor Center in context" do
           m = completed_data( filename: 'nyhigh', scrape_url: 'http://www.stay.com/new-york/', name: 'Tribute WTC Visitor Center')
 
-          expect(m.country).to eq "United States"
-          expect(m.region).to eq "New York"
-          expect(m.locality).to eq "New York"
+          expect(m.country).to sorta_eq "United States"
+          expect(m.region).to sorta_eq "New York"
+          expect(m.locality).to sorta_eq "New York"
           expect(m.name).to eq "Tribute WTC Visitor Center"
           i = m.items.first
           expect(i.plan.name).to eq "New York City Guide"
@@ -217,8 +217,7 @@ module Completers
 
       describe "failed seeds" do
 
-        describe "still failing" do
-
+        describe "finds only options" do
           it 'suggests good options for Alma from HuffPo' do
             m = completed_data(filename: 'cartagena', scrape_url: "http://www.huffingtonpost.com/curtis-ellis/cartagena-eat-pray-love-d_b_3479981.html", name: 'Alma')
             expect( m.place ).to be_nil
@@ -250,8 +249,11 @@ module Completers
             option = m.place_options.with_name("Las Palmas").first
             expect( option ).to be_a PlaceOption
             place = option.choose!
-            expect( place.locality ).to eq 'Cartagena De Indias'
+            expect( place.locality ).to sorta_eq 'Cartagena'
           end
+        end
+        
+        describe "still failing" do
 
           xit "correctly pins Amelia Toro" do
             # https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=amelia%20toro%20bogota
@@ -324,6 +326,58 @@ module Completers
             expect( m.place.categories ).to include "Bed & Breakfast"
           end
           
+          it "gets Da Teo off the Frommers Rome restaurant list" do
+            url = "http://www.frommers.com/destinations/rome/restaurants"
+            yamlator = HtmlToYaml.new( end_path: 'frommers/restaurantlist', url: url)
+            m = Completer.new(yamlator.find(name: 'Da Teo'), @user).complete!
+            expect( m.place.names ).to include 'Trattoria Da TEO'
+          end
+
+          it "gets Da Remo off the Frommers Rome restaurant list" do
+            url = "http://www.frommers.com/destinations/rome/restaurants"
+            yamlator = HtmlToYaml.new( end_path: 'frommers/restaurantlist', url: url)
+            m = Completer.new(yamlator.find(name: 'Da Remo'), @user).complete!
+            expect( m.place.names ).to eq ["Da Remo", "Remo"]
+            expect( m.place.categories ).to eq ["Pizza Place"]
+          end
+
+          it 'finds Simply Fresh Laundry in Denpasar' do
+            url = "http://www.googlemaps.com/"
+            yamlator = HtmlToYaml.new( end_path: 'googlemaps/nikoklein', url: url)
+            m = Completer.new(yamlator.find(name: 'Simply Fresh Laundry'), @user).complete!            
+            expect( m.place.locality ).to sorta_eq 'Denpasar'
+            expect( m.place.country ).to sorta_eq "Indonesia"
+            expect( m.place.region ).to sorta_eq "Bali"
+          end
+
+          it "gets The Ritz-Carlton, Kapalua" do
+            m = completed_data(filename: 'nikoklein', scrape_url: 'googlemaps', name: 'The Ritz-Carlton, Kapalua')
+            p = m.place
+            expect( p.street_address ).to eq '1 Ritz Carlton Drive'
+            expect( p.region ).to sorta_eq 'Hawaii'
+            expect( p.locality ).to sorta_eq "Kapalua"
+          end
+
+          it "gets Matsumoto Station" do
+            m = completed_data(filename: 'japan', scrape_url: 'kml', name: 'matsumoto station')
+            expect( m.place.categories ).to include "Train Station"
+            expect( m.place.region ).to sorta_eq "Nagano"
+          end
+
+          it "gets Kamakura Temples" do
+            m = completed_data(filename: 'japan', scrape_url: 'kml', name: 'kamakura temples')
+            expect( m.place.categories ).to include "Buddhist Temple"
+            expect( m.place.region ).to sorta_eq "Kanagawa"
+          end
+
+          it "saves Edinburgh, UK" do
+            m = completed_data(filename: 'travelmap', scrape_url: 'http://www.tripadvisor.com', name: 'Edinburgh, UK')
+            p = m.place
+            expect( p.feature_type ).to eq 'locality'
+            expect( p.country ).to sorta_eq 'United Kingdom'
+            # expect( p.region ).to sorta_eq 'Scotland'
+          end
+
           it "completes Quiebra-Canto" do
             m = completed_data(filename: 'cartagena', scrape_url: "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0", name: "Quiebra-Canto")
             expect( m.source.name ).to eq "New York Times"
@@ -342,7 +396,7 @@ module Completers
             p = m.place
             expect( p.lat ).to float_eq 10.419666
             expect( p.lon ).to float_eq -75.54787
-            expect( p.locality ).to eq 'Cartagena De Indias'
+            expect( p.locality ).to sorta_eq 'Cartagena'
             expect( p.published ).to eq true
           end
 
@@ -366,7 +420,7 @@ module Completers
             expect( p.street_address ).to eq "Carrera 3 No. 12-72"
             expect( p.lat ).to float_eq 4.5973219379763
             expect( p.lon ).to float_eq -74.0708756446838
-            expect( p.sublocality ).to eq "La Candelaria"
+            expect( p.sublocality ).to sorta_eq "La Candelaria"
             expect( p.published ).to eq true
           end
 
@@ -401,7 +455,7 @@ module Completers
             p = m.place
             expect( p.lat ).to float_eq 4.669729462430818
             expect( p.lon ).to float_eq -74.09898519515991
-            expect( p.sublocality ).to eq "Engativá"
+            expect( p.sublocality ).to sorta_eq "Engativá"
             expect( p.categories ).to array_eq ["Botanical Garden", "Garden"]
             expect( p.published ).to eq true
           end
@@ -414,7 +468,7 @@ module Completers
             expect( p.phones ).to eq ["5713431212","5712845335"] # Combines identical, but differently formatted phones from Foursquare and Scraper
             expect( p.lat ).to float_eq 4.596761
             expect( p.lon ).to float_eq -74.073145
-            expect( p.sublocality ).to eq 'La Candelaria'
+            expect( p.sublocality ).to sorta_eq 'La Candelaria'
             expect( p.hours ).to be_present
             expect( p.website ).to eq "http://www.banrepcultural.org/museo-botero"
             expect( p.names ).to eq ["Botero Museum", "Café La Manzana (great Coffee Shop) Inside BOTERO Museum", "Donación Botero"]
@@ -455,7 +509,7 @@ module Completers
             p = m.place
             expect( p.lat ).to float_eq 30.6696420369693
             expect( p.lon ).to float_eq -81.4547821101539
-            expect( p.locality ).to eq "Fernandina Beach"
+            expect( p.locality ).to sorta_eq "Fernandina Beach"
             expect( p.category ).to eq "Park"
           end
 
@@ -466,7 +520,7 @@ module Completers
             p = m.place
             expect( p.feature_type ).to eq 'locality'
             expect( p.name ).to eq 'Marrakech, Morocco' 
-            expect( p.locality ).to eq 'Marrakesh' # Spelling corrected
+            expect( p.locality ).to sorta_eq 'Marrakesh' # Spelling corrected
             expect( p.lat ).to float_eq 31.632172
             expect( p.lon ).to float_eq -8.002955
             expect( p.street_address ).to be_nil
@@ -478,10 +532,10 @@ module Completers
 
             p = m.place
             expect( p.feature_type ).to eq 'destination'
-            expect( p.country ).to eq 'Colombia'
+            expect( p.country ).to sorta_eq 'Colombia'
             expect( p.lat ).to float_eq 10.419546077620
             expect( p.lon ).to float_eq -75.5473468872515
-            expect( p.sublocality ).to eq 'Getsemaní'
+            expect( p.sublocality ).to sorta_eq 'Getsemaní'
           end
         end
       end

@@ -29,8 +29,8 @@ module Completers
       @flags << place.flag(name: name, details: details, info: info)
     end
 
-    def completed(step)
-      completion_steps.include?(step)
+    def completed(*steps)
+      steps.all?{ |s| completion_steps.include?(s) }
     end
 
     def complete(step)

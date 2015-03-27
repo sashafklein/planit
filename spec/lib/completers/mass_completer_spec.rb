@@ -46,9 +46,9 @@ module Completers
         expect( florida_house_inn.extra ).to hash_eq( { section_title: "Boardinghouse Brunch" } )
         
         expect( florida_house_inn.foursquare_id ).to eq "4bc44ea1dce4eee17915729d"
-        expect( florida_house_inn.locality ).to eq( 'Fernandina Beach' )
-        expect( florida_house_inn.subregion ).to eq( 'Nassau County' )
-        expect( florida_house_inn.region ).to eq( 'Florida' )
+        expect( florida_house_inn.locality ).to sorta_eq( 'Amelia Island' )
+        expect( florida_house_inn.subregion ).to sorta_eq( 'Nassau County' )
+        expect( florida_house_inn.region ).to sorta_eq( 'Florida' )
 
         # expect( florida_house_inn.sources.count ).to eq 1
         # expect( florida_house_inn.sources.name ).to eq "New York Times"
@@ -64,6 +64,14 @@ module Completers
         expect( item.order ).to eq 11
         expect( item.start_time ).to eq '1100'
         expect( item.sunday? ).to eq true
+      end
+
+      it "gets the frommers Three days in Rome shit" do
+        url = 'http://www.frommers.com/destinations/rome/705674'
+        yamlator = HtmlToYaml.new( end_path: 'frommers/threedays', url: url)
+        marks = MassCompleter.new(yamlator.data, user, url).complete!
+        expect( marks.count ).to eq yamlator.data.count
+        expect( marks.map(&:place).map(&:country).uniq ).to eq ['Italy']
       end
 
       it "errors without a url" do

@@ -41,10 +41,12 @@ class String
     !(%r!#{non_latinate_or_punctuation_or_space_thread}!.match(self))
   end
 
-  def without_articles(articles=nil)
+  def without_articles(articles: nil, keep_first_word: false)
     articles ||= %w(the la el las les los le o os il gli o os der die de du ang da nan an a)
 
-    split(" ").reject{ |w| articles.include?(w.downcase) }.join(" ")
+    split(" ").each_with_index.reject do |w, i| 
+      articles.include?(w.downcase) && !(keep_first_word && i == 0)
+    end.map(&:first).join(" ")
   end
 
   def without_common_symbols

@@ -5,15 +5,11 @@ module Completers
       return response_hash unless pip.pinnable
 
       get_results(get_query)
-      
-      return response_hash unless venue.found? && response_address_is_specific?
 
-      if venue.seems_accurate?(pip)
-        update_location_basics(true)
-      else
-        reverse_lat_lon_if_appropriate
-        update_location_basics(false) # Don't trust locality
-      end
+      return response_hash unless venue.found? && (!pip.destination? || response_address_is_specific?)
+
+      reverse_lat_lon_if_appropriate if !venue.seems_accurate?(pip)
+      update_location_basics
 
       notify_if_geolocation_data_missing
 
@@ -24,7 +20,7 @@ module Completers
 
     def response_address_is_specific?
       non_regional = full_address.cut(region, short_region, country, short_country, subregion, locality, postal_code, ',', ' ')
-      non_regional.length > 2
+      non_regional.length > 2 
     end
 
     def notify_if_geolocation_data_missing
