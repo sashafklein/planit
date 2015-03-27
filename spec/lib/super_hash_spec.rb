@@ -30,8 +30,8 @@ describe SuperHash do
     before { initialize_sh }
 
     it "can take a splat list search terms, indifferently" do
-      expect( @sh.super_fetch(:super_deep, :deepest, :value, 2).recursive_symbolize_keys ).to eq({another_hash: { value: 'buried' } })
-      expect( @sh.super_fetch('super_deep', 'deepest', 'value', 2).recursive_symbolize_keys ).to eq({another_hash: { value: 'buried' } })
+      expect( @sh.super_fetch(:super_deep, :deepest, :value, 2).recursive_symbolize_keys ).to hash_eq({another_hash: { value: 'buried' } }, { ignore_nils: true })
+      expect( @sh.super_fetch('super_deep', 'deepest', 'value', 2).recursive_symbolize_keys ).to hash_eq({another_hash: { value: 'buried' } }, { ignore_nils: true })
     end
 
     it "can take a single search term" do
@@ -40,8 +40,8 @@ describe SuperHash do
     end
 
     it "can take an array of search terms" do
-      expect( @sh.super_fetch([:super_deep, :deepest, :value, 2]).recursive_symbolize_keys ).to eq({another_hash: { value: 'buried' } })
-      expect( @sh.super_fetch(['super_deep', 'deepest', 'value', 2]).recursive_symbolize_keys ).to eq({another_hash: { value: 'buried' } })
+      expect( @sh.super_fetch([:super_deep, :deepest, :value, 2]).recursive_symbolize_keys ).to hash_eq({another_hash: { value: 'buried' } }, { ignore_nils: true })
+      expect( @sh.super_fetch(['super_deep', 'deepest', 'value', 2]).recursive_symbolize_keys ).to hash_eq({another_hash: { value: 'buried' } }, { ignore_nils: true })
     end
 
     it "can defaults to nil if nothing's there" do
@@ -91,10 +91,34 @@ describe SuperHash do
     end
 
     it "slice" do
-      expect( sh[:super_deep].slice(:shallow, :deepest) ).to eq( { shallow: 1, deepest: {value: [1, 2, another_hash: { value: 'buried'} ]} }) 
-      expect( sh[:super_deep].slice('shallow', 'deepest') ).to eq({ shallow: 1, deepest: {value: [1, 2, another_hash: { value: 'buried'} ]} })
-      expect( sh[:super_deep].slice(:shallow) ).to eq({ shallow: 1 })
-      expect( sh[:super_deep].slice('shallow') ).to eq({ shallow: 1 })
+      expect( sh[:super_deep].slice(:shallow, :deepest) ).to hash_eq( ({ shallow: 1, deepest: {value: [1, 2, {another_hash: { value: 'buried'}} ]} }), {ignore_nils: true} )
+      expect( sh[:super_deep].slice('shallow', 'deepest') ).to hash_eq( { shallow: 1, deepest: {value: [1, 2, {another_hash: { value: 'buried'}} ]} }, ignore_nils: true )
+      expect( sh[:super_deep].slice(:shallow) ).to hash_eq({ shallow: 1 }, { ignore_nils: true })
+      expect( sh[:super_deep].slice('shallow') ).to hash_eq({ shallow: 1 }, { ignore_nils: true })
+    end
+  end
+
+  describe "deep_compact" do
+    it "rejects elements that don't equal the block, all the way down" do
+      expect( sh.deep_compact ).to hash_eq({
+        shallowest: 1,
+        super_deep: {
+          shallow: 1,
+          deepest: {
+            value: [ 1, 2, {another_hash: { value: 'buried', buriedBlank: '' }}]
+          } 
+        }    
+      })
+
+      expect( sh.deep_compact(allow_blank: false) ).to hash_eq({
+        shallowest: 1,
+        super_deep: {
+          shallow: 1,
+          deepest: {
+            value: [ 1, 2, {another_hash: { value: 'buried' }}]
+          } 
+        }    
+      })
     end
   end
 
@@ -107,8 +131,9 @@ describe SuperHash do
       shallowest: 1,
       super_deep: {
         shallow: 1,
+        nilKey: nil,
         deepest: {
-          value: [ 1, 2, another_hash: { value: 'buried' }]
+          value: [ 1, 2, {another_hash: { value: 'buried', buriedNil: nil, buriedBlank: '' }}, nil]
         } 
       }
     })

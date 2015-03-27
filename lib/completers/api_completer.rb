@@ -44,7 +44,7 @@ module Completers
         add_photos(val)
       elsif dont_override?(pip_val, allow_a_or_h)
         flag_field_clash(field, val)
-      elsif block_non_latinate && pip.val(field) && pip.val(field).is_a?(String) && pip.val(field).latinate? && val.non_latinate?
+      elsif block_non_latinate && pip.val(field) && pip.val(field).is_a?(String) && pip.val(field).latinate? && val.present? && val.non_latinate?
         flag_field_clash(field, val)
       else
         pip.set_val( field: field, val: val, source: class_name, hierarchy_bump: hierarchy_bump )
@@ -57,9 +57,9 @@ module Completers
 
     def pick_venue
       ok_lls = venues.select{ |v| v.matcher(pip).ll_fit >= 2 }
-      
+
       @venue = ok_lls.find do |v| 
-        v.venue_match?(pip)
+        v.venue_match?(pip) && ( v.seems_legit? if v.respond_to?(:seems_legit?) )
       end
       
       venue_failure unless @venue

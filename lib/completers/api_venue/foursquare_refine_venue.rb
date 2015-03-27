@@ -12,7 +12,7 @@ module Completers
     end
 
     def hours
-      format( json.hours )
+      format( json.hours ) || {}
     end
 
     def cross_street

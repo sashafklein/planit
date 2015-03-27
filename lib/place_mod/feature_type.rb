@@ -70,7 +70,8 @@ module PlaceMod
         finder_return place.country, name 
       else 
         if found[:locality]
-          if name.include?( country = city_list[ found[:locality].downcase ][:country].downcase )
+          country = city_list[ found[:locality].downcase ].try(:[], :country).try(:downcase)
+          if country && name.include?( country )
             return finder_return country, name
           end
         end
@@ -123,8 +124,8 @@ module PlaceMod
 
     def carmen_find_country(name)
       carmen_countries.each do |country|
-        [:name, :common_name, :code, :alpha_3_code].each do |spelling|
-          finder = country.send(spelling)
+        [:name, :common_name, :code, :alpha_3_code, :alternate_code].each do |spelling|
+          finder = country.respond_to?(spelling) ? country.send(spelling) : alternate_code(country.code)
           return finder if finder.present? && name.scan( separated_regex(finder) ).any?
         end
       end
@@ -133,6 +134,13 @@ module PlaceMod
 
     def separated_regex(string)
       /(?:\s|^)#{ string.downcase }(?:\s|\z)/
+    end
+
+    def alternate_code(code)
+      case code
+        when 'GB' then 'UK'
+        else nil
+      end
     end
   end
 end

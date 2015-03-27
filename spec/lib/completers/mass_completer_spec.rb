@@ -66,6 +66,14 @@ module Completers
         expect( item.sunday? ).to eq true
       end
 
+      it "gets the frommers Three days in Rome shit" do
+        url = 'http://www.frommers.com/destinations/rome/705674'
+        yamlator = HtmlToYaml.new( end_path: 'frommers/threedays', url: url)
+        marks = MassCompleter.new(yamlator.data, user, url).complete!
+        expect( marks.count ).to eq yamlator.data.count
+        expect( marks.map(&:place).map(&:country).uniq ).to eq ['Italy']
+      end
+
       it "errors without a url" do
         expect{ MassCompleter.new(return_hash, user) }.to raise_error
       end

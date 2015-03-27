@@ -255,12 +255,6 @@ module Completers
         
         describe "still failing" do
 
-          it "gets the Arch of Constantine from Frommers" do
-            data = {:place=>{:category=>["attraction"], :extra=>"Btw Colosseum and Palatine Hill", :name=>"Arco di Costantino (Arch of Constantine)", :nearby=>"Roma, Italy", :ratings=>{:ranking=>"2 stars", :site_name=>"Frommers"}, :filepath=>"/Users/sasha/code/planit/spec/support/pages/frommers/arch.yml"}, :scraper_url=>"http://www.frommers.com/destinations/rome/attractions/866798"}
-            m = Completer.new(data).complete!
-            binding.pry
-          end
-
           xit "correctly pins Amelia Toro" do
             # https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=amelia%20toro%20bogota
           end
@@ -332,6 +326,57 @@ module Completers
             expect( m.place.categories ).to include "Bed & Breakfast"
           end
           
+          it "gets Da Teo off the Frommers Rome restaurant list" do
+            url = "http://www.frommers.com/destinations/rome/restaurants"
+            yamlator = HtmlToYaml.new( end_path: 'frommers/restaurantlist', url: url)
+            m = Completer.new(yamlator.find(name: 'Da Teo'), @user).complete!
+            expect( m.place.names ).to include 'Trattoria Da TEO'
+          end
+
+          it "gets Da Remo off the Frommers Rome restaurant list" do
+            url = "http://www.frommers.com/destinations/rome/restaurants"
+            yamlator = HtmlToYaml.new( end_path: 'frommers/restaurantlist', url: url)
+            m = Completer.new(yamlator.find(name: 'Da Remo'), @user).complete!
+            expect( m.place.names ).to eq ["Da Remo", "Remo"]
+            expect( m.place.categories ).to eq ["Pizza Place"]
+          end
+
+          it 'finds Simply Fresh Laundry in Denpasar' do
+            url = "http://www.googlemaps.com/"
+            yamlator = HtmlToYaml.new( end_path: 'googlemaps/nikoklein', url: url)
+            m = Completer.new(yamlator.find(name: 'Simply Fresh Laundry'), @user).complete!            
+            expect( m.place.locality ).to eq 'Kota Denpasar'
+            expect( m.place.category ).to eq 'Laundry Service'
+          end
+
+          it "gets The Ritz-Carlton, Kapalua" do
+            m = completed_data(filename: 'nikoklein', scrape_url: 'googlemaps', name: 'The Ritz-Carlton, Kapalua')
+            p = m.place
+            expect( p.street_address ).to eq '1 Ritz Carlton Drive'
+            expect( p.region ).to eq 'Hawaii'
+            expect( p.locality ).to eq "Kapalua"
+          end
+
+          it "gets Matsumoto Station" do
+            m = completed_data(filename: 'japan', scrape_url: 'kml', name: 'matsumoto station')
+            expect( m.place.categories ).to include "Train Station"
+            expect( m.place.region ).to include "Nagano"
+          end
+
+          it "gets Kamakura Temples" do
+            m = completed_data(filename: 'japan', scrape_url: 'kml', name: 'kamakura temples')
+            expect( m.place.categories ).to include "Buddhist Temple"
+            expect( m.place.region ).to include "Kanagawa"
+          end
+
+          it "saves Edinburgh, UK" do
+            m = completed_data(filename: 'travelmap', scrape_url: 'http://www.tripadvisor.com', name: 'Edinburgh, UK')
+            p = m.place
+            expect( p.feature_type ).to eq 'locality'
+            expect( p.country ).to eq 'United Kingdom'
+            # expect( p.region ).to eq 'Scotland'
+          end
+
           it "completes Quiebra-Canto" do
             m = completed_data(filename: 'cartagena', scrape_url: "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0", name: "Quiebra-Canto")
             expect( m.source.name ).to eq "New York Times"

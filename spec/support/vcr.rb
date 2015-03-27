@@ -5,5 +5,5 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
   c.ignore_hosts '127.0.0.1', 'localhost:3000'
 
-  # c.default_cassette_options = { record: :new_episodes } 
+  # c.default_cassette_options = { record: :new_episodes } # Enable when making API-heavy changes
 end

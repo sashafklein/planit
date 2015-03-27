@@ -35,6 +35,7 @@ module PlaceMod
       format_hours
       set_timezone
       deduplicate_names
+      set_locality_if_reasonable
       save_and_validate_changes!(raise_errors)
     end
 
@@ -198,11 +199,19 @@ module PlaceMod
     end
 
     def clean(name)
-      name.downcase.without_articles
+      name.downcase.without_articles(keep_first_word: true)
     end
 
     def remove_from_phones
       [' ', '-', String::LONG_DASH, '(', ')', '+']
+    end
+
+    def set_locality_if_reasonable
+      if !place.locality && place.pinnable && (place.subregion || place.sublocality)
+        replacement = place.subregion ? :subregion : :sublocality
+        place.locality = place[replacement]
+        place[ replacement ] = nil
+      end
     end
   end
 end

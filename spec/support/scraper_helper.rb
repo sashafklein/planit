@@ -31,7 +31,7 @@ module ScraperHelper
 
   def expect_equal(array1, array2)
     array1.each_with_index do |hash, index|
-      expect( array1[index] ).to hash_eq( array2[index] )
+      expect( array1[index] ).to hash_eq( array2[index], {ignore_nils: true} )
     end
   end
 

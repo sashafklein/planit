@@ -31,7 +31,7 @@ module Completers
         foursquare if retry_foursquare?
         pin if (pip.completion_steps - ["Nearby"]).empty?
       end
-      translate_and_refine
+      translate_and_refine unless pip.completion_steps == ['Narrow']
       flag_it_up
     end
 

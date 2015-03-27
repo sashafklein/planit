@@ -1,11 +1,22 @@
-RSpec::Matchers.define :hash_eq do |expected_hash, expected_keys = [], ignore_keys=[]|
+RSpec::Matchers.define :hash_eq do |expected_hash, opts = {}|
   match do |actual|
-    expected_keys.map!(&:to_sym)
-    ignore_keys.map!(&:to_sym)
-    dupl, expected_hash = [actual.dup, expected_hash].map(&:recursive_symbolize_keys).map(&:to_sh)
+    dupl = actual.dup
+    expected_hash = expected_hash.dup
+    opts = { expected_keys: [], ignore_keys: [] }.to_sh.merge opts.to_sh
 
-    ( dupl.except( *((expected_keys + ignore_keys).flatten) ) == expected_hash ) &&
-      ( dupl.keys & expected_keys == expected_keys )
+    dupl, expected_hash = [dupl, expected_hash].map(&:recursive_symbolize_keys).map(&:to_sh)
+    
+    if opts.ignore_nils
+      dupl, expected_hash = [dupl, expected_hash].map(&:to_sh).map{ |e| e.deep_compact(allow_blank: opts.allow_blanks) }
+    end
+
+    if opts.expected_keys.any? || opts.ignore_keys.any?
+      [opts.expected_keys, opts.ignore_keys].compact.each{ |a| a.map!(&:to_sym) }
+      dupl, expected_hash = [dupl, expected_hash].map{ |e| e.except( *(opts.expected_keys + opts.ignore_keys).flatten ) }
+    end
+
+    ( dupl == expected_hash ) &&
+      ( dupl.keys & opts.expected_keys == opts.expected_keys )
   end
 
   failure_message do |actual|
