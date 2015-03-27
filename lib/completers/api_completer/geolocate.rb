@@ -24,12 +24,12 @@ module Completers
       { place: pip, success: @success.present? }
     end
 
-    def update_location_basics(overwrite=false, block_non_latinate: false)
+    def update_location_basics(block_non_latinate: false)
       set_vals fields: [:country, :region].select{ |k| take?(k) }, block_non_latinate: block_non_latinate
-      update_locale(overwrite)
+      update_locale(block_non_latinate: block_non_latinate)
     end
 
-    def update_locale(overwrite=false, block_non_latinate: false)
+    def update_locale(block_non_latinate: false)
       set_vals fields: [:subregion, :locality, :sublocality].select{ |k| take?(k) }, block_non_latinate: block_non_latinate
     end
 

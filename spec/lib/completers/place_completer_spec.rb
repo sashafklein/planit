@@ -12,7 +12,7 @@ module Completers
           expect( place.country ).to eq('United States')
           expect( place.region ).to eq('Florida')
           expect( place.subregion ).to eq('Nassau County')
-          expect( place.locality ).to eq('Fernandina Beach')
+          expect( place.locality ).to eq('Amelia Island')
           expect( place.street_addresses ).to eq( ['22 South 3rd Street', '20 South 3rd Street'] )
           expect( place.names ).to eq( ['Florida House Inn', '1857 Florida House Inn'] )
           expect( place.phones ).to eq( [] )
@@ -25,7 +25,7 @@ module Completers
         it "finds Fuunji" do
           place = PlaceCompleter.new( { name: 'Fuunji', nearby: 'Shibuya, Tokyo, Japan' }, 'whatever.com').complete!
           expect( place.country ).to eq('Japan')
-          expect( place.region ).to eq('Tokyo-to')
+          expect( place.region ).to eq('Tokyo')
           expect( place.subregion ).to eq(nil)
           expect( place.locality ).to eq('Shinjuku-ku')
           expect( place.street_addresses ).to eq( ["代々木2-14-3", "2 Chome-１４−3 Yoyogi"] )
@@ -57,7 +57,7 @@ module Completers
         it 'finds La Cevicheria in Cartagena' do
           place = PlaceCompleter.new({name: 'La Cevicheria', street_address: "Calle Stuart No 7-14", nearby: "Cartagena, Colombia"} ).complete!
           
-          expect( place.locality.downcase ).to eq "cartagena de indias"
+          expect( place.locality.downcase ).to include "cartagena"
           expect( place.country ).to eq "Colombia"
           expect( place.region ).to eq "Bolivar"
           expect( place.category ).to eq 'Seafood Restaurant'

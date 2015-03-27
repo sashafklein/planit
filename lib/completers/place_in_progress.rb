@@ -29,8 +29,8 @@ module Completers
       @flags << place.flag(name: name, details: details, info: info)
     end
 
-    def completed(step)
-      completion_steps.include?(step)
+    def completed(*steps)
+      steps.all?{ |s| completion_steps.include?(s) }
     end
 
     def complete(step)
@@ -123,7 +123,7 @@ module Completers
 
     # Rightmost has greatest overwrite permissions
     def source_hierarchy
-      %w(PlaceInProgress Pin Nearby Narrow FoursquareExplore FoursquareRefine GoogleMaps TranslateAndRefine)
+      %w( PlaceInProgress Pin Nearby Narrow FoursquareExplore FoursquareRefine GoogleMaps TranslateAndRefine )
     end
 
     def new_datastore(seed: nil, name: nil, instance_vars: {photos: []})

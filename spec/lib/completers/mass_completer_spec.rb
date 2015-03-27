@@ -46,7 +46,7 @@ module Completers
         expect( florida_house_inn.extra ).to hash_eq( { section_title: "Boardinghouse Brunch" } )
         
         expect( florida_house_inn.foursquare_id ).to eq "4bc44ea1dce4eee17915729d"
-        expect( florida_house_inn.locality ).to eq( 'Fernandina Beach' )
+        expect( florida_house_inn.locality ).to eq( 'Amelia Island' )
         expect( florida_house_inn.subregion ).to eq( 'Nassau County' )
         expect( florida_house_inn.region ).to eq( 'Florida' )
 

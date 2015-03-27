@@ -41,7 +41,7 @@ module Completers
     def explore
       get_venues!
       pick_venue
-      
+          
       pip.question!(class_name) unless @success = ( venue.present? && !pip.unsure.include?(class_name) && venue.seems_legit? )
 
       merge!
@@ -58,6 +58,11 @@ module Completers
         ApiVenue::FoursquareExploreVenue.new(item)
       end
     rescue => e
+      if e.is_a? VCR::Errors::UnhandledHTTPRequestError
+        cassette = e.message.scan(/(\/Users\/sasha\S+\.yml)/).first.try(:first) || ''
+        puts "Ran into a VCR error -- deleting cassette #{cassette}"
+        `rm #{cassette}`
+      end
       @venues ||= []
       flag_failure(query: full_fs_url, response: @response, error: e)
     end

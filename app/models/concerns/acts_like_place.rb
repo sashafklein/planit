@@ -43,7 +43,7 @@ module ActsLikePlace
     return nil unless list.any?
     list.each_with_index do |item, index|
       # Reject items which appear to be redundant city-regions, eg "Municipality of Rome" as a subregion
-      final_list << item unless item.include?(list[index]) && %w( Municip State Region Province ).any?{ |modifier| item.include?(modifier) || item.include?(modifier.downcase) }
+      final_list << item unless item.include?(list[index]) && %w( Municip State Region Province Metrop ).any?{ |modifier| item.include?(modifier) || item.include?(modifier.downcase) }
     end
     final_list.uniq.join(", ")
   end

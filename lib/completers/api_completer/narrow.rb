@@ -8,13 +8,8 @@ module Completers
 
       return response_hash unless venue.found? && (!pip.destination? || response_address_is_specific?)
 
-      if venue.seems_accurate?(pip)
-        update_location_basics(true)
-      else
-        reverse_lat_lon_if_appropriate
-        update_location_basics(false) # Don't trust locality
-      end
-
+      reverse_lat_lon_if_appropriate if !venue.seems_accurate?(pip)
+      update_location_basics
       notify_if_geolocation_data_missing
 
       response_hash

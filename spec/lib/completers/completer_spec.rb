@@ -249,7 +249,7 @@ module Completers
             option = m.place_options.with_name("Las Palmas").first
             expect( option ).to be_a PlaceOption
             place = option.choose!
-            expect( place.locality ).to eq 'Cartagena De Indias'
+            expect( place.locality.downcase ).to include 'cartagena'
           end
         end
         
@@ -388,7 +388,7 @@ module Completers
             p = m.place
             expect( p.lat ).to float_eq 10.419666
             expect( p.lon ).to float_eq -75.54787
-            expect( p.locality ).to eq 'Cartagena De Indias'
+            expect( p.locality.downcase ).to include 'cartagena'
             expect( p.published ).to eq true
           end
 
