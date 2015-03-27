@@ -12,11 +12,6 @@ module ApplicationHelper
     content_for(:header) { options ? render_header(options) : 'false' }
   end
 
-  def include_template(template)
-    @directive_templates ||= []
-    @directive_templates << template
-  end
-
   def page_type(name)
     content_for(:page_type) { name }
     header(page_type: name); footer(page_type: name)

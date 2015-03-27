@@ -82,7 +82,7 @@ Rails.application.routes.draw do
     end
   end
 
-  unless false
+  unless Rails.env.development?
     get '*unmatched_route', to: 'application#catch_404_error'
   end
 end

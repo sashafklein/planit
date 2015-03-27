@@ -1,4 +1,4 @@
-angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReporter, $sce, CurrentUser, Modal) ->
+angular.module("Common").directive 'searchAndAdd', (Mark, Place, $timeout, ErrorReporter, $sce, CurrentUser, Modal) ->
 
   return {
     restrict: 'E'
@@ -7,6 +7,7 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
     templateUrl: "search_and_add.html"
     scope:
       addOnly: '@'
+      hideSearch: '&'
 
     link: (s, element) ->
 
@@ -18,7 +19,7 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
       # BAR VISUALS
 
       s.clearSearch = ->
-        s.query = s.places = s.nearby = s.makingRequest = s.overrideSplit = null
+        s.query = s.queryOnly = s.places = s.nearby = s.makingRequest = s.overrideSplit = null
         s.splitKey = "nearby"
 
       s.showResults = -> !s.typing && ( s.query?.length || s.places?.length )
@@ -61,13 +62,14 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
           s._checkNearbySplit()
           s._calcNearbySplit() 
         s._turnOffTyping()
+        window.searchquery = { q:(s.queryOnly||s.query), n:s.nearby }
 
       s._spacedBefore = (phrase) -> if phrase && phrase.length then " " + phrase else ''
         
       s._unSplit = () ->
         s.query = s.queryOnly + " " + s.splitTerm.replace(" ","").replace(" ","") + s._spacedBefore(s.nearby)
         s.queryOnly = s.splitTerm = s.nearby = null
-        $timeout(-> $(".expanded-search-and-filter input#primary").focus() if $(".expanded-search-and-filter input#primary") )
+        $timeout(-> $(".search-bar-wrap input#primary").focus() if $(".search-bar-wrap input#primary") )
         return true
 
       s._calcNearbySplit = ->
@@ -77,9 +79,8 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
 
       s._executeSplit = (split) ->
         s.queryOnly = split[0]
-        console.log ('"'+s.queryOnly+'"')
         s.nearby ||= split[1]
-        $timeout(-> $(".expanded-search-and-filter input#secondary").focus() if $(".expanded-search-and-filter input#secondary") )
+        $timeout(-> $(".search-bar-wrap input#secondary").focus() if $(".search-bar-wrap input#secondary") )
         return true
 
       s._checkNearbySplit = ->
@@ -87,7 +88,6 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
         splitTerms = [ ' in ', ' near ', ' nearby ', ' around ', ' @ ', ", near: ", ", " ].join('|') if !s.overrideSplit
         splitTerms = " #{s.splitKey} " if s.overrideSplit
         splitTerm = s.query.match(new RegExp(splitTerms)) unless !s.query
-        console.log ('"'+splitTerm+'"')
         s.splitTerm = splitTerm[0] if splitTerm?.length # first split term used
         return true
 
@@ -110,8 +110,11 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
       s.search = -> s._searchFunction()
 
       s._goTo = (viewId) ->
-        place = _.find(s.places, (p) -> p.viewId == viewId)
-        window.location.href = "/places/#{place.id}"
+        if s.places?.length
+          place = _.find(s.places, (p) -> p.viewId == viewId)
+          window.location.href = "/places/#{place.id}" if place
+        else if s.canCreatePlace()
+          s.createPlace()
 
       s.canCreatePlace = -> (s.queryOnly?.length || s.query?.length) && s.nearby?.length 
 
@@ -120,62 +123,23 @@ angular.module("Common").directive 'searchAndAdd', (Place, $timeout, ErrorReport
       s.modal = new Modal('addPin')
 
       s.createPlace = ->
-        return unless s.canCreatePlace() && s.userId && !s.currentEvent
+        return unless s.canCreatePlace() && s.userId
         s.hideSearch()
         s.modal.show({ loading: 'longer' })
 
-        Place.complete({ user_id: s.userId, name: (s.queryOnly || s.query), nearby: (s.nearby || s.nearbyOnly) })
-          .success (response) ->
-            if place = response.place
-              s.modal.show({ nearby: s.nearby, query: s.query, mark: response })
-            else
-              s.modal.show({ nearby: s.nearby, query: s.query })
-            s.query = s.nearby = s.queryOnly = s.nearbyOnly = null
-          .error ->
-            s.modal.show({ error: true })
-            ErrorReporter.report({ userId: s.userId, nearby: s.nearby || s.nearbyOnly, query: s.queryOnly || s.query })
-            s.query = s.nearby = s.queryOnly = s.nearbyOnly = null
-
-      s.createPlace = ->
-        return unless s.canCreatePlace() && s.userId
-        s.hideSearch()
-        $('#planit-modal-new .initiate').hide()
-        $('#planit-modal-new .loading').show()
-        $('#planit-modal-new').modal('toggle')
         Place.complete({ user_id: s.userId, name: (s.queryOnly || s.query), nearby: s.nearby })
           .success (response) ->
-            s.query = s.nearby = s.queryOnly = s.overrideSplit = null
-            if place = response.place
-              s._confirmEvent(place)
+            if $("#planit-modal-new").css("display") != "block"
+              markObj = new Mark({ id: response.id })
+              markObj.destroy() 
+            else if place = response.place
+              s.modal.show({ nearby: s.nearby, query: (s.queryOnly || s.query), mark: response })
             else
-              s._markEvent(response)
+              s.modal.show({ nearby: s.nearby, query: (s.queryOnly || s.query) })
+            s.clearSearch()
           .error ->
-            s._errorEvent()
-            ErrorReporter.report({ userId: s.userId, nearby: s.nearby, query: s.queryOnly || s.query })
-            s.query = s.nearby = s.queryOnly = s.overrideSplit = null
-        return true
-
-      s._confirmEvent = (place) ->
-        $('#planit-modal-new .loading').hide()
-        $('#planit-modal-new .confirm').show()
-        $('#planit-modal-new .confirm .bucket-list-title').html( place.name )
-        $('#planit-modal-new .confirm .icon').addClass( place.meta_icon )
-        $('#planit-modal-new .confirm .categories').html( place.categories.join(', ') )
-        $('#planit-modal-new .confirm .bucket-list-img').css( "background-image", "url(#{place.image_url})" )
-        $('#planit-modal-new .confirm .place-link').attr( "href", place.href )
-        $('#planit-modal-new .confirm .bucket-list-address').html( place.address )
-        $('#planit-modal-new .confirm .bucket-list-locale').html( place.locale )
-        return true
-
-      s._markEvent = (mark) ->
-        $('#planit-modal-new .loading').hide()
-        $('#planit-modal-new .choose').show()
-        $('#planit-modal-new .choose .choices').attr( "href", mark.href )
-        return true
-
-      s._errorEvent = ->
-        $('#planit-modal-new .loading').hide()
-        $('#planit-modal-new .error').show()
-        return true
+            s.modal.show({ error: true })
+            ErrorReporter.report({ userId: s.userId, nearby: s.nearby, query: (s.queryOnly || s.query) })
+            s.clearSearch()
 
   }

@@ -1,12 +1,13 @@
 %script{ type: 'text/ng-template', id: 'modal.html' }
   .modal.planit-modal.fade#planit-modal-new{ aria_hidden: "true", role: "dialog", tabindex: "-1", ng_if: 'data' } 
     .modal-dialog
+
       .modal-content{ ng_show: '!data.loading && !data.error' }
-        %bookmark_place{ mark: 'data.mark', ng_if: "data.type == 'addPin' && data.mark", title: '{{title()}}' }
+        %bookmark_place{ mark: 'data.mark', initiate: 'data.initiate', ng_if: "data.type == 'addPin' && (data.mark || data.initiate)", header_title: '{{title()}}' }
 
       .modal-content{ ng_show: 'data.loading || data.error' }
         .loading{ ng_show: 'data.loading' }
-          %modal_header{ title: '{{title()}}' }
+          %modal_header{ header_title: '{{title()}}' }
           .modal-body
             .message-box
               %i.fa.fa-spinner.fa-spin
@@ -14,7 +15,7 @@
           %modal_footer
 
         .error{ ng_show: 'data.error' }
-          %modal_header{ title: '{{title()}}' }
+          %modal_header{ header_title: '{{title()}}' }
           .modal-body
             .message-box
               %i.fa.fa-exclamation-triangle

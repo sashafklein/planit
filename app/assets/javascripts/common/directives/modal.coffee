@@ -12,7 +12,7 @@ angular.module("Common").directive 'modal', ($rootScope, Modal) ->
         return unless $rootScope.modalData
         
         s.data = $rootScope.modalData
-        
+
         s.title = ->  
           switch s.data.type
             when 'addPin' then "Add New Pin"

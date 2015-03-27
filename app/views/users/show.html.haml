@@ -5,7 +5,7 @@
 
   - if current_user == @user # personal startpage
 
-    - if !browser.mobile?
+    - if browser.mobile?
 
       .band.gray.spaced.large-screen
         .container
@@ -19,8 +19,14 @@
       .mobile-half-screen.top
         .centering-box
           
-          .centered-item.input-box
-            %search_and_add
+          .centered-item.input-box{ ng_controller: 'NavBarCtrl' }
+            .search-bar-wrap.mobile-center-search
+              .input-group.faux-input{ ng_click: 'expandBar()' }
+                %ul.faux-input.form-control.search-bar-field
+                  %li.faux-input= "Search or Add"
+                %span.input-group-btn
+                  %button.btn.btn-default.search-input-button
+                    %i.fa.fa-search.fa-lg
 
       .mobile-half-screen.bottom
         .centering-box
@@ -41,4 +47,14 @@
     .band.gray.spaced.large-screen
       .container
 
-        = @user.decorate.travel_stats_string
+        %span.gray
+          @user.marks.count
+          pins and
+          @user.plans.count
+          plans
+        %span.gray.large-screen.inline
+          across 
+          @user.marks.all_localities.count
+          cities &
+          @user.marks.all_countries.count
+          countries

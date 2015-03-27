@@ -1,5 +1,7 @@
 class Place < BaseModel
 
+  after_create { Place.import unless Rails.env.test? }
+  
   boolean_accessor :published
 
   has_one :item

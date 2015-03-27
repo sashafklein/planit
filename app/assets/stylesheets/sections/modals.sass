@@ -123,7 +123,7 @@
     display: none
 
 
-.loading, .error, .choose
+.loading, .error
   .message-box
     padding: 30px 20px
     text-align: center
@@ -138,8 +138,9 @@
       display: inline-block
     span
       margin-left: 10px
-.modal-dialog
-  .custom
+
+#planit-modal-new
+  .confirm, .choose
     ul
       padding: 0
       li
@@ -156,20 +157,28 @@
             width: 138px !important
             height: 138px !important
             position: relative
+            cursor: pointer
+            &:hover
+              .choose-another-img
+                color: #fff
+                background: rgba(0,0,0,0.4)
             .choose-another-img
-              color: white
+              overflow: hidden
+              padding: 5px
+              border-radius: 4px
+              height: 50px
+              width: 50px
               font-weight: bold
-        .choose-another-img
-          position: absolute
-          &:hover
-            .choose-another-img
-              position: absolute
-              display: block
-              text-align: center
-              left: 0
-              right: 0
-              top: 0
-              bottom: 0
-              margin: auto
+              color: transparent
+              font-size: 14px
+              line-height: 15px
+              i
+                font-size: 24px
+                line-height: 25px
+                display: block
         .bucket-list-more-info.bucket-list-address
           margin-top: 10px
+
+.modal-footer
+  .planit-button
+    margin-left: 10px
