@@ -21,6 +21,8 @@ module Scrapers
         [{
           place:{
             name: name,
+            lat: marker_json.latitude,
+            lon: marker_json.longitude,
             full_address: full_address,
             phone: phone,
             website: website,
@@ -35,14 +37,33 @@ module Scrapers
         }.merge(global_data)]
       end
 
+      # JSON MATERIAL
+
+      def json_bundle
+        return @json_bundle unless !@json_bundle
+        return @json_bundle = page.css('script').select{ |s| s.inner_html.scan(/Drupal\.settings\, \{/).flatten.first }.first.text
+      end
+
+      def marker_json
+        return @marker_json unless !@marker_json
+        from_first_bracket = json_bundle.split(/\"markers\"\:\[/).last
+        to_parse = get_parseable_hash from_first_bracket
+        return @marker_json = JSON.parse( to_parse ).to_sh
+      end
+
       # OPERATIONS
 
       def name
-        trim( page.css("h1").first.text ) ; rescue ; nil
+        [
+          trim( page.css("h1").first.text ),
+          de_tag( marker_json.text )
+        ].compact.uniq.first
+      rescue ; nil
       end
 
       def full_address
-        trim( de_tag( p_br_to_comma( page.css("div.address").first.inner_html ) ) ) ; rescue ; nil
+        trim( de_tag( page.css(".ask-question").first.text ) )
+      rescue ; nil
       end
 
       def phone
@@ -50,7 +71,7 @@ module Scrapers
       end
 
       def website
-        page.css("div.website:contains('visit the website')").first.css("a:contains('visit the website')").first.attribute("href").value ; rescue ; nil
+        page.css(".visit-the-web").first.css("a:contains('website')").first.attribute("href").value ; rescue ; nil
       end
 
       def email
