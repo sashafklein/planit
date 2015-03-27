@@ -1,16 +1,15 @@
 - title( @user.name )
-- page_type( (browser.mobile? ? 'mobilehome' : 'dashboard') )
+- set_page_type( (browser.mobile? ? 'mobilehome' : 'dashboard') )
 
 #user-show-page
 
   - if current_user == @user # personal startpage
 
-    - if browser.mobile?
+    - if !browser.mobile?
 
-      .band.gray.spaced.large-screen
-        .container
-
-          .sixteen.columns
+      .static-page.container
+        .whitebox.no-mobile-portrait.extra-pad-top.like-container
+          .sixteen.columns.main-content
 
             %p= "#{@user.name}'s Dashboard"
 

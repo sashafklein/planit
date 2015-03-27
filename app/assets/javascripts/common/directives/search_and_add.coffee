@@ -14,7 +14,7 @@ angular.module("Common").directive 'searchAndAdd', (Mark, Place, $timeout, Error
       s.currentPlaceId = 0 
       s.typing = false
       s.userId = CurrentUser.id
-      s.splitKey = "nearby"
+      s.splitKey = "near"
 
       # BAR VISUALS
 

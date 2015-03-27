@@ -16,22 +16,23 @@ Rails.application.routes.draw do
 
   get '/import', to: 'statics#about' #NEEDSFOLLOWUP
   get '/export', to: 'statics#about' #NEEDSFOLLOWUP
-  # get '/inbox', to: 'users#inbox' #NEEDSFOLLOWUP
 
   get '/legal_support', to: 'statics#legal_support'
   get '/legal/dmca', to: 'statics#dmca'
   get '/legal/privacy', to: 'statics#privacy'
 
-  get '/nearby', to: 'users#nearby'
+  # get '/inbox', to: 'users#inbox', as: 'user'
+  # get '/nearby', to: 'users#nearby', as: 'user'
+  # get '/recent', to: 'users#recent', as: 'user'
 
-  resources :plans, only: [:show, :new, :index] do
+  resources :plans, only: [:show, :index] do
     get :print, on: :member
     get :edit, on: :member
   end
 
   resources :marks, only: [:show]
 
-  resources :places, only: [:show, :new, :index]
+  resources :places, only: [:show, :index]
 
   resources :users, only: [:show] do
     get :places, on: :member

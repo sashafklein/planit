@@ -31,7 +31,7 @@ describe Api::V1::Users::MarksController, :vcr do
       expect( place.image_url.length ).to be > 15
       expect( place.image_source.length ).to be > 5
       expect( place.address ).to eq "1320 Castro Street"
-      expect( place.locale ).to eq "San Francisco, San Francisco County, California, United States"
+      expect( place.locale ).to eq "San Francisco, San Francisco County, California"
       expect( place.href ).to eq "/places/#{place.id}"
       expect( place.categories ).to eq ["Spanish Restaurant", "Tapas Restaurant", "Food"]
       expect( place.meta_icon ).to eq "icon-local-restaurant"

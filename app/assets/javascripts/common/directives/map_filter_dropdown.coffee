@@ -1,5 +1,5 @@
 mod = angular.module('Models')
-mod.directive 'mapFilterDropdown', (QueryString, UserLocation) ->
+mod.directive 'mapFilterDropdown', (QueryString) ->
 
   return {
     restrict: 'E'
