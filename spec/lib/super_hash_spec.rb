@@ -122,6 +122,27 @@ describe SuperHash do
     end
   end
 
+  describe "to_yaml" do
+    it "formats it nice like" do
+      expect( sh.to_yaml ).to eq(
+'''shallowest: 1
+super_deep: 
+  shallow: 1
+  nilKey: nil
+  deepest: 
+    value: 
+      - 1
+      - 2
+      - 
+        another_hash: 
+          value: buried
+          buriedNil: nil
+          buriedBlank: 
+      - nil
+''')
+    end
+  end
+
   def initialize_sh
     @sh = sh
   end

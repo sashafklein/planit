@@ -1,6 +1,21 @@
 module SuperBase
-  def to_yaml
-    to_normal.to_yaml.gsub(/([\s|^]*):(\S+:)([\s|$]+)/){ "#{$1}#{$2}#{$3}" }.gsub("---\n", '') #.gsub('  ', ' ').gsub(/(\s+)-/){ "#{$1} -" }.gsub(/^(\s+)/){ "#{$1.length.odd? ? $1 + ' ' : $1}" }
+
+  def to_yaml(spacing = '')
+    string = ''
+    if is_a?(Hash)
+      each_pair do |k, v|
+        string += "#{spacing}#{k}: "
+        string += v.is_a_or_h? ? "\n" + v.to_yaml("#{spacing}  ") : ( v.nil? ? 'nil' : v.to_s )
+        string += "\n"
+      end
+    else
+      each do |v|
+        string += "#{spacing}- "
+        string += v.is_a_or_h? ? "\n" + v.to_yaml("#{spacing}  ") : ( v.nil? ? 'nil' : v.to_s )
+        string += "\n"
+      end
+    end
+    (string + "\n").gsub(/^(\s*)\n(\s*)$/, '').gsub("\n\n", "\n")
   end
 
   def to_normal

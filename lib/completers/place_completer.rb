@@ -31,7 +31,7 @@ module Completers
         foursquare if retry_foursquare?
         pin if (pip.completion_steps - ["Nearby"]).empty?
       end
-      translate_and_refine unless pip.completion_steps == ['Narrow']
+      translate_and_refine unless pip.completion_steps == ['Narrow'] || pip.completed("Pin")
       flag_it_up
     end
 
@@ -65,7 +65,7 @@ module Completers
     end
 
     def translate_and_refine
-      add_api_response( 'TranslateAndRefine', take: [:country, :region, :subregion, :locality, :sublocality] ) unless pip.completed("Pin")
+      add_api_response( 'TranslateAndRefine', take: [:country, :region, :subregion, :locality, :sublocality] )
     end
 
     def api_call(name, take=nil)

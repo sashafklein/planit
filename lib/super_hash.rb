@@ -87,11 +87,6 @@ class SuperHash < Hash
     hash
   end
 
-  def to_yaml
-    almost_there = to_h.to_yaml
-    almost_ther.gsub(/([\s|^]*):(\S+:)([\s|$]+)/){ "#{$1}#{$2}#{$3}" }.gsub("---\n", '').gsub(/(\s+)-/){ "#{$1}  -" }.gsub('  ', ' ')
-  end
-
   def to_h
     new_hash = {}
     super.each_pair do |k, v|

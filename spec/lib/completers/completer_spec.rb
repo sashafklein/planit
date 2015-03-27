@@ -169,7 +169,7 @@ module Completers
           expect(m.locality).to sorta_eq "New York"
           
           p = m.place
-          expect(m.place.sublocality).to eq "Manhattan"
+          expect(m.place.sublocality).to sorta_eq "Manhattan"
 
           i = m.items.first
           expect(i.plan.name).to eq "New York for Jetsetters"
@@ -249,11 +249,7 @@ module Completers
             option = m.place_options.with_name("Las Palmas").first
             expect( option ).to be_a PlaceOption
             place = option.choose!
-<<<<<<< HEAD
-            expect( place.locality ).to eq 'Cartagena De Indias'
-=======
             expect( place.locality ).to sorta_eq 'Cartagena'
->>>>>>> Added a 'sorta_eq' matcher for looser tests of locality, region, etc
           end
         end
         
@@ -349,8 +345,9 @@ module Completers
             url = "http://www.googlemaps.com/"
             yamlator = HtmlToYaml.new( end_path: 'googlemaps/nikoklein', url: url)
             m = Completer.new(yamlator.find(name: 'Simply Fresh Laundry'), @user).complete!            
-            expect( m.place.locality ).to sorta_eq 'Kota Denpasar'
-            expect( m.place.category ).to eq 'Laundry Service'
+            expect( m.place.locality ).to sorta_eq 'Denpasar'
+            expect( m.place.country ).to sorta_eq "Indonesia"
+            expect( m.place.region ).to sorta_eq "Bali"
           end
 
           it "gets The Ritz-Carlton, Kapalua" do
@@ -399,7 +396,7 @@ module Completers
             p = m.place
             expect( p.lat ).to float_eq 10.419666
             expect( p.lon ).to float_eq -75.54787
-            expect( p.locality ).to eq 'Cartagena De Indias'
+            expect( p.locality ).to sorta_eq 'Cartagena'
             expect( p.published ).to eq true
           end
 

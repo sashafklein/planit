@@ -58,6 +58,11 @@ module Completers
         ApiVenue::FoursquareExploreVenue.new(item)
       end
     rescue => e
+      if e.is_a? VCR::Errors::UnhandledHTTPRequestError
+        cassette = e.message.scan(/(\/Users\/sasha\S+\.yml)/).first.try(:first) || ''
+        puts "Ran into a VCR error -- deleting cassette #{cassette}"
+        `rm #{cassette}`
+      end
       @venues ||= []
       flag_failure(query: full_fs_url, response: @response, error: e)
     end

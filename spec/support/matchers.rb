@@ -35,6 +35,10 @@ RSpec::Matchers.define :array_eq do |expected|
   match do |actual|
     actual.sort == expected.sort
   end
+
+  failure_message do |actual|
+    "Expected " + "#{actual}".colorize(:red) + " to eq " + "#{expected}".colorize(:green) + ".\n\nDifferences: " "#{(actual - expected)}".colorize(:blue)
+  end
 end
 
 RSpec::Matchers.define :float_eq do |expected, points_agreement = 3|

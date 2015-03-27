@@ -9,17 +9,10 @@ module Completers
       context "'fuzzy' finding with nearby attribute" do
         it "finds Florida House Inn (Amelia Island)" do
           place = PlaceCompleter.new( { name: 'Florida House Inn', street_address: "22 S 3rd St", nearby: 'Amelia Island, Fla.'}).complete!
-<<<<<<< HEAD
-          expect( place.country ).to eq('United States')
-          expect( place.region ).to eq('Florida')
-          expect( place.subregion ).to eq('Nassau County')
-          expect( place.locality ).to eq('Fernandina Beach')
-=======
           expect( place.country ).to sorta_eq('United States')
           expect( place.region ).to sorta_eq('Florida')
           expect( place.subregion ).to sorta_eq('Nassau County')
           expect( place.locality ).to sorta_eq('Amelia Island')
->>>>>>> Added a 'sorta_eq' matcher for looser tests of locality, region, etc
           expect( place.street_addresses ).to eq( ['22 South 3rd Street', '20 South 3rd Street'] )
           expect( place.names ).to eq( ['Florida House Inn', '1857 Florida House Inn'] )
           expect( place.phones ).to eq( [] )
@@ -31,17 +24,11 @@ module Completers
 
         it "finds Fuunji" do
           place = PlaceCompleter.new( { name: 'Fuunji', nearby: 'Shibuya, Tokyo, Japan' }, 'whatever.com').complete!
-<<<<<<< HEAD
-          expect( place.country ).to eq('Japan')
-          expect( place.region ).to eq('Tokyo-to')
-          expect( place.subregion ).to eq(nil)
-          expect( place.locality ).to eq('Shinjuku-ku')
-=======
+
           expect( place.country ).to sorta_eq('Japan')
           expect( place.region ).to sorta_eq('Tokyo')
           expect( place.subregion ).to sorta_eq(nil)
           expect( place.locality ).to sorta_eq('Shibuya')
->>>>>>> Added a 'sorta_eq' matcher for looser tests of locality, region, etc
           expect( place.street_addresses ).to eq( ["代々木2-14-3", "2 Chome-１４−3 Yoyogi"] )
           expect( place.names ).to eq( ["Fuunji", "風雲児"] )
           expect( place.phones ).to eq(["81364138480"])
