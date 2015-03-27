@@ -9,10 +9,10 @@ module Completers
       context "'fuzzy' finding with nearby attribute" do
         it "finds Florida House Inn (Amelia Island)" do
           place = PlaceCompleter.new( { name: 'Florida House Inn', street_address: "22 S 3rd St", nearby: 'Amelia Island, Fla.'}).complete!
-          expect( place.country ).to eq('United States')
-          expect( place.region ).to eq('Florida')
-          expect( place.subregion ).to eq('Nassau County')
-          expect( place.locality ).to eq('Amelia Island')
+          expect( place.country ).to sorta_eq('United States')
+          expect( place.region ).to sorta_eq('Florida')
+          expect( place.subregion ).to sorta_eq('Nassau County')
+          expect( place.locality ).to sorta_eq('Amelia Island')
           expect( place.street_addresses ).to eq( ['22 South 3rd Street', '20 South 3rd Street'] )
           expect( place.names ).to eq( ['Florida House Inn', '1857 Florida House Inn'] )
           expect( place.phones ).to eq( [] )
@@ -24,10 +24,10 @@ module Completers
 
         it "finds Fuunji" do
           place = PlaceCompleter.new( { name: 'Fuunji', nearby: 'Shibuya, Tokyo, Japan' }, 'whatever.com').complete!
-          expect( place.country ).to eq('Japan')
-          expect( place.region ).to eq('Tokyo')
-          expect( place.subregion ).to eq(nil)
-          expect( place.locality ).to eq('Shinjuku-ku')
+          expect( place.country ).to sorta_eq('Japan')
+          expect( place.region ).to sorta_eq('Tokyo')
+          expect( place.subregion ).to sorta_eq(nil)
+          expect( place.locality ).to sorta_eq('Shibuya')
           expect( place.street_addresses ).to eq( ["代々木2-14-3", "2 Chome-１４−3 Yoyogi"] )
           expect( place.names ).to eq( ["Fuunji", "風雲児"] )
           expect( place.phones ).to eq(["81364138480"])
@@ -58,8 +58,8 @@ module Completers
           place = PlaceCompleter.new({name: 'La Cevicheria', street_address: "Calle Stuart No 7-14", nearby: "Cartagena, Colombia"} ).complete!
           
           expect( place.locality.downcase ).to include "cartagena"
-          expect( place.country ).to eq "Colombia"
-          expect( place.region ).to eq "Bolivar"
+          expect( place.country ).to sorta_eq "Colombia"
+          expect( place.region ).to sorta_eq "Bolivar"
           expect( place.category ).to eq 'Seafood Restaurant'
           expect( place.street_addresses ).to eq ["Calle Stuart No 7-14", "Calle Stuart 7-14"]
           expect( place.lat ).to eq 10.428036
@@ -70,9 +70,9 @@ module Completers
           place = PlaceCompleter.new({ name: 'Trident Nariman Point', nearby: 'Nariman Point, Bombay'}).complete!
           expect( place.names ).to eq(["Trident Nariman Point", "The Trident"])
           expect( place.reload.phones ).to eq(["912266324343"])
-          expect( place.region ).to eq("Maharashtra")
+          expect( place.region ).to sorta_eq("Maharashtra")
           expect( place.street_addresses ).to eq(["Nariman Point"])
-          expect( place.locality ).to eq("Mumbai")
+          expect( place.locality ).to sorta_eq("Mumbai")
           expect( place.category ).to eq('Hotel')
           expect( place.website ).to eq("http://www.tridenthotels.com")
           expect( place.lat ).to float_eq 18.926940497504404
@@ -84,9 +84,9 @@ module Completers
           place = PlaceCompleter.new(yml_data('nikoklein', 'http://www.googlemaps.com/', "Caffe Vita Inc")[:place]).complete!
           expect( place.postal_code ).to eq "98103"
           expect( place.cross_street ).to eq "at N 43rd St"
-          expect( place.country ).to eq "United States"
-          expect( place.region ).to eq "Washington"
-          expect( place.locality ).to eq "Seattle"
+          expect( place.country ).to sorta_eq "United States"
+          expect( place.region ).to sorta_eq "Washington"
+          expect( place.locality ).to sorta_eq "Seattle"
           expect( place.lat ).to float_eq 47.659109
           expect( place.lon ).to float_eq -122.3503097
           expect( place.website ).to eq "http://www.caffevita.com"
@@ -101,7 +101,7 @@ module Completers
             "sat"=>[["0700", "2000"]], 
             "sun"=>[["0700", "2000"]]
           } )
-          expect( place.subregion ).to eq "King County"
+          expect( place.subregion ).to sorta_eq "King County"
           expect( place.street_addresses ).to eq ["4301 Fremont Avenue North"]
           expect( place.full_address ).to eq "4301 Fremont Avenue North (at North 43rd St), Seattle, WA 98103, United States"
           expect( place.categories ).to eq ["Coffee Shop"]
@@ -143,7 +143,7 @@ module Completers
             "sat"=>[["1000", "2000"]], 
             "sun"=>[["0830", "1700"]]
           })
-          expect( place.region ).to eq 'Ile-de-France'
+          expect( place.region ).to sorta_eq 'Ile-de-France'
           expect( place.categories ).to eq ['Dessert Shop']
           expect( place.meta_category ).to eq 'Food'
           expect( place.timezone_string ).to eq 'Europe/Paris'
@@ -166,8 +166,8 @@ module Completers
           expect( place.categories ).to eq( ["Pizza Place"] )
           expect( place.meta_categories ).to eq( ["Food"] )
           expect( place.street_address ).to eq "4741 Southeast Hawthorne Boulevard"
-          expect( place.locality ).to eq "Portland"
-          expect( place.region ).to eq "Oregon"
+          expect( place.locality ).to sorta_eq "Portland"
+          expect( place.region ).to sorta_eq "Oregon"
           expect( place.hours ).to hash_eq({
             "mon"=>[["1700", "2130"]],
             "tue"=>[["1700", "2130"]],
@@ -184,7 +184,7 @@ module Completers
 
         xit "rejects pin-only?" do
           place = PlaceCompleter.new(yml_data('amelia-island', 'http://www.nytimes.com/', "St. Peter's Episcopal Church Cemetery")[:place]).complete!
-          # expect( place.locality ).to eq("Fernandina Beach")
+          # expect( place.locality ).to sorta_eq("Fernandina Beach")
           # expect( place.lat ).to float_eq 30.670939
           # expect( place.lon ).to float_eq -81.45853
           # expect( place.meta_category ).to eq "See"
@@ -194,7 +194,7 @@ module Completers
 
         it "truly prioritizes nearby in finding matches (e.g. St Peters Episcopal Church in Fernandina Beach FL vs. Gainsville FL)" do
           place = PlaceCompleter.new(yml_data('amelia-island', 'http://www.nytimes.com/', "St. Peter's Episcopal Church Cemetery")[:place]).complete!
-          expect( place.locality ).to eq("Fernandina Beach")
+          expect( place.locality ).to sorta_eq("Fernandina Beach")
           expect( place.lat ).to float_eq 30.670939
           expect( place.lon ).to float_eq -81.45853
           expect( place.meta_category ).to eq "See"
@@ -227,7 +227,7 @@ module Completers
           expect( place.street_addresses ).to include "999 Pudong South Road, Pudong, Shanghai, China"
           expect( place.categories ).to eq ["Cafe"]
           expect( place.meta_categories ).to eq ["Food"]
-          expect( place.sublocality ).to eq "Pudong Xinqu"
+          expect( place.sublocality ).to sorta_eq "Pudong Xinqu"
           expect( place.phones ).to eq ["862151341075"]
         end
 
@@ -339,7 +339,7 @@ module Completers
           expect( place.extra.except(:google_place_url) ).to hash_eq({ rating: 5, rating_tier: '5 star', twitter: '@fuunjiIsTheShit' })
           expect( place.foursquare_id ).to eq "4b5983faf964a520ca8a28e3"
           expect( place.completion_steps ).to array_eq ["FoursquareExplore", "GoogleMaps", "FoursquareRefine", "TranslateAndRefine"]
-          expect( place.sublocality ).to eq "Kabukichō"
+          expect( place.sublocality ).to sorta_eq "Kabukicho"
         end
       end
 
