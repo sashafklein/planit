@@ -1,5 +1,7 @@
 class Place < BaseModel
 
+  after_create { Place.import unless Rails.env.test? }
+  
   boolean_accessor :published
 
   has_one :item
@@ -11,7 +13,7 @@ class Place < BaseModel
   array_accessor :completion_step, :street_address, :name, :category, :meta_category, :phone
   json_accessor :hours, :extra
 
-  elastic_searchable columns_and_weights: ['names^10', 'locality^5', 'sublocality', 'categories']
+  elastic_searchable columns_and_weights: ['names^10', 'categories', 'meta_categories'], fuzziness: 2
 
   validate!
 

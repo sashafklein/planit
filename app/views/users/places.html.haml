@@ -1,5 +1,5 @@
 - title( "#{@user.name}'s Places" )
-- page_type('places')
+- set_page_type('places')
 
 #user-places-page
 
@@ -7,7 +7,7 @@
 
     #user-bucket-map
       %bucket_map.bucket-map-canvas{ user_id: @user.id, center_and_zoom: params[:m], web_padding: '45,45,15,400', mobile_padding: '40,15,80,15' }
-      = render 'templates/bucket_map'
+      - include_templates( :bucket_map, :bucket_list_clusters, :bucket_list_places )
 
   - elsif current_user.marks.count == 0
 

@@ -17,7 +17,7 @@ mod.factory "Place", (BaseModel, BasicOperators, $http) ->
       area ||= BasicOperators.commaAndJoin( countries, 2 ) unless _.contains(countries, "United States")
       return area
 
-    @search: (query) -> $http.get("#{@basePath}/search", { params: { q: query } } )
+    @search: (query, nearby) -> $http.get("#{@basePath}/search", { params: { q: query, n: nearby } } )
     @complete: (obj) -> 
       $http.post "/api/v1/users/#{obj.user_id}/marks/create", 
         mark: { place: { name: obj.name, nearby: obj.nearby } }

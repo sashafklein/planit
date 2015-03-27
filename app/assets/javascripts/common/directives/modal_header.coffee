@@ -7,11 +7,11 @@ angular.module('Common').directive 'modalHeader', (Modal) ->
         <button class='close' aria-label='Close' ng-click='dismiss()' type="button">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class='modal-title'>{{ title }}</h4>
+        <h4 class='modal-title'>{{ headerTitle }}</h4>
       </div>
     '''
     scope: 
-      title: '@'
+      headerTitle: '@'
     link: (s, e) ->
       s.dismiss = -> new Modal('').hide()
   }

@@ -1,5 +1,11 @@
-= current_user.decorate.nav_item_map(page_type)
-= current_user.decorate.nav_item_guides(page_type)
-= current_user.decorate.nav_item_new(page_type)
-= current_user.decorate.nav_item_inbox(page_type, current_user)
-= current_user.decorate.nav_item_share(page_type, (@user if page_type == 'places' || page_type == 'guides') )
+= link_to_unless( page_type == 'places', ( render 'application/nav_places', {page_type: page_type} ), places_user_path(current_user), { class: 'nav-item-link' })
+
+= link_to_unless( page_type == 'guides', ( render 'application/nav_guides', {page_type: page_type} ), guides_user_path(current_user), { class: 'nav-item-link' })
+
+.nav-item-link{ ng_click: 'expandBar()' }= render 'application/nav_add', {page_type: page_type}
+
+= link_to_unless( page_type == 'inbox', ( render 'application/nav_inbox', {page_type: page_type, current_user: current_user} ), inbox_user_path(current_user), { class: 'nav-item-link' })
+
+= link_to_unless( !rich_content?(page_type), ( render 'application/nav_share', {page_type: page_type} ), '#planit-modal-share', { class: 'nav-item-link', data: {toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'}}) 
+
+- include_templates :search_and_add # for add button

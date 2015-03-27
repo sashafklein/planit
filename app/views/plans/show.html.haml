@@ -1,10 +1,10 @@
 - title( @plan.name )
-- page_type('plan')
+- set_page_type('plan')
 
 #show-plan-page{ ng_controller: 'Plans.ShowCtrl' }
 
   .plan-map-container{ ng_class: "{'expanded': mapExpanded}" }
-    %div#expand-map-button{ ng_click: 'contractOrExpandMap()', ng_class: "{'expanded': mapExpanded}" }
+    %div#expand-map-button.large-screen{ ng_click: 'contractOrExpandMap()', ng_class: "{'expanded': mapExpanded}" }
       %i.fa.fa-expand.fa-flip-horizontal
     %plan_map.plan-map-canvas{ plan_id: @plan.id, current_user_id: current_user_id, type: 'plan' }
       .plan-name-and-detail-container{ ng_show: '!mapExpanded' }
@@ -12,7 +12,7 @@
           %span.plan-name= @plan.name
         = @plan.decorate.show_plan_dates
 
-  .plan-items-container{ ng_show: '!mapExpanded' }
+  .plan-items-container.except-landscape{ ng_show: '!mapExpanded' }
     - @plan.legs.each_with_index do |leg, index|
       = leg.decorate.show_leg_name
       - leg.days.each_with_index do |day, index|

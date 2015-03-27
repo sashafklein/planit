@@ -1,5 +1,5 @@
 - title(@place.name)
-- page_type('place')
+- set_page_type('place')
 
 #show-place-page
 
@@ -10,7 +10,9 @@
   .container
     .sixteen.columns.name-essentials-wrap
       .place-page-name= @place.name
-      = @place.decorate.show_categories
+      .place-page-category{ class: "#{'gray' if @place.decorate.has_category}" }
+        %i.place-page-meta-category{ class: @place.meta_icon }
+        = @place.decorate.category
 
   .container
     .five.columns

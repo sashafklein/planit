@@ -20,6 +20,15 @@ class User < BaseModel
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  def is?(user)
+    id == user.id
+  end
+
+  def owns?(record)
+    record['user_id'] == id || 
+      ( record['object_id'] && record['object_id'] == id && record['object_type'] == 'User' )
+  end
+
   def casual_name
     first_name || email.gsub(/[@].*/, '')
   end

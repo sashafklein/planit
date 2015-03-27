@@ -8,30 +8,21 @@ module ApplicationHelper
     content_for(:page_title) { page_title }
   end
 
-  def header(options={})
-    content_for(:header) { options ? render_header(options) : 'false' }
+  def set_page_type(type)
+    content_for(:page_type) { type }
   end
 
-  def page_type(name)
-    content_for(:page_type) { name }
-    header(page_type: name); footer(page_type: name)
+  def render_header(type='false')
+    render 'application/header', { page_type: type }
+  end
+
+  def render_footer(type='false')
+    render 'application/footer', { page_type: type }
   end
 
   def include_templates(*templates)
     @directive_templates ||= []
     templates.each{ |t| @directive_templates << t }
-  end
-
-  def footer(options={})
-    content_for(:footer) { options ? render_footer(options) : 'false' }
-  end
-
-  def render_header(options={})
-    render 'application/header', { background: 'white', color: 'black', start: '', page_type: '' }.merge(options)
-  end
-
-  def render_footer(options={})
-    render 'application/footer', { page_type: '' }.merge(options)
   end
 
   def yield_with_blank(name, &block)
@@ -43,7 +34,7 @@ module ApplicationHelper
   end
 
   def show_search?(page_type)
-    [ 'places', 'guides', 'plan' ].include?(page_type)
+    [ 'places', 'guides', 'plan', 'dashboard' ].include?(page_type)
   end
 
   def rich_content?(page_type)
@@ -55,7 +46,7 @@ module ApplicationHelper
   end
 
   def fullscreen?(page_type)
-    [ 'places' ].include?(page_type)
+    [ 'places', 'beta' ].include?(page_type)
   end
 
   # DATE-BASED LISTS
@@ -85,11 +76,7 @@ module ApplicationHelper
   end
 
   def current_user_owns(record=nil)
-    if @user && current_user_is_active
-      @user == current_user
-    elsif record && current_user_is_active
-      record.user_id == current_user.id
-    end
+    current_user_is_active && ( current_user.owns?(record) || current_user.is?(record) )
   end
 
   def link_to_email_help(subject: 'Ran into a bug', content: '', link_text: 'let us know', opts: { class: 'linky'})

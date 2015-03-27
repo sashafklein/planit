@@ -1,0 +1,5 @@
+.nav-item.nav-item-inbox{ class: "#{'selected' if page_type == 'inbox'} #{'disabled' unless current_user.messages > 0 }"}
+  %i.nav-item-icon.fa.fa-inbox
+    %span.inbox-count= current_user.messages
+  .nav-item-hint
+    %span MY INBOX

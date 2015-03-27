@@ -1,0 +1,16 @@
+- title( 'Recent Activity' )
+- set_page_type( 'recent' )
+
+#user-recent-activity-page
+
+  .band.gray.spaced.large-screen
+    .container
+
+      .sixteen.columns
+
+        %p 
+          %b Recent Activity
+        - @user.marks_with_places.includes(:place).find_each do |mark|
+          %p
+            = link_to mark.place.name + " " + mark.updated_at.strftime('%d %b, %Y'), mark.place
+

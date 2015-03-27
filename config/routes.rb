@@ -16,25 +16,30 @@ Rails.application.routes.draw do
 
   get '/import', to: 'statics#about' #NEEDSFOLLOWUP
   get '/export', to: 'statics#about' #NEEDSFOLLOWUP
-  # get '/inbox', to: 'users#inbox' #NEEDSFOLLOWUP
 
   get '/legal_support', to: 'statics#legal_support'
   get '/legal/dmca', to: 'statics#dmca'
   get '/legal/privacy', to: 'statics#privacy'
 
-  resources :plans, only: [:show, :new, :index] do
+  # get '/inbox', to: 'users#inbox', as: 'user'
+  # get '/nearby', to: 'users#nearby', as: 'user'
+  # get '/recent', to: 'users#recent', as: 'user'
+
+  resources :plans, only: [:show, :index] do
     get :print, on: :member
     get :edit, on: :member
   end
 
   resources :marks, only: [:show]
 
-  resources :places, only: [:show, :new, :index]
+  resources :places, only: [:show, :index]
 
   resources :users, only: [:show] do
     get :places, on: :member
     get :guides, on: :member
     get :inbox, on: :member
+    get :recent, on: :member
+    get :nearby, on: :member
     post :waitlist, on: :collection
     post :invite, on: :collection
   end
@@ -78,7 +83,7 @@ Rails.application.routes.draw do
     end
   end
 
-  unless false
+  unless Rails.env.development?
     get '*unmatched_route', to: 'application#catch_404_error'
   end
 end

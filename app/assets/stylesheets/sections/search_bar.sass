@@ -11,6 +11,81 @@
   background: rgba(0,0,0,0.3)
   cursor: pointer
 
+.search-and-add-wrap
+  position: absolute
+
+.search-bar-wrap
+
+  .search-bar-field, .search-input-button
+    height: 28px !important
+    font-family: avenir, 'trebuchet ms', open sans, arial !important
+    font-weight: normal !important
+    font-size: 14px !important
+    line-height: 20px !important
+
+  .search-input-button
+    padding: 0px 12px !important
+    i
+      margin: auto
+      font-size: 14px !important
+      line-height: 14px !important
+      overflow: hidden !important
+      height: 14px !important
+
+  input:focus
+    outline: 0 !important
+  
+  .input-group.faux-input
+    overflow: hidden
+
+    span.input-group-btn
+      z-index: 100
+
+  ul.faux-input
+    position: relative
+    margin: 0
+    padding: 0
+    list-style-type: none
+    -webkit-padding-start: 0
+    text-align: left
+    overflow: hidden
+    white-space: nowrap
+    width: 100%
+
+    li
+      margin: 0
+      padding: 0
+      background: #fff
+      cursor: text
+      &.real-input
+        input
+          width: 100%
+          border: none
+          background: transparent
+          padding: 3px 12px
+          margin: 0
+          &#secondary
+            padding: 3px 12px 3px 0
+            margin: 0 0 0 4px
+      &.faux-input
+        float: left
+        padding: 3px 4px 3px 12px
+        cursor: text
+      &.symbol
+        float: left
+        padding: 3px 0
+        cursor: pointer
+        z-index: 100
+        span
+          padding: 0 3px
+          background: #f06
+          border-radius: 5px
+          border: 1px solid #c03
+          border-bottom: #700
+          color: #fff
+          line-height: 14px
+          font-weight: normal          
+
 .place-search-bar
   display: inline-block
   width: 100%
@@ -23,9 +98,6 @@
     right: 0
     width: 100%
     min-width: 360px
-
-    .search-results-container
-      background: #ccc
 
     ul
       z-index: 25000
@@ -49,39 +121,29 @@
           color: #fff
           background: #000
       li.entry-form
-        height: 40px
+        height: auto
         overflow: none
-        .planit-button
-          width: 69px
-          margin: 0
-        .bucket-list-wrap
-          text-align: left
-          height: 34px
-          font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-          font-size: 14px
-          line-height: 28px
-          font-weight: bold
-          color: #007
-          padding: 3px 0 3px 7px
-          overflow: hidden
+        .bucket-list-tab
+          position: relative
+          height: 35px
+          overflow: none
           white-space: nowrap
-          label
-            display: inline-block
-            font-weight: none
-            padding: 0 4px
-            color: #f06 // neon
-          input
-            display: inline-block
-            padding: 0 4px
-            border: 1px solid #ccc
-            background: #fff
-            height: 28px
+          .planit-button
+            position: absolute
+            margin: 0
+            right: 0
+            bottom: 0
+          .bucket-list-wrap
+            display: block
+            width: 100%
+            height: 32px
+            color: #777
+            padding: 0
             font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
             font-size: 14px
-            line-height: 28px
+            line-height: 32px
             font-weight: normal
-            &.nearby-included
-              color: #007 // blue
+            text-align: left
 
 #planit-header
 
@@ -200,22 +262,6 @@
         &:hover
           color: #f06
 
-  #search-input-field, #search-input-button
-    height: 28px
-    font-family: avenir, 'trebuchet ms', open sans, arial !important
-    font-weight: normal !important
-    font-size: 14px !important
-    line-height: 28px !important
-    padding: 0px 12px !important
-    i
-      margin: auto
-      font-size: 14px !important
-      line-height: 14px !important
-      overflow: hidden !important
-      height: 14px !important
-  #clear-search-input
-    right: 45px !important
-
   // VARIABLE SIZING RULES
 
   // *Computer (Regular)
@@ -226,7 +272,7 @@
     width: 30%
     min-width: 100px
     margin: 0 auto
-  .search-bar-wrap
+  .expanded-search-and-filter .search-bar-wrap
     width: 30%
     margin: 21px auto
 
@@ -238,7 +284,7 @@
       right: 0
       width: 20%
       margin: 0 auto
-    .search-bar-wrap
+    .expanded-search-and-filter .search-bar-wrap
       width: 45%
       margin: 21px auto
 
@@ -247,27 +293,21 @@
 
     .expanded-search-and-filter
       height: 55px
+      background: #000
       .search-bar-wrap
         margin: 8px auto
+        left: 0px
+        right: 0px
+        margin: 14px auto 0 auto
+        padding: 0
+        width: auto
       .search-close
-        color: #fff !important
-        text-shadow: none
-        opacity: 0.7
-        &:hover
-          opacity: 0.9
-          color: #fff !important        
+        display: none
 
     .search-and-filter-wrap
       top: 11px
       left: 80px
       right: 80px
-      width: auto
-
-    .search-bar-wrap
-      left: 0px
-      right: 0px
-      margin: 14px auto 0 auto
-      padding: 0 35px 
       width: auto
 
     #search-teaser-field

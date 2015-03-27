@@ -1,5 +1,5 @@
 class SearchPlaceSerializer < BaseSerializer
-  attributes :id, :name, :image_url, :image_source, :address, :locale, :href, :categories, :meta_icon
+  attributes :id, :name, :image_url, :image_source, :address, :locale, :href, :categories, :meta_icon, :country
   delegate :street_address, :sublocality, :locality, :subregion, :region, :country, :categories, :meta_icon, :meta_categories, to: :object
 
   has_many :images
@@ -43,7 +43,7 @@ class SearchPlaceSerializer < BaseSerializer
   end
 
   def constructed_locale
-    [locality, subregion, region, country].compact.join(", ")
+    [locality, subregion].compact.uniq.concat([region]).compact.join(", ")
   end
 
 end

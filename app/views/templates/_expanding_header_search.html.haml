@@ -1,0 +1,9 @@
+%script{ type: 'text/ng-template', id: 'expanding_header_search.html' }
+  .place-search-bar
+    .search-teaser{ ng_show: 'searchClick()', ng_class: "{'full-width': fullWidth() }", ng_click: 'showSearch()' }
+      %span#search-teaser-field
+      %i.fa.fa-search.fa-lg
+    .expanded-search-and-filter
+      %search_and_add{ hide_search: 'hideSearch()' }
+      %button.close.search-close{ ng_click: 'hideSearch()' }
+        %span ×

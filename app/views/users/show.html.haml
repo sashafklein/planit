@@ -1,32 +1,31 @@
 - title( @user.name )
-- page_type('dashboard')
+- set_page_type( (browser.mobile? ? 'mobilehome' : 'dashboard') )
 
 #user-show-page
 
-  - if current_user_owns
+  - if current_user == @user # personal startpage
 
     - if !browser.mobile?
 
-      .band.gray.spaced.large-screen
-        .container
+      .static-page.container
+        .whitebox.no-mobile-portrait.extra-pad-top.like-container
+          .sixteen.columns.main-content
 
-          Recent Activity
-          - @user.marks_with_places.includes(:place).find_each do |mark|
-            %p= link_to mark.place.name + " : " + mark.updated_at.strftime('%d %b, %Y'), mark.place
+            %p= "#{@user.name}'s Dashboard"
 
-    - else
+    - else # mobile
 
       .mobile-half-screen.top
         .centering-box
           
-          .centered-item.input-box
-            .input-group
-              %input.form-control.input-with-clear{ placeholder: 'Add new place' }
-              %span.clear-input-button
-                %i.fa.fa-times-circle
-              %span.input-group-btn
-                %button.btn.btn-default
-                  %i.fa.fa-plus
+          .centered-item.input-box{ ng_controller: 'NavBarCtrl' }
+            .search-bar-wrap.mobile-center-search
+              .input-group.faux-input{ ng_click: 'expandBar()' }
+                %ul.faux-input.form-control.search-bar-field
+                  %li.faux-input= "Search or Add"
+                %span.input-group-btn
+                  %button.btn.btn-default.search-input-button
+                    %i.fa.fa-search.fa-lg
 
       .mobile-half-screen.bottom
         .centering-box
@@ -42,9 +41,19 @@
                   %i.fa.fa-clock-o
                   .hint Recent
 
-  - else
+  - else # public 'dashboard'
 
     .band.gray.spaced.large-screen
       .container
 
-        = @user.decorate.travel_stats_string
+        %span.gray
+          @user.marks.count
+          pins and
+          @user.plans.count
+          plans
+        %span.gray.large-screen.inline
+          across 
+          @user.marks.all_localities.count
+          cities &
+          @user.marks.all_countries.count
+          countries

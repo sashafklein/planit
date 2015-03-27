@@ -1,5 +1,5 @@
 mod = angular.module('Controllers')
-mod.controller "ApplicationCtrl", ($scope, ClickControls, Collapsibles, Bootstrap, UserLocation, Flashes, $rootScope, CurrentUser) ->
+mod.controller "ApplicationCtrl", ($scope, ClickControls, Collapsibles, Bootstrap, Flashes, $rootScope, CurrentUser) ->
   
   # Universal to all users/non-users
   Bootstrap.initializePage()
@@ -8,4 +8,3 @@ mod.controller "ApplicationCtrl", ($scope, ClickControls, Collapsibles, Bootstra
 
   if CurrentUser.role != 'pending'
     ClickControls.initializePage()
-    UserLocation.initializePage()

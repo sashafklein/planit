@@ -1,9 +1,8 @@
 - title("500 - #{@object.capitalize} Not Found!")
-- page_type("error")
+- set_page_type("error")
 
 .band.spaced-extra
-  .centering-box
-    .centered-item
-      %h1{ style: 'font-size: 120px; font-weight: bold'} Uh Oh: 500
-      %h1= "The #{@object} you're looking for doesn't seem to exist!"
-      %h3 We've been notified, and will try to fix the problem shortly.
+  .container
+    %h1{ style: 'font-size: 120px; font-weight: bold'} Uh Oh: 500
+    %h1= "The #{@object} you're looking for doesn't seem to exist!"
+    %h3 We've been notified, and will try to fix the problem shortly.
