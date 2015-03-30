@@ -21,7 +21,7 @@ module Scrapers
         [{
           place:{
             name: trim( de_tag( name ) ),
-            street_address: street_address,
+            street_addresses: street_addresses,
             extended_address: extended_address,
             locality: locality,
             region: region,
@@ -48,8 +48,8 @@ module Scrapers
         page.css('.HEADING').inner_html ; rescue ; nil
       end
 
-      def street_address
-        page.css("span[property='v:street-address']").inner_html ; rescue ; nil
+      def street_addresses
+        page.css("span[property='v:street-address']").map(&:inner_html).compact.uniq ; rescue ; nil
       end
 
       def extended_address
@@ -65,7 +65,7 @@ module Scrapers
       end
 
       def postal_code
-        page.css("span[property='v:postal-code']").inner_html ; rescue ; nil
+        page.css("span[property='v:postal-code']").first.inner_html ; rescue ; nil
       end
 
       def country

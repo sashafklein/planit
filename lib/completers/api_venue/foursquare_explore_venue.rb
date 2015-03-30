@@ -60,6 +60,10 @@ module Completers
       json.super_fetch %w(location neighborhood)
     end
 
+    def categories
+      (cats = json.categories || []).map(&:name)
+    end
+
     def full_address
       fa = json.super_fetch %w( location formattedAddress )
       fa ? fa.join(", ") : nil

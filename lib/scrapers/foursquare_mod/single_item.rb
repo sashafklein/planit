@@ -37,7 +37,7 @@ module Scrapers
             street_address: venue_json.location.address,
             sublocality: venue_json.location.neighborhood,
             locality: venue_json.location.city,
-            state: venue_json.location.state,
+            region: venue_json.location.state,
             country: venue_json.location.country,
             postal_code: venue_json.location.postalCode,
             phones: safe_phones( venue_json.contact ),

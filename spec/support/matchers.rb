@@ -27,7 +27,12 @@ RSpec::Matchers.define :hash_eq do |expected_hash, opts = {}|
     actual.each{ |k, v| differences[k] = v if !expected[k] || expected[k] != v }
     differences = recursive_delete_differences(differences, actual, expected)
 
-    "Expected equality:\n\n" + "#{actual.recursive_symbolize_keys.to_s}".colorize(:green) + "\n\n#{expected.recursive_symbolize_keys.to_s}\n\n" + "Differences:\n\n#{differences.to_s.colorize(:white)}".colorize(:white)
+    "Got:\n\n".colorize(:blue) + 
+      "#{actual.recursive_symbolize_keys.to_s}\n\n".colorize(:green) + 
+      "Expected:\n\n".colorize(:blue) + 
+      "#{expected.recursive_symbolize_keys.to_s}\n\n".colorize(:red) + 
+      "Differences:\n\n".colorize(:blue) + 
+      "#{differences}".colorize(:white)
   end
 end
 
@@ -72,6 +77,16 @@ RSpec::Matchers.define :sorta_eq do |expected|
 
   failure_message do |actual|
     "Expected '#{actual}' to include '#{expected}' (case-insensitive)"
+  end
+end
+
+RSpec::Matchers.define :class_eq do |expected, name|
+  match do |actual| 
+    actual.class == expected.class
+  end
+
+  failure_message do |actual|
+    "Expected the two #{name} values -- '#{actual}' and '#{expected}' -- to share the same class"
   end
 end
 

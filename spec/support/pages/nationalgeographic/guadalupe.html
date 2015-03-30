@@ -1,7 +1,6 @@
 
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"  xmlns:fb="http://www.facebook.com/2008/fbml">
 
@@ -17,7 +16,7 @@
         <!-- Required for Membership/SSO -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"Uw4AWVVADAoDUFlW"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o?o:e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({QJf3ax:[function(t,e){function n(t){function e(e,n,a){t&&t(e,n,a),a||(a={});for(var c=s(e),f=c.length,u=i(a,o,r),d=0;f>d;d++)c[d].apply(u,n);return u}function a(t,e){f[t]=s(t).concat(e)}function s(t){return f[t]||[]}function c(){return n(e)}var f={};return{on:a,emit:e,create:c,listeners:s,_events:f}}function r(){return{}}var o="nr@context",i=t("gos");e.exports=n()},{gos:"7eSDFh"}],ee:[function(t,e){e.exports=t("QJf3ax")},{}],3:[function(t){function e(t,e,n,i,s){try{c?c-=1:r("err",[s||new UncaughtException(t,e,n)])}catch(f){try{r("ierr",[f,(new Date).getTime(),!0])}catch(u){}}return"function"==typeof a?a.apply(this,o(arguments)):!1}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function n(t){r("err",[t,(new Date).getTime()])}var r=t("handle"),o=t(5),i=t("ee"),a=window.onerror,s=!1,c=0;t("loader").features.err=!0,window.onerror=e,NREUM.noticeError=n;try{throw new Error}catch(f){"stack"in f&&(t(1),t(4),"addEventListener"in window&&t(2),window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&t(3),s=!0)}i.on("fn-start",function(){s&&(c+=1)}),i.on("fn-err",function(t,e,r){s&&(this.thrown=!0,n(r))}),i.on("fn-end",function(){s&&!this.thrown&&c>0&&(c-=1)}),i.on("internal-error",function(t){r("ierr",[t,(new Date).getTime(),!0])})},{1:8,2:5,3:9,4:7,5:20,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],4:[function(t){function e(){}if(window.performance&&window.performance.timing&&window.performance.getEntriesByType){var n=t("ee"),r=t("handle"),o=t(2);t("loader").features.stn=!0,t(1),n.on("fn-start",function(t){var e=t[0];e instanceof Event&&(this.bstStart=Date.now())}),n.on("fn-end",function(t,e){var n=t[0];n instanceof Event&&r("bst",[n,e,this.bstStart,Date.now()])}),o.on("fn-start",function(t,e,n){this.bstStart=Date.now(),this.bstType=n}),o.on("fn-end",function(t,e){r("bstTimer",[e,this.bstStart,Date.now(),this.bstType])}),n.on("pushState-start",function(){this.time=Date.now(),this.startPath=location.pathname+location.hash}),n.on("pushState-end",function(){r("bstHist",[location.pathname+location.hash,this.startPath,this.time])}),"addEventListener"in window.performance&&(window.performance.addEventListener("webkitresourcetimingbufferfull",function(){r("bstResource",[window.performance.getEntriesByType("resource")]),window.performance.webkitClearResourceTimings()},!1),window.performance.addEventListener("resourcetimingbufferfull",function(){r("bstResource",[window.performance.getEntriesByType("resource")]),window.performance.clearResourceTimings()},!1)),document.addEventListener("scroll",e,!1),document.addEventListener("keypress",e,!1),document.addEventListener("click",e,!1)}},{1:6,2:8,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],5:[function(t,e){function n(t){i.inPlace(t,["addEventListener","removeEventListener"],"-",r)}function r(t){return t[1]}var o=(t(1),t("ee").create()),i=t(2)(o),a=t("gos");if(e.exports=o,n(window),"getPrototypeOf"in Object){for(var s=document;s&&!s.hasOwnProperty("addEventListener");)s=Object.getPrototypeOf(s);s&&n(s);for(var c=XMLHttpRequest.prototype;c&&!c.hasOwnProperty("addEventListener");)c=Object.getPrototypeOf(c);c&&n(c)}else XMLHttpRequest.prototype.hasOwnProperty("addEventListener")&&n(XMLHttpRequest.prototype);o.on("addEventListener-start",function(t){if(t[1]){var e=t[1];"function"==typeof e?this.wrapped=t[1]=a(e,"nr@wrapped",function(){return i(e,"fn-",null,e.name||"anonymous")}):"function"==typeof e.handleEvent&&i.inPlace(e,["handleEvent"],"fn-")}}),o.on("removeEventListener-start",function(t){var e=this.wrapped;e&&(t[1]=e)})},{1:20,2:21,ee:"QJf3ax",gos:"7eSDFh"}],6:[function(t,e){var n=(t(2),t("ee").create()),r=t(1)(n);e.exports=n,r.inPlace(window.history,["pushState"],"-")},{1:21,2:20,ee:"QJf3ax"}],7:[function(t,e){var n=(t(2),t("ee").create()),r=t(1)(n);e.exports=n,r.inPlace(window,["requestAnimationFrame","mozRequestAnimationFrame","webkitRequestAnimationFrame","msRequestAnimationFrame"],"raf-"),n.on("raf-start",function(t){t[0]=r(t[0],"fn-")})},{1:21,2:20,ee:"QJf3ax"}],8:[function(t,e){function n(t,e,n){var r=t[0];"string"==typeof r&&(r=new Function(r)),t[0]=o(r,"fn-",null,n)}var r=(t(2),t("ee").create()),o=t(1)(r);e.exports=r,o.inPlace(window,["setTimeout","setInterval","setImmediate"],"setTimer-"),r.on("setTimer-start",n)},{1:21,2:20,ee:"QJf3ax"}],9:[function(t,e){function n(){c.inPlace(this,d,"fn-")}function r(t,e){c.inPlace(e,["onreadystatechange"],"fn-")}function o(t,e){return e}var i=t("ee").create(),a=t(1),s=t(2),c=s(i),f=s(a),u=window.XMLHttpRequest,d=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"];e.exports=i,window.XMLHttpRequest=function(t){var e=new u(t);try{i.emit("new-xhr",[],e),f.inPlace(e,["addEventListener","removeEventListener"],"-",function(t,e){return e}),e.addEventListener("readystatechange",n,!1)}catch(r){try{i.emit("internal-error",[r])}catch(o){}}return e},window.XMLHttpRequest.prototype=u.prototype,c.inPlace(XMLHttpRequest.prototype,["open","send"],"-xhr-",o),i.on("send-xhr-start",r),i.on("open-xhr-start",r)},{1:5,2:21,ee:"QJf3ax"}],10:[function(t){function e(t){if("string"==typeof t&&t.length)return t.length;if("object"!=typeof t)return void 0;if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if("undefined"!=typeof FormData&&t instanceof FormData)return void 0;try{return JSON.stringify(t).length}catch(e){return void 0}}function n(t){var n=this.params,r=this.metrics;if(!this.ended){this.ended=!0;for(var i=0;c>i;i++)t.removeEventListener(s[i],this.listener,!1);if(!n.aborted){if(r.duration=(new Date).getTime()-this.startTime,4===t.readyState){n.status=t.status;var a=t.responseType,f="arraybuffer"===a||"blob"===a||"json"===a?t.response:t.responseText,u=e(f);if(u&&(r.rxSize=u),this.sameOrigin){var d=t.getResponseHeader("X-NewRelic-App-Data");d&&(n.cat=d.split(", ").pop())}}else n.status=0;r.cbTime=this.cbTime,o("xhr",[n,r,this.startTime])}}}function r(t,e){var n=i(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}if(window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent)){t("loader").features.xhr=!0;var o=t("handle"),i=t(2),a=t("ee"),s=["load","error","abort","timeout"],c=s.length,f=t(1);t(4),t(3),a.on("new-xhr",function(){this.totalCbs=0,this.called=0,this.cbTime=0,this.end=n,this.ended=!1,this.xhrGuids={}}),a.on("open-xhr-start",function(t){this.params={method:t[0]},r(this,t[1]),this.metrics={}}),a.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),a.on("send-xhr-start",function(t,n){var r=this.metrics,o=t[0],i=this;if(r&&o){var f=e(o);f&&(r.txSize=f)}this.startTime=(new Date).getTime(),this.listener=function(t){try{"abort"===t.type&&(i.params.aborted=!0),("load"!==t.type||i.called===i.totalCbs&&(i.onloadCalled||"function"!=typeof n.onload))&&i.end(n)}catch(e){try{a.emit("internal-error",[e])}catch(r){}}};for(var u=0;c>u;u++)n.addEventListener(s[u],this.listener,!1)}),a.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),a.on("xhr-load-added",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),a.on("xhr-load-removed",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),a.on("addEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-added",[t[1],t[2]],e)}),a.on("removeEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-removed",[t[1],t[2]],e)}),a.on("fn-start",function(t,e,n){e instanceof XMLHttpRequest&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=(new Date).getTime()))}),a.on("fn-end",function(t,e){this.xhrCbStart&&a.emit("xhr-cb-time",[(new Date).getTime()-this.xhrCbStart,this.onload,e],e)})}},{1:"XL7HBI",2:11,3:9,4:5,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],11:[function(t,e){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");return!r.port&&o[1]&&(r.port=o[1].split("/")[0].split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname),r.sameOrigin=!e.hostname||e.hostname===document.domain&&e.port===n.port&&e.protocol===n.protocol,r}},{}],gos:[function(t,e){e.exports=t("7eSDFh")},{}],"7eSDFh":[function(t,e){function n(t,e,n){if(r.call(t,e))return t[e];var o=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return t[e]=o,o}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],D5DuLP:[function(t,e){function n(t,e,n){return r.listeners(t).length?r.emit(t,e,n):(o[t]||(o[t]=[]),void o[t].push(e))}var r=t("ee").create(),o={};e.exports=n,n.ee=r,r.q=o},{ee:"QJf3ax"}],handle:[function(t,e){e.exports=t("D5DuLP")},{}],XL7HBI:[function(t,e){function n(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:i(t,o,function(){return r++})}var r=1,o="nr@id",i=t("gos");e.exports=n},{gos:"7eSDFh"}],id:[function(t,e){e.exports=t("XL7HBI")},{}],loader:[function(t,e){e.exports=t("G9z0Bl")},{}],G9z0Bl:[function(t,e){function n(){var t=p.info=NREUM.info;if(t&&t.agent&&t.licenseKey&&t.applicationID&&c&&c.body){p.proto="https"===d.split(":")[0]||t.sslForHttp?"https://":"http://",a("mark",["onload",i()]);var e=c.createElement("script");e.src=p.proto+t.agent,c.body.appendChild(e)}}function r(){"complete"===c.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=t("handle"),s=window,c=s.document,f="addEventListener",u="attachEvent",d=(""+location).split("?")[0],p=e.exports={offset:i(),origin:d,features:{}};c[f]?(c[f]("DOMContentLoaded",o,!1),s[f]("load",n,!1)):(c[u]("onreadystatechange",r),s[u]("onload",n)),a("mark",["firstbyte",i()])},{handle:"D5DuLP"}],20:[function(t,e){function n(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},{}],21:[function(t,e){function n(t){return!(t&&"function"==typeof t&&t.apply&&!t[i])}var r=t("ee"),o=t(1),i="nr@wrapper",a=Object.prototype.hasOwnProperty;e.exports=function(t){function e(t,e,r,a){function nrWrapper(){var n,i,s,f;try{i=this,n=o(arguments),s=r&&r(n,i)||{}}catch(d){u([d,"",[n,i,a],s])}c(e+"start",[n,i,a],s);try{return f=t.apply(i,n)}catch(p){throw c(e+"err",[n,i,p],s),p}finally{c(e+"end",[n,i,f],s)}}return n(t)?t:(e||(e=""),nrWrapper[i]=!0,f(t,nrWrapper),nrWrapper)}function s(t,r,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<r.length;c++)s=r[c],a=t[s],n(a)||(t[s]=e(a,f?s+o:o,i,s,t))}function c(e,n,r){try{t.emit(e,n,r)}catch(o){u([o,e,n,r])}}function f(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){u([r])}for(var o in t)a.call(t,o)&&(e[o]=t[o]);return e}function u(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=r),e.inPlace=s,e.flag=i,e}},{1:20,ee:"QJf3ax"}]},{},["G9z0Bl",3,10,4]);</script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"beacon-1.newrelic.com","queueTime":0,"licenseKey":"114b3a1f69","agent":"js-agent.newrelic.com/nr-476.min.js","transactionName":"NFVSbRBSCxFYAUBeWA0fdkwMUBELVgwbR1YEVR5PC1YSERcSVVBSEApGUAdEOhJYBVE=","applicationID":"493484","errorBeacon":"bam.nr-data.net","applicationTime":8761}</script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"Uw4AWVVADAoDUFlW"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o?o:e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({QJf3ax:[function(t,e){function n(t){function e(e,n,a){t&&t(e,n,a),a||(a={});for(var c=s(e),f=c.length,u=i(a,o,r),d=0;f>d;d++)c[d].apply(u,n);return u}function a(t,e){f[t]=s(t).concat(e)}function s(t){return f[t]||[]}function c(){return n(e)}var f={};return{on:a,emit:e,create:c,listeners:s,_events:f}}function r(){return{}}var o="nr@context",i=t("gos");e.exports=n()},{gos:"7eSDFh"}],ee:[function(t,e){e.exports=t("QJf3ax")},{}],3:[function(t){function e(t){try{i.console&&console.log(t)}catch(e){}}var n,r=t("ee"),o=t(1),i={};try{n=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(i.console=!0,-1!==n.indexOf("dev")&&(i.dev=!0),-1!==n.indexOf("nr_dev")&&(i.nrDev=!0))}catch(a){}i.nrDev&&r.on("internal-error",function(t){e(t.stack)}),i.dev&&r.on("fn-err",function(t,n,r){e(r.stack)}),i.dev&&(e("NR AGENT IN DEVELOPMENT MODE"),e("flags: "+o(i,function(t){return t}).join(", ")))},{1:22,ee:"QJf3ax"}],4:[function(t){function e(t,e,n,i,s){try{c?c-=1:r("err",[s||new UncaughtException(t,e,n)])}catch(f){try{r("ierr",[f,(new Date).getTime(),!0])}catch(u){}}return"function"==typeof a?a.apply(this,o(arguments)):!1}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function n(t){r("err",[t,(new Date).getTime()])}var r=t("handle"),o=t(6),i=t("ee"),a=window.onerror,s=!1,c=0;t("loader").features.err=!0,t(5),window.onerror=e;try{throw new Error}catch(f){"stack"in f&&(t(1),t(2),"addEventListener"in window&&t(3),window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent)&&t(4),s=!0)}i.on("fn-start",function(){s&&(c+=1)}),i.on("fn-err",function(t,e,r){s&&(this.thrown=!0,n(r))}),i.on("fn-end",function(){s&&!this.thrown&&c>0&&(c-=1)}),i.on("internal-error",function(t){r("ierr",[t,(new Date).getTime(),!0])})},{1:9,2:8,3:6,4:10,5:3,6:23,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],5:[function(t){function e(){}if(window.performance&&window.performance.timing&&window.performance.getEntriesByType){var n=t("ee"),r=t("handle"),o=t(1),i=t(2);t("loader").features.stn=!0,t(3),n.on("fn-start",function(t){var e=t[0];e instanceof Event&&(this.bstStart=Date.now())}),n.on("fn-end",function(t,e){var n=t[0];n instanceof Event&&r("bst",[n,e,this.bstStart,Date.now()])}),o.on("fn-start",function(t,e,n){this.bstStart=Date.now(),this.bstType=n}),o.on("fn-end",function(t,e){r("bstTimer",[e,this.bstStart,Date.now(),this.bstType])}),i.on("fn-start",function(){this.bstStart=Date.now()}),i.on("fn-end",function(t,e){r("bstTimer",[e,this.bstStart,Date.now(),"requestAnimationFrame"])}),n.on("pushState-start",function(){this.time=Date.now(),this.startPath=location.pathname+location.hash}),n.on("pushState-end",function(){r("bstHist",[location.pathname+location.hash,this.startPath,this.time])}),"addEventListener"in window.performance&&(window.performance.addEventListener("webkitresourcetimingbufferfull",function(){r("bstResource",[window.performance.getEntriesByType("resource")]),window.performance.webkitClearResourceTimings()},!1),window.performance.addEventListener("resourcetimingbufferfull",function(){r("bstResource",[window.performance.getEntriesByType("resource")]),window.performance.clearResourceTimings()},!1)),document.addEventListener("scroll",e,!1),document.addEventListener("keypress",e,!1),document.addEventListener("click",e,!1)}},{1:9,2:8,3:7,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],6:[function(t,e){function n(t){i.inPlace(t,["addEventListener","removeEventListener"],"-",r)}function r(t){return t[1]}var o=(t(1),t("ee").create()),i=t(2)(o),a=t("gos");if(e.exports=o,n(window),"getPrototypeOf"in Object){for(var s=document;s&&!s.hasOwnProperty("addEventListener");)s=Object.getPrototypeOf(s);s&&n(s);for(var c=XMLHttpRequest.prototype;c&&!c.hasOwnProperty("addEventListener");)c=Object.getPrototypeOf(c);c&&n(c)}else XMLHttpRequest.prototype.hasOwnProperty("addEventListener")&&n(XMLHttpRequest.prototype);o.on("addEventListener-start",function(t){if(t[1]){var e=t[1];"function"==typeof e?this.wrapped=t[1]=a(e,"nr@wrapped",function(){return i(e,"fn-",null,e.name||"anonymous")}):"function"==typeof e.handleEvent&&i.inPlace(e,["handleEvent"],"fn-")}}),o.on("removeEventListener-start",function(t){var e=this.wrapped;e&&(t[1]=e)})},{1:23,2:24,ee:"QJf3ax",gos:"7eSDFh"}],7:[function(t,e){var n=(t(2),t("ee").create()),r=t(1)(n);e.exports=n,r.inPlace(window.history,["pushState"],"-")},{1:24,2:23,ee:"QJf3ax"}],8:[function(t,e){var n=(t(2),t("ee").create()),r=t(1)(n);e.exports=n,r.inPlace(window,["requestAnimationFrame","mozRequestAnimationFrame","webkitRequestAnimationFrame","msRequestAnimationFrame"],"raf-"),n.on("raf-start",function(t){t[0]=r(t[0],"fn-")})},{1:24,2:23,ee:"QJf3ax"}],9:[function(t,e){function n(t,e,n){t[0]=o(t[0],"fn-",null,n)}var r=(t(2),t("ee").create()),o=t(1)(r);e.exports=r,o.inPlace(window,["setTimeout","setInterval","setImmediate"],"setTimer-"),r.on("setTimer-start",n)},{1:24,2:23,ee:"QJf3ax"}],10:[function(t,e){function n(){f.inPlace(this,p,"fn-")}function r(t,e){f.inPlace(e,["onreadystatechange"],"fn-")}function o(t,e){return e}function i(t,e){for(var n in t)e[n]=t[n];return e}var a=t("ee").create(),s=t(1),c=t(2),f=c(a),u=c(s),d=window.XMLHttpRequest,p=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"];e.exports=a,window.XMLHttpRequest=function(t){var e=new d(t);try{a.emit("new-xhr",[],e),u.inPlace(e,["addEventListener","removeEventListener"],"-",o),e.addEventListener("readystatechange",n,!1)}catch(r){try{a.emit("internal-error",[r])}catch(i){}}return e},i(d,XMLHttpRequest),XMLHttpRequest.prototype=d.prototype,f.inPlace(XMLHttpRequest.prototype,["open","send"],"-xhr-",o),a.on("send-xhr-start",r),a.on("open-xhr-start",r)},{1:6,2:24,ee:"QJf3ax"}],11:[function(t){function e(t){var e=this.params,r=this.metrics;if(!this.ended){this.ended=!0;for(var i=0;c>i;i++)t.removeEventListener(s[i],this.listener,!1);if(!e.aborted){if(r.duration=(new Date).getTime()-this.startTime,4===t.readyState){e.status=t.status;var a=t.responseType,f="arraybuffer"===a||"blob"===a||"json"===a?t.response:t.responseText,u=n(f);if(u&&(r.rxSize=u),this.sameOrigin){var d=t.getResponseHeader("X-NewRelic-App-Data");d&&(e.cat=d.split(", ").pop())}}else e.status=0;r.cbTime=this.cbTime,o("xhr",[e,r,this.startTime])}}}function n(t){if("string"==typeof t&&t.length)return t.length;if("object"!=typeof t)return void 0;if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if("undefined"!=typeof FormData&&t instanceof FormData)return void 0;try{return JSON.stringify(t).length}catch(e){return void 0}}function r(t,e){var n=i(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}if(window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent)){t("loader").features.xhr=!0;var o=t("handle"),i=t(2),a=t("ee"),s=["load","error","abort","timeout"],c=s.length,f=t(1);t(4),t(3),a.on("new-xhr",function(){this.totalCbs=0,this.called=0,this.cbTime=0,this.end=e,this.ended=!1,this.xhrGuids={}}),a.on("open-xhr-start",function(t){this.params={method:t[0]},r(this,t[1]),this.metrics={}}),a.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),a.on("send-xhr-start",function(t,e){var r=this.metrics,o=t[0],i=this;if(r&&o){var f=n(o);f&&(r.txSize=f)}this.startTime=(new Date).getTime(),this.listener=function(t){try{"abort"===t.type&&(i.params.aborted=!0),("load"!==t.type||i.called===i.totalCbs&&(i.onloadCalled||"function"!=typeof e.onload))&&i.end(e)}catch(n){try{a.emit("internal-error",[n])}catch(r){}}};for(var u=0;c>u;u++)e.addEventListener(s[u],this.listener,!1)}),a.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),a.on("xhr-load-added",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),a.on("xhr-load-removed",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),a.on("addEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-added",[t[1],t[2]],e)}),a.on("removeEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-removed",[t[1],t[2]],e)}),a.on("fn-start",function(t,e,n){e instanceof XMLHttpRequest&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=(new Date).getTime()))}),a.on("fn-end",function(t,e){this.xhrCbStart&&a.emit("xhr-cb-time",[(new Date).getTime()-this.xhrCbStart,this.onload,e],e)})}},{1:"XL7HBI",2:12,3:10,4:6,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],12:[function(t,e){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");return!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname),r.sameOrigin=!e.hostname||e.hostname===document.domain&&e.port===n.port&&e.protocol===n.protocol,r}},{}],13:[function(t,e){function n(t){return function(){r(t,[(new Date).getTime()].concat(i(arguments)))}}var r=t("handle"),o=t(1),i=t(2);"undefined"==typeof window.newrelic&&(newrelic=window.NREUM);var a=["setPageViewName","addPageAction","setCustomAttribute","finished","addToTrace","inlineHit","noticeError"];o(a,function(t,e){window.NREUM[e]=n("api-"+e)}),e.exports=window.NREUM},{1:22,2:23,handle:"D5DuLP"}],"7eSDFh":[function(t,e){function n(t,e,n){if(r.call(t,e))return t[e];var o=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return t[e]=o,o}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],gos:[function(t,e){e.exports=t("7eSDFh")},{}],handle:[function(t,e){e.exports=t("D5DuLP")},{}],D5DuLP:[function(t,e){function n(t,e,n){return r.listeners(t).length?r.emit(t,e,n):(o[t]||(o[t]=[]),void o[t].push(e))}var r=t("ee").create(),o={};e.exports=n,n.ee=r,r.q=o},{ee:"QJf3ax"}],id:[function(t,e){e.exports=t("XL7HBI")},{}],XL7HBI:[function(t,e){function n(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:i(t,o,function(){return r++})}var r=1,o="nr@id",i=t("gos");e.exports=n},{gos:"7eSDFh"}],G9z0Bl:[function(t,e){function n(){var t=p.info=NREUM.info,e=f.getElementsByTagName("script")[0];if(t&&t.licenseKey&&t.applicationID&&e){s(d,function(e,n){e in t||(t[e]=n)});var n="https"===u.split(":")[0]||t.sslForHttp;p.proto=n?"https://":"http://",a("mark",["onload",i()]);var r=f.createElement("script");r.src=p.proto+t.agent,e.parentNode.insertBefore(r,e)}}function r(){"complete"===f.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=t("handle"),s=t(1),c=(t(2),window),f=c.document,u=(""+location).split("?")[0],d={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-632.min.js"},p=e.exports={offset:i(),origin:u,features:{}};f.addEventListener?(f.addEventListener("DOMContentLoaded",o,!1),c.addEventListener("load",n,!1)):(f.attachEvent("onreadystatechange",r),c.attachEvent("onload",n)),a("mark",["firstbyte",i()])},{1:22,2:13,handle:"D5DuLP"}],loader:[function(t,e){e.exports=t("G9z0Bl")},{}],22:[function(t,e){function n(t,e){var n=[],o="",i=0;for(o in t)r.call(t,o)&&(n[i]=e(o,t[o]),i+=1);return n}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],23:[function(t,e){function n(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},{}],24:[function(t,e){function n(t){return!(t&&"function"==typeof t&&t.apply&&!t[i])}var r=t("ee"),o=t(1),i="nr@wrapper",a=Object.prototype.hasOwnProperty;e.exports=function(t){function e(t,e,r,a){function nrWrapper(){var n,i,s,f;try{i=this,n=o(arguments),s=r&&r(n,i)||{}}catch(d){u([d,"",[n,i,a],s])}c(e+"start",[n,i,a],s);try{return f=t.apply(i,n)}catch(p){throw c(e+"err",[n,i,p],s),p}finally{c(e+"end",[n,i,f],s)}}return n(t)?t:(e||(e=""),nrWrapper[i]=!0,f(t,nrWrapper),nrWrapper)}function s(t,r,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<r.length;c++)s=r[c],a=t[s],n(a)||(t[s]=e(a,f?s+o:o,i,s))}function c(e,n,r){try{t.emit(e,n,r)}catch(o){u([o,e,n,r])}}function f(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){u([r])}for(var o in t)a.call(t,o)&&(e[o]=t[o]);return e}function u(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=r),e.inPlace=s,e.flag=i,e}},{1:23,ee:"QJf3ax"}]},{},["G9z0Bl",4,11,5]);</script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","queueTime":0,"licenseKey":"114b3a1f69","agent":"js-agent.newrelic.com/nr-632.min.js","transactionName":"NFVSbRBSCxFYAUBeWA0fdkwMUBELVgwbR1YEVR5PC1YSERcSVVBSEApGUAdEOhJYBVE=","applicationID":"493484","errorBeacon":"bam.nr-data.net","applicationTime":7685}</script>
         <meta http-equiv="Content-Language" content="en-us" />
 
         <!-- Robots metadata -->
@@ -42,6 +41,10 @@
 
         
         
+            
+                <meta name="author" content="National Geographic Society" />
+            
+        
         
 
 
@@ -49,8 +52,8 @@
         <link rel="canonical" href="http://travel.nationalgeographic.com/travel/national-parks/guadalupe-mountains-national-park/" />
 
         
-            <meta property="twitter:title" content="Guadalupe Mountains National Park - National Geographic" />
-            <meta property="twitter:description" content="Get Guadalupe Mountains information, facts, photos, and more in this Guadalupe Mountains National Park guide from National Geographic." />
+            <meta name="twitter:title" content="Guadalupe Mountains National Park - National Geographic" />
+            <meta name="twitter:description" content="Get Guadalupe Mountains information, facts, photos, and more in this Guadalupe Mountains National Park guide from National Geographic." />
             
                 <meta name="twitter:card" content="summary"/>
                 <meta name="twitter:site" content="@NatGeo"/>
@@ -60,6 +63,7 @@
 
         
             
+            <meta property="article:publisher" content="https://www.facebook.com/natgeo" />
             
             <meta property="fb:admins" content="1442858697"/> <meta property="fb:admins" content="506432430" /> <meta property="fb:admins" content="104276" /> <meta property="fb:admins" content="7800037" />
             <meta name="site_name" property="og:site_name" content="National Geographic" />
@@ -74,7 +78,10 @@
                   
                   
                   
-                    <meta name="image" property="og:image" content="//images.nationalgeographic.com/wpf/sites/common/i/presentation/NGLogo560x430-cb1343821768.png"/>
+                        
+                            <meta name="image" property="og:image" content="http://images.nationalgeographic.com/wpf/sites/common/i/presentation/NGLogo560x430.png"/>
+                            <meta name="image" property="og:image:secure_url" content="https://images.nationalgeographic.com/wpf/sites/common/i/presentation/NGLogo560x430.png"/>
+                        
                   
                 
             
@@ -118,8 +125,8 @@
     
         <!-- CSS -->
         
-  
-        <link rel="stylesheet" href="//images.nationalgeographic.com/wpf/CACHE/css/803cfe26bf74-cb1410523653.css" type="text/css" media="screen" charset="utf-8" />
+	
+        <link rel="stylesheet" href="//images.nationalgeographic.com/wpf/CACHE/css/480f5b911119-cb1416402487.css" type="text/css" media="screen" charset="utf-8" />
 
 
         <!-- JS-enabled styles -->
@@ -137,20 +144,20 @@
 <!-- end css js manager -->
 
         
-  
-  <style type="text/css">@import url("//images.nationalgeographic.com/wpf/sites/travel/c/screen-cb1331037064.css");</style> <!-- Controls Science Site Elements -->
-  
-    
-  
-  
+	
+	<style type="text/css">@import url("//images.nationalgeographic.com/wpf/sites/travel/c/screen-cb1331037064.css");</style> <!-- Controls Science Site Elements -->
+	
+	  
+	
+	
 
 
         
-  
+	
         <link rel="stylesheet" href="//images.nationalgeographic.com/wpf/CACHE/css/b92759a2c6ca-cb1403695716.css" type="text/css" media="print" charset="utf-8" />
 
         
-  <link href="//images.nationalgeographic.com/wpf/sites/common/c/print-cb1377172118.css" media="print" rel="stylesheet" type="text/css" /><!-- Controls Print Style -->
+	<link href="//images.nationalgeographic.com/wpf/sites/common/c/print-cb1377172118.css" media="print" rel="stylesheet" type="text/css" /><!-- Controls Print Style -->
 
 
         
@@ -203,16 +210,16 @@ if (window.getScript){
     
 
     
-  
-  
+	
+	
             <script type="text/javascript" src="//images.nationalgeographic.com/wpf/CACHE/js/85f9734275a6-cb1396614252.js" charset="utf-8"></script>
         
 
     
-  <script src="//images.nationalgeographic.com/wpf/sites/common/j/jquery.rating.pack-cb1274471350.js" type="text/javascript" ></script>
+	<script src="//images.nationalgeographic.com/wpf/sites/common/j/jquery.rating.pack-cb1274471350.js" type="text/javascript" ></script>
 
-  <script src="//images.nationalgeographic.com/wpf/sites/common/j/jquery.pagination-cb1274471350.js" type="text/javascript"></script>
-  <script src="//images.nationalgeographic.com/wpf/sites/common/j/jss.pagination-cb1274471350.js" type="text/javascript"></script>
+	<script src="//images.nationalgeographic.com/wpf/sites/common/j/jquery.pagination-cb1274471350.js" type="text/javascript"></script>
+	<script src="//images.nationalgeographic.com/wpf/sites/common/j/jss.pagination-cb1274471350.js" type="text/javascript"></script>
 
 
     
@@ -342,7 +349,7 @@ var ngs_furl="/national-parks/guadalupe-mountains-national-park/",
         
           
             
-            <script type="text/javascript" src="//images.nationalgeographic.com/wpf/CACHE/js/d47914d723dc-cb1411127746.js" charset="utf-8"></script>
+            <script type="text/javascript" src="//images.nationalgeographic.com/wpf/CACHE/js/6f599508e0a4-cb1424263825.js" charset="utf-8"></script>
           
         
       
@@ -372,7 +379,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-  
+	
     
         
     
@@ -402,8 +409,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 // css_class: 
                 // gpt_dimensions: None
                 // keywords: 
-                // bust: 448227156
-                // tile: 180
+                // bust: 42892095
+                // tile: 138
                 // refreshable: True
                 // regex: ^/national-parks/(guadalupe-mountains-national-park|big-bend-national-park|carlsbad-caverns-national-park)/[.]*
                 // page_taxonomy: travel.nationalgeographic.com::travel::Parks::Guadalupe Mountains National Park
@@ -445,25 +452,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         </div>
     
-  <!-- Google Code for Travel.NationalGeographic.com (For Digital Media) Remarketing List -->
-  <script type="text/javascript">
-  /* <![CDATA[ */
-  var google_conversion_id = 1071678606;
-  var google_conversion_language = "en";
-  var google_conversion_format = "3";
-  var google_conversion_color = "666666";
-  var google_conversion_label = "5vWOCP35gAIQjomC_wM";
-  var google_conversion_value = 0;
-  /* ]]> */
-  </script>
-  <div id="googleAd">
-      <script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js"></script>
-  </div>
-  <noscript>
-  <div style="display:inline; position: absolute;">
-  <img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/1071678606/?label=5vWOCP35gAIQjomC_wM&amp;guid=ON&amp;script=0"/>
-  </div>
-  </noscript>
+	<!-- Google Code for Travel.NationalGeographic.com (For Digital Media) Remarketing List -->
+	<script type="text/javascript">
+	/* <![CDATA[ */
+	var google_conversion_id = 1071678606;
+	var google_conversion_language = "en";
+	var google_conversion_format = "3";
+	var google_conversion_color = "666666";
+	var google_conversion_label = "5vWOCP35gAIQjomC_wM";
+	var google_conversion_value = 0;
+	/* ]]> */
+	</script>
+	<div id="googleAd">
+	    <script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js"></script>
+	</div>
+	<noscript>
+	<div style="display:inline; position: absolute;">
+	<img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/1071678606/?label=5vWOCP35gAIQjomC_wM&amp;guid=ON&amp;script=0"/>
+	</div>
+	</noscript>
 
 
 
@@ -484,6 +491,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <script type="text/javascript">
             isHTTPS = !!document.location.protocol.match('https:');
 
+            window.spotlightsUrl = (isHTTPS ? "https://www-s.nationalgeographic.com/assets/nav_spotlight/" : "http://www.nationalgeographic.com/assets/nav_spotlight/");
             // Set variable to the window as we need to reference it in a few other locations on this page
             // Need to see if we need to load assets for HTTPS sites
             window.globalnavURL = (isHTTPS ? "https://www-s.nationalgeographic.com/wpf/" : "//images.nationalgeographic.com/wpf/");
@@ -518,6 +526,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <script type="text/javascript">
             var articleKey,
                 staticURL = '//images.nationalgeographic.com/wpf/',
+                geoipCountryEndpoint = 'http://www.nationalgeographic.com/geoip/country.js',
                 django_page_id = '1057',
                 baseURL = window.location.hostname, 
                 pathURL = window.location.pathname, 
@@ -552,9 +561,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
             
 <div class="pushdown advertisement hidden">
-  <h3 class="hidden">Advertisement</h3>
-  
-  <!-- advertising -->
+	<h3 class="hidden">Advertisement</h3>
+	
+	<!-- advertising -->
 
 
     
@@ -575,11 +584,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 // css_class: 
                 // gpt_dimensions: None
                 // keywords: 
-                // bust: 904976421
-                // tile: 157
+                // bust: 332265217
+                // tile: 137
                 // refreshable: False
                 // regex: ^/national-parks/(guadalupe-mountains-national-park|big-bend-national-park|carlsbad-caverns-national-park)/[.]*
-                // page_taxonomy: None
+                // page_taxonomy: travel.nationalgeographic.com::travel::Parks::Guadalupe Mountains National Park
                 // ad_taxonomy: None
                 // taxonomy_match: False
             -->
@@ -618,8 +627,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 </div><!-- .pushdown .advertisement -->
 <div class="leaderboard advertisement hidden">
-  <h3 class="hidden">Advertisement</h3>
-  
+	<h3 class="hidden">Advertisement</h3>
+	
         
             
                 
@@ -645,11 +654,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 // css_class: 
                 // gpt_dimensions: None
                 // keywords: 
-                // bust: 500822813
-                // tile: 164
+                // bust: 649325564
+                // tile: 138
                 // refreshable: True
                 // regex: ^/national-parks/(guadalupe-mountains-national-park|big-bend-national-park|carlsbad-caverns-national-park)/[.]*
-                // page_taxonomy: None
+                // page_taxonomy: travel.nationalgeographic.com::travel::Parks::Guadalupe Mountains National Park
                 // ad_taxonomy: None
                 // taxonomy_match: False
             -->
@@ -686,10 +695,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
 
-              
-          
+            	
+        	
         
-  
+	
 </div><!-- .leaderboard .advertisement -->
         
     
@@ -727,8 +736,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 // css_class: ad-after
                 // gpt_dimensions: None
                 // keywords: 
-                // bust: 945187579
-                // tile: 152
+                // bust: 637787233
+                // tile: 112
                 // refreshable: True
                 // regex: ^/national-parks/(guadalupe-mountains-national-park|big-bend-national-park|carlsbad-caverns-national-park)/[.]*
                 // page_taxonomy: travel.nationalgeographic.com::travel::Parks::Guadalupe Mountains National Park
@@ -913,7 +922,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <li ><a href="http://travel.nationalgeographic.com/photography/">Photography Home</a></li>
                             <li ><a href="http://proof.nationalgeographic.com">Blog</a></li>
                             <li ><a href="http://travel.nationalgeographic.com/photography/photo-of-the-day/">Photo of the Day</a></li>
-                            <li ><a href="http://ngm.nationalgeographic.com/your-shot/">Your Shot</a></li>
+                            <li ><a href="http://yourshot.nationalgeographic.com/">Your Shot</a></li>
                             <li ><a href="http://travel.nationalgeographic.com/photography/wallpapers/">Wallpapers</a></li>
                             <li ><a href="http://travel.nationalgeographic.com/photography/photogalleries/">Galleries</a></li>
                             <li ><a href="http://travel.nationalgeographic.com/photography/photo-tips/">Photo Tips</a></li>
@@ -965,6 +974,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <li ><a href="http://travel.nationalgeographic.com/travel/travel-photos/">Photos</a></li>
                             <li ><a href="http://travel.nationalgeographic.com/video/player/places/">Video</a></li>
                             <li ><a href="http://www.nationalgeographicexpeditions.com/?utm_source=travel.nationalgeographic.com&utm_medium=Link&utm_content=TopNav_Our_Trips&utm_campaign=NGdotcom">Our Trips</a></li>
+                            <li><a href="http://www.nationalgeographiclodges.com/?utm_source=NGdotcom-Travel&utm_medium=TopNav&utm_content=20150106_TopNav_OurLodges&utm_campaign=NGdotcom">Our Lodges</a></li>
                         </ul>
                         <div class="spotlight">
                         </div>
@@ -1022,13 +1032,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
                         <ul class="secondary_nav">
                             <li >
-                                <a class="geoip" href="https://ngmdomsubs.nationalgeographic.com/servlet/Show?WESPAGE=OrderPages/ng/1407/landing_15A1.jsp&MSRSMAG=NG&EFK1=NGCAZ63&EFK2=NGCAZ71&EFK3=NGCAZ89&MSCCMPLX=RBMULTINV3">National Geographic Magazine</a>
+                                <a class="geoip" href="http://www.nationalgeographic.com/magazines/lp/navsubs/">National Geographic Magazine</a>
                             </li>
                             <li>
-                                <a class="geoip" href="https://ngkidsubs.nationalgeographic.com/servlet/Show?WESPAGE=OrderPages/ngk/1310/landing_01A3.jsp&MSRSMAG=WO&EFK1=WOAL2S8&EFK2=WOAL2U4&EFK3=&MSCCMPLX=FLYOUT7">National Geographic Kids</a>
+                                <a class="" href="https://secure.customersvc.com/servlet/Show?WESPAGE=pm/Pages/load_order.jsp&WESACTIVESESSION=TRUE&PAGE_ID=NH1502DIR&MAGCODE=NH&EFK1=NHAABS9&MSCCMPLX=FLYOUT7">National Geographic History</a>
+                            </li>
+                            <li>
+                                <a class="geoip" href="https://ngkidsubs.nationalgeographic.com/servlet/Show?WESPAGE=OrderPages/ngk/1411/landing_26A3.jsp&MSRSMAG=WO&EFK1=WOAMVV6&EFK2=WOAMV31&EFK3=&MSCCMPLX=FLYOUT9">National Geographic Kids</a>
                             </li>
                             <li >
-                                <a href="https://secure.customersvc.com/servlet/Show?WESPAGE=OrderPages/ng/NLK/1311/landing_01A3.jsp&MSRSMAG=LS&EFK1=LSADQQ9&EFK2=&EFK3=&MSCCMPLX=FLYOUT7">National Geographic Little Kids</a>
+                                <a href="https://secure.customersvc.com/servlet/Show?WESPAGE=OrderPages/ng/NLK/1410/landing_20A3.jsp&MSRSMAG=LS&EFK1=LSAD1A1&EFK2=&EFK3=&MSCCMPLX=FLYOUT7">National Geographic Little Kids</a>
                             </li>
                             <li >
                                 <a class="geoip" data-rename="true" href="https://secure.customersvc.com/servlet/Show?WESPAGE=OrderPages/tr/1311/landing_15A1.jsp&MSRSMAG=TR&EFK1=TRAJ5G5&EFK2=TRAJ5H3&EFK3=TRAJ5J8&MSCCMPLX=FLYOUT7">National Geographic Traveler</a>
@@ -1134,56 +1147,56 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
     <script>
-  (function(window, undefined) {
-      var DeferredPromise, promise, scriptElement, head, done;
+	(function(window, undefined) {
+	    var DeferredPromise, promise, scriptElement, head, done;
 
-      DeferredPromise = function(resolve, reject) {
-    this._resolve = resolve;
-    this._reject = reject;
+	    DeferredPromise = function(resolve, reject) {
+		this._resolve = resolve;
+		this._reject = reject;
                 this._linkedPromises = [];
-      };
-      DeferredPromise.prototype.then = function(resolve, reject) {
-    var linkedDeferredPromise = new DeferredPromise(resolve, reject);
-    if (this._resolved) {
-        linkedDeferredPromise.resolve(this._resolved_value);
-    }
+	    };
+	    DeferredPromise.prototype.then = function(resolve, reject) {
+		var linkedDeferredPromise = new DeferredPromise(resolve, reject);
+		if (this._resolved) {
+		    linkedDeferredPromise.resolve(this._resolved_value);
+		}
                 this._linkedPromises.push(linkedDeferredPromise);
-    return linkedDeferredPromise;
-      };
-      DeferredPromise.prototype.resolve = function(value) {
-    this._resolved = true;
-    this._resolved_value = value;
-    if (this._resolve!== undefined) {
-        value = this._resolve(value);
-    }
+		return linkedDeferredPromise;
+	    };
+	    DeferredPromise.prototype.resolve = function(value) {
+		this._resolved = true;
+		this._resolved_value = value;
+		if (this._resolve!== undefined) {
+		    value = this._resolve(value);
+		}
                 this._linkedPromises.forEach(function(linkedPromise) {
                     linkedPromise.resolve(value);
                 });
-      };
-      DeferredPromise.prototype.reject = function(reason) {
-    if (this._reject !== undefined) {
-        reason = this._reject(reason);
-    }
+	    };
+	    DeferredPromise.prototype.reject = function(reason) {
+		if (this._reject !== undefined) {
+		    reason = this._reject(reason);
+		}
                 this._linkedPromises.forEach(function(linkedPromise) {
                     linkedPromise.reject(reason);
                 });
-      };
+	    };
 
-      promise = new DeferredPromise();
-      scriptElement = document.createElement('script');
-      scriptElement.type = 'text/javascript';
-      scriptElement.setAttribute('src', '//assets.nationalgeographic.com/ngs-header/bootstrap.js');
-      scriptElement.async = true;
-      scriptElement.onload = scriptElement.onreadystatechange = function(){
-    if (!done) {
-        done = true;
-        promise.resolve(_M);
-    }
-      };
-      head = document.head || document.getElementsByTagName("head")[0];
-      head.appendChild(scriptElement);
-      window.ngsHeaderScriptLoad = promise;
-  })(window);
+	    promise = new DeferredPromise();
+	    scriptElement = document.createElement('script');
+	    scriptElement.type = 'text/javascript';
+	    scriptElement.setAttribute('src', '//assets.nationalgeographic.com/ngs-header/bootstrap.js');
+	    scriptElement.async = true;
+	    scriptElement.onload = scriptElement.onreadystatechange = function(){
+		if (!done) {
+		    done = true;
+		    promise.resolve(_M);
+		}
+	    };
+	    head = document.head || document.getElementsByTagName("head")[0];
+	    head.appendChild(scriptElement);
+	    window.ngsHeaderScriptLoad = promise;
+	})(window);
     </script>
 
 
@@ -1208,8 +1221,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </script>
 
     <!--GEOIP-->
-    
-    <script type="text/javascript" src="//images.nationalgeographic.com/wpf/CACHE/js/6dfc5240d1d4-cb1412163804.js" charset="utf-8"></script>
     
     <!-- END GEOIP -->
 
@@ -1272,8 +1283,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 // css_class: 
                 // gpt_dimensions: None
                 // keywords: 
-                // bust: 269139297
-                // tile: 104
+                // bust: 697245188
+                // tile: 114
                 // refreshable: True
                 // regex: ^/national-parks/(guadalupe-mountains-national-park|big-bend-national-park|carlsbad-caverns-national-park)/[.]*
                 // page_taxonomy: travel.nationalgeographic.com::travel::Parks::Guadalupe Mountains National Park
@@ -1324,9 +1335,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
             
 
-  <h1>Guadalupe Mountains National Park</h1>
-  
-  
+	<h1>Guadalupe Mountains National Park</h1>
+	
+	
 
 
                 </div>
@@ -1338,8 +1349,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     
 
-    
-      
+		
+			
 
 
 
@@ -1351,21 +1362,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     
 
-    
-    
-      
+		
+		
+			
             
-      
-      
-      
+			
+			
+	 		
 
 
 
 <!-- start nav module content -->
-  
-    <!-- start object content -->
-    <div class="general">   
-      
+	
+		<!-- start object content -->
+		<div class="general">		
+			
 
 
 
@@ -1373,66 +1384,66 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-  
-  
-    
-     
-    
-    
-    <ul class="nav ">
-      
-      
-      
-        
-          
-            
-              <li class="nav1 "><a href="/travel/national-parks/guadalupe-mountains-national-park/" title="Guadalupe Mountains Main">Guadalupe Mountains Main</a></li>
-            
-          
-        
-          
-            
-              
-                <li class="nav2 "><a href="/travel/national-parks/guadalupe-mountains-map/" title="Map">Map</a></li>
-              
-            
-          
-        
-          
-            
-              
-                <li class="nav3 "><a href="/travel/united-states/texas-guide/" title="Texas Guide">Texas Guide</a></li>
-              
-            
-          
-          
-      
-      
+	
+	
+		
+		 
+		
+		
+		<ul class="nav ">
+			
+			
+			
+			 	
+					
+						
+							<li class="nav1 "><a href="/travel/national-parks/guadalupe-mountains-national-park/" title="Guadalupe Mountains Main">Guadalupe Mountains Main</a></li>
+						
+					
+				
+					
+						
+							
+								<li class="nav2 "><a href="/travel/national-parks/guadalupe-mountains-map/" title="Map">Map</a></li>
+							
+						
+					
+				
+					
+						
+							
+								<li class="nav3 "><a href="/travel/united-states/texas-guide/" title="Texas Guide">Texas Guide</a></li>
+							
+						
+					
+					
+			
+			
 
-    
-    </ul>
-
-
+		
+		</ul>
 
 
 
-    </div>
-    <!-- end object content -->
-    <script type="text/javascript">if(taxonomy != undefined)hiLiteSubNavByTaxonomy();</script>
-    
-  
+
+
+		</div>
+		<!-- end object content -->
+		<script type="text/javascript">if(taxonomy != undefined)hiLiteSubNavByTaxonomy();</script>
+		
+	
 <!-- end nav module content -->
 
-      
-                  
-    
-    
+			
+	             		
+		
+		
 
     
 
 
-    
-    
+		
+		
 
     
 
@@ -1442,19 +1453,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         
 
-    
+		
 
-    <div id="content_page_specific">
-      
-      <!-- ### LEFT COLUMN ### -->
-      <div id="content_mainA" class="">
-        
-  
-
-    
+		<div id="content_page_specific">
+			
+			<!-- ### LEFT COLUMN ### -->
+			<div id="content_mainA" class="">
+				
+	
 
     
-      
+
+		
+			
 
 
 
@@ -1462,17 +1473,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-
-    
-    
 
     
     
-      
+
+		
+		
+			
             
-      
-      
-      
+			
+			
+	 		
 
 
 
@@ -1521,7 +1532,7 @@ if (window.getScript){
                             
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/021/cache/guadalupe_2130_600x450.jpg"  width="600" height="450" alt="Photo: Large rock formations tower against the sky" /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/021/cache/guadalupe_2130_600x450.jpg"  width="600" height="450" alt="Photo: Large rock formations tower against the sky" />	
 
 
                         
@@ -1580,12 +1591,12 @@ if (window.getScript){
             <!--<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
             <fb:like width="437" show_faces="false" href="http://travel.nationalgeographic.com/travel/national-parks/guadalupe-mountains-national-park/"></fb:like>-->
             <div class="addthis_toolbox" >
-              <a class="addthis_button_facebook_like"></a>
-          <a class="addthis_button_tweet" tw:via="NatGeoTravel" tw:text="Guadalupe Mountains National Park - National Geographic" tw:url="http://travel.nationalgeographic.com/travel/national-parks/guadalupe-mountains-national-park/" tw:counturl="http://travel.nationalgeographic.com/travel/national-parks/guadalupe-mountains-national-park/"></a>
-          <a class="addthis_button_google_plusone"></a>
-          <a class="addthis_button_email"></a>
-              <a class="addthis_button_expanded">More &raquo;</a>
-        </div>
+    	        <a class="addthis_button_facebook_like"></a>
+    			<a class="addthis_button_tweet" tw:via="NatGeoTravel" tw:text="Guadalupe Mountains National Park - National Geographic" tw:url="http://travel.nationalgeographic.com/travel/national-parks/guadalupe-mountains-national-park/" tw:counturl="http://travel.nationalgeographic.com/travel/national-parks/guadalupe-mountains-national-park/"></a>
+    			<a class="addthis_button_google_plusone"></a>
+    			<a class="addthis_button_email"></a>
+    	        <a class="addthis_button_expanded">More &raquo;</a>
+    		</div>
         </div>
         
 
@@ -1600,29 +1611,29 @@ if (window.getScript){
     
 
 <div class="aside">
-  
+	
 
-  
-  
-  <div id="share_buttons">
-    <h3 class="title">Share</h3>
-    <div class="addthis_toolbox" >
-          <p><a class="addthis_button_facebook_like"></a></p>
-      <p><a class="addthis_button_tweet" tw:via="NatGeoTravel" tw:text="Guadalupe Mountains National Park - National Geographic"  tw:url="http://on.natgeo.com/hyf92c" tw:counturl="http://travel.nationalgeographic.com/travel/national-parks/guadalupe-mountains-national-park/"></a></p>
-      <p class="google_addthis"><a class="addthis_button_google_plusone"></a></p>
-      <p><a class="addthis_button_email">Email</a></p>
-          <p><a class="addthis_button_expanded">More &raquo;</a></p>
-    </div>
-  </div><!-- #share -->
-  
-  
-  
-  
-
-    
+	
+	
+	<div id="share_buttons">
+		<h3 class="title">Share</h3>
+		<div class="addthis_toolbox" >
+	        <p><a class="addthis_button_facebook_like"></a></p>
+			<p><a class="addthis_button_tweet" tw:via="NatGeoTravel" tw:text="Guadalupe Mountains National Park - National Geographic"	tw:url="http://travel.nationalgeographic.com/travel/national-parks/guadalupe-mountains-national-park/" tw:counturl="http://travel.nationalgeographic.com/travel/national-parks/guadalupe-mountains-national-park/"></a></p>
+			<p class="google_addthis"><a class="addthis_button_google_plusone"></a></p>
+			<p class="email_addthis"><a class="addthis_button_email">Email</a></p>
+	        <p class="more_addthis"><a class="addthis_button_expanded">More &raquo;</a></p>
+		</div>
+	</div><!-- #share -->
+	
+	
+	
+	
 
     
-      
+
+		
+			
 
 
 
@@ -1633,140 +1644,140 @@ if (window.getScript){
     
     
 
-    
-    <div class="primary">
-    
-      
+		
+		<div class="primary">
+		
+			
             
-      
-      
+			
+	 		
 
 
 
-  
-    
-      <div class="promo_collection links_list download-the-app ">
-    
-    
-    
-      
-        
-
-
-
-
-
-
-
-  
-  
-    
-        
-            
-              
-                  <h3 class="title">Download the App</h3>
-              
-          
-      
-    
-  
-    
-     
-    
-    
-    <ul class="list_hybrid bullets ">
-      
-      
-      
-          
-          
-            
-              
+	
+		
+			<div class="promo_collection links_list download-the-app ">
+		
+		
+		
+			
+				
 
 
 
 
-  
 
-    
-      
+
+
+	
+	
+		
+		    
+    		    
+    			    
+    			        <h3 class="title">Download the App</h3>
+    			    
+    			
+			
+		
+	
+		
+		 
+		
+		
+		<ul class="list_hybrid bullets ">
+			
+			
+			
+			    
+					
+						
+							
+
+
+
+
+	
+
+		
+			
                 
-              
-              
+				    	
+					    
 
 
 
 
 
 
-  
-  <li class="first ">
-    
-        <a href="http://click.linksynergy.com/fs-bin/click?id=KAIln1Ozbuc&subid=&offerid=146261.1&type=10&tmpid=3909&u1=natlparksedittravelnatlparks&RD_PARM1=http%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Fnational-parks-by-national%2Fid518426085%3Fls%3D1%2526mt%3D8" title="National Parks by National Geographic" class="">
-        
+	
+	<li class="first ">
+		
+		    <a href="http://click.linksynergy.com/fs-bin/click?id=KAIln1Ozbuc&subid=&offerid=146261.1&type=10&tmpid=3909&u1=natlparksedittravelnatlparks&RD_PARM1=http%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Fnational-parks-by-national%2Fid518426085%3Fls%3D1%2526mt%3D8" title="National Parks by National Geographic" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/517/cache/national-park-app-icon_51710_100x75.jpg"  width="100" height="75" alt="Photo: National Park app Icon" />  
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/517/cache/national-park-app-icon_51710_100x75.jpg"  width="100" height="75" alt="Photo: National Park app Icon" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="http://click.linksynergy.com/fs-bin/click?id=KAIln1Ozbuc&subid=&offerid=146261.1&type=10&tmpid=3909&u1=natlparksedittravelnatlparks&RD_PARM1=http%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Fnational-parks-by-national%2Fid518426085%3Fls%3D1%2526mt%3D8" title="National Parks by National Geographic" >National Parks by National Geographic</a></p>
 </li>
 
 
 
-            
+				    
                 
-      
+			
+		
+
+
+
+
+
+						
+					
+					
+			    
+			
+			
+
+		
+		</ul>
+
+
+
+
+
+			
+				
+
+
+	
+
+
+		
+		
+		
+			</div><!-- .promo_collection -->
+		
+	
+
+			
+	             		
+		
+		</div>
     
 
 
 
-
-
-            
-          
-          
-          
-      
-      
+		
+		
 
     
-    </ul>
-
-
-
-
-
-      
-        
-
-
-  
-
-
-    
-    
-    
-      </div><!-- .promo_collection -->
-    
-  
-
-      
-                  
-    
-    </div>
-    
-
-
-
-    
-    
-
-    
-    
+		
 
 </div><!-- .aside-->
 
@@ -1777,26 +1788,26 @@ if (window.getScript){
 
 
 
-      
-                  
-    
-    
+			
+	             		
+		
+		
 
     
 
 
 
-    
-    
+		
+		
 
     
 
-  
+	
 
     
 
-    
-      
+		
+			
 
 
 
@@ -1804,18 +1815,18 @@ if (window.getScript){
 
 <div class="subsection" >
     
-  
+	
     
-    
-  
-         
-      
-      <div  class="primary">
-        
-              
-      
-        
-        
+		
+	
+	       
+			
+			<div  class="primary">
+				
+	            
+			
+				
+		 		
 
 
 
@@ -1824,18 +1835,167 @@ if (window.getScript){
 
  
 
-  
-  
-  <div class="promo_collection features_module custom" id="none">
-  
-  
+	
+	
+	<div class="promo_collection features_module custom" id="none">
+	
+	
+		
+			
+					
+					
+						
+							
+								
+
+
+
+
+
+
+
+	
+	
+		
+		    
+    		    
+    			    
+    			        <h2>National Parks Photos</h2>
+    			    
+    			
+			
+		
+	
+		
+		 
+		
+		
+		<ul class="dividers ">
+			
+			
+			
+			    
+					
+						
+							
+
+
+
+
+
+
+
+
+
+	
+	
+		
+		
+			<li class="first ">
+			
+				
+				  
+				    <a href="http://ngm.nationalgeographic.com/2006/08/smoky-mountain/melford-photography?image=2" title="Great Smoky Mountains Photos" class="">
+						
+
+
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/062/cache/smoky-mountain_6296_160x120.jpg"  width="160" height="120" alt="7143.jpg" />	
+
+
+					</a>
+					
+				
+			
+				
+		
+		
+		    
+		    
+	    	<h4><a href="http://ngm.nationalgeographic.com/2006/08/smoky-mountain/melford-photography?image=2" title="Great Smoky Mountains Photos">Great Smoky Mountains Photos</a></h4>
+	    	
+		
+		
+		
+			
+			    <p><p>The quiet splendor and patchwork history of the popular national park offer lessons in how humanity can coexist with nature.</p></p>
+			
+		
+		
+	</li>
+	
+
+
+
+						
+					
+					
+			    
+			
+			
+
+		
+		</ul>
+
+
+
+
+
+							
+						
+					
+				
+			
+		
+		
+
+	
+
+
+	
+
+
+	
+	
+	</div><!-- .promo_collection -->
+	
+
+
+
+
+				
+		             		
+			</div>	
+			
+		
+	
+	
     
-      
-          
-          
-            
-              
-                
+    	
+		
+	       
+	       
+	       
+			
+			<div class="secondary">
+
+				
+	            
+			
+				
+		 		
+
+
+
+	
+		
+			<div class="promo_collection links_list related-features ">
+		
+		
+		
+			
+				
+				    
+					    
 
 
 
@@ -1843,188 +2003,39 @@ if (window.getScript){
 
 
 
-  
-  
-    
-        
-            
-              
-                  <h2>National Parks Photos</h2>
-              
-          
-      
-    
-  
-    
-     
-    
-    
-    <ul class="dividers ">
-      
-      
-      
-          
-          
-            
-              
+	
+	
+		
+		    
+    		    
+    			    
+    			        <h3 class="title">Related Features</h3>
+    			    
+    			
+			
+		
+	
+		
+		 
+		
+		
+		<ul class="bullets ">
+			
+			
+			
+			    
+					
+						
+							
 
 
 
 
+	
 
 
-
-
-
-  
-  
-    
-    
-      <li class="first ">
-      
-        
-          
-            <a href="http://ngm.nationalgeographic.com/2006/08/smoky-mountain/melford-photography?image=2" title="Great Smoky Mountains Photos" class="">
-            
-
-
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/062/cache/smoky-mountain_6296_160x120.jpg"  width="160" height="120" alt="7143.jpg" />  
-
-
-          </a>
-          
-        
-      
-        
-    
-    
-        
-        
-        <h4><a href="http://ngm.nationalgeographic.com/2006/08/smoky-mountain/melford-photography?image=2" title="Great Smoky Mountains Photos">Great Smoky Mountains Photos</a></h4>
-        
-    
-    
-    
-      
-          <p><p>The quiet splendor and patchwork history of the popular national park offer lessons in how humanity can coexist with nature.</p></p>
-      
-    
-    
-  </li>
-  
-
-
-
-            
-          
-          
-          
-      
-      
-
-    
-    </ul>
-
-
-
-
-
-              
-            
-          
-        
-      
-    
-    
-
-  
-
-
-  
-
-
-  
-  
-  </div><!-- .promo_collection -->
-  
-
-
-
-
-        
-                    
-      </div>  
-      
-    
-  
-  
-    
-      
-    
-         
-         
-         
-      
-      <div class="secondary">
-
-        
-              
-      
-        
-        
-
-
-
-  
-    
-      <div class="promo_collection links_list related-features ">
-    
-    
-    
-      
-        
-            
-              
-
-
-
-
-
-
-
-  
-  
-    
-        
-            
-              
-                  <h3 class="title">Related Features</h3>
-              
-          
-      
-    
-  
-    
-     
-    
-    
-    <ul class="bullets ">
-      
-      
-      
-          
-          
-            
-              
-
-
-
-
-  
-
-
-  
-    
+	
+		
 
 
 
@@ -2035,34 +2046,34 @@ if (window.getScript){
 
     <a href="http://ngm.nationalgeographic.com/2007/02/big-bend/patoski-text" title="Desolate Majesty" >Desolate Majesty</a>
 
-  
+	
 
 </li>
 
-  
-  
-  
+	
+	
+	
 
 
 
 
-            
-          
-          
-          
-          
-            
-              
-                
+						
+					
+					
+			    
+					
+						
+							
+								
 
 
 
 
-  
+	
 
 
-  
-    
+	
+		
 
 
 
@@ -2073,35 +2084,35 @@ if (window.getScript){
 
     <a href="http://traveler.nationalgeographic.com/2008/12/genuine-article/morelli-text/1" title="Handmade Cowboy Boots" >Handmade Cowboy Boots</a>
 
-  
+	
 
 </li>
 
-  
-  
-  
+	
+	
+	
 
 
 
 
-              
-            
-          
-          
-          
-          
-            
-              
-                
+							
+						
+					
+					
+			    
+					
+						
+							
+								
 
 
 
 
-  
+	
 
 
-  
-    
+	
+		
 
 
 
@@ -2112,35 +2123,35 @@ if (window.getScript){
 
     <a href="http://ngm.nationalgeographic.com/2006/11/laredo/swartz-text" title="Once Upon a Time in Laredo" >Once Upon a Time in Laredo</a>
 
-  
+	
 
 </li>
 
-  
-  
-  
+	
+	
+	
 
 
 
 
-              
-            
-          
-          
-          
-          
-            
-              
-                
+							
+						
+					
+					
+			    
+					
+						
+							
+								
 
 
 
 
-  
+	
 
 
-  
-    
+	
+		
 
 
 
@@ -2151,68 +2162,68 @@ if (window.getScript){
 
     <a href="/travel/national-parks/death-valley-quiz/" title="Death Valley Quiz" >Death Valley Quiz</a>
 
-  
+	
 
 </li>
 
-  
-  
-  
+	
+	
+	
 
 
 
 
-              
-            
-          
-          
-          
-      
-      
+							
+						
+					
+					
+			    
+			
+			
 
-    
-    </ul>
-
-
+		
+		</ul>
 
 
 
-          
-        
-      
-        
 
 
-  
+					
+				
+			
+				
 
 
-    
-    
-    
-      </div><!-- .promo_collection -->
-    
-  
+	
 
 
-        
-                    
-      </div>  
-      
-      
-    
-  
+		
+		
+		
+			</div><!-- .promo_collection -->
+		
+	
+
+
+				
+		             		
+			</div>	
+			
+			
+		
+	
     
 
 </div>
 
 
-    
-    
+		
+		
 
     
 
-    
-      
+		
+			
 
 
 
@@ -2220,18 +2231,18 @@ if (window.getScript){
 
 <div class="subsection" >
     
-  
+	
     
-    
-  
-         
-      
-      <div  class="primary full_width">
-        
-              
-      
-        
-        
+		
+	
+	       
+			
+			<div  class="primary full_width">
+				
+	            
+			
+				
+		 		
 
 
 
@@ -2242,10 +2253,10 @@ if (window.getScript){
 
 
 <div class="promo_collection thumbnail_grid">
-  
-  
-  
-    
+	
+	
+	
+		
 
 
 
@@ -2253,344 +2264,344 @@ if (window.getScript){
 
 
 
-  
-  
-    
-        
-            
-              
-                  <h3 class="title">National Geographic Guides and Maps</h3>
-              
-          
-      
-    
-  
-    
-     
-    
-    
-    <ul class="wide ">
-      
-      
-      
-          
-          
-            
-              
+	
+	
+		
+		    
+    		    
+    			    
+    			        <h3 class="title">National Geographic Guides and Maps</h3>
+    			    
+    			
+			
+		
+	
+		
+		 
+		
+		
+		<ul class="wide ">
+			
+			
+			
+			    
+					
+						
+							
 
 
 
 
 
 
-  
-  <li class="first ">
-    
-        <a href="http://shop.nationalgeographic.com/ngs/browse/productDetail.jsp?productId=203&code=NG90314" title="Guadalupe Mountains National&lt;br&gt;Park Trail Map" class="">
-        
+	
+	<li class="first ">
+		
+		    <a href="http://shop.nationalgeographic.com/ngs/browse/productDetail.jsp?productId=203&code=NG90314" title="Guadalupe Mountains National&lt;br&gt;Park Trail Map" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/209/cache/203_20969_160x120.jpg"  width="160" height="120" alt="Nationa Geographic National Parks Guides - Books" />  
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/209/cache/203_20969_160x120.jpg"  width="160" height="120" alt="Nationa Geographic National Parks Guides - Books" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="http://shop.nationalgeographic.com/ngs/browse/productDetail.jsp?productId=203&code=NG90314" title="Guadalupe Mountains National&lt;br&gt;Park Trail Map" >Guadalupe Mountains National<br>Park Trail Map</a></p>
 </li>
 
 
 
-            
-          
-          
-          
-          
-            
-              
-                
+						
+					
+					
+			    
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class=" ">
-    
-        <a href="http://shop.nationalgeographic.com/ngs/browse/productDetail.jsp?productId=6200869&code=NG25116" title="National Geographic&#39;s Guide to the National Parks" class="">
-        
+	
+	<li class=" ">
+		
+		    <a href="http://shop.nationalgeographic.com/ngs/browse/productDetail.jsp?productId=6200869&code=NG25116" title="National Geographic&#39;s Guide to the National Parks" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/502/overrides/national-geographic-parks-guide_50237_160x120.jpg"  width="160" height="120" alt="Photo: Book cover of National Geographic National Parks Guide" /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/502/overrides/national-geographic-parks-guide_50237_160x120.jpg"  width="160" height="120" alt="Photo: Book cover of National Geographic National Parks Guide" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="http://shop.nationalgeographic.com/ngs/browse/productDetail.jsp?productId=6200869&code=NG25116" title="National Geographic&#39;s Guide to the National Parks" >National Geographic's Guide to the National Parks</a></p>
 </li>
 
 
 
-              
-            
-          
-          
-          
-          
-            
-              
-                
+							
+						
+					
+					
+			    
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="last ">
-    
-        <a href=" http://shop.nationalgeographic.com/ngs/browse/productDetail.jsp?productId=6200527&code=NG90309" title="The Complete National&lt;br&gt; Parks of the U.S." class="">
-        
+	
+	<li class="last ">
+		
+		    <a href=" http://shop.nationalgeographic.com/ngs/browse/productDetail.jsp?productId=6200527&code=NG90309" title="The Complete National&lt;br&gt; Parks of the U.S." class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/188/cache/book-complete-national-parks_18888_160x120.jpg"  width="160" height="120" alt="book;complete;national;parks" /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/188/cache/book-complete-national-parks_18888_160x120.jpg"  width="160" height="120" alt="book;complete;national;parks" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href=" http://shop.nationalgeographic.com/ngs/browse/productDetail.jsp?productId=6200527&code=NG90309" title="The Complete National&lt;br&gt; Parks of the U.S." >The Complete National<br> Parks of the U.S.</a></p>
 </li>
 
 
 
-              
-            
-          
-          
-          
-      
-      
+							
+						
+					
+					
+			    
+			
+			
 
-    
-    </ul>
-
-
+		
+		</ul>
 
 
 
-  
-  
-  
 
 
-  
+	
+	
+	
 
 
-  
+	
+
+
+	
 </div><!-- .promo_collection -->
 
 
 
 
-        
-                    
-      </div>  
-      
-    
-  
-  
+				
+		             		
+			</div>	
+			
+		
+	
+	
     
     
 
 </div>
 
 
+		
+		
+
     
+
+		
+					
+		
+
     
+
+		
+					
+		
+
+    
+
+		
+					
+		
+
+    
+
+		
+					
+		
+
+    
+
+		
+					
+		
+
+    
+
+
+			</div><!-- #content_mainA -->
+
+			<hr class="hidden" />
+
+			<!-- ### RIGHT COLUMN ### -->
+           	<div id="content_mainB" class="aside">
+				
+
+					
+					  
+					    
+  					    
+
+    
+
+		
+			
+
+
+
+
+
+
+
+
+
+
+	
+
+
 
     
 
     
-          
-    
-
-    
-
-    
-          
-    
-
-    
-
-    
-          
-    
-
-    
-
-    
-          
-    
-
-    
-
-    
-          
-    
-
-    
+		
+		
+				
+		
 
 
-      </div><!-- #content_mainA -->
-
-      <hr class="hidden" />
-
-      <!-- ### RIGHT COLUMN ### -->
-            <div id="content_mainB" class="aside">
-        
-
-          
+			
             
-              
-                
 
-    
-
-    
-      
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-    
-
-    
-    
-    
-        
-    
-
-
-      
-            
-
-      
-      
+			
+	 		
 <div class="promo_collection">
-  <link href="//images.nationalgeographic.com/wpf/sites/common/c/travel_widget-cb1394712875.css" rel="stylesheet" type="text/css" />
-  <script src="//images.nationalgeographic.com/wpf/sites/common/j/select2.min-cb1394712875.js" type="text/javascript"></script>
-  <h3 class="title">
-    <a href="http://www.nationalgeographicexpeditions.com/?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_home&utm_campaign=Ngdotcom" target="_blank">Take a Nat Geo Trip</a>
-  </h3>
-  <div class="widget_pod">
-    <p>Select a destination or trip type to find a trip:</p>
-    <select data-placeholder="Search by Destination" class="widget-dropdown">
-      <option></option>
-      <option value="http://www.nationalgeographicexpeditions.com/?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_seealltrips_home&utm_campaign=Ngdotcom">View All</option>
-      <option value="http://www.nationalgeographicexpeditions.com/destinations/africa?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_africa&utm_campaign=Ngdotcom">Africa</option>
-      <option value="http://www.nationalgeographicexpeditions.com/destinations/asia?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_asia&utm_campaign=Ngdotcom">Asia</option>
-      <option value="http://www.nationalgeographicexpeditions.com/destinations/europe?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_europe&utm_campaign=Ngdotcom">Europe</option>
-      <option value="http://www.nationalgeographicexpeditions.com/destinations/northamerica?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_northamerica&utm_campaign=Ngdotcom">North America</option>
-      <option value="http://www.nationalgeographicexpeditions.com/destinations/southamerica?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_southamerica&utm_campaign=Ngdotcom">South America</option>
-      <option value="http://www.nationalgeographicexpeditions.com/destinations/centralamericaandcaribbean?utm_source=NGdotcom-Travel&utm_medium=trip_finderA&utm_content=Nov2013_trip_finderB_banner_caribbean&utm_campaign=Ngdotcom">Central America & Caribbean</option>
-      <option value="http://www.nationalgeographicexpeditions.com/destinations/australiaandthepacific?utm_source=NGdotcom-Travel&utm_medium=trip_finderA&utm_content=Nov2013_trip_finderB_banner_auspacific&utm_campaign=Ngdotcom">Australia and the Pacific</option>
-      <option value="http://www.nationalgeographicexpeditions.com/destinations/middleeast?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_middleweast&utm_campaign=Ngdotcom">Middle East</option>
-      <option value="http://www.nationalgeographicexpeditions.com/destinations/polarregions?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_polarregions&utm_campaign=Ngdotcom">Polar Regions</option>
-      <option value="http://www.nationalgeographicexpeditions.com/destinations/aroundtheworld?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_aroundtheworld&utm_campaign=Ngdotcom">Around the World</option>
-    </select>
+	<link href="//images.nationalgeographic.com/wpf/sites/common/c/travel_widget-cb1394712875.css" rel="stylesheet" type="text/css" />
+	<script src="//images.nationalgeographic.com/wpf/sites/common/j/select2.min-cb1394712875.js" type="text/javascript"></script>
+	<h3 class="title">
+		<a href="http://www.nationalgeographicexpeditions.com/?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_home&utm_campaign=Ngdotcom" target="_blank">Take a Nat Geo Trip</a>
+	</h3>
+	<div class="widget_pod">
+		<p>Select a destination or trip type to find a trip:</p>
+		<select data-placeholder="Search by Destination" class="widget-dropdown">
+			<option></option>
+			<option value="http://www.nationalgeographicexpeditions.com/?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_seealltrips_home&utm_campaign=Ngdotcom">View All</option>
+			<option value="http://www.nationalgeographicexpeditions.com/destinations/africa?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_africa&utm_campaign=Ngdotcom">Africa</option>
+			<option value="http://www.nationalgeographicexpeditions.com/destinations/asia?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_asia&utm_campaign=Ngdotcom">Asia</option>
+			<option value="http://www.nationalgeographicexpeditions.com/destinations/europe?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_europe&utm_campaign=Ngdotcom">Europe</option>
+			<option value="http://www.nationalgeographicexpeditions.com/destinations/northamerica?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_northamerica&utm_campaign=Ngdotcom">North America</option>
+			<option value="http://www.nationalgeographicexpeditions.com/destinations/southamerica?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_southamerica&utm_campaign=Ngdotcom">South America</option>
+			<option value="http://www.nationalgeographicexpeditions.com/destinations/centralamericaandcaribbean?utm_source=NGdotcom-Travel&utm_medium=trip_finderA&utm_content=Nov2013_trip_finderB_banner_caribbean&utm_campaign=Ngdotcom">Central America & Caribbean</option>
+			<option value="http://www.nationalgeographicexpeditions.com/destinations/australiaandthepacific?utm_source=NGdotcom-Travel&utm_medium=trip_finderA&utm_content=Nov2013_trip_finderB_banner_auspacific&utm_campaign=Ngdotcom">Australia and the Pacific</option>
+			<option value="http://www.nationalgeographicexpeditions.com/destinations/middleeast?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_middleweast&utm_campaign=Ngdotcom">Middle East</option>
+			<option value="http://www.nationalgeographicexpeditions.com/destinations/polarregions?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_polarregions&utm_campaign=Ngdotcom">Polar Regions</option>
+			<option value="http://www.nationalgeographicexpeditions.com/destinations/aroundtheworld?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_aroundtheworld&utm_campaign=Ngdotcom">Around the World</option>
+		</select>
 
-    <select data-placeholder="Search by Trip Type" class="widget-dropdown">
-      <option></option>
-      <option value="http://www.nationalgeographicexpeditions.com/?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_seealltrips_home&utm_campaign=Ngdotcom">View All</option>
-      <option value="http://www.nationalgeographicexpeditions.com/triptypes/byship?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_byship&utm_campaign=Ngdotcom">By Ship</option>
-      <option value="http://www.nationalgeographicexpeditions.com/triptypes/bytrain?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_bytrain&utm_campaign=Ngdotcom">By Train</option>
-      <option value="http://www.nationalgeographicexpeditions.com/triptypes/byprivatejet?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_byprivatejet&utm_campaign=Ngdotcom">By Private Jet</option>
-      <option value="http://www.nationalgeographicexpeditions.com/triptypes/landjourneys?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_landjourneys&utm_campaign=Ngdotcom">Land Journeys</option>
-      <option value="http://www.nationalgeographicexpeditions.com/triptypes/activeadventures?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_adventures&utm_campaign=Ngdotcom">Active Adventures</option>
-      <option value="http://www.nationalgeographicexpeditions.com/triptypes/photography?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_photography&utm_campaign=Ngdotcom">Photography</option>
-      <option value="http://www.nationalgeographicexpeditions.com/triptypes/family?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_family&utm_campaign=Ngdotcom">Family</option>
-      <option value="http://ngstudentexpeditions.com/?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_student&utm_campaign=Ngdotcom">Student</option>
-    </select>
-  </div>
-  <p class="action"><a href="http://www.nationalgeographicexpeditions.com/?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_seealltrips_home&utm_campaign=Ngdotcom" target="_blank">See All Trips &raquo;</a></p>
+		<select data-placeholder="Search by Trip Type" class="widget-dropdown">
+			<option></option>
+			<option value="http://www.nationalgeographicexpeditions.com/?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_seealltrips_home&utm_campaign=Ngdotcom">View All</option>
+			<option value="http://www.nationalgeographicexpeditions.com/triptypes/byship?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_byship&utm_campaign=Ngdotcom">By Ship</option>
+			<option value="http://www.nationalgeographicexpeditions.com/triptypes/bytrain?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_bytrain&utm_campaign=Ngdotcom">By Train</option>
+			<option value="http://www.nationalgeographicexpeditions.com/triptypes/byprivatejet?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_byprivatejet&utm_campaign=Ngdotcom">By Private Jet</option>
+			<option value="http://www.nationalgeographicexpeditions.com/triptypes/landjourneys?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_landjourneys&utm_campaign=Ngdotcom">Land Journeys</option>
+			<option value="http://www.nationalgeographicexpeditions.com/triptypes/activeadventures?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_adventures&utm_campaign=Ngdotcom">Active Adventures</option>
+			<option value="http://www.nationalgeographicexpeditions.com/triptypes/photography?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_photography&utm_campaign=Ngdotcom">Photography</option>
+			<option value="http://www.nationalgeographicexpeditions.com/triptypes/family?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_family&utm_campaign=Ngdotcom">Family</option>
+			<option value="http://ngstudentexpeditions.com/?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_banner_student&utm_campaign=Ngdotcom">Student</option>
+		</select>
+	</div>
+	<p class="action"><a href="http://www.nationalgeographicexpeditions.com/?utm_source=NGdotcom-Travel&utm_medium=trip_finderB&utm_content=Nov2013_trip_finderB_seealltrips_home&utm_campaign=Ngdotcom" target="_blank">See All Trips &raquo;</a></p>
 </div>
 
 <script type="text/javascript">
 var WidgetUI = {
-  initialize: function () {
-    // iOS detection
-    if (navigator.userAgent.match(/(iPad|iPhone);.*CPU.*OS 4_\d/i)) {
-      $('body').addClass('iOS4');
-    }
-    WidgetUI.selectDropdown = $('.widget-dropdown');
-    WidgetUI.initSelectDropdown();
-  },
-  addListeners:function(){},
-  initSelectDropdown: function() {
-    WidgetUI.selectDropdown.select2({
-      minimumResultsForSearch: 1000,
-      placeholder: "Select a State"
-    });
-    WidgetUI.selectDropdown.change(function(){
-      var theVal = $(this).select2('val');
-      window.open(theVal);
-    })
-  },
-  addListeners:function(){},
+	initialize: function () {
+		// iOS detection
+		if (navigator.userAgent.match(/(iPad|iPhone);.*CPU.*OS 4_\d/i)) {
+			$('body').addClass('iOS4');
+		}
+		WidgetUI.selectDropdown = $('.widget-dropdown');
+		WidgetUI.initSelectDropdown();
+	},
+	addListeners:function(){},
+	initSelectDropdown: function() {
+		WidgetUI.selectDropdown.select2({
+			minimumResultsForSearch: 1000,
+			placeholder: "Select a State"
+		});
+		WidgetUI.selectDropdown.change(function(){
+			var theVal = $(this).select2('val');
+			window.open(theVal);
+		})
+	},
+	addListeners:function(){},
 }
 $(document).ready(WidgetUI.initialize);
 </script>
 
-      
-                  
-    
-    
-      
-    
+			
+	             		
+		
+		
+			
+		
 
     
 
 
 
-  
+	
 
 
 
+
+		
+		
 
     
-    
 
-    
-
-              
-            
-          
+  					  
+					  
+					
 
                     
     
         
-          
-              <div class="advertisement box">
-                <h3>Advertisement</h3>
-                
-                  
-                    
-                      
+					
+    					<div class="advertisement box">
+    						<h3>Advertisement</h3>
+    						
+    							
+    								
+    									
     
-                        <!-- advertising -->
+    										<!-- advertising -->
 
 
     
@@ -2609,10 +2620,10 @@ $(document).ready(WidgetUI.initialize);
                 // width: 300
                 // height: 250
                 // css_class: 
-                // gpt_dimensions: None
+                // gpt_dimensions: 300x250,300x600
                 // keywords: 
-                // bust: 181208296
-                // tile: 177
+                // bust: 555653267
+                // tile: 167
                 // refreshable: True
                 // regex: ^/national-parks/(guadalupe-mountains-national-park|big-bend-national-park|carlsbad-caverns-national-park)/[.]*
                 // page_taxonomy: travel.nationalgeographic.com::travel::Parks::Guadalupe Mountains National Park
@@ -2652,104 +2663,104 @@ $(document).ready(WidgetUI.initialize);
     
 
 
-                        
-                    
-                  
-                
-              </div>
-          
-            
+    										
+    								
+    							
+    						
+    					</div>
+					
+    				
     
 
                     
                     
-              
+					    
+
+    
+
+		
+			
+
+
+
+
+
+
+
+
+
+
+	
+
+
 
     
 
     
-      
+		
+		
+				
+		
 
 
-
-
-
-
-
-
-
-
-  
-
-
-
-    
-
-    
-    
-    
-        
-    
-
-
-      
+			
             
 
-      
-      
+			
+	 		
 
 
 
-  
-    
-      <div class="promo_collection links_list top-picks-for-travel  columns">
-    
-    
-    
-      
-        
-            
-              
-
-
-
-
-
-
-
-  
-  
-    
-        
-            
-                
-                    <h2>Top Picks for Travel</h2>
-                
-          
-      
-    
-  
-    
-     
-    
-    
-    <ul class="bullets ">
-      
-      
-      
-        
-          
-            
-              
+	
+		
+			<div class="promo_collection links_list top-picks-for-travel  columns">
+		
+		
+		
+			
+				
+				    
+					    
 
 
 
 
-  
 
 
-  
-    
+
+	
+	
+		
+		    
+    		    
+    		        
+    		            <h2>Top Picks for Travel</h2>
+    		        
+    			
+			
+		
+	
+		
+		 
+		
+		
+		<ul class="bullets ">
+			
+			
+			
+			 	
+					
+						
+							
+
+
+
+
+	
+
+
+	
+		
 
 
 
@@ -2758,35 +2769,35 @@ $(document).ready(WidgetUI.initialize);
 
 <li class="first">
 
-    <a href="http://travel.nationalgeographic.com/travel/countries/your-canada-photos/" title="Your Shot: Canada" >Your Shot: Canada</a>
+    <a href="/travel/switzerland-grand-tour/" title="Switzerland&#39;s Grand Tour" >Switzerland's Grand Tour</a>
 
-  
+	
 
 </li>
 
-  
-  
-  
+	
+	
+	
 
 
 
 
-            
-          
-        
-          
-            
-              
-                
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
-  
+	
 
 
-  
-    
+	
+		
 
 
 
@@ -2795,36 +2806,36 @@ $(document).ready(WidgetUI.initialize);
 
 <li class=" ">
 
-    <a href="/travel/fall-pictures-in-montana/" title="Autumn in Montana  " >Autumn in Montana  </a>
+    <a href="http://travel.nationalgeographic.com/travel/florida-land-and-sea/" title="Discover Florida by Land and Water" >Discover Florida by Land and Water</a>
 
-  
+	
 
 </li>
 
-  
-  
-  
+	
+	
+	
 
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
-  
+	
 
 
-  
-    
+	
+		
 
 
 
@@ -2833,36 +2844,36 @@ $(document).ready(WidgetUI.initialize);
 
 <li class=" ">
 
-    <a href="http://intelligenttravel.nationalgeographic.com/2014/10/27/strangeplanet-travel-trivia-2/" title="#StrangePlanet: Travel Trivia" >#StrangePlanet: Travel Trivia</a>
+    <a href="http://travel.nationalgeographic.com/travel/best-spring-trips-2015/" title="Best Spring Trips 2015" >Best Spring Trips 2015</a>
 
-  
+	
 
 </li>
 
-  
-  
-  
+	
+	
+	
 
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
-  
+	
 
 
-  
-    
+	
+		
 
 
 
@@ -2871,36 +2882,36 @@ $(document).ready(WidgetUI.initialize);
 
 <li class=" ">
 
-    <a href="http://www.thegreatcourses.com/tgc/NatGeo/Natgeo.aspx?ai=99720" title="NEW! Nat Geo Masters of Photography course on DVD or online" >NEW! Nat Geo Masters of Photography course on DVD or online</a>
+    <a href="/travel/travel-photographers-favorite-cameras/" title="Our Photographers&#39; Favorite Cameras" >Our Photographers' Favorite Cameras</a>
 
-  
+	
 
 </li>
 
-  
-  
-  
+	
+	
+	
 
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
-  
+	
 
 
-  
-    
+	
+		
 
 
 
@@ -2909,36 +2920,36 @@ $(document).ready(WidgetUI.initialize);
 
 <li class=" ">
 
-    <a href="http://travel.nationalgeographic.com/travel/best-fall-trips-2014/" title="Best Fall Trips 2014" >Best Fall Trips 2014</a>
+    <a href="http://travel.nationalgeographic.com/travel/top-10/worlds-best-picnic-spots/?source=hp_dl2_travel_10_picnic_spots_2130501" title="World&#39;s Ten Best Picnic Spots" >World's Ten Best Picnic Spots</a>
 
-  
+	
 
 </li>
 
-  
-  
-  
+	
+	
+	
 
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
-  
+	
 
 
-  
-    
+	
+		
 
 
 
@@ -2947,36 +2958,36 @@ $(document).ready(WidgetUI.initialize);
 
 <li class=" ">
 
-    <a href="http://www.nationalgeographicexpeditions.com/about/catalog?utm_source=NGdotcom-Travel&utm_medium=link&utm_content=20131217_TopPicksForTravel_RightRail_RequestsANatGeoTripsCatalog_CatalogRequest&utm_campaign=NGdotcom" title="Request a Nat Geo Trips Catalog" >Request a Nat Geo Trips Catalog</a>
+    <a href="/travel/city-guides/free-paris-traveler/" title="Free Things to Do in Paris" >Free Things to Do in Paris</a>
 
-  
+	
 
 </li>
 
-  
-  
-  
+	
+	
+	
 
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
-  
+	
 
 
-  
-    
+	
+		
 
 
 
@@ -2985,36 +2996,36 @@ $(document).ready(WidgetUI.initialize);
 
 <li class=" ">
 
-    <a href="http://intelligenttravel.nationalgeographic.com/2014/09/30/natgeotravel-staff-picks-best-fall-trips/" title="@NatGeoTravel Staff Picks: Best Fall Trips" >@NatGeoTravel Staff Picks: Best Fall Trips</a>
+    <a href="http://travel.nationalgeographic.com/travel/best-of-travel-365/february-2015/" title="Best of Travel 365: February" >Best of Travel 365: February</a>
 
-  
+	
 
 </li>
 
-  
-  
-  
+	
+	
+	
 
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
-  
+	
 
 
-  
-    
+	
+		
 
 
 
@@ -3023,36 +3034,36 @@ $(document).ready(WidgetUI.initialize);
 
 <li class=" ">
 
-    <a href="http://travel.nationalgeographic.com/travel/local-montana/" title="Explore Montana Hotspots" >Explore Montana Hotspots</a>
+    <a href="http://www.nationalgeographiclodges.com/?utm_source=NGdotcom-Travel&utm_medium=link&utm_content=20150106_TopPicks_NewNGLodges&utm_campaign=NGdotcom" title="NEW! National Geographic Unique Lodges of the World" >NEW! National Geographic Unique Lodges of the World</a>
 
-  
+	
 
 </li>
 
-  
-  
-  
+	
+	
+	
 
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
-  
+	
 
 
-  
-    
+	
+		
 
 
 
@@ -3061,116 +3072,116 @@ $(document).ready(WidgetUI.initialize);
 
 <li class="last">
 
-    <a href="/travel/top-10/activities-along-irelands-wild-atlantic-way/" title="Top 10 Activities Along Ireland’s Wild Atlantic Way" >Top 10 Activities Along Ireland’s Wild Atlantic Way</a>
+    <a href="http://www.nationalgeographicexpeditions.com/about/catalog?utm_source=NGdotcom-Travel&utm_medium=link&utm_content=20131217_TopPicksForTravel_RightRail_RequestsANatGeoTripsCatalog_CatalogRequest&utm_campaign=NGdotcom" title="Request a Nat Geo Trips Catalog" >Request a Nat Geo Trips Catalog</a>
 
-  
+	
 
 </li>
 
-  
-  
-  
+	
+	
+	
 
 
 
 
-              
+							
+						
+					
+					
+			
+			
+
+		
+		</ul>
+
+
+
+
+
+					
+				
+			
+				
+
+
+	
+
+
+		
+		
+		
+			</div><!-- .promo_collection -->
+		
+	
+
+
+			
+	             		
+		
+		
+			
+		
+
+    
+
+
+
+	
+
+
+
+
+		
+		
+
+    
+
+		
+			
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+    
+
+    
+		
+		
+				
+		
+
+
+			
             
-          
-          
-      
-      
 
-    
-    </ul>
-
-
-
-
-
-          
-        
-      
-        
-
-
-  
-
-
-    
-    
-    
-      </div><!-- .promo_collection -->
-    
-  
-
-
-      
-                  
-    
-    
-      
-    
-
-    
-
-
-
-  
-
-
-
-
-    
-    
-
-    
-
-    
-      
+			
+	 		
 
 
 
 
 
 
-
-
-
-
-  
-
-
-
-    
-
-    
-    
-    
-        
-    
-
-
-      
-            
-
-      
-      
-
-
-
-
-
-
-  <div class="openHTML">
-    
-      
-      
-      <h3 class="title">Join Nat Geo Travel's Communities</h3>
-      
-      
-        
-            <a href="https://www.facebook.com/natgeotravel" target="_blank"><img src="http://images.nationalgeographic.com/wpf/media-content/graphic/FACEBOOK_-cb1388689364.jpg" style="float: left;border:none;padding:2px"></a>
+	<div class="openHTML">
+		
+	    
+	    
+	    <h3 class="title">Join Nat Geo Travel's Communities</h3>
+	    
+	    
+	    	
+    	    	<a href="https://www.facebook.com/natgeotravel" target="_blank"><img src="http://images.nationalgeographic.com/wpf/media-content/graphic/FACEBOOK_-cb1388689364.jpg" style="float: left;border:none;padding:2px"></a>
 
 <a href="https://twitter.com/natgeotravel" target="_blank"><img src="http://images.nationalgeographic.com/wpf/media-content/graphic/TWITTER-cb1388689565.jpg" style="float: left;border:none;padding:2px"></a>
 
@@ -3183,64 +3194,64 @@ $(document).ready(WidgetUI.initialize);
 <a href="http://natgeotravel.tumblr.com/" target="_blank"><img src="http://images.nationalgeographic.com/wpf/media-content/graphic/TUMBLR-cb1388694259.jpg" style="float: left;border:none;padding:2px"></a>
 
 </br></br></br>
-          
-      
-  </div>
+    	    
+	    
+	</div>
 
 
 
 
-      
-                  
-    
-    
-      
-    
-
-    
-
-
-
-  
-
-
-
-
-    
-    
+			
+	             		
+		
+		
+			
+		
 
     
 
-    
-      
+
+
+	
 
 
 
 
-
-
-
-
-
-
-  
-
-
+		
+		
 
     
 
-    
-    
-    
-        
-    
+		
+			
 
 
-      
+
+
+
+
+
+
+
+
+	
+
+
+
+    
+
+    
+		
+		
+				
+		
+
+
+			
             
 
-      
-      
+			
+	 		
 
 
 
@@ -3249,302 +3260,302 @@ $(document).ready(WidgetUI.initialize);
 
  
 
-  
-  
-  <div class="promo_collection features_module custom" id="none">
-  
-  
+	
+	
+	<div class="promo_collection features_module custom" id="none">
+	
+	
+		
+			
+
+
+
+
+
+
+
+	
+	
+		
+		    
+    		    
+    			    
+    			        <h2>Travel Photos From Your Shot</h2>
+    			    
+    			
+			
+		
+	
+		
+		 
+		
+		
+		<ul class="">
+			
+			
+			
+			    
+					
+						
+							
+
+
+
+
+
+
+
+
+
+	
+	
+		
+		
+			<li class="first ">
+			
+				
+				  
+				    <a href="/travel/your-shot-switzerland-pictures/" title="Your Switzerland Photos " class="">
+						
+
+
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/889/overrides/yourshot-switzerland-matterhorn_88921_100x75.jpg"  width="100" height="75" alt="Picture of the Matterhorn and the full moon reflected in a mountain lake at sunrise." />	
+
+
+					</a>
+					
+				
+			
+				
+		
+		
+		    
+		    
+	    	<h4><a href="/travel/your-shot-switzerland-pictures/" title="Your Switzerland Photos ">Your Switzerland Photos </a></h4>
+	    	
+		
+		
+		
+			
+			    <p><p><span>See Switzerland Photos Submitted By Users Like You</span></p></p>
+			
+		
+		
+	</li>
+	
+
+
+
+						
+					
+					
+			    
+			
+			
+
+		
+		</ul>
+
+
+
+
+
+		
+		
+
+	
+
+
+	
+	<p class="action"><a href="http://travel.nationalgeographic.com/travel/your-travel-pictures/">See More Your Shot Galleries &raquo;</a></p>
+	
+
+
+	
+	
+	</div><!-- .promo_collection -->
+	
+
+
+
+
+			
+	             		
+		
+		
+			
+		
+
     
-      
+
+
+
+	
 
 
 
 
+		
+		
 
-
-
-  
-  
     
-        
+
+		
+			
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+    
+
+    
+		
+		
+				
+		
+
+
+			
             
-              
-                  <h2>Travel Photos From Your Shot</h2>
-              
-          
-      
-    
-  
-    
-     
-    
-    
-    <ul class="">
-      
-      
-      
-          
-          
-            
-              
 
+			
+	 		
 
 
 
 
+	<div class="ecommerce-section split-design Primary">
+		
+			<div class="promo_collection">
+		
+		
+				
 
 
 
 
-  
-  
-    
-    
-      <li class="first ">
-      
-        
-          
-            <a href="http://travel.nationalgeographic.com/travel/countries/your-canada-photos/" title="Your Canada Photos" class="">
-            
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/846/overrides/moraine-lake-alberta-canada-your-shot_84617_100x75.jpg"  width="100" height="75" alt="Picture of canoes on a dock in Alberta, Canada" />  
 
+	
+	
+		
+		    
+    		    
+    			    
+    			        <h3 class="title">Shop National Geographic</h3>
+    			    
+    			
+			
+		
+	
+		
+		 
+		
+		
+		<ul class="">
+			
+			
+			
+			    
+					
+						
+							
 
-          </a>
-          
-        
-      
-        
-    
-    
-        
-        
-        <h4><a href="http://travel.nationalgeographic.com/travel/countries/your-canada-photos/" title="Your Canada Photos">Your Canada Photos</a></h4>
-        
-    
-    
-    
-      
-          <p><p>View scenes of Canada's city life and countryside<span>—all taken by our Nat Geo photo community.</span></p></p>
-      
-    
-    
-  </li>
-  
 
 
 
-            
-          
-          
-          
-      
-      
+	
 
-    
-    </ul>
+		
+			
+					
+					</ul>
+					<div class="split_left">
+					
 
 
 
 
 
-    
-    
 
-  
 
+	
+		
+		<div class="ecommerce_first_img">
+		    	<a class="teaser-img-thumb-first" href="http://shop.nationalgeographic.com/ngs/product/best-sellers/books/national-geographic-atlas-of-the-world--10th-edition---hardcover?product=product%3A6201354&code=NG7E10000" title="&lt;i&gt;National Geographic Atlas of the World, 10th Edition&lt;/i&gt; - Hardcover">
+					
 
-  
-  <p class="action"><a href="http://travel.nationalgeographic.com/travel/your-travel-pictures/">See More Your Shot Galleries &raquo;</a></p>
-  
 
-
-  
-  
-  </div><!-- .promo_collection -->
-  
-
-
-
-
-      
-                  
-    
-    
-      
-    
-
-    
-
-
-
-  
-
-
-
-
-    
-    
-
-    
-
-    
-      
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-    
-
-    
-    
-    
-        
-    
-
-
-      
-            
-
-      
-      
-
-
-
-
-  <div class="ecommerce-section split-design Primary">
-    
-      <div class="promo_collection">
-    
-    
-        
-
-
-
-
-
-
-
-  
-  
-    
-        
-            
-              
-                  <h3 class="title">Shop National Geographic</h3>
-              
-          
-      
-    
-  
-    
-     
-    
-    
-    <ul class="">
-      
-      
-      
-          
-          
-            
-              
-
-
-
-
-  
-
-    
-      
-          
-          </ul>
-          <div class="split_left">
-          
-
-
-
-
-
-
-
-  
-    
-    <div class="ecommerce_first_img">
-          <a class="teaser-img-thumb-first" href="http://shop.nationalgeographic.com/ngs/product/best-sellers/books/national-geographic-atlas-of-the-world--10th-edition---hardcover?product=product%3A6201354&code=NG7E10000" title="&lt;i&gt;National Geographic Atlas of the World, 10th Edition&lt;/i&gt; - Hardcover">
-          
-
-
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/849/custom/world-atlas-10th-edition-hardcover_84908_120x120.jpg"  width="120" height="120" alt="atlas 10th edition hardcover.jpeg" /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/849/custom/world-atlas-10th-edition-hardcover_84908_120x120.jpg"  width="120" height="120" alt="atlas 10th edition hardcover.jpeg" />	
 
 </a>
-    </div>
+		</div>
 
-    
-    <div class="ecommerce_secondary">
-    <ul>
-      <li class="first">
-        <div class="description">
+		
+		<div class="ecommerce_secondary">
+		<ul>
+			<li class="first">
+				<div class="description">
 
-  
+	
 
-  
-  
+	
+	
 
-    <a href="http://shop.nationalgeographic.com/ngs/product/best-sellers/books/national-geographic-atlas-of-the-world--10th-edition---hardcover?product=product%3A6201354&code=NG7E10000" title="&lt;i&gt;National Geographic Atlas of the World, 10th Edition&lt;/i&gt; - Hardcover" ><i>National Geographic Atlas of the World, 10th Edition</i> - Hardcover</a>
+		<a href="http://shop.nationalgeographic.com/ngs/product/best-sellers/books/national-geographic-atlas-of-the-world--10th-edition---hardcover?product=product%3A6201354&code=NG7E10000" title="&lt;i&gt;National Geographic Atlas of the World, 10th Edition&lt;/i&gt; - Hardcover" ><i>National Geographic Atlas of the World, 10th Edition</i> - Hardcover</a>
 
-    
-    
-      
+		
+		
+			
 
-        
-        <br/><span class="item-price">&nbsp;$169.95</span>
-        
+				
+				<br/><span class="item-price">&nbsp;$169.95</span>
+				
 
-      
-    </a>
-  
-    </div>
-  
+			
+		</a>
+	
+		</div>
+	
 </li>
 
 
-        
-      
-    
+				
+			
+		
 
 
 
 
 
-            
-          
-          
-          
-          
-            
-              
-                
+						
+					
+					
+			    
+					
+						
+							
+								
 
 
 
 
-  
+	
 
-    
-      </ul></div></div><div class="split_right"><ul>
-      
+		
+			</ul></div></div><div class="split_right"><ul>
+			
 
 
 
@@ -3554,48 +3565,48 @@ $(document).ready(WidgetUI.initialize);
 <li >
 
     <div class="description"><a href="http://shop.nationalgeographic.com/ngs/product/travel/travel-clothing-and-accessories/men-s-travel-clothing-and-accessories/coin-pocket-travel-wallet?product=product%3A2002570&code=NG7T10000" title="Travel Wallet" >Travel Wallet</a>
-    
-      
+		
+			
 
-          
-            <br/><span class="item-price">&nbsp;$45.00 </span>
+					
+						<br/><span class="item-price">&nbsp;$45.00 </span>
 
-          
-      
-    
+					
+			
+		
 
 </div>
 
-  
+	
 
 </li>
 
-      
-      
-    
+			
+			
+		
 
 
 
 
 
-              
-            
-          
-          
-          
-          
-            
-              
-                
+							
+						
+					
+					
+			    
+					
+						
+							
+								
 
 
 
 
-  
+	
 
-    
-      
-      
+		
+			
+			
 
 
 
@@ -3605,48 +3616,48 @@ $(document).ready(WidgetUI.initialize);
 <li >
 
     <div class="description"><a href="http://shop.nationalgeographic.com/ngs/product/maps/wall-maps/framed-maps/national-geographic---my-world---personalized-map--earth-toned-?product=product%3A1020392&code=NG7T10000" title="National Geographic &#39;&#39;My World&#39;&#39; Personalized Map " >National Geographic ''My World'' Personalized Map </a>
-    
-      
+		
+			
 
-          
-            <br/><span class="item-price">&nbsp;$169.95 </span>
+					
+						<br/><span class="item-price">&nbsp;$169.95 </span>
 
-          
-      
-    
+					
+			
+		
 
 </div>
 
-  
+	
 
 </li>
 
-      
-      
-    
+			
+			
+		
 
 
 
 
 
-              
-            
-          
-          
-          
-          
-            
-              
-                
+							
+						
+					
+					
+			    
+					
+						
+							
+								
 
 
 
 
-  
+	
 
-    
-      
-      
+		
+			
+			
 
 
 
@@ -3656,48 +3667,48 @@ $(document).ready(WidgetUI.initialize);
 <li >
 
     <div class="description"><a href="http://shop.nationalgeographic.com/ngs/product/americana/national-geographic---my-town---custom-map-puzzle?product=product%3A2002388&code=NG7T10000" title="&quot;My Town&quot; Custom Map Puzzle" >"My Town" Custom Map Puzzle</a>
-    
-      
+		
+			
 
-          
-            <br/><span class="item-price">&nbsp;$39.95 </span>
+					
+						<br/><span class="item-price">&nbsp;$39.95 </span>
 
-          
-      
-    
+					
+			
+		
 
 </div>
 
-  
+	
 
 </li>
 
-      
-      
-    
+			
+			
+		
 
 
 
 
 
-              
-            
-          
-          
-          
-          
-            
-              
-                
+							
+						
+					
+					
+			    
+					
+						
+							
+								
 
 
 
 
-  
+	
 
-    
-      
-      
+		
+			
+			
 
 
 
@@ -3707,120 +3718,120 @@ $(document).ready(WidgetUI.initialize);
 <li class="last" >
 
     <div class="description"><a href="http://shop.nationalgeographic.com/ngs/product/genographic-2.0-kits/geno-2.0---genographic-project-participation-and-dna-ancestry-kit?product=product%3A2001246" title="Geno 2.0 - Genographic Project Participation and DNA Ancestry Kit" >Geno 2.0 - Genographic Project Participation and DNA Ancestry Kit</a>
-    
-      
+		
+			
 
-          
-            <br/><span class="item-price">&nbsp;$199.95</span>
+					
+						<br/><span class="item-price">&nbsp;$199.95</span>
 
-          
-      
-    
+					
+			
+		
 
 </div>
 
-  
+	
 
 </li>
 
-      
-      </ul></div><ul>
+			
+			</ul></div><ul>
+		
+
+
+
+
+
+							
+						
+					
+					
+			    
+			
+			
+
+		
+		</ul>
+
+
+
+
+
+				
+
+
+	
+	<p class="action"><a href="http://shop.nationalgeographic.com/?code=NG7T10000">Shop Now &raquo;</a></p>
+	
+
+
+		
+		
+			</div><!-- .promo_collection -->
+		
+	</div>
+
+
+			
+	             		
+		
+		
+			
+		
+
     
 
 
 
+	
 
 
-              
+
+
+		
+		
+
+    
+
+		
+			
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+    
+
+    
+		
+		
+				
+		
+
+
+			
             
-          
-          
-          
-      
-      
 
-    
-    </ul>
-
-
-
-
-
-        
-
-
-  
-  <p class="action"><a href="http://shop.nationalgeographic.com/?code=NG7T10000">Shop Now &raquo;</a></p>
-  
-
-
-    
-    
-      </div><!-- .promo_collection -->
-    
-  </div>
-
-
-      
-                  
-    
-    
-      
-    
-
-    
-
-
-
-  
-
-
-
-
-    
-    
-
-    
-
-    
-      
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-    
-
-    
-    
-    
-        
-    
-
-
-      
-            
-
-      
-      
+			
+	 		
 
 
 
 <div class="promo_collection advertisement small">
-  <div class="special_ad_section">
-    <h3>Special Ad Section</h3>
-    
-    <ul>
-        <!-- advertising -->
+	<div class="special_ad_section">
+		<h3>Special Ad Section</h3>
+		
+		<ul>
+		    <!-- advertising -->
 
 
     
@@ -3841,8 +3852,8 @@ $(document).ready(WidgetUI.initialize);
                 // css_class: 
                 // gpt_dimensions: None
                 // keywords: 
-                // bust: 766878547
-                // tile: 139
+                // bust: 726499097
+                // tile: 136
                 // refreshable: False
                 // regex: ^/national-parks/(guadalupe-mountains-national-park|big-bend-national-park|carlsbad-caverns-national-park)/[.]*
                 // page_taxonomy: travel.nationalgeographic.com::travel::Parks::Guadalupe Mountains National Park
@@ -3903,8 +3914,8 @@ $(document).ready(WidgetUI.initialize);
                 // css_class: 
                 // gpt_dimensions: None
                 // keywords: 
-                // bust: 707837595
-                // tile: 120
+                // bust: 777243309
+                // tile: 141
                 // refreshable: False
                 // regex: ^/national-parks/(guadalupe-mountains-national-park|big-bend-national-park|carlsbad-caverns-national-park)/[.]*
                 // page_taxonomy: travel.nationalgeographic.com::travel::Parks::Guadalupe Mountains National Park
@@ -3945,32 +3956,32 @@ $(document).ready(WidgetUI.initialize);
 
 
         </ul>
-  </div><!-- .special_ad_section -->
+	</div><!-- .special_ad_section -->
 </div><!-- .promo_collection -->
 
-      
-                  
-    
-    
-      
-    
+			
+	             		
+		
+		
+			
+		
 
     
 
 
 
-  
+	
 
 
 
+
+		
+		
 
     
-    
 
-    
-
-          
-          
+					
+					
                    
 
     
@@ -3996,8 +4007,8 @@ $(document).ready(WidgetUI.initialize);
                 // css_class: 
                 // gpt_dimensions: None
                 // keywords: 
-                // bust: 443072147
-                // tile: 163
+                // bust: 810413502
+                // tile: 173
                 // refreshable: True
                 // regex: ^/national-parks/(guadalupe-mountains-national-park|big-bend-national-park|carlsbad-caverns-national-park)/[.]*
                 // page_taxonomy: travel.nationalgeographic.com::travel::Parks::Guadalupe Mountains National Park
@@ -4040,62 +4051,62 @@ $(document).ready(WidgetUI.initialize);
                        </div><!-- .advertisement -->
                    
 
-        
-        
+				
+				
 
-            </div><!-- content_mainB -->
+           	</div><!-- content_mainB -->
 
-    </div><!-- #content_page_specific -->
+		</div><!-- #content_page_specific -->
 
-    <hr class="hidden" />
+		<hr class="hidden" />
 
-    
-        
-
-    
-
-    
-      
-
-
-
-
-
-
-
-
-
-
-  
-
-
+		
+		    
 
     
 
-    
-    
-    
-        
-    
+		
+			
 
 
-      
+
+
+
+
+
+
+
+
+	
+
+
+
+    
+
+    
+		
+		
+				
+		
+
+
+			
             
 
-      
-      
+			
+	 		
 
 
 
 
 
   
-  
-  <div class="promo_collection carousel js_enabled seven">
-  
-    
-      
-        
+	
+	<div class="promo_collection carousel js_enabled seven">
+	
+		
+			
+				
 
 
 
@@ -4103,742 +4114,806 @@ $(document).ready(WidgetUI.initialize);
 
 
 
-  
-  
-    
-        
-            <h2>More From National Geographic Travel </h2>
-        
-    
-  
-    
-     
-    
-    
-    <ul class="jcarousel-skin-geocore restrain  seven">
-      
-      
-      
-        
-          
-            
-              
+	
+	
+		
+		    
+		        <h2>More From National Geographic Travel </h2>
+		    
+		
+	
+		
+		 
+		
+		
+		<ul class="jcarousel-skin-geocore restrain  seven">
+			
+			
+			
+			 	
+					
+						
+							
 
 
 
 
 
 
-  
-  <li class="first ">
-    
-        <a href="http://travel.nationalgeographic.com/travel/traveler-magazine/photo-contest/2014/" title="Traveler Photo Contest " class="">
-        
+	
+	<li class="first ">
+		
+		    <a href="/travel/switzerland-grand-tour/" title="Switzerland&#39;s Grand Tour" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/779/overrides/starry-sky-new-zealand_77943_100x75.jpg"  width="100" height="75" alt="Picture of a church under a starry night sky, New Zealand" />  
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/891/cache/switzerland-map-tease_89182_100x75.jpg"  width="100" height="75" alt="Switzerland Interactive Map" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
+    <p class="headline"><a href="/travel/switzerland-grand-tour/" title="Switzerland&#39;s Grand Tour" >Switzerland's Grand Tour</a></p>
+</li>
+
+
+
+						
+					
+				
+					
+						
+							
+								
+
+
+
+
+
+
+	
+	<li class="  ">
+		
+		    <a href="/travel/florida-land-and-sea/" title="Florida by Land and Water" class="">
+				
+
+
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/866/overrides/seashell-hunting-martine_86631_100x75.jpg"  width="100" height="75" alt="Picture of sea shell hunters on a Florida beach." />	
+
+
+			</a>
+			
+	
+    <p class="headline"><a href="/travel/florida-land-and-sea/" title="Florida by Land and Water" >Florida by Land and Water</a></p>
+</li>
+
+
+
+							
+						
+					
+				
+					
+						
+							
+								
+
+
+
+
+
+
+	
+	<li class="  ">
+		
+		    <a href="http://travel.nationalgeographic.com/travel/traveler-magazine/photo-contest/2014/" title="Traveler Photo Contest " class="">
+				
+
+
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/779/overrides/starry-sky-new-zealand_77943_100x75.jpg"  width="100" height="75" alt="Picture of a church under a starry night sky, New Zealand" />	
+
+
+			</a>
+			
+	
     <p class="headline"><a href="http://travel.nationalgeographic.com/travel/traveler-magazine/photo-contest/2014/" title="Traveler Photo Contest " >Traveler Photo Contest </a></p>
 </li>
 
 
 
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="http://travel.nationalgeographic.com/travel/local-montana/" title="Where the Locals Go Montana " class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="http://travel.nationalgeographic.com/travel/local-montana/" title="Where the Locals Go Montana " class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/774/overrides/yellowstone-national-park-montana-locals_77485_100x75.jpg"  width="100" height="75" alt="Picture of a bison crossing Madison River at dawn in Yellowstone National Park" /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/774/overrides/yellowstone-national-park-montana-locals_77485_100x75.jpg"  width="100" height="75" alt="Picture of a bison crossing Madison River at dawn in Yellowstone National Park" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="http://travel.nationalgeographic.com/travel/local-montana/" title="Where the Locals Go Montana " >Where the Locals Go Montana </a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="http://onassignment.nationalgeographic.com/" title="Photographers On Assignment" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="http://onassignment.nationalgeographic.com/" title="Photographers On Assignment" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/764/cache/dan-westergren-frozen_76429_100x75.jpg"  width="100" height="75" alt="Picture of Dan Westergren covered in frost" />  
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/764/cache/dan-westergren-frozen_76429_100x75.jpg"  width="100" height="75" alt="Picture of Dan Westergren covered in frost" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="http://onassignment.nationalgeographic.com/" title="Photographers On Assignment" >Photographers On Assignment</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="http://travel.nationalgeographic.com/travel/i-heart-quebec-city/" title="I Heart Quebec City" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="http://travel.nationalgeographic.com/travel/i-heart-quebec-city/" title="I Heart Quebec City" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/800/overrides/st-lawrence-river-quebec-city_80093_100x75.jpg"  width="100" height="75" alt="Picture of a ferry on the St. Lawrence River, Quebec City" /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/800/overrides/st-lawrence-river-quebec-city_80093_100x75.jpg"  width="100" height="75" alt="Picture of a ferry on the St. Lawrence River, Quebec City" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="http://travel.nationalgeographic.com/travel/i-heart-quebec-city/" title="I Heart Quebec City" >I Heart Quebec City</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="/travel/best-trips/" title="Best Trips" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="/travel/best-trips/" title="Best Trips" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/829/overrides/agra-diwali_82958_100x75.jpg"  width="100" height="75" alt="Picture of displays of flowers and candles at the Amarvilas Hotel during the Diwali Festival" />  
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/829/overrides/agra-diwali_82958_100x75.jpg"  width="100" height="75" alt="Picture of displays of flowers and candles at the Amarvilas Hotel during the Diwali Festival" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="/travel/best-trips/" title="Best Trips" >Best Trips</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="http://intelligenttravel.nationalgeographic.com/" title="Intelligent Travel Blog" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="http://intelligenttravel.nationalgeographic.com/" title="Intelligent Travel Blog" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/585/overrides/intelligent-travel-promo-bangladesh_58556_100x75.jpg"  width="100" height="75" alt="Picture of a woman placing leather out to dry in Bangladesh  " /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/585/overrides/intelligent-travel-promo-bangladesh_58556_100x75.jpg"  width="100" height="75" alt="Picture of a woman placing leather out to dry in Bangladesh  " />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="http://intelligenttravel.nationalgeographic.com/" title="Intelligent Travel Blog" >Intelligent Travel Blog</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="http://travel.nationalgeographic.com/travel/i-heart-my-city/" title="I Heart My City" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="http://travel.nationalgeographic.com/travel/i-heart-my-city/" title="I Heart My City" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/740/overrides/atlanta-skyline_74077_100x75.jpg"  width="100" height="75" alt="Picture of downtown Atlanta skyline at dusk" /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/740/overrides/atlanta-skyline_74077_100x75.jpg"  width="100" height="75" alt="Picture of downtown Atlanta skyline at dusk" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="http://travel.nationalgeographic.com/travel/i-heart-my-city/" title="I Heart My City" >I Heart My City</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="/travel/travelers-of-the-year/" title="Travelers of the Year" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="/travel/travelers-of-the-year/" title="Travelers of the Year" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/717/overrides/09-katherine-connor_71753_100x75.jpg"  width="100" height="75" alt="Picture of Katherine Connor" /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/717/overrides/09-katherine-connor_71753_100x75.jpg"  width="100" height="75" alt="Picture of Katherine Connor" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="/travel/travelers-of-the-year/" title="Travelers of the Year" >Travelers of the Year</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="/travel/national-parks/" title="National Parks" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="/travel/national-parks/" title="National Parks" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/506/overrides/zion-national-park-canyon_50628_100x75.jpg"  width="100" height="75" alt="Photo: Inside the Subway slot canyon in Zion National Park" />  
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/506/overrides/zion-national-park-canyon_50628_100x75.jpg"  width="100" height="75" alt="Photo: Inside the Subway slot canyon in Zion National Park" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="/travel/national-parks/" title="National Parks" >National Parks</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="/travel/trip-tips-advice/" title="Travel Tips" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="/travel/trip-tips-advice/" title="Travel Tips" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/599/overrides/travel-intelligence-pool_59984_100x75.jpg"  width="100" height="75" alt="Picture of lounge chairs by a hotel swimming pool" />  
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/599/overrides/travel-intelligence-pool_59984_100x75.jpg"  width="100" height="75" alt="Picture of lounge chairs by a hotel swimming pool" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="/travel/trip-tips-advice/" title="Travel Tips" >Travel Tips</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="/travel/canada/places-of-a-lifetime/" title="Canada&#39;s 50 Places of a Lifetime" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="/travel/canada/places-of-a-lifetime/" title="Canada&#39;s 50 Places of a Lifetime" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/715/overrides/canada-bugaboos-banff_71507_100x75.jpg"  width="100" height="75" alt="Picture of lake in Bugaboo Mountains, British Columbia" />  
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/715/overrides/canada-bugaboos-banff_71507_100x75.jpg"  width="100" height="75" alt="Picture of lake in Bugaboo Mountains, British Columbia" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="/travel/canada/places-of-a-lifetime/" title="Canada&#39;s 50 Places of a Lifetime" >Canada's 50 Places of a Lifetime</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="https://itunes.apple.com/us/app/city-guides-by-national-geographic/id592453480" title="Download City Guides App" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="https://itunes.apple.com/us/app/city-guides-by-national-geographic/id592453480" title="Download City Guides App" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/677/cache/city-guide-app-logo_67753_100x75.jpeg"  width="100" height="75" alt="Picture of the National Geographic City Guide App logo" /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/677/cache/city-guide-app-logo_67753_100x75.jpeg"  width="100" height="75" alt="Picture of the National Geographic City Guide App logo" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="https://itunes.apple.com/us/app/city-guides-by-national-geographic/id592453480" title="Download City Guides App" >Download City Guides App</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="/travel/tours/" title="Tours of a Lifetime" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="/travel/tours/" title="Tours of a Lifetime" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/496/cache/tr-south-america-chile-mountains-lake_49633_100x75.jpg"  width="100" height="75" alt="Photo: Mountains and lake in Chile, South America" /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/496/cache/tr-south-america-chile-mountains-lake_49633_100x75.jpg"  width="100" height="75" alt="Photo: Mountains and lake in Chile, South America" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="/travel/tours/" title="Tours of a Lifetime" >Tours of a Lifetime</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="http://itunes.apple.com/us/app/national-parks-by-national/id518426085?mt=8" title="Download: National Parks App" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="http://itunes.apple.com/us/app/national-parks-by-national/id518426085?mt=8" title="Download: National Parks App" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/517/cache/national-park-app-icon_51710_100x75.jpg"  width="100" height="75" alt="Photo: National Park app Icon" />  
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/517/cache/national-park-app-icon_51710_100x75.jpg"  width="100" height="75" alt="Photo: National Park app Icon" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="http://itunes.apple.com/us/app/national-parks-by-national/id518426085?mt=8" title="Download: National Parks App" >Download: National Parks App</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="/travel/family-trips/" title="Best Family Trips " class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="/travel/family-trips/" title="Best Family Trips " class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/634/overrides/family-trips-nambia-desert_63424_100x75.jpg"  width="100" height="75" alt="Picture of a family running down a sand dune in the Namib Desert" /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/634/overrides/family-trips-nambia-desert_63424_100x75.jpg"  width="100" height="75" alt="Picture of a family running down a sand dune in the Namib Desert" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="/travel/family-trips/" title="Best Family Trips " >Best Family Trips </a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="/travel/road-trips/" title="Ultimate Road Trips" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="/travel/road-trips/" title="Ultimate Road Trips" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/075/cache/amalfi_7509_100x75.jpg"  width="100" height="75" alt="Photo: Italy&amp;#x27;s Amalfi Coast" />  
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/075/cache/amalfi_7509_100x75.jpg"  width="100" height="75" alt="Photo: Italy&amp;#x27;s Amalfi Coast" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="/travel/road-trips/" title="Ultimate Road Trips" >Ultimate Road Trips</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="http://digitalnomad.nationalgeographic.com/" title="Digital Nomad Blog" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="http://digitalnomad.nationalgeographic.com/" title="Digital Nomad Blog" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/520/cache/andrew-evans-cape-to-cape-travel-essentials_52004_100x75.jpg"  width="100" height="75" alt="Photo: A collection of travel gear used by Andrew Evans" /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/520/cache/andrew-evans-cape-to-cape-travel-essentials_52004_100x75.jpg"  width="100" height="75" alt="Photo: A collection of travel gear used by Andrew Evans" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="http://digitalnomad.nationalgeographic.com/" title="Digital Nomad Blog" >Digital Nomad Blog</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="/travel/365-photos/" title="Travel 365: Daily Photo Feature" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="/travel/365-photos/" title="Travel 365: Daily Photo Feature" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/654/overrides/sea-santorini-greece_65410_100x75.jpg"  width="100" height="75" alt="Picture of boats near Santorini, Greece" />  
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/654/overrides/sea-santorini-greece_65410_100x75.jpg"  width="100" height="75" alt="Picture of boats near Santorini, Greece" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="/travel/365-photos/" title="Travel 365: Daily Photo Feature" >Travel 365: Daily Photo Feature</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="http://travel.nationalgeographic.com/travel/world-heritage/" title="World Heritage Sites" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="http://travel.nationalgeographic.com/travel/world-heritage/" title="World Heritage Sites" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/280/overrides/rabu-raraku-quarry-at-easter-island_28019_100x75.jpg"  width="100" height="75" alt="Photo: Stone heads of Easter Island" /> 
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/280/overrides/rabu-raraku-quarry-at-easter-island_28019_100x75.jpg"  width="100" height="75" alt="Photo: Stone heads of Easter Island" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="http://travel.nationalgeographic.com/travel/world-heritage/" title="World Heritage Sites" >World Heritage Sites</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="  ">
-    
-        <a href="/travel/maya-yucatan/" title="Guide to Maya Travel" class="">
-        
+	
+	<li class="  ">
+		
+		    <a href="/travel/maya-yucatan/" title="Guide to Maya Travel" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/578/overrides/equinox-dzibilchaltun-merida-yucatan_57803_100x75.jpg"  width="100" height="75" alt="Picture of Dzibilchaltun, Merida, Yucatan, at sunrise" />  
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/578/overrides/equinox-dzibilchaltun-merida-yucatan_57803_100x75.jpg"  width="100" height="75" alt="Picture of Dzibilchaltun, Merida, Yucatan, at sunrise" />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="/travel/maya-yucatan/" title="Guide to Maya Travel" >Guide to Maya Travel</a></p>
 </li>
 
 
 
-              
-            
-          
-        
-          
-            
-              
-                
+							
+						
+					
+				
+					
+						
+							
+								
 
 
 
 
 
 
-  
-  <li class="last ">
-    
-        <a href="/travel/peru/machu-picchu/?source=TravHPCarouselMachuPicchuGuide" title="Machu Picchu Guide" class="">
-        
+	
+	<li class="last ">
+		
+		    <a href="/travel/peru/machu-picchu/?source=TravHPCarouselMachuPicchuGuide" title="Machu Picchu Guide" class="">
+				
 
 
-  <img src="//images.nationalgeographic.com/wpf/media-live/photos/000/303/cache/machu-picchu-panorama_30309_100x75.jpg"  width="100" height="75" alt="Photo: Panoramic ancient city of Machu Picchu, Peru " />  
+	<img src="//images.nationalgeographic.com/wpf/media-live/photos/000/303/cache/machu-picchu-panorama_30309_100x75.jpg"  width="100" height="75" alt="Photo: Panoramic ancient city of Machu Picchu, Peru " />	
 
 
-      </a>
-      
-  
+			</a>
+			
+	
     <p class="headline"><a href="/travel/peru/machu-picchu/?source=TravHPCarouselMachuPicchuGuide" title="Machu Picchu Guide" >Machu Picchu Guide</a></p>
 </li>
 
 
 
-              
-            
-          
-          
-      
-      
+							
+						
+					
+					
+			
+			
 
-    
-    </ul>
-
-
-
-
-  
-      
-    
-    
-  
-  
-
-
-  
-
-
-  
-  </div><!-- .promo_collection -->
+		
+		</ul>
 
 
 
 
-
-      
-                  
-    
-    
-      
-    
-
-    
+	
+			
+		
+		
+	
+	
 
 
-
-  
-
+	
 
 
+	
+	</div><!-- .promo_collection -->
 
-    
-    
+
+
+
+
+			
+	             		
+		
+		
+			
+		
 
     
 
+
+
+	
+
+
+
+
+		
+		
+
     
+
+		
 
                 </div><!-- #content -->
 
@@ -4973,7 +5048,7 @@ $(document).ready(WidgetUI.initialize);
         <li class="nav06"><a href="http://shop.nationalgeographic.com/ngs/browse/category.jsp?categoryId=A169&addFacet=9004:A169&code=NG90419">Travel Gear</a></li>
         <li class="nav07"><a href="http://shop.nationalgeographic.com/ngs/browse/category.jsp?categoryId=A161&addFacet=9004:A161&code=NG90420">Photography Gear</a></li>
     </ul>
-    <ul class="nav nav_global_tierD">   
+    <ul class="nav nav_global_tierD">		
         <li class="nav03"><a href="https://donate.nationalgeographic.org/Page.aspx?pid=184">Donate</a></li> 
         <li class="nav04"><a href="http://press.nationalgeographic.com/">Press Room</a></li> 
         <li class="nav05"><a href="/siteindex/customer/">Customer Service</a></li> 
@@ -4981,7 +5056,7 @@ $(document).ready(WidgetUI.initialize);
         <li class="nav07"><a href="/community/terms/">Terms of Service</a></li> 
         <li class="nav08"><a href="/community/privacy/">Privacy Policy</a></li> 
     </ul> 
-    <p id="copyright">&copy; 1996-2014 National Geographic Society. All rights reserved.</p> 
+    <p id="copyright">&copy; 1996-2015 National Geographic Society. All rights reserved.</p> 
 </div><!-- #footer_global -->
 
 

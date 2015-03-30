@@ -5,55 +5,21 @@ module Scrapers
   describe Googlemaps do
 
     include ScraperHelper
-
-    before { @url = 'http://www.kml.com/' }
     
-    describe "maine" do
-      before do 
-        @base_name = 'maine'
-        @base_domain = "kml"
-      end
-
-      it "parses maine kml file correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it 'parses maine correctly' do 
+      run_test 'maine', 'http://www.kml.com'
     end
 
-    describe "japan" do
-      before do 
-        @base_name = 'japan'
-        @base_domain = "kml"
-      end
-
-      it "parses japan kml file correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it 'parses japan correctly' do 
+      run_test 'japan', 'http://www.kml.com'
     end
 
-    describe "hot baths" do
-      before do 
-        @base_name = 'hotbaths'
-        @base_domain = "kml"
-      end
-
-      it "parses hotbath kml file correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it 'parsehot correctlys ' do 
+      run_test 'hotbaths', 'http://www.kml.com'
     end
 
-    describe "barcelona" do
-      before do 
-        @base_name = 'barcelona'
-        @base_domain = "kml"
-      end
-
-      it "parses barcelona kml file correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it 'parses barcelona correctly' do 
+      run_test 'barcelona', 'http://www.kml.com'
     end
 
   end

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 module Services
+
   describe SiteScraper, :vcr do
     describe "initialize" do
 
@@ -23,5 +24,6 @@ module Services
         expect{ SiteScraper.build(nil, page) }.to raise_error
       end
     end
+
   end
 end

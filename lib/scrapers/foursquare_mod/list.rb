@@ -55,7 +55,7 @@ module Scrapers
             street_address: activity.venue.location.address,
             sublocality: activity.venue.location.neighborhood,
             locality: activity.venue.location.city,
-            state: activity.venue.location.state,
+            region: activity.venue.location.state,
             country: activity.venue.location.country,
             postal_code: activity.venue.location.postalCode,
             phones: safe_phones( activity.venue.contact ),

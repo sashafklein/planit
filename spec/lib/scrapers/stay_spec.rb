@@ -6,46 +6,16 @@ module Scrapers
 
     include ScraperHelper
 
-    describe "pierre" do
-
-      before do 
-        @base_name = 'pierre'
-        @url = 'http://www.stay.com/new-york/hotel/4986/the-pierre-a-taj-hotel-new-york/'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it "parses pierre correctly" do
+      run_test 'pierre', 'http://www.stay.com/new-york/hotel/4986/the-pierre-a-taj-hotel-new-york/'
     end
 
-    describe "jetsetters" do
-
-      before do 
-        @base_name = 'jetsetters'
-        @url = 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it "parses jetsetters correctly" do
+      run_test 'jetsetters', 'http://www.stay.com/new-york/guides/296846-dbc0095d/new-york-for-jetsetters/'
     end
-    
-    describe "nyhigh" do
 
-      before do 
-        @base_name = 'nyhigh'
-        @url = 'http://www.stay.com/new-york/'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it "parses nyhigh correctly" do
+      run_test 'nyhigh', 'http://www.stay.com/new-york/'
     end
 
   end

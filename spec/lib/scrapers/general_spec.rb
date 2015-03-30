@@ -108,30 +108,14 @@ module Scrapers
     describe "http://novareresbiercafe.com" do
       before { @url = "http://novareresbiercafe.com" }
       it "parses the page" do 
-        expect_equal(data, [
-          place: {
-            name: "Novare Res Bier Café",
-            locality: "Portland",
-            country: "United States of America",
-            nearby: "Portland, United States of America",
-          },
-          scraper_url: "http://novareresbiercafe.com",
-          ])
+        expect_equal(data, yaml(:novare))
       end
     end
 
     describe "http://bluespoonme.com" do
       before { @url = "http://bluespoonme.com" }
       it "parses the page" do 
-        expect_equal(data, [
-          place: {
-            name: "Blue Spoon",
-            locality: "Portland",
-            country: "United States of America",
-            nearby: "Portland, United States of America",
-          },
-          scraper_url: "http://bluespoonme.com",
-          ])
+        expect_equal(data, yaml(:blue_spoon))
       end
     end
 
@@ -162,18 +146,7 @@ module Scrapers
     describe "http://www.mesagrill.com/las-vegas-restaurant/" do
       before { @url = "http://www.mesagrill.com/las-vegas-restaurant/" }
       it "parses the page" do 
-        expect_equal(data, [
-          place: {
-            name: "Mesa Grill Las Vegas",
-            full_address: "Mesa Grill Caesars Palace 3570 Las Vegas Blvd,Las Vegas, NV 89109",
-            lat: "36.116557",
-            lon: "-115.173261",
-            postal_code: "89109",
-            phones: "877.346.4642",
-            map_href: ["http://maps.google.com/maps?client=safari&q=mesa+grill+las+vegas&oe=UTF-8&ie=UTF8&hl=en&hq=mesa+grill&hnear=Las+Vegas,+Clark,+Nevada&ll=36.116557,-115.173261&spn=0.009898,0.022724&z=16&iwloc=A"],
-          },
-          scraper_url: "http://www.mesagrill.com/las-vegas-restaurant/",
-          ])
+        expect_equal(data, yaml(:mesa_grill))
       end
     end
 
@@ -208,106 +181,42 @@ module Scrapers
     describe "http://www.fairmont.com/san-francisco/" do
       before { @url = "http://www.fairmont.com/san-francisco/" }
       it "parses the page correctly" do
-        expect_equal(data, [
-          place: {
-            country: "United States of America",
-            locality: "San Francisco", 
-            name: "The Fairmont San Francisco Hotel",
-            nearby: "San Francisco, United States of America",
-            full_address: "The Fairmont San Francisco: 950 Mason Street San Francisco California, United States 94108",
-            phones: "1 866 540 4491",
-            postal_code: "94108",
-          },
-          scraper_url: "http://www.fairmont.com/san-francisco/",
-          ])
+        expect_equal(data, yaml(:fairmont))
       end
     end
 
     describe "http://www.jdvhotels.com/hotels/california/san-francisco-hotels/hotel-vitale/" do
       before { @url = "http://www.jdvhotels.com/hotels/california/san-francisco-hotels/hotel-vitale/" }
       it "parses the page correctly" do
-        expect_equal(data, [
-          place: {
-            name: "Hotel Vitale",
-            phones: "4158350300",
-            locality: "San Francisco", 
-            country: "United States of America",
-            nearby: "San Francisco, United States of America",
-            full_address: "8 Mission Street San Francisco, CA 94105",
-            postal_code: "94105",
-            map_href: ["http://maps.google.com/maps?q=hotel+vitale+8+Mission+Street+San+Francisco+CA+94105++"],
-          },
-          scraper_url: "http://www.jdvhotels.com/hotels/california/san-francisco-hotels/hotel-vitale/",
-        ])
+        expect_equal(data, yaml(:hotel_vitale))
       end
     end
 
     describe "http://www.mandarinoriental.com/sanfrancisco/" do
       before { @url = "http://www.mandarinoriental.com/sanfrancisco/" }
       xit "parses the page correctly" do
-        expect_equal(data, [
-          place: {
-            name: "Mandarin Oriental, San Francisco",
-            street_address: "222 Sansome Street",
-            full_address: "222 Sansome Street,  San Francisco,  CA  94104",
-            postal_code: "94104",
-            region: "CA",
-            lat: "37.792457",
-            lon: "-122.400789",
-            phones: "+1 (415) 276 9888",
-          },
-          scraper_url: "http://www.mandarinoriental.com/sanfrancisco/",
-          ])
+        expect_equal(data, yaml(:mandarin_sf))
       end
     end
 
     describe "http://www.contigosf.com/" do
       before { @url = "http://www.contigosf.com/" }
       it "parses the page correctly" do
-        expect_equal(data, [
-          place: {
-            name: "Contigo",
-            full_address: "1320 Castro Street, San Francisco, Ca 94114",
-            locality: "San Francisco",
-            country: "United States of America",
-            nearby: "San Francisco, United States of America",
-            map_href: [
-              "http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=contigo+1320+castro+street,+san+francisco,+ca+94114&sll=37.0625,-95.677068&sspn=62.870523,55.898438&ie=UTF8&z=17&iwloc=A"],
-          },
-          scraper_url: "http://www.contigosf.com/",
-          ])
+        expect_equal(data, yaml(:contigo))
       end
     end
 
     describe "http://www.mountlaviniahotel.com/front/index.php" do
       before { @url = "http://www.mountlaviniahotel.com/front/index.php" }
       xit "parses the page correctly" do
-        expect_equal(data, [
-          place: {
-            name: "Mount Lavinia Hotel",
-            locality: "Colombo", 
-            country: "Sri Lanka",
-            nearby: "Colombo, Sri Lanka",
-          },
-          scraper_url: "http://www.mountlaviniahotel.com/front/index.php",
-          ])
+        expect_equal(data, yaml(:mount_lavinia_hotel))
       end
     end
 
     describe "http://docrickettssf.com/" do
       before { @url = "http://docrickettssf.com/" }
       it "parses the page correctly" do
-        expect_equal(data, [
-          place: {
-            name: "Doc Ricketts",
-            lat: "37.7967858", 
-            lon: "-122.4048005",
-            phones: "415-649-6191",  
-            full_address: "124 Columbus Avenue, SF, CA",
-            map_href: ["https://www.google.com/maps/place/124+Columbus+Ave/@37.7967858,-122.4048005,17z/data=!3m1!4b1!4m2!3m1!1s0x808580f4dc5c4831:0x1bea4997be9969cf"],
-          },
-          scraper_url: "http://docrickettssf.com/",
-          ])
+        expect_equal(data, yaml(:doc_ricketts))
       end
     end
 
@@ -334,6 +243,10 @@ module Scrapers
       elsif  data.first[:place][:lat] && data.first[:place][:lat].length > 1 && data.first[:place][:lon] && data.first[:place][:lon].length > 1 
         return true
       end
+    end
+
+    def yaml(name)
+      YAML.load_file File.join(Rails.root, 'spec', 'support', 'pages', 'general', "#{name}.yml")
     end
 
   end

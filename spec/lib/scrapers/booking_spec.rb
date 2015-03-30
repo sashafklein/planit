@@ -6,19 +6,9 @@ module Scrapers
 
     include ScraperHelper
 
-    describe "tayrona" do
-
-      before do 
-        @base_name = 'tayrona'
-        @url = 'http://www.booking.com/hotel/co/tayrona-tented-lodge.html'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it "parses itinerary correctly" do
+      run_test :tayrona, 'http://www.booking.com/hotel/co/tayrona-tented-lodge.html'
     end
-
+    
   end
 end 

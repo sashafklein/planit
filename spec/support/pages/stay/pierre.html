@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# staycom: http://ogp.me/ns/fb/staycom#">
@@ -58,75 +57,81 @@ typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var
 b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
 mixpanel.init("e13dc52a84bb1e5b46afb737fbd31e00");</script></head>
 
-<body class="lang-en webkit safari chrome mac  has-sidebar"><script type="text/javascript">
+<body class="lang-en   has-sidebar"><script type="text/javascript">
 /*<![CDATA[*/
-mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.register({"IsGuest":false});
+mixpanel.register({"IsGuest":true});
 /*]]>*/
 </script>
 
 <script type="text/javascript">var WRInitTime=(new Date()).getTime();</script>
 
 <div id="place-modal" class="details-modal-wrapper">
-  <div class="overlay close-modal"></div>
-  <div class="place-details">
-    <div class="place-details-content">
-    </div>
-    <div class="place-details-sidebar">
-      <ul class="actions">
-        <li class="close-modal"><a href="#"><i class="icon-remove-sign icon-large"></i>Close</a></li>
-        <li class="edit" style="display:none"><a href="#"><i class="icon-pencil icon-large"></i>Edit place</a></li>
-      </ul>
-      <div class="place-details-activity">
-        <ul>
-        </ul>
-      </div>
-      <div class="place-comment">
-                <textarea class="travel-note-input text" placeholder="Comment on this place…"></textarea>
-              </div>
-    </div>
-  </div>
+	<div class="overlay close-modal"></div>
+	<div class="place-details">
+		<div class="place-details-content">
+		</div>
+		<div class="place-details-sidebar">
+			<ul class="actions">
+				<li class="close-modal"><a href="#"><i class="icon-remove-sign icon-large"></i>Close</a></li>
+				<li class="edit" style="display:none"><a href="#"><i class="icon-pencil icon-large"></i>Edit place</a></li>
+			</ul>
+			<div class="place-details-activity">
+				<ul>
+				</ul>
+			</div>
+			<div class="place-comment">
+								<input type="text" class="travel-note-username text" placeholder="Enter your name…" />
+								<textarea class="travel-note-input text" placeholder="Comment on this place…"></textarea>
+								<div style="display:none;" class="captcha">
+					<p>Enter the letters to post</p>
+					<img src="#" />
+					<input name="captcha" class="travel-note-captcha text" type="text" />
+				</div>
+							</div>
+		</div>
+	</div>
 </div>
 
 <script id="modal-place-details" type="text/x-dot-template">
     <div class="main">
-    {{? it.ImageCount>1}}
-    <div class="inline-gallery-container">
-      <div class="image">
-        <span class="inline-gallery gallery-{{!it.Type}}-{{!it.ID}}">
-          {{=it.ImageTag}}
-          <div style="width: 435px; height: 230px; display: none;" class="inline-gallery-control next">
-            <span class="load" style="display: none;"></span>
-            <span class="prev"></span>
-            <span class="next"></span>
-            <span class="caption"> {{!it.ImageCaption}} </span>
-          </div>
-        </span>
-      </div>
-    </div>
-    {{??}}
-      {{? it.ImageTag}}
-      <div class="slideshow">
-        {{=it.ImageTag}}
-      </div>
-      {{??}}
-        {{? it.CanEdit}}
-        <div class="slideshow">
-          <form action="" method="post" class="upload-images">
-            <input type="hidden" name="Action" value="Update" />
-            <input type="hidden" name="ID" value="{{!it.ID}}" />
-            <span>Add images to this place</span>
-            <input type="file" multiple="multiple" name="ImageUpload[]" />
-          </form>
-        </div>
-        {{?}}
-      {{?}}
-    {{?}}
+		{{? it.ImageCount>1}}
+		<div class="inline-gallery-container">
+			<div class="image">
+				<span class="inline-gallery gallery-{{!it.Type}}-{{!it.ID}}">
+					{{=it.ImageTag}}
+					<div style="width: 435px; height: 230px; display: none;" class="inline-gallery-control next">
+						<span class="load" style="display: none;"></span>
+						<span class="prev"></span>
+						<span class="next"></span>
+						<span class="caption"> {{!it.ImageCaption}} </span>
+					</div>
+				</span>
+			</div>
+		</div>
+		{{??}}
+			{{? it.ImageTag}}
+			<div class="slideshow">
+				{{=it.ImageTag}}
+			</div>
+			{{??}}
+				{{? it.CanEdit}}
+				<div class="slideshow">
+					<form action="" method="post" class="upload-images">
+						<input type="hidden" name="Action" value="Update" />
+						<input type="hidden" name="ID" value="{{!it.ID}}" />
+						<span>Add images to this place</span>
+						<input type="file" multiple="multiple" name="ImageUpload[]" />
+					</form>
+				</div>
+				{{?}}
+			{{?}}
+		{{?}}
         <div class="description clearfix">
             <header>
                 <h1><a href="{{=it.URL}}">{{!it.Name}}</a></h1>
-        {{? it.Stars}}
-          {{=it.Stars}}
-        {{?}}
+				{{? it.Stars}}
+					{{=it.Stars}}
+				{{?}}
             </header>
             {{? it.Tagline}}
                 <h2>{{=it.Tagline}}</h2>
@@ -139,7 +144,7 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
     </div>
     <div class="meta">
         <div class="map category{{!it.CategoryID}}">
-      <a class="switch-tab-button id{{!it.ID}} type{{!it.VenueType}}" href="#map">
+			<a class="switch-tab-button id{{!it.ID}} type{{!it.VenueType}}" href="#map">
                 <img class="venue-map" src="{{!it.Map}}" width="230" height="230" />
                 <span class="marker">Location</span>
             </a>
@@ -161,11 +166,11 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
                 <strong>Phone:</strong> {{=it.Phone}}
             </p>
             {{?}}
-      {{? it.Website}}
-      <p>
-        <strong>Website:</strong> <a href="{{!it.Website}}">{{!it.Website}}</a>
-      </p>
-      {{?}}
+			{{? it.Website}}
+			<p>
+				<strong>Website:</strong> <a href="{{!it.Website}}">{{!it.Website}}</a>
+			</p>
+			{{?}}
             {{? it.OpenHours}}
             <p>
                 <strong>Open Hours:</strong> {{!it.OpenHours}}
@@ -178,103 +183,77 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
             {{?}}
         </div>
 
-        <div class="widget-stayRating clearfix" data-type="{{!it.Type}}" data-id="{{=it.ID}}">
-      <a href="#" class="{{? !it.Rating}}button {{?}}checkin{{? it.Rating}} checkedin{{?}}"><i class="icon-map-marker"></i> I've been here</a>
+		
+		<div class="actions">
+			{{? it.BookingButton}}
+				{{=it.BookingButton}}
+			{{?}}
 
-      <form action="#" {{? !it.Rating}}style="display:none"{{?}}>
-
-        {{ for(var i=0;i<5;i++) { }}
-          <input type="radio" name="rating" value="{{=i+1}}" {{? it.Rating.value == i+1}}checked="checked"{{?}} class="star" />
-        {{ } }}
-
-        <div class="remarks-text clearfix">
-          <a href="#edit" class="edit"><i class="icon-pencil"></i>Edit</a>
-          <div>
-          {{? it.Rating.remarks}}
-            "{{!it.Rating.remarks}}"
-          {{?}}
-          </div>
-        </div>
-
-        <div class="remarks-form">
-          <textarea name="remarks" class="remarks text" placeholder="How did you like this place?">{{? it.Rating.remarks}}{{!it.Rating.remarks}}{{?}}</textarea>
-
-          <input type="submit" value="Save review" class="button blue" />
-        </div>
-                <div class="clear"></div>
-      </form>
+			{{? it.Type!=='Place'}}
+			<a href="#report" class="report">Report this venue</a>
+			{{?}}
+		</div>
     </div>
-    
-    <div class="actions">
-      {{? it.BookingButton}}
-        {{=it.BookingButton}}
-      {{?}}
-
-      {{? it.Type!=='Place'}}
-      <a href="#report" class="report">Report this venue</a>
-      {{?}}
-    </div>
-    </div>
-  <div class="additional clearfix">
-    {{? it.RatesButton}}
-    <div class="rates">
-       {{=it.RatesButton}} for this hotel in {{!it.City}}.
-    </div>
-    {{?}}
-  </div>
+	<div class="additional clearfix">
+		{{? it.RatesButton}}
+		<div class="rates">
+			 {{=it.RatesButton}} for this hotel in {{!it.City}}.
+		</div>
+		{{?}}
+	</div>
 </script>
 
 <script id="modal-place-feed-item" type="text/x-dot-template">
 <li class="entry {{!it.type}}">
-  {{=it.userpic}}
-  <div class="content">
-    <a href="#">{{!it.nickname}}</a>{{? it.type==='comment'}}:{{?}} {{!it.text}}
-    <span class="time" data-timestamp="{{!it.timestamp}}">{{!it.timetext}}</span>
-  </div>
+	{{=it.userpic}}
+	<div class="content">
+		<a href="#">{{!it.nickname}}</a>{{? it.type==='comment'}}:{{?}} {{!it.text}}
+		<span class="time" data-timestamp="{{!it.timestamp}}">{{!it.timetext}}</span>
+	</div>
 </li>
 </script>
 
 <script id="modal-place-edit-form-images" type="text/x-dot-template">
-  {{? it.ImageTag}}
-    <div class="primary-image">
-      {{=it.ImageTag}}
-      <a href="#edit" class="edit icon-pencil" data-id="{{!it.ImageID}}"></a>
-    </div>
-  {{??}}
-    <form action="" method="post" class="upload-images" enctype="multipart/form-data">
-      <input type="hidden" name="Action" value="Update" />
-      <input type="hidden" name="ID" value="{{!it.ID}}" />
-      <span>Add images to this place</span>
-      <input type="file" multiple="multiple" name="ImageUpload[]" />
-    </form>
-  {{?}}
-  <ol class="entry additional-images">
-    {{ for(var i in it.Images) { }}
-      {{ if(i==0 || !it.Images.hasOwnProperty(i)) continue; }}
-      <li class="additional-image">
-        {{=it.Images[i].tag}}
-        <a href="#edit" class="edit icon-pencil" data-id="{{!it.Images[i].ID}}"></a>
-      </li>
-    {{ } }}
-    {{? it.ImageCount}}
-      <li class="add-image">
-        <form action="" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="Action" value="Update" />
-          <input type="hidden" name="ID" value="{{!it.ID}}" />
-          <span>Add another image</span>
-          <input type="file" multiple="multiple" name="ImageUpload[]" />
-        </form>
-      </li>
-    {{?}}
-  </ol>
+	{{? it.ImageTag}}
+		<div class="primary-image">
+			{{=it.ImageTag}}
+			<a href="#edit" class="edit icon-pencil" data-id="{{!it.ImageID}}"></a>
+		</div>
+	{{??}}
+		<form action="" method="post" class="upload-images" enctype="multipart/form-data">
+			<input type="hidden" name="Action" value="Update" />
+			<input type="hidden" name="ID" value="{{!it.ID}}" />
+			<span>Add images to this place</span>
+			<input type="file" multiple="multiple" name="ImageUpload[]" />
+		</form>
+	{{?}}
+	<ol class="entry additional-images">
+		{{ for(var i in it.Images) { }}
+			{{ if(i==0 || !it.Images.hasOwnProperty(i)) continue; }}
+			<li class="additional-image">
+				{{=it.Images[i].tag}}
+				<a href="#edit" class="edit icon-pencil" data-id="{{!it.Images[i].ID}}"></a>
+			</li>
+		{{ } }}
+		{{? it.ImageCount}}
+			<li class="add-image">
+				<form action="" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="Action" value="Update" />
+					<input type="hidden" name="ID" value="{{!it.ID}}" />
+					<span>Add another image</span>
+					<input type="file" multiple="multiple" name="ImageUpload[]" />
+				</form>
+			</li>
+		{{?}}
+	</ol>
 </script>
 
 <script id="modal-place-edit-form" type="text/x-dot-template">
-  <div class="form modal-place-edit-form">
-    <div class="upload-images-wrapper">
-    </div>
+	<div class="form modal-place-edit-form">
+		<div class="upload-images-wrapper">
+		</div>
 
-    <form action="" method="post">
+		<form action="" method="post">
             <input type="hidden" name="Action" value="Update" />
             <input type="hidden" name="ID" value="{{!it.ID}}" />
 
@@ -286,7 +265,7 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
                 <input class="text" tabindex="102" id="place-modal-input-tagline" type="text" name="Tagline" value="{{!it.Tagline}}" />
             </div>
 
-      <div class="main">
+			<div class="main">
                 <div class="entry description">
                     <textarea class="text" placeholder="What is great about this place?" tabindex="102" id="place-modal-input-description" name="Description" cols="30" rows="10">{{!it.DescriptionSource}}</textarea>
                 </div>
@@ -316,11 +295,11 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
                         <strong>Phone:</strong> {{=it.Phone}}
                     </p>
                     {{?}}
-          {{? it.Website}}
-          <p>
-            <strong>Website:</strong> <a href="{{!it.Website}}">{{!it.Website}}</a>
-          </p>
-          {{?}}
+					{{? it.Website}}
+					<p>
+						<strong>Website:</strong> <a href="{{!it.Website}}">{{!it.Website}}</a>
+					</p>
+					{{?}}
                     {{? it.OpenHours}}
                     <p>
                         <strong>Open Hours:</strong> {{!it.OpenHours}}
@@ -342,8 +321,8 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
 <option value="7">Shopping</option>
 </select>                </div>
             </div>
-    </form>
-  </div>
+		</form>
+	</div>
 </script>
 
 <div class="modal" id="place-modal-report">
@@ -352,99 +331,94 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
     </div>
     <div class="modal-content">
 
-  </div>
+	</div>
 </div>
 
 <script id="modal-place-report-header" type="text/x-dot-template">
-  <span class="close jqmClose" title="close">x</span>
-  <p class="name">Report {{!it.Name}}</p>
-  {{? it.ShortAddress}}
-  <p class="address">
-    {{!it.ShortAddress}}
-  </p>
-  {{?}}
+	<span class="close jqmClose" title="close">x</span>
+	<p class="name">Report {{!it.Name}}</p>
+	{{? it.ShortAddress}}
+	<p class="address">
+		{{!it.ShortAddress}}
+	</p>
+	{{?}}
 </script>
 
 <script id="modal-place-report-form" type="text/x-dot-template">
-  <p>We are constantly trying to keep our content reliable and up to date. Thank you for letting us know!</p>
+	<p>We are constantly trying to keep our content reliable and up to date. Thank you for letting us know!</p>
 
-  <form action="" method="post">
+	<form action="" method="post">
 
-    <ul class="types">
-      <li><input id="type1" type="radio" name="Type" value="10" checked="checked"> <label for="type1">Content is incorrect</label></li>
-      <li><input id="type2" type="radio" name="Type" value="20"> <label for="type2">Venue is closed</label></li>
-      <li><input id="type3" type="radio" name="Type" value="100"> <label for="type3">None of the above</label></li>
-    </ul>
+		<ul class="types">
+			<li><input id="type1" type="radio" name="Type" value="10" checked="checked"> <label for="type1">Content is incorrect</label></li>
+			<li><input id="type2" type="radio" name="Type" value="20"> <label for="type2">Venue is closed</label></li>
+			<li><input id="type3" type="radio" name="Type" value="100"> <label for="type3">None of the above</label></li>
+		</ul>
 
-    <div class="description">
-      <label for="description">Briefly describe the issue:</label>
-      <textarea name="Description" class="text" id="description" cols="30" rows="10"></textarea>
-    </div>
+		<div class="description">
+			<label for="description">Briefly describe the issue:</label>
+			<textarea name="Description" class="text" id="description" cols="30" rows="10"></textarea>
+		</div>
 
-    <div class="email">
-      <label for="email">Would you like a reply when this is reviewed?</label>
-      <input type="text" name="Email" class="text" id="email" placeholder="Email address" value="nikoklein2@gmail.com" />
-    </div>
+		<div class="email">
+			<label for="email">Would you like a reply when this is reviewed?</label>
+			<input type="text" name="Email" class="text" id="email" placeholder="Email address" />
+		</div>
 
-    <pre class="errors">
+		<pre class="errors">
 
-    </pre>
+		</pre>
 
-    <div class="submit">
-      <input type="submit" class="button purple" value="Send report" />
-    </div>
-  </form>
+		<div class="submit">
+			<input type="submit" class="button purple" value="Send report" />
+		</div>
+	</form>
 </script>
 
 <script id="modal-place-report-thanks" type="text/x-dot-template">
-  <p>Thank you very much for your feedback!</p>
-  <p>Our editors will look into this issue as soon as possible</p>
+	<p>Thank you very much for your feedback!</p>
+	<p>Our editors will look into this issue as soon as possible</p>
 
-  <a href="#close" class="jqmClose">Close</a>
+	<a href="#close" class="jqmClose">Close</a>
 </script>
 
 <script id="modal-place-image-edit-form" type="text/x-dot-template">
-  <div class="form modal-place-image-edit-form">
-    <form action="">
-      <input type="hidden" name="ID" value="{{!it.ID}}" />
-      <input type="hidden" name="Action" value="Update" />
-      <div class="entry">
-        <input class="text" type="text" name="Caption" placeholder="Image caption" value="{{!it.Caption}}" />
-      </div>
-      <div class="entry">
-        <input type="checkbox" name="Cover" id="Cover" /> <label for="Cover">Make this the main image</label>
-      </div>
-      <div class="entry">
-        <a href="#delete" class="delete" data-id="{{!it.ID}}">Delete image</a>
-        <input class="button blue" type="submit" value="Done" />
-      </div>
-    </form>
-  </div>
+	<div class="form modal-place-image-edit-form">
+		<form action="">
+			<input type="hidden" name="ID" value="{{!it.ID}}" />
+			<input type="hidden" name="Action" value="Update" />
+			<div class="entry">
+				<input class="text" type="text" name="Caption" placeholder="Image caption" value="{{!it.Caption}}" />
+			</div>
+			<div class="entry">
+				<input type="checkbox" name="Cover" id="Cover" /> <label for="Cover">Make this the main image</label>
+			</div>
+			<div class="entry">
+				<a href="#delete" class="delete" data-id="{{!it.ID}}">Delete image</a>
+				<input class="button blue" type="submit" value="Done" />
+			</div>
+		</form>
+	</div>
 </script>
 
 
 <div id="page" class="page-venue-view" >
 
     
-          <div class="bubble yellow point-bottom-left info-request">
-                        <p class="lead">
-                    <strong>Hello friend!</strong> <a href="/settings/account/">Select your country</a>  to get a better experience on Stay.com!                </p>
-
-                  </div>
     
-  <div id="header" class="narrow">
-    <div class="logo">
-      <a href="/">Stay.com</a>
-    </div><!-- #logo -->
+	<div id="header" class="narrow">
+		<div class="logo">
+			<a href="/">Stay.com</a>
+		</div><!-- #logo -->
 
-        <div class="widget-city-selector">
-  <div class="buttons">
-    <a class="link-city" href="/new-york/">New York</a>   <a class="show-cities-button">more</a>
-        </div>
-  <div class="cities" style="display:none">
-    <div class="clear"></div>
-    <div class="first column">
-    <li class="city"><a href="/abu-dhabi/">Abu Dhabi</a></li>
+				<div class="widget-city-selector">
+	<div class="buttons">
+		<a class="link-city" href="/new-york/">New York</a>		<a class="show-cities-button">more</a>
+		    </div>
+	<div class="cities" style="display:none">
+		<div class="clear"></div>
+		<div class="first column">
+		<li class="city"><a href="/abu-dhabi/">Abu Dhabi</a></li>
 <li class="city"><a href="/aix-en-provence/">Aix-En-Provence</a></li>
 <li class="city"><a href="/alicante/">Alicante</a></li>
 <li class="city"><a href="/amsterdam/">Amsterdam</a></li>
@@ -463,7 +437,6 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
 <li class="city"><a href="/bologna/">Bologna</a></li>
 <li class="city"><a href="/boston/">Boston</a></li>
 <li class="city"><a href="/brisbane/">Brisbane</a></li>
-<li class="city"><a href="/bruges/">Bruges</a></li>
 <li class="city"><a href="/brussels/">Brussels</a></li>
 <li class="city"><a href="/budapest/">Budapest</a></li>
 <li class="city"><a href="/buenos-aires/">Buenos Aires</a></li>
@@ -507,8 +480,8 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
 <li class="city"><a href="/lake-tahoe/">Lake Tahoe</a></li>
 <li class="city"><a href="/lanzarote/">Lanzarote</a></li>
 <li class="city"><a href="/las-vegas/">Las Vegas</a></li>
-<li class="city"><a href="/leipzig/">Leipzig</a></li>
-</div><div class="column"><li class="city"><a href="/lisbon/">Lisbon</a></li>
+</div><div class="column"><li class="city"><a href="/leipzig/">Leipzig</a></li>
+<li class="city"><a href="/lisbon/">Lisbon</a></li>
 <li class="city"><a href="/liverpool/">Liverpool</a></li>
 <li class="city"><a href="/london/">London</a></li>
 <li class="city"><a href="/los-angeles/">Los Angeles</a></li>
@@ -538,9 +511,9 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
 <li class="city"><a href="/nashville/">Nashville</a></li>
 <li class="city"><a href="/new-orleans/">New Orleans</a></li>
 <li class="city"><a href="/new-york/">New York</a></li>
-<li class="city"><a href="/nice/">Nice</a></li>
+</div><div class="column"><li class="city"><a href="/nice/">Nice</a></li>
 <li class="city"><a href="/oakland/">Oakland</a></li>
-</div><div class="column"><li class="city"><a href="/orlando/">Orlando</a></li>
+<li class="city"><a href="/orlando/">Orlando</a></li>
 <li class="city"><a href="/oslo/">Oslo</a></li>
 <li class="city"><a href="/palermo/">Palermo</a></li>
 <li class="city"><a href="/paris/">Paris</a></li>
@@ -569,10 +542,10 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
 <li class="city"><a href="/seattle/">Seattle</a></li>
 <li class="city"><a href="/seoul/">Seoul</a></li>
 <li class="city"><a href="/seville/">Seville</a></li>
-<li class="city"><a href="/shanghai/">Shanghai</a></li>
+</div><div class="column"><li class="city"><a href="/shanghai/">Shanghai</a></li>
 <li class="city"><a href="/siena/">Siena</a></li>
 <li class="city"><a href="/singapore/">Singapore</a></li>
-</div><div class="column"><li class="city"><a href="/siracusa/">Siracusa</a></li>
+<li class="city"><a href="/siracusa/">Siracusa</a></li>
 <li class="city"><a href="/sochi/">Sochi</a></li>
 <li class="city"><a href="/st-louis/">St. Louis</a></li>
 <li class="city"><a href="/st-petersburg/">St. Petersburg</a></li>
@@ -595,27 +568,18 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
 <li class="city"><a href="/washington/">Washington</a></li>
 <li class="city"><a href="/zagreb/">Zagreb</a></li>
 <li class="city"><a href="/zurich/">Zurich</a></li>
-    </div>
+		</div>
     </div>
 </div>
-    
+		
 
-    <div id="user-menu">
-      <ul>
-        
-                            <li class="user">
-                    <img width="60" height="60" src="http://i1.stay.com/images/user/834d3fab.png" />                    <a href="/user/niko-klein/">Niko's guides</a>
-                </li>
-                                <li class="notifications">
-                    <a href="/user/viewActivities/"><span class="count">0</span> <i class="icon-bell"></i>Notifications</a>
-                    <ul id="notifications-panel" style="display:none">
-                                </ul>
-                </li>
-                <li class="settings"><a href="/settings/profile/">Settings</a> </li>
-                <li class="logout"><a href="/logout/">Log out</a></li>
-
-            </ul>
-    </div><!-- #user-menu -->
+		<div id="user-menu">
+			<ul>
+				
+                                            <li class="login">Already a user? <a class="show-login-button" href="/login/">Log in!</a></li>
+                								<li class="signup"><a class="show-signup-button button blue medium" href="/signup/">Sign up for free!</a></li>
+										</ul>
+		</div><!-- #user-menu -->
         <ul id="main-tabs">
             <li class="active">
             <a href="/new-york/">Create Travel Guide</a>            <span class="new-label"></span>
@@ -623,68 +587,68 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
             <li >
             <a href="/hotel/?q=New+York">Book Hotels</a>            </li>
         </ul><!-- #main-tabs -->
-  </div><!-- #header -->
+	</div><!-- #header -->
 
-      <div id="breadcrumbs">
+			<div id="breadcrumbs">
 <a href="/">Stay.com</a>
  &raquo; <a href="/new-york/">New York</a>
  &raquo; <a href="/new-york/hotel/">Hotels</a>
  &raquo; <span>The Pierre, A Taj Hotel, New York</span>
 </div><!-- #breadcrumbs -->
-  
-  
+	
+	
 
 
 <div id="layout-guide-main">
-  
+	
 <div class="widget-section-selector wide">
-  <ul class="sections">
-              <li><a href="/new-york/">Highlights</a></li>            <li><a href="/new-york/guides/">Featured guides</a></li>      <li><a href="/new-york/friends/">Friends</a></li>
-              <li><a class="todo" href="/new-york/attractions/">Things to do</a>                  <ul class="sub-dropdown">
-            <li><a href="/new-york/attractions/">Attractions</a></li><li><a href="/new-york/museum/">Museums</a></li><li><a href="/new-york/art-gallery/">Art Galleries</a></li><li><a href="/new-york/shopping/">Shopping</a></li><li><a href="/new-york/health/">Health &amp; Beauty</a></li><li><a href="/new-york/entertainment/">Entertainment</a></li><li><a href="/new-york/cafe/">Cafés</a></li><li><a href="/new-york/bar-pub/">Bars &amp; Pubs</a></li><li><a href="/new-york/nightclub/">Nightclubs</a></li>         </ul>
-              </li>
-      
-      <li><a href="/new-york/restaurant/">Restaurants</a></li>
-      <li class="active"><a href="/new-york/hotel/">Hotels</a></li>     
+	<ul class="sections">
+							<li><a href="/new-york/">Highlights</a></li>            <li><a href="/new-york/guides/">Featured guides</a></li>			<li><a href="/new-york/friends/">Friends</a></li>
+							<li><a class="todo" href="/new-york/attractions/">Things to do</a>									<ul class="sub-dropdown">
+						<li><a href="/new-york/attractions/">Attractions</a></li><li><a href="/new-york/museum/">Museums</a></li><li><a href="/new-york/art-gallery/">Art Galleries</a></li><li><a href="/new-york/shopping/">Shopping</a></li><li><a href="/new-york/health/">Health &amp; Beauty</a></li><li><a href="/new-york/entertainment/">Entertainment</a></li><li><a href="/new-york/cafe/">Cafés</a></li><li><a href="/new-york/bar-pub/">Bars &amp; Pubs</a></li><li><a href="/new-york/nightclub/">Nightclubs</a></li>					</ul>
+							</li>
+			
+			<li><a href="/new-york/restaurant/">Restaurants</a></li>
+			<li class="active"><a href="/new-york/hotel/">Hotels</a></li>			
         <li><a href="/new-york/neighborhoods/">Neighborhoods</a></li>
-    
-        <li class="search">
-      <form method="get" action="/new-york/search/" class="venue-search-form">
-        <div class="inner">
-          <input type="text" class="text empty" name="q" value="" placeholder="Search New York"/>
-          <input type="submit" value="" class="button-search" />
-        </div>
-      </form>
-    </li>
-    
-  </ul>
+		
+				<li class="search">
+			<form method="get" action="/new-york/search/" class="venue-search-form">
+				<div class="inner">
+					<input type="text" class="text empty" name="q" value="" placeholder="Search New York"/>
+					<input type="submit" value="" class="button-search" />
+				</div>
+			</form>
+		</li>
+		
+	</ul>
 </div><div id="modalMap" class="first-search">
-  <a class="close" href="#">Close</a>
+	<a class="close" href="#">Close</a>
 
-  <!-- Guide sidebar -->
-  <div class="sidebar">
-  </div>
+	<!-- Guide sidebar -->
+	<div class="sidebar">
+	</div>
 
-  <!-- Map -->
-  <div class="map-view">
-    <div class="map-holder"></div>
+	<!-- Map -->
+	<div class="map-view">
+		<div class="map-holder"></div>
 
-    <script id="modalMap-search-result-box-template" type="text/x-dot-template">
-      <form>
-        <div class="input-row input-text name">
-          <label for="modalMap-search-title">Name of this place <span class="required">(required)</span></label>
-          <input id="modalMap-search-title" type="text" name="Name" value="{{!it.title}}" maxlength="255"/>
-        </div>
-        <div class="address">
-          {{!it.addr}}
-        </div>
-        <div class="input-row input-text">
-          <label for="modalMap-search-description">Description</label>
-          <textarea name="Description" id="modalMap-search-description" maxlength="1000"></textarea>
-        </div>
-                <div class="input-row input-select category">
-          <label for="modalMap-search-category">Category</label>
-          <select id="modalMap-search-category" name="CategoryID">
+		<script id="modalMap-search-result-box-template" type="text/x-dot-template">
+			<form>
+				<div class="input-row input-text name">
+					<label for="modalMap-search-title">Name of this place <span class="required">(required)</span></label>
+					<input id="modalMap-search-title" type="text" name="Name" value="{{!it.title}}" maxlength="255"/>
+				</div>
+				<div class="address">
+					{{!it.addr}}
+				</div>
+				<div class="input-row input-text">
+					<label for="modalMap-search-description">Description</label>
+					<textarea name="Description" id="modalMap-search-description" maxlength="1000"></textarea>
+				</div>
+								<div class="input-row input-select category">
+					<label for="modalMap-search-category">Category</label>
+					<select id="modalMap-search-category" name="CategoryID">
 <option value="">Please select:</option>
 <option value="6">Art Galleries</option>
 <option value="3">Attractions</option>
@@ -697,50 +661,50 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
 <option value="9">Nightclubs</option>
 <option value="2">Restaurants</option>
 <option value="7">Shopping</option>
-</select>       </div>
+</select>				</div>
 
-        <div class="input-row submit-button">
-                      {{? it.id}}
-              <span class="added added-place">Added to Guide</span>
-            {{??}}
-              <a href="#" class="button purple add-place-button id0"><span>+Add to my Guide</span></a>
-            {{?}}
-                    <div class="clear"></div>
-        </div>
+				<div class="input-row submit-button">
+											{{? it.id}}
+							<span class="added added-place">Added to Guide</span>
+						{{??}}
+							<a href="#" class="button purple add-place-button id0"><span>+Add to my Guide</span></a>
+						{{?}}
+										<div class="clear"></div>
+				</div>
 
-        <input type="hidden" name="SourceName" value="google" />
-        <input type="hidden" name="SourceID" value="{{!it.sid}}" />
-        <input type="hidden" name="Latitude" value="{{!it.lat}}" />
-        <input type="hidden" name="Longitude" value="{{!it.lng}}" />
-        <input type="hidden" name="Address" value="{{!it.addr}}" />
-        <input type="hidden" name="CityID" value="357" />
-        <input type="hidden" name="Phone" value="{{!it.phone}}" />
-        <input type="hidden" name="Privacy" value="2" />
-      </form>
-      <a href="" class="close-box">Close</a>
-    </script>
+				<input type="hidden" name="SourceName" value="google" />
+				<input type="hidden" name="SourceID" value="{{!it.sid}}" />
+				<input type="hidden" name="Latitude" value="{{!it.lat}}" />
+				<input type="hidden" name="Longitude" value="{{!it.lng}}" />
+				<input type="hidden" name="Address" value="{{!it.addr}}" />
+				<input type="hidden" name="CityID" value="357" />
+				<input type="hidden" name="Phone" value="{{!it.phone}}" />
+				<input type="hidden" name="Privacy" value="2" />
+			</form>
+			<a href="" class="close-box">Close</a>
+		</script>
 
-    <script id="modalMap-own-box-input-template" type="text/x-dot-template">
+		<script id="modalMap-own-box-input-template" type="text/x-dot-template">
 
-      <form>
-        <div class="input-row input-text name">
-          <label for="modalMap-own-title">Name of this place <span class="required">(required)</span></label>
-          <input id="modalMap-own-title" type="text" name="Name" maxlength="255"/>
-        </div>
+			<form>
+				<div class="input-row input-text name">
+					<label for="modalMap-own-title">Name of this place <span class="required">(required)</span></label>
+					<input id="modalMap-own-title" type="text" name="Name" maxlength="255"/>
+				</div>
 
-        <div class="input-row input-text address">
-          <label for="modalMap-own-address">Address</label>
-          <input id="modalMap-own-address" type="text" name="Address" maxlength="255"/>
-        </div>
+				<div class="input-row input-text address">
+					<label for="modalMap-own-address">Address</label>
+					<input id="modalMap-own-address" type="text" name="Address" maxlength="255"/>
+				</div>
 
-        <div class="input-row input-text description">
-          <label for="modalMap-own-description">Short description of this place</label>
-          <textarea name="Description" id="modalMap-own-description" maxlength="1000"></textarea>
-        </div>
+				<div class="input-row input-text description">
+					<label for="modalMap-own-description">Short description of this place</label>
+					<textarea name="Description" id="modalMap-own-description" maxlength="1000"></textarea>
+				</div>
 
-        <div class="input-row input-select category">
-          <label for="modalMap-own-category">Category</label>
-          <select id="modalMap-own-category" name="CategoryID">
+				<div class="input-row input-select category">
+					<label for="modalMap-own-category">Category</label>
+					<select id="modalMap-own-category" name="CategoryID">
 <option value="">Others</option>
 <option value="6">Art Galleries</option>
 <option value="3">Attractions</option>
@@ -753,220 +717,197 @@ mixpanel.identify('525517'); mixpanel.people.set('UserID', '525517');mixpanel.re
 <option value="9">Nightclubs</option>
 <option value="2">Restaurants</option>
 <option value="7">Shopping</option>
-</select>       </div>
+</select>				</div>
 
-        <div class="input-row submit-button">
-                      {{? it.id}}
-              <span class="added added-place submit">Added to Guide</span>
-            {{??}}
-              <a href="#" class="button purple add-place-button id0"><span>+Add to my Guide</span></a>
-            {{?}}
-                    <div class="clear"></div>
-        </div>
+				<div class="input-row submit-button">
+											{{? it.id}}
+							<span class="added added-place submit">Added to Guide</span>
+						{{??}}
+							<a href="#" class="button purple add-place-button id0"><span>+Add to my Guide</span></a>
+						{{?}}
+										<div class="clear"></div>
+				</div>
 
-        <input type="hidden" name="SourceName" value="user" />
-        <input type="hidden" name="SourceID" value="{{!it.sid}}" />
-        <input type="hidden" name="Latitude" value="{{!it.lat}}" />
-        <input type="hidden" name="Longitude" value="{{!it.lng}}" />
-        <input type="hidden" name="CityID" value="357" />
-        <input type="hidden" name="Privacy" value="2" />
-      </form>
-      <a href="" class="close-box">Close</a>
-    </script>
+				<input type="hidden" name="SourceName" value="user" />
+				<input type="hidden" name="SourceID" value="{{!it.sid}}" />
+				<input type="hidden" name="Latitude" value="{{!it.lat}}" />
+				<input type="hidden" name="Longitude" value="{{!it.lng}}" />
+				<input type="hidden" name="CityID" value="357" />
+				<input type="hidden" name="Privacy" value="2" />
+			</form>
+			<a href="" class="close-box">Close</a>
+		</script>
 
-    
-    <div class="search-box">
-              <h2>Search ANY place in New York for your guide</h2>
-      
-      <form class="search-form" method="get" action="">
-        <label for="search-box-input">Search ANY place or address</label>
-        <input class="search-input" id="search-box-input" type="text" name="search-box-input" />
-        <a href="#" class="submit"><span>Search</span></a>
-      </form>
+		
+		<div class="search-box">
+							<h2>Search ANY place in New York for your guide</h2>
+			
+			<form class="search-form" method="get" action="">
+				<label for="search-box-input">Search ANY place or address</label>
+				<input class="search-input" id="search-box-input" type="text" name="search-box-input" />
+				<a href="#" class="submit"><span>Search</span></a>
+			</form>
 
-      <p class="drop-pin">
-        <span class="before">or drag this </span>
-        <span class="pin">
-          <span class="outline"></span>
-          <span class="needle"></span>
-          <span class="shadow"></span>
-        </span>
-        <span class="after">pin anywhere on the map</span>
-      </p>
-    </div>
-  </div>
+			<p class="drop-pin">
+				<span class="before">or drag this </span>
+				<span class="pin">
+					<span class="outline"></span>
+					<span class="needle"></span>
+					<span class="shadow"></span>
+				</span>
+				<span class="after">pin anywhere on the map</span>
+			</p>
+		</div>
+	</div>
 
-  <!-- Search sidebar -->
-  <div class="search-bar">
-    <div class="bar-shadow"></div>
+	<!-- Search sidebar -->
+	<div class="search-bar">
+		<div class="bar-shadow"></div>
 
-    <div class="wrapper">
-      <p class="drop-pin">
-        <span class="before">Drag this </span>
-        <span class="pin">
-          <span class="outline"></span>
-          <span class="needle"></span>
-          <span class="shadow"></span>
-        </span>
-        <span class="after">pin anywhere on the map</span>
-      </p>
+		<div class="wrapper">
+			<p class="drop-pin">
+				<span class="before">Drag this </span>
+				<span class="pin">
+					<span class="outline"></span>
+					<span class="needle"></span>
+					<span class="shadow"></span>
+				</span>
+				<span class="after">pin anywhere on the map</span>
+			</p>
 
-      <form class="search-form" method="post" action="">
-        <label for="search-bar-input">Search ANY place or address</label>
-        <input class="search-input" id="search-bar-input" type="text" name="search-bar-input" />
-        <a href="#" class="submit"><span>Search</span></a>
-      </form>
+			<form class="search-form" method="post" action="">
+				<label for="search-bar-input">Search ANY place or address</label>
+				<input class="search-input" id="search-bar-input" type="text" name="search-bar-input" />
+				<a href="#" class="submit"><span>Search</span></a>
+			</form>
 
-      <div class="search-results">
-        <div class="loader"></div>
-        <ul class="results">
-          <script id="modalMap-search-result-template" type="text/x-dot-template">
-          <li class="result {{!it.source}}">
-            <a href="">
-              {{? it.img}}
-              <span class="image"><img src="{{!it.img}}" alt="{{!it.title}}" /></span>
-              {{?}}
-              {{? it.cat}}
-              <span class="category">{{!it.cat}}</span>
-              {{?}}
-              <span class="title">{{!it.title}}</span>
-              <span class="address">{{!it.addr}}</span>
-              <span class="marker-number">{{!it.markerNumber}}</span>
-            </a>
-          </li>
-          </script>
-          <li class="info refine-search">
-            <p>
-              <span class="no-results">No results found.</span>
-              <span class="try-again">Didn't find what you are looking for?</span>
-              <br />Please refine your search or include an address.            </p>
-          </li>
-          <li class="info add-another">
-                          <p>Find another place for your guide,<br /> or <a href="">Close this window</a></p>
-                      </li>
-        </ul>
-      </div>
-    </div>
+			<div class="search-results">
+				<div class="loader"></div>
+				<ul class="results">
+					<script id="modalMap-search-result-template" type="text/x-dot-template">
+					<li class="result {{!it.source}}">
+						<a href="">
+							{{? it.img}}
+							<span class="image"><img src="{{!it.img}}" alt="{{!it.title}}" /></span>
+							{{?}}
+							{{? it.cat}}
+							<span class="category">{{!it.cat}}</span>
+							{{?}}
+							<span class="title">{{!it.title}}</span>
+							<span class="address">{{!it.addr}}</span>
+							<span class="marker-number">{{!it.markerNumber}}</span>
+						</a>
+					</li>
+					</script>
+					<li class="info refine-search">
+						<p>
+							<span class="no-results">No results found.</span>
+							<span class="try-again">Didn't find what you are looking for?</span>
+							<br />Please refine your search or include an address.						</p>
+					</li>
+					<li class="info add-another">
+													<p>Find another place for your guide,<br /> or <a href="">Close this window</a></p>
+											</li>
+				</ul>
+			</div>
+		</div>
 
-    <a class="toggle open" href="">Toggle</a>
-  </div>
+		<a class="toggle open" href="">Toggle</a>
+	</div>
 </div>
 
 <div class="venue-view hotel-view">
-  <div class="section-info">
-    <span class="stars s50" title="No Star"></span>   <h1 style="float:left;">The Pierre, A Taj Hotel, New York</h1>
+	<div class="section-info">
+		<span class="stars s50" title="No Star"></span>		<h1 style="float:left;">The Pierre, A Taj Hotel, New York</h1>
 
-    <div class="clear"></div>
-    <div class="address">
-      2 E 61st St, New York 10021, United States      (<a class="show-map" href="#">show map</a>)
-    </div>
+		<div class="clear"></div>
+		<div class="address">
+			2 E 61st St, New York 10021, United States			(<a class="show-map" href="#">show map</a>)
+		</div>
 
-  </div>
+	</div>
 
-  <div class="layout-buttons tabs main">
+	<div class="layout-buttons tabs main">
 
-    <ul class="tab-buttons">
-      <li><a href="#tab-overview" class="active">Overview</a></li>
-            <li><a href="#tab-photos">Photos</a></li>
-            <li><a href="#tab-map">Map</a></li>
-            <li><a href="#tab-rooms" class="">Rooms &amp; Rates</a></li>
-    </ul>
+		<ul class="tab-buttons">
+			<li><a href="#tab-overview" class="active">Overview</a></li>
+						<li><a href="#tab-photos">Photos</a></li>
+						<li><a href="#tab-map">Map</a></li>
+						<li><a href="#tab-rooms" class="">Rooms &amp; Rates</a></li>
+		</ul>
 
-    <div class="quick-book">
-                    <a href="#" class="button medium add-hotel-button id4986"><span>+Add to my Guide</span></a>         </div>
-  </div>
+		<div class="quick-book">
+										<a href="#" class="button medium add-hotel-button id4986"><span>+Add to my Guide</span></a>					</div>
+	</div>
 
-  <div class="clear"></div>
+	<div class="clear"></div>
 
 
-  <div class="tab-views main">
-    <div class="tab-view" id="tab-overview">
-      <div class="hotel-view-overview guide-mode">
-  <div class="section description">
-          <div class="gallery">
-              <div class="widget-gallery" id="yw0"><div class="photo">
-  <div class="primary">
-    <a href="#" class="prev2" title="prev"></a>
-    <span></span>
-    <a href="#" class="next2" title="next"></a>
-  </div>
-  
-  <div class="credits"></div>
+	<div class="tab-views main">
+		<div class="tab-view" id="tab-overview">
+			<div class="hotel-view-overview guide-mode">
+	<div class="section description">
+					<div class="gallery">
+							<div class="widget-gallery" id="yw0"><div class="photo">
+	<div class="primary">
+		<a href="#" class="prev2" title="prev"></a>
+		<span></span>
+		<a href="#" class="next2" title="next"></a>
+	</div>
+	
+	<div class="credits"></div>
 </div><div class="buttons dynamic">
-  <a href="#" class="prev" title="prev"></a>
-  <div class="thumbnails dynamic">
-    <ul><li><img class="image-0" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6261372.jpg&amp;sig=57f92c2c511a19edeabf84841dd821c36c93bf14" alt="" /></li>
+	<a href="#" class="prev" title="prev"></a>
+	<div class="thumbnails dynamic">
+		<ul><li><img class="image-0" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6261372.jpg&amp;sig=57f92c2c511a19edeabf84841dd821c36c93bf14" alt="" /></li>
 <li><img class="image-1" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6276453.jpg&amp;sig=7fed7ba8d1ac306b9ede59f8c7e34670fd3d4f2c" alt="" /></li>
 <li><img class="image-2" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6276454.jpg&amp;sig=8541cdee32c12f18bd9923c3f09d51da187a9076" alt="" /></li>
 <li><img class="image-3" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6276450.jpg&amp;sig=65f35de1fd260e1d5ddca8c737e0758b8932cc61" alt="" /></li>
 <li><img class="image-4" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6276451.jpg&amp;sig=938bda17e30f75fb5bae17aef776c156e7a5f49c" alt="" /></li>
 <li><img class="image-5" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6279677.jpg&amp;sig=7d919cc6566b8bb80eaa976e8661d33131c3f012" alt="" /></li>
 <li><img class="image-6" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F7110424.jpg&amp;sig=ec52174f07a4db32dbea52db2bd682d842ba17a5" alt="" /></li>
-    </ul>
-  </div>
-  <a href="#" class="next" title="next"></a>
-</div></div>        <div class="clear"></div>
-            </div>
-    
-        <div class="overview" style="float: right;">
-      <div class="static-map category1">
-        <a class="switch-tab-button id4986 type1" href="#map"><img src="http://maps.googleapis.com/maps/api/staticmap?center=40.76534%2C-73.97222&amp;size=300x270&amp;sensor=false&amp;zoom=15&amp;markers=40.76534%2C-73.97222&amp;key=AIzaSyDSxKA3QTJfLeof4WZx2j6FN3E1DwBAnJ8" alt="" /></a>                <a class="marker switch-tab-button" href="#map">Location</a>
-      </div>
-      <div class="details">
-        <p>
-          <strong>The Pierre, A Taj Hotel, New York</strong><br/>
-          2 E 61st St<br />
+		</ul>
+	</div>
+	<a href="#" class="next" title="next"></a>
+</div></div>				<div class="clear"></div>
+						</div>
+		
+				<div class="overview" style="float: right;">
+			<div class="static-map category1">
+				<a class="switch-tab-button id4986 type1" href="#map"><img src="http://maps.googleapis.com/maps/api/staticmap?center=40.76534%2C-73.97222&amp;size=300x270&amp;sensor=false&amp;zoom=15&amp;markers=40.76534%2C-73.97222&amp;key=AIzaSyDSxKA3QTJfLeof4WZx2j6FN3E1DwBAnJ8" alt="" /></a>                <a class="marker switch-tab-button" href="#map">Location</a>
+			</div>
+			<div class="details">
+				<p>
+					<strong>The Pierre, A Taj Hotel, New York</strong><br/>
+					2 E 61st St<br />
 New York 10021<br />
-United States       </p>
-                <p>
-                    <strong>Phone:</strong> <a href="tel:+1-212-838-8000">212-838-8000</a>        </p>
-                <br/>
+United States				</p>
+								<p>
+                    <strong>Phone:</strong> <a href="tel:+1-212-838-8000">212-838-8000</a>				</p>
+								<br/>
 
-        <span class="added added-hotel id4986" style="display: none;">Added to guide</span>
-        <a href="#" class="button add-hotel-button id4986"><span>+Add to my Guide</span></a>
-        <div class="widget-stayRating clearfix" data-type="Hotel" data-id="4986">
-  <a href="#" class="button checkin"><i class="icon-map-marker"></i> I've been here</a>
+				<span class="added added-hotel id4986" style="display: none;">Added to guide</span>
+				<a href="#" class="button add-hotel-button id4986"><span>+Add to my Guide</span></a>
+							</div>
+			<div class="report-venue">
+				<a href="#report" class="report" data-hotel-id="4986">Report this venue</a>
+			</div>
+		</div>
+		
+		<div class="desc">
+			<p><b>Property Location</b> <br />With a stay at The Pierre, A Taj Hotel, New York in New York (Central Park), you'll be minutes from Barney's and Tiffany &amp; Co.. This 5-star hotel is close to Broadway and Grand Central Terminal.</p><p><b>Rooms</b> <br />Make yourself at home in one of the 200 air-conditioned rooms featuring minibars and DVD players. 40-inch flat-screen televisions with pay movies provide entertainment, with wired and wireless Internet access available for a surcharge. Bathrooms feature shower/tub combinations, makeup/shaving mirrors, and designer toiletries. Conveniences include laptop-compatible safes and desks, as well as direct-dial phones with voice mail.</p><p><b>Rec, Spa, Premium Amenities</b> <br />Take advantage of recreation opportunities such as a health club, or other amenities including wireless Internet access (surcharge) and babysitting/childcare. This hotel also features gift shops/newsstands, a hair salon, and shopping on site.</p><p><b>Dining</b> <br />Grab a bite to eat at the hotel's restaurant, which features a bar, or stay in and take advantage of 24-hour room service. Quench your thirst with your favorite drink at a bar/lounge. Breakfast is available for a fee.</p><p><b>Business, Other Amenities</b> <br />Featured amenities include a business center, limo/town car service, and audiovisual equipment. Event facilities at this hotel consist of conference/meeting rooms, small meeting rooms, and a ballroom. Parking (subject to charges) is available onsite, and additional parking (subject to charges) can be found nearby.</p>		</div>
 
-  <form action="#" style="display:none">
-          <input type="radio" name="rating" value="1"  class="star" />
-          <input type="radio" name="rating" value="2"  class="star" />
-          <input type="radio" name="rating" value="3"  class="star" />
-          <input type="radio" name="rating" value="4"  class="star" />
-          <input type="radio" name="rating" value="5"  class="star" />
-    
-    <div class="remarks-text clearfix">
-      <div>
-            </div>
-            <a href="#edit" class="edit"><i class="icon-pencil"></i>Edit</a>
-    </div>
-
-    <div class="remarks-form">
-      <textarea name="remarks" class="remarks text" placeholder="How did you like this place?"></textarea>
-
-      <input type="submit" value="Save review" class="button blue" />
-    </div>
-        <div class="clear"></div>
-  </form>
-</div>      </div>
-      <div class="report-venue">
-        <a href="#report" class="report" data-hotel-id="4986">Report this venue</a>
-      </div>
-    </div>
-    
-    <div class="desc">
-      <p><b>Property Location</b> <br />With a stay at The Pierre, A Taj Hotel, New York in New York (Central Park), you'll be minutes from Barney's and Tiffany &amp; Co.. This 5-star hotel is close to Broadway and Grand Central Terminal.</p><p><b>Rooms</b> <br />Make yourself at home in one of the 200 air-conditioned rooms featuring minibars and DVD players. 40-inch flat-screen televisions with pay movies provide entertainment, with wired and wireless Internet access available for a surcharge. Bathrooms feature shower/tub combinations, makeup/shaving mirrors, and designer toiletries. Conveniences include laptop-compatible safes and desks, as well as direct-dial phones with voice mail.</p><p><b>Rec, Spa, Premium Amenities</b> <br />Take advantage of recreation opportunities such as a health club, or other amenities including wireless Internet access (surcharge) and babysitting/childcare. This hotel also features gift shops/newsstands, a hair salon, and shopping on site.</p><p><b>Dining</b> <br />Grab a bite to eat at the hotel's restaurant, which features a bar, or stay in and take advantage of 24-hour room service. Quench your thirst with your favorite drink at a bar/lounge. Breakfast is available for a fee.</p><p><b>Business, Other Amenities</b> <br />Featured amenities include a business center, limo/town car service, and audiovisual equipment. Event facilities at this hotel consist of conference/meeting rooms, small meeting rooms, and a ballroom. Parking (subject to charges) is available onsite, and additional parking (subject to charges) can be found nearby.</p>   </div>
-
-  </div>
-  <div class="clear"></div>
+	</div>
+	<div class="clear"></div>
 
     
-  <div class="section comments" id="comments">
-      </div>
+	<div class="section comments" id="comments">
+			</div>
 
-  <div class="section map">
-    <div class="hotel-view-map">
+	<div class="section map">
+		<div class="hotel-view-map">
 <div style="width:100%;height:600px;" id="venue-map" class="map-container"></div></div>
-  </div>
+	</div>
 
         <div class="section general">
         <h2 class="underline">Hotel Information</h2>
@@ -978,7 +919,7 @@ United States       </p>
 </p>
             </div>
     
-      <div class="section facilities">
+			<div class="section facilities">
         <h2 class="underline">Facilities</h2>
         <table class="columnar"><tr>
                     <td><ul>
@@ -1050,28 +991,28 @@ United States       </p>
                             <li>Wireless Internet access - surcharge</li>
                         </ul></td>
                 </tr></table>
-  </div>
-  
+	</div>
+	
         
         <div class="section driving">
         <h2 class="underline">Driving Directions</h2>
         <p><p>The closest major airports to The Pierre, A Taj Hotel are:<br />New York, NY (LGA-LaGuardia) - 8.5 km / 5.3 mi<br />Newark, NJ (EWR-Liberty Intl.) - 19.2 km / 11.9 mi<br />New York, NY (JFK-John F. Kennedy Intl.) - 20.9 km / 13 mi<br /><p>The preferred airport for The Pierre, A Taj Hotel is New York, NY (JFK-John F. Kennedy Intl.). </p><p>Distances are calculated in a straight line from the property’s location to the point of interest or airport and may not reflect actual travel distance. <br /><br /> Distances are displayed to the nearest 0.1 mile and kilometre. </p></p></p>
     </div>
     
-  <div class="section policies">
-    <h2 class="underline">Policies and Disclaimers</h2>
-    <ul>
-          <li>You must present a photo ID when checking in.</li>
-          <li>Your credit card is charged at the time you book.</li>
-          <li>Bed type and smoking preferences are not guaranteed.Your reservation is prepaid and is guaranteed for late arrival.</li>
-          <li>The total charge includes all room charges and taxes, as well as fees for access and booking.</li>
-          <li>Any incidental charges such as parking, phone calls, and room service will be handled directly between you and the property..</li>
-          <li>By proceeding with this reservation, you agree to all terms and conditions including the Cancellation Policy.</li>
-          <li>The cancelation rules are displayed next to each room description.</li>
-          <li>Note that cancelations rules may vary between room types.</li>
-          <li>You agree to pay the cost of your reservation. If you do not pay this debt and it is collected through the use of a collection agency, an attorney, or through other legal proceedings, you agree to pay all reasonable costs or fees, including attorney fees and court costs, incurred in connection with such collection effort.</li>
-        </ul>
-  </div>
+	<div class="section policies">
+		<h2 class="underline">Policies and Disclaimers</h2>
+		<ul>
+					<li>You must present a photo ID when checking in.</li>
+					<li>Your credit card is charged at the time you book.</li>
+					<li>Bed type and smoking preferences are not guaranteed.Your reservation is prepaid and is guaranteed for late arrival.</li>
+					<li>The total charge includes all room charges and taxes, as well as fees for access and booking.</li>
+					<li>Any incidental charges such as parking, phone calls, and room service will be handled directly between you and the property..</li>
+					<li>By proceeding with this reservation, you agree to all terms and conditions including the Cancellation Policy.</li>
+					<li>The cancelation rules are displayed next to each room description.</li>
+					<li>Note that cancelations rules may vary between room types.</li>
+					<li>You agree to pay the cost of your reservation. If you do not pay this debt and it is collected through the use of a collection agency, an attorney, or through other legal proceedings, you agree to pay all reasonable costs or fees, including attorney fees and court costs, incurred in connection with such collection effort.</li>
+				</ul>
+	</div>
 
 </div>
 <div class="hotel-pricematch modal-window">
@@ -1093,111 +1034,111 @@ stay and the same day.</p></div>
 
 <p>Please fill out the <a href="/hotel/match/">Price Match form</a> if you found a lower rate on another site.</p>
 </div>
-    </div>
+		</div>
 
-        <div class="tab-view" id="tab-photos" style="display:none">
-      <div class="widget-gallery static" id="yw1"><div class="photo">
-  <div class="primary">
-    <a href="#" class="prev2" title="prev"></a>
-    <span></span>
-    <a href="#" class="next2" title="next"></a>
-  </div>
-  <div class="caption"></div>
-  <div class="credits"></div>
+				<div class="tab-view" id="tab-photos" style="display:none">
+			<div class="widget-gallery static" id="yw1"><div class="photo">
+	<div class="primary">
+		<a href="#" class="prev2" title="prev"></a>
+		<span></span>
+		<a href="#" class="next2" title="next"></a>
+	</div>
+	<div class="caption"></div>
+	<div class="credits"></div>
 </div><div class="buttons">
-  
-  <div class="thumbnails">
-    <ul><li><img class="image-0" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6261372.jpg&amp;sig=57f92c2c511a19edeabf84841dd821c36c93bf14" alt="" /></li>
+	
+	<div class="thumbnails">
+		<ul><li><img class="image-0" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6261372.jpg&amp;sig=57f92c2c511a19edeabf84841dd821c36c93bf14" alt="" /></li>
 <li><img class="image-1" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6276453.jpg&amp;sig=7fed7ba8d1ac306b9ede59f8c7e34670fd3d4f2c" alt="" /></li>
 <li><img class="image-2" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6276454.jpg&amp;sig=8541cdee32c12f18bd9923c3f09d51da187a9076" alt="" /></li>
 <li><img class="image-3" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6276450.jpg&amp;sig=65f35de1fd260e1d5ddca8c737e0758b8932cc61" alt="" /></li>
 <li><img class="image-4" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6276451.jpg&amp;sig=938bda17e30f75fb5bae17aef776c156e7a5f49c" alt="" /></li>
 <li><img class="image-5" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F6279677.jpg&amp;sig=7d919cc6566b8bb80eaa976e8661d33131c3f012" alt="" /></li>
 <li><img class="image-6" width="64" height="64" src="http://www.stay.com/img.php?w=64&amp;h=64&amp;c=&amp;f=hotel%2F498%2F6%2F7110424.jpg&amp;sig=ec52174f07a4db32dbea52db2bd682d842ba17a5" alt="" /></li>
-    </ul>
-  </div>
-  
+		</ul>
+	</div>
+	
 </div></div>            <div class="clear"></div>
             <div class="disclaimer">
                 <strong>Note:</strong> It is the responsibility of the hotel chain and/or the individual property to ensure the accuracy of the photos displayed. Stay.com is not responsible for any inaccuracies in the photos.            </div>
 
-    </div>
-    
-    <div class="tab-view" id="tab-map" style="display:none">
-    </div>
+		</div>
+		
+		<div class="tab-view" id="tab-map" style="display:none">
+		</div>
 
         <div class="tab-view" id="tab-comments" style="display:none">
-    </div>
+		</div>
 
-    <div class="tab-view" id="tab-rooms" style="display:none">
-    </div>
-  </div>
+		<div class="tab-view" id="tab-rooms" style="display:none">
+		</div>
+	</div>
 
 </div>
 </div><!-- main -->
 
 <div id="layout-guide-sidebar">
-  <div id="widget-sidebar" class="widget-sidebar">
-      <div class="empty">
+	<div id="widget-sidebar" class="widget-sidebar">
+			<div class="empty">
             <div class="header">
                 <a class="stay-title stay-url" href="/new-york/">My Guide</a>
                 <a class="city city-url" href="/new-york/">New York</a>            </div>
-            <div class="empty-cards">
-        <p>Click <strong>&ldquo;Add to my Guide&rdquo;</strong> on any place to get started!</p>
-      </div>
+						<div class="empty-cards">
+				<p>Click <strong>&ldquo;Add to my Guide&rdquo;</strong> on any place to get started!</p>
+			</div>
 
-      <div class="clear"></div>
-      <div class="view-guide"><a href="#" class="button purple medium stay-url view-guide-button"><span>View Guide</span></a></div>
-    </div>
-  
-  <div class="stay" style="display: none">
+			<div class="clear"></div>
+			<div class="view-guide"><a href="#" class="button purple medium stay-url view-guide-button"><span>View Guide</span></a></div>
+		</div>
+	
+	<div class="stay" style="display: none">
         <div class="header">
-        <a class="stay-title stay-url" href="#">My Guide</a>
-        <a class="city city-url" href="/new-york/">New York</a>        </div>
-    <div class="visits">
-      <div class="visit-box template" style="display: none">
+    		<a class="stay-title stay-url" href="#">My Guide</a>
+	    	<a class="city city-url" href="/new-york/">New York</a>        </div>
+		<div class="visits">
+			<div class="visit-box template" style="display: none">
                 <div class="category"></div>
-        <a href="#" class="delete-visit-button icon-remove"></a>
-        <a href="#" class="item-url image"><img alt="" src="" /></a>
-        <a href="#" class="name item-url"></a>
-      </div>
+				<a href="#" class="delete-visit-button icon-remove"></a>
+				<a href="#" class="item-url image"><img alt="" src="" /></a>
+				<a href="#" class="name item-url"></a>
+			</div>
 
-      <a href="#" class="scroll-up-button"></a>
-      <div class="scroller">
-                <div class="animation-target"></div>
-        <div class="visit-list images">
-                </div>
-      </div>
-      <a href="#" class="scroll-down-button"></a>
-    </div>
-    <div class="clear"></div>
-    <div style="text-align:center"><a href="#" class="button purple medium stay-url view-guide-button"><span>View Guide</span></a></div>
-  </div>
+			<a href="#" class="scroll-up-button"></a>
+			<div class="scroller">
+								<div class="animation-target"></div>
+				<div class="visit-list images">
+								</div>
+			</div>
+			<a href="#" class="scroll-down-button"></a>
+		</div>
+		<div class="clear"></div>
+		<div style="text-align:center"><a href="#" class="button purple medium stay-url view-guide-button"><span>View Guide</span></a></div>
+	</div>
 
-  <div class="clear"></div>
+	<div class="clear"></div>
 
-  <div class="details-bubble">
-    <div class="wrapper">
-      <div class="loader"><img width="32" height="32" src="http://i2.stay.com/images/loading.gif" alt="Loading..." /></div>
-      <div class="visit-details"></div>
-      <div class="visit-detail-box template" style="display:none">
-        <a href="#" class="item-url image"><img alt="" src="" /></a>
-        <div class="category"></div>
-        <a href="#" class="name item-url"></a>
-        <div class="description"></div>
-        <a href="#" class="item-url">read more</a>
-        <a href="#map" class="switch-tab-button">View on Map</a>
-      </div>
-    </div>
-  </div>
+	<div class="details-bubble">
+		<div class="wrapper">
+			<div class="loader"><img width="32" height="32" src="http://i2.stay.com/images/loading.gif" alt="Loading..." /></div>
+			<div class="visit-details"></div>
+			<div class="visit-detail-box template" style="display:none">
+				<a href="#" class="item-url image"><img alt="" src="" /></a>
+				<div class="category"></div>
+				<a href="#" class="name item-url"></a>
+				<div class="description"></div>
+				<a href="#" class="item-url">read more</a>
+				<a href="#map" class="switch-tab-button">View on Map</a>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="sidebar-mask"></div></div>
 
 
-  <div class="clear"></div>
+	<div class="clear"></div>
 
-    <div id="footer" class="guide">
-    
+		<div id="footer" class="guide">
+		
         <div class="go-mobile">
     <h2>Go mobile,<br />go offline!</h2>
     <p>Get the <strong>entire city</strong> in your pocket and find the best places to go on your <strong>offline map.</strong></p>
@@ -1205,13 +1146,13 @@ stay and the same day.</p></div>
     <a href="http://itunes.apple.com/us/app/stay.com/id438740289" class="app-store-badge">Available in the App store</a>
     <a href="https://play.google.com/store/apps/details?id=com.stay" class="google-play-badge">Available from Google Play</a>
     <a class="read-more" href="/mobile/">Read more about the app</a></div>
-    <div class="meta">
-      <div class="switcher section">
-        <div>
-          <div class="languages">
-                    </div>
-        </div>
-      </div>
+		<div class="meta">
+			<div class="switcher section">
+				<div>
+					<div class="languages">
+										</div>
+				</div>
+			</div>
             <div class="left">
                 <a href="http://www.facebook.com/staydotcom" class="social facebook">
                     <p>Join us on<br />Facebook</strong></p>
@@ -1230,15 +1171,15 @@ stay and the same day.</p></div>
                     <li><a href="/press/">Press</a></li>
                 </ul>
             </div>
-      <div class="clear"></div>
-    </div>
-  </div>
+			<div class="clear"></div>
+		</div>
+	</div>
 
-  <div class="clear"></div>
+	<div class="clear"></div>
 
-  <div id="copyright" class="guide">
-    Stay.com &copy; 2014      </div>
-  </div>
+	<div id="copyright" class="guide">
+		Stay.com &copy; 2015			</div>
+	</div>
 
 
 
@@ -1248,8 +1189,8 @@ var fbApiInitialized=false;
 window.fbAsyncInit=function(){
   FB.init({"appId":"380677375311765","cookie":true,"logging":false,"status":true,"xfbml":true,"session":0,"oauth":true});
   FB.getLoginStatus(function(response){
-      try{if(FB&&FB.Event&&FB.Event.subscribe){FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackSocial","facebook","like",a])});FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackSocial","facebook","send",a])})}}catch(e){}
-    fbApiInitialized=true;
+  		try{if(FB&&FB.Event&&FB.Event.subscribe){FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackSocial","facebook","like",a])});FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackSocial","facebook","send",a])})}}catch(e){}
+		fbApiInitialized=true;
   });
 };
 function fbEnsureInit(a){if(!fbApiInitialized){setTimeout(function(){fbEnsureInit(a)},50)}else{if(a){a()}}}
@@ -1268,8 +1209,8 @@ function t(msg) {return msg;}
     <script type="text/javascript" src="http://i2.stay.com/js/stay-20140926124040.js"></script>
 <script type="text/javascript">
 stay.bu='/';
-stay.isGuest=0;
-stay.userID=525517;
+stay.isGuest=1;
+stay.userID=null;
 stay.facebookUserID=null;
 stay.route='venue/view';
 stay.googleAnalyticTrackingCode='UA-15106629-1';
@@ -1286,18 +1227,18 @@ stay.facebookAppID=380677375311765;
     </div>
 </div>
 
-  <div id="ClickTaleDiv" style="display: none;"></div>
-  <script type='text/javascript'>
-  document.write(unescape("%3Cscript%20src='"+
-   (document.location.protocol=='https:'?
-    'https://clicktale.pantherssl.com/':
-    'http://s.clicktale.net/')+
-   "WRb.js'%20type='text/javascript'%3E%3C/script%3E"));
-  </script>
-  <script type="text/javascript">
-  var ClickTaleSSL=1;
-  if(typeof ClickTale=='function') ClickTale(40574,0.1,"www");
-  </script>
+	<div id="ClickTaleDiv" style="display: none;"></div>
+	<script type='text/javascript'>
+	document.write(unescape("%3Cscript%20src='"+
+	 (document.location.protocol=='https:'?
+	  'https://clicktale.pantherssl.com/':
+	  'http://s.clicktale.net/')+
+	 "WRb.js'%20type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	var ClickTaleSSL=1;
+	if(typeof ClickTale=='function') ClickTale(40574,0.1,"www");
+	</script>
 <script type="text/javascript">
 /*<![CDATA[*/
 stay.widgets.inlineGallery.config={"galleryUrl":"\/gallery\/"};
@@ -1306,7 +1247,7 @@ $('#yw0').gallery({'maxWidth':450,'maxHeight':270,'canvasWidth':510,'canvasHeigh
 $('#yw1').gallery({'maxWidth':500,'maxHeight':310,'canvasWidth':500,'canvasHeight':310,'images':[{'url':'http://www.stay.com/img.php?w=0&h=0&c=&f=hotel%2F498%2F6%2F6261372.jpg&sig=09c4e4dc623a987154b5c48be0544f7088257c73','width':'350','height':'350','caption':'Exterior','credits':''},{'url':'http://www.stay.com/img.php?w=0&h=0&c=&f=hotel%2F498%2F6%2F6276453.jpg&sig=c9d4cdf368db61b87365194a66f3b62d44dcdeb6','width':'350','height':'350','caption':'','credits':''},{'url':'http://www.stay.com/img.php?w=0&h=0&c=&f=hotel%2F498%2F6%2F6276454.jpg&sig=d3673f11f29a60618e372ba760ac1f5e3898f381','width':'350','height':'350','caption':'','credits':''},{'url':'http://www.stay.com/img.php?w=0&h=0&c=&f=hotel%2F498%2F6%2F6276450.jpg&sig=de363a69c48b125ea26b56742ba42ded6cafff96','width':'350','height':'350','caption':'','credits':''},{'url':'http://www.stay.com/img.php?w=0&h=0&c=&f=hotel%2F498%2F6%2F6276451.jpg&sig=56b8c935be3986b07db79b0f3f280605c4093c5f','width':'350','height':'350','caption':'','credits':''},{'url':'http://www.stay.com/img.php?w=0&h=0&c=&f=hotel%2F498%2F6%2F6279677.jpg&sig=99b6661a3c2ff30a697b25677b4665ca1ab0fcb4','width':'350','height':'350','caption':'','credits':''},{'url':'http://www.stay.com/img.php?w=0&h=0&c=&f=hotel%2F498%2F6%2F7110424.jpg&sig=d1491422ab2b6f86db35a82cfa5fc432592c14ed','width':'350','height':'350','caption':'','credits':''}]});
 stay.widgets.buildStay.config=[];
 stay.widgets.sideBar.config={"id":"widget-sidebar","marginTop":30,"layout":"images","cityID":"357"};
-stay.widgets.helper.config.tips=[{"selector":".add-venue-button, .restore-visit-button","text":"Click this button to see what Stay.com is all about!","type":"add-venue-buttons","position":"right","active":true},{"selector":".stay-view.owner .button-invite-travellers","text":"Hi, Niko. Travelling with friends? Invite friends to your guide!","type":"invite-travellers-button","position":"right","oneTime":true,"active":true}];
+stay.widgets.helper.config.tips=[{"selector":".add-venue-button, .restore-visit-button","text":"Click this button to see what Stay.com is all about!","type":"add-venue-buttons","position":"right","active":true}];
 stay.widgets.loginSignup.config={"loginUri":"\/login\/","signupUri":"\/signup\/","isHome":false};
 stay.widgets.facebook.config = {"fbconnect":"\/fbconnect\/","fbshare":"\/fbshare\/","fbstatus":"\/fbstatus\/","session":0,"facebookPermissions":["publish_actions","user_location","friends_location","user_status","friends_status","user_hometown","friends_hometown","email"]};
 jQuery(function($) {

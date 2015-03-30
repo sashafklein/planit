@@ -1,9 +1,8 @@
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-<link rel="icon" href="http://c1.tacdn.com/favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="http://e2.tacdn.com/favicon.ico" type="image/x-icon"/>
 <script type='text/javascript'>
 window.onerror = function onErrorFunc(msg, url, line, colno, error) {
 if(!window.ta || !ta.has('ta.js_error_array.processed')) {
@@ -21,9 +20,6 @@ ta.util.error.record(error, 'error post load:: ' + msg, null, {'error_script': u
 }
 };
 </script>
-<script>
-var g_restaurants_horizontal_filters = true;
-</script>
 <script type="text/javascript">
 </script>
 <meta http-equiv="imagetoolbar" content="no"/>
@@ -31,7 +27,7 @@ var g_restaurants_horizontal_filters = true;
 <meta http-equiv="pragma" content="no-cache"/>
 <meta http-equiv="cache-control" content="no-cache,must-revalidate"/>
 <meta http-equiv="expires" content="0"/>
-<meta property="og:image" content="http://c1.tacdn.com/img2/postimg.jpg" height="150px" width="150px"/>
+<meta property="og:image" content="http://e2.tacdn.com/img2/postimg.jpg" height="150px" width="150px"/>
 <meta name="keywords" content="attraction, activity, things to do, advice, attractions, vacation, reviews, travel, Bogota, attractions in Bogota, activities in Bogota, things to do in Bogota"/>
 <meta name="description" content="Explore Bogota with the &quot;3 days in Bogota&quot; Travel Guide on TripAdvisor."/>
 <link rel="alternate" hreflang="en" href="http://www.tripadvisor.com/Guide-g294074-l186-Bogota.html"/>
@@ -86,7 +82,6 @@ var currencySymbol = new Array();
 var cur_prefix = false;
 var cur_postfix = true;
 currencySymbol["USD"] = new Array("$", false);
-currencySymbol["USDS"] = new Array("$", false);
 currencySymbol["GBP"] = new Array("£", false);
 currencySymbol["EUR"] = new Array("€", false);
 currencySymbol["CAD"] = new Array("CAD ", false);
@@ -260,7 +255,7 @@ var JS_coppa_sorry = "We're sorry....";
 var JS_coppa_privacy = "Based on information you submitted, your TripAdvisor account does not meet the requirements of our <a href='/pages/privacy.html'>Privacy Policy</a>.";
 var JS_coppa_deleted = "Your account has been deleted.";
 var JS_close = "Close";
-var JS_close_image = "http://c1.tacdn.com/img2/buttons/closeButton.gif";
+var JS_close_image = "http://e2.tacdn.com/img2/buttons/closeButton.gif";
 var JS_CHANGES_SAVED = "Changes saved";
 var JS_community_on = "Community has been enabled";
 var lang_Close = JS_close;
@@ -278,12 +273,12 @@ var JS_TryAgain   = "Try Again";
 var js_0001 = "Please select at least one vendor from the list."; var js_0002 = "Please choose dates in the future."; var js_0003 = "Please choose a check-out date that is at least one day later than your check-in date."; var js_0004 = "Please choose dates that are less than 330 days away.";   var js_0005 = "Searching for deals ... this may take a few moments"; var js_0006 = "Your selections have not changed."; var js_0010 = "Please click again to open each window or adjust browser settings to disable popup blockers."; var js_0011 = "Update"; var js_0012 = "Show next offer"; var js_0013 = "Please click the \"Check Rates!\" button above to open each window."; var js_0014 = 'Opens one window for each offer. Please disable pop-up blockers.';
 var js_0015 = 'Compare prices';
 var js_invalid_dates_text = "The dates entered are invalid. Please correct your dates and search again."; var js_invalid_dates_text_new = "Please enter dates to check rates"; var js_invalid_dates_text_new2 = "Please enter dates to show prices";
-var qcErrorImage = '<center><img src="http://c1.tacdn.com/img/action_required_blinking.gif" /></center>';
-var selectedHotelName = ""; var cr_loc_vend = 'http://c1.tacdn.com/img2/checkrates/cr.gif';
-var cr_loc_vend_ch = 'http://c1.tacdn.com/img2/checkrates/cr_check.gif';
-var cr_loc_logo = 'http://c1.tacdn.com/img2/checkrates/logo.gif';
-var cd_loc_vend = 'http://c1.tacdn.com/img2/checkrates/cd.png';
-var cd_loc_vend_ch = 'http://c1.tacdn.com/img2/checkrates/cd_check.png';
+var qcErrorImage = '<center><img src="http://e2.tacdn.com/img/action_required_blinking.gif" /></center>';
+var selectedHotelName = ""; var cr_loc_vend = 'http://e2.tacdn.com/img2/checkrates/cr.gif';
+var cr_loc_vend_ch = 'http://e2.tacdn.com/img2/checkrates/cr_check.gif';
+var cr_loc_logo = 'http://e2.tacdn.com/img2/checkrates/logo.gif';
+var cd_loc_vend = 'http://e2.tacdn.com/img2/checkrates/cd.png';
+var cd_loc_vend_ch = 'http://e2.tacdn.com/img2/checkrates/cd_check.png';
 var JS_Any_Date = "Any Date";
 var JS_Update_List = "Update List";
 var sNexusTitleMissing = "The title must be populated";
@@ -306,7 +301,7 @@ overlayLightbox = true;
 }
 var isTakeOver = false;
 var overlayOptions = "";
-var overlayBackupLoc = "1998392";
+var overlayBackupLoc = "";
 var gmapDomain = "maps.google.com";
 var mapChannel = "ta.desktop";
 var bingMapsLang = "en".toLowerCase();
@@ -314,29 +309,35 @@ var bingMapsCountry = "US".toLowerCase();
 var bingMapsBaseUrl = "http://www.bing.com/maps/default.aspx?cc=us&";
 var googleMapsBaseUrl = "http://maps.google.com/?";
 var yandexMapsBaseUrl = "http://maps.yandex.com";
-var serverPool = "X";
+var serverPool = "A";
 var reg_overhaul = true;
 var posLocale = "en_US";
-var cssPhotoViewerAsset = "http://c1.tacdn.com/css2/photos_with_inline_review-v14228436265b.css";
-var cssAlbumViewerAsset = "http://c1.tacdn.com/css2/photo_albums-v1551916261b.css";
-var jsPhotoViewerAsset = 'http://c1.tacdn.com/js3/src/ta/photos/Viewer-v11337368354b.js';
-var jsAlbumViewerAsset = 'http://c1.tacdn.com/js3/album_viewer-c-v13789308581b.js';
-var jsScrollingTabsAsset = 'http://c1.tacdn.com/js3/src/ta/widgets/ScrollingTabs-v11807044525b.js';
-var jsPhotoViewerTALSOAsset = 'http://c1.tacdn.com/js3/src/TALSO-v112862410b.js';
-var jsJWPlayerHelperAsset = 'http://c1.tacdn.com/js3/src/ta/media/jwplayerHelper-v1886582678b.js';
+var cssPhotoViewerAsset = "http://e2.tacdn.com/css2/photos_with_inline_review-v22485729431a.css";
+var cssAlbumViewerAsset = "http://e2.tacdn.com/css2/photo_albums-v24221214201a.css";
+var jsPhotoViewerAsset = 'http://e2.tacdn.com/js3/src/ta/photos/Viewer-v2458056087a.js';
+var jsAlbumViewerAsset = 'http://e2.tacdn.com/js3/album_viewer-c-v22644054670a.js';
+var jsAlbumViewerExtendedAsset = 'http://e2.tacdn.com/js3/album_viewer_extended-c-v21197745189a.js';
+var jsScrollingTabsAsset = 'http://e2.tacdn.com/js3/src/ta/widgets/ScrollingTabs-v22369633560a.js';
+var jsPhotoViewerTALSOAsset = 'http://e2.tacdn.com/js3/src/TALSO-v212862410a.js';
+var jsJWPlayerHelperAsset = 'http://e2.tacdn.com/js3/src/ta/media/player/JwPlayer-v22308722997a.js';
+var taJwplayerVersion6 = true;
+var hasRequiredFlashPlayer = function() {
+return ta.media.JWPlayer.hasRequiredFlashPlayer();
+};
 </script>
 <script type="text/javascript">
 var IS_DEBUG = false;
-var CDNHOST = "http://c1.tacdn.com";
+var CDNHOST = "http://e2.tacdn.com";
 var cdnHost = CDNHOST;
 var MEDIA_HTTP_BASE = "http://media-cdn.tripadvisor.com/media/";
 var POINT_OF_SALE = "en_US";
 </script>
 <script type="text/javascript">
 var VERSION_MAP = {
-"ta-widgets-typeahead.js": "http://c1.tacdn.com/js3/ta-widgets-typeahead-c-v1527536231b.js",
-"ta-media.js": "http://c1.tacdn.com/js3/ta-media-c-v1249854080b.js",
-"ta-mapsv2.js": "http://c1.tacdn.com/js3/ta-mapsv2-google-c-v12104194858b.js"
+"ta-widgets-typeahead.js": "http://e2.tacdn.com/js3/ta-widgets-typeahead-c-v23377417889a.js",
+"ta-media.js": "http://e2.tacdn.com/js3/ta-media-c-v22663976873a.js",
+"ta-overlays.js" : "http://e2.tacdn.com/js3/ta-overlays-c-v21457867509a.js",
+"ta-mapsv2.js": "http://e2.tacdn.com/js3/ta-mapsv2-gmaps3-c-v22146154619a.js"
 };
 </script>
 <script type="text/javascript">
@@ -345,20 +346,20 @@ var modelLocaleCountry = "US";
 var ipCountryId = "191";
 var pageServlet = "Guide";
 var crPageServlet = "Guide";
-var arrowLeft     = "http://c1.tacdn.com/img/saves/saveIconArrowLeft.gif";
-var arrow         = "http://c1.tacdn.com/img/saves/saveIconArrow.gif";
-var example       = "http://c1.tacdn.com/img/saves/saveButtonExample.gif";
-var save          = "http://c1.tacdn.com/img/saves/folderSave.gif";
-var closedSub     = "http://c1.tacdn.com/img/saves/closedForSubfolder.gif";
-var closedFolder  = "http://c1.tacdn.com/img/saves/closedFolder.gif";
-var openFolder    = "http://c1.tacdn.com/img/saves/openFolder.gif";
-var add           = "http://c1.tacdn.com/img/saves/addFolder.gif";
+var arrowLeft     = "http://e2.tacdn.com/img/saves/saveIconArrowLeft.gif";
+var arrow         = "http://e2.tacdn.com/img/saves/saveIconArrow.gif";
+var example       = "http://e2.tacdn.com/img/saves/saveButtonExample.gif";
+var save          = "http://e2.tacdn.com/img/saves/folderSave.gif";
+var closedSub     = "http://e2.tacdn.com/img/saves/closedForSubfolder.gif";
+var closedFolder  = "http://e2.tacdn.com/img/saves/closedFolder.gif";
+var openFolder    = "http://e2.tacdn.com/img/saves/openFolder.gif";
+var add           = "http://e2.tacdn.com/img/saves/addFolder.gif";
 var userLoggedIn = false;
 </script>
 <script type="text/javascript">
 var migrationMember = false;
 var savesEnable = true;
-var savesJS = 'http://c1.tacdn.com/js3/src/saves-v11445131811b.js';
+var savesJS = 'http://e2.tacdn.com/js3/src/saves-v21445131811a.js';
 var flagsUrl = '/Guide-g294074-l186-Bogota.html';
 var noPopClass = "no_cpu";
 var flagsSettings = [
@@ -369,7 +370,7 @@ var isTabletOnFullSite = false;
 var tabletOnFullSite = false;
 var lang_Close  = "Close";
 var isSmartdealBlueChevron = false;
-var img_loop    = "http://c1.tacdn.com/img2/generic/site/loop.gif";
+var img_loop    = "http://e2.tacdn.com/img2/generic/site/loop.gif";
 var communityEnabled = true
 var footerFlagFormat = "";
 var modelLocId = "294074";
@@ -377,36 +378,44 @@ var modelGeoId = "294074";
 var gClient = 'gme-tripadvisorinc';
 var gKey = '';
 var gLang = '&language=en_US';
-var mapsJs = 'http://c1.tacdn.com/js3/ta-maps-bing-c-v12623142560b.js';
-var mapsJsLite = 'http://c1.tacdn.com/js3/lib/TAMap-v12716202300b.js';
-var memoverlayCSS = 'http://c1.tacdn.com/css2/pages/memberoverlay-v13754600100b.css';
-var flagsFlyoutCSS = 'http://c1.tacdn.com/css2/overlays/flags/flags_flyout-v12881239891b.css';
-var globalCurrencyPickerCSS = 'http://c1.tacdn.com/css2/overlays/global_currency_picker-v13493039252b.css';
-var emailHotelCSS = 'http://c1.tacdn.com/css2/t4b/emailhotel-v11656377253b.css';
-var passportStampsCSS = 'http://c1.tacdn.com/css2/modules/passport_stamps-v11996473260b.css';
-var autocompleteCss = "http://c1.tacdn.com/css2/modules/autocomplete-v12296357173b.css";
-var globalTypeAheadCss = "http://c1.tacdn.com/css2/global_typeahead-v14254495351b.css";
+var mapsJs = 'http://e2.tacdn.com/js3/ta-maps-gmaps3-c-v21458469306a.js';
+var mapsJsLite = 'http://e2.tacdn.com/js3/lib/TAMap-v22716202300a.js';
+var memoverlayCSS = 'http://e2.tacdn.com/css2/pages/memberoverlay-v23754600100a.css';
+var flagsFlyoutCSS = 'http://e2.tacdn.com/css2/overlays/flags/flags_flyout-v22881239891a.css';
+var globalCurrencyPickerCSS = 'http://e2.tacdn.com/css2/overlays/global_currency_picker-v23493039252a.css';
+var emailHotelCSS = 'http://e2.tacdn.com/css2/t4b/emailhotel-v21656377253a.css';
+var passportStampsCSS = 'http://e2.tacdn.com/css2/modules/passport_stamps-v21996473260a.css';
+var autocompleteCss = "http://e2.tacdn.com/css2/modules/autocomplete-v22296357173a.css";
+var globalTypeAheadCss = "http://e2.tacdn.com/css2/global_typeahead-v21035445771a.css";
+var globalTypeAheadFontCss = "http://e2.tacdn.com/css2/proxima_nova-v2717956579a.css";
 var wiFriHasMember =  false  ;
-var JS_SECURITY_TOKEN = "AAABSXfNl/weRF3cvOMP822ob7cYGNfbrElXAA==";
+var JS_SECURITY_TOKEN = "AAABTF3O0WEiI4T8Pav+0gYSqQxjijmEtcxm+g==";
 var addOverlayCloseClass = "";
 var isOverlayServlet = "";
 var IS_OVERLAY_DEBUG = "false";
+var IS_MTPU_ENABLED = true;
+var MTPU_RULE = 611;
+var cpu_enabled = true;
 </script>
 <script type="text/javascript">
 var freshVSTrackingCookie = true;         </script>
-<script type='text/javascript' crossorigin='anonymous' src='http://c1.tacdn.com/js3/tripadvisor-c-v11168179723b.js'></script>
-<script type="text/javascript">var taSecureToken = "AAABSXfNl/weRF3cvOMP822ob7cYGNfbrElXAA==";</script>
+<script type='text/javascript' crossorigin='anonymous' src='http://e2.tacdn.com/js3/tripadvisor-c-v23245005839a.js'></script>
+<script type="text/javascript">var taSecureToken = "AAABTF3O0WEiI4T8Pav+0gYSqQxjijmEtcxm+g==";</script>
+<script type="text/javascript">
+if(window.ta && ta.store) {
+ta.store('photo.viewer.localization.videoError', 'We\'re sorry, video player could not load');     }
+</script>
 <script type="text/javascript">
 var geoParam = "&geo=294074";
 </script>
-<script type="text/javascript" src='http://c1.tacdn.com/js3/guide-detail-c-v13003449751b.js' crossorigin='anonymous'></script>
-<script type="text/javascript" src='http://c1.tacdn.com/js3/ta-maps-bing-c-v12623142560b.js' crossorigin='anonymous'></script>
-<link rel='stylesheet' type='text/css' media='screen, print' href='http://c1.tacdn.com/css2/guide_2col-v13361492961b.css'/>
+<script type="text/javascript" src='http://e2.tacdn.com/js3/guide-detail-c-v23737581046a.js' crossorigin='anonymous'></script>
+<script type="text/javascript" src='http://e2.tacdn.com/js3/ta-maps-gmaps3-c-v21458469306a.js' crossorigin='anonymous'></script>
+<link rel='stylesheet' type='text/css' media='screen, print' href='http://e2.tacdn.com/css2/guide_2col-v22045147711a.css'/>
 <!--[if IE 6]>
-    <link rel="stylesheet" type="text/css" media="screen, print" href="http://c1.tacdn.com/css2/winIE6-v1505479179b.css" />
+    <link rel="stylesheet" type="text/css" media="screen, print" href="http://e2.tacdn.com/css2/winIE6-v2505479179a.css" />
         <![endif]-->
 <!--[if IE 7]>
-    <link rel="stylesheet" type="text/css" media="screen, print" href="http://c1.tacdn.com/css2/winIE7-v1966741195b.css" />
+    <link rel="stylesheet" type="text/css" media="screen, print" href="http://e2.tacdn.com/css2/winIE7-v2966741195a.css" />
         <![endif]-->
 <style type="text/css">
 body{}
@@ -438,24 +447,11 @@ body{}
 @media all and (min-width: 983px) {
 #GUTTER_CONTAINER{ overflow-x: hidden; }
 }
-#HEAD .lsJewelCounter {
-background: url("http://c1.tacdn.com/img2/social/livestream/jewel-icon-lrg.png") no-repeat center center;
-background-size: cover;
-position: absolute;
-top: 0px;
-right: -7px;
-height: 16px;
-width: 16px;
-line-height: 15px;
-text-align: center;
-font-size: 0.8335em;
-font-weight: bold;
-}
 </style>
-<!-- web40b.b.tripadvisor.com -->
+<!-- web648a.a.tripadvisor.com -->
 <!-- PRODUCTION -->
 <!-- PRODUCTION -->
-<script type="text/javascript" src="http://c1.tacdn.com/js3/src/trsupp-v14291363200b.js"></script>
+<script type="text/javascript" src="http://e2.tacdn.com/js3/src/trsupp-v24291363200a.js"></script>
 </head>
 <body class="ltr domn_en_US lang_en globalNav2011_reset" data-navArea-metaType="QC_Meta_Mini" data-navArea-placement="Unknown">
 <div id="fb-root"></div>
@@ -470,6 +466,21 @@ SV_DEFAULT_FOLDER_NAME = "My Trip";
 SV_IS_POPUP = 0;
 }
 </script>
+<div class="unsupportedBrowser" style="width:973px; margin:0 auto 20px; padding:5px; background-color:#ffe5a5; font-size:.75em;">
+<div style="padding:6px 0 8px 79px;background: url(http://e2.tacdn.com/img2/icons/64/bv_alert.gif) 12px 2px no-repeat;line-height:167.5%;">
+<span>
+<b>We noticed that you're using an unsupported browser. The TripAdvisor website may not display properly.</b><br/> We support the following browsers:
+</span>
+<span dir="ltr">
+<b>Windows:</b>
+<span class="taLnk" onClick="ta.util.ASDF.asdfPopup('PFaSnEitiTI8LuSCMiutLSVLMVTJpcIzv')">Internet Explorer</span>,
+<span class="taLnk" onClick="ta.util.ASDF.asdfPopup('PFaizCSccJ8LTSEVTixEL')">Mozilla Firefox</span>,
+<span class="taLnk" onClick="ta.util.ASDF.asdfPopup('q5FyiiycV8LnGEiaV')">Google Chrome</span>.
+<b>Mac:</b>
+<span class="taLnk" onClick="ta.util.ASDF.asdfPopup('PFJ22cV8LtJTJESL')">Safari</span>.
+</span>
+</div>
+</div>
 <div id="iframediv"></div>
 <div id="PAGE" class=" non_hotels_like desktop">
 <div id="HEAD" class="">
@@ -477,14 +488,14 @@ SV_IS_POPUP = 0;
 <div class="container">
 <div class="brandArea">
 <span class="topLogo">
-<a class="logoWrap" onClick="setPID(5045);" href="/"><img class="svg-taLogo" src="http://c1.tacdn.com/img2/branding/trip_logo.svg" width="197" height="35" alt="Reviews of Hotels, Flights and Vacation Rentals"/></a>
+<a class="logoWrap" onClick="setPID(5045);ta.setEvtCookie('TopNav', 'click', 'TAlogo', 0, this.href);" href="/"><img class="svg-taLogo" src="http://e2.tacdn.com/img2/branding/trip_logo.svg" width="197" height="35" alt="Reviews of Hotels, Flights and Vacation Rentals"/></a>
 </span>
 <h1 class="header   ">Travel Guide for Bogota</h1>
 </div>
 <div id="USER_PREFS" class="prfs">
 <ul>
-<li id="register" onclick="ta.util.cookie.setPIDCookie(427);ta.store('registration.ga_module', 'Masthead');  return ta.registration.register({product: 'MASTHEAD', action: 'SIGNUP', data: function () { return { pid: 427 }; } } ); "><span class="link">JOIN</span></li>
-<li class="login" onclick="ta.util.cookie.setPIDCookie(429);ta.store('registration.ga_module', 'Masthead'); return ta.registration.register({product: 'MASTHEAD', data: function () { return { pid: 429 }; } } ); "><span class="link">LOG IN</span></li>
+<li id="register" onclick="ta.setEvtCookie('TopNav', 'open', 'Join', 0, '/Register');ta.util.cookie.setPIDCookie(427);ta.store('registration.ga_module', 'Masthead');  return ta.registration.register({product: 'MASTHEAD', action: 'SIGNUP', data: function () { return { pid: 427 }; } } ); "><span class="link no_cpu">JOIN</span></li>
+<li class="login" onclick="ta.setEvtCookie('TopNav', 'open', 'Login', 0, '/Register');ta.util.cookie.setPIDCookie(429);ta.store('registration.ga_module', 'Masthead'); return ta.registration.register({product: 'MASTHEAD', data: function () { return { pid: 429 }; } } ); "><span class="link no_cpu">LOG IN</span></li>
 <li>
 <span class="link">
 <div class="sprite-facebook15x15 taLnk hvrIE6  no_cpu " style="" onclick=" ta.store('facebook.trackingpid',1882);  ta.call('ta.support.Facebook.loginButton', event, this);">&nbsp;</div>
@@ -493,15 +504,15 @@ SV_IS_POPUP = 0;
 <li id="CURRENCYPOP" class="optitem link" onclick="ta.call('ta.overlays.Factory.currencyPickerPopup', event, this, 'Unknown')">
 <span class="link">
 USD
-<img src="http://c1.tacdn.com/img2/x.gif" class="sprite-arrow_dropdown_gry_refresh" alt="" width="9" height="7">
+<img src="http://e2.tacdn.com/img2/x.gif" class="sprite-arrow_dropdown_gry_refresh" alt="" width="9" height="7">
 </span>
 </span>
 </li>
 <script type='text/javascript'> ta.store('flag_flyout_link_fixing.featureEnabled', 'false'); </script>
 <li id="INTLPOP" class=" no_cpu " onclick="ta.call('ta.overlays.Factory.intlPopup', event, this)">
 <span class="link">
-<img class="sprite-flag flag" src="http://c1.tacdn.com/img2/x.gif" alt="International Sites" title="International Sites">
-<img src="http://c1.tacdn.com/img2/x.gif" class="sprite-arrow_dropdown_gry_refresh" alt="" width="9" height="7">
+<img class="flag" src="http://e2.tacdn.com/img2/flags/flag.gif" alt="International Sites" title="International Sites" width="16" height="11">
+<img src="http://e2.tacdn.com/img2/x.gif" class="sprite-arrow_dropdown_gry_refresh" alt="" width="9" height="7">
 </span>
 </li>
 </ul> </div>
@@ -510,7 +521,7 @@ USD
 <ul class="tabs" onclick="">
 <li class="tabItem dropDown jsNavMenu hvrIE6" onmouseenter="ta.call('ta.overlays.Factory.createEmptyOverlay', event, this, false)">
 <a href="/Tourism-g294074-Bogota-Vacations.html" class="tabLink arwLink geoLink" onclick="ta.util.cookie.setPIDCookie(4964); ta.setEvtCookie('TopNav', 'click', 'Tourism', 0, this.href)">
-<span class="geoName">Bogota</span><img class="arrow_dropdown_wht sprite-arrow_dropdown_wht_refresh" src="http://c1.tacdn.com/img2/x.gif" alt="" width="9" height="7">
+<span class="geoName">Bogota</span><img class="arrow_dropdown_wht sprite-arrow_dropdown_wht_refresh" src="http://e2.tacdn.com/img2/x.gif" alt="" width="9" height="7">
 </a>
 <ul class="subNav">
 <li class="subItem">
@@ -586,37 +597,11 @@ Things to Do
 </a>
 </li>
 <li class="tabItem  hvrIE6"><a onclick="ta.setEvtCookie('TopNav', 'click', 'TravelersChoice', 0, this.href)" href="/TravelersChoice" class="tabLink  pid5087">
-Best of 2014
-</a>
-</li>
-<li class="tabItem  hvrIE6"><a onclick="ta.setEvtCookie('TopNav', 'click', 'Trending', 0, this.href)" href="/Trending-g294074-t0-Bogota.html" class="tabLink  pid34887">
-Trending Now<div id="LS_JEWEL" class="lsJewelCounter hidden"></div>
-<script type='text/javascript'>
-ta.queueForLoad(function () {
-function tabPoissonRandomDelay(lambda) {
-return -Math.log(Math.random())*lambda;
-}
-var tabFakeJewelCount = 0;
-var tabIncreaseFakeJewelCounter = function() {
-var bodyDiv = ta.id('HEAD');
-if (bodyDiv) {
-var jewelCounterDiv = bodyDiv.getElement('.lsJewelCounter');
-if (jewelCounterDiv) {
-jewelCounterDiv.removeClass('hidden');
-jewelCounterDiv.set('html',++tabFakeJewelCount);
-}
-}
-if (tabFakeJewelCount<99) {
-setTimeout(tabIncreaseFakeJewelCounter,tabPoissonRandomDelay(6000));
-}
-};
-setTimeout(tabIncreaseFakeJewelCounter,tabPoissonRandomDelay(6000));
-});
-</script>
+Best of 2015
 </a>
 </li>
 <li class="tabItem dropDown jsNavMenu hvrIE6 ">
-<span class="tabLink arwLink"><span class="arrow_text">More</span><img class="arrow_dropdown_wht sprite-arrow_dropdown_wht_refresh" src="http://c1.tacdn.com/img2/x.gif" alt="" width="9" height="7"></span>
+<span class="tabLink arwLink"><span class="arrow_text">More</span><img class="arrow_dropdown_wht sprite-arrow_dropdown_wht_refresh" src="http://e2.tacdn.com/img2/x.gif" alt="" width="9" height="7"></span>
 <ul class="subNav">
 <li class="subItem ">
 <a href="/Travel_Guide-g294074-Bogota.html" onclick="ta.setEvtCookie('TopNav', 'click', 'TravelGuides', 0, this.href)" class="subLink pid16158">Travel Guides
@@ -651,15 +636,15 @@ Write a Review <div id="WAR_NOTIFICATION_FLAG" class="lsJewelCounter">
 1+
 </div>
 </span>
-<img class="arrow_dropdown_wht sprite-arrow_dropdown_wht_refresh" src="http://c1.tacdn.com/img2/x.gif" alt="" width="9" height="7">
+<img class="arrow_dropdown_wht sprite-arrow_dropdown_wht_refresh" src="http://e2.tacdn.com/img2/x.gif" alt="" width="9" height="7">
 </span>
 <div class="subNav">
 <div id="WAR_TO_DO_LIST">
 <div id="WAR_ANOTHER_POI" class="warAnotherPOI">
-<div class="warLoc subItem" onclick="ta.setEvtCookie('WAR', 'WAR_PROJECT_GLOBAL_NAV_DROP_DOWN', 'PICK_ANOTHER_POI', '', '/UserReviewRedesign');location.href='https://www.tripadvisor.com/UserReview-e__2F__Guide__2D__g294074__2D__l186__2D__Bogota__2E__html'">
+<div class="warLoc subItem" onclick="ta.setEvtCookie('WAR', 'WAR_PROJECT_GLOBAL_NAV_DROP_DOWN', 'PICK_ANOTHER_POI', '39392', '/UserReviewRedesign');ta.util.cookie.setPIDCookie(39392);location.href='https://www.tripadvisor.com/UserReview-e__2F__Guide__2D__g294074__2D__l186__2D__Bogota__2E__html'">
 <div class="warLocImg">
 <div class="nophoto thumbNail">
-<img id='lazyload_1745057941_0' class='lodge'/>
+<img id='lazyload_1103313192_0' class='lodge' src='http://e2.tacdn.com/img2/x.gif'/>
 </div>
 </div>
 <div class="warLocDetail">
@@ -669,7 +654,7 @@ Review a place you’ve visited </span>
 </div>
 </div>
 <div id="WAR_TODO_LOADING">
-<img src="http://c1.tacdn.com/img2/spinner.gif"/>
+<img src="http://e2.tacdn.com/img2/spinner.gif"/>
 </div>
 </div>
 </div>
@@ -678,28 +663,66 @@ Review a place you’ve visited </span>
 </ul> </div>
 <script>ta.common.header.createNavMenu(ta.select('.jsNavMenu'));</script>
 </div> </div>
-<div class="secondaryNavBar ">
+<div id="SECONDARY_NAV_BAR" class="secondaryNavBar ">
 <div class="crumbs dark">
 <script type='text/javascript'>
 ta.store('typeahead_closed_label', 'CLOSED'); // CLOSED
+ta.store('typeahead_moved_label', 'MOVED'); // MOVED
+ta.store('typeahead.scoped.all_of_trip', 'All of TripAdvisor');
+var get_scoped_typeahead = function(evt){
+var scopedSearch = ta.retrieve('ta_scoped_typeahead_search');
+if(scopedSearch){
+return scopedSearch;
+}
+var scopedSearch = ta.call('ta.common.header.createScopedSearch', evt, this, options={geoID:'294074',
+enableProximaNova:false,
+bypassSearch:false});
+if(!scopedSearch) {
+return;         }
+scopedSearch.setGeoInfo(294074, 'Bogota', 'Colombia, South America', {
+GEO:{url:'/Tourism-g294074-Bogota-Vacations.html'},
+HOTEL:{url:'/Hotels-g294074-Bogota-Hotels.html'},
+VACATION_RENTAL:{url:'/VacationRentals-g294074-Reviews-Bogota-Vacation_Rentals.html'},
+ATTRACTION:{url:'/Attractions-g294074-Activities-Bogota.html'},
+EATERY:{url:'/Restaurants-g294074-Bogota.html'},
+FLIGHTS_TO:{url:'/Flights-g294074-Bogota-Cheap_Discount_Airfares.html'}});
+scopedSearch.saveGeoInfo();
+return scopedSearch;
+}
 </script>
 <div class="searchSpacer searchSpacerWide"></div>
 <div class="globalSearch">
 <div class="fader"></div>
 <div class="navSrch  no_cpu ">
 <form method="get" action="/Search" onsubmit="return ta.call('ta.common.search.recordAndValidate', event)" id="global_nav_search_form">
-<input id="mainSearch" type="text" name="q" class="text searchInputWide   autocomplete="off"               onfocus="if (ta && ta.common) { ta.call('ta.common.header.createTypeAhead', event, this, 'API', '294074', {showHistory:true, integrateHistory:true, focusAction:'history', doExpansion: false, minChars:3, defaultValue:'Search for a city, hotel, etc.'}); }"
-               onkeyup="if (ta && (event.keyCode || event.which)=== 13) ta.trackEventOnPage('Masthead_Search', 'click', 'Enter', 0)"
-                              value="Search for a city, hotel, etc.">
-<input class="sprite-search_mag_glass" type="image" src="http://c1.tacdn.com/img2/x.gif" onclick="ta.trackEventOnPage('Masthead_Search', 'click', 'Button', 0); if (event.clientY) { ta.id('global_nav_search_form').elements['pid'].value=3825; }" name="sub-search">
-<input type="hidden" name="geo" value="294074">
+<span id="MAIN_SEARCH_CONTAINER" class="mainSearchContainer">
+<input id="mainSearch" type="text" name="q" class="text searchInputWide  focusClear" autocomplete="off" onBlur="if(this.value.trim() == ''){
+                            this.addClass('focusClear');
+                         }" onfocus="if (ta && ta.common) {
+                 ta.removeClass(this, 'focusClear');
+                                                       ta.trackEventOnPage('TopNav_search', 'focus', '');
+
+                                      
+                                      
+                                        ta.call('ta.common.header.createTypeAhead', event, this, '294074', {showHistory:true, integrateHistory:true,
+                                                                                                 focusAction:'history', doExpansion: false,
+                                                                                                 minChars:3, defaultValue:'Search for a city, hotel, etc.',
+                                                                                                 nextField:false, injectNeighborhoods:false});
+                                                     }" onkeydown="if (ta && (event.keyCode || event.which) === 13){ta.setEvtCookie('TopNav_Search', 'Action', 'Hit_Enter_toSRP', 0, '/Search');}" value="Search for a city, hotel, etc.">
+</span>
+<input id="SEARCH_BUTTON" class="sprite-search_mag_glass" type="image" src="http://e2.tacdn.com/img2/x.gif" onclick=" if (event.clientY) { ta.id('global_nav_search_form').elements['pid'].value=3825; };ta.setEvtCookie('TopNav_Search', 'Action', 'Selected_magnifying_glass_toSRP', 0, '/Search');" name="sub-search">
+<input id="TYPEAHEAD_GEO_ID" type="hidden" name="geo" value="294074">
 <input type="hidden" name="pid" value="3826">
+<input id="TYPEAHEAD_REDIRECT" type="hidden" name="redirect" value="false">
+<input id="TYPEAHEAD_REDIRECT_TYPE" type="hidden" name="type" value="">
 <input type="hidden" name="returnTo" value="__2F__Guide__2D__g294074__2D__l186__2D__Bogota__2E__html">
 </form>
 </div>
 </div>
-<ul class="breadcrumbs">
-<li><a href="/Tourism-g13-South_America-Vacations.html" onclick="ta.setEvtCookie('Breadcrumbs', 'click', 'Continent', 1, this.href); ">South America</a><img src="http://c1.tacdn.com/img2/x.gif" class="separator sprite-arrow_green_right" alt=""></li> <li><a href="/Tourism-g294073-Colombia-Vacations.html" onclick="ta.setEvtCookie('Breadcrumbs', 'click', 'Country', 2, this.href); ">Colombia</a><img src="http://c1.tacdn.com/img2/x.gif" class="separator sprite-arrow_green_right" alt=""></li> <li><a href="/Tourism-g294074-Bogota-Vacations.html" onclick="ta.setEvtCookie('Breadcrumbs', 'click', 'City', 3, this.href); ">Bogota</a><img src="http://c1.tacdn.com/img2/x.gif" class="separator sprite-arrow_green_right" alt=""></li> <li><a href="/Travel_Guide-g294074-Bogota.html" onclick="ta.setEvtCookie('Breadcrumbs', 'click', '', 4, this.href); ">Trip Ideas</a></li> </ul>
+<div class="breadCrumbContainer">
+<ul class="breadcrumbs" id="BREADCRUMBS">
+<li><a href="/Tourism-g13-South_America-Vacations.html" onclick="ta.setEvtCookie('Breadcrumbs', 'click', 'Continent', 1, this.href); ">South America</a><span class="separator"><img src='http://e2.tacdn.com/img2/x.gif' class='sprite-arrow_green_right' alt=''></span></li> <li><a href="/Tourism-g294073-Colombia-Vacations.html" onclick="ta.setEvtCookie('Breadcrumbs', 'click', 'Country', 2, this.href); ">Colombia</a><span class="separator"><img src='http://e2.tacdn.com/img2/x.gif' class='sprite-arrow_green_right' alt=''></span></li> <li><a href="/Tourism-g294074-Bogota-Vacations.html" onclick="ta.setEvtCookie('Breadcrumbs', 'click', 'City', 3, this.href); ">Bogota</a><span class="separator"><img src='http://e2.tacdn.com/img2/x.gif' class='sprite-arrow_green_right' alt=''></span></li> <li><a href="/Travel_Guide-g294074-Bogota.html" onclick="ta.setEvtCookie('Breadcrumbs', 'click', '', 4, this.href); ">Trip Ideas</a></li> </ul>
+</div>
 </div>
 <div class="easyClear"></div>
 </div>
@@ -707,20 +730,19 @@ ta.store('typeahead_closed_label', 'CLOSED'); // CLOSED
 <div id="MAIN" class="Guide
              prodp13n_jfy_beta_ribbon_overflow_visible
         " rel="v:itemreviewed">
-<div id="BODYCON" class="col poolX adjust_padding new_meta_chevron_v2" typeof="v:Organization">
+<div id="BODYCON" class="col poolA adjust_padding new_meta_chevron_v2" typeof="v:Organization">
 <div class="wrpHeader">
 </div>
 <div id="GUIDE_DETAIL" class="gridA">
 <div class="col balance">
-<div id="HEADING_GROUP" class=" ">
+<div id="HEADING_GROUP" class="  ">
 <div id="headingWrapper" class="headerNoSaves jfy_beta " style="">
 <h1 id="HEADING" rel="v:name">
 3 days in Bogota
 </h1>
-<span id="jfy_beta" class="hidden">BETA</span>
 </div>
 <div class="guideSubHeader">
-<img src="http://c1.tacdn.com/img2/icons/Printer.gif" class="printButton" onclick="window.print(); return false;" alt="Print this guide">
+<img src="http://e2.tacdn.com/img2/icons/Printer.gif" class="printButton" onclick="window.print(); return false;" alt="Print this guide">
 Created by Andrea Guthmann </div>
 </div>
 <div class="guideOverview wrap">
@@ -731,10 +753,10 @@ A tour of the best things to do in a weekend in Bogota. This tour includes lots 
 </div>
 <div class="goodfor"><strong>Good for:</strong> Families, Groups, Seniors, Individuals </div> <div class="seasons"><strong>Seasons:</strong> Spring, Summer, Fall, Winter </div>
 <div class="guiderating wrap">
-<span class="rate rate_no no40">
-<img class="sprite-ratings" src="http://c1.tacdn.com/img2/x.gif" alt="10 ratings">
+<span class="rate rate_no no35">
+<img class="sprite-ratings" src="http://e2.tacdn.com/img2/x.gif" alt="11 ratings">
 </span>
-<span class="ratingcount"> 10 ratings </span>
+<span class="ratingcount"> 11 ratings </span>
 </div>
 <div class="feedback">
 <a rel="nofollow" href="mailto:guidefeedback@tripadvisor.com?subject=Feedback on Local Guide 3 days in Bogota">Send feedback on this guide</a> </div>
@@ -742,7 +764,7 @@ A tour of the best things to do in a weekend in Bogota. This tour includes lots 
 </div>
 <h5>Day 1</h5> <div id="guide_550644" class="guideItem listing">
 <a class="guideItemImage" href="/Attraction_Review-g294074-d550644-Reviews-La_Candelaria-Bogota.html">
-<div class="sizedThumb  " style="height: 150px; width: 150px">
+<div class="sizedThumb  " style="height: 150px; width: 150px; ">
 <img src="http://media-cdn.tripadvisor.com/media/photo-l/01/2a/47/e0/plaza-de-bolivar.jpg" class="photo_image" style="height: 150px; width: 150px;" alt="La Candelaria" width="150" height="150"/>
 </div>
 </a>
@@ -755,7 +777,7 @@ A tour of the best things to do in a weekend in Bogota. This tour includes lots 
 <span class="sprite-gradient1x32_grn gradient">
 <span class="saveText">
 <span class="saves-hover-txt">Add to trip</span>
-<span class="saves-hover-txt-saved">Added to trip</span>
+<span class="saves-hover-txt-saved hidden">Added to trip</span>
 </span>
 </span>
 <span class="savesRibbonEnd"></span>
@@ -779,7 +801,7 @@ A tour of the best things to do in a weekend in Bogota. This tour includes lots 
 </div>
 <script type="text/javascript">
 ta.queueForLoad( function() {
-new Asset.css("http://c1.tacdn.com/css2/saves-v1472974706b.css");
+new Asset.css("http://e2.tacdn.com/css2/saves-v2329828043a.css");
 //Ok, it'll be loaded,
 ta.store('savesHoverAddedJS', true);
 //Let's refresh to make sure button states are right,
@@ -803,9 +825,9 @@ ta.widgets.SavesButtons.refresh();
 <a href="/Attraction_Review-g294074-d550644-Reviews-La_Candelaria-Bogota.html" class="titleLink">La Candelaria</a>
 <div class="attractionRating">
 <span class="rate rate_s s45">
-<img class="sprite-ratings" src="http://c1.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
+<img class="sprite-ratings" src="http://e2.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
 </span>
-<a href="/Attraction_Review-g294074-d550644-Reviews-La_Candelaria-Bogota.html#REVIEWS">1,314 Reviews</a> </div>
+<a href="/Attraction_Review-g294074-d550644-Reviews-La_Candelaria-Bogota.html#REVIEWS">1,694 Reviews</a> </div>
 <p id="shortDesc_550644"> A lively neighborhood section of the city that features small shops and ancient churches. The neighborhood includes a number of attractions including The Plaza de Bolivar, The Bogota Cathedral. The Gold Museum, The Fundacion Botero, The Religious Art Museum, The Coin House, The Library Luis Angel Arango.
 </p>
 <div class="attractionExtras">
@@ -815,13 +837,13 @@ ta.widgets.SavesButtons.refresh();
 </div>
 <div id="holder_550644" class="holder"></div>
 <div id="nearbyPromo_550644" class="nearbyPromo">
-<span class="taLnk openText attr_550644" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://c1.tacdn.com/img2/x.gif" alt=""/>
+<span class="taLnk openText attr_550644" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://e2.tacdn.com/img2/x.gif" alt=""/>
 </div>
 </div>
 </div>
 <div id="guide_532210" class="guideItem listing">
 <a class="guideItemImage" href="/Attraction_Review-g294074-d532210-Reviews-Gold_Museum_Museo_del_Oro-Bogota.html">
-<div class="sizedThumb  " style="height: 150px; width: 150px">
+<div class="sizedThumb  " style="height: 150px; width: 150px; ">
 <img src="http://media-cdn.tripadvisor.com/media/photo-l/01/35/3b/fe/gold-museum-museo-de.jpg" class="photo_image" style="height: 150px; width: 150px;" alt="Gold Museum (Museo del Oro)" width="150" height="150"/>
 </div>
 </a>
@@ -834,7 +856,7 @@ ta.widgets.SavesButtons.refresh();
 <span class="sprite-gradient1x32_grn gradient">
 <span class="saveText">
 <span class="saves-hover-txt">Add to trip</span>
-<span class="saves-hover-txt-saved">Added to trip</span>
+<span class="saves-hover-txt-saved hidden">Added to trip</span>
 </span>
 </span>
 <span class="savesRibbonEnd"></span>
@@ -859,9 +881,9 @@ ta.widgets.SavesButtons.refresh();
 <a href="/Attraction_Review-g294074-d532210-Reviews-Gold_Museum_Museo_del_Oro-Bogota.html" class="titleLink">Gold Museum (Museo del Oro)</a>
 <div class="attractionRating">
 <span class="rate rate_s s45">
-<img class="sprite-ratings" src="http://c1.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
+<img class="sprite-ratings" src="http://e2.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
 </span>
-<a href="/Attraction_Review-g294074-d532210-Reviews-Gold_Museum_Museo_del_Oro-Bogota.html#REVIEWS">2,941 Reviews</a> </div>
+<a href="/Attraction_Review-g294074-d532210-Reviews-Gold_Museum_Museo_del_Oro-Bogota.html#REVIEWS">3,824 Reviews</a> </div>
 <p id="shortDesc_532210"> The Banco de la República Gold Museum houses one of the most important collections of pre-Hispanic metallurgy in the world. As its history, which dates back to 1939, has unfolded, so this institution has become a symbol of Colombia's cultural memory. Its golden exhibition, fully renewed in November, 2008, is a place you cannot miss in your next trip to Bogota.
 </p>
 <div class="attractionExtras">
@@ -871,13 +893,13 @@ ta.widgets.SavesButtons.refresh();
 </div>
 <div id="holder_532210" class="holder"></div>
 <div id="nearbyPromo_532210" class="nearbyPromo">
-<span class="taLnk openText attr_532210" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://c1.tacdn.com/img2/x.gif" alt=""/>
+<span class="taLnk openText attr_532210" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://e2.tacdn.com/img2/x.gif" alt=""/>
 </div>
 </div>
 </div>
 <div id="guide_531644" class="guideItem listing">
 <a class="guideItemImage" href="/Attraction_Review-g294074-d531644-Reviews-Museo_Nacional-Bogota.html">
-<div class="sizedThumb  " style="height: 150px; width: 150px">
+<div class="sizedThumb  " style="height: 150px; width: 150px; ">
 <img src="http://media-cdn.tripadvisor.com/media/photo-l/01/41/35/3a/museo-nacional-en-bogota.jpg" class="photo_image" style="height: 150px; width: 150px;" alt="Museo Nacional" width="150" height="150"/>
 </div>
 </a>
@@ -890,7 +912,7 @@ ta.widgets.SavesButtons.refresh();
 <span class="sprite-gradient1x32_grn gradient">
 <span class="saveText">
 <span class="saves-hover-txt">Add to trip</span>
-<span class="saves-hover-txt-saved">Added to trip</span>
+<span class="saves-hover-txt-saved hidden">Added to trip</span>
 </span>
 </span>
 <span class="savesRibbonEnd"></span>
@@ -915,9 +937,9 @@ ta.widgets.SavesButtons.refresh();
 <a href="/Attraction_Review-g294074-d531644-Reviews-Museo_Nacional-Bogota.html" class="titleLink">Museo Nacional</a>
 <div class="attractionRating">
 <span class="rate rate_s s45">
-<img class="sprite-ratings" src="http://c1.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
+<img class="sprite-ratings" src="http://e2.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
 </span>
-<a href="/Attraction_Review-g294074-d531644-Reviews-Museo_Nacional-Bogota.html#REVIEWS">315 Reviews</a> </div>
+<a href="/Attraction_Review-g294074-d531644-Reviews-Museo_Nacional-Bogota.html#REVIEWS">407 Reviews</a> </div>
 <p id="shortDesc_531644"> Colombia's oldest museum holds a vast collection of archeological artifacts, as well as modern art. The building itself is interesting—it's a former prison and many of the galleries are inside former prison cells.
 </p>
 <div class="attractionExtras">
@@ -927,13 +949,13 @@ ta.widgets.SavesButtons.refresh();
 </div>
 <div id="holder_531644" class="holder"></div>
 <div id="nearbyPromo_531644" class="nearbyPromo">
-<span class="taLnk openText attr_531644" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://c1.tacdn.com/img2/x.gif" alt=""/>
+<span class="taLnk openText attr_531644" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://e2.tacdn.com/img2/x.gif" alt=""/>
 </div>
 </div>
 </div>
 <h5>Day 2</h5> <div id="guide_552767" class="guideItem listing">
 <a class="guideItemImage" href="/Attraction_Review-g294074-d552767-Reviews-Mount_Monserrate-Bogota.html">
-<div class="sizedThumb  " style="height: 150px; width: 150px">
+<div class="sizedThumb  " style="height: 150px; width: 150px; ">
 <img src="http://media-cdn.tripadvisor.com/media/photo-l/01/07/be/0f/view-from-the-funicular.jpg" class="photo_image" style="height: 150px; width: 150px;" alt="Mount Monserrate" width="150" height="150"/>
 </div>
 </a>
@@ -946,7 +968,7 @@ ta.widgets.SavesButtons.refresh();
 <span class="sprite-gradient1x32_grn gradient">
 <span class="saveText">
 <span class="saves-hover-txt">Add to trip</span>
-<span class="saves-hover-txt-saved">Added to trip</span>
+<span class="saves-hover-txt-saved hidden">Added to trip</span>
 </span>
 </span>
 <span class="savesRibbonEnd"></span>
@@ -971,9 +993,9 @@ ta.widgets.SavesButtons.refresh();
 <a href="/Attraction_Review-g294074-d552767-Reviews-Mount_Monserrate-Bogota.html" class="titleLink">Mount Monserrate</a>
 <div class="attractionRating">
 <span class="rate rate_s s45">
-<img class="sprite-ratings" src="http://c1.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
+<img class="sprite-ratings" src="http://e2.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
 </span>
-<a href="/Attraction_Review-g294074-d552767-Reviews-Mount_Monserrate-Bogota.html#REVIEWS">2,716 Reviews</a> </div>
+<a href="/Attraction_Review-g294074-d552767-Reviews-Mount_Monserrate-Bogota.html#REVIEWS">3,591 Reviews</a> </div>
 <p id="shortDesc_552767"> Monserrate hill provides exceptional panaromic views of Bogata and beyond.
 </p>
 <div class="attractionExtras">
@@ -983,13 +1005,13 @@ ta.widgets.SavesButtons.refresh();
 </div>
 <div id="holder_552767" class="holder"></div>
 <div id="nearbyPromo_552767" class="nearbyPromo">
-<span class="taLnk openText attr_552767" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://c1.tacdn.com/img2/x.gif" alt=""/>
+<span class="taLnk openText attr_552767" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://e2.tacdn.com/img2/x.gif" alt=""/>
 </div>
 </div>
 </div>
 <div id="guide_2556751" class="guideItem listing">
 <a class="guideItemImage" href="/Attraction_Review-g294074-d2556751-Reviews-Jardin_Botanico_Jose_Celestino_Mutis-Bogota.html">
-<div class="sizedThumb  " style="height: 150px; width: 150px">
+<div class="sizedThumb  " style="height: 150px; width: 150px; ">
 <img src="http://media-cdn.tripadvisor.com/media/photo-l/02/77/71/17/jard-n-bot-nico-jos-celestino.jpg" class="photo_image" style="height: 150px; width: 150px;" alt="Jardin Botanico Jose Celestino Mutis" width="150" height="150"/>
 </div>
 </a>
@@ -1002,7 +1024,7 @@ ta.widgets.SavesButtons.refresh();
 <span class="sprite-gradient1x32_grn gradient">
 <span class="saveText">
 <span class="saves-hover-txt">Add to trip</span>
-<span class="saves-hover-txt-saved">Added to trip</span>
+<span class="saves-hover-txt-saved hidden">Added to trip</span>
 </span>
 </span>
 <span class="savesRibbonEnd"></span>
@@ -1027,22 +1049,22 @@ ta.widgets.SavesButtons.refresh();
 <a href="/Attraction_Review-g294074-d2556751-Reviews-Jardin_Botanico_Jose_Celestino_Mutis-Bogota.html" class="titleLink">Jardin Botanico Jose Celestino Mutis</a>
 <div class="attractionRating">
 <span class="rate rate_s s45">
-<img class="sprite-ratings" src="http://c1.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
+<img class="sprite-ratings" src="http://e2.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
 </span>
-<a href="/Attraction_Review-g294074-d2556751-Reviews-Jardin_Botanico_Jose_Celestino_Mutis-Bogota.html#REVIEWS">271 Reviews</a> </div>
+<a href="/Attraction_Review-g294074-d2556751-Reviews-Jardin_Botanico_Jose_Celestino_Mutis-Bogota.html#REVIEWS">373 Reviews</a> </div>
 <p id="shortDesc_2556751"> A massive and well-maintained botanical garden with a variety of different areas, including an exhibit of 5,000 indigenous orchids.
 </p>
 <div class="attractionExtras">
 </div>
 <div id="holder_2556751" class="holder"></div>
 <div id="nearbyPromo_2556751" class="nearbyPromo">
-<span class="taLnk openText attr_2556751" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://c1.tacdn.com/img2/x.gif" alt=""/>
+<span class="taLnk openText attr_2556751" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://e2.tacdn.com/img2/x.gif" alt=""/>
 </div>
 </div>
 </div>
 <div id="guide_1889853" class="guideItem listing">
 <a class="guideItemImage" href="/Restaurant_Review-g294074-d1889853-Reviews-Andres_Carne_de_Res-Bogota.html">
-<div class="sizedThumb  " style="height: 149px; width: 150px">
+<div class="sizedThumb  " style="height: 149px; width: 150px; ">
 <img src="http://media-cdn.tripadvisor.com/media/photo-f/01/b7/51/8f/lomo-al-trapo.jpg" class="photo_image" style="height: 149px; width: 267px; margin-left: -58px;" alt="Andres Carne de Res" width="150" height="149"/>
 </div>
 </a>
@@ -1055,7 +1077,7 @@ ta.widgets.SavesButtons.refresh();
 <span class="sprite-gradient1x32_grn gradient">
 <span class="saveText">
 <span class="saves-hover-txt">Add to trip</span>
-<span class="saves-hover-txt-saved">Added to trip</span>
+<span class="saves-hover-txt-saved hidden">Added to trip</span>
 </span>
 </span>
 <span class="savesRibbonEnd"></span>
@@ -1080,9 +1102,9 @@ ta.widgets.SavesButtons.refresh();
 <a href="/Restaurant_Review-g294074-d1889853-Reviews-Andres_Carne_de_Res-Bogota.html" class="titleLink">Andres Carne de Res</a>
 <div class="attractionRating">
 <span class="rate rate_s s45">
-<img class="sprite-ratings" src="http://c1.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
+<img class="sprite-ratings" src="http://e2.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
 </span>
-<a href="/Restaurant_Review-g294074-d1889853-Reviews-Andres_Carne_de_Res-Bogota.html#REVIEWS">1,783 Reviews</a> </div>
+<a href="/Restaurant_Review-g294074-d1889853-Reviews-Andres_Carne_de_Res-Bogota.html#REVIEWS">2,279 Reviews</a> </div>
 <p id="shortDesc_1889853"> Andres D.C., The urban branch of the Pagan Paradise of Chia, in the heart of Bogota's "zona rosa", This restaurant, bar, dancing house, chating house, attracts all the glances of its visitors thanks to its style and decoration.
 </p>
 <div class="attractionExtras">
@@ -1090,13 +1112,13 @@ ta.widgets.SavesButtons.refresh();
 </div>
 <div id="holder_1889853" class="holder"></div>
 <div id="nearbyPromo_1889853" class="nearbyPromo">
-<span class="taLnk openText attr_1889853" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See other nearby restaurants</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://c1.tacdn.com/img2/x.gif" alt=""/>
+<span class="taLnk openText attr_1889853" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See other nearby restaurants</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://e2.tacdn.com/img2/x.gif" alt=""/>
 </div>
 </div>
 </div>
 <h5>Day 3</h5> <div id="guide_532215" class="guideItem listing">
 <a class="guideItemImage" href="/Attraction_Review-g294074-d532215-Reviews-Museo_Botero_del_Banco_de_la_Republica-Bogota.html">
-<div class="sizedThumb  " style="height: 150px; width: 150px">
+<div class="sizedThumb  " style="height: 150px; width: 150px; ">
 <img src="http://media-cdn.tripadvisor.com/media/photo-l/01/36/dc/a5/museo-botero-dali.jpg" class="photo_image" style="height: 150px; width: 150px;" alt="Museo Botero del Banco de la Republica" width="150" height="150"/>
 </div>
 </a>
@@ -1109,7 +1131,7 @@ ta.widgets.SavesButtons.refresh();
 <span class="sprite-gradient1x32_grn gradient">
 <span class="saveText">
 <span class="saves-hover-txt">Add to trip</span>
-<span class="saves-hover-txt-saved">Added to trip</span>
+<span class="saves-hover-txt-saved hidden">Added to trip</span>
 </span>
 </span>
 <span class="savesRibbonEnd"></span>
@@ -1134,10 +1156,10 @@ ta.widgets.SavesButtons.refresh();
 <a href="/Attraction_Review-g294074-d532215-Reviews-Museo_Botero_del_Banco_de_la_Republica-Bogota.html" class="titleLink">Museo Botero del Banco de la Republica</a>
 <div class="attractionRating">
 <span class="rate rate_s s45">
-<img class="sprite-ratings" src="http://c1.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
+<img class="sprite-ratings" src="http://e2.tacdn.com/img2/x.gif" alt="4.5 of 5 stars">
 </span>
-<a href="/Attraction_Review-g294074-d532215-Reviews-Museo_Botero_del_Banco_de_la_Republica-Bogota.html#REVIEWS">2,121 Reviews</a> </div>
-<p>         You don't have to be a fan of Botero's amazing sculpture or paintings to love the work here. Surrounded by other small museums, the...
+<a href="/Attraction_Review-g294074-d532215-Reviews-Museo_Botero_del_Banco_de_la_Republica-Bogota.html#REVIEWS">2,811 Reviews</a> </div>
+<p>         You don't have to be a fan of Botero's amazing sculpture or paintings to love the work here. Surrounded by other small museums, the...
 <a href="/Attraction_Review-g294074-d532215-Reviews-Museo_Botero_del_Banco_de_la_Republica-Bogota.html">more&nbsp;&#xbb;</a></p>
 <div class="attractionExtras">
 <strong>Fee:</strong> No
@@ -1146,13 +1168,13 @@ ta.widgets.SavesButtons.refresh();
 </div>
 <div id="holder_532215" class="holder"></div>
 <div id="nearbyPromo_532215" class="nearbyPromo">
-<span class="taLnk openText attr_532215" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://c1.tacdn.com/img2/x.gif" alt=""/>
+<span class="taLnk openText attr_532215" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://e2.tacdn.com/img2/x.gif" alt=""/>
 </div>
 </div>
 </div>
 <div id="guide_532182" class="guideItem listing">
 <a class="guideItemImage" href="/Attraction_Review-g294074-d532182-Reviews-Casa_de_Moneda_Coleccion_Numismatica_del_Banco_de_la_Republica-Bogota.html">
-<div class="sizedThumb  " style="height: 150px; width: 150px">
+<div class="sizedThumb  " style="height: 150px; width: 150px; ">
 <img src="http://media-cdn.tripadvisor.com/media/photo-l/01/3a/24/85/img-5263.jpg" class="photo_image" style="height: 150px; width: 150px;" alt="Casa de Moneda - Coleccion Numismatica del Banco de la Republica" width="150" height="150"/>
 </div>
 </a>
@@ -1165,7 +1187,7 @@ ta.widgets.SavesButtons.refresh();
 <span class="sprite-gradient1x32_grn gradient">
 <span class="saveText">
 <span class="saves-hover-txt">Add to trip</span>
-<span class="saves-hover-txt-saved">Added to trip</span>
+<span class="saves-hover-txt-saved hidden">Added to trip</span>
 </span>
 </span>
 <span class="savesRibbonEnd"></span>
@@ -1190,10 +1212,10 @@ ta.widgets.SavesButtons.refresh();
 <a href="/Attraction_Review-g294074-d532182-Reviews-Casa_de_Moneda_Coleccion_Numismatica_del_Banco_de_la_Republica-Bogota.html" class="titleLink">Casa de Moneda - Coleccion Numismatica del Banco de la Republica</a>
 <div class="attractionRating">
 <span class="rate rate_s s40">
-<img class="sprite-ratings" src="http://c1.tacdn.com/img2/x.gif" alt="4.0 of 5 stars">
+<img class="sprite-ratings" src="http://e2.tacdn.com/img2/x.gif" alt="4.0 of 5 stars">
 </span>
-<a href="/Attraction_Review-g294074-d532182-Reviews-Casa_de_Moneda_Coleccion_Numismatica_del_Banco_de_la_Republica-Bogota.html#REVIEWS">304 Reviews</a> </div>
-<p>The Casa de la Moneda is a beautiful colonial courtyard house built in the middle of the 18th century used at one time as a mint.  Today, it houses...
+<a href="/Attraction_Review-g294074-d532182-Reviews-Casa_de_Moneda_Coleccion_Numismatica_del_Banco_de_la_Republica-Bogota.html#REVIEWS">345 Reviews</a> </div>
+<p>The Casa de la Moneda is a beautiful colonial courtyard house built in the middle of the 18th century used at one time as a mint.  Today, it houses...
 <a href="/Attraction_Review-g294074-d532182-Reviews-Casa_de_Moneda_Coleccion_Numismatica_del_Banco_de_la_Republica-Bogota.html">more&nbsp;&#xbb;</a></p>
 <div class="attractionExtras">
 <strong>Fee:</strong> No
@@ -1201,13 +1223,13 @@ ta.widgets.SavesButtons.refresh();
 <strong>Duration of visit:</strong> <1 hour </div>
 <div id="holder_532182" class="holder"></div>
 <div id="nearbyPromo_532182" class="nearbyPromo">
-<span class="taLnk openText attr_532182" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://c1.tacdn.com/img2/x.gif" alt=""/>
+<span class="taLnk openText attr_532182" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://e2.tacdn.com/img2/x.gif" alt=""/>
 </div>
 </div>
 </div>
 <div id="guide_532212" class="guideItem listing">
 <a class="guideItemImage" href="/Attraction_Review-g294074-d532212-Reviews-Plaza_de_Bolivar-Bogota.html">
-<div class="sizedThumb  " style="height: 150px; width: 150px">
+<div class="sizedThumb  " style="height: 150px; width: 150px; ">
 <img src="http://media-cdn.tripadvisor.com/media/photo-l/01/3a/24/8a/img-5226.jpg" class="photo_image" style="height: 150px; width: 150px;" alt="Plaza de Bolivar" width="150" height="150"/>
 </div>
 </a>
@@ -1220,7 +1242,7 @@ ta.widgets.SavesButtons.refresh();
 <span class="sprite-gradient1x32_grn gradient">
 <span class="saveText">
 <span class="saves-hover-txt">Add to trip</span>
-<span class="saves-hover-txt-saved">Added to trip</span>
+<span class="saves-hover-txt-saved hidden">Added to trip</span>
 </span>
 </span>
 <span class="savesRibbonEnd"></span>
@@ -1245,9 +1267,9 @@ ta.widgets.SavesButtons.refresh();
 <a href="/Attraction_Review-g294074-d532212-Reviews-Plaza_de_Bolivar-Bogota.html" class="titleLink">Plaza de Bolivar</a>
 <div class="attractionRating">
 <span class="rate rate_s s40">
-<img class="sprite-ratings" src="http://c1.tacdn.com/img2/x.gif" alt="4.0 of 5 stars">
+<img class="sprite-ratings" src="http://e2.tacdn.com/img2/x.gif" alt="4.0 of 5 stars">
 </span>
-<a href="/Attraction_Review-g294074-d532212-Reviews-Plaza_de_Bolivar-Bogota.html#REVIEWS">309 Reviews</a> </div>
+<a href="/Attraction_Review-g294074-d532212-Reviews-Plaza_de_Bolivar-Bogota.html#REVIEWS">407 Reviews</a> </div>
 <p id="shortDesc_532212"> Famous square marking a historic turning point in Colombia's colonial past.
 </p>
 <div class="attractionExtras">
@@ -1257,14 +1279,14 @@ ta.widgets.SavesButtons.refresh();
 </div>
 <div id="holder_532212" class="holder"></div>
 <div id="nearbyPromo_532212" class="nearbyPromo">
-<span class="taLnk openText attr_532212" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://c1.tacdn.com/img2/x.gif" alt=""/>
+<span class="taLnk openText attr_532212" onclick="ta.call('ta.servlet.guide.loadNearbyRestaurants',event)">See nearby places to eat</span> <img class="textArrow_more sprite-text_arrow_dropdown_blu" src="http://e2.tacdn.com/img2/x.gif" alt=""/>
 </div>
 </div>
 </div>
 <p> Note: This information was accurate when it was published, but can change without notice. Please be sure to confirm all rates and details directly with the companies in question before planning your trip. </p>
 </div> <div class="col sidebar">
 <div class="sidebaritem wrap">
-<h6>About this expert</h6> <img class="authorPhoto" src="http://c1.tacdn.com/img2/localguides/authorphotos/andrea.jpg" alt=""/>
+<h6>About this expert</h6> <img class="authorPhoto" src="http://e2.tacdn.com/img2/localguides/authorphotos/andrea.jpg" alt=""/>
 <p>Andrea Guthmann is an Emmy award-winning journalist who's been published in a variety of newspapers, publications and online sites. She's spent much of her career as a TV producer/writer for PBS in Chicago and now specializes in family travel.</p>
 </div>
 <div class="sidebaritem sidebarborder">
@@ -1275,28 +1297,28 @@ MAP_MARKERS = [
 { num: 1, lat: 4.596644, lng: -74.07327, locId: 550644, url: "/Attraction_Review-g294074-d550644-Reviews-La_Candelaria-Bogota.html",
 customHover: {title: "La Candelaria",  url: "/GMapsLocationController?Action=info&from=Guide&g=550644&ext=y&parent=294074",         titleUrl: "/Attraction_Review-g294074-d550644-Reviews-La_Candelaria-Bogota.html"}
 }
-,{ num: 2, lat: 4.60167, lng: -74.0719, locId: 532210, url: "/Attraction_Review-g294074-d532210-Reviews-Gold_Museum_Museo_del_Oro-Bogota.html",
+,{ num: 2, lat: 4.601855, lng: -74.07197, locId: 532210, url: "/Attraction_Review-g294074-d532210-Reviews-Gold_Museum_Museo_del_Oro-Bogota.html",
 customHover: {title: "Gold Museum (Museo del Oro)",  url: "/GMapsLocationController?Action=info&from=Guide&g=532210&ext=y&parent=294074",         titleUrl: "/Attraction_Review-g294074-d532210-Reviews-Gold_Museum_Museo_del_Oro-Bogota.html"}
 }
-,{ num: 3, lat: 4.615166, lng: -74.068, locId: 531644, url: "/Attraction_Review-g294074-d531644-Reviews-Museo_Nacional-Bogota.html",
+,{ num: 3, lat: 4.6155, lng: -74.068665, locId: 531644, url: "/Attraction_Review-g294074-d531644-Reviews-Museo_Nacional-Bogota.html",
 customHover: {title: "Museo Nacional",  url: "/GMapsLocationController?Action=info&from=Guide&g=531644&ext=y&parent=294074",         titleUrl: "/Attraction_Review-g294074-d531644-Reviews-Museo_Nacional-Bogota.html"}
 }
-,{ num: 4, lat: 4.604667, lng: -74.0555, locId: 552767, url: "/Attraction_Review-g294074-d552767-Reviews-Mount_Monserrate-Bogota.html",
+,{ num: 4, lat: 4.607339, lng: -74.05593, locId: 552767, url: "/Attraction_Review-g294074-d552767-Reviews-Mount_Monserrate-Bogota.html",
 customHover: {title: "Mount Monserrate",  url: "/GMapsLocationController?Action=info&from=Guide&g=552767&ext=y&parent=294074",         titleUrl: "/Attraction_Review-g294074-d552767-Reviews-Mount_Monserrate-Bogota.html"}
 }
-,{ num: 5, lat: 4.695114, lng: -74.1163, locId: 2556751, url: "/Attraction_Review-g294074-d2556751-Reviews-Jardin_Botanico_Jose_Celestino_Mutis-Bogota.html",
+,{ num: 5, lat: 4.667398, lng: -74.09965, locId: 2556751, url: "/Attraction_Review-g294074-d2556751-Reviews-Jardin_Botanico_Jose_Celestino_Mutis-Bogota.html",
 customHover: {title: "Jardin Botanico Jose Celestino Mutis",  url: "/GMapsLocationController?Action=info&from=Guide&g=2556751&ext=y&parent=294074",         titleUrl: "/Attraction_Review-g294074-d2556751-Reviews-Jardin_Botanico_Jose_Celestino_Mutis-Bogota.html"}
 }
 ,{ num: 6, lat: 4.666472, lng: -74.05437, locId: 1889853, url: "/Restaurant_Review-g294074-d1889853-Reviews-Andres_Carne_de_Res-Bogota.html",
 customHover: {title: "Andres Carne de Res",  url: "/GMapsLocationController?Action=info&from=Guide&g=1889853&ext=y&parent=294074",         titleUrl: "/Restaurant_Review-g294074-d1889853-Reviews-Andres_Carne_de_Res-Bogota.html"}
 }
-,{ num: 7, lat: 4.596931, lng: -74.07333, locId: 532215, url: "/Attraction_Review-g294074-d532215-Reviews-Museo_Botero_del_Banco_de_la_Republica-Bogota.html",
+,{ num: 7, lat: 4.596835, lng: -74.07307, locId: 532215, url: "/Attraction_Review-g294074-d532215-Reviews-Museo_Botero_del_Banco_de_la_Republica-Bogota.html",
 customHover: {title: "Museo Botero del Banco de la Republica",  url: "/GMapsLocationController?Action=info&from=Guide&g=532215&ext=y&parent=294074",         titleUrl: "/Attraction_Review-g294074-d532215-Reviews-Museo_Botero_del_Banco_de_la_Republica-Bogota.html"}
 }
 ,{ num: 8, lat: 4.596833, lng: -74.0735, locId: 532182, url: "/Attraction_Review-g294074-d532182-Reviews-Casa_de_Moneda_Coleccion_Numismatica_del_Banco_de_la_Republica-Bogota.html",
 customHover: {title: "Casa de Moneda - Coleccion Numismatica del Banco de la Republica",  url: "/GMapsLocationController?Action=info&from=Guide&g=532182&ext=y&parent=294074",         titleUrl: "/Attraction_Review-g294074-d532182-Reviews-Casa_de_Moneda_Coleccion_Numismatica_del_Banco_de_la_Republica-Bogota.html"}
 }
-,{ num: 9, lat: 4.5976, lng: -74.07635, locId: 532212, url: "/Attraction_Review-g294074-d532212-Reviews-Plaza_de_Bolivar-Bogota.html",
+,{ num: 9, lat: 4.597975, lng: -74.075775, locId: 532212, url: "/Attraction_Review-g294074-d532212-Reviews-Plaza_de_Bolivar-Bogota.html",
 customHover: {title: "Plaza de Bolivar",  url: "/GMapsLocationController?Action=info&from=Guide&g=532212&ext=y&parent=294074",         titleUrl: "/Attraction_Review-g294074-d532212-Reviews-Plaza_de_Bolivar-Bogota.html"}
 }
 ]
@@ -1304,9 +1326,9 @@ customHover: {title: "Plaza de Bolivar",  url: "/GMapsLocationController?Action=
 <div class="scaffold map">
 <div class="overview">
 <div id="LOCAL_GUIDE_MAP" style="height:300px;width:300px;">
-<img src="http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/4.645879,-74.085335/11?mapSize=300,300&format=png&key=AsWv57kSL-_WRju8ExHCSvHiBmwU_ADtynp0fi2uml2LtbmYVMueyibM2XaN4JyQ" width="300" height="300"/>
+<img src="//maps.google.com/maps/api/staticmap?channel=ta.desktop&center=4.632021,-74.077011&zoom=11&maptype=roadmap&size=300x300&client=gme-tripadvisorinc1&sensor=false&language=en_US&signature=SGdBEt3bv6OfBlBRKYKmYyj9to0=" width="300" height="300"/>
 <div class="loading" style="display:inline">
-<img src="http://c1.tacdn.com/img2/generic/site/loop.gif"/>
+<img src="http://e2.tacdn.com/img2/generic/site/loop.gif"/>
 <b>Map Loading &#8230;</b>
 </div>
 </div>
@@ -1327,16 +1349,16 @@ var geoName = "Bogota";
 var map_gmaps_address_url = 'http://maps.google.com/maps?daddr=';
 var map_nonefound = 'None found in map area';                          var map_myaddress = 'My Address';                      var map_addaddress = 'Map an address';                        var map_removeaddress = 'Remove address';         var map_addressnotfound = 'Address not found';              var map_addressnotfound2 = 'Address not found in {0} area. Please try again.';   var map_addressnotfound3 = 'We couldn\'t find that location near {0}.  Please try another search.';                 var map_drivingdirections = 'Driving directions';          var map_addresstemplate = 'Number, Street, City, State';              var map_findflights = 'Find flights';                        var map_enteraddress = 'Search by address or point of interest';
 window.LOCAL_GUIDE_MAP_OPS = {
-lat: 4.645879,
-lng: -74.085335,
+lat: 4.632021,
+lng: -74.07701,
 zoom: 11,
 minPins: [
 ['restaurant', 20]
 ]
 }
 var mapFMDiv = {
-lat: 4.645879,
-lng: -74.085335,
+lat: 4.632021,
+lng: -74.07701,
 locId: 294074,
 title: "Bogota",
 url: "/Tourism-g294074-Bogota-Vacations.html",
@@ -1353,15 +1375,26 @@ minPins: [
 </div>
 <div class="sidebaritem sidebarborder">
 <h6>See other Bogota itineraries</h6> <ul>
-<li><a href="/Guide-g294074-l190-Bogota.html"/>Bogota for free</a></li>
 <li><a href="/Guide-g294074-l188-Bogota.html"/>Bogota off the beaten path</a></li>
-<li><a href="/Guide-g294074-l187-Bogota.html"/>Bogota for young kids</a></li>
+<li><a href="/Guide-g294074-l190-Bogota.html"/>Bogota for free</a></li>
 <li><a href="/Guide-g294074-l189-Bogota.html"/>Daytrips from Bogota</a></li>
+<li><a href="/Guide-g294074-l187-Bogota.html"/>Bogota for young kids</a></li>
 </ul>
 </div>
 </div> </div>
-</div>
-<div id="hotels_one_col_bottom">
+<script>
+var _comscore = _comscore || [];
+_comscore.push({ c1: '2', c2: '6036461', c3: '', c4: '' });
+var _csload = function() {
+var s = document.createElement('script'), el = document.getElementsByTagName('script')[0]; s.async = true;
+s.src = (document.location.protocol == 'https:' ? 'https://sb' : 'http://b') + '.scorecardresearch.com/beacon.js';
+el.parentNode.insertBefore(s, el);
+};
+ta.queueForLoad(_csload, 5, 'comscore');
+</script>
+<noscript>
+<img class='tracking' height='1px' width='1px' src='http://b.scorecardresearch.com/p?c1=2&c2=6036461&c3=&c4=&c5=&c6=&c15=&cv=2.0&cj=1'/>
+</noscript>
 </div>
 </div> </div>
 <div id="FOOT_CONTAINER">
@@ -1371,29 +1404,44 @@ minPins: [
 <div class="block">
 <dl class="sep brand">
 <dt>
-<img id='lazyload_1745057941_1' height='20' alt='TripAdvisor' width='132'/>
+<img id='lazyload_1103313192_1' height='20' alt='TripAdvisor' width='132' src='http://e2.tacdn.com/img2/x.gif'/>
 </dt>
 <dd class="meta">
-Reviews and advice on hotels, resorts, flights, vacation rentals, travel packages, and lots more!
+Reviews and advice on hotels, resorts, flights, vacation rentals, travel packages, and more so you can plan and book your perfect trip!
 </dd>
 </dl>
 <div class="sep internal">
 <span><a class="taLnk" href="/PressCenter-c6-About_Us.html">About Us</a></span>
 | <span><a class="taLnk" href="/AllLocations-g294074-c1-Hotels-Bogota.html">Site Map</a></span>
-| <span class="taLnk" onclick="return ta.call('ta.overlays.Factory.helpCenterLB', event);">Help&nbsp;Center <img id='lazyload_1745057941_2' height='10' alt='' width='14'/></span> </div>
+| <span class="taLnk" onclick="return ta.call('ta.overlays.Factory.helpCenterLB', event);">Help&nbsp;Center <img id='lazyload_1103313192_2' height='10' alt='' width='14' src='http://e2.tacdn.com/img2/x.gif'/></span> </div>
 <div class="sep legal">
 <div class="copyright">
-© 2014 TripAdvisor LLC All rights reserved. TripAdvisor <a href="/pages/terms.html">Terms of Use</a> and <a href="/pages/privacy.html">Privacy Policy</a>.
+© 2015 TripAdvisor LLC All rights reserved. TripAdvisor <a href="/pages/terms.html">Terms of Use</a> and <a href="/pages/privacy.html">Privacy Policy</a>.
 </div>
 <div class="vfm_disclaimer">
 </div>
 <div id="PDISCLAIMER" class="disclaimer">
 * TripAdvisor LLC is not a booking agent and does not charge any service fees to users of our site... (<span id="TERMS" class="taLnk hvrIE6" onclick="getFullDisclaimerText()">more</span>) </div>
+<div class="userAgent">
+<b>We noticed that you're using an unsupported browser. The TripAdvisor website may not display properly.</b><br/> We support the following browsers:
+<b>Windows:</b>
+<span class="taLnk" onClick="ta.util.ASDF.asdfPopup('PFaSnEitiTI8LuSCMiutLSVLMVTJpcIzv')">Internet Explorer</span>,
+<span class="taLnk" onClick="ta.util.ASDF.asdfPopup('PFaizCSccJ8LTSEVTixEL')">Mozilla Firefox</span>,
+<span class="taLnk" onClick="ta.util.ASDF.asdfPopup('q5FyiiycV8LnGEiaV')">Google Chrome</span>.
+<b>Mac:</b>
+<span class="taLnk" onClick="ta.util.ASDF.asdfPopup('PFJ22cV8LtJTJESL')">Safari</span>.
+</div>
 <div class="disclaimer">TripAdvisor LLC is not responsible for content on external web sites. Taxes, fees not included for deals content.</div>
 </div>
 </div> </div> </div>
+<img id='p13n_tp_stm' height='0' width='0' class='tracking' src='http://e2.tacdn.com/img2/x.gif'/>
 </div> </div>
 </div>
+<script type="text/javascript">
+ta.queueForReady( function() {
+ta.localStorage && ta.localStorage.updateSessionId('9C9205273359E43731AF91A8DE0EC9DA');
+}, 1, "reset localStorage session id");
+</script>
 <script type="text/javascript">
 ta.store('ta.commerce.suppress_commerce_impressions.enabled', true);
 </script>
@@ -1402,13 +1450,14 @@ ta.store('typeahead.typeahead2_mixed_ui', true);
 ta.store('typeahead.elasticsearch_include_geo_pages', true);
 ta.store('typeahead.typeahead2_geo_segmented_ui', true);
 ta.store('typeahead.integrate_recently_viewed', true);
-ta.store('typeahead.destination_icons', "http://c1.tacdn.com/img2/icons/typeahead/destination_icons.png");
+ta.store('typeahead.destination_icons', "http://e2.tacdn.com/img2/icons/typeahead/destination_icons.png");
 ta.store('typeahead.geoArea', 'Bogota area');       ta.store('typeahead.worldwide', 'Worldwide');       ta.store('typeahead.noResultsFound', 'No results found.');       ta.store('typeahead.searchForPrompt', "Search for");
 ta.store('typeahead.location', "Location");                  ta.store('typeahead.restaurant', "Restaurant");           ta.store('typeahead.attraction', "Attraction");           ta.store('typeahead.hotel', "Hotel");
-ta.store('typeahead.restaurant_list', "Restaurants");         ta.store('typeahead.attraction_list', "Attractions");         ta.store('typeahead.hotel_list', "Hotels");
+ta.store('typeahead.restaurant_list', "Restaurants");         ta.store('typeahead.attraction_list', "Attractions");         ta.store('typeahead.hotel_list', "Hotels");                   ta.store('typeahead.vacation_rental_list', "Vacation Rentals");
+ta.store('typeahead.scoped.static_local_label', '% area');       ta.store('typeahead.scoped.result_title_text', 'Start typing, or try one of these suggestions...');       ta.store('typeahead.scoped.poi_overview_geo', '<span class="poi_overview_item">Overview</span> of %');       ta.store('typeahead.scoped.poi_hotels_geo', '<span class="poi_overview_item">Hotels</span> in %');       ta.store('typeahead.scoped.poi_vr_geo', '<span class="poi_overview_item">Vacation Rentals</span> in %');       ta.store('typeahead.scoped.poi_attractions_geo', '<span class="poi_overview_item">Things to Do</span> in %');       ta.store('typeahead.scoped.poi_eat_geo', '<span class="poi_overview_item">Restaurants</span> in %');       ta.store('typeahead.scoped.poi_flights_geo', '<span class="poi_overview_item">Flights</span> to %');       ta.store('typeahead.scoped.poi_default_text', "hotels, restaurants, etc.");       ta.store('typeahead.scoped.hotel_text', "hotels");       ta.store('typeahead.scoped.restaurants_text', "restaurants");       ta.store('typeahead.scoped.things_to_do_text', "things to do");       ta.store('typeahead.scoped.vacation_rentals', "vacation rentals");
 ta.store('typeahead.searchMore', 'Find more results for "%"');
-ta.store('typeahead.history', "Recently viewed");
-ta.store('typeahead.recentHistoryList', [{"title":"Restaurants","scope":"global","coords":"35.658566,139.69875","details":{"grandparent_name":"Japan","name":"Umegaoka Sushi No Midori Sohonten Shibuya","parent_name":"Shibuya","geo_name":"Shibuya, Japan"},"urls":[{"url_type":"eat","name":"Umegaoka Sushi No Midori Sohonten Shibuya, Shibuya, Japan","type":"EATERY","url":"\/Restaurant_Review-g1066456-d1678469-Reviews-Umegaoka_Sushi_No_Midori_Sohonten_Shibuya-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html"}],"name":"Umegaoka Sushi No Midori Sohonten Shibuya, Shibuya, Japan","is_vr":false,"value":1678469,"closed":false,"type":"EATERY","normalized_name":"umegaoka sushi no midori sohonten shibuya","url":"\/Restaurant_Review-g1066456-d1678469-Reviews-Umegaoka_Sushi_No_Midori_Sohonten_Shibuya-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html","is_broad":false},{"title":"Restaurants","scope":"global","coords":"35.686844,139.69662","details":{"grandparent_name":"Japan","name":"Fuunji","parent_name":"Shibuya","geo_name":"Shibuya, Japan"},"urls":[{"url_type":"eat","name":"Fuunji, Shibuya, Japan","type":"EATERY","url":"\/Restaurant_Review-g1066456-d1679642-Reviews-Fuunji-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html"}],"name":"Fuunji, Shibuya, Japan","is_vr":false,"value":1679642,"closed":false,"type":"EATERY","normalized_name":"fuunji","url":"\/Restaurant_Review-g1066456-d1679642-Reviews-Fuunji-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html","is_broad":false},{"title":"Restaurants","scope":"global","coords":"4.853926,-74.06531","details":{"grandparent_name":"Colombia","name":"Andres Carne de Res","parent_name":"Chia","geo_name":"Chia, Colombia"},"urls":[{"url_type":"eat","name":"Andres Carne de Res, Chia, Colombia","type":"EATERY","url":"\/Restaurant_Review-g815502-d939879-Reviews-Andres_Carne_de_Res-Chia_Cundinamarca_Department.html"}],"name":"Andres Carne de Res, Chia, Colombia","is_vr":false,"value":939879,"closed":false,"type":"EATERY","normalized_name":"andres carne de res","url":"\/Restaurant_Review-g815502-d939879-Reviews-Andres_Carne_de_Res-Chia_Cundinamarca_Department.html","is_broad":false},{"title":"Attractions","scope":"global","coords":"4.65324,-74.07206","details":{"grandparent_name":"Colombia","name":"Parque Natural Chicaque","parent_name":"Bogota","geo_name":"Bogota, Colombia"},"urls":[{"url_type":"attr","name":"Parque Natural Chicaque, Bogota, Colombia","type":"ATTRACTION","url":"\/Attraction_Review-g294074-d2587470-Reviews-Parque_Natural_Chicaque-Bogota.html"}],"name":"Parque Natural Chicaque, Bogota, Colombia","is_vr":false,"value":2587470,"closed":false,"type":"ATTRACTION","normalized_name":"parque natural chicaque","url":"\/Attraction_Review-g294074-d2587470-Reviews-Parque_Natural_Chicaque-Bogota.html","is_broad":false},{"title":"Hotels","scope":"global","details":{"grandparent_name":"Colombia","name":"Eco-Habs","parent_name":"Tayrona National Park","geo_name":"Tayrona National Park, Colombia"},"urls":[{"url_type":"hotel","name":"Eco-Habs, Tayrona National Park, Colombia","type":"HOTEL","url":"\/Hotel_Review-g1600802-d1533540-Reviews-Eco_Habs-Tayrona_National_Park_Santa_Marta_District_Magdalena_Department.html"}],"name":"Eco-Habs, Tayrona National Park, Colombia","is_vr":false,"value":1533540,"closed":false,"type":"HOTEL","normalized_name":"eco-habs","url":"\/Hotel_Review-g1600802-d1533540-Reviews-Eco_Habs-Tayrona_National_Park_Santa_Marta_District_Magdalena_Department.html","is_broad":false},{"title":"Hotels","scope":"global","coords":"11.242761,-74.214264","details":{"grandparent_name":"Colombia","name":"Casa de Isabella, a Kali Hotel","parent_name":"Santa Marta","geo_name":"Santa Marta, Colombia"},"urls":[{"url_type":"hotel","name":"Casa de Isabella, a Kali Hotel, Santa Marta, Colombia","type":"HOTEL","url":"\/Hotel_Review-g297484-d1998392-Reviews-Casa_de_Isabella_a_Kali_Hotel-Santa_Marta_Santa_Marta_District_Magdalena_Department.html"}],"name":"Casa de Isabella, a Kali Hotel, Santa Marta, Colombia","is_vr":false,"value":1998392,"closed":false,"type":"HOTEL","normalized_name":"casa de isabella, a kali hotel","url":"\/Hotel_Review-g297484-d1998392-Reviews-Casa_de_Isabella_a_Kali_Hotel-Santa_Marta_Santa_Marta_District_Magdalena_Department.html","is_broad":false},{"title":"Hotels","scope":"global","coords":"11.242571,-74.2113","details":{"grandparent_name":"Colombia","name":"Casa de Leda - a Kali Hotel","parent_name":"Santa Marta","geo_name":"Santa Marta, Colombia"},"urls":[{"url_type":"hotel","name":"Casa de Leda - a Kali Hotel, Santa Marta, Colombia","type":"HOTEL","url":"\/Hotel_Review-g297484-d4228217-Reviews-Casa_de_Leda_a_Kali_Hotel-Santa_Marta_Santa_Marta_District_Magdalena_Department.html"}],"name":"Casa de Leda - a Kali Hotel, Santa Marta, Colombia","is_vr":false,"value":4228217,"closed":false,"type":"HOTEL","normalized_name":"casa de leda - a kali hotel","url":"\/Hotel_Review-g297484-d4228217-Reviews-Casa_de_Leda_a_Kali_Hotel-Santa_Marta_Santa_Marta_District_Magdalena_Department.html","is_broad":false},{"title":"Hotels","scope":"global","coords":"11.237064,-74.19062","details":{"grandparent_name":"Colombia","name":"Drop Bear Hostel","parent_name":"Santa Marta","geo_name":"Santa Marta, Colombia"},"urls":[{"url_type":"hotel","name":"Drop Bear Hostel, Santa Marta, Colombia","type":"HOTEL","url":"\/Hotel_Review-g297484-d3701964-Reviews-Drop_Bear_Hostel-Santa_Marta_Santa_Marta_District_Magdalena_Department.html"}],"name":"Drop Bear Hostel, Santa Marta, Colombia","is_vr":false,"value":3701964,"closed":false,"type":"HOTEL","normalized_name":"drop bear hostel","url":"\/Hotel_Review-g297484-d3701964-Reviews-Drop_Bear_Hostel-Santa_Marta_Santa_Marta_District_Magdalena_Department.html","is_broad":false},{"title":"Hotels","scope":"global","coords":"11.238828,-74.111275","details":{"grandparent_name":"Colombia","name":"Minca Ecohabs","parent_name":"Santa Marta","geo_name":"Santa Marta, Colombia"},"urls":[{"url_type":"hotel","name":"Minca Ecohabs, Santa Marta, Colombia","type":"HOTEL","url":"\/Hotel_Review-g297484-d1977826-Reviews-Minca_Ecohabs-Santa_Marta_Santa_Marta_District_Magdalena_Department.html"}],"name":"Minca Ecohabs, Santa Marta, Colombia","is_vr":false,"value":1977826,"closed":false,"type":"HOTEL","normalized_name":"minca ecohabs","url":"\/Hotel_Review-g297484-d1977826-Reviews-Minca_Ecohabs-Santa_Marta_Santa_Marta_District_Magdalena_Department.html","is_broad":false},{"title":"Hotels","scope":"global","coords":"11.247654,-73.791954","details":{"grandparent_name":"Colombia","name":"Posadas Ecoturisticas Seineken","parent_name":"Tayrona National Park","geo_name":"Tayrona National Park, Colombia"},"urls":[{"url_type":"hotel","name":"Posadas Ecoturisticas Seineken, Tayrona National Park, Colombia","type":"HOTEL","url":"\/Hotel_Review-g1600802-d6121126-Reviews-Posadas_Ecoturisticas_Seineken-Tayrona_National_Park_Santa_Marta_District_Magdalena_D.html"}],"name":"Posadas Ecoturisticas Seineken, Tayrona National Park, Colombia","is_vr":false,"value":6121126,"closed":false,"type":"HOTEL","normalized_name":"posadas ecoturisticas seineken","url":"\/Hotel_Review-g1600802-d6121126-Reviews-Posadas_Ecoturisticas_Seineken-Tayrona_National_Park_Santa_Marta_District_Magdalena_D.html","is_broad":false},{"title":"Destinations","scope":"global","coords":"11.227404,-74.20715","details":{"grandparent_name":"South America","name":"Santa Marta","parent_name":"Colombia","rac_enabled":false,"geo_name":"Colombia, South America"},"urls":[{"url_type":"geo","name":"Santa Marta Tourism","type":"GEO","url":"\/Tourism-g297484-Santa_Marta_Santa_Marta_District_Magdalena_Department-Vacations.html"},{"url_type":null,"name":"Santa Marta Vacation Rentals","type":"VACATION_RENTAL","url":"\/VacationRentals-g297484-Reviews-Santa_Marta_Santa_Marta_District_Magdalena_Department-Vacation_Rentals.html"},{"url_type":"eat","name":"Santa Marta Restaurants","type":"EATERY","url":"\/Restaurants-g297484-Santa_Marta_Santa_Marta_District_Magdalena_Department.html"},{"url_type":"attr","name":"Santa Marta Attractions","type":"ATTRACTION","url":"\/Attractions-g297484-Activities-Santa_Marta_Santa_Marta_District_Magdalena_Department.html"},{"url_type":"hotel","name":"Santa Marta Hotels","type":"HOTEL","url":"\/Hotels-g297484-Santa_Marta_Santa_Marta_District_Magdalena_Department-Hotels.html"}],"name":"Santa Marta, Colombia, South America","is_vr":true,"value":297484,"closed":false,"type":"GEO","normalized_name":"santa marta","url":"\/Tourism-g297484-Santa_Marta_Santa_Marta_District_Magdalena_Department-Vacations.html","is_broad":false},{"title":"Attractions","scope":"global","details":{"grandparent_name":"Colombia","name":"Tayrona National Park","parent_name":"Santa Marta","geo_name":"Santa Marta, Colombia"},"urls":[{"url_type":"attr","name":"Tayrona National Park, Santa Marta, Colombia","type":"ATTRACTION","url":"\/Attraction_Review-g297484-d315698-Reviews-Tayrona_National_Park-Santa_Marta_Santa_Marta_District_Magdalena_Department.html"}],"name":"Tayrona National Park, Santa Marta, Colombia","is_vr":false,"value":315698,"closed":false,"type":"ATTRACTION","normalized_name":"tayrona national park","url":"\/Attraction_Review-g297484-d315698-Reviews-Tayrona_National_Park-Santa_Marta_Santa_Marta_District_Magdalena_Department.html","is_broad":false},{"title":"Attractions","scope":"global","coords":"35.66205,139.69724","details":{"grandparent_name":"Japan","name":"Coins Bar 300","parent_name":"Shibuya","geo_name":"Shibuya, Japan"},"urls":[{"url_type":"attr","name":"Coins Bar 300, Shibuya, Japan","type":"ATTRACTION","url":"\/Attraction_Review-g1066456-d4463134-Reviews-Coins_Bar_300-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html"}],"name":"Coins Bar 300, Shibuya, Japan","is_vr":false,"value":4463134,"closed":false,"type":"ATTRACTION","normalized_name":"coins bar 300","url":"\/Attraction_Review-g1066456-d4463134-Reviews-Coins_Bar_300-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html","is_broad":false},{"title":"Hotels","scope":"global","coords":"35.68391,139.7012","details":{"grandparent_name":"Japan","name":"Zenriren Shukuhakubu","parent_name":"Shibuya","geo_name":"Shibuya, Japan"},"urls":[{"url_type":"hotel","name":"Zenriren Shukuhakubu, Shibuya, Japan","type":"HOTEL","url":"\/Hotel_Review-g1066456-d1115751-Reviews-Zenriren_Shukuhakubu-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html"}],"name":"Zenriren Shukuhakubu, Shibuya, Japan","is_vr":false,"value":1115751,"closed":false,"type":"HOTEL","normalized_name":"zenriren shukuhakubu","url":"\/Hotel_Review-g1066456-d1115751-Reviews-Zenriren_Shukuhakubu-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html","is_broad":false},{"title":"Restaurants","scope":"global","coords":"35.666416,139.69278","details":{"grandparent_name":"Japan","name":"Fuglen Tokyo","parent_name":"Shibuya","geo_name":"Shibuya, Japan"},"urls":[{"url_type":"eat","name":"Fuglen Tokyo, Shibuya, Japan","type":"EATERY","url":"\/Restaurant_Review-g1066456-d6406729-Reviews-Fuglen_Tokyo-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html"}],"name":"Fuglen Tokyo, Shibuya, Japan","is_vr":false,"value":6406729,"closed":false,"type":"EATERY","normalized_name":"fuglen tokyo","url":"\/Restaurant_Review-g1066456-d6406729-Reviews-Fuglen_Tokyo-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html","is_broad":false}]);
+ta.store('typeahead.history', "Recently viewed");       ta.store('typeahead.history.all_caps', "RECENTLY VIEWED");       ta.store('typeahead.popular_destinations', "POPULAR DESTINATIONS");
+ta.store('typeahead.recentHistoryList', []);
 </script>
 <script type="text/javascript">
 ta.store('metaCheckRatesUpdateDivInline', 'PROVIDER_BLOCK_INLINE');
@@ -1428,14 +1477,14 @@ ta.store("checkrates.hr_bc_see_all_click.lb", true);
 <script type="text/javascript">
 </script>
 <script type="text/javascript">
-var metaCheckRatesCSS = 'http://c1.tacdn.com/css2/meta_ui_sk_box_chevron-v12928234045b.css';
+var metaCheckRatesCSS = 'http://e2.tacdn.com/css2/meta_ui_sk_box_chevron-v23815779847a.css';
 ta.store('metaCheckRatesFeatureEnabled', true);
 </script>
 <script type="text/javascript">
-ta.store('mapProviderFeature.maps_api','ta-maps-bing');
+ta.store('mapProviderFeature.maps_api','ta-maps-gmaps3');
 </script>
 <script type="text/javascript">
-var dropdownMetaCSS = "http://c1.tacdn.com/css2/meta_drop_down_overlay-v1749876967b.css";
+var dropdownMetaCSS = "http://e2.tacdn.com/css2/meta_drop_down_overlay-v2749876967a.css";
 </script>
 <script type="text/javascript">
 ta.store('metaDatePickerEnabled', true);
@@ -1446,18 +1495,13 @@ ta.store('multiDP.multiNightsText', "2 nights");         ta.store('multiDP.singl
 ta.store('multiDP.adultsCount', "2");
 ta.store('multiDP.singleAdultsText', "1 guest");         ta.store('multiDP.multiAdultsText', "2 guests");         ta.store('multiDP.enterDatesText', "Enter dates");                 ta.store('multiDP.checkIn', "Check-in");         ta.store('multiDP.checkOut', "Check-out");         ta.store('multiDP.isMondayFirstDayOfWeek', false);
 ta.store('multiDP.dateSeparator', " - ");
-ta.store('multiDP.dateRangeEllipsis', "Searching %%%...");         ta.store('multiDP.abbrevMonthList', ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);                   ta.store('multiDP.two_field', true);
-ta.store('multiDP.v4', false);
-ta.store('multiDP.v5', true);
-ta.store('multiDP.v6', false);
-ta.store('multiDP.v7', true);
-ta.store('multiDP.checkIn', "mm/dd/yyyy");             ta.store('multiDP.checkOut', "mm/dd/yyyy");                                     ta.store('ta.meta_single_date_picker', true);
-</script>
+ta.store('multiDP.dateRangeEllipsis', "Searching %%%...");         ta.store('multiDP.abbrevMonthList', ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
+ta.store('multiDP.checkIn', "mm/dd/yyyy");           ta.store('multiDP.checkOut', "mm/dd/yyyy");               </script>
 <script type="text/javascript">
 (function(window,ta,undefined){
 try {
 ta = window.ta = window.ta || {};
-ta.uid = 'VFgDegoQKUkAAHBGWNMAAAAQ';
+ta.uid = 'VRX3gQokHigAAEyVtXcAAAAg';
 ta.userLoggedIn = false;
 ta.userSecurelyLoggedIn = false;
 if (ta.prerender && ta.prerender._init){
@@ -1474,22 +1518,21 @@ _gaq.push(['_setAccount','UA-30198665-1']);
 _gaq.push(['_addIgnoredRef','tripadvisor']);
 _gaq.push(['_addIgnoredRef','daodao']);
 _gaq.push(['_setCustomVar',2,'Member','-',3]);
-_gaq.push(['_setCustomVar',9,'EntryDetail','Fuunji-1679642',3]);
-_gaq.push(['_setCustomVar',3,'EntryGeo','Shibuya-1066456',3]);
-_gaq.push(['_setCustomVar',4,'EntryCountry','Japan-294232',3]);
-_gaq.push(['_setCustomVar',5,'EntryServlet','Restaurant_Review',3]);
-_gaq.push(['_setCustomVar',6,'Pool','X',3]);
-_gaq.push(['_setCustomVar',7,'Slice','2611',3]);
-_gaq.push(['_setCustomVar',18,'MCID','Free Google-10568',3]);
+_gaq.push(['_setCustomVar',3,'EntryGeo','Bogota-294074',3]);
+_gaq.push(['_setCustomVar',4,'EntryCountry','Colombia-294073',3]);
+_gaq.push(['_setCustomVar',5,'EntryServlet','Guide',3]);
+_gaq.push(['_setCustomVar',6,'Pool','A',3]);
+_gaq.push(['_setCustomVar',7,'Slice','2487',3]);
+_gaq.push(['_setCustomVar',18,'MCID','TripAdvisor-0',3]);
 _gaq.push(['_setCustomVar',21,'PageType','Desktop Page',3]);
 _gaq.push(['_setCustomVar',22,'DeviceType','Desktop',3]);
 _gaq.push(['_setCustomVar',23,'IPGeo','San Francisco-60713',3]);
 _gaq.push(['_setCustomVar',24,'ProductType','Browser',3]);
-_gaq.push(['_setCustomVar',48,'WebServer','web40b',3]);
-pageData=ta.analytics._JSON_parse('{\"cv\":[[\"_deleteCustomVar\",1],[\"_deleteCustomVar\",47],[\"_setCustomVar\",12,\"Country\",\"Colombia-294073\",3],[\"_setCustomVar\",25,\"Continent\",\"South America-13\",3],[\"_setCustomVar\",13,\"Geo\",\"Bogota-294074\",3],[\"_setCustomVar\",20,\"PP\",\"-279-402-480-403-274-\",3],[\"_deleteCustomVar\",8],[\"_deleteCustomVar\",11],[\"_deleteCustomVar\",19],[\"_deleteCustomVar\",10],[\"_deleteCustomVar\",14]],\"url\":\"/Guide\"}');
+_gaq.push(['_setCustomVar',48,'WebServer','web648a',3]);
+pageData=ta.analytics._JSON_parse('{\"cv\":[[\"_deleteCustomVar\",1],[\"_deleteCustomVar\",47],[\"_setCustomVar\",12,\"Country\",\"Colombia-294073\",3],[\"_setCustomVar\",25,\"Continent\",\"South America-13\",3],[\"_setCustomVar\",13,\"Geo\",\"Bogota-294074\",3],[\"_setCustomVar\",20,\"PP\",\"-279-277-479-274-\",3],[\"_deleteCustomVar\",11],[\"_deleteCustomVar\",19],[\"_deleteCustomVar\",14],[\"_deleteCustomVar\",8],[\"_deleteCustomVar\",10]],\"url\":\"/Guide\"}');
 pageDataStack.push(pageData);
 if(ta.keep){
-ta.keep("partials.pageProperties","279-402-480-403-274");
+ta.keep("partials.pageProperties","279-277-479-274");
 }
 if(ta.store){
 ta.store("gaMemberState","-");
@@ -1513,9 +1556,10 @@ ta.util.error.record(e,'global_ga.vm');
 </script>
 <script type="text/javascript">
 var lazyImgs = [
-{"id":"lazyload_1745057941_0","tagType":"img","scroll":false,"priority":100,"logerror":false,"data":"http://c1.tacdn.com/img2/generic/site/pencil.png"}
-,   {"id":"lazyload_1745057941_1","tagType":"img","scroll":true,"priority":100,"logerror":false,"data":"http://c1.tacdn.com/img2/branding/identityFOOT_2014.png"}
-,   {"id":"lazyload_1745057941_2","tagType":"img","scroll":true,"priority":100,"logerror":false,"data":"http://c1.tacdn.com/img2/icons/bell.png"}
+{"id":"lazyload_1103313192_0","tagType":"img","scroll":false,"priority":100,"logerror":false,"data":"http://e2.tacdn.com/img2/generic/site/pencil.png"}
+,   {"id":"lazyload_1103313192_1","tagType":"img","scroll":true,"priority":100,"logerror":false,"data":"http://e2.tacdn.com/img2/branding/identityFOOT_2014.png"}
+,   {"id":"lazyload_1103313192_2","tagType":"img","scroll":true,"priority":100,"logerror":false,"data":"http://e2.tacdn.com/img2/icons/bell.png"}
+,   {"id":"p13n_tp_stm","tagType":"img","scroll":false,"priority":1000,"logerror":false,"data":"http://p.smartertravel.com/ext/pixel/ta/seed.gif?id=NY1QkB0y0N6_QpZghp4RC5OjzPnckTap8WxZIjv2kTo3Yx4tfST5vIXyRnGd2C_k"}
 ];
 var lazyHtml = [
 ];
@@ -1524,8 +1568,7 @@ window.setupLazyLoad();
 }, 'lazy load images');
 </script>
 <script type="text/javascript">
-ta.store('abMarkerSet', 't1013_revops_bring_hotels_redesign_to_hotelslist|t1087_revops_sem_sd_hh_hotel_name_above_hotel_info|t1105_rna_default_to_rac_on_restaurant_detail|t1091_cmn_lightbox_ui_update_testing_2|t1095_sitex_map_tile_and_big_map_use_different_initialization_lo');
-ta.store('facebook.hasPublishActions', "");
+ta.store('abMarkerSet', 't1665_revops_strikethrough_prices_on_hotels');
 ta.keep('startOffset', '');
 ta.store('page.geo', "294074");
 ta.store('page.location', "294074");
@@ -1534,8 +1577,9 @@ ta.store('facebook.disableLogin', false);
 ta.store('facebook.apiKey', "f1e687a58f0cdac60b7af2317a5febb3");
 ta.store('facebook.appId', "162729813767876");
 ta.store('facebook.appName', "tripadvisor");
-ta.store('facebook.taServerTime', "1415054202");
+ta.store('facebook.taServerTime', "1427502977");
 ta.store('facebook.skip.session.check',"false");
+ta.store('facebook.apiVersion', "v1.0");
 ta.store("facebook.invalidFBCreds", true);
 window.fbAsyncInit = ta.support.Facebook.init;
 ta.queueForLoad(function(){
@@ -1564,6 +1608,9 @@ if (node)
 node.parentNode.removeChild(node);
 }
 });
+ta.queueForLoad( function() { Cookie.writeSession('FBH', sniffFacebook() ? 1 : 2); }, 'SniffFB' );
+ta.store('ads.reverseScroll', true);
+ta.store('ads.disableEventRefresh', true);
 ta.store('ads.deferEnabled', true);
 ta.store('ads.gptEnabled', true);
 var googletag=googletag||{};
@@ -1572,17 +1619,24 @@ ta.queueForLoad(
 function() {
 ta.store('ads.pageTargeting', {
 "PageType": "Guide",
-"pool": "X",
+"pool": "A",
 "country": "294073",
 "geo": "294074",
 "detail": "0",
 "rd": "com",
 "hname": "Bogota",
 "gname": "Colombia",
-"slice": "shared_31",
+"slice": "single_9",
+"drs": [
+"mob_9",
+"fl_6"
+],
 "report": [
-"desktop_Guide_shared_31",
-"desktop_com_x"
+"desktop_Guide_single_9",
+"desktop_Guide_WIN_SIZE",
+"desktop_com_a",
+"desktop_Guide_mob_9",
+"desktop_Guide_fl_6"
 ],
 "platform": "desktop"
 });
@@ -1630,11 +1684,17 @@ ta.store('ads.gptBase', '/5349/ta.ta.com.s/sa.colombia.bogota' );
 ta.common.ads.initDoubleClick();
 }, 'Load GPT Ad JS'
 );
-var avlb_hero_photos = "http://c1.tacdn.com/css2/modules/avlb_hero_photos-v13950307902b.css";
-var floatingMapCSS = "http://c1.tacdn.com/css2/modules/floating_map-v12419345840b.css";
-var t4bSlideshowCSS = "http://c1.tacdn.com/css2/modules/t4b_slideshow-v14112077699b.css";
-var dhtml_cr_redesign_basic = "http://c1.tacdn.com/css2/overlays/cr_flyout-v12544950678b.css";
-var dhtml_cr_redesign_png24 = "http://c1.tacdn.com/css2/overlays/cr_flyout-v12544950678b.css";
+if(ta.sales && ta.sales.metaImpressionTag) {
+ta.sales.metaImpressionTag.setProviderName("BookingCom");
+ta.sales.metaImpressionTag.setTrackingPixel("http://b.scorecardresearch.com/p?c1=3&c2=6036461&c3=ALbook2&c4=1meta1&c5=1meta01&c6=&c10=1&c11=%esid!&c13=%psz=!;&c16=dfp&cj=1&ax_fwd=1&rn=");
+ta.sales.metaImpressionTag.setVendorName("Booking.com");
+ta.sales.metaImpressionTag.registerEvents();
+}
+var avlb_hero_photos = "http://e2.tacdn.com/css2/modules/avlb_hero_photos-v23950307902a.css";
+var floatingMapCSS = "http://e2.tacdn.com/css2/modules/floating_map-v22419345840a.css";
+var t4bSlideshowCSS = "http://e2.tacdn.com/css2/modules/t4b_slideshow-v24112077699a.css";
+var dhtml_cr_redesign_basic = "http://e2.tacdn.com/css2/overlays/cr_flyout-v22544950678a.css";
+var dhtml_cr_redesign_png24 = "http://e2.tacdn.com/css2/overlays/cr_flyout-v22544950678a.css";
 ta.store('checkrates.check_more_re',true);
 ta.store('checkrates.check_more_re_center_large_hero_photos',true);
 ta.store('checkrates.check_more_hero_photos',true);
@@ -1642,19 +1702,11 @@ ta.store('checkrates.center_overlay',true);
 ta.store('popunder.similar_hotels', true);
 ta.store('popunder.similar_hotels_new_rules', true);
 ta.store('popunder.suppress_half_day', true);
-ta.store('checkrates.chrome_dates_entry_holding',true);
-ta.store('metaUI.disablePriceTabAutoToggle', true );
-ta.store('checkrates.cr_popunder_by_shift_ctrl',true);
 ta.store('p13n_client_tracking_tree',true);
-ta.store('popunder.popunder_by_self_focus',true);
 ta.store('useHotelsFilterState', true);
-ta.store('popunder.popunder_by_self_focus_shift_ctrl', true);
-ta.store('popunder.popunder_by_self_closing_tab', true);
-ta.store('unavail_maybe_v1', true);
 ta.store('similar_hotels_exit_window_chevron', true);
 ta.store('fall_2013_masthead_refresh', true);
 ta.store( 'hotel_highlight_sd_style_disclaimer', true);
-ta.store('desktop_maps_v2_detail_view', true);
 ta.queueForLoad(function() { ta.meta.linkTracking.setup(); }, 'setup meta link tracking event');
 ta.store('sem_provider_availability_sort', true);
 ta.store('sem_provider_availability_sort_respects_autobroadening', true);
@@ -1669,7 +1721,11 @@ if(js_error.error) {
 jsErr = js_error.error;
 delete js_error['error'];
 }
-if(jsMsg.indexOf('ta is not defined') == -1) {
+var isTaNotDefinedError =
+jsMsg &&
+typeof jsMsg === 'string' &&
+jsMsg.indexOf('ta is not defined') >= 0;
+if(!isTaNotDefinedError) {
 ta.util.error.record(jsErr, "window.onerror:: " + jsMsg, null, js_error);
 }
 }
@@ -1679,43 +1735,46 @@ ta.store('ta.onload.errors', true);
 ta.store('ta.js_error_array.processed', true);
 }, 'record onload errors');
 try {
-if (window.ta && ta.store) {
 if(document.location.protocol != "https:" || false) {
-ta.store("ta.common.dmpFeatures.dmpEnabled", true);
-ta.store("ta.common.dmpFeatures.dmpBlueKaiEnabled", true);
-ta.store("ta.common.dmpFeatures.dmpPerfLoggingEnabled", false);
-ta.store("ta.common.dmpFeatures.dmpConsoleDebugEnabled", false);
+if (window.ta && ta.common && ta.common.dmp && ta.common.dmp.store) {
+ta.common.dmp.store.storeValue("dmpEnabled", true);
+ta.common.dmp.store.storeValue("dmpBlueKaiEnabled", true);
+ta.common.dmp.store.storeValue("dmpPerfLoggingEnabled", false);
+ta.common.dmp.store.storeValue("dmpConsoleDebugEnabled", false);
+ta.common.dmp.store.storeValue("dmpMetaExposedEnabled", false);
+ta.common.dmp.store.storeValue("dmpBlueKaiEnableMultipleIframes", true);
 if (ta.common && ta.common.dmp && ta.common.dmp.bluekai) {
-ta.store("ta.common.dmpFeatures.activeDMP", ta.common.dmp.bluekai);
+ta.common.dmp.store.setActiveDMP( ta.common.dmp.bluekai);
 }
 else if (ta && ta.util && ta.util.error && ta.util.error.record) {
 ta.util.error.record.apply(this, [null, "DMP JavaScript not found"]);
 }
-ta.store("ta.common.dmp.taUUID", "jUqoh+aDHF76ZA/3FCgLxwLaESP+RCUyLNIrblZgRk42jHwltRJPGQ==");
-ta.store("ta.common.dmpBehaviors", {
-"Zone" : [
-"sa.colombia.bogota"
-]
-,  "GeoID" : [
-"294074"
-]
-,  "ServletName" : [
+ta.common.dmp.store.storeValue("taUUID", "ubKy5POU3xQJMgDYgZ2om9zyYdCDR1TTcYTSfVyvfKkBS27FZ6YVQQ==");
+ta.common.dmp.store.setBehaviors({
+"ServletName" : [
 "Guide"
 ]
 ,  "POS" : [
 "com"
 ]
+,  "Zone" : [
+"sa.colombia.bogota"
+]
+,  "GeoID" : [
+"294074"
+]
+});
 }
-);
+if (ta.common && ta.common.dmp && ta.common.dmp.store) {
+ta.common.dmp.store.storeValue('dmpMeasureTest', false);
+ta.common.dmp.store.storeValue('dmpReviewReadTest', false);
+}
 if (ta.queueForLoad) {
 ta.queueForLoad(function() {
 if (ta.common && ta.common.dmp) {
 ta.common.dmp.init();
 }
-},
-"initialize DMP framework"
-);
-}
+},"initialize DMP framework");
 }
 }
 }
@@ -1754,14 +1813,6 @@ ta.common.header.getWARNotificationFlag();
 }, 'load notification flag if needed');
 </script>
 <script type="text/javascript">
-ta.store('commerce_history_injection.enabled', true);
-ta.queueForLoad(function() {
-if( !window.history || !window.history.state || !window.history.state.fromBackClick ) {
-return;
-}
-delete window.history.state.fromBackClick;
-ta.trackEventOnPage("COMMERCE_HISTORY_INJECT", "back_button_clicked", "");
-});
 </script>
 <script type="text/javascript">
 try {
@@ -1778,8 +1829,14 @@ ta.load('ta-overlays');
 }
 }, 'preload ta-overlays');
 </script>
+<script type="text/javascript">
+ta.store("ib_full_description_lightbox_on_flyout", true);
+</script>
+<script type="text/javascript">
+ta.store("ib_flyout_more_rooms", true);
+</script>
 <div id="IP_IFRAME_HOLDER"></div>
 </body>
-<!-- st: 55 dc: 1 sc: 7 -->
-<!-- uid: VFgDegoQKUkAAHBGWNMAAAAQ -->
+<!-- st: 52 dc: 1 sc: 6 -->
+<!-- uid: VRX3gQokHigAAEyVtXcAAAAg -->
 </html>
