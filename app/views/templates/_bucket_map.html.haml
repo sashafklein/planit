@@ -7,7 +7,7 @@
           // WEB!!!
           .map-filter-results-container
             = render 'places/filter'
-            .map-filter-results#in-view-list{ ng_if: "!mobile && !filtering" }
+            .map-filter-results#in-view-list{ ng_if: "!mobile", ng_show: "!filtering" }
               .bucket-list-container
                 %ul
                   #top-of-list
