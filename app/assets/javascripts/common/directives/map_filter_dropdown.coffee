@@ -5,7 +5,9 @@ mod.directive 'mapFilterDropdown', (QueryString) ->
     restrict: 'E'
     transclude: false
     replace: true
-    templateUrl: 'place_filter_dropdown.html'
+    templateUrl: 'map_filter_dropdown.html'
+    scope: 
+      places: '='
 
     link: (s, elem) ->
 

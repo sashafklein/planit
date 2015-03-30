@@ -26,6 +26,7 @@ mod.factory 'BucketEventManager', (F, $timeout) ->
       document.location.href = "/places/#{id.slice(1)}"
 
     mouseEvent: (type, id) =>
+      @s.filtering = false
       return unless type && id
       if @s.mobile
         switch type

@@ -5,4 +5,7 @@ mod.factory "Mark", (BaseModel, $http) ->
     @generateFromJSON: (json) -> BaseModel.generateFromJSON(Mark, json)
     @basePath: '/api/v1/marks'
     
+    choose: (place_option_id) ->
+      $http.post( "#{ @objectPath() }/choose", { place_option_id: place_option_id } )
+
   return Mark

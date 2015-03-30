@@ -1,7 +1,7 @@
 - title( "#{current_user.name}'s Inbox" )
 - set_page_type('inbox')
 
-#user-inbox-page
+#user-inbox-page{ ng_controller: 'InboxCtrl' }
 
   .band.spaced
 
@@ -31,6 +31,5 @@
               %i.fa.fa-trash
         .container.none.inbox-folder-contents
           - current_user.saves_to_review.each_with_index do |mark, index|
-            = link_to mark_path(mark.id) do
-              .container.none.inbox-message-header{ class: "#{'darker' if index.even?}" }
-                .original-reminder= render 'marks/place_option_header', { mark: mark, inbox: true, index: index }
+            .container.none.inbox-message-header{ ng_click: "openMark(#{mark.id})", class: "#{'darker' if index.even?}" }
+              .original-reminder= render 'marks/place_option_header', { mark: mark, inbox: true, index: index }

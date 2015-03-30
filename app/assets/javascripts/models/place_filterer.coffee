@@ -9,12 +9,7 @@ mod.factory 'PlaceFilterer', ($filter) ->
     returnFiltered: (places) -> 
       return [] unless places
       filteredPlaces = $filter('filter')( places, ( (place) => @_filterPlace(place) ) )
-      # @_showNumberFiltered( places.length - filteredPlaces.length )
       filteredPlaces
-
-    # _showNumberFiltered: (number) ->
-    #   if @queryHash.f? || $('#number_filtered').html() != ''
-    #     $('#number_filtered').html ( if number > 0 then "-#{number}" else null )
 
     _filterPlace: (place) ->
       [context, filters] = [@, [ '_metaCategoryFilter', '_wifiFilter', '_queryFilter' ]] # @_been, @_loved, @_open
@@ -23,7 +18,7 @@ mod.factory 'PlaceFilterer', ($filter) ->
 
     _metaCategoryFilter: (place) ->
       return place unless (filters = @queryHash.meta_categories)?.length
-      if _(filters).some( (cat) -> _(place.meta_categories).includes(cat) ) then place else null
+      if _(filters).some( (cat) -> _([place.meta_category]).includes(cat) ) then place else null
 
     _wifiFilter: (place) ->
       return place unless filter = @queryHash.wifi?
@@ -45,7 +40,9 @@ mod.factory 'PlaceFilterer', ($filter) ->
       if newObj.f
         for val in newObj.f.split(",")
           if val == "seedo"
-            newObj.meta_categories.push("See", "Do")
+            newObj.meta_categories.push("See", "Do", "Shop")
+          else if val == "other"
+            newObj.meta_categories.push("Transit", "Area", "Help", "Money", "Other")
           else if val == 'wifi'
             newObj.wifi = true    
           else

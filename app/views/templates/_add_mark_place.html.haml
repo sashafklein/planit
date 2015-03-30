@@ -1,15 +1,14 @@
-%script{ type: 'text/ng-template', id: 'bookmark_place.html' }
+%script{ type: 'text/ng-template', id: 'add_mark_place.html' }
   .modal-directive-wrapper
-    .confirmation{ ng_if: '!initiate'}
+    .confirm{ ng_if: '!initiate'}
       %modal_header{ header_title: 'Confirm new pin' }
       .modal-body
         %ul
           %li.like-container
             .bucket-list-tab.like-container
-              .bucket-list-img.centering-box{ style: "background-image: url('{{ place.images[currentImageIndex].url }}')", ng_if: 'place.images.length', ng_click: 'nextImage()', title: 'Click to Cycle' }
-                .choose-another-img.centered-item
+              .bucket-list-img.centering-box{ style: "background-image: url('{{ place.images[currentImageIndex].url }}')", ng_class: "{'no-img': place.images.length}", ng_click: 'nextImage()', title: 'Click to Cycle' }
+                .choose-another-img.centered-item{ ng_class: "{'no-img': !place.images.length}" }
                   %i.fa.fa-camera-retro
-                  Other
               .bucket-list-wrap.like-container
                 .bucket-list-profile
                   .bucket-list-title {{ place.name }}
@@ -20,17 +19,10 @@
                   .bucket-list-more-info.bucket-list-address {{ place.address }}
                   .bucket-list-more-info.bucket-list-locale {{ place.locale }}
                   .bucket-list-more-info.bucket-list-country {{ place.country }}
+                  / .add-to-extras
+                  /   %input{ value: 'Add to plan'}
+                  / .add-to-extras
+                  /   %input{ value: 'Add note'}
+                  / .add-to-extras
+                  /   %input{ value: 'Recommended by'}
       %modal_footer{ extra_buttons: 'extraButtons', cancel_text: 'Reject', cancel_method: 'cancel' }
-
-    .initiate{ ng_if: 'initiate' }
-      %modal_header{ header_title: 'Add new pin' }
-      .modal-body
-        .search-bar-wrap
-          %search_and_add{ container: 'initiate' }
-      %modal_footer
-    / .add-to-extras
-    /   %input{ value: 'Add to plan'}
-    / .add-to-extras
-    /   %input{ value: 'Add note'}
-    / .add-to-extras
-    /   %input{ value: 'Recommended by'}

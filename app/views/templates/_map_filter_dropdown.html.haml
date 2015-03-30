@@ -1,10 +1,12 @@
-%script{ type: 'text/ng-template', id: 'place_filter_dropdown.html' }
-  .place-filter-dropdown
+%script{ type: 'text/ng-template', id: 'map_filter_dropdown.html' }
+  .place-filter-dropdown{ ng_show: 'places' }
     %a.dropdown-toggle.filter-dropdown{ "data-toggle" => "dropdown", :href => "#" }
-      .filter-button
-        %i.filter-or-number.fa.fa-sliders.fa-lg#number_filtered
-        %i.fa.fa-caret-down 
-    %ul.dropdown-menu.dropdown-menu-left.filter-dropdown-menu
+      .filter-menu-toggle
+        .filter-button
+          %i.filter-or-number.fa.fa-sliders.fa-lg#number_filtered
+          %i.fa.fa-caret-down 
+        Filter Places
+    %ul{ ng_show: 'filterStatus' }
       %li.filter-dropdown-menu
         .apply-filters{ ng_show: '!filtersSet()' } Apply Filters: 
         .clear-all-filters{ ng_click: 'clearFilters()', ng_show: 'filtersSet()' }

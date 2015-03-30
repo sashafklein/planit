@@ -7,15 +7,19 @@
 
     - if !browser.mobile?
 
-      .static-page.container
-        .whitebox.no-mobile-portrait.extra-pad-top.like-container
-          .sixteen.columns.main-content
+      .band.spaced-extra
+        .static-page.container
+          .whitebox.padded.no-mobile-portrait.like-container
+            .sixteen.columns.main-content
 
-            %p= "#{@user.name}'s Dashboard"
-            %p Find/Discover/Follow
-            %p Active Plans/Geographies
-            %p Start a new plan
-            %p Share/invite?
+              %span
+                FILTERS in LOCATION that USER has ACTION & ACTION &...
+
+              %p= "#{@user.name}'s Dashboard"
+              %p Find/Discover/Follow
+              %p Active Plans/Geographies
+              %p Start a new plan
+              %p Share/invite?
 
     - else # mobile
 

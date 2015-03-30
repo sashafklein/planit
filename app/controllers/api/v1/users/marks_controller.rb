@@ -1,5 +1,5 @@
 class Api::V1::Users::MarksController < ApiController
-  
+
   before_action :load_user, only: [:create, :scrape, :mini_scrape, :bucket]
   
   before_action :cors_set_access_control_headers, only: [:scrape, :mini_scrape]

@@ -5,11 +5,11 @@ angular.module("Services").factory "BarExpander", () ->
     @expandBar: ->
       $(".logo-container, .side-menu-container, .top-menu-container, .search-teaser").fadeOut("fast")
       $('#planit-header').addClass("focused")
-      $(".searching-mask, .expanded-search-and-filter").fadeIn("fast")
-      if $(".expanded-search-and-filter input#primary").css('display') != 'none'
-        $(".expanded-search-and-filter input#primary").focus()
-      else if $(".expanded-search-and-filter input#secondary").css('display') != 'none'
-        $(".expanded-search-and-filter input#secondary").focus()
+      $(".searching-mask, .expanded-top-search-bar").fadeIn("fast")
+      if $(".expanded-top-search-bar input#primary").css('display') != 'none'
+        $(".expanded-top-search-bar input#primary").focus()
+      else if $(".expanded-top-search-bar input#secondary").css('display') != 'none'
+        $(".expanded-top-search-bar input#secondary").focus()
       $(".mobile-center-search").css('display', 'none') if $(".mobile-center-search").css('display') != 'none'
       return true
 

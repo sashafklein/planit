@@ -3,7 +3,8 @@
     .modal-dialog
 
       .modal-content{ ng_show: '!data.loading && !data.error' }
-        %bookmark_place{ mark: 'data.mark', initiate: 'data.initiate', ng_if: "data.type == 'addPin' && (data.mark || data.initiate)", header_title: '{{title()}}' }
+        %add_mark_place{ mark: 'data.mark', initiate: 'data.initiate', ng_if: "data.type == 'addMarkPlace' && (data.mark || data.initiate)", header_title: '{{title()}}' }
+        %choose_mark_place{ mark: 'data.mark', ng_if: "data.type == 'chooseMarkPlace'", header_title: '{{title()}}' }
 
       .modal-content{ ng_show: 'data.loading || data.error' }
         .loading{ ng_show: 'data.loading' }

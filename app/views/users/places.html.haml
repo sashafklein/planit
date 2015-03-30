@@ -6,8 +6,8 @@
   - if @user.marks.count > 0
 
     #user-bucket-map
-      %bucket_map.bucket-map-canvas{ user_id: @user.id, center_and_zoom: params[:m], web_padding: '45,45,15,400', mobile_padding: '40,15,80,15' }
-      - include_templates( :bucket_map, :bucket_list_clusters, :bucket_list_places )
+      %bucket_map.bucket-map-canvas{ user_id: @user.id, center_and_zoom: params[:m], web_padding: '45,45,15,400', mobile_padding: '40,15,80,15', zoom_control: 'true' }
+      - include_templates( :bucket_map, :bucket_list_clusters, :bucket_list_places, :map_filter_dropdown )
 
   - elsif current_user.marks.count == 0
 

@@ -1,19 +1,16 @@
-angular.module('Common').directive 'bookmarkPlace', (Mark, Modal, ErrorReporter, $timeout) ->
+angular.module('Common').directive 'addMarkPlace', (Mark, Modal, ErrorReporter, $timeout) ->
   return { 
     restrict: 'E'
     transclude: false
     replace: true
-    templateUrl: 'bookmark_place.html'
+    templateUrl: 'add_mark_place.html'
     scope:
       mark: '='
-      initiate: '='
       headerTitle: '@'
 
     link: (s, e) ->
 
       s.place = s.mark.place if s.mark
-
-      $timeout(-> $(".initiate input#primary").focus() if $(".initiate input#primary") && s.initiate )
 
       s.categories = -> s.place.categories.join(", ")
       s.edit = -> window.location.href = "/marks/#{s.mark.id}"
@@ -25,7 +22,7 @@ angular.module('Common').directive 'bookmarkPlace', (Mark, Modal, ErrorReporter,
         markObj = new Mark({ id: s.mark.id })
         markObj.destroy()
           .success -> s.confirm()
-          .error -> ErrorReporter.report({ mark_id: s.mark.id, context: 'Trying to delete a mark in bookmarkPlace modal', api_path: markObj.objectPath() })
+          .error -> ErrorReporter.report({ mark_id: s.mark.id, context: 'Trying to delete a mark in addMarkPlace modal', api_path: markObj.objectPath() })
 
       s.confirm = -> new Modal('').hide()
 

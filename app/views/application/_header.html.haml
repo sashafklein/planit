@@ -19,11 +19,7 @@
                 .top-nav-bar{ ng_controller: 'NavBarCtrl' }= render 'application/nav_bar', { page_type: page_type }
 
             .search-and-filter-wrap
-              - if show_filter?(page_type)
-                - if page_type == 'places'
-                  %map_filter_dropdown
-                  - include_templates :place_filter_dropdown
-              %expanding_header_search{ show_filter: "#{show_filter?(page_type)}", show_teaser: "#{show_search?(page_type)}" }
+              %expanding_header_search{ show_teaser: "#{show_search?(page_type)}" }
               - include_templates :expanding_header_search, :search_and_add
 
           - elsif current_user # inactive user

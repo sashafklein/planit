@@ -1,0 +1,17 @@
+.place-filter-dropdown{ ng_show: 'places' }
+  .filter-dropdown-toggle{ ng_click: 'toggleFilter()', ng_class: "{'unselected': !filtering}" }
+    .apply-filters 
+      %i.filter-or-number.fa.fa-sliders.fa-lg
+      Filter Places: 
+    .filter-numbers
+      #number-filtered{ ng_show: "places.length < allPlaces.length"} {{ places.length }} /
+      #number-places {{ allPlaces.length }}
+      %i.fa{ ng_class: "{'fa-caret-down': !filtering, 'fa-caret-up': filtering}" } 
+  %ul{ ng_show: 'filtering' }
+    %li{ ng_repeat: 'filter in filterList', ng_class: "{'filter-dropdown-menu': filter.slug, 'divider': filter.divider, 'header': filter.header}" }
+      %span{ ng_if: 'filter.header' } {{ filter.header }}
+      %label{ ng_if: 'filter.slug' }
+        %input.filter-dropdown-menu-checkbox{ type: "checkbox", ng_model: 'filters[filter.slug]' }
+        {{ filter.name }}
+        %span.only-checkbox{ ng_show: 'filter.only' } ONLY
+        %i.filter-dropdown-menu-icon{ ng_class: 'filter.icon'}

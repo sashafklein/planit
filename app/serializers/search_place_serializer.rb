@@ -9,15 +9,11 @@ class SearchPlaceSerializer < BaseSerializer
   end
 
   def image_url
-    attrs.to_sh.only(:url, :source)
+    image.try(:url)
   end
 
   def image_source
     image.try(:source)
-  end
-
-  def image_url
-    image.try(:url)
   end
 
   def address
