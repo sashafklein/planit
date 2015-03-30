@@ -1,5 +1,6 @@
 class Api::V1::MarksController < ApiController
 
+<<<<<<< HEAD
   before_action :load_mark, except: [:create]
 
   # PLACE OPTIONS
@@ -64,25 +65,49 @@ class Api::V1::MarksController < ApiController
 
   def destroy
     return permission_denied_error unless @mark && @mark.user == current_user
+=======
+  before_action :load_mark, only: [:destroy, :show, :choose]
+
+  def destroy
+    return permission_denied_error unless @mark.user == current_user
+>>>>>>> filtering needs some attention as numbers don't add up
     @mark.destroy
     success
   end
 
+<<<<<<< HEAD
   def note
     return permission_denied_error unless @mark && @mark.user == current_user
     return error unless params[:note]
     # @mark.update_attributes!(deleted: true)
     success
+=======
+  def show
+    return permission_denied_error unless @mark.user == current_user
+    render json: @mark, serializer: MarkPlaceOptionsSerializer
+  end
+
+  def choose
+    return permission_denied_error unless @mark.user == current_user
+    return permission_denied_error unless @mark.place_options.any?
+    place_option = @mark.place_options.find(params[:place_option_id])
+    place = place_option.choose!
+    render json: place, serializer: SearchPlaceSerializer
+>>>>>>> filtering needs some attention as numbers don't add up
   end
 
   private
 
   def load_mark
+<<<<<<< HEAD
     if mark_id = params[:id]
       @mark = Mark.unscoped.find( mark_id )
     elsif place_id = params[:place_id]
       @mark = Mark.unscoped.where( place_id: place_id, user: current_user ).first
     end
+=======
+    @mark = Mark.find(params[:id])
+>>>>>>> filtering needs some attention as numbers don't add up
   end
 
 end

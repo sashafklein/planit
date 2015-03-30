@@ -63,6 +63,7 @@ Rails.application.routes.draw do
       end
       
       resources :errors, only: [:create]
+
       resources :allowable_sites, only: [] do
         match '/test' => 'allowable_sites#test', on: :collection, via: [:options, :get]
       end

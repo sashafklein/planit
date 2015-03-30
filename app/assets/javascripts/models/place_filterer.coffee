@@ -19,6 +19,13 @@ mod.factory 'PlaceFilterer', ($filter) ->
       return null unless (filters = @queryHash.meta_categories)?.length
       if _(filters).some( (cat) -> _([place.meta_category]).includes(cat) ) then place else null
 
+    _wifiFilter: (place) ->
+      return place unless filter = @queryHash.wifi?
+      if place.wifi == filter then place else null
+
+    _queryFilter: (place) ->
+      return place unless (filter = @queryHash.q)?.toLowerCase()
+
     _roundOut: (qHash) ->
       newObj = _({ meta_categories: [], wifi: null, open: null, been: null, loved: null }).extend(qHash).value()
 
