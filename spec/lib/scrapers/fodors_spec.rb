@@ -6,18 +6,8 @@ module Scrapers
 
     include ScraperHelper
 
-    describe "botero" do
-
-      before do 
-        @base_name = 'botero'
-        @url = 'http://www.fodors.com/world/south-america/colombia/bogota/review-137643.html'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it "parses botero correctly" do
+      run_test :botero, 'http://www.fodors.com/world/south-america/colombia/bogota/review-137643.html'
     end
 
   end

@@ -6,99 +6,36 @@ module Scrapers
 
     include ScraperHelper
 
-    describe "arch" do
-
-      before do 
-        @base_name = 'arch'
-        @url = 'http://www.frommers.com/destinations/rome/attractions/866798'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-      end
+    it "parses arch correctly" do
+      run_test 'arch', 'http://www.frommers.com/destinations/rome/attractions/866798'
     end
 
-    describe "inroma" do
-
-      before do 
-        @base_name = 'inroma'
-        @url = 'http://www.frommers.com/destinations/rome/restaurants/866665'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-      end
+    it "parses inroma correctly" do
+      run_test 'inroma', 'http://www.frommers.com/destinations/rome/restaurants/866665'
     end
 
     # CLEAN LISTS
 
-    describe "restaurantlist" do
-
-      before do 
-        @base_name = 'restaurantlist'
-        @url = 'http://www.frommers.com/destinations/rome/restaurants'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-      end
+    it "parses restaurantlist correctly" do
+      run_test 'restaurantlist', 'http://www.frommers.com/destinations/rome/restaurants'
     end
 
     # MULTIPLE
 
-    describe "performingarts" do
-
-      before do 
-        @base_name = 'performingarts'
-        @url = 'http://www.frommers.com/destinations/rome/705646'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-      end
+    it "parses performingarts correctly" do
+      run_test 'performingarts', 'http://www.frommers.com/destinations/rome/705646'
     end
 
-    describe "leyva" do
-
-      before do 
-        @base_name = 'leyva'
-        @url = 'http://www.frommers.com/destinations/bogota/278016'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-      end
+    it "parses leyva correctly" do
+      run_test 'leyva', 'http://www.frommers.com/destinations/bogota/278016'
     end
 
-    describe "threedays" do
-
-      before do 
-        @base_name = 'threedays'
-        @url = 'http://www.frommers.com/destinations/rome/705674'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-      end
+    it "parses threedays correctly" do
+      run_test 'threedays', 'http://www.frommers.com/destinations/rome/705674'
     end
 
-    describe "cerveteri" do
-
-      before do 
-        @base_name = 'cerveteri'
-        @url = 'http://www.frommers.com/destinations/rome/705658'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-      end
+    it "parses cerveteri correctly" do
+      run_test 'cerveteri', 'http://www.frommers.com/destinations/rome/705658'
     end
 
   end

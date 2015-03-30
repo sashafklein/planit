@@ -6,73 +6,24 @@ module Scrapers
 
     include ScraperHelper
 
-    describe "nico" do
-
-      before do 
-        @base_name = 'nico'
-        @url = 'http://sf.eater.com/venue/nico'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it "parses nico correctly" do
+      run_test 'nico', 'http://sf.eater.com/venue/nico'
     end
 
-    describe "sitka" do
-
-      before do 
-        @base_name = 'sitka'
-        @url = 'http://www.eater.com/2014/10/17/6994765/sitka-and-spruce-restaurant-review'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it "parses sitka correctly" do
+      run_test 'sitka', 'http://www.eater.com/2014/10/17/6994765/sitka-and-spruce-restaurant-review'
     end
 
-    # describe "suppers" do
-
-    #   before do 
-    #     @base_name = 'suppers'
-    #     @url = 'http://sf.eater.com/2014/11/7/7174885/sunday-suppers-trendy'
-    #     @base_domain = get_domain(@url)
-    #   end
-
-    #   it "parses the page correctly" do
-    #     expect(data).to eq expectations
-    #   end
+    # it "parses # correctly" do
+    #   run_test suppers: 'http://sf.eater.com/2014/11/7/7174885/sunday-suppers-trendy'
     # end
-
-    describe "apizza-scholls" do
-
-      before do 
-        @base_name = 'apizza-scholls'
-        @url = 'http://pdx.eater.com/maps/portland-best-restaurants-kachka-davenport/apizza-scholls'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    
+    it "parses 'apizza correctly" do
+      run_test 'apizza-scholls', 'http://pdx.eater.com/maps/portland-best-restaurants-kachka-davenport/apizza-scholls'
     end
 
-    describe "thoumieux" do
-
-      before do 
-        @base_name = 'thoumieux'
-        @url = 'http://www.eater.com/maps/the-eater-paris-heatmap-where-to-eat-right-now/gateaux-thoumieux'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it "parses thoumieux correctly" do
+      run_test 'thoumieux', 'http://www.eater.com/maps/the-eater-paris-heatmap-where-to-eat-right-now/gateaux-thoumieux'
     end
 
   end

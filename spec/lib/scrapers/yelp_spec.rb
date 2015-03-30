@@ -6,32 +6,12 @@ module Scrapers
 
     include ScraperHelper
 
-    describe "comptoir" do
-
-      before do 
-        @base_name = 'comptoir'
-        @url = 'http://www.yelp.com/biz/le-comptoir-du-relais-paris'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it "parses comptoir correctly" do
+      run_test 'comptoir', 'http://www.yelp.com/biz/le-comptoir-du-relais-paris'
     end
 
-    describe "contigo" do
-
-      before do 
-        @base_name = 'contigo'
-        @url = 'http://www.yelp.com/biz/contigo-san-francisco-2'
-        @base_domain = get_domain(@url)
-      end
-
-      it "parses the page correctly" do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    it "parses contigo correctly" do
+      run_test 'contigo', 'http://www.yelp.com/biz/contigo-san-francisco-2'
     end
 
   end

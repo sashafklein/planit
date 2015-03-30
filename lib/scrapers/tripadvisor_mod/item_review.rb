@@ -14,7 +14,7 @@ module Scrapers
       def data
         [ place: {
             name: trim( de_tag( name ) ),
-            street_address: street_address,
+            street_addresses: street_addresses,
             locality: locality,
             region: region,
             postal_code: postal_code,
@@ -41,8 +41,8 @@ module Scrapers
         page.css('h1#HEADING').inner_html ; rescue ; nil
       end
 
-      def street_address
-        page.css("span[property='v:street-address']").first.inner_html ; rescue ; nil
+      def street_addresses
+        page.css("span[property='v:street-address']").map(&:inner_html).compact.uniq ; rescue ; nil
       end
 
       def locality

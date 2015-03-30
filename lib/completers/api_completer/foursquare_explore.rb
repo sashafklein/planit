@@ -41,7 +41,7 @@ module Completers
     def explore
       get_venues!
       pick_venue
-      
+
       pip.question!(class_name) unless @success = ( venue.present? && !pip.unsure.include?(class_name) && venue.seems_legit? )
 
       merge!
@@ -73,7 +73,7 @@ module Completers
     end
     
     def atts_to_merge
-      [:website, :locality, :country, :region, :lat, :lon, :menu, :mobile_menu, :foursquare_id, :names, :street_addresses, :phones, :full_address, :sublocality, :photos]
+      [:website, :locality, :country, :region, :lat, :lon, :menu, :mobile_menu, :foursquare_id, :names, :street_addresses, :phones, :full_address, :sublocality, :photos, :categories]
     end
 
     def merge!

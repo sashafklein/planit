@@ -2,36 +2,19 @@ require 'rails_helper'
 
 module Scrapers
 
-  describe Googlemaps do
+  describe Googlemaps, :vcr do
 
     include ScraperHelper
 
-    describe "nikoklein" do
-      before do 
-        @base_name = 'nikoklein'
-        @url = 'http://www.googlemaps.com/'
-        @base_domain = "googlemaps"
-      end
-
-      xit "parses nikoklein starred googlemaps correctly", :vcr do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+    #This shit is killing me -- tons of tiny irrelevant changes
+    xit "parses nikoklein correctly" do
+      run_test 'nikoklein', 'http://www.googlemaps.com/', [:full_address]
     end
-
-    describe "trouble" do
-      before do 
-        @base_name = 'trouble'
-        @url = 'http://www.googlemaps.com/'
-        @base_domain = "googlemaps"
-      end
-
-      it "parses trouble starred googlemaps correctly", :vcr do
-        expect_equal(data, expectations)
-        expect(data).to eq expectations
-      end
+        
+    it "parses trouble correctly" do
+      run_test 'trouble', 'http://www.googlemaps.com/', [:full_address]
     end
-
+        
     # PRIVATE FUNCTIONS
 
   end

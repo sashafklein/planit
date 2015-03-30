@@ -23,7 +23,7 @@ module Scrapers
             name: name,
             full_address: full_address,
             website: website,
-            phone: phone,
+            # phone: phone,
             images: images,
             lat: lat,
             lon: lon,
@@ -43,10 +43,11 @@ module Scrapers
       rescue ; nil
       end
 
-      def phone
-        attempt = trim( page.css(".m-venue-hero").first.css('h1').first.next_element.next_element.text )
-      rescue ; nil
-      end
+      # Doesn't seem to be working
+      # def phone
+      #   attempt = trim( page.css(".m-venue-hero").first.css('h1').first.next_element.next_element.text )
+      # rescue ; nil
+      # end
 
       def website
         attempt = page.css(".m-venue-hero").first.css("a:contains('Visit Website')").first.attribute("href").value

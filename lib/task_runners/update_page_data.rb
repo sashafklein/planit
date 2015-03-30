@@ -13,26 +13,6 @@ module TaskRunners
       @list = get_list
     end
 
-    def get_list
-      return @list if @list
-      @list = []
-      base = File.join *%W( #{Rails.root} spec support pages )
-      entries( base ).each do |folder|
-        entries( base, folder ).reject{ |e| %w( yml kml ).include? e[-3..-1]  }. each do |file|
-          @files << ( full_path = File.join( base, folder, file) )
-          yml = full_path.gsub(".html", '.yml')
-          if File.exists?(yml)
-            array = YAML.load_file(yml).to_super
-            site = array.first.scraper_url || array.first.place.try(:scraper_url) || array.try(:scraper_url)
-          else
-            @new_yamls << yml
-          end
-          @list << { file: full_path, site: site || ''}
-        end
-      end
-      @list = @list.to_super
-    end
-
     def get_new!
       updated = []
 
@@ -105,6 +85,13 @@ module TaskRunners
       end
     end
 
+    def accept_tenous!
+      tenuous.each do |f|
+        `mv #{tenuous} #{tenuous.gsub('.tenuous', '')}`
+        puts "Replaced the original with #{tenuous}"
+      end
+    end
+
     def move_tenuous!
       list.select{ |e| e.site.present? }.each do |el|
         old_file = "#{el.file}.old"
@@ -118,6 +105,29 @@ module TaskRunners
           `mv #{old_file} #{el.file}`
         end
       end
+    end
+
+    private
+
+
+    def get_list
+      return @list if @list
+      @list = []
+      base = File.join *%W( #{Rails.root} spec support pages )
+      entries( base ).each do |folder|
+        entries( base, folder ).reject{ |e| %w( yml kml ).include? e[-3..-1]  }. each do |file|
+          @files << ( full_path = File.join( base, folder, file) )
+          yml = full_path.gsub(".html", '.yml')
+          if File.exists?(yml)
+            array = YAML.load_file(yml).to_super
+            site = array.first.scraper_url || array.first.place.try(:scraper_url) || array.try(:scraper_url)
+          else
+            @new_yamls << yml
+          end
+          @list << { file: full_path, site: site || ''}
+        end
+      end
+      @list = @list.to_super
     end
   end
 end
