@@ -56,6 +56,30 @@ describe Api::V1::Users::MarksController, :vcr do
     end
   end
 
+  describe 'mini_scrape' do
+    before do 
+      @user = create(:user)
+    end
+
+    context "single place" do
+      it "reformats data and completes it" do
+        data = { lat: 38.2979961, lon: -122.2847945, name: 'La Taberna' }.to_json.to_s
+        expect{ 
+          get :mini_scrape, user_id: @user.id, url: 'http://www.yelp.com/biz/la-taberna-napa?hrid=54qADZmO5fPJaDu0o9AMDA', scraped: data, delay: false
+        }.to change{ @user.marks.count }.by 1
+        expect( @user.marks.first.place.name ).to eq 'La Taberna'
+      end
+
+      it "also handles correctly formatted data" do
+        data = [{ place: { lat: 38.2979961, lon: -122.2847945, name: 'La Taberna' } }].to_json.to_s 
+        expect{ 
+          get :mini_scrape, user_id: @user.id, url: 'http://www.yelp.com/biz/la-taberna-napa?hrid=54qADZmO5fPJaDu0o9AMDA', scraped: data, delay: false
+        }.to change{ @user.marks.count }.by 1
+        expect( @user.marks.first.place.name ).to eq 'La Taberna'
+      end
+    end
+  end
+
   describe 'scrape' do
 
     before do
@@ -77,8 +101,7 @@ describe Api::V1::Users::MarksController, :vcr do
             "Access-Control-Allow-Origin" => "*", 
             "Access-Control-Allow-Methods" => "POST, GET, PUT, DELETE, OPTIONS", 
             "Access-Control-Max-Age" => "1728000", 
-            "Content-Type" => "text/html"
-          }
+          }, { ignore_keys: ['Content-Type']}
         )
       end
 
@@ -259,7 +282,7 @@ describe Api::V1::Users::MarksController, :vcr do
         }.to change{ @user.flags.count }.by 1
 
         expect( @user.marks.first ).to be_nil 
-        expect( @user.flags.first.name ).to eq "Scrape and completion failed"
+        expect( @user.flags.first.name ).to eq "Scrape and completion failed in scrape"
         expect( @user.flags.first.info ).to hash_eq( {
           "url"=>"http://www.sashafklein.com",
           "data"=>

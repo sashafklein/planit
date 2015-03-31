@@ -3,18 +3,16 @@ module TaskRunners
 
     include TaskRunners
 
-    attr_reader :files, :list, :old, :errors, :tenuous
-    def initialize
-      @files = []
-      @old = []
-      @errors = []
-      @tenuous = []
-      @new_yamls = []
-      @list = get_list
+    attr_reader :files, :list, :old, :errors, :tenuous, :updated
+    def initialize(folder=nil)
+      @files, @updated, @old, @errors, @tenuous, @new_yamls = [], [], [], [], [], []
+      @list = get_list(folder)
     end
 
-    def get_new!
-      updated = []
+    def get_new!(file=nil)
+      if file
+        return get_new_file @list.find{ |f| f.file == file }
+      end
 
       @new_yamls.select{ |y| !y.include?('email') }.each do |yml|
         puts "Creating file: #{yml}"
@@ -22,25 +20,14 @@ module TaskRunners
       end
 
       list.select{ |e| e.site.present? }.each do |el|
-        updated << el.file
-        @old << (old_file = "#{el.file}.old")
-        
-        `mv #{el.file} #{old_file}`
-        puts "Grabbing #{el.file}"
-        `curl '#{el.site}' -o #{el.file}`
-
-        if !File.exists?(el.file)
-          @errors << "Didn't get anything for #{el.file}. Reversing changes."
-          @old.delete(old_file)
-          `mv #{old_file} #{el.file}`
-        end
+        get_new_file(el)
       end
 
       move_tenuous!
 
       puts "Updated #{updated.length} files:".colorize(:green)
 
-      updated.each do |f|
+      @updated.each do |f|
         puts " - #{f}".colorize(:green)
       end
 
@@ -110,24 +97,64 @@ module TaskRunners
     private
 
 
-    def get_list
+    def get_list(folder = nil)
       return @list if @list
       @list = []
       base = File.join *%W( #{Rails.root} spec support pages )
-      entries( base ).each do |folder|
-        entries( base, folder ).reject{ |e| %w( yml kml ).include? e[-3..-1]  }. each do |file|
-          @files << ( full_path = File.join( base, folder, file) )
-          yml = full_path.gsub(".html", '.yml')
-          if File.exists?(yml)
-            array = YAML.load_file(yml).to_super
-            site = array.first.scraper_url || array.first.place.try(:scraper_url) || array.try(:scraper_url)
-          else
-            @new_yamls << yml
-          end
-          @list << { file: full_path, site: site || ''}
+
+      if folder
+        get_data_for_folder( base, folder )
+      else
+        entries( base ).reject{ |f| f == 'manifest.yml' }.each do |folder|
+          get_data_for_folder(base, folder)
         end
       end
       @list = @list.to_super
     end
+
+    def get_data_for_folder(base, folder)
+      entries( base, folder ).reject{ |e| %w( yml kml ).include? e[-3..-1]  }. each do |file|
+        get_data_for_file(base, folder, file)
+      end
+    end
+
+    def get_data_for_file(base, folder, file)
+      @files << ( full_path = File.join( base, folder, file) )
+      yml = full_path.gsub(".html", '.yml')
+      if File.exists?(yml)
+        array = YAML.load_file(yml).to_super
+        site = array.first.scraper_url || array.first.place.try(:scraper_url) || array.try(:scraper_url)
+      else
+        @new_yamls << yml
+      end
+      @list << { file: full_path, site: site || ''}
+    end
+
+    def get_new_file(el)
+      @updated << el.file
+      @old << (old_file = "#{el.file}.old")
+      
+      `mv #{el.file} #{old_file}`
+      puts "Grabbing #{el.file} from #{el.site}"
+      `curl '#{el.site}' -o #{el.file}`
+
+      if !File.exists?(el.file)
+
+        return if second_time_is_the_charm!(el)
+
+        @errors << "Didn't get anything for #{el.file}. Reversing changes."
+        @old.delete(old_file)
+        `mv #{old_file} #{el.file}`
+      end
+    end
+
+    def second_time_is_the_charm!(el)
+      content = open(el.site).read
+      File.open( el.file, 'w' ) { |f| f.write(content) }
+      true
+    rescue
+      false
+    end
+
   end
 end
