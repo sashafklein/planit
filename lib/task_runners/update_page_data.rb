@@ -4,13 +4,13 @@ module TaskRunners
     include TaskRunners
 
     attr_reader :files, :list, :old, :errors, :tenuous
-    def initialize
+    def initialize(folder=nil)
       @files = []
       @old = []
       @errors = []
       @tenuous = []
       @new_yamls = []
-      @list = get_list
+      @list = get_list(folder)
     end
 
     def get_new!
@@ -110,24 +110,33 @@ module TaskRunners
     private
 
 
-    def get_list
+    def get_list(folder = nil)
       return @list if @list
       @list = []
       base = File.join *%W( #{Rails.root} spec support pages )
-      entries( base ).each do |folder|
-        entries( base, folder ).reject{ |e| %w( yml kml ).include? e[-3..-1]  }. each do |file|
-          @files << ( full_path = File.join( base, folder, file) )
-          yml = full_path.gsub(".html", '.yml')
-          if File.exists?(yml)
-            array = YAML.load_file(yml).to_super
-            site = array.first.scraper_url || array.first.place.try(:scraper_url) || array.try(:scraper_url)
-          else
-            @new_yamls << yml
-          end
-          @list << { file: full_path, site: site || ''}
+
+      if folder
+        get_data_for_folder( base, folder )
+      else
+        entries( base ).reject{ |f| f == 'manifest.yml' }.each do |folder|
+          get_data_for_folder(base, folder)
         end
       end
       @list = @list.to_super
+    end
+
+    def get_data_for_folder(base, folder)
+      entries( base, folder ).reject{ |e| %w( yml kml ).include? e[-3..-1]  }. each do |file|
+        @files << ( full_path = File.join( base, folder, file) )
+        yml = full_path.gsub(".html", '.yml')
+        if File.exists?(yml)
+          array = YAML.load_file(yml).to_super
+          site = array.first.scraper_url || array.first.place.try(:scraper_url) || array.try(:scraper_url)
+        else
+          @new_yamls << yml
+        end
+        @list << { file: full_path, site: site || ''}
+      end
     end
   end
 end
