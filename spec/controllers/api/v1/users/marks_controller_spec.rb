@@ -255,19 +255,19 @@ describe Api::V1::Users::MarksController, :vcr do
 
       it "flags the failure if it doesn't scrape enough data" do
         expect{
-          post :scrape, url: "http://stackoverflow.com/questions/10113366/load-jquery-with-javascript-and-use-jquery", user_id: @user.id, delay: false
+          post :scrape, url: "http://www.sashafklein.com", user_id: @user.id, delay: false
         }.to change{ @user.flags.count }.by 1
 
         expect( @user.marks.first ).to be_nil 
         expect( @user.flags.first.name ).to eq "Scrape and completion failed"
         expect( @user.flags.first.info ).to hash_eq( {
-          "url"=>"http://stackoverflow.com/questions/10113366/load-jquery-with-javascript-and-use-jquery",
+          "url"=>"http://www.sashafklein.com",
           "data"=>
             [{"place"=>
               {
                 "lat"=>nil,
                 "lon"=>nil,
-                "name"=>"Load jQuery with Javascript and use jQuery",
+                "name"=>"Sasha Klein",
                 "nearby"=>"",
                 "full_address"=>nil,
                 "street_address"=>nil,
@@ -279,7 +279,7 @@ describe Api::V1::Users::MarksController, :vcr do
                 "hours"=>nil,
                 "map_href"=>nil
               },
-              "scraper_url"=>"http://stackoverflow.com/questions/10113366/load-jquery-with-javascript-and-use-jquery"
+              "scraper_url"=>"http://www.sashafklein.com"
             }]
         }) 
       end
