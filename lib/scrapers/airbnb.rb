@@ -13,6 +13,8 @@ module Scrapers
         AirbnbMod::Itinerary.new(url, page)
       elsif browse?(url)
         AirbnbMod::Browse.new(url, page)
+      elsif reservation_receipt?(url)
+        AirbnbMod::ReservationReceipt.new(url, page)
       end
     end
 
@@ -22,6 +24,10 @@ module Scrapers
 
     def self.browse?(url)
       url.include?('/rooms/')
+    end
+
+    def self.reservation_receipt?(url)
+      url.include?('/reservation/receipt')
     end
 
   end
