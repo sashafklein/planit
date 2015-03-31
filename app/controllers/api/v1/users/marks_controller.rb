@@ -1,9 +1,9 @@
 class Api::V1::Users::MarksController < ApiController
   
-  before_action :load_user, only: [:create, :scrape, :bucket]
+  before_action :load_user, only: [:create, :scrape, :mini_scrape, :bucket]
   
-  before_action :cors_set_access_control_headers, only: [:scrape]
-  after_action :cors_set_access_control_headers, only: [:scrape]
+  before_action :cors_set_access_control_headers, only: [:scrape, :mini_scrape]
+  after_action :cors_set_access_control_headers, only: [:scrape, :mini_scrape]
 
   def create
     return error(404, "User not found") unless @user
@@ -23,7 +23,6 @@ class Api::V1::Users::MarksController < ApiController
     return error(500, "Missing url param") unless params[:url]    
     
     # File.open('~log.html', 'w') { |file| file.write(params[:page]) }
-
     log msg: "URL: #{params[:url]}"
     scraper = Services::SiteScraper.build(params[:url], params[:page]) || Scrapers::General.new(params[:url], params[:page])
     scraped = Array scraper.data
@@ -37,7 +36,32 @@ class Api::V1::Users::MarksController < ApiController
     log msg: "DATA: #{scraped}\n\n"
     Completers::MassCompleter.new(scraped, @user, params[:url]).delay_complete!(delay?)
     log msg: "AFTER COMPLETION HAS BEEN BACKGROUNDED"
-    head(200)
+    success
+  end
+
+  def mini_scrape
+    return error(404, "User not found") unless @user
+    return error(500, "Missing url param") unless params[:url]    
+    
+    scraped = JSON.parse(params[:scraped])
+    
+    log msg: "MINI - URL: #{params[:url]}, SCRAPED: #{params[:scraped]}"
+
+    if scraped.is_a?(Hash)
+      scraped = scraped[:place] ? [scraped] : [{ place: scraped }]
+    end
+
+    if !good_data?(scraped)
+      @user.flags.create!( name: 'Scrape and completion failed in mini-scrape', info: { url: params[:url] , data: scraped } )
+      return error(417, "Insufficient information")
+    end
+
+    log msg: "MINI - DELAYING COMPLETION: #{delay?}"
+    log msg: "MINI - DATA: #{scraped}\n\n"
+    Completers::MassCompleter.new(scraped, @user, params[:url]).delay_complete!(delay?)
+    log msg: "MINI - AFTER COMPLETION HAS BEEN BACKGROUNDED"
+
+    success
   end
 
   def bucket

@@ -69,6 +69,7 @@ Rails.application.routes.draw do
         resources :marks, only: [] do
           match '/create' => 'users/marks#create', on: :collection, via: [:options, :post]
           match '/scrape' => 'users/marks#scrape', on: :collection, via: [:options, :post]
+          match '/mini_scrape' => 'users/marks#mini_scrape', on: :collection, via: [:options, :get]
         end
       end
 

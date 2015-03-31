@@ -96,7 +96,12 @@ module Completers
       @place = pip.place.find_and_merge
       @place.validate_and_save!( pip.photos.uniq{ |p| p.url }, pip.all_flags ) 
     rescue => e
-      place_options.any? ? { place_options: place_options, attrs: attrs } : nil
+      if place_options.any?
+        { place_options: place_options, attrs: attrs }
+      else
+        AdminMailer.report_error( { context: 'Failed Place Completion'}.merge(attrs) ).deliver_later
+        nil
+      end
     end
 
     def retry_foursquare?

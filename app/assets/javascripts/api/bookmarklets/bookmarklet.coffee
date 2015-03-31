@@ -1,20 +1,20 @@
-planit =
+window.planit = planit =
 
-  pollForSuccess: (shouldSubmitData, secondsLeft) ->
-    return @showError() unless secondsLeft >= 0
+  # pollForSuccess: (shouldSubmitData, secondsLeft) ->
+  #   return @showError() unless secondsLeft >= 0
 
-    $.ajax
-      crossDomain: true
-      dataType: 'json'
-      url: planit._testPath()
-      success: (response) ->
-        if response && response.mark_id
-          planit.showSuccess( response.mark_id, response.place_id )
-        else # Hasn't saved
-          planit._submitData() if shouldSubmitData
-          setTimeout( (-> planit.pollForSuccess( false, secondsLeft - 1 )), 1000 )
-      error: (response) ->
-        @showError()
+  #   $.ajax
+  #     crossDomain: true
+  #     dataType: 'json'
+  #     url: planit._testPath()
+  #     success: (response) ->
+  #       if response && response.mark_id
+  #         planit.showSuccess( response.mark_id, response.place_id )
+  #       else # Hasn't saved
+  #         planit._submitData() if shouldSubmitData
+  #         setTimeout( (-> planit.pollForSuccess( false, secondsLeft - 1 )), 1000 )
+  #     error: (response) ->
+  #       planit.showError()
 
   injectView: ->
     $('.header-wrapper').css('z-index', 100) if $('.header-wrapper')
@@ -32,25 +32,22 @@ planit =
 
   setLoadingTimeouts: ->
     $('#planit-bookmarklet').show()
-    $('#planit-bookmarklet-bar').slideDown(200)
-    $('#planit-close-button, #planit-x-button').click -> planit.hideAll()
-    $('#planit-message').fadeIn(400)
-    setTimeout(
-      => @cycleMessages(@messageCarousel), 
-      3500
-    )
+    # $('#planit-close-button, #planit-x-button').click -> planit.hideAll()
+    # $('#planit-message').fadeIn(400)
+    # setTimeout(
+    #   => @cycleMessages(@messageCarousel), 
+    #   3500
+    # )
 
   showSuccess: (markId, placeId) -> 
     $('.planit-working-actions').hide(0)
-    if placeId
-      @setPlanitMessage( 'Page Saved!' )
-    else
-      @setPlanitMessage( "Well, we got <i>something</i>..." )
-      $('#see-places').html( "Take a Look" )
-    $('#planit-success-link').attr( 'href', @_markPath(markId) )
-    $('.planit-success-actions').fadeIn('slow')
-    @disappearingAct(4000)
-    @mouseEvents() 
+    @setPlanitMessage( 'Page bookmarked.' )
+    $('#planit-bookmarklet-bar').slideDown(200)
+    # $('#planit-success-link').attr( 'href', @_markPath(markId) )
+    # $('.planit-success-actions').fadeIn('slow')
+    # @disappearingAct(4000)
+    # @mouseEvents() 
+    planit.disappearingAct(4000)
 
   showError: (errorMsg) -> 
     if errorMsg
@@ -62,9 +59,9 @@ planit =
         dataType: 'json'
         url: planit._errorPath()
         success: (response) ->
-          setTimeout( (-> @setErrorMessage("We've been notified")), 1000 )
+          setTimeout( (=> @setErrorMessage("We've been notified")), 1000 )
         error: (response) ->
-          setTimeout( (-> @setErrorMessage("Auto-reporting also failed! Please <a href='mailto:hello@plan.it?subject=Bookmarklet%20Failure&content=Page:%20#{window.location.href}'>let us know!</a>")), 1000 )
+          setTimeout( (=> @setErrorMessage("Auto-reporting also failed! Please <a href='mailto:hello@plan.it?subject=Bookmarklet%20Failure&content=Page:%20#{window.location.href}'>let us know!</a>")), 1000 )
 
   setErrorMessage: (message) ->
     @setPlanitMessage( message )
@@ -83,16 +80,16 @@ planit =
       if $('.planit-working-actions').css('display') == 'none'
         planit.disappearingAct(2000)
 
-  messageCarousel: [
-    "Hold tight.",
-    "This can take a while.",
-    "Uh, everything's under control...",
-    "Wow, complicated page!",
-    "As Justin Bieber said...",
-    "The force is strong with this one!",
-    "Almost there...",
-    "It's a trap!?",
-  ]
+  # messageCarousel: [
+  #   "Hold tight.",
+  #   "This can take a while.",
+  #   "Uh, everything's under control...",
+  #   "Wow, complicated page!",
+  #   "As Justin Bieber said...",
+  #   "The force is strong with this one!",
+  #   "Almost there...",
+  #   "It's a trap!?",
+  # ]
 
   hideAll: -> 
     $('#planit-bookmarklet-bar').slideUp(450)
@@ -106,19 +103,24 @@ planit =
       $('#planit-message').fadeOut(200)
       setTimeout((=> $('#planit-message').html(message); $('#planit-message').fadeIn('fast') ), 250 )
 
-  cycleMessages: (messages) ->
-    unless $('.planit-working-actions').css('display') == 'none'
-      @setPlanitMessage(messages.shift())
-      if messages.length
-        setTimeout((=> @cycleMessages(messages)), 3500 )
+  # cycleMessages: (messages) ->
+  #   unless $('.planit-working-actions').css('display') == 'none'
+  #     @setPlanitMessage(messages.shift())
+  #     if messages.length
+  #       setTimeout((=> @cycleMessages(messages)), 3500 )
 
+  _currentUrl: -> encodeURIComponent(window.location.href)
   _markPath: (markId) -> "HOSTNAME/marks/#{markId}"
 
-  _testPath: -> "HOSTNAME/api/v1/bookmarklets/test?user_id=USER_ID&url=#{ window.location.href }"
+  _testPath: -> "HOSTNAME/api/v1/bookmarklets/test?user_id=USER_ID&url=#{ planit._currentUrl() }"
 
-  _errorPath: -> "HOSTNAME/api/v1/bookmarklets/report_error?user_id=USER_ID&url=#{ window.location.href }"
+  _errorPath: -> "HOSTNAME/api/v1/bookmarklets/report_error?user_id=USER_ID&url=#{ planit._currentUrl() }"
 
-  _submitData: ->
+  _miniScrapePath: (data) -> "HOSTNAME/api/v1/users/USER_ID/marks/mini_scrape?url=#{ planit._currentUrl() }&scraped=#{ encodeURIComponent JSON.stringify(data) }&nocache=#{ Math.random() }"
+  
+  _useIframeSubmit: -> window.location.href.indexOf('yelp.com') == -1
+
+  _submitViaIFrame: ->
     html = document.documentElement.innerHTML
 
     loaded = 0
@@ -144,6 +146,38 @@ planit =
     document.body.appendChild iframe
     
     form.submit()
+    planit.showSuccess()
+
+  _submitViaGetRequest: ->
+    data = @_getMiniData()
+
+    if data.name || data.names
+      $.ajax
+        crossDomain: true
+        dataType: 'json'
+        url: planit._miniScrapePath(data)
+        success: (response) ->
+          planit.showSuccess()
+        error: (response) ->
+          planit.showError()
+    else
+      planit.showError()
+
+  _getMiniData: ->
+    data = {}
+    if location.host == 'www.yelp.com' && location.href.indexOf('/biz/') != -1
+      data.name = $("meta[property='og:title']").attr('content')
+      mapData = JSON.parse( $('.lightbox-map').attr('data-map-state') )
+      if mapData
+        data.lat = mapData.center?.latitude
+        data.lon = mapData.center?.longitude
+    return data
+
+  submitData: ->
+    if @_useIframeSubmit()
+      @_submitViaIFrame()
+    else
+      @_submitViaGetRequest()
 
   _styles: '''
     body, html {
@@ -391,7 +425,7 @@ planit =
           <img src="ASSET_PATH/logo_only_black.png" alt='' class="logo-image-top" >
           <img src="ASSET_PATH/logo_name_only_black.png" alt='PLANIT' class="logo-name-top large-screen" >
         </div>
-        <div id="planit-message">Working on it!</div>
+        <div id="planit-message"></div>
         <div class="extras-container">
           <div class="planit-success-actions">
             <a id='planit-success-link' target="_blank">
@@ -403,11 +437,11 @@ planit =
               </div>
             </a>
           </div>
-          <div class="planit-working-actions">
-            <div class="planit-button gray" id="planit-close-button">
-              Close
-            </div>
-          </div>
+           <!-- <div class="planit-working-actions"> -->
+             <!-- <div class="planit-button gray" id="planit-close-button"> -->
+               <!-- Close -->
+             <!-- </div> -->
+           <!-- </div> -->
         </div>
       </div>
     </div>
@@ -436,6 +470,6 @@ do ->
           planit.injectView()
           planit.setLoadingTimeouts()
           planit.mouseEvents()
-          planit.pollForSuccess(true, 25)
+          planit.submitData()
 
   ))
