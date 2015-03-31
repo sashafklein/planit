@@ -112,8 +112,8 @@ module Scrapers
       end
     end
 
-    describe "http://bluespoonme.com" do
-      before { @url = "http://bluespoonme.com" }
+    describe "http://bluespoonme.com/is_good/" do
+      before { @url = "http://bluespoonme.com/is_good/" }
       it "parses the page" do 
         expect_equal(data, yaml(:blue_spoon))
       end
@@ -199,8 +199,8 @@ module Scrapers
       end
     end
 
-    describe "http://www.contigosf.com/" do
-      before { @url = "http://www.contigosf.com/" }
+    describe "http://www.inpraiseofsardines.typepad.com/contigosf" do
+      before { @url = "http://www.inpraiseofsardines.typepad.com/contigosf" }
       it "parses the page correctly" do
         expect_equal(data, yaml(:contigo))
       end
