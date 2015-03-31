@@ -40,6 +40,7 @@ window.planit = planit =
     # )
 
   showSuccess: (markId, placeId) -> 
+    $('#planit-x-button').click -> planit.hideAll(); planit.hideAll()
     $('.planit-working-actions').hide(0)
     @setPlanitMessage( 'Page bookmarked.' )
     $('#planit-bookmarklet-bar').slideDown(200)
@@ -49,7 +50,8 @@ window.planit = planit =
     # @mouseEvents() 
     planit.disappearingAct(4000)
 
-  showError: (errorMsg) -> 
+  showError: (errorMsg) ->
+    $('#planit-x-button').click -> planit.hideAll(); planit.hideAll() 
     if errorMsg
       @setErrorMessage(errorMsg)
     else
@@ -79,6 +81,7 @@ window.planit = planit =
     $('#planit-bookmarklet-bar').mouseleave -> 
       if $('.planit-working-actions').css('display') == 'none'
         planit.disappearingAct(2000)
+    $('#planit-x-button').click -> planit.hideHall()
 
   # messageCarousel: [
   #   "Hold tight.",
@@ -469,7 +472,6 @@ do ->
         unless $('#planit-bookmarklet')[0]
           planit.injectView()
           planit.setLoadingTimeouts()
-          planit.mouseEvents()
           planit.submitData()
 
   ))
