@@ -26,24 +26,15 @@ class Api::V1::Users::MarksController < ApiController
     log msg: "URL: #{params[:url]}"
     scraper = Services::SiteScraper.build(params[:url], params[:page]) || Scrapers::General.new(params[:url], params[:page])
     scraped = Array scraper.data
-    
-    if !good_data?(scraped)
-      @user.flags.create!( name: 'Scrape and completion failed', info: { url: params[:url] , data: scraped } )
-      return error(417, "Insufficient information")
-    end 
 
-    log msg: "DELAYING COMPLETION: #{delay?}"
-    log msg: "DATA: #{scraped}\n\n"
-    Completers::MassCompleter.new(scraped, @user, params[:url]).delay_complete!(delay?)
-    log msg: "AFTER COMPLETION HAS BEEN BACKGROUNDED"
-    success
+    log_and_complete(scraped, params[:url], 'scrape')
   end
 
   def mini_scrape
     return error(404, "User not found") unless @user
     return error(500, "Missing url param") unless params[:url]    
-    
-    scraped = JSON.parse(params[:scraped])
+
+    scraped = JSON.parse params[:scraped]
     
     log msg: "MINI - URL: #{params[:url]}, SCRAPED: #{params[:scraped]}"
 
@@ -51,17 +42,7 @@ class Api::V1::Users::MarksController < ApiController
       scraped = scraped[:place] ? [scraped] : [{ place: scraped }]
     end
 
-    if !good_data?(scraped)
-      @user.flags.create!( name: 'Scrape and completion failed in mini-scrape', info: { url: params[:url] , data: scraped } )
-      return error(417, "Insufficient information")
-    end
-
-    log msg: "MINI - DELAYING COMPLETION: #{delay?}"
-    log msg: "MINI - DATA: #{scraped}\n\n"
-    Completers::MassCompleter.new(scraped, @user, params[:url]).delay_complete!(delay?)
-    log msg: "MINI - AFTER COMPLETION HAS BEEN BACKGROUNDED"
-
-    success
+    log_and_complete(scraped, params[:url], 'mini scrape')
   end
 
   def bucket
@@ -92,5 +73,18 @@ class Api::V1::Users::MarksController < ApiController
     end
   rescue
     false
+  end
+
+  def log_and_complete(scraped, url, action)
+    if !good_data?(scraped)
+      @user.flags.create!( name: "Scrape and completion failed in #{action}", info: { url: url , data: scraped } )
+      return error(417, "Insufficient information")
+    end
+
+    log msg: "#{action.upcase} - DELAYING COMPLETION: #{delay?}"
+    log msg: "#{action.upcase} - DATA: #{scraped}\n\n"
+    Completers::MassCompleter.new(scraped, @user, url).delay_complete!(delay?)
+    log msg: "#{action.upcase} - AFTER COMPLETION HAS BEEN BACKGROUNDED"
+    success
   end
 end

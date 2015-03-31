@@ -101,8 +101,7 @@ describe Api::V1::Users::MarksController, :vcr do
             "Access-Control-Allow-Origin" => "*", 
             "Access-Control-Allow-Methods" => "POST, GET, PUT, DELETE, OPTIONS", 
             "Access-Control-Max-Age" => "1728000", 
-            "Content-Type" => "text/html"
-          }
+          }, { ignore_keys: ['Content-Type']}
         )
       end
 
