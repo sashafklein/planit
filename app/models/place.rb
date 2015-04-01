@@ -28,4 +28,16 @@ class Place < BaseModel
               # yelp_id, yelp_rating, tracking_data, tz_object, is?, hour_calculator
     # Class: att_by_frequency, find_or_initialize, center_coordinate, coordinates
 
+  def savers
+    Mark.savers( id )
+  end
+
+  def lovers
+    Mark.savers( id )
+  end
+
+  def visitors
+    Mark.savers( id )
+  end
+
 end

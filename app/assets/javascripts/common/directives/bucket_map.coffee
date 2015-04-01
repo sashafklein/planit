@@ -7,7 +7,6 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
     templateUrl: 'bucket_map.html'
     scope:
       userId: '@'
-      centerAndZoom: '@'
       zoomControl: '='
       webPadding: '@'
       mobilePadding: '@'
@@ -23,7 +22,8 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
       s.padding = JSON.parse("[" + s.webPadding + "]") if s.webPadding && s.web
       s.changes = 0
       s.maxBounds = [[-84,-400], [84,315]]
-      s.centerPoint = { lat: 0, lng: 0, zoom: 2 }
+      s.centerAndZoom = QueryString.get()['m'] || null
+      s.centerPoint = if s.centerAndZoom then { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) } else { lat: 0, lng: 0, zoom: 2 }
       s.placesInView = s.clustersInView = []
       s.leaf = leafletData
 
@@ -113,15 +113,13 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
 
       s._initiateCenterAndBounds = ->
         if !s.centerAndZoom
-          s.lats = _.map( s.places, (p) -> p.lat )
-          s.lons = _.map( s.places, (p) -> p.lon )
+          startLats = _.map( s.places, (p) -> p.lat )
+          startLons = _.map( s.places, (p) -> p.lon )
           leafletData.getMap().then (m) ->
             m.fitBounds( 
-              L.latLngBounds( L.latLng(_.min(s.lats),_.min(s.lons)),L.latLng(_.max(s.lats),_.max(s.lons)) ),
+              L.latLngBounds( L.latLng(_.min(startLats),_.min(startLons)),L.latLng(_.max(startLats),_.max(startLons)) ),
               { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] }
             )
-        else
-          s.centerPoint = { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) }
         $timeout (-> 
           s.mOkay = true 
           s._disableMapManipulationOnInfoBox()

@@ -16,7 +16,9 @@
 
   .container
     .five.columns
-      .place-controls= @place.decorate.show_place_controls
+      .place-controls
+        %place_control_bar{ place: "#{ ShowPlaceSerializer.new(@place).to_json }" }
+        - include_templates( :place_control_bar )
       .map-address-wrap
         .empty-map-box
           %place_map.map-canvas.places-single{ place_id: @place.id }

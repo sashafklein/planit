@@ -116,9 +116,19 @@ angular.module("Common").directive 'searchAndAdd', (Mark, Place, $timeout, Error
         else if s.canCreatePlace()
           s.createPlace()
 
-      s.canCreatePlace = -> (s.queryOnly?.length || s.query?.length) && s.nearby?.length 
+      # EXISTING MARK?
+
+      s.hasMarkFor = ( place ) -> _.include( place.savers, s.userId )
+      s.savedPlace = ( place_id ) -> 
+        if place = _.filter( s.places, (p) -> p.id == place_id )[0]
+          place.savers.push( s.userId )
+      s.removedPlace = ( place_id ) -> 
+        if place = _.filter( s.places, (p) -> p.id == place_id )[0]
+          place.savers.splice( place.savers.indexOf( s.userId ), 1 )
 
       # NEW PLACE
+
+      s.canCreatePlace = -> (s.queryOnly?.length || s.query?.length) && s.nearby?.length 
 
       s.modal = new Modal('addMarkPlace')
 

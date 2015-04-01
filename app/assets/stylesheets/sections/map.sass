@@ -176,12 +176,26 @@
   overflow-y: scroll
   cursor: pointer
   ul
-    width: 352px
+    -webkit-padding-start: 0
+    padding: 0
+    margin: 0
     background-color: #ccc
+    width: 352px
+    li
+      color: #000
+      height: 75px
+      margin: 0
+      padding: 3px
+      box-sizing: border-box
+      -moz-box-sizing: border-box
+      -webkit-box-sizing: border-box
+      background: #eee
     li:hover, &.highlighted
       background: #fff
-      .bucket-list-control
+      a.place-control
         color: #ccc
+        &:hover
+          color: #f06
       .bucket-list-cluster-size
         color: #fff
         background: #000
@@ -198,33 +212,8 @@
     width: 264px
   .bucket-list-profile
     height: 46px
-
-  ul
-    -webkit-padding-start: 0
-    padding: 0
-    margin: 0
-    background-color: #ccc
-    width: 352px
-  li
-    color: #000
-    height: 75px
-    margin: 0
-    padding: 3px
-    box-sizing: border-box
-    -moz-box-sizing: border-box
-    -webkit-box-sizing: border-box
-    background: #eee
-    &:hover, &.highlighted
-      background: #fff
-      .bucket-list-control
-        color: #ccc
-      .bucket-list-cluster-size
-        color: #fff
-        background: #000
-
   .bucket-list-container
     width: 352px
-
   .bucket-list-tab
     display: block
     height: 69px
@@ -332,7 +321,7 @@
     text-align: right
     vertical-align: top
 
-  .bucket-list-control
+  .place-control
     display: inline-block
     width: 23px
     height: 23px
@@ -348,7 +337,7 @@
     &:hover
       i, a
         color: #f06
-      .bucket-list-control-hint
+      .place-control-hint
         display: inline-block
         visibility: visible
     &.disabled
@@ -357,14 +346,14 @@
       &:hover
         i
           color: #eee
-        .bucket-list-control-hint
+        .place-control-hint
           display: none
           visibility: hidden
     &.enabled
       i, a
         color: rgb(20, 35, 125)
       
-    .bucket-list-control-hint
+    .place-control-hint
       display: none
       visibility: hidden
       position: absolute
@@ -437,13 +426,13 @@
     width: 264px
   .bucket-list-controls
     width: 264px
-  .bucket-list-control
+  .place-control
     i, a
       color: #f06
-  .bucket-list-control.disabled
+  .place-control.disabled
     i, a
       color: #fafafa
-  .bucket-list-control.enabled
+  .place-control.enabled
     i, a
       color: rgb(20, 35, 125)
   .bucket-list-cluster-size
