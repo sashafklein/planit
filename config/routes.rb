@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get '/beta', to: 'statics#beta'
   get '/invite', to: 'statics#invite'
+  get '/auto_signin', to: 'statics#auto_signin'
 
   get '/about', to: 'statics#about'
   get '/save', to: 'statics#save'
