@@ -60,6 +60,11 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def redirect_and_flash(path, flash_hash)
+    flash[ flash_hash.keys.first ] = flash_hash.values.first
+    redirect_to path 
+  end
+
   def redirect_back(key: nil, msg: nil)
     flash[key] = msg if key && msg
     redirect_to :back || root_path
