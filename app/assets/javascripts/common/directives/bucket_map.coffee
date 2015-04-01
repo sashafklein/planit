@@ -177,7 +177,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
       s.$on '$locationChangeSuccess', (event, next) -> s._filterPlaces( s.recalculateInView ) if s.allPlaces?.length
 
       s._adjustInfoBoxSize = ->
-        $('#in-view-list').css('max-height', ( parseInt( $('.bucket-map-canvas').height() * 0.9 ) - parseInt( $('.filter-menu-toggle').height() ) ).toString() + 'px') if s.web
+        $('#in-view-list').css('max-height', ( parseInt( $('.bucket-map-canvas').height() * 0.9 ) - parseInt( $('.filter-dropdown-toggle').height() ) ).toString() + 'px') if s.web
 
       s._disableMapManipulationOnInfoBox = ->
         if infoBox = document.getElementById('map-info-box')
