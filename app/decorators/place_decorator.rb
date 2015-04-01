@@ -22,33 +22,6 @@ class PlaceDecorator < Draper::Decorator
 
   # PLACE_SHOW
 
-  def show_place_controls
-    html = """
-    <div class='place-controls'>
-      <div class='place-control edit-place' id='guide' data-place-ids='#{[place.id]}'>
-        <span class='place-control-hint'>Add to Guide</span>
-        <i class='fa fa-book'></i>
-      </div>   
-      <div class='place-control edit-place' id='note' data-place-ids='#{[place.id]}'>
-        <span class='place-control-hint'>Add Note</span>
-        <i class='fa fa-pencil'></i>
-      </div>   
-      <div class='place-control edit-place' id='been' data-place-ids='#{[place.id]}'>
-        <span class='place-control-hint'>Been</span>
-        <i class='fa fa-check-square'></i>
-      </div>   
-      <div class='place-control edit-place' id='love' data-place-ids='#{[place.id]}'>
-        <span class='place-control-hint'>Love</span>
-        <i class='fa fa-heart'></i>
-      </div>   
-      <div class='place-control edit-place' id='save' data-place-ids='#{[place.id]}'>
-        <span class='place-control-hint'>Save</span>
-        <i class='fa fa-bookmark'></i>
-      </div>   
-    </div>
-    """.html_safe 
-  end
-
   def has_category
     categories.present?
   end

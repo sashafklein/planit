@@ -55,7 +55,7 @@ class User < BaseModel
     Mark.where( id: Share.where( sharee: self, object_type: 'Mark' ).pluck(:object_id) )
   end
 
-  def messages
+  def message_count
     saves_to_review.count + shares_to_review.count
   end
 

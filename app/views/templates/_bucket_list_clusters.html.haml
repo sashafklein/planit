@@ -9,15 +9,4 @@
           %span.bucket-list-cluster-size {{ cluster.count }}
           {{ clusterDetails(cluster.places) }}
       .bucket-list-controls
-        .bucket-list-control{ class: 'edit-places', id: 'guide', :data => {:place_ids => "{{clusterPlaceIds()}}" } }
-          %span.bucket-list-control-hint= "Add All to Guide"
-          %i.fa.fa-book
-        .bucket-list-control.disabled
-          %i.fa.fa-pencil
-        .bucket-list-control.disabled
-          %i.fa.fa-check-square
-        .bucket-list-control.disabled
-          %i.fa.fa-heart  
-        .bucket-list-control{ class: 'edit-places', id: 'save', :data => {:place_ids => "{{clusterPlaceIds()}}" } }
-          %span.bucket-list-control-hint= "Save All"
-          %i.fa.fa-bookmark
+        %cluster_control_bar{ places: 'cluster.places' }

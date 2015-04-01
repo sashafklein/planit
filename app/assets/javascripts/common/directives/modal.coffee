@@ -18,6 +18,9 @@ angular.module("Common").directive 'modal', ($rootScope, Modal) ->
             when 'addPin' then "Add New Pin"
             else ''
 
+        # s.confirmButton = ( callback ) ->
+        #   [{ class: "planit-button neon", text: 'Yes', clickMethod: 'callback()' }]
+
         s.loadingText = ->
           if s.data.loading == 'longer'
             "Working on it. This may take a while..."

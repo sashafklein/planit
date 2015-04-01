@@ -41,10 +41,28 @@ module Scrapers
         }.merge(global_data)]
       end
 
+      # JSON
+
+      def map_json_bundle
+        return @map_json_bundle unless !@map_json_bundle
+        return @map_json_bundle = page.css('.lightbox-map').attr('data-map-state').value()
+      end
+
+      def map_json
+        return @map_json unless !@map_json
+        from_first_bracket = map_json_bundle
+        to_parse = get_parseable_hash from_first_bracket
+        return @map_json = JSON.parse( to_parse ).to_sh
+      end
+
       # OPERATIONS
 
       def name
-        trim( de_tag( page.css('h1.biz-page-title').inner_html ) ) ; rescue ; nil
+        [
+          page.css("meta[property='og:title']").attr('content').value(),
+          trim( de_tag( page.css('h1.biz-page-title').inner_html ) )
+        ].compact.uniq.first
+      rescue ; nil
       end
 
       def street_address
@@ -155,11 +173,21 @@ module Scrapers
       end
 
       def lat
-        map_string.split(",")[0] ; rescue ; nil
+        [
+          map_json.markers.starred_business.location.latitude,
+          map_string.split(",")[0].try( :to_f ),
+          map_json.center.latitude
+        ].compact.uniq.first
+      rescue ; nil
       end
 
       def lon
-        map_string.split(",")[1] ; rescue ; nil
+        [
+          map_json.markers.starred_business.location.longitude,
+          map_string.split(",")[1].try( :to_f ),
+          map_json.center.longitude
+        ].compact.uniq.first
+      rescue ; nil
       end
 
     end

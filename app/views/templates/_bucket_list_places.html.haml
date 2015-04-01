@@ -9,31 +9,6 @@
         .bucket-list-more-info
           %i{ class: '{{place.meta_icon}}'}
           {{ place.categories.join(', ') }}
+
       .bucket-list-controls
-        .bucket-list-control{ class: "edit-place", id: 'guide', data: { place_ids: "{{[place.id]}}" } }
-          %span.bucket-list-control-hint= "Add to Guide"
-          %i.fa.fa-book
-        .bucket-list-control{ class: "edit-place", id: 'note', data: { place_ids: "{{[place.id]}}" } }
-          %span.bucket-list-control-hint= "Add Note"
-          %i.fa.fa-pencil
-        .bucket-list-control{ class: "edit-place", id: 'been', data: { place_ids: "{{[place.id]}}" } }
-          %span.bucket-list-control-hint= "Been"
-          %i.fa.fa-check-square
-        .bucket-list-control{ class: "edit-place", id: 'love', data: { place_ids: "{{[place.id]}}" } }
-          %span.bucket-list-control-hint= "Love"
-          %i.fa.fa-heart
-        .bucket-list-control{ class: "edit-place", id: 'save', data: { place_ids: "{{[place.id]}}" } }
-          %span.bucket-list-control-hint= "Save"
-          %i.fa.fa-bookmark
-        / .bucket-list-control{ class: "edit-place", ng_class: "{'enabled':user_notes([place.id])}", id: 'note', data: { place_ids: "{{[place.id]}}" } }
-        /   %span.bucket-list-control-hint= "Add Note"
-        /   %i.fa.fa-pencil
-        / .bucket-list-control{ class: "edit-place", ng_if: !user_been([place.id]), id: 'been', data: { place_ids: "{{[place.id]}}" } }
-        /   %span.bucket-list-control-hint= "Been"
-        /   %i.fa.fa-check-square
-        / .bucket-list-control{ class: "edit-place", ng_if: !user_loved([place.id]), id: 'love', data: { place_ids: "{{[place.id]}}" } }
-        /   %span.bucket-list-control-hint= "Love"
-        /   %i.fa.fa-heart
-        / .bucket-list-control{ class: "edit-place", ng_if: !user_has([place.id]), id: 'save', data: { place_ids: "{{[place.id]}}" } }
-        /   %span.bucket-list-control-hint= "Save"
-        /   %i.fa.fa-bookmark
+        %place_control_bar{ place: 'place' }

@@ -52,141 +52,6 @@
       color: #fff
 
     .search-and-filter-wrap
-      .filter-button
-        overflow: auto
-        float: left
-        padding: 2px 2px 6px 2px
-        display: inline-block
-        cursor: pointer
-        transition: all 0.2s ease
-        &:hover
-          color: #f06
-        .fa-caret-down
-          color: #aaa
-          a
-            color: #aaa
-            &:hover
-              color: #aaa
-        &.on
-          color: #f06
-          &:hover
-            color: #f06
-            .fa-caret-down
-              color: #aaa
-              a
-                color: #aaa
-          .fa-caret-down
-            color: #aaa
-            a
-              color: #aaa
-        .filtered-count
-          display: none
-          position: absolute
-          top: 42px
-          left: 0px
-          text-align: center
-          white-space: nowrap
-          padding: 5px 0 0 0
-          z-index: 950
-          span
-            text-transform: uppercase
-            font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-            font-size: 11px
-            line-height: 11px
-            font-weight: bold
-            padding: 3px 5px
-            border-radius: 3px
-            -webkit-border-radius: 3px
-            background: #fff
-            color: #f06 !important
-
-      .filter-dropdown
-        transition: all 0.2s ease
-        color: #aaa
-        position: absolute
-        left: 0
-        width: 60px
-        overflow: hidden
-        &:hover
-          color: #f06
-
-  .filter-or-number
-    &.show-numbers
-      font-style: normal
-      font-weight: bold
-
-  ul.filter-dropdown-menu
-    padding: 15px 0
-    text-align: left
-    font-size: 14px
-    line-height: 14px
-    li.divider
-      margin: 6px 0
-
-    li.filter-dropdown-menu
-      white-space: nowrap
-      overflow: hidden
-      width: auto
-      transition: all 0.2s ease
-      padding: 0 20px
-      label, div
-        display: inline-block
-        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-        font-size: 14px
-        line-height: 14px
-        font-weight: bold
-        cursor: pointer
-        margin: 1px 0
-        padding: 3px 5px
-        white-space: nowrap
-        overflow: hidden
-        border-radius: 3px
-        background: #eee
-        color: #999 
-        &.only-this-filter
-          color: #ccc
-          text-transform: uppercase
-          font-size: 11px
-        i, span
-          float: right
-          padding: 0
-        &:hover
-          color: #fff
-          background: #f06
-          .filter-dropdown-menu-icon
-            color: #fff
-        &.clear-all-filters
-          display: block
-          background: #ccc
-          color: #fff
-          font-weight: bold
-          transition: all 0.2s ease
-          b
-            float: right
-          &:hover
-            color: #fff
-            background: #f06
-        &.apply-filters
-          display: block
-          visibility: visible
-          background: transparent
-          font-weight: bold
-          color: #777 !important
-          cursor: default
-          &:hover
-            color: #777 !important
-
-    .filter-dropdown-menu-icon
-      display: inline-block
-      margin-left: 10px
-      transition: all 0.2s ease
-      color: #777
-
-    .filter-dropdown-menu-checkbox, .filter-dropdown-menu-nearby
-      display: inline-block
-      margin-right: 10px
-      margin-top: 2px
-
   .logo-container
     visibility: visible
     display: inline-block
@@ -374,6 +239,7 @@
             visibility: hidden
 
     span.inbox-count
+      display: none
       position: absolute
       right: -4px
       top: 8px
@@ -385,7 +251,7 @@
       font-weight: bold
       color: #000
       text-shadow: none
-      &.chill
+      &.selected
         background: #ccc
 
     .nav-item-hint

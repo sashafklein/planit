@@ -15,8 +15,8 @@ body
 
 a, a:link, a:hover, a:active
   transition: 0.2s all ease
-  text-decoration: none !important
-  color: inherit !important
+  text-decoration: none
+  color: inherit
 
 a.linky
   &.neon
@@ -63,6 +63,8 @@ a.no-under, a.no-under:hover
 
 .whitebox
   background: rgba(255,255,255,0.8)
+  &.padded
+    padding: 50px
 
 span.bubbled, span.flat
   font-family: avenir, "open sans", "Myriad W01", "Helvetica Neue", 'trebuchet ms'
@@ -232,9 +234,20 @@ strong, .in-caps-header, i, b
     border: 1px solid rgb(0,0,60)
     box-shadow: rgb(0, 0, 91) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
     &:hover, &:active
+      color: #fff
       text-shadow: 1px 1px 1px #228
       background: rgb(0, 0, 79)
       box-shadow: rgb(0, 0, 30) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
+  &.gray-to-neon
+    color: #444 !important
+    text-shadow: 1px 1px 1px #ccc !important
+    background: #ccc !important
+    border: 1px solid #afafaf !important
+    box-shadow: #c3c3c3 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px !important
+    &:hover, &:active
+      text-shadow: 1px 1px 1px rgb(204,51,153)
+      background: rgb(238, 50, 88)
+      box-shadow: rgb(218, 30, 68) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
   &.gray, &.disabled
     color: #444 !important
     text-shadow: 1px 1px 1px #ccc !important

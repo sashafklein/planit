@@ -49,6 +49,7 @@ mod.factory "BaseModel", ($http) ->
       else
         return new factory(json)
 
+    @objectPathNoId: (id) -> "#{@basePath}"
     @objectPath: (id) -> "#{@basePath}/#{id}"
     objectPath: -> @constructor.objectPath(@id)
 

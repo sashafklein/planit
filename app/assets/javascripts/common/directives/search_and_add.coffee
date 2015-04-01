@@ -116,11 +116,21 @@ angular.module("Common").directive 'searchAndAdd', (Mark, Place, $timeout, Error
         else if s.canCreatePlace()
           s.createPlace()
 
-      s.canCreatePlace = -> (s.queryOnly?.length || s.query?.length) && s.nearby?.length 
+      # EXISTING MARK?
+
+      s.hasMarkFor = ( place ) -> _.include( place.savers, s.userId )
+      s.savedPlace = ( place_id ) -> 
+        if place = _.filter( s.places, (p) -> p.id == place_id )[0]
+          place.savers.push( s.userId )
+      s.removedPlace = ( place_id ) -> 
+        if place = _.filter( s.places, (p) -> p.id == place_id )[0]
+          place.savers.splice( place.savers.indexOf( s.userId ), 1 )
 
       # NEW PLACE
 
-      s.modal = new Modal('addPin')
+      s.canCreatePlace = -> (s.queryOnly?.length || s.query?.length) && s.nearby?.length 
+
+      s.modal = new Modal('addMarkPlace')
 
       s.createPlace = ->
         return unless s.canCreatePlace() && s.userId
@@ -129,13 +139,17 @@ angular.module("Common").directive 'searchAndAdd', (Mark, Place, $timeout, Error
 
         Place.complete({ user_id: s.userId, name: (s.queryOnly || s.query), nearby: s.nearby })
           .success (response) ->
-            if $("#planit-modal-new").css("display") != "block"
+            if $("#planit-modal-new").css("display") != "block" #CANCEL
               markObj = new Mark({ id: response.id })
-              markObj.destroy() 
-            else if place = response.place
+              markObj.destroy()
+                  # .success (response) ->
+                  #   #confirm abortion
+                .error (response) -> 
+                  ErrorReporter.report({ userId: s.userId, nearby: s.nearby, query: (s.queryOnly || s.query), error: response, context: 'Trying to cancel a Mark in search/add mode' })
+            else if place = response.place #SUCCESS ONE PLACE
               s.modal.show({ nearby: s.nearby, query: (s.queryOnly || s.query), mark: response })
             else
-              s.modal.show({ nearby: s.nearby, query: (s.queryOnly || s.query) })
+              new Modal('chooseMarkPlace').show({ nearby: s.nearby, query: (s.queryOnly || s.query), mark: response })
             s.clearSearch()
           .error ->
             s.modal.show({ error: true })

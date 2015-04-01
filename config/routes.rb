@@ -51,7 +51,15 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
 
-      resources :marks, only: [:destroy]
+      resources :marks, only: [:destroy, :create, :show] do
+        post :choose, on: :member
+        post :remove, on: :collection
+        post :love, on: :collection
+        post :unlove, on: :collection
+        post :been, on: :collection
+        post :notbeen, on: :collection
+        post :note, on: :collection
+      end
       
       resources :errors, only: [:create]
       resources :allowable_sites, only: [] do

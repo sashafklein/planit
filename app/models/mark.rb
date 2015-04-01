@@ -29,6 +29,7 @@ class Mark < BaseModel
   scope :marked_down,   ->        { with_mark('up') }
   scope :starred,       ->        { with_mark('star') }
   scope :sourced_with,  -> (source_name) { where(id: Source.where(name: source_name, object_type: 'Mark').pluck(:object_id)) }
+  default_scope { not_deleted }
 
   make_taggable
 
@@ -42,6 +43,18 @@ class Mark < BaseModel
 
   def self.without_places
     where( place_id: nil )
+  end
+
+  def self.savers( place_id )
+    where( place_id: place_id ).pluck(:user_id)    
+  end
+
+  def self.lovers( place_id )
+    loved.where( place_id: place_id ).pluck(:user_id)    
+  end
+
+  def self.visitors( place_id )
+    been.where( place_id: place_id ).pluck(:user_id)    
   end
 
   def save_with_source!(source_url:)

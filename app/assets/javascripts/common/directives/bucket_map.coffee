@@ -7,7 +7,6 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
     templateUrl: 'bucket_map.html'
     scope:
       userId: '@'
-      centerAndZoom: '@'
       zoomControl: '='
       webPadding: '@'
       mobilePadding: '@'
@@ -23,7 +22,8 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
       s.padding = JSON.parse("[" + s.webPadding + "]") if s.webPadding && s.web
       s.changes = 0
       s.maxBounds = [[-84,-400], [84,315]]
-      s.centerPoint = { lat: 0, lng: 0, zoom: 2 }
+      s.centerAndZoom = QueryString.get()['m'] || null
+      s.centerPoint = if s.centerAndZoom then { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) } else { lat: 0, lng: 0, zoom: 2 }
       s.placesInView = s.clustersInView = []
       s.leaf = leafletData
 
@@ -113,15 +113,13 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
 
       s._initiateCenterAndBounds = ->
         if !s.centerAndZoom
-          s.lats = _.map( s.places, (p) -> p.lat )
-          s.lons = _.map( s.places, (p) -> p.lon )
+          startLats = _.map( s.places, (p) -> p.lat )
+          startLons = _.map( s.places, (p) -> p.lon )
           leafletData.getMap().then (m) ->
             m.fitBounds( 
-              L.latLngBounds( L.latLng(_.min(s.lats),_.min(s.lons)),L.latLng(_.max(s.lats),_.max(s.lons)) ),
+              L.latLngBounds( L.latLng(_.min(startLats),_.min(startLons)),L.latLng(_.max(startLats),_.max(startLons)) ),
               { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] }
             )
-        else
-          s.centerPoint = { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) }
         $timeout (-> 
           s.mOkay = true 
           s._disableMapManipulationOnInfoBox()
@@ -179,7 +177,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
       s.$on '$locationChangeSuccess', (event, next) -> s._filterPlaces( s.recalculateInView ) if s.allPlaces?.length
 
       s._adjustInfoBoxSize = ->
-        $('#in-view-list').css('max-height', (parseInt( $('.bucket-map-canvas').height() * 0.9 )).toString() + 'px') if s.web
+        $('.map-filter-results').css('max-height', ( parseInt( $('.bucket-map-canvas').height() * 0.9 ) - parseInt( $('.filter-dropdown-toggle').height() ) ).toString() + 'px') if s.web
 
       s._disableMapManipulationOnInfoBox = ->
         if infoBox = document.getElementById('map-info-box')
@@ -187,6 +185,46 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
             infoBox.addEventListener 'mouseover', -> m.dragging.disable() ; m.doubleClickZoom.disable()
             infoBox.addEventListener 'mouseout', -> m.dragging.enable() ; m.doubleClickZoom.disable()
 
-      # INIT
+
+      # FILTERING
+
+      s.filters = {}
+      s.filtering = false
+      s.toggleFilter = -> s.filtering = !s.filtering
+
+      s._filterString = -> 
+        vals = _(s.filters).map( (v,k) -> if v then k else null ).compact().value()
+        if vals.length then vals.join(",") else null
+
+      s._initFilters = ->
+        filters = _.compact QueryString.get()['f']?.split(",")
+        defaultTrue = _.compact( _.map s.filterList, (i) -> return i['slug'] if i['def'] == true )
+        _.forEach( filters, (k) => s.filters[k] = !( _.filter( s.filterList, (f) -> f['slug'] == k )['def'] ) )
+        _.forEach( defaultTrue, (k) -> s.filters[k] = true ) if !( _.filter( filters, (k) -> _.contains(defaultTrue, k) )[0] )
+
+      s.filterList = [
+        { header: "Type of Place" }
+        { slug: 'food', def: true, name: 'Food/Markets', icon: 'icon-local-restaurant' }
+        { slug: 'drink', def: true, name: 'Drink/Nightlife', icon: 'icon-local-bar' }
+        { slug: 'seedo', def: true, name: 'See/Do', icon: 'icon-directions-walk' }
+        { slug: 'stay', def: true, name: 'Stay', icon: 'icon-home' }
+        { slug: 'relax', def: true, name: 'Relax', icon: 'icon-drink' }
+        { slug: 'other', def: true, name: 'Other', icon: 'fa fa-question-circle' }
+        # { divider: true }
+        # { header: "Specifics" }
+        # { slug: 'open', def: false, name: 'Open', only: true, icon: 'fa fa-clock-o' }
+        # { slug: 'wifi', def: false, name: 'Wifi', only: true, icon: 'fa fa-wifi' }
+        # { slug: 'loved', def: false, name: 'Most Loved', only: true, icon: "fa fa-heart" }
+        # { slug: 'been', def: false, name: "Haven't Been To Yet", only: true, icon: "fa fa-check-square" }
+      ]
+
+      s.clearFilters = () -> s.filters = {}
+      
+      # FILTER INIT
+      s._initFilters()
+      s.$watch('filters', (-> QueryString.modify( f: s._filterString() ) ), true ) # On filter change, update the QueryString
+
+
+      # MAPWIDE INIT
       s._getPlaces(s.userId, s.currentUserId)
   }

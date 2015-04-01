@@ -11,10 +11,10 @@ module Scrapers
     def self.specific_scraper(url, page)
       if single_item?(url)
         TravelandleisureMod::SingleItem.new(url, page)
-      elsif trip?(url)
-        TravelandleisureMod::Trip.new(url, page)
-      elsif article?(url) && contains_sidebar?(page)
-        TravelandleisureMod::Article.new(url, page)
+      # elsif trip?(url)
+      #   TravelandleisureMod::Trip.new(url, page)
+      # elsif article?(url) && contains_sidebar?(page)
+      #   TravelandleisureMod::Article.new(url, page)
       end
     end
 

@@ -1,4 +1,4 @@
-%span.flat.delete-right{ id: "mark_#{mark.id}" }
+%span.flat.delete-right{ ng_click: "deleteMark(#{mark.id})" }
   %i.fa.fa-trash
 %span.flat= mark.created_at.strftime("%d/%m/%y")
 - if mark.query.exists?

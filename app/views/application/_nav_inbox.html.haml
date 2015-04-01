@@ -1,5 +1,5 @@
-.nav-item.nav-item-inbox{ class: "#{'selected' if page_type == 'inbox'} #{'disabled' unless current_user.messages > 0 }"}
+.nav-item.nav-item-inbox{ class: "#{'selected' if page_type == 'inbox'} #{'disabled' unless current_user.message_count > 0 }"}
   %i.nav-item-icon.fa.fa-inbox
-    %span.inbox-count= current_user.messages
+    %span.inbox-count{ class: "#{'selected' if page_type == 'inbox'}", ng_show: "current_user.message_count > 0" }= current_user.message_count
   .nav-item-hint
     %span MY INBOX

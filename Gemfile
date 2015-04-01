@@ -73,6 +73,7 @@ gem "compass"
 gem "compass-rails"
 gem "bourbon"
 gem "neat"
+# gem "gon"
 
 source "https://rails-assets.org" do
   gem "rails-assets-angular"

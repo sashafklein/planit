@@ -1,5 +1,5 @@
 class SearchPlaceSerializer < BaseSerializer
-  attributes :id, :name, :image_url, :image_source, :address, :locale, :href, :categories, :meta_icon, :country
+  attributes :id, :name, :image_url, :image_source, :address, :locale, :href, :categories, :meta_icon, :country, :savers, :lovers, :visitors
   delegate :street_address, :sublocality, :locality, :subregion, :region, :country, :categories, :meta_icon, :meta_categories, to: :object
 
   has_many :images
@@ -9,15 +9,11 @@ class SearchPlaceSerializer < BaseSerializer
   end
 
   def image_url
-    attrs.to_sh.only(:url, :source)
+    image.try(:url)
   end
 
   def image_source
     image.try(:source)
-  end
-
-  def image_url
-    image.try(:url)
   end
 
   def address
@@ -30,6 +26,18 @@ class SearchPlaceSerializer < BaseSerializer
 
   def href
     object_path(object)
+  end
+
+  def savers
+    Mark.savers( id )
+  end
+
+  def lovers
+    Mark.lovers( id )
+  end
+
+  def visitors
+    Mark.visitors( id )
   end
 
   private

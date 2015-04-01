@@ -2,8 +2,11 @@ module JsonFunctions
 
   def get_parseable_hash(from_first_bracket)
     @open = 0
-    from_first_bracket[0] = '' # remove first bracket
-    inside = from_first_bracket.split("").select{ |letter| in_hash?(letter) }.join()
+    inside = ''
+    if from_first_bracket[0] == '{'
+      from_first_bracket[0] = '' # remove first bracket
+      inside = from_first_bracket.split("").select{ |letter| in_hash?(letter) }.join()
+    end
     "{" + inside + "}"
   end
 

@@ -2,7 +2,7 @@
   = render 'modals/feedback'
 - if current_user_is_active
   %modal
-  - include_templates :modal, :bookmark_place
+  - include_templates :modal, :add_mark_place, :choose_mark_place
   / = render 'modals/new', { page_type: page_type }
   - if rich_content?(page_type)
     = render 'modals/share', { title: title }
