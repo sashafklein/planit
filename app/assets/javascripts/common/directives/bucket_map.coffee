@@ -217,7 +217,8 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
         # { slug: 'open', def: false, name: 'Open', only: true, icon: 'fa fa-clock-o' }
         # { slug: 'wifi', def: false, name: 'Wifi', only: true, icon: 'fa fa-wifi' }
         # { slug: 'loved', def: false, name: 'Most Loved', only: true, icon: "fa fa-heart" }
-        # { slug: 'been', def: false, name: "Haven't Been To Yet", only: true, icon: "fa fa-check-square" }      ]
+        # { slug: 'been', def: false, name: "Haven't Been To Yet", only: true, icon: "fa fa-check-square" }
+      ]
 
       s.clearFilters = () -> s.filters = {}
       
