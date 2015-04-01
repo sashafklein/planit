@@ -20,9 +20,9 @@
                         %span{ ng_show: '!allPlaces.length' }= "Loading Places..."
                         %span{ ng_show: 'allPlaces.length && !places.length' }= "You're all Filtered Out..."
                         %span{ ng_show: 'allPlaces.length && places.length && !placesInView.length && !clustersInView.length' }= "Not All Who Wander Are Lost..."
-                  %li{ ng_repeat: "cluster in clustersInView", class: "bucket-list-li cluster-li {{cluster.id}}", id: "{{cluster.id}}", ng_mouseenter: "mouse('clusterMouseenter', cluster.id)", ng_mouseleave: "mouse('clusterMouseleave', cluster.id)"}
+                  %li.bucket-list-li.cluster-li{ ng_repeat: "cluster in clustersInView", class: "{{cluster.id}}", id: "{{cluster.id}}", ng_mouseenter: "mouse('clusterMouseenter', cluster.id)", ng_mouseleave: "mouse('clusterMouseleave', cluster.id)"}
                     %bucket_list_clusters{ cluster: 'cluster', map: 'map', padding: 'padding', zoom_to: 'zoomToCluster(clusterFromId(selectedClusterId))', changes: 'changes' }
-                  %li{ ng_repeat: "place in placesInView", class: "bucket-list-li place-li {{'p' + place.id}}", id: "{{'p' + place.id}}", ng_mouseenter: "mouse('pinMouseenter', 'p' + place.id)", ng_mouseleave: "mouse('pinMouseleave', 'p' + place.id)" }
+                  %li.bucket-list-li.place-li{ ng_repeat: "place in placesInView", class: "p{{place.id}}", id: "{{'p' + place.id}}", ng_mouseenter: "mouse('pinMouseenter', 'p' + place.id)", ng_mouseleave: "mouse('pinMouseleave', 'p' + place.id)" }
                     %bucket_list_places{ place: 'place' }
 
             // MOBILE!!!

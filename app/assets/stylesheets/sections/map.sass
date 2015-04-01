@@ -56,127 +56,9 @@
   padding: 4px
   background: #eee
   width: 360px
-  overflow-x: hidden
+  overflow: hidden
 
   .place-filter-dropdown .filter-dropdown-toggle
-    width: 351px
-    overflow-x: hidden
-    display: block
-    padding: 3px
-    margin: 2px 0 5px 0
-    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-    font-weight: bold
-    font-size: 15px
-    line-height: 19px
-    overflow: hidden
-    white-space: nowrap
-    text-overflow: ellipsis
-    cursor: pointer
-    color: #333
-    border-radius: 3px
-    transition: 0.2 ease all
-    background: #ccc
-    border-bottom: 1px solid #aaa
-    &:hover
-      background: #aaa
-      border-bottom: 1px solid #888
-      color: #000
-    &.unselected
-      background: #ccc
-      border-bottom: 1px solid #aaa
-      &:hover
-        background: #f06
-        color: #fff
-        border-bottom: 1px solid #c03
-
-    .filter-numbers, .apply-filters
-      white-space: nowrap
-      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-      font-size: 15px
-      line-height: 19px
-    .apply-filters
-      float: left
-    .filter-numbers
-      float: right
-      #number-filtered
-        display: inline
-        font-weight: normal
-      #number-places
-        display: inline
-        font-weight: bold
-    .filter-numbers i
-      padding: 0 4px 0 5px
-    .apply-filters i
-      padding: 0 5px 0 4px
-
-  .place-filter-dropdown ul
-    margin: 15px
-    text-align: left
-    font-size: 15px
-    line-height: 15px
-    list-style-type: none
-    -webkit-padding-start: 0
-    padding: 0
-    overflow-x: hidden
-    li.divider
-      margin: 5px 0
-    li.header
-      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-      font-size: 15px
-      line-height: 15px
-      font-weight: bold
-      color: #777
-      padding: 5px 0
-      border-bottom: #ccc 1px solid
-      margin: 5px 0
-    li.filter-dropdown-menu
-      padding: 0
-      margin: 0
-      white-space: nowrap
-      overflow: hidden
-      width: auto
-      transition: all 0.2s ease
-      label
-        display: block
-        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-        font-size: 15px
-        line-height: 15px
-        font-weight: bold
-        cursor: pointer
-        padding: 5px 15px
-        white-space: nowrap
-        overflow: hidden
-        border-radius: 3px
-        background: #eee
-        color: #333 
-        &:hover
-          color: #fff
-          background: #f06
-        i
-          float: right
-          width: 20px
-          text-align: center
-          padding: 0
-        span.only-checkbox
-          font-size: 13px
-          font-weight: normal
-          background: #fff
-          color: #777
-          border-radius: 3px
-          padding: 0 3px
-          margin-left: 5px
-
-    .filter-dropdown-menu-checkbox, .filter-dropdown-menu-nearby
-      display: inline-block
-      margin-right: 10px
-      margin-top: 2px
-
-.map-filter-results
-  width: 400px
-  overflow-x: hidden
-  overflow-y: scroll
-  cursor: pointer
-  ul
     width: 352px
     display: block
     padding: 3px
@@ -308,15 +190,15 @@
       -moz-box-sizing: border-box
       -webkit-box-sizing: border-box
       background: #eee
-    li:hover, &.highlighted
-      background: #fff
-      a.place-control
-        color: #ccc
-        &:hover
-          color: #f06
-      .bucket-list-cluster-size
-        color: #fff
-        background: #000
+      &.highlighted
+        background: #fff
+        a.place-control
+          color: #ccc
+          &:hover
+            color: #f06
+        .bucket-list-cluster-size
+          color: #fff
+          background: #000
   .bucket-list-tab
     width: 346px
   .bucket-list-wrap
@@ -874,4 +756,3 @@ path.leaflet-clickable
   #in-view-item
     display: block
     visibility: visible
-
