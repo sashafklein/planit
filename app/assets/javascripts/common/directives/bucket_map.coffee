@@ -177,7 +177,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
       s.$on '$locationChangeSuccess', (event, next) -> s._filterPlaces( s.recalculateInView ) if s.allPlaces?.length
 
       s._adjustInfoBoxSize = ->
-        $('.map-filter-results').css('max-height', ( parseInt( $('.bucket-map-canvas').height() * 0.9 ) - parseInt( $('.filter-dropdown-toggle').height() ) ).toString() + 'px') if s.web
+        $('#in-view-list').css('max-height', ( parseInt( $('.bucket-map-canvas').height() * 0.9 ) - parseInt( $('.filter-dropdown-toggle').height() ) ).toString() + 'px') if s.web
 
       s._disableMapManipulationOnInfoBox = ->
         if infoBox = document.getElementById('map-info-box')
@@ -201,6 +201,8 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
         defaultTrue = _.compact( _.map s.filterList, (i) -> return i['slug'] if i['def'] == true )
         _.forEach( filters, (k) => s.filters[k] = !( _.filter( s.filterList, (f) -> f['slug'] == k )['def'] ) )
         _.forEach( defaultTrue, (k) -> s.filters[k] = true ) if !( _.filter( filters, (k) -> _.contains(defaultTrue, k) )[0] )
+
+      # s.filtersSet = -> _.some(s.filters, (v) -> v )
 
       s.filterList = [
         { header: "Type of Place" }

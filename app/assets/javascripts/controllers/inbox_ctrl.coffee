@@ -18,3 +18,7 @@ angular.module("Controllers").controller 'InboxCtrl', ($scope, Mark, Modal, Erro
       .success -> 
         console.log("deleted #{mark_id}")
       .error -> ErrorReporter.report({ mark_id: mark_id, context: 'Trying to delete a mark in chooseMarkPlace modal'})
+
+  # s.marksToReview = gon.marks_to_review
+  # s.getMarks = (userId) ->
+  #   Mark.where(user_id: userId)

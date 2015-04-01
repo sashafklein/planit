@@ -49,8 +49,8 @@ mod.factory 'BucketEventManager', (F, $timeout) ->
           scrollTop: $( "#" + id ).offset().top - $('#top-of-list').offset().top
         }, 0)
 
-    _markerAndLiForPlaceId: (id) -> $(".default-map-icon-tab\##{id}, .place-li\##{id}")
-    _markerAndLiForClusterId: (id) -> $(".cluster-map-icon-tab\##{id}, .cluster-li\##{id}")
+    _markerAndLiForPlaceId: (id) -> $(".default-map-icon-tab.#{id}, .place-li.#{id}")
+    _markerAndLiForClusterId: (id) -> $(".cluster-map-icon-tab.#{id}, .cluster-li.#{id}")
 
     _ClusterDivs: -> [".cluster-map-icon-tab", ".cluster-li"]
     _MarkerDivs: -> [".place-li"]
