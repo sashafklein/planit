@@ -4,6 +4,8 @@ class Leg < BaseModel
   has_many :days
   has_many :items, through: :days
 
+  has_many_polymorphic table: :notes
+
   delegate :first_item, to: :first_day
   delegate :last_item, to: :last_day
 

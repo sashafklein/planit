@@ -8,7 +8,8 @@ angular.module("Common").directive "modalFooter", (Modal) ->
       <button class="planit-button cancel gray" data_dismiss="modal" type="button" ng_click='cancel()'>
         {{ cancelText }}
         <i class="fa fa-times pad-left"></i>
-      </button><button class='planit-button' ng-repeat='btn in extraButtons' ng-class='btn.class' ng-click='btn.clickMethod()' type='button' ng-if='extraButtons.length'>
+      </button>
+      <button class='planit-button' ng-repeat='btn in extraButtons' ng-class='btn.class' ng-click='btn.clickMethod()' type='button' ng-if='extraButtons.length''>
         {{ btn.text }}
         <i ng-class='btn.iconClass'>
       </button> 

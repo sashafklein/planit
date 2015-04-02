@@ -9,17 +9,19 @@ class Mark < BaseModel
 
   has_many_polymorphic table: :sources
   has_many_polymorphic table: :flags, options: {}
+  has_many_polymorphic table: :notes
+
   has_many :items, dependent: :destroy
   has_many :place_options, dependent: :destroy
+
+  has_one :arrival, class_name: 'Travel', foreign_key: 'to_id'
+  has_one :departure, class_name: 'Travel', foreign_key: 'from_id'
 
   delegate :names, :name, :categories, :category, :coordinate, :url, :phones, :phone, :website,
            :country, :region, :locality, :sublocality, :images, :image, :street_address, to: :place
 
   delegate :full, :lodging, to: :place, prefix: true
   boolean_accessor :lodging, :meal, :published, :been, :loved, :deleted
-
-  has_one :arrival, class_name: 'Travel', foreign_key: 'to_id'
-  has_one :departure, class_name: 'Travel', foreign_key: 'from_id'
 
   scope :with_tabs,     ->        { where(show_tab: true) }
   scope :with_lodging,  ->        { where(lodging: true) }

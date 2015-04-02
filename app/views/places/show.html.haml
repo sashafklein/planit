@@ -17,7 +17,7 @@
   .container
     .five.columns
       .place-controls
-        %place_control_bar{ place: "#{ ShowPlaceSerializer.new(@place).to_json }" }
+        %place_control_bar{ place: "#{ ShowPlaceSerializer.new(@place, scope: current_user).to_json }" }
         - include_templates( :place_control_bar )
       .map-address-wrap
         .empty-map-box

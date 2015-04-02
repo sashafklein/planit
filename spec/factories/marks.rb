@@ -6,7 +6,6 @@ FactoryGirl.define do
     place
     lodging false
     meal false
-    notes "Some notes on something"
     show_tab false
   end
 

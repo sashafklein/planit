@@ -1,5 +1,5 @@
 class ShowPlaceSerializer < BaseSerializer
-  attributes :id, :name, :image_url, :image_source, :address, :locale, :href, :categories, :meta_icon, :country, :savers, :lovers, :visitors
+  attributes :id, :name, :image_url, :image_source, :address, :locale, :href, :categories, :meta_icon, :country, :savers, :lovers, :visitors, :mark
   delegate :street_address, :sublocality, :locality, :subregion, :region, :country, :categories, :meta_icon, :meta_categories, to: :object
 
   has_many :images
@@ -40,6 +40,11 @@ class ShowPlaceSerializer < BaseSerializer
 
   def visitors
     Mark.visitors( id )
+  end
+
+  def mark
+    return nil unless scope
+    object.marks.find_by user_id: scope.id
   end
 
   private

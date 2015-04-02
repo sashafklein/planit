@@ -16,15 +16,15 @@
 
 .break-page
 
-- if @plan.tips.present?
+- if @plan.notes.any?
   .print-header-subtitle
     Summary, Tips & Reminders
-    - @plan.tips.each do |tip|
+    - @plan.notes.each do |note|
       .content-tab-wrap
         .content-tab-print.time
           = "-"
         .content-tab-print.tips
-          = tip.html_safe
+          = note.body.html_safe
 
 / - if @plan.has_travel?
 /   .print-header-subtitle
@@ -44,5 +44,5 @@
           %span.lodging-notes= lodging_item.notes.html_safe
 
 / - if @plan.tips || @plan.has_travel? || @plan.has_lodging?
-- if @plan.tips || @plan.tips.length > 0 || @plan.has_lodging?
+- if @plan.notes || @plan.notes.length > 0 || @plan.has_lodging?
   .break-page

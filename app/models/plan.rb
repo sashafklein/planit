@@ -12,6 +12,7 @@ class Plan < BaseModel
   has_many_polymorphic table: :images, name: :imageable
   has_many_polymorphic table: :sources
   has_many_polymorphic table: :shares
+  has_many_polymorphic table: :notes
 
   boolean_accessor :published
   delegate :last_day, :departure, to: :last_leg

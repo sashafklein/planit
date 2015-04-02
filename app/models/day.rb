@@ -2,6 +2,7 @@ class Day < BaseModel
 
   belongs_to :leg
   has_many :items
+  has_many_polymorphic table: :notes
 
   default_scope { order('leg_id ASC').order('"order" ASC') }
 
