@@ -9,6 +9,7 @@ class Place < BaseModel
   has_many_polymorphic table: :images, name: :imageable
   has_many_polymorphic table: :flags, options: {}
   has_many_polymorphic table: :shares
+  has_many_polymorphic table: :notes
 
   array_accessor :completion_step, :street_address, :name, :category, :meta_category, :phone
   json_accessor :hours, :extra

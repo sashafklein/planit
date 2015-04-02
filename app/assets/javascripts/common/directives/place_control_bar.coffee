@@ -11,6 +11,7 @@ angular.module("Common").directive 'placeControlBar', (Mark, Modal, CurrentUser,
     link: (s, element) ->
 
       s.userId = CurrentUser.id
+      s.markId = s.place.mark?.id
 
       s.hasMarkFor = -> _.include( s.place.savers, s.userId )
       s.savedPlace = -> s.place.savers.push( s.userId )

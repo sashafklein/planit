@@ -1,10 +1,11 @@
 %script{ type: 'text/ng-template', id: 'modal.html' }
-  .modal.planit-modal.fade#planit-modal-new{ aria_hidden: "true", role: "dialog", tabindex: "-1", ng_if: 'data' } 
+  .modal.planit-modal.fade#planit-modal-new{ aria_hidden: "true", role: "dialog", tabindex: "-1", ng_show: 'data' } 
     .modal-dialog
 
       .modal-content{ ng_show: '!data.loading && !data.error' }
         %add_mark_place{ mark: 'data.mark', initiate: 'data.initiate', ng_if: "data.type == 'addMarkPlace' && (data.mark || data.initiate)", header_title: '{{title()}}' }
         %choose_mark_place{ mark: 'data.mark', ng_if: "data.type == 'chooseMarkPlace'", header_title: '{{title()}}' }
+        %add_note_modal{ ng_if: "data.type == 'addNote'", object_id: 'data.objectId', object_type: 'data.objectType' }
 
       .modal-content{ ng_show: 'data.loading || data.error || data.remove ' }
         .loading{ ng_show: 'data.loading' }

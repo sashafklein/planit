@@ -6,7 +6,7 @@
 ##    # This will create a flash in a specified class/id
 ##    Flash.error("You failed!", "#specific-flash-id")
 
-angular.module("Common").factory 'Flash',  () ->
+angular.module("Common").factory 'Flash',  ($timeout) ->
   alert_selector = '.flash-alert'
 
   _flashContainer = (location) ->
@@ -16,32 +16,40 @@ angular.module("Common").factory 'Flash',  () ->
     else 
       flash_container = $('#flash')
 
-  _clearErrors = ($flashContainer) ->
+  _clearOld = ($flashContainer) ->
     # remove previous flashes in container
     if $(alert_selector).length > 0
       $flashContainer.find(alert_selector).remove() 
 
   clear: (location = null) ->
-     _clearErrors(_flashContainer(location))
+     _clearOld(_flashContainer(location))
 
-  error: (content, location = null) ->
+  error: (content, opts={}) ->
     @new('error', content, location)
 
-  success: (content, location = null) ->
+  success: (content, opts={}) ->
     @new('success', content, location)
 
-  notice: (content, location = null) ->
+  notice: (content, opts={}) ->
     @new('notice', content, location)
 
-  warning: (content, location = null) ->
+  warning: (content, opts={}) ->
     @new('warning', content, location)  
 
-  new: (type, content, location = null) ->
+  new: (type, content, opts={}) ->
     $ ->
-      $flashContainer = _flashContainer(location)
-      _clearErrors($flashContainer)
-
+      $flashContainer = _flashContainer(opts.location)
+      _clearOld($flashContainer)
+     
       $flashContainer.append "<div id='flash'><div class='flash-alert' id='flash_#{type}'>#{content}</div></div>"
-
+      $("#flash").fadeIn(500)
       $('html,body').animate({scrollTop: $flashContainer.offset().top},'slow')
+
+      $timeout( 
+        -> $('#flash').fadeOut(500); $timeout( (-> _clearOld($flashContainer)), 500),
+        opts.keepUpThere || 2000
+      )
+      return true
+    true
+
 
