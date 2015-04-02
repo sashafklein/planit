@@ -73,7 +73,7 @@ module Completers
 
     def create_item!(plan, day, mark)
       return nil unless plan 
-
+      
       item_attrs = normalize_item_attrs(decremented_attrs.delete(:item) || {})
 
       search_attrs = { mark_id: mark.id, plan_id: plan.id }.merge item_attrs.slice(*Item.attribute_keys)

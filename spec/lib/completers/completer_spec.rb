@@ -52,6 +52,13 @@ module Completers
             expect(p.images.where(source: 'Trip Advisor').count).to eq 4
           end
 
+          it "deals with items extra column correctly" do
+            c = Completer.new(yml_data('itinerary', 'airbnb'), @user)
+            m = c.complete!
+            i = m.items.first
+            expect(i.extra.cost).to eq yml_data('itinerary', 'airbnb')[:item][:cost]
+          end
+
         end  
       end
 

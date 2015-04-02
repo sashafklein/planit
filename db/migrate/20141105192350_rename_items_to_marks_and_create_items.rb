@@ -13,7 +13,7 @@ class RenameItemsToMarksAndCreateItems < ActiveRecord::Migration
       t.string
     end
 
-    Mark.find_each do |mark|
+    Mark.unscoped.find_each do |mark|
       if mark.day_id 
         Item.create({
           mark_id: mark.id,
@@ -27,7 +27,7 @@ class RenameItemsToMarksAndCreateItems < ActiveRecord::Migration
     remove_column :marks, :day_id
     remove_column :marks, :order
     
-    if Mark.column_names.include?("location_id")
+    if Mark.unscoped.column_names.include?("location_id")
       rename_column :marks, :location_id, :place_id
     end
 
@@ -43,7 +43,7 @@ class RenameItemsToMarksAndCreateItems < ActiveRecord::Migration
     add_column :marks, :order, :integer
 
     Item.find_each do |item|
-      mark = Mark.find(item.mark_id)
+      mark = Mark.unscoped.find(item.mark_id)
       mark.day_id = item.day_id
       mark.order = item.order
       mark.save!
