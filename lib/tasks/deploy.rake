@@ -92,12 +92,12 @@ class RakeHerokuDeployer
 
   private
 
-  def run_and_log(command)
+  def run_and_log(command, instance = 1)
     response = command
-    if response.downcase.include?('heroku toolbelt') && response.downcase.include?('updat')
-      puts "Stalling to allow for Heroku Toolbelt update"
+    if response.include?("Heroku Toolbelt is currently updating")
+      puts "Stalling to allow for Heroku Toolbelt update. Try \##{instance}..."
       sleep 1
-      run_and_log(command)
+      run_and_log(command, instance + 1)
     else
       puts response
     end
