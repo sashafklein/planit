@@ -1,5 +1,6 @@
 class Source < BaseModel
   is_polymorphic
+  has_many_polymorphic table: :notes, name: :source
   validates :name, :full_url, :base_url, presence: true
 
   scope :for_url, -> (url) { where( trimmed_url: SourceParser.new(url).trimmed ) }

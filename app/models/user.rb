@@ -16,6 +16,7 @@ class User < BaseModel
   has_many :items, through: :marks
 
   has_many_polymorphic table: :one_time_tasks, name: :agent
+  has_many_polymorphic table: :notes, name: :source
 
   extend FriendlyId
   friendly_id :name, use: :slugged
