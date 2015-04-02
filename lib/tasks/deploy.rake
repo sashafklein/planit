@@ -22,14 +22,14 @@ class RakeHerokuDeployer
   def push
     current_branch = `git rev-parse --abbrev-ref HEAD`.chomp
     branch_to_branch = (current_branch.length > 0) ? "#{current_branch}:master" : ""
-    puts 'Deploying site to Heroku ...'
+    puts "Deploying site to Heroku (#{@app}) ..."
     puts "git push -f git@heroku.com:#{@app}.git #{branch_to_branch}"
     puts `git push -f git@heroku.com:#{@app}.git #{branch_to_branch}`
   end
  
   def restart
     puts 'Restarting app servers ...'
-    Bundler.with_clean_env { puts `heroku restart --app #{@app}` }
+    Bundler.with_clean_env { run_and_log(`heroku restart --app #{@app}`) }
   end
  
   def tag
@@ -41,12 +41,12 @@ class RakeHerokuDeployer
  
   def migrate
     puts 'Running database migrations ...'
-    Bundler.with_clean_env { puts `heroku run 'bundle exec rake db:migrate' --app #{@app}` }
+    Bundler.with_clean_env { run_and_log(`heroku run 'bundle exec rake db:migrate' --app #{@app}`) }
   end
  
   def turn_app_off
     puts 'Putting the app into maintenance mode ...'
-    Bundler.with_clean_env { puts `heroku maintenance:on --app #{@app}` }
+    Bundler.with_clean_env { run_and_log(`heroku maintenance:on --app #{@app}`) }
   end
  
   def turn_app_on
@@ -87,6 +87,19 @@ class RakeHerokuDeployer
     else
       puts "No release tags found - can't roll back!"
       puts releases
+    end
+  end
+
+  private
+
+  def run_and_log(command)
+    response = command
+    if response.downcase.include?('heroku toolbelt') && response.downcase.include?('updat')
+      puts "Stalling to allow for Heroku Toolbelt update"
+      sleep 1
+      run_and_log(command)
+    else
+      puts response
     end
   end
 end
