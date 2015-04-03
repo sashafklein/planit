@@ -1,4 +1,4 @@
-angular.module("Common").directive 'baseMap', (PlanitMarker, leafletData, MapEventManager, $timeout) ->
+angular.module("Common").directive 'baseMap', (Place, PlanitMarker, leafletData, MapEventManager, $timeout) ->
 
   return {
     restrict: 'E'
@@ -6,22 +6,24 @@ angular.module("Common").directive 'baseMap', (PlanitMarker, leafletData, MapEve
     replace: true
     template: '''
       <div class='base-map-div' style='width:100%; height:100%'>
-        <div class='leaflet-wrapper' ng-if='layers', ng-show='centerSet'>
+        <div class='leaflet-wrapper' ng-if='layers' ng-show='centerSet'>
           <ng-transclude class='base-map-transclude'></ng-transclude>
-          <leaflet markers='places' defaults='defaults' height='100%' width='100%' center='centerPoint' layers='layers' watch_markers='false'></leaflet>
+          <leaflet markers='places' defaults='defaults' height='100%' width='100%' center='centerPoint' layers='layers' watch-markers='false'></leaflet>
         </div>
       </div>
     '''
     scope:
-      webPadding: '@'
-      mobilePadding: '@'
-      list: '@'
-      zoomControl: '='
+      webPadding: '=?'
+      mobilePadding: '=?'
+      zoomControl: '=?'
       unwrappedPlaces: '='
-      centerPoint: '='
-      places: '='
+      centerPoint: '=?'
+      eventManager: '=?'
 
     link: (s, elem) ->
+      s.eventManager = if s.eventManager then s.eventManager else MapEventManager
+      s.places = []
+      s.zoomControl = 'topright'
       s.marker = new PlanitMarker(s)
       s.mobile = $(document).width() < 768
       s.web = !s.mobile
@@ -30,11 +32,9 @@ angular.module("Common").directive 'baseMap', (PlanitMarker, leafletData, MapEve
       s.padding = JSON.parse("[" + s.mobilePadding + "]") if s.mobilePadding && s.mobile
       s.padding = JSON.parse("[" + s.webPadding + "]") if s.webPadding && s.web
       s.centerPoint ||= { lat: 0, lng: 0, zoom: 2 }
-      
       $timeout( ( -> s.centerSet = true), 500 )
       
       s.leaf = leafletData
-      s.list ||= false
 
       s.defaults = 
         minZoom: if s.mobile then 1 else 2
@@ -68,6 +68,25 @@ angular.module("Common").directive 'baseMap', (PlanitMarker, leafletData, MapEve
               iconCreateFunction: (cluster) -> 
                 s.marker.clusterPin(cluster, 0)
 
-      s.mouse = (type, id) -> new MapEventManager(s).mouseEvent( type, id )
-      window.s = s
+      s.mouse = (type, id) -> new s.eventManager(s).mouseEvent( type, id )
+      
+      s.$watch 'unwrappedPlaces', ->
+        if s.unwrappedPlaces?.length && !s.places?.length
+          s.places = _.map( 
+            Place.generateFromJSON(s.unwrappedPlaces), 
+            (p) -> (s.marker.primaryPin(p))
+          )
+          s._initiateCenterAndBounds()
+
+      s._initiateCenterAndBounds = ->
+        if !s.centerAndZoom
+          startLats = _.map( s.places, (p) -> p.lat )
+          startLons = _.map( s.places, (p) -> p.lon )
+          leafletData.getMap().then (m) ->
+            m.fitBounds( 
+              L.latLngBounds( L.latLng(_.min(startLats),_.min(startLons)),L.latLng(_.max(startLats),_.max(startLons)) ),
+              { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] }
+            )
+
+      window.mapMouseEvent = s.mouse
   }

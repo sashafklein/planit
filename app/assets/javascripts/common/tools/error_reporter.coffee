@@ -1,7 +1,7 @@
-angular.module('Common').factory 'ErrorReporter', ($http, $location, RailsEnv) ->
+angular.module('Common').factory 'ErrorReporter', ($http, $location, RailsEnv, Flash) ->
   
   class ErrorReporter
-    @report: (hash) ->
+    @report: (hash, msg) ->
       errorHash = _.extend( hash, page: $location.absUrl() )
 
       if RailsEnv.development
@@ -10,6 +10,9 @@ angular.module('Common').factory 'ErrorReporter', ($http, $location, RailsEnv) -
       else
         $http.post( ErrorReporter._errorPath, error: errorHash )
           .success( (response) -> console.log 'Error reported' )
+
+      if msg?.length
+        Flash.error(msg)
 
     @_errorPath: '/api/v1/errors'
 
