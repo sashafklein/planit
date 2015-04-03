@@ -1,0 +1,6 @@
+angular.module("Services").service('CurrentAction', function(){
+  return <%= { 
+    controller: controller_name, 
+    action: controller.action_name, 
+    objects: UrlObjectParser.new(request.path).objects }.to_json.html_safe %>;
+});
