@@ -16,7 +16,7 @@ otherModules = [
 ]
 
 for module in planitModules
-    angular.module(module, ["leaflet-directive"]) #, ['angular.filter']
+    angular.module(module, ["leaflet-directive"])
 
 @ngApp = angular.module("ngApp", otherModules.concat(planitModules))
 
