@@ -27,7 +27,8 @@
             %i.fa.fa-bookmark
           / %a.search-bar-result-control{ ng_if: "hasMarkFor( place ) && pageType == 'plan'", remove_place_from_plan_on_click: '{{place.id}}', success_function: "removedPlace( place.id )" }
           /   %i.fa.fa-trash
-          %a.search-bar-result-control{ ng_if: "!hasMarkFor( place ) && pageType == 'plan'", save_place_on_click: '{{place.id}}', success_function: "savedPlace( place.id )" }
+          / DEFINITELY EDIT THE BELOW TO ALLOW FOR AUTO-IMPORT OF PLAN
+          %a.search-bar-result-control{ ng_if: "!hasMarkFor( place ) && pageType == 'plan'", add_places_to_plan_on_click: '[{{place.id}}]', success_function: "savedPlace( place.id )" }
             %i.fa.fa-book
           .bucket-list-tab
             %a{ ng_href: '{{place.href}}' }
