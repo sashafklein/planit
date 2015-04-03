@@ -27,6 +27,14 @@ class Item < BaseModel
 
   # CLASS METHODS
 
+  # def plan_name
+  #   plan.name if plan
+  # end
+
+  # def plan_name=(name)
+  #   self.plan = Plan.find_or_create_by_name(name) unless name.blank?
+  # end
+
   def self.marks
     Mark.where(id: pluck(:mark_id))
   end

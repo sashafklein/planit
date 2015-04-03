@@ -59,6 +59,10 @@ class Mark < BaseModel
     been.where( place_id: place_id ).pluck(:user_id)    
   end
 
+  def self.guides( place_id )
+    Item.where( mark_id: self.where( place_id: place_id ).pluck(:id) ).pluck( :plan_id )
+  end
+
   def save_with_source!(source_url:)
     save!
     create_source!(source_url: source_url) if source_url.present?

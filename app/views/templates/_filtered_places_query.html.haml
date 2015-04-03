@@ -1,0 +1,29 @@
+%script{ type: 'text/ng-template', id: 'filtered_places_query.html' }
+  .filtered-places-query-wrap
+    .line-one
+      %select
+        %option{ value: "", selected: true } My
+        %option{ value: "" } Sources
+      %b{ ng_if: true } own 
+      %b{ ng_if: false } 's
+      %select
+        %option{ value: "food,drink,seedo,stay,relax,other", selected: true } Places
+        %option{ value: "food" } Restaurants & Markets
+        %option{ value: "drink" } Drinks & Nightlife
+        %option{ value: "seedo" } Sights & Activities
+        %option{ value: "stay" } Lodging
+      %b in
+      %select
+        %option{ value: "", selected: true } the World
+      %b{ ng_if: true } that I
+      %b{ ng_if: false } that they
+      %select
+        %option{ value: "", selected: true } Saved
+        %option{ value: "love" } Cri de Coeur
+        %option{ value: "been" } Been To
+        %option{ value: "been,loved" } Loved
+        %option{ value: "been,deleted" } Hated
+        %option{ value: "shared" } Shared
+    .line-two
+      .planit-button.neon Launch
+    / .planit-button.blue Create as Guide

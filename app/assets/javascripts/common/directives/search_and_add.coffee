@@ -6,7 +6,7 @@ angular.module("Common").directive 'searchAndAdd', (Mark, Place, $timeout, Error
     replace: true
     templateUrl: "search_and_add.html"
     scope:
-      addOnly: '@'
+      pageType: '@'
       hideSearch: '&'
 
     link: (s, element) ->

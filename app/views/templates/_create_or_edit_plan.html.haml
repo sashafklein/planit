@@ -1,0 +1,13 @@
+%script{ type: 'text/ng-template', id: 'create_or_edit_plan.html' }
+  .modal-directive-wrapper
+    .create-or-edit-plan
+      %modal_header{ header_title: "{{title}}"}
+      .modal-body
+        Hey
+      .modal-footer
+        .planit-button{ ng_if: '!changesMade || (changesMade && guideName.length > 1)', ng_class: "{'neon': guideName.length > 1, 'disabled': guideName.length < 2 || !guideName.length}", ng_click: "addPlacesToNewPlan()" }
+          %span Add
+          %i.fa.fa-check.pad-left
+        .planit-button.blue{ ng_if: 'changesMade && (guideName.length < 2 || !guideName.length)', ng_click: 'cancel()' }
+          %span OK
+          %i.fa.fa-check.pad-left

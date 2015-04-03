@@ -7,6 +7,7 @@ angular.module("Common").directive 'expandingHeaderSearch', (BarExpander) ->
     templateUrl: "expanding_header_search.html"
     scope:
       showTeaser: '@'
+      pageType: '@'
 
     link: (s, element) ->
 

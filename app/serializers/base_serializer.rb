@@ -4,8 +4,8 @@ class BaseSerializer < ActiveModel::Serializer
     ActionController::Base.helpers.asset_path(path)
   end
 
-  def object_path(path)
-    Rails.application.routes.url_helpers.send( "#{object.class.to_s.downcase}_path", object)
+  def object_path(obj)
+    Rails.application.routes.url_helpers.send( "#{obj.class.to_s.downcase}_path", obj)
   end
 
   def encode(input, salt: 'Tinalp')

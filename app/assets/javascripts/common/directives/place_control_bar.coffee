@@ -25,4 +25,6 @@ angular.module("Common").directive 'placeControlBar', (Mark, Modal, CurrentUser,
       s.beenPlace = -> s.place.visitors.push( s.userId )
       s.notbeenPlace = -> s.place.visitors.splice( s.place.visitors.indexOf( s.userId ), 1 )
 
+      s.plannedPlace = (plan_id) -> s.place.guides.push( plan_id )
+
   }

@@ -32,7 +32,7 @@
               - if current_user_owns(@plan)
                 - day.items.without_places.each do |item|
                   .column= render 'items/item_tab', { item: item }
-              .column= render 'items/item_tab', { item: nil }
+              .column{ ng_controller: 'launchTopSearch', ng_click: "expandBar()" }= render 'items/item_tab', { item: nil }
 
     .band.gray.spaced
       .container
@@ -48,4 +48,4 @@
           - if current_user_owns(@plan)
             - @plan.bucket.without_places.each do |item|
               .column= render 'items/item_tab', { item: item }
-          .column= render 'items/item_tab', { item: nil }
+          .column{ ng_controller: 'launchTopSearch', ng_click: "expandBar()" }= render 'items/item_tab', { item: nil }

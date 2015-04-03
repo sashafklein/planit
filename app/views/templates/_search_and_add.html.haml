@@ -21,10 +21,14 @@
       %ul
 
         %li.search-results-list{ ng_repeat: 'place in places', ng_mouseenter: 'selectPlace(place)', ng_mouseleave: 'deselectPlace()', ng_class: '{highlighted: currentPlaceId == place.viewId}', ng_show: 'showResults() && !currentEvent' }
-          %a.search-bar-result-control{ ng_if: "hasMarkFor( place )", remove_place_on_click: '{{place.id}}', success_function: "removedPlace( place.id )" }
+          %a.search-bar-result-control{ ng_if: "hasMarkFor( place ) && pageType != 'plan'", remove_place_on_click: '{{place.id}}', success_function: "removedPlace( place.id )" }
             %i.fa.fa-trash
-          %a.search-bar-result-control{ ng_if: "!hasMarkFor( place )", save_place_on_click: '{{place.id}}', success_function: "savedPlace( place.id )" }
+          %a.search-bar-result-control{ ng_if: "!hasMarkFor( place ) && pageType != 'plan'", save_place_on_click: '{{place.id}}', success_function: "savedPlace( place.id )" }
             %i.fa.fa-bookmark
+          / %a.search-bar-result-control{ ng_if: "hasMarkFor( place ) && pageType == 'plan'", remove_place_from_plan_on_click: '{{place.id}}', success_function: "removedPlace( place.id )" }
+          /   %i.fa.fa-trash
+          %a.search-bar-result-control{ ng_if: "!hasMarkFor( place ) && pageType == 'plan'", save_place_on_click: '{{place.id}}', success_function: "savedPlace( place.id )" }
+            %i.fa.fa-book
           .bucket-list-tab
             %a{ ng_href: '{{place.href}}' }
               .bucket-list-no-img{ ng_if: "!place.image_url" }

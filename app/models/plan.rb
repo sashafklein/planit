@@ -54,6 +54,22 @@ class Plan < BaseModel
     days.count
   end
 
+  def places
+    items.marks.with_places.places
+  end
+
+  def self.create_new!(user, plan_name, place_ids)
+    plan = Plan.create!( user_id: user.id, name: plan_name )
+    places = Place.where( id: place_ids )
+    places.each do |place|
+      mark = Mark.unscoped.where( user_id: user.id, place_id: place.id ).first_or_initialize
+      mark.deleted = false
+      mark.save!
+      item = mark.items.where( plan_id: plan.id ).create!
+    end
+    return plan
+  end
+
   def remove_all_traces!
     items.marks.places.destroy_all
     items.marks.destroy_all

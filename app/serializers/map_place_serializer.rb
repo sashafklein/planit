@@ -1,5 +1,5 @@
 class MapPlaceSerializer < ActiveModel::Serializer
-  attributes :id, :lat, :lon, :names, :categories, :meta_categories, :sublocality, :locality, :region, :country, :meta_icon, :meta_category, :wifi, :open, :image, :images, :savers, :lovers, :visitors
+  attributes :id, :lat, :lon, :names, :categories, :meta_categories, :sublocality, :locality, :region, :country, :meta_icon, :meta_category, :wifi, :open, :image, :images, :savers, :lovers, :visitors, :guides
   delegate   :meta_icon, :meta_category, to: :object
   
   has_many :images
@@ -26,6 +26,10 @@ class MapPlaceSerializer < ActiveModel::Serializer
 
   def visitors
     Mark.visitors( id )
+  end
+
+  def guides
+    Mark.guides( id )
   end
 
 end
