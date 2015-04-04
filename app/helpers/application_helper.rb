@@ -83,6 +83,10 @@ module ApplicationHelper
     (mail_to 'hello@plan.it', link_text, { subject: subject, body: content}.merge(opts)).to_s.gsub("&amp;", '&').html_safe
   end
 
+  def render_javascript?
+    !Rails.env.test? || ENV['RENDER_JS']
+  end
+
   private
 
   # DATE-BASED LISTS

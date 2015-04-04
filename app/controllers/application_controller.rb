@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_back(key: nil, msg: nil)
     flash[key] = msg if key && msg
-    redirect_to :back || root_path
+    redirect_to(request.referer.present? ? :back : root_path )
   end
 
   def not_authorized_redirect

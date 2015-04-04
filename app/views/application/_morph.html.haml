@@ -1,0 +1,3 @@
+- if session[:morphed_from]
+  .morph-flash
+    .flash-morph= link_to "Morphed into #{current_user.name}. Click to Unmorph.", unmorph_path, method: :delete

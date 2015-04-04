@@ -1,5 +1,15 @@
 // PAGE STRUCTURE
 
+$neonPink: #f06
+$darkNeonPink: #c03
+$lightBlue: #33a
+$lightestBlue: #66d
+$darkBlue: #007
+
+@function gray($value)
+  @return hsl(0, 0, $value * 1%)
+
+
 html, body
   margin: 0
   padding: 0
@@ -20,17 +30,17 @@ a, a:link, a:hover, a:active
 
 a.linky
   &.neon
-    color: #f06 !important // neon
+    color: $neonPink !important
     &:hover, &:active
-      color: #c03 // dark-neon
+      color: $darkNeonPink
   &.light-blue
-    color: #33a !important // light-blue
+    color: $lightBlue !important
     &:hover, &:active
-      color: #66d !important // lightest-blue 
+      color: $lightestBlue !important
   &.dark-blue
-    color: #007 !important // dark-blue
+    color: $darkBlue !important
     &:hover, &:active
-      color: #33a !important // light-blue
+      color: $lightBlue !important
 
 .centering-box
   position: relative
