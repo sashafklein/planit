@@ -12,16 +12,22 @@ describe 'Morphing' do
       sign_in @admin
 
       visit root_path
-      expect( page ).to have_content @admin.name
+      expect( title ).to have_content @admin.first_name
       
       visit morph_path(@user.id)
-      
-      expect( page ).to have_content "Morphed into #{@user.name}. Click to Unmorph."
-      expect( page ).not_to have_content @admin.name
+
+      within '.flash-morph' do
+        expect( page ).to have_content "Morphed into #{@user.name}. Click to Unmorph."
+      end
+
+      expect( title ).not_to have_content @admin.name
       
       click_link "Morphed into #{@user.name}. Click to Unmorph."
+      expect( page ).to have_content "Unmorphed back to #{ @admin.name } successfully."
 
-      expect( page ).to have_content @admin.name
+      visit root_path
+      expect( title ).to have_content @admin.name
+
       expect( page ).not_to have_content "Morphed into #{@user.name}."
     end
 
@@ -29,7 +35,7 @@ describe 'Morphing' do
       sign_in @user
 
       visit root_path
-      expect( page ).to have_content @user.name
+      expect( title ).to have_content @user.name
       
       visit morph_path(@admin.id)
       

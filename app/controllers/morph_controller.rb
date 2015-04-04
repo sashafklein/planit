@@ -14,7 +14,7 @@ class MorphController < ApplicationController
     if morph_from = User.friendly.find_by_id(session[:morphed_from])
       session.delete :morphed_from
       sign_in :user, morph_from
-      redirect_back( key: :success, msg: "Unmorphed back to #{morph_from.name} successfully.")
+      redirect_back( key: :success, msg: "Unmorphed back to #{current_user.name} successfully.")
     else
       redirect_back( key: :error, msg: "Nobody to morph back into!")
     end
