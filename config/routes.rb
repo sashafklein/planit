@@ -31,6 +31,9 @@ Rails.application.routes.draw do
     get :edit, on: :member
   end
 
+  get 'morph/:id', to: 'morph#new', as: :morph
+  delete :unmorph, to: 'morph#destroy'
+
   resources :marks, only: [:show]
 
   resources :places, only: [:show, :index]

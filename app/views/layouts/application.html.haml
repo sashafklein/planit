@@ -16,8 +16,9 @@
       .searching-mask
       = render "application/flashes"
       = render_header content_for(:page_type)
+      = render "application/morph"
       = yield
       = render_footer content_for(:page_type)
-    = render "application/javascript"
+    = render "application/javascript" if render_javascript? # Unless specified, JS won't run in tests
     - (@directive_templates || []).uniq.each do |template_path|
       = render "templates/#{template_path}"
