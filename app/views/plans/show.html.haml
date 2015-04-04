@@ -1,12 +1,12 @@
 - title( @plan.name )
 - set_page_type('plan')
 
-#show-plan-page{ ng_controller: 'Plans.ShowCtrl' }
+#show-plan-page{ ng_controller: 'Plans.ShowCtrl', ng_init: "loadPlaces(#{@plan.id})" }
 
   .plan-map-container{ ng_class: "{'expanded': mapExpanded}" }
-    %div#expand-map-button.large-screen{ ng_click: 'contractOrExpandMap()', ng_class: "{'expanded': mapExpanded}" }
-      %i.fa.fa-expand.fa-flip-horizontal
-    %plan_map.plan-map-canvas{ plan_id: @plan.id, current_user_id: current_user_id, type: 'plan' }
+    / %div#expand-map-button.large-screen{ ng_click: 'contractOrExpandMap()'}
+    /   %i.fa.fa-expand.fa-flip-horizontal
+    %no_sidebar_map.plan-map-canvas{ unwrapped_places: 'places', ng_show: 'loaded' }
       .plan-name-and-detail-container{ ng_show: '!mapExpanded' }
         .plan-name-wrap.clearfix
           %span.plan-name= @plan.name
