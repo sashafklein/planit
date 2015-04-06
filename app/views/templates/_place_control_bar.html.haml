@@ -1,7 +1,9 @@
 %script{ type: 'text/ng-template', id: 'place_control_bar.html' }
   .place-control-bar
 
-    .place-control
+    .place-control.disabled{ ng_if: "!hasMarkFor()" }
+      %i.fa.fa-book
+    %a.place-control{ ng_if: "hasMarkFor()", add_places_to_plan_on_click: '[{{place.id}}]', success_function: "" }
       %span.place-control-hint= "Add to Guide"
       %i.fa.fa-book
 

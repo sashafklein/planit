@@ -7,5 +7,7 @@ mod.factory "Plan", (BaseModel, $http) ->
 
     @findPlaces: (id) -> $http.get( "#{@objectPath(id)}/places" )
 
+    addItems: (place_ids) -> $http.post( "#{@objectPath()}/add_items", { place_ids: place_ids } ) 
+    destroyItems: (place_ids) -> $http.post( "#{@objectPath()}/destroy_items", { place_ids: place_ids } ) 
+
   return Plan
-      

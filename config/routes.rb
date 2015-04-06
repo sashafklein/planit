@@ -81,6 +81,7 @@ Rails.application.routes.draw do
 
       resources :users, only: [:show] do
         resources :places, only: [:index], controller: 'users/places'
+        resources :plans, only: [:index], controller: 'users/plans'
         resources :marks, only: [] do
           match '/create' => 'users/marks#create', on: :collection, via: [:options, :post]
           match '/scrape' => 'users/marks#scrape', on: :collection, via: [:options, :post]
@@ -88,7 +89,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :plans, only: [] do
+      resources :plans, only: [:destroy, :create, :show] do
+        post :rename, on: :member
+        post :add_items, on: :member
+        post :destroy_items, on: :member
         resources :places, only: [:index], controller: 'plans/places'
       end
       

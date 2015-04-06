@@ -1,13 +1,12 @@
 class PlanSerializer < BaseSerializer
-  attributes :id, :lat, :lon, :names, :street_addresses, :region, 
-             :locality, :country, :images, :menu, :mobile_menu, 
-             :reservations, :reservations_link, :hours, :meta_categories, :meta_icon
-  delegate   :meta_icon, to: :object
+  attributes :id, :name, :created_at, :updated_at, :place_ids, :href
 
-  has_many :images
+  def place_ids
+    object.places.pluck(:id)
+  end
 
-  def coordinates
-    [object.lat,object.lon]
+  def href
+    object_path(object)
   end
 
 end

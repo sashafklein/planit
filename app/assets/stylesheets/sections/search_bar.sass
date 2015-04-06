@@ -14,7 +14,28 @@
 .search-and-add-wrap
   position: absolute
 
-.search-bar-wrap
+.filtered-places-query-wrap
+  width: 100%
+  overflow: hidden
+
+  select, span.select
+    border: none
+    border-bottom: dashed 1px #777
+    background: transparent
+    color: #007
+    padding: 3px 4px
+    margin: 0
+    font-family: avenir, 'trebuchet ms', open sans, arial !important
+    font-size: 15px
+    line-height: 15px
+  b
+    color: #777
+    margin: 0 3px
+
+  &.recent-wrap
+    padding: 15px
+
+.search-bar-wrap, .filtered-places-query-wrap
 
   .search-bar-field, .search-input-button
     height: 28px !important
@@ -121,11 +142,15 @@
           color: #fff
           i
             color: #fff
+          i.fa-stack-2x
+            color: #000
         i
           width: 20px
           text-align: center
           line-height: 69px
           font-size: 19px
+        i.fa-stack-2x
+          color: #f06
 
       li .bucket-list-tab
         text-align: left

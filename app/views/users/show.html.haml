@@ -9,17 +9,33 @@
 
       .band.spaced-extra
         .static-page.container
-          .whitebox.padded.no-mobile-portrait.like-container
-            .sixteen.columns.main-content
+          .sixteen.columns.main-content
+            .whitebox.padded.no-mobile-portrait.like-container
 
-              %span
-                FILTERS in LOCATION that USER has ACTION & ACTION &...
+              %p
+                %strong.large.neon Launch a Custom List:
 
-              %p= "#{@user.name}'s Dashboard"
-              %p Find/Discover/Follow
-              %p Active Plans/Geographies
-              %p Start a new plan
-              %p Share/invite?
+              %filtered_places_query
+              - include_templates( :filtered_places_query )
+
+              %p
+                %strong.large Recent Custom Lists:
+
+              .filtered-places-query-wrap.recent-wrap
+  
+                %p 
+                  %span.select My
+                  %b own
+                  %span.select Restaurants & Markets
+                  %b in
+                  %span.select San Francisco, CA
+                  %b that I
+                  %span.select loved
+
+              / %p Find/Discover/Follow
+              / %p Active Plans/Geographies
+              / %p Start a new plan
+              / %p Share/invite?
 
     - else # mobile
 

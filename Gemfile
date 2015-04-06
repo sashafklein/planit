@@ -62,6 +62,7 @@ gem "bonsai-elasticsearch-rails"
 gem "fuzzy-string-match"
 gem "friendly_id"
 gem "acts-as-taggable-on" # not using
+gem "select2-rails"
 
 # terminal
 gem "colorize"

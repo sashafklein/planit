@@ -34,11 +34,15 @@ class Place < BaseModel
   end
 
   def lovers
-    Mark.savers( id )
+    Mark.lovers( id )
   end
 
   def visitors
-    Mark.savers( id )
+    Mark.visitors( id )
+  end
+
+  def guides
+    Mark.guides( id )
   end
 
 end
