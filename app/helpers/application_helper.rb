@@ -12,6 +12,10 @@ module ApplicationHelper
     content_for(:page_type) { type }
   end
 
+  def set_body_style(style)
+    content_for(:body_style) { style }
+  end
+  
   def render_header(type='false')
     render 'application/header', { page_type: type }
   end
@@ -34,7 +38,7 @@ module ApplicationHelper
   end
 
   def show_search?(page_type)
-    [ 'places', 'guides', 'plan', 'dashboard' ].include?(page_type)
+    [ 'places', 'guides', 'plan' ].include?(page_type)
   end
 
   def rich_content?(page_type)

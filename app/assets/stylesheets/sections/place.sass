@@ -1,4 +1,4 @@
-#show-place-page, #new-place-page
+#show-place-page, #new-place-page, #recent-places
 
   // PLACE NEW
 
@@ -15,12 +15,18 @@
   .add-new-form
     padding: 0px
     margin-bottom: 10px
-    font-size: 22px
+    font-size: 16px
     line-height: 22px
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
 
+    .foursquare-suggestions
+      margin: 8px 0
+
     .add-new-input
-      input
+      .add-a-photo
+        margin-left: 25px
+      input, textarea, select
+        margin-left: 25px
         -webkit-border-radius: 2px
         -moz-border-radius: 2px
         border-radius: 2px
@@ -34,33 +40,19 @@
           background: #eee
           border: 1px solid #ccc
 
-      .on-off-button, select.on-off-button
-        display: inline-block
-        padding: 3px 8px
-        color: #777
-        font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-        font-weight: normal
-        font-size: 16px
-        line-height: 22px
-        -webkit-border-radius: 2px
-        -moz-border-radius: 2px
-        border-radius: 2px
-        margin: 0
-        &.on
-          background: #fff
-          border: 1px solid #bbb
-        &.off
-          background: #eee
-          border: 1px solid #ccc
-          border-bottom: 2px solid #aaa
-
       &.section
         padding: 5px 0
+        position: relative
         .new-place-icon
+          font-size: 20px
           text-align: center
           width: 22px
-          margin-right: 3px
-          vertical-align: middle
+          height: 22px
+          top: 0
+          bottom: 0
+          left: 0
+          margin: auto 0
+          position: absolute
       .sub-line
         padding: 0px 26px 5px 26px
         font-size: 14px
@@ -83,32 +75,14 @@
       border: 1px solid rgba(0,0,0,0)
       border-bottom: 3px solid rgba(0,0,0,0)
       margin: 5px 0 10px 0
+      cursor: pointer
       i
         padding-right: 5px
+      &.selected
+        color: #333
 
   .add-new-submit
     float: right
-    display: inline-block
-    padding: 3px 8px
-    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-    font-weight: bold
-    font-size: 16px
-    line-height: 22px
-    color: #333
-    text-shadow: 0px 1px 1px #fff
-    -webkit-border-radius: 3px
-    -moz-border-radius: 3px
-    border-radius: 3px
-    border: 1px solid #ccc
-    border-bottom: 3px solid #aaa
-    background: #fff
-    margin: 5px 0 10px 0
-    cursor: pointer
-    &.halo
-      margin: 5px 10px 10px 0
-    &.disabled
-      color: #777
-      background: #ddd
 
   // PLACE PAGE SHOW
 
@@ -420,7 +394,7 @@
 
   .add-new-form
     .add-new-input
-      input
+      input, textarea, select
         width: 308px
     .on-off-button
       width: 308px
@@ -504,7 +478,7 @@
 
     .add-new-form
       .add-new-input
-        input
+        input, textarea, select
           width: 236px
       .on-off-button
         width: 236px
@@ -547,8 +521,9 @@
   @media only screen and (max-width: 767px)
 
     .add-new-form
+      padding: 10px 0
       .add-new-input
-        input
+        input, textarea, select, .add-a-photo
           width: 268px
       .on-off-button
         width: 268px
@@ -589,7 +564,7 @@
 
     .add-new-form
       .add-new-input
-        input
+        input, textarea, select, .add-a-photo
           width: 388px
       .on-off-button
         width: 388px

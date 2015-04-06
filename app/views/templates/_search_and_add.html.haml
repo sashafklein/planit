@@ -15,8 +15,8 @@
           %i.fa.fa-times-circle.clear-input-button{ ng_click: 'clearSearch()' }
       %span.input-group-btn
         %button.btn.btn-default.search-input-button{ type: "button", ng_click: 'search()' }
-          %i.fa.fa-search.fa-lg{ ng_if: '!query || places.length' }
-          %i.fa.fa-plus.fa-lg{ ng_if: 'query && !places.length' }
+          %i.fa.fa-search.fa-lg{ ng_show: '!showPlus()' }
+          %i.fa.fa-plus.fa-lg{ ng_show: 'showPlus()' }
     .place-search-results{ ng_show: 'query' }
       %ul
 

@@ -1,4 +1,4 @@
-.nav-item.nav-item-new
-  %i.nav-item-icon.fa.fa-plus-circle
+.nav-item.nav-item-new{ class: "#{ 'selected' if browser.mobile? && page_type == 'dashboard' }" }
+  %i.nav-item-icon.fa{ class: "#{ 'fa-home' if browser.mobile? }#{ 'fa-plus-circle' if !browser.mobile? }" }
   .nav-item-hint
-    %span ADD NEW
+    %span= "#{'HOME' if browser.mobile? }#{'ADD NEW' if !browser.mobile?}"

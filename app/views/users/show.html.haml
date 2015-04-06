@@ -1,11 +1,11 @@
 - title( @user.name )
-- set_page_type( (browser.mobile? ? 'mobilehome' : 'dashboard') )
+- set_page_type( 'dashboard' )
 
 #user-show-page
 
   - if current_user == @user # personal startpage
 
-    - if !browser.mobile?
+    - if browser.mobile?
 
       .band.spaced-extra
         .static-page.container
@@ -39,31 +39,8 @@
 
     - else # mobile
 
-      .mobile-half-screen.top
-        .centering-box
-          
-          .centered-item.input-box{ ng_controller: 'NavBarCtrl' }
-            .search-bar-wrap.mobile-center-search
-              .input-group.faux-input{ ng_click: 'expandBar()' }
-                %ul.faux-input.form-control.search-bar-field
-                  %li.faux-input= "Search or Add"
-                %span.input-group-btn
-                  %button.btn.btn-default.search-input-button
-                    %i.fa.fa-search.fa-lg
-
-      .mobile-half-screen.bottom
-        .centering-box
-          .centered-item.box-link-group
-            = link_to user_path(current_user) do
-              .box-link.left
-                .icon-and-hint.centered-item
-                  %i.fa.fa-bullseye
-                  .hint Nearby
-            = link_to user_path(current_user) do
-              .box-link.right
-                .icon-and-hint.centered-item
-                  %i.fa.fa-clock-o
-                  .hint Recent
+      %mobile_dashboard
+      - include_templates( :mobile_dashboard, :bucket_list_places, :place_control_bar )
 
   - else # public 'dashboard'
 

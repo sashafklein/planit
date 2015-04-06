@@ -82,15 +82,17 @@ class User < BaseModel
     end
   end
 
-  # USER GUIDES LOGIC
+  def auto_signin_token
+    Digest::MD5.hexdigest "#{ email }#{ id }#{ ENV['AUTO_SIGN_IN_TOKEN_SALT'] }"
+  end
+
+  # USER ACTIVITY
 
   def years_on_planit
     (Time.now().to_f - created_at.to_f) / (60*60*24*365.25)
   end
 
-  def auto_signin_token
-    Digest::MD5.hexdigest "#{ email }#{ id }#{ ENV['AUTO_SIGN_IN_TOKEN_SALT'] }"
-  end
+  # PRIVATE
 
   private
 

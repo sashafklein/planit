@@ -56,10 +56,10 @@ mod.factory 'PlanitMarker', ($timeout) ->
 
     _basicPin: (place) ->
       _(place).extend(
-        hasImg: place.hasImage()
-        name: place.name()
-        title: place.name()
-        alt: place.name()
+        hasImg: place.image?
+        name: place.name
+        title: place.name
+        alt: place.name
         riseOnHover: true
         layer: 'primary'
       ).value()

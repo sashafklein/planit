@@ -16,6 +16,8 @@ angular.module("Common").directive 'searchAndAdd', (Mark, Place, $timeout, Error
       s.userId = CurrentUser.id
       s.splitKey = "near"
 
+      s.showPlus = -> if s.pageType == 'plan' || ( s.query && !s.places?.length ) then true else false
+
       # BAR VISUALS
 
       s.clearSearch = ->

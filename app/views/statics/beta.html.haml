@@ -1,11 +1,12 @@
 - title('Private Beta')
 - set_page_type('beta')
+- if !browser.mobile? then set_body_style("background-image: url('#{ ActionController::Base.helpers.asset_path('crossing_2000_1372.jpg') }');") end
 
-#beta-page.centering-box
+#beta-page
 
-  = link_to "LOG IN", new_user_session_path, { class: 'beta-log-in' }
+  .beta-log-in= link_to "Log In", new_user_session_path, { class: 'planit-button blue' }
 
-  .band.spaced-extra
+  .band.spaced-extra-crazy
 
     .static-page.container
       .whitebox.no-mobile-portrait.extra-pad-top.like-container
@@ -43,3 +44,12 @@
                     = f.input :email, required: true, placeholder: 'Email Address'
                   .simple-entry-form-section.form-actions.right
                     = f.button :submit, "Sign up", class: 'planit-button neon'
+
+  .band.black.spaced-extra.largest-screen
+    .container
+      .sixteen-columns
+        .beta-footer-note
+          Know Swift & Java?
+          %span.neon We're hiring mobile developers!
+          = mail_to "jobs@plan.it", "Send us a note"
+

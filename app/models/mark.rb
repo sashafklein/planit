@@ -145,6 +145,10 @@ class Mark < BaseModel
 
   # INSTANCE METHODS
 
+  def name
+    if has_place? then place.name else ( if query.exists? then query.names.first else 'Unnamed Place' end ) end
+  end
+
   def query
     @query ||= MarkMod::Query.new(self)
   end
