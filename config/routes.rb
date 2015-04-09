@@ -55,6 +55,8 @@ Rails.application.routes.draw do
   resources :oauths, only: [] do
     get :foursquare, on: :collection
     get :foursquare_return, on: :collection
+    # get :google, on: :collection
+    # get :google_return, on: :collection
   end
 
   namespace :api do
