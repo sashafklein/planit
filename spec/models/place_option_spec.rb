@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe PlaceOption, :vcr do 
+xdescribe PlaceOption, :vcr do 
 
   include ScraperHelper
 
