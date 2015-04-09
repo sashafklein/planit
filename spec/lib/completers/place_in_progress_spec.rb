@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Completers
-  describe PlaceInProgress do
+  xdescribe PlaceInProgress do
 
     before do 
       @attrs = {phones: ['123456789'], lat: 12.345678, names: ["Whatever"]}

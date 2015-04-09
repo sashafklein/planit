@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Api::V1::Users::MarksController, :vcr do
+xdescribe Api::V1::Users::MarksController, :vcr do
 
   include ScraperHelper
 
@@ -57,6 +57,7 @@ describe Api::V1::Users::MarksController, :vcr do
   end
 
   describe 'mini_scrape' do
+
     before do 
       @user = create(:user)
     end
