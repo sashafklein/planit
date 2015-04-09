@@ -1,5 +1,5 @@
 class ShowPlaceSerializer < BaseSerializer
-  attributes :id, :name, :image_url, :image_source, :address, :locale, :href, :categories, :meta_icon, :country, :savers, :lovers, :visitors, :mark
+  attributes :id, :name, :names, :image_url, :image_source, :address, :locale, :href, :categories, :meta_icon, :country, :savers, :lovers, :visitors, :mark
   delegate :street_address, :sublocality, :locality, :subregion, :region, :country, :categories, :meta_icon, :meta_categories, to: :object
 
   has_many :images

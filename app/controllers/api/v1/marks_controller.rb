@@ -23,6 +23,7 @@ class Api::V1::MarksController < ApiController
       end
       success
     else
+      # Place Complete first or create
       error
     end
   end

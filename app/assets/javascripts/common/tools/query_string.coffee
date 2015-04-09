@@ -6,9 +6,9 @@ angular.module('Common').factory 'QueryString', ($location) ->
 
     @get: -> $location.search()
 
-    @reset: -> @set( null ) 
+    @reset: -> $location.search({})
 
-    @set: (hash) -> $location.search(hash).replace()
+    @set: (hash) -> if hash then $location.search(hash).replace() else QueryString.reset()
 
     @modify: (object) ->
       [newObj, clone] = [ {}, QueryString._clone( $location.search() ) ]

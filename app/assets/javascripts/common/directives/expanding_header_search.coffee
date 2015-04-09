@@ -1,4 +1,4 @@
-angular.module("Common").directive 'expandingHeaderSearch', (BarExpander) ->
+angular.module("Common").directive 'expandingHeaderSearch', (BarExpander, CurrentUser) ->
 
   return {
     restrict: 'E'
@@ -6,10 +6,18 @@ angular.module("Common").directive 'expandingHeaderSearch', (BarExpander) ->
     replace: true
     templateUrl: "expanding_header_search.html"
     scope:
+      pageType: '@'
+      record: '@'
       showTeaser: '@'
       pageType: '@'
 
     link: (s, element) ->
+
+      s.userId = CurrentUser.id
+
+      s.placeholder = 
+        # if s.record.user_id == s.UserId
+        if s.pageType == 'plan' then 'Add Places to your Guide' else 'Find Places or Guides'
 
       s.searchClick = -> if s.showTeaser == 'true' then true else false
 
