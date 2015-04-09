@@ -25,6 +25,8 @@ gem "jquery-rails"
 
 # scraping
 gem "nokogiri"
+gem "foursquare2"
+gem "yelp"
 
 # coding efficiency
 gem "haml-rails"

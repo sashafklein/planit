@@ -165,6 +165,8 @@ GEM
       railties (>= 3.0.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.9.1)
+      faraday (>= 0.7.4, < 0.10)
     ffi (1.9.6)
     flutie (2.0.0)
     font-awesome-sass (4.2.2)
@@ -176,6 +178,10 @@ GEM
       activesupport
       capybara
       i18n
+    foursquare2 (2.0.2)
+      faraday (~> 0.8)
+      faraday_middleware (>= 0.8)
+      hashie (>= 1.0, < 4.0.0)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     fuzzy-string-match (0.9.7)
@@ -355,6 +361,7 @@ GEM
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    simple_oauth (0.2.0)
     slop (3.6.0)
     sprockets (2.12.3)
       hike (~> 1.2)
@@ -392,6 +399,10 @@ GEM
     websocket (1.2.1)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    yelp (2.0.5)
+      faraday (~> 0.8, >= 0.8.0)
+      faraday_middleware (~> 0.8, >= 0.8.0)
+      simple_oauth (~> 0.2, >= 0.2.0, < 0.3.0)
 
 PLATFORMS
   ruby
@@ -428,6 +439,7 @@ DEPENDENCIES
   font-awesome-sass
   foreman
   formulaic
+  foursquare2
   friendly_id
   fuzzy-string-match
   geocoder
@@ -473,3 +485,4 @@ DEPENDENCIES
   unicorn
   vcr
   webmock
+  yelp

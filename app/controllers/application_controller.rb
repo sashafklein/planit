@@ -116,4 +116,17 @@ class ApplicationController < ActionController::Base
     Rollbar.log('error', message)
   end
 
+  def qs_path(path, qs_hash={})
+    return path unless qs_hash.any?
+    querystring = qs_hash.map{ |k, v| [k,v].join("=") }.join("&")
+    [path, querystring].join("?")
+  end
+
+  def save_back_path!
+    session[:saved_back_path] = URI(request.referer || root_path).path
+  end
+
+  def get_back_path!
+    session.delete(:saved_back_path)
+  end
 end
