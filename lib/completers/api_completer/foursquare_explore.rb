@@ -18,7 +18,7 @@ module Completers
     end
 
     def self.auth
-      "client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&v=#{ Date.today.strftime("%Y%m%d") }"
+      "client_id=#{ Env.foursquare_client_id }&client_secret=#{ Env.foursquare_client_secret }&v=#{ Date.today.strftime("%Y%m%d") }"
     end
 
     def complete

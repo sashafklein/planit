@@ -52,6 +52,11 @@ Rails.application.routes.draw do
 
   resources :shares, only: [:create]
 
+  resources :oauths, only: [] do
+    get :foursquare, on: :collection
+    get :foursquare_return, on: :collection
+  end
+
   namespace :api do
     namespace :v1 do
 
