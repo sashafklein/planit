@@ -1,0 +1,1125 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.geonames.org/timezoneJSON?lat=37.78639&lng=-122.414982&username=sashafklein
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 09 Apr 2015 02:26:00 GMT
+      Server:
+      - Apache/2.4.6 (Linux/SUSE)
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"sunrise":"2015-04-09 06:43","lng":-122.414982,"countryCode":"US","gmtOffset":-8,"rawOffset":-8,"sunset":"2015-04-09
+        19:39","timezoneId":"America/Los_Angeles","dstOffset":-7,"countryName":"United
+        States","time":"2015-04-08 19:26","lat":37.78639}'
+    http_version: 
+  recorded_at: Thu, 09 Apr 2015 02:26:01 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=37.78639,-122.414982&query=RxBar&v=20150408&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 09 Apr 2015 02:26:01 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '64'
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4918'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-sjc3121-SJC
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"code":200},"response":{"spellCorrection":{"suggestion":{"target":{"type":"path","url":"\/venues\/explore","params":{"query":"rebar","ll":"37.786390,-122.414982","radius":"693","noCorrect":"1"}},"message":{"entities":[{"indices":[0,5],"type":"correction"}],"text":"rebar"}}},"warning":{"text":"There
+        aren''t a lot of results for \"RxBar.\" Try something more general, reset
+        your filters, or expand the search area."},"suggestedRadius":2079,"headerLocation":"Tenderloin","headerFullLocation":"Tenderloin,
+        San Francisco","headerLocationGranularity":"neighborhood","query":"rxbar","totalResults":0,"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[]}]}}'
+    http_version: 
+  recorded_at: Thu, 09 Apr 2015 02:26:01 GMT
+- request:
+    method: get
+    uri: https://www.google.com/maps?near=San%20Francisco,%20CA,%20United%20States&output=json&q=RxBar
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 09 Apr 2015 02:26:03 GMT
+      Expires:
+      - "-1"
+      Cache-Control:
+      - private, max-age=0
+      Content-Type:
+      - application/json; charset=ISO-8859-1
+      Set-Cookie:
+      - PREF=ID=cd079896c139f5b5:TM=1428546362:LM=1428546363:S=yrUTsT2Dlj2uY4Xi; expires=Sat,
+        08-Apr-2017 02:26:03 GMT; path=/; domain=.google.com
+      X-Content-Type-Options:
+      - nosniff
+      Content-Disposition:
+      - attachment; filename="f.txt"
+      Server:
+      - GFE/2.0
+      Transfer-Encoding:
+      - chunked
+      Alternate-Protocol:
+      - 443:quic,p=0.5
+    body:
+      encoding: UTF-8
+      string: 'while(1);{title:"RxBar loc: San Francisco, CA, United States - Google
+        Maps",url:"/maps?q=RxBar\x26near=San+Francisco,+CA,+United+States\x26ie=UTF8\x26hq=RxBar\x26hnear=San+Francisco,+San+Francisco+County,+California",urlViewport:false,ei:"OuMlVc3vM4GlggSY7IGICw",form:{selected:"q",q:{q:"RxBar
+        loc: San Francisco, CA, United States",what:"RxBar",near:"San Francisco, CA,
+        United States"},d:{saddr:"",daddr:"RxBar",dfaddr:"San Francisco, CA, United
+        States"},geocode:"",d_edit:{saddr:"",daddr:"RxBar"}},query:{type:"l"},viewport:{center:{lat:37.786389999999997,lng:-122.41498199999999},span:{lat:0.025212999999999999,lng:0.0097540000000000005},mapType:"",source:0},modules:["","strr","pphover","act_s","appiw","rst"],overlays:{sxcar:true,markers:[{id:"A",cid:"15930319793039692456",latlng:{lat:37.786389999999997,lng:-122.41498199999999},image:"https://maps.gstatic.com/intl/en_us/mapfiles/markers2/markerA.png",sprite:{width:20,height:34,top:0,image:"https://maps.gstatic.com/mapfiles/markers2/red_markers_A_J2.png"},icon_id:"A",drg:true,laddr:"RxBar,
+        701 Geary Street, San Francisco, California 94109",geocode:"CdPqZEnrUklIFRaTQAIdehi0-Ckzgt-ikYCFgDGoUoEGc90T3Q",sxti:"RxBar",sxst:"Geary
+        Street",sxsn:"701",sxct:"San Francisco",sxpr:"California",sxpo:"94109",sxcn:"US",sxph:"+14159520481",name:"RxBar",infoWindow:{title:"\x3cb\x3eRxBar\x3c/b\x3e",addressLines:["701
+        Geary Street","San Francisco, California 94109"],phones:[{number:"(415) 952-0481"}],hp:{url:"http://www.google.com/local_url?dq=RxBar\x26q=http://www.rxbarsf.com/\x26oi=miw\x26sa=X\x26ct=miw_link\x26cd=1\x26cad=homepage,cid:15930319793039692456\x26ei=OuMlVc3vM4GlggSY7IGICw\x26s=ANYYN7lcKArGa0tgaDpqpGuqlGHMMgiw6g",domain:"rxbarsf.com",actual_url:"http://www.rxbarsf.com/"},basics:"\x3cdiv
+        transclude=\"iw\"\x3e\x3c/div\x3e",moreInfo:"more info",place_url:"http://www.google.com/local_url?dq=RxBar\x26q=https://plus.google.com/116131028196616641229/about%3Fgl%3Dus%26hl%3Den\x26s=ANYYN7mLWR62BOMcWzLLTFAH4r4MTr6TpQ",reviews:3,zrvOk:true,loginUrl:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=https://www.google.com/maps/place%3Fcid%3D15930319793039692456%26q%3DRxBar%26cd%3D1%26cad%3Dsrc:ppwrev%26ei%3DOuMlVc3vM4GlggSY7IGICw%26action%3Dopenratings",photoUrl:"https://cbks0.google.com/cbk?output=thumbnail\x26w=90\x26h=68\x26ll=37.786390,-122.414982\x26thumb=0",photoType:2,lbcurl:"http://www.google.com/local/add/choice?hl=en\x26gl=US\x26latlng=15930319793039692456\x26q=RxBar\x26near=San+Francisco,+CA,+United+States",link_jsaction:"",star_score_e3:0,write_review_url:"http://www.google.com/local_url?dq=RxBar\x26q=https://plus.google.com/116131028196616641229/about%3Fgl%3Dus%26hl%3Den%26review%3D1\x26s=ANYYN7lbqGBbPqgw9sa522Y47fv3wDWPKA",client_can_make_calls:false},ss:{edit:true,detailseditable:true,deleted:false,rapenabled:true,mmenabled:true},b_s:2,elms:[4,1,6,1,10,2,12,1,5,2,11]}],layers:[{composition_type:2,spec:{id:"m"},default_epoch:296000000,pertile_data:{area:[{id:"tuwtvtutwwtww",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtutwwuvv",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtutwwuvw",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtutwwuwv",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtutwwuww",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtutwwvuu",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtutwwvuw",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtutwwvwu",zrange:[13,13],layer:"m",epoch:296296168},{id:"tuwtvtutwwvww",zrange:[13,13],layer:"m",epoch:296291132},{id:"tuwtvtutwwwt",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtutwwwu",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtutwwwv",zrange:[13,13],layer:"m",epoch:296296889},{id:"tuwtvtutwwww",zrange:[13,13],layer:"m",epoch:296296889},{id:"tuwtvtuuvvtvv",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtuuvvtvw",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtuuvvvt",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtuuvvvvt",zrange:[13,13],layer:"m",epoch:296296889},{id:"tuwtvtuuvvvvu",zrange:[13,13],layer:"m",epoch:296295448},{id:"tuwtvtuuvvvvv",zrange:[13,13],layer:"m",epoch:296296889},{id:"tuwtvtuuvvvvw",zrange:[13,13],layer:"m",epoch:296294728},{id:"tuwtvtuvuutuu",zrange:[13,13],layer:"m",epoch:296296889},{id:"tuwtvtuvuutuw",zrange:[13,13],layer:"m",epoch:296296889},{id:"tuwtvtuvuuut",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtuvuuuut",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtuvuuuuu",zrange:[13,13],layer:"m",epoch:296291132},{id:"tuwtvtuvuuuuv",zrange:[13,13],layer:"m",epoch:296298330},{id:"tuwtvtuvuuuuw",zrange:[13,13],layer:"m",epoch:296291132},{id:"tuwtvtuwttttt",zrange:[13,13],layer:"m",epoch:296228488},{id:"tuwtvtuwttttu",zrange:[13,13],layer:"m",epoch:296290413},{id:"tuwtvtuwttttv",zrange:[13,13],layer:"m",epoch:296066488},{id:"tuwtvtuwttttw",zrange:[13,13],layer:"m",epoch:296031208},{id:"tuwtvtutwwtwwt",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwtwwu",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwtwwv",zrange:[14,14],layer:"m",epoch:296281770},{id:"tuwtvtutwwtwww",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwuvv",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwuvw",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwuwv",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwuww",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwvuu",zrange:[14,14],layer:"m",epoch:296296168},{id:"tuwtvtutwwvuw",zrange:[14,14],layer:"m",epoch:296296168},{id:"tuwtvtutwwvwu",zrange:[14,14],layer:"m",epoch:296221288},{id:"tuwtvtutwwvwwt",zrange:[14,14],layer:"m",epoch:296178089},{id:"tuwtvtutwwvwwu",zrange:[14,14],layer:"m",epoch:296000000},{id:"tuwtvtutwwvwwv",zrange:[14,14],layer:"m",epoch:296178089},{id:"tuwtvtutwwvwww",zrange:[14,14],layer:"m",epoch:296012849},{id:"tuwtvtutwwwtt",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtu",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtvt",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtvu",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtvv",zrange:[14,14],layer:"m",epoch:296237133},{id:"tuwtvtutwwwtvw",zrange:[14,14],layer:"m",epoch:296290413},{id:"tuwtvtutwwwtwt",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtwu",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtwv",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtutwwwtww",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtutwwwut",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwwuu",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwwuvt",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwwuvu",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtutwwwuvv",zrange:[14,14],layer:"m",epoch:296299051},{id:"tuwtvtutwwwuvw",zrange:[14,14],layer:"m",epoch:296299051},{id:"tuwtvtutwwwuwt",zrange:[14,14],layer:"m",epoch:296294008},{id:"tuwtvtutwwwuwu",zrange:[14,14],layer:"m",epoch:296294008},{id:"tuwtvtutwwwuwv",zrange:[14,14],layer:"m",epoch:296299051},{id:"tuwtvtutwwwuww",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtutwwwvtt",zrange:[14,14],layer:"m",epoch:296221288},{id:"tuwtvtutwwwvtu",zrange:[14,14],layer:"m",epoch:296290413},{id:"tuwtvtutwwwvtv",zrange:[14,14],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvtw",zrange:[14,14],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvu",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtutwwwvv",zrange:[14,14],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvwt",zrange:[14,14],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvwu",zrange:[14,14],layer:"m",epoch:296290413},{id:"tuwtvtutwwwvwv",zrange:[14,14],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvww",zrange:[14,14],layer:"m",epoch:296276728},{id:"tuwtvtutwwwwt",zrange:[14,14],layer:"m",epoch:296299051},{id:"tuwtvtutwwwwut",zrange:[14,14],layer:"m",epoch:296299051},{id:"tuwtvtutwwwwuu",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwuv",zrange:[14,14],layer:"m",epoch:296299051},{id:"tuwtvtutwwwwuw",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwvt",zrange:[14,14],layer:"m",epoch:296295448},{id:"tuwtvtutwwwwvu",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwvv",zrange:[14,14],layer:"m",epoch:296124088},{id:"tuwtvtutwwwwvw",zrange:[14,14],layer:"m",epoch:296000000},{id:"tuwtvtutwwwwwt",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwwu",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwwv",zrange:[14,14],layer:"m",epoch:296228488},{id:"tuwtvtutwwwwww",zrange:[14,14],layer:"m",epoch:296228488},{id:"tuwtvtuuvvtvv",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtuuvvtvwt",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtuuvvtvwv",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtuuvvvtt",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtuuvvvtut",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtuuvvvtuv",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtuuvvvtvt",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtuuvvvtvu",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtuuvvvtvv",zrange:[14,14],layer:"m",epoch:296294728},{id:"tuwtvtuuvvvtvw",zrange:[14,14],layer:"m",epoch:296295448},{id:"tuwtvtuuvvvtwt",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtuuvvvtwv",zrange:[14,14],layer:"m",epoch:296295448},{id:"tuwtvtuuvvvvt",zrange:[14,14],layer:"m",epoch:296294728},{id:"tuwtvtuuvvvvut",zrange:[14,14],layer:"m",epoch:296285370},{id:"tuwtvtuuvvvvuv",zrange:[14,14],layer:"m",epoch:296285370},{id:"tuwtvtuuvvvvvt",zrange:[14,14],layer:"m",epoch:296294728},{id:"tuwtvtuuvvvvvu",zrange:[14,14],layer:"m",epoch:296294728},{id:"tuwtvtuuvvvvvv",zrange:[14,14],layer:"m",epoch:296228488},{id:"tuwtvtuuvvvvvw",zrange:[14,14],layer:"m",epoch:296000000},{id:"tuwtvtuuvvvvwt",zrange:[14,14],layer:"m",epoch:296217689},{id:"tuwtvtuuvvvvwv",zrange:[14,14],layer:"m",epoch:296181692},{id:"tuwtvtuvuutuu",zrange:[14,14],layer:"m",epoch:296291132},{id:"tuwtvtuvuutuwt",zrange:[14,14],layer:"m",epoch:296291132},{id:"tuwtvtuvuutuwu",zrange:[14,14],layer:"m",epoch:296291132},{id:"tuwtvtuvuuuttt",zrange:[14,14],layer:"m",epoch:296276728},{id:"tuwtvtuvuuuttu",zrange:[14,14],layer:"m",epoch:296276728},{id:"tuwtvtuvuuuttv",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtuvuuuttw",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtuvuuutut",zrange:[14,14],layer:"m",epoch:296276728},{id:"tuwtvtuvuuutuu",zrange:[14,14],layer:"m",epoch:296276728},{id:"tuwtvtuvuuutuv",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtuvuuutuw",zrange:[14,14],layer:"m",epoch:296249372},{id:"tuwtvtuvuuutvt",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtuvuuutvu",zrange:[14,14],layer:"m",epoch:296296889},{id:"tuwtvtuvuuutwt",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtuvuuutwu",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtuvuuuutt",zrange:[14,14],layer:"m",epoch:296031928},{id:"tuwtvtuvuuuutu",zrange:[14,14],layer:"m",epoch:296031928},{id:"tuwtvtuvuuuutv",zrange:[14,14],layer:"m",epoch:296291132},{id:"tuwtvtuvuuuutw",zrange:[14,14],layer:"m",epoch:296291132},{id:"tuwtvtuvuuuuut",zrange:[14,14],layer:"m",epoch:296000000},{id:"tuwtvtuvuuuuuu",zrange:[14,14],layer:"m",epoch:296000000},{id:"tuwtvtuvuuuuuv",zrange:[14,14],layer:"m",epoch:296291132},{id:"tuwtvtuvuuuuuw",zrange:[14,14],layer:"m",epoch:296000000},{id:"tuwtvtuvuuuuvt",zrange:[14,14],layer:"m",epoch:296298330},{id:"tuwtvtuvuuuuvu",zrange:[14,14],layer:"m",epoch:296294008},{id:"tuwtvtuvuuuuwt",zrange:[14,14],layer:"m",epoch:296294008},{id:"tuwtvtuvuuuuwu",zrange:[14,14],layer:"m",epoch:296294008},{id:"tuwtvtuwttttt",zrange:[14,14],layer:"m",epoch:296000000},{id:"tuwtvtuwttttut",zrange:[14,14],layer:"m",epoch:296000000},{id:"tuwtvtuwttttuv",zrange:[14,14],layer:"m",epoch:296000000},{id:"tuwtvtuwttttvt",zrange:[14,14],layer:"m",epoch:296294008},{id:"tuwtvtuwttttvu",zrange:[14,14],layer:"m",epoch:296000000},{id:"tuwtvtuwttttwt",zrange:[14,14],layer:"m",epoch:296000000},{id:"tuwtvtutwwwttwv",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwttww",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtuvv",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtuvw",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtuwv",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtuww",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtvut",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtvuu",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtvuv",zrange:[15,15],layer:"m",epoch:296290413},{id:"tuwtvtutwwwtvuw",zrange:[15,15],layer:"m",epoch:296290413},{id:"tuwtvtutwwwtvwt",zrange:[15,15],layer:"m",epoch:296221288},{id:"tuwtvtutwwwtvwu",zrange:[15,15],layer:"m",epoch:296290413},{id:"tuwtvtutwwwtvwv",zrange:[15,15],layer:"m",epoch:296221288},{id:"tuwtvtutwwwtvww",zrange:[15,15],layer:"m",epoch:296290413},{id:"tuwtvtutwwwtwtt",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtwtu",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtwtv",zrange:[15,15],layer:"m",epoch:296290413},{id:"tuwtvtutwwwtwtw",zrange:[15,15],layer:"m",epoch:296290413},{id:"tuwtvtutwwwtwut",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtwuu",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwtwuv",zrange:[15,15],layer:"m",epoch:296245770},{id:"tuwtvtutwwwtwuw",zrange:[15,15],layer:"m",epoch:296245770},{id:"tuwtvtutwwwtwvt",zrange:[15,15],layer:"m",epoch:296290413},{id:"tuwtvtutwwwtwvu",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwtwvv",zrange:[15,15],layer:"m",epoch:296290413},{id:"tuwtvtutwwwtwvw",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwtww",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwutvv",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwutvw",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwutwv",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwutww",zrange:[15,15],layer:"m",epoch:296292568},{id:"tuwtvtutwwwuuvv",zrange:[15,15],layer:"m",epoch:296292568},{id:"tuwtvtutwwwuuvw",zrange:[15,15],layer:"m",epoch:296292568},{id:"tuwtvtutwwwuuwv",zrange:[15,15],layer:"m",epoch:296250092},{id:"tuwtvtutwwwuvtt",zrange:[15,15],layer:"m",epoch:296298330},{id:"tuwtvtutwwwuvtu",zrange:[15,15],layer:"m",epoch:296283929},{id:"tuwtvtutwwwuvtv",zrange:[15,15],layer:"m",epoch:296283929},{id:"tuwtvtutwwwuvtw",zrange:[15,15],layer:"m",epoch:296283929},{id:"tuwtvtutwwwuvut",zrange:[15,15],layer:"m",epoch:296283929},{id:"tuwtvtutwwwuvuu",zrange:[15,15],layer:"m",epoch:296292568},{id:"tuwtvtutwwwuvuv",zrange:[15,15],layer:"m",epoch:296283929},{id:"tuwtvtutwwwuvuw",zrange:[15,15],layer:"m",epoch:296292568},{id:"tuwtvtutwwwuvvt",zrange:[15,15],layer:"m",epoch:296245770},{id:"tuwtvtutwwwuvvu",zrange:[15,15],layer:"m",epoch:296245770},{id:"tuwtvtutwwwuvvv",zrange:[15,15],layer:"m",epoch:296296168},{id:"tuwtvtutwwwuvvw",zrange:[15,15],layer:"m",epoch:296296168},{id:"tuwtvtutwwwuvwt",zrange:[15,15],layer:"m",epoch:296283929},{id:"tuwtvtutwwwuvwu",zrange:[15,15],layer:"m",epoch:296292568},{id:"tuwtvtutwwwuvwv",zrange:[15,15],layer:"m",epoch:296299051},{id:"tuwtvtutwwwuvww",zrange:[15,15],layer:"m",epoch:296299051},{id:"tuwtvtutwwwuwtt",zrange:[15,15],layer:"m",epoch:296292568},{id:"tuwtvtutwwwuwtu",zrange:[15,15],layer:"m",epoch:296292568},{id:"tuwtvtutwwwuwtv",zrange:[15,15],layer:"m",epoch:296294008},{id:"tuwtvtutwwwuwtw",zrange:[15,15],layer:"m",epoch:296294008},{id:"tuwtvtutwwwuwut",zrange:[15,15],layer:"m",epoch:296292568},{id:"tuwtvtutwwwuwuv",zrange:[15,15],layer:"m",epoch:296294008},{id:"tuwtvtutwwwuwvt",zrange:[15,15],layer:"m",epoch:296294008},{id:"tuwtvtutwwwuwvu",zrange:[15,15],layer:"m",epoch:296294008},{id:"tuwtvtutwwwuwvv",zrange:[15,15],layer:"m",epoch:296299051},{id:"tuwtvtutwwwuwvw",zrange:[15,15],layer:"m",epoch:296294008},{id:"tuwtvtutwwwuwwt",zrange:[15,15],layer:"m",epoch:296294008},{id:"tuwtvtutwwwuwwv",zrange:[15,15],layer:"m",epoch:296294008},{id:"tuwtvtutwwwvtut",zrange:[15,15],layer:"m",epoch:296221288},{id:"tuwtvtutwwwvtuu",zrange:[15,15],layer:"m",epoch:296290413},{id:"tuwtvtutwwwvtuv",zrange:[15,15],layer:"m",epoch:296221288},{id:"tuwtvtutwwwvtuw",zrange:[15,15],layer:"m",epoch:296171611},{id:"tuwtvtutwwwvtwt",zrange:[15,15],layer:"m",epoch:296221288},{id:"tuwtvtutwwwvtwu",zrange:[15,15],layer:"m",epoch:296171611},{id:"tuwtvtutwwwvtwv",zrange:[15,15],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvtww",zrange:[15,15],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvutt",zrange:[15,15],layer:"m",epoch:296290413},{id:"tuwtvtutwwwvutu",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwvutv",zrange:[15,15],layer:"m",epoch:296185291},{id:"tuwtvtutwwwvutw",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwvuu",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwvuvt",zrange:[15,15],layer:"m",epoch:296185291},{id:"tuwtvtutwwwvuvu",zrange:[15,15],layer:"m",epoch:296244330},{id:"tuwtvtutwwwvuvv",zrange:[15,15],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvuvw",zrange:[15,15],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvuwt",zrange:[15,15],layer:"m",epoch:296257292},{id:"tuwtvtutwwwvuwu",zrange:[15,15],layer:"m",epoch:296290413},{id:"tuwtvtutwwwvuwv",zrange:[15,15],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvuww",zrange:[15,15],layer:"m",epoch:296290413},{id:"tuwtvtutwwwvvu",zrange:[15,15],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvvw",zrange:[15,15],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvwt",zrange:[15,15],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvwut",zrange:[15,15],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvwuu",zrange:[15,15],layer:"m",epoch:296244330},{id:"tuwtvtutwwwvwuv",zrange:[15,15],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvwuw",zrange:[15,15],layer:"m",epoch:296186008},{id:"tuwtvtutwwwvwv",zrange:[15,15],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvwwt",zrange:[15,15],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvwwu",zrange:[15,15],layer:"m",epoch:296124088},{id:"tuwtvtutwwwvwwv",zrange:[15,15],layer:"m",epoch:296276728},{id:"tuwtvtutwwwvwww",zrange:[15,15],layer:"m",epoch:296000000},{id:"tuwtvtutwwwwtt",zrange:[15,15],layer:"m",epoch:296296168},{id:"tuwtvtutwwwwtu",zrange:[15,15],layer:"m",epoch:296299051},{id:"tuwtvtutwwwwtvt",zrange:[15,15],layer:"m",epoch:296296168},{id:"tuwtvtutwwwwtvu",zrange:[15,15],layer:"m",epoch:296296168},{id:"tuwtvtutwwwwtvv",zrange:[15,15],layer:"m",epoch:296290413},{id:"tuwtvtutwwwwtvw",zrange:[15,15],layer:"m",epoch:296295448},{id:"tuwtvtutwwwwtwt",zrange:[15,15],layer:"m",epoch:296296168},{id:"tuwtvtutwwwwtwu",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwtwv",zrange:[15,15],layer:"m",epoch:296295448},{id:"tuwtvtutwwwwtww",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwutt",zrange:[15,15],layer:"m",epoch:296299051},{id:"tuwtvtutwwwwutu",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwutv",zrange:[15,15],layer:"m",epoch:296299051},{id:"tuwtvtutwwwwutw",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwuut",zrange:[15,15],layer:"m",epoch:296228488},{id:"tuwtvtutwwwwuuv",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwuv",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwuwt",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwuwv",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwvtt",zrange:[15,15],layer:"m",epoch:296287531},{id:"tuwtvtutwwwwvtu",zrange:[15,15],layer:"m",epoch:296295448},{id:"tuwtvtutwwwwvtv",zrange:[15,15],layer:"m",epoch:296124088},{id:"tuwtvtutwwwwvtw",zrange:[15,15],layer:"m",epoch:296000000},{id:"tuwtvtutwwwwvut",zrange:[15,15],layer:"m",epoch:296295448},{id:"tuwtvtutwwwwvuu",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwvuv",zrange:[15,15],layer:"m",epoch:296000000},{id:"tuwtvtutwwwwvuw",zrange:[15,15],layer:"m",epoch:296000000},{id:"tuwtvtutwwwwvvt",zrange:[15,15],layer:"m",epoch:296124088},{id:"tuwtvtutwwwwvvu",zrange:[15,15],layer:"m",epoch:296000000},{id:"tuwtvtutwwwwvvv",zrange:[15,15],layer:"m",epoch:296000000},{id:"tuwtvtutwwwwvvw",zrange:[15,15],layer:"m",epoch:296000000},{id:"tuwtvtutwwwwvw",zrange:[15,15],layer:"m",epoch:296000000},{id:"tuwtvtutwwwwwtt",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwwtu",zrange:[15,15],layer:"m",epoch:296296889},{id:"tuwtvtutwwwwwtv",zrange:[15,15],layer:"m",epoch:296000000},{id:"tuwtvtutwwwwwtw",zrange:[15,15],layer:"m",epoch:296228488},{id:"tuwtvtutwwwwwut",zrange:[15,15],layer:"m",epoch:296241449},{id:"tuwtvtutwwwwwuv",zrange:[15,15],layer:"m",epoch:296228488},{id:"tuwtvtutwwwwwvt",zrange:[15,15],layer:"m",epoch:296000000},{id:"tuwtvtutwwwwwvu",zrange:[15,15],layer:"m",epoch:296178089},{id:"tuwtvtutwwwwwvv",zrange:[15,15],layer:"m",epoch:296000000},{id:"tuwtvtutwwwwwvw",zrange:[15,15],layer:"m",epoch:296000000},{id:"tuwtvtutwwwwwwt",zrange:[15,15],layer:"m",epoch:296178089},{id:"tuwtvtutwwwwwwv",zrange:[15,15],layer:"m",epoch:296000000}]}}]},panel:"\x3cdiv
+        id=\"resultspanel\" class=\"local\"\x3e\x3cbody\x3e \x3cdiv\x3e \x3cdiv class=\"query\"
+        id=\"qmod\"\x3e   \x3cspan class=\"query_terms\"\x3e\x3cspan class=\"query_terms_light\"\x3e\x3c/span\x3e\x3cspan
+        class=\"query_terms_bold\"\x3eRxBar\x3c/span\x3e near \x3cspan class=\"query_terms_bold\"\x3eSan
+        Francisco, CA\x3c/span\x3e\x3c/span\x3e  \x3c/div\x3e \x3c/div\x3e  \x3c/body\x3e  \x3cdiv
+        class=\"noprint res\"\x3e       \x3cdiv\x3e  \x3cdiv\x3e  \x3cdiv class=\"one\"
+        id=\"one_A_2\" jsprops=''markerid:\"A\";oneId:\"one_A_2\";panelId:\"panel_A_2\"''
+        jstrack=\"OuMlVc3vM4GlggSY7IGICw\" ved=\"0CAsQpQ0wAA\" jsaction=\"app.oneResultClick;mouseover:app.highlightMarker;mouseout:app.highlightMarkerOut\"\x3e
+        \x3cdiv class=\"lsicon\"\x3e \x3cdiv class=\"icon\" log=\"\" jsaction=\"app.openInfoWindow\"
+        jsprops=\"markerid:''A''\" jstrack=\"OuMlVc3vM4GlggSY7IGICw\" ved=0CAwQ_gswAA
+        id=\"marker_A_2\"\x3e\x3cimg alt=\"A\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        class=\"mp iconA\"/\x3e\x3c/div\x3e \x3cspan\x3e \x3cimg class=\"unstarred
+        noprint si_15930319793039692456\" jsaction=\"si.togglePanelStarring\" jsprops=\"markerid:''A'';b_s:2\"
+        data-authtoken=\"5525e33b9vwYSxs_EQMhtt-dwI-tXjblO2E\" src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\"
+        id=\"pp-starred-item-star\" log=\"si_lhs\" width=\"21\" height=\"14\"\x3e
+        \x3c/span\x3e \x3c/div\x3e \x3cdiv class=\"text vcard indent block\" id=\"panel_A_2\"\x3e  \x3cdiv
+        class=\"name lname\" id=\"link_A_2\"\x3e \x3cspan class=\"pp-place-title\"\x3e\x3cspan\x3e\x3cb\x3eRxBar\x3c/b\x3e\x3c/span\x3e\x3c/span\x3e      \x3c/div\x3e
+        \x3cdiv\x3e \x3cdiv\x3e\x3c/div\x3e  \x3cspan class=\"pp-headline-item pp-headline-address\"\x3e
+        \x3cspan\x3e701 Geary Street, San Francisco, CA\x3c/span\x3e  \x3c/span\x3e  \x3cdiv\x3e
+        \x3cdiv\x3e\x3c/div\x3e \x3cspan class=\"pp-headline-item pp-headline-phone\"\x3e
+        \x3cspan class=\"telephone\"\x3e \x3cnobr\x3e(415) 952-0481\x3c/nobr\x3e \x3cspan
+        class=\"pp-headline-phone-label\" style=\"display:none\"\x3e ()\x3c/span\x3e  \x3c/span\x3e   \x3c/span\x3e  \x3cspan\x3e
+        \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item pp-headline-authority-page\"\x3e
+        \x3cspan\x3e\x3ca href=\"http://www.google.com/local_url?dq=RxBar\x26amp;q=http://www.rxbarsf.com/\x26amp;ved=0CBEQ5AQ\x26amp;sa=X\x26amp;ei=OuMlVc3vM4GlggSY7IGICw\x26amp;s=ANYYN7lmZ6qc5CvRGDyxwTIz4gblW9_3UA\"
+        target=\"_blank\"\x3e\x3cspan\x3erxbarsf.com\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e
+        \x3c/span\x3e  \x3c/div\x3e  \x3cdiv class=\"one_item_space\"\x3e  \x3cspan
+        id=\"pp-reviews-headline\"\x3e\x3cspan style=\"margin-right:8px\"\x3e\x3c/span\x3e\x3cspan\x3e\x3ca
+        class=\"pp-more-content-link\" href=\"http://www.google.com/local_url?dq=RxBar\x26amp;q=https://plus.google.com/116131028196616641229/about%3Fgl%3DUS%26hl%3Den-US\x26amp;ved=0CBAQlQU\x26amp;sa=X\x26amp;ei=OuMlVc3vM4GlggSY7IGICw\x26amp;s=ANYYN7l0vIsZlqgmI4zTnqyqoVF9dlEJTA\"
+        target=\"_blank\"\x3e\x3cspan\x3e3 reviews\x3c/span\x3e\x3c/a\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3cspan style=\"color:#666\"\x3e \x26middot; \x3c/span\x3e \x3cspan class=\"pp-headline-item
+        pp-lhs-price-attribute\"\x3e$$$\x3c/span\x3e  \x3c/div\x3e     \x3cbr/\x3e
+        \x3c/div\x3e  \x3cdiv class=\"actbar-local-wrapper one_item_space\"\x3e \x3cspan
+        id=\"actbar-A\" class=\"actbar\" markerid=\"A\" panelId=\"actbar-panel-A-pp\"
+        jsvalues=\"@unique-id: $this.uniqueId;@id: ''actbar-''+$this.uniqueId;@markerid:
+        $this.markerId;@panelId: ''actbar-panel-''+$this.uniqueId;\"\x3e\x3cspan id=\"actbar-btns-A\"
+        jsvalues=\"@id:''actbar-btns-''+$this.uniqueId\" jsdisplay=\"$this.visible!=''none''\"
+        jsskip=\"1\"\x3e\x3cul class=\"actbar-list\"\x3e\x3cli class=\"actbar-btn\"
+        jsaction=\"ab.topLevelClick\" action=\"directions\" jsdisplay=\"$this.hasDirections\"
+        ved=\"0CBIQywYwAA\" jstrack=\"OuMlVc3vM4GlggSY7IGICw\" \x3e\x3cspan class=\"actbar-text\"\x3eDirections\x3c/span\x3e\x3c/li\x3e\x3cli
+        class=\"actbar-btn\" jsaction=\"ab.topLevelClick\" action=\"actbar-sn\" jsdisplay=\"$this.hasSearchNearby\"
+        ved=\"0CBMQzAYwAA\" jstrack=\"OuMlVc3vM4GlggSY7IGICw\" \x3e\x3cspan class=\"actbar-text\"\x3eSearch
+        nearby\x3c/span\x3e\x3c/li\x3e\x3cli class=\"actbar-btn\" jsaction=\"ab.topLevelClick\"
+        jsselect=\"$this.topLevelActions\" jsdisplay=\"$count\" style=\"display:none\"
+        jsvalues=\"@action:$this.action\" \x3e\x3cspan class=\"actbar-text\" jscontent=\"$this.text\"\x3e\x3c/span\x3e\x3c/li\x3e\x3cli
+        class=\"actbar-btn\" jsaction=\"ab.topLevelClick\" action=\"actbar-more\"
+        jsdisplay=\"!$this.hideMoreButton\"ved=\"0CBQQzgYwAA\" jstrack=\"OuMlVc3vM4GlggSY7IGICw\"
+        \x3e\x3cspan class=\"actbar-text\"\x3emore\x3c/span\x3e\x3cspan class=\"actbar-arrow\"\x3e\x3cimg
+        src=\"https://maps.gstatic.com/intl/en_us/mapfiles/transparent.png\" class=\"arrow-down\"\x3e\x3c/span\x3e\x3c/li\x3e\x3c/ul\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3cspan\x3e\x3cspan id=\"actbar-panel-A-pp\" class=\"actbar\" jsvalues=\"@unique-id:
+        $this.uniqueId;@markerid: $this.markerId;@id: ''actbar-panel-'' + $this.uniqueId;@panelId:
+        ''actbar-panel-'' + $this.uniqueId;\"\x3e\x3cspan jsvalues=\"@id:''actbar-sn-''
+        + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-sn''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3cspan
+        jsvalues=\"@id:''actbar-saveto-'' + $this.uniqueId;\"\x3e\x3cspan jsdisplay=\"$this.visible==''actbar-saveto''\"\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e\x3c/span\x3e
+        \x3c/div\x3e \x3c/div\x3e  \x3c/div\x3e \x3c/div\x3e       \x3c/div\x3e \x3c/div\x3e\x3cdiv
+        id=\"bottomads\" class=\"ads noprint\" style=\"display:none\"\x3e\x3cdiv\x3e\x3cdiv
+        class=\"adsmessage v3\" id=\"bottomads_origin\"\x3eAd\x3c/div\x3e\x3cdiv id=\"bottomads_contents\"\x3e\x3c/div\x3e\x3cdiv
+        class=\"awpromo\"\x3e\x3ca href=\"//www.google.com/adwords/express/#utm_campaign=en\x26utm_medium=et\x26utm_source=us-en-et-awx-q411-maps-syah\x26utm_content=us-en-et-awx-q411-maps-syah\"
+        target=\"_blank\"\x3eSee your ad here\x26nbsp;\x26raquo;\x3c/a\x3e\x3c/div\x3e\x3c/div\x3e\x3c/div\x3e\x3cdiv
+        class=\"noprint\"\x3e\x3c/div\x3e\x3cdiv class=\"notices\" id=\"localpanelnotices\"\x3e\x3cdiv\x3e  \x3c/div\x3e\x3c/div\x3e\x3cdiv
+        class=\"lhsf rmi-rpl-k gmnoprint\" jsattrs=\"class.rmi-base-k?panel_footer.anchor_footer;\"
+        id=\"lhsf\"\x3e \x3cdiv class=\"rmi-rpl-top secondary\"\x3e \x3ca jsdisplay=\"panel_footer.report_action\"
+        href=\"javascript:void(0)\" jsaction=\"rmi.open-mps-switchbox\" jsattrs=\"jsaction:panel_footer.report_action;id?panel_footer.is_basepage;id:''suck_lhp_link'';\"\x3e
+        Report a problem\x3c/a\x3e \x3cspan jsdisplay=\"panel_footer.report_action\"
+        jsattrs=\"id?panel_footer.is_basepage;id:''suck_lhp_sep'';\"\x3e - \x3c/span\x3e
+        \x3ca href=\"javascript:void(0)\" jsaction=\"ml.openDialog\"\x3e Maps Labs\x3c/a\x3e
+        \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://maps.google.com/support?hl=en\"
+        jsattrs=\"href:panel_footer.help_url;\"\x3e Help\x3c/a\x3e \x3c/div\x3e \x3cdiv
+        class=\"rmi-rpl-bottom secondary\"\x3e \x3cspan\x3eGoogle Maps \x3c/span\x3e
+        \x3cspan\x3e\x3c/span\x3e \x3cspan jscontent=\"panel_footer.country_msg\"
+        jsvars=\"__new_dir:bidiDir(panel_footer.country_msg);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
+        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x3c/span\x3e \x3cspan\x3e\x3c/span\x3e
+        \x3cspan\x3e - \x3c/span\x3e \x3cspan jscontent=\"raw:panel_footer.copyright\"
+        jsvars=\"__new_dir:bidiDir(panel_footer.copyright);__dir_changed:''ltr''!=__new_dir;__dir:__dir_changed?__new_dir:''ltr'';\"
+        jsattrs=\"dir?__dir_changed;dir:__dir;\"\x3e\x26#169;2015 Google\x3c/span\x3e
+        \x3cspan\x3e\x3c/span\x3e \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/help/terms_maps.html\"
+        jsattrs=\"href:panel_footer.terms_url;\" target=\"_blank\"\x3e Terms of Use\x3c/a\x3e
+        \x3cspan\x3e - \x3c/span\x3e \x3ca href=\"http://www.google.com/intl/en_us/policies/privacy/\"
+        jsattrs=\"href:panel_footer.privacy_url;\" target=\"_blank\"\x3e Privacy\x3c/a\x3e
+        \x3c/div\x3e \x3c/div\x3e\x3c/div\x3e",panelId:0,sign_in_url:"https://www.google.com/accounts/ServiceLogin?service=local\x26hl=en\x26nui=1\x26continue=http://www.google.com/maps%3Fq%3DRxBar%26near%3DSan%2BFrancisco,%2BCA,%2BUnited%2BStates%26num%3D10",is_details_req:false,dopts:{dtm:"d",atms:["d","r","w","b"],ddu:"m",transit:{hts:true,tmos:["now","dep","arr"],tm:{d:"now"},date:{},time:{v:"utc:1428546360"},sos:["def","num","walk"],st:{d:"def"},ne:{h:true},na:{h:true},ptmos:["","B","S","T","R"]}},slayers_trigger:false,timeformat:{ampm:true,dp:"mdy"},activityType:1,panel_modules:["pplhs"],page_conf:{topbar_config:{show_panel_toggler:true,directions_url:"javascript:void(0)",show_directions_link:true,startcol_only:true,show_my_places_link:true,my_places_url:"javascript:void(0)",enabled_kennedy_ui:true},panel_display:true}}'
+    http_version: 
+  recorded_at: Thu, 09 Apr 2015 02:26:03 GMT
+- request:
+    method: get
+    uri: https://api.foursquare.com/v2/venues/explore?client_id=O4DVODVMFR3JT0H35DXYXCT5O4TEB0AESQKPI3N204ZCJ21U&client_secret=DXCS3CPUYRSHKYK0TV3SVBPDH53X2CR4JTJMKFD0NVI13QKF&ll=37.78639,-122.414982&query=RxBar&v=20150408&venuePhotos=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 09 Apr 2015 02:26:03 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Tracer-Time:
+      - '64'
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4917'
+      Strict-Transport-Security:
+      - max-age=864000
+      X-Ex:
+      - fastly_cdn
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-sjc3131-SJC
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding,User-Agent,Accept-Language
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"code":200},"response":{"spellCorrection":{"suggestion":{"target":{"type":"path","url":"\/venues\/explore","params":{"query":"rebar","ll":"37.786390,-122.414982","radius":"693","noCorrect":"1"}},"message":{"entities":[{"indices":[0,5],"type":"correction"}],"text":"rebar"}}},"warning":{"text":"There
+        aren''t a lot of results for \"RxBar.\" Try something more general, reset
+        your filters, or expand the search area."},"suggestedRadius":2079,"headerLocation":"Tenderloin","headerFullLocation":"Tenderloin,
+        San Francisco","headerLocationGranularity":"neighborhood","query":"rxbar","totalResults":0,"groups":[{"type":"Recommended
+        Places","name":"recommended","items":[]}]}}'
+    http_version: 
+  recorded_at: Thu, 09 Apr 2015 02:26:03 GMT
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?language=en&latlng=37.78639,-122.414982&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Thu, 09 Apr 2015 02:26:04 GMT
+      Expires:
+      - Fri, 10 Apr 2015 02:26:04 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 80:quic,p=0.5
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "701",
+                       "short_name" : "701",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Geary Street",
+                       "short_name" : "Geary St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Tenderloin",
+                       "short_name" : "Tenderloin",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "94109",
+                       "short_name" : "94109",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "701 Geary Street, San Francisco, CA 94109, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 37.7863814,
+                       "lng" : -122.4150367
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.7877303802915,
+                          "lng" : -122.4136877197085
+                       },
+                       "southwest" : {
+                          "lat" : 37.7850324197085,
+                          "lng" : -122.4163856802915
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJq7xmo5GAhYAR6o-sdn-DWY8",
+                 "types" : [ "street_address" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Geary Blvd & Leavenworth St",
+                       "short_name" : "Geary Blvd & Leavenworth St",
+                       "types" : [ "bus_station", "transit_station", "establishment" ]
+                    },
+                    {
+                       "long_name" : "Lower Nob Hill",
+                       "short_name" : "Lower Nob Hill",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "94109",
+                       "short_name" : "94109",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "Geary Blvd & Leavenworth St, San Francisco, CA 94109, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 37.786556,
+                       "lng" : -122.414971
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.7879049802915,
+                          "lng" : -122.4136220197085
+                       },
+                       "southwest" : {
+                          "lat" : 37.7852070197085,
+                          "lng" : -122.4163199802915
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJOd-eopGAhYARyUCrRV9cqLk",
+                 "types" : [ "bus_station", "transit_station", "establishment" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Tenderloin",
+                       "short_name" : "Tenderloin",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Tenderloin, San Francisco, CA, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.7878162,
+                          "lng" : -122.4046888
+                       },
+                       "southwest" : {
+                          "lat" : 37.780043,
+                          "lng" : -122.421416
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.7846598,
+                       "lng" : -122.4145058
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.7878162,
+                          "lng" : -122.4046888
+                       },
+                       "southwest" : {
+                          "lat" : 37.780043,
+                          "lng" : -122.421416
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJyzeuaJCAhYARCmK0UthwWrY",
+                 "types" : [ "neighborhood", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "94109",
+                       "short_name" : "94109",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "San Francisco, CA 94109, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.8128889,
+                          "lng" : -122.411699
+                       },
+                       "southwest" : {
+                          "lat" : 37.7811169,
+                          "lng" : -122.4326081
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.7929789,
+                       "lng" : -122.4212424
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.8128889,
+                          "lng" : -122.411699
+                       },
+                       "southwest" : {
+                          "lat" : 37.7811169,
+                          "lng" : -122.4326081
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJy0ilcOmAhYARCLOo6oZQNxk",
+                 "types" : [ "postal_code" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "San Francisco",
+                       "short_name" : "SF",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "San Francisco, CA, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.9297707,
+                          "lng" : -122.3279149
+                       },
+                       "southwest" : {
+                          "lat" : 37.6933354,
+                          "lng" : -123.1077733
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.7749295,
+                       "lng" : -122.4194155
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.812,
+                          "lng" : -122.3482
+                       },
+                       "southwest" : {
+                          "lat" : 37.70339999999999,
+                          "lng" : -122.527
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJIQBpAG2ahYAR_6128GcTUEo",
+                 "types" : [ "locality", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "San Francisco County",
+                       "short_name" : "San Francisco County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "San Francisco County, CA, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 37.9297707,
+                          "lng" : -122.3279149
+                       },
+                       "southwest" : {
+                          "lat" : 37.6933354,
+                          "lng" : -123.1077733
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.7749073,
+                       "lng" : -122.4193878
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 37.8332484,
+                          "lng" : -122.3570189
+                       },
+                       "southwest" : {
+                          "lat" : 37.7080859,
+                          "lng" : -122.5177237
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJIQBpAG2ahYARUksNqd0_1h8",
+                 "types" : [ "administrative_area_level_2", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "California, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 42.0095169,
+                          "lng" : -114.131211
+                       },
+                       "southwest" : {
+                          "lat" : 32.5342321,
+                          "lng" : -124.4096196
+                       }
+                    },
+                    "location" : {
+                       "lat" : 36.778261,
+                       "lng" : -119.4179324
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 42.0095169,
+                          "lng" : -114.131211
+                       },
+                       "southwest" : {
+                          "lat" : 32.5342321,
+                          "lng" : -124.4096196
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJPV4oX_65j4ARVW8IJ6IJUYs",
+                 "types" : [ "administrative_area_level_1", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "United States",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 71.3867745,
+                          "lng" : -66.94539469999999
+                       },
+                       "southwest" : {
+                          "lat" : 18.9110642,
+                          "lng" : 172.4458955
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.09024,
+                       "lng" : -95.712891
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 49.38,
+                          "lng" : -66.94
+                       },
+                       "southwest" : {
+                          "lat" : 25.82,
+                          "lng" : -124.39
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJCzYy5IS16lQRQrfeQ5K5Oxw",
+                 "types" : [ "country", "political" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Thu, 09 Apr 2015 02:26:03 GMT
+- request:
+    method: get
+    uri: https://cbks0.google.com/cbk?h=680&ll=37.786390,-122.414982&output=thumbnail&thumb=0&w=900
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - image/jpeg; charset=UTF-8
+      Date:
+      - Thu, 09 Apr 2015 02:26:04 GMT
+      Expires:
+      - Thu, 09 Apr 2015 03:26:04 GMT
+      Cache-Control:
+      - public, max-age=3600
+      Last-Modified:
+      - Fri, 13 Feb 2009 23:31:30 GMT
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Server:
+      - Alleycat Server 1.0
+      Content-Length:
+      - '13976'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 443:quic,p=0.5
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        /9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAgLCgoLDhgQDg0N
+        Dh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9PjsB
+        CgsLDg0OHBAQHDsoIig7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7
+        Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O//AABEIANABoAMBIgACEQEDEQH/xAAbAAAC
+        AwEBAQAAAAAAAAAAAAACAwEEBQAGB//EAEUQAAIBAwIEAgcFBQcBCAMAAAEC
+        AwAEERIhBRMxQVFhBhQicYGRoTJCUrHBFSNi0fAHM0NyguHxJBY0U2OSk7LS
+        RHOi/8QAGQEBAQEBAQEAAAAAAAAAAAAAAQACAwQF/8QAJxEBAQACAwABBAIC
+        AwEAAAAAAAECEQMSIUETMVFhBCIyUnHB0SP/2gAMAwEAAhEDEQA/ANznfxV3
+        O/iqlrrtdenq83Zd53xrudVLXXB6Op7L3OrudVLXU8yrR2uCap5tU+ZU66NL
+        a3zanmVUD0Qko0drWupD1XElEJKNHZ+qizSA9EGrJOFSBSw1MDVEWmpCVwNN
+        XHeja0ARZohBmnKBT0C96tnSp6v5ZqRak/drRRFNWEiU1bq1GR6oT901PqRP
+        3a3Vtl60fJQdqQwPUT+Gp9QP4a3xGg+7U6F/CKC896gfw13qB/DXodC/hFRy
+        1/DUnnvUT+GoNn4rXoTCp+7QtbqewqDz/qn8NQbXHbFbjW69sUloAO+PhUmQ
+        bbFCYMVpugHfPwpDjFKUeTUcurLNSmapElKHTimM1KZ6Q47VBNAz0svSNmlq
+        jXSS9AZKdDaxzKjm1WMlCZKerO1rm1HOqqZaHm09T2XOdUc6qnNqObV1HZc5
+        1dzqpcyu5lPUdl3nV3O88VS5ldzKuq7K2up10jVXaq7MH667XSNVTqoR+upD
+        0gNRg1mmHBqkNSgaIGsk4GjBpANMBrNaMBos0ANFms6Oxg0YalZqQatHZ4aj
+        DUgGmK+FK7b+W9GmpTlejWSkeztg/MUWCOoxRo7Wllp6TVnh6MPijTTVjnHl
+        VuK4ArCWenLOR0OKNHx6KKcGnBs9K8+l2R3qyl6R3xRsaa9dWcvED400Xynr
+        ircWlyuqqb5MUBvfA4p2tLtdkVn+ufxV3rnnVtaXHYYqtI48qS92KryXOagO
+        SQVVkk8Kh5M0hnpDmc0lnNSzUpjWpGLXM/jSmapY0smtaZtQWoC1FQmnQ2At
+        QFqNsUs+VagQWqC1QaAmtARehL0BNATWmTNddrpWajNPiN11GulZrs1I3XU6
+        6RqrtVXhL1eBqc1cuPW7Z4o5pLB+cishawODq6DKr18qrXEktvcTQzcMtpWg
+        fRKbaRxpOcb4Jxv5Vx+tPmN/Tv5BmpBqWksxkSQ3lqw/Eqygf/E0Eb8xFcdx
+        mt4Z45/ZjLHLH7mA0YNAKIU0SjBogaAUQNZaNBowaUDRg0aaNBowaUDRijSH
+        mpBoa4GhGZqQaXmpzUdmBqMPikA0QNGmtnhganJpIaiknaKFnWJpSu+hOprN
+        89M9MBOaYuevavPzcbvJ8pCqW6g7nq31qm+qQhrm4klPfJwDXG8uPw7TC/L1
+        bX9pD/eXcK+I15/KlHj3DUOPWS57aUJzXm44o/uQlsDGcZ2olkQYCpjHTG2K
+        xc8vw11nzXoP+0/DRp0esPq6ER9frUj0p4fjOi5G+P7sdfnXm/XFwCB7J6e1
+        0pqTcxcoQR49qz2yOo9D/wBqeG76mnTScHVF0+tNX0g4a5wLxQR11KRivNc1
+        s4wD3wTiuYoVw8anV7jmnvV1j1a8QgdcxXMTjycE0XPZuhzjavGtDAWzo0sc
+        bg4NMikubds2126eR3FanJ+YzcPxXrxKTRasDevN2/pBcwN/1lssq/ii2I+F
+        a9txO0vf7iYFvwHZq645Y5fauWUsWWels1QxI60pmrrpz2ktQFqWXOdq7UT1
+        p0ztJNATXE0NaDiaAmpNAxpAWNATRE0BNKQTQE1JNATSHGhNcTQ59oADJPQA
+        bmn7epxoCac9u8X/AHlo7VeoM76Sf9P2vpSXn4cm3NuLk/8AlRiNfm2/0rH1
+        MJ8t/Ty/CM1GaJJuawEPCVRWIRXubhsFien3RnpT4obqW7e2VOHRTIHyvqzM
+        BpzndgR2+dZ+rPiL6d+aq6h3IqNY/FTEk4pPEZYmg5SsEbFsikZ/05pmOJ28
+        Rllnt47fUFUtbBiTjPQITR9b9H6f7acN9ZTm0trm8ZbgaNMRiZgGJ2wcYydq
+        elvaoOO3K3EMgulZJCHBMbZIwfDBNBZ2E4u7W5jtmMBEZDsei7HP0ouEWfIT
+        jemMie6ZtLacEk6tIz7z1rzbnw7aBwCwhaG5S5mN6ohyqSOHCdckd/CsOMZU
+        e6tvg/B54uD3n7YWWWYJ+7eUgsgCnJVh51kxj2BXo4L7XDm+0cBRYogKnFd3
+        KAAohU4qQKGnCjFQBRrsc4B99ZIhRigFGKimurqmourq7sa5cMMqQR4g0aDs
+        1INdiuxVYdizRqd+lLogKNFnekCokcFwqgSNJpYjuMf7VkM+oDbqRn3Vseki
+        k8Mh8rhf/iawgxWMnOdq8efmdj1Ye4ReEw0AanZh17ChUMScdNXeqcdwzxal
+        VAfPJ/lVkSZy2BjrWbWpoIt1UjJ0gMW2WmxKIxg5zknpVSCSU3JjLtggnAP8
+        Oaasjk4Yk4PUnNV7fImt+LBLIyujBcA5BGc0A1c0Asuy9hgUBduZGBqwSQSO
+        1c8pSRFIU6s+VHp82l5cN16HOR1ozKmRpf4MMVXuZESPXoU7jrSiE1nRlWXr
+        7QI6Vnd/DWlzU4bPQfSgLRy4JGD2PQ/Oq8ZlRJHIyo7D7x8KGOZnPtJuOrYx
+        /wA1WT4XrYteMXVphJ83MPTJ+0o9/er03HLBEBRpZmZSwSNN9u2Ttn4151JG
+        UsCc4PzoiQo5qHcHceJrpjy54zTnePG+vTWd3FfQ8yPKsMB42+0h8/50015i
+        GaW2lS6txp7YzlT4g+/+j2r0ltcR3luJo8jsynqp8DXq4+SZz9vPyYXG/pJq
+        KI1FdXIJFLYU00B6UghmpZOaa60oitAJqArOwVQWYnAUDJPuqSDuR1o11zxM
+        VieC1bCjDDmTZ8W7AeA8uvWuXJydHTjw7Elo45EWVmkcnHJhILZ7AnoD86me
+        e4it5mjdLZY5BFJHbZMgYgnDP36HO9FCttaWYLR4knRkGk7Y3Gd6tTfsuGGd
+        mmkm595qkEK6sOQTpy222T0rx3O5fd65jJ9lIcPhsuNRcOni55lIZp9ZVQuc
+        e8nr3rR4xaR2dgkfD7gQ3DTLqkGlcLvkZxt+dPuTI/pHFYPraKUh2KtpCDf4
+        k+z186LjPBWa3hj4Tqgk1kySJuxGOmT03plFdFa289twZpZVk5L5WSSTDPIW
+        G2+7HtVOW5t5jeNBxNbmeKORgkcD+yA24yRjvVy8smPFuA4Uu1koLMRk9u/v
+        FU5+HXHD7C5u+XJHqTDadj7RH1/lWtxnSjw3iTWrlYsyxsxDZ9kK4Ax2GPDP
+        nRX3FjL/AN9VraJT7KoS2o774we1KsuIW3Pf1gc0ZDSGRuYcHC6sHrjb50F9
+        xC3v5+VaxvLHFkDAIO/UY748axs6rQsLe5HpVbf9RcLCZVZold1TGBtjPTPa
+        r3BL+/XgvFb24m9ZaAuYA4G4AJwT3plm3DG4tE37TRrvUC0BGCXxuPzqzwez
+        VbKWNLuO6hlfVqiOQRjpseue9W/0tFcN4w/GOA39xJarbtGrJhZNYPs58Nut
+        YSLsK9VLax2nDLmKFSgZDtudztXm40DytHERKyjJC/Lv3rtw5442yuXLjllJ
+        YHTU6as2ccU9yYpH0uh3iIIY/A7/ACrVlt7Bolim0xzuSsaxLmTbP3R16DrX
+        S82Msk9YnDlZb9mCF3FLt49NvEPBB+VTHcxTwzTWssZSMMU55MZkIOMY7fGq
+        1hePNORc8sqsuhUgcgYA6E7nNWXNhKpxZWer2g9R0qQKwo5IZPSacRtMXVZS
+        olkLJGAh6Dr0716N40UxLGZW1QLIwdOnY7jYjNGPPLdfZvLhsx3PSsUQFEFo
+        tNehw2DFEB51OmiyEUu32VGTRfJsz2qPELoQxiJQS7nSB41nsLpChWIyZULm
+        NhhfPG9VZr2S5upHH3jgH+HO9Kmt2Ux+rOifiBbBI8BmvnXLvlt7pj1mmmt/
+        OknLy6Z3AkXbfpv/ALVaj4nqOGTYNglN/H+vjWRzruF2C3Tcv7ocasePX9KI
+        SymNWlhjfDblNmx+VM5MvttXjxvr0ygMqsOhGRmjC1FuHaFMRkDlrhnP2tvL
+        NKuZZUiV0/dOJGQjOelezLLrNvLjju6Z3pHcRepi1DZkDo+24x7QIz41hDBH
+        Q1o8SGbRnP2llXf6/rWWGAHfNeHLLtl2evHHrNGIAuRnY+G1MDeB2x1NVllx
+        G2S2Rp6KMj4nNSGyATRqqWG5AyVByc7jJx2o0JwNWQds5GM+dVuYys2F30k7
+        k+B7dKXaTtKmT3w22fP+VVlU0vFsd/HvUatbLkDAznJJNIkDOvsjOD4kflT5
+        SwQHTt7Pfxo9W/SZzjcggHHTuaFbiJ5CSpGegGD/AF1pivnZhnwHjUzxqFB0
+        DPu8qN1rwzXG2BrwFzgHalx55WrJwSTv1oYYFTU+xP3Rnv7qi2Rl3Mz6dxpx
+        +dS/4MQ7NkdD+lSPsHfO9dpyWIIIJ8PKoXZW2ONW30pSzcNFbWqTJKR7eD5E
+        702w4gLOYPyyI2OmUDoR5dvOq99HDHYgysCjyDOTjBNTwBlsb0yXU8a2sZOX
+        c9Njp2x4mumG5nLGMvcdV6rCkBlbUpGQR3FCRU2d5bcSjaS2fUFOCCMEU1o6
+        +hNfDwXcIIoCKeY6EpSFdlpJWrTIe1LK1BXK5z7qt3Hq6R3rpHzjc3J0qdgv
+        sAe/tkDbrSilXuMJZ2sM5DPLLNM7lYyBocjuR0wANuteX+R8PVwfLCmhieyL
+        zyqJyFRR4+J+G9a54PHZ2+LiaKMyXLTDnyBSCemPnWCYS0aSopUhQRj8ROPh
+        1NWVt8QIpZVBv2cnqcADx94rzR6K9Ub2xTiC2bafXZRsAm+nc7nsOtVuN8Vk
+        4NbxvBarO8zFQGbSAQOp23p54aP2z+1OYC4j0LHp2796bdWNvxDQt1DzRG2U
+        GSMbd8UhRuru8j9IODWyz8uG4hMlxGoHtEAnGeuK89bRXLcNvmu7+ed5rcLH
+        zZjjOpW+GwO9epnggPE7eV7uGEpCUjiJGsgA5x3xjf4Vg3j8NHDZ5+H8UW5e
+        HQXVV9nSzYyTj3Vb0tM+zteVaM90VUQGU7sX1rgAqMd+tUbt9RMcUzEI51hZ
+        dGrpjI75/nVm2u7ow5SZNKkOgI1DY6TkeRK/Anwql65fyXH725toHLaiDDkk
+        9MAe/wCtUyosjf4RbsvpdLctq0rM5XPcaG3/AC+dK4cDZf2e8XlAaORnLahs
+        /wBwCnQX6wziduG3Ov2uksZGcHPf+tvKi4Xxi3sYuWtnfyFHY6sICB9k59rp
+        kH5V6focv+rzfX4/9nej8z33oPcm4mmmM0zRl5JNRA9kYBPaleh0A4lNeCVM
+        xoq6QuNySRv8quXvHY7uBrWGyuhI5OA6KoypGrfO+MV56G+bg0ckELT25m3c
+        dCQCR1HuPyrF4eSX/G1Xm49f5PR+kN5NFxnhVlbS6leNsoig6gDgDV1A8gd6
+        yrO0nXiUziFLcyyvqCscn7Xn2271g3HFJZJIpFkhW6Oo807bZ3G+2T41Vbi7
+        M5ZriRsEq7rsCw8uoHnXh5M+TC9bjq/t6McscpuXbbsbiKHhE5uRNPI6YEeS
+        pb2m6+G35U7hU8Ynx6o202chvaJ0knfoOmOlZFvxOWQvbRyqsk8ZZXHtBWB6
+        nPQ+I860+CftSRNca5BkOkSAdlOnb34+dOGdy9vjX2lLt9bek1zj7qzMqLgN
+        9k4Gcdegr07hlJ9X5ij1B2kONLdd+h3Gfh5V5pBKPSC8aT2Dy58EjbVg/rXo
+        7klpQLtNEi2LaCi+8AsCfDv7q3XeTw4orsxjGEz7I1ZwPkPyqRFVCW7MHpE8
+        VsBI0mBIgIAk22042yNh9KuJxEtFzP2fImxJV5FDDHjXtw5cZh/Z4M+K3O6M
+        5VJv49PDblt9oydq0owrwxSkiMSqGUMd9x0rH4tLJPZcRWOaKOC2IQhlyZTp
+        Deyc/p2rXJyTrRx4Xs8gGLXLhioPUgHZdxtT7q2W4EZdwug6htnJqtBg3JEa
+        ldW42zvt41dlXMQPtEYH2Dg14Z549l9m3SsNYGjtuB3qIuTvpbSQckEEUE+n
+        U7Z0nT9rONv0pMUkemMZYjX7J151e801N+z9InigBYMYowFJliOBjbGsY+ua
+        f+04L61bQMt6wzewwYEHw7/SvOoIRaymRpMlyNKrn71HdPapLdlplaUKdGtC
+        SevQj861lyZa1az0m9yLfEJo5bGVYzrbmD2AcsMYzt2rMEM+Noip/iYCptJo
+        4+GwySElt9agbk+80312BdlT4lgKLNHZQtJMOpZAGIwM5xRLbS42kj2AHQ71
+        xv4QfsLv4vRDiCnpGnj9407Z8D6qSQzSAHHb+vOlwWLW4KLMSMd16f1vVkXb
+        k5WBf/bY13rE2D+4HT/wDR2n5SI1EZ1GYg+S0Ug5kYAl2BGCUOMUHOmxq9XU
+        4/8AKrvWLobm1xk5yYTvUCeXOJAw5e2eobb6Ux2uHwCkbYP3XI/MUBu5lIAi
+        jUdSWGPzp8lxFBLy35QGkHckdRnxosrU1QsZdBBgboQCuH3+dV453N2I9Wkb
+        EgqVPTzFXFuoGUuFDjP+G+aLnRDfTKvnRtvRCdGbH2id/jgUefZcHfBpmLfY
+        kpkgHOP1oZI0CO6OuB1wwq+V8IvbfRZfv8NHI+c53Ge1UY7blW0681mQMMKR
+        vjNWL0PLYlblMwmTK7dR2+mayYZTaSXCx65VjGpULgbY33PlW9bZ7asbPCOJ
+        tw29jnU6o91kXPUZ3H9eFe+V7eVYnjmQiYZj33avjXCb7lOySTaUZNtYyD3x
+        /vX0DhHEoHbhgOIlWFOdq20MGx8dsVvj5bjelceTCZf2emMFVOIXMPDbN7mZ
+        XcKNkQZLH+u9bzQDYkqoYgA52OeleS4hcC9luXORGmqMKWGwAOenbIz4125O
+        W4zxy4+PsybXivFZUeaeULzG1LGqgqg8B448asDi86jDRRt54INV7mWFHgjE
+        6ZYDCj2BuF+yPAn6mnRcGvpxnkGNT3f2fzrhM8viutwxq3HxS1nlWNVkQuwA
+        yBjJ91aXF7OGzguJvWEDPO8+D1LEfZAHu71kr6Mxw27SXFxr5Sk4RemB4n+V
+        WOJXfDltrgw3KS824kuW9krjVtjB3JxijPK5fdrHGY/ZjTXMsjoFmZY8K5C7
+        ADIA+pFa/wC3pylu1tZ2tust80BCpk7acn379awP2laG4aJ0c4dMSaRo0g56
+        537dq1F4vwaPlLrbEU7TezbnGTjxPXbr5isTTp62xxC8b0wHDBL/ANMkWsxh
+        RknTnc0j0tt7yduHxWvrOl3fmmANsu3XHxoH9OOGJEYha3RPT7oOO3fNAPT2
+        1TJXh05BbPtTKN62z6v3cIHpXbyoPZg4cwB88MMZ8awILf1f0ZvQD+/mWMKr
+        dgrg7/DNMuPS6ymvDcGymVzGYyhlGnBBB7bneqEnpFaKvKt7N1LbuZJdeoeH
+        lvv8Kuw0scAMLpHb8R1LLNzBGIxs2Tg5+GT8Ko39vdRX8cSLhywVgNyDqGfj
+        3qi/GL2K9hns3gRomBjLwgldjnv03qxHxm5EvrFwYpZw2tWWPAU+7v0rthw8
+        mc7YTbhnzcWF65XSi3EyWOriKajhWGRnbfFWRxm3aEB5I3Okam1L7W/X9KVc
+        +nlxxC9uF/ZFu7yzRSjL6ivLGDuR3HU9qpt6WQc5WPozYSIs8shTAwVcEcvY
+        dAdxX0L/ACsft48E/i2fNaEnFA8xIvIY1G6odOQNs/WlXF+txMjS3Cyacqza
+        cefYVlHj/D/Vgj8BtzIiIqyRzMpLKd2Pmy+yfKt/gthw3jct/BOiNbxyqtuY
+        5GGSAcYYbtgHAz2Fc8/5f9f6yOmP8Pd/ta8/x1YnNu0XtldQKsvjiqcREaLG
+        +QJTpIB6gf8ANesuvRC9QyQ8OvoXiXAZJhucjPUeFZTeifGkcKbGOYLkgx3I
+        P0JFeLn5bzZ9sns4eLHh4+kVOGxsl8BoOJcAFjsq56nx2rXlneBVfWkQdToL
+        OFDEdtz7qVLYGKBIrzhtxB9rmO0ORkjA3XrjHb49apReifFpIZ5+G20l3Fbv
+        y5HXA3Cgkac575+VcJHe/p6zhV9by8RtYpuIQBTllzImNW4AHjntW7EqAMqX
+        kDmV9BTmLrMZxlRv0z5V82tLK99aty8U6bYRtLL26g48a1eHcD4ldXNnJOl8
+        xywkEiPno3TI8dJ+NNE/T17yWfEb0ATW0zQzMJDCd45Avh4g/wDNJs7qaeUe
+        sSqWudbsRnqNXTPTpk9az+HWvpLDZ2lq1pgLK+rnYDBTkDJPfFWk9eF/Hc8i
+        TlQZGvQVwuCD7J7D31iz8Ok9UPSv0lmig4dHZpy0tkKOSd3YAdPLFUbPjk9p
+        w26jub58Xy55arqByo+13G2enfFdx7hjzFrpZpJFEeeWChQHTjVsSdPTPhXm
+        VniaRktRGfZK+03s9Cc++tzG73WNvT8Ps7m9vkhtxFJPJGGUOxGPZzv78Vea
+        e8wqiNZB0A05xt0rxsl7INbRzOhg04ZXI2yOh69DitW6gF3ctdyvIpk6Krad
+        WOmAPICjUguep60udDcXclqYkAA6ttlu66amO3Mc8QNtlGBPfTER479+nwrJ
+        XC3dqZHClnBDE7kDYHz3FXhJM6mO4uHSF2w7K2+N+nh0q8dMbvHayeZFBKsM
+        KHEp9sqW0+0PGqVsZbjiF2GtRyYGIXTEcIuB5dMb16G30S3No4ulRJYNYhaQ
+        5I7nHTbIrH9G7W7u7aO8PEZliWZ1eEAkSE/fJzsO3wrnlO0sMurKVFdWMfss
+        9uIs5Vcb/wDFFJxeBL21WCWIQNr5zBB7O3s7++ut49PDIDLFHqaFWyoBzmsO
+        9gD38qCcIWcKBpbAJAxuK82X8fHkzttdNzGRqniSLGAvFFL6CGO+zYGDnGTv
+        vVyPilslyrNxBSoLa15hOcgY8uuaqiIctQ0YLKoB9jPanRQtKjFCP3eMgJk7
+        +A2qn8bHPz/xZZTGboZLyNlZTxbCtr6FiRlgR8sY+Jpi8ZQcYkkN2xszCFVd
+        8a++1NW2maQRllViuvBGMDwPXemfs+fOdcZ+dZv8SZeUd8fPTI5YbuFmEBmi
+        lJydOxHQ9fjTJWCxIvJZY0GADgBR270EWbfMLkFk3JB2399V+K3KQcPYzROV
+        fAGlh76+jvx5NUmYJJMmQNJB64PTFY/pE+jjGA5H7qM6M4GBTbaZJoVngSRC
+        SGxrz1JHYDwrM4vzGubedyWDoVyTnJDdPkRTvckM89anCJIRbQS3GRGrya9P
+        UDTW/wDtaxaJdFwASoKnls36V42wdvVbiM7FCw0+BKNn8qtS3j21tHHAyx6k
+        jJdM6mBx36d6y6b+XpJ72yg0CV401oXBeJsMCdsDHvqnc3tmYBJHJGdRGnRG
+        wzk+YrPkkV5SC5k02wALHUBgmq7z6+F2yKuMGM5xjvV1XZsTyzzxlJH1qzhc
+        SKP6FYPEIQqTO3UYHc1qXV0vq2lC+sZ3zjHXcVkzXDNYJGuWk9jXkZOe+apP
+        wLVCCCZpUVU6nYkYJret7x7CN/Wpi3NwFCjJByPpUcPMVxct60/KXl+w6Evq
+        67aRv/zXqLe14e1yJbeziFvqOsTJpkjwNx0wd8Hfxout+nHHxq8R9JLi44NZ
+        iVeWrxDUIshnZfqMYB28a8jcekF1dzGC31ght8qCGx453O2a9tw+K1u1ureV
+        GkmRcuC2RobwwMKfZzjqME1m/wDZThUd2k8c91A6NkZYMP0rGWHa7tE8ZbSw
+        X72k5Du66MhtsFcEDA64Oa134jx26GpbiwgLdggY/VqRxn0Xlj4Xa2/CZXuD
+        GZHd8aNK9d/HwHurE4h6JzcegD8JWG6eA6WQsA7b9cHHYV0isj0MNrx65H7z
+        iAlXJ1qAFBHhgdqyuLejvEprRo1SJG1c0kyAYGDn4VjPwDiFlBbukEkS2tzy
+        LhvsrG+QcbdsHvXQLOt1Mz30kkEkWwWcnw22NImwWUajVFGUFwDhQMsrEY32
+        HTp08a0La8d7lYpJY55ppOU7M5AQ9d9Q6bGq3C4jmaSMNG681uhG2E28xU3V
+        ne2SyXqZQoVdwyZJJz7WCPP60WX4deK4S/8A0+z0lvw/hUcCPc2TySlRq0TY
+        BwpOQNv+dqi+b0etNXM4bdjQwyUlBznzzjuPrXjpvSzjltKEW708sDGVB7di
+        O1df+lPF7u1a3uJEMLMhPsHc+J3oly+Xa3+Nr7VuiPgvHJS/C7prRY9nS5QA
+        5JO4Jbfp51Xn4RFbxiUcVtS/2DF7ORv5N5ZrzFzbwn25cNy4s4xkb/7mkQWg
+        Hq8gBwXIY9gM7dOlbm3iunoG9Xa4EKzCWdZ9PKRTlxuSQRRTmOArIuqDAD5k
+        PbsdwNs1TtrxOC36cTs2WWSJHVC7sCGZSu2wOcEn4Vem/tHvmtGha3Q82zS1
+        Gm4Y6NJzqwe58OlfQ4Of6eHW18/n4PqZ9o8/GtvaSQXsjaxMGDAn8qs2/DIY
+        7eXnXIjZZdPOxkINjnHfY19FsH4UOD8R4nLwSwSS1ZdQEaYkz0wOgx5dauei
+        8PCvSG0uEbg9iot8K2IkIbUScAV825dtPqdZhb4+Wfs2zj456pbXH7RgiBk9
+        Y5TKJAFycoenTpvXrPRi4suHyFLmylC+tLLA8UJYqXQkEjrgDIOOnwr6ba8N
+        gs4RFaxCKNeioMYqld2TWaTTS38ot3O0ZJaTf7qknfJrdrEm9RSEETG4lljE
+        YdlKcrc4CgZxVSQLr2JZAepXr860mluL4uqLHaqPxOAze49qpSWrWL6pOYrn
+        fLMcfDNc9NUtIZdWtbdUjP3mcjPzwKrQcPhsZ7ucOWmvJNcnLQkZAwOv6Vbe
+        9eQ5fTIT3cAn50o3iDrAn+lmH61aGzUlPL0qWRcdCxH0GK7mumQp2PXfrSed
+        A+/KnHjpYN+gpkSwPnVI/uMY/wDtSNuM9y4zCy474IFDcXHEYYVMNhHfgth4
+        ZJFQMuD1zsavQxW4XPPx74z/ADoZNPMAEoI8dJFSU7K9uThF9GrTgyqdTzQS
+        IeYPw4X396vtFCwGbe2IPYwp/wDWllI1BxKp8MKd6ZCyiPdh7sUkSGOIauVG
+        Ag2ZQFZR7wKYJfW0zHOJlH3JMq3+9KLrnHMbH8I/3oCYSfa5rDzIH86kC5S0
+        aNkl4fHMw3KsMge/PSpt7e0VRJBBBETuCij89q6XiMEAX1ieFY1GwmkA+R2N
+        Zs3pPwO3OXvklI6rChc/Tb61aPZuer3Dj+5DA9/Kk8Is553vjGgIF7IAV3H2
+        V6V5HiPpt6ynKs+GQ8sHIa5y+T/lBx881j3HpDxi4UrLeyrGTvHAeUvyXArp
+        MKxc49H6YxPacVZZShdo1YaRj2enteeQfhivCXdwv7aMDLnXJEVbVjSfZ+fT
+        Hxq4wkDFg3Ubk75qpNZJNci5YsJAQRg7HFc5xZS5ftu8mOo9IvFJ0UIughRg
+        Z/5qsJ5hJJIkmlnJJx86zOa+csozU88+B+dc+vJ8ukvH8Nnh8zy3p1vqwhA2
+        rUGQd68ol5LDIZI20k5GcUyO9vLWJbbmlBHtgb4+J3710x3J7HPLrb5fGzPe
+        m2v3URB8hSCXxjb3VT4hM/EIRblUiBP2hl/ptWdJeXBcvJlmO2onelyzSyIU
+        7HuK6yX5cbr4Iiuktv3VtK8iQkAsBjJGfpmm38UM8kMkxk0NE5CoB9o4xWbP
+        w6ZYXMHMOTkgHp1x9TWiIWdEUs2EQKB7hWrJZJrX/al1v0UDJLd37si/3SYO
+        MDVoIJAFUik9zaxgEhtCqcjTpxj+VXxbhepPwpulSgVlIVc4JHj51jrI12tV
+        LQSQxyBstI4ABDatO2Ca71QsoUySuqnKhj0qyZoV+zlj5dPnSJrp/sg6B4p/
+        M1eL1MsMa457MCe3Un4UuCymv7pbWxgkkkc+yi7t7/AVucD9DL7jOmeUNZ2j
+        bmaQZd/8o6n3navoXCuDWHBbfkWEGjV9t23eT/Mf0rNyk8Mjwlh/Zvxy3vE1
+        X0FihJLyxycwjbsvc/GrPGfRe/s7KeW59JZbqLAQxcgKXJIAGdWwz1r6CApJ
+        GcKBliPD+fb415X0xlI9H7iZV9lHUtjfC5/LpWLXXCY9pMr4zoPW+HsxtJLO
+        2YgamWUamPiTnJ71r8LupLyydLiVGmhbQ5j6dNjnvkfrXy79rQrE8QlyHOSS
+        Mn4HFex/s64hBdX03CtRd7tMxMdgjoCQD7xkfKtZXfwMpJjbt6prK5tCssVx
+        ERk6FLEBseHhVheLvGwSd11+Enj4Z61VlTBKuo8CCO9Upoygxp1J4+FZY+zf
+        t2s42uD7cRupDJJrYFdRABOQOmw61j2noHw71aL1mCG4ZEC82JmBJBJyGBHj
+        9KpxzTwf3L5X8LVct+KIpOrVbv4pkZ+X61fZqVZHopw+IDKTSgZGGuG3B7HH
+        uqnxPgl7PYTRLck5j0BDCPax09rI38T03rVh43j+8lin9/st9P5VcTjNlIo1
+        CWP3pkfMZo9i1v42+RXfoV6SNJlbAS46cqRW/Wqd1wXjluFWfg14uk5zymI+
+        eK+6QT2txtFNE3krDP13phtcHKqRW4Mnx9vRriV5ZNJHZSh5YkjGsaFVhsck
+        9OgpNt6H8ZtCZL6OERxe0ORIkru2cAAA57+B6V9eez1uWJJ8zWJ6TcKdrS3m
+        hmaKW3myhGDkkHbHfOBtUz8PA3HCkjtESS2bEgIbmpjcdxkdMEfKvOyWa3TW
+        0bFV1wmUFduw67eVfY5+B8LteFtdy8KTUFVmhdm9lj2O/bOKwbKDh6WXE7m4
+        sbK5kh0aYJEXozAAjuANhgbfKsTLrXTXaTxvftuWHMcMFnGp6hYPZP13rk41
+        cqmI544FB+zFbqBVC+s5+Hz8m4MWrGf3UofHv8PjVYNk5x9a6aZ7NSTilxIS
+        ZL65byDBfyqsblQ+pEYufvuxY/Wqm/4jXdASxo0N017xyfabNSl/MmRFKyAj
+        7PY+8VWaSMDrnvUsjg7pp331HBq0FpuIQyDFxawufxxExufgNvpVZ5YjJpto
+        5gQMkSAH5Y/lQw2s+eY8nKB3HTP+1NW5S3HLssa2xqlIyfhQdGxTMjgScsK3
+        QjIPyNXo2ckBYJmLHA0xk71STi91E2JEjmHQ5GCfiKtw8cghDN+zV1EEZOCB
+        UEm6jDlCSpB6ONP51AljJzrQfEVXfidtIcm3fHmATQauD6y7W8mojtGNqisi
+        eJ+jr86NDg+z9KzLiRWn1QkiMrsGGK0I5I5FDpuMDYHYVJZEUn/hMfPTU+ru
+        AA5RM+LZ/KpinZEkAJKyLpdTvnuD5GlK4GAB0pA7rg3Cr+3EXEpFmRugWPBH
+        mGJBFeR436E+pHXwhHu068qdsSKPLGA1evUgLg7+VGFXAC528aZlYtbfJJ+b
+        FLypIuRInVDHpIpet9OCw/8ATmvrF5Y29/Hy7+1inUfZLjce49RXnb30Chky
+        3D7x4Sf8OYa1/wDUN/zrfafLPV48XjgYaEN/lbB+tMS5ikIGh0bzXP5VfvPR
+        DjtkCxsHnQf4kP7wfTf6ViSJJG5V1ZWHVCMH61rf4oXFeJ/syKc+e9MEe23T
+        51n83AyULH3ZxRIqvvp+YxRupdaMAEgE4/hNLVzKSeWw99V2A14GB4gZqQhz
+        94j31epeWDOc4HvoSIlHtSxj3vVLlg/cHxFSEx0AHuAFO2dRZM9sOjBz/CpN
+        C1yMezGf9RxSCfH6mrdpwniXESBaWM8ufvKns/M7VX9qENcSEbFVH8K7/WkS
+        TFm3y2PxHNeusP7OuIzDN7cw2i91B5j/AE2+tej4Z6GcJ4ayvoNxMh9mWU5z
+        /pxgVi2NyV4LhHo5xfjhDW9uYoT/AI03sp8O5+Fe84J6F8K4UyTXGby4H33U
+        aVP8K9Pic1vsRkE7kDAocknwHhWLbWtSGvOjNvGRjbY/nQsVAwPhQkhdztVd
+        5SzeHvrJBNIcMx69BVUHcjHvps7hnG+1KXYk4xUld7a1Jy1nbEnuYV/lRRFY
+        COUix/5FC/lRMMj60vbfPhUK0r0i/gN8qgMMC4UeP4seBrKb2cjG1XOHX/qN
+        zqIDRsNMiH7ymmcU4f6rolQaraYZicbj3UhizRP9pQKrs4bZwM+NX2U43/5p
+        JgVtivyp0ZVUa+z/AANGk5U4YfEVJhKHptQ6uxGPCg7WVug2zYYeYzViO9MW
+        8byx/wD65CP9qzCAT038qnG+FcgnbBNOl2rbTjF2MYu5fcyq36UN7fNxG2MF
+        60U8WdWkxlcnz0tTIeBQSWnMN/OJ8bxcgYz5Nq04+NVk4LxKViEiTSOheZFz
+        /wD0adLtV+Djk8FslslvZmFV0qhRsAfOoHGH9tEtOHojblREQD8KrS8Fkt1z
+        ccS4dE2MlTPlvkBvQWnB7niE4WyuIJhg5YCRQB/mKgVaq2PjUHJAaPgD8Pjz
+        vISW1eW2wrHaRQQDsT2r0cvpDeS2r2x5GiRSralLEg+ZNePeURXOTkgAq29L
+        O10yEtpQHUNsEUp2mLaCWOeoA2q7aXNuSG0a209vd+VWwY1B5YAHTb+dBUY7
+        LWnMOiNce1nt8e1MkuLaNtaqJ5OmQdqCdDGwy7MDtgt+fjSZEWNOYowvfvQt
+        oeSSdjkYX8I6VyhCRsPhQM5K7ZOfKpDRlFJX2z4b7VDYzoC+z1Heg5u4Xt1o
+        l+0MsD79/pTuUrtqdcqO3TPyqQQxO/auOMnajbC4GnA6UGrU+CMUE1oSLdZt
+        OgA41DqfOrFk5zyWKkKuQQfzqXhkmsmiiIbDBs5qok2LxSq4wQOuPhVFWqsy
+        xnBBIJ61Z5WnGlg2RnpVCJ454jIoOMkN5VfsZVK4SRlONsDqKk4Im4zv4CiK
+        qN1UkjrTBGNJYSl38I8HB86Wzk7PnIqBiAHGwx4KaKIIM53PvpAYqcr8fCmA
+        h8dAfOkr0cqr069sGguoIL1dNzBFLkf4iBvzpCnb7W1Drk1YDedSZ8/ohwCX
+        pYBD4xuVqjJ6A8HJ9mW7j77MG/MV6NHkAwWwffTVllBDISD2K7GmLx46T+zu
+        wyNHFZQD2MSnFSn9nVqd/wBqy/8AtD+de151xoLc9unc5qzeyyRyxorgYjUn
+        TgZPjTsePDr/AGf8MQZe/un9yqKuxehHAI8M1vcT+PMmOD8BivRGSSTVrnd1
+        b7pb2flUDrtkjwFQ8ULbgvCLIj1bhltGfxGMMfrVwsSMEkjwG1ETkEjO1V3m
+        CnTuSeu2cVITSY2x9ajUW6DHlmlLNG8gVNTnOPZXpVhogBvg47A9KEAKc5wT
+        UawgO2DUsSw0KCc9hVaRiCdWRjqCOlRQ8o60l30r4E/QURwFyd/AUuQ6WJO+
+        /wA6yQgE5zXKcg7UOWx7ZHwqMYXNDQdJ6A9aDl5JDdCKc6YIoCCDtmhFMAMY
+        ztVq1vZRb+qMw5DHJRhkf1+R3pBGSQOhodOOlaZsS6AOVBZlzgEjBpbJjrv7
+        6sxTRhvbUtgdBtmrkvDHkhNzakNHj+71ZI9x7/nTGWQRjYgEGq0kGs9ceXar
+        zRMNqU0ZBznGKRtReykVcqMnyNb1h6PWosWnk43asQv7xOUsiqPic591ZZcg
+        4zmlMC2+N+x8KiazcPglCNzrdy2CzxPDpHjjLfl3q16lf8uGSP1q5inIYSwY
+        lUn7vXB+Y7UmO+vliMRu5jGwxoZtQI+OcVdt+PX8EaRq0JjQAKjQLsB06eFX
+        iBNb3iRuJJlVtJ1JJHAp6Z/FmrVjHGZ1SSMX4Kg8lIIVOD3zqz+tZzTQOXkm
+        sLaWR2LPI2sMxJzk4aoiktoZY54rOBJYnDqwZzgg56E1EAiCnrVG74W0rF4V
+        yfCvV/sS4JG8QPvJP5UJ4VHG2JbyFSPDfFLLxSW8lu4Dq0TKco56KfOtCK+R
+        FxpCsPtRs23vXx91bfErS0nsG9Xu1MmcaHT7Y8vCvNvHaWyhXEkzdNPQCraa
+        trJBeKyKuWA9pGG+PGrNtwaBG13MzPbkeyIyFOfA5/SsG24rNbORbrGF7LKm
+        sj3GtW047DcACbEcngTgH3Gs1qVZl4LZvkxSTAH8TZFU5uD8k5gkTxwc5q9N
+        cqialkxnpiqZvNiDv4EmhVnzQSwkuV6Hsc0JMgKnDBcZz0rQFxpOQaHXA5Ja
+        NR/ppCqbk6MMNW3bpQK2SRv5VfjFucJy41B/ENqJ47TXtFHsPGoiXT6opO4b
+        JJI2yP8AisuV2W6JOAQeqj61rLMrLoYj7GM9qzrlE1gqNhtgdqoafw27SMsr
+        sVR+px3rYVFYB1Yb7g159VBcR+0TjqNt6vW8ssTsFcFc7qdxVQ2tFs0Psa1u
+        O+dw1VtRBbKCg5mw0ls4pgJYe1vtjIoLgxJ7Vz5cjcjxxUFcDKsTipVv4ulS
+        WIwdPXI7UZ0gZJA95qqZTklDk9qYNenoCO4NIWVKb6D07UQkjxpDfCq40ke0
+        p92KNWTOwAxSlhFOrI3GOlFsCflS0WV3EaRuWO4AqXimiXVJG6DzNQMAPXO9
+        SDjA228aFLa6kxi3kI8T0qfU7jvyk8dcgFKSCvlg9s0t5EJI0747VHJiR8zX
+        kA8dJLflQTXFrHkQh5CR9pvZ+lW1p3OIOSukYxv2pqtCuDPMqZGcnwqg08jP
+        kYz5L0pZTUS8rnJ65OTWdtSL8vF0hRlskaPO3Nbdz7vCqMkhwzE6i26770sn
+        fSnTuajG/wCtZ3toZdnViTkdhUMAGJ79t8VBb8Te6gcknJ+FCc+k9flXHGwB
+        oc4UZ7UKfaJ+NRNbdNhg0sgN17+FNY4XFBpRGzjNCAFKufDNAcGrB3XVjc0t
+        1xvjI8aQUpwdxtVq0uZ7GTXE/U7qR7J+FIPTYZolO2Ogq2GmrwcSkfmsIJj9
+        knoaVdcGuokLALIMZ22yP1qjlR1q7bcQurZcJL7H4G3FblZ0xpYAAS+qPuQR
+        uKNbMgDIIHWvQfte3lGLuyBP4o9/oakPwmZTon0N4PlafKNPPG2ZRgVHJxvv
+        XoV4WJRmO4iIPg4alycEnUjGgj3GrQYYjOe4A71HJzv3NbTcFuwMhEYeT0I4
+        RdA6dCgeOoGlKMtzczjTJdSsD4vSGiLbk599M0qR3NRyUzkBc1jbWkDSuxOP
+        8tVLyKFjzA5Rz49DV7Hn8qLXJgDBx2qWnnmsZycqNSn8FMg4aXYGQEAdiK2i
+        mWz38cCiEajcmrY0GJV0gONeB4VM1rE6FVjVT2pikLtiu1DOQRmhrTIlt5ky
+        DGceNKGodQfditvXnvioIHQjHw609hpjgtkDr44ri3UYINa5KD7i/KgEcJBJ
+        jXz2q2tMvXg7g4pigSgkE1fWGBjq0KaaAq/ZUY91WzpVgtZIzr1KR9adpIOe
+        vninjbyrjgjB3oIVG+SxzTBkjOTSQmk5BAqVlYnGqpG7nuwogSPu/Gh5mkZ0
+        6qgy6hnGPKoDH4gKISds9KVr2xgkeVcroD0YUo/mgDJ/Kh15yQcUOtfP41xX
+        O4fHuqJqSyqNSu4x4NipM8pOoyOfMvSQu25z767SM9qkY8p7uT8SajUG7499
+        R7Pivzrt+xFC0nUo7iu143oSDntXYOPOgoaVjup+lLzq3yTREb9qgggbYqTt
+        /Op9rwoSx7kAeJNCWA6tt2qQ9ON+pNdgt36daFSM51Y99SWU7lthUkSkHbGK
+        hSyL16VxZANVcHGKkIPqO5xRAA5wd6SxJ3wflUNqGGOT8KCbIwUjCkjuaIct
+        0wc6cdKpMWY5WNj8akFlIycHwJpB7AKPZ6UBkBGPpRgpIMM5H+U0BiQHKkmp
+        JU52FGQ4pTJ4E5+VLDEnGqRD5r+opCxq8c1x0t/vSwrgfb1VxLdNJ+BoQtIH
+        QD4UaTSx7JK6+5yKTjG+GqVkB70haF/eJsLuUf6zXHiF+f8A8yX4NSAdt9R+
+        FBiPOysP9Jp2h5H4h86nUPH60Gkdz9K7TjoxrLSdQ8D9TUZJ7fOux/Ea7SD1
+        NIRv+IVOogdvnXaBXaQKkjOeuKIFfCu0iu0j+hQtO3PQ6fdXFe9FkeBNQTno
+        CKlpKqT0FTp8RjzoMHxNTj41FJCgbN+lQpyNjj41ONu1CVJ6YqQ9Y6EY+NSN
+        +mPnSgp8AfjRAKOsfyNQ0PBOwxXGNuoodMZ/wz867So6Aj41FOGFcW/hNdj+
+        L612P4wPjUkaiO+KkOfxVIGPvCp27sKk4SDwzRa89FqMr+L61GV/F9al4nP8
+        NTkdwRQ6l8frXZXxqQ9Q8q7mH8VBqT8X512pPxCpC5jfiNQWz3JrtafjHyrt
+        Sfj+lSRg9qjfwzUll/H9KjUv4/pUk4J+6aEq3XHzNQSD/iNUYX8R+tSFy8n2
+        jRaAB0oAyr0Y/KuLjxY1IWEXOpgKgsNOw2odXhmu1L4fOpCU57Yrj8KjXjy8
+        q4sDUnYBH8qW8aHrn5UYwO5FTnxNSVymOmCKgSsDsasaVrsL51IAcnqpqTIo
+        6nHvFFt51BSNuoBqSBLEfvD51J5Z6Gh5EPXlr8qkIg6KKk4YXcNjyyaLVnwq
+        ML2FdgeVSFqHj9a4sPxD50GnwxXafdUn/9k=
+    http_version: 
+  recorded_at: Thu, 09 Apr 2015 02:26:04 GMT
+recorded_with: VCR 2.9.3
