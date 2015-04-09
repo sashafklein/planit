@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 module Completers
-  describe PlaceCompleter, :vcr do 
-
+  xdescribe PlaceCompleter, :vcr do 
+    
     include ScraperHelper 
 
     describe "complete!" do

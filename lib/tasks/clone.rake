@@ -17,7 +17,7 @@ namespace :clone do
     `curl -o latest.dump "#{url}"`
     
     puts "Stored a local copy"
-    `pg_restore --verbose --clean --no-acl --no-owner -h localhost -U #{ENV['DB_OWNER']} -d planit_development latest.dump`
+    `pg_restore --verbose --clean --no-acl --no-owner -h localhost -U #{ Env.db_owner } -d planit_development latest.dump`
     
     puts "Local database restored"
     `rm latest.dump`

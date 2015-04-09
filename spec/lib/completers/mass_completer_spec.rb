@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 module Completers
-  describe MassCompleter, :vcr do
-
+  xdescribe MassCompleter, :vcr do
+    
     include ScraperHelper
 
     before do 

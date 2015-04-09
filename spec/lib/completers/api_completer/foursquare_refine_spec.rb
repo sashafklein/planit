@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Completers
-  describe ApiCompleter::FoursquareRefine, :vcr do
+  xdescribe ApiCompleter::FoursquareRefine, :vcr do
 
     describe "the new attributes" do
 

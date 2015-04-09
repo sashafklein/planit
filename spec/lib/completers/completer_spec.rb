@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 module Completers
-  describe Completer, :vcr do
+  xdescribe Completer, :vcr do
 
     include ScraperHelper
 
     describe "complete!" do
-
+      
       before do 
         @user = create(:user)
       end

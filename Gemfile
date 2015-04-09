@@ -22,11 +22,13 @@ gem "roadie-rails"
 gem "font-awesome-sass"
 gem "bootstrap-sass"
 gem "jquery-rails"
+gem "compass"
+gem "compass-rails"
+gem "bourbon"
+gem "neat"
 
 # scraping
 gem "nokogiri"
-gem "foursquare2"
-gem "yelp"
 
 # coding efficiency
 gem "haml-rails"
@@ -70,13 +72,13 @@ gem "select2-rails"
 gem "colorize"
 gem "rspec-instafail", require: false
 
+# apis
+gem "foursquare2"
+gem "yelp"
+
 # unsure
 gem "flutie"
-gem "compass"
-gem "compass-rails"
-gem "bourbon"
-gem "neat"
-# gem "gon"
+gem "figaro"
 
 source "https://rails-assets.org" do
   gem "rails-assets-angular"
@@ -98,7 +100,6 @@ end
 group :development, :test do
   gem "awesome_print"
   gem "byebug"
-  gem "dotenv-rails"
   gem "pry-rails"
   gem "teaspoon"
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Completers
-  describe ApiCompleter::FoursquareExplore, :vcr do
+  xdescribe ApiCompleter::FoursquareExplore, :vcr do
     describe "complete!" do
       context "with sufficient information" do
 
