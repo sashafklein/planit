@@ -1,4 +1,4 @@
-angular.module("Common").directive 'mobileDashboard', (Mark, Place, Modal, $timeout, ErrorReporter, $sce, CurrentUser, QueryString, UserLocation, BarExpander) ->
+angular.module("Common").directive 'mobileDashboard', (User, Mark, Place, Modal, $timeout, ErrorReporter, CurrentUser, QueryString, UserLocation, BarExpander) ->
 
   return {
     restrict: 'E'
@@ -9,6 +9,11 @@ angular.module("Common").directive 'mobileDashboard', (Mark, Place, Modal, $time
     link: (s, element) ->
 
       s.userId = CurrentUser.id
+
+      s.plans = []
+      User.findPlans( s.userId )
+        .success (response) -> 
+          s.plans = response
 
       # NAVIGATION
 
@@ -28,17 +33,27 @@ angular.module("Common").directive 'mobileDashboard', (Mark, Place, Modal, $time
 
       # ADD NEW
 
-      $(".js-example-placeholder-multiple#guides").select2({ placeholder: "Add to Guide(s)" });
+      # $("select.js-example-basic-multiple#guides").select2({ 
+      #   placeholder: "Add to Guide(s)"
+      #   allowClear: true
+      #   formatNoMatches: (term) -> "<div class=\"select2-result-label\" id=\"select2-result-label\" role=\"option\"><input type=\"hidden\" id=\"newTerm\" name=\"newTerm\" value=\"" + term + "\"><b>Start New Guide</b></div>"
+      # })
+      # $('li.select2-no-results').on 'click', ->
+      #   newTerm = $('#newTerm').val()
+      #   if newTerm.length > 1
+      #     $('<option value=\"' + newTerm + '\">' + newTerm + '</option>').appendTo('select.js-example-basic-multiple#guides')
+      #     $('select.js-example-basic-multiple#guides option[value="' + newTerm + '"]').prop('selected',true)
+      #     $('select.js-example-basic-multiple#guides').trigger('change')
+      #     return
 
       s.canAdd = false
-      s.checkAdd = -> 
-        if s.placeName?.length > 1 && s.placeNearby?.length > 1
-          s.canAdd = true
-        else
-          s.canAdds = false
+      s.checkAdd = -> if s.placeName?.length > 1 && s.placeNearby?.length > 1 then s.canAdd = true else s.canAdd = false
 
       s.thereAlready = false
       s.there = -> s.thereAlready = !s.thereAlready
+
+      s.setPlan = (plan_name) ->
+        s.guideName = plan_name
 
       s.submitAdd = ->
         if s.canAdd

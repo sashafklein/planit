@@ -6,7 +6,7 @@
         %strong{ ng_if: 'selectedPlans.length > 0'} Included in:
         %ul.selected
           %li{ ng_repeat: "plan in selectedPlans" } 
-            %a.name{ ng_href: "{{plan.href}}" } {{plan.name}}
+            %span.name {{plan.name}}
             %span.count ({{plan.place_ids.length}})
             %i.fa.fa-times-circle{ ng_click: "removePlacesFromPlan(plan)" } 
         .input-and-results

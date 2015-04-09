@@ -8,10 +8,10 @@
             .icon-and-hint.centered-item
               %i.fa.fa-plus
               .hint Add
-          .box-link.right{ ng_click: "search()" }
-            .icon-and-hint.centered-item
-              %i.fa.fa-search
-              .hint Search
+          / .box-link.right{ ng_click: "search()" }
+          /   .icon-and-hint.centered-item
+          /     %i.fa.fa-search
+          /     .hint Search
         / .box-link-divider
         / .box-link-group
         /   .box-link.left{ ng_click: "tryGoToNearby()", ng_class: "{'disabled': !latLon}" }
@@ -23,10 +23,10 @@
         /       %i.fa.fa-clock-o
         /       .hint Recent
 
-    .centering-box{ ng_show: "pageIs == 'add'" }
+    .centering-box#new-place-page{ ng_show: "pageIs == 'add'" }
       .container
         .column
-          .add-new-form#new-place-page
+          .add-new-form
             .add-new-input.section
               %i.fa.fa-bookmark.new-place-icon
               %input#place-name{ name: "place-name", type: 'text', placeholder: 'What? (Place Name)', ng_model: 'placeName', ng_change: 'checkAdd()' }
@@ -35,17 +35,22 @@
               %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Where? (Location)', ng_model: 'placeNearby', ng_change: 'checkAdd()' }
             %hr.divider
             .add-new-input.section
-              %span.icon-user.new-place-icon
+              %i.icon-user.new-place-icon
               %input#recommender{ name: "recommender", type: 'text', placeholder: 'Recommended By', ng_model: 'markSource' }
             .add-new-input.section
               %i.fa.fa-pencil.new-place-icon
               %textarea#notes{ name: "notes", rows: 4, placeholder: 'Add a Note', ng_model: 'markNote' }
-            %hr.divider
             .add-new-input.section
-              %span.icon-book.new-place-icon
-              %select.js-example-basic-multiple#guides{ multiple: "multiple", ng_model: 'markGuides' }
-                - @user.plans.each do |plan|
-                  %option{ value: "#{plan.id}"}= plan.name
+              %i.fa.fa-book.new-place-icon
+              .input-and-results
+                %input.guide-name#guide{ name: "guide", type: 'text', placeholder: 'Add to a Guide', ng_model: 'markGuide' }
+                %ul.suggested-results{ ng_if: 'markGuide.length && plans.length', style: "margin-left: 35px"}
+                  %li{ ng_repeat: "plan in plans | filter:markGuide", ng_click: 'setPlan(plan.name)' }
+                    %span.name {{plan.name}}
+                    %span.count ({{plan.place_ids.length}} places)
+              / %select.override-bootstrap.js-example-basic-multiple#guides{ multiple: "multiple", ng_model: 'markGuides' }
+              /   - @user.plans.each do |plan|
+              /     %option{ value: "#{plan.id}"}= plan.name
               / .add-new-input.section
               /   %i.fa.fa-unlock-alt.new-place-icon
               /   %select#permission{ ng_model: 'placePermission' }
@@ -79,17 +84,17 @@
     / .centering-box#nearby{ ng_show: "pageIs == 'nearby'" }
     /   {{ latLon }}
 
-    .centering-box#recent-places{ ng_show: "pageIs == 'recent'" }
-      .place-list
+    / .centering-box#recent-places{ ng_show: "pageIs == 'recent'" }
+    /   .place-list
  
-        - if marks = @user.marks.with_places.order('updated_at DESC').take(10)
-          %p
-            %strong.large.neon Recent Places
-          %ul
-            - marks.each do |mark|
-              %li.bucket-list-li
-                %bucket_list_places{ place: "#{ ShowPlaceSerializer.new(mark.place).to_json }" }
-          %p
+    /     - if marks = @user.marks.with_places.order('updated_at DESC').take(10)
+    /       %p
+    /         %strong.large.neon Recent Places
+    /       %ul
+    /         - marks.each do |mark|
+    /           %li.bucket-list-li
+    /             %bucket_list_places{ place: "#{ ShowPlaceSerializer.new(mark.place).to_json }" }
+    /       %p
 
     .page-mask.loading-mask{ ng_if: "loading", ng_show: "loading" }
       .centering-box

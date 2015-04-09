@@ -7,3 +7,4 @@
 #= require angular-leaflet-directive
 #= require bootstrap-sprockets
 #= require ng_app
+#= require select2
