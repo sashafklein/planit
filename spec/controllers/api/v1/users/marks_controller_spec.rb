@@ -329,6 +329,48 @@ xdescribe Api::V1::Users::MarksController, :vcr do
     end
   end
 
+  describe 'update_status' do
+
+    before do 
+      @user = create(:user)
+      @mark = create(:mark, {user: @user})
+    end
+
+    context "single place" do
+      it "marks a mark as loved" do
+        sign_in @user
+        expect( @mark.loved ).to eq false
+        post :love
+        expect( @mark.loved ).to eq true
+      end
+      it "marks a mark as unloved" do
+        sign_in @user
+        @mark.update_attributes!(loved: true)
+        post :unlove
+        expect( @mark.loved ).to eq false
+      end
+      it "marks a mark as been" do
+        sign_in @user
+        expect( @mark.been ).to eq false
+        post :love
+        expect( @mark.been ).to eq true
+      end
+      it "marks a mark as unbeen" do
+        sign_in @user
+        @mark.update_attributes!(been: true)
+        post :unbeen
+        expect( @mark.loved ).to eq false
+      end
+      it "marks a mark as deleted" do
+        sign_in @user
+        @mark.update_attributes!(deleted: true)
+        post :remove
+        expect( @mark.deleted ).to eq true
+      end
+    end
+
+  end
+
   def mark_params
     {
       place: {

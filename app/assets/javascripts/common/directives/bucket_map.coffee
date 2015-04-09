@@ -12,6 +12,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
       mobilePadding: '@'
 
     link: (s, elem) ->
+      $('.loading-mask.content-only').show()
       s.currentUserId = CurrentUser.id
       s.marker = new PlanitMarker(s)
       s.mobile = elem.width() < 768
@@ -120,6 +121,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
               L.latLngBounds( L.latLng(_.min(startLats),_.min(startLons)),L.latLng(_.max(startLats),_.max(startLons)) ),
               { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] }
             )
+        $('.loading-mask.content-only').hide()
         $timeout (-> 
           s.mOkay = true 
           s._disableMapManipulationOnInfoBox()

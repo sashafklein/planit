@@ -41,8 +41,18 @@ body
     cursor: pointer
     z-index: 20000
   &.loading-mask
-    display: block
-    z-index: 50000
+    z-index: 150000
+    &.content-only
+      z-index: 20000
+    .sitewide-loading-message
+      width: 50px
+      height: 50px
+      border-radius: 8px
+      font-size: 30px
+      line-height: 50px
+      text-align: center
+      color: #fff
+      background: rgba(0,0,0,0.4)
 
 a, a:link, a:hover, a:active
   transition: 0.2s all ease

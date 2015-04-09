@@ -12,10 +12,14 @@ angular.module("Common").directive 'addPlacesToPlanOnClick', (User, Modal, Curre
 
       element.bind "click", (event) ->
         scope.place_ids = scope.$eval attrs.addPlacesToPlanOnClick
+        $('.loading-mask').show()
         User.findPlans( scope.userId )
           .success (response) -> 
             scope.plans = response
             scope.modal = new Modal('addToPlan').show({ plans: scope.plans, place_ids: scope.place_ids })
-          .error (response) -> ErrorReporter.report({ user_id: CurrentUser.id, context: "Loading user plans inside addPlacesToPlanOnClick directive" })
+            $('.loading-mask').hide()
+          .error (response) -> 
+            ErrorReporter.report({ user_id: CurrentUser.id, context: "Loading user plans inside addPlacesToPlanOnClick directive" })
+            $('.loading-mask').hide()
 
   }
