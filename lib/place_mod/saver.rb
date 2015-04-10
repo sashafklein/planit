@@ -94,7 +94,7 @@ module PlaceMod
 
     def expand_region
       if expand_region? && carmen_country = Carmen::Country.named(place.country)
-        carmen_region = carmen_country.subregions.coded(place.region)
+        carmen_region = carmen_country.subregions.try(:coded, place.region)
         place.region = carmen_region.name if carmen_region
       end
     end

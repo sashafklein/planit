@@ -7,8 +7,8 @@ FactoryGirl.define do
     country "SomeCountry"
     region "StateName"
     locality "CityName"
-    lat 1.5
-    lon 1.5
+    lat '1.5'
+    lon '1.5'
     website "www.whatever.com"
     categories ["Some category"]
     foursquare_id 'abcde12345'
@@ -31,8 +31,8 @@ FactoryGirl.define do
         sat: [["1200","0200"]],
         sun: [["1200","0000"]]
       })
-      lat 48.851946
-      lon 2.338757
+      lat '48.851946'
+      lon '2.338757'
     end
   end
 end

@@ -73,6 +73,15 @@ a.linky
     &:hover, &:active
       color: $lightBlue !important
 
+.input-with-clear
+  &:before
+    content: "<div class='input-with-clear-holder'>"
+  &:after
+    content: "<span class='clear-input-button'><i class='fa fa-times-circle'></i></span></div>"
+
+.input-with-clear-holder
+  position: relative
+
 .backgrounded
   background: no-repeat center center
   -webkit-background-size: cover

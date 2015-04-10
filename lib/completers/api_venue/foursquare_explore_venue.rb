@@ -85,6 +85,11 @@ module Completers
       check_ins && check_ins > 50 && photos.any?
     end
 
+    def icon
+      cats = json.categories || []
+      [cats.first.icon.prefix, cats.first.icon.suffix].join("64") if cats.any?
+    end
+
     private
 
     def check_ins

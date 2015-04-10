@@ -6,8 +6,8 @@ module Completers
 
     extend Memoist
 
-    def serialize
-      Place.attribute_keys.inject({}) do |hash, k| 
+    def serialize(extras=[])
+      (Place.attribute_keys.concat(extras) ).inject({}) do |hash, k| 
         hash[k] = respond_to?(k) ? send(k) : nil
         hash
       end.compact

@@ -25,6 +25,8 @@ mod.factory "Place", (BaseModel, BasicOperators, $http) ->
     url: -> "/places/#{@id}"
     name: -> @names[0]
     hasImage: -> @images.length > 0 && @images[0].url
+
+    localeDetails: -> if @locale? then @locale else _.compact([@street_addresses[0], @sublocality, @locality, @region, @country]).slice(0,2).join(", ")
     
     @_sublocality = (places) -> _(places).map('sublocality').compact().uniq().value()
     @_locality = (places) -> _(places).map('locality').compact().uniq().value()

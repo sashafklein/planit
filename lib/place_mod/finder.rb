@@ -6,7 +6,11 @@ module PlaceMod
       to: :search_atts
 
     def initialize(atts)
-      @atts = atts
+      @atts = {}.to_sh
+      atts.each do |k, v|
+        @atts[k] = is_a_number_column?(k) ? v.to_f : v
+      end
+
       @search_atts = atts.to_sh.slice(:region, :country, :locality, :sublocality, :lat, :lon, :street_addresses, :names, :cross_street, :phones, :full_address, :foursquare_id).select_val(&:present?)
     end
 
@@ -60,7 +64,7 @@ module PlaceMod
     end
 
     def place_atts
-      atts.slice(*Place.attribute_keys)
+      atts.slice(*Place.attribute_keys).symbolize_keys
     end
 
     def round_out(place)
@@ -110,6 +114,11 @@ module PlaceMod
       end
 
       { persisted: persisted.slice( *disagreements.keys ), incoming: incoming.slice( *disagreements.keys ) }
+    end
+
+    def is_a_number_column?(k)
+      return false unless Place.columns_hash[k.to_s] && type = Place.columns_hash[k.to_s].type
+      %w( integer float numeric ).include? type.to_s
     end
 
   end
