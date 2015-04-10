@@ -26,7 +26,7 @@ class Api::V1::PlansController < ApiController
 
     plan = current_user.plans.find(params[:id])
 
-    item = plan.add_item_from_place_data! current_user, params[:place]
+    item = plan.add_item_from_place_data! current_user, params[:place].compact
     return error(500, "Insufficient Place data.") unless item
 
     render json: item.mark.place, serializer: PlaceSerializer

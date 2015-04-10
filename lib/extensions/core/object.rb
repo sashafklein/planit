@@ -20,7 +20,7 @@ class Object
 
   def to_class(classname)
     method = "to_#{classname.to_s.chars.first.downcase}"
-    send(method) if respond_to?(method)
+    respond_to?(method) ? send(method) : self
   end
 
 end

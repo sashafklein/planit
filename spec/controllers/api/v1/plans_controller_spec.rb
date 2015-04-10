@@ -97,7 +97,7 @@ describe Api::V1::PlansController, :vcr do
     it "calls plan.add_item_from_place_data! with the data" do
       sign_in @plan.user
 
-      expect_any_instance_of( Plan ).to receive(:add_item_from_place_data!).with(@plan.user, @data.map_val{ |v| v.is_a?(Numeric) ? v.to_s : v })
+      expect_any_instance_of( Plan ).to receive(:add_item_from_place_data!).with(@plan.user, @data.map_val{ |v| v.is_a?(Numeric) ? v.to_s : v }.compact)
 
       post :add_item_from_place_data, id: @plan.id, place: @data
     end

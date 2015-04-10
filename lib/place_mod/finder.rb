@@ -6,10 +6,7 @@ module PlaceMod
       to: :search_atts
 
     def initialize(atts)
-      @atts = {}.to_sh
-      atts.each do |k, v|
-        @atts[k] = is_a_number_column?(k) ? v.to_f : v
-      end
+      @atts = Place.correct_data_types(atts).to_sh
 
       @search_atts = atts.to_sh.slice(:region, :country, :locality, :sublocality, :lat, :lon, :street_addresses, :names, :cross_street, :phones, :full_address, :foursquare_id).select_val(&:present?)
     end
