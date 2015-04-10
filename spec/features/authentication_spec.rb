@@ -7,7 +7,7 @@ describe 'Authentication' do
       user = create(:user)
       user.member!
       visit root_path
-      click_link 'LOG IN'
+      click_link 'Log In'
 
       expect( page ).to have_content 'LOG IN' # On sign-in page
       fill_in 'Email', with: user.email

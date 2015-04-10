@@ -7,9 +7,11 @@
       %span.place-control-hint= "Add to Guide"
       %i.fa.fa-book
 
-    .place-control
+    .place-control.disabled{ ng_show: "!hasMarkFor()" }
+      %i.fa.fa-pencil
+    %a.place-control{ ng_show: "hasMarkFor()" }
       %span.place-control-hint= "Add Note"
-      %i.fa.fa-pencil{ add_note_on_click: true, object_id: '{{markId}}', object_type: 'Mark'}
+      %i.fa.fa-pencil{ add_note_on_click: true, object_id: '{{place.id}}', object_type: 'Place'}
 
     .place-control.disabled{ ng_show: "!hasMarkFor()" }
       %i.fa.fa-check-square

@@ -63,6 +63,19 @@ class Mark < BaseModel
     Item.where( mark_id: self.where( place_id: place_id ).pluck(:id) ).pluck( :plan_id )
   end
 
+  def self.with_original_query( attrs )
+    results = select do |m|
+      m.query.scrape_url == attrs.scrape_url && 
+      m.query.names == attrs.names && 
+      m.query.nearby == attrs.nearby && 
+      m.query.lat == attrs.lat && 
+      m.query.lon == attrs.lon 
+    end
+    results.first
+  end
+
+  # INSTANCE METHODS
+
   def save_with_source!(source_url:)
     save!
     create_source!(source_url: source_url) if source_url.present?

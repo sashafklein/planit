@@ -69,13 +69,6 @@ class Api::V1::MarksController < ApiController
     success
   end
 
-  def note
-    return permission_denied_error unless @mark && @mark.user == current_user
-    return error unless params[:note]
-    # @mark.update_attributes!(deleted: true)
-    success
-  end
-
   private
 
   def load_mark

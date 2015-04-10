@@ -1,5 +1,5 @@
 class SearchPlaceSerializer < BaseSerializer
-  attributes :id, :name, :names, :image_url, :image_source, :address, :locale, :href, :categories, :meta_icon, :country, :savers, :lovers, :visitors, :guides
+  attributes :id, :name, :names, :image_url, :image_source, :address, :locale, :href, :categories, :meta_icon, :country, :savers, :lovers, :visitors, :guides #, :mark
   delegate :street_address, :sublocality, :locality, :subregion, :region, :country, :categories, :meta_icon, :meta_categories, to: :object
 
   has_many :images
@@ -43,6 +43,11 @@ class SearchPlaceSerializer < BaseSerializer
   def guides
     Mark.guides( id )
   end
+
+  # def mark
+  #   return nil unless scope
+  #   object.marks.find_by user_id: scope.id
+  # end
 
   private
 
