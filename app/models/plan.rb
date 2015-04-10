@@ -18,6 +18,21 @@ class Plan < BaseModel
   delegate :last_day, :departure, to: :last_leg
   delegate :arrival, to: :first_leg
 
+  def add_item_from_place_data!(user, data)
+    return unless place = Place.find_or_initialize(data)
+    place = place.validate_and_save! unless place.persisted?
+    add_with_place!(user, place)
+  end
+
+  def add_with_place!(user, place)
+    mark = Mark.unscoped.where(user: user, place_id: place.id).first_or_create!
+    add_with_mark!(mark)
+  end
+
+  def add_with_mark!(mark)
+    items.where(mark_id: mark.id).first_or_create!
+  end
+
   def source
     sources.first
   end

@@ -20,6 +20,27 @@ describe Place do
     end
   end
 
+  describe "correct_data_types(hash)" do
+    it "fixes the data types while ignoring non-attributes keys" do
+      result = Place.correct_data_types({
+        lat: '123',
+        lon: '1234.56',
+        names: nil,
+        full_address: 1234,
+        feature_type: 1.2,
+        made_up: { whatever: 'I want'}
+      }).to_sh
+
+      expect( result.lat ).to eq 123.0
+      expect( result.lat ).to be_a Float
+      expect( result.lon ).to eq 1234.56
+      expect( result.names ).to eq []
+      expect( result.full_address ).to eq '1234'
+      expect( result.feature_type ).to eq 1
+      expect( result.made_up ).to eq( { whatever: 'I want' } )
+    end
+  end
+
   def place(no: nil, other: {})
     Place.new(
       {

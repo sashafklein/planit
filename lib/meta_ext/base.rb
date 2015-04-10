@@ -54,6 +54,20 @@ module MetaExt
           end
         end
       end
+
+      def correct_data_types(attr_hash)
+        new_atts = {}
+        attr_hash.each do |k, v|
+          new_atts[k] = correct_data_type(k, v)
+        end
+        new_atts
+      end
+
+      def correct_data_type(k, v)
+        c = columns_hash[k.to_s]
+        t = c.type == :string ? (c.default == '{}' ? :array : :string) : c.type if c
+        c ? v.to_class( t ) : v
+      end
     end
 
     def self.included(base)

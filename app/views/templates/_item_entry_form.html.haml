@@ -1,0 +1,63 @@
+%script{ type: 'text/ng-template', id: 'item_entry_form.html' }
+  .new-item-form
+    #new-list-item.left-pane
+      .container
+        .column
+          .add-new-form
+            .add-new-input.section
+              %i.fa.fa-book.new-place-icon
+              .input-and-results
+                %input.guide-name#guide{ name: "guide", type: 'text', placeholder: 'Pick a List', ng_model: 'listQuery', ng_on_enter_key: 'setList()', ng_show: '!list' }
+                %span{ ng_show: 'list' }
+                  {{ list.name }}
+                  %span{ ng_click: 'resetList()' } x
+
+                %a.btn.linky.neon{ ng_click: 'setList()', ng_hide: '!noListOptions() || !lists.length' } Add New List
+                %ul.suggested-results{ ng_show: 'visibleLists.length && listQuery.length', style: "margin-left: 35px"}
+                  %li{ ng_repeat: "currentList in listOptions()", ng_click: 'setList(currentList)' }
+                    %span.name {{currentList.name}}
+                    %span.count ({{currentList.place_ids.length}} places)
+            .add-new-input.section{ ng_show: 'list' }
+              %i.fa.fa-globe.new-place-icon
+              %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Where? (Location)', ng_model: 'placeNearby' }
+            .add-new-input.section{ ng_show: 'placeNearby && list' }
+              %i.fa.fa-bookmark.new-place-icon
+              %input#place-name{ name: "place-name", type: 'text', placeholder: 'What? (Place Name)', ng_model: 'placeName', ng_change: 'search()' }
+            %hr.divider{ ng_if: 'placeName' }
+            .place-search-results
+              %ul
+                %li.search-results-list{ ng_repeat: 'option in options', ng_click: 'addItem(option)' }
+                  .bucket-list-tab
+                    %a{ ng_href: '{{option.href}}' }
+                      .bucket-list-no-img{ ng_if: "!option.icon" }
+                      .bucket-list-img{ ng_if: "option.icon", style: "background-image: url('{{ option.icon }}');" }
+                    .bucket-list-wrap
+                      .bucket-list-profile
+                        %a
+                          .bucket-list-title
+                            {{ option.names[0] }}
+                          .bucket-list-more-info
+                            %i{ class: "{{ option.meta_icon }}"}
+                            {{ option.categories.join(', ') }}
+                          .bucket-list-more-info.locale-only
+                            {{ option.localeDetails() }}
+
+    #existing-list-items.right-pane
+      .inner-box
+        %ul
+          %li.list-item.place-search-results{ ng_repeat: 'place in preexisting' }
+            .bucket-list-tab
+              %a{ ng_href: '{{place.href}}' }
+                .bucket-list-no-img{ ng_if: "!place.image_url" }
+                .bucket-list-img{ ng_if: "place.image_url", style: "background-image: url('{{ place.image_url }}');" }
+              .bucket-list-wrap
+                .bucket-list-profile
+                  %a
+                    .bucket-list-title
+                      {{ place.names[0] }}
+                    .bucket-list-more-info
+                      %i{ class: "{{ place.meta_icon }}"}
+                      {{ place.categories.join(', ') }}
+                    .bucket-list-more-info.locale-only
+                      {{ place.localeDetails() }}
+}

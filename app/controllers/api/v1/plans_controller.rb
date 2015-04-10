@@ -20,6 +20,18 @@ class Api::V1::PlansController < ApiController
     render json: @plan, serializer: PlanSerializer
   end
 
+  def add_item_from_place_data
+    return permission_denied_error unless current_user
+    return error(500) unless params[:place]
+
+    plan = current_user.plans.find(params[:id])
+
+    item = plan.add_item_from_place_data! current_user, params[:place].compact
+    return error(500, "Insufficient Place data.") unless item
+
+    render json: item.mark.place, serializer: PlaceSerializer
+  end
+
   def add_items
     return permission_denied_error unless @plan && @plan.user == current_user
     marks = Mark.where( user_id: current_user.id, place_id: params[:place_ids] )

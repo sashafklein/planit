@@ -9,5 +9,6 @@ mod.factory "Plan", (BaseModel, $http) ->
 
     addItems: (place_ids) -> $http.post( "#{@objectPath()}/add_items", { place_ids: place_ids } ) 
     destroyItems: (place_ids) -> $http.post( "#{@objectPath()}/destroy_items", { place_ids: place_ids } ) 
+    addItemFromPlaceData: (data) -> $http.post( "#{@objectPath()}/add_item_from_place_data", {place: data} )
 
   return Plan

@@ -31,6 +31,8 @@ Rails.application.routes.draw do
     get :edit, on: :member
   end
 
+  resources :items, only: [:new]
+
   get 'morph/:id', to: 'morph#new', as: :morph
   delete :unmorph, to: 'morph#destroy'
 
@@ -62,7 +64,13 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
 
+      resources :foursquare, only: [] do
+        get :search, on: :collection
+      end
+
       resources :notes, only: [:create]
+
+      resources :items, only: [:index]
       
       resources :marks, only: [:destroy, :create, :show] do
         post :choose, on: :member
@@ -100,6 +108,7 @@ Rails.application.routes.draw do
         post :rename, on: :member
         post :add_items, on: :member
         post :destroy_items, on: :member
+        post :add_item_from_place_data, on: :member
         resources :places, only: [:index], controller: 'plans/places'
       end
       

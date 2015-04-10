@@ -16,9 +16,14 @@ module PlaceMod
       do_saving
     end
 
+    def self.order_given_names(names)
+      names = names.compact
+      return names unless names.any?
+      names.reject(&:non_latinate?) + names.select(&:non_latinate?).map(&:decode_characters)
+    end
+
     def order_names
-      return unless (place.names = place.names.compact).any?
-      place.names = place.names.reject(&:non_latinate?) + place.names.select(&:non_latinate?).map(&:decode_characters)
+      place.names = self.class.order_given_names(place.names)
     end
 
     private
@@ -94,7 +99,7 @@ module PlaceMod
 
     def expand_region
       if expand_region? && carmen_country = Carmen::Country.named(place.country)
-        carmen_region = carmen_country.subregions.coded(place.region)
+        carmen_region = carmen_country.subregions.try(:coded, place.region)
         place.region = carmen_region.name if carmen_region
       end
     end
@@ -135,7 +140,7 @@ module PlaceMod
     def regional_info_correct_and_deaccented?
       [:country, :region, :subregion, :locality].all? do |att|
         val = place.read_attribute(att)
-        val.nil? || (!val.non_latinate? && val.length > 3)
+        val.blank? || (!val.non_latinate? && val.length > 3)
       end
     end
 

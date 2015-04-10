@@ -87,6 +87,31 @@ describe Api::V1::PlansController, :vcr do
 
   end
 
+  describe "add_item_from_place_data" do
+
+    before do
+      @plan = create(:plan, user: create(:user))
+      @data = build(:place).attributes.to_sh.except(:id)
+    end
+
+    it "calls plan.add_item_from_place_data! with the data" do
+      sign_in @plan.user
+
+      expect_any_instance_of( Plan ).to receive(:add_item_from_place_data!).with(@plan.user, @data.map_val{ |v| v.is_a?(Numeric) ? v.to_s : v }.compact)
+
+      post :add_item_from_place_data, id: @plan.id, place: @data
+    end
+
+    it "errors if there's no current_user" do
+      expect_any_instance_of( Plan ).not_to receive(:add_item_from_place_data!)
+
+      post :add_item_from_place_data, id: @plan.id, place: @data
+
+      expect( response.code ).to eq '403'
+    end
+
+  end
+
   def data
     {
       plan_name: "Whatup Bitches",
