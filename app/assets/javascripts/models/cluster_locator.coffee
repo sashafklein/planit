@@ -5,8 +5,8 @@ mod.factory 'ClusterLocator', (BasicOperators) ->
 
     @clusterDetails = (places) ->
       types = _(places).map('meta_categories').flatten().uniq().value()
-      # return types.join(' & ') + ' spots' if types.length < 3
-      return 'pins'
+      details = if types.length < 3 && types.length > 0 then types.join(" & ") else 'places'
+      debugger
 
     @nearestGlobalRegion = (clusterLatLng) ->
       nearestRegion = ''

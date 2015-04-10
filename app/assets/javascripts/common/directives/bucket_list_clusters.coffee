@@ -19,16 +19,15 @@ angular.module("Common").directive 'bucketListClusters', (BucketEventManager, Cl
         if s._changeReady()
           s._clusterPlaceIds = _(s.cluster.places).map('id').value()
       
-      s.clusterImage = () -> 
-
+      s.clusterImage = -> 
         return s.clusterImageIs if s.clusterImageIs
         if s._changeReady()
-          s.clusterImageIs = ClusterLocator.imageForLocation(s.cluster.location, s.cluster.places)
+          s.clusterImageIs = ClusterLocator.imageForLocation( s.cluster.location, s.cluster.places )
 
-      s.pinsDetails = () -> 
-        return s.pinsDetailsAre if s.pinDetailsAre
+      s.clusterDetails = -> 
+        return s.clusterDetails if s.clusterDetails
         if s._changeReady()
-          s.pinDetailsAre = ClusterLocator.pinsDetails(s.cluster.places)
+          s.clusterDetails = ClusterLocator.clusterDetails( s.cluster.places )
       
       s._changeReady = ->
         if s.latestChange != s.changes

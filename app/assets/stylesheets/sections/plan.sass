@@ -1,6 +1,47 @@
 #show-plan-page, #new-plan-page
   height: auto
 
+  .setplanbox-on-plan-page, .addbox-on-plan-page
+    position: fixed
+    overflow: hidden
+    input.full-input
+      width: 100%
+
+  .setplanbox-on-plan-page
+    top: 0
+    height: 68px
+    background: #333
+    border-top: solid #003 3px
+    z-index: 150000
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
+    span.title
+      color: #fff
+      font-weight: normal
+      font-size: 18px
+      line-height: 28px
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    i.title, i.date
+      line-height: 28px
+      cursor: pointer
+      color: #aaa
+      transition: 0.2s ease all
+      &:hover
+        color: #f06
+    i.title
+      padding-left: 5px
+      font-size: 14px
+    i.date
+      float: right
+      padding-left: 10px
+      font-size: 18px
+
+  .addbox-on-plan-page
+    top: 68px
+    height: 65px
+    background: #333
+    z-index: 145000
+
   // PLAN TOP-SECTION
   .add-new-wrap
     padding: 20px 0
@@ -320,6 +361,13 @@
 
   // *Computer (Regular)
 
+  .setplanbox-on-plan-page, .addbox-on-plan-page
+    left: 0
+    right: 0
+    padding: 18px
+    width: 33%
+    margin: 0 auto
+
   .day-tab-wrap
     padding: 3px 10px
 
@@ -341,6 +389,11 @@
   // #Tablet (Portrait)
   @media only screen and (min-width: 768px) and (max-width: 959px)
 
+    .setplanbox-on-plan-page, .addbox-on-plan-page
+      padding: 18px
+      width: 33%
+      margin: 0 auto
+
     .day-tab-wrap
       padding: 3px 10px
 
@@ -361,6 +414,17 @@
 
   // #Mobile (Portrait) <-- smallest
   @media only screen and (max-width: 767px)
+
+    .setplanbox-on-plan-page, .addbox-on-plan-page
+      width: auto
+      left: 60px
+      right: 60px
+      height: 43px
+      padding: 9px
+      margin: 0 auto
+      border-top: 0
+    .addbox-on-plan-page
+      top: 43px
 
     .container-upfront-plan-map
       top: 105px
@@ -396,6 +460,14 @@
 
   // #Mobile (Landscape)
   @media only screen and (min-width: 480px) and (max-width: 767px)
+
+    .setplanbox-on-plan-page, .addbox-on-plan-page
+      width: auto
+      left: 80px
+      right: 80px
+      height: 43px
+      padding: 9px
+      margin: 0 auto
 
     .container-upfront-plan-map
       top: 105px

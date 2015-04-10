@@ -3,14 +3,23 @@
 
 #show-plan-page{ ng_controller: 'Plans.ShowCtrl', ng_init: "loadPlaces(#{@plan.id})" }
 
-  .plan-map-container{ ng_class: "{'expanded': mapExpanded}" }
-    / %div#expand-map-button.large-screen{ ng_click: 'contractOrExpandMap()'}
-    /   %i.fa.fa-expand.fa-flip-horizontal
-    %no_sidebar_map.plan-map-canvas{ unwrapped_places: 'places', ng_show: 'loaded' }
-      .plan-name-and-detail-container{ ng_show: '!mapExpanded' }
-        .plan-name-wrap.clearfix
-          %span.plan-name= @plan.name
-        = @plan.decorate.show_plan_dates
+  .setplanbox-on-plan-page
+    %span.title Japan Family Trip
+    %i.fa.fa-pencil.title
+    %i.fa.fa-calendar.date
+    / %input{ placeholder: 'Guide Name' }
+  .addbox-on-plan-page
+    / %input{ placeholder: 'Where? (City or Region)' }
+    .faux-input-wrap
+      %span.chosen-input
+        %i.fa.fa-times-circle
+        San Francisco, California
+      %input.real-input{ placeholder: 'Add Places to Your Guide' }
+
+  / .plan-map-container{ ng_class: "{'expanded': mapExpanded}" }
+  /   / %div#expand-map-button.large-screen{ ng_click: 'contractOrExpandMap()'}
+  /   /   %i.fa.fa-expand.fa-flip-horizontal
+  /   %no_sidebar_map.plan-map-canvas{ unwrapped_places: 'places', ng_show: 'loaded' }
 
   .plan-items-container.except-landscape{ ng_show: '!mapExpanded' }
     - @plan.legs.each_with_index do |leg, index|

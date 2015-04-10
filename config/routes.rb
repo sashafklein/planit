@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   devise_for :users
 
-  root 'landing#show'
+  root 'plans#index'
 
   get '/beta', to: 'statics#beta'
   get '/invite', to: 'statics#invite'

@@ -16,11 +16,7 @@ class PlansController < ApplicationController
   end
 
   def index
-    if current_user
-      redirect_to user_path(current_user)+"/guides"
-    else
-      redirect_to new_user_session_path
-    end
+    redirect_to beta_path if !current_user_is_active
   end
 
   private

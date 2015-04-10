@@ -2,7 +2,7 @@
   .map-canvas-box.bucket-map
     .leaflet-wrapper{ ng_if: 'layers' }
       %leaflet{ markers: 'places', defaults: 'defaults', height: '100%', width: '100%', center: 'centerPoint', layers: 'layers', watch_markers: 'false' }
-        #map-info-box
+        #map-info-box{ ng_show: "loaded" }
 
           // WEB!!!
           .map-filter-results-container
@@ -11,13 +11,12 @@
               .bucket-list-container
                 %ul
                   #top-of-list
-                  %li{ class: "bucket-list-li-first", id: "first-bucket-item", ng_show: '!places.length || ( !placesInView.length && !clustersInView.length ) ' }
+                  %li{ class: "bucket-list-li-first", id: "first-bucket-item", ng_show: '(loaded && !places.length) || ( !placesInView.length && !clustersInView.length ) ' }
                     .bucket-list-tab
                       .bucket-list-no-icon
                         %i.fa.fa-spinner.fa-spin{ ng_show: '!allPlaces.length' }
                         %i.fa.fa-exclamation-triangle{ ng_show: 'allPlaces.length' }
                       .bucket-list-wrap#no-items-msg
-                        %span{ ng_show: '!allPlaces.length' }= "Loading Places..."
                         %span{ ng_show: 'allPlaces.length && !places.length' }= "You're all Filtered Out..."
                         %span{ ng_show: 'allPlaces.length && places.length && !placesInView.length && !clustersInView.length' }= "Not All Who Wander Are Lost..."
                   %li.bucket-list-li.cluster-li{ ng_repeat: "cluster in clustersInView", class: "{{cluster.id}}", id: "{{cluster.id}}", ng_mouseenter: "mouse('clusterMouseenter', cluster.id)", ng_mouseleave: "mouse('clusterMouseleave', cluster.id)"}

@@ -13,6 +13,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
 
     link: (s, elem) ->
       $('.loading-mask.content-only').show()
+      s.loaded = false
       s.currentUserId = CurrentUser.id
       s.marker = new PlanitMarker(s)
       s.mobile = elem.width() < 768
@@ -52,7 +53,8 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
               showCoverageOnHover: true
               removeOutsideVisibleBounds: true
               polygonOptions: { color: "#ff0066", opacity: 1.0, fillColor: "#ff0066", fillOpacity: 0.4, weight: 3  }
-              maxClusterRadius: 50
+              maxClusterRadius: 60
+              disableClusteringAtZoom: 13
               spiderifyDistanceMultiplier: 2
               requireDoubleClick: s.mobile
               paddingToFocusArea: s.padding
@@ -102,7 +104,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
           callback?()
 
       s._updateQuery = ->
-        if s.mOkay && s.currentLLZoom
+        if s.loaded && s.currentLLZoom
           QueryString.modify( m: "#{ s.currentLLZoom.lat.toFixed(4) },#{ s.currentLLZoom.lon.toFixed(4) },#{ s.currentLLZoom.zoom }" )
 
       # SET MAP DATA
@@ -123,7 +125,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
             )
         $('.loading-mask.content-only').hide()
         $timeout (-> 
-          s.mOkay = true 
+          s.loaded = true
           s._disableMapManipulationOnInfoBox()
           s._adjustInfoBoxSize()
           ), 2000
