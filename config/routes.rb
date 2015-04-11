@@ -110,6 +110,10 @@ Rails.application.routes.draw do
         post :destroy_items, on: :member
         post :add_item_from_place_data, on: :member
         resources :places, only: [:index], controller: 'plans/places'
+
+        post :add, to: 'plans/manifest#add', on: :member, as: :add_to_manifest
+        post :remove, to: 'plans/manifest#remove', on: :member, as: :remove_from_manifest
+        post :move, to: 'plans/manifest#move', on: :member, as: :move_in_manifest
       end
       
       resources :places, only: [:show, :index] do
