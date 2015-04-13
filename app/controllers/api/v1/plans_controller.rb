@@ -14,6 +14,11 @@ class Api::V1::PlansController < ApiController
     render json: @plan, serializer: PlanSerializer
   end
 
+  def update
+    return permission_denied_error unless @plan && current_user.owns?(@plan)
+    @plan.update_attributes!(params[:plan])
+  end
+
   def rename
     return permission_denied_error unless @plan && @plan.user == current_user
     @plan.name = params[:plan_name] || @plan.name
@@ -30,6 +35,12 @@ class Api::V1::PlansController < ApiController
     return error(500, "Insufficient Place data.") unless item
 
     render json: item.mark.place, serializer: PlaceSerializer
+  end
+
+  def items
+    return permission_denied_error unless current_user && current_user.owns?(@plan)
+    
+    render json: @plan.items.includes( mark: {place: [:images]} ), each_serializer: ItemSerializer
   end
 
   def add_items

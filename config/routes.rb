@@ -70,7 +70,7 @@ Rails.application.routes.draw do
 
       resources :notes, only: [:create]
 
-      resources :items, only: [:index]
+      resources :items, only: [:index, :show]
       
       resources :marks, only: [:destroy, :create, :show] do
         post :choose, on: :member
@@ -105,6 +105,7 @@ Rails.application.routes.draw do
       end
 
       resources :plans, only: [:destroy, :create, :show] do
+        get :items, on: :member
         post :rename, on: :member
         post :add_items, on: :member
         post :destroy_items, on: :member

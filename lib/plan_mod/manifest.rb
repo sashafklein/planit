@@ -23,6 +23,10 @@ module PlanMod
       plan.manifest
     end
 
+    def objects
+      @objects ||= plan.manifest.map{ |i| i['class'].constantize.find(i.id) }
+    end
+
     private
 
     def move(from, to)
