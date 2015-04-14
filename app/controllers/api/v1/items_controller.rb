@@ -1,5 +1,10 @@
 class Api::V1::ItemsController < ApiController
 
+  def show
+    return permission_denied_error unless current_user
+
+    render json: Item.find(params[:id]), serializer: ItemSerializer
+  end
 
   def index
     return permission_denied_error unless current_user

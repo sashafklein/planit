@@ -1,45 +1,13 @@
 - title('Edit Your Plan')
 - set_page_type('edit')
 
-.place-page
+.container.plans-edit{ ng_controller: 'Plans.EditCtrl', ng_init: "getPlan(#{@plan.id})"}
+  .left-pane.pane.six.columns
+    .item{ ng_repeat: 'item in manifestItems' }
+      %h4 {{ item.mark.place.name() }}
+      %p {{ item.mark.place.localeDetails() }}
 
-  .add-new-wrap
-    .container
-      .six.columns.add-new-form
-        .add-new-input.section
-          %i.fa.fa-paper-plane.new-plan-icon
-          %input{ placeholder: 'Plan Name', value: @plan.name }
-        %hr.divider
-        .add-new-input.section
-          %i.fa.fa-level-down.new-plan-icon
-          %input{ placeholder: 'Arriving to Where? (Optional)'}
-        .add-new-input.section
-          %i.fa.fa-level-up.new-plan-icon
-          %input{ placeholder: 'Departing from Where? (Optional)'}
-        %hr.divider
-        .add-new-input.section
-          %i.fa.fa-calendar.new-plan-icon
-          %input{ placeholder: 'Start Date? (Optional)', value: @plan.starts_at }
-        .add-new-input.section
-          %i.fa.fa-suitcase.new-plan-icon
-          - day_count = @plan.days.count unless @plan.days.count == 0
-          %input{ placeholder: 'Days? (Optional Trip Length)', value: day_count }
-        %hr.divider
-        .add-new-input.section
-          %i.fa.fa-unlock-alt.new-plan-icon
-          %select.on-off-button.off
-            %option{ :value => "public", :selected => 'selected' }= "Public (Default)"
-            %option{ :value => "private" }= "Private"
-        %hr.divider
-        .mobile
-          .click-for-more
-            %i.fa.fa-caret-down
-            Import Places or Plans
-        .add-new-submit.disabled
-          Update Plan
-        .mobile
-          %hr.divider
-
-      .ten.columns
-        .import-bucket
-          Imported Items/Plans would display here?
+  .right-pane.pane.ten.columns
+    .item{ ng_repeat: 'item in items' } 
+      %h4 {{ item.mark.place.name() }}
+      %p {{ item.mark.place.localeDetails() }}

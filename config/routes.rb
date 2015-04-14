@@ -70,7 +70,7 @@ Rails.application.routes.draw do
 
       resources :notes, only: [:create]
 
-      resources :items, only: [:index]
+      resources :items, only: [:index, :show]
       
       resources :marks, only: [:destroy, :create, :show] do
         post :choose, on: :member
@@ -105,11 +105,16 @@ Rails.application.routes.draw do
       end
 
       resources :plans, only: [:destroy, :create, :show] do
+        get :items, on: :member
         post :rename, on: :member
         post :add_items, on: :member
         post :destroy_items, on: :member
         post :add_item_from_place_data, on: :member
         resources :places, only: [:index], controller: 'plans/places'
+
+        post :add, to: 'plans/manifest#add', on: :member, as: :add_to_manifest
+        post :remove, to: 'plans/manifest#remove', on: :member, as: :remove_from_manifest
+        post :move, to: 'plans/manifest#move', on: :member, as: :move_in_manifest
       end
       
       resources :places, only: [:show, :index] do

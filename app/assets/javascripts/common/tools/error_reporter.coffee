@@ -14,6 +14,8 @@ angular.module('Common').factory 'ErrorReporter', ($http, $location, RailsEnv, F
       if msg?.length
         Flash.error(msg)
 
+    @defaultReport: (hash) -> ErrorReporter.report(hash, "Something went wrong! We've been notified.")
+
     @_errorPath: '/api/v1/errors'
 
   return ErrorReporter

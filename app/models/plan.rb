@@ -15,8 +15,14 @@ class Plan < BaseModel
   has_many_polymorphic table: :notes
 
   boolean_accessor :published
+  json_accessor :manifest
   delegate :last_day, :departure, to: :last_leg
   delegate :arrival, to: :first_leg
+  delegate :add_to_manifest, :remove_from_manifest, :move_in_manifest, to: :manifester
+
+  def manifester
+    PlanMod::Manifest.new(self)
+  end
 
   def add_item_from_place_data!(user, data)
     return unless place = Place.find_or_initialize(data)

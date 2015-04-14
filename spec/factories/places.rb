@@ -13,6 +13,7 @@ FactoryGirl.define do
     categories ["Some category"]
     foursquare_id 'abcde12345'
     timezone_string 'America/Whatever'
+    meta_categories ['Food']
 
     factory :comptoir do
       names ["Le Comptoir du Relais"]

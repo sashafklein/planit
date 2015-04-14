@@ -1,7 +1,16 @@
 mod = angular.module("Models")
-mod.factory "Mark", (BaseModel, $http) ->
+mod.factory "Mark", (BaseModel, $http, Place) ->
   
   class Mark extends BaseModel
+
+    constructor: (_properties) ->
+      properties = _.clone(_properties)
+      @place = @extractHasOneRelation(Place, properties, 'place')
+      _.extend(this, properties)
+
+    @class: "Mark"
+    class: Mark.class
+
     @generateFromJSON: (json) -> BaseModel.generateFromJSON(Mark, json)
     @basePath: '/api/v1/marks'
     

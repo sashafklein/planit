@@ -2,6 +2,14 @@ mod = angular.module("Models")
 mod.factory "Place", (BaseModel, BasicOperators, $http) ->
   
   class Place extends BaseModel
+
+    constructor: (_properties) ->
+      properties = _.clone(_properties)
+      _.extend(this, _properties)
+
+    @class: "Place"
+    class: Place.class
+
     @generateFromJSON: (json) -> BaseModel.generateFromJSON(Place, json)
     @basePath: '/api/v1/places'
 
@@ -26,10 +34,11 @@ mod.factory "Place", (BaseModel, BasicOperators, $http) ->
     name: -> @names[0]
     hasImage: -> @images.length > 0 && @images[0].url
 
-    localeDetails: -> if @locale? then @locale else _.compact([@street_addresses[0], @sublocality, @locality, @region, @country]).slice(0,2).join(", ")
+    localeDetails: -> if @locale? then @locale else _([@street_addresses[0], @sublocality, @locality, @region, @country]).compact().uniq().value().slice(0,2).join(", ")
     
     @_sublocality = (places) -> _(places).map('sublocality').compact().uniq().value()
     @_locality = (places) -> _(places).map('locality').compact().uniq().value()
     @_region = (places) -> _(places).map('region').compact().uniq().value()
     @_country = (places) -> _(places).map('country').compact().uniq().value()
+    
   return Place
