@@ -17,10 +17,6 @@ class Mark < BaseModel
   has_one :arrival, class_name: 'Travel', foreign_key: 'to_id'
   has_one :departure, class_name: 'Travel', foreign_key: 'from_id'
 
-  delegate :names, :name, :categories, :category, :coordinate, :url, :phones, :phone, :website,
-           :country, :region, :locality, :sublocality, :images, :image, :street_address, to: :place
-
-  delegate :full, :lodging, to: :place, prefix: true
   boolean_accessor :lodging, :meal, :published, :been, :loved, :deleted
 
   scope :with_tabs,     ->        { where(show_tab: true) }
@@ -32,6 +28,26 @@ class Mark < BaseModel
   scope :starred,       ->        { with_mark('star') }
   scope :sourced_with,  -> (source_name) { where(id: Source.where(name: source_name, object_type: 'Mark').pluck(:object_id)) }
   default_scope { not_deleted }
+
+  delegate    :names,
+              :lat, :lon, 
+              :street_addresses, :sublocality, :locality, :subregion, :region, :country, 
+              :phone, :phones, :website,
+              :meta_categories, :categories,
+
+              :images, 
+
+              :menu, :mobile_menu, 
+              :reservations, :reservations_link, :hours, 
+
+              :coordinate, :image,
+              :name, :image_url, :image_source, :address, :locale, :meta_icon,
+              :savers, :lovers, :visitors, :guides,
+
+              :name,
+              :street_address,
+              :meta_icon, :meta_category, 
+                to: :place
 
   make_taggable
 
@@ -156,11 +172,14 @@ class Mark < BaseModel
     # MarkFilterer.new(array).results
   end
 
-  # INSTANCE METHODS
+  # PLACE
 
-  def name
-    if has_place? then place.name else ( if query.exists? then query.names.first else 'Unnamed Place' end ) end
+  def href
+    route_helper = Rails.application.routes.url_helpers
+    if has_place? then route_helper.place_path(place) else route_helper.mark_path(mark) end
   end
+
+  # INSTANCE METHODS
 
   def query
     @query ||= MarkMod::Query.new(self)

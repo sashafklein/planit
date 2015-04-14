@@ -76,6 +76,9 @@ gem "rspec-instafail", require: false
 gem "foursquare2"
 gem "yelp"
 
+# export
+gem "ruby_kml"
+
 # unsure
 gem "flutie"
 gem "figaro"

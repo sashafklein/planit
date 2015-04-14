@@ -31,7 +31,7 @@ body
   position: relative
 
 .page-mask
-  position: absolute
+  position: fixed
   display: none
   top: 0
   bottom: 0
@@ -40,6 +40,8 @@ body
   height: 100%
   width: 100%
   background: rgba(0,0,0,0.3)
+  &.everything-but-mask
+    z-index: 1000000
   &.searching-mask
     cursor: pointer
     z-index: 20000
@@ -379,28 +381,33 @@ strong, .in-caps-header, i, b
   width: 100%
   margin: 0
   padding: 0
+  position: relative
   overflow: hidden
   white-space: nowrap
   cursor: text
 
   input.real-input
+    width: 65%
+    float: left
+  input.real-select
+    width: 85%  
+    float: left
+  input.real-input, input.real-select
     border-size: 0
     border: none
     box-shadow: none
     color: rgb(68, 68, 68)
     cursor: auto
     display: block
-    float: left
     font-size: 14px
     font-style: normal
     font-variant: normal
     font-weight: normal
     line-height: normal
-    margin: 0 0 5px 0
+    margin: 0
     padding: 4px 0 4px 5px
     text-align: start
     text-indent: 0px
-    width: 65%
     word-spacing: 0px
     writing-mode: lr-tb
     vertical-align: middle
@@ -410,10 +417,15 @@ strong, .in-caps-header, i, b
       border-size: 0
       border: none
   span.chosen-input
+    width: 30%
+    float: left
+  span.add-new
+    width: 10%
+    float: right
+  span.chosen-input, span.add-new
     box-sizing: content-box
     cursor: pointer
     display: block
-    float: left
     font-size: 14px
     font-style: normal
     font-weight: normal
@@ -424,7 +436,6 @@ strong, .in-caps-header, i, b
     overflow-x: hidden
     overflow-y: hidden
     padding: 0 5px
-    width: 30%
     text-align: center
     text-decoration: none
     text-overflow: ellipsis
@@ -433,14 +444,33 @@ strong, .in-caps-header, i, b
     background: #f06
     border: 1px solid #c03
     border-bottom: 1px solid #700
-    &:hover
-      color: #eee
+    &:hover, &.highlighted
+      color: #fff
+      text-shadow: 1px 1px 1px #b28
       background: #e05
       border: 1px solid #b02
       border-bottom: 1px solid #600
-    i
+    i.fa-times
       float: left
       margin: 2px 4px 2px 0
+
+.input-and-results
+  position: relative
+  display: block
+  width: 100%
+
+  ul.suggested-results
+    list-style-type: none
+    -webkit-padding-start: 0
+    padding: 0
+    margin: 0
+    background: #ddd
+    position: absolute
+    width: 100%
+    z-index: 100
+    max-height: 400px
+    overflow-x: hidden
+    overflow-y: scroll
 
 // ?
 

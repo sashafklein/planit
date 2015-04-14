@@ -4,8 +4,8 @@ module Completers
     IMAGE_SIZE = '622x440'
 
     attr_accessor :json
-    def initialize(json)
-      @json = SuperHash.new json['venue']
+    def initialize(incoming)
+      @json = SuperHash.new incoming['venue']
     end
 
     def photos
@@ -14,7 +14,12 @@ module Completers
         [photo['prefix'], photo['suffix']].join(IMAGE_SIZE)
       end
       { photos: list, source: "Foursquare" }
-    end   
+    end
+
+    def images
+      return [] unless photos = json.super_fetch( *['featuredPhotos', 'items'] )
+      photos.map{ |photo| { url: [photo['prefix'], photo['suffix']].join(IMAGE_SIZE), source: 'Foursquare' } }
+    end
     
     def website
       json['url']
@@ -85,9 +90,15 @@ module Completers
       check_ins && check_ins > 50 && photos.any?
     end
 
+    def image_url
+      photo = json.super_fetch( :photos, :groups, 0, :items, 0 )
+      return unless photo
+      [ photo['prefix'], photo['suffix'] ].join("69x69")
+    end
+
     def icon
       cats = json.categories || []
-      [cats.first.icon.prefix, cats.first.icon.suffix].join("64") if cats.any?
+      [cats.first.icon.prefix, cats.first.icon.suffix].join("bg_64") if cats.any?
     end
 
     private
@@ -96,6 +107,6 @@ module Completers
       json.super_fetch %w( stats checkinsCount )
     end
 
-    memoize :lat, :lon, :name, :names, :foursquare_id, :full_address, :locality, :region, :country, :menu, :mobile_menu, :website, :phones, :street_addresses, :photos
+    memoize :lat, :lon, :name, :names, :foursquare_id, :full_address, :locality, :region, :country, :menu, :mobile_menu, :website, :phones, :street_addresses, :photos, :image_url
   end
 end

@@ -24,10 +24,6 @@ class Place < BaseModel
   extend PlaceMod::Queries
 
   include ActsLikePlace
-    # Instance: tz, validate_and_save!, image, coordinate, full, nearby, find_and_merge, meta_icon, 
-              # alt_names, pinnable, not_in_usa?, in_usa?, other_info?, has_sources?, foursquare_rating, 
-              # yelp_id, yelp_rating, tracking_data, tz_object, is?, hour_calculator
-    # Class: att_by_frequency, find_or_initialize, center_coordinate, coordinates
 
   def savers
     Mark.savers( id )

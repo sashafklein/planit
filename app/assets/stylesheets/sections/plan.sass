@@ -1,11 +1,10 @@
-#show-plan-page, #new-plan-page
+#show-plan-page, #new-plan-page, #plan-and-list-page
   height: auto
 
   .setplanbox-on-plan-page, .addbox-on-plan-page
     position: fixed
-    overflow: hidden
-    input.full-input
-      width: 100%
+    input.full-width
+      width: 98%
 
   .setplanbox-on-plan-page
     top: 0
@@ -21,17 +20,31 @@
       font-size: 18px
       line-height: 28px
       font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-    i.title, i.date
+    i.title, i.settings
       line-height: 28px
       cursor: pointer
       color: #aaa
       transition: 0.2s ease all
       &:hover
         color: #f06
+    input.title#rename
+      color: #fff
+      font-weight: normal
+      font-size: 18px
+      line-height: 28px
+      font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+      background: rgba(255,255,255,0.1)
+      border: none
+      width: 100%
+      padding: 0
+      margin: 0
+      &:focus
+        outline: none
+        outline-width: 0
     i.title
       padding-left: 5px
       font-size: 14px
-    i.date
+    i.settings
       float: right
       padding-left: 10px
       font-size: 18px
@@ -41,6 +54,19 @@
     height: 65px
     background: #333
     z-index: 145000
+
+    .item-search-results
+      position: absolute
+      top: 28px
+      left: 0
+      right: 0
+      width: auto
+      overflow-x: hidden
+      overflow-y: scroll
+      min-width: 350px
+      max-height: 400px
+      background: #fff
+      z-index: 150000
 
   // PLAN TOP-SECTION
   .add-new-wrap
@@ -356,6 +382,81 @@
   .import-bucket
     padding: 5px// background: #cdcdcd
 
+  li.plan-list-item
+    position: relative
+
+  .list-item-notes
+    position: absolute
+    top: 3px
+    right: 3px
+    height: 69px
+    width: 50%
+    textarea
+      resize: none
+      padding: 5px
+      width: 100%
+      height: 69px
+      border: 1px solid #eee
+      background: #eee
+      color: #777
+      &:hover
+        background: #f3d2df
+        border: 1px solid #fc9fc3
+      &:focus
+        outline: none
+        outline-width: 0
+        background: #fff
+        border: 1px solid #ccc
+        color: #000
+
+  ul.plan-list-items.border-top
+    border-top: 1px solid #ccc
+
+  .items-organized-by
+    border-bottom: 1px solid #ccc
+    font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+    font-weight: bold
+    font-size: 16px
+    line-height: 75px
+    height: 75px
+    overflow: hidden
+    color: #333
+    i
+      padding-right: 8px
+      font-size: 22px
+      color: #777
+
+  .view-and-edit-mode, .sort-items-by
+    position: absolute
+    height: 65px
+    top: 68px
+    line-height: 68px
+    padding: 0 20px
+    overflow-y: hidden
+    b
+      color: #777
+      cursor: default
+    span
+      cursor: pointer
+      margin: 0 8px
+      padding-bottom: 8px
+      color: #333
+      border-bottom: 3px solid transparent
+      &.highlighted
+        border-bottom: 3px solid #333
+      &:hover
+        color: #f06
+        border-bottom: 3px solid #f06
+
+  .view-and-edit-mode
+    right: 0
+    b
+      padding-left: 8px      
+
+  .sort-items-by
+    left: 0
+    b
+      padding-right: 8px
 
   // TAB SIZING
 
@@ -415,15 +516,17 @@
   // #Mobile (Portrait) <-- smallest
   @media only screen and (max-width: 767px)
 
+    .setplanbox-on-plan-page
+      padding: 9px
     .setplanbox-on-plan-page, .addbox-on-plan-page
       width: auto
       left: 60px
       right: 60px
       height: 43px
-      padding: 9px
       margin: 0 auto
       border-top: 0
     .addbox-on-plan-page
+      padding: 3px 9px 15px 9px
       top: 43px
 
     .container-upfront-plan-map
@@ -461,13 +564,18 @@
   // #Mobile (Landscape)
   @media only screen and (min-width: 480px) and (max-width: 767px)
 
+    .setplanbox-on-plan-page
+      padding: 9px
     .setplanbox-on-plan-page, .addbox-on-plan-page
       width: auto
-      left: 80px
-      right: 80px
+      left: 60px
+      right: 60px
       height: 43px
-      padding: 9px
       margin: 0 auto
+      border-top: 0
+    .addbox-on-plan-page
+      padding: 3px 9px 15px 9px
+      top: 43px
 
     .container-upfront-plan-map
       top: 105px

@@ -10,18 +10,13 @@ class Api::V1::PlansController < ApiController
   end
 
   def show
-    return permission_denied_error unless @plan && @plan.user == current_user
+    return permission_denied_error unless @plan && current_user.owns?(@plan)
     render json: @plan, serializer: PlanSerializer
   end
 
   def update
     return permission_denied_error unless @plan && current_user.owns?(@plan)
-    @plan.update_attributes!(params[:plan])
-  end
-
-  def rename
-    return permission_denied_error unless @plan && @plan.user == current_user
-    @plan.name = params[:plan_name] || @plan.name
+    @plan.update_attributes!( params.require(:plan).permit(:name) )
     render json: @plan, serializer: PlanSerializer
   end
 
@@ -44,7 +39,7 @@ class Api::V1::PlansController < ApiController
   end
 
   def add_items
-    return permission_denied_error unless @plan && @plan.user == current_user
+    return permission_denied_error unless @plan && current_user.owns?(@plan)
     marks = Mark.where( user_id: current_user.id, place_id: params[:place_ids] )
     marks.each do |mark|
       Item.where( plan_id: @plan.id, mark_id: mark.id ).first_or_create!
@@ -53,14 +48,14 @@ class Api::V1::PlansController < ApiController
   end
 
   def destroy_items
-    return permission_denied_error unless @plan && @plan.user == current_user
+    return permission_denied_error unless @plan && current_user.owns?(@plan)
     marks = Mark.where( user_id: current_user.id, place_id: params[:place_ids] )
     Item.where( plan_id: @plan.id, mark_id: marks.pluck(:id) ).destroy_all
     success
   end
 
   def destroy
-    return permission_denied_error unless @plan && @plan.user == current_user
+    return permission_denied_error unless @plan && current_user.owns?(@plan)
     @plan.destroy
     success
   end

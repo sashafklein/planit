@@ -18,9 +18,9 @@
               .side-menu-container.large-screen.inline
                 .top-nav-bar{ ng_controller: 'NavBarCtrl' }= render 'application/nav_bar', { page_type: page_type }
 
-            .search-and-filter-wrap
-              %expanding_header_search{ show_teaser: "#{show_search?(page_type)}", page_type: "#{page_type}" }
-              - include_templates :expanding_header_search, :search_and_add
+            / .search-and-filter-wrap
+            /   %expanding_header_search{ show_teaser: "#{show_search?(page_type)}", page_type: "#{page_type}" }
+            /   - include_templates :expanding_header_search, :search_and_add
 
           - elsif current_user # inactive user
 

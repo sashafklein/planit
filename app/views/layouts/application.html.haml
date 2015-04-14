@@ -12,10 +12,11 @@
     = favicon_link_tag 'fav_ico.png'
   %body{ class: body_class, ng_controller: 'ApplicationCtrl', style: content_for(:body_style) || 'background: #dfdfdf' }
     = render "application/modals", { page_type: content_for(:page_type) || '', title: content_for(:title) || 'This Page' }
+    .page-mask.everything-but-mask
+    .page-mask.loading-mask= render "application/loading"
+    .page-mask.loading-mask.content-only= render "application/loading"
+    .page-mask.searching-mask= render "application/loading"
     #planit-wrapper
-      .page-mask.loading-mask= render "application/loading"
-      .page-mask.loading-mask.content-only= render "application/loading"
-      .page-mask.searching-mask
       = render "application/flashes"
       = render_header content_for(:page_type)
       = render "application/morph"

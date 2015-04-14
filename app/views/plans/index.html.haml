@@ -1,21 +1,11 @@
 / - title( @plan.name )
 - set_page_type('plan')
 
-#show-plan-page
-  / { ng_controller: 'Plans.ShowCtrl', ng_init: "loadPlaces(#{@plan.id})" }
+#plan-and-list-page
 
-  .setplanbox-on-plan-page
-    %span.title Japan Family Trip
-    %i.fa.fa-pencil.title
-    %i.fa.fa-calendar.date
-    / %input{ placeholder: 'Guide Name' }
-  .addbox-on-plan-page
-    / %input{ placeholder: 'Where? (City or Region)' }
-    .faux-input-wrap
-      %span.chosen-input
-        %i.fa.fa-times-circle
-        San Francisco, California
-      %input.real-input{ placeholder: 'Add Places to Your Guide' }
+  %item_entry_form
+  - include_templates :item_entry_form
+  / { ng_controller: 'Plans.ShowCtrl', ng_init: "loadPlaces(#{@plan.id})" }
 
   / .plan-map-container{ ng_class: "{'expanded': mapExpanded}" }
   /   / %div#expand-map-button.large-screen{ ng_click: 'contractOrExpandMap()'}

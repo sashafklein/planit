@@ -8,7 +8,7 @@ angular.module('Common').factory 'QueryString', ($location) ->
 
     @reset: -> $location.search({})
 
-    @set: (hash) -> if hash then $location.search(hash).replace() else QueryString.reset()
+    @set: (hash) -> if hash && Object.keys(hash)?.length then $location.search( hash ).replace() else QueryString.reset()
 
     @modify: (object) ->
       [newObj, clone] = [ {}, QueryString._clone( $location.search() ) ]
@@ -16,7 +16,7 @@ angular.module('Common').factory 'QueryString', ($location) ->
       _.forEach object, (v,k) ->
         newObj[k] = if (!k? || typeof(k) == 'string') then v else v.join(",")
 
-      $location.search( QueryString._combine(clone, newObj) ).replace()
+      QueryString.set( QueryString._combine(clone, newObj) )
 
     # PRIVATE 
 
