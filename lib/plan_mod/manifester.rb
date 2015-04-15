@@ -1,5 +1,5 @@
 module PlanMod
-  class Manifest
+  class Manifester
 
     attr_accessor :plan
     def initialize(plan)

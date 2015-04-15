@@ -88,13 +88,15 @@ source "https://rails-assets.org" do
   gem "rails-assets-lodash"
   gem "rails-assets-leaflet"
   gem "rails-assets-angular-leaflet-directive"
+  gem "rails-assets-jqueryui"
+  gem "rails-assets-angular-dragdrop"
 end
 
 group :development do
   gem "foreman"
   gem "binding_of_caller"
   gem "bullet"
-  gem 'better_errors' # disable to run Teaspon JS tests
+  gem "better_errors" # disable to run Teaspon JS tests
 end
 
 group :development, :test do
