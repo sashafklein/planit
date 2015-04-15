@@ -1,4 +1,4 @@
-angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Foursquare, ErrorReporter, CurrentUser, QueryString, $filter, $timeout, $event) ->
+angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Note, Foursquare, ErrorReporter, CurrentUser, QueryString, $filter, $timeout, $location) ->
   return {
     restrict: 'E'
     templateUrl: 'item_entry_form.html'
@@ -18,8 +18,24 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Fo
           .error (response) ->
             QueryString.modify({plan: null, near: null})
             ErrorReporter.report({ context: 'Tried looking up #{plan_id} plan, unsuccessful'})
+      if mode_in_querystring = QueryString.get()['mode']
+        s.mode = mode_in_querystring
       else
-        # QueryString.reset()
+        s.mode = 'list' # by default
+
+      # EXPAND/CONTRACT
+
+      s.addBoxToggled = true
+      s.addBoxManuallyToggled = false
+      s.addBoxToggle = -> 
+        s.addBoxToggled = !s.addBoxToggled
+        s.addBoxManuallyToggled = true
+      s.lastScrollTop = 0
+      # $('body').scroll(
+      #   thisScrollTop = $('body').scrollTop()
+      #   if thisScrollTop < 100 && thisScrollTop > s.lastScrollTop
+      #     s.addBoxToggled = false unless s.addBoxManuallyToggled
+      # )
 
 
       # LISTS & SETTING LISTS
@@ -29,9 +45,12 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Fo
       s.getUsersLists = ->
         User.findPlans( CurrentUser.id )
           .success (response) ->
-            s.lists = Plan.generateFromJSON(response)
+            unsortedLists = Plan.generateFromJSON(response)
+            s.lists = _.sortBy( unsortedLists, (l) -> s.bestListDate(l) ).reverse()
           .error (response) ->
             ErrorReporter.report({ context: 'Items.NewCtrl getUsersLists'}, "Something went wrong! We've been notified.")
+
+      s.bestListDate = (list) -> if list.starts_at then list.starts_at else list.updated_at
 
       s.setListOnEnter = ->
         if s.listOptions().length == 1
@@ -74,6 +93,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Fo
         s.list = list
         s.getListsItems()
         s.listQuery = list.name
+        s.kmlPath = "/api/v1/plans/#{ list.id }/kml"
 
       s.getListsItems = ->
         return unless s.list?
@@ -83,7 +103,8 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Fo
             $('.searching-mask').hide()
             return unless s.list?
             s.items = Item.generateFromJSON( response )
-            s.initialSortItems()
+            $timeout(-> s.initialSortItems() )
+            $timeout(-> s.initializeItemsNotes() )
           .error (response) ->
             $('.searching-mask').hide()
             ErrorReporter.report({ context: 'Items.NewCtrl getListsItems', list_id: s.list.id}, "Something went wrong! We've been notified.")
@@ -115,6 +136,22 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Fo
         # $('.everything-but-mask').hide()
         return
 
+      s.planImage = ( plan ) -> if plan && plan.best_image then plan.best_image.url else ''
+
+      s.deleteList = ( list ) ->
+        if confirm("Are you sure you want to delete '#{list.name}'?")
+          $('.loading-mask').show()
+          s.list.destroy()
+            .success (response) ->
+              listIndex = s.lists.indexOf(s.list)
+              s.lists.splice( listIndex, 1 ) if listIndex > -1
+              s.resetList() 
+              $('.loading-mask').hide()
+              return
+            .error (response) ->
+              ErrorReporter.report({ context: 'Attempting to delete a list', list_id: s.list.id}, "Something went wrong! We've been notified.")
+              $('.loading-mask').hide()
+              return
 
 
       # ITEMS == SEARCH, ADD
@@ -153,17 +190,18 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Fo
               s.backspaced = 1
         return
 
+      s.initializeItemsNotes = -> _.map( s.items, (item) -> s.originalNote(item) )
       s.initialSortItems = -> s.setCategoryAs('type')
 
       s.sortItems = ->
         return unless s.items
-        s.itemsTypes = _.sortBy( _.uniq( _.compact( _.map( s.items, (i) -> i.mark.place.meta_categories[0] ) ) ) , (i) -> return i )
+        s.itemsTypes = _.sortBy( _.uniq( _.map( s.items, (i) -> i.mark.place.meta_categories[0] ) ) , (i) -> return i )
         s.itemsTypes = s.itemsTypes.reverse() unless s.sortAscending
-        s.itemsFirstLetters = _.sortBy( _.uniq( _.compact( _.map( s.items, (i) -> i.mark.place.names[0][0] ) ) ) , (i) -> return i )
+        s.itemsFirstLetters = _.sortBy( _.uniq( _.map( s.items, (i) -> i.mark.place.names[0][0] ) ) , (i) -> return i )
         s.itemsFirstLetters = s.itemsFirstLetters.reverse() unless s.sortAscending
-        # s.itemsRecent = _.sortBy( _.uniq( _.compact( _.map( s.items, (i) -> i.updated_at.strftime('%y%m%d') ) ) ) , (i) -> return i )
-        # s.itemsRecent = s.itemsRecent.reverse() unless s.sortAscending
-        s.itemsLocales = _.sortBy( _.uniq( _.compact( _.map( s.items, (i) -> i.mark.place.locality ) ) ) , (i) -> return i )
+        s.itemsRecent = _.sortBy( _.uniq( _.map( s.items, (i) -> i.updated_at_day ) ) , (i) -> return i )
+        s.itemsRecent = s.itemsRecent.reverse() unless s.sortAscending
+        s.itemsLocales = _.sortBy( _.uniq( _.map( s.items, (i) -> i.mark.place.locality ) ) , (i) -> return i )
         s.itemsLocales = s.itemsLocales.reverse() unless s.sortAscending
 
       s.search = -> 
@@ -202,7 +240,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Fo
       s.matchingItems = ( category ) ->
         if s.categoryIs == 'type' then matchingItems = _.filter( s.items, (i) -> i.mark.place.meta_categories?[0] == category )
         if s.categoryIs == 'alphabetical' then matchingItems = _.filter( s.items, (i) -> i.mark.place.names?[0]?[0] == category )
-        # if s.categoryIs == 'recent' then matchingItems = _.filter( s.items, (i) -> i.updated_at?.strftime('%y%m%d') == category )
+        if s.categoryIs == 'recent' then matchingItems = _.filter( s.items, (i) -> i.updated_at_day == category )
         if s.categoryIs == 'locale' then matchingItems = _.filter( s.items, (i) -> i.mark.place.locality == category )
         return matchingItems
 
@@ -211,31 +249,46 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Fo
         s.sortItems()
         s.categories = s.itemsTypes if choice == 'type' 
         s.categories = s.itemsFirstLetters if choice == 'alphabetical'
-        # s.categories = s.itemsRecent if choice == 'recent'
+        s.categories = s.itemsRecent if choice == 'recent'
         s.categories = s.itemsLocales if choice == 'locale'
 
-      s.currentNote = (item) ->
-        null
-        # Note.findByObject( item )
-        #   .success (response) ->
-        #     this.val(note)
-        #   .error (response) ->
-        #     ErrorReporter.report({ context: "Failed note addition in list page", object_id: item.id, object_type: 'Item', text: note })
-        #     this.val(null)
+      s.originalNote = (item) ->
+        textarea = e.find("textarea#item_" + item.id)
+        if textarea
+          Note.findByObject( item )
+            .success (response) ->
+              textarea.attr("disabled",false)
+              if note = response.body then textarea.val( note )
+            .error (response) ->
+              ErrorReporter.report({ context: "Failed note fetch in list page", object_id: item.id, object_type: item.class })
+              textarea.attr("disabled",false)
 
       s.saveNote = (item) ->
-        note = e.find("#item#{item.id}")
+        textarea = e.find("textarea#item_" + item.id)
+        note = textarea.val()
         return unless note && note.length > 0
-        # Note.create({ note: { object_id: item.id, object_type: 'Item', body: note } })
-        #   .success (response) ->
-        #     this.val(note)
-        #   .error (response) ->
-        #     ErrorReporter.report({ context: "Failed note addition in list page", object_id: item.id, object_type: 'Item', text: note })
-        #     this.val(null)
+        s.nextNote(item)
+        textarea.attr("disabled",true)
+        Note.create({ note: { object_id: item.id, object_type: item.class, body: note } })
+          .success (response) ->
+            textarea.val( response.body )
+            textarea.attr("disabled",false)
+            return
+          .error (response) ->
+            ErrorReporter.report({ context: "Failed note addition in list page", object_id: item.id, object_type: item.class, text: note })
+            textarea.val(null)
+            textarea.attr("disabled",false)
+            return
 
-      s.nextNote = -> null # on tab
+      s.nextNote = (item) -> 
+        if item && next_item = e.find("textarea#item_" + item.id).parents('li.plan-list-item').next('li.plan-list-item')
+          next_item.find('textarea').focus()
+        return
 
-      s.typeIcon = ( category ) ->
+      s.toDate = (yymmdd) -> yymmdd
+
+
+      # s.typeIcon = ( category ) ->
 
 
 

@@ -1,0 +1,31 @@
+%ul.dropdown-menu.dropdown-menu-right.planit-dropdown-menu.plan-settings-dropdown
+
+  - if current_user_is_active
+
+    %li.planit-dropdown-menu{ ng_click: 'renameList()' }
+      Rename
+      %i.planit-dropdown-menu-icon.fa.fa-font
+    %li.planit-dropdown-menu.disabled
+      Add Collaborators
+      %i.planit-dropdown-menu-icon.fa.fa-group
+    %li.planit-dropdown-menu.disabled
+      Import
+      %i.planit-dropdown-menu-icon.fa.fa-upload
+    %li.planit-dropdown-menu.disabled
+      Auto-Organize
+      %i.planit-dropdown-menu-icon.fa.fa-calendar
+    %li.divider
+    %li.planit-dropdown-menu
+      Share Link
+      %i.planit-dropdown-menu-icon.fa.fa-paper-plane
+    %a{ ng_href: "{{kmlPath}}" }
+      %li.planit-dropdown-menu
+        Export as KML
+        %i.planit-dropdown-menu-icon.fa.fa-download
+    %li.planit-dropdown-menu.disabled
+      Export as CSV
+      %i.planit-dropdown-menu-icon.fa.fa-table
+    %li.divider
+    %li.planit-dropdown-menu{ ng_click: 'deleteList( list )' }
+      Delete Plan
+      %i.planit-dropdown-menu-icon.fa.fa-font

@@ -108,6 +108,41 @@ a.linky
     margin: auto auto
     height: auto
 
+// DROPDOWN MENUS
+
+ul.planit-dropdown-menu
+  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  padding: 15px 0
+  margin-right: 3px
+  font-size: 15px
+  line-height: 18px
+  text-align: right
+  z-index: 160000
+
+li.planit-dropdown-menu
+  white-space: nowrap
+  overflow: hidden
+  width: auto
+  padding: 3px 20px
+  cursor: pointer
+  &:hover
+    color: #f06
+  &.disabled
+    color: #aaa
+    cursor: default
+
+.planit-dropdown-menu-icon
+  width: 30px
+  text-align: center
+  transition: all 0.2s ease
+
+.dropdown-menu-right .planit-dropdown-menu-icon
+  margin-left: 10px
+
+.dropdown-menu-left .planit-dropdown-menu-icon
+  margin-right: 10px
+
+
 // COMMON VISUALS
 
 .input-group .clear-input-button, .input-group .unsplit-input-button

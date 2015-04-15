@@ -14,13 +14,15 @@
       .chosen-plan{ ng_show: 'list && !rename' }
         %span.title{ ng_click: 'renameList()' } {{ list.name }}
         %i.fa.fa-times.title{ ng_click: 'resetList()' }
-        %a{ ng_href: '/api/v1/plans/{{list.id}}/kml' }
-          %i.fa.fa-cog.settings
+        %i.fa.fa-cog.settings.dropdown-toggle{ "data-toggle" => "dropdown" }
+        = render 'header/dropdowns/plan_settings'
       .chosen-plan.above-mask{ ng_show: 'list && rename' }
         %input.title#rename{ ng_model: 'rename', ng_on_enter_key: 'saveRenameList()', ng_on_esc_key: 'cancelRenameList()' }
         / .planit-button{ ng_click: 'saveRenameList()' } Save
         / .planit-button{ ng_click: 'cancelRenamelist()' } Cancel
-    .addbox-on-plan-page{ ng_show: 'list' }
+    .minimize-maximize-addbox{ ng_show: "list && !rename", ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
+      %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
+    .addbox-on-plan-page{ ng_show: 'list && addBoxToggled' }
       .faux-input-wrap{ ng_show: '!nearby && list' }
         %span.add-new{ ng_show: 'canSetNearby(placeNearby)', ng_click: 'setNearby(placeNearby)' }
           %i.fa.fa-check
@@ -49,26 +51,29 @@
                       .bucket-list-more-info.locale-only
                         {{ option.localeDetails() }}
 
-    .sort-items-by.large-screen
-      %b Sort by
+    .sort-items-by.large-screen{ ng_show: 'list' }
+      %b Sort
       %span.sort-by-button{ ng_click: "setCategoryAs('alphabetical')", ng_class: "{'highlighted': categoryIs == 'alphabetical'}" } A-Z
       %span.sort-by-button{ ng_click: "setCategoryAs('type')", ng_class: "{'highlighted': categoryIs == 'type'}" } Type
       %span.sort-by-button{ ng_click: "setCategoryAs('locale')", ng_class: "{'highlighted': categoryIs == 'locale'}" } Locale
-      / %span.sort-by-button{ ng_click: "setCategoryAs('recent')", ng_class: "{'highlighted': categoryIs == 'recent'}" } When Added
+      %span.sort-by-button{ ng_click: "setCategoryAs('recent')", ng_class: "{'highlighted': categoryIs == 'recent'}" } Recent
 
-    .view-and-edit-mode.large-screen
+    .view-and-edit-mode.large-screen{ ng_show: 'list' }
       %span.view-and-edit-button.highlighted List
       %span.view-and-edit-button.disabled Trip
       %span.view-and-edit-button Map
-      %b View Mode
+      %b{ ng_show: "mode != 'trip'" } View Mode
+      %b{ ng_show: "mode == 'trip'" } Edit Mode
 
-    .band.spaced-extra
+    / Or effectively ng_class to half-screen for TripMode
+    .band.spaced-extra{ ng_show: "list && mode == 'list'" } 
       .container
         .sixteen-columns.items-in-plan{ ng_repeat: 'category in categories' }
-          .items-organized-by{ ng_show: "categoryIs != 'alphabetical'" }
-            %i.fa{ ng_show: "categoryIs == 'type'", ng_class: 'typeIcon(category)' } 
-            {{ category }}
-          %ul.plan-list-items{ ng_class: "{'border-top': categoryIs == 'alphabetical'}" }
+          %ul.plan-list-items
+            %li.items-organized-by{ ng_show: "categoryIs != 'alphabetical'" }
+              %i.fa{ ng_show: "categoryIs == 'type'", ng_class: 'typeIcon(category)' } 
+              %span{ ng_show: "categoryIs != 'recent'"} {{ category }}
+              %span{ ng_show: "categoryIs == 'recent'"} {{ toDate( category ) }}
             %li.plan-list-item{ ng_repeat: 'item in matchingItems( category )' }
               .bucket-list-tab
                 %a{ ng_href: '{{item.mark.place.href}}' }
@@ -85,4 +90,26 @@
                       .bucket-list-more-info.locale-only
                         {{ item.mark.place.localeDetails() }}
               .list-item-notes.largest-screen
-                %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)' } {{currentNote( item )}}
+                %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)', disabled: true }
+
+    .band.spaced-extra{ ng_show: '!list && lists' }
+      .container.centered
+        .column{ ng_repeat: 'plan in lists' }
+          .any-tab-wrapper
+            .guide-item-count.numbered-box {{ plan.place_ids.length }}
+            .content-tab
+              / .tab-operations
+              /   .tab-operations-button
+              /     .i.fa.fa-calendar
+              /   .tab-operations-button
+              /     .i.fa.fa-pencil
+              /   .tab-operations-button
+              /     .i.fa.fa-heart
+              /   .tab-operations-button
+              /     .i.fa.fa-check-circle
+              /   .tab-operations-button
+              /     .i.fa.fa-trash
+              .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'setList(plan)', ng_hover: 'imageChangeable = true' }
+                %img{ src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
+                %i.add-photo-camera.fa.fa-camera-retro{ ng_show: 'imageChangeable || ( !plan.best_image || !plan.best_image.url)', ng_click: 'changeImage()' }
+              .content-tab-title{ ng_click: 'setList(plan)' } {{plan.name}}

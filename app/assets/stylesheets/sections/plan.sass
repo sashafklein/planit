@@ -48,6 +48,7 @@
       float: right
       padding-left: 10px
       font-size: 18px
+      cursor: pointer
 
   .addbox-on-plan-page
     top: 68px
@@ -382,6 +383,39 @@
   .import-bucket
     padding: 5px// background: #cdcdcd
 
+  .minimize-maximize-addbox
+    position: fixed
+    z-index: 155000
+    left: 0
+    right: 0
+    top: 58px
+    width: 20px
+    height: 20px
+    font-size: 14px
+    line-height: 14px
+    text-align: center
+    overflow: hidden
+    border-radius: 50%
+    margin: 0 auto
+    transition: 0.2s ease all
+    cursor: pointer
+    background: #333
+    color: #fff
+    border: 3px solid #333
+    user-select: none
+    &.opened
+      background: #aaa
+      color: #333
+      border: 3px solid #aaa
+    &:hover
+      color: #fff
+      background: #f06
+      border: 3px solid #f06
+
+  .plan-settings-dropdown
+    top: 29px
+    z-index: 160000 !important
+
   li.plan-list-item
     position: relative
 
@@ -408,12 +442,15 @@
         background: #fff
         border: 1px solid #ccc
         color: #000
+      &:disabled
+        background: #eee
+        border: 1px solid #eee
+        color: #eee
+        cursor: progress
 
-  ul.plan-list-items.border-top
-    border-top: 1px solid #ccc
-
-  .items-organized-by
-    border-bottom: 1px solid #ccc
+  li.items-organized-by 
+    // border-top: 1px solid #ccc
+    background: transparent
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
     font-weight: bold
     font-size: 16px
@@ -447,6 +484,9 @@
       &:hover
         color: #f06
         border-bottom: 3px solid #f06
+      &.disabled
+        color: #777
+        border-bottom: 3px solid transparent
 
   .view-and-edit-mode
     right: 0

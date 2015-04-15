@@ -33,20 +33,12 @@ class Api::V1::Plans::KmlController < ApiController
   end
 
   def details(item)
-    return visible_description(item) + extended_data(item)
+    return visible_description(item) # + extended_data(item)
   end
 
-  def extended_data(item)
-    data = {
-      plan_id: @plan.id,
-      place_id: item.mark.place.id, 
-      # foursquare_id: item.mark.place.foursquare_id,
-      # yelp_id: item.mark.place.yelp_id,
-      # tripadvisor_id: item.mark.place.tripadvisor_id,
-      # google_id: item.mark.place.google_id,
-    }.to_json
-    "<ExtendedData><data name='planit'><value>" + data + "</value></data></ExtendedData>"
-  end
+  # def extended_data(item)
+  #   "<ExtendedData><data name='planit'><value>" + KmlItemSerializer.new(item).to_json.to_s + "</value></data></ExtendedData>"
+  # end
 
   def visible_description(item)
     breakline = '&lt;br&gt;'
@@ -54,22 +46,21 @@ class Api::V1::Plans::KmlController < ApiController
       # ( date_time(item).present? ? "#{breakline}When:#{date_time(item)}" : nil ),
       alt_names(item),
       item.categories.join(' / '),
-      item.street_addresses.join(breakline),
+      breakline + item.street_addresses.join(breakline),
       item.sublocality,
       item.locality,
       ( item.phone ? 'P: '+item.phone : nil ),
       "#{breakline}<a href='http://plan.it#{item.href}'>http://plan.it#{item.href}</a>",
-      ( notes(item).present? ? "#{breakline}Notes:#{notes(item)}" : nil ),
+      ( notes(item).present? ? notes(item) : nil ),
     ]
-    "<description>" + lines.compact.join(breakline) + "</description>"
+    "<description>" + remove_symbols( lines.compact.join(breakline) ) + "</description>"
   end
 
   def notes(item)
-    return @all_notes if @all_notes
-    item_notes = item.notes.each{ |n| "#{breakline}#{n.source.name}: #{n.body}" }
-    mark_notes = item.mark.notes.each{ |n| "#{breakline}#{n.source.name}: #{n.body}" }
-    all_notes = item_notes + mark_notes
-    all_notes ? @all_notes = all_notes : nil
+    breakline = '&lt;br&gt;'
+    item_notes = item.notes.map{ |n| "#{breakline}&lt;b&gt;#{n.source.name}&lt;/b&gt; notes &quot;#{n.body}&quot;" }
+    mark_notes = item.mark.notes.map{ |n| "#{breakline}&lt;b&gt;#{n.source.name}&lt;/b&gt; notes &quot;#{n.body}&quot;" }
+    item_notes.compact.uniq.join(" ") + mark_notes.compact.uniq.join(" ")
   end
 
   # def date_time(item)
@@ -90,6 +81,10 @@ class Api::V1::Plans::KmlController < ApiController
 
   def icon_settings
     '<Style id="highlightPlacemark"><IconStyle><Icon><href>http://maps.google.com/mapfiles/kml/paddle/blu-stars-lv.png</href></Icon></IconStyle></Style><Style id="normalPlacemark"><IconStyle><Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-stars-lv.png</href></Icon></IconStyle></Style><StyleMap id="exampleStyleMap"><Pair><key>normal</key><styleUrl>#normalPlacemark</styleUrl></Pair><Pair><key>highlight</key><styleUrl>#highlightPlacemark</styleUrl></Pair></StyleMap>'
+  end
+
+  def remove_symbols(string)
+    string = string.gsub(" & ", "&amp;")
   end
     
   def load_plan

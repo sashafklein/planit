@@ -64,5 +64,5 @@ mod.factory "BaseModel", ($http) ->
       )
 
     update: (data) -> $http.patch( "#{@objectPath()}  ", data )
-    destroy:  -> $http.delete( @objectPath() )
+    destroy: -> $http.delete( @objectPath() )
   

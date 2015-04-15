@@ -68,7 +68,9 @@ Rails.application.routes.draw do
         get :search, on: :collection
       end
 
-      resources :notes, only: [:create]
+      resources :notes, only: [:create] do
+        get :find_by_object, on: :collection
+      end
 
       resources :items, only: [:index, :show]
       
