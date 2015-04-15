@@ -1,6 +1,8 @@
 angular.module('Controllers').controller 'Plans.EditCtrl', ($scope, ErrorReporter, Plan, Item, $http, $q) ->
 
   s = $scope
+  s.items = []
+  s.manifestItems = []
 
   s.getPlan = (id) ->
     Plan.find(id)
@@ -22,6 +24,24 @@ angular.module('Controllers').controller 'Plans.EditCtrl', ($scope, ErrorReporte
   s.moveInManifest = (from, to) ->
     s._runRequest( ( -> s.plan.moveInManifest(from, to) ), 'moveInManifest', { from: from, to: to } )
 
+  s.toggleSelectedItem = (item) -> s.selectedItem = (if s.selectedItem == item then null else item)
+
+  s.isSelected = (item) -> s.selectedItem == item
+
+  s.hoveringOver = (index) -> s.selectedItem? && s.hoverIndex? && s.hoverIndex == index
+
+  s.setHover = (index) -> s.hoverIndex = index
+
+  s.insert = () ->
+    return unless s.selectedItem? && (item = s.selectedItem)
+    return unless s.hoverIndex?
+    dup = s._dup(item)
+    pane = dup.pane
+
+    if pane == 'manifest'
+      s.moveInManifest( dup.index, s.hoverIndex )
+    else
+      s.addToManifest( dup.index, s.hoverIndex )
 
   s._runRequest = (request, name='', extraReporting={}) ->
     request()
@@ -41,12 +61,11 @@ angular.module('Controllers').controller 'Plans.EditCtrl', ($scope, ErrorReporte
   s._findItem = (manifestItem) -> 
     item = _.find(s.items, (i) -> s._identical(i, manifestItem)) || _.find(s.manifestItems, (i) -> s._identical(i, manifestItem) || {})
     return null unless item?.class
-    s._objectClasses[item.class].generateFromJSON( _.extend({}, item) )
+    s._dup(item)
 
-  s._identical = (item1, item2) -> item1.class == item2.class && item1.id == item2.id
+  s._identical = (i1, i2) -> i1.class == i2.class && i1.id == i2.id
 
   s._getManifestItems = ->
-    s.manifestItems = []
     _(s.plan.manifest).map( (item, index) -> 
       ( -> s._getManifestItem( item, index ) )
     ).reduce( ( (promise, next) -> promise.then(next) ), $q.when() )
@@ -55,16 +74,19 @@ angular.module('Controllers').controller 'Plans.EditCtrl', ($scope, ErrorReporte
     classObj = s._objectClasses[item.class]
     classObj.find(item.id)
       .success (response) ->
-        s.manifestItems.push _.extend( classObj.generateFromJSON(response), { index: index } )
+        s.manifestItems.push _.extend( classObj.generateFromJSON(response), { index: index, pane: 'manifest' } )
       .error (response) ->
         ErrorReporter.defaultReport( context: 'Plans.EditCtrl getManifestItems', plan_id: s.plan.id, item_id: item.id )
 
   s._getItems = ->
     s.plan.items()
       .success (response) ->
-        s.items = Item.generateFromJSON( response )
+        _.forEach response, (item, index) ->
+          s.items.push _.extend( Item.generateFromJSON(item), { pane: 'list', index: index } ) 
       .error (response) ->
         ErrorReporter.defaultReport( context: 'Plans.EditCtrl getItems', plan_id: s.plan.id )        
+
+  s._dup = (object) -> s._objectClasses[object.class].generateFromJSON( _.extend({}, object) )
 
   s._objectClasses = { "Item": Item }
 

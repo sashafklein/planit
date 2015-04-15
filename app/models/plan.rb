@@ -21,7 +21,7 @@ class Plan < BaseModel
   delegate :add_to_manifest, :remove_from_manifest, :move_in_manifest, to: :manifester
 
   def manifester
-    PlanMod::Manifest.new(self)
+    PlanMod::Manifester.new(self)
   end
 
   def add_item_from_place_data!(user, data)

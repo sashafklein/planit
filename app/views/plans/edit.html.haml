@@ -1,13 +1,19 @@
 - title('Edit Your Plan')
 - set_page_type('edit')
 
-.container.plans-edit{ ng_controller: 'Plans.EditCtrl', ng_init: "getPlan(#{@plan.id})"}
-  .left-pane.pane.six.columns
-    .item{ ng_repeat: 'item in manifestItems' }
-      %h4 {{ item.mark.place.name() }}
-      %p {{ item.mark.place.localeDetails() }}
+.container.plans-edit{ ng_controller: 'Plans.EditCtrl', ng_init: "getPlan(#{@plan.id})" }
+  .left-pane.pane.six.columns{ data_drop: 'true' }
+    %ul
+      %li{ ng_repeat: 'item in manifestItems' }
+        .spacer{ ng_class: '{hovered: hoveringOver($index)}', ng_mouseenter: 'setHover($index)', ng_mouseleave: 'setHover(null)', ng_click: 'insert($index)' }
+        .item
+          %h4 {{ item.mark.place.name() }} - {{ $index }}
+        .spacer{ ng_show: '$last', ng_class: '{hovered: hoveringOver(manifestItems.length)}', ng_mouseenter: 'setHover(manifestItems.length)', ng_mouseleave: 'setHover(null)', ng_click: 'insert()' }
 
   .right-pane.pane.ten.columns
-    .item{ ng_repeat: 'item in items' } 
-      %h4 {{ item.mark.place.name() }}
-      %p {{ item.mark.place.localeDetails() }}
+    %ul
+      %li{ ng_repeat: 'item in items' }
+        .item{ ng_class: '{selected: isSelected(item)}' }
+          %h4 {{ item.mark.place.name() }} - {{ $index }}
+          %p {{ item.mark.place.localeDetails() }}
+          %input{ type: 'checkbox', ng_click: 'toggleSelectedItem(item)' }

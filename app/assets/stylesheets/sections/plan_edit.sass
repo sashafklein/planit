@@ -1,3 +1,7 @@
+$listItemHeight: 50px
+$manifestItemHeight: 50px
+$verticalMargin: 5px
+
 body.plans.plans-edit
   .container.plans-edit
     padding: 20px 0px
@@ -5,18 +9,34 @@ body.plans.plans-edit
     .columns.pane
       margin-right: 0px
       margin-left: 0px
+      ul
+        list-style: none
       .item
         width: 100%
         background: gray(80)
         display: table
+        cursor: pointer
+        margin: $verticalMargin 0
+        &.selected
+          background: blue
+      .spacer
+        height: $verticalMargin
+        margin: 0
+        width: 100%
+        &.hovered
+          margin: $verticalMargin 0
+          border: 1px dashed gray(10)
+          cursor: pointer
 
     .left-pane
       background: gray(60)
       padding: 10px
       .item
-        margin: 5px 0px
+        height: $manifestItemHeight
+      .spacer.hovered
+        height: $manifestItemHeight
     .right-pane
       background: gray(40)
       padding: 10px
       .item
-        margin: 10px 0px
+        height: $listItemHeight

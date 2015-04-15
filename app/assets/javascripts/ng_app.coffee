@@ -12,13 +12,11 @@ planitModules = [
   'Services'
 ]
 
-otherModules = [
-]
+otherModules = ['leaflet-directive', 'ngDragDrop']
 
-for module in planitModules
-    angular.module(module, ["leaflet-directive"])
+angular.module(module, otherModules) for module in planitModules
 
-@ngApp = angular.module("ngApp", otherModules.concat(planitModules))
+@ngApp = angular.module( "ngApp", otherModules.concat(planitModules) )
 
 @ngApp.config ($compileProvider, $locationProvider) ->
   # Prevent angular from marking links with a variety of protocols "unsafe"
