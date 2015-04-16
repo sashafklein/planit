@@ -1,5 +1,13 @@
 module ApplicationHelper
 
+  def link_to( first_arg=nil, second_arg=nil, options={}, &block )
+    if block_given?
+      super first_arg, ({ target: '_self' }).merge(options), &block # first_arg is path, &block is content/name
+    else
+      super first_arg, second_arg, ({ target: '_self' }).merge(options) #first_arg is name, second_arg is path
+    end
+  end
+
   def title(title)
     content_for(:title) { title.gsub("'", "’") }
   end

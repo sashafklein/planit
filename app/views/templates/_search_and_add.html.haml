@@ -31,12 +31,12 @@
           %a.search-bar-result-control{ ng_if: "!hasMarkFor( place ) && pageType == 'plan'", add_places_to_plan_on_click: '[{{place.id}}]', success_function: "savedPlace( place.id )" }
             %i.fa.fa-book
           .bucket-list-tab
-            %a{ ng_href: '{{place.href}}' }
+            %a{ ng_href: '{{place.href}}', target: '_self' }
               .bucket-list-no-img{ ng_if: "!place.image_url" }
               .bucket-list-img{ alt: '{{place.image_source}}', ng_if: "place.image_url", style: "background-image: url('{{ place.image_url }}');" }
             .bucket-list-wrap
               .bucket-list-profile
-                %a{ ng_href: '{{place.href}}' }
+                %a{ ng_href: '{{place.href}}', target: '_self' }
                   .bucket-list-title
                     {{ place.name }}
                   .bucket-list-more-info

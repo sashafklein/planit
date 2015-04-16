@@ -31,6 +31,7 @@ angular.module("Common").directive 'expandingHeaderSearch', (BarExpander, Curren
         $(".logo-container, .side-menu-container, .top-menu-container, .search-teaser").fadeIn("fast")
         element.find(".expanded-top-search-bar").fadeOut('fast')
         $(".mobile-center-search").show() if $(".mobile-center-search").css('display') == 'none'
+        $(".planbox-wrapper").show() if $(".planbox-wrapper")
         return true
 
   }

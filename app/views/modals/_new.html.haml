@@ -16,12 +16,12 @@
           %ul
             %li.like-container
               .bucket-list-tab.like-container
-                %a.place-link
+                %a.place-link{ target: '_self' }
                   .bucket-list-img
                     .choose-another-img= "Another"
                 .bucket-list-wrap.like-container
                   .bucket-list-profile
-                    %a.place-link
+                    %a.place-link{ target: '_self' }
                       .bucket-list-title
                       .bucket-list-more-info
                         %i.icon
@@ -57,7 +57,7 @@
         .modal-body
           .message-box
             %i.fa.fa-exclamation-triangle
-            %a.choices= "Well we found something..."
+            %a.choices{ target: '_self' }= "Well we found something..."
         .modal-footer
           %button.planit-button.cancel.gray{"data-dismiss" => "modal", :type => "button"} Cancel
           %button.planit-button.blue{"data-dismiss" => "modal", :type => "button"}
@@ -89,7 +89,7 @@
                 %span.clear-input-button
                   %i.fa.fa-times-circle
         .modal-footer
-          %a{:href => "https://developer.foursquare.com/"}
+          %a{ :href => "https://developer.foursquare.com/", :target => '_self' }
             %img.poweredbyfoursquare{:alt => "foursquare", :src => "https://ss0.4sqi.net/img/devsite/img_poweredby-181a0c7c0fe5f3576d97bcf29ce69d24.png"}/
           %button.planit-button.cancel.gray{"data-dismiss" => "modal", :type => "button"} Cancel
           %button.planit-button.neon{:id => "planit-modal-submit-new", :type => "button"} Add

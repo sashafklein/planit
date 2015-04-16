@@ -198,6 +198,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
               s.backspaced = 1
         return
 
+      s.notes = {}
       s.initializeItemsNotes = -> _.map( s.items, (item) -> s.originalNote(item) )
       s.initialSortItems = -> s.setCategoryAs('type')
 
@@ -266,7 +267,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
           Note.findByObject( item )
             .success (response) ->
               textarea.attr("disabled",false)
-              if note = response.body then textarea.val( note )
+              if note = response.body then s.notes[item.id] = note
             .error (response) ->
               ErrorReporter.report({ context: "Failed note fetch in list page", object_id: item.id, object_type: item.class })
               textarea.attr("disabled",false)

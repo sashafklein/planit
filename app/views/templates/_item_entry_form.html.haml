@@ -1,55 +1,56 @@
 %script{ type: 'text/ng-template', id: 'item_entry_form.html' }
 
   .new-item-form
-    .setplanbox-on-plan-page
-      .input-and-results{ ng_show: '!list' }
-        .faux-input-wrap
-          %span.add-new{ ng_show: 'canAddList()', ng_click: 'setList()' }
-            %i.fa.fa-plus-circle
-          %input.real-select.guide-name#guide{ name: "guide", type: 'text', placeholder: 'Guide Name', ng_model: 'listQuery', ng_on_enter_key: "setListOnEnter()", ng_class: "{'full-width': !canAddList()}" }
-        %ul.suggested-results{ ng_show: 'listOptions().length && listQuery.length > 2' }
-          %li{ ng_repeat: "currentList in listOptions()", ng_click: 'setList(currentList)' }
-            %span.name {{currentList.name}}
-            %span.count ({{currentList.place_ids.length}} places)
-      .chosen-plan{ ng_show: 'list && !rename' }
-        %span.title{ ng_click: 'renameList()' } {{ list.name }}
-        %i.fa.fa-times.title{ ng_click: 'resetList()' }
-        %i.fa.fa-cog.settings.dropdown-toggle{ "data-toggle" => "dropdown" }
-        = render 'header/dropdowns/plan_settings'
-      .chosen-plan.above-mask{ ng_show: 'list && rename' }
-        %input.title#rename{ ng_model: 'rename', ng_on_enter_key: 'saveRenameList()', ng_on_esc_key: 'cancelRenameList()' }
-        / .planit-button{ ng_click: 'saveRenameList()' } Save
-        / .planit-button{ ng_click: 'cancelRenamelist()' } Cancel
-    .minimize-maximize-addbox{ ng_show: "list && !rename", ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
-      %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
-    .addbox-on-plan-page{ ng_show: 'list && addBoxToggled' }
-      .faux-input-wrap{ ng_show: '!nearby && list' }
-        %span.add-new{ ng_show: 'canSetNearby(placeNearby)', ng_click: 'setNearby(placeNearby)' }
-          %i.fa.fa-check
-        %input.real-select#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Where? (City or Region)', ng_model: 'placeNearby', ng_show: 'list && !nearby', ng_on_enter_key: 'setNearby(placeNearby)', ng_class: "{'full-width': (!placeNearby || placeNearby.length < 2)}" }
-      .input-and-results{ ng_show: 'nearby && list' }
-        .faux-input-wrap
-          %span.chosen-input#chosen-nearby{ ng_click: 'resetNearby()' }
-            %i.fa.fa-times
-            {{ nearby }}
-          %input.real-input#place-name{ name: "place-name", type: 'text', placeholder: 'Add a Place (Search by Name)', ng_model: 'placeName', ng_change: 'search()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)' }
-        %ul.suggested-results{ ng_show: 'options.length > 0' }
-          %li.search-results-list{ ng_repeat: 'option in options', ng_click: 'addItem(option)' }
-            .bucket-list-tab
-              %a{ ng_href: '{{option.href}}' }
-                .bucket-list-no-img{ ng_show: "!option.image_url" }
-                .bucket-list-img{ ng_show: "option.image_url", style: "background-image: url('{{ option.image_url }}');" }
-              .bucket-list-wrap
-                .bucket-list-profile
-                  %a
-                    .bucket-list-title
-                      {{ option.names[0] }}
-                    .foursquare-and-info-wrap
-                      %span.mini-foursquare-icon{ ng_show: "option.icon", style: "background-image: url('{{ option.icon }}');" }
-                      .bucket-list-more-info
-                        {{ option.categories.join(', ') }}
-                      .bucket-list-more-info.locale-only
-                        {{ option.localeDetails() }}
+    .planbox-wrapper
+      .setplanbox-on-plan-page
+        .input-and-results{ ng_show: '!list' }
+          .faux-input-wrap
+            %span.add-new{ ng_show: 'canAddList()', ng_click: 'setList()' }
+              %i.fa.fa-plus-circle
+            %input.real-select.guide-name#guide{ name: "guide", type: 'text', placeholder: 'Guide Name', ng_model: 'listQuery', ng_on_enter_key: "setListOnEnter()", ng_class: "{'full-width': !canAddList()}" }
+          %ul.suggested-results{ ng_show: 'listOptions().length && listQuery.length > 2' }
+            %li{ ng_repeat: "currentList in listOptions()", ng_click: 'setList(currentList)' }
+              %span.name {{currentList.name}}
+              %span.count ({{currentList.place_ids.length}} places)
+        .chosen-plan{ ng_show: 'list && !rename' }
+          %span.title{ ng_click: 'renameList()' } {{ list.name }}
+          %i.fa.fa-times.title{ ng_click: 'resetList()' }
+          %i.fa.fa-cog.settings.dropdown-toggle{ "data-toggle" => "dropdown" }
+          = render 'header/dropdowns/plan_settings'
+        .chosen-plan.above-mask{ ng_show: 'list && rename' }
+          %input.title#rename{ ng_model: 'rename', ng_on_enter_key: 'saveRenameList()', ng_on_esc_key: 'cancelRenameList()' }
+          / .planit-button{ ng_click: 'saveRenameList()' } Save
+          / .planit-button{ ng_click: 'cancelRenamelist()' } Cancel
+      .minimize-maximize-addbox{ ng_show: "list && !rename", ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
+        %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
+      .addbox-on-plan-page{ ng_show: 'list && addBoxToggled' }
+        .faux-input-wrap{ ng_show: '!nearby && list' }
+          %span.add-new{ ng_show: 'canSetNearby(placeNearby)', ng_click: 'setNearby(placeNearby)' }
+            %i.fa.fa-check
+          %input.real-select#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Where? (City or Region)', ng_model: 'placeNearby', ng_show: 'list && !nearby', ng_on_enter_key: 'setNearby(placeNearby)', ng_class: "{'full-width': (!placeNearby || placeNearby.length < 2)}" }
+        .input-and-results{ ng_show: 'nearby && list' }
+          .faux-input-wrap
+            %span.chosen-input#chosen-nearby{ ng_click: 'resetNearby()' }
+              %i.fa.fa-times
+              {{ nearby }}
+            %input.real-input#place-name{ name: "place-name", type: 'text', placeholder: 'Add a Place (Search by Name)', ng_model: 'placeName', ng_change: 'search()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)' }
+          %ul.suggested-results{ ng_show: 'options.length > 0' }
+            %li.search-results-list{ ng_repeat: 'option in options', ng_click: 'addItem(option)' }
+              .bucket-list-tab
+                %a{ ng_href: '{{option.href}}', target: '_self' }
+                  .bucket-list-no-img{ ng_show: "!option.image_url" }
+                  .bucket-list-img{ ng_show: "option.image_url", style: "background-image: url('{{ option.image_url }}');" }
+                .bucket-list-wrap
+                  .bucket-list-profile
+                    %a{ target: '_self' }
+                      .bucket-list-title
+                        {{ option.names[0] }}
+                      .foursquare-and-info-wrap
+                        %span.mini-foursquare-icon{ ng_show: "option.icon", style: "background-image: url('{{ option.icon }}');" }
+                        .bucket-list-more-info
+                          {{ option.categories.join(', ') }}
+                        .bucket-list-more-info.locale-only
+                          {{ option.localeDetails() }}
 
     .sort-items-by.large-screen{ ng_show: "list && mode == 'list'" }
       %b Sort
@@ -83,12 +84,12 @@
               %span{ ng_show: "categoryIs == 'recent'"} {{ toDate( category ) }}
             %li.plan-list-item{ ng_repeat: 'item in matchingItems( category )' }
               .bucket-list-tab
-                %a{ ng_href: '{{item.mark.place.href}}' }
+                %a{ ng_href: '{{item.mark.place.href}}', target: '_self' }
                   .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
                   .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
                 .bucket-list-wrap
                   .bucket-list-profile
-                    %a
+                    %a{ target: '_self' }
                       .bucket-list-title
                         {{ item.mark.place.names[0] }}
                       .bucket-list-more-info

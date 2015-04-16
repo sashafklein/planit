@@ -4,7 +4,7 @@
     .bucket-list-img{ ng_show: "clusterImage()", style: "background-image: url('{{ clusterImage() }}');", id: "{{cluster.id}}", ng_click: 'zoomTo()'  }
     .bucket-list-wrap
       .bucket-list-profile{ id: "{{cluster.id}}", ng_click: 'zoomTo()' }
-        %a.bucket-list-title {{ cluster.location }}
+        .bucket-list-title {{ cluster.location }}
         .bucket-list-more-info 
           %span.bucket-list-cluster-size {{ cluster.count }}
           {{ clusterDetails() }}

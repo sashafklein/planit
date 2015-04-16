@@ -18,16 +18,16 @@
     .static-section-content
       %p.text-spaced
         In-app search is powered by the
-        %a{href: "http://www.foursquare.com/"}= "Foursquare"
+        %a{ target: '_self', href: "http://www.foursquare.com/"}= "Foursquare"
         Venues API
     .static-section-content
       %p.text-spaced
         All maps are deployed with the 
-        %a{href: "http://leafletjs.com/"}= "Leaflet"
+        %a{ target: '_self', href: "http://leafletjs.com/"}= "Leaflet"
         open-source JavaScript library, leverage
-        %a{href: "http://www.openstreetmap.org/"}= "OpenStreetMaps"
+        %a{ target: '_self', href: "http://www.openstreetmap.org/"}= "OpenStreetMaps"
         data, and contain
-        %a{href: "http://developer.mapquest.com/web/products/open/map/"}= "Mapquest"
+        %a{ target: '_self', href: "http://developer.mapquest.com/web/products/open/map/"}= "Mapquest"
         map tiles
 
   %div{ class: 'one-third column' }
@@ -39,7 +39,7 @@
         - if current_user_is_active
           %a{ href: '#planit-modal-feedback', data: { toggle: 'modal', target: '#planit-modal-feedback', backdrop: 'static', keyboard: 'false' } }= "a quick note"
         - else 
-          %a{href: "mailto:hello@plan.it"}= "a quick note"
+          %a{ target: '_self', href: "mailto:hello@plan.it"}= "a quick note"
         with us
 
     .static-section-content
