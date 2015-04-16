@@ -65,8 +65,8 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
           s.setList()
 
       s.resetList = -> 
-        s.list = s.listQuery = s.options = s.placeName = s.placeNearby = s.nearby = s.showMap = null
-        s.items = s.places = []
+        s._setOnScope( [ 'list', 'listQuery', 'options', 'placeName', 'placeNearby', 'nearby', 'showMap'], null )
+        s._setOnScope( [ 'items', 'places'], [] )
         s.mode = 'list'
         $timeout(-> $('#guide').focus() if $('#guide') )
         QueryString.modify({plan: null, near: null, mode: null, m: null, f: null})
@@ -99,7 +99,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
                 ErrorReporter.report({ context: 'Items.NewCtrl Plan.create', plan_name: s.listQuery}, "Something went wrong! We've been notified.")
 
       s._installList = (list) ->
-        s.list = list
+        s.plan = s.list = list
         s.getListItems()
         s.listQuery = list.name
         s.kmlPath = "/api/v1/plans/#{ list.id }/kml"
@@ -112,7 +112,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
             $('.searching-mask').hide()
             return unless s.list?
             
-            s.items = s.places = []
+            s._setOnScope( ['items', 'places'], [] )
             _.forEach response , (item, index) ->
               i = _.extend( Item.generateFromJSON( item ), { index: index, pane: 'list' } )
               s.items.push i
@@ -341,7 +341,6 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
         return unless s.hoverIndex?
 
         if item.pane == 'manifest'
-          debugger 
           s.moveInManifest( item.index, s.hoverIndex )
         else
           s.addToManifest( item, s.hoverIndex )
@@ -387,6 +386,11 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       s._dup = (object) -> s._objectClasses[object.class].generateFromJSON( _.extend({}, object) )
 
       s._objectClasses = { "Item": Item }
+
+
+      # META
+
+      s._setOnScope = (list, value = null) -> _.forEach list, (i) -> s[i] = ( if value? then _.clone(value) else null )
 
       # INITIALIZE
 
