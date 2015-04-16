@@ -2,7 +2,7 @@ require 'rails_helper'
 
 module Scrapers
 
-  describe General do
+  xdescribe General do
 
     include ScraperHelper
 

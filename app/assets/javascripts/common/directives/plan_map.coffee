@@ -1,18 +1,19 @@
-angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, BucketEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser, ErrorReporter) ->
+angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, BucketEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser, ErrorReporter) ->
 
   return {
     restrict: 'E'
     transclude: false
     replace: true
-    templateUrl: 'bucket_map.html'
+    templateUrl: 'plan_map.html'
     scope:
       userId: '@'
       zoomControl: '='
       webPadding: '@'
       mobilePadding: '@'
+      planPlaces: '=?'
+      showMap: '=?'
 
     link: (s, elem) ->
-      $('.loading-mask.content-only').show()
       s.loaded = false
       s.currentUserId = CurrentUser.id
       s.marker = new PlanitMarker(s)
@@ -62,12 +63,11 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
                 initial = 0
                 s.marker.clusterPin(cluster, initial)
 
-      s._getPlaces = (userId, currentUserId) ->
-        s._getPrimaryPlaces(userId).then ->
-          if currentUserId && currentUserId != userId
-            s._getContextPlaces(currentUserId).then( s._definePlaces() )
-          else
-            s._definePlaces()
+      s._getPlaces = ->
+        s.primaryPlaces = _.map(s.planPlaces, (p) -> s.marker.primaryPin(p) )
+        s._definePlaces()
+        # if s.currentUserId && s.currentUserId != s.userId
+        #   s._getContextPlaces(s.currentUserId)
 
       # ON MAP MOVEMENT
 
@@ -104,13 +104,13 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
           callback?()
 
       s._updateQuery = ->
-        if s.loaded && s.currentLLZoom
+        if s.loaded && s.currentLLZoom && s.showMap
           QueryString.modify( m: "#{ s.currentLLZoom.lat.toFixed(4) },#{ s.currentLLZoom.lon.toFixed(4) },#{ s.currentLLZoom.zoom }" )
 
       # SET MAP DATA
 
       s._definePlaces = ->
-        s.allPlaces = s.primaryPlaces.concat( if s.contextPlaces then s.contextPlaces else [] )
+        s.allPlaces = s.places = s.primaryPlaces # .concat( if s.contextPlaces then s.contextPlaces else [] )
         s._filterPlaces( s.recalculateInView )
         s._initiateCenterAndBounds()
 
@@ -131,24 +131,16 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
           ), 2000
 
       s._filterPlaces = (callback) -> 
-        s.places = new PlaceFilterer( QueryString.get() ).returnFiltered( s.allPlaces )
+        # s.places = new PlaceFilterer( QueryString.get() ).returnFiltered( s.allPlaces )
         $timeout(-> callback?() )
 
-      s._getPrimaryPlaces = (userId) ->
-        User.findPlaces( userId )
-          .success (places) ->
-            places = Place.generateFromJSON(places.user_pins)
-            s.primaryPlaces = _(places).map( (p) -> s.marker.primaryPin(p) ).value()
-          .error (response) ->
-            ErrorReporter.report({ userId: userId })
-
-      s._getContextPlaces = (currentUserId) ->
-        User.findPlaces( currentUserId )
-          .success (places) ->
-            places = Place.generateFromJSON( places.current_user_pins )
-            s.contextPlaces = _(places).map( (p) -> s.marker.contextPin(p) ).value()
-          .error (response) ->
-            ErrorReporter.report({ userId: userId })
+      # s._getContextPlaces = (currentUserId) ->
+      #   User.findPlaces( currentUserId )
+      #     .success (places) ->
+      #       places = Place.generateFromJSON( places.current_user_pins )
+      #       s.contextPlaces = _(places).map( (p) -> s.marker.contextPin(p) ).value()
+      #     .error (response) ->
+      #       ErrorReporter.report({ userId: userId })
 
       s.clusterFromId = (id) ->
         _.filter( s.clustersInView , (c) -> c.id == id )[0]
@@ -181,7 +173,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
       s.$on '$locationChangeSuccess', (event, next) -> s._filterPlaces( s.recalculateInView ) if s.allPlaces?.length
 
       s._adjustInfoBoxSize = ->
-        $('#in-view-list').css('max-height', ( parseInt( $('.bucket-map-canvas').height() * 0.9 ) - parseInt( $('.filter-dropdown-toggle').height() ) ).toString() + 'px') if s.web
+        $('#in-view-list').css('max-height', ( parseInt( $('.plan-map-canvas').height() * 0.9 ) - parseInt( $('.filter-dropdown-toggle').height() ) ).toString() + 'px') if s.web
 
       s._disableMapManipulationOnInfoBox = ->
         if infoBox = document.getElementById('map-info-box')
@@ -228,9 +220,27 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
       
       # FILTER INIT
       s._initFilters()
-      s.$watch('filters', (-> QueryString.modify( f: s._filterString() ) ), true ) # On filter change, update the QueryString
-
+      s.$watch('filters', (-> QueryString.modify( f: s._filterString() ) if s.showMap ), true ) # On filter change, update the QueryString
 
       # MAPWIDE INIT
-      s._getPlaces(s.userId, s.currentUserId)
+      s.initialized = false
+      s.initialize = ->
+        if !s.initialized && s.planPlaces && s.planPlaces.length > 0 && s.showMap
+          $('.loading-mask.content-only').show()
+          s._getPlaces()
+          s.initialized = true
+        else if s.initialized && !s.showMap
+          s.resetMapContent() 
+
+      s.resetMapContent = ->
+        s.places = s.allPlaces = s.primaryPlaces = s.planPlaces = s.placesInView = s.clustersInView = []
+        s.currentLLZoom = s.currentBounds = null
+        s.initialized = false
+        s.centerPoint = { lat: 0, lng: 0, zoom: 2 }
+        s.filters = {}
+
+      s.$watch('planPlaces', (-> s.initialize() ) )
+      s.$watch('showMap', (-> s.initialize() ) )
+
+      window.pm = s
   }

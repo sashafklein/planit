@@ -4,7 +4,7 @@
     .bucket-list-img{ ng_if: "place.hasImage()", ng_href: "/places/{{place.id}}", style: "background-image: url('{{place.images[0].url}}');" }
     .bucket-list-wrap
       .bucket-list-profile
-        %a.bucket-list-title{ ng_href: "/places/{{place.id}}" }
+        %a.bucket-list-title{ ng_href: "/places/{{place.id}}", target: '_self' }
           {{ place.name }}
         .bucket-list-more-info
           %i{ class: '{{place.meta_icon}}'}

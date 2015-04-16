@@ -1,5 +1,10 @@
 // LISTS FOR PLACES / CLUSTERS
-.map-filter-results, .map-highlight-result, .place-search-results, .modal-directive-wrapper .choose, .modal-directive-wrapper .confirm, .place-list
+
+.suggested-results
+  li + li
+    border-top: 1px #ccc solid
+
+.map-filter-results, .map-highlight-result, .place-search-results, .modal-directive-wrapper .choose, .modal-directive-wrapper .confirm, .place-list, .items-in-plan, .items-in-manifest, .search-results-list
 
   ul
     list-style-type: none
@@ -78,6 +83,20 @@
     &:hover
       color: #0047b3 // light blue
       text-decoration: none
+
+  span.mini-foursquare-icon
+    display: inline-block
+    height: 30px
+    width: 30px
+    margin-right: 3px
+    background-color: #aaa
+    float: left
+    background: no-repeat center center
+    -webkit-background-size: cover
+    -moz-background-size: cover
+    -o-background-size: cover
+    background-size: cover
+    vertical-align: middle
 
   .bucket-list-more-info
     display: block

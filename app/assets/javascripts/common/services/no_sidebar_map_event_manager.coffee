@@ -8,11 +8,11 @@ mod.service 'NoSidebarMapEventManager', (F, $timeout, MapEventManager) ->
       if @s.mobile
         switch type
           when 'pinClick' then false ; false
-          when 'pinDblClick' then @redirect(id)
+          when 'pinDblClick' then false ; false
           when 'clusterClick' then false ; false
       else if @s.web
         switch type
-          when 'pinClick' then @redirect(id)
+          when 'pinClick' then false
           when 'pinMouseenter' then false
           when 'pinMouseenterScroll' then false
           when 'pinMouseleave' then false
@@ -20,4 +20,4 @@ mod.service 'NoSidebarMapEventManager', (F, $timeout, MapEventManager) ->
           when 'clusterMouseenterScroll' then false
           when 'clusterMouseleave' then false
 
-  return MapEventManager
+  return NoSidebarMapEventManager

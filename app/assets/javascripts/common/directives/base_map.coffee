@@ -8,7 +8,7 @@ angular.module("Common").directive 'baseMap', (Place, PlanitMarker, leafletData,
       <div class='base-map-div' style='width:100%; height:100%'>
         <div class='leaflet-wrapper' ng-if='layers' ng-show='centerSet'>
           <ng-transclude class='base-map-transclude'></ng-transclude>
-          <leaflet markers='places' defaults='defaults' height='100%' width='100%' center='centerPoint' layers='layers' watch-markers='false'></leaflet>
+          <leaflet markers='places' defaults='defaults' height='100%' width='100%' center='centerPoint' layers='layers'></leaflet>
         </div>
       </div>
     '''
@@ -19,6 +19,7 @@ angular.module("Common").directive 'baseMap', (Place, PlanitMarker, leafletData,
       unwrappedPlaces: '='
       centerPoint: '=?'
       eventManager: '=?'
+      popups: '=?'
 
     link: (s, elem) ->
       s.eventManager = if s.eventManager then s.eventManager else MapEventManager
@@ -74,7 +75,7 @@ angular.module("Common").directive 'baseMap', (Place, PlanitMarker, leafletData,
         if s.unwrappedPlaces?.length && !s.places?.length
           s.places = _.map( 
             Place.generateFromJSON(s.unwrappedPlaces), 
-            (p) -> (s.marker.primaryPin(p))
+            (p) -> (if s.popup then s.marker.primaryPin(p, true) else s.marker.primaryPin(p))
           )
           s._initiateCenterAndBounds()
 
@@ -88,5 +89,6 @@ angular.module("Common").directive 'baseMap', (Place, PlanitMarker, leafletData,
               { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] }
             )
 
+      window.bm = s
       window.mapMouseEvent = s.mouse
   }

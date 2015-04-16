@@ -1,12 +1,12 @@
 %script{ type: 'text/ng-template', id: 'bucket_list_clusters.html' }
   .bucket-list-tab
-    .bucket-list-no-img{ ng_if: "!clusterImage()", ng_click: 'zoomTo()' }
-    .bucket-list-img{ ng_if: "clusterImage()", style: "background-image: url('{{ clusterImage() }}');", id: "{{cluster.id}}", ng_click: 'zoomTo()'  }
+    .bucket-list-no-img{ ng_show: "!clusterImage()", ng_click: 'zoomTo()' }
+    .bucket-list-img{ ng_show: "clusterImage()", style: "background-image: url('{{ clusterImage() }}');", id: "{{cluster.id}}", ng_click: 'zoomTo()'  }
     .bucket-list-wrap
       .bucket-list-profile{ id: "{{cluster.id}}", ng_click: 'zoomTo()' }
-        %a.bucket-list-title {{ cluster.location }}
+        .bucket-list-title {{ cluster.location }}
         .bucket-list-more-info 
           %span.bucket-list-cluster-size {{ cluster.count }}
-          {{ clusterDetails(cluster.places) }}
+          {{ clusterDetails() }}
       .bucket-list-controls
         %cluster_control_bar{ places: 'cluster.places' }

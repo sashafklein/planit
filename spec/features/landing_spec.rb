@@ -26,7 +26,7 @@ describe 'Landing' do
       sign_in(user)
       user.member!
       visit root_path
-      expect( current_path ).to eq user_path(user)
+      expect( current_path ).to eq '/'
     end
   end
 

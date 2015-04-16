@@ -31,7 +31,7 @@ body
   position: relative
 
 .page-mask
-  position: absolute
+  position: fixed
   display: none
   top: 0
   bottom: 0
@@ -40,6 +40,8 @@ body
   height: 100%
   width: 100%
   background: rgba(0,0,0,0.3)
+  &.everything-but-mask
+    z-index: 1000000
   &.searching-mask
     cursor: pointer
     z-index: 20000
@@ -105,6 +107,41 @@ a.linky
     right: 0
     margin: auto auto
     height: auto
+
+// DROPDOWN MENUS
+
+ul.planit-dropdown-menu
+  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  padding: 15px 0
+  margin-right: 3px
+  font-size: 15px
+  line-height: 18px
+  text-align: right
+  z-index: 160000
+
+li.planit-dropdown-menu
+  white-space: nowrap
+  overflow: hidden
+  width: auto
+  padding: 3px 20px
+  cursor: pointer
+  &:hover
+    color: #f06
+  &.disabled
+    color: #aaa
+    cursor: default
+
+.planit-dropdown-menu-icon
+  width: 30px
+  text-align: center
+  transition: all 0.2s ease
+
+.dropdown-menu-right .planit-dropdown-menu-icon
+  margin-left: 10px
+
+.dropdown-menu-left .planit-dropdown-menu-icon
+  margin-right: 10px
+
 
 // COMMON VISUALS
 
@@ -352,6 +389,125 @@ strong, .in-caps-header, i, b
     font-weight: normal
     color: #f06
     font-style: italic
+
+// FORMS
+
+.faux-input-wrap
+  background-color: rgb(255, 255, 255)
+  border-bottom-color: rgba(0, 0, 0, 0.14902)
+  border-bottom-style: solid
+  border-bottom-width: 1px
+  border-image-outset: 0px
+  border-image-repeat: stretch
+  border-image-slice: 100%
+  border-image-source: none
+  border-image-width: 1
+  border-left-color: rgba(0, 0, 0, 0.14902)
+  border-left-style: solid
+  border-left-width: 1px
+  border-right-color: rgba(0, 0, 0, 0.14902)
+  border-right-style: solid
+  border-right-width: 1px
+  border-top-color: rgba(0, 0, 0, 0.247059)
+  border-top-style: solid
+  border-top-width: 1px
+  display: inline-block
+  height: 28px
+  width: 100%
+  margin: 0
+  padding: 0
+  position: relative
+  overflow: hidden
+  white-space: nowrap
+  cursor: text
+
+  input.real-input
+    width: 65%
+    float: left
+  input.real-select
+    width: 85%  
+    float: left
+  input.real-input, input.real-select
+    border-size: 0
+    border: none
+    box-shadow: none
+    color: rgb(68, 68, 68)
+    cursor: auto
+    display: block
+    font-size: 14px
+    font-style: normal
+    font-variant: normal
+    font-weight: normal
+    line-height: normal
+    margin: 0
+    padding: 4px 0 4px 5px
+    text-align: start
+    text-indent: 0px
+    word-spacing: 0px
+    writing-mode: lr-tb
+    vertical-align: middle
+    &:focus
+      outline-width: 0
+      outline: none
+      border-size: 0
+      border: none
+  span.chosen-input
+    width: 30%
+    float: left
+  span.add-new
+    width: 10%
+    float: right
+  span.chosen-input, span.add-new
+    box-sizing: content-box
+    cursor: pointer
+    display: block
+    font-size: 14px
+    font-style: normal
+    font-weight: normal
+    height: 20px
+    line-height: 20px
+    margin: 2px 1%
+    min-width: 18px
+    overflow-x: hidden
+    overflow-y: hidden
+    padding: 0 5px
+    text-align: center
+    text-decoration: none
+    text-overflow: ellipsis
+    border-radius: 2px
+    color: #fff
+    background: #f06
+    border: 1px solid #c03
+    border-bottom: 1px solid #700
+    &:hover, &.highlighted
+      color: #fff
+      text-shadow: 1px 1px 1px #b28
+      background: #e05
+      border: 1px solid #b02
+      border-bottom: 1px solid #600
+    i.fa-times
+      float: left
+      margin: 2px 4px 2px 0
+
+.input-and-results
+  position: relative
+  display: block
+  width: 100%
+
+  ul.suggested-results
+    list-style-type: none
+    -webkit-padding-start: 0
+    padding: 0
+    margin: 0
+    background: #ddd
+    border: 1px solid #ccc
+    position: absolute
+    width: 100%
+    z-index: 100
+    top: 28px // assuming 28px tall search box
+    max-height: 400px
+    overflow-x: hidden
+    overflow-y: scroll
 
 // ?
 
@@ -684,6 +840,11 @@ hr.divider
     .hug-tight-bottom
       bottom: 0
       margin-bottom: -80px
+  &.spaced-xxx
+    padding: 140px 0
+    .hug-tight-bottom
+      bottom: 0
+      margin-bottom: -140px
   &.spaced-extra-crazy
     padding: 350px 0
 
@@ -715,6 +876,11 @@ hr.divider
       padding: 25px 0
     &.spaced-extra, &.spaced-extra-crazy
       padding: 45px 0
+    &.spaced-xxx
+      padding: 140px 0
+      .hug-tight-bottom
+        bottom: 0
+        margin-bottom: -140px
 
   .planit-modal
     .modal-dialog
@@ -745,7 +911,7 @@ hr.divider
       padding: 20px 0 0 0
     &.spaced
       padding: 20px 0
-    &.spaced-extra, &.spaced-extra-crazy
+    &.spaced-extra, &.spaced-extra-crazy, &.spaced-xxx
       padding: 30px 0
 
   .planit-modal
@@ -820,7 +986,7 @@ hr.divider
       padding: 12px 0 0 0
     &.spaced
       padding: 12px 0
-    &.spaced-extra, &.spaced-extra-crazy
+    &.spaced-extra, &.spaced-extra-crazy, &.spaced-xxx
       padding: 18px 0
 
   .planit-modal

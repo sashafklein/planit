@@ -5,7 +5,8 @@ module PlaceMod
     delegate :uniqify_array_attrs, :array_attrs_unique?, to: :place
     def initialize(place, images=[], flags=[])
       @place = place.persisted? ? place : place.class.new(place.attributes)
-      @images, @flags = images, flags
+      @flags = flags
+      @images = (images.first.is_a?(Image) ? images : images.map{ |i| Image.new( i.to_sh ) })
     end
 
     def save!

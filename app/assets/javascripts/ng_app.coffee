@@ -23,4 +23,4 @@ angular.module(module, otherModules) for module in planitModules
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|webcal|mailto|file|tel):/)
   
   # Stop angular from prefixing all ng-changed URLs with a # sign
-  $locationProvider.html5Mode(false)
+  $locationProvider.html5Mode(true)

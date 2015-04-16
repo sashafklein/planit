@@ -34,10 +34,6 @@ module ActsLikePlace
     lat && lon ? [lat, lon].join( joiner ) : false
   end
 
-  def full
-    [locality, country].reject(&:blank?).join(", ")
-  end
-
   def nearby
     list, final_list = [locality, subregion, region, country].select(&:present?), []
     return nil unless list.any?

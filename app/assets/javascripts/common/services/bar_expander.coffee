@@ -6,6 +6,7 @@ angular.module("Services").factory "BarExpander", () ->
       $(".logo-container, .side-menu-container, .top-menu-container, .search-teaser").fadeOut("fast")
       $('#planit-header').addClass("focused")
       $(".searching-mask, .expanded-top-search-bar").fadeIn("fast")
+      $(".planbox-wrapper").hide() if $(".planbox-wrapper")
       if $(".expanded-top-search-bar input#primary").css('display') != 'none'
         $(".expanded-top-search-bar input#primary").focus()
       else if $(".expanded-top-search-bar input#secondary").css('display') != 'none'

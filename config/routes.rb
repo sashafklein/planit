@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   devise_for :users
 
-  root 'landing#show'
+  root 'plans#index'
 
   get '/beta', to: 'statics#beta'
   get '/invite', to: 'statics#invite'
@@ -68,7 +68,9 @@ Rails.application.routes.draw do
         get :search, on: :collection
       end
 
-      resources :notes, only: [:create]
+      resources :notes, only: [:create] do
+        get :find_by_object, on: :collection
+      end
 
       resources :items, only: [:index, :show]
       
@@ -104,12 +106,12 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :plans, only: [:destroy, :create, :show] do
+      resources :plans, only: [:destroy, :create, :show, :update] do
         get :items, on: :member
-        post :rename, on: :member
         post :add_items, on: :member
         post :destroy_items, on: :member
         post :add_item_from_place_data, on: :member
+        resources :kml, only: [:index], controller: 'plans/kml'
         resources :places, only: [:index], controller: 'plans/places'
 
         post :add, to: 'plans/manifest#add', on: :member, as: :add_to_manifest

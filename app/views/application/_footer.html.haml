@@ -1,15 +1,19 @@
 - if current_user_is_active
-  - if !fullscreen?(page_type)
+  - if browser.mobile? # if !fullscreen?(page_type)
     #footer-spacing.except-landscape
-  #planit-footer.except-landscape
-
-    - if browser.mobile?
+  #planit-footer.except-landscape.mobile
     
-      .footer-container.mobile
-        .bottom-nav-bar{ ng_controller: 'NavBarCtrl' }= render 'application/nav_bar', { page_type: page_type, current_user: current_user }
-      - include_templates :search_and_add # for add button
+    .footer-container.mobile
+      .bottom-nav-bar{ ng_controller: 'NavBarCtrl' }= render 'application/nav_bar', { page_type: page_type, current_user: current_user }
+    - include_templates :search_and_add # for add button
+
+    / - if browser.mobile?
+    
+    /   .footer-container.mobile
+    /     .bottom-nav-bar{ ng_controller: 'NavBarCtrl' }= render 'application/nav_bar', { page_type: page_type, current_user: current_user }
+    /   - include_templates :search_and_add # for add button
       
-    - else
+    / - else
   
-      .footer-container.large-screen{ ng_hide: '$root.mapExpanded' }
-        = render 'statics/legal_info' unless page_type == 'legal_support'
+    /   .footer-container.large-screen{ ng_hide: '$root.mapExpanded' }
+    /     = render 'statics/legal_info' unless page_type == 'legal_support'

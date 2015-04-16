@@ -8,10 +8,6 @@ class MapPlaceSerializer < ActiveModel::Serializer
     object.names.first
   end
 
-  def coordinates
-    [object.lat,object.lon]
-  end
-
   def open
     object.open?
   end

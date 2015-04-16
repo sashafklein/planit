@@ -4,17 +4,36 @@ class Item < BaseModel
   belongs_to :plan
   belongs_to :day
 
-  delegate :names, :categories, :category, :coordinate, :lat, :lon, :url, :phones, :phone, :website, :street_address, 
-           :country, :region, :locality, :sublocality, :image, :source, to: :place
-  delegate :place, :notes, :name, to: :mark
   delegate :leg, to: :day
   
   json_accessor :extra
   boolean_accessor :published
 
+  has_many_polymorphic table: :notes
+
   class << self
     delegate :places, :coordinates, :all_names, :all_ids, :all_types, :all_countries, :all_regions, :all_localities, to: :marks
   end
+
+  delegate    :names,
+              :lat, :lon, 
+              :street_addresses, :sublocality, :locality, :subregion, :region, :country, 
+              :phone, :phones, :website,
+              :meta_categories, :categories,
+
+              :images, 
+
+              :menu, :mobile_menu, 
+              :reservations, :reservations_link, :hours, 
+
+              :coordinate, :image,
+              :name, :image_url, :image_source, :address, :locale, :href, :meta_icon,
+              :savers, :lovers, :visitors, :guides,
+
+              :name,
+              :street_address,
+              :meta_icon, :meta_category, 
+                to: :mark
 
   validates_presence_of :mark, :plan
 
@@ -26,14 +45,6 @@ class Item < BaseModel
   before_save { self.start_time = Services::TimeConverter.new(self.start_time).absolute if start_time_changed? }
 
   # CLASS METHODS
-
-  # def plan_name
-  #   plan.name if plan
-  # end
-
-  # def plan_name=(name)
-  #   self.plan = Plan.find_or_create_by_name(name) unless name.blank?
-  # end
 
   def self.marks
     Mark.where(id: pluck(:mark_id))

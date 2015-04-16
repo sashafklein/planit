@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Api::V1::NotesController do
-  describe "create" do
+  describe "api" do
 
     before do 
       @user = create(:user)
@@ -9,23 +9,37 @@ describe Api::V1::NotesController do
       @plan = create(:plan)
     end
 
-    it "takes a body, object id, and object type and creates a note for the current user" do
-      sign_in @user
-      expect( Note.all.count ).to eq 0
-      post :create, note: { object_id: @mark.id, object_type: 'Mark', body: 'Mark note' }
-      post :create, note: { object_id: @plan.id, object_type: 'Plan', body: 'Plan note' }
-      expect( Note.all.count ).to eq 2
-      expect( @user.notes.count ).to eq 2
-      expect( @user.notes.pluck(:object_type) ).to array_eq ['Mark', 'Plan']
-      expect( @user.notes.pluck(:body) ).to array_eq ['Mark note', 'Plan note']
+    describe "creates" do
+      it "note with a body, object id, and object type -- for the current user" do
+        sign_in @user
+        expect( Note.all.count ).to eq 0
+        post :create, note: { object_id: @mark.id, object_type: 'Mark', body: 'Mark note' }
+        post :create, note: { object_id: @plan.id, object_type: 'Plan', body: 'Plan note' }
+        expect( Note.all.count ).to eq 2
+        expect( @user.notes.count ).to eq 2
+        expect( @user.notes.pluck(:object_type) ).to array_eq ['Mark', 'Plan']
+        expect( @user.notes.pluck(:body) ).to array_eq ["Plan note", "Mark note"]
+      end
+
+      it "but denies permission to non-users" do
+        post :create, note: { object_id: @mark.id, object_type: 'Mark', body: 'Mark note' }
+
+        expect( response.code ).to eq "403"
+        expect( Note.count ).to eq 0
+      end
     end
 
-    it "denies permission to non-users" do
-      post :create, note: { object_id: @mark.id, object_type: 'Mark', body: 'Mark note' }
+    describe "finds" do
 
-      expect( response.code ).to eq "403"
-      expect( Note.count ).to eq 0
+      before do
+        @item = create(:item)
+        @note = create(:note, object: @item)
+      end
+
+      it "an item's notes" do
+        get :find_by_object, { object_id: @item.id, object_type: @item.class }
+        expect( response_body.body ).to eq "Yo bitch that was insane"
+      end
     end
-
   end
 end

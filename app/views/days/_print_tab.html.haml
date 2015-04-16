@@ -26,7 +26,7 @@
     = item.street_address
 - if item.website
   .print-tab-content-line
-    %a{:title => "website", :href => item.website}
+    %a{:title => "website", :href => item.website, :target => '_self' }
       = item.website
 - if item.phones
   - item.phones.each do |type, number|

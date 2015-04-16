@@ -1,7 +1,7 @@
-%script{ type: 'text/ng-template', id: 'bucket_map.html' }
+%script{ type: 'text/ng-template', id: 'plan_map.html' }
   .map-canvas-box.bucket-map
     .leaflet-wrapper{ ng_if: 'layers' }
-      %leaflet{ markers: 'places', defaults: 'defaults', height: '100%', width: '100%', center: 'centerPoint', layers: 'layers', watch_markers: 'false' }
+      %leaflet{ markers: 'places', defaults: 'defaults', height: '100%', width: '100%', center: 'centerPoint', layers: 'layers' }
         #map-info-box{ ng_show: "loaded" }
 
           // WEB!!!

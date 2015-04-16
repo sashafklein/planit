@@ -11,6 +11,6 @@ class Api::V1::ItemsController < ApiController
     where = params[:conditions] ? JSON.parse(params[:conditions]) : {}
     return permission_denied_error if where && where[:plan_id] && !current_user.owns?( Plan.find(where[:plan_id]) )
 
-    render json: Item.where( where ), each_serializer: ItemSerializer
+    render json: Item.with_places.where( where ), each_serializer: ItemSerializer
   end
 end
