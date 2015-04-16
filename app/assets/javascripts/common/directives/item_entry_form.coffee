@@ -1,4 +1,4 @@
-angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Note, Foursquare, ErrorReporter, CurrentUser, QueryString, $filter, $timeout, $location) ->
+angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Note, Foursquare, ErrorReporter, CurrentUser, QueryString, $filter, $timeout, $location, $q) ->
   return {
     restrict: 'E'
     replace: true
@@ -12,7 +12,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       if plan_id = QueryString.get()['plan']
         Plan.find(plan_id)
           .success (response) ->
-            s.list = Plan.generateFromJSON( response )
+            s.list = s.plan = Plan.generateFromJSON( response )
             s.setList( s.list )
             if locale = QueryString.get()['near']
               s.nearby = locale
@@ -73,6 +73,8 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
 
       s.canAddList = -> s.listQuery?.length > 2 && ( !s.lists?.length || !s.listOptions()?.length || ( s.listOptions()?.length > 0 && !s.optionMatchesListQuery() ) )
 
+      s.listClass = (mode) ->
+        if mode == 'list' then 'sixteen columns' else 'ten columns'
       s.setList = (list) ->
         if list
           $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
@@ -98,24 +100,31 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
 
       s._installList = (list) ->
         s.list = list
-        s.getListsItems()
+        s.getListItems()
         s.listQuery = list.name
         s.kmlPath = "/api/v1/plans/#{ list.id }/kml"
 
-      s.getListsItems = ->
+      s.getListItems = ->
         return unless s.list?
         $('.searching-mask').show()
         Item.where({ plan_id: s.list.id })
           .success (response) ->
             $('.searching-mask').hide()
             return unless s.list?
-            s.items = Item.generateFromJSON( response )
-            s.places = _.map( s.items, (i) -> i.mark.place )
+            
+            s.items = s.places = []
+            _.forEach response , (item, index) ->
+              i = _.extend( Item.generateFromJSON( item ), { index: index, pane: 'list' } )
+              s.items.push i
+              s.places.push i.mark.place
+
+            s._getManifestItems()
+
             $timeout(-> s.initialSortItems() )
             $timeout(-> s.initializeItemsNotes() )
           .error (response) ->
             $('.searching-mask').hide()
-            ErrorReporter.report({ context: 'Items.NewCtrl getListsItems', list_id: s.list.id}, "Something went wrong! We've been notified.")
+            ErrorReporter.report({ context: 'Items.NewCtrl getListItems', list_id: s.list.id}, "Something went wrong! We've been notified.")
 
       s.listOptions = ->
         filter = $filter('filter')
@@ -305,7 +314,79 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
 
       # s.typeIcon = ( category ) ->
 
+      ## DRAG-DROP
 
+      s.addToManifest = (item, insertIndex=0) -> 
+        s._runRequest( ( -> s.plan.addToManifest(item, insertIndex) ), 'addToManifest', { item_id: item.id })
+
+      s.removeFromManifest = (itemIndex) ->
+        item = s.manifestItems[itemIndex]
+        s._runRequest( ( -> s.plan.removeFromManifest( item, itemIndex ) ), 'removeFromManifest', {item_id: item.id, remove_index: itemIndex} )
+
+      s.moveInManifest = (from, to) ->
+        s._runRequest( ( -> s.plan.moveInManifest(from, to) ), 'moveInManifest', { from: from, to: to } )
+
+      s.toggleSelectedItem = (item) -> 
+        s.selectedItem = (if s.selectedItem == item then null else item)
+
+      s.isSelected = (item) -> s.selectedItem == item
+
+      s.hoveringOver = (index) -> 
+        s.selectedItem? && s.hoverIndex? && s.hoverIndex == index
+
+      s.setHover = (index) -> s.hoverIndex = index
+
+      s.insert = () ->
+        return unless s.selectedItem? && (item = s.selectedItem)
+        return unless s.hoverIndex?
+
+        if item.pane == 'manifest'
+          debugger 
+          s.moveInManifest( item.index, s.hoverIndex )
+        else
+          s.addToManifest( item, s.hoverIndex )
+
+        s.hoverIndex = s.selectedItem = null
+
+      s._runRequest = (request, name='', extraReporting={}) ->
+        request()
+          .success (response) ->
+            s._resetManifestItems(response)
+          .error (response) ->
+            ErrorReporter.defaultReport _.extend({context: "ItemEntryForm #{name}", plan_id: s.plan.id}, extraReporting) 
+
+      s._resetManifestItems = (response) ->
+        s.plan.manifest = response
+        newManifestItems = []
+        _.forEach s.plan.manifest, (item, index) ->
+          if found = s._findItem(item)
+            newManifestItems.push _.extend(found, { $$hashKey: "object:#{index}", index: index, pane: 'manifest' })
+        s.manifestItems = newManifestItems
+
+      s._findItem = (manifestItem) -> 
+        item = _.find(s.items, (i) -> s._identical(i, manifestItem)) || _.find(s.manifestItems, (i) -> s._identical(i, manifestItem) || {})
+        return null unless item?.class
+        s._dup(item)
+
+      s._identical = (i1, i2) -> i1.class == i2.class && i1.id == i2.id
+
+      s._getManifestItems = ->
+        s.manifestItems ||= []
+        _(s.plan.manifest).map( (item, index) -> 
+          ( -> s._getManifestItem( item, index ) )
+        ).reduce( ( (promise, next) -> promise.then(next) ), $q.when() )
+
+      s._getManifestItem = (item, index) ->
+        classObj = s._objectClasses[item.class]
+        classObj.find(item.id)
+          .success (response) ->
+            s.manifestItems.push _.extend( classObj.generateFromJSON(response), { index: index, pane: 'manifest' } )
+          .error (response) ->
+            ErrorReporter.defaultReport( context: 'ItemEntryForm getManifestItems', plan_id: s.plan.id, item_id: item.id )
+
+      s._dup = (object) -> s._objectClasses[object.class].generateFromJSON( _.extend({}, object) )
+
+      s._objectClasses = { "Item": Item }
 
       # INITIALIZE
 
