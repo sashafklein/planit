@@ -4,7 +4,7 @@ angular.module("Common").directive 'noSidebarMap', (NoSidebarMapEventManager) ->
     transclude: true
     # replace: true
     template: '''
-      <base-map unwrapped-places='unwrappedPlaces' zoom-control='zoomControl' web-padding='webPadding' mobile-padding='mobilePadding' center-point='centerPoint' event-manager='eventManager' height='100%'></base-map>
+      <base-map unwrapped-places='unwrappedPlaces' popups='true' zoom-control='zoomControl' web-padding='webPadding' mobile-padding='mobilePadding' center-point='centerPoint' event-manager='eventManager' height='100%'></base-map>
     '''
     scope: 
       webPadding: '=?'

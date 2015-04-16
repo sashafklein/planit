@@ -8,17 +8,15 @@ mod.factory 'PlanitMarker', ($timeout) ->
 
     primaryPin: (place, show_popup = false) ->
       id = "p#{place.id}"
-      _( @_basicPin(place) ).extend(
+      pin = _( @_basicPin(place) ).extend(
         icon:
           type: 'div'
           className: 'default-map-div-icon'
-          html: """ <div onclick="mapMouseEvent('pinClick', id)" ondblclick="mapMouseEvent('pinDblClick', id)" onmouseenter="mapMouseEvent('pinMouseenterScroll', id)" onmouseleave="mapMouseEvent('pinMouseleave', id)" class="default-map-icon-tab #{id}" id="#{id}" ><i class="#{place.meta_icon || ''}" ></i><div class="arrow" /></div> """
+          html: """ <div class="default-map-icon-tab #{id}" id="#{id}" ><i class="#{place.meta_icon || ''}" ></i><div class="arrow" /></div> """
           iconSize: null
       ).value()
-      # if show_popup
-      #   primaryMarker.bindPopup("<a href='/places/#{place.id}'>#{ place.name() }</a>", {offset: new L.Point(0,8)})
-      # else
-      #   primaryMarker
+      # return pin unless show_popup
+      # pin.bindPopup("<a href='/places/#{place.id}'>#{ place.name() }</a>")
 
     contextPin: (place) ->
       _( @_basicPin(place) ).extend(
@@ -62,6 +60,7 @@ mod.factory 'PlanitMarker', ($timeout) ->
         alt: place.name
         riseOnHover: true
         layer: 'primary'
+        lng: place.lon
       ).value()
 
   return PlanitMarker

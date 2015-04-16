@@ -1,7 +1,7 @@
 - title( @plan.name )
 - set_page_type('plan')
 
-#show-plan-page
+#show-plan-page{ ng_controller: "Plans.ShowCtrl", ng_init: "loadPlaces(#{@plan.id})" }
 
   / .setplanbox-on-plan-page
   /   %span.title Japan Family Trip
@@ -16,10 +16,10 @@
   /       San Francisco, California
   /     %input.real-input{ placeholder: 'Add Places to Your Guide' }
 
-  / / .plan-map-container{ ng_class: "{'expanded': mapExpanded}" }
-  / /   / %div#expand-map-button.large-screen{ ng_click: 'contractOrExpandMap()'}
-  / /   /   %i.fa.fa-expand.fa-flip-horizontal
-  / /   %no_sidebar_map.plan-map-canvas{ unwrapped_places: 'places', ng_show: 'loaded' }
+  .plan-map-container{ ng_class: "{'expanded': mapExpanded}" }
+    / %div#expand-map-button.large-screen{ ng_click: 'contractOrExpandMap()'}
+    /   %i.fa.fa-expand.fa-flip-horizontal
+    %no_sidebar_map.plan-map-canvas{ unwrapped_places: 'places', ng_show: 'loaded' }
 
   / .plan-items-container.except-landscape{ ng_show: '!mapExpanded' }
   /   - @plan.legs.each_with_index do |leg, index|

@@ -1,6 +1,7 @@
 angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Note, Foursquare, ErrorReporter, CurrentUser, QueryString, $filter, $timeout, $location) ->
   return {
     restrict: 'E'
+    replace: true
     templateUrl: 'item_entry_form.html'
 
     link: (s, e, a) ->
@@ -20,6 +21,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
             ErrorReporter.report({ context: 'Tried looking up #{plan_id} plan, unsuccessful'})
       if mode_in_querystring = QueryString.get()['mode']
         s.mode = mode_in_querystring
+        if s.mode == 'map' then s.showMap = true else s.showMap = false
       else
         s.mode = 'list' # by default
 
@@ -37,6 +39,10 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       #     s.addBoxToggled = false unless s.addBoxManuallyToggled
       # )
 
+      s.setMode = (mode) -> 
+        s.mode = mode
+        QueryString.modify({mode: mode})
+        if mode == 'map' then s.showMap = true else s.showMap = false
 
       # LISTS & SETTING LISTS
 
@@ -58,11 +64,12 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
         else
           s.setList()
 
-      s.resetList = ->
-        s.list = s.listQuery = s.options = s.placeName = s.placeNearby = s.nearby = null
+      s.resetList = -> 
+        s.list = s.listQuery = s.options = s.placeName = s.placeNearby = s.nearby = s.showMap = null
+        s.items = s.places = []
+        s.mode = 'list'
         $timeout(-> $('#guide').focus() if $('#guide') )
-        s.items = []
-        QueryString.modify({plan: null, near: null})
+        QueryString.modify({plan: null, near: null, mode: null, m: null, f: null})
 
       s.canAddList = -> s.listQuery?.length > 2 && ( !s.lists?.length || !s.listOptions()?.length || ( s.listOptions()?.length > 0 && !s.optionMatchesListQuery() ) )
 
@@ -103,6 +110,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
             $('.searching-mask').hide()
             return unless s.list?
             s.items = Item.generateFromJSON( response )
+            s.places = _.map( s.items, (i) -> i.mark.place )
             $timeout(-> s.initialSortItems() )
             $timeout(-> s.initializeItemsNotes() )
           .error (response) ->
@@ -285,7 +293,13 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
           next_item.find('textarea').focus()
         return
 
-      s.toDate = (yymmdd) -> yymmdd
+      s.toDate = (yymmdd) -> 
+        if yymmdd && yymmdd.length == 6
+          "Updated on #{s.noneIfZero(yymmdd[2])}#{yymmdd[3]} / #{s.noneIfZero(yymmdd[4])}#{yymmdd[5]} / #{yymmdd[0]}#{yymmdd[1]}"
+        else
+          'Undated'
+      s.noneIfZero = (digit) -> if digit == '0' then '' else digit
+
 
 
       # s.typeIcon = ( category ) ->

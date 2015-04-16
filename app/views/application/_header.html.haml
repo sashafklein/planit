@@ -4,7 +4,7 @@
 
     - if page_type != 'simple'
 
-      .container.none{ class: "#{'pseudo' if page_type == 'places' || page_type == 'plan'}"}
+      .container.none{ class: "#{'pseudo' if fullscreen?(page_type)}"}
         .header-wrapper
           = render 'header/logo_container', { page_type: page_type }
 

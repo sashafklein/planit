@@ -51,22 +51,29 @@
                       .bucket-list-more-info.locale-only
                         {{ option.localeDetails() }}
 
-    .sort-items-by.large-screen{ ng_show: 'list' }
+    .sort-items-by.large-screen{ ng_show: "list && mode == 'list'" }
       %b Sort
       %span.sort-by-button{ ng_click: "setCategoryAs('alphabetical')", ng_class: "{'highlighted': categoryIs == 'alphabetical'}" } A-Z
       %span.sort-by-button{ ng_click: "setCategoryAs('type')", ng_class: "{'highlighted': categoryIs == 'type'}" } Type
       %span.sort-by-button{ ng_click: "setCategoryAs('locale')", ng_class: "{'highlighted': categoryIs == 'locale'}" } Locale
       %span.sort-by-button{ ng_click: "setCategoryAs('recent')", ng_class: "{'highlighted': categoryIs == 'recent'}" } Recent
 
-    .view-and-edit-mode.large-screen{ ng_show: 'list' }
-      %span.view-and-edit-button.highlighted List
+    .view-and-edit-mode.large-screen{ ng_show: "list && mode == 'list'" }
+      %span.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': mode == 'list'}" } List
       %span.view-and-edit-button.disabled Trip
-      %span.view-and-edit-button Map
+      %span.view-and-edit-button{ ng_click: "setMode('map')", ng_class: "{'highlighted': mode == 'map'}" } Map
       %b{ ng_show: "mode != 'trip'" } View Mode
       %b{ ng_show: "mode == 'trip'" } Edit Mode
 
+    / .back-from-map-mode{ ng_show: "list && mode == 'map'" }
+    /   %span.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': mode == 'list'}" } List
+    /   %span.view-and-edit-button.disabled Trip
+    /   %span.view-and-edit-button{ ng_click: "setMode('map')", ng_class: "{'highlighted': mode == 'map'}" } Map
+    /   %b{ ng_show: "mode != 'trip'" } View Mode
+    /   %b{ ng_show: "mode == 'trip'" } Edit Mode
+
     / Or effectively ng_class to half-screen for TripMode
-    .band.spaced-extra{ ng_show: "list && mode == 'list'" } 
+    .band.spaced-xxx{ ng_show: "list && mode == 'list'" } 
       .container
         .sixteen-columns.items-in-plan{ ng_repeat: 'category in categories' }
           %ul.plan-list-items
@@ -90,9 +97,10 @@
                       .bucket-list-more-info.locale-only
                         {{ item.mark.place.localeDetails() }}
               .list-item-notes.largest-screen
-                %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)', disabled: true }
+                %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)', disabled: true } 
+                / , ng_model: "" {{ note(item.id) }}
 
-    .band.spaced-extra{ ng_show: '!list && lists' }
+    .band.spaced-xxx.padded{ ng_show: '!list && lists' }
       .container.centered
         .column{ ng_repeat: 'plan in lists' }
           .any-tab-wrapper
@@ -113,3 +121,7 @@
                 %img{ src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
                 %i.add-photo-camera.fa.fa-camera-retro{ ng_show: 'imageChangeable || ( !plan.best_image || !plan.best_image.url)', ng_click: 'changeImage()' }
               .content-tab-title{ ng_click: 'setList(plan)' } {{plan.name}}
+
+    .plan-map-container{ ng_show: "list && mode == 'map'" }
+      %plan_map.plan-map-canvas{ plan_places: 'places', user_id: "list.user_id", web_padding: '45,45,15,400', mobile_padding: '40,15,80,15', zoom_control: 'true', show_map: "showMap" } 
+      / , user_id: 'list.user_id' }
