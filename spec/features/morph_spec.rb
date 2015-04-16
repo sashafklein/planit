@@ -12,7 +12,8 @@ describe 'Morphing' do
       sign_in @admin
 
       visit root_path
-      expect( title ).to have_content @admin.first_name
+
+      expect( page ).to have_content "#{@admin.first_name}, How Can We Improve Planit?"
       
       visit morph_path(@user.id)
 
@@ -20,13 +21,13 @@ describe 'Morphing' do
         expect( page ).to have_content "Morphed into #{@user.name}. Click to Unmorph."
       end
 
-      expect( title ).not_to have_content @admin.name
+      expect( page ).to have_content "#{@user.first_name}, How Can We Improve Planit?"
       
       click_link "Morphed into #{@user.name}. Click to Unmorph."
       expect( page ).to have_content "Unmorphed back to #{ @admin.name } successfully."
 
       visit root_path
-      expect( title ).to have_content @admin.name
+      expect( page ).to have_content "#{@admin.first_name}, How Can We Improve Planit?"
 
       expect( page ).not_to have_content "Morphed into #{@user.name}."
     end
@@ -35,7 +36,7 @@ describe 'Morphing' do
       sign_in @user
 
       visit root_path
-      expect( title ).to have_content @user.name
+      expect( page ).to have_content "#{@user.first_name}, How Can We Improve Planit?"
       
       visit morph_path(@admin.id)
       
