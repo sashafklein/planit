@@ -21,9 +21,9 @@
           %input.title#rename{ ng_model: 'rename', ng_on_enter_key: 'saveRenameList()', ng_on_esc_key: 'cancelRenameList()' }
           / .planit-button{ ng_click: 'saveRenameList()' } Save
           / .planit-button{ ng_click: 'cancelRenamelist()' } Cancel
-      .minimize-maximize-addbox{ ng_show: "list && !rename", ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
+      .minimize-maximize-addbox{ ng_show: "list && !rename && mode != 'trip'", ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
         %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
-      .addbox-on-plan-page{ ng_show: 'list && addBoxToggled' }
+      .addbox-on-plan-page{ ng_show: "list && addBoxToggled && mode != 'trip'" }
         .faux-input-wrap{ ng_show: '!nearby && list' }
           %span.add-new{ ng_show: 'canSetNearby(placeNearby)', ng_click: 'setNearby(placeNearby)' }
             %i.fa.fa-check
@@ -52,16 +52,16 @@
                         .bucket-list-more-info.locale-only
                           {{ option.localeDetails() }}
 
-    .sort-items-by.large-screen{ ng_show: "list && mode == 'list'" }
+    .sort-items-by.large-screen{ ng_show: "list && (mode == 'list' || mode == 'trip')" }
       %b Sort
       %span.sort-by-button{ ng_click: "setCategoryAs('alphabetical')", ng_class: "{'highlighted': categoryIs == 'alphabetical'}" } A-Z
       %span.sort-by-button{ ng_click: "setCategoryAs('type')", ng_class: "{'highlighted': categoryIs == 'type'}" } Type
       %span.sort-by-button{ ng_click: "setCategoryAs('locale')", ng_class: "{'highlighted': categoryIs == 'locale'}" } Locale
       %span.sort-by-button{ ng_click: "setCategoryAs('recent')", ng_class: "{'highlighted': categoryIs == 'recent'}" } Recent
 
-    .view-and-edit-mode.large-screen{ ng_show: "list && mode == 'list'" }
+    .view-and-edit-mode.large-screen{ ng_show: "list && mode == 'list' || mode == 'trip'" }
       %span.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': mode == 'list'}" } List
-      %span.view-and-edit-button.disabled Trip
+      %span.view-and-edit-button{ ng_click: "setMode('trip')", ng_class: "{'highlighted': mode == 'trip'}" } Trip
       %span.view-and-edit-button{ ng_click: "setMode('map')", ng_class: "{'highlighted': mode == 'map'}" } Map
       %b{ ng_show: "mode != 'trip'" } View Mode
       %b{ ng_show: "mode == 'trip'" } Edit Mode
@@ -74,32 +74,45 @@
     /   %b{ ng_show: "mode == 'trip'" } Edit Mode
 
     / Or effectively ng_class to half-screen for TripMode
-    .band.spaced-xxx{ ng_show: "list && mode == 'list'" } 
+    .band.spaced-extra{ ng_show: "list && (mode == 'list' || mode == 'trip')", plan_drag: true, plan: 'list',  list_items: 'items' } 
       .container
-        .sixteen-columns.items-in-plan{ ng_repeat: 'category in categories' }
+        %h1.title.sixteen.columns{ ng_show: 'mode == "trip"' } Drag and Drop to Order Your Trip
+        .items-in-manifest.six.columns{ ng_show: 'mode == "trip"', ng_class: '{empty: !manifestItems.length}' }
           %ul.plan-list-items
-            %li.items-organized-by{ ng_show: "categoryIs != 'alphabetical'" }
-              %i.fa{ ng_show: "categoryIs == 'type'", ng_class: 'typeIcon(category)' } 
-              %span{ ng_show: "categoryIs != 'recent'"} {{ category }}
-              %span{ ng_show: "categoryIs == 'recent'"} {{ toDate( category ) }}
-            %li.plan-list-item{ ng_repeat: 'item in matchingItems( category )' }
-              .bucket-list-tab
-                %a{ ng_href: '{{item.mark.place.href}}', target: '_self' }
-                  .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
-                  .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
-                .bucket-list-wrap
-                  .bucket-list-profile
-                    %a{ target: '_self' }
-                      .bucket-list-title
-                        {{ item.mark.place.names[0] }}
-                      .bucket-list-more-info
-                        %i{ class: "{{ item.mark.place.meta_icon }}"}
-                        {{ item.mark.place.categories.join(', ') }}
-                      .bucket-list-more-info.locale-only
-                        {{ item.mark.place.localeDetails() }}
-              .list-item-notes.largest-screen
-                %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)', disabled: true } 
-                / , ng_model: "" {{ note(item.id) }}
+            .repeater{ ng_repeat: 'item in manifestItems' }
+              .spacer{ ng_class: '{hovered: hoveringOver($index)}', ng_mouseenter: 'setHover($index)', ng_mouseleave: 'setHover(null)', ng_click: 'insert($index)' }
+                %p Click here to add or relocate item
+              %li.plan-list-item
+                .bucket-list-tab
+                  %h6 {{ item.mark.place.names[0] }} - {{ $index }}
+                .list-item-select{ ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
+            .spacer{ ng_class: '{hovered: hoveringOver(manifestItems.length)}', ng_mouseenter: 'setHover(manifestItems.length)', ng_mouseleave: 'setHover(null)', ng_click: 'insert()' }
+              %p Click here to add or relocate item
+        .items-in-plan{ ng_class: 'listClass(mode)' }
+          .items-in-plan-category{ ng_repeat: 'category in categories' }
+            %ul.plan-list-items
+              %li.items-organized-by{ ng_show: "categoryIs != 'alphabetical'" }
+                %i.fa{ ng_show: "categoryIs == 'type'", ng_class: 'typeIcon(category)' } 
+                %span{ ng_show: "categoryIs != 'recent'"} {{ category }}
+                %span{ ng_show: "categoryIs == 'recent'"} {{ toDate( category ) }}
+              %li.plan-list-item{ ng_repeat: 'item in matchingItems( category )' }
+                .bucket-list-tab
+                  %a{ ng_href: '{{item.mark.place.href}}', target: '_self' }
+                    .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
+                    .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
+                  .bucket-list-wrap
+                    .bucket-list-profile
+                      %a{ target: '_self' }
+                        .bucket-list-title
+                          {{ item.mark.place.names[0] }}
+                        .bucket-list-more-info
+                          %i{ class: "{{ item.mark.place.meta_icon }}"}
+                          {{ item.mark.place.categories.join(', ') }}
+                        .bucket-list-more-info.locale-only
+                          {{ item.mark.place.localeDetails() }}
+                .list-item-notes.largest-screen{ ng_show: 'mode == "list"'}
+                  %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)', disabled: true }
+                .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
 
     .band.spaced-xxx.padded{ ng_show: '!list && lists' }
       .container.centered
