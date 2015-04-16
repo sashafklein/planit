@@ -6,6 +6,8 @@
 
   .beta-log-in= link_to "Log In", new_user_session_path, { class: 'planit-button blue' }
 
+  = "&nbsp;<br>&nbsp;<br>".html_safe if browser.mobile?
+  
   .band.spaced-extra-crazy
 
     .static-page.container
@@ -24,6 +26,9 @@
               %p
                 %i{ class: 'fa fa-heart padded-icon' }
                 Never forget a great recommendation.
+              %p
+                %i{ class: 'fa fa-plane padded-icon' }
+                Quickly convert lists to trip itineraries.
 
         .eight.columns.main-content
           .right-section.padded
@@ -44,6 +49,10 @@
                     = f.input :email, required: true, placeholder: 'Email Address'
                   .simple-entry-form-section.form-actions.right
                     = f.button :submit, "Sign up", class: 'planit-button neon'
+
+  .static-page
+    = render 'statics/save'
+    = render 'statics/add_to_guide'
 
   .band.black.spaced-extra.largest-screen
     .container

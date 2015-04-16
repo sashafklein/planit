@@ -7,17 +7,20 @@
           %i{ class: 'fa fa-plus-circle padded-icon' }
           Add new places with a quick 
           = "<a href='#planit-modal-new' data-toggle='modal' data-target='#planit-modal-new' data-backdrop='static' data-keyboard='false'>Foursquare</a>".html_safe if current_user_is_active
-          = "Foursquare" if !current_user_is_active
           search
         %p
           %i{ class: 'fa fa-bookmark padded-icon' }
           Save friends' places to your own Planit
         %p
           %i{ class: 'fa fa-bolt padded-icon' }
-          <b>Save with a single click</b> with the 
-          =link_to button_path do 
-            Planit Saver
-            = browser.chrome? ? "Chrome Extension" : "Bookmarklet Button"
+          Bookmark, clip & pin 
+          - if current_user_is_active
+            with the 
+            = link_to button_path do 
+              Planit Saver
+              = browser.chrome? ? "Chrome Extension" : "Bookmarklet Button"
+          - else
+            to your Heart's Content
         %p
           %i{ class: 'fa fa-inbox padded-icon' }
           Receive and review place recommendations from friends
@@ -41,73 +44,76 @@
         %p
           Your tastes are personal, and so is your curated map
           %i{ class: 'fa fa-thumbs-o-up padded-icon' }
-        %p
-          =link_to button_path do 
-            Get the Planit Saver
-            = browser.chrome? ? "Chrome Extension" : "Bookmarklet Button"
-          %i{ class: 'fa fa-bolt padded-icon' }
-      = link_to button_path do
-        %span.learn-more.planit-button.neon
-          = browser.chrome? ? "Connect to Chrome now" : "Get the Bookmarklet now"
+        - if current_user_is_active
+          %p
+            = link_to button_path do 
+              Get the Planit Saver
+              = browser.chrome? ? "Chrome Extension" : "Bookmarklet Button"
+            %i{ class: 'fa fa-bolt padded-icon' }
+      - if current_user_is_active
+        = link_to button_path do
+          %span.learn-more.planit-button.neon
+            = browser.chrome? ? "Connect to Chrome now" : "Get the Bookmarklet now"
 
-.band.gray.spaced-extra.main-content#email
-  .container
-    .sixteen.columns.left-section
-      .section-header.disabled= "Email Links to Planit"
-      .static-section-content
-        %p.disabled
-          %i{ class: 'fa fa-envelope padded-icon' }
-          Send in links to <a href="mailto:save@plan.it">save@plan.it</a> from 
-          - if current_user
-            = current_user.email
-          - else
-            your registered email address
-          %span.coming-soon= "COMING SOON"
-        / %p.disabled
-        /   %i{ class: 'fa fa-envelope-o padded-icon' }
-        /   Friends can send links to recommendations to
-        /   - if current_user 
-        /     = link_to "#{current_user.slug}-3c280v@plan.it", "mailto:#{current_user.slug}-3c280v@plan.it"
-        /   - else
-        /     = "[your-username] @ plan.it"
-        /   %span.coming-soon= "COMING SOON"
+- unless true
+  .band.gray.spaced-extra.main-content#email
+    .container
+      .sixteen.columns.left-section
+        .section-header.disabled= "Email Links to Planit"
+        .static-section-content
+          %p.disabled
+            %i{ class: 'fa fa-envelope padded-icon' }
+            Send in links to <a href="mailto:save@plan.it">save@plan.it</a> from 
+            - if current_user
+              = current_user.email
+            - else
+              your registered email address
+            %span.coming-soon= "COMING SOON"
+          / %p.disabled
+          /   %i{ class: 'fa fa-envelope-o padded-icon' }
+          /   Friends can send links to recommendations to
+          /   - if current_user 
+          /     = link_to "#{current_user.slug}-3c280v@plan.it", "mailto:#{current_user.slug}-3c280v@plan.it"
+          /   - else
+          /     = "[your-username] @ plan.it"
+          /   %span.coming-soon= "COMING SOON"
 
-.band.off-white.spaced-extra.main-content#import
-  .container
-    .sixteen.columns.right-section
-      .section-header.disabled
-        %span.struckthru= "Import"
-        %i= "Free"
-        Your Places
-      .static-section-content
-        %p.disabled
-          %span.coming-soon= "COMING SOON"
-          TripAdvisor
-          %i{ class: 'fa fa-unlock padded-icon' }
-        %p.disabled
-          %span.coming-soon= "COMING SOON"
-          Yelp
-          %i{ class: 'fa fa-unlock padded-icon' }
-        %p.disabled
-          %span.coming-soon= "COMING SOON"
-          Google Maps
-          %i{ class: 'fa fa-unlock padded-icon' }
-        %p.disabled
-          %span.coming-soon= "COMING SOON"
-          Foursquare
-          %i{ class: 'fa fa-unlock padded-icon' }
-        / %p
-        /   Gogobot
-        /   %i{ class: 'fa fa-unlock padded-icon' }
-        / %p
-        /   Pinterest
-        /   %i{ class: 'fa fa-unlock padded-icon' }
-        / %p
-        /   KML
-        /   %i{ class: 'fa fa-unlock padded-icon' }
-        / %p
-        /   Google Sheets
-        /   %i{ class: 'fa fa-unlock padded-icon' }
-      %span.learn-more.planit-button.neon.disabled
-        Free your data now
-        / = link_to 'Free your data now', 'import'
+  .band.off-white.spaced-extra.main-content#import
+    .container
+      .sixteen.columns.right-section
+        .section-header.disabled
+          %span.struckthru= "Import"
+          %i= "Free"
+          Your Places
+        .static-section-content
+          %p.disabled
+            %span.coming-soon= "COMING SOON"
+            TripAdvisor
+            %i{ class: 'fa fa-unlock padded-icon' }
+          %p.disabled
+            %span.coming-soon= "COMING SOON"
+            Yelp
+            %i{ class: 'fa fa-unlock padded-icon' }
+          %p.disabled
+            %span.coming-soon= "COMING SOON"
+            Google Maps
+            %i{ class: 'fa fa-unlock padded-icon' }
+          %p.disabled
+            %span.coming-soon= "COMING SOON"
+            Foursquare
+            %i{ class: 'fa fa-unlock padded-icon' }
+          / %p
+          /   Gogobot
+          /   %i{ class: 'fa fa-unlock padded-icon' }
+          / %p
+          /   Pinterest
+          /   %i{ class: 'fa fa-unlock padded-icon' }
+          / %p
+          /   KML
+          /   %i{ class: 'fa fa-unlock padded-icon' }
+          / %p
+          /   Google Sheets
+          /   %i{ class: 'fa fa-unlock padded-icon' }
+        %span.learn-more.planit-button.neon.disabled
+          Free your data now
+          / = link_to 'Free your data now', 'import'
