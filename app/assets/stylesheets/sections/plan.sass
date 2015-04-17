@@ -6,8 +6,6 @@
 
   .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
     position: fixed
-    overflow-x: hidden
-    overflow-y: auto
     input
       min-width: 50px
     input.full-width
@@ -21,6 +19,7 @@
     z-index: 10004
     -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
+    overflow: hidden
     span.title
       display: inline-block
       color: #fff
@@ -84,6 +83,7 @@
     height: 65px
     background: #333
     z-index: 10003
+    overflow: visible !important
 
     .item-search-results
       position: absolute
