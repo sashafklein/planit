@@ -19,7 +19,7 @@ class User < BaseModel
   has_many_polymorphic table: :notes, name: :source
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
 
   def is?(user)
     id == user.id
@@ -83,7 +83,7 @@ class User < BaseModel
   end
 
   def auto_signin_token
-    Digest::MD5.hexdigest "#{ email }#{ id }#{ ENV['AUTO_SIGN_IN_TOKEN_SALT'] }"
+    g_token(attrs: [:email, :id], other: Env.auto_signin_token_salt)
   end
 
   # USER ACTIVITY
@@ -110,4 +110,7 @@ class User < BaseModel
     end
   end
   
+  def slug_candidates
+    [:name, [:name, g_token(attrs: [:id, :name], other: Time.now.to_s).first(8)] ]
+  end
 end

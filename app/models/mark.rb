@@ -92,6 +92,17 @@ class Mark < BaseModel
 
   # INSTANCE METHODS
 
+  def copy!(new_user:, keep: [:sources, :notes])
+    Mark.transaction do 
+      new_mark = dup_without_relations!(keep: [:place_id], override: { user: new_user } )
+      keep.each do |assc| 
+        others = assc == :notes ? { source: user } : {}
+        copy_polymorphic!(to: new_mark, relation: assc, other_attrs: others)
+      end
+      new_mark
+    end
+  end
+
   def save_with_source!(source_url:)
     save!
     create_source!(source_url: source_url) if source_url.present?

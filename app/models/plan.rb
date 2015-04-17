@@ -1,7 +1,7 @@
 class Plan < BaseModel
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
 
   belongs_to :user
 
@@ -19,6 +19,14 @@ class Plan < BaseModel
   delegate :last_day, :departure, to: :last_leg
   delegate :arrival, to: :first_leg
   delegate :add_to_manifest, :remove_from_manifest, :move_in_manifest, to: :manifester
+
+  def copy!(new_user:)
+    Plan.transaction do 
+      new_plan = dup_without_relations!( keep: [:place_id], exclude: [:slug], override: { user: new_user } ) 
+      items.each { |old_item| old_item.copy!(new_plan: new_plan) }
+      new_plan
+    end
+  end
 
   def manifester
     PlanMod::Manifester.new(self)
@@ -97,4 +105,9 @@ class Plan < BaseModel
     destroy
   end
 
+  private
+
+  def slug_candidates
+    [:name, [:name, g_token(attrs: [:id, :name], other: Time.now.to_s).first(8)]]
+  end
 end

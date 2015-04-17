@@ -1,8 +1,5 @@
 require 'rails_helper'
 
-# RSpec.describe OneTimeTask, :type => :model do
-# pending "add some examples to (or delete) #{__FILE__}"
-
 describe OneTimeTask do
 
   describe 'execute' do
