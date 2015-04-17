@@ -49,8 +49,9 @@ class Api::V1::Plans::KmlController < ApiController
       breakline + item.street_addresses.join(breakline),
       item.sublocality,
       item.locality,
+      "<a href='https://maps.google.com?daddr=#{item.lat},#{item.lon}' target='_blank'>Get Directions</a>" + breakline,
       ( item.phone ? 'P: '+item.phone : nil ),
-      "#{breakline}<a href='http://plan.it#{item.href}'>http://plan.it#{item.href}</a>",
+      "#{breakline}<a href='http://plan.it#{item.href}' target='_blank'>http://plan.it#{item.href}</a>",
       ( notes(item).present? ? notes(item) : nil ),
     ]
     "<description>" + remove_symbols( lines.compact.join(breakline) ) + "</description>"

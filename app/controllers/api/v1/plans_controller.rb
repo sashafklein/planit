@@ -29,7 +29,7 @@ class Api::V1::PlansController < ApiController
     item = plan.add_item_from_place_data! current_user, params[:place].compact
     return error(500, "Insufficient Place data.") unless item
 
-    render json: item.mark.place, serializer: PlaceSerializer
+    render json: item, serializer: ItemSerializer
   end
 
   def items

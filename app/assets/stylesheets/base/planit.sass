@@ -111,36 +111,50 @@ a.linky
 // DROPDOWN MENUS
 
 ul.planit-dropdown-menu
-  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  padding: 15px 0
+  z-index: 100000000
   margin-right: 3px
+
+ul.planit-dropdown-menu, ul.faux-planit-dropdown
+  font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
+  padding: 8px 0
   font-size: 15px
   line-height: 18px
-  text-align: right
-  z-index: 160000
+  list-style-type: none
+  -webkit-padding-start: 0
+  &.dropdown-menu-right 
+    text-align: right
+    .planit-dropdown-menu-icon
+      margin-left: 10px
+  &.dropdown-menu-left
+    text-align: left
+    .planit-dropdown-menu-icon
+      margin-right: 10px
 
-li.planit-dropdown-menu
-  white-space: nowrap
-  overflow: hidden
-  width: auto
-  padding: 3px 20px
-  cursor: pointer
-  &:hover
-    color: #f06
-  &.disabled
-    color: #aaa
-    cursor: default
+  li.divider
+    padding: 0
+    height: 1px
+    margin: 9px 0
+    overflow: hidden
+    background-color: #e5e5e5    
 
-.planit-dropdown-menu-icon
-  width: 30px
-  text-align: center
-  transition: all 0.2s ease
+  li.planit-dropdown-menu
+    white-space: nowrap
+    overflow: hidden
+    width: auto
+    padding: 3px 20px
+    cursor: pointer
+    &.inverted
+      color: #fff
+    &:hover
+      color: #f06
+    &.disabled
+      color: #aaa
+      cursor: default
 
-.dropdown-menu-right .planit-dropdown-menu-icon
-  margin-left: 10px
-
-.dropdown-menu-left .planit-dropdown-menu-icon
-  margin-right: 10px
+  .planit-dropdown-menu-icon
+    width: 30px
+    text-align: center
+    transition: all 0.2s ease
 
 
 // COMMON VISUALS
@@ -422,12 +436,13 @@ strong, .in-caps-header, i, b
   cursor: text
 
   input.real-input
-    width: 65%
+    width: 64%
     float: left
   input.real-select
-    width: 85%  
+    width: 84%
     float: left
   input.real-input, input.real-select
+    resize: horizontal
     border-size: 0
     border: none
     box-shadow: none
@@ -446,7 +461,10 @@ strong, .in-caps-header, i, b
     word-spacing: 0px
     writing-mode: lr-tb
     vertical-align: middle
+    &:active
+      width: auto
     &:focus
+      min-width: 5px
       outline-width: 0
       outline: none
       border-size: 0

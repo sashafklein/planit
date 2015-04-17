@@ -19,11 +19,6 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
           .error (response) ->
             QueryString.modify({plan: null, near: null})
             ErrorReporter.report({ context: 'Tried looking up #{plan_id} plan, unsuccessful'})
-      if mode_in_querystring = QueryString.get()['mode']
-        s.mode = mode_in_querystring
-        if s.mode == 'map' then s.showMap = true else s.showMap = false
-      else
-        s.mode = 'list' # by default
 
       # EXPAND/CONTRACT
 
@@ -38,15 +33,28 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       #   if thisScrollTop < 100 && thisScrollTop > s.lastScrollTop
       #     s.addBoxToggled = false unless s.addBoxManuallyToggled
       # )
+      s.settingsBoxToggled = false
+      s.settingsBoxToggle = -> s.settingsBoxToggled = !s.settingsBoxToggled
 
       s.setMode = (mode) -> 
         s.mode = mode
         QueryString.modify({mode: mode})
         if mode == 'map' then s.showMap = true else s.showMap = false
 
+      s.setModeViaQueryString = ->
+        if mode_in_querystring = QueryString.get()['mode']
+          s.mode = mode_in_querystring
+          if s.mode == 'map' then s.showMap = true else s.showMap = false
+        else
+          s.mode = 'list'
+          QueryString.modify({mode: 'list'})
+
+
       # LISTS & SETTING LISTS
 
       s.forbiddenNearby = []
+
+      s.hasLists = -> s.lists?.length > 0
 
       s.getUsersLists = ->
         User.findPlans( CurrentUser.id )
@@ -67,9 +75,8 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       s.resetList = -> 
         s._setOnScope( [ 'list', 'listQuery', 'options', 'placeName', 'placeNearby', 'nearby', 'showMap'], null )
         s._setOnScope( [ 'items', 'places'], [] )
-        s.mode = 'list'
         $timeout(-> $('#guide').focus() if $('#guide') )
-        QueryString.modify({plan: null, near: null, mode: null, m: null, f: null})
+        QueryString.modify({plan: null, near: null, m: null, f: null})
 
       s.canAddList = -> s.listQuery?.length > 2 && ( !s.lists?.length || !s.listOptions()?.length || ( s.listOptions()?.length > 0 && !s.optionMatchesListQuery() ) )
 
@@ -80,10 +87,12 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
           $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
           s._installList(list)
           QueryString.modify({plan: list.id})
+          s.setModeViaQueryString()
         else if list = s.optionMatchesListQuery()
           $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
           s._installList( list )
           QueryString.modify({plan: list.id})
+          s.setModeViaQueryString()
         else if s.canAddList
           if confirm("Create a new guide named '#{s.listQuery}'?")
             $('.loading-mask').show()
@@ -94,6 +103,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
                 list = Plan.generateFromJSON(response)
                 s._installList list
                 QueryString.modify({plan: list.id})
+                s.setModeViaQueryString()
               .error (response) ->
                 $('.loading-mask').hide()
                 ErrorReporter.report({ context: 'Items.NewCtrl Plan.create', plan_name: s.listQuery}, "Something went wrong! We've been notified.")
@@ -136,8 +146,6 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       s.rename = null
       s.renameList = ->
         s.rename = s.list.name
-        # $('.everything-but-mask').show()
-        # $('.above-mask').css('z-index', '200000000')
         $timeout(-> $('#rename').focus() if $('#rename') )
         return
       s.saveRenameList = -> 
@@ -148,10 +156,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
           .error (response) ->
             s.cancelRenameList()
             ErrorReporter.report({ context: 'Failed to rename plan', list_id: s.list.id})
-      s.cancelRenameList = ->
-        s.rename = null
-        # $('.everything-but-mask').hide()
-        return
+      s.cancelRenameList = -> s.rename = null
 
       s.planImage = ( plan ) -> if plan && plan.best_image then plan.best_image.url else ''
 
@@ -181,6 +186,8 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       s.sortAscending = true
       s.categoryIs = null
 
+      s.hasItems = -> s.items?.length > 0
+
       s.canSetNearby = (nearby) -> nearby?.length > 2 && !_(s.forbiddenNearby).find( (o) -> o.toLowerCase() == nearby?.toLowerCase() )      
       s.setNearby = (nearby) -> 
         s.nearby = nearby if s.canSetNearby(nearby)
@@ -189,7 +196,8 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
         return
 
       s.resetNearby = -> 
-        s.nearby = null
+        s._setOnScope( [ 'nearby', 'placeName' ], null )
+        s.options = []
         $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
         QueryString.modify({ near: null })
         return
@@ -224,21 +232,22 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
 
       s.search = -> 
         s.options = [] if s.placeName?.length
-        s._searchFunction() if s.placeName?.length > 2 && s.nearby
+        s._searchFunction() if s.placeName?.length > 2 && s.nearby?.length > 0
 
       s._searchFunction = _.debounce( (-> s._makeSearchRequest() ), 500 )
 
       s._makeSearchRequest = ->
-        Foursquare.search(s.nearby, s.placeName)
-          .success (response) ->
-            s.options = Place.generateFromJSON(response)
-          .error (response) ->
-            if response && response.match(/failed_geocode: Couldn't geocode param/)?[0]
-              alert("We'll need a better 'Nearby' than '#{s.nearby}'")
-              s.forbiddenNearby.push s.nearby
-              s.nearby = null
-            else
-              ErrorReporter.report({ context: 'Items.NewCtrl search', near: s.nearby, query: s.placeName }, "Something went wrong! We've been notified.")        
+        if s.nearby?.length && s.placeName?.length
+          Foursquare.search(s.nearby, s.placeName)
+            .success (response) ->
+              s.options = Place.generateFromJSON(response)
+            .error (response) ->
+              if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
+                alert("We'll need a better 'Nearby' than '#{s.nearby}'")
+                s.forbiddenNearby.push s.nearby
+                s.nearby = null
+              else
+                ErrorReporter.report({ context: 'Items.NewCtrl search', near: s.nearby, query: s.placeName }, "Something went wrong! We've been notified.")        
 
       s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
 
@@ -249,7 +258,10 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
         s.list.addItemFromPlaceData(option)
           .success (response) ->
             $('.searching-mask').hide()
-            s.items.unshift Place.generateFromJSON(response) 
+            new_item = _.extend( Item.generateFromJSON( response ), { index: s.items.length, pane: 'list' } )
+            s.items.unshift new_item
+            s.places.unshift new_item.mark.place
+            QueryString.modify({m: null})
             s.sortItems()
           .error (response) ->
             $('.searching-mask').hide()

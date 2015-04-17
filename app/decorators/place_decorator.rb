@@ -171,7 +171,7 @@ class PlaceDecorator < Draper::Decorator
         if reservations_link
           "<i class='fa fa-calendar place-show-icon'></i>Takes Reservations".html_safe
         else
-          "<i class='fa fa-calendar place-show-icon'></i><a href='#{reservations_link}'>Make a Reservation</a>".html_safe
+          "<i class='fa fa-calendar place-show-icon'></i><a href='#{reservations_link}' target='_self'>Make a Reservation</a>".html_safe
         end
       end
     else
@@ -222,7 +222,7 @@ class PlaceDecorator < Draper::Decorator
         html += "red" if foursquare_rating <= 6
         html += "'><b>" + foursquare_rating.to_s + "</b>/10</span> rated on "
       end
-      html += "<a href='http://www.foursquare.com/v/"+foursquare_id+"'>Foursquare</a>"
+      html += "<a href='http://www.foursquare.com/v/"+foursquare_id+"' target='_blank'>Foursquare</a>"
       html += " Venue Info" unless foursquare_rating
       html += "</div>"
       return html.html_safe
@@ -246,7 +246,7 @@ class PlaceDecorator < Draper::Decorator
         html += "one" if yelp_rating <= 1  && yelp_rating > 1.5
         html += "'> rated on "
       end
-      html += "<a href='http://www.foursquare.com/v/"+yelp_id+"'>Yelp</a>"
+      html += "<a href='http://www.foursquare.com/v/"+yelp_id+"' target='_blank'>Yelp</a>"
       html += " Venue Info" unless yelp_rating
       html += "</div>"
       return html.html_safe

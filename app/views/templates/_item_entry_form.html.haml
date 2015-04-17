@@ -1,6 +1,7 @@
 %script{ type: 'text/ng-template', id: 'item_entry_form.html' }
 
   .new-item-form
+
     .planbox-wrapper
       .setplanbox-on-plan-page
         .input-and-results{ ng_show: '!list' }
@@ -15,15 +16,17 @@
         .chosen-plan{ ng_show: 'list && !rename' }
           %span.title{ ng_click: 'renameList()' } {{ list.name }}
           %i.fa.fa-times.title{ ng_click: 'resetList()' }
-          %i.fa.fa-cog.settings.dropdown-toggle{ "data-toggle" => "dropdown" }
-          = render 'header/dropdowns/plan_settings'
+          %i.fa.fa-cog.settings{ ng_click: 'settingsBoxToggle()', ng_class: "{'opened': settingsBoxToggled}" }
         .chosen-plan.above-mask{ ng_show: 'list && rename' }
           %input.title#rename{ ng_model: 'rename', ng_on_enter_key: 'saveRenameList()', ng_on_esc_key: 'cancelRenameList()' }
-          / .planit-button{ ng_click: 'saveRenameList()' } Save
-          / .planit-button{ ng_click: 'cancelRenamelist()' } Cancel
-      .minimize-maximize-addbox{ ng_show: "list && !rename && mode != 'trip'", ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
+      .minimize-maximize-addbox{ ng_show: "list && !rename && mode != 'trip' && !settingsBoxToggled", ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
         %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
-      .addbox-on-plan-page{ ng_show: "list && addBoxToggled && mode != 'trip'" }
+      .settingsbox-on-plan-page{ ng_show: "list && ( settingsBoxToggled || rename )", ng_class: "{'in-rename': rename}" }
+        .plan-settings-dropdown{ ng_show: '!rename' }= render 'header/dropdowns/plan_settings'
+        .rename-confirmation{ ng_show: 'rename' }
+          .planit-button.gray{ ng_click: 'cancelRenameList()' } Cancel          
+          .planit-button.neon{ ng_click: 'saveRenameList()' } Save
+      .addbox-on-plan-page{ ng_show: "list && addBoxToggled && mode != 'trip' && !settingsBoxToggled && !rename" }
         .faux-input-wrap{ ng_show: '!nearby && list' }
           %span.add-new{ ng_show: 'canSetNearby(placeNearby)', ng_click: 'setNearby(placeNearby)' }
             %i.fa.fa-check
@@ -33,8 +36,8 @@
             %span.chosen-input#chosen-nearby{ ng_click: 'resetNearby()' }
               %i.fa.fa-times
               {{ nearby }}
-            %input.real-input#place-name{ name: "place-name", type: 'text', placeholder: 'Add a Place (Search by Name)', ng_model: 'placeName', ng_change: 'search()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)' }
-          %ul.suggested-results{ ng_show: 'options.length > 0' }
+            %input.real-input#place-name{ name: "place-name", type: 'text', placeholder: 'Add a Place (Name)', ng_model: 'placeName', ng_change: 'search()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)' }
+          %ul.suggested-results{ ng_show: 'options.length>0 && placeName && placeName.length>0' }
             %li.search-results-list{ ng_repeat: 'option in options', ng_click: 'addItem(option)' }
               .bucket-list-tab
                 %a{ ng_href: '{{option.href}}', target: '_self' }
@@ -52,29 +55,23 @@
                         .bucket-list-more-info.locale-only
                           {{ option.localeDetails() }}
 
-    .sort-items-by.large-screen{ ng_show: "list && (mode == 'list' || mode == 'trip')" }
-      %b Sort
-      %span.sort-by-button{ ng_click: "setCategoryAs('alphabetical')", ng_class: "{'highlighted': categoryIs == 'alphabetical'}" } A-Z
-      %span.sort-by-button{ ng_click: "setCategoryAs('type')", ng_class: "{'highlighted': categoryIs == 'type'}" } Type
-      %span.sort-by-button{ ng_click: "setCategoryAs('locale')", ng_class: "{'highlighted': categoryIs == 'locale'}" } Locale
-      %span.sort-by-button{ ng_click: "setCategoryAs('recent')", ng_class: "{'highlighted': categoryIs == 'recent'}" } Recent
+    .sort-and-view-modes{ ng_show: "list && hasItems()" }
+      .sort-items-by.large-screen{ ng_show: "mode == 'list' || mode == 'trip'" }
+        %b Sort
+        %span.selectable.sort-by-button{ ng_click: "setCategoryAs('alphabetical')", ng_class: "{'highlighted': categoryIs == 'alphabetical'}" } A-Z
+        %span.selectable.sort-by-button{ ng_click: "setCategoryAs('type')", ng_class: "{'highlighted': categoryIs == 'type'}" } Type
+        %span.selectable.sort-by-button{ ng_click: "setCategoryAs('locale')", ng_class: "{'highlighted': categoryIs == 'locale'}" } Locale
+        %span.selectable.sort-by-button{ ng_click: "setCategoryAs('recent')", ng_class: "{'highlighted': categoryIs == 'recent'}" } Recent
+      .view-and-edit-mode{ ng_class: "{'in-map': mode == 'map', 'large-screen': mode != 'map'}" }
+        %span.selectable.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': mode == 'list'}" } List
+        %span.selectable.view-and-edit-button.disabled Trip
+        / { ng_click: "setMode('trip')", ng_class: "{'highlighted': mode == 'trip'}" }
+        %span.selectable.view-and-edit-button{ ng_click: "setMode('map')", ng_class: "{'highlighted': mode == 'map'}" } Map
+        %b View
 
-    .view-and-edit-mode.large-screen{ ng_show: "list && mode == 'list' || mode == 'trip'" }
-      %span.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': mode == 'list'}" } List
-      %span.view-and-edit-button{ ng_click: "setMode('trip')", ng_class: "{'highlighted': mode == 'trip'}" } Trip
-      %span.view-and-edit-button{ ng_click: "setMode('map')", ng_class: "{'highlighted': mode == 'map'}" } Map
-      %b{ ng_show: "mode != 'trip'" } View Mode
-      %b{ ng_show: "mode == 'trip'" } Edit Mode
-
-    / .back-from-map-mode{ ng_show: "list && mode == 'map'" }
-    /   %span.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': mode == 'list'}" } List
-    /   %span.view-and-edit-button.disabled Trip
-    /   %span.view-and-edit-button{ ng_click: "setMode('map')", ng_class: "{'highlighted': mode == 'map'}" } Map
-    /   %b{ ng_show: "mode != 'trip'" } View Mode
-    /   %b{ ng_show: "mode == 'trip'" } Edit Mode
-
-    / Or effectively ng_class to half-screen for TripMode
-    .band.spaced-extra{ ng_show: "list && (mode == 'list' || mode == 'trip')", plan_drag: true, plan: 'list',  list_items: 'items' } 
+    / ListMode & TripMode
+    #header-spacing.except-landscape{ ng_show: "list && hasItems() && (mode == 'list' || mode == 'trip')" }
+    .band.spaced-xxx{ ng_show: "list && hasItems() && (mode == 'list' || mode == 'trip')", plan_drag: true, plan: 'list',  list_items: 'items' } 
       .container
         %h1.title.sixteen.columns{ ng_show: 'mode == "trip"' } Drag and Drop to Order Your Trip
         .items-in-manifest.six.columns{ ng_show: 'mode == "trip"', ng_class: '{empty: !manifestItems.length}' }
@@ -114,7 +111,14 @@
                   %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)', disabled: true }
                 .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
 
-    .band.spaced-xxx.padded{ ng_show: '!list && lists' }
+    / ListMode
+    .plan-map-container{ ng_show: "list && items && mode == 'map'" }
+      %plan_map.plan-map-canvas{ plan_places: 'places', user_id: "list.user_id", web_padding: '45,45,15,400', mobile_padding: '40,15,80,15', zoom_control: 'true', show_map: "showMap" } 
+      / , user_id: 'list.user_id' }
+
+    / SelectGuides
+    #header-spacing.except-landscape{ ng_show: '!list && hasLists()' }
+    .band.spaced-xxx.padded{ ng_show: '!list && hasLists()' }
       .container.centered
         .column{ ng_repeat: 'plan in lists' }
           .any-tab-wrapper
@@ -136,6 +140,20 @@
                 %i.add-photo-camera.fa.fa-camera-retro{ ng_show: 'imageChangeable || ( !plan.best_image || !plan.best_image.url)', ng_click: 'changeImage()' }
               .content-tab-title{ ng_click: 'setList(plan)' } {{plan.name}}
 
-    .plan-map-container{ ng_show: "list && mode == 'map'" }
-      %plan_map.plan-map-canvas{ plan_places: 'places', user_id: "list.user_id", web_padding: '45,45,15,400', mobile_padding: '40,15,80,15', zoom_control: 'true', show_map: "showMap" } 
-      / , user_id: 'list.user_id' }
+    / NoGuides -> FirstGuide Tutorial
+    - if current_user.plans.count == 0 || current_user.items.count == 0
+      #header-spacing.except-landscape{ ng_show: '!hasItems()' }
+      .band.spaced{ ng_show: '!hasItems()' }
+        .container.centered
+          .column
+            = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': list}" }
+        .container.centered
+          .column{ ng_show: '!list && !hasLists()' }
+            %strong.neon.large Start a List or Plan!
+            %p= " ( or test-drive <a href='#{ User.first.plans.first }'>#{ User.first.plans.first.name }</a> ) ".html_safe
+          .column{ ng_show: 'list && !nearby' }
+            %strong.neon.large Awesome!  Starting Where?
+            %p Set a Location so You can Find Your Places
+          .column{ ng_show: 'list && nearby' }
+            %strong.neon.large Cool! Now Add Places to your List
+            %p When You've Found one, Just Press "Enter" or Click on It to Add

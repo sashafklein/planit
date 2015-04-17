@@ -63,7 +63,7 @@ window.planit = planit =
         success: (response) ->
           setTimeout( (=> @setErrorMessage("We've been notified")), 1000 )
         error: (response) ->
-          setTimeout( (=> @setErrorMessage("Auto-reporting also failed! Please <a href='mailto:hello@plan.it?subject=Bookmarklet%20Failure&content=Page:%20#{window.location.href}'>let us know!</a>")), 1000 )
+          setTimeout( (=> @setErrorMessage("Auto-reporting also failed! Please <a href='mailto:hello@plan.it?subject=Bookmarklet%20Failure&content=Page:%20#{window.location.href}' target='_blank'>let us know!</a>")), 1000 )
 
   setErrorMessage: (message) ->
     @setPlanitMessage( message )

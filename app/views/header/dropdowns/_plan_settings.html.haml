@@ -1,31 +1,36 @@
-%ul.dropdown-menu.dropdown-menu-right.planit-dropdown-menu.plan-settings-dropdown
+/ .dropdown-menu.dropdown-menu-right.planit-dropdown-menu
+%ul.faux-planit-dropdown
 
   - if current_user_is_active
 
     %li.planit-dropdown-menu{ ng_click: 'renameList()' }
-      Rename
       %i.planit-dropdown-menu-icon.fa.fa-font
+      Rename
     %li.planit-dropdown-menu.disabled
-      Add Collaborators
       %i.planit-dropdown-menu-icon.fa.fa-group
+      Add Collaborators
     %li.planit-dropdown-menu.disabled
-      Import
+      %i.planit-dropdown-menu-icon.fa.fa-group
+      Request to be a Collaborator
+    %li.planit-dropdown-menu.disabled
       %i.planit-dropdown-menu-icon.fa.fa-upload
+      Import
     %li.planit-dropdown-menu.disabled
-      Auto-Organize
       %i.planit-dropdown-menu-icon.fa.fa-calendar
+      Set Dates
     %li.divider
-    %li.planit-dropdown-menu
-      Share Link
-      %i.planit-dropdown-menu-icon.fa.fa-paper-plane
-    %a{ ng_href: "{{kmlPath}}" }
+    %a{ href: '#planit-modal-share', data: { toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
       %li.planit-dropdown-menu
-        Export as KML
+        %i.planit-dropdown-menu-icon.fa.fa-paper-plane
+        Share this Guide
+    %a{ ng_href: "{{kmlPath}}", target: '_self' }
+      %li.planit-dropdown-menu
         %i.planit-dropdown-menu-icon.fa.fa-download
+        Export as KML
     %li.planit-dropdown-menu.disabled
-      Export as CSV
       %i.planit-dropdown-menu-icon.fa.fa-table
+      Export as CSV
     %li.divider
     %li.planit-dropdown-menu{ ng_click: 'deleteList( list )', target: '_self' }
+      %i.planit-dropdown-menu-icon.fa.fa-trash
       Delete Plan
-      %i.planit-dropdown-menu-icon.fa.fa-font
