@@ -10,6 +10,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
 
       # QUERYSTRING MANAGE START DATA
 
+
       if plan_id = QueryString.get()['plan']
         Plan.find(plan_id)
           .success (response) ->
@@ -23,6 +24,11 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
 
       # EXPAND/CONTRACT
 
+      s.fsOpen = (item, doIt) ->
+        return unless doIt and item.placeHref()
+        window.open(item.placeHref(), '_blank')
+        return
+        
       s.addBoxToggled = true
       s.addBoxManuallyToggled = false
       s.addBoxToggle = -> 

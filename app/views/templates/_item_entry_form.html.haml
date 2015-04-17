@@ -96,7 +96,7 @@
                   %span{ ng_show: "categoryIs == 'recent'"} {{ toDate( category ) }}
                 %li.plan-list-item{ ng_repeat: 'item in matchingItems( category )' }
                   .bucket-list-tab
-                    %a{ ng_href: '{{item.mark.place.href}}', target: '_self' }
+                    .main-item-card{ ng_click: "fsOpen(item, mode != 'trip')" }
                       .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
                       .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
                     .bucket-list-wrap
@@ -109,9 +109,9 @@
                             {{ item.mark.place.categories.join(', ') }}
                           .bucket-list-more-info.locale-only
                             {{ item.mark.place.localeDetails() }}
-                  .list-item-notes.largest-screen{ ng_show: 'mode == "list"'}
-                    %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)', disabled: true }
-                  .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
+                .list-item-notes.largest-screen{ ng_show: 'mode == "list"'}
+                  %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)', disabled: true }
+                .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
 
     / MapMode
     .plan-map-container{ ng_show: "list && items && mode == 'map'" }
