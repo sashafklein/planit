@@ -5,7 +5,7 @@ describe Plan do
   describe '#copy(new_user)' do
 
     before do
-      @owner = create(:user)
+      @owner = create(:user, name: 'Owner User')
       @plan = create(:plan, user: @owner)
       %w(first second third).each do |name|
         item = create(:item, place_options: { names: [name]}, plan: @plan)
@@ -14,11 +14,32 @@ describe Plan do
       @user = create(:user, name: 'New User')
     end
 
-    it "creates a new plan (with the new user), new items, and new marks, and repoints the manifest to the right items" do
+    it "creates a new plan (with the new user), new items, and new marks; it ignores the manifest" do
       mark_count = Mark.count
       item_count = Item.count
       place_count = Place.count
       @plan.copy!(new_user: @user)
+      expect( Mark.count ).to eq( mark_count * 2 )
+      expect( Item.count ).to eq( item_count * 2 )
+      expect( Place.count ).to eq place_count
+      expect( Plan.count ).to eq 2
+
+      plan2 = Plan.last
+      expect( plan2.user ).to eq @user
+      plan2.items.each do |item|
+        expect( @plan.items.pluck(:id) ).not_to include( item.id )
+      end
+
+      expect( plan2.name ).to eq "Copy of '#{@plan.name}' by #{@owner.name}"
+
+      expect( plan2.manifest.length ).to eq 0
+    end
+
+    it "creates a new plan (with the new user), new items, and new marks; it repoints the manifest if specified" do
+      mark_count = Mark.count
+      item_count = Item.count
+      place_count = Place.count
+      @plan.copy!(new_user: @user, copy_manifest: true)
       expect( Mark.count ).to eq( mark_count * 2 )
       expect( Item.count ).to eq( item_count * 2 )
       expect( Place.count ).to eq place_count
