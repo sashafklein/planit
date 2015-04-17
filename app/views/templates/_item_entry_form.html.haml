@@ -111,7 +111,7 @@
                   %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)', disabled: true }
                 .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
 
-    / ListMode
+    / MapMode
     .plan-map-container{ ng_show: "list && items && mode == 'map'" }
       %plan_map.plan-map-canvas{ plan_places: 'places', user_id: "list.user_id", web_padding: '45,45,15,400', mobile_padding: '40,15,80,15', zoom_control: 'true', show_map: "showMap" } 
       / , user_id: 'list.user_id' }
@@ -138,7 +138,7 @@
               .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'setList(plan)', ng_hover: 'imageChangeable = true' }
                 %img{ src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
                 %i.add-photo-camera.fa.fa-camera-retro{ ng_show: 'imageChangeable || ( !plan.best_image || !plan.best_image.url)', ng_click: 'changeImage()' }
-              .content-tab-title{ ng_click: 'setList(plan)' } {{plan.name}}
+              .content-tab-title{ ng_click: 'setList(plan)' } {{ plan.name }}
 
     / NoGuides -> FirstGuide Tutorial
     - if current_user.plans.count == 0 || current_user.items.count == 0
@@ -150,7 +150,8 @@
         .container.centered
           .column{ ng_show: '!list && !hasLists()' }
             %strong.neon.large Start a List or Plan!
-            %p= " ( or test-drive <a href='#{ User.first.plans.first }'>#{ User.first.plans.first.name }</a> ) ".html_safe
+            - if tutorial_plan = User.first.plans.first
+              %p= " ( or test-drive <a href='#{ tutorial_plan }'>#{ tutorial_plan.name }</a> ) ".html_safe
           .column{ ng_show: 'list && !nearby' }
             %strong.neon.large Awesome!  Starting Where?
             %p Set a Location so You can Find Your Places
