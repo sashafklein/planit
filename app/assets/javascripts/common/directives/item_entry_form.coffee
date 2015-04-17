@@ -188,6 +188,8 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
 
       s.hasItems = -> s.items?.length > 0
 
+      # NEARBY
+
       s.canSetNearby = (nearby) -> nearby?.length > 2 && !_(s.forbiddenNearby).find( (o) -> o.toLowerCase() == nearby?.toLowerCase() )      
       s.setNearby = (nearby) -> 
         s.nearby = nearby if s.canSetNearby(nearby)
@@ -215,72 +217,10 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
               s.backspaced = 1
         return
 
+      # NOTES
+
       s.notes = {}
       s.initializeItemsNotes = -> _.map( s.items, (item) -> s.originalNote(item) )
-      s.initialSortItems = -> s.setCategoryAs('type')
-
-      s.sortItems = ->
-        return unless s.items
-        s.itemsTypes = _.sortBy( _.uniq( _.map( s.items, (i) -> i.mark.place.meta_categories[0] ) ) , (i) -> return i )
-        s.itemsTypes = s.itemsTypes.reverse() unless s.sortAscending
-        s.itemsFirstLetters = _.sortBy( _.uniq( _.map( s.items, (i) -> i.mark.place.names[0][0] ) ) , (i) -> return i )
-        s.itemsFirstLetters = s.itemsFirstLetters.reverse() unless s.sortAscending
-        s.itemsRecent = _.sortBy( _.uniq( _.map( s.items, (i) -> i.updated_at_day ) ) , (i) -> return i )
-        s.itemsRecent = s.itemsRecent.reverse() unless s.sortAscending
-        s.itemsLocales = _.sortBy( _.uniq( _.map( s.items, (i) -> i.mark.place.locality ) ) , (i) -> return i )
-        s.itemsLocales = s.itemsLocales.reverse() unless s.sortAscending
-
-      s.search = -> 
-        s.options = [] if s.placeName?.length
-        s._searchFunction() if s.placeName?.length > 2 && s.nearby?.length > 0
-
-      s._searchFunction = _.debounce( (-> s._makeSearchRequest() ), 500 )
-
-      s._makeSearchRequest = ->
-        if s.nearby?.length && s.placeName?.length
-          Foursquare.search(s.nearby, s.placeName)
-            .success (response) ->
-              s.options = Place.generateFromJSON(response)
-            .error (response) ->
-              if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
-                alert("We'll need a better 'Nearby' than '#{s.nearby}'")
-                s.forbiddenNearby.push s.nearby
-                s.nearby = null
-              else
-                ErrorReporter.report({ context: 'Items.NewCtrl search', near: s.nearby, query: s.placeName }, "Something went wrong! We've been notified.")        
-
-      s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
-
-      s.addItem = (option) ->
-        $('.searching-mask').show()
-        s.options = []
-        s.placeName = null
-        s.list.addItemFromPlaceData(option)
-          .success (response) ->
-            $('.searching-mask').hide()
-            new_item = _.extend( Item.generateFromJSON( response ), { index: s.items.length, pane: 'list' } )
-            s.items.unshift new_item
-            s.places.unshift new_item.mark.place
-            QueryString.modify({m: null})
-            s.sortItems()
-          .error (response) ->
-            $('.searching-mask').hide()
-            ErrorReporter.report({ context: 'Items.NewCtrl addItem', option: JSON.stringify(option), plan: JSON.stringify(s.list) }, "Something went wrong! We've been notified.")        
-
-      s.matchingItems = ( category ) ->
-        if s.categoryIs == 'type' then matchingItems = _.filter( s.items, (i) -> i.mark.place.meta_categories?[0] == category )
-        if s.categoryIs == 'alphabetical' then matchingItems = _.filter( s.items, (i) -> i.mark.place.names?[0]?[0] == category )
-        if s.categoryIs == 'recent' then matchingItems = _.filter( s.items, (i) -> i.updated_at_day == category )
-        if s.categoryIs == 'locale' then matchingItems = _.filter( s.items, (i) -> i.mark.place.locality == category )
-        return matchingItems
-
-      s.setCategoryAs = ( choice ) -> 
-        if choice == s.categoryIs then s.sortAscending = !s.sortAscending else s.categoryIs = choice
-        s.sortItems()
-        s.categories = s.itemsTypes if choice == 'type' 
-        s.categories = s.itemsFirstLetters if choice == 'alphabetical'
-        s.categories = s.itemsRecent if choice == 'recent'
-        s.categories = s.itemsLocales if choice == 'locale'
 
       s.originalNote = (item) ->
         textarea = e.find("textarea#item_" + item.id)
@@ -315,12 +255,84 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
           next_item.find('textarea').focus()
         return
 
+      # LIST SORTING
+
+      s.initialSortItems = -> s.setCategoryAs('type')
+
+      s.sortItems = ->
+        return unless s.items
+        s.itemsTypes = _.sortBy( _.uniq( _.map( s.items, (i) -> i.mark.place.meta_categories[0] ) ) , (i) -> return i )
+        s.itemsTypes = s.itemsTypes.reverse() unless s.sortAscending
+        s.itemsFirstLetters = _.sortBy( _.uniq( _.map( s.items, (i) -> i.mark.place.names[0][0] ) ) , (i) -> return i )
+        s.itemsFirstLetters = s.itemsFirstLetters.reverse() unless s.sortAscending
+        s.itemsRecent = _.sortBy( _.uniq( _.map( s.items, (i) -> i.updated_at_day ) ) , (i) -> return i )
+        s.itemsRecent = s.itemsRecent.reverse() unless s.sortAscending
+        s.itemsLocales = _.sortBy( _.uniq( _.map( s.items, (i) -> i.mark.place.locality ) ) , (i) -> return i )
+        s.itemsLocales = s.itemsLocales.reverse() unless s.sortAscending
+        s.buildCategories()
+
+      s.buildCategories = ->
+        s.categories = s.itemsTypes if s.categoryIs == 'type' 
+        s.categories = s.itemsFirstLetters if s.categoryIs == 'alphabetical'
+        s.categories = s.itemsRecent if s.categoryIs == 'recent'
+        s.categories = s.itemsLocales if s.categoryIs == 'locale'        
+
+      s.setCategoryAs = ( choice ) -> 
+        if choice == s.categoryIs then s.sortAscending = !s.sortAscending else s.categoryIs = choice
+        s.sortItems()
+
+      s.matchingItems = ( category ) ->
+        if s.categoryIs == 'type' then matchingItems = _.filter( s.items, (i) -> i.mark.place.meta_categories?[0] == category )
+        if s.categoryIs == 'alphabetical' then matchingItems = _.filter( s.items, (i) -> i.mark.place.names?[0]?[0] == category )
+        if s.categoryIs == 'recent' then matchingItems = _.filter( s.items, (i) -> i.updated_at_day == category )
+        if s.categoryIs == 'locale' then matchingItems = _.filter( s.items, (i) -> i.mark.place.locality == category )
+        return matchingItems
+
       s.toDate = (yymmdd) -> 
         if yymmdd && yymmdd.length == 6
           "Updated on #{s.noneIfZero(yymmdd[2])}#{yymmdd[3]} / #{s.noneIfZero(yymmdd[4])}#{yymmdd[5]} / #{yymmdd[0]}#{yymmdd[1]}"
         else
           'Undated'
       s.noneIfZero = (digit) -> if digit == '0' then '' else digit
+
+      # SEARCH AND ITEM ADDITION
+
+      s.search = -> 
+        s.options = [] if s.placeName?.length
+        s._searchFunction() if s.placeName?.length > 2 && s.nearby?.length > 0
+
+      s._searchFunction = _.debounce( (-> s._makeSearchRequest() ), 500 )
+
+      s._makeSearchRequest = ->
+        if s.nearby?.length && s.placeName?.length
+          Foursquare.search(s.nearby, s.placeName)
+            .success (response) ->
+              s.options = Place.generateFromJSON(response)
+            .error (response) ->
+              if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
+                alert("We'll need a better 'Nearby' than '#{s.nearby}'")
+                s.forbiddenNearby.push s.nearby
+                s.nearby = null
+              else
+                ErrorReporter.report({ context: 'Items.NewCtrl search', near: s.nearby, query: s.placeName }, "Something went wrong! We've been notified.")        
+
+      s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
+
+      s.addItem = (option) ->
+        $('.searching-mask').show()
+        s.options = []
+        s.placeName = null
+        s.list.addItemFromPlaceData(option)
+          .success (response) ->
+            $('.searching-mask').hide()
+            new_item = _.extend( Item.generateFromJSON( response ), { index: s.items.length, pane: 'list' } )
+            s.items.unshift new_item
+            s.places.unshift new_item.mark.place
+            QueryString.modify({m: null})
+            if s.items?.length == 1 then s.initialSortItems() else s.sortItems()
+          .error (response) ->
+            $('.searching-mask').hide()
+            ErrorReporter.report({ context: 'Items.NewCtrl addItem', option: JSON.stringify(option), plan: JSON.stringify(s.list) }, "Something went wrong! We've been notified.")        
 
 
 

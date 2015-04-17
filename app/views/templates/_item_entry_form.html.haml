@@ -70,46 +70,47 @@
         %b View
 
     / ListMode & TripMode
-    #header-spacing.except-landscape{ ng_show: "list && hasItems() && (mode == 'list' || mode == 'trip')" }
-    .band.spaced-xxx{ ng_show: "list && hasItems() && (mode == 'list' || mode == 'trip')", plan_drag: true, plan: 'list',  list_items: 'items' } 
-      .container
-        %h1.title.sixteen.columns{ ng_show: 'mode == "trip"' } Drag and Drop to Order Your Trip
-        .items-in-manifest.six.columns{ ng_show: 'mode == "trip"', ng_class: '{empty: !manifestItems.length}' }
-          %ul.plan-list-items
-            .repeater{ ng_repeat: 'item in manifestItems' }
-              .spacer{ ng_class: '{hovered: hoveringOver($index)}', ng_mouseenter: 'setHover($index)', ng_mouseleave: 'setHover(null)', ng_click: 'insert($index)' }
-                %p Click here to add or relocate item
-              %li.plan-list-item
-                .bucket-list-tab
-                  %h6 {{ item.mark.place.names[0] }} - {{ $index }}
-                .list-item-select{ ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
-            .spacer{ ng_class: '{hovered: hoveringOver(manifestItems.length)}', ng_mouseenter: 'setHover(manifestItems.length)', ng_mouseleave: 'setHover(null)', ng_click: 'insert()' }
-              %p Click here to add or relocate item
-        .items-in-plan{ ng_class: 'listClass(mode)' }
-          .items-in-plan-category{ ng_repeat: 'category in categories' }
+    .list-or-trip-mode{ ng_show: "list && hasItems() && (mode == 'list' || mode == 'trip')" }
+      #header-spacing.except-landscape
+      .band.spaced-xxx{ plan_drag: true, plan: 'list',  list_items: 'items' } 
+        .container
+          %h1.title.sixteen.columns{ ng_show: 'mode == "trip"' } Drag and Drop to Order Your Trip
+          .items-in-manifest.six.columns{ ng_show: 'mode == "trip"', ng_class: '{empty: !manifestItems.length}' }
             %ul.plan-list-items
-              %li.items-organized-by{ ng_show: "categoryIs != 'alphabetical'" }
-                %i.fa{ ng_show: "categoryIs == 'type'", ng_class: 'typeIcon(category)' } 
-                %span{ ng_show: "categoryIs != 'recent'"} {{ category }}
-                %span{ ng_show: "categoryIs == 'recent'"} {{ toDate( category ) }}
-              %li.plan-list-item{ ng_repeat: 'item in matchingItems( category )' }
-                .bucket-list-tab
-                  %a{ ng_href: '{{item.mark.place.href}}', target: '_self' }
-                    .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
-                    .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
-                  .bucket-list-wrap
-                    .bucket-list-profile
-                      %a{ target: '_self' }
-                        .bucket-list-title
-                          {{ item.mark.place.names[0] }}
-                        .bucket-list-more-info
-                          %i{ class: "{{ item.mark.place.meta_icon }}"}
-                          {{ item.mark.place.categories.join(', ') }}
-                        .bucket-list-more-info.locale-only
-                          {{ item.mark.place.localeDetails() }}
-                .list-item-notes.largest-screen{ ng_show: 'mode == "list"'}
-                  %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)', disabled: true }
-                .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
+              .repeater{ ng_repeat: 'item in manifestItems' }
+                .spacer{ ng_class: '{hovered: hoveringOver($index)}', ng_mouseenter: 'setHover($index)', ng_mouseleave: 'setHover(null)', ng_click: 'insert($index)' }
+                  %p Click here to add or relocate item
+                %li.plan-list-item
+                  .bucket-list-tab
+                    %h6 {{ item.mark.place.names[0] }} - {{ $index }}
+                  .list-item-select{ ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
+              .spacer{ ng_class: '{hovered: hoveringOver(manifestItems.length)}', ng_mouseenter: 'setHover(manifestItems.length)', ng_mouseleave: 'setHover(null)', ng_click: 'insert()' }
+                %p Click here to add or relocate item
+          .items-in-plan{ ng_class: 'listClass(mode)' }
+            .items-in-plan-category{ ng_repeat: 'category in categories' }
+              %ul.plan-list-items
+                %li.items-organized-by{ ng_show: "categoryIs != 'alphabetical'" }
+                  %i.fa{ ng_show: "categoryIs == 'type'", ng_class: 'typeIcon(category)' } 
+                  %span{ ng_show: "categoryIs != 'recent'"} {{ category }}
+                  %span{ ng_show: "categoryIs == 'recent'"} {{ toDate( category ) }}
+                %li.plan-list-item{ ng_repeat: 'item in matchingItems( category )' }
+                  .bucket-list-tab
+                    %a{ ng_href: '{{item.mark.place.href}}', target: '_self' }
+                      .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
+                      .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
+                    .bucket-list-wrap
+                      .bucket-list-profile
+                        %a{ target: '_self' }
+                          .bucket-list-title
+                            {{ item.mark.place.names[0] }}
+                          .bucket-list-more-info
+                            %i{ class: "{{ item.mark.place.meta_icon }}"}
+                            {{ item.mark.place.categories.join(', ') }}
+                          .bucket-list-more-info.locale-only
+                            {{ item.mark.place.localeDetails() }}
+                  .list-item-notes.largest-screen{ ng_show: 'mode == "list"'}
+                    %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)', disabled: true }
+                  .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
 
     / MapMode
     .plan-map-container{ ng_show: "list && items && mode == 'map'" }
