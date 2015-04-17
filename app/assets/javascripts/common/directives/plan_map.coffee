@@ -248,7 +248,7 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
         s.filters = {}
         QueryString.modify({f: null, m: null})
 
-      s.$watch('planPlaces', (-> console.log("changed"); s.initialize() ) )
+      s.$watch('planPlaces', (-> s.initialize() ) )
       s.$watch('showMap', (-> s.initialize() ) )
 
       window.pm = s

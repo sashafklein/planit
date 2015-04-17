@@ -3,9 +3,13 @@
 
   .planbox-wrapper
     user-select: none
-    
-  .setplanbox-on-plan-page, .addbox-on-plan-page
+
+  .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
     position: fixed
+    overflow-x: hidden
+    overflow-y: auto
+    input
+      min-width: 50px
     input.full-width
       width: 98%
 
@@ -17,7 +21,6 @@
     z-index: 10004
     -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
-    overflow-x: hidden
     span.title
       display: inline-block
       color: #fff
@@ -35,6 +38,8 @@
       color: #aaa
       transition: 0.2s ease all
       &:hover
+        color: #f06
+      &.opened
         color: #f06
     input.title#rename
       color: #fff
@@ -60,8 +65,22 @@
       font-size: 18px
       cursor: pointer
 
+  .settingsbox-on-plan-page
+    z-index: 10015
+    background: #fff
+    border-top: #f06 3px solid
+    border-bottom: #f06 3px solid
+    &.in-rename
+      background: #333
+      border-top: 0px
+      border-bottom: #f06 3px solid
+      padding-top: 3px !important
+    .plan-settings-dropdown
+      width: 100%
+    .rename-confirmation
+      text-align: right
+
   .addbox-on-plan-page
-    top: 68px
     height: 65px
     background: #333
     z-index: 10003
@@ -272,10 +291,9 @@
 
   .minimize-maximize-addbox
     position: fixed
-    z-index: 10008
+    z-index: 10025
     left: 0
     right: 0
-    top: 58px
     width: 20px
     height: 20px
     font-size: 14px
@@ -403,12 +421,19 @@
     top: 68px
     bottom: 0
 
-  .setplanbox-on-plan-page, .addbox-on-plan-page
+  .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
     left: 0
     right: 0
     padding: 18px
     width: 33%
     margin: 0 auto
+  .addbox-on-plan-page, .settingsbox-on-plan-page
+    top: 68px
+
+  .pad-top-addbox
+    margin-top: 65px
+  .minimize-maximize-addbox
+    top: 58px
 
   .day-tab-wrap
     padding: 3px 10px
@@ -435,10 +460,17 @@
       top: 68px
       bottom: 0
 
-    .setplanbox-on-plan-page, .addbox-on-plan-page
+    .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
       padding: 18px
       width: 33%
       margin: 0 auto
+    .addbox-on-plan-page, .settingsbox-on-plan-page
+      top: 68px
+
+    .pad-top-addbox
+      margin-top: 65px
+    .minimize-maximize-addbox
+      top: 58px
 
     .day-tab-wrap
       padding: 3px 10px
@@ -466,17 +498,23 @@
       bottom: 44px
 
     .setplanbox-on-plan-page
-      padding: 9px
+      padding: 8px
     .setplanbox-on-plan-page, .addbox-on-plan-page
+      height: 43px
+    .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
       width: auto
       left: 60px
       right: 60px
-      height: 43px
       margin: 0 auto
       border-top: 0
-    .addbox-on-plan-page
-      padding: 3px 9px 15px 9px
+    .addbox-on-plan-page, .settingsbox-on-plan-page
+      padding: 5px 9px 13px 9px
       top: 43px
+
+    .pad-top-addbox
+      margin-top: 43px
+    .minimize-maximize-addbox
+      top: 32px
 
     .container-upfront-plan-map
       top: 105px
@@ -518,17 +556,23 @@
       bottom: 0
 
     .setplanbox-on-plan-page
-      padding: 9px
+      padding: 8px
     .setplanbox-on-plan-page, .addbox-on-plan-page
+      height: 43px
+    .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
       width: auto
       left: 60px
       right: 60px
-      height: 43px
       margin: 0 auto
       border-top: 0
-    .addbox-on-plan-page
-      padding: 3px 9px 15px 9px
+    .addbox-on-plan-page, .settingsbox-on-plan-page
+      padding: 5px 9px 13px 9px
       top: 43px
+
+    .pad-top-addbox
+      margin-top: 55px
+    .minimize-maximize-addbox
+      top: 32px
 
     .container-upfront-plan-map
       top: 105px

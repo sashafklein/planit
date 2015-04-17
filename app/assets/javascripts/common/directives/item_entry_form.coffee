@@ -33,6 +33,8 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       #   if thisScrollTop < 100 && thisScrollTop > s.lastScrollTop
       #     s.addBoxToggled = false unless s.addBoxManuallyToggled
       # )
+      s.settingsBoxToggled = false
+      s.settingsBoxToggle = -> s.settingsBoxToggled = !s.settingsBoxToggled
 
       s.setMode = (mode) -> 
         s.mode = mode
@@ -51,6 +53,8 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       # LISTS & SETTING LISTS
 
       s.forbiddenNearby = []
+
+      s.hasLists = -> s.lists?.length > 0
 
       s.getUsersLists = ->
         User.findPlans( CurrentUser.id )
@@ -142,8 +146,6 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       s.rename = null
       s.renameList = ->
         s.rename = s.list.name
-        # $('.everything-but-mask').show()
-        # $('.above-mask').css('z-index', '200000000')
         $timeout(-> $('#rename').focus() if $('#rename') )
         return
       s.saveRenameList = -> 
@@ -154,10 +156,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
           .error (response) ->
             s.cancelRenameList()
             ErrorReporter.report({ context: 'Failed to rename plan', list_id: s.list.id})
-      s.cancelRenameList = ->
-        s.rename = null
-        # $('.everything-but-mask').hide()
-        return
+      s.cancelRenameList = -> s.rename = null
 
       s.planImage = ( plan ) -> if plan && plan.best_image then plan.best_image.url else ''
 
@@ -186,6 +185,8 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       s.itemsLocales = []
       s.sortAscending = true
       s.categoryIs = null
+
+      s.hasItems = -> s.items?.length > 0
 
       s.canSetNearby = (nearby) -> nearby?.length > 2 && !_(s.forbiddenNearby).find( (o) -> o.toLowerCase() == nearby?.toLowerCase() )      
       s.setNearby = (nearby) -> 
@@ -236,16 +237,17 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       s._searchFunction = _.debounce( (-> s._makeSearchRequest() ), 500 )
 
       s._makeSearchRequest = ->
-        Foursquare.search(s.nearby, s.placeName)
-          .success (response) ->
-            s.options = Place.generateFromJSON(response)
-          .error (response) ->
-            if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
-              alert("We'll need a better 'Nearby' than '#{s.nearby}'")
-              s.forbiddenNearby.push s.nearby
-              s.nearby = null
-            else
-              ErrorReporter.report({ context: 'Items.NewCtrl search', near: s.nearby, query: s.placeName }, "Something went wrong! We've been notified.")        
+        if s.nearby?.length && s.placeName?.length
+          Foursquare.search(s.nearby, s.placeName)
+            .success (response) ->
+              s.options = Place.generateFromJSON(response)
+            .error (response) ->
+              if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
+                alert("We'll need a better 'Nearby' than '#{s.nearby}'")
+                s.forbiddenNearby.push s.nearby
+                s.nearby = null
+              else
+                ErrorReporter.report({ context: 'Items.NewCtrl search', near: s.nearby, query: s.placeName }, "Something went wrong! We've been notified.")        
 
       s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
 

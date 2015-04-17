@@ -77,7 +77,7 @@ class PlaceSerializer < BaseSerializer
   end
 
   def constructed_locale
-    [locality, subregion].compact.uniq.concat([region]).compact.join(", ")
+    ([(locality || subregion), (region || country)]).compact.join(", ")
   end
 
 end
