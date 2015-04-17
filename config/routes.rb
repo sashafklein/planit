@@ -73,7 +73,7 @@ Rails.application.routes.draw do
         get :find_by_object, on: :collection
       end
 
-      resources :items, only: [:index, :show]
+      resources :items, only: [:index, :show, :destroy]
       
       resources :marks, only: [:destroy, :create, :show] do
         post :choose, on: :member
