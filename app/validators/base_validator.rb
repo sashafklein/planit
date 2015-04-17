@@ -34,4 +34,14 @@ class BaseValidator < ActiveModel::Validator
     end
   end
 
+  def validate_enough!(threshold=1, *options)
+    failures = []
+    options.each do |opt|
+      failures << opt if !record.send(opt).present?
+    end
+    unless (options.count - failures.count) >= threshold
+      record.errors[:base] << "Needed at least #{threshold} of #{options.join(", ")} but was missing: #{ failures.join(', ') }" 
+    end
+  end
+
 end 

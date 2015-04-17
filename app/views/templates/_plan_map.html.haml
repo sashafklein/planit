@@ -18,7 +18,7 @@
                         %i.fa.fa-exclamation-triangle{ ng_show: 'allPlaces.length' }
                       .bucket-list-wrap#no-items-msg
                         %span{ ng_show: 'allPlaces.length && !places.length' }= "You're all Filtered Out..."
-                        %span{ ng_show: 'allPlaces.length && places.length && !placesInView.length && !clustersInView.length' }= "Not All Who Wander Are Lost..."
+                        %span{ ng_show: 'allPlaces.length > 0 && places.length > 0 && !placesInView.length && !clustersInView.length', ng_click: "fitBoundsOnFilteredPlaces()" }= "Lost? Click to Refocus on Places"
                   %li.bucket-list-li.cluster-li{ ng_repeat: "cluster in clustersInView", class: "{{cluster.id}}", id: "{{cluster.id}}", ng_mouseenter: "mouse('clusterMouseenter', cluster.id)", ng_mouseleave: "mouse('clusterMouseleave', cluster.id)"}
                     %bucket_list_clusters{ cluster: 'cluster', map: 'map', padding: 'padding', zoom_to: 'zoomToCluster(clusterFromId(selectedClusterId))', changes: 'changes' }
                   %li.bucket-list-li.place-li{ ng_repeat: "place in placesInView", class: "p{{place.id}}", id: "{{'p' + place.id}}", ng_mouseenter: "mouse('pinMouseenter', 'p' + place.id)", ng_mouseleave: "mouse('pinMouseleave', 'p' + place.id)" }

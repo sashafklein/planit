@@ -1,17 +1,28 @@
 %script{ type: 'text/ng-template', id: 'place_control_bar.html' }
   .place-control-bar
 
-    .place-control.disabled{ ng_if: "!hasMarkFor()" }
+    .place-control.disabled{ ng_show: "!hasMarkFor()" }
       %i.fa.fa-book
-    %a.place-control{ ng_if: "hasMarkFor()", add_places_to_plan_on_click: '[{{place.id}}]', success_function: "" }
+    %a.place-control.for-mark{ ng_show: "hasMarkFor() && !planId", add_places_to_plan_on_click: '[{{place.id}}]', success_function: "" }
       %span.place-control-hint= "Add to Guide"
       %i.fa.fa-book
+    %a.place-control.for-mark{ ng_show: "hasMarkFor() && planId && !userOwnsPlan", add_places_to_plan_on_click: '[{{place.id}}]', success_function: "" }
+      %span.place-control-hint= "Add to Guide"
+      %i.fa.fa-book
+    %a.place-control.for-mark{ ng_show: "hasMarkFor() && planId && userOwnsPlan" }
+      %span.place-control-hint= "Edit Details"
+      %i.fa.fa-calendar
 
     .place-control.disabled{ ng_show: "!hasMarkFor()" }
       %i.fa.fa-pencil
-    %a.place-control{ ng_show: "hasMarkFor()" }
+    %a.place-control{ ng_show: "hasMarkFor() && !planId" }
       %span.place-control-hint= "Add Note"
       %i.fa.fa-pencil{ add_note_on_click: true, object_id: '{{place.id}}', object_type: 'Place'}
+    %a.place-control.disabled{ ng_show: "hasMarkFor() && planId && !userOwnsPlan" }
+      %i.fa.fa-pencil
+    %a.place-control{ ng_show: "hasMarkFor() && planId && userOwnsPlan" }
+      %span.place-control-hint= "Add Note"
+      %i.fa.fa-pencil
 
     .place-control.disabled{ ng_show: "!hasMarkFor()" }
       %i.fa.fa-check-square
@@ -34,6 +45,9 @@
     %a.place-control{ ng_show: "!hasMarkFor()", save_place_on_click: '{{place.id}}', success_function: "savedPlace()" }
       %span.place-control-hint= "Save"
       %i.fa.fa-bookmark
-    %a.place-control{ ng_show: "hasMarkFor()", remove_place_on_click: '{{place.id}}', success_function: "removedPlace()" }
-      %span.place-control-hint= "Remove"
+    %a.place-control{ ng_show: "hasMarkFor() && !userOwnsPlan", remove_place_on_click: '{{place.id}}', success_function: "removedPlace()" }
+      %span.place-control-hint= "Delete"
+      %i.fa.fa-trash
+    %a.place-control{ ng_show: "hasMarkFor() && userOwnsPlan", remove_item_on_click: '{{place.id}}', success_function: "removedPlace()" }
+      %span.place-control-hint= "Remove from Guide"
       %i.fa.fa-trash

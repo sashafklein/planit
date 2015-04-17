@@ -10,7 +10,7 @@
 
           - if current_user_is_active # admin or member
 
-            .mobile.page-title= "PLANIT" if browser.mobile? && !show_search?(page_type)
+            %a.mobile.page-title{ ng_href: root_path }= "PLANIT" if browser.mobile?
             .top-menu-container
               %a.main-menu-dropdown.dropdown-toggle{ "data-toggle" => "dropdown", :href => "#" }= render 'header/user_avatar'
               = render 'header/dropdowns/main_menu'

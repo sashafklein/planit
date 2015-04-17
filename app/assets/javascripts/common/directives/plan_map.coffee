@@ -114,15 +114,17 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
         s._filterPlaces( s.recalculateInView )
         s._initiateCenterAndBounds()
 
+      s.fitBoundsOnFilteredPlaces = ->
+        startLats = _.map( s.places, (p) -> p.lat )
+        startLons = _.map( s.places, (p) -> p.lon )
+        leafletData.getMap().then (m) ->
+          m.fitBounds( 
+            L.latLngBounds( L.latLng(_.min(startLats),_.min(startLons)),L.latLng(_.max(startLats),_.max(startLons)) ),
+            { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] }
+          )
+
       s._initiateCenterAndBounds = ->
-        if !s.centerAndZoom
-          startLats = _.map( s.places, (p) -> p.lat )
-          startLons = _.map( s.places, (p) -> p.lon )
-          leafletData.getMap().then (m) ->
-            m.fitBounds( 
-              L.latLngBounds( L.latLng(_.min(startLats),_.min(startLons)),L.latLng(_.max(startLats),_.max(startLons)) ),
-              { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] }
-            )
+        s.fitBoundsOnFilteredPlaces() if !s.centerAndZoom
         $('.loading-mask.content-only').hide()
         $timeout (-> 
           s.loaded = true
@@ -225,21 +227,28 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
       # MAPWIDE INIT
       s.initialized = false
       s.initialize = ->
-        if !s.initialized && s.planPlaces && s.planPlaces.length > 0 && s.showMap
+        if !s.initialized && s.showMap && s.planPlaces?.length > 0
           $('.loading-mask.content-only').show()
           s._getPlaces()
           s.initialized = true
+        else if s.initialized && s.showMap
+          # if s.planPlaces?.length != s.allPlaces?.length
+          if s.planPlaces != s.allPlaces
+            s._getPlaces() 
+          # else
+          #   debugger
         else if s.initialized && !s.showMap
-          s.resetMapContent() 
+          s.resetMapContent() if !s.planPlaces?.length
 
       s.resetMapContent = ->
         s.places = s.allPlaces = s.primaryPlaces = s.planPlaces = s.placesInView = s.clustersInView = []
-        s.currentLLZoom = s.currentBounds = null
+        s.currentLLZoom = s.currentBounds = s.centerAndZoom = null
         s.initialized = false
         s.centerPoint = { lat: 0, lng: 0, zoom: 2 }
         s.filters = {}
+        QueryString.modify({f: null, m: null})
 
-      s.$watch('planPlaces', (-> s.initialize() ) )
+      s.$watch('planPlaces', (-> console.log("changed"); s.initialize() ) )
       s.$watch('showMap', (-> s.initialize() ) )
 
       window.pm = s

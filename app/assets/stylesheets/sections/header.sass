@@ -7,7 +7,8 @@
   height: 68px
   opacity: 1
   visibility: visible
-  z-index: 140000
+  z-index: 10001
+  user-select: none
   &.white
     background: #fafafa
     border-top: 3px solid rgb(28, 48, 147)
@@ -54,7 +55,6 @@
   .logo-container
     visibility: visible
     display: inline-block
-    cursor: pointer
     float: left
     img
       float: left
@@ -69,13 +69,16 @@
     img.logo-itsyour-top
       width: 117px
     img.logo-image-top
+      cursor: pointer
       width: 42px
     img.logo-name-top
+      cursor: pointer
       width: 86px
       &.new
         display: none
         visibility: hidden
     img.logo-my-top
+      cursor: pointer
       width: 39px
       margin: 7px 2px 0 0
     img.logo-title-top
@@ -148,6 +151,7 @@
       transform: translateY(-50%)
 
   .top-nav-bar
+    user-select: none
     cursor: pointer
     text-align: center
     display: table

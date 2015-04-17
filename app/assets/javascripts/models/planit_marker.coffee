@@ -16,7 +16,7 @@ mod.factory 'PlanitMarker', ($timeout) ->
           iconSize: null
       ).value()
       # return pin unless show_popup
-      # pin.bindPopup("<a href='/places/#{place.id}'>#{ place.name() }</a>")
+      # pin.bindPopup("<a href='/places/#{place.id}' target='_self'>#{ place.name() }</a>")
 
     contextPin: (place) ->
       _( @_basicPin(place) ).extend(
@@ -27,7 +27,7 @@ mod.factory 'PlanitMarker', ($timeout) ->
           iconSize: [18,18]
           iconAnchor: [9,9]
       ).value()
-      # .bindPopup("<a href='/places/#{place.id}'>#{ place.name() }</a>", {offset: new L.Point(0,3), className: 'mini-popup'})
+      # .bindPopup("<a href='/places/#{place.id}' target='_self'>#{ place.name() }</a>", {offset: new L.Point(0,3), className: 'mini-popup'})
 
     clusterPin: (cluster) ->
       children = cluster.getAllChildMarkers().length

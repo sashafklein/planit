@@ -61,7 +61,7 @@ angular.module("Common").directive 'printMap', (MapOptions, F, Place, User) ->
               title: a.names[0],
               alt: a.names[0],
             })
-          }).bindPopup("<a href='/places/#{a.id}'>#{a.names[0]}</a>", {offset: new L.Point(0,8)})
+          }).bindPopup("<a href='/places/#{a.id}' target='_self'>#{a.names[0]}</a>", {offset: new L.Point(0,8)})
           clusterMarkers.addLayer clusterMarker
           i++
         scope.map.addLayer(clusterMarkers)

@@ -1,6 +1,7 @@
 %script{ type: 'text/ng-template', id: 'item_entry_form.html' }
 
   .new-item-form
+
     .planbox-wrapper
       .setplanbox-on-plan-page
         .input-and-results{ ng_show: '!list' }
@@ -54,27 +55,19 @@
 
     .sort-items-by.large-screen{ ng_show: "list && (mode == 'list' || mode == 'trip')" }
       %b Sort
-      %span.sort-by-button{ ng_click: "setCategoryAs('alphabetical')", ng_class: "{'highlighted': categoryIs == 'alphabetical'}" } A-Z
-      %span.sort-by-button{ ng_click: "setCategoryAs('type')", ng_class: "{'highlighted': categoryIs == 'type'}" } Type
-      %span.sort-by-button{ ng_click: "setCategoryAs('locale')", ng_class: "{'highlighted': categoryIs == 'locale'}" } Locale
-      %span.sort-by-button{ ng_click: "setCategoryAs('recent')", ng_class: "{'highlighted': categoryIs == 'recent'}" } Recent
-
-    .view-and-edit-mode.large-screen{ ng_show: "list && mode == 'list' || mode == 'trip'" }
-      %span.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': mode == 'list'}" } List
-      %span.view-and-edit-button{ ng_click: "setMode('trip')", ng_class: "{'highlighted': mode == 'trip'}" } Trip
-      %span.view-and-edit-button{ ng_click: "setMode('map')", ng_class: "{'highlighted': mode == 'map'}" } Map
-      %b{ ng_show: "mode != 'trip'" } View Mode
-      %b{ ng_show: "mode == 'trip'" } Edit Mode
-
-    / .back-from-map-mode{ ng_show: "list && mode == 'map'" }
-    /   %span.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': mode == 'list'}" } List
-    /   %span.view-and-edit-button.disabled Trip
-    /   %span.view-and-edit-button{ ng_click: "setMode('map')", ng_class: "{'highlighted': mode == 'map'}" } Map
-    /   %b{ ng_show: "mode != 'trip'" } View Mode
-    /   %b{ ng_show: "mode == 'trip'" } Edit Mode
+      %span.selectable.sort-by-button{ ng_click: "setCategoryAs('alphabetical')", ng_class: "{'highlighted': categoryIs == 'alphabetical'}" } A-Z
+      %span.selectable.sort-by-button{ ng_click: "setCategoryAs('type')", ng_class: "{'highlighted': categoryIs == 'type'}" } Type
+      %span.selectable.sort-by-button{ ng_click: "setCategoryAs('locale')", ng_class: "{'highlighted': categoryIs == 'locale'}" } Locale
+      %span.selectable.sort-by-button{ ng_click: "setCategoryAs('recent')", ng_class: "{'highlighted': categoryIs == 'recent'}" } Recent
+    .view-and-edit-mode{ ng_show: "list", ng_class: "{'in-map': mode == 'map', 'large-screen': mode != 'map'}" }
+      %span.selectable.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': mode == 'list'}" } List
+      %span.selectable.view-and-edit-button.disabled Trip
+      / { ng_click: "setMode('trip')", ng_class: "{'highlighted': mode == 'trip'}" }
+      %span.selectable.view-and-edit-button{ ng_click: "setMode('map')", ng_class: "{'highlighted': mode == 'map'}" } Map
+      %b View
 
     / Or effectively ng_class to half-screen for TripMode
-    .band.spaced-extra{ ng_show: "list && (mode == 'list' || mode == 'trip')", plan_drag: true, plan: 'list',  list_items: 'items' } 
+    .band.spaced-xxx{ ng_show: "list && (mode == 'list' || mode == 'trip')", plan_drag: true, plan: 'list',  list_items: 'items' } 
       .container
         %h1.title.sixteen.columns{ ng_show: 'mode == "trip"' } Drag and Drop to Order Your Trip
         .items-in-manifest.six.columns{ ng_show: 'mode == "trip"', ng_class: '{empty: !manifestItems.length}' }
