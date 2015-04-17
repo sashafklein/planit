@@ -29,7 +29,7 @@ class Api::V1::Plans::ManifestController < ApiController
   private
 
   def load_plan
-    @plan = Plan.friendly.find params[:id]
+    @plan = Plan.find params[:id]
   end
 
   def object

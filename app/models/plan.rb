@@ -1,8 +1,5 @@
 class Plan < BaseModel
 
-  extend FriendlyId
-  friendly_id :slug_candidates, use: :slugged
-
   belongs_to :user
 
   has_many :legs
@@ -19,6 +16,8 @@ class Plan < BaseModel
   delegate :last_day, :departure, to: :last_leg
   delegate :arrival, to: :first_leg
   delegate :add_to_manifest, :remove_from_manifest, :move_in_manifest, to: :manifester
+
+  before_save { self.slug ||= '' }
 
   def copy!(new_user:, copy_manifest: false)
     Plan.transaction do 
@@ -105,9 +104,4 @@ class Plan < BaseModel
     destroy
   end
 
-  private
-
-  def slug_candidates
-    [:name, [:name, g_token(attrs: [:id, :name], other: Time.now.to_s).first(8)]]
-  end
 end

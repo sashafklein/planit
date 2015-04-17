@@ -153,8 +153,8 @@
           .container.centered
             .column{ ng_show: '!list && !hasLists()' }
               %strong.neon.large Start a List or Plan!
-              - if tutorial_plan = User.first.plans.first
-                %p= " ( or test-drive <a href='#{ tutorial_plan }'>#{ tutorial_plan.name }</a> ) ".html_safe
+              - if tutorial_plan = Plan.find_by(id: 100)
+                %p= " ( or test-drive #{link_to(tutorial_plan.name, copy_plan_path(tutorial_plan), class: 'linky neon')} )".html_safe
             .column{ ng_show: 'list && !nearby' }
               %strong.neon.large Awesome!  Starting Where?
               %p Set a Location so You can Find Your Places

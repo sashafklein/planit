@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :plans, only: [:show, :index] do
     get :print, on: :member
     get :edit, on: :member
+    get :copy, on: :member
   end
 
   resources :items, only: [:new]
