@@ -6,9 +6,9 @@
       .setplanbox-on-plan-page
         .input-and-results{ ng_show: '!list' }
           .faux-input-wrap
-            %span.add-new{ ng_show: 'canAddList()', ng_click: 'setList()' }
+            %span.add-new{ ng_show: 'canAddList() && !hoveringList', ng_click: 'setList()' }
               %i.fa.fa-plus-circle
-            %input.real-select.guide-name#guide{ name: "guide", type: 'text', placeholder: 'Guide Name', ng_model: 'listQuery', ng_on_enter_key: "setListOnEnter()", ng_class: "{'full-width': !canAddList()}" }
+            %input.real-select.guide-name#guide{ name: "guide", type: 'text', placeholder: 'Guide Name', ng_model: 'listQuery', ng_on_enter_key: "setListOnEnter()", ng_class: "{'full-width': !canAddList() || hoveringList}" }
           %ul.suggested-results{ ng_show: 'listOptions().length && listQuery.length > 2 && !hoveringList' }
             %li{ ng_repeat: "currentList in listOptions()", ng_click: 'setList(currentList)' }
               %span.name {{currentList.name}}
