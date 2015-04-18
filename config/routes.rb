@@ -42,7 +42,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show] do
     get :places, on: :member
-    get :guides, on: :member
+    get :search, on: :member
     get :inbox, on: :member
     get :recent, on: :member
     get :nearby, on: :member

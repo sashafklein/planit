@@ -19,41 +19,42 @@
           %i.fa.fa-cog.settings{ ng_click: 'settingsBoxToggle()', ng_class: "{'opened': settingsBoxToggled}" }
         .chosen-plan.above-mask{ ng_show: 'list && rename' }
           %input.title#rename{ ng_model: 'rename', ng_on_enter_key: 'saveRenameList()', ng_on_esc_key: 'cancelRenameList()' }
-      .minimize-maximize-addbox{ ng_show: "list && !rename && mode != 'trip' && !settingsBoxToggled", ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
-        %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
       .settingsbox-on-plan-page{ ng_show: "list && ( settingsBoxToggled || rename )", ng_class: "{'in-rename': rename}" }
         .plan-settings-dropdown{ ng_show: '!rename' }= render 'header/dropdowns/plan_settings'
         .rename-confirmation{ ng_show: 'rename' }
           .planit-button.gray{ ng_click: 'cancelRenameList()' } Cancel          
           .planit-button.neon{ ng_click: 'saveRenameList()' } Save
-      .addbox-on-plan-page{ ng_show: "list && addBoxToggled && mode != 'trip' && !settingsBoxToggled && !rename" }
-        .faux-input-wrap{ ng_show: '!nearby && list' }
-          %span.add-new{ ng_show: 'canSetNearby(placeNearby)', ng_click: 'setNearby(placeNearby)' }
-            %i.fa.fa-check
-          %input.real-select#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Where? (City or Region)', ng_model: 'placeNearby', ng_show: 'list && !nearby', ng_on_enter_key: 'setNearby(placeNearby)', ng_class: "{'full-width': (!placeNearby || placeNearby.length < 2)}" }
-        .input-and-results{ ng_show: 'nearby && list' }
-          .faux-input-wrap
-            %span.chosen-input#chosen-nearby{ ng_click: 'resetNearby()' }
-              %i.fa.fa-times
-              {{ nearby }}
-            %input.real-input#place-name{ name: "place-name", type: 'text', placeholder: 'Add a Place (Name)', ng_model: 'placeName', ng_change: 'search()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)' }
-          %ul.suggested-results{ ng_show: 'options.length>0 && placeName && placeName.length>0' }
-            %li.search-results-list{ ng_repeat: 'option in options', ng_click: 'addItem(option)' }
-              .bucket-list-tab
-                %a{ ng_href: '{{option.href}}', target: '_self' }
-                  .bucket-list-no-img{ ng_show: "!option.image_url" }
-                  .bucket-list-img{ ng_show: "option.image_url", style: "background-image: url('{{ option.image_url }}');" }
-                .bucket-list-wrap
-                  .bucket-list-profile
-                    %a{ target: '_self' }
-                      .bucket-list-title
-                        {{ option.names[0] }}
-                      .foursquare-and-info-wrap
-                        %span.mini-foursquare-icon{ ng_show: "option.icon", style: "background-image: url('{{ option.icon }}');" }
-                        .bucket-list-more-info
-                          {{ option.categories.join(', ') }}
-                        .bucket-list-more-info.locale-only
-                          {{ option.localeDetails() }}
+      .addbox-wrapper{ ng_show: "userOwnsList && list && !rename && mode != 'trip' && !settingsBoxToggled" }
+        .minimize-maximize-addbox{ ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
+          %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
+        .addbox-on-plan-page{ ng_show: "addBoxToggled" }
+          .faux-input-wrap{ ng_show: '!nearby && list' }
+            %span.add-new{ ng_show: 'canSetNearby(placeNearby)', ng_click: 'setNearby(placeNearby)' }
+              %i.fa.fa-check
+            %input.real-select#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Where? (City or Region)', ng_model: 'placeNearby', ng_show: 'list && !nearby', ng_on_enter_key: 'setNearby(placeNearby)', ng_class: "{'full-width': (!placeNearby || placeNearby.length < 2)}" }
+          .input-and-results{ ng_show: 'nearby && list' }
+            .faux-input-wrap
+              %span.chosen-input#chosen-nearby{ ng_click: 'resetNearby()' }
+                %i.fa.fa-times
+                {{ nearby }}
+              %input.real-input#place-name{ name: "place-name", type: 'text', placeholder: 'Add a Place (Name)', ng_model: 'placeName', ng_change: 'search()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)' }
+            %ul.suggested-results{ ng_show: 'options.length>0 && placeName && placeName.length>0' }
+              %li.search-results-list{ ng_repeat: 'option in options', ng_click: 'addItem(option)' }
+                .bucket-list-tab
+                  %a{ ng_href: '{{option.href}}', target: '_self' }
+                    .bucket-list-no-img{ ng_show: "!option.image_url" }
+                    .bucket-list-img{ ng_show: "option.image_url", style: "background-image: url('{{ option.image_url }}');" }
+                  .bucket-list-wrap
+                    .bucket-list-profile
+                      %a{ target: '_self' }
+                        .bucket-list-title
+                          {{ option.names[0] }}
+                        .foursquare-and-info-wrap
+                          %span.mini-foursquare-icon{ ng_show: "option.icon", style: "background-image: url('{{ option.icon }}');" }
+                          .bucket-list-more-info
+                            {{ option.categories.join(', ') }}
+                          .bucket-list-more-info.locale-only
+                            {{ option.localeDetails() }}
 
     .sort-and-view-modes{ ng_show: "list && hasItems()" }
       .sort-items-by.large-screen{ ng_show: "mode == 'list' || mode == 'trip'" }
@@ -142,20 +143,25 @@
               .content-tab-title{ ng_click: 'setList(plan)' } {{ plan.name }}
 
     / NoGuides -> FirstGuide Tutorial
-    - if current_user.plans.count == 0 || current_user.items.count == 0
-      #header-spacing.except-landscape{ ng_show: '!hasItems()' }
-      .band.spaced{ ng_show: '!hasItems()' }
-        .container.centered
-          .column
-            = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': list}" }
-        .container.centered
-          .column{ ng_show: '!list && !hasLists()' }
-            %strong.neon.large Start a List or Plan!
-            - if tutorial_plan = User.first.plans.first
-              %p= " ( or test-drive <a href='#{ tutorial_plan }'>#{ tutorial_plan.name }</a> ) ".html_safe
-          .column{ ng_show: 'list && !nearby' }
-            %strong.neon.large Awesome!  Starting Where?
-            %p Set a Location so You can Find Your Places
-          .column{ ng_show: 'list && nearby' }
-            %strong.neon.large Cool! Now Add Places to your List
-            %p When You've Found one, Just Press "Enter" or Click on It to Add
+    - if current_user
+      - if current_user.plans.count == 0 || current_user.items.count == 0
+        #header-spacing.except-landscape{ ng_show: '!hasItems()' }
+        .band.spaced{ ng_show: '!hasItems()' }
+          .container.centered
+            .column
+              = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': list}" }
+          .container.centered
+            .column{ ng_show: '!list && !hasLists()' }
+              %strong.neon.large Start a List or Plan!
+              - if tutorial_plan = User.first.plans.first
+                %p= " ( or test-drive <a href='#{ tutorial_plan }'>#{ tutorial_plan.name }</a> ) ".html_safe
+            .column{ ng_show: 'list && !nearby' }
+              %strong.neon.large Awesome!  Starting Where?
+              %p Set a Location so You can Find Your Places
+            .column{ ng_show: 'list && nearby' }
+              %strong.neon.large Cool! Now Add Places to your List
+              %p When You've Found one, Just Press "Enter" or Click on It to Add
+
+    / Not Logged In
+    - if !current_user
+      Hey

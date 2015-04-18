@@ -6,6 +6,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
 
     link: (s, e, a) ->
 
+      s.currentUserId = CurrentUser.id
 
       # QUERYSTRING MANAGE START DATA
 
@@ -18,7 +19,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
               s.nearby = locale
           .error (response) ->
             QueryString.modify({plan: null, near: null})
-            ErrorReporter.report({ context: 'Tried looking up #{plan_id} plan, unsuccessful'})
+            ErrorReporter.report({ context: "Tried looking up #{plan_id} plan, unsuccessful"})
 
       # EXPAND/CONTRACT
 
@@ -57,12 +58,13 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       s.hasLists = -> s.lists?.length > 0
 
       s.getUsersLists = ->
-        User.findPlans( CurrentUser.id )
-          .success (response) ->
-            unsortedLists = Plan.generateFromJSON(response)
-            s.lists = _.sortBy( unsortedLists, (l) -> s.bestListDate(l) ).reverse()
-          .error (response) ->
-            ErrorReporter.report({ context: 'Items.NewCtrl getUsersLists'}, "Something went wrong! We've been notified.")
+        if s.currentUserId
+          User.findPlans( s.currentUserId )
+            .success (response) ->
+              unsortedLists = Plan.generateFromJSON(response)
+              s.lists = _.sortBy( unsortedLists, (l) -> s.bestListDate(l) ).reverse()
+            .error (response) ->
+              ErrorReporter.report({ context: 'Items.NewCtrl getUsersLists'}, "Something went wrong! We've been notified.")
 
       s.bestListDate = (list) -> if list.starts_at then list.starts_at else list.updated_at
 
@@ -85,14 +87,10 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
       s.setList = (list) ->
         if list
           $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
-          s._installList(list)
-          QueryString.modify({plan: list.id})
-          s.setModeViaQueryString()
+          s._installList( list )
         else if list = s.optionMatchesListQuery()
           $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
           s._installList( list )
-          QueryString.modify({plan: list.id})
-          s.setModeViaQueryString()
         else if s.canAddList
           if confirm("Create a new guide named '#{s.listQuery}'?")
             $('.loading-mask').show()
@@ -101,14 +99,15 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
               .success (response) ->
                 $('.loading-mask').hide()
                 list = Plan.generateFromJSON(response)
-                s._installList list
-                QueryString.modify({plan: list.id})
-                s.setModeViaQueryString()
+                s._installList( list )
               .error (response) ->
                 $('.loading-mask').hide()
                 ErrorReporter.report({ context: 'Items.NewCtrl Plan.create', plan_name: s.listQuery}, "Something went wrong! We've been notified.")
 
       s._installList = (list) ->
+        QueryString.modify({plan: list.id})
+        s.setModeViaQueryString()
+        s.userOwnsList = if s.currentUserId == list.user_id then true else false
         s.plan = s.list = list
         s.getListItems()
         s.listQuery = list.name
@@ -145,9 +144,10 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
 
       s.rename = null
       s.renameList = ->
-        s.rename = s.list.name
-        $timeout(-> $('#rename').focus() if $('#rename') )
-        return
+        if s.userOwnsList
+          s.rename = s.list.name
+          $timeout(-> $('#rename').focus() if $('#rename') )
+          return
       s.saveRenameList = -> 
         s.list.update({ plan: { name: s.rename } })
           .success (response) ->

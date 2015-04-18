@@ -1,60 +1,31 @@
-- title( @user.name )
-- set_page_type( 'dashboard' )
+- title( "#{@user.name}'s Guides" )
+- set_page_type('guides')
 
-#user-show-page
+#user-guides-page
 
-  - if current_user == @user # personal startpage
+  - if @user.plans.present?
 
-    - if browser.mobile?
+    .band.gray.spaced-extra.padded
+      - @user.plans.order('updated_at DESC').group_by{ |p| p.updated_at.strftime("%Y") }.each do |year, plans| 
+        .container
+          .column.alpha.bubbled-header-block.tab-section-header{ class: "collapses #{'collapsed-on' if !current_year(year)}", id: "in_#{year}" }
+            %span.bubbled.medium.primary.enabled= year
+            = ":"
+            %span.bubbled.medium.secondary= "#{@user.name}'s' Guides"
+            = "("
+            %strong= plans.length
+            = ")"
+            %i.fa.fa-caret-down.tab-section-is-hidden
+        .container.centered{ class: "in_#{year} #{'collapsed' if !current_year(year)}" }
+          .column= render partial: 'plans/guide_tab', locals: { plan: nil } if current_user == @user && current_year(year)
+          - plans.each do |plan|
+            .column= render partial: 'plans/guide_tab', locals: { plan: plan }
 
-      .band.spaced-extra
-        .static-page.container
-          .sixteen.columns.main-content
-            .whitebox.padded.no-mobile-portrait.like-container
+  - else
 
-              %p
-                %strong.large.neon Launch a Custom List:
-
-              %filtered_places_query
-              - include_templates( :filtered_places_query )
-
-              %p
-                %strong.large Recent Custom Lists:
-
-              .filtered-places-query-wrap.recent-wrap
-  
-                %p 
-                  %span.select My
-                  %b own
-                  %span.select Restaurants & Markets
-                  %b in
-                  %span.select San Francisco, CA
-                  %b that I
-                  %span.select loved
-
-              / %p Find/Discover/Follow
-              / %p Active Plans/Geographies
-              / %p Start a new plan
-              / %p Share/invite?
-
-    - else # mobile
-
-      %mobile_dashboard
-      - include_templates( :mobile_dashboard, :bucket_list_places, :place_control_bar )
-
-  - else # public 'dashboard'
-
-    .band.gray.spaced.large-screen
-      .container
-
-        %span.gray
-          @user.marks.count
-          pins and
-          @user.plans.count
-          plans
-        %span.gray.large-screen.inline
-          across 
-          @user.marks.all_localities.count
-          cities &
-          @user.marks.all_countries.count
-          countries
+    .static-page
+      .band.spaced-xxx
+        .container
+          .sixteen.columns
+            .section-header= "No Guides Here ..."
+            %strong.large.neon= @user.name + " hasn't made any yet"
