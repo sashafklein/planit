@@ -145,7 +145,7 @@ module MetaExt
     end
 
     def g_token(attrs:, other: '')
-      Digest::MD5.hexdigest( attrs.map{ |a| self.send(a) }.join("") + other )
+      Digest::MD5.hexdigest( attrs.map{ |a| self.send(a) }.join("") + other.to_s )
     end
 
     private

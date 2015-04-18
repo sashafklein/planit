@@ -18,25 +18,11 @@ describe UsersController do
       expect( flash[:error] ).to eq "Sorry! No public access to this page. Sign in to continue."
     end
 
-    it "shows only published plans for non-admins or users" do
-      sign_in @user2
-      @user2.member!
-      get :show, id: @user.id
-      expect( assigns[:marks].count ).to eq 1
-    end
-
-    it "shows everything for the user" do
+    it "redirects for same user" do 
       sign_in @user
-      @user.member!
-      get :show, id: @user.id
-      expect( assigns[:marks].count ).to eq 2
-    end
 
-    it "shows everything for admins" do
-      @user2.admin!
-      sign_in @user2
       get :show, id: @user.id
-      expect( assigns[:marks].count ).to eq 2
+      expect( response ).to redirect_to root_path
     end
 
     it "rejects attempt to invite by non-user" do
