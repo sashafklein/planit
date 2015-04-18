@@ -9,7 +9,6 @@ angular.module("Common").directive 'bucketListPlaces', (CurrentUser) ->
       place: '='
 
     link: (s, element) ->
-
       s.userId = CurrentUser.id
 
   }
