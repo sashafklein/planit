@@ -1,6 +1,6 @@
-%script{ type: 'text/ng-template', id: 'item_entry_form.html' }
+%script{ type: 'text/ng-template', id: 'single_page_plans.html' }
 
-  .new-item-form
+  .single-page-plans
 
     .planbox-wrapper
       .setplanbox-on-plan-page
@@ -100,21 +100,21 @@
                     .main-item-card{ ng_click: "fsOpen(item, mode != 'trip')" }
                       .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
                       .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
-                    .bucket-list-wrap
-                      .bucket-list-profile
-                        %a{ target: '_self' }
-                          .bucket-list-title
-                            {{ item.mark.place.names[0] }}
-                          .bucket-list-more-info
-                            %i{ class: "{{ item.mark.place.meta_icon }}"}
-                            {{ item.mark.place.categories.join(', ') }}
-                          .bucket-list-more-info.locale-only
-                            {{ item.mark.place.localeDetails() }}
-                  .item-actions
-                    %i.action.fa.fa-trash{ ng_click: 'delete(item)' }
-                .list-item-notes.largest-screen{ ng_show: 'mode == "list"'}
-                  %textarea{ ng_model: "item.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'nextNote(item)', ng_on_tab_key: 'nextNote(item)', ng_shift_on_tab_key: 'priorNote(item)', ng_blur: 'saveNote(item)', disabled: true }
-                .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
+                      .bucket-list-wrap
+                        .bucket-list-profile
+                          %a{ target: '_self' }
+                            .bucket-list-title
+                              {{ item.mark.place.names[0] }}
+                            .bucket-list-more-info
+                              %i{ class: "{{ item.mark.place.meta_icon }}"}
+                              {{ item.mark.place.categories.join(', ') }}
+                            .bucket-list-more-info.locale-only
+                              {{ item.mark.place.localeDetails() }}
+                    .item-actions
+                      %i.action.fa.fa-trash{ ng_click: 'delete(item)' }
+                  .list-item-notes.largest-screen{ ng_show: 'mode == "list"'}
+                    %textarea{ ng_model: "item.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'nextNote(item)', ng_on_tab_key: 'nextNote(item)', ng_shift_on_tab_key: 'priorNote(item)', ng_blur: 'saveNote(item)', disabled: true }
+                  .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
 
     / MapMode
     .plan-map-container{ ng_show: "list && items && mode == 'map'" }

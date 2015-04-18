@@ -1,8 +1,8 @@
-angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, Note, Foursquare, ErrorReporter, CurrentUser, QueryString, $filter, $timeout, $location, $q) ->
+angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, Note, Foursquare, ErrorReporter, CurrentUser, QueryString, $filter, $timeout, $location, $q) ->
   return {
     restrict: 'E'
     replace: true
-    templateUrl: 'item_entry_form.html'
+    templateUrl: 'single_page_plans.html'
 
     link: (s, e, a) ->
 
@@ -38,7 +38,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
             _.forEach(itemsIndices, (index) -> s.items.splice(index, 1) )
             _.forEach(manifestIndices, (index) -> s.manifestItems.splice(index, 1) )
           .error (response) ->
-            ErrorReporter.defaultReport({ context: 'ItemEntryForm delete(item)', item_id: item.id, user: CurrentUser.id})
+            ErrorReporter.defaultReport({ context: 'singlePagePlans delete(item)', item_id: item.id, user: CurrentUser.id})
 
       s.addBoxToggled = true
       s.addBoxManuallyToggled = false
@@ -401,7 +401,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
           .success (response) ->
             s._resetManifestItems(response)
           .error (response) ->
-            ErrorReporter.defaultReport _.extend({context: "ItemEntryForm #{name}", plan_id: s.plan.id}, extraReporting) 
+            ErrorReporter.defaultReport _.extend({context: "singlePagePlans #{name}", plan_id: s.plan.id}, extraReporting) 
 
       s._resetManifestItems = (response) ->
         s.plan.manifest = response
@@ -430,7 +430,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
           .success (response) ->
             s.manifestItems.push _.extend( classObj.generateFromJSON(response), { index: index, pane: 'manifest' } )
           .error (response) ->
-            ErrorReporter.defaultReport( context: 'ItemEntryForm getManifestItems', plan_id: s.plan.id, item_id: item.id )
+            ErrorReporter.defaultReport( context: 'singlePagePlans getManifestItems', plan_id: s.plan.id, item_id: item.id )
 
       s._dup = (object) -> s._objectClasses[object.class].generateFromJSON( _.extend({}, object) )
 
