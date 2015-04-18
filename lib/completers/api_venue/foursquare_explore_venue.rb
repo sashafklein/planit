@@ -96,7 +96,7 @@ module Completers
       [ photo['prefix'], photo['suffix'] ].join("69x69")
     end
 
-    def icon
+    def foursquare_icon
       cats = json.categories || []
       [cats.first.icon.prefix, cats.first.icon.suffix].join("bg_64") if cats.any?
     end

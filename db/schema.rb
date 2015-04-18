@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410205813) do
+ActiveRecord::Schema.define(version: 20150418000517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -268,6 +268,7 @@ ActiveRecord::Schema.define(version: 20150410205813) do
     t.json     "hours",                         default: {}
     t.integer  "feature_type",                  default: 0
     t.boolean  "published",                     default: true
+    t.string   "foursquare_icon"
   end
 
   create_table "plans", force: :cascade do |t|

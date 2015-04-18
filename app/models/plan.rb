@@ -33,6 +33,7 @@ class Plan < BaseModel
 
   def add_item_from_place_data!(user, data)
     return unless place = Place.find_or_initialize(data)
+    return if items.with_places.places.pluck(:id).include?(place.id)
     place = place.validate_and_save!( data[:images] || [] ) unless place.persisted?
     add_with_place!(user, place)
   end

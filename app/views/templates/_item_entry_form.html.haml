@@ -24,6 +24,7 @@
         .rename-confirmation{ ng_show: 'rename' }
           .planit-button.gray{ ng_click: 'cancelRenameList()' } Cancel          
           .planit-button.neon{ ng_click: 'saveRenameList()' } Save
+
       .addbox-wrapper{ ng_show: "userOwnsList && list && !rename && mode != 'trip' && !settingsBoxToggled" }
         .minimize-maximize-addbox{ ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
           %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
@@ -50,7 +51,7 @@
                         .bucket-list-title
                           {{ option.names[0] }}
                         .foursquare-and-info-wrap
-                          %span.mini-foursquare-icon{ ng_show: "option.icon", style: "background-image: url('{{ option.icon }}');" }
+                          %span.mini-foursquare-icon{ ng_show: "option.foursquare_icon", style: "background-image: url('{{ option.foursquare_icon }}');" }
                           .bucket-list-more-info
                             {{ option.categories.join(', ') }}
                           .bucket-list-more-info.locale-only
