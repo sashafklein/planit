@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   
-  before_action :load_user, only: [:show, :places, :guides, :inbox, :recent, :nearby]
-  before_action :authorize_user, only: [:show, :places, :guides, :inbox, :recent, :nearby]
-  before_action :authenticate_member!, only: [:invite, :places, :guides, :inbox, :show, :share, :recent, :nearby]
+  before_action :load_user, only: [:show, :places, :inbox, :recent, :nearby, :search]
+  before_action :authorize_user, only: [:show, :places, :inbox, :recent, :nearby, :search]
+  before_action :authenticate_member!, only: [:invite, :places, :inbox, :show, :share, :recent, :nearby, :search]
 
   def waitlist
     if existing_user = User.where( email: user_params[:email] ).first
@@ -38,8 +38,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    marks = @user.marks.includes(:place)
-    @marks = (admin? || same_user?) ? marks : marks.where(published: true)
+    if @user == current_user
+      redirect_to root_path
+    end
   end
 
   def inbox

@@ -58,7 +58,7 @@ module ApplicationHelper
   end
 
   def fullscreen?(page_type)
-    [ 'places', 'beta', 'home' ].include?(page_type)
+    [ 'places', 'beta', 'home', 'plan' ].include?(page_type)
   end
 
   # DATE-BASED LISTS

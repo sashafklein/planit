@@ -1,0 +1,4 @@
+.nav-item.nav-item-home{ class: "#{ 'selected' if page_type == 'home' }" }
+  %i.nav-item-icon.fa{ class: "#{ 'fa-home' if browser.mobile? }#{ 'fa-home' if !browser.mobile? }" }
+  .nav-item-hint
+    %span= "#{'HOME' if browser.mobile? }#{'HOME' if !browser.mobile?}"

@@ -1,36 +1,35 @@
 / .dropdown-menu.dropdown-menu-right.planit-dropdown-menu
 %ul.faux-planit-dropdown
 
-  - if current_user_is_active
+  %li.planit-dropdown-menu{ ng_show: "userOwnsList", ng_click: 'renameList()' }
+    %i.planit-dropdown-menu-icon.fa.fa-font
+    Rename
+  %li.planit-dropdown-menu.disabled{ ng_show: "userOwnsList" }
+    %i.planit-dropdown-menu-icon.fa.fa-group
+    Add Collaborators
+  %li.planit-dropdown-menu.disabled{ ng_show: "!userOwnsList" }
+    %i.planit-dropdown-menu-icon.fa.fa-group
+    Request to be a Collaborator
+  %li.planit-dropdown-menu.disabled{ ng_show: "userOwnsList" }
+    %i.planit-dropdown-menu-icon.fa.fa-upload
+    Import
+  %li.planit-dropdown-menu.disabled{ ng_show: "userOwnsList" }
+    %i.planit-dropdown-menu-icon.fa.fa-calendar
+    Set Dates
+  %li.divider
+  %a{ href: '#planit-modal-share', data: { toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
+    %li.planit-dropdown-menu
+      %i.planit-dropdown-menu-icon.fa.fa-paper-plane
+      Share this Guide
+  %a{ ng_href: "{{kmlPath}}", target: '_self' }
+    %li.planit-dropdown-menu
+      %i.planit-dropdown-menu-icon.fa.fa-download
+      Export as KML
+  %li.planit-dropdown-menu.disabled
+    %i.planit-dropdown-menu-icon.fa.fa-table
+    Export as CSV
+  %li.divider{ ng_show: "userOwnsList" }
+  %li.planit-dropdown-menu{ ng_show: "userOwnsList", ng_click: 'deleteList( list )', target: '_self' }
+    %i.planit-dropdown-menu-icon.fa.fa-trash
+    Delete Plan
 
-    %li.planit-dropdown-menu{ ng_click: 'renameList()' }
-      %i.planit-dropdown-menu-icon.fa.fa-font
-      Rename
-    %li.planit-dropdown-menu.disabled
-      %i.planit-dropdown-menu-icon.fa.fa-group
-      Add Collaborators
-    %li.planit-dropdown-menu.disabled
-      %i.planit-dropdown-menu-icon.fa.fa-group
-      Request to be a Collaborator
-    %li.planit-dropdown-menu.disabled
-      %i.planit-dropdown-menu-icon.fa.fa-upload
-      Import
-    %li.planit-dropdown-menu.disabled
-      %i.planit-dropdown-menu-icon.fa.fa-calendar
-      Set Dates
-    %li.divider
-    %a{ href: '#planit-modal-share', data: { toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
-      %li.planit-dropdown-menu
-        %i.planit-dropdown-menu-icon.fa.fa-paper-plane
-        Share this Guide
-    %a{ ng_href: "{{kmlPath}}", target: '_self' }
-      %li.planit-dropdown-menu
-        %i.planit-dropdown-menu-icon.fa.fa-download
-        Export as KML
-    %li.planit-dropdown-menu.disabled
-      %i.planit-dropdown-menu-icon.fa.fa-table
-      Export as CSV
-    %li.divider
-    %li.planit-dropdown-menu{ ng_click: 'deleteList( list )', target: '_self' }
-      %i.planit-dropdown-menu-icon.fa.fa-trash
-      Delete Plan

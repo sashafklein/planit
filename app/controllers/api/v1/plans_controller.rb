@@ -10,7 +10,7 @@ class Api::V1::PlansController < ApiController
   end
 
   def show
-    return permission_denied_error unless @plan && current_user.owns?(@plan)
+    return permission_denied_error unless @plan && current_user_is_active # current_user.owns?(@plan)
     render json: @plan, serializer: PlanSerializer
   end
 
