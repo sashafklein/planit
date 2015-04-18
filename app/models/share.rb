@@ -28,8 +28,7 @@ class Share < BaseModel
     if object.class.to_s == 'Place'
       object.name
     elsif object.class.to_s == 'Plan'
-      User.find( object.user_id ).name + "'s",
-      "Guide:",
+      [User.find( object.user_id ).name + "'s Guide:",
       object.name,
       extras.years,
       extras.filters,
