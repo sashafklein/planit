@@ -50,7 +50,7 @@ module ApplicationHelper
   end
 
   def rich_content?(page_type)
-    [ 'places', 'place', 'guides', 'plan' ].include?(page_type)
+    [ 'places', 'place', 'guides', 'plan', 'home' ].include?(page_type)
   end
 
   def show_back?(page_type)

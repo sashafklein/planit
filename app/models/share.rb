@@ -15,26 +15,19 @@ class Share < BaseModel
   # PRIVATE
 
   def self.find_object(url)
-    url_pieces = URI.parse(url).path.split("/") if URI.parse(url).path.split("/") != []
-    return nil if !url_pieces.present? && url_pieces.length < 3
-
     allowable_object_types = %w( places plans users )
-    object_type = url_pieces[1]
-    if allowable_object_types.include?(object_type)
-      if id_or_slug = url_pieces[2]
-        # Assumes a single object per share ( ie not guides/2043+3043+3801 )
-        class_name = object_type.singularize.camelize.constantize
-        return find_object_in_db(class_name, id_or_slug)
-      end
-    end
-    nil
+    objects_in_url = UrlObjectParser.new(url).objects
+    object = objects_in_url.find{ |c, id| allowable_object_types.include?(c.downcase.pluralize) }
+
+    # Assumes a single object per share ( ie not guides/2043+3043+3801 )
+    object ? object.first.constantize.find( object.last ) : nil
   end
 
   def self.build_title(object, extras)
+    return "A page on Planit" unless object
     if object.class.to_s == 'Place'
       object.name
     elsif object.class.to_s == 'Plan'
-      [
       User.find( object.user_id ).name + "'s",
       "Guide:",
       object.name,
@@ -61,19 +54,6 @@ class Share < BaseModel
       filters: clean_query( query["f"] ),
       geographies: clean_query( query["n"] ) ? "near #{clean_query( query['n'] ) }" : nil
     }.to_sh
-  end
-
-  def self.query_from_page_and_querystring( page_and_querystring )
-    ( ( page_and_querystring.try( :last ).try( :split, "&" ).inject({}) { |hash, string| hash[string.split("=").first] = string.split("=").last; hash } ) if page_and_querystring.length == 2 ) || {}
-  end
-
-  def self.is_id?(id_or_slug)
-    id_or_slug.to_i.to_s == id_or_slug
-  end
-
-  def self.find_object_in_db(class_name, id_or_slug)
-    searcher = is_id?(id_or_slug) ? class_name : class_name.friendly
-    searcher.find( id_or_slug )
   end
 
   def self.clean_query(value, quotes=false)
