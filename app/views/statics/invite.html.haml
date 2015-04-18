@@ -1,41 +1,47 @@
 - title('Private Beta Invitation')
 - set_page_type('invite')
 
-.static-page.container.whitebox.no-mobile-portrait#beta-page
-  .eight.columns.main-content
-    .left-section.padded
+#invite-page
 
-      .section-header= "Planit is in Private Beta"
-      .static-section-content
-        %p
-          %i{ class: 'fa fa-home padded-icon' }
-          We're building a home for all the places you love.
-        %p
-          %i{ class: 'icon-map padded-icon' }
-          Save, curate, and share your favorite spots.
-        %p
-          %i{ class: 'fa fa-heart padded-icon' }
-          Never forget a great recommendation.
-        %p
-          %i{ class: 'fa fa-group padded-icon' }
-          %strong.neon Please invite friends who you think would enjoy Planit, but also give constructive feedback!  We're always looking for ways to improve.
+  .band.spaced-xxx
 
-  .eight.columns.main-content
-    .right-section.padded
+    .static-page.container
+      .whitebox.no-mobile-portrait.like-container
+        
+        .eight.columns.main-content
+          .left-section.padded
 
-      .section-header= "Extend an Invite!"
-      .small-form-box
-        .simple-entry-form
-          = simple_form_for(User.new, url: invite_users_path) do |f| #NEEDSFOLLOWUP
-            = f.error_notification
-            .simple-entry-form-section
-              %i.icomoon.icon-user.simple-form-icon
-              = f.input :first_name, required: true, placeholder: 'First Name'
-            .simple-entry-form-section
-              %i.simple-form-icon
-              = f.input :last_name, required: true, placeholder: 'Last Name'
-            .simple-entry-form-section
-              %i.fa.fa-envelope.simple-form-icon
-              = f.input :email, required: true, placeholder: 'Email Address'
-            .simple-entry-form-section.form-actions.right
-              = f.button :submit, "Sign up", class: 'planit-button neon'
+            .section-header= "Planit is in Private Beta"
+            .static-section-content
+              %p
+                %i{ class: 'fa fa-bullhorn padded-icon' }
+                Invite friends who you think would enjoy Planit, but also give constructive feedback!
+              %p
+                %i{ class: 'fa fa-envelope-square padded-icon' }
+                Your invitation will allow your friends to jump the beta waitlist
+              %p
+                %i{ class: 'fa fa-group padded-icon' }
+                We'll help you follow your friends' plans and places
+              %p
+                %i{ class: 'fa fa-heart padded-icon' }
+                %strong.neon Thanks for sharing!
+
+        .eight.columns.main-content
+          .right-section.padded
+
+            .section-header= "Invite a Friend!"
+            .small-form-box
+              .simple-entry-form
+                = simple_form_for(User.new, url: invite_users_path) do |f| #NEEDSFOLLOWUP
+                  = f.error_notification
+                  .simple-entry-form-section
+                    %i.icomoon.icon-user.simple-form-icon
+                    = f.input :first_name, required: true, placeholder: 'First Name'
+                  .simple-entry-form-section
+                    %i.simple-form-icon
+                    = f.input :last_name, required: true, placeholder: 'Last Name'
+                  .simple-entry-form-section
+                    %i.fa.fa-envelope.simple-form-icon
+                    = f.input :email, required: true, placeholder: 'Email Address'
+                  .simple-entry-form-section.form-actions.right
+                    = f.button :submit, "Share the Love!", class: 'planit-button neon'

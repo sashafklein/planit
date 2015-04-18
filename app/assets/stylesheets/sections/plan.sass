@@ -19,7 +19,6 @@
     z-index: 10004
     -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
-    overflow: hidden
     span.title
       display: inline-block
       color: #fff
@@ -97,6 +96,7 @@
       max-height: 400px
       background: #fff
       z-index: 10002
+
 
   // PLAN TOP-SECTION
   .single-page-plans
@@ -354,8 +354,10 @@
         color: #eee
         cursor: progress
 
+  li.items-organized-by + li.items-organized-by, li.items-organized-by + li.plan-list-item
+    border-top: 1px solid #ccc
+
   li.items-organized-by 
-    // border-top: 1px solid #ccc
     background: transparent
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
     font-weight: bold
@@ -364,10 +366,11 @@
     height: 75px
     overflow: hidden
     color: #333
-    i
-      padding-right: 8px
-      font-size: 22px
-      color: #777
+    cursor: default
+    i.list-category-icon
+      padding-right: 10px
+      font-size: 16px
+      color: #f06
 
   .view-and-edit-mode, .sort-items-by
     user-select: none
@@ -649,7 +652,7 @@
 
   .main-item-card
     cursor: pointer
-    width: 49%
+    width: 45%
     display: inline-block
     &:hover
       background: gray(90)
@@ -665,3 +668,6 @@
       text-align: center
       color: gray(50)
       cursor: pointer
+      transition: 0.2s ease all
+      &:hover
+        color: #f06

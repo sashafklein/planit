@@ -141,7 +141,7 @@ ul.planit-dropdown-menu, ul.faux-planit-dropdown
     white-space: nowrap
     overflow: hidden
     width: auto
-    padding: 3px 20px
+    padding: 0
     cursor: pointer
     &.inverted
       color: #fff
@@ -150,12 +150,17 @@ ul.planit-dropdown-menu, ul.faux-planit-dropdown
     &.disabled
       color: #aaa
       cursor: default
+    a
+      padding: 3px 20px
+      margin: 0
 
   .planit-dropdown-menu-icon
     width: 30px
     text-align: center
     transition: all 0.2s ease
 
+ul.faux-planit-dropdown li.planit-dropdown-menu
+  padding: 3px 20px
 
 // COMMON VISUALS
 

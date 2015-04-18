@@ -9,7 +9,7 @@
             %span.add-new{ ng_show: 'canAddList()', ng_click: 'setList()' }
               %i.fa.fa-plus-circle
             %input.real-select.guide-name#guide{ name: "guide", type: 'text', placeholder: 'Guide Name', ng_model: 'listQuery', ng_on_enter_key: "setListOnEnter()", ng_class: "{'full-width': !canAddList()}" }
-          %ul.suggested-results{ ng_show: 'listOptions().length && listQuery.length > 2' }
+          %ul.suggested-results{ ng_show: 'listOptions().length && listQuery.length > 2 && !hoveringList' }
             %li{ ng_repeat: "currentList in listOptions()", ng_click: 'setList(currentList)' }
               %span.name {{currentList.name}}
               %span.count ({{currentList.place_ids.length}} places)
@@ -38,7 +38,7 @@
               %span.chosen-input#chosen-nearby{ ng_click: 'resetNearby()' }
                 %i.fa.fa-times
                 {{ nearby }}
-              %input.real-input#place-name{ name: "place-name", type: 'text', placeholder: 'Add a Place (Name)', ng_model: 'placeName', ng_change: 'search()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)' }
+              %input.real-input#place-name{ name: "place-name", type: 'text', placeholder: 'Add a Place (Name)', ng_model: 'placeName', ng_change: 'search()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)', ng_on_esc_key: "options = []" }
             %ul.suggested-results{ ng_show: 'options.length>0 && placeName && placeName.length>0' }
               %li.search-results-list{ ng_repeat: 'option in options', ng_click: 'addItem(option)' }
                 .bucket-list-tab
@@ -92,7 +92,7 @@
             .items-in-plan-category{ ng_repeat: 'category in categories' }
               %ul.plan-list-items
                 %li.items-organized-by{ ng_show: "categoryIs != 'alphabetical'" }
-                  %i.fa{ ng_show: "categoryIs == 'type'", ng_class: 'typeIcon(category)' } 
+                  %i.list-category-icon{ ng_show: "categoryIs == 'type'", ng_class: 'typeIcon(category)' } 
                   %span{ ng_show: "categoryIs != 'recent'"} {{ category }}
                   %span{ ng_show: "categoryIs == 'recent'"} {{ toDate( category ) }}
                 %li.plan-list-item{ ng_repeat: 'item in matchingItems( category )' }
@@ -122,49 +122,45 @@
       / , user_id: 'list.user_id' }
 
     / SelectGuides
-    #header-spacing.except-landscape{ ng_show: '!list && hasLists()' }
-    .band.spaced-xxx.padded{ ng_show: '!list && hasLists()' }
-      .container.centered
-        .column{ ng_repeat: 'plan in lists' }
-          .any-tab-wrapper
-            .guide-item-count.numbered-box {{ plan.place_ids.length }}
-            .content-tab
-              / .tab-operations
-              /   .tab-operations-button
-              /     .i.fa.fa-calendar
-              /   .tab-operations-button
-              /     .i.fa.fa-pencil
-              /   .tab-operations-button
-              /     .i.fa.fa-heart
-              /   .tab-operations-button
-              /     .i.fa.fa-check-circle
-              /   .tab-operations-button
-              /     .i.fa.fa-trash
-              .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'setList(plan)', ng_hover: 'imageChangeable = true' }
-                %img{ src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
-                %i.add-photo-camera.fa.fa-camera-retro{ ng_show: 'imageChangeable || ( !plan.best_image || !plan.best_image.url)', ng_click: 'changeImage()' }
-              .content-tab-title{ ng_click: 'setList(plan)' } {{ plan.name }}
+    .guides-matrix{ ng_show: '!list && hasLists() && listsLoaded' }
+      #header-spacing.except-landscape
+      .band.spaced-xxx.padded
+        .container.centered
+          .column{ ng_repeat: 'plan in lists' }
+            .any-tab-wrapper{ ng_mouseover: 'listQuerySet(plan.name)', ng_mouseleave: 'listQueryReset()' }
+              .guide-item-count.numbered-box {{ plan.place_ids.length }}
+              .content-tab
+                / .tab-operations
+                /   .tab-operations-button
+                /     .i.fa.fa-calendar
+                /   .tab-operations-button
+                /     .i.fa.fa-pencil
+                /   .tab-operations-button
+                /     .i.fa.fa-heart
+                /   .tab-operations-button
+                /     .i.fa.fa-check-circle
+                /   .tab-operations-button
+                /     .i.fa.fa-trash
+                .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'setList(plan)', ng_hover: 'imageChangeable = true' }
+                  %img{ src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
+                  %i.add-photo-camera.fa.fa-camera-retro{ ng_show: 'imageChangeable || ( !plan.best_image || !plan.best_image.url)', ng_click: 'changeImage()' }
+                .content-tab-title{ ng_click: 'setList(plan)' } {{ plan.name }}
 
     / NoGuides -> FirstGuide Tutorial
-    - if current_user
-      - if current_user.plans.count == 0 || current_user.items.count == 0
-        #header-spacing.except-landscape{ ng_show: '!hasItems()' }
-        .band.spaced{ ng_show: '!hasItems()' }
-          .container.centered
-            .column
-              = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': list}" }
-          .container.centered
-            .column{ ng_show: '!list && !hasLists()' }
-              %strong.neon.large Start a List or Plan!
-              - if tutorial_plan = Plan.find_by(id: 100)
-                %p= " ( or test-drive #{link_to(tutorial_plan.name, copy_plan_path(tutorial_plan), class: 'linky neon')} )".html_safe
-            .column{ ng_show: 'list && !nearby' }
-              %strong.neon.large Awesome!  Starting Where?
-              %p Set a Location so You can Find Your Places
-            .column{ ng_show: 'list && nearby' }
-              %strong.neon.large Cool! Now Add Places to your List
-              %p When You've Found one, Just Press "Enter" or Click on It to Add
-
-    / Not Logged In
-    - if !current_user
-      Hey
+    .initial-tutorial{ ng_show: '!hasItems() && listsLoaded' }
+      #header-spacing.except-landscape
+      .band.spaced
+        .container.centered{ ng_show: "!hasLists() || list" }
+          .column
+            = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': list}" }
+        .container.centered
+          .column{ ng_show: '!list && !hasLists()' }
+            %strong.neon.large Start a List or Plan!
+            - if tutorial_plan = Plan.find_by(id: 100)
+              %p= " ( or test-drive #{link_to(tutorial_plan.name, copy_plan_path(tutorial_plan), class: 'linky neon')} )".html_safe
+          .column{ ng_show: 'list && !nearby' }
+            %strong.neon.large Awesome!  Starting Where?
+            %p Set a Location so You can Find Your Places
+          .column{ ng_show: 'list && nearby' }
+            %strong.neon.large Cool! Now Add Places to your List
+            %p When You've Found one, Just Press "Enter" or Click on It to Add

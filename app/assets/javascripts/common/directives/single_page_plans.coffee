@@ -15,30 +15,16 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
         Plan.find(plan_id)
           .success (response) ->
             s.list = s.plan = Plan.generateFromJSON( response )
+            s.listsLoaded = true
             s.setList( s.list )
             if locale = QueryString.get()['near']
               s.nearby = locale
           .error (response) ->
             QueryString.modify({plan: null, near: null})
             ErrorReporter.report({ context: "Tried looking up #{plan_id} plan, unsuccessful"})
+            s.listsLoaded = true
 
       # EXPAND/CONTRACT
-
-      s.fsOpen = (item, doIt) ->
-        return unless doIt and item.placeHref()
-        window.open(item.placeHref(), '_blank')
-        return
-
-      s.delete = (item) ->
-        return unless confirm("Delete this item from your list?")
-        item.destroy()
-          .success (response) ->
-            itemsIndices = _(s.items).filter( (i) -> i.id == response.id ).map('index').value()
-            manifestIndices = if s.manifestItems?.length then _(s.manifestItems).filter( (i) -> i.id == response.id ).map('index').value()
-            _.forEach(itemsIndices, (index) -> s.items.splice(index, 1) )
-            _.forEach(manifestIndices, (index) -> s.manifestItems.splice(index, 1) )
-          .error (response) ->
-            ErrorReporter.defaultReport({ context: 'singlePagePlans delete(item)', item_id: item.id, user: CurrentUser.id})
 
       s.addBoxToggled = true
       s.addBoxManuallyToggled = false
@@ -72,16 +58,23 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
 
       s.forbiddenNearby = []
 
+      s.hoveringList = false
+      s.listQuerySet = (name) -> s.hoveringList = true; s.listQuery = "Open => " + name
+      s.listQueryReset = -> s.listQuery = null; s.hoveringList = false
+
       s.hasLists = -> s.lists?.length > 0
 
+      s.listsLoaded = false
       s.getUsersLists = ->
         if s.currentUserId
           User.findPlans( s.currentUserId )
             .success (response) ->
               unsortedLists = Plan.generateFromJSON(response)
               s.lists = _.sortBy( unsortedLists, (l) -> s.bestListDate(l) ).reverse()
+              s.listsLoaded = true
             .error (response) ->
               ErrorReporter.report({ context: 'Items.NewCtrl getUsersLists'}, "Something went wrong! We've been notified.")
+              s.listsLoaded = true
 
       s.bestListDate = (list) -> if list.starts_at then list.starts_at else list.updated_at
 
@@ -133,10 +126,12 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
       s.getListItems = ->
         return unless s.list?
         $('.searching-mask').show()
+        s.listsLoaded = false
         Item.where({ plan_id: s.list.id })
           .success (response) ->
             $('.searching-mask').hide()
             return unless s.list?
+            s.listsLoaded = true
             
             s._setOnScope( ['items', 'places'], [] )
             _.forEach response , (item, index) ->
@@ -150,6 +145,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             $timeout(-> s.initializeItemsNotes() )
           .error (response) ->
             $('.searching-mask').hide()
+            s.listsLoaded = true
             ErrorReporter.report({ context: 'Items.NewCtrl getListItems', list_id: s.list.id}, "Something went wrong! We've been notified.")
 
       s.listOptions = ->
@@ -182,7 +178,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
           $('.loading-mask').show()
           s.list.destroy()
             .success (response) ->
-              listIndex = s.lists.indexOf(s.list)
+              listIndex = s.lists.indexOf( list )
               s.lists.splice( listIndex, 1 ) if listIndex > -1
               s.resetList() 
               $('.loading-mask').hide()
@@ -280,6 +276,25 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
           this_textarea.blur() if !prior_li[0] && !prior_ul[0]
         return
 
+      # ITEM CONTROLS
+
+      s.fsOpen = (item, doIt) ->
+        return unless doIt and item.placeHref()
+        window.open(item.placeHref(), '_blank')
+        return
+
+      s.delete = (item) ->
+        return unless confirm("Delete this item from your list?")
+        item.destroy()
+          .success (response) ->
+            itemsIndices = _(s.items).filter( (i) -> i.id == response.id ).map('index').value()
+            manifestIndices = if s.manifestItems?.length then _(s.manifestItems).filter( (i) -> i.id == response.id ).map('index').value()
+            _.forEach(itemsIndices, (index) -> s.items.splice(index, 1) )
+            _.forEach(manifestIndices, (index) -> s.manifestItems.splice(index, 1) )
+          .error (response) ->
+            ErrorReporter.defaultReport({ context: 'singlePagePlans delete(item)', item_id: item.id, user: CurrentUser.id})
+
+
       # LIST SORTING
 
       s.initialSortItems = -> s.setCategoryAs('type')
@@ -357,11 +372,11 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             if s.items?.length == 1 then s.initialSortItems() else s.sortItems()
           .error (response) ->
             $('.searching-mask').hide()
-            ErrorReporter.report({ context: 'Items.NewCtrl addItem', option: JSON.stringify(option), plan: JSON.stringify(s.list) }, "Something went wrong! We've been notified.")        
+            ErrorReporter.report({ context: 'Items.NewCtrl addItem', option: JSON.stringify(option), plan: JSON.stringify(s.list) }, "Something went wrong! We've been notified.")
 
-
-
-      # s.typeIcon = ( category ) ->
+      s.typeIcon = (meta_category) -> 
+        itemsWithIcon = _.filter( s.items, (i) -> i.mark.place.meta_categories[0] == meta_category )
+        if itemsWithIcon[0] then itemsWithIcon[0].mark.place.meta_icon else ''
 
       ## DRAG-DROP
 

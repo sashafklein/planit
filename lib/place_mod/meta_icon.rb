@@ -16,12 +16,12 @@ module PlaceMod
         when 'Food' then 'icon-local-restaurant'
         when 'Help' then 'fa fa-life-ring'
         when 'Money' then 'fa fa-money'
-        when 'Other' then 'fa fa-globe'
-        when 'Relax' then 'icon-drink'
-        when 'See' then 'fa fa-university'
-        when 'Shop' then 'fa fa-shopping-cart'
-        when 'Stay' then 'icon-home'
-        else 'fa fa-globe'
+        when 'Other' then 'fa fa-question-circle'
+        when 'Relax' then 'fa fa-sun-o'
+        when 'See' then 'fa fa-picture-o'
+        when 'Shop' then 'fa fa-suitcase'
+        when 'Stay' then 'fa fa-home'
+        else 'fa fa-question-circle'
       end
     end
 
@@ -36,7 +36,7 @@ module PlaceMod
         return 'fa fa-train'
         return 'fa fa-taxi'
       else
-        return 'fa fa-exchange'
+        return 'fa fa-bus'
       end
     end
   end
