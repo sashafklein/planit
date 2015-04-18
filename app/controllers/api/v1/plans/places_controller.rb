@@ -16,7 +16,7 @@ class Api::V1::Plans::PlacesController < ApiController
   private
 
   def load_plan
-    @plan = Plan.friendly.find params[:plan_id]
+    @plan = Plan.find params[:plan_id]
   end
 
   def serialize_places(user, published=false)

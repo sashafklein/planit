@@ -3,11 +3,14 @@
 FactoryGirl.define do
   factory :mark do
     user
-    place
     lodging false
     meal false
     show_tab false
-  end
 
-  factory :mark_with_place, traits: [:with_place]
+    transient do
+      place_options({})
+    end
+
+    place { create(:place, place_options )}
+  end
 end

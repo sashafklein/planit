@@ -89,7 +89,7 @@ class Api::V1::Plans::KmlController < ApiController
   end
     
   def load_plan
-    @plan = Plan.friendly.find params[:plan_id]
+    @plan = Plan.find params[:plan_id]
   end
 
 end

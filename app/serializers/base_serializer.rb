@@ -5,7 +5,8 @@ class BaseSerializer < ActiveModel::Serializer
   end
 
   def object_path(obj)
-    Rails.application.routes.url_helpers.send( "#{obj.class.to_s.downcase}_path", obj)
+    path_data = obj.class == 'Plan' ? obj.id : obj
+    Rails.application.routes.url_helpers.send( "#{obj.class.to_s.downcase}_path", path_data)
   end
 
   def encode(input, salt: 'Tinalp')

@@ -13,13 +13,13 @@
             = f.error_notification
             .simple-entry-form-section
               %i.icomoon.icon-user.simple-form-icon
-              = f.input :first_name, required: true, autofocus: true, placeholder: 'First Name', input_html: { value: params["fn"], style: "#{'display: none' if params['fn'].present?}" }
+              = f.input :first_name, required: true, autofocus: true, placeholder: 'First Name', input_html: { value: current_user.first_name || params["fn"], style: "#{'display: none' if params['fn'].present?}" }
             .simple-entry-form-section{ style: "#{'display: none' if params['ln'].present?}" }
               %span.simple-form-icon
-              = f.input :last_name, required: true, placeholder: 'Last Name', input_html: { value: params["ln"] }
+              = f.input :last_name, required: true, placeholder: 'Last Name', input_html: { value: current_user.last_name || params["ln"] }
             .simple-entry-form-section{ style: "#{'display: none' if params['ln'].present?}" }
               %i.fa.fa-envelope.simple-form-icon
-              = f.input :email, required: true, autofocus: true, placeholder: 'Email', input_html: { value: params["email"] }
+              = f.input :email, required: true, autofocus: true, placeholder: 'Email', input_html: { value: current_user.email || params["email"] }
               - if devise_mapping.confirmable? && resource.pending_reconfirmation?
                 %p
                   Currently waiting confirmation for: #{resource.unconfirmed_email}

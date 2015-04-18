@@ -1,8 +1,8 @@
 class PlansController < ApplicationController
   
-  before_action :load_plan, only: [:new, :show, :edit, :print]
-  before_action :authenticate_user!, only: [:new, :show, :edit, :print]
-  before_action :authenticate_member!, only: [:new, :show, :edit, :print]
+  before_action :load_plan, only: [:new, :show, :edit, :print, :copy]
+  before_action :authenticate_user!, only: [:new, :show, :edit, :print, :copy]
+  before_action :authenticate_member!, only: [:new, :show, :edit, :print, :copy]
 
   def show
     if current_user.owns?(@plan)
@@ -31,11 +31,17 @@ class PlansController < ApplicationController
     end
   end
 
+  def copy
+    new_plan = @plan.copy!(new_user: current_user)
+    flash[:success] = "'#{@plan.name}' copied successfully."
+    redirect_to plan_path(new_plan.id)
+  end
+
   private
 
   def load_plan
     @plan = Plan.includes(legs: [{ days: [{ items: [{mark: :place}] }] }] )
-                .friendly.find( params[:id] )
+                .find( params[:id] )
   end
 
 end

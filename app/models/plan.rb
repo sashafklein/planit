@@ -1,8 +1,5 @@
 class Plan < BaseModel
 
-  extend FriendlyId
-  friendly_id :name, use: :slugged
-
   belongs_to :user
 
   has_many :legs
@@ -20,12 +17,24 @@ class Plan < BaseModel
   delegate :arrival, to: :first_leg
   delegate :add_to_manifest, :remove_from_manifest, :move_in_manifest, to: :manifester
 
+  def copy!(new_user:, copy_manifest: false)
+    Plan.transaction do 
+      new_plan = dup_without_relations!( keep: [:place_id], exclude: [(copy_manifest ? nil : :manifest)].compact, override: { user: new_user, name: "Copy of '#{name}'#{ user ? ' by ' + user.name : ''}" } ) 
+      items.each { |old_item| old_item.copy!(new_plan: new_plan) }
+      new_plan
+    end
+  end
+
   def manifester
     PlanMod::Manifester.new(self)
   end
 
   def add_item_from_place_data!(user, data)
     return unless place = Place.find_or_initialize(data)
+    marks = Mark.where(id: items.pluck(:mark_id))
+    if marks.pluck(:place_id).include?(place.id)
+      return items.where(mark_id: marks.pluck(:id)).first
+    end
     place = place.validate_and_save!( data[:images] || [] ) unless place.persisted?
     add_with_place!(user, place)
   end

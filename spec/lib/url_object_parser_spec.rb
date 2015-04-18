@@ -14,5 +14,11 @@ describe UrlObjectParser do
         'User' => 'some-name'
       })
     end
+
+    it "parses the shit out of querystrings" do
+      expect( UrlObjectParser.new('localhost:3000/?plan=100').objects ).to hash_eq({
+        'Plan' => '100' 
+      })
+    end
   end
 end

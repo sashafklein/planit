@@ -40,7 +40,7 @@ class Item < BaseModel
   scope :with_tabs, -> { all }
   scope :with_day_of_week, -> (dow) { where("day_of_week <> ?", day_of_weeks[dow.to_s]) }
 
-  enum day_of_week: { monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6, sunday: 7 }
+  enum day_of_week: { monday: 0, tuesday: 1, wednesday: 2, thursday: 3, friday: 4, saturday: 5, sunday: 6 }
 
   before_save { self.start_time = Services::TimeConverter.new(self.start_time).absolute if start_time_changed? }
 
@@ -63,6 +63,15 @@ class Item < BaseModel
   end
   
   # INSTANCE METHODS
+
+  def copy!(new_plan:, keep: [:notes])
+    Item.transaction do 
+      new_mark = mark.copy!(new_user: new_plan.user)
+      new_item = dup_without_relations!( override: { mark_id: new_mark.id, plan_id: new_plan.id } )
+      keep.each { |assc| copy_polymorphic!(to: new_item, relation: assc, other_attrs: { source: plan.user }) }
+      new_item
+    end
+  end
 
   def has_place?
     Mark.find( mark_id ).has_place?

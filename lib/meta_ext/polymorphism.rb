@@ -36,5 +36,13 @@ module MetaExt
     def self.included(base)
       base.extend ClassMethods
     end
+
+    def copy_polymorphic!(to:, relation:, other_attrs: {})
+      self.class.transaction do 
+        send(relation).each do |obj|
+          obj.dup_without_relations!( override: {object: to}.merge(other_attrs) )
+        end
+      end
+    end
   end
 end

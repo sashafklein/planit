@@ -32,6 +32,7 @@ class UserMailer < BaseMailer
   private
 
   def get_images(object)
+    return [] unless object.try(:images)
     if object.class.to_s == "User"
       # Places -> maybe include captured image of map of filtered places, bounded, formatted to 600x600?
       # Guides -> maybe include captured image of cluster of filtered guides, formatted to 600x600?

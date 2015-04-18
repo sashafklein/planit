@@ -1,5 +1,6 @@
 class Api::V1::ItemsController < ApiController
 
+  before_action :load_item, only: [:destroy]
   def show
     return permission_denied_error unless current_user
 
@@ -12,5 +13,22 @@ class Api::V1::ItemsController < ApiController
     return permission_denied_error if where && where[:plan_id] && !current_user.owns?( Plan.find(where[:plan_id]) )
 
     render json: Item.with_places.where( where ), each_serializer: ItemSerializer
+  end
+
+  def destroy
+    return permission_denied_error unless current_user_is_active
+    return permission_denied_error unless current_user.owns?(@item.plan)
+
+    if @item.destroy
+      render json: @item, serializer: ItemSerializer
+    else
+      error(500, "Failed to destroy item")
+    end
+  end
+
+  private
+
+  def load_item
+    @item = Item.find(params[:id])
   end
 end

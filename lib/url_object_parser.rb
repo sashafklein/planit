@@ -7,8 +7,10 @@ class UrlObjectParser
 
   def objects
     models_in_path.inject({}) do |hash, model|
-      split_path = path.split(/(?:^|\/)#{ model }\//)
-      id = split_path.count == 1 ? nil : split_path.last.try(:split, '/').try(:first)
+      split_path = path.split(/(?:^|\/)#{ model }(?:\/|\?|\&|$)/)
+      query_string_split = path.split(/\?#{ model.singularize }=/)
+      id = split_path.count == 1 ? nil : split_path.last.try(:split, /(?:\/|\?|\&|$)/).try(:first)
+      id ||= query_string_split.count == 1 ? nil : query_string_split.last.try(:split, /(?:\&|$)/).try(:first)
       hash[model.singularize.capitalize] = id
       hash
     end.to_sh.reject_val(&:nil?)
@@ -17,7 +19,7 @@ class UrlObjectParser
   private
 
   def models_in_path
-    models.select{ |m| path.scan(/(?:^|\/)#{ m }/).any? }
+    models.select{ |m| path.scan(/(?:^|\/)#{ m }/).any? } + models.select{ |m| path.scan(/\?#{ m.singularize }\=/).any? }
   end
 
   def models

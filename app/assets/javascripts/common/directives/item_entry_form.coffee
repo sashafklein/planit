@@ -10,6 +10,7 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
 
       # QUERYSTRING MANAGE START DATA
 
+
       if plan_id = QueryString.get()['plan']
         Plan.find(plan_id)
           .success (response) ->
@@ -22,6 +23,22 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
             ErrorReporter.report({ context: "Tried looking up #{plan_id} plan, unsuccessful"})
 
       # EXPAND/CONTRACT
+
+      s.fsOpen = (item, doIt) ->
+        return unless doIt and item.placeHref()
+        window.open(item.placeHref(), '_blank')
+        return
+
+      s.delete = (item) ->
+        return unless confirm("Delete this item from your list?")
+        item.destroy()
+          .success (response) ->
+            itemsIndices = _(s.items).filter( (i) -> i.id == response.id ).map('index').value()
+            manifestIndices = if s.manifestItems?.length then _(s.manifestItems).filter( (i) -> i.id == response.id ).map('index').value()
+            _.forEach(itemsIndices, (index) -> s.items.splice(index, 1) )
+            _.forEach(manifestIndices, (index) -> s.manifestItems.splice(index, 1) )
+          .error (response) ->
+            ErrorReporter.defaultReport({ context: 'ItemEntryForm delete(item)', item_id: item.id, user: CurrentUser.id})
 
       s.addBoxToggled = true
       s.addBoxManuallyToggled = false

@@ -24,6 +24,7 @@
         .rename-confirmation{ ng_show: 'rename' }
           .planit-button.gray{ ng_click: 'cancelRenameList()' } Cancel          
           .planit-button.neon{ ng_click: 'saveRenameList()' } Save
+
       .addbox-wrapper{ ng_show: "userOwnsList && list && !rename && mode != 'trip' && !settingsBoxToggled" }
         .minimize-maximize-addbox{ ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
           %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
@@ -50,7 +51,7 @@
                         .bucket-list-title
                           {{ option.names[0] }}
                         .foursquare-and-info-wrap
-                          %span.mini-foursquare-icon{ ng_show: "option.icon", style: "background-image: url('{{ option.icon }}');" }
+                          %span.mini-foursquare-icon{ ng_show: "option.foursquare_icon", style: "background-image: url('{{ option.foursquare_icon }}');" }
                           .bucket-list-more-info
                             {{ option.categories.join(', ') }}
                           .bucket-list-more-info.locale-only
@@ -96,7 +97,7 @@
                   %span{ ng_show: "categoryIs == 'recent'"} {{ toDate( category ) }}
                 %li.plan-list-item{ ng_repeat: 'item in matchingItems( category )' }
                   .bucket-list-tab
-                    %a{ ng_href: '{{item.mark.place.href}}', target: '_self' }
+                    .main-item-card{ ng_click: "fsOpen(item, mode != 'trip')" }
                       .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
                       .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
                     .bucket-list-wrap
@@ -109,9 +110,11 @@
                             {{ item.mark.place.categories.join(', ') }}
                           .bucket-list-more-info.locale-only
                             {{ item.mark.place.localeDetails() }}
-                  .list-item-notes.largest-screen{ ng_show: 'mode == "list"'}
-                    %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)', disabled: true }
-                  .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
+                  .item-actions
+                    %i.action.fa.fa-trash{ ng_click: 'delete(item)' }
+                .list-item-notes.largest-screen{ ng_show: 'mode == "list"'}
+                  %textarea{ id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'saveNote(item)', disabled: true }
+                .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
 
     / MapMode
     .plan-map-container{ ng_show: "list && items && mode == 'map'" }
@@ -153,8 +156,8 @@
           .container.centered
             .column{ ng_show: '!list && !hasLists()' }
               %strong.neon.large Start a List or Plan!
-              - if tutorial_plan = User.first.plans.first
-                %p= " ( or test-drive <a href='#{ tutorial_plan }'>#{ tutorial_plan.name }</a> ) ".html_safe
+              - if tutorial_plan = Plan.find_by(id: 100)
+                %p= " ( or test-drive #{link_to(tutorial_plan.name, copy_plan_path(tutorial_plan), class: 'linky neon')} )".html_safe
             .column{ ng_show: 'list && !nearby' }
               %strong.neon.large Awesome!  Starting Where?
               %p Set a Location so You can Find Your Places

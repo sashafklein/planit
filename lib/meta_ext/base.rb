@@ -134,6 +134,20 @@ module MetaExt
       array_attributes.all? { |att, val| val == val.uniq }
     end
 
+    def dup_without_relations(exclude: [], override: {}, keep: [])
+      self.class.new attributes.to_sh.only( *( self.class.attribute_keys - exclude + keep).uniq ).merge(override.to_sh) 
+    end
+
+    def dup_without_relations!(exclude: [], override: {}, keep: [])
+      the_dup = dup_without_relations(exclude: exclude, override: override, keep: keep)
+      the_dup.save!
+      the_dup
+    end
+
+    def g_token(attrs:, other: '')
+      Digest::MD5.hexdigest( attrs.map{ |a| self.send(a) }.join("") + other.to_s )
+    end
+
     private
 
     def cleaned(attrs, exceptions)
