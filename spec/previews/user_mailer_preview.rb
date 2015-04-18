@@ -25,7 +25,7 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   def share_love_plan
-    url = "https://plan.it/plans/" + Plan.first.slug + "?q=tokyo+tea+time"
+    url = "https://plan.it/plans/" + Plan.first.id + "?q=tokyo+tea+time"
     object = Plan.first
     new_share = Share.create(sharer: User.first, sharee: User.last, url: url, object: object, notes: "Hey this is awesome!")
     title = Share.build_title( object, Share.extras_hash(url) )

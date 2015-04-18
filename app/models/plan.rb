@@ -17,11 +17,9 @@ class Plan < BaseModel
   delegate :arrival, to: :first_leg
   delegate :add_to_manifest, :remove_from_manifest, :move_in_manifest, to: :manifester
 
-  before_save { self.slug ||= '' }
-
   def copy!(new_user:, copy_manifest: false)
     Plan.transaction do 
-      new_plan = dup_without_relations!( keep: [:place_id], exclude: [:slug, (copy_manifest ? nil : :manifest)].compact, override: { user: new_user, name: "Copy of '#{name}'#{ user ? ' by ' + user.name : ''}" } ) 
+      new_plan = dup_without_relations!( keep: [:place_id], exclude: [(copy_manifest ? nil : :manifest)].compact, override: { user: new_user, name: "Copy of '#{name}'#{ user ? ' by ' + user.name : ''}" } ) 
       items.each { |old_item| old_item.copy!(new_plan: new_plan) }
       new_plan
     end
