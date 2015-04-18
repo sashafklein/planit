@@ -25,11 +25,11 @@ module ApplicationHelper
   end
   
   def render_header(type='false')
-    render 'application/header', { page_type: type }
+    render 'application/header', { page_type: type } unless type == 'print'
   end
 
   def render_footer(type='false')
-    render 'application/footer', { page_type: type }
+    render 'application/footer', { page_type: type } unless type == 'print'
   end
 
   def include_templates(*templates)

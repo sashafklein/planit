@@ -1,3 +1,5 @@
+- set_page_type( 'print' )
+
 #print-page
 
   // ESCAPE VIEW
@@ -5,6 +7,8 @@
     %a{ href: plan_path( @plan.id ), target: '_self' }
       .fa.fa-arrow-circle-left{ style: "padding-right: 10px; padding-left: 3px"} 
       Exit Print View
+
+  // HEADER
 
   = render 'print_header'
 

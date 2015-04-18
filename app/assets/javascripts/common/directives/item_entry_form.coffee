@@ -236,40 +236,48 @@ angular.module("Common").directive 'itemEntryForm', (User, Plan, Item, Place, No
 
       # NOTES
 
-      s.notes = {}
-      s.initializeItemsNotes = -> _.map( s.items, (item) -> s.originalNote(item) )
-
-      s.originalNote = (item) ->
+      s.initializeItemsNotes = -> _.map( s.items, (item) -> s.fetchOriginalNote(item) )
+      s.fetchOriginalNote = (item) ->
         textarea = e.find("textarea#item_" + item.id)
-        if textarea
-          Note.findByObject( item )
-            .success (response) ->
-              textarea.attr("disabled",false)
-              if note = response.body then s.notes[item.id] = note
-            .error (response) ->
-              ErrorReporter.report({ context: "Failed note fetch in list page", object_id: item.id, object_type: item.class })
-              textarea.attr("disabled",false)
+        Note.findByObject( item )
+          .success (response) ->
+            if note = response.body then s.items[s.items.indexOf(item)].note = note
+            textarea.attr("disabled",false) if textarea
+          .error (response) ->
+            ErrorReporter.report({ context: "Failed note fetch in list page", object_id: item.id, object_type: item.class })
+            textarea.attr("disabled",false) if textarea
 
       s.saveNote = (item) ->
+        return unless item?.note && item?.note.length > 0
         textarea = e.find("textarea#item_" + item.id)
-        note = textarea.val()
-        return unless note && note.length > 0
-        s.nextNote(item)
         textarea.attr("disabled",true)
-        Note.create({ note: { object_id: item.id, object_type: item.class, body: note } })
+        Note.create({ note: { object_id: item.id, object_type: item.class, body: item.note } })
           .success (response) ->
-            textarea.val( response.body )
+            item.note = response.body
             textarea.attr("disabled",false)
             return
           .error (response) ->
             ErrorReporter.report({ context: "Failed note addition in list page", object_id: item.id, object_type: item.class, text: note })
-            textarea.val(null)
+            item.note = null
             textarea.attr("disabled",false)
             return
-
       s.nextNote = (item) -> 
-        if item && next_item = e.find("textarea#item_" + item.id).parents('li.plan-list-item').next('li.plan-list-item')
-          next_item.find('textarea').focus()
+        return unless item
+        if this_textarea = e.find("textarea#item_" + item.id)
+          next_li = this_textarea.parents('li.plan-list-item').next('li.plan-list-item').find('textarea')
+          next_ul = this_textarea.parents('.items-in-plan-category').next('.items-in-plan-category').find('textarea').first()
+          next_li.focus() if next_li[0]
+          next_ul.focus() if next_ul[0] && !next_li[0]
+          this_textarea.blur() if !next_li[0] && !next_ul[0]
+        return
+      s.priorNote = (item) -> 
+        return unless item
+        if this_textarea = e.find("textarea#item_" + item.id)
+          prior_li = this_textarea.parents('li.plan-list-item').prev('li.plan-list-item').find('textarea')
+          prior_ul = this_textarea.parents('.items-in-plan-category').prev('.items-in-plan-category').find('textarea').last()
+          prior_li.focus() if prior_li[0]
+          prior_ul.focus() if prior_ul[0] && !prior_li[0]
+          this_textarea.blur() if !prior_li[0] && !prior_ul[0]
         return
 
       # LIST SORTING
