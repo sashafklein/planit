@@ -4,8 +4,8 @@ class PlaceValidator < BaseValidator
     super
     validate_presence!(:lat, :lon, :timezone_string, :feature_type)
     validate_any!(:names)
-    validate_street_address_if_relevant!
-    validate_enough!(2, :country, :region, :subregion, :locality, :sublocality)
+    # validate_street_address_if_relevant!
+    # validate_enough!(2, :country, :region, :subregion, :locality, :sublocality)
   end
 
   private

@@ -92,14 +92,13 @@ module Completers
 
     def merge_and_save_with_photos!
       add_state("Before final merge")
-
       @place = pip.place.find_and_merge
       @place.validate_and_save!( pip.photos.uniq{ |p| p.url }, pip.all_flags ) 
     rescue => e
       if place_options.any?
         { place_options: place_options, attrs: attrs }
       else
-        AdminMailer.report_error( { context: 'Failed Place Completion'}.merge(attrs) ).deliver_later
+        AdminMailer.report_error( { context: 'Failed Place Completion'}.merge(attrs.except(:created_at, :updated_at)) ).deliver_later
         nil
       end
     end

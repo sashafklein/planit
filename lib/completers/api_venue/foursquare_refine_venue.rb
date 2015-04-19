@@ -31,6 +31,10 @@ module Completers
       Array( json.categories ).flatten.map{ |c| c['name'] }
     end
 
+    def street_addresses
+      [ json.super_fetch(:location, :address) ].flatten.compact
+    end
+
     def reservations
       return true if reservations_link.present?
 

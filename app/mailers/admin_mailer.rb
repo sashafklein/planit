@@ -31,7 +31,7 @@ class AdminMailer < BaseMailer
   def report_error(details)
     include_inline_images
     @details = details
-    mail( subject: "An error occurred!" )
+    roadie_mail( subject: "An error occurred!" )
   end
 
 end

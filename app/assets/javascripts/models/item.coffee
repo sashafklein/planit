@@ -14,7 +14,8 @@ mod.factory "Item", (BaseModel, Mark) ->
     @generateFromJSON: (json) -> BaseModel.generateFromJSON(Item, json)
     @basePath: '/api/v1/items'
 
-    placeHref: () -> @mark?.place?.fs_href
+    place: -> @mark?.place
+    placeHref: -> @mark?.place?.fs_href
     
   return Item
       

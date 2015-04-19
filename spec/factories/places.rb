@@ -16,6 +16,7 @@ FactoryGirl.define do
     meta_categories ['Food']
 
     factory :comptoir do
+      foursquare_id '4b27d2fff964a520a48a24e3'
       names ["Le Comptoir du Relais"]
       street_addresses ["6 carrefour de l'Odeon"]
       locality "Paris"

@@ -101,6 +101,15 @@ module ActsLikePlace
     Flag.where(name: "Tracking Data").first
   end
 
+  def background_complete!
+    return if [locality, region, country, street_address].all?(&:present?)
+    complete!
+  end
+
+  def complete!(delay: true)
+    Completers::ExistingPlaceCompleter.new(self).complete!(delay: delay)
+  end
+
   private
 
   def tz_object

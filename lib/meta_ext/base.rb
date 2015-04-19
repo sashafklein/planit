@@ -90,6 +90,11 @@ module MetaExt
       attributes.symbolize_keys.slice(*Array(to_slice).map(&:to_sym))
     end
 
+    def atts_except(*exclude)
+      return attributes.to_sh unless exclude.length
+      attributes.to_sh.except(*exclude)
+    end
+
     def merge(other, exceptions=[])
       return self if other.atts(*other.class.attribute_keys) == atts(*other.class.attribute_keys)
 
