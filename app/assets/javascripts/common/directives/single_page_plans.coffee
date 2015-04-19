@@ -288,6 +288,9 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
           .success (response) ->
             itemsIndices = _(s.items).filter( (i) -> i.id == response.id ).map('index').value()
             manifestIndices = if s.manifestItems?.length then _(s.manifestItems).filter( (i) -> i.id == response.id ).map('index').value()
+            
+            delete list[item?.mark?.place?.id] for list in [s.list, _.find(s.lists, (l) -> l.id == s.list.id)]
+
             _.forEach(itemsIndices, (index) -> s.items.splice(index, 1) )
             _.forEach(manifestIndices, (index) -> s.manifestItems.splice(index, 1) )
           .error (response) ->
@@ -368,6 +371,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             if !_.find(s.items, (i) -> i.id == response.id )
               s.items.unshift new_item
               s.places.unshift new_item.mark.place
+              list.place_ids = list.place_ids.unshift(i?.mark?.place?.id) for list in [s.list, _.find(s.lists, (l) -> l.id == s.list.id)]
             else
               Flash.warning("That place is already in your list!")
             QueryString.modify({m: null})
