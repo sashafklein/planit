@@ -36,11 +36,12 @@ module Services
 
     def self.hours_converted?(hours)
       formatted = hours.all? do |day, hb|
-        %w(mon tue wed thu fri sat sun).include?(day) && hb &&
+        %w(mon tue wed thu fri sat sun).include?(day.to_s) && hb &&
           (hb.all?{ |band| band.last == '0000' || (band.first != band.last) }) && 
           (hb.all?{ |band| band.all?{ |t| t == new(t).absolute } })
       end
-      formatted && hours.keys.all?{ |day| %w(mon tue wed thu fri sat sun).include? day }
+
+      formatted && hours.keys.all?{ |day| %w(mon tue wed thu fri sat sun).include? day.to_s }
     end
 
     def self.from_float(float)

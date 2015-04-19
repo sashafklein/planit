@@ -6,13 +6,29 @@ class Share < BaseModel
 
   def self.save_and_send(sharer:, sharee:, url:, object:, notes:)
     if new_share = create(sharer: sharer, sharee: sharee, url: url, object: object, notes: notes)
-      title = build_title( new_share.object, extras_hash(url) )
-      UserMailer.share_love(share: new_share, title: title).deliver_now
-      return self
+      UserMailer.share_love(share: new_share).deliver_now
+      return new_share
     end
   end
 
   # PRIVATE
+
+  def email_title
+    return "#{sharer.name} shared a page on Planit!" unless object
+    
+    case object.class.to_s
+    when 'Place' then "A Planit Place from #{sharer.name}: #{object.name}"
+    when 'Plan'  then "A Planit Guide from #{sharer.name}: #{object.name}"
+    when 'User'  then "#{sharer.name} shared a page on Planit: #{ [extras.years, extras.filters, extras.subtype, extras.geographies].compact.join(" ") }"
+    else "#{sharer.name} shared a page on Planit!"
+    end
+  end
+
+  private
+
+  def extras
+    @extras ||= self.class.extras_hash(url)
+  end
 
   def self.find_object(url)
     allowable_object_types = %w( places plans users )
@@ -21,28 +37,6 @@ class Share < BaseModel
 
     # Assumes a single object per share ( ie not guides/2043+3043+3801 )
     object ? object.first.constantize.find( object.last ) : nil
-  end
-
-  def self.build_title(object, extras)
-    return "A page on Planit" unless object
-    if object.class.to_s == 'Place'
-      object.name
-    elsif object.class.to_s == 'Plan'
-      [User.find( object.user_id ).name + "'s Guide:",
-      object.name,
-      extras.years,
-      extras.filters,
-      extras.geographies,
-      ].compact.join(" ")
-    elsif object.class.to_s == 'User'
-      [
-      object.name + "'s",
-      extras.years,
-      extras.filters,
-      extras.subtype,
-      extras.geographies,
-      ].compact.join(" ")
-    end
   end
 
   def self.extras_hash(url)

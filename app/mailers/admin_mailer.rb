@@ -12,7 +12,7 @@ class AdminMailer < BaseMailer
 
   def new_feedback(page_id)
     include_inline_images
-    @page = PageFeedback.find(page_id)
+    @page = PageFeedback.find_by(id: page_id) || PageFeedback.new
     roadie_mail( subject: "New Feedback" )
   end
 
@@ -31,7 +31,7 @@ class AdminMailer < BaseMailer
   def report_error(details)
     include_inline_images
     @details = details
-    mail( subject: "An error occurred!" )
+    roadie_mail( subject: "An error occurred!" )
   end
 
 end

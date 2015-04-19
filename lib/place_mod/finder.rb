@@ -51,7 +51,7 @@ module PlaceMod
     end
 
     def notify_of_something_funny_if_funny(place)
-      off_addresses = Array(street_addresses).flatten.any?{ |add|  place.street_addresses.any? { |pa| add.match_distance(pa).to_f < 0.8 } }
+      off_addresses = Array(street_addresses).compact.flatten.any?{ |add| place.street_addresses.compact.any? { |pa| add.match_distance(pa).to_f < 0.8 } }
       off_cross_streets = cross_street.match_distance(place.cross_street).to_f < 0.8 if cross_street
       off_locality_or_sublocality = sublocality != place.sublocality || locality != place.locality
 

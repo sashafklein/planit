@@ -30,7 +30,7 @@ module Completers
     end
 
     def atts_to_merge
-      [:menu, :mobile_menu, :wifi, :cross_street, :hours, :categories, :reservations, :reservations_link, :photos]
+      [:menu, :mobile_menu, :wifi, :cross_street, :hours, :categories, :reservations, :reservations_link, :photos, :street_addresses]
     end
 
     def full_fs_url

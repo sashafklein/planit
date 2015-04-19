@@ -8,7 +8,7 @@ class AdminMailerPreview < ActionMailer::Preview
   end
 
   def failed_feedback
-    AdminMailer.failed_feedback(NpsFeedback.first.id, User.first.id, 'localhost:3000/whatever')
+    AdminMailer.failed_feedback(NpsFeedback.first.try(:id), User.first.id, 'localhost:3000/whatever')
   end
 
   def notify_of_signup

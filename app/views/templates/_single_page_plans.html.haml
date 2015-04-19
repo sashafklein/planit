@@ -122,7 +122,7 @@
       / , user_id: 'list.user_id' }
 
     / SelectGuides
-    .guides-matrix{ ng_show: '!list && hasLists() && listsLoaded' }
+    .guides-matrix{ ng_show: '!list && hasLists() && isLoaded' }
       #header-spacing.except-landscape
       .band.spaced-xxx.padded
         .container.centered
@@ -147,10 +147,10 @@
                 .content-tab-title{ ng_click: 'setList(plan)' } {{ plan.name }}
 
     / NoGuides -> FirstGuide Tutorial
-    .initial-tutorial{ ng_show: '!hasItems() && listsLoaded' }
+    .initial-tutorial{ ng_show: '!hasItems() && isLoaded && ( !hasLists() || list )' }
       #header-spacing.except-landscape
       .band.spaced
-        .container.centered{ ng_show: "!hasLists() || list" }
+        .container.centered
           .column
             = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': list}" }
         .container.centered
