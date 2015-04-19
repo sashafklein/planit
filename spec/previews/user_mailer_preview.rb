@@ -12,24 +12,21 @@ class UserMailerPreview < ActionMailer::Preview
     url = "https://plan.it/users/" + User.first.slug + "/guides?y=in_2015"
     object = User.first
     new_share = Share.create(sharer: User.first, sharee: User.last, url: url, object: object, notes: "Hey this is awesome!")
-    title = Share.build_title( object, Share.extras_hash(url) )
-    UserMailer.share_love(share: new_share, title: title)
+    UserMailer.share_love(share: new_share)
   end
 
   def share_love_user_places
     url = "https://plan.it/users/" + User.first.slug + "/places?f=food+drink"
     object = User.first
     new_share = Share.create(sharer: User.first, sharee: User.last, url: url, object: object, notes: "Hey this is awesome!")
-    title = Share.build_title( object, Share.extras_hash(url) )
-    UserMailer.share_love(share: new_share, title: title)
+    UserMailer.share_love(share: new_share)
   end
 
   def share_love_plan
     url = "https://plan.it/plans/" + Plan.first.id.to_s + "?q=tokyo+tea+time"
     object = Plan.first
     new_share = Share.create(sharer: User.first, sharee: User.last, url: url, object: object, notes: "Hey this is awesome!")
-    title = Share.build_title( object, Share.extras_hash(url) )
-    UserMailer.share_love(share: new_share, title: title)
+    UserMailer.share_love(share: new_share)
   end
 
 end

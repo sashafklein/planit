@@ -15,18 +15,17 @@ class UserMailer < BaseMailer
     roadie_mail(to: user.email, subject: "Welcome to Planit Beta!")
   end
 
-  def share_love(share:, title:)
+  def share_love(share:)
     @object = share.object
     @sharer = share.sharer
     @user = share.sharee
     @url = share.url
     @notes = share.notes
-    @title = title
     @images = get_images(@object)
-
+    share.email_title
     include_inline_images(@images)
 
-    roadie_mail(from: @sharer.email, to: @user.email, subject: "#{@title} from #{@sharer.first_name}")
+    roadie_mail(from: @sharer.email, to: @user.email, subject: share.email_title)
   end
 
   private
