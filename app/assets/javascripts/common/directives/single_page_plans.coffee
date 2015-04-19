@@ -1,4 +1,4 @@
-angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, Note, Foursquare, ErrorReporter, CurrentUser, QueryString, $filter, $timeout, $location, $q) ->
+angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, Note, Foursquare, ErrorReporter, CurrentUser, QueryString, $filter, $timeout, $location, $q, Flash) ->
   return {
     restrict: 'E'
     replace: true
@@ -15,14 +15,12 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
         Plan.find(plan_id)
           .success (response) ->
             s.list = s.plan = Plan.generateFromJSON( response )
-            s.listsLoaded = true
             s.setList( s.list )
             if locale = QueryString.get()['near']
               s.nearby = locale
           .error (response) ->
             QueryString.modify({plan: null, near: null})
             ErrorReporter.report({ context: "Tried looking up #{plan_id} plan, unsuccessful"})
-            s.listsLoaded = true
 
       # EXPAND/CONTRACT
 
@@ -64,17 +62,16 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
 
       s.hasLists = -> s.lists?.length > 0
 
-      s.listsLoaded = false
       s.getUsersLists = ->
         if s.currentUserId
           User.findPlans( s.currentUserId )
             .success (response) ->
               unsortedLists = Plan.generateFromJSON(response)
               s.lists = _.sortBy( unsortedLists, (l) -> s.bestListDate(l) ).reverse()
-              s.listsLoaded = true
+              s.isLoaded = true unless s.list
             .error (response) ->
               ErrorReporter.report({ context: 'Items.NewCtrl getUsersLists'}, "Something went wrong! We've been notified.")
-              s.listsLoaded = true
+              s.isLoaded = true 
 
       s.bestListDate = (list) -> if list.starts_at then list.starts_at else list.updated_at
 
@@ -94,6 +91,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
 
       s.listClass = (mode) ->
         if mode == 'list' then 'sixteen columns' else 'ten columns'
+
       s.setList = (list) ->
         if list
           $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
@@ -126,12 +124,11 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
       s.getListItems = ->
         return unless s.list?
         $('.searching-mask').show()
-        s.listsLoaded = false
+        s.isLoaded = false
         Item.where({ plan_id: s.list.id })
           .success (response) ->
             $('.searching-mask').hide()
             return unless s.list?
-            s.listsLoaded = true
             
             s._setOnScope( ['items', 'places'], [] )
             _.forEach response , (item, index) ->
@@ -139,13 +136,15 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
               s.items.push i
               s.places.push i.mark.place
 
+            s.isLoaded = true
+
             s._getManifestItems()
 
             $timeout(-> s.initialSortItems() )
             $timeout(-> s.initializeItemsNotes() )
           .error (response) ->
             $('.searching-mask').hide()
-            s.listsLoaded = true
+            s.isLoaded = true
             ErrorReporter.report({ context: 'Items.NewCtrl getListItems', list_id: s.list.id}, "Something went wrong! We've been notified.")
 
       s.listOptions = ->
@@ -366,8 +365,11 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
           .success (response) ->
             $('.searching-mask').hide()
             new_item = _.extend( Item.generateFromJSON( response ), { index: s.items.length, pane: 'list' } )
-            s.items.unshift new_item
-            s.places.unshift new_item.mark.place
+            if !_.find(s.items, (i) -> i.id == response.id )
+              s.items.unshift new_item
+              s.places.unshift new_item.mark.place
+            else
+              Flash.warning("That place is already in your list!")
             QueryString.modify({m: null})
             if s.items?.length == 1 then s.initialSortItems() else s.sortItems()
           .error (response) ->
