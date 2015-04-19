@@ -10,45 +10,48 @@
 
   // HEADER
 
-  = render 'print_header'
+  / = render 'print_header'
 
   // SECTION BY SECTION
 
-  - @plan.legs.each_with_index do |leg, index|
-    - if leg.name.present? || leg.overall_locale.present?
-      .print-header-subtitle
-        - if leg.name.present?
-          = leg.name
-        - else
-          = leg.overall_locale
-        - if leg.days.count > 1 && @plan.legs.count > 1
-          %b= "(Day #{leg.first_day.order} to #{leg.last_day.order})"
+  - @plan.items.with_places.each_with_index do |item, index|
+    = item.name
 
-    / - if leg.arrival
-    /   .content-tab-wrap
-    /     .content-tab-print.time= image_tag "travel-by-#{leg.arrival.mode}.png"
-    /     .content-tab-print.travel
-    /       = "Arrive by "
-    /       %b= "#{leg.arrival.mode}"
-    /       = " - "
-    /       = print_travel(leg.arrival.terminus, '0')
+  / - @plan.legs.each_with_index do |leg, index|
+  /   - if leg.name.present? || leg.overall_locale.present?
+  /     .print-header-subtitle
+  /       - if leg.name.present?
+  /         = leg.name
+  /       - else
+  /         = leg.overall_locale
+  /       - if leg.days.count > 1 && @plan.legs.count > 1
+  /         %b= "(Day #{leg.first_day.order} to #{leg.last_day.order})"
 
-    - leg.days.each_with_index do |day, day_index|
-      = render partial: 'days/print_day', locals: { day: day, index: day_index }
+  /   / - if leg.arrival
+  /   /   .content-tab-wrap
+  /   /     .content-tab-print.time= image_tag "travel-by-#{leg.arrival.mode}.png"
+  /   /     .content-tab-print.travel
+  /   /       = "Arrive by "
+  /   /       %b= "#{leg.arrival.mode}"
+  /   /       = " - "
+  /   /       = print_travel(leg.arrival.terminus, '0')
 
-    / - if leg.departure
-    /   .content-tab-wrap
-    /     .content-tab-print.time
-    /       = image_tag "travel-by-#{leg.departure['method']}.png"
-    /     .content-tab-print.travel
-    /       = "Depart by "
-    /       %b= "#{leg.departure['method']}"
-    /       - if leg.departure['travel_data']
-    /         = " - "
-    /         = print_travel(leg.departure['travel_data'].first, '0')
+  /   - leg.days.each_with_index do |day, day_index|
+  /     = render partial: 'days/print_day', locals: { day: day, index: day_index }
 
-    - if @plan.bucket.present?
-      = render partial: 'legs/print_bucket', locals: { plan: @plan }
+  /   / - if leg.departure
+  /   /   .content-tab-wrap
+  /   /     .content-tab-print.time
+  /   /       = image_tag "travel-by-#{leg.departure['method']}.png"
+  /   /     .content-tab-print.travel
+  /   /       = "Depart by "
+  /   /       %b= "#{leg.departure['method']}"
+  /   /       - if leg.departure['travel_data']
+  /   /         = " - "
+  /   /         = print_travel(leg.departure['travel_data'].first, '0')
+
+  /   - if @plan.bucket.present?
+  /     = render partial: 'legs/print_bucket', locals: { plan: @plan }
 
   .clear
 

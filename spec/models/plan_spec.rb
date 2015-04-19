@@ -198,6 +198,20 @@ describe Plan do
       
       before{ @place = create(:place, @data.compact.symbolize_keys) }
 
+      it "handles redundancy" do
+        item_count = Item.count
+        mark_count = Mark.count
+        place_count = Place.count
+
+        5.times do
+          new_item = @plan.add_item_from_place_data!(@user, @data)
+        end
+
+        expect( Item.count ).to eq item_count + 1
+        expect( Mark.count ).to eq mark_count + 1
+        expect( Place.count ).to eq place_count        
+      end
+
       it "builds the mark and item but keeps the place" do
         item_count = Item.count
         mark_count = Mark.count

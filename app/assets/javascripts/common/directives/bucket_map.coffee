@@ -230,6 +230,7 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
       s._initFilters()
       s.$watch('filters', (-> QueryString.modify( f: s._filterString() ) ), true ) # On filter change, update the QueryString
 
+      window.bm = s
 
       # MAPWIDE INIT
       s._getPlaces(s.userId, s.currentUserId)
