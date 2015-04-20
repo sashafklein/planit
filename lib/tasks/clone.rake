@@ -3,17 +3,17 @@ namespace :clone do
     puts "Working..."
 
     puts "Looking at previous backups"
-    output = `heroku pgbackups`.split("\nb")
+    output = `heroku pgbackups --app planit-app`.split("\nb")
     oldest_backup_number = "b" + output[1].split("  ")[0]
     
     puts "Deleting oldest backup to make room"
-    `heroku pgbackups:destroy #{oldest_backup_number}`
+    `heroku pgbackups:destroy #{oldest_backup_number} --app planit-app`
 
     puts "Capturing new backup"
-    `heroku pgbackups:capture`
+    `heroku pgbackups:capture --app planit-app`
     puts "Captured the production database"
 
-    url = `heroku pgbackups:url`.strip
+    url = `heroku pgbackups:url --app planit-app `.strip
     `curl -o latest.dump "#{url}"`
     
     puts "Stored a local copy"
