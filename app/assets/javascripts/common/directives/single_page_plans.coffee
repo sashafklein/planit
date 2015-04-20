@@ -116,7 +116,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
         s.setModeViaQueryString()
         s.userOwnsList = if s.currentUserId == list.user_id then true else false
         s.plan = s.list = list
-        s.lists.unshift(s.list) if s.lists
+        s.lists.unshift(s.list) if s.lists && !_.find( s.lists, (l) -> l.id == s.list.id )
         s.getListItems()
         s.listQuery = list.name
         s.kmlPath = "/api/v1/plans/#{ list.id }/kml"
@@ -236,8 +236,8 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
       s.fetchOriginalNote = (item) ->
         Note.findByObject( item )
           .success (response) ->
-            if note = response.body then s.items[s.items.indexOf(item)].note = note
             item.notesSearched = true
+            if note = response.body then item.note = note
           .error (response) ->
             ErrorReporter.defaultFull( response, "singlePagePlans - fetchOriginalNote", { object_id: item.id, object_type: item.class })
             item.notesSearched = true

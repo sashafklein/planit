@@ -143,7 +143,7 @@
                 /   .tab-operations-button
                 /     .i.fa.fa-trash
                 .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'setList(plan)', ng_hover: 'imageChangeable = true' }
-                  %img{ src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
+                  %img{ ng_src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
                   %i.add-photo-camera.fa.fa-camera-retro{ ng_show: 'imageChangeable || ( !plan.best_image || !plan.best_image.url)', ng_click: 'changeImage()' }
                 .content-tab-title{ ng_click: 'setList(plan)' } {{ plan.name }}
 

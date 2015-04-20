@@ -102,7 +102,7 @@ module ActsLikePlace
   end
 
   def background_complete!
-    return if [locality, region, country, street_address].all?(&:present?)
+    return if [locality, region, country, street_address].all?(&:present?) && images.any?
     complete!
   end
 
