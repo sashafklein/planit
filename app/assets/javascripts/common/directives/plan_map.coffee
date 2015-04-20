@@ -242,15 +242,17 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
           s.resetMapContent() if !s.planPlaces?.length
 
       s.resetMapContent = ->
-        s.places = s.allPlaces = s.primaryPlaces = s.planPlaces = s.placesInView = s.clustersInView = []
-        s.currentLLZoom = s.currentBounds = s.centerAndZoom = null
+        s._setOnScope ['places', 'allPlaces', 'primaryPlaces', 'planPlaces', 'placesInView', 'clustersInView'], []
+        s._setOnScope [ 'currentLLZoom', 'currentBounds', 'centerAndZoom'], null
         s.initialized = false
         s.centerPoint = { lat: 0, lng: 0, zoom: 2 }
         s.filters = {}
         QueryString.modify({f: null, m: null})
 
-      s.$watch('planPlaces', (-> s.initialize() ) )
-      s.$watch('showMap', (-> s.initialize() ) )
+      s.$watch('planPlaces', (-> s.initialize() ), true ) # The third argument (true) makes watch compare by equality, not reference
+      s.$watch('showMap', (-> s.initialize() ), true )
+
+      s._setOnScope = (list, value = null) -> _.forEach list, (i) -> s[i] = ( if value? then _.clone(value) else null )
 
       window.pm = s
   }

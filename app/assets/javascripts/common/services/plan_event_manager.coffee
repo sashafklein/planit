@@ -7,13 +7,13 @@ angular.module("Services").factory 'PlanEventManager', (F, $timeout, MapEventMan
       return unless type && id
       if @s.mobile
         switch type
-          when 'pinClick' then @deselectAll() ; @selectPlace(id, true)
+          when 'pinClick' then @deselectAll() ; @selectPlace(id, false)
           when 'pinDblClick' then @redirect(id)
           when 'clusterClick' then @deselectAll() ; @selectCluster(id, false)
       else if @s.web
         switch type
           when 'pinClick' then @redirect(id)
-          when 'pinMouseenter' then @selectPlace(id, true)
+          when 'pinMouseenter' then @selectPlace(id, false)
           when 'pinMouseenterScroll' then @selectPlace(id, true)
           when 'pinMouseleave' then @deselectAll(id)
           when 'clusterMouseenter' then @selectCluster(id, false)
