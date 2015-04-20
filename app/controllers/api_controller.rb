@@ -15,7 +15,8 @@ class ApiController < ApplicationController
       message: message,
       meta: meta,
       error: true,
-      controller: self.class.to_s
+      controller: self.class.to_s,
+      code: status
     }
 
     render json: response.to_json, status: status
