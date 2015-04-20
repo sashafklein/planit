@@ -9,13 +9,5 @@ angular.module('Common').directive 'ngOnTabKey', ->
   return {
     restrict: 'A'
     link: (scope, element, attrs) ->
-
-      element.bind "keydown keypress", (event) ->
-
-        if event.which is 9 && !event.shiftKey #tab key no shift
-          scope.$apply ->
-            scope.$eval attrs.ngOnTabKey,
-              event: event
-            return
-          event.preventDefault()
+      new OnKey(scope, 'ngOnTabKey', 9).setBehavior(element, attrs)
   }
