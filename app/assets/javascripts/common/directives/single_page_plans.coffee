@@ -100,7 +100,6 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
           $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
           s._installList( list )
         else if s.canAddList
-          console.log 'about to confirm'
           if confirm("Create a new guide named '#{s.listQuery}'?")
             $('.loading-mask').show()
             $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
