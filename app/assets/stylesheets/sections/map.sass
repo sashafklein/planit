@@ -443,7 +443,7 @@
 
 // ICONS
 
-span.cluster-map-icon-tab
+.cluster-map-icon-tab
   display: table
   font-weight: bold
   text-align: center
@@ -475,11 +475,23 @@ span.cluster-map-icon-tab
   &.highlighted
     background-color: #333
     border-bottom: #000 solid 1px
-    color: #fff    
+    color: #fff
   &:hover
     background-color: transparent !important
     border-bottom: transparent solid 1px !important
     color: transparent !important
+  &.xsm, &.xsm:hover
+    height: 18px
+    width: 18px
+    margin-top: -18px
+    line-height: 18px
+    font-size: 14px
+    border-radius: 3px
+    margin: 0 
+    font-weight: normal 
+    color: #fff !important
+    background: #333 !important
+    border-bottom: #000 solid 1px !important
 
 /* IE 6-8 fallback colors */
 
@@ -517,6 +529,10 @@ path.leaflet-clickable
     z-index: 12500 !important
   &.primary
     z-index: 10000 !important
+  &.xsm
+    height: 18px
+    width: 18px
+    margin-top: -18px
 
 .default-map-icon-tab
   display: inline-block
@@ -568,6 +584,13 @@ path.leaflet-clickable
     border-bottom: #000 solid 1px
     div.arrow
       border-color: #333 transparent transparent transparent
+  &.xsm
+    height: 18px
+    width: 18px
+    margin-top: -18px
+    font-size: 14px
+    font-weight: normal
+    line-height: 18px
 
 .contextual-map-div-icon
   text-align: center

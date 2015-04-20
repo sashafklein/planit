@@ -1,61 +1,66 @@
+- title( @plan.name )
 - set_page_type( 'print' )
 
 #print-page
 
   // ESCAPE VIEW
-  .exit-view
-    %a{ href: plan_path( @plan.id ), target: '_self' }
-      .fa.fa-arrow-circle-left{ style: "padding-right: 10px; padding-left: 3px"} 
-      Exit Print View
+  %a.exit-view{ href: plan_path( @plan.id ), target: '_self' }
+    .fa.fa-arrow-circle-left{ style: "padding-right: 10px; padding-left: 3px"} 
+    Exit Print View
 
   // HEADER
 
   / = render 'print_header'
 
   // SECTION BY SECTION
-
-  - @plan.items.with_places.each_with_index do |item, index|
-    = item.name
-
-  / - @plan.legs.each_with_index do |leg, index|
-  /   - if leg.name.present? || leg.overall_locale.present?
-  /     .print-header-subtitle
-  /       - if leg.name.present?
-  /         = leg.name
-  /       - else
-  /         = leg.overall_locale
-  /       - if leg.days.count > 1 && @plan.legs.count > 1
-  /         %b= "(Day #{leg.first_day.order} to #{leg.last_day.order})"
-
-  /   / - if leg.arrival
-  /   /   .content-tab-wrap
-  /   /     .content-tab-print.time= image_tag "travel-by-#{leg.arrival.mode}.png"
-  /   /     .content-tab-print.travel
-  /   /       = "Arrive by "
-  /   /       %b= "#{leg.arrival.mode}"
-  /   /       = " - "
-  /   /       = print_travel(leg.arrival.terminus, '0')
-
-  /   - leg.days.each_with_index do |day, day_index|
-  /     = render partial: 'days/print_day', locals: { day: day, index: day_index }
-
-  /   / - if leg.departure
-  /   /   .content-tab-wrap
-  /   /     .content-tab-print.time
-  /   /       = image_tag "travel-by-#{leg.departure['method']}.png"
-  /   /     .content-tab-print.travel
-  /   /       = "Depart by "
-  /   /       %b= "#{leg.departure['method']}"
-  /   /       - if leg.departure['travel_data']
-  /   /         = " - "
-  /   /         = print_travel(leg.departure['travel_data'].first, '0')
-
-  /   - if @plan.bucket.present?
-  /     = render partial: 'legs/print_bucket', locals: { plan: @plan }
-
-  .clear
-
-  .footer
-    .footer-content 
-      %strong= "Planit"
-      = "print-copy of '#{@plan.name}'"
+  - locale_level = 'region'
+  - locales = @plan.items.with_places.includes( mark: :place ).map{ |i| i.send( locale_level ) }.uniq
+  - locales.each_with_index do |locale, locale_index|
+    .print-section-wrapper{ ng_repeat: "locale in locales" }
+      .print-locale-name {{ locale }}
+        .print-locale-logo= image_tag "logo_only_black.png", alt: 'Planit'
+      - items_in_locale = @plan.items.with_places.includes( :notes ).select{ |i| i.send( locale_level ) == locale }.sort_by{ |i| i.mark.place.name }.sort_by{ |i| i.mark.place.meta_category }
+      - place_ids = items_in_locale.map{ |i| i.mark.place_id }
+      .print-locale-wrapper.like-container{ ng_controller: 'PrintSectionCtrl' }
+        .print-locale-map
+          %print_map.print-locale-map-canvas{ place_ids: "#{ place_ids }", user_id: current_user.id, map_index: "#{ locale_index }" }
+        - item_index = 0
+        - categories = items_in_locale.map{ |i| i.meta_category }.uniq
+        - categories.each_with_index do |category, category_index|
+          .print-category-wrapper
+            - items_in_category_in_locale = items_in_locale.select{ |i| i.meta_category == category }
+            .print-category-name
+              %i{ class: items_in_category_in_locale.first.meta_icon }
+              %b= category
+            - items_in_category_in_locale.each do |item|
+              - zoom = 16
+              - static_item_map = "http://staticmap.openstreetmap.de/staticmap.php?center=#{ item.coordinate(',') }&zoom=#{ zoom }&size=130x130&maptype=osmarenderer"
+              - item_index = item_index + 1
+              .print-item-wrapper
+                .print-item-info
+                  .print-item-number= item_index
+                  .print-item-title= item.name
+                  - item.names.delete(item.name)
+                  - if item.names.length
+                    .print-item-subtitle
+                      = item.names.join(', ')
+                  - if item.categories.length
+                    .print-item-categories= item.categories.join(', ')
+                  .print-item-address
+                    .address-line= item.address
+                    .address-line= item.locale
+                    .address-line
+                      = link_to "https://maps.google.com?daddr=#{ item.coordinate(',') }" do
+                        %i.fa.fa-external-link
+                        Get Directions
+                  - if item.notes.length
+                    .print-item-notes
+                      - item.notes.each do |note|
+                        .note-line
+                          %b= note.source.name
+                          = note.body
+                  
+                .print-item-map-wrapper
+                  .print-item-map
+                    %img{ src: static_item_map }
+                    %i.fa.fa-dot-circle-o

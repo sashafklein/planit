@@ -34,6 +34,16 @@ module ActsLikePlace
     lat && lon ? [lat, lon].join( joiner ) : false
   end
 
+  def tile_number( zoom )
+    zoom ||= 15
+    lat_rad = lat/180 * Math::PI
+    n = 2.0 ** zoom
+    x = ((lon + 180.0) / 360.0 * n).to_i
+    y = ((1.0 - Math::log(Math::tan(lat_rad) + (1 / Math::cos(lat_rad))) / Math::PI) / 2.0 * n).to_i
+   
+    {:x => x, :y =>y}
+  end
+
   def nearby
     list, final_list = [locality, subregion, region, country].select(&:present?), []
     return nil unless list.any?
@@ -108,6 +118,19 @@ module ActsLikePlace
 
   def complete!(delay: true)
     Completers::ExistingPlaceCompleter.new(self).complete!(delay: delay)
+
+  def address
+    [street_address, sublocality].compact.join(", ") || object.full_address
+  end
+
+  def locale
+    ([(locality || subregion), (region || country)]).compact.join(", ")
+  end
+
+  def other_names
+    all_names = names
+    all_names.delete name
+    return all_names
   end
 
   private

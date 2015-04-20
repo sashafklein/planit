@@ -1,4 +1,4 @@
-angular.module("Common").directive 'printMap', (MapOptions, F, Place, User) ->
+angular.module("Common").directive 'printMap', (F, Place, User) ->
 
   return {
     restrict: 'E'
@@ -9,8 +9,12 @@ angular.module("Common").directive 'printMap', (MapOptions, F, Place, User) ->
       placeIds: '@'
       userId: '@'
       zoomControl: '@'
+      mapIndex: '@'
+      idHash: '=?'
 
     link: (scope, element) ->
+
+      scope.idHash = if scope.idHash then scope.idHash else {}
       scope.placeIds = JSON.parse(scope.placeIds)
       Place.where({ id: scope.placeIds })
         .success (places) ->
@@ -26,9 +30,9 @@ angular.module("Common").directive 'printMap', (MapOptions, F, Place, User) ->
         doubleClickZoom = true
         zoomControl = scope.zoomControl || false
         minZoom = 1
-        maxZoom = 18
+        maxZoom = 12 
 
-        id = "main_map"
+        id = "main_map_#{ scope.mapIndex }"
         elem.attr('id', id)
 
         scope.map = L.map(id, { scrollWheelZoom: scrollWheelZoom, doubleClickZoom: doubleClickZoom, zoomControl: zoomControl, minZoom: minZoom, maxZoom: maxZoom } )
@@ -40,34 +44,57 @@ angular.module("Common").directive 'printMap', (MapOptions, F, Place, User) ->
         place_coordinates = []
 
         # Primary Pins in Clusters if Plan, WorldView
-        clusterMarkers = new L.MarkerClusterGroup({
+        scope.clusterMarkers = new L.MarkerClusterGroup({
+          disableClusteringAtZoom: 13,
+          spiderfyOnMaxZoom: true,
           maxClusterRadius: 80,
           iconCreateFunction: (cluster) ->
-            markers = cluster.getAllChildMarkers()
-            L.divIcon
-              html: "<span class='cluster-map-icon-tab'>#{markers.length} pins</span>"
-              className: "cluster-map-div-container"
-          showCoverageOnHover: false
+            L.divIcon( 
+              className: "cluster-map-div-container",
+              html: "<div class='cluster-map-icon-tab xsm'>*</div>",
+              iconSize: new L.Point(18,18),
+              iconAnchor: [9,9]
+            )
+          showCoverageOnHover: false,
         })
         i = 0
         while i < scope.places.length
-          a = scope.places[i]
-          place_coordinates.push [a.lat,a.lon]
-          clusterMarker = L.marker(new L.LatLng(a.lat, a.lon), {
+          place = scope.places[i]
+          place_coordinates.push [place.lat,place.lon]
+          clusterMarker = L.marker(new L.LatLng(place.lat, place.lon), {
             icon: L.divIcon({
-              className: 'default-map-div-icon',
-              html: "<span class='default-map-icon-tab'><img src='/assets/map_icon_tip_red.png'>#{catIconFor(a.metacategories)}</span>",
+              className: 'default-map-div-icon xsm',
+              html: "<div class='default-map-icon-tab xsm highlighted' id='print_item_#{place.id}'>*</div>",
               iconSize: null,
-              title: a.names[0],
-              alt: a.names[0],
-            })
-          }).bindPopup("<a href='/places/#{a.id}' target='_self'>#{a.names[0]}</a>", {offset: new L.Point(0,8)})
-          clusterMarkers.addLayer clusterMarker
+            }),
+            title: place.name,
+            alt: place.name,
+            placeId: place.id,
+          }).bindPopup("<a href='/places/#{place.id}' target='_self'>#{place.name}</a>", {offset: new L.Point(0,0)})
+          scope.clusterMarkers.addLayer clusterMarker
           i++
-        scope.map.addLayer(clusterMarkers)
+        scope.map.addLayer(scope.clusterMarkers)
 
         scope.bounds = new L.LatLngBounds(place_coordinates)
         scope.map.fitBounds(scope.bounds, { padding: [25, 25] } )
         showAttribution = false
+
+        window.pm = scope
+
+        # Numbering & Lettering
+        clusterCount = 0
+        markerCount = 0
+        _.forEach( scope.clusterMarkers._featureGroup._layers, (layer) -> 
+          if layer._markers?.length
+            clusterCount++
+            _.forEach( layer._markers, (marker) ->
+              scope.idHash[marker.options.placeId] = String.fromCharCode( clusterCount + 96 ).toUpperCase()
+            )
+            layer._icon.innerHTML = layer._icon.innerHTML.replace("*", String.fromCharCode( clusterCount + 96 ).toUpperCase() )
+          else
+            markerCount++
+            scope.idHash[layer.options.placeId] = markerCount
+            layer._icon.innerHTML = layer._icon.innerHTML.replace("*", markerCount )
+        )
 
   }

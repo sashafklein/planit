@@ -11,7 +11,7 @@ class Api::V1::PlacesController < ApiController
     permission_denied_error unless current_user
 
     @places = params[:conditions] ? Place.where( JSON.parse(params[:conditions]) ) : Place.all
-    render json: @places, each_serializer: PlaceSerializer
+    render json: @places.includes( :images ), each_serializer: PlaceSerializer
   end
 
   def search

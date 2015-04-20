@@ -33,14 +33,6 @@ class PlaceSerializer < BaseSerializer
     image.try(:source)
   end
 
-  def address
-    constructed_full_address || object.full_address
-  end
-
-  def locale
-    constructed_locale
-  end
-
   def href
     object_path(object)
   end
@@ -75,14 +67,5 @@ class PlaceSerializer < BaseSerializer
   def image
     images.where.not(url: nil).first
   end
-
-  def constructed_full_address
-    [street_address, sublocality].compact.join(", ")
-  end
-
-  def constructed_locale
-    ([(locality || subregion), (region || country)]).compact.join(", ")
-  end
-
 
 end
