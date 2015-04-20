@@ -10,7 +10,6 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
 
       # QUERYSTRING MANAGE START DATA
 
-
       if plan_id = QueryString.get()['plan']
         Plan.find(plan_id)
           .success (response) ->
@@ -20,7 +19,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
               s.nearby = locale
           .error (response) ->
             QueryString.modify({plan: null, near: null})
-            ErrorReporter.report({ context: "Tried looking up #{plan_id} plan, unsuccessful"})
+            ErrorReporter.defaultFull( response, "SinglePagePlans top Plan.find", { plan_id: plan_id } )
 
       # EXPAND/CONTRACT
 
@@ -70,7 +69,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
               s.lists = _.sortBy( unsortedLists, (l) -> s.bestListDate(l) ).reverse()
               s.isLoaded = true unless s.list
             .error (response) ->
-              ErrorReporter.report({ context: 'SinglePagePlans getUsersLists'}, "Something went wrong! We've been notified.")
+              ErrorReporter.defaultFull( response, 'SinglePagePlans getUsersLists' )
               s.isLoaded = true 
 
       s.bestListDate = (list) -> if list.starts_at then list.starts_at else list.updated_at
@@ -110,7 +109,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
                 s._installList( list )
               .error (response) ->
                 $('.loading-mask').hide()
-                ErrorReporter.report({ context: 'SinglePagePlans Plan.create', plan_name: s.listQuery}, "Something went wrong! We've been notified.")
+                ErrorReporter.defaultFull( response, 'SinglePagePlans Plan.create', { plan_name: s.listQuery})
 
       s._installList = (list) ->
         QueryString.modify({plan: list.id})
@@ -146,7 +145,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
           .error (response) ->
             $('.searching-mask').hide()
             s.isLoaded = true
-            ErrorReporter.report({ context: 'SinglePagePlans getListItems', list_id: s.list.id}, "Something went wrong! We've been notified.")
+            ErrorReporter.defaultFull( response, 'SinglePagePlans getListItems', { plan_id: s.list.id })
 
       s.listOptions = ->
         filter = $filter('filter')
@@ -168,7 +167,8 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             s.cancelRenameList()
           .error (response) ->
             s.cancelRenameList()
-            ErrorReporter.report({ context: 'Failed to rename plan', list_id: s.list.id})
+            ErrorReporter.defaultFull({ context: 'Failed to rename plan', list_id: s.list.id})
+
       s.cancelRenameList = -> s.rename = null
 
       s.planImage = ( plan ) -> if plan && plan.best_image then plan.best_image.url else ''
@@ -184,7 +184,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
               $('.loading-mask').hide()
               return
             .error (response) ->
-              ErrorReporter.report({ context: 'Attempting to delete a list', list_id: s.list.id}, "Something went wrong! We've been notified.")
+              ErrorReporter.defaultFull( response, 'SinglePagePlans deleteList', { plan_id: s.list.id } )
               $('.loading-mask').hide()
               return
 
@@ -239,7 +239,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             if note = response.body then s.items[s.items.indexOf(item)].note = note
             item.notesSearched = true
           .error (response) ->
-            ErrorReporter.report({ context: "Failed note fetch in list page", object_id: item.id, object_type: item.class })
+            ErrorReporter.defaultFull( response, "singlePagePlans - fetchOriginalNote", { object_id: item.id, object_type: item.class })
             item.notesSearched = true
 
       s.saveNote = (item) ->
@@ -250,7 +250,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             item.note = response.body
             item.notesSearched = true
           .error (response) ->
-            ErrorReporter.report({ context: "Failed note addition in list page", object_id: item.id, object_type: item.class, text: note })
+            ErrorReporter.defaultFull( response, "singlePagePlans - saveNote", { object_id: item.id, object_type: item.class, text: note })
             item.note = null
             item.notesSearched = true
 
@@ -293,7 +293,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             _.forEach(itemsIndices, (index) -> s.items.splice(index, 1) )
             _.forEach(manifestIndices, (index) -> s.manifestItems.splice(index, 1) )
           .error (response) ->
-            ErrorReporter.defaultReport({ context: 'singlePagePlans delete(item)', item_id: item.id, user: CurrentUser.id})
+            ErrorReporter.defaultFull( response, 'singlePagePlans delete(item)', { item_id: item.id })
 
 
       # LIST SORTING
@@ -351,11 +351,11 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
               s.options = Place.generateFromJSON(response)
             .error (response) ->
               if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
-                alert("We'll need a better 'Nearby' than '#{s.nearby}'")
+                Flash.warning("We'll need a better 'Nearby' than '#{s.nearby}'")
                 s.forbiddenNearby.push s.nearby
                 s.nearby = null
               else
-                ErrorReporter.report({ context: 'SinglePagePlans search', near: s.nearby, query: s.placeName }, "Something went wrong! We've been notified.")        
+                ErrorReporter.defaultFull(response, 'SinglePagePlans s._makeSearchRequest', { near: s.nearby, query: s.placeName }) if response.message != "Insufficient search params"
 
       s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
 
@@ -379,7 +379,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             if s.items?.length == 1 then s.initialSortItems() else s.sortItems()
           .error (response) ->
             $('.searching-mask').hide()
-            ErrorReporter.report({ context: 'SinglePagePlans addItem', option: JSON.stringify(option), plan: JSON.stringify(s.list) }, "Something went wrong! We've been notified.")
+            ErrorReporter.defaultFull( response, 'SinglePagePlans addItem', { option: JSON.stringify(option), plan_id: s.list.id })
 
       s.typeIcon = (meta_category) -> 
         itemsWithIcon = _.filter( s.items, (i) -> i.mark.place.meta_categories[0] == meta_category )
@@ -423,7 +423,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
           .success (response) ->
             s._resetManifestItems(response)
           .error (response) ->
-            ErrorReporter.defaultReport _.extend({context: "singlePagePlans #{name}", plan_id: s.plan.id}, extraReporting) 
+            ErrorReporter.defaultFull response, "singlePagePlans #{name}", _.extend({plan_id: s.plan.id}, extraReporting) 
 
       s._resetManifestItems = (response) ->
         s.plan.manifest = response
@@ -452,7 +452,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
           .success (response) ->
             s.manifestItems.push _.extend( classObj.generateFromJSON(response), { index: index, pane: 'manifest' } )
           .error (response) ->
-            ErrorReporter.defaultReport( context: 'singlePagePlans getManifestItems', plan_id: s.plan.id, item_id: item.id )
+            ErrorReporter.defaultFull( response, 'singlePagePlans getManifestItem', { plan_id: s.plan.id, item_id: item.id })
 
       s._dup = (object) -> s._objectClasses[object.class].generateFromJSON( _.extend({}, object) )
 
