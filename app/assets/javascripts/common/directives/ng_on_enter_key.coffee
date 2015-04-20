@@ -5,17 +5,9 @@ Taken from: http://stackoverflow.com/questions/15417125/submit-form-on-pressing-
 %input{ type: 'text', ng_model: 'inputModel', ng_on_enter_key: 'doSomething()' }
 ###
 
-angular.module('Common').directive 'ngOnEnterKey', ->
+angular.module('Common').directive 'ngOnEnterKey', (OnKey) ->
   return {
     restrict: 'A'
     link: (scope, element, attrs) ->
-
-      element.bind "keydown keypress", (event) ->
-
-        if event.which is 13 #enter key
-          scope.$apply ->
-            scope.$eval attrs.ngOnEnterKey,
-              event: event
-            return
-          event.preventDefault()
+      new OnKey(scope, 'ngOnEnterKey', 13).setBehavior(element, attrs)
   }

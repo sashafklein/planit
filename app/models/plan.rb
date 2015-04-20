@@ -32,7 +32,7 @@ class Plan < BaseModel
   def add_item_from_place_data!(user, data)
     return unless place = Place.find_or_initialize(data)
     marks = Mark.where(id: items.pluck(:mark_id))
-    
+
     return items.where(mark_id: marks.pluck(:id)).first if marks.pluck(:place_id).include?(place.id)
 
     place = place.validate_and_save!( data[:images] || [] ) unless place.persisted?

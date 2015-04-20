@@ -8,9 +8,10 @@ module MetaExt
       end
       
       def attribute_keys
-        column_names.reject do |name| 
-          name.include?('id') || 
-            %w(updated_at created_at).include?(name)
+        column_names.reject do |name|
+          name == 'id' || 
+          ActiveRecord::Base.connection.tables.any?{ |t| name == "#{ t.singularize }_id" } ||
+          %w(updated_at created_at).include?(name)
         end.map(&:to_sym)
       end
 

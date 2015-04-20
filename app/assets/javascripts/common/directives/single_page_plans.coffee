@@ -117,6 +117,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
         s.setModeViaQueryString()
         s.userOwnsList = if s.currentUserId == list.user_id then true else false
         s.plan = s.list = list
+        s.lists.unshift(s.list)
         s.getListItems()
         s.listQuery = list.name
         s.kmlPath = "/api/v1/plans/#{ list.id }/kml"
@@ -233,29 +234,26 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
 
       s.initializeItemsNotes = -> _.map( s.items, (item) -> s.fetchOriginalNote(item) )
       s.fetchOriginalNote = (item) ->
-        textarea = e.find("textarea#item_" + item.id)
         Note.findByObject( item )
           .success (response) ->
             if note = response.body then s.items[s.items.indexOf(item)].note = note
-            textarea.attr("disabled",false) if textarea
+            item.notesSearched = true
           .error (response) ->
             ErrorReporter.report({ context: "Failed note fetch in list page", object_id: item.id, object_type: item.class })
-            textarea.attr("disabled",false) if textarea
+            item.notesSearched = true
 
       s.saveNote = (item) ->
         return unless item?.note && item?.note.length > 0
-        textarea = e.find("textarea#item_" + item.id)
-        textarea.attr("disabled",true)
+        item.notesSearched = false
         Note.create({ note: { object_id: item.id, object_type: item.class, body: item.note } })
           .success (response) ->
             item.note = response.body
-            textarea.attr("disabled",false)
-            return
+            item.notesSearched = true
           .error (response) ->
             ErrorReporter.report({ context: "Failed note addition in list page", object_id: item.id, object_type: item.class, text: note })
             item.note = null
-            textarea.attr("disabled",false)
-            return
+            item.notesSearched = true
+
       s.nextNote = (item) -> 
         return unless item
         if this_textarea = e.find("textarea#item_" + item.id)
@@ -265,6 +263,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
           next_ul.focus() if next_ul[0] && !next_li[0]
           this_textarea.blur() if !next_li[0] && !next_ul[0]
         return
+
       s.priorNote = (item) -> 
         return unless item
         if this_textarea = e.find("textarea#item_" + item.id)
@@ -289,7 +288,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             itemsIndices = _(s.items).filter( (i) -> i.id == response.id ).map('index').value()
             manifestIndices = if s.manifestItems?.length then _(s.manifestItems).filter( (i) -> i.id == response.id ).map('index').value()
             
-            delete list[item?.place()?.id] for list in [s.list, _.find(s.lists, (l) -> l.id == s.list.id)]
+            delete list[item?.place()?.id] for list in _.compact([s.list, _.find(s.lists, (l) -> l.id == s.list.id)])
 
             _.forEach(itemsIndices, (index) -> s.items.splice(index, 1) )
             _.forEach(manifestIndices, (index) -> s.manifestItems.splice(index, 1) )
@@ -364,14 +363,15 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
         $('.searching-mask').show()
         s.options = []
         s.placeName = null
+
         s.list.addItemFromPlaceData(option)
           .success (response) ->
             $('.searching-mask').hide()
-            new_item = _.extend( Item.generateFromJSON( response ), { index: s.items.length, pane: 'list' } )
+            new_item = _.extend( Item.generateFromJSON( response ), { index: s.items.length, pane: 'list', notesSearched: true } )
             if !_.find(s.items, (i) -> i.id == response.id )
               s.items.unshift new_item
               s.places.unshift new_item.mark.place
-              list.place_ids.unshift(i?place()?.id) for list in [s.list, _.find(s.lists, (l) -> l.id == s.list.id)]
+              list.place_ids.unshift(i?place()?.id) for list in _.compact([s.list, _.find(s.lists, (l) -> l.id == s.list.id)])
 
             else
               Flash.warning("That place is already in your list!")
