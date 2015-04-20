@@ -28,8 +28,6 @@ class PlansController < ApplicationController
     elsif params[:plan].present? && !@plan.present?
       flash[:error] = "Woops, no plan there... ;-(..."
       redirect_to root_path
-    else
-      redirect_to root_path
     end
   end
 

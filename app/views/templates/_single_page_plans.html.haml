@@ -157,8 +157,9 @@
         .container.centered
           .column{ ng_show: '!list && !hasLists()' }
             %strong.neon.large Start a List or Plan!
-            - if tutorial_plan = User.find(5).plans.order('created_at ASC').first
-              %p= " ( or test-drive #{link_to(tutorial_plan.name, copy_plan_path(tutorial_plan), class: 'linky neon')} )".html_safe
+            - if niko = User.find_by(slug: 'niko-klein')
+              - if tutorial_plan = niko.plans.order('created_at ASC').first
+                %p= " ( or test-drive #{link_to(tutorial_plan.name, copy_plan_path(tutorial_plan), class: 'linky neon')} )".html_safe
           .column{ ng_show: 'list && !nearby' }
             %strong.neon.large Awesome!  Starting Where?
             %p Set a Location so You can Find Your Places
