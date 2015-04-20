@@ -70,7 +70,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
               s.lists = _.sortBy( unsortedLists, (l) -> s.bestListDate(l) ).reverse()
               s.isLoaded = true unless s.list
             .error (response) ->
-              ErrorReporter.report({ context: 'Items.NewCtrl getUsersLists'}, "Something went wrong! We've been notified.")
+              ErrorReporter.report({ context: 'SinglePagePlans getUsersLists'}, "Something went wrong! We've been notified.")
               s.isLoaded = true 
 
       s.bestListDate = (list) -> if list.starts_at then list.starts_at else list.updated_at
@@ -110,7 +110,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
                 s._installList( list )
               .error (response) ->
                 $('.loading-mask').hide()
-                ErrorReporter.report({ context: 'Items.NewCtrl Plan.create', plan_name: s.listQuery}, "Something went wrong! We've been notified.")
+                ErrorReporter.report({ context: 'SinglePagePlans Plan.create', plan_name: s.listQuery}, "Something went wrong! We've been notified.")
 
       s._installList = (list) ->
         QueryString.modify({plan: list.id})
@@ -146,7 +146,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
           .error (response) ->
             $('.searching-mask').hide()
             s.isLoaded = true
-            ErrorReporter.report({ context: 'Items.NewCtrl getListItems', list_id: s.list.id}, "Something went wrong! We've been notified.")
+            ErrorReporter.report({ context: 'SinglePagePlans getListItems', list_id: s.list.id}, "Something went wrong! We've been notified.")
 
       s.listOptions = ->
         filter = $filter('filter')
@@ -355,7 +355,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
                 s.forbiddenNearby.push s.nearby
                 s.nearby = null
               else
-                ErrorReporter.report({ context: 'Items.NewCtrl search', near: s.nearby, query: s.placeName }, "Something went wrong! We've been notified.")        
+                ErrorReporter.report({ context: 'SinglePagePlans search', near: s.nearby, query: s.placeName }, "Something went wrong! We've been notified.")        
 
       s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
 
@@ -379,7 +379,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             if s.items?.length == 1 then s.initialSortItems() else s.sortItems()
           .error (response) ->
             $('.searching-mask').hide()
-            ErrorReporter.report({ context: 'Items.NewCtrl addItem', option: JSON.stringify(option), plan: JSON.stringify(s.list) }, "Something went wrong! We've been notified.")
+            ErrorReporter.report({ context: 'SinglePagePlans addItem', option: JSON.stringify(option), plan: JSON.stringify(s.list) }, "Something went wrong! We've been notified.")
 
       s.typeIcon = (meta_category) -> 
         itemsWithIcon = _.filter( s.items, (i) -> i.mark.place.meta_categories[0] == meta_category )
