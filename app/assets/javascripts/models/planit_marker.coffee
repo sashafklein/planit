@@ -8,11 +8,12 @@ mod.factory 'PlanitMarker', ($timeout) ->
 
     primaryPin: (place, show_popup = false) ->
       id = "p#{place.id}"
+      events = """ onclick="mapMouseEvent('pinClick', '#{id}')" onmouseenter="mapMouseEvent('pinMouseenter', '#{id}')" onmouseleave="mapMouseEvent('pinMouseleave', '#{id}')" """
       pin = _( @_basicPin(place) ).extend(
         icon:
           type: 'div'
           className: 'default-map-div-icon'
-          html: """ <div class="default-map-icon-tab #{id}" id="#{id}" ><i class="#{place.meta_icon || ''}" ></i><div class="arrow" /></div> """
+          html: """ <div class="default-map-icon-tab #{id}" id="#{id}" #{events}><i class="#{place.meta_icon || ''}" ></i><div class="arrow" /></div> """
           iconSize: null
       ).value()
       # return pin unless show_popup

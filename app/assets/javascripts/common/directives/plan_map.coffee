@@ -1,4 +1,4 @@
-angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, BucketEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser, ErrorReporter) ->
+angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, PlanEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser, ErrorReporter) ->
 
   return {
     restrict: 'E'
@@ -29,6 +29,7 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
       s.centerPoint = if s.centerAndZoom then { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) } else { lat: 0, lng: 0, zoom: 2 }
       s.placesInView = s.clustersInView = []
       s.leaf = leafletData
+      s.list = true
 
       s.defaults = 
         minZoom: if s.mobile then 1 else 2
@@ -160,7 +161,7 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
         location ||= ClusterLocator.nearestGlobalRegion(center)
         return location
       
-      s.mouse = (type, id) -> new BucketEventManager(s).mouseEvent( type, id )
+      s.mouse = (type, id) -> new PlanEventManager(s).mouseEvent( type, id )
 
       # Gives jQuery access to map events
       window.mapMouseEvent = s.mouse
@@ -168,7 +169,7 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
       s.zoomToCluster = (cluster) ->
         leafletData.getMap().then (m) ->
           m.fitBounds( cluster.bounds , { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
-          new BucketEventManager(s).deselectAll()
+          new PlanEventManager(s).deselectAll()
 
       s.$on 'leafletDirectiveMap.moveend', -> s.recalculateInView() if s.web
 

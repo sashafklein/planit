@@ -117,7 +117,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
         s.setModeViaQueryString()
         s.userOwnsList = if s.currentUserId == list.user_id then true else false
         s.plan = s.list = list
-        s.lists.unshift(s.list)
+        s.lists.unshift(s.list) if s.lists
         s.getListItems()
         s.listQuery = list.name
         s.kmlPath = "/api/v1/plans/#{ list.id }/kml"
@@ -342,7 +342,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
         s.options = [] if s.placeName?.length
         s._searchFunction() if s.placeName?.length > 2 && s.nearby?.length > 0
 
-      s._searchFunction = _.debounce( (-> s._makeSearchRequest() ), 500 )
+      s._searchFunction = _.debounce( (-> s._makeSearchRequest() ), 200 )
 
       s._makeSearchRequest = ->
         if s.nearby?.length && s.placeName?.length
