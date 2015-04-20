@@ -16,7 +16,7 @@ angular.module('Common').factory 'ErrorReporter', ($http, $location, RailsEnv, F
 
     @defaultReport: (hash) -> ErrorReporter.report(hash, "Something went wrong! We've been notified.")
     @fullReport: (res, context, hash, msg) ->
-      ErrorReporter.report _.extend(hash, { msg: res.message, context: context, rails_controller: res.controller }), msg
+      ErrorReporter.report _.extend(hash, { msg: res.message, code: res.code, context: context, rails_controller: res.controller }), msg
 
     @defaultFull: (res, context, hash) -> ErrorReporter.fullReport(res, context, hash, "Something went wrong! We've been notified.")
 
