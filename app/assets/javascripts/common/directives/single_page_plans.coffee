@@ -474,6 +474,11 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
 
       s._objectClasses = { "Item": Item }
 
+      # GEOCODING
+
+      # $http.jsonp('http://api.geonames.org/citiesJSON?country=' + s.nearbyQuery + '&username=planit&style=full&callback=JSON_CALLBACK')
+      #   .success((response) ->
+
 
       # META
 

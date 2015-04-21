@@ -54,6 +54,7 @@ gem "geocoder"
 gem "carmen"
 gem "httparty"
 gem "timezone"
+gem "geonames_api"
 
 # security
 gem "devise"
