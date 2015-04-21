@@ -16,9 +16,9 @@
             .simple-entry-form-section{ style: "#{'display: none' if !@resource}" }
               %i.fa.fa-envelope.simple-form-icon
               = f.input :email, required: true, disabled: true, placeholder: ( @resource.email if @resource )
-            .simple-entry-form-section
+            .simple-entry-form-section#new-password
               %i.fa.fa-key.simple-form-icon
-              = f.input :password, required: true, autofocus: true, placeholder: 'New password'
+              = f.input :password, required: true, autofocus: true, placeholder: 'New password', id: 'new-password'
             .simple-entry-form-section
               %i.fa.fa-key.simple-form-icon
               = f.input :password_confirmation, required: true, placeholder: 'Confirm Password'

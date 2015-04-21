@@ -9,9 +9,10 @@ class UserMailer < BaseMailer
     roadie_mail(to: user.email, subject: "Thanks for Signing up for Planit Beta!")
   end
 
-  def welcome_invited(user)
+  def welcome_invited(user, raw_reset_token)
     include_inline_images
     @user = user
+    @token = raw_reset_token
     roadie_mail(to: user.email, subject: "Welcome to Planit Beta!")
   end
 

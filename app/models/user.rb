@@ -63,14 +63,20 @@ class User < BaseModel
   # INVITATION, STATUS
 
   def save_as(status, new_password=Devise.friendly_token.first(8))
-    password = new_password if !self.encrypted_password.present?
+    is_new = !self.encrypted_password.present?
+    password = new_password if is_new
+    was_member = member?
+
+    raw, hashed = Devise.token_generator.generate(User, :reset_password_token)
+
     new_attrs = { role: status }.merge({
       password: password, password_confirmation: password, 
-      reset_password_token: password, # set temp passcode as reset token
-      sign_in_count: (0 if status == :member && status.to_s != role) # reset signincount if upgrading
+      reset_password_token: hashed,
+      reset_password_sent_at: Time.now
     }.to_sh.reject_val(&:nil?))
-    update_attributes( new_attrs )
-    notify_signup() if self.persisted?
+    update_attributes!( new_attrs )
+
+    notify_signup(raw) if self.persisted? && !was_member || is_new
     return self
   end
 
@@ -83,7 +89,7 @@ class User < BaseModel
   end
 
   def auto_signin_token
-    g_token(attrs: [:email, :id], other: Env.auto_signin_token_salt)
+    g_token(attrs: [:email, :id], other: "#{Env.auto_signin_token_salt}#{encrypted_password.try(:first, 5)}")
   end
 
   # USER ACTIVITY
@@ -96,16 +102,16 @@ class User < BaseModel
 
   private
 
-  def notify_signup()
+  def notify_signup(raw_reset_token)
     if pending?
       OneTimeTask.execute( { action: "WaitlistUser", target: self } ) do
-        UserMailer.welcome_waitlist(self).deliver_now
-        AdminMailer.notify_of_signup(self).deliver_now
+        UserMailer.welcome_waitlist(self, raw_reset_token).deliver_later
+        AdminMailer.notify_of_signup(self).deliver_later
       end
     elsif member?
       OneTimeTask.execute( { action: "InviteUser", target: self } ) do
-        UserMailer.welcome_invited(self).deliver_now
-        AdminMailer.notify_of_signup(self).deliver_now
+        UserMailer.welcome_invited(self, raw_reset_token).deliver_later
+        AdminMailer.notify_of_signup(self).deliver_later
       end
     end
   end

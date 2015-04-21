@@ -3,14 +3,11 @@
   = """ We've been building a home for all the places you love.  Save your favorite haunts, your wanderlist to-do's, and your friends' recommendations - all with one click.  Curate, filter, and share back with friends and family in a plug-and-play format they can easily save and personalize.  Your data will be downloadable, exportable, and available across the web and on your smartphone.  For now, get started by: """.html_safe
   %ul
     %li
-      - if @user.reset_password_token && @user.sign_in_count == 0
-        = link_to "Signing in", new_user_session_url + @user.tokened_email
-        = "with your temporary password ["
-        %span.password= @user.reset_password_token
-        = "]"
+      - if @user.reset_password_token && @token.present? && @user.sign_in_count == 0
+        = link_to "Signing in", edit_password_url(@user, reset_password_token: @token) , class: 'invite-link'
       - else
-        = link_to "Signing in", new_user_session_url
-        = "to your account"
+        = link_to "Signing in", new_user_session_url, class: 'invite-link'
+      to your account
     %li
       = "Installing Planit's"
       = link_to "in-browser save button", button_url
