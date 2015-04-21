@@ -8,59 +8,6 @@
     .fa.fa-arrow-circle-left{ style: "padding-right: 10px; padding-left: 3px"} 
     Exit Print View
 
-  // HEADER
-
-  / = render 'print_header'
-
-  // SECTION BY SECTION
-  - locale_level = 'region'
-  - locales = @plan.items.with_places.includes( mark: :place ).map{ |i| i.send( locale_level ) }.uniq
-  - locales.each_with_index do |locale, locale_index|
-    .print-section-wrapper{ ng_repeat: "locale in locales" }
-      .print-locale-name {{ locale }}
-        .print-locale-logo= image_tag "logo_only_black.png", alt: 'Planit'
-      - items_in_locale = @plan.items.with_places.includes( :notes ).select{ |i| i.send( locale_level ) == locale }.sort_by{ |i| i.mark.place.name }.sort_by{ |i| i.mark.place.meta_category }
-      - place_ids = items_in_locale.map{ |i| i.mark.place_id }
-      .print-locale-wrapper.like-container{ ng_controller: 'PrintSectionCtrl' }
-        .print-locale-map
-          %print_map.print-locale-map-canvas{ place_ids: "#{ place_ids }", user_id: current_user.id, map_index: "#{ locale_index }" }
-        - item_index = 0
-        - categories = items_in_locale.map{ |i| i.meta_category }.uniq
-        - categories.each_with_index do |category, category_index|
-          .print-category-wrapper
-            - items_in_category_in_locale = items_in_locale.select{ |i| i.meta_category == category }
-            .print-category-name
-              %i{ class: items_in_category_in_locale.first.meta_icon }
-              %b= category
-            - items_in_category_in_locale.each do |item|
-              - zoom = 16
-              - static_item_map = "http://staticmap.openstreetmap.de/staticmap.php?center=#{ item.coordinate(',') }&zoom=#{ zoom }&size=130x130&maptype=osmarenderer"
-              - item_index = item_index + 1
-              .print-item-wrapper
-                .print-item-info
-                  .print-item-number= item_index
-                  .print-item-title= item.name
-                  - item.names.delete(item.name)
-                  - if item.names.length
-                    .print-item-subtitle
-                      = item.names.join(', ')
-                  - if item.categories.length
-                    .print-item-categories= item.categories.join(', ')
-                  .print-item-address
-                    .address-line= item.address
-                    .address-line= item.locale
-                    .address-line
-                      = link_to "https://maps.google.com?daddr=#{ item.coordinate(',') }" do
-                        %i.fa.fa-external-link
-                        Get Directions
-                  - if item.notes.length
-                    .print-item-notes
-                      - item.notes.each do |note|
-                        .note-line
-                          %b= note.source.name
-                          = note.body
-                  
-                .print-item-map-wrapper
-                  .print-item-map
-                    %img{ src: static_item_map }
-                    %i.fa.fa-dot-circle-o
+  // CONTROLS & PRINT CONTENT
+  %print_view_controller{ plan_id: "#{ @plan.id }" }
+  - include_templates( :print_view_controller ) 

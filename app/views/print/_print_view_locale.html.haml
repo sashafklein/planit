@@ -1,0 +1,11 @@
+.print-view-locale
+
+  .print-locale-wrapper.like-container
+    .print-locale-map
+      %print_map.print-locale-map-canvas{ items: 'items', locale_level: 'localeLevel', locale: 'locale', user_id: current_user.id }
+    .print-category-wrapper{ ng_repeat: 'category in categories( localeItems( locale ) )' }
+      .print-category-name
+        %i{ class: "metaIcon( category, localeItems( locale ) )" }
+        %b {{ category }}
+      .print-item-wrapper{ ng_repeat: 'item in categoryItems( category, localeItems( locale ) )' }
+        = render 'print/print_view_item'

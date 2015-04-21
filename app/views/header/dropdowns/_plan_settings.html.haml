@@ -31,7 +31,7 @@
   %li.planit-dropdown-menu.disabled
     %i.planit-dropdown-menu-icon.fa.fa-file-pdf-o
     Download PDF
-  = link_to print_plan_path( id: params[:plan] ), target: '_self' do
+  %a{ ng_href: "{{printPath}}", target: '_self' }
     %li.planit-dropdown-menu
       %i.planit-dropdown-menu-icon.fa.fa-print
       Print this Guide

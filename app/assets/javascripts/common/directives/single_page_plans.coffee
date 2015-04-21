@@ -120,6 +120,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
         s.getListItems()
         s.listQuery = list.name
         s.kmlPath = "/api/v1/plans/#{ list.id }/kml"
+        s.printPath = "/plans/#{ list.id }/print"
 
       s.getListItems = ->
         return unless s.list?

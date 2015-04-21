@@ -26,6 +26,49 @@ a.exit-view
 
   font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
 
+  .print-view-controller-box
+    width: 750px
+    padding: 0 10px
+    height: 50px
+    background: #f06
+    color: #fff
+    line-height: 50px
+    font-size: 15px
+    select
+      font-size: 18px
+    .planit-button
+      margin-top: 8px
+      float: right
+
+  .print-header-wrapper
+
+    .print-plan-title
+      position: relative
+      display: block
+      width: 750px
+      background: #aaa
+      margin: 0
+      padding: 4px 10px
+      font-weight: bold
+      font-size: 24px
+      border-top: 2px #aaa solid
+      border-bottom: 2px #777 solid
+
+      .print-header-logo
+        float: right
+        img
+          height: 24px
+          width: 20px
+
+    .print-overview-map, .print-overview-map-canvas
+      width: 740px
+      height: 740px
+      display: block
+
+    .print-overview-map
+      background: #f06
+      margin: 5px
+
   .print-locale-name
     position: relative
     display: block
@@ -92,6 +135,9 @@ a.exit-view
       vertical-align: top
       width: 220px
       min-height: 130px
+      &.full-width
+        width: 359px
+        min-height: 50px
 
       .print-item-number
         position: absolute
@@ -102,10 +148,10 @@ a.exit-view
         text-align: center
         font-size: 14px
         line-height: 18px
-        background: #333
-        border-bottom: 1px solid #000
-        color: #fff
         border-radius: 3px
+        color: #fff !important
+        background: #333 !important
+        border-bottom: #000 solid 1px !important
 
       .print-item-title, .print-item-subtitle
         padding-left: 25px
@@ -130,6 +176,12 @@ a.exit-view
         margin: 4px 0
         a
           color: #33a
+
+      .print-item-hours
+        padding-left: 5px
+        span.day-name
+          text-transform: uppercase
+          font-size: 12px
 
     .print-item-map-wrapper
       float: right
@@ -166,11 +218,11 @@ a.exit-view
     
   @media print 
 
-    .exit-view, a.feedback-button
+    .exit-view, a.feedback-button, .print-view-controller-box
       visibility: hidden !important
       display: none !important
 
-    .print-section-wrapper, .print-cover-wrap, .print-tab-row, .print-day-overview-wrap
+    .print-section-wrapper, .print-cover-wrap, .print-tab-row, .print-day-overview-wrap, .print-header-wrapper
       display: table
       page-break-inside: avoid
 
