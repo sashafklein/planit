@@ -1,8 +1,8 @@
 // PRINT SETTINGS
 
 body.plans-print
-  background: #fff
-  width: 750px
+  background: #fff !important
+  width: 750px !important
 
 a.exit-view
   position: fixed
@@ -46,13 +46,13 @@ a.exit-view
       position: relative
       display: block
       width: 750px
-      background: #aaa
       margin: 0
       padding: 4px 10px
       font-weight: bold
       font-size: 24px
-      border-top: 2px #aaa solid
-      border-bottom: 2px #777 solid
+      border-top: 2px #eee solid
+      border-bottom: 2px #ccc solid
+      background: #eee !important
 
       .print-header-logo
         float: right
@@ -73,13 +73,13 @@ a.exit-view
     position: relative
     display: block
     width: 750px
-    background: #aaa
     margin: 0
     padding: 4px 10px
     font-weight: bold
     font-size: 20px
-    border-top: 2px #aaa solid
-    border-bottom: 2px #777 solid
+    border-top: 2px #eee solid
+    border-bottom: 2px #ccc solid
+    background: #eee !important
 
     .print-locale-logo
       float: right
@@ -103,31 +103,33 @@ a.exit-view
       background: #f06
       margin: 5px
 
-  .print-category-wrapper 
-    float: left
-    vertical-align: top
-    position: relative
-    display: inline-block
-    width: 370px
-    margin: 0
+  .print-item-meta-band
+    height: 18px
+    line-height: 18px
+    font-size: 12px
+    width: 360px
+    margin-bottom: 8px
+    padding-left: 3px
 
-  .print-category-name
-    position: relative
-    display: inline-block
-    min-width: 360px
-    background: #bbb
-    margin: 5px
-    padding: 2px 4px
-    border-top: 2px #bbb solid
-    border-bottom: 2px #999 solid
+  .print-category-band
+    height: 22px
+    line-height: 22px
+    font-size: 15px
+    width: 740px
+    margin-bottom: 10px
+    padding-left: 5px
+    i
+      padding-right: 5px
+
+  .print-item-meta-band, .print-category-band
+    display: block
 
   .print-item-wrapper
     position: relative
     display: inline-block
     width: 360px
     margin: 5px
-    padding-bottom: 10px
-    border-bottom: 2px #777 solid
+    padding-bottom: 5px
 
     .print-item-info
       float: left
@@ -135,6 +137,7 @@ a.exit-view
       vertical-align: top
       width: 220px
       min-height: 130px
+      padding-left: 4px
       &.full-width
         width: 359px
         min-height: 50px
@@ -222,7 +225,7 @@ a.exit-view
       visibility: hidden !important
       display: none !important
 
-    .print-section-wrapper, .print-cover-wrap, .print-tab-row, .print-day-overview-wrap, .print-header-wrapper
+    .print-locale-map, .print-cover-wrap, .print-tab-row, .print-day-overview-wrap, .print-header-wrapper
       display: table
       page-break-inside: avoid
 

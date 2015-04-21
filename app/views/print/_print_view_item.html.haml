@@ -1,11 +1,13 @@
 .print-view-item
 
+  .print-item-meta-band.rainbow{ ng_class: 'metaClass( item.mark.place.meta_categories[0] )' }
+    %i{ class: '{{ item.mark.place.meta_icon }}' }
   .print-item-info{ ng_class: "{'full-width': detailLevel < 2}" }
     .print-item-number {{ item.symbol }}
     .print-item-title {{ item.mark.place.name }}
-    .print-item-subtitle{ ng_show: 'otherNames(item) && detailLevel > 0' }
-      {{ otherNames(item) }}
-    .print-item-categories{ ng_show: 'hasCategory(item) && detailLevel > 0' }
+    .print-item-subtitle{ ng_show: 'item.mark.place.altnames && detailLevel > 0' }
+      {{ item.mark.place.altnames.join(', ') }}
+    .print-item-categories{ ng_show: 'item.mark.place.categories.length && detailLevel > 0' }
       {{ item.mark.place.categories.join(', ') }}
     .print-item-address
       .address-line

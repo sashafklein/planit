@@ -118,6 +118,7 @@ module ActsLikePlace
 
   def complete!(delay: true)
     Completers::ExistingPlaceCompleter.new(self).complete!(delay: delay)
+  end
 
   def address
     [street_address, sublocality].compact.join(", ") || object.full_address
@@ -127,10 +128,10 @@ module ActsLikePlace
     ([(locality || subregion), (region || country)]).compact.join(", ")
   end
 
-  def other_names
-    all_names = names
-    all_names.delete name
-    return all_names
+  def altnames
+    altnames = names.dup
+    altnames.delete name
+    altnames.length ? altnames : nil
   end
 
   private

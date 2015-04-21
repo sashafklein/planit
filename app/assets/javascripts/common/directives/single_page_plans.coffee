@@ -305,7 +305,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
         return unless s.items
         s.itemsTypes = _.sortBy( _.uniq( _.map( s.items, (i) -> i.mark.place.meta_categories[0] ) ) , (i) -> return i )
         s.itemsTypes = s.itemsTypes.reverse() unless s.sortAscending
-        s.itemsFirstLetters = _.sortBy( _.uniq( _.map( s.items, (i) -> i.mark.place.names[0][0] ) ) , (i) -> return i )
+        s.itemsFirstLetters = _.sortBy( _.uniq( _.compact( _.map( s.items, (i) -> i.mark.place.names?[0]?[0] ) ) ) , (i) -> return i )
         s.itemsFirstLetters = s.itemsFirstLetters.reverse() unless s.sortAscending
         s.itemsRecent = _.sortBy( _.uniq( _.map( s.items, (i) -> i.updated_at_day ) ) , (i) -> return i )
         s.itemsRecent = s.itemsRecent.reverse() unless s.sortAscending
@@ -322,6 +322,21 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
       s.setCategoryAs = ( choice ) -> 
         if choice == s.categoryIs then s.sortAscending = !s.sortAscending else s.categoryIs = choice
         s.sortItems()
+
+      s.metaClass = ( meta_category ) -> 
+        colorClass = 'rainbow-print yellow' if meta_category == 'Area'
+        colorClass = 'rainbow-print green' if meta_category == 'See'
+        colorClass = 'rainbow-print bluegreen' if meta_category == 'Do'
+        colorClass = 'rainbow-print turqoise' if meta_category == 'Relax'
+        colorClass = 'rainbow-print blue' if meta_category == 'Stay'
+        colorClass = 'rainbow-print purple' if meta_category == 'Drink'
+        colorClass = 'rainbow-print magenta' if meta_category == 'Food'
+        colorClass = 'rainbow-print pink' if meta_category == 'Shop'
+        colorClass = 'rainbow-print orange' if meta_category == 'Help'
+        colorClass = 'rainbow-print gray' if meta_category == 'Other'
+        colorClass = 'rainbow-print gray' if meta_category == 'Transit'
+        colorClass = 'rainbow-print gray' if meta_category == 'Money'
+        colorClass ? colorClass : 'no-type'
 
       s.matchingItems = ( category ) ->
         if s.categoryIs == 'type' then matchingItems = _.filter( s.items, (i) -> i.mark.place.meta_categories?[0] == category )

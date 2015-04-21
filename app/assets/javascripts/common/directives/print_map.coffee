@@ -1,4 +1,4 @@
-angular.module("Common").directive 'printMap', (F, Place, User) ->
+angular.module("Common").directive 'printMap', (ErrorReporter) ->
 
   return {
     restrict: 'E'
@@ -78,23 +78,34 @@ angular.module("Common").directive 'printMap', (F, Place, User) ->
         # Numbering & Lettering
         clusterCount = 0
         markerCount = 0
+
+        s.markersOrClusterForLayer = ( layer, letterCount ) ->
+          layer._icon.innerHTML = layer._icon.innerHTML.replace("*", letterCount ) if layer._icon?.innerHTML
+          if layer._markers?.length
+            s.assignClusteredMarkers( layer, letterCount )
+          else if layer._childClusters?.length
+            _.forEach( layer._childClusters , (layer) ->
+              s.markersOrClusterForLayer( layer, letterCount )
+            )
+          else
+            ErrorReporter.report({ userId: s.userId, planId: s.planId, body: "Error sifting through clusters for cluster marker" })
+
+        s.assignClusteredMarkers = ( layer, letterCount ) ->
+          _.forEach( layer._markers, (marker) ->
+            _.map( _.filter( s.items, (i) -> i.id == marker.options.itemId ), (i) -> i.symbol = letterCount )
+          )
+
         _.forEach( s.clusterMarkers._featureGroup._layers, (layer) -> 
           if layer._markers?.length
             clusterCount++
             letterCount = String.fromCharCode( clusterCount + 96 ).toUpperCase()
-            _.forEach( layer._markers, (marker) ->
-              _.map( _.filter( s.items, (i) -> i.id == marker.options.itemId ), (i) -> i.symbol = letterCount )
-            )
+            s.assignClusteredMarkers( layer, letterCount )
             layer._icon.innerHTML = layer._icon.innerHTML.replace("*", letterCount )
           else if layer._childClusters?.length
             clusterCount++
             letterCount = String.fromCharCode( clusterCount + 96 ).toUpperCase()
-            # recursively comb through layers with _childClusters until arrive at one with _markers?.length
-            # then in that layer, 
-            # _.forEach( layer._markers, (marker) ->
-            #   _.map( _.filter( s.items, (i) -> i.id == marker.options.itemId ), (i) -> i.symbol = letterCount )
-            # )
-            layer._icon.innerHTML = layer._icon.innerHTML.replace("*", letterCount )            
+            s.markersOrClusterForLayer( layer, letterCount )
+            layer._icon.innerHTML = layer._icon.innerHTML.replace("*", letterCount )
           else
             markerCount++
             _.map( _.filter( s.items, (i) -> i.id == layer.options.itemId ), (i) -> i.symbol = markerCount )

@@ -11,7 +11,7 @@ class PlaceSerializer < BaseSerializer
               :menu, :mobile_menu, 
               :reservations, :reservations_link, :hours, 
 
-              :name, :image_url, :image_source, :address, :locale, :href, :meta_icon,
+              :name, :altnames, :image_url, :image_source, :address, :locale, :href, :meta_icon,
               :savers, :lovers, :visitors, :guides, :fs_href #, :mark
 
   delegate    :name,

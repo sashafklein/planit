@@ -1,4 +1,4 @@
-angular.module("Common").directive 'printViewController', (Plan, Item, Note, $timeout) ->
+angular.module("Common").directive 'printViewController', (Plan, Item, Note, ErrorReporter, QueryString, $timeout) ->
   return {
     restrict: 'E'
     replace: true
@@ -8,9 +8,11 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, $ti
 
     link: (s, e, a) ->
 
-      s.detailLevel = 2
+      s.detailLevel = parseInt( QueryString.get()['d'] ) || 2
       s.items = []
-      # s.places = []
+
+      s.changeDetail = ->
+        QueryString.modify({ d: s.detailLevel })
 
       s.getList = ->
         Plan.find( s.planId )
@@ -18,8 +20,7 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, $ti
             s.plan = Plan.generateFromJSON( response )
             s.getListItems()
           .error (response) ->
-            QueryString.modify({plan: null, near: null})
-            ErrorReporter.report({ context: "Tried looking up #{plan_id} plan, unsuccessful"})
+            ErrorReporter.report({ context: "Tried looking up plan number #{s.planId}, unsuccessful"})
       
       s.getListItems = ->
         Item.where({ plan_id: s.planId })
@@ -27,8 +28,8 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, $ti
             _.forEach response , (item, index) ->
               i = _.extend( Item.generateFromJSON( item ), { index: index, pane: 'list' } )
               s.items.push i
-              # s.places.push i.mark.place
             # s._getManifestItems()
+            $timeout(-> s.allItems = s.items )
             $timeout(-> s.initializeItemsNotes() )
             $timeout(-> s.initializeLocales() )
           .error (response) ->
@@ -36,14 +37,22 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, $ti
 
       # BY LOCALE
 
+      s.buildAndCompressLocaleList = ( level ) -> 
+        levelLocales = _.uniq( _.map( s.items, (i) -> i.mark.place[level] ) )
+        # hash = _.map( s.items, (i) -> { locale: i.mark.place[level], lat: i.mark.place.lat, lon: i.mark.place.lon } )
+        # combinedHash = {}
+        # # _.filter( hash, function(h) { 
+        # _.forEach( levelLocales, (l) ->
+        #   )
+
       s.initializeLocales = ->
-        s.sublocalityList = _.uniq( _.map( s.items, (i) -> i.mark.place.sublocality ) )
+        s.sublocalityList = s.buildAndCompressLocaleList( 'sublocality' )
         s.manySublocalities = if s.sublocalityList?.length > 1 then s.localeLevel = 'sublocality'; true else false
-        s.localityList = _.uniq( _.map( s.items, (i) -> i.mark.place.locality ) )
+        s.localityList = s.buildAndCompressLocaleList( 'locality' )
         s.manyLocalities = if s.localityList?.length > 1 then s.localeLevel = 'locality'; true else false
-        s.regionList = _.uniq( _.map( s.items, (i) -> i.mark.place.region ) )
+        s.regionList = s.buildAndCompressLocaleList( 'region' )
         s.manyRegions = if s.regionList?.length > 1 then s.localeLevel = 'region'; true else false
-        s.countryList = _.uniq( _.map( s.items, (i) -> i.mark.place.country ) )
+        s.countryList = s.buildAndCompressLocaleList( 'country' )
         s.manyCountries = if s.countryList?.length > 1 then s.localeLevel = 'country'; true else false
         s.setLocalesByLevel()
       s.setLocalesByLevel = ->
@@ -78,7 +87,21 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, $ti
 
       # ITEM FEATURES
 
-      s.metaIcon = ( meta_category, items ) -> s.categoryItems( meta_category, items )[0].mark.place.meta_icon
+      s.metaClass = ( meta_category ) -> 
+        colorClass = 'yellow' if meta_category == 'Area'
+        colorClass = 'green' if meta_category == 'See'
+        colorClass = 'bluegreen' if meta_category == 'Do'
+        colorClass = 'turqoise' if meta_category == 'Relax'
+        colorClass = 'blue' if meta_category == 'Stay'
+        colorClass = 'purple' if meta_category == 'Drink'
+        colorClass = 'magenta' if meta_category == 'Food'
+        colorClass = 'pink' if meta_category == 'Shop'
+        colorClass = 'orange' if meta_category == 'Help'
+        colorClass = 'gray' if meta_category == 'Other'
+        colorClass = 'gray' if meta_category == 'Transit'
+        colorClass = 'gray' if meta_category == 'Money'
+        return colorClass
+
       s.hasCategories = (item) -> item.mark.place.categories.length
 
       s.zoom = 15
@@ -87,11 +110,6 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, $ti
       s.coord = (item) -> "#{item.mark.place.lat},#{item.mark.place.lon}"
 
       s.hasNote = (item) -> item?.note?.length
-
-      s.otherNames = (item) -> 
-        if item.mark.place.names.length > 1
-          item.mark.place.names.shift()
-          item.mark.place.names.join(', ')
 
       s.hours = (item, day) -> 
         if day

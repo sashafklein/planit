@@ -23,6 +23,29 @@ body
   background-size: cover
   background-attachment: fixed
 
+.rainbow
+  color: #fff !important
+  &.turqoise
+    background: #78c5d6 !important
+  &.blue
+    background: #459ba8 !important
+  &.bluegreen
+    background: #79c267 !important
+  &.green
+    background: #c5d647 !important
+  &.yellow
+    background: #f5d63d !important
+  &.orange
+    background: #f28c33 !important
+  &.pink
+    background: #e868a2 !important
+  &.magenta
+    background: #bf62a6 !important
+  &.purple
+    background: #a21cbf !important
+  &.gray
+    background: #bdbdbd !important
+
 .ng-cloak
   display: none
   
@@ -1045,3 +1068,32 @@ hr.divider
     display: none
     &.inline
       display: none
+
+@media print 
+
+  .top-menu-container, .side-menu-container, .search-and-filter-wrap
+    visibility: hidden !important
+    display: none !important
+
+  .rainbow-print
+    color: #fff !important
+    &.turqoise
+      background: #78c5d6 !important
+    &.blue
+      background: #459ba8 !important
+    &.bluegreen
+      background: #79c267 !important
+    &.green
+      background: #c5d647 !important
+    &.yellow
+      background: #f5d63d !important
+    &.orange
+      background: #f28c33 !important
+    &.pink
+      background: #e868a2 !important
+    &.magenta
+      background: #bf62a6 !important
+    &.purple
+      background: #a21cbf !important
+    &.gray
+      background: #bdbdbd !important

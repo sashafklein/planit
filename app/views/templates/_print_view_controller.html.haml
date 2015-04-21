@@ -12,7 +12,7 @@
 
       = "&nbsp;".html_safe
       Level of Detail: 
-      %select{ ng_model: 'detailLevel', ng_disabled: '!isLoaded' }
+      %select{ ng_model: 'detailLevel', ng_disabled: '!isLoaded', ng_change: "changeDetail()" }
         %option{ value: 2 } High
         %option{ value: 1 } Medium
         %option{ value: 0 } Low
