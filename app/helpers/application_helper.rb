@@ -99,6 +99,10 @@ module ApplicationHelper
     !Rails.env.test? || ENV['RENDER_JS']
   end
 
+  def mapquest_key
+    "Fmjtd%7Cluu82qu1nd%2Cb5%3Do5-94y2qw"
+  end
+
   private
 
   # DATE-BASED LISTS

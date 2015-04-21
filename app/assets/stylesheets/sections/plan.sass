@@ -1,6 +1,10 @@
 #show-plan-page, #new-plan-page, #plan-and-list-page
   height: auto
 
+  .print-title
+    display: none
+    visibility: hidden
+
   .planbox-wrapper
     user-select: none
 
@@ -330,7 +334,6 @@
     right: 3px
     height: 69px
     width: 50%
-    border-left: 1px solid gray(80)
     textarea
       resize: none
       padding: 5px
@@ -671,3 +674,32 @@
       transition: 0.2s ease all
       &:hover
         color: #f06
+
+  @media print 
+
+    .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page, .minimize-maximize-addbox, .view-and-edit-mode, .sort-items-by, .item-actions
+      visibility: hidden !important
+      display: none !important
+
+    .band.spaced-xxx
+      padding: 15px 0
+
+    .print-title
+      display: block !important
+      visibility: visible !important
+      text-align: center
+      font-size: 25px
+      font-weight: bold
+
+    .list-item-notes textarea
+      border: none !important
+      background: #fff !important
+
+    li.items-organized-by
+      height: 35px
+      line-height: 35px
+      margin: 20px 0
+      padding-left: 15px
+      &.no-type
+        background: #eee !important
+        color: #000 !important

@@ -11,7 +11,7 @@ class PlaceSerializer < BaseSerializer
               :menu, :mobile_menu, 
               :reservations, :reservations_link, :hours, 
 
-              :name, :image_url, :image_source, :address, :locale, :href, :meta_icon,
+              :name, :altnames, :image_url, :image_source, :address, :locale, :href, :meta_icon,
               :savers, :lovers, :visitors, :guides, :fs_href #, :mark
 
   delegate    :name,
@@ -31,14 +31,6 @@ class PlaceSerializer < BaseSerializer
 
   def image_source
     image.try(:source)
-  end
-
-  def address
-    constructed_full_address || object.full_address
-  end
-
-  def locale
-    constructed_locale
   end
 
   def href
@@ -75,14 +67,5 @@ class PlaceSerializer < BaseSerializer
   def image
     images.where.not(url: nil).first
   end
-
-  def constructed_full_address
-    [street_address, sublocality].compact.join(", ")
-  end
-
-  def constructed_locale
-    ([(locality || subregion), (region || country)]).compact.join(", ")
-  end
-
 
 end

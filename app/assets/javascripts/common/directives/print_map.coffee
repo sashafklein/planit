@@ -1,4 +1,4 @@
-angular.module("Common").directive 'printMap', (MapOptions, F, Place, User) ->
+angular.module("Common").directive 'printMap', (ErrorReporter) ->
 
   return {
     restrict: 'E'
@@ -6,68 +6,112 @@ angular.module("Common").directive 'printMap', (MapOptions, F, Place, User) ->
     replace: true
     template: "<div class='ng-map-div'><div ng_transclude=true></div></div>"
     scope:
-      placeIds: '@'
+      items: '='
+      locale: '='
+      localeLevel: '='
       userId: '@'
       zoomControl: '@'
 
-    link: (scope, element) ->
-      scope.placeIds = JSON.parse(scope.placeIds)
-      Place.where({ id: scope.placeIds })
-        .success (places) ->
-          scope.places = Place.generateFromJSON(places)
-          scope.drawMap(scope, element)
-        .error (response) ->
-          console.log("Failed to grab places information!")
-          console.log response
+    link: (s, element) ->
 
-      scope.drawMap = (scope, elem) ->
+      s.drawMap = (s, elem) ->
 
         scrollWheelZoom = false
         doubleClickZoom = true
-        zoomControl = scope.zoomControl || false
+        zoomControl = s.zoomControl || false
         minZoom = 1
-        maxZoom = 18
+        maxZoom = 12 
 
-        id = "main_map"
+        id = "main_map_#{ Math.floor((Math.random() * 10000) + 1) }"
         elem.attr('id', id)
 
-        scope.map = L.map(id, { scrollWheelZoom: scrollWheelZoom, doubleClickZoom: doubleClickZoom, zoomControl: zoomControl, minZoom: minZoom, maxZoom: maxZoom } )
+        s.map = L.map( id, { scrollWheelZoom: scrollWheelZoom, doubleClickZoom: doubleClickZoom, zoomControl: zoomControl, minZoom: minZoom, maxZoom: maxZoom } )
         
         L.tileLayer("https://otile#{ Math.floor(Math.random() * (4 - 1 + 1)) + 1 }-s.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg",
           attribution: "&copy; <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a>"
-        ).addTo(scope.map)
+        ).addTo(s.map)
 
-        place_coordinates = []
+        placeCoordinates = []
+        if s.localeLevel == 'sublocality' then s.mapItems = _.filter( s.items, (i) -> i.mark.place.sublocality == s.locale )
+        if s.localeLevel == 'locality' then s.mapItems = _.filter( s.items, (i) -> i.mark.place.locality == s.locale )
+        if s.localeLevel == 'region' then s.mapItems = _.filter( s.items, (i) -> i.mark.place.region == s.locale )
+        if s.localeLevel == 'country' then s.mapItems = _.filter( s.items, (i) -> i.mark.place.country == s.locale )
 
         # Primary Pins in Clusters if Plan, WorldView
-        clusterMarkers = new L.MarkerClusterGroup({
+        s.clusterMarkers = new L.MarkerClusterGroup({
+          disableClusteringAtZoom: 13,
+          spiderfyOnMaxZoom: true,
           maxClusterRadius: 80,
           iconCreateFunction: (cluster) ->
-            markers = cluster.getAllChildMarkers()
-            L.divIcon
-              html: "<span class='cluster-map-icon-tab'>#{markers.length} pins</span>"
-              className: "cluster-map-div-container"
-          showCoverageOnHover: false
+            L.divIcon( 
+              className: "cluster-map-div-container",
+              html: "<div class='cluster-map-icon-tab xsm'>*</div>",
+              iconSize: new L.Point(18,18),
+              iconAnchor: [9,9]
+            )
+          showCoverageOnHover: false,
         })
         i = 0
-        while i < scope.places.length
-          a = scope.places[i]
-          place_coordinates.push [a.lat,a.lon]
-          clusterMarker = L.marker(new L.LatLng(a.lat, a.lon), {
+        while i < s.mapItems.length
+          item = s.mapItems[i]
+          placeCoordinates.push [item.mark.place.lat,item.mark.place.lon]
+          clusterMarker = L.marker(new L.LatLng(item.mark.place.lat, item.mark.place.lon), {
             icon: L.divIcon({
-              className: 'default-map-div-icon',
-              html: "<span class='default-map-icon-tab'><img src='/assets/map_icon_tip_red.png'>#{catIconFor(a.metacategories)}</span>",
+              className: 'default-map-div-icon xsm',
+              html: "<div class='default-map-icon-tab xsm highlighted' id='print_item_#{item.id}'>*</div>",
               iconSize: null,
-              title: a.names[0],
-              alt: a.names[0],
-            })
-          }).bindPopup("<a href='/places/#{a.id}' target='_self'>#{a.names[0]}</a>", {offset: new L.Point(0,8)})
-          clusterMarkers.addLayer clusterMarker
+            }),
+            title: item.mark.place.name,
+            alt: item.mark.place.name,
+            itemId: item.id,
+          }).bindPopup("#{item.mark.place.name}", {offset: new L.Point(0,0)})
+          s.clusterMarkers.addLayer clusterMarker
           i++
-        scope.map.addLayer(clusterMarkers)
+        s.map.addLayer(s.clusterMarkers)
 
-        scope.bounds = new L.LatLngBounds(place_coordinates)
-        scope.map.fitBounds(scope.bounds, { padding: [25, 25] } )
+        s.bounds = new L.LatLngBounds(placeCoordinates)
+        s.map.fitBounds(s.bounds, { padding: [25, 25] } )
         showAttribution = false
+
+        window.pm = s
+
+        # Numbering & Lettering
+        clusterCount = 0
+        markerCount = 0
+
+        s.markersOrClusterForLayer = ( layer, letterCount ) ->
+          layer._icon.innerHTML = layer._icon.innerHTML.replace("*", letterCount ) if layer._icon?.innerHTML
+          if layer._markers?.length
+            s.assignClusteredMarkers( layer, letterCount )
+          else if layer._childClusters?.length
+            _.forEach( layer._childClusters , (layer) ->
+              s.markersOrClusterForLayer( layer, letterCount )
+            )
+          else
+            ErrorReporter.report({ userId: s.userId, planId: s.planId, body: "Error sifting through clusters for cluster marker" })
+
+        s.assignClusteredMarkers = ( layer, letterCount ) ->
+          _.forEach( layer._markers, (marker) ->
+            _.map( _.filter( s.items, (i) -> i.id == marker.options.itemId ), (i) -> i.symbol = letterCount )
+          )
+
+        _.forEach( s.clusterMarkers._featureGroup._layers, (layer) -> 
+          if layer._markers?.length
+            clusterCount++
+            letterCount = String.fromCharCode( clusterCount + 96 ).toUpperCase()
+            s.assignClusteredMarkers( layer, letterCount )
+            layer._icon.innerHTML = layer._icon.innerHTML.replace("*", letterCount )
+          else if layer._childClusters?.length
+            clusterCount++
+            letterCount = String.fromCharCode( clusterCount + 96 ).toUpperCase()
+            s.markersOrClusterForLayer( layer, letterCount )
+            layer._icon.innerHTML = layer._icon.innerHTML.replace("*", letterCount )
+          else
+            markerCount++
+            _.map( _.filter( s.items, (i) -> i.id == layer.options.itemId ), (i) -> i.symbol = markerCount )
+            layer._icon.innerHTML = layer._icon.innerHTML.replace("*", markerCount )
+        )
+
+      s.drawMap( s, element )
 
   }

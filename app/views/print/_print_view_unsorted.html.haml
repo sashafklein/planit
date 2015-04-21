@@ -1,0 +1,14 @@
+.print-view-unsorted
+
+  .print-header-wrapper
+    .print-plan-title
+      = @plan.name
+      .print-header-logo= image_tag "logo_only_black.png", alt: 'Planit'
+    .print-overview-map{ ng_show: 'locales.length > 1 && detailLevel > 1' }
+      %print_overview_map.print-overview-map-canvas{ items: 'items', user_id: current_user.id }
+  .print-section-wrapper{ ng_repeat: "locale in locales" }
+    .print-locale-name
+      {{ locale }}
+      = "&nbsp;".html_safe
+      .print-locale-logo= image_tag "logo_only_black.png", alt: 'Planit'
+    = render 'print/print_view_locale'

@@ -31,9 +31,10 @@
   %li.planit-dropdown-menu.disabled
     %i.planit-dropdown-menu-icon.fa.fa-file-pdf-o
     Download PDF
-  %li.planit-dropdown-menu.disabled
-    %i.planit-dropdown-menu-icon.fa.fa-print
-    Print this Guide
+  %a{ ng_href: "{{printPath}}", target: '_self' }
+    %li.planit-dropdown-menu
+      %i.planit-dropdown-menu-icon.fa.fa-print
+      Print this Guide
   %li.divider
   %a{ ng_href: '{{list.href}}/copy', target: '_self' }
     %li.planit-dropdown-menu

@@ -1,0 +1,37 @@
+.print-view-item
+
+  .print-item-meta-band.rainbow{ ng_class: 'metaClass( item.mark.place.meta_categories[0] )' }
+    %i{ class: '{{ item.mark.place.meta_icon }}' }
+  .print-item-info{ ng_class: "{'full-width': detailLevel < 2}" }
+    .print-item-number {{ item.symbol }}
+    .print-item-title {{ item.mark.place.name }}
+    .print-item-subtitle{ ng_show: 'item.mark.place.altnames && detailLevel > 0' }
+      {{ item.mark.place.altnames.join(', ') }}
+    .print-item-categories{ ng_show: 'item.mark.place.categories.length && detailLevel > 0' }
+      {{ item.mark.place.categories.join(', ') }}
+    .print-item-address
+      .address-line
+        {{ item.mark.place.address }}
+        %a{ ng_href: 'directionsLink(item)', ng_show: "detailLevel < 2" }
+          = "&nbsp;".html_safe
+          %i.fa.fa-external-link
+      .address-line{ ng_show: "detailLevel > 1" } {{ item.mark.place.locale }}
+      %a.address-line{ ng_show: "detailLevel > 1", ng_href: 'directionsLink(item)' }
+        %i.fa.fa-external-link
+        Get Directions
+    .print-item-extra-info{ ng_show: "detailLevel > 1" }
+      .extra-info-line {{ item.mark.place.phones.join(' | ') }}
+      .extra-info-line {{ item.mark.place.website }}
+    .print-item-hours{ ng_show: 'item.mark.place.hours' }
+      .hours-info-line{{ ng_show: "detailLevel == 1" }} {{ hours( item ) }}
+      .hours-info-line{{ ng_show: "detailLevel > 1", ng_repeat: "day in ['sun','mon','tue','wed','thu','fri','sat']" }} 
+        {{ hours( item, day ) }}
+    .print-item-notes{ ng_show: 'hasNote(item)' }                  
+      .note-line
+        %b= @plan.user.name
+        {{ item.note }}
+    
+  .print-item-map-wrapper{ ng_show: "detailLevel > 1" }
+    .print-item-map
+      %img{ ng_src: '{{ staticMap(item) }}' }
+      %i.fa.fa-dot-circle-o

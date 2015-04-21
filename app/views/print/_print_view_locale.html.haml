@@ -1,0 +1,12 @@
+.print-view-locale
+
+  .print-locale-wrapper.like-container
+    .print-locale-map
+      %print_map.print-locale-map-canvas{ items: 'items', locale_level: 'localeLevel', locale: 'locale', user_id: current_user.id }
+    .print-category-wrapper{ ng_repeat_start: 'category in categories( localeItems( locale ) )' }
+      / .print-category-band.rainbow{ ng_show: 'detailLevel == -1', ng_class: 'metaClass( categoryItems( category, localeItems( locale ) )[0].mark.place.meta_categories[0] )' }
+      /   %i{ ng_class: 'categoryItems( category, localeItems( locale ) )[0].mark.place.meta_icon' }
+      /   %b {{ category }}
+    .print-item-wrapper{ ng_repeat: 'item in categoryItems( category, localeItems( locale ) )' }
+      = render 'print/print_view_item'
+    .ng-close-div{ ng_repeat_end: '' }

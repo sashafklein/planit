@@ -23,6 +23,29 @@ body
   background-size: cover
   background-attachment: fixed
 
+.rainbow
+  color: #fff !important
+  &.turqoise
+    background: #78c5d6 !important
+  &.blue
+    background: #459ba8 !important
+  &.bluegreen
+    background: #79c267 !important
+  &.green
+    background: #c5d647 !important
+  &.yellow
+    background: #f5d63d !important
+  &.orange
+    background: #f28c33 !important
+  &.pink
+    background: #e868a2 !important
+  &.magenta
+    background: #bf62a6 !important
+  &.purple
+    background: #a21cbf !important
+  &.gray
+    background: #bdbdbd !important
+
 .ng-cloak
   display: none
   
@@ -93,6 +116,8 @@ a.linky
   -moz-background-size: cover
   -o-background-size: cover
   background-size: cover
+  &.no-fit
+    background-size: 100% 100%
 
 .centering-box
   position: relative
@@ -658,24 +683,6 @@ a.feedback-button, a.feedback-button:hover
   -webkit-box-orient: vertical
   -moz-box-orient: vertical
 
-.exit-view
-  position: fixed
-  float: right
-  top: 15px
-  right: 15px
-  padding: 10px
-  background: rgb(0, 0, 0)
-  background: rgba(0, 0, 0, 0.7)
-  color: #fff
-  font-family: avenir,"Myriad W01", "Helvetica Neue", 'trebuchet ms'
-  font-size: 14px
-  z-index: 16777269
-  a
-    display: inline-block
-    color: #fff
-  &.active
-    background: #f60
-
 hr.divider
   display: block
   position: relative
@@ -1061,3 +1068,32 @@ hr.divider
     display: none
     &.inline
       display: none
+
+@media print 
+
+  .top-menu-container, .side-menu-container, .search-and-filter-wrap
+    visibility: hidden !important
+    display: none !important
+
+  .rainbow-print
+    color: #fff !important
+    &.turqoise
+      background: #78c5d6 !important
+    &.blue
+      background: #459ba8 !important
+    &.bluegreen
+      background: #79c267 !important
+    &.green
+      background: #c5d647 !important
+    &.yellow
+      background: #f5d63d !important
+    &.orange
+      background: #f28c33 !important
+    &.pink
+      background: #e868a2 !important
+    &.magenta
+      background: #bf62a6 !important
+    &.purple
+      background: #a21cbf !important
+    &.gray
+      background: #bdbdbd !important

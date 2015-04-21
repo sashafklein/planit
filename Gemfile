@@ -78,6 +78,8 @@ gem "yelp"
 
 # export
 gem "ruby_kml"
+gem "pdfkit"
+gem "wkhtmltopdf-binary"
 
 # unsure
 gem "flutie"

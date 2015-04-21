@@ -1,0 +1,22 @@
+%script{ type: 'text/ng-template', id: 'print_view_controller.html' }
+
+  .print-view-controller
+
+    .print-view-controller-box
+      Geographic Clustering: 
+      %select{ ng_model: 'localeLevel', ng_disabled: '!isLoaded', ng_change: "setLocalesByLevel()" }
+        %option{ value: 'country', ng_show: 'manyCountries' } Country
+        %option{ value: 'region', ng_show: 'manyRegions' } Region
+        %option{ value: 'locality', ng_show: 'manyLocalities' } City / Town
+        %option{ value: 'sublocality', ng_show: 'manySublocalities' } Neighborhood
+
+      = "&nbsp;".html_safe
+      Level of Detail: 
+      %select{ ng_model: 'detailLevel', ng_disabled: '!isLoaded', ng_change: "changeDetail()" }
+        %option{ value: 2 } High
+        %option{ value: 1 } Medium
+        %option{ value: 0 } Low
+
+      .planit-button{ ng_click: "printNow()", ng_class: "{'blue': isLoaded, 'disabled': !isLoaded}" } Print
+
+    = render 'print/print_view_unsorted'
