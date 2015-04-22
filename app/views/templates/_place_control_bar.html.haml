@@ -3,15 +3,12 @@
 
     .place-control.disabled{ ng_show: "!hasMarkFor()" }
       %i.fa.fa-book
-    %a.place-control.for-mark{ ng_show: "hasMarkFor() && !planId", add_places_to_plan_on_click: '[{{place.id}}]', success_function: "" }
-      %span.place-control-hint= "Add to Guide"
+    %a.place-control.for-mark{ ng_show: "hasMarkFor() && ( !planId || planId && !userOwnsPlan)", add_places_to_plan_on_click: '[{{place.id}}]', success_function: "" }
+      %span.place-control-hint= "Add to a Guide"
       %i.fa.fa-book
-    %a.place-control.for-mark{ ng_show: "hasMarkFor() && planId && !userOwnsPlan", add_places_to_plan_on_click: '[{{place.id}}]', success_function: "" }
-      %span.place-control-hint= "Add to Guide"
-      %i.fa.fa-book
-    %a.place-control.for-mark{ ng_show: "hasMarkFor() && planId && userOwnsPlan" }
-      %span.place-control-hint= "Edit Details"
-      %i.fa.fa-calendar
+    / %a.place-control{ ng_show: "hasMarkFor() && planId && userOwnsPlan", remove_item_on_click: '{{place.id}}', success_function: "removedPlace()" }
+    /   %span.place-control-hint= "Remove from Guide"
+    /   %i.fa.fa-book.neon
 
     .place-control.disabled{ ng_show: "!hasMarkFor()" }
       %i.fa.fa-pencil
@@ -45,11 +42,6 @@
     %a.place-control{ ng_show: "!hasMarkFor()", save_place_on_click: '{{place.id}}', success_function: "savedPlace()" }
       %span.place-control-hint= "Save"
       %i.fa.fa-bookmark
-    / %a.place-control{ ng_show: "hasMarkFor() && !userOwnsPlan", remove_place_on_click: '{{place.id}}', success_function: "removedPlace()" }
-    /   %span.place-control-hint= "Delete"
-    /   %i.fa.fa-trash
-    .place-control.disabled{ ng_show: "hasMarkFor()" }
+    %a.place-control{ ng_show: "hasMarkFor()", unsave_place_on_click: '{{place.id}}', success_function: "removedPlace()" }
+      %span.place-control-hint= "Unsave"
       %i.fa.fa-trash
-    / %a.place-control{ ng_show: "hasMarkFor() && userOwnsPlan", remove_item_on_click: '{{place.id}}', success_function: "removedPlace()" }
-    /   %span.place-control-hint= "Remove from Guide"
-    /   %i.fa.fa-trash

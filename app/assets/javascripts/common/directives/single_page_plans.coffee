@@ -1,4 +1,4 @@
-angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, Note, Foursquare, ErrorReporter, CurrentUser, QueryString, $filter, $timeout, $location, $q, Flash) ->
+angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, Note, Foursquare, ErrorReporter, CurrentUser, QueryString, Flash, $filter, $timeout, $location, $q, $http) ->
   return {
     restrict: 'E'
     replace: true
@@ -17,6 +17,15 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             s.setList( s.list )
             if locale = QueryString.get()['near']
               s.nearby = locale
+            # else if mapCenter = QueryString.get()['m']
+            #   ns = mapCenter.split(',')[0]
+            #   ew = mapCenter.split(',')[1] if mapCenter.split(',').length > 1
+            #   return unless ns && ew
+            #   geonamesQuery = "http://api.geonames.org/citiesJSON?north=#{ ns + 2 }&south=#{ ns - 2 }&east=#{ ew - 4 }&west=#{ ew + 4 }&username=planit&lang=en&style=full&callback=JSON_CALLBACK"
+            #   $http.jsonp(geonamesQuery)
+            #     .success (response) -> debugger
+            #     .error (response) -> debugger
+
           .error (response) ->
             QueryString.modify({plan: null, near: null})
             ErrorReporter.defaultFull( response, "SinglePagePlans top Plan.find", { plan_id: plan_id } )
@@ -135,7 +144,6 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             _.forEach response , (item, index) ->
               i = _.extend( Item.generateFromJSON( item ), { index: index, pane: 'list' } )
               s.items.push i
-              s.places.push i.mark.place
 
             s.isLoaded = true
 
@@ -275,27 +283,6 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
           this_textarea.blur() if !prior_li[0] && !prior_ul[0]
         return
 
-      # ITEM CONTROLS
-
-      s.fsOpen = (item, doIt) ->
-        return unless doIt and item.placeHref()
-        window.open(item.placeHref(), '_blank')
-        return
-
-      s.delete = (item) ->
-        return unless confirm("Delete this item from your list?")
-        item.destroy()
-          .success (response) ->
-            itemsIndices = _(s.items).filter( (i) -> i.id == response.id ).map('index').value()
-            manifestIndices = if s.manifestItems?.length then _(s.manifestItems).filter( (i) -> i.id == response.id ).map('index').value()
-            
-            delete list[item?.place()?.id] for list in _.compact([s.list, _.find(s.lists, (l) -> l.id == s.list.id)])
-
-            _.forEach(itemsIndices, (index) -> s.items.splice(index, 1) )
-            _.forEach(manifestIndices, (index) -> s.manifestItems.splice(index, 1) )
-          .error (response) ->
-            ErrorReporter.defaultFull( response, 'singlePagePlans delete(item)', { item_id: item.id })
-
 
       # LIST SORTING
 
@@ -376,25 +363,20 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
       s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
 
       s.addItem = (option) ->
-        $('.searching-mask').show()
         s.options = []
         s.placeName = null
 
         s.list.addItemFromPlaceData(option)
           .success (response) ->
-            $('.searching-mask').hide()
             new_item = _.extend( Item.generateFromJSON( response ), { index: s.items.length, pane: 'list', notesSearched: true } )
             if !_.find(s.items, (i) -> i.id == response.id )
               s.items.unshift new_item
-              s.places.unshift new_item.mark.place
               list.place_ids.unshift(i?place()?.id) for list in _.compact([s.list, _.find(s.lists, (l) -> l.id == s.list.id)])
-
             else
               Flash.warning("That place is already in your list!")
             QueryString.modify({m: null})
             if s.items?.length == 1 then s.initialSortItems() else s.sortItems()
           .error (response) ->
-            $('.searching-mask').hide()
             ErrorReporter.defaultFull( response, 'SinglePagePlans addItem', { option: JSON.stringify(option), plan_id: s.list.id })
 
       s.typeIcon = (meta_category) -> 
@@ -479,6 +461,49 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
       # $http.jsonp('http://api.geonames.org/citiesJSON?country=' + s.nearbyQuery + '&username=planit&style=full&callback=JSON_CALLBACK')
       #   .success((response) ->
 
+      # ITEM CONTROLS
+
+      s.fsOpen = (item, doIt) ->
+        return unless doIt and item.placeHref()
+        window.open(item.placeHref(), '_blank')
+        return
+
+      s.delete = (item) ->
+        return unless confirm("Delete this item from '#{s.list.name}'?")
+        place_id = item.mark.place_id
+        item.destroy()
+          .success (response) ->
+            itemsIndices = _(s.items).filter( (i) -> i.id == response.id ).map('index').value()
+            manifestIndices = if s.manifestItems?.length then _(s.manifestItems).filter( (i) -> i.id == response.id ).map('index').value()
+            delete list[item?.place()?.id] for list in _.compact([s.list, _.find(s.lists, (l) -> l.id == s.list.id)])
+            s.list.place_ids.splice( s.list.place_ids.indexOf( place_id ), 1) if s.list.place_ids.indexOf( place_id ) != -1
+            _.forEach(itemsIndices, (index) -> s.items.splice(index, 1) )
+            _.forEach(manifestIndices, (index) -> s.manifestItems.splice(index, 1) )
+            s.sortItems()
+            if confirm("Also delete from your saves?")
+              Mark.remove( place_id )
+                .success (response) -> Flash("Deleted")
+                .error (response) -> ErrorReporter.report({ place_id: place_id, user_id: currentUserId, context: "Inside singlePagePlans directive, deleting a mark" })
+          .error (response) ->
+            ErrorReporter.defaultFull( response, 'singlePagePlans delete(item)', { item_id: item.id })
+
+      s.ownerLoves = (item) -> _.includes( item.mark.place.lovers , s.list.user_id )
+      s.ownerVisited = (item) -> _.includes( item.mark.place.visitors , s.list.user_id )
+
+      s.currentUserSave = (item) -> _.filter( s.items, (i) -> i.id == item.id )[0].mark.place.savers.push s.currentUserId
+      s.currentUserUnsave = (item) -> _.filter( s.items, (i) -> i.id == item.id )[0].mark.place.savers.splice( _.filter( s.items, (i) -> i.id == item.id )[0].mark.place.savers.indexOf( s.currentUserId ), 1 )
+      s.currentUserSaved = (item) -> _.includes( item.mark.place.savers , s.currentUserId )
+
+      s.currentUserLove = (item) -> _.filter( s.items, (i) -> i.id == item.id )[0].mark.place.lovers.push s.currentUserId
+      s.currentUserUnlove = (item) -> _.filter( s.items, (i) -> i.id == item.id )[0].mark.place.lovers.splice( _.filter( s.items, (i) -> i.id == item.id )[0].mark.place.lovers.indexOf( s.currentUserId ), 1 )
+      s.currentUserLoves = (item) -> _.includes( item.mark.place.lovers , s.currentUserId )
+
+      s.currentUserBeen = (item) -> _.filter( s.items, (i) -> i.id == item.id )[0].mark.place.visitors.push s.currentUserId
+      s.currentUserUnbeen = (item) -> _.filter( s.items, (i) -> i.id == item.id )[0].mark.place.visitors.splice( _.filter( s.items, (i) -> i.id == item.id )[0].mark.place.visitors.indexOf( s.currentUserId ), 1 )
+      s.currentUserVisited = (item) -> _.includes( item.mark.place.visitors , s.currentUserId )
+
+      s.hovering = ( item ) -> s.hoveredId = item.id
+      s.unhovering = -> s.hoveredId = null
 
       # META
 

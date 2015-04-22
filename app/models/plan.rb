@@ -31,9 +31,9 @@ class Plan < BaseModel
 
   def add_item_from_place_data!(user, data)
     return unless place = Place.find_or_initialize(data)
-    marks = Mark.where(id: items.pluck(:mark_id))
 
-    return items.where(mark_id: marks.pluck(:id)).first if marks.pluck(:place_id).include?(place.id)
+    marks_for_place_on_plan = Mark.unscoped.where(id: items.pluck(:mark_id), place_id: place.id)
+    return marks_for_place_on_plan.items.first if marks_for_place_on_plan.try( :items ).present?
 
     place = place.validate_and_save!( data[:images] || [] ) unless place.persisted?
     place.background_complete!
@@ -41,7 +41,8 @@ class Plan < BaseModel
   end
 
   def add_with_place!(user, place)
-    mark = Mark.unscoped.where(user: user, place_id: place.id).first_or_create!
+    mark = Mark.unscoped.where(user: user, place_id: place.id).first_or_initialize
+    mark.update_attributes!(deleted: false)
     add_with_mark!(mark)
   end
 
