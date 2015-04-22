@@ -36,6 +36,6 @@ angular.module("Common").directive 'placeControlBar', (Mark, Modal, CurrentUser,
         if s.planId && s.userOwnsPlan && s.items
           s.place.guides.splice( s.place.guides.indexOf( s.planId ), 1 ) if s.place.guides.indexOf( s.planId ) != -1
           s.plan.place_ids.splice( s.plan.place_ids.indexOf( s.place.id ), 1 ) if s.plan.place_ids.indexOf( s.place.id ) != -1
-          s.items.splice( s.items.indexOf( _.filter( s.items, (i) -> i.mark.place.id == s.place.id ) )[0], 1 )
+          s.items.splice( s.items.indexOf( _.filter( s.items, (i) -> i.mark.place.id == s.place.id )[0] ), 1 )
 
   }

@@ -16,7 +16,6 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
       setNearbyFromCenter: '&'
 
     link: (s, elem) ->
-      s.items = s.firstItems
       s.loaded = false
       s.currentUserId = CurrentUser.id
       s.marker = new PlanitMarker(s)
@@ -30,7 +29,7 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
       s.maxBounds = [[-84,-400], [84,315]]
       s.centerAndZoom = QueryString.get()['m'] || null
       s.centerPoint = if s.centerAndZoom then { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) } else { lat: 0, lng: 0, zoom: 2 }
-      s.placesInView = s.clustersInView = []
+      s.placesInView = s.clustersInView = s.firstItems = []
       s.leaf = leafletData
       s.list = true
 
@@ -68,8 +67,10 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
                 s.marker.clusterPin(cluster, initial)
 
       s._getPlaces = ->
-        s.preFilterPlaces = _.map(s.items, (i) -> s.marker.primaryPin(i.mark.place) )
-        s._definePlaces()
+        s._setOnScope [ 'firstItems', 'places', 'preFilterPlaces' ], []
+        $timeout(-> s.firstItems = _.extend( [], s.items ) )
+        $timeout(-> s.preFilterPlaces = _.map( s.items, (i) -> s.marker.primaryPin(i.mark.place) ) )
+        $timeout(-> s._definePlaces() )
 
       # ON MAP MOVEMENT
 
@@ -113,7 +114,9 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
       # SET MAP DATA
 
       s._definePlaces = ->
-        s.places = s.preFilterPlaces
+        s.places = _.extend( [], s.preFilterPlaces ) # unless s.changedItems
+        leafletData.getLayers().then (l) ->
+          s.leafletLayers = l
         s._filterPlaces( s.recalculateInView )
         s._initiateCenterAndBounds()
 
@@ -136,7 +139,6 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
           ), 2000
 
       s._filterPlaces = (callback) -> 
-        s.places = s.preFilterPlaces
         # s.places = new PlaceFilterer( QueryString.get() ).returnFiltered( s.preFilterPlaces )
         $timeout(-> callback?() )
 
@@ -228,13 +230,14 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
           s._getPlaces()
           s.initialized = true
         else if s.initialized && s.showMap
-          if s.items != s.firstItems
-            s._getPlaces() 
+          unless _.isEqual( s.items, s.firstItems )
+            s.changedItems = true
+            s._getPlaces()
         else if s.initialized && !s.showMap
           s.resetMapContent() if !s.items?.length
 
       s.resetMapContent = ->
-        s._setOnScope [ 'items', 'places', 'preFilterPlaces', 'placesInView', 'clustersInView' ], []
+        s._setOnScope [ 'items', 'firstItems', 'places', 'preFilterPlaces', 'placesInView', 'clustersInView' ], []
         s._setOnScope [ 'currentLLZoom', 'currentBounds', 'centerAndZoom' ], null
         s.initialized = false
         s.centerPoint = { lat: 0, lng: 0, zoom: 2 }

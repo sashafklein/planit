@@ -1,6 +1,10 @@
 #show-plan-page, #new-plan-page, #plan-and-list-page
   height: auto
 
+  .initial-tutorial
+    .blur
+      opacity: 0
+
   .owner-opinions
     user-select: none
     position: absolute
@@ -120,7 +124,6 @@
       max-height: 400px
       background: #fff
       z-index: 10002
-
 
   // PLAN TOP-SECTION
   .single-page-plans
@@ -499,18 +502,17 @@
     padding: 3px 0
     vertical-align: middle
     min-width: 22px
-    &.center
-      padding: 14px 0
     &:hover, &.hovered
       background: gray(90)
       color: gray(50)
     .item-action-button
+      vertical-align: middle
       height: 18px
       line-height: 18px
       width: 18px
       font-size: 16px
       text-align: center
-      margin: 2px
+      margin: 2px auto
       i.action
         cursor: pointer
         transition: 0.2s ease all

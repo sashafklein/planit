@@ -7,12 +7,24 @@
     .container.centered
       .column{ ng_show: '!list && !hasLists()' }
         %strong.neon.large Start a List or Plan!
-        - if niko = User.find_by(slug: 'niko-klein')
-          - if tutorial_plan = niko.plans.order('created_at ASC').first
-            %p= " ( or test-drive #{link_to(tutorial_plan.name, copy_plan_path(tutorial_plan), class: 'linky neon')} )".html_safe
+        .tutorial-image
+          = image_tag "tutorial_plan_name.png"
+        %strong.neon.large
+          .tutorial-line Name your plan -- you can rename it at any time,
+          .tutorial-line but this is what friends & family will see
+          .tutorial-line when you share
       .column{ ng_show: 'list && !nearby' }
         %strong.neon.large Awesome!  Starting Where?
         %p Set a Location so You can Find Your Places
-      .column{ ng_show: 'list && nearby' }
+        = image_tag "tutorial_plan_nearby.png"
+        %strong.neon.large
+          .tutorial-line Where does your trip or list start?
+          .tutorial-line You can change your location at any time,
+          .tutorial-line we'll use it to find the places you search for
+      .column{ ng_show: 'list && nearby', ng_class: "{'blur': hasOptions()}" }
         %strong.neon.large Cool! Now Add Places to your List
         %p When You've Found one, Just Press "Enter" or Click on It to Add
+        = image_tag "tutorial_place_name.png"
+        %strong.neon.large
+          .tutorial-line Either search for specific places by name
+          .tutorial-line or by category, if you like

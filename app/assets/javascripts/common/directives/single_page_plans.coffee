@@ -1,4 +1,4 @@
-angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, Note, Foursquare, ErrorReporter, CurrentUser, QueryString, Flash, $filter, $timeout, $location, $q, $http) ->
+angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, Place, Note, Foursquare, ErrorReporter, CurrentUser, QueryString, Flash, $filter, $timeout, $location, $q, $http) ->
   return {
     restrict: 'E'
     replace: true
@@ -79,7 +79,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
           s.setList()
 
       s.resetList = -> 
-        s._setOnScope( [ 'list', 'listQuery', 'options', 'placeName', 'placeNearby', 'nearby', 'showMap'], null )
+        s._setOnScope( [ 'list', 'listQuery', 'options', 'placeName', 'placeNearby', 'nearby', 'showMap', 'qsNearby'], null )
         s._setOnScope( [ 'items', 'places'], [] )
         $timeout(-> $('#guide').focus() if $('#guide') )
         QueryString.modify({plan: null, near: null, m: null, f: null})
@@ -339,7 +339,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
 
       s._makeSearchRequest = ->
         if s.nearby?.length && s.placeName?.length
-          Foursquare.search(s.nearby, s.placeName)
+          Foursquare.search(( s.qsNearby || s.nearby ), s.placeName)
             .success (response) ->
               s.options = Place.generateFromJSON(response)
             .error (response) ->
@@ -347,8 +347,11 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
                 Flash.warning("We're having trouble finding '#{s.nearby}'")
                 s.forbiddenNearby.push s.nearby unless s.nearby == null
                 s.nearby = null
+                s.qsNearby = null
               else
                 ErrorReporter.fullSilent(response, 'SinglePagePlans s._makeSearchRequest', { near: s.nearby, query: s.placeName }) if response.message != "Insufficient search params"
+
+      s.hasOptions = -> s.options?.length>0
 
       s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
 
@@ -455,15 +458,14 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
         if s.qsNearby || ( !s.nearby?.length && !s.placeNearby?.length )
           lat = parseFloat( mapCenterSplit[0] )
           lon = parseFloat( mapCenterSplit[1] )
-          geonamesQuery = "http://api.geonames.org/citiesJSON?north=#{ lat + 0.75 }&south=#{ lat - 0.75 }&east=#{ lon + 1.25 }&west=#{ lon - 1.25 }&username=planit&lang=en&style=full&callback=JSON_CALLBACK"
+          geonamesQuery = "http://api.geonames.org/citiesJSON?north=#{ lat + 0.0075 }&south=#{ lat - 0.0075 }&east=#{ lon + 0.0125 }&west=#{ lon - 0.0125 }&username=planit&lang=en&style=full&callback=JSON_CALLBACK"
           $http.jsonp(geonamesQuery)
             .success (response) -> 
               cities = _.filter( response.geonames, (n) -> n.fclName == "city, village,..." )
-              console.log "success w/ #{_.map( cities, (c) -> c.name ).join(', ')}"
               return unless cities[0]
               if s.qsNearby || ( !s.nearby?.length && !s.placeNearby?.length )
-                s.nearby = "#{cities[0].name}, #{cities[0].countrycode}" 
-                s.qsNearby = true
+                s.nearby = "#{cities[0].name}" 
+                s.qsNearby = "#{lat},#{lon}"
             .error (response) -> ErrorReporter("Geonames Cities Query not working on SinglePagePlan")
 
 
@@ -476,7 +478,8 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
 
       s.delete = (item) ->
         return unless confirm("Delete this item from '#{s.list.name}'?")
-        place_id = item.mark.place_id
+        place_id = item.mark.place.id
+        place_name = item.mark.place.names[0]
         item.destroy()
           .success (response) ->
             itemsIndices = _(s.items).filter( (i) -> i.id == response.id ).map('index').value()
@@ -488,8 +491,8 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             s.sortItems()
             if confirm("Also delete from your saves?")
               Mark.remove( place_id )
-                .success (response) -> Flash("Deleted")
-                .error (response) -> ErrorReporter.report({ place_id: place_id, user_id: currentUserId, context: "Inside singlePagePlans directive, deleting a mark" })
+                .success (response) -> Flash.success("'#{place_name}' Deleted")
+                .error (response) -> ErrorReporter.report({ place_id: place_id, user_id: s.currentUserId, context: "Inside singlePagePlans directive, deleting a mark" })
           .error (response) ->
             ErrorReporter.defaultFull( response, 'singlePagePlans delete(item)', { item_id: item.id })
 

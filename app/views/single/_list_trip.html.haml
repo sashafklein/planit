@@ -56,7 +56,7 @@
                   .item-action-button.been-item
                     %i.action.fa.fa-check-square{ ng_show: '!currentUserVisited(item)', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserBeen(item)' }
                     %i.action.fa.fa-check-square.neon{ ng_show: 'currentUserVisited(item)', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnbeen(item)' }
-                .item-actions.center{ ng_show: '!userOwnsList', ng_class: "{'hovered': item.id == hoveredId}", ng_mouseover: 'hovering(item)', ng_mouseleave: 'unhovering()' }
+                .item-actions{ ng_show: '!userOwnsList', ng_class: "{'hovered': item.id == hoveredId}", ng_mouseover: 'hovering(item)', ng_mouseleave: 'unhovering()' }
                   .item-action-button.remove-item
                     %i.action.fa.fa-bookmark{ ng_show: '!currentUserSaved(item)', save_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserSave(item)' }
                     %i.action.fa.fa-trash{ ng_show: 'currentUserSaved(item)', unsave_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnsave(item)' }
