@@ -197,6 +197,8 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.sortAscending = true
       s.categoryIs = null
 
+      s.plansNoItems = -> s.lists?.length && !_.uniq( _.flatten( _.map( s.lists, (l) -> l.place_ids ) ) ).length
+
       s.hasItems = -> s.items?.length > 0
 
       # NEARBY
@@ -362,13 +364,18 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         s.list.addItemFromPlaceData(option)
           .success (response) ->
             new_item = _.extend( Item.generateFromJSON( response ), { index: s.items.length, pane: 'list', notesSearched: true } )
-            if !_.find(s.items, (i) -> i.id == response.id )
+            if !_.find(s.items, (i) -> i.mark?.place?.id == new_item.mark?.place?.id )
               s.items.unshift new_item
-              list.place_ids.unshift(i?place()?.id) for list in _.compact([s.list, _.find(s.lists, (l) -> l.id == s.list.id)])
+              for list in _.uniq( _.compact([s.list, _.find(s.lists, (l) -> l.id == s.list.id)]) )
+                list.place_ids.unshift( new_item.mark?.place.id ) if new_item?.mark?.place?.id
             else
               Flash.warning("That place is already in your list!")
             QueryString.modify({m: null})
-            if s.items?.length == 1 then s.initialSortItems() else s.sortItems()
+            if s.items?.length == 1
+              s.initialSortItems()
+              _.find(s.lists, (l) -> l.id == s.list.id).best_image = response.mark.place.images[0] if response?.mark?.place?.images?.length
+            else
+              s.sortItems()
           .error (response) ->
             ErrorReporter.defaultFull( response, 'SinglePagePlans addItem', { option: JSON.stringify(option), plan_id: s.list.id })
 
@@ -477,22 +484,24 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         return
 
       s.delete = (item) ->
-        return unless confirm("Delete this item from '#{s.list.name}'?")
-        place_id = item.mark.place.id
-        place_name = item.mark.place.names[0]
+        return unless confirm("Delete #{item.mark.place.name} from '#{s.list.name}'?")
+        return unless item?.mark?.place?.id
         item.destroy()
           .success (response) ->
-            itemsIndices = _(s.items).filter( (i) -> i.id == response.id ).map('index').value()
-            manifestIndices = if s.manifestItems?.length then _(s.manifestItems).filter( (i) -> i.id == response.id ).map('index').value()
-            delete list[item?.place()?.id] for list in _.compact([s.list, _.find(s.lists, (l) -> l.id == s.list.id)])
-            s.list.place_ids.splice( s.list.place_ids.indexOf( place_id ), 1) if s.list.place_ids.indexOf( place_id ) != -1
-            _.forEach(itemsIndices, (index) -> s.items.splice(index, 1) )
-            _.forEach(manifestIndices, (index) -> s.manifestItems.splice(index, 1) )
+            itemsWithPlace = _.filter( s.items, (i) -> i.mark.place.id == item.mark.place.id )
+            itemsIndices = _.map( itemsWithPlace, (i) -> s.items.indexOf(i) )
+            _.forEach(itemsIndices, (index) -> s.items.splice(index, 1) unless index == -1 )
+            # # # manifestIndices = if s.manifestItems?.length then _(s.manifestItems).filter( (i) -> i.mark?.place.id == response.mark?.place.id ).map('index').value()
+            # # _.forEach(manifestIndices, (index) -> s.manifestItems.splice(index, 1) unless index == -1 )
+            for list in _.uniq( _.compact([s.list, _.find(s.lists, (l) -> l.id == s.list.id)]) )
+              placeIdIndex = list.place_ids.indexOf( item.mark.place.id )
+              if placeIdIndex != -1 then list.place_ids.splice( placeIdIndex, 1 )
+              list.best_image = null if s.items?.length == 0
             s.sortItems()
             if confirm("Also delete from your saves?")
-              Mark.remove( place_id )
-                .success (response) -> Flash.success("'#{place_name}' Deleted")
-                .error (response) -> ErrorReporter.report({ place_id: place_id, user_id: s.currentUserId, context: "Inside singlePagePlans directive, deleting a mark" })
+              Mark.remove( item.mark.place.id )
+                .success (response) -> Flash.success("'#{item.mark.place.names[0]}' Deleted")
+                .error (response) -> ErrorReporter.report({ place_id: item.mark.place.id, user_id: s.currentUserId, context: "Inside singlePagePlans directive, deleting a mark" })
           .error (response) ->
             ErrorReporter.defaultFull( response, 'singlePagePlans delete(item)', { item_id: item.id })
 

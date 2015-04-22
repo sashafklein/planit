@@ -42,7 +42,7 @@
           %span.chosen-input#chosen-nearby{ ng_click: 'resetNearby()' }
             %i.fa.fa-times
             {{ nearby }}
-          %input.real-input#place-name{ name: "place-name", type: 'text', placeholder: 'Add a Place (Name)', ng_model: 'placeName', ng_change: 'search()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)', ng_on_esc_key: "options = []" }
+          %input.real-input#place-name{ name: "place-name", type: 'text', placeholder: 'What do you want to add in {{ nearby }}?', ng_model: 'placeName', ng_change: 'search()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)', ng_on_esc_key: "options = []" }
 
         %ul.suggested-results{ ng_show: 'options.length>0 && placeName && placeName.length>0' }
           %li.search-results-list{ ng_repeat: 'option in options', ng_click: 'addItem(option)' }
