@@ -176,7 +176,7 @@ describe "Invitation/New Sign in Flow" do
   end
 
   def invite_link
-    Nokogiri.parse(email_text).css('.invite-link').first.attributes['href'].value.gsub('http://www.example.com', '')
+    Nokogiri.parse(email_text(subject: 'First invited you to Planit!')).css('.invite-link').first.attributes['href'].value.gsub('http://www.example.com', '')
   end
 
   def fill_in_form(registering=false, skip=[])

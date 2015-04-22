@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_referred
-    if !current_user
+    if !current_user && params[:referred]
       save_current_path!(exclude: [:email, :referred, :share_id])
       if params[:referred] == 'registered'
         redirect_and_flash new_user_session_path(email: params[:email]), error: "You have to sign in to do that"
