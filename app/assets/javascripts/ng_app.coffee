@@ -12,7 +12,7 @@ planitModules = [
   'Services'
 ]
 
-otherModules = ['leaflet-directive', 'ngDragDrop']
+otherModules = ['leaflet-directive']
 
 angular.module(module, otherModules) for module in planitModules
 
