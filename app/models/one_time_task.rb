@@ -3,14 +3,18 @@ class OneTimeTask < BaseModel
   is_polymorphic name: :target, should_validate: false
   is_polymorphic name: :agent, should_validate: false
 
-  def self.execute(attrs, &block)
+  def self.once(attrs, &block)
     if has?(attrs)
       return false
     else
-      block.call if block_given?
-      self.create!(attrs)
-      return true
+      run(attrs, &block)
     end
+  end
+
+  def self.run(attrs, &block)
+    block.call if block_given?
+    self.create!(attrs)
+    true
   end
 
   def self.has?(attrs)

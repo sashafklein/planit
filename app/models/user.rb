@@ -63,18 +63,8 @@ class User < BaseModel
     saves_to_review.count + shares_to_review.count
   end
 
-  # INVITATION, STATUS
-
-  def save_as(status)
-    if status.eq :pending # waitlisting
-      put_on_waitlist
-    else
-      memberify_and_send_invite
-    end
-  end
-
   def invite!(inviter=nil)
-    OneTimeTask.execute(agent: inviter, detail: "Invite Sent #{Time.now.to_s}", extras: { email: email }) do
+    OneTimeTask.run(agent: inviter, detail: "Invite Sent", extras: { email: email }) do
       AcceptedEmail.where(email: email).first_or_create!
       UserMailer.welcome_invited( atts(:email, :first_name, :last_name), inviter.try(:casual_name) ).deliver_later
     end
