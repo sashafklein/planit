@@ -94,7 +94,7 @@ class Mark < BaseModel
 
   def copy!(new_user:, keep: [:sources, :notes])
     Mark.transaction do 
-      new_mark = dup_without_relations!(keep: [:place_id], override: { user: new_user } )
+      new_mark = dup_without_relations!(keep: [:place_id], override: { user_id: new_user.id } )
       keep.each do |assc| 
         others = assc == :notes ? { source: user } : {}
         copy_polymorphic!(to: new_mark, relation: assc, other_attrs: others)
