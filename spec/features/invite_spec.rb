@@ -138,20 +138,20 @@ describe "Invitation/New Sign in Flow" do
 
     it "redirects existing users to sign_in, then back to where they were headed" do
       user = create(:user)
-      visit plans_path(plan: @plan.id, referred: 'registered', email: user.email)
+      visit root_path(plan: @plan.id, referred: 'registered', email: user.email)
 
       expect( full_path ).to eq new_user_session_path(email: user.email)
       fill_in :user_password, with: 'password'
       click_button 'Sign in'
 
-      expect( full_path ).to eq plans_path(plan: @plan.id)
+      expect( full_path ).to eq root_path(plan: @plan.id)
     end
 
     it "redirects new users to registration, then back where they were headed" do
       sharer = create(:user)
       user = build(:user)
 
-      Share.save_and_send(sharer: sharer, sharee: user, url: plans_url(plan: @plan.id), notes: 'Yeah!')
+      Share.save_and_send(sharer: sharer, sharee: user, url: root_url(plan: @plan.id), notes: 'Yeah!')
 
       text = email_text(subject: "A Planit Guide from #{sharer.name}: #{@plan.name}")
 
@@ -162,7 +162,7 @@ describe "Invitation/New Sign in Flow" do
       expect( full_path ).to eq new_user_registration_path(email: user.email)
       fill_in_form true, [:email]
 
-      share = Share.find_by(sharer: sharer, url: plans_url(plan: @plan.id), notes: 'Yeah!')
+      share = Share.find_by(sharer: sharer, url: root_url(plan: @plan.id), notes: 'Yeah!')
       expect( share.reload.sharee ).to be_nil
 
       expect( MailListEmail.find_by(email: user.email) ).to be_nil
@@ -171,7 +171,7 @@ describe "Invitation/New Sign in Flow" do
 
       new_user = User.where( user.atts(:email, :first_name, :last_name) ).first
       expect( share.reload.sharee ).to eq new_user
-      expect( full_path ).to eq plans_path(plan: @plan.id)
+      expect( full_path ).to eq root_path(plan: @plan.id)
     end
   end
 

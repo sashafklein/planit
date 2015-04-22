@@ -36,6 +36,7 @@ class Share < BaseModel
 
   def self.find_object(url)
     allowable_object_types = %w( places plans users )
+
     objects_in_url = UrlObjectParser.new(url).objects
     object = objects_in_url.find{ |c, id| allowable_object_types.include?(c.downcase.pluralize) }
 
