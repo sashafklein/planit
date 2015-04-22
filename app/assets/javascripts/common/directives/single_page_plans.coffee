@@ -356,7 +356,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
 
       s.search = -> 
         s.options = [] if s.placeName?.length
-        s._searchFunction() if s.placeName?.length > 2 && s.nearby?.length > 0
+        s._searchFunction() if s.placeName?.length > 1 && s.nearby?.length > 0
 
       s._searchFunction = _.debounce( (-> s._makeSearchRequest() ), 200 )
 
@@ -367,11 +367,11 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
               s.options = Place.generateFromJSON(response)
             .error (response) ->
               if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
-                Flash.warning("We'll need a better 'Nearby' than '#{s.nearby}'")
-                s.forbiddenNearby.push s.nearby
+                Flash.warning("We're having trouble finding '#{s.nearby}'")
+                s.forbiddenNearby.push s.nearby unless s.nearby == null
                 s.nearby = null
               else
-                ErrorReporter.defaultFull(response, 'SinglePagePlans s._makeSearchRequest', { near: s.nearby, query: s.placeName }) if response.message != "Insufficient search params"
+                ErrorReporter.fullSilent(response, 'SinglePagePlans s._makeSearchRequest', { near: s.nearby, query: s.placeName }) if response.message != "Insufficient search params"
 
       s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
 

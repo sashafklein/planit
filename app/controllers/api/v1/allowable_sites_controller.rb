@@ -4,7 +4,7 @@ class Api::V1::AllowableSitesController < ApiController
     if params[:url] && gatekeep(params[:url])
       render json: { success: true }
     else
-      return error(406, "Not Acceptable")
+      return error(status: 406, message: "Not Acceptable")
     end
   end
 
