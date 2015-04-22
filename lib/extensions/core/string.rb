@@ -5,6 +5,10 @@ class String
 
   LONG_DASH = '–'
   
+  def eq(string_or_sym)
+    self == string_or_sym.to_s
+  end
+
   def no_accents(replacement: '')
     I18n.transliterate(self, replacement: replacement)
   end

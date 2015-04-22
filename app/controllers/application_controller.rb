@@ -4,12 +4,14 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
   before_action :update_sanitized_params, if: :devise_controller?
+  before_action :handle_session_params
 
   def after_sign_in_path_for(resource)
+    update_share if session[:share_id]
     if current_user.valid_password?(current_user.reset_password_token)
       edit_user_registration_path + current_user.tokened_email
     else
-      root_path
+      get_back_path! || root_path
     end
   end
 
@@ -56,6 +58,17 @@ class ApplicationController < ActionController::Base
 
   def log(msg:, test: false)
     Logger.new(STDOUT).info(msg) unless (Rails.env.test? && !test)
+  end
+
+  def redirect_referred
+    if !current_user
+      save_current_path!(exclude: [:email, :referred, :share_id])
+      if params[:referred] == 'registered'
+        redirect_and_flash new_user_session_path(email: params[:email]), error: "You have to sign in to do that"
+      else
+        redirect_and_flash new_user_registration_path(email: params[:email]), error: "You have to register to do that"
+      end
+    end
   end
 
   private
@@ -122,11 +135,35 @@ class ApplicationController < ActionController::Base
     [path, querystring].join("?")
   end
 
+  def save_current_path!(exclude: [])
+    path = clean_up_querystring request.fullpath, exclude
+    session[:saved_back_path] = path
+  end
+
   def save_back_path!
     session[:saved_back_path] = URI(request.referer || root_path).path
   end
 
   def get_back_path!
     session.delete(:saved_back_path)
+  end
+
+  def clean_up_querystring(path, exclude)
+    exclude.each do |key|
+      path.gsub!(/#{key}\=(?:.+?)(?:$|\&)/, '')
+    end
+    path.gsub!(/(?:\&|\?)(?:\&|\?|$)/, '')
+    path
+  end
+
+  def handle_session_params
+    redirect_referred if params[:referred]
+    session[:share_id] = params[:share_id] if params[:share_id]
+  end
+
+  def update_share
+    if session[:share_id] && share = Share.find_by(id: session.delete(:share_id))
+      share.update_attributes!(sharee: current_user, accepted: true)
+    end
   end
 end

@@ -36,12 +36,12 @@
                   = f.error_notification
                   .simple-entry-form-section
                     %i.icomoon.icon-user.simple-form-icon
-                    = f.input :first_name, required: true, placeholder: 'First Name'
+                    = f.input :first_name, required: true, placeholder: 'First Name', input_html: { value: params[:first_name]}
                   .simple-entry-form-section
                     %i.simple-form-icon
-                    = f.input :last_name, required: true, placeholder: 'Last Name'
+                    = f.input :last_name, required: true, placeholder: 'Last Name', input_html: { value: params[:last_name]}
                   .simple-entry-form-section
                     %i.fa.fa-envelope.simple-form-icon
-                    = f.input :email, required: true, placeholder: 'Email Address'
+                    = f.input :email, required: true, placeholder: 'Email Address', input_html: { value: params[:email]}
                   .simple-entry-form-section.form-actions.right
                     = f.button :submit, "Share the Love!", class: 'planit-button neon'

@@ -6,6 +6,14 @@ class BaseMailer < ActionMailer::Base
 
   layout 'layouts/mailer'
 
+  def hello
+    "Planit <hello@plan.it>"
+  end
+
+  def admin
+    "Planit Notification <admin@plan.it>"
+  end
+
   private
 
   def include_inline_images(image_array=[])

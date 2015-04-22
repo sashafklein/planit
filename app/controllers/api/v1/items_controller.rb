@@ -1,6 +1,7 @@
 class Api::V1::ItemsController < ApiController
 
   before_action :load_item, only: [:destroy]
+  
   def show
     return permission_denied_error unless current_user
 

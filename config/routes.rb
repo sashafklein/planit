@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
 
   root 'plans#index'
 

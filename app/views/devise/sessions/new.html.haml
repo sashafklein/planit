@@ -12,7 +12,7 @@
           = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
             .simple-entry-form-section
               %i.fa.fa-envelope.simple-form-icon
-              = f.input :email, required: true, autofocus: true, placeholder: 'Email' , input_html: { value: params["email"], class: "#{'neon' if params['token'].present?}" }
+              = f.input :email, required: true, autofocus: true, placeholder: 'Email' , input_html: { value: params[:email], class: "#{'neon' if params['token'].present?}" }
             - if params["token"]
               %span.token= "Passcode Token Entered"
             .simple-entry-form-section

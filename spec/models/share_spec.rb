@@ -7,28 +7,42 @@ describe Share do
       @notes = "Dude this is AMAZING"
     end
 
-    it "sharing user guides shoots off an email" do
-      sharee = create(:user, role: :member)
-      url = "https://plan.it/users/#{@sharer.slug}/guides?y=in_2015+in_2014"
-      object = User.find(@sharer.id)
+    context "with preexisting user" do
+      it "sharing user guides shoots off an email" do
+        sharee = create(:user, role: :member)
+        url = "https://plan.it/users/#{@sharer.slug}/guides?y=in_2015+in_2014"
+        object = User.find(@sharer.id)
 
-      expect(UserMailer).to receive(:share_love).at_least(:once).and_call_original
+        expect(UserMailer).to receive(:share_love).at_least(:once).and_call_original
 
-      expect{
-        Share.save_and_send(sharer: @sharer, sharee: sharee, url: url, object: object, notes: @notes)
-      }.to change{ Share.count }.by 1
+        expect{
+          @share = Share.save_and_send(sharer: @sharer, sharee: sharee, url: url, object: object, notes: @notes)
+        }.to change{ Share.count }.by 1
+
+        text = email_text(subject: "#{@sharer.name} shared a page on Planit: 2015 2014 Guides" )
+        expect( text ).to include 'Dude this is AMAZING'
+        expect( text ).to include "https://plan.it/users/#{@sharer.slug}/guides?y=in_2015+in_2014&amp;referred=registered&amp;email=#{sharee.email}&amp;share_id=#{@share.id}"
+      end
     end
 
-    it "sharing user places shoots off an email" do
-      sharee = create(:user, role: :member)
-      url = "https://plan.it/users/#{@sharer.slug}/guides?y=in_2015+in_2014"
-      object = User.find(@sharer.id)
+    context "without a preexising user" do
+      it "adds them to the email list and sends them an email that sends them on a good redirection flow" do
+        expect( UserMailer ).to receive(:share_love).at_least(:once).and_call_original
 
-      expect(UserMailer).to receive(:share_love).at_least(:once).and_call_original
+        plan = create(:plan, user: @sharer)
+        url = "https://plan.it/?plan=#{plan.id}"
+        sharee = build(:user)
 
-      expect{
-        Share.save_and_send(sharer: @sharer, sharee: sharee, url: url, object: object, notes: @notes)
-      }.to change{ Share.count }.by 1
+        expect( Share.count ).to eq 0
+        expect{
+          @share = Share.save_and_send(sharer: @sharer, sharee: sharee, url: url, object: Share.find_object(url), notes: @notes)
+        }.to change{ AcceptedEmail.count }.by 1
+        expect( Share.count ).to eq 1
+
+        text = email_text(subject: "A Planit Guide from #{@sharer.name}: #{plan.name}" )
+        expect( text ).to include "Dude this is AMAZING"
+        expect( text ).to include "https://plan.it/?plan=#{plan.id}&amp;referred=new&amp;email=#{sharee.email}&amp;share_id=#{@share.id}"
+      end
     end
 
   end

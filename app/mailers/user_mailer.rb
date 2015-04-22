@@ -3,24 +3,26 @@ class UserMailer < BaseMailer
 
   layout 'layouts/mailer.html.haml'
 
-  def welcome_waitlist(user)
+  def welcome_waitlist(atts)
     include_inline_images
-    @user = user
-    roadie_mail(to: user.email, subject: "Thanks for Signing up for Planit Beta!")
+    @user = User.new(atts)
+    roadie_mail(to: @user.email, subject: "Thanks for Signing up for Planit Beta!")
   end
 
-  def welcome_invited(user, raw_reset_token)
+  def welcome_invited(atts)
     include_inline_images
-    @user = user
-    @token = raw_reset_token
-    roadie_mail(to: user.email, subject: "Welcome to Planit Beta!")
+    @user = User.new(atts)
+    [admin, @user.email].each do |recipient|
+      roadie_mail(to: recipient, subject: "Welcome to Planit Beta!")
+    end
   end
 
-  def share_love(share:)
+  def share_love(share_id:, email: nil)
+    share = Share.find(share_id)
     @object = share.object
     @sharer = share.sharer
-    @user = share.sharee
-    @url = share.url
+    @user = share.sharee || User.new(email: email)
+    @url = URI.decode( share.url + ( share.url.include?('?') ? '&' : '?' ) + "referred=#{ share.sharee ? 'registered' : 'new' }&email=#{@user.email}&share_id=#{share_id}" )
     @notes = share.notes
     @images = get_images(@object)
     share.email_title

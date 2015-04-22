@@ -23,6 +23,7 @@ class PlansController < ApplicationController
 
   def index
     @plan = Plan.find_by( id: params[:plan] )
+
     if !current_user_is_active
       redirect_to beta_path
     elsif params[:plan].present? && !@plan.present?

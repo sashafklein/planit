@@ -22,6 +22,7 @@ RSpec.configure do |config|
   config.include Features, type: :request
   config.include Controllers, type: :controller
   config.include Mock
+  config.include Universal
   config.include Formulaic::Dsl, type: :feature
   config.infer_spec_type_from_file_location!
   config.infer_base_class_for_anonymous_controllers = false

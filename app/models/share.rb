@@ -5,8 +5,12 @@ class Share < BaseModel
   belongs_to :sharee, class_name: "User"
 
   def self.save_and_send(sharer:, sharee:, url:, object:, notes:)
-    if new_share = create(sharer: sharer, sharee: sharee, url: url, object: object, notes: notes)
-      UserMailer.share_love(share: new_share).deliver_now
+    atts = {sharer: sharer, sharee: sharee, url: url, object: object, notes: notes}
+    atts.merge!({ sharee: nil }) unless sharee.persisted?
+
+    if new_share = create(atts)
+      AcceptedEmail.where(email: sharee.email).first_or_create!
+      UserMailer.share_love(share_id: new_share.id, email: sharee.email).deliver_now
       return new_share
     end
   end

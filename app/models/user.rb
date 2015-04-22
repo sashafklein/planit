@@ -2,6 +2,9 @@ class User < BaseModel
 
   # validates :first_name, :last_name, presence: true
 
+  after_save :create_mail_list_email!
+  before_create { self.role = :member if self.pending? }
+
   enum role: { pending: 0, member: 1, admin: 2 }
 
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -62,22 +65,17 @@ class User < BaseModel
 
   # INVITATION, STATUS
 
-  def save_as(status, new_password=Devise.friendly_token.first(8))
-    is_new = !self.encrypted_password.present?
-    password = new_password if is_new
-    was_member = member?
+  def save_as(status)
+    if status.eq :pending # waitlisting
+      put_on_waitlist
+    else
+      memberify_and_send_invite
+    end
+  end
 
-    raw, hashed = Devise.token_generator.generate(User, :reset_password_token)
-
-    new_attrs = { role: status }.merge({
-      password: password, password_confirmation: password, 
-      reset_password_token: hashed,
-      reset_password_sent_at: Time.now
-    }.to_sh.reject_val(&:nil?))
-    update_attributes!( new_attrs )
-
-    notify_signup(raw) if self.persisted? && !was_member || is_new
-    return self
+  def invite!
+    AcceptedEmail.where(email: email).first_or_create!
+    UserMailer.welcome_invited( atts(:email, :first_name, :last_name) ).deliver_later
   end
 
   def tokened_email
@@ -102,21 +100,11 @@ class User < BaseModel
 
   private
 
-  def notify_signup(raw_reset_token)
-    if pending?
-      OneTimeTask.execute( { action: "WaitlistUser", target: self } ) do
-        UserMailer.welcome_waitlist(self, raw_reset_token).deliver_later
-        AdminMailer.notify_of_signup(self).deliver_later
-      end
-    elsif member?
-      OneTimeTask.execute( { action: "InviteUser", target: self } ) do
-        UserMailer.welcome_invited(self, raw_reset_token).deliver_later
-        AdminMailer.notify_of_signup(self).deliver_later
-      end
-    end
-  end
-  
   def slug_candidates
     [:name, [:name, g_token(attrs: [:id, :name], other: Time.now.to_s).first(8)] ]
+  end
+
+  def create_mail_list_email!
+    MailListEmail.where(email: email).first_or_create!(first_name: first_name, last_name: last_name)
   end
 end
