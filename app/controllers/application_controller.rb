@@ -8,11 +8,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     update_share if session[:share_id]
-    if current_user.valid_password?(current_user.reset_password_token)
-      edit_user_registration_path + current_user.tokened_email
-    else
-      get_back_path! || root_path
-    end
+    get_back_path! || root_path
   end
 
   def after_sign_out_path_for(resource_or_scope)

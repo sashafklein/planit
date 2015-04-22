@@ -35,7 +35,7 @@ describe Share do
 
         expect( Share.count ).to eq 0
         expect{
-          @share = Share.save_and_send(sharer: @sharer, sharee: sharee, url: url, object: Share.find_object(url), notes: @notes)
+          @share = Share.save_and_send(sharer: @sharer, sharee: sharee, url: url, notes: @notes)
         }.to change{ AcceptedEmail.count }.by 1
         expect( Share.count ).to eq 1
 

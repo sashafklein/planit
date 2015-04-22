@@ -78,13 +78,6 @@ class User < BaseModel
     UserMailer.welcome_invited( atts(:email, :first_name, :last_name) ).deliver_later
   end
 
-  def tokened_email
-    if reset_password_token.present?
-      "?token=" + reset_password_token + "&email=" + email
-    else
-      ''
-    end
-  end
 
   def auto_signin_token
     g_token(attrs: [:email, :id], other: "#{Env.auto_signin_token_salt}#{encrypted_password.try(:first, 5)}")

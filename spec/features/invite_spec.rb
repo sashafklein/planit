@@ -151,7 +151,7 @@ describe "Invitation/New Sign in Flow" do
       sharer = create(:user)
       user = build(:user)
 
-      Share.save_and_send(sharer: sharer, sharee: user, url: plans_url(plan: @plan.id), object: @plan, notes: 'Yeah!')
+      Share.save_and_send(sharer: sharer, sharee: user, url: plans_url(plan: @plan.id), notes: 'Yeah!')
 
       text = email_text(subject: "A Planit Guide from #{sharer.name}: #{@plan.name}")
 
