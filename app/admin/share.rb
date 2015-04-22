@@ -8,6 +8,7 @@ ActiveAdmin.register Share do
     column :created_at          do |s|  s.created_at.strftime("%-l:%M%P %b %d '%y") end
     column :viewed
     column :accepted
+    actions
   end
 
 end

@@ -12,6 +12,7 @@ index do
   column :created_at        do |p|  p.created_at.strftime("%-l:%M%P %b %d '%y") end
   column :items             do |p|  p.items.count end
   column :permission
+  actions
 end
 
 

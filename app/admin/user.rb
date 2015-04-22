@@ -13,6 +13,7 @@ ActiveAdmin.register User do
     column :plans_count       do |u|  u.plans.count  end
     column :items_count       do |u|  u.items.count  end
     column :shares_count      do |u|  u.shares.count  end
+    actions
   end
 
 end
