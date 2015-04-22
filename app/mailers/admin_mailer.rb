@@ -1,6 +1,6 @@
 class AdminMailer < BaseMailer
-  default from: "Notifier <notifier@plan.it>"
-  default to: "Planit <hello@plan.it>"
+  default from: notifier
+  default to: hello
 
   layout 'layouts/mailer'
 

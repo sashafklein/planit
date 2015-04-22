@@ -20,7 +20,7 @@ class Api::V1::BookmarkletsController < ApiController
             
       render js: complete_js
     else
-      error(500, "No file found at location: #{path}")  
+      error(message: "No file found at location: #{path}")  
     end
   end
 

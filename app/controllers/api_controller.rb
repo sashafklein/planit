@@ -5,17 +5,18 @@ class ApiController < ApplicationController
   
   private
 
-  def permission_denied_error
-    error(403, 'Permission Denied!')
+  def permission_denied_error(meta: {}, line: nil)
+    error(status: 403, message: 'Permission Denied!', meta: meta, line: line)
   end
 
-  def error(status=500, message = 'Something went wrong', meta = {})
+  def error(status: 500, message: 'Something went wrong', meta: {}, line: nil)
     response = {
       response_type: "ERROR",
       message: message,
       meta: meta,
       error: true,
       controller: self.class.to_s,
+      line: line,
       code: status
     }
 

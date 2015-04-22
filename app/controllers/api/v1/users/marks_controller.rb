@@ -6,7 +6,7 @@ class Api::V1::Users::MarksController < ApiController
   after_action :cors_set_access_control_headers, only: [:scrape, :mini_scrape]
 
   def create
-    return error(404, "User not found") unless @user
+    return error(status: 404, message: "User not found") unless @user
     return permission_denied_error unless @user == current_user
     
     mark = Completers::Completer.new(mark_params, @user).complete!
@@ -14,13 +14,13 @@ class Api::V1::Users::MarksController < ApiController
     if mark
       render json: mark, serializer: SearchMarkSerializer
     else
-      error(500, "Bookmark completion failed.")
+      error(message: "Bookmark completion failed.")
     end
   end
 
   def scrape
-    return error(404, "User not found") unless @user
-    return error(500, "Missing url param") unless params[:url]    
+    return error(status: 404, message: "User not found") unless @user
+    return error(message: "Missing url param") unless params[:url]    
     
     # File.open('~log.html', 'w') { |file| file.write(params[:page]) }
     log msg: "URL: #{params[:url]}"
@@ -31,8 +31,8 @@ class Api::V1::Users::MarksController < ApiController
   end
 
   def mini_scrape
-    return error(404, "User not found") unless @user
-    return error(500, "Missing url param") unless params[:url]    
+    return error(status: 404, message: "User not found") unless @user
+    return error(status: 500, message: "Missing url param") unless params[:url]    
 
     scraped = JSON.parse params[:scraped]
     
@@ -46,7 +46,7 @@ class Api::V1::Users::MarksController < ApiController
   end
 
   def bucket
-    return error(404, "User not found") unless @user
+    return error(status: 404, message: "User not found") unless @user
     @marks = @user.marks
   end
 
@@ -78,7 +78,7 @@ class Api::V1::Users::MarksController < ApiController
   def log_and_complete(scraped, url, action)
     if !good_data?(scraped)
       @user.flags.create!( name: "Scrape and completion failed in #{action}", info: { url: url , data: scraped } )
-      return error(417, "Insufficient information")
+      return error(status: 417, message: "Insufficient information")
     end
 
     log msg: "#{action.upcase} - DELAYING COMPLETION: #{delay?}"

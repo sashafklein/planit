@@ -1,5 +1,6 @@
 class UserMailer < BaseMailer
-  default from: "Planit <hello@plan.it>"
+  default from: hello
+  default bcc: sent
 
   layout 'layouts/mailer.html.haml'
 

@@ -23,7 +23,7 @@ class Api::V1::ItemsController < ApiController
     if @item.destroy
       render json: @item, serializer: ItemSerializer
     else
-      error(500, "Failed to destroy item")
+      error(message: "Failed to destroy item")
     end
   end
 
