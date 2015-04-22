@@ -1,0 +1,23 @@
+.guides-matrix{ ng_show: '!list && hasLists() && isLoaded' }
+  #header-spacing.except-landscape
+  .band.spaced-xxx.padded
+    .container.centered
+      .column{ ng_repeat: 'plan in lists' }
+        .any-tab-wrapper{ ng_mouseover: 'listQuerySet(plan.name)', ng_mouseleave: 'listQueryReset()' }
+          .guide-item-count.numbered-box {{ plan.place_ids.length }}
+          .content-tab
+            / .tab-operations
+            /   .tab-operations-button
+            /     .i.fa.fa-calendar
+            /   .tab-operations-button
+            /     .i.fa.fa-pencil
+            /   .tab-operations-button
+            /     .i.fa.fa-heart
+            /   .tab-operations-button
+            /     .i.fa.fa-check-circle
+            /   .tab-operations-button
+            /     .i.fa.fa-trash
+            .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'setList(plan)', ng_hover: 'imageChangeable = true' }
+              %img{ ng_src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
+              %i.add-photo-camera.fa.fa-camera-retro{ ng_show: 'imageChangeable || ( !plan.best_image || !plan.best_image.url)', ng_click: 'changeImage()' }
+            .content-tab-title{ ng_click: 'setList(plan)' } {{ plan.name }}

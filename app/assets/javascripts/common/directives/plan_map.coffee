@@ -13,6 +13,7 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
       items: '='
       plan: '=?'
       showMap: '=?'
+      setNearbyFromCenter: '&'
 
     link: (s, elem) ->
       s.items = s.firstItems
@@ -107,6 +108,7 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
       s._updateQuery = ->
         if s.loaded && s.currentLLZoom && s.showMap
           QueryString.modify( m: "#{ s.currentLLZoom.lat.toFixed(4) },#{ s.currentLLZoom.lon.toFixed(4) },#{ s.currentLLZoom.zoom }" )
+          s.setNearbyFromCenter({center:"#{ s.currentLLZoom.lat.toFixed(4) },#{ s.currentLLZoom.lon.toFixed(4) }"})
 
       # SET MAP DATA
 

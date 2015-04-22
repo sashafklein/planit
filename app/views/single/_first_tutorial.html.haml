@@ -1,0 +1,18 @@
+.initial-tutorial{ ng_show: '!hasItems() && isLoaded && ( !hasLists() || list )' }
+  #header-spacing.except-landscape
+  .band.spaced
+    .container.centered
+      .column
+        = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': list}" }
+    .container.centered
+      .column{ ng_show: '!list && !hasLists()' }
+        %strong.neon.large Start a List or Plan!
+        - if niko = User.find_by(slug: 'niko-klein')
+          - if tutorial_plan = niko.plans.order('created_at ASC').first
+            %p= " ( or test-drive #{link_to(tutorial_plan.name, copy_plan_path(tutorial_plan), class: 'linky neon')} )".html_safe
+      .column{ ng_show: 'list && !nearby' }
+        %strong.neon.large Awesome!  Starting Where?
+        %p Set a Location so You can Find Your Places
+      .column{ ng_show: 'list && nearby' }
+        %strong.neon.large Cool! Now Add Places to your List
+        %p When You've Found one, Just Press "Enter" or Click on It to Add

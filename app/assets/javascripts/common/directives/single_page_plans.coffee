@@ -17,14 +17,8 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
             s.setList( s.list )
             if locale = QueryString.get()['near']
               s.nearby = locale
-            # else if mapCenter = QueryString.get()['m']
-            #   ns = mapCenter.split(',')[0]
-            #   ew = mapCenter.split(',')[1] if mapCenter.split(',').length > 1
-            #   return unless ns && ew
-            #   geonamesQuery = "http://api.geonames.org/citiesJSON?north=#{ ns + 2 }&south=#{ ns - 2 }&east=#{ ew - 4 }&west=#{ ew + 4 }&username=planit&lang=en&style=full&callback=JSON_CALLBACK"
-            #   $http.jsonp(geonamesQuery)
-            #     .success (response) -> debugger
-            #     .error (response) -> debugger
+            else if mapCenter = QueryString.get()['m']
+              s.nearbyFromMapCenter( mapCenter )
 
           .error (response) ->
             QueryString.modify({plan: null, near: null})
@@ -37,12 +31,6 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
       s.addBoxToggle = -> 
         s.addBoxToggled = !s.addBoxToggled
         s.addBoxManuallyToggled = true
-      s.lastScrollTop = 0
-      # $('body').scroll(
-      #   thisScrollTop = $('body').scrollTop()
-      #   if thisScrollTop < 100 && thisScrollTop > s.lastScrollTop
-      #     s.addBoxToggled = false unless s.addBoxManuallyToggled
-      # )
       s.settingsBoxToggled = false
       s.settingsBoxToggle = -> s.settingsBoxToggled = !s.settingsBoxToggled
 
@@ -50,6 +38,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
         s.mode = mode
         QueryString.modify({mode: mode})
         if mode == 'map' then s.showMap = true else s.showMap = false
+        if mapCenter = QueryString.get()['m'] then s.nearbyFromMapCenter( mapCenter )
 
       s.setModeViaQueryString = ->
         if mode_in_querystring = QueryString.get()['mode']
@@ -220,10 +209,11 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
         return
 
       s.resetNearby = -> 
-        s._setOnScope( [ 'nearby', 'placeName' ], null )
+        s._setOnScope( [ 'nearby', 'placeName', 'centerNearby' ], null )
         s.options = []
         $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
         QueryString.modify({ near: null })
+        s.qsNearby = false
         return
 
       s.backspaced = 0
@@ -458,8 +448,24 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Item, Place, 
 
       # GEOCODING
 
-      # $http.jsonp('http://api.geonames.org/citiesJSON?country=' + s.nearbyQuery + '&username=planit&style=full&callback=JSON_CALLBACK')
-      #   .success((response) ->
+      s.nearbyFromMapCenter = (mapCenter) ->
+        return unless mapCenter?.length
+        mapCenterSplit = mapCenter?.split(',')
+        return unless mapCenterSplit && mapCenterSplit?.length > 1
+        if s.qsNearby || ( !s.nearby?.length && !s.placeNearby?.length )
+          lat = parseFloat( mapCenterSplit[0] )
+          lon = parseFloat( mapCenterSplit[1] )
+          geonamesQuery = "http://api.geonames.org/citiesJSON?north=#{ lat + 0.75 }&south=#{ lat - 0.75 }&east=#{ lon + 1.25 }&west=#{ lon - 1.25 }&username=planit&lang=en&style=full&callback=JSON_CALLBACK"
+          $http.jsonp(geonamesQuery)
+            .success (response) -> 
+              cities = _.filter( response.geonames, (n) -> n.fclName == "city, village,..." )
+              console.log "success w/ #{_.map( cities, (c) -> c.name ).join(', ')}"
+              return unless cities[0]
+              if s.qsNearby || ( !s.nearby?.length && !s.placeNearby?.length )
+                s.nearby = "#{cities[0].name}, #{cities[0].countrycode}" 
+                s.qsNearby = true
+            .error (response) -> ErrorReporter("Geonames Cities Query not working on SinglePagePlan")
+
 
       # ITEM CONTROLS
 
