@@ -1,5 +1,5 @@
 module MetaExt
-  module Base
+  module BaseExt
 
     module ClassMethods
 

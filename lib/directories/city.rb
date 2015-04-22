@@ -1,5 +1,5 @@
 module Directories
-  class City < Directories::Base
+  class City < Directories::BaseDirectory
     attr_accessor :country_code
 
     include RegexLibrary

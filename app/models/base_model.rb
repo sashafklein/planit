@@ -1,7 +1,7 @@
 class BaseModel < ActiveRecord::Base
   self.abstract_class = true
 
-  include MetaExt::Base
+  include MetaExt::BaseExt
   include MetaExt::ArrayAccessor
   include MetaExt::JsonAccessor
   include MetaExt::Polymorphism
