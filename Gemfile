@@ -84,6 +84,7 @@ gem "wkhtmltopdf-binary"
 # unsure
 gem "flutie"
 gem "figaro"
+gem 'activeadmin', github: 'activeadmin'
 
 source "https://rails-assets.org" do
   gem "rails-assets-angular"
@@ -93,8 +94,6 @@ source "https://rails-assets.org" do
   gem "rails-assets-lodash"
   gem "rails-assets-leaflet"
   gem "rails-assets-angular-leaflet-directive"
-  gem "rails-assets-jqueryui"
-  gem "rails-assets-angular-dragdrop"
 end
 
 group :development do

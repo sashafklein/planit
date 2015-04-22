@@ -17,6 +17,8 @@ class User < BaseModel
   has_many :nps_feedbacks
   has_many :page_feedbacks
   has_many :items, through: :marks
+  has_many :shares, foreign_key: :sharer_id
+  has_many :received_shares, foreign_key: :sharee_id, class_name: "Share"
 
   has_many_polymorphic table: :one_time_tasks, name: :agent
   has_many_polymorphic table: :notes, name: :source

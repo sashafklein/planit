@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  ActiveAdmin.routes(self)
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   devise_for :users, :controllers => {:registrations => "registrations"}
 

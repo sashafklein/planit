@@ -6,7 +6,5 @@
 #= require angular
 #= require angular-leaflet-directive
 #= require bootstrap-sprockets
-#= require jqueryui
-#= require angular-dragdrop
 #= require ng_app
 #= require select2

@@ -1,5 +1,5 @@
 module Directories
-  class Base
+  class BaseDirectory
 
     def self.file(filetype, filename='store', class_name=self.to_s)
       File.read File.join( Rails.root, 'lib', 'directories', filetype, class_name.demodulize.underscore, "#{filename}.#{filetype}")

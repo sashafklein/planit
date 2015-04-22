@@ -1,5 +1,5 @@
 module Directories
-  class AnglicizedCountry < Directories::Base
+  class AnglicizedCountry < Directories::BaseDirectory
     def self.find(given)
       country = list.find{ |c| c[:common] == given || c[:official] == given || c[:common_native] == given || c[:official_native] == given }
       country ? country[:common] : nil
