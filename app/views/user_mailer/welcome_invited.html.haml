@@ -1,32 +1,36 @@
 %h2= "Welcome to <b>Planit</b>'s Private Beta, #{@user.casual_name}!".html_safe
 %p
-  = """ We've been building a home for all the places you love.  Save your favorite haunts, your wanderlist to-do's, and your friends' recommendations - all with one click.  Curate, filter, and share back with friends and family in a plug-and-play format they can easily save and personalize.  Your data will be downloadable, exportable, and available across the web and on your smartphone.  For now, get started by: """.html_safe
-  %ul
-    %li
-      - if @user.reset_password_token && @user.sign_in_count == 0
-        = link_to "Signing in", new_user_session_url + @user.tokened_email
-        = "with your temporary password ["
-        %span.password= @user.reset_password_token
-        = "]"
-      - else
-        = link_to "Signing in", new_user_session_url
-        = "to your account"
-    %li
-      = "Installing Planit's"
-      = link_to "in-browser save button", button_url
-    %li
-      = "Gathering your favorite places into a list to share with friends"
-    %li
-      = "Adding tips and recommendations from fellow travelers into a new trip -- or a wishlist"
+  We've been building a home for all the places you love.  Save, edit, and share your favorite haunts, your wanderlist to-do's, and your friends' recommendations - all with one tool.
+
+%p 
+  Curate, filter, and share back with friends and family in a plug-and-play format they can easily save and personalize. 
+  %b Your data will be yours
+  to download, export, and share, and synchronized across the web and on your smartphone.
+
+%p 
+  For now, get started by
+  = link_to "registering for your account.", new_user_registration_url( @user.atts(:email, :last_name, :first_name).to_sh.reject_val(&:blank?).to_h ), class: 'invite-link'
+  Then you can:
+
+%ul
+  %li Gather your favorite places into a list to share with friends
+  %li Add tips and recommendations from fellow travelers into a new trip or wishlist
+  %li Easily share or print lists and plans
+  %li More on the way!
+
 %p
-  = "You're one of our first users - so please share any feedback you have either through the"
-  = link_to "feedback form", feedback_url
-  = "or by emailing us at <a href='hello@plan.it'>hello@plan.it</a>.".html_safe
-%p= "Excited to have you on board!"
-%p= "The Planit Team"
+  You're one of our first users - 
+  %b so please share any feedback you have 
+  either through the on-site feedback forms or by emailing us at 
+  = mail_to 'hello@plan.it', 'hello@plan.it'
+
+%p Excited to have you on board!
+%p The Planit Team
 
 - if false
   %li
+    = "Installing Planit's"
+    = link_to "in-browser save button", button_url
     = "Importing your disparate lists ("
     = link_to "Yelp", about_url + "#import"
     = "Bookmarked,"

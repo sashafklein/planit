@@ -23,6 +23,7 @@ class PlansController < ApplicationController
 
   def index
     @plan = Plan.find_by( id: params[:plan] )
+
     if !current_user_is_active
       redirect_to beta_path
     elsif params[:plan].present? && !@plan.present?
@@ -33,7 +34,7 @@ class PlansController < ApplicationController
 
   def copy
     new_plan = @plan.copy!(new_user: current_user)
-    flash[:success] = "'#{@plan.name}' copied successfully."
+    flash[:success] = "Great! '#{@plan.name}' is yours to edit"
     redirect_to plan_path(new_plan.id)
   end
 

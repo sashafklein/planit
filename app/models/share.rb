@@ -4,9 +4,13 @@ class Share < BaseModel
   belongs_to :sharer, class_name: "User"
   belongs_to :sharee, class_name: "User"
 
-  def self.save_and_send(sharer:, sharee:, url:, object:, notes:)
-    if new_share = create(sharer: sharer, sharee: sharee, url: url, object: object, notes: notes)
-      UserMailer.share_love(share: new_share).deliver_now
+  def self.save_and_send(sharer:, sharee:, url:, object: nil, notes:)
+    atts = {sharer: sharer, sharee: sharee, url: url, object: object || find_object(url), notes: notes}
+    atts.merge!({ sharee: nil }) unless sharee.persisted?
+
+    if new_share = create(atts)
+      AcceptedEmail.where(email: sharee.email).first_or_create!
+      UserMailer.share_love(share_id: new_share.id, email: sharee.email).deliver_now
       return new_share
     end
   end
@@ -32,6 +36,7 @@ class Share < BaseModel
 
   def self.find_object(url)
     allowable_object_types = %w( places plans users )
+
     objects_in_url = UrlObjectParser.new(url).objects
     object = objects_in_url.find{ |c, id| allowable_object_types.include?(c.downcase.pluralize) }
 

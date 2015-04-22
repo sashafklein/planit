@@ -88,7 +88,7 @@ module MetaExt
 
     def atts(*to_slice)
       return attributes unless to_slice.length
-      attributes.symbolize_keys.slice(*Array(to_slice).map(&:to_sym))
+      attributes.symbolize_keys.to_sh.only( *Array(to_slice) )
     end
 
     def atts_except(*exclude)

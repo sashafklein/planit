@@ -16,7 +16,7 @@ describe 'Morphing' do
       expect( page ).to have_content "#{@admin.first_name}, How Can We Improve Planit?"
       
       visit morph_path(@user.id)
-
+      
       within '.flash-morph' do
         expect( page ).to have_content "Morphed into #{@user.name}. Click to Unmorph."
       end

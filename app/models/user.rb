@@ -2,6 +2,9 @@ class User < BaseModel
 
   # validates :first_name, :last_name, presence: true
 
+  after_save :create_mail_list_email!
+  before_create { self.role = :member if self.pending? }
+
   enum role: { pending: 0, member: 1, admin: 2 }
 
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -60,30 +63,16 @@ class User < BaseModel
     saves_to_review.count + shares_to_review.count
   end
 
-  # INVITATION, STATUS
-
-  def save_as(status, new_password=Devise.friendly_token.first(8))
-    password = new_password if !self.encrypted_password.present?
-    new_attrs = { role: status }.merge({
-      password: password, password_confirmation: password, 
-      reset_password_token: password, # set temp passcode as reset token
-      sign_in_count: (0 if status == :member && status.to_s != role) # reset signincount if upgrading
-    }.to_sh.reject_val(&:nil?))
-    update_attributes( new_attrs )
-    notify_signup() if self.persisted?
-    return self
-  end
-
-  def tokened_email
-    if reset_password_token.present?
-      "?token=" + reset_password_token + "&email=" + email
-    else
-      ''
+  def invite!(inviter=nil)
+    OneTimeTask.run(agent: inviter, detail: "Invite Sent", extras: { email: email }) do
+      AcceptedEmail.where(email: email).first_or_create!
+      UserMailer.welcome_invited( atts(:email, :first_name, :last_name), inviter.try(:casual_name) ).deliver_later
     end
   end
 
+
   def auto_signin_token
-    g_token(attrs: [:email, :id], other: Env.auto_signin_token_salt)
+    g_token(attrs: [:email, :id], other: "#{Env.auto_signin_token_salt}#{encrypted_password.try(:first, 5)}")
   end
 
   # USER ACTIVITY
@@ -96,21 +85,11 @@ class User < BaseModel
 
   private
 
-  def notify_signup()
-    if pending?
-      OneTimeTask.execute( { action: "WaitlistUser", target: self } ) do
-        UserMailer.welcome_waitlist(self).deliver_now
-        AdminMailer.notify_of_signup(self).deliver_now
-      end
-    elsif member?
-      OneTimeTask.execute( { action: "InviteUser", target: self } ) do
-        UserMailer.welcome_invited(self).deliver_now
-        AdminMailer.notify_of_signup(self).deliver_now
-      end
-    end
-  end
-  
   def slug_candidates
     [:name, [:name, g_token(attrs: [:id, :name], other: Time.now.to_s).first(8)] ]
+  end
+
+  def create_mail_list_email!
+    MailListEmail.where(email: email).first_or_create!(first_name: first_name, last_name: last_name)
   end
 end
