@@ -22,7 +22,7 @@
                   %li.bucket-list-li.cluster-li{ ng_repeat: "cluster in clustersInView", class: "{{cluster.id}}", id: "{{cluster.id}}", ng_mouseenter: "mouse('clusterMouseenter', cluster.id)", ng_mouseleave: "mouse('clusterMouseleave', cluster.id)"}
                     %bucket_list_clusters{ cluster: 'cluster', map: 'map', padding: 'padding', zoom_to: 'zoomToCluster(clusterFromId(selectedClusterId))', changes: 'changes' }
                   %li.bucket-list-li.place-li{ ng_repeat: "place in placesInView", class: "p{{place.id}}", id: "{{'p' + place.id}}", ng_mouseenter: "mouse('pinMouseenter', 'p' + place.id)", ng_mouseleave: "mouse('pinMouseleave', 'p' + place.id)" }
-                    %bucket_list_places{ place: 'place' }
+                    %bucket_list_places{ place: 'place', items: 'items', plan: 'plan' }
 
             // MOBILE!!!
             .map-highlight-result#in-view-item{ ng_if: "mobile", ng_show: 'places.length'}

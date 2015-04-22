@@ -1,5 +1,6 @@
 class Mark < BaseModel
     
+  before_save :remove_items_if_deleted!
   before_save { category.downcase! if category_changed? }
   
   belongs_to :place
@@ -239,5 +240,9 @@ class Mark < BaseModel
 
   def siblings
     Item.where(day_id: day_id)
+  end
+
+  def remove_items_if_deleted!
+    items.destroy_all if deleted && deleted_changed?
   end
 end

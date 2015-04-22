@@ -1,5 +1,7 @@
 class Item < BaseModel
-  
+
+  after_create :resuscitate_mark!
+
   belongs_to :mark
   belongs_to :plan
   belongs_to :day
@@ -110,5 +112,9 @@ class Item < BaseModel
 
   def siblings
     day.items
+  end
+
+  def resuscitate_mark!
+    mark.update_attributes!(deleted: false) if mark.deleted
   end
 end

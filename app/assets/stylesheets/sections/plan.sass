@@ -1,6 +1,30 @@
 #show-plan-page, #new-plan-page, #plan-and-list-page
   height: auto
 
+  .initial-tutorial
+    .blur
+      opacity: 0
+
+  .owner-opinions
+    user-select: none
+    position: absolute
+    top: 7.5px
+    left: -11px
+    width: 22px
+    height: 60px
+    vertical-align: center
+    .item-opinion
+      width: 22px
+      height: 22px
+      margin: 4px 0
+      line-height: 22px
+      font-size: 14px
+      text-align: center
+      border-radius: 50%
+      color: #fff
+      background: #f06
+      vertical-align: center
+
   .print-title
     display: none
     visibility: hidden
@@ -100,7 +124,6 @@
       max-height: 400px
       background: #fff
       z-index: 10002
-
 
   // PLAN TOP-SECTION
   .single-page-plans
@@ -355,7 +378,7 @@
         background: #eee
         border: 1px solid #eee
         color: #eee
-        cursor: progress
+        cursor: default
 
   li.items-organized-by + li.items-organized-by, li.items-organized-by + li.plan-list-item
     border-top: 1px solid #ccc
@@ -419,6 +442,83 @@
     left: 0
     b
       padding-right: 8px
+
+  $manifestItemHeight: 30px
+
+  .items-in-manifest
+    &.empty
+      height: 800px 
+    .spacer
+      height: 10px
+      margin: 0
+      p
+        display: none
+      &.hovered
+        border: 2px dashed gray(10)
+        height: $manifestItemHeight
+        margin: 5px 0px
+        width: 100%
+        p
+          display: block
+          text-align: center
+          vertical-align: middle
+    .plan-list-item
+      height: $manifestItemHeight
+      .bucket-list-tab
+        height: 100%
+
+  .list-item-select
+    position: absolute
+    right: 0
+    top: 0
+    background: gray(70)
+    border: 5px solid gray(60)
+    &.selected
+      background: gray(50)
+
+  .items-in-manifest .list-item-select
+    height: $manifestItemHeight
+    width: $manifestItemHeight
+  .items-in-plan .list-item-select
+    width: 75px
+    height: 75px
+
+  .main-item-card
+    cursor: pointer
+    width: 45%
+    display: inline-block
+    &:hover, &.hovered
+      background: gray(90)
+  .item-actions
+    user-select: none
+    display: inline-block
+    position: absolute
+    top: 3px
+    bottom: 3px
+    height: 69px
+    width: 5%
+    text-align: center
+    color: transparent
+    padding: 3px 0
+    vertical-align: middle
+    min-width: 22px
+    &:hover, &.hovered
+      background: gray(90)
+      color: gray(50)
+    .item-action-button
+      vertical-align: middle
+      height: 18px
+      line-height: 18px
+      width: 18px
+      font-size: 16px
+      text-align: center
+      margin: 2px auto
+      i.action
+        cursor: pointer
+        transition: 0.2s ease all
+        &:hover
+          color: #f06
+
 
   // TAB SIZING
 
@@ -612,68 +712,6 @@
           width: 388px
       .on-off-button
         width: 388px
-
-  $manifestItemHeight: 30px
-
-  .items-in-manifest
-    &.empty
-      height: 800px 
-    .spacer
-      height: 10px
-      margin: 0
-      p
-        display: none
-      &.hovered
-        border: 2px dashed gray(10)
-        height: $manifestItemHeight
-        margin: 5px 0px
-        width: 100%
-        p
-          display: block
-          text-align: center
-          vertical-align: middle
-    .plan-list-item
-      height: $manifestItemHeight
-      .bucket-list-tab
-        height: 100%
-
-  .list-item-select
-    position: absolute
-    right: 0
-    top: 0
-    background: gray(70)
-    border: 5px solid gray(60)
-    &.selected
-      background: gray(50)
-
-  .items-in-manifest .list-item-select
-    height: $manifestItemHeight
-    width: $manifestItemHeight
-  .items-in-plan .list-item-select
-    width: 75px
-    height: 75px
-
-  .main-item-card
-    cursor: pointer
-    width: 45%
-    display: inline-block
-    &:hover
-      background: gray(90)
-  .item-actions
-    display: inline-block
-    position: absolute
-    top: 0
-    width: 5%
-    text-align: center
-    i.action
-      margin: 5px 0
-      font-size: 16px
-      text-align: center
-      color: gray(50)
-      cursor: pointer
-      transition: 0.2s ease all
-      &:hover
-        color: #f06
 
   @media print 
 
