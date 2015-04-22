@@ -2,19 +2,29 @@ class BaseMailer < ActionMailer::Base
 
   include Roadie::Rails::Mailer
 
-  default from: "Planit <hello@plan.it>"
-
-  layout 'layouts/mailer'
-
-  def hello
+  def self.hello
     "Planit <hello@plan.it>"
   end
 
-  def admin
+  def self.admin
     "Planit Notification <admin@plan.it>"
   end
 
+  def self.sent
+    "Sent <sent@plan.it>"
+  end
+
+  def self.notifier
+    "Notifier <notifier@plan.it>"
+  end
+
+  default from: hello
+
+  layout 'layouts/mailer'
+
   private
+
+  delegate :hello, :admin, :sent, :notifier, to: :class
 
   def include_inline_images(image_array=[])
     ['logo_name_only_white.png', 'logo_only_white.png'].concat(image_array).each do |image| 
