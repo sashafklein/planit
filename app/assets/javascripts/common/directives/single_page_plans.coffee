@@ -483,7 +483,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         window.open(item.placeHref(), '_blank')
         return
 
-      s.delete = (item) ->
+      s.deleteItem = (item) ->
         return unless confirm("Delete #{item.mark.place.name} from '#{s.list.name}'?")
         return unless item?.mark?.place?.id
         item.destroy()

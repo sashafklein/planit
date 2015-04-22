@@ -49,7 +49,7 @@
 
                 .item-actions{ ng_show: 'userOwnsList', ng_class: "{'hovered': item.id == hoveredId}", ng_mouseover: 'hovering(item)', ng_mouseleave: 'unhovering()' }
                   .item-action-button.remove-item
-                    %i.action.fa.fa-trash{ ng_click: 'delete(item)' }
+                    %i.action.fa.fa-trash{ ng_click: 'deleteItem(item)' }
                   .item-action-button.love-item
                     %i.action.fa.fa-heart{ ng_show: '!currentUserLoves(item)', love_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserLove(item)' }
                     %i.action.fa.fa-heart.neon{ ng_show: 'currentUserLoves(item)', unlove_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnlove(item)' }

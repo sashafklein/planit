@@ -40,6 +40,8 @@
     %a.place-control{ ng_show: "!hasMarkFor()", save_place_on_click: '{{place.id}}', success_function: "savedPlace()" }
       %span.place-control-hint= "Save"
       %i.fa.fa-bookmark
-    %a.place-control{ ng_show: "hasMarkFor()", unsave_place_on_click: '{{place.id}}', success_function: "removedPlace()" }
-      %span.place-control-hint= "Unsave"
-      %i.fa.fa-trash
+    .place-control.disabled{ ng_show: "hasMarkFor()" }
+      %i.fa.fa-bookmark
+    / %a.place-control{ ng_show: "hasMarkFor()", unsave_place_on_click: '{{place.id}}', success_function: "removedPlace()" }
+    /   %span.place-control-hint= "Unsave"
+    /   %i.fa.fa-trash
