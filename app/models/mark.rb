@@ -94,6 +94,9 @@ class Mark < BaseModel
 
   def copy!(new_user:, keep: [:sources, :notes])
     Mark.transaction do 
+      if mark = Mark.find_by(user_id: new_user.id, place_id: place_id)
+        return mark
+      end
       new_mark = dup_without_relations!(keep: [:place_id], override: { user_id: new_user.id } )
       keep.each do |assc| 
         others = assc == :notes ? { source: user } : {}

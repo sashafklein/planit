@@ -30,7 +30,7 @@ describe Api::V1::PlansController, :vcr do
       expect(Item.count).to eq(4)
       expect(Plan.count).to eq(2)
       expect(Plan.last.name).to eq("Whatup Bitches")
-      expect(Plan.last.places.pluck(:id)).to eq(Place.all.pluck(:id))
+      expect(Plan.last.places.pluck(:id)).to array_eq(Place.all.pluck(:id))
     end
 
   end

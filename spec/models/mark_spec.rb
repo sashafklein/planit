@@ -28,5 +28,32 @@ describe Mark do
       expect{ mark2.save! }.to raise_error
     end
   end
+
+  describe "copy" do
+    it "can be done a number of times without erroring" do
+      user1 = create(:user)
+      user2 = create(:user)
+      user3 = create(:user)
+      mark = create(:mark)
+
+      expect{ 
+        mark.copy!(new_user: user1)
+        mark.copy!(new_user: user2)
+        mark.copy!(new_user: user3)
+      }.not_to raise_error
+
+      expect( Mark.count ).to eq 4
+      [user1, user2, user3].each do |u|
+        expect( u.reload.marks.count ).to eq 1
+      end
+    end
+
+    it "handles redundancy" do
+      mark = create(:mark)
+      expect{
+        mark.copy!(new_user: mark.user)      
+      }.not_to raise_error
+    end
+  end
   
 end

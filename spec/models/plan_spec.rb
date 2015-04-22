@@ -14,6 +14,13 @@ describe Plan do
       @user = create(:user, name: 'New User')
     end
 
+    it "handles redundancy" do
+      expect{ 
+        @plan.copy!(new_user: @user)
+        @plan.copy!(new_user: @user)
+      }.not_to raise_error
+    end
+
     it "creates a new plan (with the new user), new items, and new marks; it ignores the manifest" do
       mark_count = Mark.count
       item_count = Item.count
@@ -79,7 +86,7 @@ describe Plan do
     end
 
     it "rolls it all back if it hits an error somewhere" do
-      expect_any_instance_of(Mark).to receive(:dup_without_relations!).and_raise
+      expect_any_instance_of(Item).to receive(:copy!).and_raise
       expect{ @plan.copy!(new_user: @user) }.to raise_error
       expect( Item.count ).to eq 3
       expect( Mark.count ).to eq 3

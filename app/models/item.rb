@@ -67,6 +67,7 @@ class Item < BaseModel
   def copy!(new_plan:, keep: [:notes])
     Item.transaction do 
       new_mark = mark.copy!(new_user: new_plan.user)
+      return unless new_mark
       new_item = dup_without_relations!( override: { mark_id: new_mark.id, plan_id: new_plan.id } )
       keep.each { |assc| copy_polymorphic!(to: new_item, relation: assc, other_attrs: { source: plan.user }) }
       new_item
