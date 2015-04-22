@@ -73,9 +73,11 @@ class User < BaseModel
     end
   end
 
-  def invite!
-    AcceptedEmail.where(email: email).first_or_create!
-    UserMailer.welcome_invited( atts(:email, :first_name, :last_name) ).deliver_later
+  def invite!(inviter=nil)
+    OneTimeTask.execute(agent: inviter, detail: "Invite Sent #{Time.now.to_s}", extras: { email: email }) do
+      AcceptedEmail.where(email: email).first_or_create!
+      UserMailer.welcome_invited( atts(:email, :first_name, :last_name), inviter.try(:casual_name) ).deliver_later
+    end
   end
 
 

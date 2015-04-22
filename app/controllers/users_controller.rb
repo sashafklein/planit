@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     if user.persisted?
       redirect_and_flash invite_path, error: "#{user.first_name} is already a Planit member!"
     else
-      if user.invite!
+      if user.invite!(current_user)
         redirect_and_flash invite_path, success: "Great! We've sent an invitation to #{user.first_name}"
       else
         redirect_and_flash invite_path, error: "Woops! Something went wrong. Please let us know"

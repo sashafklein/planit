@@ -9,11 +9,11 @@ class UserMailer < BaseMailer
     roadie_mail(to: @user.email, subject: "Thanks for Signing up for Planit Beta!")
   end
 
-  def welcome_invited(atts)
+  def welcome_invited(atts, inviter_name=nil)
     include_inline_images
     @user = User.new(atts)
     [admin, @user.email].each do |recipient|
-      roadie_mail(to: recipient, subject: "Welcome to Planit Beta!")
+      roadie_mail(to: recipient, subject: inviter_name ? "#{inviter_name} invited you to Planit!" : "Welcome to Planit Beta!")
     end
   end
 

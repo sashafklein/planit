@@ -8,6 +8,10 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.welcome_invited( User.first.atts(:email, :first_name, :last_name) )
   end
 
+  def welcome_invited_with_inviter
+    UserMailer.welcome_invited( User.first.atts(:email, :first_name, :last_name), User.last.casual_name )
+  end
+
   def share_love_user_guides
     url = "https://plan.it/users/" + User.first.slug + "/guides?y=in_2015"
     object = User.first
