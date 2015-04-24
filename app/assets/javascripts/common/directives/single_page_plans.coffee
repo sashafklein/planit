@@ -73,6 +73,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.planNearbyOptionSelectable = (option) -> option?.name?.toLowerCase() == s.planNearby?.split(',')[0]?.toLowerCase()
 
       s.noPlanNearbyResults = -> s.planNearby?.length>1 && s.planNearbyWorking<1 && s.planNearbyOptions?.length<1
+      s.cleanPlanNearbyOptions = -> s.planNearbyOptions = []
 
       s.planNearbyWorking = 0
       s._searchPlanNearby = ->
@@ -241,18 +242,17 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.deleteList = ( list ) ->
         if confirm("Are you sure you want to delete '#{list.name}'?")
           $('.loading-mask').show()
-          debugger
-          # list.destroy()
-          #   .success (response) ->
-          #     listIndex = s.lists.indexOf( list )
-          #     s.lists.splice( listIndex, 1 ) if listIndex > -1
-          #     s.resetList() 
-          #     $('.loading-mask').hide()
-          #     return
-          #   .error (response) ->
-          #     ErrorReporter.defaultFull( response, 'SinglePagePlans deleteList', { plan_id: s.list.id } )
-          #     $('.loading-mask').hide()
-          #     return
+          list.destroy()
+            .success (response) ->
+              listIndex = s.lists.indexOf( list )
+              s.lists.splice( listIndex, 1 ) if listIndex > -1
+              s.resetList() 
+              $('.loading-mask').hide()
+              return
+            .error (response) ->
+              ErrorReporter.defaultFull( response, 'SinglePagePlans deleteList', { plan_id: s.list.id } )
+              $('.loading-mask').hide()
+              return
 
 
 
@@ -269,6 +269,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.placeNearbyOptionSelectable = (option) -> option?.name?.toLowerCase() == s.placeNearby?.split(',')[0]?.toLowerCase()
 
       s.noPlaceNearbyResults = -> s.placeNearby?.length>1 && s.placeNearbyWorking<1 && s.placeNearbyOptions?.length<1
+      s.cleanPlaceNearbyOptions = -> s.placeNearbyOptions = []
 
       s.placeNearbyWorking = 0
       s._searchPlaceNearby = ->

@@ -4,7 +4,7 @@
     .setplanbox-on-plan-page.start-where
       .start-a-new-plan Start a new plan:
       .input-and-results
-        %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: 'Where are you going?', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'startListNearBestOption()' }
+        %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: 'Where are you going?', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'startListNearBestOption()', ng_on_esc_key: 'cleanPlanNearbyOptions()' }
         %ul.suggested-results.blue{ ng_show: 'planNearby && planNearby.length>1' }
           %li.search-results-list{ ng_class: "{'highlighted': planNearbyOptionSelectable(option)}", ng_repeat: 'option in planNearbyOptions', ng_click: 'startListNear(option)' }
             %b {{ option.name }}
@@ -36,7 +36,7 @@
 
     .addbox-on-plan-page{ ng_show: "addBoxToggled" }
       .input-and-results{ ng_show: '!nearby && list' }
-        %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Explore what city or region?', ng_model: 'placeNearby', ng_change: 'searchPlaceNearby()', ng_on_enter_key: 'setNearBestOption()' }   
+        %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Explore what city or region?', ng_model: 'placeNearby', ng_change: 'searchPlaceNearby()', ng_on_enter_key: 'setNearBestOption()', ng_on_esc_key: 'cleanPlaceNearbyOptions()' }   
         %ul.suggested-results.blue{ ng_show: 'placeNearby && placeNearby.length>1 && ( placeNearbyWorking || placeNearbyOptions.length>0 )' }
           %li.search-results-list{ ng_class: "{'highlighted': placeNearbyOptionSelectable(option)}", ng_repeat: 'option in placeNearbyOptions', ng_click: 'setNearby(option)' }
             %b {{ option.name }}
