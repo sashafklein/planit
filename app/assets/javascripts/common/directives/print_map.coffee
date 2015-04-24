@@ -9,7 +9,6 @@ angular.module("Common").directive 'printMap', (ErrorReporter) ->
       items: '='
       locale: '='
       localeLevel: '='
-      userId: '@'
       zoomControl: '@'
 
     link: (s, element) ->
@@ -88,7 +87,7 @@ angular.module("Common").directive 'printMap', (ErrorReporter) ->
               s.markersOrClusterForLayer( layer, letterCount )
             )
           else
-            ErrorReporter.report({ userId: s.userId, planId: s.planId, body: "Error sifting through clusters for cluster marker" })
+            ErrorReporter.report({ userId: CurrentUser.id, planId: s.planId, body: "Error sifting through clusters for cluster marker" })
 
         s.assignClusteredMarkers = ( layer, letterCount ) ->
           _.forEach( layer._markers, (marker) ->

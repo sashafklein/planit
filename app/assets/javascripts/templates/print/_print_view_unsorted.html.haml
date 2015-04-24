@@ -2,7 +2,7 @@
 
   .print-header-wrapper
     .print-plan-title
-      = @plan.name
+      {{ plan.name }}
       .print-header-logo= image_tag "logo_only_black.png", alt: 'Planit'
     .print-overview-map{ ng_show: 'locales.length > 1 && detailLevel > 1' }
       [ Overview Map ]
@@ -12,4 +12,4 @@
       {{ locale }}
       = "&nbsp;".html_safe
       .print-locale-logo= image_tag "logo_only_black.png", alt: 'Planit'
-    = render 'print/print_view_locale'
+    %ng_include{ src: "'print/_print_view_locale.html'" }

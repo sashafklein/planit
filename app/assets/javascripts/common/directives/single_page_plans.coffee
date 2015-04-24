@@ -10,8 +10,6 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.currentUserName = CurrentUser.name
       # s.bestPageTitle = -> if s.list then s.list.name else "#{s.currentUserName}'s Planit"
       s.userOwns = ( obj ) -> s.currentUserId == obj.user_id
-
-
       
 
       # QUERYSTRING MANAGE START DATA
@@ -314,6 +312,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.hasItems = -> s.items?.length > 0
 
       s.placeNameSearch = -> 
+        debugger
         s.options = [] if s.placeName?.length
         s._placeSearchFunction() if s.placeName?.length > 1 && s.nearby?.lat && s.nearby?.lon
 
@@ -340,7 +339,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
               Flash.warning("We're having trouble finding '#{s.nearby.name}'")
               s.nearby = null
             else
-              ErrorReporter.fullSilent(response, 'SinglePagePlans s._makeSearchRequest', { near: s.nearby, query: s.placeName }) if response.message != "Insufficient search params"
+              ErrorReporter.fullSilent(response, 'SinglePagePlans s._makePlaceSearchRequest', { near: s.nearby, query: s.placeName }) if response.message != "Insufficient search params"
 
       s.hasPlaceNameOptions = -> s.placeNameOptions?.length>0
 

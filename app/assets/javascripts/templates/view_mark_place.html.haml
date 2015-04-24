@@ -1,0 +1,27 @@
+.modal-directive-wrapper
+  .confirm{ ng_if: '!initiate'}
+    %modal_header{ header_title: 'My places' }
+    .modal-body
+      %ul
+        %li.like-container
+          .bucket-list-tab.like-container
+            .bucket-list-img.centering-box{ style: "background-image: url('{{ place.images[currentImageIndex].url }}')", ng_class: "{'no-img': place.images.length}", ng_click: 'nextImage()', title: 'Click to Cycle' }
+              .choose-another-img.centered-item{ ng_class: "{'no-img': !place.images.length}" }
+                %i.fa.fa-camera-retro
+            .bucket-list-wrap.like-container
+              .bucket-list-profile
+                .bucket-list-title {{ place.name }}
+                .bucket-list-more-info
+                  %i.icon{ ng_class: 'place.meta_icon' }
+                  %span.categories 
+                    %span {{ categories() }}
+                .bucket-list-more-info.bucket-list-address {{ place.address }}
+                .bucket-list-more-info.bucket-list-locale {{ place.locale }}
+                .bucket-list-more-info.bucket-list-country {{ place.country }}
+                / .add-to-extras
+                /   %input{ value: 'Add to plan'}
+                / .add-to-extras
+                /   %input{ value: 'Add note'}
+                / .add-to-extras
+                /   %input{ value: 'Recommended by'}
+    %modal_footer{ cancel_text: 'Close', cancel_method: 'cancel' }

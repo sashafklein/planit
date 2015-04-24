@@ -86,6 +86,7 @@ gem "wkhtmltopdf-binary"
 gem "flutie"
 gem "figaro"
 gem 'activeadmin', github: 'activeadmin'
+gem 'angular-rails-templates'
 
 source "https://rails-assets.org" do
   gem "rails-assets-angular"

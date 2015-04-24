@@ -11,7 +11,7 @@
             {{ option.qualifiers }}
           %li.search-results-working{ ng_show: 'planNearbyWorking>0' } Working on it...
           %li.search-results-working{ ng_show: 'noPlanNearbyResults()' } Can't find that...
-      = render 'application/rainbow_divider'
+      %ng_include{ src: "'application/_rainbow_divider.html'" }
     .explore-other-guides{ ng_show: "!list && !hasLists()" }
       / See other Guides
 
@@ -26,7 +26,8 @@
       %input.title#rename{ ng_model: 'rename', ng_on_enter_key: 'saveRenameList()', ng_on_esc_key: 'cancelRenameList()' }
 
   .settingsbox-on-plan-page{ ng_show: "list && ( settingsBoxToggled || rename )", ng_class: "{'in-rename': rename}" }
-    .plan-settings-dropdown{ ng_show: '!rename && items.length' }= render 'header/dropdowns/plan_settings'
+    .plan-settings-dropdown{ ng_show: '!rename && items.length' }
+      %ng_include{ src: "'single/_plan_settings.html'" }
     .rename-confirmation{ ng_show: 'rename' }
       .planit-button.gray{ ng_click: 'cancelRenameList()' } Cancel          
       .planit-button.neon{ ng_click: 'saveRenameList()' } Save

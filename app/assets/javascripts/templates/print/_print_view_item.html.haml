@@ -1,5 +1,4 @@
 .print-view-item
-
   .print-item-meta-band.rainbow{ ng_class: 'metaClass( item.mark.place.meta_categories[0] )' }
     %i{ class: '{{ item.mark.place.meta_icon }}' }
   .print-item-info{ ng_class: "{'full-width': detailLevel < 2}" }
@@ -28,7 +27,7 @@
         {{ hours( item, day ) }}
     .print-item-notes{ ng_show: 'hasNote(item)' }                  
       .note-line
-        %b= @plan.user.name
+        %b {{ plan.name }}
         {{ item.note }}
     
   .print-item-map-wrapper{ ng_show: "detailLevel > 1" }
