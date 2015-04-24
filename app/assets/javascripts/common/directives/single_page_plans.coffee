@@ -79,6 +79,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.planNearbyOptionSelectable = (option) -> option?.name?.toLowerCase() == s.planNearby?.split(',')[0]?.toLowerCase()
 
       s.noPlanNearbyResults = -> s.planNearby?.length>1 && s.planNearbyWorking<1 && s.planNearbyOptions?.length<1
+
       s.cleanPlanNearbyOptions = -> s.planNearbyOptions = []
 
       s.planNearbyWorking = 0
@@ -318,23 +319,28 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
       s._placeSearchFunction = _.debounce( (-> s._makePlaceSearchRequest() ), 500 )
 
-      s.noPlaceNameResults = -> s.placeName?.length>1 && s.placeNameWorking<1 && s.placeNameOptions?.length<1
+      s.warnNearby = -> 
+        if s.nearby?.warned != true
+          Flash.warning("'#{s.nearby.name}' may be too broad a location to search in") if s.placeName?.length>2 && s.nearby?.lat && s.nearby?.lon && ( s.nearby?.fclName == "parks,area, ..." || s.nearby?.fclName == "country, state, region,..." )
+          s.nearby?.warned = true
+
+      s.noPlaceNameResults = -> if s.placeName?.length>1 && s.placeNameWorking<1 && s.placeNameOptions?.length<1 then s.warnNearby() ; return true else return false
 
       s.placeNameWorking = 0
       s._makePlaceSearchRequest = ->
+        return unless s.nearby?.lat && s.nearby?.lon && s.placeName?.length>0
         s.placeNameWorking++
-        if s.nearby?.lat && s.nearby?.lon && s.placeName
-          Foursquare.search( "#{s.nearby.lat},#{s.nearby.lon}" , s.placeName)
-            .success (response) ->
-              s.placeNameWorking--
-              s.placeNameOptions = Place.generateFromJSON Foursquare.parse(response)
-            .error (response) ->
-              s.placeNameWorking--
-              if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
-                Flash.warning("We're having trouble finding '#{s.nearby.name}'")
-                s.nearby = null
-              else
-                ErrorReporter.fullSilent(response, 'SinglePagePlans s._makeSearchRequest', { near: s.nearby, query: s.placeName }) if response.message != "Insufficient search params"
+        Foursquare.search( "#{s.nearby.lat},#{s.nearby.lon}" , s.placeName)
+          .success (response) ->
+            s.placeNameWorking--
+            s.placeNameOptions = Place.generateFromJSON Foursquare.parse(response)
+          .error (response) ->
+            s.placeNameWorking--
+            if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
+              Flash.warning("We're having trouble finding '#{s.nearby.name}'")
+              s.nearby = null
+            else
+              ErrorReporter.fullSilent(response, 'SinglePagePlans s._makeSearchRequest', { near: s.nearby, query: s.placeName }) if response.message != "Insufficient search params"
 
       s.hasPlaceNameOptions = -> s.placeNameOptions?.length>0
 

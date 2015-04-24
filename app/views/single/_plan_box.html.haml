@@ -1,7 +1,7 @@
 .planbox-wrapper
 
   .start-a-new-guide{ ng_show: '!list && isLoaded' }
-    .setplanbox-on-plan-page.start-where
+    .start-where{ ng_class: "{'setplanbox-on-plan-page': hasLists(), 'centeredbox-on-plan-page': !hasLists()}" }
       .start-a-new-plan Start a new plan:
       .input-and-results
         %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: 'Where are you going?', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'startListNearBestOption()', ng_on_esc_key: 'cleanPlanNearbyOptions()', ng_keyup: 'handleKeyup()', ng_keydown: 'handleKeydown()' }
@@ -12,6 +12,8 @@
           %li.search-results-working{ ng_show: 'planNearbyWorking>0' } Working on it...
           %li.search-results-working{ ng_show: 'noPlanNearbyResults()' } Can't find that...
       = render 'application/rainbow_divider'
+    .explore-other-guides{ ng_show: "!list && !hasLists()" }
+      / See other Guides
 
   .setplanbox-on-plan-page.set-guide{ ng_show: 'list' }
 
