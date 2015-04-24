@@ -1,9 +1,13 @@
-/ = link_to_unless( page_type == 'places', ( render 'application/nav_places', {page_type: page_type} ), places_user_path(current_user), { class: 'nav-item-link' })
+- unless false
+  / = link_to_unless( page_type == 'places', ( render 'application/nav_places', {page_type: page_type} ), places_user_path(current_user), { class: 'nav-item-link' })
 
-/ = link_to_unless( page_type == 'search', ( render 'application/nav_search', {page_type: page_type} ), search_user_path(current_user), { class: 'nav-item-link' })
+  / = link_to_unless( page_type == 'search', ( render 'application/nav_search', {page_type: page_type} ), search_user_path(current_user), { class: 'nav-item-link' })
 
 = link_to_unless( ( page_type == 'inbox' || current_user.message_count == 0 ), ( render 'application/nav_inbox', { page_type: page_type, current_user: current_user } ), inbox_user_path(current_user), { class: 'nav-item-link' } )
 
-= link_to_unless( ( page_type == 'home' ), ( render 'application/nav_home', {page_type: page_type} ), root_path, { class: 'nav-item-link' } )
+- if page_type == 'home'
+  %a.nav-item-link{ ng_click: 'resetList()' }= render 'application/nav_home', {page_type: page_type}
+- else
+  = link_to_unless( ( page_type == 'home' ), ( render 'application/nav_home', {page_type: page_type} ), root_path, { class: 'nav-item-link' } )
 
 = link_to_unless( !rich_content?(page_type), ( render 'application/nav_share', {page_type: page_type} ), '#planit-modal-share', { class: 'nav-item-link', data: {toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'}} )

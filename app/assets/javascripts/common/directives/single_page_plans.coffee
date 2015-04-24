@@ -1,4 +1,4 @@
-angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, Place, Note, Foursquare, ErrorReporter, CurrentUser, QueryString, Flash, $filter, $timeout, $location, $q, $http) ->
+angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, Place, Note, Foursquare, QueryString, Geonames, CurrentUser, ErrorReporter, Flash, $filter, $timeout, $location, $q) ->
   return {
     restrict: 'E'
     replace: true
@@ -8,6 +8,9 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
       s.currentUserId = CurrentUser.id
 
+
+
+
       # QUERYSTRING MANAGE START DATA
 
       if plan_id = QueryString.get()['plan']
@@ -16,13 +19,21 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
             s.list = s.plan = Plan.generateFromJSON( response )
             s.setList( s.list )
             if locale = QueryString.get()['near']
-              s.nearby = locale
-            else if mapCenter = QueryString.get()['m']
-              s.nearbyFromMapCenter( mapCenter )
+              nameAndLatLon = locale.split(',,')
+              if nameAndLatLon?.length == 2
+                name = nameAndLatLon[0]
+                latLon = nameAndLatLon[1].split(',')
+                if latLon?.length == 2
+                  s.nearby = { name: name, lat: latLon[0], lon: latLon[1] }
+            # else if mapCenter = QueryString.get()['m']
+            #   s.nearbyFromMapCenter( mapCenter )
 
           .error (response) ->
             QueryString.modify({plan: null, near: null})
             ErrorReporter.defaultFull( response, "SinglePagePlans top Plan.find", { plan_id: plan_id } )
+
+
+
 
       # EXPAND/CONTRACT
 
@@ -38,7 +49,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         s.mode = mode
         QueryString.modify({mode: mode})
         if mode == 'map' then s.showMap = true else s.showMap = false
-        if mapCenter = QueryString.get()['m'] then s.nearbyFromMapCenter( mapCenter )
+        # if mapCenter = QueryString.get()['m'] then s.nearbyFromMapCenter( mapCenter )
 
       s.setModeViaQueryString = ->
         if mode_in_querystring = QueryString.get()['mode']
@@ -49,9 +60,52 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
           QueryString.modify({mode: 'list'})
 
 
-      # LISTS & SETTING LISTS
 
-      s.forbiddenNearby = []
+
+      # VALIDATE LOCATION AND START LIST
+
+      s.searchPlanNearby = -> 
+        s.planNearbyOptions = [] if s.planNearby?.length
+        s._searchPlanNearbyFunction() if s.planNearby?.length > 1
+
+      s._searchPlanNearbyFunction = _.debounce( (-> s._searchPlanNearby() ), 500 )
+
+      s.planNearbyOptionSelectable = (option) -> option?.name?.toLowerCase() == s.planNearby?.split(',')[0]?.toLowerCase()
+
+      s.noPlanNearbyResults = -> s.planNearby?.length>1 && s.planNearbyWorking<1 && s.planNearbyOptions?.length<1
+
+      s.planNearbyWorking = 0
+      s._searchPlanNearby = ->
+        return unless s.planNearby?.length > 1
+        s.planNearbyWorking++
+        Geonames.search( s.planNearby )
+          .success (response) ->
+            s.planNearbyWorking--
+            s.planNearbyOptions = response.geonames
+            _.map( s.planNearbyOptions, (o) -> 
+              o.lon = o.lng; o.qualifiers = _.uniq( _.compact( [ o.adminName1 unless o.name == o.adminName1, o.countryCode ] ) ).join(", ")
+            )
+          .error (response) -> 
+            s.planNearbyWorking--
+            ErrorReporter.fullSilent(response, 'SinglePagePlans s.searchPlanNearby', { query: s.planName })
+
+      s.startListNearBestOption = ->
+        return unless s.planNearbyOptions?.length
+        keepGoing = true
+        _.forEach( s.planNearbyOptions, (o) ->
+          if s.planNearbyOptionSelectable(o) && keepGoing
+            s.startListNear(o)
+            keepGoing = false
+        )
+
+      s.startListNear = (option) ->
+        return unless option?.name && option?.lat && option?.lon
+        s.newList( option.name + " Guide" )
+        s.setNearby( option )
+
+
+
+      # LISTS & SETTING LISTS
 
       s.hoveringList = false
       s.listQuerySet = (name) -> s.hoveringList = true; s.listQuery = "Open => " + name
@@ -79,8 +133,8 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
           s.setList()
 
       s.resetList = -> 
-        s._setOnScope( [ 'list', 'listQuery', 'options', 'placeName', 'placeNearby', 'nearby', 'showMap', 'qsNearby'], null )
-        s._setOnScope( [ 'items', 'places'], [] )
+        s._setOnScope( [ 'list', 'listQuery', 'nearby', 'showMap', 'planNearby', 'planNearbyOptions', 'placeName', 'placeNameOptions', 'placeNearby', 'placeNearbyOptions' ], null )
+        s._setOnScope( [ 'items' ], [] )
         $timeout(-> $('#guide').focus() if $('#guide') )
         QueryString.modify({plan: null, near: null, m: null, f: null})
 
@@ -88,6 +142,19 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
       s.listClass = (mode) ->
         if mode == 'list' then 'sixteen columns' else 'ten columns'
+
+      s.newList = ( name ) ->
+        return unless name?.length
+        $('.loading-mask').show()
+        $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
+        Plan.create( plan_name: name )
+          .success (response) ->
+            $('.loading-mask').hide()
+            list = Plan.generateFromJSON(response)
+            s._installList( list )
+          .error (response) ->
+            $('.loading-mask').hide()
+            ErrorReporter.defaultFull( response, 'SinglePagePlans Plan.create', { plan_name: s.listQuery})
 
       s.setList = (list) ->
         if list
@@ -174,20 +241,64 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.deleteList = ( list ) ->
         if confirm("Are you sure you want to delete '#{list.name}'?")
           $('.loading-mask').show()
-          s.list.destroy()
-            .success (response) ->
-              listIndex = s.lists.indexOf( list )
-              s.lists.splice( listIndex, 1 ) if listIndex > -1
-              s.resetList() 
-              $('.loading-mask').hide()
-              return
-            .error (response) ->
-              ErrorReporter.defaultFull( response, 'SinglePagePlans deleteList', { plan_id: s.list.id } )
-              $('.loading-mask').hide()
-              return
+          debugger
+          # list.destroy()
+          #   .success (response) ->
+          #     listIndex = s.lists.indexOf( list )
+          #     s.lists.splice( listIndex, 1 ) if listIndex > -1
+          #     s.resetList() 
+          #     $('.loading-mask').hide()
+          #     return
+          #   .error (response) ->
+          #     ErrorReporter.defaultFull( response, 'SinglePagePlans deleteList', { plan_id: s.list.id } )
+          #     $('.loading-mask').hide()
+          #     return
 
 
-      # ITEMS == SEARCH, ADD
+
+
+
+      # PLACE NEARBY SETTINGS
+
+      s.searchPlaceNearby = -> 
+        s.placeNearbyOptions = [] if s.placeNearby?.length
+        s._searchPlaceNearbyFunction() if s.placeNearby?.length > 1
+
+      s._searchPlaceNearbyFunction = _.debounce( (-> s._searchPlaceNearby() ), 500 )
+
+      s.placeNearbyOptionSelectable = (option) -> option?.name?.toLowerCase() == s.placeNearby?.split(',')[0]?.toLowerCase()
+
+      s.noPlaceNearbyResults = -> s.placeNearby?.length>1 && s.placeNearbyWorking<1 && s.placeNearbyOptions?.length<1
+
+      s.placeNearbyWorking = 0
+      s._searchPlaceNearby = ->
+        return unless s.placeNearby?.length > 1
+        s.placeNearbyWorking++
+        Geonames.search( s.placeNearby )
+          .success (response) ->
+            s.placeNearbyWorking--
+            s.placeNearbyOptions = response.geonames
+            _.map( s.placeNearbyOptions, (o) -> 
+              o.lon = o.lng; o.qualifiers = _.uniq( _.compact( [ o.adminName1 unless o.name == o.adminName1, o.countryCode ] ) ).join(", ")
+            )
+          .error (response) -> 
+            s.placeNearbyWorking--
+            ErrorReporter.fullSilent(response, 'SinglePagePlaces s.searchPlaceNearby', { query: s.placeName })
+
+      s.setNearBestOption = ->
+        return unless s.placeNearbyOptions?.length
+        keepGoing = true
+        _.forEach( s.placeNearbyOptions, (o) ->
+          if s.placeNearbyOptionSelectable(o) && keepGoing
+            s.setNearby(o)
+            keepGoing = false
+        )
+
+
+
+
+
+      # PLACE SEARCH AND ITEM ADDITION
 
       s.items = []
       s.itemsFirstLetters = []
@@ -201,21 +312,80 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
       s.hasItems = -> s.items?.length > 0
 
+      s.placeNameSearch = -> 
+        s.options = [] if s.placeName?.length
+        s._placeSearchFunction() if s.placeName?.length > 1 && s.nearby?.lat?.length && s.nearby?.lon?.length
+
+      s._placeSearchFunction = _.debounce( (-> s._makePlaceSearchRequest() ), 500 )
+
+      s.noPlaceNameResults = -> s.placeName?.length>1 && s.placeNameWorking<1 && s.placeNameOptions?.length<1
+
+      s.placeNameWorking = 0
+      s._makePlaceSearchRequest = ->
+        s.placeNameWorking++
+        if s.nearby?.lat?.length && s.nearby?.lon?.length && s.placeName?.length
+          Foursquare.search(( "#{s.nearby.lat},#{s.nearby.lon}" ), s.placeName)
+            .success (response) ->
+              s.placeNameWorking--
+              s.placeNameOptions = Place.generateFromJSON(response)
+            .error (response) ->
+              s.placeNameWorking--
+              if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
+                Flash.warning("We're having trouble finding '#{s.nearby}'")
+                s.nearby = null
+              else
+                ErrorReporter.fullSilent(response, 'SinglePagePlans s._makeSearchRequest', { near: s.nearby, query: s.placeName }) if response.message != "Insufficient search params"
+
+      s.hasPlaceNameOptions = -> s.placeNameOptions?.length>0
+
+      s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
+
+      s.addItem = (option) ->
+        s.options = []
+        s.placeName = null
+
+        s.list.addItemFromPlaceData(option)
+          .success (response) ->
+            new_item = _.extend( Item.generateFromJSON( response ), { index: s.items.length, pane: 'list', notesSearched: true } )
+            if !_.find(s.items, (i) -> i.mark?.place?.id == new_item.mark?.place?.id )
+              s.items.unshift new_item
+              for list in _.uniq( _.compact([s.list, _.find(s.lists, (l) -> l.id == s.list.id)]) )
+                list.place_ids.unshift( new_item.mark?.place.id ) if new_item?.mark?.place?.id
+            else
+              Flash.warning("That place is already in your list!")
+            QueryString.modify({m: null})
+            if s.items?.length == 1
+              s.initialSortItems()
+              _.find(s.lists, (l) -> l.id == s.list.id).best_image = response.mark.place.images[0] if response?.mark?.place?.images?.length
+            else
+              s.sortItems()
+          .error (response) ->
+            ErrorReporter.defaultFull( response, 'SinglePagePlans addItem', { option: JSON.stringify(option), plan_id: s.list.id })
+
+      s.typeIcon = (meta_category) -> 
+        itemsWithIcon = _.filter( s.items, (i) -> i.mark.place.meta_categories[0] == meta_category )
+        if itemsWithIcon[0] then itemsWithIcon[0].mark.place.meta_icon else ''
+
+
+
+
       # NEARBY
 
-      s.canSetNearby = (nearby) -> nearby?.length > 2 && !_(s.forbiddenNearby).find( (o) -> o.toLowerCase() == nearby?.toLowerCase() )      
       s.setNearby = (nearby) -> 
-        s.nearby = nearby if s.canSetNearby(nearby)
+        return unless nearby?.lat?.length && nearby?.lon?.length && nearby?.name?.length
+        s.nearby = nearby
+        Flash.warning("Now Exploring in '#{s.nearbyToReset()}'")
         $timeout(-> $('#place-name').focus() if $('#place-name') )
-        QueryString.modify({ near: nearby })
+        QueryString.modify({ near: "#{nearby.name},,#{nearby.lat},#{nearby.lon}" })
         return
 
+      s.nearbyToReset = -> _.compact([ s.nearby?.name, s.nearby?.adminName1, s.nearby?.countryCode ]).join(", ")
+
       s.resetNearby = -> 
-        s._setOnScope( [ 'nearby', 'placeName', 'centerNearby' ], null )
-        s.options = []
+        Flash.warning("Out of '#{s.nearbyToReset()}' -- set a new location to explore")
+        s._setOnScope( [ 'nearby', 'placeName', 'placeNearby', 'placeOptions', 'centerNearby' ], null )
         $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
         QueryString.modify({ near: null })
-        s.qsNearby = false
         return
 
       s.backspaced = 0
@@ -230,6 +400,10 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
               $timeout(-> $('span.chosen-input#chosen-nearby').addClass("highlighted") )
               s.backspaced = 1
         return
+
+
+
+
 
       # NOTES
 
@@ -274,6 +448,9 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
           prior_ul.focus() if prior_ul[0] && !prior_li[0]
           this_textarea.blur() if !prior_li[0] && !prior_ul[0]
         return
+
+
+
 
 
       # LIST SORTING
@@ -331,6 +508,9 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
           'Undated'
       s.noneIfZero = (digit) -> if digit == '0' then '' else digit
 
+
+
+
       # SEARCH AND ITEM ADDITION
 
       s.search = -> 
@@ -355,8 +535,6 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
       s.hasOptions = -> s.options?.length>0
 
-      s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
-
       s.addItem = (option) ->
         s.options = []
         s.placeName = null
@@ -380,11 +558,10 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
           .error (response) ->
             ErrorReporter.defaultFull( response, 'SinglePagePlans addItem', { option: JSON.stringify(option), plan_id: s.list.id })
 
-      s.typeIcon = (meta_category) -> 
-        itemsWithIcon = _.filter( s.items, (i) -> i.mark.place.meta_categories[0] == meta_category )
-        if itemsWithIcon[0] then itemsWithIcon[0].mark.place.meta_icon else ''
 
-      ## DRAG-DROP
+
+
+      # DRAG-DROP
 
       s.addToManifest = (item, insertIndex=0) -> 
         s._runRequest( ( -> s.plan.addToManifest(item, insertIndex) ), 'addToManifest', { item_id: item.id })
@@ -457,24 +634,32 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
       s._objectClasses = { "Item": Item }
 
+
+
+
+
       # GEOCODING
 
-      s.nearbyFromMapCenter = (mapCenter) ->
-        return unless mapCenter?.length
-        mapCenterSplit = mapCenter?.split(',')
-        return unless mapCenterSplit && mapCenterSplit?.length > 1
-        if s.qsNearby || ( !s.nearby?.length && !s.placeNearby?.length )
-          lat = parseFloat( mapCenterSplit[0] )
-          lon = parseFloat( mapCenterSplit[1] )
-          geonamesQuery = "http://api.geonames.org/citiesJSON?north=#{ lat + 0.0075 }&south=#{ lat - 0.0075 }&east=#{ lon + 0.0125 }&west=#{ lon - 0.0125 }&username=planit&lang=en&style=full&callback=JSON_CALLBACK"
-          $http.jsonp(geonamesQuery)
-            .success (response) -> 
-              cities = _.filter( response.geonames, (n) -> n.fclName == "city, village,..." )
-              return unless cities[0]
-              if s.qsNearby || ( !s.nearby?.length && !s.placeNearby?.length )
-                s.nearby = "#{cities[0].name}" 
-                s.qsNearby = "#{lat},#{lon}"
-            .error (response) -> ErrorReporter("Geonames Cities Query not working on SinglePagePlan")
+      # s.nearbyFromMapCenter = (mapCenter) ->
+      #   return unless mapCenter?.length
+      #   mapCenterSplit = mapCenter?.split(',')
+      #   return unless mapCenterSplit && mapCenterSplit?.length > 1
+      #   if s.qsNearby || ( !s.nearby?.length && !s.placeNearby?.length )
+      #     lat = parseFloat( mapCenterSplit[0] )
+      #     lon = parseFloat( mapCenterSplit[1] )
+      #     s.qsNearby = "#{lat},#{lon}"
+      #     geonamesQuery = "https://api.geonames.org/citiesJSON?north=#{ lat + 0.0075 }&south=#{ lat - 0.0075 }&east=#{ lon + 0.0125 }&west=#{ lon - 0.0125 }&username=planit&lang=en&style=full&callback=JSON_CALLBACK"
+      #     $http.jsonp(geonamesQuery)
+      #       .success (response) -> 
+      #         cities = _.filter( response.geonames, (n) -> n.fclName == "city, village,..." )
+      #         return unless cities[0]
+      #         if s.qsNearby || ( !s.nearby?.length && !s.placeNearby?.length )
+      #           s.nearby = "#{cities[0].name}" 
+      #           s.qsNearby = "#{lat},#{lon}"
+      #       .error (response) -> ErrorReporter("Geonames Cities Query not working on SinglePagePlan")
+
+
+
 
 
       # ITEM CONTROLS
@@ -499,10 +684,9 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
               if placeIdIndex != -1 then list.place_ids.splice( placeIdIndex, 1 )
               list.best_image = null if s.items?.length == 0
             s.sortItems()
-            if confirm("Also delete from your saves?")
-              Mark.remove( item.mark.place.id )
-                .success (response) -> Flash.success("'#{item.mark.place.names[0]}' Deleted")
-                .error (response) -> ErrorReporter.report({ place_id: item.mark.place.id, user_id: s.currentUserId, context: "Inside singlePagePlans directive, deleting a mark" })
+            Mark.remove( item.mark.place.id )
+              .success (response) -> Flash.success("'#{item.mark.place.names[0]}' Deleted")
+              .error (response) -> ErrorReporter.report({ place_id: item.mark.place.id, user_id: s.currentUserId, context: "Inside singlePagePlans directive, deleting a mark" })
           .error (response) ->
             ErrorReporter.defaultFull( response, 'singlePagePlans delete(item)', { item_id: item.id })
 

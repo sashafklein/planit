@@ -1,15 +1,14 @@
 .sort-and-view-modes{ ng_show: "list && hasItems()" }
 
   .sort-items-by.large-screen{ ng_show: "mode == 'list' || mode == 'trip'" }
-    %b Sort
+    %b Sorting by
     %span.selectable.sort-by-button{ ng_click: "setCategoryAs('alphabetical')", ng_class: "{'highlighted': categoryIs == 'alphabetical'}" } A-Z
     %span.selectable.sort-by-button{ ng_click: "setCategoryAs('type')", ng_class: "{'highlighted': categoryIs == 'type'}" } Type
     %span.selectable.sort-by-button{ ng_click: "setCategoryAs('locale')", ng_class: "{'highlighted': categoryIs == 'locale'}" } Locale
     %span.selectable.sort-by-button{ ng_click: "setCategoryAs('recent')", ng_class: "{'highlighted': categoryIs == 'recent'}" } Recent
 
   .view-and-edit-mode{ ng_class: "{'in-map': mode == 'map', 'large-screen': mode != 'map'}" }
-    %span.selectable.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': mode == 'list'}" } List
-    %span.selectable.view-and-edit-button.disabled Trip
+    %span.selectable.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': mode == 'list'}" } List View
+    / %span.selectable.view-and-edit-button.disabled Trip Mode
     / { ng_click: "setMode('trip')", ng_class: "{'highlighted': mode == 'trip'}" }
     %span.selectable.view-and-edit-button{ ng_click: "setMode('map')", ng_class: "{'highlighted': mode == 'map'}" } Map
-    %b View

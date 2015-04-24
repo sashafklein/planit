@@ -32,10 +32,27 @@
   .planbox-wrapper
     user-select: none
 
+  .start-a-new-guide .rainbow-divider
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    margin: auto
+    width: 33% !important
+    height: 3px !important
+
   .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
     position: fixed
     input
       min-width: 50px
+      &:focus
+        outline: none
+        outline-width: 0
+    input#place-name, #place-nearby, #plan-nearby
+      width: 100%
+      height: 28px
+      line-height: 26px
+      padding: 0 4px
     input.full-width
       width: 98%
 
@@ -51,8 +68,9 @@
       display: inline-block
       color: #fff
       font-weight: normal
-      font-size: 18px
+      font-size: 24px
       line-height: 28px
+      padding: 3px 8px
       font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
       overflow: hidden
       white-space: nowrap
@@ -61,8 +79,13 @@
     i.title, i.settings
       line-height: 28px
       cursor: pointer
-      color: #aaa
       transition: 0.2s ease all
+    i.title
+      color: #555
+      &:hover
+        color: #ccc
+    i.settings
+      color: #aaa
       &:hover
         color: #f06
       &.opened
@@ -70,13 +93,13 @@
     input.title#rename
       color: #fff
       font-weight: normal
-      font-size: 18px
-      line-height: 28px
+      font-size: 24px
+      line-height: 26px
       font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
       background: rgba(255,255,255,0.1)
-      border: none
+      border: 0px solid transparent
       width: 100%
-      padding: 0
+      padding: 0 8px
       margin: 0
       &:focus
         outline: none
@@ -90,6 +113,16 @@
       padding-left: 10px
       font-size: 18px
       cursor: pointer
+
+  .setplanbox-on-plan-page.start-where
+    background: #f06
+    box-shadow: none
+    border-top: 3px solid #007
+    height: 100px
+    .start-a-new-plan
+      margin-bottom: 8px
+      color: #fff
+      font-size: 16px
 
   .settingsbox-on-plan-page
     z-index: 10015
@@ -111,6 +144,26 @@
     background: #333
     z-index: 10003
     overflow: visible !important
+
+    .input-and-results
+      span.set-location-reminder, span.reset-location
+        position: absolute
+        top: 0
+        bottom: 0
+        right: 6px
+        margin: auto 0
+        background: #f06
+        border-radius: 3px
+        color: #fff
+        font-size: 14px
+        line-height: 16px
+        height: 16px
+        padding: 0 3px
+      span.reset-location
+        cursor: pointers
+        transition: 0.2s ease all
+        &:hover
+          background: #e05
 
     .item-search-results
       position: absolute
@@ -528,13 +581,17 @@
     top: 68px
     bottom: 0
 
+  .setplanbox-on-plan-page
+    padding: 13px 10px
+  .start-where
+    padding: 18px
   .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
     left: 0
     right: 0
-    padding: 18px
     width: 33%
     margin: 0 auto
   .addbox-on-plan-page, .settingsbox-on-plan-page
+    padding: 18px
     top: 68px
 
   .pad-top-addbox
@@ -567,11 +624,15 @@
       top: 68px
       bottom: 0
 
-    .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
+    .setplanbox-on-plan-page
+      padding: 13px 10px
+    .start-where
       padding: 18px
+    .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
       width: 33%
       margin: 0 auto
     .addbox-on-plan-page, .settingsbox-on-plan-page
+      padding: 18px
       top: 68px
 
     .pad-top-addbox
@@ -605,7 +666,7 @@
       bottom: 44px
 
     .setplanbox-on-plan-page
-      padding: 8px
+      padding: 8px 10px
     .setplanbox-on-plan-page, .addbox-on-plan-page
       height: 43px
     .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
