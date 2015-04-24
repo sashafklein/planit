@@ -12,14 +12,9 @@
           - if current_user_is_active # admin or member
 
             / %a.mobile.page-title{ ng_href: root_path }= "PLANIT" if browser.mobile?
-            - if page_type == 'home'
-              .top-menu-container{ ng_click: 'toggleMainMenu()' }
-                = render 'header/user_avatar'
-                %ul.dropdown-menu-right.planit-dropdown-menu{ ng_show: 'mainMenuToggled' }= render 'header/dropdowns/main_menu'
-            - else
-              .top-menu-container
-                %a.main-menu-dropdown.dropdown-toggle{ "data-toggle" => "dropdown", :href => "#" }= render 'header/user_avatar'
-                %ul.dropdown-menu.dropdown-menu-right.planit-dropdown-menu= render 'header/dropdowns/main_menu'
+            .top-menu-container
+              %a.main-menu-dropdown.dropdown-toggle{ "data-toggle" => "dropdown", :href => "#" }= render 'header/user_avatar'
+              %ul.dropdown-menu.dropdown-menu-right.planit-dropdown-menu= render 'header/dropdowns/main_menu'
             - if !browser.mobile?
               .side-menu-container.large-screen.inline
                 .top-nav-bar{ ng_controller: 'NavBarCtrl' }= render 'application/nav_bar', { page_type: page_type }

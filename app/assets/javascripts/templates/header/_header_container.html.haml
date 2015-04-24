@@ -1,0 +1,12 @@
+.single-page-header
+  #planit-header.except-landscape{ ng_class: "{ 'black': mobile, 'white': !mobile }" }
+    .container.none.pseudo
+      .header-wrapper
+        %ng_include{ src: "'header/_logo_container.html'" }
+        .top-menu-container{ ng_show: "currentUserIsActive", ng_click: 'toggleMainMenu()' }
+          %ng_include{ src: "'header/_user_avatar.html'" }
+          %ul.dropdown-menu-right.planit-dropdown-menu{ ng_show: 'mainMenuToggled' }
+            %ng_include{ src: "'header/_main_menu.html'" }
+        .side-menu-container.large-screen.inline
+          .top-nav-bar{ ng_controller: 'NavBarCtrl' }
+            %ng_include{ src: "'application/_nav_bar.html'" }
