@@ -6,6 +6,7 @@ mod.factory "Place", (BaseModel, BasicOperators, $http) ->
     constructor: (_properties) ->
       properties = _.clone(_properties)
       _.extend(this, _properties)
+      @images = [{ url: @image_url, source: 'Foursquare'}] if !@images?.length && @image_url
 
     @class: "Place"
     class: Place.class

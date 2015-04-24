@@ -112,7 +112,7 @@ module ActsLikePlace
   end
 
   def background_complete!
-    return if [locality, region, country, street_address].all?(&:present?) && images.any?
+    return if [locality, region, country, street_address].all?(&:present?) && ( images.count > 1 || completion_steps.include?("FoursquareRefine") )
     complete!
   end
 
