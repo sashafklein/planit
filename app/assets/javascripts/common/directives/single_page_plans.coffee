@@ -12,6 +12,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.userOwns = ( obj ) -> s.currentUserId == obj.user_id
 
 
+      
 
       # QUERYSTRING MANAGE START DATA
 
@@ -155,7 +156,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         return { name: locale, lat: mostRecentItem.mark.place.lat, lon: mostRecentItem.mark.place.lon, adminName1: macro }
 
       s.resetList = -> 
-        s._setOnScope( [ 'list', 'listQuery', 'nearby', 'showMap', 'planNearby', 'planNearbyOptions', 'placeName', 'placeNameOptions', 'placeNearby', 'placeNearbyOptions' ], null )
+        s._setOnScope( [ 'list', 'listQuery', 'nearby', 'showMap', 'planNearby', 'planNearbyOptions', 'placeName', 'placeNameOptions', 'placeNearby', 'placeNearbyOptions', 'settingsBoxToggled' ], null )
         s._setOnScope( [ 'items' ], [] )
         $timeout(-> $('#guide').focus() if $('#guide') )
         QueryString.modify({plan: null, near: null, m: null, f: null})
@@ -326,11 +327,11 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
           Foursquare.search(( "#{s.nearby.lat},#{s.nearby.lon}" ), s.placeName)
             .success (response) ->
               s.placeNameWorking--
-              s.placeNameOptions = Place.generateFromJSON(response)
+              s.placeNameOptions = Place.generateFromJSON Foursquare.parse(response)
             .error (response) ->
               s.placeNameWorking--
               if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
-                Flash.warning("We're having trouble finding '#{s.nearby}'")
+                Flash.warning("We're having trouble finding '#{s.nearby.name}'")
                 s.nearby = null
               else
                 ErrorReporter.fullSilent(response, 'SinglePagePlans s._makeSearchRequest', { near: s.nearby, query: s.placeName }) if response.message != "Insufficient search params"
@@ -345,6 +346,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
         s.list.addItemFromPlaceData(option)
           .success (response) ->
+            Flash.success("Added '#{response.mark?.place?.names?[0]}' to your list")
             new_item = _.extend( Item.generateFromJSON( response ), { index: s.items.length, pane: 'list', notesSearched: true } )
             if !_.find(s.items, (i) -> i.mark?.place?.id == new_item.mark?.place?.id )
               s.items.unshift new_item
@@ -374,6 +376,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.setNearby = (nearby) -> 
         return unless nearby?.lat && nearby?.lon && nearby?.name?.length
         s.nearby = nearby
+        s.addBoxToggled = true
         $timeout(-> $('#place-name').focus() if $('#place-name') )
         QueryString.modify({ near: "#{nearby.name},,#{nearby.lat},#{nearby.lon}" })
         return
@@ -492,56 +495,6 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         else
           'Undated'
       s.noneIfZero = (digit) -> if digit == '0' then '' else digit
-
-
-
-
-      # SEARCH AND ITEM ADDITION
-
-      s.search = -> 
-        s.options = [] if s.placeName?.length
-        s._searchFunction() if s.placeName?.length > 1 && s.nearby?.length > 0
-
-      s._searchFunction = _.debounce( (-> s._makeSearchRequest() ), 400 )
-
-      s._makeSearchRequest = ->
-        if s.nearby?.length && s.placeName?.length
-          Foursquare.search(( s.qsNearby || s.nearby ), s.placeName)
-            .success (response) ->
-              s.options = Place.generateFromJSON Foursquare.parse(response)
-            .error (response) ->
-              if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
-                Flash.warning("We're having trouble finding '#{s.nearby}'")
-                s.forbiddenNearby.push s.nearby unless s.nearby == null
-                s.nearby = null
-                s.qsNearby = null
-              else
-                ErrorReporter.fullSilent(response, 'SinglePagePlans s._makeSearchRequest', { near: s.nearby, query: s.placeName }) if response.message != "Insufficient search params"
-
-      s.hasOptions = -> s.options?.length>0
-
-      s.addItem = (option) ->
-        s.options = []
-        s.placeName = null
-
-        s.list.addItemFromPlaceData(option)
-          .success (response) ->
-            Flash.success("#{response.mark?.place?.names?[0]} added to your list")
-            new_item = _.extend( Item.generateFromJSON( response ), { index: s.items.length, pane: 'list', notesSearched: true } )
-            if !_.find(s.items, (i) -> i.mark?.place?.id == new_item.mark?.place?.id )
-              s.items.unshift new_item
-              for list in _.uniq( _.compact([s.list, _.find(s.lists, (l) -> l.id == s.list.id)]) )
-                list.place_ids.unshift( new_item.mark?.place.id ) if new_item?.mark?.place?.id
-            else
-              Flash.warning("That place is already in your list!")
-            QueryString.modify({m: null})
-            if s.items?.length == 1
-              s.initialSortItems()
-              _.find(s.lists, (l) -> l.id == s.list.id).best_image = response.mark.place.images[0] if response?.mark?.place?.images?.length
-            else
-              s.sortItems()
-          .error (response) ->
-            ErrorReporter.defaultFull( response, 'SinglePagePlans addItem', { option: JSON.stringify(option), plan_id: s.list.id })
 
 
 
@@ -665,13 +618,21 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.currentUserUnbeen = (item) -> _.filter( s.items, (i) -> i.id == item.id )[0].mark.place.visitors.splice( _.filter( s.items, (i) -> i.id == item.id )[0].mark.place.visitors.indexOf( s.currentUserId ), 1 )
       s.currentUserVisited = (item) -> _.includes( item.mark.place.visitors , s.currentUserId )
 
-      s.hovering = ( item ) -> s.hoveredId = item.id
-      s.unhovering = -> s.hoveredId = null
 
-      # META
+
+
+
+
+      # META / PAGEWIDE
 
       s._setOnScope = (list, value = null) -> _.forEach list, (i) -> s[i] = ( if value? then _.clone(value) else null )
 
+      s.handleKeyup = -> s._turnOffTyping()
+      s.handleKeydown = -> s.typing = true unless s.typing
+      s._turnOffTyping = _.debounce( (=> s.$apply(s.typing = false)), 300)
+
+      s.hovering = ( obj ) -> s.hoveredId = obj.id
+      s.unhovering = -> s.hoveredId = null
 
 
 

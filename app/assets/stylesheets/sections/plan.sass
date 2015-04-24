@@ -466,7 +466,7 @@
         padding: 5px
         width: 100%
         height: 69px
-        border: 1px solid #eee
+        border: 1px solid transparent
         background: transparent
         color: #777
         &:hover
@@ -480,9 +480,11 @@
           color: #000
         &:disabled
           background: transparent
-          border: 1px solid #eee
-          color: #eee
+          border: 1px solid transparent
+          color: #aaa
           cursor: default
+          &:hover
+            color: #777
 
   li.items-organized-by + li.items-organized-by, li.items-organized-by + li.plan-list-item
     border-top: 1px solid #ccc
