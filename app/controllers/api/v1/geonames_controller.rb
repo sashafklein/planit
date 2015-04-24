@@ -21,7 +21,6 @@ class Api::V1::GeonamesController < ApiController
 
     url = URI.parse("http://api.geonames.org/findNearbyPlaceNameJSON?lat=#{ lat }&lng=#{ lon }&radius=10&username=#{ username }&lang=en&maxRows=10")
     # url = URI.parse("http://api.geonames.org/citiesJSON?north=#{ lat + 0.0075 }&south=#{ lat - 0.0075 }&east=#{ lon + 0.0125 }&west=#{ lon - 0.0125 }&username=planit&lang=en&style=full")
-    puts url
     req = Net::HTTP::Get.new(url.to_s)
     res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
     render json: res.body
