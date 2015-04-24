@@ -1,6 +1,6 @@
 .logo-container
   = link_to root_path do
-    = image_tag "logo_only_black.png", alt: 'o', class: "logo-image-top large-screen" if !browser.mobile?
+    %img{ ng_src: "{ 'logo_only_black.png': mobile, 'logo_only_white.png': !mobile }", alt: 'o', class: "logo-image-top large-screen" }
     = image_tag "logo_only_white.png", alt: 'o', class: "logo-image-top mobile" if browser.mobile?
     = image_tag "logo_my_only.png", alt: 'MY', class: "logo-my-top large-screen", ng_show: '!list || list && list.user_id == currentUserId' if ( page_type = 'home' || ( @user && @user == current_user ) ) && !browser.mobile?
     = image_tag "logo_name_only_black.png", alt: 'PLANIT', class: "logo-name-top large-screen" if !browser.mobile?
