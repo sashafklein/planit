@@ -88,10 +88,8 @@
       &:hover
         i.rename
           color: #fff
-    i.rename, i.settings
-      cursor: pointer
-      transition: 0.2s ease all
     i.settings
+      transition: 0.2s ease all
       position: absolute
       padding-left: 10px
       cursor: pointer
@@ -102,6 +100,7 @@
       &.opened
         color: #f06
     i.rename
+      cursor: text
       padding-left: 5px
       font-size: 14px
       vertical-align: top
@@ -421,8 +420,13 @@
 
     .main-item-card
       cursor: pointer
-      width: 45%
       display: inline-block
+      overflow-x: hidden
+      float: left
+      .bucket-list-wrap, .bucket-list-profile, .bucket-list-title, .bucket-list-more-info, .bucket-list-more-info.locale-only
+        max-width: 100% !important
+        overflow-x: hidden
+        text-overflow: ellipsis
 
     .item-actions
       user-select: none
@@ -457,7 +461,6 @@
       top: 3px
       right: 5%
       height: 69px
-      width: 50%
       textarea
         resize: none
         padding: 5px
@@ -511,6 +514,7 @@
       font-weight: normal
       color: #333
       cursor: pointer
+      margin-right: -8px
     span.selectable
       cursor: pointer
       padding: 8px
@@ -532,8 +536,6 @@
         &:hover
           background: #f06
           color: #fff
-      span.hide-on-map
-        color: transparent
 
   .view-and-edit-mode
     right: 35px
@@ -620,6 +622,11 @@
   .minimize-maximize-addbox
     top: 58px
 
+  .main-item-card
+    width: 45%
+  .list-item-notes
+    width: 50%
+
   .day-tab-wrap
     padding: 3px 10px
 
@@ -666,6 +673,11 @@
       margin-top: 65px
     .minimize-maximize-addbox
       top: 58px
+
+    .main-item-card
+      width: 55%
+    .list-item-notes
+      width: 38%
 
     .day-tab-wrap
       padding: 3px 10px
@@ -716,6 +728,16 @@
       margin-top: 43px
     .minimize-maximize-addbox
       top: 32px
+
+    .main-item-card
+      width: 93%
+    .list-item-notes
+      display: none
+      visibility: hidden
+    .item-actions
+      color: gray(50)
+      &:hover
+        color: #f06
 
     .container-upfront-plan-map
       top: 105px
@@ -779,6 +801,16 @@
       margin-top: 55px
     .minimize-maximize-addbox
       top: 32px
+
+    .main-item-card
+      width: 93%
+    .list-item-notes
+      display: none
+      visibility: hidden
+    .item-actions
+      color: gray(50)
+      &:hover
+        color: #f06
 
     .container-upfront-plan-map
       top: 105px
