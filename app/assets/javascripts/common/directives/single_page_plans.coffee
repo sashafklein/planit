@@ -337,13 +337,13 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         s.options = [] if s.placeName?.length
         s._searchFunction() if s.placeName?.length > 1 && s.nearby?.length > 0
 
-      s._searchFunction = _.debounce( (-> s._makeSearchRequest() ), 200 )
+      s._searchFunction = _.debounce( (-> s._makeSearchRequest() ), 400 )
 
       s._makeSearchRequest = ->
         if s.nearby?.length && s.placeName?.length
           Foursquare.search(( s.qsNearby || s.nearby ), s.placeName)
             .success (response) ->
-              s.options = Place.generateFromJSON(response)
+              s.options = Place.generateFromJSON Foursquare.parse(response)
             .error (response) ->
               if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
                 Flash.warning("We're having trouble finding '#{s.nearby}'")
@@ -363,6 +363,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
         s.list.addItemFromPlaceData(option)
           .success (response) ->
+            Flash.success("#{response.mark?.place?.names?[0]} added to your list")
             new_item = _.extend( Item.generateFromJSON( response ), { index: s.items.length, pane: 'list', notesSearched: true } )
             if !_.find(s.items, (i) -> i.mark?.place?.id == new_item.mark?.place?.id )
               s.items.unshift new_item

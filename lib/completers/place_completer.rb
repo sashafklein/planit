@@ -93,6 +93,7 @@ module Completers
     def merge_and_save_with_photos!
       add_state("Before final merge")
       @place = pip.place.find_and_merge
+
       @place.validate_and_save!( pip.photos.uniq{ |p| p.url }, pip.all_flags ) 
     rescue => e
       if place_options.any?
