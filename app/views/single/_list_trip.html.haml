@@ -27,7 +27,7 @@
               %span{ ng_show: "categoryIs == 'recent'"} {{ toDate( category ) }}
 
             %li.plan-list-item{ ng_repeat: 'item in matchingItems( category )' }
-              .owner-opinions{ ng_show: '!userOwnsList' }
+              .owner-opinions{ ng_show: '!userOwnsLoadedList' }
                 .item-opinion.love-item{ ng_show: 'ownerLoves(item)' }
                   %i.fa.fa-heart
                 .item-opinion.been-item{ ng_show: 'ownerVisited(item)' }
@@ -47,27 +47,27 @@
                         .bucket-list-more-info.locale-only
                           {{ item.mark.place.localeDetails() }}
 
-                .item-actions{ ng_show: 'userOwnsList', ng_class: "{'hovered': item.id == hoveredId}", ng_mouseover: 'hovering(item)', ng_mouseleave: 'unhovering()' }
-                  .item-action-button.remove-item
-                    %i.action.fa.fa-trash{ ng_click: 'deleteItem(item)' }
-                  .item-action-button.love-item
-                    %i.action.fa.fa-heart{ ng_show: '!currentUserLoves(item)', love_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserLove(item)' }
-                    %i.action.fa.fa-heart.neon{ ng_show: 'currentUserLoves(item)', unlove_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnlove(item)' }
-                  .item-action-button.been-item
-                    %i.action.fa.fa-check-square{ ng_show: '!currentUserVisited(item)', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserBeen(item)' }
-                    %i.action.fa.fa-check-square.neon{ ng_show: 'currentUserVisited(item)', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnbeen(item)' }
-                .item-actions{ ng_show: '!userOwnsList', ng_class: "{'hovered': item.id == hoveredId}", ng_mouseover: 'hovering(item)', ng_mouseleave: 'unhovering()' }
-                  .item-action-button.remove-item
-                    %i.action.fa.fa-bookmark{ ng_show: '!currentUserSaved(item)', save_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserSave(item)' }
-                    %i.action.fa.fa-trash{ ng_show: 'currentUserSaved(item)', unsave_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnsave(item)' }
-                  .item-action-button.love-item
-                    %i.action.fa.fa-heart{ ng_show: '!currentUserLoves(item)', love_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserLove(item)' }
-                    %i.action.fa.fa-heart.neon{ ng_show: 'currentUserLoves(item)', unlove_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnlove(item)' }
-                  .item-action-button.been-item
-                    %i.action.fa.fa-check-square{ ng_show: '!currentUserVisited(item)', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserBeen(item)' }
-                    %i.action.fa.fa-check-square.neon{ ng_show: 'currentUserVisited(item)', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnbeen(item)' }
-
               .list-item-notes.largest-screen{ ng_show: 'mode == "list"' }
-                %textarea{ ng_model: "item.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'nextNote(item)', ng_on_tab_key: 'nextNote(item)', ng_shift_on_tab_key: 'priorNote(item)', ng_blur: 'saveNote(item)', ng_disabled: '!item.notesSearched || !userOwnsList' }
+                %textarea{ ng_model: "item.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'nextNote(item)', ng_on_tab_key: 'nextNote(item)', ng_shift_on_tab_key: 'priorNote(item)', ng_blur: 'saveNote(item)', ng_disabled: '!item.notesSearched || !userOwnsLoadedList' }
+
+              .item-actions{ ng_show: 'userOwnsLoadedList', ng_class: "{'hovered': item.id == hoveredId}", ng_mouseover: 'hovering(item)', ng_mouseleave: 'unhovering()' }
+                .item-action-button.remove-item
+                  %i.action.fa.fa-trash{ ng_click: 'deleteItem(item)' }
+                .item-action-button.love-item
+                  %i.action.fa.fa-heart{ ng_show: '!currentUserLoves(item)', love_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserLove(item)' }
+                  %i.action.fa.fa-heart.neon{ ng_show: 'currentUserLoves(item)', unlove_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnlove(item)' }
+                .item-action-button.been-item
+                  %i.action.fa.fa-check-square{ ng_show: '!currentUserVisited(item)', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserBeen(item)' }
+                  %i.action.fa.fa-check-square.neon{ ng_show: 'currentUserVisited(item)', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnbeen(item)' }
+              .item-actions{ ng_show: '!userOwnsLoadedList', ng_class: "{'hovered': item.id == hoveredId}", ng_mouseover: 'hovering(item)', ng_mouseleave: 'unhovering()' }
+                .item-action-button.remove-item
+                  %i.action.fa.fa-bookmark{ ng_show: '!currentUserSaved(item)', save_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserSave(item)' }
+                  %i.action.fa.fa-trash{ ng_show: 'currentUserSaved(item)', unsave_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnsave(item)' }
+                .item-action-button.love-item
+                  %i.action.fa.fa-heart{ ng_show: '!currentUserLoves(item)', love_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserLove(item)' }
+                  %i.action.fa.fa-heart.neon{ ng_show: 'currentUserLoves(item)', unlove_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnlove(item)' }
+                .item-action-button.been-item
+                  %i.action.fa.fa-check-square{ ng_show: '!currentUserVisited(item)', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserBeen(item)' }
+                  %i.action.fa.fa-check-square.neon{ ng_show: 'currentUserVisited(item)', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnbeen(item)' }
 
               .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }

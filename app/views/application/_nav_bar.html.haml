@@ -6,7 +6,7 @@
 = link_to_unless( ( page_type == 'inbox' || current_user.message_count == 0 ), ( render 'application/nav_inbox', { page_type: page_type, current_user: current_user } ), inbox_user_path(current_user), { class: 'nav-item-link' } )
 
 - if page_type == 'home'
-  %a.nav-item-link{ ng_click: 'resetList()' }= render 'application/nav_home', {page_type: page_type}
+  %a.nav-item-link{ ng_click: 'resetList()' }= render 'application/nav_home_ng', {page_type: page_type}
 - else
   = link_to_unless( ( page_type == 'home' ), ( render 'application/nav_home', {page_type: page_type} ), root_path, { class: 'nav-item-link' } )
 

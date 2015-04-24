@@ -23,30 +23,6 @@ body
   background-size: cover
   background-attachment: fixed
 
-.where-are-we-going-box
-  padding: 120px 0
-  margin: 40px 0
-  width: 100%
-  background: #f06
-  .input-and-results
-    margin: 0 auto
-    width: 50%
-    min-width: 220px
-    ul.suggested-results
-      text-align: left
-      top: 36px !important // assuming 36px tall search box
-    input
-      width: 100%
-      height: 36px
-      border-radius: 3px
-      border: 1px solid #c03
-      border-bottom: 1px solid #a01
-      padding: 0 8px
-      line-height: 34px
-      font-size: 18px
-  .planit-button
-    height: 36px
-
 .rainbow-divider
   margin: 30px 0
   width: 100%
@@ -169,9 +145,31 @@ a.linky
 
 // DROPDOWN MENUS
 
-ul.planit-dropdown-menu
+ul.planit-dropdown-menu 
   z-index: 100000000
   margin-right: 3px
+  position: absolute
+  top: 100%
+  z-index: 1000
+  float: left
+  min-width: 160px
+  margin: 2px 0 0
+  text-align: left
+  background-color: #fff
+  background-clip: padding-box
+  border: 1px solid #ccc
+  border: 1px solid rgba(0,0,0,.15)
+  border-radius: 4px
+  box-shadow: 0 6px 12px rgba(0,0,0,.175)
+
+ul.planit-dropdown-menu li
+  display: block
+  padding: 3px 20px
+  clear: both
+  font-weight: 400
+  line-height: 1.42857143
+  color: #333
+  white-space: nowrap
 
 ul.planit-dropdown-menu, ul.faux-planit-dropdown
   font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
@@ -202,23 +200,24 @@ ul.planit-dropdown-menu, ul.faux-planit-dropdown
     width: auto
     padding: 0
     cursor: pointer
+
+  li.planit-dropdown-menu, li.planit-dropdown-menu a
+    transition: all 0.2s ease
     color: #222
+    &:hover
+      background: #fefefe
+      color: #f06
     &.disabled
       color: #aaa
       cursor: default
-    a
-      padding: 3px 20px
-      margin: 0
-      color: #222
-      &:hover
-        color: #f06
-    &:hover
-      color: #f06
+
+  li.planit-dropdown-menu a
+    padding: 4px 20px
+    margin: 0
 
   .planit-dropdown-menu-icon
     width: 30px
     text-align: center
-    transition: all 0.2s ease
 
 ul.faux-planit-dropdown li.planit-dropdown-menu
   padding: 3px 20px

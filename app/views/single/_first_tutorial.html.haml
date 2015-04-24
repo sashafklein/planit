@@ -4,14 +4,14 @@
     .new-plan-tutorial{ ng_show: '!list && !nearby', ng_class: "{'blur': hasPlanNearbyOptions()}" }
       .container.centered
         .column
+          .line= "&nbsp;".html_safe
           = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': list}" }
       .container.centered
         .column{ ng_show: '!list && !hasLists()' }
           %strong.neon.large Start a List or Plan!
-          .tutorial-image
-            = image_tag "tutorial_plan_nearby.png"
+          .tutorial-image= image_tag "tutorial_plan_nearby.png"
           %strong.neon.large
-            .tutorial-line Start by setting your destination!
+            .tutorial-line Select your first destination!
             .tutorial-line You can add or change locations as you go
             .tutorial-line but this will help anchor us initially
     .place-name-tutorial{ ng_show: 'list && !nearby', ng_class: "{'blur': hasPlaceNearbyOptions()}" }
@@ -22,7 +22,7 @@
         .column{ ng_show: 'list && !nearby' }
           %strong.neon.large Awesome!  Starting Where?
           %p Set a Location so You can Find Your Places
-          = image_tag "tutorial_place_nearby.png"
+          .tutorial-image= image_tag "tutorial_place_nearby.png"
           %strong.neon.large
             .tutorial-line Where does your trip or list start?
             .tutorial-line You can change your location at any time;
@@ -33,9 +33,14 @@
           = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': list}" }
       .container.centered
         .column{ ng_show: 'list && nearby', ng_class: "{'blur': hasPlaceNameOptions()}" }
-          %strong.neon.large Cool! Now Add Places to your List
-          %p When You've Found one, Just Press "Enter" or Click on It to Add
-          = image_tag "tutorial_place_name.png"
+          %strong.neon.large 
+            Cool! Now Add Places
+            %span.large-screen.inline to your List
+          = "&nbsp;".html_safe
+          .planit-button.blue
+            Need Help?
+            %i.fa.fa-facebook-official.fa-lg.pad-left
+          .tutorial-image= image_tag "tutorial_place_name.png"
           %strong.neon.large
             .tutorial-line Either search for specific places by name
             .tutorial-line or by category, if you like

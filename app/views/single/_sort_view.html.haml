@@ -7,7 +7,7 @@
     %span.selectable.sort-by-button{ ng_click: "setCategoryAs('locale')", ng_class: "{'highlighted': categoryIs == 'locale'}" } Locale
     %span.selectable.sort-by-button{ ng_click: "setCategoryAs('recent')", ng_class: "{'highlighted': categoryIs == 'recent'}" } Recent
 
-  .view-and-edit-mode{ ng_class: "{'in-map': mode == 'map', 'large-screen': mode != 'map'}" }
+  .view-and-edit-mode{ ng_show: '!mainMenuToggled', ng_class: "{'in-map': mode == 'map', 'large-screen': mode != 'map'}" }
     %span.selectable.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': mode == 'list'}" } List View
     / %span.selectable.view-and-edit-button.disabled Trip Mode
     / { ng_click: "setMode('trip')", ng_class: "{'highlighted': mode == 'trip'}" }

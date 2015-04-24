@@ -1,6 +1,6 @@
 .planbox-wrapper
 
-  .start-a-new-guide{ ng_show: '!list && hasLists() && isLoaded' }
+  .start-a-new-guide{ ng_show: '!list && isLoaded' }
     .setplanbox-on-plan-page.start-where
       .start-a-new-plan Start a new plan:
       .input-and-results
@@ -18,7 +18,7 @@
     .chosen-plan{ ng_show: 'list && !rename' }
       %span.title{ ng_click: 'renameList()' }
         {{ list.name }}
-        %i.fa.fa-pencil.title{ ng_click: 'renameList()' }
+        %i.fa.fa-pencil.rename{ ng_click: 'renameList()' }
       %i.fa.fa-cog.settings{ ng_show: 'items.length', ng_click: 'settingsBoxToggle()', ng_class: "{'opened': settingsBoxToggled}" }
     .chosen-plan.above-mask{ ng_show: 'list && rename' }
       %input.title#rename{ ng_model: 'rename', ng_on_enter_key: 'saveRenameList()', ng_on_esc_key: 'cancelRenameList()' }
@@ -29,10 +29,10 @@
       .planit-button.gray{ ng_click: 'cancelRenameList()' } Cancel          
       .planit-button.neon{ ng_click: 'saveRenameList()' } Save
 
-  .addbox-wrapper{ ng_show: "userOwnsList && list && !rename && mode != 'trip' && !settingsBoxToggled" }
+  .addbox-wrapper{ ng_show: "userOwnsLoadedList && list && !rename && mode != 'trip' && !settingsBoxToggled" }
 
-    .minimize-maximize-addbox{ ng_show: 'items.length', ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
-      %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
+    / .minimize-maximize-addbox{ ng_show: 'items.length', ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
+    /   %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
 
     .addbox-on-plan-page{ ng_show: "addBoxToggled" }
       .input-and-results{ ng_show: '!nearby && list' }
@@ -45,8 +45,9 @@
           %li.search-results-working{ ng_show: 'noPlaceNearbyResults()' } Can't find that...
         %span.set-location-reminder{ ng_show: '!placeNearby || !placeNearby.length>1' } 
           %i.fa.fa-arrow-left 
-          Set Location
-
+          %span.largest-screen.inline Set
+          %span.large-screen.inline Location
+          
       .input-and-results{ ng_show: 'nearby && list' }
         %input#place-name{ name: "place-name", type: 'text', placeholder: 'What do you want to add in {{ nearby.name }}?', ng_model: 'placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)', ng_on_esc_key: "placeNameOptions = []" }
 
@@ -75,4 +76,5 @@
             ?
         %span.reset-location{ ng_show: '!placeName || !placeName.length>1 || noPlaceNameResults()', ng_click: 'resetNearby()' } 
           %i.fa.fa-times 
-          Change Location
+          %span.largest-screen.inline Change
+          %span.large-screen.inline Location

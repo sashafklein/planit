@@ -7,7 +7,9 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
     link: (s, e, a) ->
 
       s.currentUserId = CurrentUser.id
-
+      s.currentUserName = CurrentUser.name
+      # s.bestPageTitle = -> if s.list then s.list.name else "#{s.currentUserName}'s Planit"
+      s.userOwns = ( obj ) -> s.currentUserId == obj.user_id
 
 
 
@@ -36,6 +38,9 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
 
       # EXPAND/CONTRACT
+
+      s.mainMenuToggled = false
+      s.toggleMainMenu = -> s.mainMenuToggled = !s.mainMenuToggled
 
       s.addBoxToggled = true
       s.addBoxManuallyToggled = false
@@ -104,13 +109,28 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         s.newList( option.name + " Guide" )
         s.setNearby( option )
 
+      # s.nearbyFromMapCenter = (mapCenter) ->
+      #   return unless mapCenter?.length
+      #   mapCenterSplit = mapCenter?.split(',')
+      #   return unless mapCenterSplit && mapCenterSplit?.length > 1
+      #   if s.qsNearby || ( !s.nearby?.length && !s.placeNearby?.length )
+      #     lat = parseFloat( mapCenterSplit[0] )
+      #     lon = parseFloat( mapCenterSplit[1] )
+      #     s.qsNearby = "#{lat},#{lon}"
+      #     geonamesQuery = "https://api.geonames.org/citiesJSON?north=#{ lat + 0.0075 }&south=#{ lat - 0.0075 }&east=#{ lon + 0.0125 }&west=#{ lon - 0.0125 }&username=planit&lang=en&style=full&callback=JSON_CALLBACK"
+      #     $http.jsonp(geonamesQuery)
+      #       .success (response) -> 
+      #         cities = _.filter( response.geonames, (n) -> n.fclName == "city, village,..." )
+      #         return unless cities[0]
+      #         if s.qsNearby || ( !s.nearby?.length && !s.placeNearby?.length )
+      #           s.nearby = "#{cities[0].name}" 
+      #           s.qsNearby = "#{lat},#{lon}"
+      #       .error (response) -> ErrorReporter("Geonames Cities Query not working on SinglePagePlan")
+
+
 
 
       # LISTS & SETTING LISTS
-
-      s.hoveringList = false
-      s.listQuerySet = (name) -> s.hoveringList = true; s.listQuery = "Open => " + name
-      s.listQueryReset = -> s.listQuery = null; s.hoveringList = false
 
       s.hasLists = -> s.lists?.length > 0
 
@@ -127,11 +147,12 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
       s.bestListDate = (list) -> if list.starts_at then list.starts_at else list.updated_at
 
-      s.setListOnEnter = ->
-        if s.listOptions().length == 1
-          s.setList( s.listOptions()[0] ) 
-        else
-          s.setList()
+      s.bestListNearby = (items) -> 
+        return unless items?.length && items[0]?.mark?.place
+        mostRecentItem = _.sortBy( items, (i) -> i.updated_at_day ).reverse()[0]
+        locale = mostRecentItem.mark.place.locality || mostRecentItem.mark.place.sublocality || mostRecentItem.mark.place.subregion || mostRecentItem.mark.place.region || mostRecentItem.mark.place.country
+        macro = mostRecentItem.mark.place.region || mostRecentItem.mark.place.country unless locale == mostRecentItem.mark.place.region || locale == mostRecentItem.mark.place.country
+        return { name: locale, lat: mostRecentItem.mark.place.lat, lon: mostRecentItem.mark.place.lon, adminName1: macro }
 
       s.resetList = -> 
         s._setOnScope( [ 'list', 'listQuery', 'nearby', 'showMap', 'planNearby', 'planNearbyOptions', 'placeName', 'placeNameOptions', 'placeNearby', 'placeNearbyOptions' ], null )
@@ -139,10 +160,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         $timeout(-> $('#guide').focus() if $('#guide') )
         QueryString.modify({plan: null, near: null, m: null, f: null})
 
-      s.canAddList = -> s.listQuery?.length > 2 && ( !s.lists?.length || !s.listOptions()?.length || ( s.listOptions()?.length > 0 && !s.optionMatchesListQuery() ) )
-
-      s.listClass = (mode) ->
-        if mode == 'list' then 'sixteen columns' else 'ten columns'
+      s.listClass = (mode) -> if mode == 'list' then 'sixteen columns' else 'ten columns'
 
       s.newList = ( name ) ->
         return unless name?.length
@@ -157,34 +175,15 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
             $('.loading-mask').hide()
             ErrorReporter.defaultFull( response, 'SinglePagePlans Plan.create', { plan_name: s.listQuery})
 
-      s.setList = (list) ->
-        if list
-          $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
-          s._installList( list )
-        else if list = s.optionMatchesListQuery()
-          $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
-          s._installList( list )
-        else if s.canAddList
-          if confirm("Create a new guide named '#{s.listQuery}'?")
-            $('.loading-mask').show()
-            $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
-            Plan.create( plan_name: s.listQuery )
-              .success (response) ->
-                $('.loading-mask').hide()
-                list = Plan.generateFromJSON(response)
-                s._installList( list )
-              .error (response) ->
-                $('.loading-mask').hide()
-                ErrorReporter.defaultFull( response, 'SinglePagePlans Plan.create', { plan_name: s.listQuery})
+      s.setList = (list) -> s._installList( list ) if list
 
       s._installList = (list) ->
         QueryString.modify({plan: list.id})
         s.setModeViaQueryString()
-        s.userOwnsList = if s.currentUserId == list.user_id then true else false
+        s.userOwnsLoadedList = s.currentUserId == list.user_id
         s.plan = s.list = list
         s.lists.unshift(s.list) if s.lists && !_.find( s.lists, (l) -> l.id == s.list.id )
         s.getListItems()
-        s.listQuery = list.name
         s.kmlPath = "/api/v1/plans/#{ list.id }/kml"
         s.printPath = "/plans/#{ list.id }/print"
 
@@ -194,7 +193,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         s.isLoaded = false
         Item.where({ plan_id: s.list.id })
           .success (response) ->
-            $('.searching-mask').hide()
+            s.isLoaded = true
             return unless s.list?
             
             s._setOnScope( ['items', 'places'], [] )
@@ -202,15 +201,16 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
               i = _.extend( Item.generateFromJSON( item ), { index: index, pane: 'list' } )
               s.items.push i
 
-            s.isLoaded = true
-
             s._getManifestItems()
 
+            if s.items?.length && !s.nearby
+              $timeout(-> s.setNearby( s.bestListNearby(s.items) ) )
             $timeout(-> s.initialSortItems() )
             $timeout(-> s.initializeItemsNotes() )
-          .error (response) ->
             $('.searching-mask').hide()
+          .error (response) ->
             s.isLoaded = true
+            $('.searching-mask').hide()
             ErrorReporter.defaultFull( response, 'SinglePagePlans getListItems', { plan_id: s.list.id })
 
       s.listOptions = ->
@@ -218,11 +218,9 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         return [] unless s.lists?.length
         filter(s.lists, s.listQuery)
 
-      s.optionMatchesListQuery = -> _(s.listOptions()).find( (o) -> o.name.toLowerCase() == s.listQuery.toLowerCase() )
-
       s.rename = null
       s.renameList = ->
-        if s.userOwnsList
+        if s.userOwnsLoadedList
           s.rename = s.list.name
           $timeout(-> $('#rename').focus() if $('#rename') )
           return
@@ -315,7 +313,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
       s.placeNameSearch = -> 
         s.options = [] if s.placeName?.length
-        s._placeSearchFunction() if s.placeName?.length > 1 && s.nearby?.lat?.length && s.nearby?.lon?.length
+        s._placeSearchFunction() if s.placeName?.length > 1 && s.nearby?.lat && s.nearby?.lon
 
       s._placeSearchFunction = _.debounce( (-> s._makePlaceSearchRequest() ), 500 )
 
@@ -324,7 +322,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.placeNameWorking = 0
       s._makePlaceSearchRequest = ->
         s.placeNameWorking++
-        if s.nearby?.lat?.length && s.nearby?.lon?.length && s.placeName?.length
+        if s.nearby?.lat?.length && s.nearby?.lon && s.placeName
           Foursquare.search(( "#{s.nearby.lat},#{s.nearby.lon}" ), s.placeName)
             .success (response) ->
               s.placeNameWorking--
@@ -342,7 +340,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
 
       s.addItem = (option) ->
-        s.options = []
+        s.placeNameOptions = []
         s.placeName = null
 
         s.list.addItemFromPlaceData(option)
@@ -370,12 +368,12 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
 
 
+
       # NEARBY
 
       s.setNearby = (nearby) -> 
-        return unless nearby?.lat?.length && nearby?.lon?.length && nearby?.name?.length
+        return unless nearby?.lat && nearby?.lon && nearby?.name?.length
         s.nearby = nearby
-        Flash.warning("Now Exploring in '#{s.nearbyToReset()}'")
         $timeout(-> $('#place-name').focus() if $('#place-name') )
         QueryString.modify({ near: "#{nearby.name},,#{nearby.lat},#{nearby.lon}" })
         return
@@ -383,31 +381,17 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.nearbyToReset = -> _.compact([ s.nearby?.name, s.nearby?.adminName1, s.nearby?.countryCode ]).join(", ")
 
       s.resetNearby = -> 
-        Flash.warning("Out of '#{s.nearbyToReset()}' -- set a new location to explore")
         s._setOnScope( [ 'nearby', 'placeName', 'placeNearby', 'placeOptions', 'centerNearby' ], null )
         $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
         QueryString.modify({ near: null })
         return
-
-      s.backspaced = 0
-      s.removeTagOnBackspace = (event) ->
-        if event.keyCode == 8
-          unless s.placeName?.length > 0
-            if s.backspaced > 0
-              $timeout(-> $('span.chosen-input#chosen-nearby').removeClass("highlighted") )
-              s.resetNearby()
-              s.backspaced = 0
-            else
-              $timeout(-> $('span.chosen-input#chosen-nearby').addClass("highlighted") )
-              s.backspaced = 1
-        return
-
 
 
 
 
       # NOTES
 
+      # NEEDSFOLLOWUP -- Sasha is it better to build a single Database call for ALL ITEMS?
       s.initializeItemsNotes = -> _.map( s.items, (item) -> s.fetchOriginalNote(item) )
       s.fetchOriginalNote = (item) ->
         Note.findByObject( item )
@@ -638,31 +622,6 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
 
 
-
-      # GEOCODING
-
-      # s.nearbyFromMapCenter = (mapCenter) ->
-      #   return unless mapCenter?.length
-      #   mapCenterSplit = mapCenter?.split(',')
-      #   return unless mapCenterSplit && mapCenterSplit?.length > 1
-      #   if s.qsNearby || ( !s.nearby?.length && !s.placeNearby?.length )
-      #     lat = parseFloat( mapCenterSplit[0] )
-      #     lon = parseFloat( mapCenterSplit[1] )
-      #     s.qsNearby = "#{lat},#{lon}"
-      #     geonamesQuery = "https://api.geonames.org/citiesJSON?north=#{ lat + 0.0075 }&south=#{ lat - 0.0075 }&east=#{ lon + 0.0125 }&west=#{ lon - 0.0125 }&username=planit&lang=en&style=full&callback=JSON_CALLBACK"
-      #     $http.jsonp(geonamesQuery)
-      #       .success (response) -> 
-      #         cities = _.filter( response.geonames, (n) -> n.fclName == "city, village,..." )
-      #         return unless cities[0]
-      #         if s.qsNearby || ( !s.nearby?.length && !s.placeNearby?.length )
-      #           s.nearby = "#{cities[0].name}" 
-      #           s.qsNearby = "#{lat},#{lon}"
-      #       .error (response) -> ErrorReporter("Geonames Cities Query not working on SinglePagePlan")
-
-
-
-
-
       # ITEM CONTROLS
 
       s.fsOpen = (item, doIt) ->
@@ -712,6 +671,9 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       # META
 
       s._setOnScope = (list, value = null) -> _.forEach list, (i) -> s[i] = ( if value? then _.clone(value) else null )
+
+
+
 
       # INITIALIZE
 
