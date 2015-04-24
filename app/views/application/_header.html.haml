@@ -6,21 +6,27 @@
 
       .container.none{ class: "#{'pseudo' if fullscreen?(page_type)}"}
         .header-wrapper
-          = render 'header/logo_container', { page_type: page_type }
+          = render 'header/logo_container', { page_type: page_type } if page_type != 'home'
+          = render 'header/ng_logo_container', { page_type: page_type } if page_type == 'home'
 
           - if current_user_is_active # admin or member
 
-            %a.mobile.page-title{ ng_href: root_path }= "PLANIT" if browser.mobile?
-            .top-menu-container
-              %a.main-menu-dropdown.dropdown-toggle{ "data-toggle" => "dropdown", :href => "#" }= render 'header/user_avatar'
-              = render 'header/dropdowns/main_menu'
+            / %a.mobile.page-title{ ng_href: root_path }= "PLANIT" if browser.mobile?
+            - if page_type == 'home'
+              .top-menu-container{ ng_click: 'toggleMainMenu()' }
+                = render 'header/user_avatar'
+                %ul.dropdown-menu-right.planit-dropdown-menu{ ng_show: 'mainMenuToggled' }= render 'header/dropdowns/main_menu'
+            - else
+              .top-menu-container
+                %a.main-menu-dropdown.dropdown-toggle{ "data-toggle" => "dropdown", :href => "#" }= render 'header/user_avatar'
+                %ul.dropdown-menu.dropdown-menu-right.planit-dropdown-menu= render 'header/dropdowns/main_menu'
             - if !browser.mobile?
               .side-menu-container.large-screen.inline
                 .top-nav-bar{ ng_controller: 'NavBarCtrl' }= render 'application/nav_bar', { page_type: page_type }
 
-            .search-and-filter-wrap
-              %expanding_header_search{ show_teaser: "#{show_search?(page_type)}", page_type: "#{page_type}" }
-              - include_templates :expanding_header_search, :search_and_add
+            / .search-and-filter-wrap
+            /   %expanding_header_search{ show_teaser: "#{show_search?(page_type)}", page_type: "#{page_type}" }
+            /   - include_templates :expanding_header_search, :search_and_add
 
           - elsif current_user # inactive user
 

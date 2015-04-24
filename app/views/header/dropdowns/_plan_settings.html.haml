@@ -1,19 +1,19 @@
 / .dropdown-menu.dropdown-menu-right.planit-dropdown-menu
 %ul.faux-planit-dropdown
 
-  %li.planit-dropdown-menu{ ng_show: "userOwnsList", ng_click: 'renameList()' }
+  %li.planit-dropdown-menu{ ng_show: "userOwnsLoadedList", ng_click: 'renameList()' }
     %i.planit-dropdown-menu-icon.fa.fa-font
     Rename
-  %li.planit-dropdown-menu.disabled{ ng_show: "userOwnsList" }
+  %li.planit-dropdown-menu.disabled{ ng_show: "userOwnsLoadedList" }
     %i.planit-dropdown-menu-icon.fa.fa-group
     Add Collaborators
-  %li.planit-dropdown-menu.disabled{ ng_show: "!userOwnsList" }
+  %li.planit-dropdown-menu.disabled{ ng_show: "!userOwnsLoadedList" }
     %i.planit-dropdown-menu-icon.fa.fa-group
     Request to be a Collaborator
-  %li.planit-dropdown-menu.disabled{ ng_show: "userOwnsList" }
+  %li.planit-dropdown-menu.disabled{ ng_show: "userOwnsLoadedList" }
     %i.planit-dropdown-menu-icon.fa.fa-upload
     Import
-  %li.planit-dropdown-menu.disabled{ ng_show: "userOwnsList" }
+  %li.planit-dropdown-menu.disabled{ ng_show: "userOwnsLoadedList" }
     %i.planit-dropdown-menu-icon.fa.fa-calendar
     Set Dates
   %li.divider
@@ -24,7 +24,7 @@
   %li.planit-dropdown-menu.disabled
     %i.planit-dropdown-menu-icon.fa.fa-compress
     Merge this Guide with Another
-  %li.planit-dropdown-menu.disabled{ ng_show: "userOwnsList" }
+  %li.planit-dropdown-menu.disabled{ ng_show: "userOwnsLoadedList" }
     %i.planit-dropdown-menu-icon.fa.fa-expand
     Split this Guide
   %li.divider
@@ -43,7 +43,7 @@
     %li.planit-dropdown-menu
       %i.planit-dropdown-menu-icon.fa.fa-print
       Print this Guide
-  %li.divider{ ng_show: "userOwnsList" }
-  %li.planit-dropdown-menu{ ng_show: "userOwnsList", ng_click: 'deleteList( list )', target: '_self' }
+  %li.divider{ ng_show: "userOwnsLoadedList" }
+  %li.planit-dropdown-menu{ ng_show: "userOwnsLoadedList", ng_click: 'deleteList( list )', target: '_self' }
     %i.planit-dropdown-menu-icon.fa.fa-trash
     Delete Plan

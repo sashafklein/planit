@@ -1,51 +1,58 @@
 .planbox-wrapper
 
-  .setplanbox-on-plan-page
+  .start-a-new-guide{ ng_show: '!list && isLoaded' }
+    .setplanbox-on-plan-page.start-where
+      .start-a-new-plan Start a new plan:
+      .input-and-results
+        %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: 'Where are you going?', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'startListNearBestOption()', ng_on_esc_key: 'cleanPlanNearbyOptions()', ng_keyup: 'handleKeyup()', ng_keydown: 'handleKeydown()' }
+        %ul.suggested-results.blue{ ng_show: '!typing && planNearby && planNearby.length>1' }
+          %li.search-results-list{ ng_class: "{'highlighted': planNearbyOptionSelectable(option)}", ng_repeat: 'option in planNearbyOptions', ng_click: 'startListNear(option)' }
+            %b {{ option.name }}
+            {{ option.qualifiers }}
+          %li.search-results-working{ ng_show: 'planNearbyWorking>0' } Working on it...
+          %li.search-results-working{ ng_show: 'noPlanNearbyResults()' } Can't find that...
+      = render 'application/rainbow_divider'
 
-    .input-and-results{ ng_show: '!list' }
-      .faux-input-wrap
-        %span.add-new{ ng_show: 'canAddList() && !hoveringList', ng_click: 'setList()' }
-          %i.fa.fa-plus-circle
-        %input.real-select.guide-name#guide{ name: "guide", type: 'text', placeholder: 'Guide Name', ng_model: 'listQuery', ng_on_enter_key: "setListOnEnter()", ng_class: "{'full-width': !canAddList() || hoveringList}" }
-      %ul.suggested-results{ ng_show: 'listOptions().length && listQuery.length > 2 && !hoveringList' }
-        %li{ ng_repeat: "currentList in listOptions()", ng_click: 'setList(currentList)' }
-          %span.name {{currentList.name}}
-          %span.count ({{currentList.place_ids.length}} places)
+  .setplanbox-on-plan-page.set-guide{ ng_show: 'list' }
 
     .chosen-plan{ ng_show: 'list && !rename' }
-      %span.title{ ng_click: 'renameList()' } {{ list.name }}
-      %i.fa.fa-times.title{ ng_click: 'resetList()' }
-      %i.fa.fa-cog.settings{ ng_click: 'settingsBoxToggle()', ng_class: "{'opened': settingsBoxToggled}" }
+      %span.title{ ng_click: 'renameList()' }
+        {{ list.name }}
+        %i.fa.fa-pencil.rename{ ng_click: 'renameList()' }
+      %i.fa.fa-cog.settings{ ng_show: 'items.length', ng_click: 'settingsBoxToggle()', ng_class: "{'opened': settingsBoxToggled}" }
     .chosen-plan.above-mask{ ng_show: 'list && rename' }
       %input.title#rename{ ng_model: 'rename', ng_on_enter_key: 'saveRenameList()', ng_on_esc_key: 'cancelRenameList()' }
 
   .settingsbox-on-plan-page{ ng_show: "list && ( settingsBoxToggled || rename )", ng_class: "{'in-rename': rename}" }
-    .plan-settings-dropdown{ ng_show: '!rename' }= render 'header/dropdowns/plan_settings'
+    .plan-settings-dropdown{ ng_show: '!rename && items.length' }= render 'header/dropdowns/plan_settings'
     .rename-confirmation{ ng_show: 'rename' }
       .planit-button.gray{ ng_click: 'cancelRenameList()' } Cancel          
       .planit-button.neon{ ng_click: 'saveRenameList()' } Save
 
-  .addbox-wrapper{ ng_show: "userOwnsList && list && !rename && mode != 'trip' && !settingsBoxToggled" }
+  .addbox-wrapper{ ng_show: "userOwnsLoadedList && list && !rename && mode != 'trip' && !settingsBoxToggled" }
 
-    .minimize-maximize-addbox{ ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
-      %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
+    / .minimize-maximize-addbox{ ng_show: 'items.length', ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
+    /   %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
 
     .addbox-on-plan-page{ ng_show: "addBoxToggled" }
-
-      .faux-input-wrap{ ng_show: '!nearby && list' }
-        %span.add-new{ ng_show: 'canSetNearby(placeNearby)', ng_click: 'setNearby(placeNearby)' }
-          %i.fa.fa-check
-        %input.real-select#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Where? (City or Region)', ng_model: 'placeNearby', ng_show: 'list && !nearby', ng_on_enter_key: 'setNearby(placeNearby)', ng_class: "{'full-width': (!placeNearby || placeNearby.length < 2)}" }
-
+      .input-and-results{ ng_show: '!nearby && list' }
+        %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Explore what city or region?', ng_model: 'placeNearby', ng_change: 'searchPlaceNearby()', ng_on_enter_key: 'setNearBestOption()', ng_on_esc_key: 'cleanPlaceNearbyOptions()', ng_keyup: 'handleKeyup()', ng_keydown: 'handleKeydown()' }   
+        %ul.suggested-results.blue{ ng_show: '!typing && placeNearby && placeNearby.length>1 && ( placeNearbyWorking || placeNearbyOptions.length>0 )' }
+          %li.search-results-list{ ng_class: "{'highlighted': placeNearbyOptionSelectable(option)}", ng_repeat: 'option in placeNearbyOptions', ng_click: 'setNearby(option)' }
+            %b {{ option.name }}
+            {{ option.qualifiers }}
+          %li.search-results-working{ ng_show: 'placeNearbyWorking>0' } Working on it...
+          %li.search-results-working{ ng_show: 'noPlaceNearbyResults()' } Can't find that...
+        %span.set-location-reminder{ ng_show: '!placeNearby || !placeNearby.length>1' } 
+          %i.fa.fa-arrow-left 
+          %span.largest-screen.inline Set
+          %span.large-screen.inline Location
+          
       .input-and-results{ ng_show: 'nearby && list' }
-        .faux-input-wrap
-          %span.chosen-input#chosen-nearby{ ng_click: 'resetNearby()' }
-            %i.fa.fa-times
-            {{ nearby }}
-          %input.real-input#place-name{ name: "place-name", type: 'text', placeholder: 'What do you want to add in {{ nearby }}?', ng_model: 'placeName', ng_change: 'search()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)', ng_on_esc_key: "options = []" }
+        %input#place-name{ name: "place-name", type: 'text', placeholder: 'What do you want to add in {{ nearby.name }}?', ng_model: 'placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)', ng_on_esc_key: "placeNameOptions = []", ng_keyup: 'handleKeyup()', ng_keydown: 'handleKeydown()' }
 
-        %ul.suggested-results{ ng_show: 'options.length>0 && placeName && placeName.length>0' }
-          %li.search-results-list{ ng_repeat: 'option in options', ng_click: 'addItem(option)' }
+        %ul.suggested-results.neon{ ng_show: '!typing && placeName && placeName.length>1' }
+          %li.search-results-list{ ng_repeat: 'option in placeNameOptions', ng_click: 'addItem(option)' }
             .bucket-list-tab
               %a{ ng_href: '{{option.href}}', target: '_self' }
                 .bucket-list-no-img{ ng_show: "!option.image_url" }
@@ -61,3 +68,12 @@
                         {{ option.categories.join(', ') }}
                       .bucket-list-more-info.locale-only
                         {{ option.localeDetails() }}
+          %li.search-results-working{ ng_show: 'placeNameWorking>0' } Working on it...
+          %li.search-results-reset{ ng_show: 'noPlaceNameResults()', ng_click: 'resetNearby()' }
+            %b No results... 
+            not looking in 
+            %b {{ nearbyToReset() }}
+            ?
+        %span.reset-location{ ng_show: '!placeName || !placeName.length>1 || noPlaceNameResults()', ng_click: 'resetNearby()' } 
+          %i.fa.fa-times 
+          %span.large-screen.inline Location

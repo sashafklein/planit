@@ -18,6 +18,12 @@ describe Api::V1::FoursquareController do
       expect( Benchmark.measure{ get :search, near: '20.75028,-156.50028', query: 'beach' }.real ).to be_within(1).of 1
     end
 
+    xit "measures Foursquare with the near and query params" do
+      sign_in create(:user)
+      expect_any_instance_of( Foursquare2::Client ).to receive(:explore_venues).and_call_original
+      expect( Benchmark.measure{ get :search, near: '20.75028,-156.50028', query: 'beach' }.real ).to be < 1
+    end
+
     it "gets images in explore mode", :vcr do
       sign_in create(:user)
       expect_any_instance_of( Apis::Foursquare ).to receive(:explore).and_call_original

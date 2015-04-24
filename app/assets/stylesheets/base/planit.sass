@@ -23,6 +23,16 @@ body
   background-size: cover
   background-attachment: fixed
 
+.rainbow-divider
+  margin: 30px 0
+  width: 100%
+  height: 5px
+  display: table
+  table-layout: fixed
+  .rainbow
+    display: table-cell
+    box-sizing: border-box
+
 .rainbow
   color: #fff !important
   &.turqoise
@@ -135,9 +145,31 @@ a.linky
 
 // DROPDOWN MENUS
 
-ul.planit-dropdown-menu
+ul.planit-dropdown-menu 
   z-index: 100000000
   margin-right: 3px
+  position: absolute
+  top: 100%
+  z-index: 1000
+  float: left
+  min-width: 160px
+  margin: 2px 0 0
+  text-align: left
+  background-color: #fff
+  background-clip: padding-box
+  border: 1px solid #ccc
+  border: 1px solid rgba(0,0,0,.15)
+  border-radius: 4px
+  box-shadow: 0 6px 12px rgba(0,0,0,.175)
+
+ul.planit-dropdown-menu li
+  display: block
+  padding: 3px 20px
+  clear: both
+  font-weight: 400
+  line-height: 1.42857143
+  color: #333
+  white-space: nowrap
 
 ul.planit-dropdown-menu, ul.faux-planit-dropdown
   font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
@@ -168,23 +200,24 @@ ul.planit-dropdown-menu, ul.faux-planit-dropdown
     width: auto
     padding: 0
     cursor: pointer
+
+  li.planit-dropdown-menu, li.planit-dropdown-menu a
+    transition: all 0.2s ease
     color: #222
+    &:hover
+      background: #fefefe
+      color: #f06
     &.disabled
       color: #aaa
       cursor: default
-    a
-      padding: 3px 20px
-      margin: 0
-      color: #222
-      &:hover
-        color: #f06
-    &:hover
-      color: #f06
+
+  li.planit-dropdown-menu a
+    padding: 4px 20px
+    margin: 0
 
   .planit-dropdown-menu-icon
     width: 30px
     text-align: center
-    transition: all 0.2s ease
 
 ul.faux-planit-dropdown li.planit-dropdown-menu
   padding: 3px 20px
@@ -541,7 +574,7 @@ strong, .in-caps-header, i, b
       background: #e05
       border: 1px solid #b02
       border-bottom: 1px solid #600
-    i.fa-times
+    i.fa-pencil
       float: left
       margin: 2px 4px 2px 0
 
@@ -560,10 +593,25 @@ strong, .in-caps-header, i, b
     position: absolute
     width: 100%
     z-index: 100
-    top: 28px // assuming 28px tall search box
+    top: 27px // assuming 28px tall search box
     max-height: 400px
     overflow-x: hidden
     overflow-y: scroll
+    li 
+      overflow-x: hidden
+    &.neon li.search-results-list, li.search-results-reset
+      &.highlighted
+        background: #ffb6c1
+      &:hover
+        background: #f06
+    &.blue li.search-results-list, li.search-results-reset
+      &.highlighted
+        background: #add8e6
+      &:hover
+        background: #007
+        color: #fff
+    li.search-results-working
+      background: #fff
 
 // ?
 
