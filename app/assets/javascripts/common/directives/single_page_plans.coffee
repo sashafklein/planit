@@ -323,8 +323,8 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.placeNameWorking = 0
       s._makePlaceSearchRequest = ->
         s.placeNameWorking++
-        if s.nearby?.lat?.length && s.nearby?.lon && s.placeName
-          Foursquare.search(( "#{s.nearby.lat},#{s.nearby.lon}" ), s.placeName)
+        if s.nearby?.lat && s.nearby?.lon && s.placeName
+          Foursquare.search( "#{s.nearby.lat},#{s.nearby.lon}" , s.placeName)
             .success (response) ->
               s.placeNameWorking--
               s.placeNameOptions = Place.generateFromJSON Foursquare.parse(response)

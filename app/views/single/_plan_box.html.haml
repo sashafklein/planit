@@ -49,7 +49,7 @@
           %span.large-screen.inline Location
           
       .input-and-results{ ng_show: 'nearby && list' }
-        %input#place-name{ name: "place-name", type: 'text', placeholder: 'What do you want to add in {{ nearby.name }}?', ng_model: 'placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_keydown: 'removeTagOnBackspace($event)', ng_on_esc_key: "placeNameOptions = []", ng_keyup: 'handleKeyup()', ng_keydown: 'handleKeydown()' }
+        %input#place-name{ name: "place-name", type: 'text', placeholder: 'What do you want to add in {{ nearby.name }}?', ng_model: 'placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_on_esc_key: "placeNameOptions = []", ng_keyup: 'handleKeyup()', ng_keydown: 'handleKeydown()' }
 
         %ul.suggested-results.neon{ ng_show: '!typing && placeName && placeName.length>1' }
           %li.search-results-list{ ng_repeat: 'option in placeNameOptions', ng_click: 'addItem(option)' }
