@@ -38,16 +38,23 @@
   .planbox-wrapper
     user-select: none
 
-  .start-a-new-guide .rainbow-divider
-    position: fixed
-    top: 0
+  .start-where .rainbow-divider
     left: 0
     right: 0
     margin: auto
-    width: 33% !important
     height: 3px !important
+  .start-where.setplanbox-on-plan-page .rainbow-divider
+    top: 0
+    width: 33% !important
+    position: fixed
+  .start-where.centeredbox-on-plan-page .rainbow-divider
+    top: 0
+    left: 0
+    right: 0
+    width: 100% !important
+    position: absolute
 
-  .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
+  .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page, .centeredbox-on-plan-page
     position: fixed
     input
       min-width: 50px
@@ -64,6 +71,14 @@
       border-bottom: 1px solid #a01    
     input.full-width
       width: 98%
+
+  .centeredbox-on-plan-page
+    top: 0
+    bottom: 0
+    right: 0
+    left: 0
+    margin: auto
+    width: 33%
 
   .setplanbox-on-plan-page
     top: 0
@@ -123,15 +138,16 @@
         outline: none
         outline-width: 0
 
-  .setplanbox-on-plan-page.start-where
+  .setplanbox-on-plan-page.start-where, .centeredbox-on-plan-page.start-where
     background: #f06
     box-shadow: none
-    border-top: 3px solid #007
     height: 100px
     .start-a-new-plan
       margin-bottom: 8px
       color: #fff
       font-size: 16px
+  .setplanbox-on-plan-page.start-where
+    border-top: 3px solid #007
 
   .settingsbox-on-plan-page
     z-index: 10015
