@@ -6,8 +6,11 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
     link: (s, e, a) ->
 
-      s.currentUserId = CurrentUser.id
-      s.currentUserName = CurrentUser.name
+      if s.currentUser = CurrentUser
+        s.currentUserId = s.currentUser.id
+        s.currentUserName = s.currentUser.name
+        s.currentUserIsActive = s.currentUser.role == "admin" || s.currentUser.role == "member"
+      s.mobile = false
       # s.bestPageTitle = -> if s.list then s.list.name else "#{s.currentUserName}'s Planit"
       s.userOwns = ( obj ) -> s.currentUserId == obj.user_id
       

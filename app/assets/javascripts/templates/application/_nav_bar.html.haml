@@ -1,0 +1,21 @@
+.nav-item-link
+  .nav-item.nav-item-inbox 
+    / # { class: "#{'selected' if page_type == 'inbox'} #{'disabled' unless current_user.message_count > 0 }"}
+    %i.nav-item-icon.fa.fa-inbox
+      / - if current_user.message_count > 0 && page_type != 'inbox'
+      /   %span.inbox-count= current_user.message_count
+    .nav-item-hint
+      %span MY INBOX
+
+%a.nav-item-link{ ng_click: 'resetList()' }
+  .nav-item.nav-item-home{ ng_class: "{'selected': !list }" }
+    %i.nav-item-icon.fa.fa-home
+    .nav-item-hint
+      %span HOME
+
+%a.nav-item-link{ href: "#planit-modal-share", data: {toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
+  .nav-item.nav-item-share
+    / { class: "#{'disabled' if !rich_content?(page_type)}" }
+    %i.nav-item-icon.fa.fa-paper-plane
+    .nav-item-hint
+      %span SHARE THIS

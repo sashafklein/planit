@@ -1,10 +1,11 @@
 .main-menu-dropdown-content
 
-  .active-user-menu{ ng_show: "currentUserIsActive" }
+  .active-user-menu
+    / { ng_show: "currentUserIsActive" }
 
     %li.planit-dropdown-menu
       = link_to root_path do
-        = "#{current_user.first_name}'s Planit"
+        {{ currentUserName }}'s Planit
         %i.planit-dropdown-menu-icon.fa.fa-home.fa-fw
     %li.divider
     %li.planit-dropdown-menu
@@ -26,7 +27,7 @@
         Log Out
         %i.planit-dropdown-menu-icon.fa.fa-times.fa-fw
 
-  .inactive-user-menu{ ng_show: "currentUserId && currentUserIsActive" }
+  .inactive-user-menu{ ng_show: "currentUserId && !currentUserIsActive" }
 
     %li.planit-dropdown-menu
       %a{ "data-method" => "delete", :href => destroy_user_session_path, :target => '_self' }
