@@ -9,15 +9,10 @@ class PlaceSerializer < BaseSerializer
               :images, 
 
               :menu, :mobile_menu, 
-              :reservations, :reservations_link, :hours, 
+              :reservations, :reservations_link, :hours,
 
               :name, :altnames, :image_url, :image_source, :address, :locale, :href, :meta_icon,
-              :savers, :lovers, :visitors, :guides, :fs_href #, :mark
-
-  delegate    :name,
-              :street_address,
-              :meta_icon, :meta_category, 
-                to: :object
+              :savers, :lovers, :visitors, :guides, :fs_href
 
   has_many    :images
 
@@ -56,11 +51,6 @@ class PlaceSerializer < BaseSerializer
   def fs_href
     object.foursquare_id ? "https://www.foursquare.com/v/#{object.foursquare_id}" : nil
   end
-
-  # def mark
-  #   return nil unless scope
-  #   object.marks.find_by user_id: scope.id
-  # end
 
   private
 

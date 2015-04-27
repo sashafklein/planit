@@ -89,9 +89,9 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         Geonames.search( s.planNearby )
           .success (response) ->
             s.planNearbyWorking--
-            s.planNearbyOptions = response.geonames
-            _.map( s.planNearbyOptions, (o) -> 
-              o.lon = o.lng; o.qualifiers = _.uniq( _.compact( [ o.adminName1 unless o.name == o.adminName1, o.countryCode ] ) ).join(", ")
+            s.planNearbyOptions = _.sortBy( response.geonames, 'population' ).reverse()
+            _.map( s.planNearbyOptions, (o) ->
+              o.lon = o.lng; o.qualifiers = _.uniq( _.compact( [ o.adminName1 unless o.name == o.adminName1, o.countryName ] ) ).join(", ")
             )
           .error (response) -> 
             s.planNearbyWorking--
@@ -151,7 +151,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
 
       s.bestListNearby = (items) -> 
         return unless items?.length && items[0]?.mark?.place
-        mostRecentItem = _.sortBy( items, (i) -> i.updated_at_day ).reverse()[0]
+        mostRecentItem = _.sortBy( items, (i) -> i.updated_at ).reverse()[0]
         locale = mostRecentItem.mark.place.locality || mostRecentItem.mark.place.sublocality || mostRecentItem.mark.place.subregion || mostRecentItem.mark.place.region || mostRecentItem.mark.place.country
         macro = mostRecentItem.mark.place.region || mostRecentItem.mark.place.country unless locale == mostRecentItem.mark.place.region || locale == mostRecentItem.mark.place.country
         return { name: locale, lat: mostRecentItem.mark.place.lat, lon: mostRecentItem.mark.place.lon, adminName1: macro }
@@ -280,7 +280,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
             s.placeNearbyWorking--
             s.placeNearbyOptions = response.geonames
             _.map( s.placeNearbyOptions, (o) -> 
-              o.lon = o.lng; o.qualifiers = _.uniq( _.compact( [ o.adminName1 unless o.name == o.adminName1, o.countryCode ] ) ).join(", ")
+              o.lon = o.lng; o.qualifiers = _.uniq( _.compact( [ o.adminName1 unless o.name == o.adminName1, o.countryName ] ) ).join(", ")
             )
           .error (response) -> 
             s.placeNearbyWorking--
@@ -387,7 +387,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         QueryString.modify({ near: "#{nearby.name},,#{nearby.lat},#{nearby.lon}" })
         return
 
-      s.nearbyToReset = -> _.compact([ s.nearby?.name, s.nearby?.adminName1, s.nearby?.countryCode ]).join(", ")
+      s.nearbyToReset = -> _.compact([ s.nearby?.name, s.nearby?.adminName1, s.nearby?.countryName ]).join(", ")
 
       s.resetNearby = -> 
         s._setOnScope( [ 'nearby', 'placeName', 'placeNearby', 'placeOptions', 'centerNearby' ], null )
@@ -457,7 +457,7 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
         s.itemsTypes = s.itemsTypes.reverse() unless s.sortAscending
         s.itemsFirstLetters = _.sortBy( _.uniq( _.compact( _.map( s.items, (i) -> i.mark.place.names?[0]?[0] ) ) ) , (i) -> return i )
         s.itemsFirstLetters = s.itemsFirstLetters.reverse() unless s.sortAscending
-        s.itemsRecent = _.sortBy( _.uniq( _.map( s.items, (i) -> i.updated_at_day ) ) , (i) -> return i )
+        s.itemsRecent = _.sortBy( _.uniq( _.map( s.items, (i) -> x=i.updated_at.match(/(\d{4})-(\d{2})-(\d{2})/); return "#{x[2]}/#{x[3]}/#{x[1]}" ) ) , (i) -> return i )
         s.itemsRecent = s.itemsRecent.reverse() unless s.sortAscending
         s.itemsLocales = _.sortBy( _.uniq( _.map( s.items, (i) -> i.mark.place.locality ) ) , (i) -> return i )
         s.itemsLocales = s.itemsLocales.reverse() unless s.sortAscending
@@ -491,15 +491,10 @@ angular.module("Common").directive 'singlePagePlans', (User, Plan, Mark, Item, P
       s.matchingItems = ( category ) ->
         if s.categoryIs == 'type' then matchingItems = _.filter( s.items, (i) -> i.mark.place.meta_categories?[0] == category )
         if s.categoryIs == 'alphabetical' then matchingItems = _.filter( s.items, (i) -> i.mark.place.names?[0]?[0] == category )
-        if s.categoryIs == 'recent' then matchingItems = _.filter( s.items, (i) -> i.updated_at_day == category )
+        if s.categoryIs == 'recent' then matchingItems = _.filter( s.items, (i) -> x=i.updated_at.match(/(\d{4})-(\d{2})-(\d{2})/); "#{x[2]}/#{x[3]}/#{x[1]}" == category )
         if s.categoryIs == 'locale' then matchingItems = _.filter( s.items, (i) -> i.mark.place.locality == category )
         return matchingItems
 
-      s.toDate = (yymmdd) -> 
-        if yymmdd && yymmdd.length == 6
-          "Updated on #{s.noneIfZero(yymmdd[2])}#{yymmdd[3]} / #{s.noneIfZero(yymmdd[4])}#{yymmdd[5]} / #{yymmdd[0]}#{yymmdd[1]}"
-        else
-          'Undated'
       s.noneIfZero = (digit) -> if digit == '0' then '' else digit
 
 

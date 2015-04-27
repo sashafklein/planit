@@ -28,6 +28,13 @@ describe Api::V1::GeonamesController do
       expect( response_body.geonames.map{ |g| g.countryCode } ).to include "US"
     end
 
+    it "returns best picks and countrynames without codes", :vcr do
+      sign_in create(:user)
+      get :search, query: "bali"
+
+      expect( response_body.geonames.map{ |g| g.countryName } ).to include "Indonesia"
+    end
+
   end
   describe 'point' do
 

@@ -24,7 +24,8 @@
             %li.items-organized-by{ ng_show: "categoryIs != 'alphabetical'", ng_class: "metaClass( category )" }
               %i.list-category-icon{ ng_show: "categoryIs == 'type'", ng_class: 'typeIcon(category)' } 
               %span{ ng_show: "categoryIs != 'recent'"} {{ category }}
-              %span{ ng_show: "categoryIs == 'recent'"} {{ toDate( category ) }}
+              %span{ ng_show: "categoryIs == 'recent' && category.length"} Updated on {{ category }}
+              %span{ ng_show: "categoryIs == 'recent' && !category.length"} Undated
 
             %li.plan-list-item{ ng_repeat: 'item in matchingItems( category )' }
               .owner-opinions{ ng_show: '!userOwnsLoadedList' }
