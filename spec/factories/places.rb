@@ -1,5 +1,10 @@
 FactoryGirl.define do
   factory :place do
+
+    transient do
+      image_count 0
+    end
+
     sequence(:names) { |n| ["Place Name #{n}", "Local Name #{n}"] }
     postal_code '94114'
     sequence(:street_addresses) { |n| ["#{n} Some Street"] }
@@ -35,6 +40,10 @@ FactoryGirl.define do
       })
       lat '48.851946'
       lon '2.338757'
+    end
+
+    after(:create) do |place, evaluator|
+      evaluator.image_count.times{ create(:image, imageable: place) }
     end
   end
 end
