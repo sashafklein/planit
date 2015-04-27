@@ -23,11 +23,11 @@ module PlaceMod
     end
 
     def by_lat(lat, points: 2)
-      where("ROUND( CAST(lat as numeric), ? ) = ?", points, lat.round(points))
+      where("ROUND( CAST(lat as numeric), ? ) = ?", points, lat.to_f.round(points))
     end
 
     def by_lon(lon, points: 2)
-      where("ROUND( CAST(lon as numeric), ? ) = ?", points, lon.round(points))
+      where("ROUND( CAST(lon as numeric), ? ) = ?", points, lon.to_f.round(points))
     end
 
     def with_region_info(region_atts)
