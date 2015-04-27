@@ -16,7 +16,7 @@ FactoryGirl.define do
     lon '1.5'
     website "www.whatever.com"
     categories ["Some category"]
-    foursquare_id 'abcde12345'
+    sequence(:foursquare_id) { |n| Digest::MD5.hexdigest(n.to_s) }
     timezone_string 'America/Whatever'
     meta_categories ['Food']
 

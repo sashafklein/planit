@@ -56,7 +56,7 @@ module PlaceMod
         end
 
         it "makes an exception for foursquare_id, which is sufficient alone" do
-          found = Finder.new( foursquare_id: 'abcde12345' ).find!
+          found = Finder.new( foursquare_id: @mark.place.foursquare_id ).find!
           expect( found ).to eq @mark.place
         end
       end

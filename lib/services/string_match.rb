@@ -10,7 +10,10 @@ module Services
     end
 
     def value
-      (word_match * word_match_weight) + (string_match * string_match_weight)
+      if !word_match || !word_match_weight || !string_match || !string_match_weight
+        Rollbar.error("String match failed", {main: @main, target: @target, word_match: word_match, word_match_weight: word_match_weight, string_match: string_match, string_match_weight: string_match_weight} )
+      end
+      (word_match.to_f * word_match_weight.to_f) + (string_match.to_f * string_match_weight.to_f)
     end
 
     def bidirectional_value

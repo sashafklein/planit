@@ -102,6 +102,22 @@ describe Api::V1::PlansController, :vcr do
       post :add_item_from_place_data, id: @plan.id, place: @data
     end
 
+    it "handles new add with factory girl data quickly" do
+      sign_in @plan.user
+      image = build(:image).attributes.to_sh.except(:id)
+      expect( time = Benchmark.measure{ post :add_item_from_place_data, id: @plan.id, place: @data.merge({images: [image]}) }.real ).to be < 0.5
+      puts time.to_s + "s"
+      expect( response_body.mark.place.names ).to eq @data.names
+    end
+
+    it "handles new add of raw foursquare data quickly" do
+      sign_in @plan.user
+      fs_data = { name: "Boot & Shoe Service", names: ["Boot & Shoe Service"], image_url: "https://irs0.4sqi.net/img/general/69x69/1099625_GOsG8FaDrCfr3tsYTeD8zeaZ39lh1mqDCxUz9N5pEMg.jpg", foursquare_icon: "https://ss3.4sqi.net/img/categories_v2/food/pizza_bg_64.png", foursquare_id: "4b1c4e34f964a520c90524e3", categories: ["Pizza Place"], street_addresses: ["3308 Grand Ave"], locality: "Oakland", region: "CA", country: "United States", lat: 37.81285866282477, lon: -122.24683541720094, images: [{ url: "https://irs0.4sqi.net/img/general/69x69/1099625_GOsG8FaDrCfr3tsYTeD8zeaZ39lh1mqDCxUz9N5pEMg.jpg", source: "Foursquare"}] }
+      expect( time = Benchmark.measure{ post :add_item_from_place_data, id: @plan.id, place: fs_data }.real ).to be < 1
+      puts time.to_s + "s"
+      expect( response_body.mark.place.name ).to eq "Boot & Shoe Service"
+    end
+
     it "errors if there's no current_user" do
       expect_any_instance_of( Plan ).not_to receive(:add_item_from_place_data!)
 

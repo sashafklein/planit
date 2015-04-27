@@ -37,6 +37,7 @@ class Plan < BaseModel
 
     place = place.validate_and_save!( data[:images] || [] ) unless place.persisted?
     place.background_complete!
+
     add_with_place!(user, place)
   end
 

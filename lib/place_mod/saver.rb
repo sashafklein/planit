@@ -150,7 +150,7 @@ module PlaceMod
     end
 
     def format_hours
-      place.set_hours Services::TimeConverter.convert_hours(place.hours)
+      place.set_hours Services::TimeConverter.convert_hours(place.hours) if place.hours.present?
     end
 
     def hours_converted?
@@ -158,7 +158,7 @@ module PlaceMod
     end
 
     def format_phones
-      place.phones = place.phones.compact.map{ |v| v.gsub(%r!\D!, '') }.uniq
+      place.phones = place.phones.compact.map{ |v| v.gsub(%r!\D!, '') }.uniq if place.phones.present?
     end
 
     def phones_formatted?
