@@ -3,18 +3,22 @@ class PlaceSerializer < BaseSerializer
   attributes  :id, :names, 
               :lat, :lon, 
               :street_addresses, :sublocality, :locality, :subregion, :region, :country,
-              :phone, :phones, :website,
+              :phones, :website,
               :meta_categories, :categories,
 
-              :images, 
+              # Details
+              :wifi,
 
-              :menu, :mobile_menu, 
-              :reservations, :reservations_link, :hours,
+              # Pseudo/Non-Database Attributes
+              :name, :altnames, :address, :locale, :meta_icon,
+              :savers, :lovers, :visitors, :guides,
+              :image_url, :image_source, 
+              :fs_href
 
-              :name, :altnames, :image_url, :image_source, :address, :locale, :href, :meta_icon,
-              :savers, :lovers, :visitors, :guides, :fs_href
-
-  has_many    :images
+              # Removed
+              # :href, 
+              # :menu, :mobile_menu, 
+              # :reservations, :reservations_link, 
 
   def name
     object.names.first
@@ -28,9 +32,9 @@ class PlaceSerializer < BaseSerializer
     image.try(:source)
   end
 
-  def href
-    object_path(object)
-  end
+  # def href
+  #   object_path(object)
+  # end
 
   def savers
     Mark.savers( id )
@@ -55,7 +59,7 @@ class PlaceSerializer < BaseSerializer
   private
 
   def image
-    images.where.not(url: nil).first
+    object.image
   end
 
 end

@@ -27,7 +27,7 @@ module ActsLikePlace
   end
 
   def image
-    images.first
+    images.where.not(url: nil).first
   end
 
   def coordinate(joiner=':')
