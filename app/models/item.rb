@@ -14,7 +14,7 @@ class Item < BaseModel
   has_many_polymorphic table: :notes
 
   class << self
-    delegate :places, :coordinates, :all_names, :all_ids, :all_types, :all_countries, :all_regions, :all_localities, to: :marks
+    delegate :places, to: :marks
   end
 
   delegate    :names,

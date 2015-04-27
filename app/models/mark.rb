@@ -125,10 +125,6 @@ class Mark < BaseModel
     matching_sources.create!(full_url: parser.full) unless matching_sources.any?
   end
 
-  class << self
-    # delegate :coordinates, to: :places
-  end
-
   def self.create_for_user_from_source!(user, source, url)
     mark = source.object
     return mark if mark.user == user
@@ -147,44 +143,6 @@ class Mark < BaseModel
   def self.average_updated
     array = map(&:updated_at).map(&:to_i)
     array.sum/array.count.to_f
-  end
-
-  def self.coordinates
-    with_places.places.map(&:coordinate)
-  end
-
-  def self.center_coordinate
-    Place.center_coordinate(places)
-  end
-
-  def self.all_names
-    places.map(&:name)
-  end
-
-  def self.all_ids
-    places.pluck(:id)
-  end
-
-  def self.all_countries
-    places.att_by_frequency(:country)
-  end
-
-  def self.all_regions
-    places.att_by_frequency(:region)
-  end
-
-  def self.all_localities
-    places.att_by_frequency(:locality)
-  end
-  
-  def self.all_tags
-    taggings = Tagging.where(taggable_type: 'Mark', taggable_id: self.pluck(:id))
-    Tag.where(id: taggings.pluck(:tag_id) ).pluck(:name)
-  end
-
-  def self.filtered(array)
-    []
-    # MarkFilterer.new(array).results
   end
 
   # PLACE
@@ -214,26 +172,6 @@ class Mark < BaseModel
 
   def previous
     siblings.find_by_order(order - 1)
-  end
-
-  def recoby
-    nil #todo -- make a column or two
-  end
-
-  def downby
-    nil #todo -- make a column or two
-  end
-
-  def rating
-    nil #todo -- make a column or two
-  end
-
-  def show_arrival
-    "Arrive by #{arrival.mode} to #{name}"
-  end
-
-  def show_departure
-    "Depart by #{departure.mode} to #{name}"
   end
 
   private
