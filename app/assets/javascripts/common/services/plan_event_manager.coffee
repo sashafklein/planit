@@ -22,9 +22,10 @@ angular.module("Services").factory 'PlanEventManager', (F, $timeout, MapEventMan
 
     redirect: (id) ->
       return unless id
-      @_markerAndLiForPlaceId( id ).addClass('highlighted')
+      # @_markerAndLiForPlaceId( id ).addClass('highlighted')
       place = _.find( s.places, (p) -> "p#{ p.id }" == id)
-      window.open(place.fs_href, '_blank')
+      if href = place?.fs_href
+        window.open(href, '_blank')
       return
 
   return PlanEventManager
