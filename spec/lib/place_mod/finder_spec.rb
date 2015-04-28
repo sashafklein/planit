@@ -122,6 +122,7 @@ module PlaceMod
           expect( search( :names, :locality, :sublocality, :region, :country )).not_to be_persisted
         end
       end
+
     end
 
     def search(*atts_to_slice)
