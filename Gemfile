@@ -1,9 +1,8 @@
 source "https://rubygems.org"
-source "https://rails-assets.org"
 
-ruby "2.2.0"
+ruby "2.2.2"
 
-gem "rails", "4.2.0"
+gem "rails", "4.2.1"
 
 # error reporting
 gem "rollbar"
@@ -14,18 +13,12 @@ gem "rack-mini-profiler", require: false
 gem "rack-timeout"
 
 # emailing
-gem "recipient_interceptor"
-gem "email_validator"
 gem "roadie-rails"
 
 # css and page-interactions
 gem "font-awesome-sass"
 gem "bootstrap-sass"
 gem "jquery-rails"
-gem "compass"
-gem "compass-rails"
-gem "bourbon"
-gem "neat"
 
 # scraping
 gem "nokogiri"
@@ -36,7 +29,7 @@ gem "coffee-rails"
 gem "sass-rails"
 gem "uglifier"
 gem "draper", require: false
-gem "autoprefixer-rails" # in-use & non-overlapping to compass?
+gem "autoprefixer-rails"
 
 # database / server
 gem "pg"
@@ -67,7 +60,6 @@ gem "bonsai-elasticsearch-rails"
 gem "fuzzy-string-match"
 gem "friendly_id"
 gem "acts-as-taggable-on" # not using
-gem "select2-rails"
 
 # terminal
 gem "colorize"
@@ -89,13 +81,9 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'angular-rails-templates'
 
 source "https://rails-assets.org" do
-  gem "rails-assets-angular"
-  gem "rails-assets-angular-mocks"
-  gem "rails-assets-active-support"
-  gem "rails-assets-async"
-  gem "rails-assets-lodash"
-  gem "rails-assets-leaflet"
-  gem "rails-assets-angular-leaflet-directive"
+  %w( angular angular-mocks active-support async lodash leaflet angular-leaflet-directive ).each do |lib|
+    gem "rails-assets-#{lib}"
+  end
 end
 
 group :development do

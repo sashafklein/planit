@@ -1,11 +1,5 @@
 // PAGE STRUCTURE
 
-$neonPink: #f06
-$darkNeonPink: #c03
-$lightBlue: #33a
-$lightestBlue: #66d
-$darkBlue: #007
-
 @function gray($value)
   @return hsl(0, 0, $value * 1%)
 
@@ -209,7 +203,7 @@ ul.planit-dropdown-menu, ul.faux-planit-dropdown
     color: #222
     &:hover
       background: #fefefe
-      color: #f06
+      color: $neonPink
     &.disabled
       color: #aaa
       cursor: default
@@ -271,8 +265,8 @@ span.flat
       color: #fff
       border: 1px solid #000
   &:hover
-    background: #f06
-    border: 1px #f06 solid
+    background: $neonPink
+    border: 1px $neonPink solid
     color: #fff
 
 .bubbled-header-block
@@ -297,7 +291,7 @@ span.bubbled
     box-shadow: #eee 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
   &.primary.enabled:hover
     color: #fff
-    background: #f06
+    background: $neonPink
     border: #d04 1px solid
     border-bottom: #b02 1px solid
     -webkit-box-shadow: #e05 0 -1px 0 inset,rgba(0,0,0,0.04) 0 1px 0
@@ -344,7 +338,7 @@ span.bubbled
 
 .numbered-box
   transition: 0.2 ease all
-  background: #f06
+  background: $neonPink
   border-bottom: #990033 solid 1px
   border-radius: 3px
   text-align: center
@@ -375,7 +369,7 @@ strong, .in-caps-header, i, b
   &.white
     color: #fff
   &.neon
-    color: #f06 // neon
+    color: $neonPink // neon
   &.lightgray
     color: #ccc
   &.darkgray
@@ -405,7 +399,7 @@ strong, .in-caps-header, i, b
   &.neon
     color: #fff
     text-shadow: 1px 1px 1px #b28
-    background: rgb(255,0,102) // neon #f06
+    background: rgb(255,0,102) // neon $neonPink
     border: 1px solid rgb(204,0,51)
     box-shadow: rgb(228, 40, 78) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
     &:hover, &:active
@@ -415,7 +409,7 @@ strong, .in-caps-header, i, b
   &.blue
     color: #eef
     text-shadow: 1px 1px 1px #339
-    background: rgb(0,0,119) // blue #007
+    background: rgb(0,0,119) // blue $darkBlue
     border: 1px solid rgb(0,0,60)
     box-shadow: rgb(0, 0, 91) 0px -3px 0px 0px inset, rgba(0, 0, 0, 0.04) 0px 2px 0px 0px
     &:hover, &:active
@@ -475,7 +469,7 @@ strong, .in-caps-header, i, b
   .response
     display: inline-block
     font-weight: normal
-    color: #f06
+    color: $neonPink
     font-style: italic
 
 // FORMS
@@ -568,8 +562,8 @@ strong, .in-caps-header, i, b
     text-overflow: ellipsis
     border-radius: 2px
     color: #fff
-    background: #f06
-    border: 1px solid #c03
+    background: $neonPink
+    border: 1px solid $darkNeonPink
     border-bottom: 1px solid #700
     &:hover, &.highlighted
       color: #fff
@@ -606,12 +600,12 @@ strong, .in-caps-header, i, b
       &.highlighted
         background: #ffb6c1
       &:hover
-        background: #f06
+        background: $neonPink
     &.blue li.search-results-list, li.search-results-reset
       &.highlighted
         background: #add8e6
       &:hover
-        background: #007
+        background: $darkBlue
         color: #fff
     li.search-results-working
       background: #fff
@@ -642,7 +636,7 @@ a.feedback-button, a.feedback-button:hover
   height: 25px
   font-size: 14px
   line-height: 25px
-  background: #f06
+  background: $neonPink
   font-weight: bold
   font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
   white-space: nowrap
@@ -674,11 +668,11 @@ a.feedback-button, a.feedback-button:hover
   i
     vertical-align: top
   &:hover
-    color: #f06
+    color: $neonPink
 
 .alert.alert-danger
-  background: #f06
-  border: 1px solid #c03
+  background: $neonPink
+  border: 1px solid $darkNeonPink
   color: #000
 
 #flash
@@ -693,7 +687,7 @@ a.feedback-button, a.feedback-button:hover
 
 .flash-alert
   height: 68px
-  border-top: 3px solid #f06
+  border-top: 3px solid $neonPink
   display: block
   line-height: 65px
   font-size: 15px
@@ -1044,11 +1038,11 @@ hr.divider
     &.top
       top: 0
       padding-top: 44px
-      background: #f06
+      background: $neonPink
     &.bottom
       bottom: 0
       padding-bottom: 44px
-      background: #007
+      background: $darkBlue
 
   .mobile, .except-landscape
     visibility: visible
@@ -1109,11 +1103,11 @@ hr.divider
     &.top
       left: 0
       padding-top: 0
-      background: #f06
+      background: $neonPink
     &.bottom
       right: 0
       padding-bottom: 0
-      background: #007
+      background: $darkBlue
 
   .mobile
     visibility: visible
