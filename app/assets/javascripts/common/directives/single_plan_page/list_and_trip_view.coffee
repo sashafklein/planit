@@ -28,14 +28,6 @@ angular.module("Common").directive 'listAndTripView', (ErrorReporter, Mark, Flas
         itemsWithIcon = _.filter( s.m.items, (i) -> i.mark.place.meta_categories[0] == meta_category )
         if itemsWithIcon[0] then itemsWithIcon[0].mark.place.meta_icon else ''
 
-      s.toDate = (yymmdd) -> 
-        if yymmdd && yymmdd.length == 6
-          "Updated on #{s.noneIfZero(yymmdd[2])}#{yymmdd[3]} / #{s.noneIfZero(yymmdd[4])}#{yymmdd[5]} / #{yymmdd[0]}#{yymmdd[1]}"
-        else
-          'Undated'
-
-      s.noneIfZero = (digit) -> if digit == '0' then '' else digit
-
       s.matchingItems = ( category ) ->
         switch s.m.categoryIs
           when 'type' then _.filter( s.m.items, (i) -> i.mark.place.meta_categories?[0] == category )
