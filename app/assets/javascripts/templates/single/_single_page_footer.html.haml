@@ -1,0 +1,46 @@
+.single-page-footer
+
+  #footer-spacing.except-landscape
+  #planit-footer.except-landscape
+    
+    .footer-container{ ng_show: "m.mobile" }
+      %ng_include{ src: "'application/_nav_bar.html'" }
+
+    / .footer-container.tabled{ ng_show: "!m.mobile", on_mouseleave: "$('.static-section-content').hide(300)" }
+    /   %div{ class: 'one-third column' }
+    /     .static-section-content
+    /       %p.text-spaced
+    /         User-submitted images and content, unless otherwise attributed, are the exclusive copyright of Planit and its users
+    /     .static-section-content
+    /       %p.text-spaced
+    /         Any perceived
+    /         = link_to 'copyright', legal_dmca_path
+    /         issues should be reported immediately
+
+    /   %div{ class: 'one-third column' }
+    /     .static-section-content
+    /       %p.text-spaced
+    /         In-app search is powered by the
+    /         %a{ target: '_self', href: "http://www.foursquare.com/"}= "Foursquare"
+    /         Venues API
+    /     .static-section-content
+    /       %p.text-spaced
+    /         Maps use
+    /         %a{ target: '_self', href: "http://leafletjs.com/"}= "Leaflet"
+    /         JS library,
+    /         %a{ target: '_self', href: "http://www.openstreetmap.org/"}= "OpenStreetMaps"
+    /         data, and contain
+    /         %a{ target: '_self', href: "http://developer.mapquest.com/web/products/open/map/"}= "MapQuest"
+    /         map tiles
+
+    /   %div{ class: 'one-third column' }
+    /     .static-section-content
+    /       %p.text-spaced
+    /         Please share
+    /         %a{ href: '#planit-modal-feedback', data: { toggle: 'modal', target: '#planit-modal-feedback', backdrop: 'static', keyboard: 'false' } }= "your feedback"
+    /         with us
+
+    /     .static-section-content
+    /       %p.text-spaced
+    /         If you have any concerns about your data, contact us with any questions not otherwise addressed in our
+    /         = link_to 'Privacy Policy', legal_privacy_path

@@ -1,0 +1,73 @@
+.list-or-trip-mode{ ng_show: "m.list && m.hasItems() && (m.mode == 'list' || m.mode == 'trip')" }
+  #header-spacing.except-landscape
+  .print-title {{ list.name }}
+  .pad-top-addbox{ ng_show: 'm.list || m.hasLists()' }
+  .band.spaced-xxx{ plan: 'm.list',  list_items: 'm.items' } 
+    .container
+      %h1.title.sixteen.columns{ ng_show: 'm.mode == "trip"' } Drag and Drop to Order Your Trip
+
+      / .items-in-manifest.six.columns{ ng_show: 'mode == "trip"', ng_class: '{empty: !manifestItems.length}' }
+      /   %ul.plan-list-items
+      /     .repeater{ ng_repeat: 'item in manifestItems' }
+      /       .spacer{ ng_class: '{hovered: hoveringOver($index)}', ng_mouseenter: 'setHover($index)', ng_mouseleave: 'setHover(null)', ng_click: 'insert($index)' }
+      /         %p Click here to add or relocate item
+      /       %li.plan-list-item
+      /         .bucket-list-tab
+      /           %h6 {{ item.mark.place.names[0] }} - {{ $index }}
+      /         .list-item-select{ ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
+      /     .spacer{ ng_class: '{hovered: hoveringOver(manifestItems.length)}', ng_mouseenter: 'setHover(manifestItems.length)', ng_mouseleave: 'setHover(null)', ng_click: 'insert()' }
+      /       %p Click here to add or relocate item
+
+      .items-in-plan{ ng_class: 'listClass(m.mode)' }
+        .items-in-plan-category{ ng_repeat: 'category in m.categories' }
+          %ul.plan-list-items
+            %li.items-organized-by{ ng_show: "m.categoryIs != 'alphabetical'", ng_class: "metaClass( category )" }
+              %i.list-category-icon{ ng_show: "m.categoryIs == 'type'", ng_class: 'typeIcon(category)' } 
+              %span{ ng_show: "m.categoryIs == 'recent' && category.length"} Updated on {{ category }}
+              %span{ ng_show: "m.categoryIs == 'recent' && !category.length"} Undated
+              %span{ ng_show: "m.categoryIs != 'recent'"} {{ category }}
+
+            %li.plan-list-item{ ng_repeat: 'item in matchingItems( category )' }
+              .owner-opinions{ ng_show: '!m.userOwnsLoadedList' }
+                .item-opinion.love-item{ ng_show: 'ownerLoves(item)' }
+                  %i.fa.fa-heart
+                .item-opinion.been-item{ ng_show: 'ownerVisited(item)' }
+                  %i.fa.fa-check-square
+              .bucket-list-tab.main-item-card{ ng_click: "fsOpen(item, m.mode != 'trip')" }
+                .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
+                .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
+                .bucket-list-wrap
+                  .bucket-list-profile
+                    %a{ target: '_self' }
+                      .bucket-list-title
+                        {{ item.mark.place.names[0] }}
+                      .bucket-list-more-info
+                        %i{ class: "{{ item.mark.place.meta_icon }}"}
+                        {{ item.mark.place.categories.join(', ') }}
+                      .bucket-list-more-info.locale-only
+                        {{ item.mark.place.localeDetails() }}
+
+              .list-item-notes{ ng_show: 'm.mode == "list"' }
+                %textarea{ ng_model: "item.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'nextNote(item)', ng_on_tab_key: 'nextNote(item)', ng_shift_on_tab_key: 'priorNote(item)', ng_blur: 'saveNote(item)', ng_disabled: '!item.notesSearched || !m.userOwnsLoadedList' }
+
+              .item-actions{ ng_show: 'm.userOwnsLoadedList' }
+                .item-action-button.remove-item
+                  %i.action.fa.fa-trash{ ng_click: 'deleteItem(item)' }
+                .item-action-button.love-item
+                  %i.action.fa.fa-heart{ ng_show: '!currentUserLoves(item)', love_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserLove(item)' }
+                  %i.action.fa.fa-heart.neon{ ng_show: 'currentUserLoves(item)', unlove_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnlove(item)' }
+                .item-action-button.been-item
+                  %i.action.fa.fa-check-square{ ng_show: '!currentUserVisited(item)', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserBeen(item)' }
+                  %i.action.fa.fa-check-square.neon{ ng_show: 'currentUserVisited(item)', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnbeen(item)' }
+              .item-actions{ ng_show: '!m.userOwnsLoadedList' }
+                .item-action-button.remove-item
+                  %i.action.fa.fa-bookmark{ ng_show: '!currentUserSaved(item)', save_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserSave(item)' }
+                  %i.action.fa.fa-trash{ ng_show: 'currentUserSaved(item)', unsave_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnsave(item)' }
+                .item-action-button.love-item
+                  %i.action.fa.fa-heart{ ng_show: '!currentUserLoves(item)', love_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserLove(item)' }
+                  %i.action.fa.fa-heart.neon{ ng_show: 'currentUserLoves(item)', unlove_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnlove(item)' }
+                .item-action-button.been-item
+                  %i.action.fa.fa-check-square{ ng_show: '!currentUserVisited(item)', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserBeen(item)' }
+                  %i.action.fa.fa-check-square.neon{ ng_show: 'currentUserVisited(item)', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnbeen(item)' }
+
+              .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }

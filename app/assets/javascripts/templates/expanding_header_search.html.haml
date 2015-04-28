@@ -1,0 +1,8 @@
+.place-search-bar
+  / .search-teaser{ ng_show: 'searchClick()', ng_class: "{'full-width': fullWidth() }", ng_click: 'showSearch()' }
+  /   %span#search-teaser-field {{ placeholder }}
+  /   %i.fa.fa-lg{ ng_class: "{'fa-search': pageType != 'plan', 'fa-plus': pageType == 'plan'}"}
+  .expanded-top-search-bar
+    %search_and_add{ hide_search: 'hideSearch()', page_type: "{{pageType}}" }
+    %button.close.search-close{ ng_click: 'hideSearch()' }
+      %span ×

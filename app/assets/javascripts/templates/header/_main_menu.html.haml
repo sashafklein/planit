@@ -1,0 +1,45 @@
+.main-menu-dropdown-content
+
+  .active-user-menu{ ng_show: "m.currentUserIsActive" }
+
+    %li.planit-dropdown-menu
+      %a{ ng_click: 'm.resetList()' }
+        {{ m.currentUserFirstName }}'s Planit
+        %i.planit-dropdown-menu-icon.fa.fa-home.fa-fw
+    %li.divider
+    %li.planit-dropdown-menu
+      = link_to invite_path do
+        Invite a Friend!
+        %i.planit-dropdown-menu-icon.fa.fa-group.fa-fw
+    %li.divider
+    %li.planit-dropdown-menu
+      = link_to edit_user_registration_path do
+        Update Account
+        %i.planit-dropdown-menu-icon.fa.fa-user.fa-fw
+    %li.planit-dropdown-menu
+      = link_to legal_support_path do
+        Legal & Support
+        %i.planit-dropdown-menu-icon.fa.fa-question.fa-fw
+    %li.divider
+    %li.planit-dropdown-menu
+      %a{ "data-method" => "delete", :href => destroy_user_session_path, :target => '_self' }
+        Log Out
+        %i.planit-dropdown-menu-icon.fa.fa-times.fa-fw
+
+  .inactive-user-menu{ ng_show: "m.currentUserId && !m.currentUserIsActive" }
+
+    %li.planit-dropdown-menu
+      %a{ "data-method" => "delete", :href => destroy_user_session_path, :target => '_self' }
+        Log Out
+        %i.planit-dropdown-menu-icon.fa.fa-times.fa-fw
+
+  .no-user-menu{ ng_show: "!m.currentUserId && !m.currentUserIsActive" }
+
+    %li.planit-dropdown-menu
+      = link_to new_user_session_path do
+        Log In
+        %i.planit-dropdown-menu-icon.fa.fa-user.fa-fw
+    %li.planit-dropdown-menu
+      = link_to new_user_registration_path do
+        Sign Up
+        %i.planit-dropdown-menu-icon.fa.fa-user.fa-fw

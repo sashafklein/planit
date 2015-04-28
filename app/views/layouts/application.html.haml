@@ -21,7 +21,5 @@
       = render_header( content_for(:page_type) ) unless content_for(:page_type) == 'home'
       = render "application/morph"
       = yield
-      = render_footer content_for(:page_type)
+      = render_footer( content_for(:page_type) ) unless content_for(:page_type) == 'home'
     = render "application/javascript" if render_javascript? # Unless specified, JS won't run in tests
-    - (@directive_templates || []).uniq.each do |template_path|
-      = render "templates/#{template_path}"

@@ -1,0 +1,11 @@
+.bucket-list-tab
+  .bucket-list-no-img{ ng_show: "!clusterImage()", ng_click: 'zoomTo()' }
+  .bucket-list-img{ ng_show: "clusterImage()", style: "background-image: url('{{ clusterImage() }}');", id: "{{cluster.id}}", ng_click: 'zoomTo()'  }
+  .bucket-list-wrap
+    .bucket-list-profile{ id: "{{cluster.id}}", ng_click: 'zoomTo()' }
+      .bucket-list-title {{ cluster.location }}
+      .bucket-list-more-info 
+        %span.bucket-list-cluster-size {{ cluster.count }}
+        {{ clusterDetails() }}
+    .bucket-list-controls
+      %cluster_control_bar{ places: 'cluster.places' }

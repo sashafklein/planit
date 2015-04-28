@@ -1,0 +1,46 @@
+.place-control-bar
+
+  .place-control.disabled{ ng_show: "!hasMarkFor()" }
+    %i.fa.fa-book
+  %a.place-control.for-mark{ ng_show: "hasMarkFor() && ( !planId || planId && !userOwnsPlan)", add_places_to_plan_on_click: '[{{place.id}}]', success_function: "" }
+    %span.place-control-hint= "Add to a Guide"
+    %i.fa.fa-book
+  / %a.place-control{ ng_show: "hasMarkFor() && planId && userOwnsPlan", remove_item_on_click: '{{place.id}}', success_function: "removedPlace()" }
+  /   %span.place-control-hint= "Remove from Guide"
+  /   %i.fa.fa-book.neon
+
+  .place-control.disabled{ ng_show: "!hasMarkFor()" }
+    %i.fa.fa-pencil
+  %a.place-control{ ng_show: "hasMarkFor() && (!planId || (planId && !userOwnsPlan))" }
+    %span.place-control-hint= "Add Note"
+    %i.fa.fa-pencil{ add_note_on_click: true, object_id: '{{place.id}}', object_type: 'Place' }
+  %a.place-control{ ng_show: "hasMarkFor() && planId && userOwnsPlan", add_note_on_click: true, object_id: '{{place.id}}', object_type: 'Place' }
+    %span.place-control-hint= "Add Note"
+    %i.fa.fa-pencil
+
+  .place-control.disabled{ ng_show: "!hasMarkFor()" }
+    %i.fa.fa-check-square
+  %a.place-control{ ng_show: "!hasBeen() && hasMarkFor()", been_place_on_click: '{{place.id}}', success_function: "beenPlace()" }
+    %span.place-control-hint= "I've Been!"
+    %i.fa.fa-check-square
+  %a.place-control{ ng_show: "hasBeen() && hasMarkFor()", notbeen_place_on_click: '{{place.id}}', success_function: "notbeenPlace()" }
+    %span.place-control-hint= "No, I Haven't Been"
+    %i.fa.fa-check-square.neon
+
+  .place-control.disabled{ ng_show: "!hasMarkFor()" }
+    %i.fa.fa-heart          
+  %a.place-control{ ng_show: "!loves() && hasMarkFor()", love_place_on_click: '{{place.id}}', success_function: "lovedPlace()" }
+    %span.place-control-hint= "Love!"
+    %i.fa.fa-heart
+  %a.place-control{ ng_show: "loves() && hasMarkFor()", unlove_place_on_click: '{{place.id}}', success_function: "unlovedPlace()" }
+    %span.place-control-hint= "No, I Don't Love"
+    %i.fa.fa-heart.neon
+
+  %a.place-control{ ng_show: "!hasMarkFor()", save_place_on_click: '{{place.id}}', success_function: "savedPlace()" }
+    %span.place-control-hint= "Save"
+    %i.fa.fa-bookmark
+  .place-control.disabled{ ng_show: "hasMarkFor()" }
+    %i.fa.fa-bookmark
+  / %a.place-control{ ng_show: "hasMarkFor()", unsave_place_on_click: '{{place.id}}', success_function: "removedPlace()" }
+  /   %span.place-control-hint= "Unsave"
+  /   %i.fa.fa-trash

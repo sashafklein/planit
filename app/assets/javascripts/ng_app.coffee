@@ -2,6 +2,8 @@
 #= require common/common
 #= require_tree ./models
 #= require_tree ./controllers
+#= require angular-rails-templates
+#= require_tree ./templates
 
 # http://clintberry.com/2013/modular-angularjs-application-design/
 
@@ -12,7 +14,7 @@ planitModules = [
   'Services'
 ]
 
-otherModules = ['leaflet-directive']
+otherModules = ['leaflet-directive', 'templates']
 
 angular.module(module, otherModules) for module in planitModules
 
