@@ -5,13 +5,11 @@
     
     .footer-container.mobile
       .bottom-nav-bar{ ng_controller: 'NavBarCtrl' }= render 'application/nav_bar', { page_type: page_type, current_user: current_user }
-    - include_templates :search_and_add # for add button
 
     / - if browser.mobile?
     
     /   .footer-container.mobile
     /     .bottom-nav-bar{ ng_controller: 'NavBarCtrl' }= render 'application/nav_bar', { page_type: page_type, current_user: current_user }
-    /   - include_templates :search_and_add # for add button
       
     / - else
   
