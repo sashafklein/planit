@@ -21,8 +21,6 @@ gem "roadie-rails"
 gem "font-awesome-sass"
 gem "bootstrap-sass"
 gem "jquery-rails"
-gem "bourbon"
-gem "neat"
 
 # scraping
 gem "nokogiri"
@@ -33,7 +31,7 @@ gem "coffee-rails"
 gem "sass-rails"
 gem "uglifier"
 gem "draper", require: false
-gem "autoprefixer-rails" # in-use & non-overlapping to compass?
+gem "autoprefixer-rails"
 
 # database / server
 gem "pg"
