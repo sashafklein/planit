@@ -66,7 +66,6 @@ gem "colorize"
 gem "rspec-instafail", require: false
 
 # apis
-gem "foursquare2"
 gem "yelp"
 
 # export
