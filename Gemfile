@@ -13,8 +13,6 @@ gem "rack-mini-profiler", require: false
 gem "rack-timeout"
 
 # emailing
-gem "recipient_interceptor"
-gem "email_validator"
 gem "roadie-rails"
 
 # css and page-interactions
@@ -62,7 +60,6 @@ gem "bonsai-elasticsearch-rails"
 gem "fuzzy-string-match"
 gem "friendly_id"
 gem "acts-as-taggable-on" # not using
-gem "select2-rails"
 
 # terminal
 gem "colorize"
