@@ -2,7 +2,6 @@
   = render 'modals/feedback'
 - if current_user_is_active
   %modal
-  - include_templates :modal, :add_mark_place, :choose_mark_place, :add_to_plan, :create_or_edit_plan, :view_mark_place
   / = render 'modals/new', { page_type: page_type }
   - if rich_content?(page_type)
     = render 'modals/share', { title: title }

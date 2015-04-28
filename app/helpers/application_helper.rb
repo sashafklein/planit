@@ -32,11 +32,6 @@ module ApplicationHelper
     render 'application/footer', { page_type: type } unless type == 'print'
   end
 
-  def include_templates(*templates)
-    @directive_templates ||= []
-    templates.each{ |t| @directive_templates << t }
-  end
-
   def yield_with_blank(name, &block)
     content_for(name) == 'false' ? '' : content_for(name)
   end
