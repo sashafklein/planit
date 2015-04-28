@@ -8,7 +8,15 @@ angular.module('Common').factory 'QueryString', ($location) ->
 
     @reset: -> $location.search({})
 
-    @set: (hash) -> if hash && Object.keys(hash)?.length then $location.search( hash ).replace() else QueryString.reset()
+    @set: (hash) -> 
+      if hash && Object.keys(hash)?.length
+        $location.search( hash ).replace()
+        # $scope.$on '$routeUpdate', ->
+        #   $scope.sort = $location.search().sort
+        #   $scope.order = $location.search().order
+        #   $scope.offset = $location.search().offset
+      else
+        QueryString.reset()
 
     @modify: (object) ->
       [newObj, clone] = [ {}, QueryString._clone( $location.search() ) ]
