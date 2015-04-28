@@ -5,7 +5,7 @@
       %span.title{ ng_click: 'renameList()' }
         {{ m.list.name }}
         %i.fa.fa-pencil.rename{ ng_click: 'renameList()' }
-      %i.fa.fa-cog.settings{ ng_show: 'm.items.length', ng_click: 'settingsBoxToggle()', ng_class: "{'opened': m.settingsBoxToggled}" }
+      %i.fa.fa-cog.settings{ ng_show: 'm.items.length', ng_click: 'm.settingsBoxToggle()', ng_class: "{'opened': m.settingsBoxToggled}" }
     .chosen-plan.above-mask{ ng_show: 'm.list && m.rename' }
       %input.title#rename{ ng_model: 'm.rename', ng_on_enter_key: 'saveRenameList()', ng_on_esc_key: 'cancelRenameList()' }
 

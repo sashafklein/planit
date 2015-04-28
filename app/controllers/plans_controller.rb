@@ -32,12 +32,6 @@ class PlansController < ApplicationController
     end
   end
 
-  def copy
-    new_plan = @plan.copy!(new_user: current_user)
-    flash[:success] = "Great! '#{@plan.name}' is yours to edit"
-    redirect_to plan_path(new_plan.id)
-  end
-
   private
 
   def load_plan

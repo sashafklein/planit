@@ -13,10 +13,9 @@
     %i.planit-dropdown-menu-icon.fa.fa-calendar
     Set Dates
   %li.divider
-  %a{ ng_href: '{{m.list.href}}/copy', target: '_self' }
-    %li.planit-dropdown-menu
-      %i.planit-dropdown-menu-icon.fa.fa-clipboard
-      Copy this Guide
+  %li.planit-dropdown-menu{ ng_click: 'copyList(m.list)'}
+    %i.planit-dropdown-menu-icon.fa.fa-clipboard
+    Copy this Guide
   %li.planit-dropdown-menu.disabled
     %i.planit-dropdown-menu-icon.fa.fa-compress
     Merge this Guide with Another

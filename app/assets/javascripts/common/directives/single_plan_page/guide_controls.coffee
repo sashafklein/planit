@@ -18,12 +18,10 @@ angular.module("Common").directive 'guideControls', ($timeout, Plan, ErrorReport
 
       s.renameList = ->
         if s.m.userOwnsLoadedList
-          s.m.rename = s.m.list.name
+          s.m.rename = s.m.list.name || ' '
           $timeout(-> $('#rename').focus() if $('#rename') )
           return
           
       s.cancelRenameList = -> s.m.rename = null
-
-      s.settingsBoxToggle = -> s.m.settingsBoxToggled = !s.m.settingsBoxToggled
 
   }

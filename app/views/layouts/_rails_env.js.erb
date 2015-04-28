@@ -1,3 +1,3 @@
 angular.module("Services").service('RailsEnv', function(){
-  return <%= { env: Rails.env.to_s, development: Rails.env.development?, test: Rails.env.test?, production: Rails.env.production? }.to_json.html_safe %>;
+  return <%= { env: Rails.env.to_s, development: Rails.env.development?, test: Rails.env.test?, production: Rails.env.production?, pusher_key: Env.pusher_app_key }.to_json.html_safe %>;
 });

@@ -5,6 +5,10 @@ class ApiController < ApplicationController
   
   private
 
+  rescue_from StandardError do |e| 
+    api_rescue(e)
+  end
+
   def permission_denied_error(meta: {}, line: nil)
     error(status: 403, message: 'Permission Denied!', meta: meta, line: line)
   end
@@ -45,5 +49,11 @@ class ApiController < ApplicationController
 
   def allow_iframe_requests
     response.headers.delete('X-Frame-Options')
+  end
+
+  def api_rescue(e)
+    relevant_backtrace_line = e.backtrace.find{ |l| l.include?('/api/v1/') }
+    line = relevant_backtrace_line ? relevant_backtrace_line.split('.rb:').last : nil
+    error(status: 500, line: line, meta: { error_class: e.class.to_s, error_message: e.message })
   end
 end

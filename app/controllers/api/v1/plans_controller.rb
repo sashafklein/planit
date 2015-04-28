@@ -60,6 +60,14 @@ class Api::V1::PlansController < ApiController
     success
   end
 
+  def copy
+    user_id = params[:user_id] || current_user.try(:id)
+    return permission_denied_error unless current_user_is_active
+
+    DelayPlanCopyJob.perform_later(plan_id: @plan.id, user_id: user_id, copy_manifest: params[:copy_manifest])
+    success
+  end
+
   private
 
   def load_plan
