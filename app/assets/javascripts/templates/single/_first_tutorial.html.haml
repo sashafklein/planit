@@ -1,12 +1,12 @@
-.initial-tutorial{ ng_show: '!hasItems() && isLoaded && ( !hasLists() || list )' }
+.initial-tutorial{ ng_show: '!m.hasItems() && m.isLoaded && ( !m.hasLists() || m.list )' }
   #header-spacing.except-landscape
   .band.spaced
-    .place-name-tutorial{ ng_show: 'list && !nearby', ng_class: "{'blur': hasPlaceNearbyOptions()}" }
+    .place-name-tutorial{ ng_show: 'm.list && !m.nearby', ng_class: "{'blur': hasPlaceNearbyOptions()}" }
       .container.centered
         .column
-          = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': list}" }
+          = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': m.list}" }
       .container.centered
-        .column{ ng_show: 'list && !nearby' }
+        .column{ ng_show: 'm.list && !m.nearby' }
           %strong.neon.large Awesome!  Starting Where?
           %p Set a Location so You can Find Your Places
           .tutorial-image= image_tag "tutorial_place_nearby.png"
@@ -14,12 +14,12 @@
             .tutorial-line Where does your trip or list start?
             .tutorial-line You can change your location at any time;
             .tutorial-line we'll use it to find the places you search for
-    .place-name-tutorial{ ng_show: 'list && nearby', ng_class: "{'blur': hasPlaceNameOptions()}" }
+    .place-name-tutorial{ ng_show: 'm.list && m.nearby', ng_class: "{'blur': m.hasPlaceNameOptions()}" }
       .container.centered
         .column
-          = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': list}" }
+          = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': m.list}" }
       .container.centered
-        .column{ ng_show: 'list && nearby', ng_class: "{'blur': hasPlaceNameOptions()}" }
+        .column{ ng_show: 'm.list && m.nearby', ng_class: "{'blur': m.hasPlaceNameOptions()}" }
           %strong.neon.large 
             Cool! Now Add Places
             %span.large-screen.inline to your List

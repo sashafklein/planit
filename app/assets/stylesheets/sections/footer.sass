@@ -31,14 +31,19 @@
     a:hover, a:active
       color: #33b !important
 
-  .bottom-nav-bar
-    user-select: none
-    cursor: pointer
+  .footer-container.tabled
+    padding-right: 70px
+    padding-left: 30px
+    .one-third.column
+      padding-left: 40px
+      text-align: left
+
+  .nav-bar, .footer-container.tabled
     width: 100%
     text-align: center
     display: table
     table-layout: fixed
-    .nav-item-link
+    .nav-item-link, .one-third.column
       display: table-cell
       box-sizing: border-box
       -moz-box-sizing: border-box
@@ -54,6 +59,8 @@
       color: #ff0066
 
     .nav-item
+      cursor: pointer
+      user-select: none
       padding: 10px 0px
       box-sizing: border-box
       -moz-box-sizing: border-box
@@ -151,15 +158,13 @@
 
   // *Computer (Regular)
 
-  height: 300px
-  padding: 45px 0 50px 0
+  padding: 45px 0
   position: absolute
 
   // #Tablet (Portrait)
   @media only screen and (min-width: 768px) and (max-width: 959px)
 
-    height: 300px
-    padding: 45px 0 50px 0
+    padding: 45px 0
     position: absolute
 
   // #Mobile (Portrait) <-- smallest
