@@ -8,7 +8,8 @@
     %title= browser.mobile? ? "Planit - a home for all your places" : ( content_for?(:title) ? "Planit - #{ yield(:title) }" : "Planit - Save and Share the Places You Love" )
     = render 'application/google_analytics'
     = csrf_meta_tags
-    = render 'application/external_styles'
+    = stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+    = stylesheet_link_tag "//zavoloklom.github.io/material-design-iconic-font/css/material-design-iconic-font.min.css"
     = stylesheet_link_tag :application, media: "all"
     = favicon_link_tag 'fav_ico.png'
   %body{ class: body_class, ng_controller: 'ApplicationCtrl', style: content_for(:body_style) || 'background: #dfdfdf' }
