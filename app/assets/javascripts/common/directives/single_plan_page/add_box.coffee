@@ -1,4 +1,4 @@
-angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, QueryString, Foursquare, Place, Item, $timeout) ->
+angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, QueryString, Foursquare, Place, Item, $timeout, RailsEnv) ->
   {
     restrict: 'E'
     replace: true
@@ -40,11 +40,10 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
       s.setNearBestOption = ->
         return unless s.m.placeNearbyOptions?.length
         keepGoing = true
-        _.forEach( s.m.placeNearbyOptions, (o) ->
+        _.forEach s.m.placeNearbyOptions, (o) ->
           if s.placeNearbyOptionSelectable(o) && keepGoing
             s.m.setNearby(o)
             keepGoing = false
-        )
 
       s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
 
@@ -52,24 +51,40 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
         s.m.placeNameOptions = []
         s.placeName = null
 
+        s._setAddItemSuccess()
+
         s.m.list.addItemFromPlaceData(option)
           .success (response) ->
-            Flash.success("Added '#{response.mark?.place?.names?[0]}' to your list")
-            new_item = _.extend( Item.generateFromJSON( response ), { index: s.m.items.length, pane: 'list', notesSearched: true } )
-            if !_.find(s.m.items, (i) -> i.mark?.place?.id == new_item.mark?.place?.id )
-              s.m.items.unshift new_item
-              for list in _.uniq( _.compact([s.m.list, _.find(s.m.lists, (l) -> l.id == s.m.list.id)]) )
-                list.place_ids.unshift( new_item.mark?.place.id ) if new_item?.mark?.place?.id
-            else
-              Flash.warning("That place is already in your list!")
-            QueryString.modify({m: null})
-            if s.m.items?.length == 1
-              s.m.initialSortItems()
-              _.find(s.m.lists, (l) -> l.id == s.m.list.id).best_image = response.mark.place.images[0] if response?.mark?.place?.images?.length
-            else
-              s.m.sortItems()
+            Flash.success("Adding '#{ response.name }' to your list. It should appear shortly")
           .error (response) ->
-            ErrorReporter.defaultFull( response, 'SinglePagePlans addItem', { option: JSON.stringify(option), plan_id: s.m.list.id })
+            ErrorReporter.defaultFull( response, 'SinglePagePlans addItem', { option: JSON.stringify(option), plan_id: s.m.list.id } )
+
+      s._setAddItemSuccess = ->
+        channel = s.m.pusher.subscribe( "add-item-from-place-data-to-plan-#{ s.m.list.id }" )
+        channel.bind 'added', (data) ->
+          Item.find( data.item_id )
+            .success (response) -> 
+              s._affixItem(response)
+              s.m.pusher.unsubscribe( "add-item-from-place-data-to-plan-#{ s.m.list.id }" )
+            .error (response) ->
+              ErrorReporter.fullSilent( response, 'addBox _setAddItemSuccess', { item_id: data.item_id, plan_id: s.m.list.id } )
+              s.m.pusher.unsubscribe( "add-item-from-place-data-to-plan-#{ s.m.list.id }" )
+
+      s._affixItem = (response) ->
+        new_item = _.extend( Item.generateFromJSON( response ), { index: s.m.items.length, pane: 'list', notesSearched: true } )
+        
+        if !_.find(s.m.items, (i) -> i.mark?.place?.id == new_item.mark?.place?.id )
+          s.m.items.unshift new_item
+          for list in _.uniq( _.compact([s.m.list, _.find(s.m.lists, (l) -> l.id == s.m.list.id)]) )
+            list.place_ids.unshift( new_item.mark?.place.id ) if new_item?.mark?.place?.id
+        
+        QueryString.modify({m: null})
+        
+        if s.m.items?.length == 1
+          s.m.initialSortItems()
+          _.find(s.m.lists, (l) -> l.id == s.m.list.id).best_image = response.mark.place.images[0] if response?.mark?.place?.images?.length
+        else
+          s.m.sortItems()
 
       s.placeNameSearch = -> 
         s.options = [] if s.placeName?.length

@@ -27,7 +27,7 @@ module Completers
       else
         nearby unless pip.coordinate
         foursquare
-        google_maps if (!pip.completed("FoursquareExplore") || pip.unsure.any?) || !pip.street_address
+        google_maps if ( !pip.completed_any("FoursquareExplore", "FoursquareRefine")|| pip.unsure.any?) || !pip.street_address
         foursquare if retry_foursquare?
         pin if (pip.completion_steps - ["Nearby"]).empty?
       end

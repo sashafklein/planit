@@ -1,4 +1,4 @@
-angular.module("Common").directive 'planSettings', (Flash, ErrorReporter, RailsEnv, Spinner) ->
+angular.module("Common").directive 'planSettings', (Flash, ErrorReporter, Spinner) ->
   return {
     restrict: 'E'
     replace: true
@@ -6,8 +6,6 @@ angular.module("Common").directive 'planSettings', (Flash, ErrorReporter, RailsE
     scope:
       m: '='
     link: (s, e, a) ->
-      s.pusher = new Pusher( RailsEnv.pusher_key )
-
       s.copyList = (list) ->
         s._setCopyRedirect(list)
 
@@ -21,7 +19,7 @@ angular.module("Common").directive 'planSettings', (Flash, ErrorReporter, RailsE
             ErrorReporter.defaultFull(response, "planSettings copyList", { list_id: list.id })
 
       s._setCopyRedirect = (list) ->
-        channel = s.pusher.subscribe("copy-plan-#{list.id}")
+        channel = s.m.pusher.subscribe("copy-plan-#{list.id}")
         channel.bind 'copied', (data) -> window.location.replace("/plans/#{data.id}")
 
   }

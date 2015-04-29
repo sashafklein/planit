@@ -22,14 +22,10 @@ class Api::V1::PlansController < ApiController
 
   def add_item_from_place_data
     return permission_denied_error unless current_user
-    return error unless params[:place]
+    return error(500, "Can't add a place without any place data!") unless params[:place]
 
-    plan = current_user.plans.find(params[:id])
-
-    item = plan.add_item_from_place_data! current_user, params[:place].compact
-    return error(message: "Insufficient Place data.") unless item
-
-    render json: item, serializer: ItemSerializer
+    PlanAddItemFromPlaceDataJob.perform_later(user_id: current_user.id, plan_id: params[:id], data: params[:place].compact)
+    render json: params[:place]
   end
 
   def items
