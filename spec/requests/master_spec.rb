@@ -67,7 +67,7 @@ describe "All views" do
 
     context ||= "as #{role}"
     
-    RouterHelper.get_routes_by_controller( %w(mini_scrape oauths allowable bookmarklets search point unmatched_route morph /admin/) ).each do |ctrl_group|
+    RouterHelper.get_routes_by_controller( %w(mini_scrape oauths allowable bookmarklets search point unmatched_route morph find_all_notes_in_plan find_by_object /admin/) ).each do |ctrl_group|
       ctrl_group.last.each do |rh|
         action = [rh.ctrl, rh.sub_path].join('#')
         vars, params = MasterHelper.set_vars_and_params(rh.required_objects.dup)

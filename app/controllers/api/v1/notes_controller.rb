@@ -8,6 +8,13 @@ class Api::V1::NotesController < ApiController
     edit_or_create
   end
 
+  def find_all_notes_in_plan
+    return error( status: 500, message: 'Insufficient Information' ) unless params[:plan_id]
+
+    item_ids = Item.where( plan_id: params[:plan_id] ).pluck(:id)
+    render json: Note.where( object_type: 'Item', object_id: item_ids ), each_serializer: NoteSerializer
+  end
+
   def find_by_object
     note = Note.where( object_type: params[:object_type], object_id: params[:object_id] ).first
     if note
@@ -20,6 +27,9 @@ class Api::V1::NotesController < ApiController
   private
 
   def edit_or_create
+    return permission_denied_error unless current_user
+    # object = note_params[:object_type].to_s.singularize.camelize.constantize.find( note_params[:object_id] )
+    # return permission_denied_error unless object && current_user.owns?( object )
     note = current_user.notes.where( note_params.slice(:object_id, :object_type) ).first_or_initialize
     note.body = note_params[:body]
     note.save!
