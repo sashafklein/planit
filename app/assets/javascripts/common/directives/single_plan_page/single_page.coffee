@@ -9,7 +9,14 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
 
       s.m.loadPage = ->
         hash = QueryString.get()
-        
+        s.m.mode = if hash.mode?.length then hash.mode else 'list'
+        s.m.showMap = if s.m.mode == 'map' then true else s.m.showMap = false
+        s.m.nearby = if hash.nearby?.length then s.nearbyFromQuery(hash.nearby) else null
+        s.m.list = if !hash.list?.length then null else 
+          unless s.m.list && s.m.list.id == hash.list
+            s.getList
+
+      s.nearbyFromQuery = ( commaQuery ) ->
 
       s.m = {}
       s.m._setValues = (object, list, value = null) -> _.forEach list, (i) -> object[i] = ( if value? then _.clone(value) else null )
