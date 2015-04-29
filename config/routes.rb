@@ -76,6 +76,7 @@ Rails.application.routes.draw do
 
       resources :notes, only: [:create] do
         get :find_by_object, on: :collection
+        get :find_all_notes_in_plan, on: :collection
       end
 
       resources :items, only: [:index, :show, :destroy]

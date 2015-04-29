@@ -231,16 +231,13 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
 
       # NOTES
 
-      # NEEDSFOLLOWUP -- Sasha is it better to build a single Database call for ALL ITEMS?
-      s.initializeItemsNotes = -> _.map( s.m.items, (item) -> s.fetchOriginalNote(item) )
-      s.fetchOriginalNote = (item) ->
-        Note.findByObject( item )
+      s.initializeItemsNotes = -> 
+        Note.findAllNotesInPlan( s.m.list.id )
           .success (response) ->
-            item.notesSearched = true
-            if note = response.body then item.note = note
+            _.map( s.m.items, (i) -> i.note = _.find( response, (n) -> n.object_id == i.id )?.body; i.notesSearched = true )
           .error (response) ->
-            ErrorReporter.defaultFull( response, "singlePagePlans - fetchOriginalNote", { object_id: item.id, object_type: item.class })
-            item.notesSearched = true
+            ErrorReporter.defaultFull( response, "singlePagePlans - fetchOriginalNotes", { plan_id: s.m.list.id })
+            _.map( s.m.items, (i) -> i.notesSearched = true )
 
 
 

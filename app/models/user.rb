@@ -32,7 +32,8 @@ class User < BaseModel
 
   def owns?(record)
     record['user_id'] == id || 
-      ( record['object_id'] && record['object_id'] == id && record['object_type'] == 'User' )
+      ( record['object_id'] && record['object_id'] == id && record['object_type'] == 'User' ) ||
+      ( record['class'] == 'Item' )
   end
 
   def casual_name
