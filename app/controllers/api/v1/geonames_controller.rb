@@ -12,6 +12,18 @@ class Api::V1::GeonamesController < ApiController
     render json: res.body
   end
 
+  def find
+    return permission_denied_error unless current_user
+    return error(message: "Insufficient search params", line: __LINE__) unless params[:id].try(:length)
+
+    id = params[:id].to_s
+
+    url = URI.parse("http://api.geonames.org/getJSON?geonameId=#{ id }&username=#{ username }&lang=en&type=json&style=full")
+    req = Net::HTTP::Get.new(url.to_s)
+    res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+    render json: res.body
+  end
+
   def point
     return permission_denied_error unless current_user
     return error(message: "Insufficient search params", line: __LINE__) unless params[:lat].try(:length) && params[:lon].try(:length)

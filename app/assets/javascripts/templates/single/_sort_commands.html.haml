@@ -1,11 +1,9 @@
 .sort-and-view-modes{ ng_show: "m.list && m.hasItems()" }
 
   .sort-items-by.large-screen{ ng_show: "m.mode == 'list' || m.mode == 'trip'" }
-    %b Sort by
-    %span.selectable.sort-by-button{ ng_click: "m.setCategoryAs('alphabetical')", ng_class: "{'highlighted': m.categoryIs == 'alphabetical'}" } A-Z
-    %span.selectable.sort-by-button{ ng_click: "m.setCategoryAs('type')", ng_class: "{'highlighted': m.categoryIs == 'type'}" } Type
-    %span.selectable.sort-by-button{ ng_click: "m.setCategoryAs('locale')", ng_class: "{'highlighted': m.categoryIs == 'locale'}" } Locale
-    %span.selectable.sort-by-button{ ng_click: "m.setCategoryAs('recent')", ng_class: "{'highlighted': m.categoryIs == 'recent'}" } Recent
+    %span.selectable.sort-by-button{ ng_click: "m.resetList()" } 
+      %i.fa.fa-arrow-left.pad-right
+      Other Guides
 
   .view-and-edit-mode{ ng_show: '!m.mainMenuToggled', ng_class: "{'in-map': m.mode == 'map', 'large-screen': m.mode != 'map'}" }
     %span.selectable.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': m.mode == 'list'}" } List View

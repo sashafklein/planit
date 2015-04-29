@@ -5,7 +5,10 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
     templateUrl: 'single_page.html'
 
     link: (s, e, a) ->
+
+
       # Master object passed between sub-directives
+
       s.m = {}
       s.m._setValues = (object, list, value = null) -> _.forEach list, (i) -> object[i] = ( if value? then _.clone(value) else null )
       s.m.pusher = new Pusher( RailsEnv.pusher_key )
@@ -20,21 +23,17 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
     
       s.m.list = null
       s.m.plan = null
+      s.m.nearbyOptions = []
 
       s.m.hasLists = -> s.m.lists?.length > 0
       s.m.hasItems = -> s.m.items?.length > 0
 
+
+
+
       # EXPAND/CONTRACT
 
       s.m.mainMenuToggled = false
-
-      s.m.setModeViaQueryString = ->
-        if mode_in_querystring = QueryString.get()['mode']
-          s.m.mode = mode_in_querystring
-          if s.m.mode == 'map' then s.m.showMap = true else s.m.showMap = false
-        else
-          s.m.mode = 'list'
-          QueryString.modify({mode: 'list'})
 
       s.m.handleKeyup = -> s.m._turnOffTyping()
       s.m.handleKeydown = -> s.m.typing = true unless s.m.typing
@@ -57,7 +56,8 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
           .success (response) ->
             $('.loading-mask').hide()
             list = Plan.generateFromJSON(response)
-            s.m._installList( list )
+            s.m.lists.unshift(s.m.list) if s.m.lists && !_.find( s.m.lists, (l) -> l.id == s.m.list.id )
+            QueryString.modify({ plan: list.id })
           .error (response) ->
             $('.loading-mask').hide()
             ErrorReporter.defaultFull( response, 'SinglePagePlans Plan.create', { plan_name: s.listQuery})
@@ -80,40 +80,31 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
         if choice == s.m.categoryIs then s.sortAscending = !s.sortAscending else s.m.categoryIs = choice
         s.m.sortItems()
 
-      s.m.setList = (list) -> s.m._installList( list ) if list
+      s.m.setList = (list) -> 
+        QueryString.modify({ plan: list.id })
 
-      s.m._installList = (list) ->
-        QueryString.modify({plan: list.id})
-        s.m.setModeViaQueryString()
+      s._installList = (list) ->
+        return unless !s.m.list || s.m.list?.id != list?.id
         s.m.userOwnsLoadedList = s.m.currentUserId == list.user_id
         s.m.plan = s.m.list = list
-        s.m.lists.unshift(s.m.list) if s.m.lists && !_.find( s.m.lists, (l) -> l.id == s.m.list.id )
         s.getListItems()
         s.m.kmlPath = "/api/v1/plans/#{ list.id }/kml"
         s.m.printPath = "/plans/#{ list.id }/print"
 
       s.m.settingsBoxToggle = -> s.m.settingsBoxToggled = !s.m.settingsBoxToggled
 
-      # QUERYSTRING MANAGE START DATA
 
-      if plan_id = QueryString.get()['plan']
-        Plan.find(plan_id)
-          .success (response) ->
-            s.m.list = s.m.plan = Plan.generateFromJSON( response )
-            s.m.setList( s.m.list )
-            if locale = QueryString.get()['near']
-              nameAndLatLon = locale.split(',,')
-              if nameAndLatLon?.length == 2
-                name = nameAndLatLon[0]
-                latLon = nameAndLatLon[1].split(',')
-                if latLon?.length == 2
-                  s.m.nearby = { name: name, lat: latLon[0], lon: latLon[1] }
-            # else if mapCenter = QueryString.get()['m']
-            #   s.m.nearbyFromMapCenter( mapCenter )
 
-          .error (response) ->
-            QueryString.modify({plan: null, near: null})
-            ErrorReporter.defaultFull( response, "SinglePagePlans top Plan.find", { plan_id: plan_id } )
+      # PAGE START
+
+      s._initialize = ->
+        if s.m.currentUserId
+          User.findPlans( s.m.currentUserId )
+            .success (response) ->
+              unsortedLists = Plan.generateFromJSON(response)
+              s.m.lists = _.sortBy( unsortedLists, (l) -> s.bestListDate(l) ).reverse()
+            .error (response) ->
+              ErrorReporter.defaultFull( response, 'SinglePagePlans getUsersLists' )
 
 
 
@@ -142,36 +133,28 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
 
       # LISTS & SETTING LISTS
 
-      s.getUsersLists = ->
-        if s.m.currentUserId
-          User.findPlans( s.m.currentUserId )
-            .success (response) ->
-              unsortedLists = Plan.generateFromJSON(response)
-              s.m.lists = _.sortBy( unsortedLists, (l) -> s.bestListDate(l) ).reverse()
-              s.m.isLoaded = true unless s.m.list
-            .error (response) ->
-              ErrorReporter.defaultFull( response, 'SinglePagePlans getUsersLists' )
-              s.m.isLoaded = true 
-
       s.bestListDate = (list) -> if list.starts_at then list.starts_at else list.updated_at
 
       s.bestListNearby = (items) -> 
         return unless items?.length && items[0]?.mark?.place
+        return unless !s.m.nearby
         mostRecentItem = _.sortBy( items, (i) -> i.updated_at ).reverse()[0]
         locale = mostRecentItem.mark.place.locality || mostRecentItem.mark.place.sublocality || mostRecentItem.mark.place.subregion || mostRecentItem.mark.place.region || mostRecentItem.mark.place.country
         macro = mostRecentItem.mark.place.region || mostRecentItem.mark.place.country unless locale == mostRecentItem.mark.place.region || locale == mostRecentItem.mark.place.country
         return { name: locale, lat: mostRecentItem.mark.place.lat, lon: mostRecentItem.mark.place.lon, adminName1: macro }
 
-      s.m.resetList = -> 
+      s.m.resetList = ->
+        QueryString.modify({plan: null, near: null, m: null, f: null})
+
+      s._resetList = -> 
         s.m._setValues( s.m, [ 'list', 'nearby', 'settingsBoxToggled', 'showMap' ], null )
         s.m._setValues( s.m, [ 'items' ], [] )
         s.m._setValues( s, ['listQuery', 'planNearby', 'planNearbyOptions', 'placeName', 'placeNameOptions', 'placeNearby', 'placeNearbyOptions'], null)
         $timeout(-> $('#guide').focus() if $('#guide') )
-        QueryString.modify({plan: null, near: null, m: null, f: null})
 
       s.getListItems = ->
         return unless s.m.list?
-        $('.searching-mask').show()
+        $('.loading-mask').show()
         s.m.isLoaded = false
         Item.where({ plan_id: s.m.list.id })
           .success (response) ->
@@ -186,13 +169,13 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
             # s._getManifestItems()
 
             if s.m.items?.length && !s.m.nearby
-              $timeout(-> s.m.setNearby( s.bestListNearby(s.m.items) ) )
+              $timeout(-> s._setNearby( s.bestListNearby(s.m.items) ) )
             $timeout(-> s.m.initialSortItems() )
             $timeout(-> s.initializeItemsNotes() )
-            $('.searching-mask').hide()
+            $('.loading-mask').hide()
           .error (response) ->
             s.m.isLoaded = true
-            $('.searching-mask').hide()
+            $('.loading-mask').hide()
             ErrorReporter.defaultFull( response, 'SinglePagePlans getListItems', { plan_id: s.m.list.id })
 
       s.listOptions = ->
@@ -218,14 +201,18 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
       # NEARBY
 
       s.m.setNearby = (nearby) -> 
-        return unless nearby?.lat && nearby?.lon && nearby?.name?.length
-        s.m.nearby = nearby
-        s.m.addBoxToggled = true
-        $timeout(-> $('#place-name').focus() if $('#place-name') )
-        QueryString.modify({ near: "#{nearby.name},,#{nearby.lat},#{nearby.lon}" })
-        s.m._setValues( s, ['planNearby', 'planNearbyOptions', 'placeName', 'placeNameOptions', 'placeNearby', 'placeNearbyOptions'], null)
-        return
+        s.m.nearbyOptions.push( nearby )
+        QueryString.modify({ near: nearby.geonameId })
 
+      s._setNearby = (nearby) ->
+        if nearby && Object.keys( nearby )?.length
+          s.m.nearby = nearby
+          s.m.addBoxToggled = true
+          $timeout(-> $('#place-name').focus() if $('#place-name') )
+          s.m._setValues( s, ['planNearby', 'planNearbyOptions', 'placeName', 'placeNameOptions', 'placeNearby', 'placeNearbyOptions'], null)
+          return
+        else
+          s.m._setValues( s, [ 'm.nearby', 'planNearby', 'planNearbyOptions', 'placeName', 'placeNameOptions', 'placeNearby', 'placeNearbyOptions'], null)
 
 
 
@@ -339,9 +326,57 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
 
 
 
+
+      # PAGE LOAD
+
+      s._QShash = -> QueryString.get()
+
+      s._loadPageFromQueryString = ->
+        hash = s._QShash()
+        if hash && Object.keys( hash )?.length
+          s.m.mode = if hash.mode?.length then hash.mode else 'list'
+          s.m.showMap = if s.m.mode == 'map' then true else s.m.showMap = false
+          s._nearbyFromQuery( hash.near )
+          s._planFromQuery( hash.plan )
+        unless hash.plan
+          s.m.isLoaded = true 
+
+      s._planFromQuery = ( plan_id ) ->
+        if plan_id?.length
+          if !s.m.list || ( s.m.list && s.m.list.id != plan_id )
+            if user_owned = _.find( s.m.lists, (l) -> l.id == parseInt( plan_id ) )
+              s._installList( user_owned ) if Object.keys( user_owned )?.length
+            else
+              Plan.find( plan_id )
+                .success (response) -> 
+                  public_plan = Plan.generateFromJSON( response )
+                  s._installList( public_plan ) if Object.keys( public_plan )?.length
+                .error (response) -> ErrorReporter.defaultFull( response )
+                  
+        else
+          s._resetList()
+
+      s._nearbyFromQuery = ( geoid ) -> 
+        if geoid?.length
+          found = _.find( s.m.nearbyOptions, (o) -> o.geonameId == parseInt( geoid ) )
+          if found && Object.keys( found )?.length
+            s._setNearby( found )
+          else
+            Geonames.find( geoid )
+              .success (response) -> if response.geonameId == parseInt( geoid ) then s._setNearby( response )
+              .error (response) -> s._setNearby( null )
+        else
+          s._setNearby( null )
+
+
+
+
+
       # INITIALIZE
 
-      s.getUsersLists()
+      s._initialize()
+      s.$watch( '_QShash()', (-> s._loadPageFromQueryString() ), true )
+
       $timeout(-> $('#guide').focus() if $('#guide') ) unless s.m.list
 
       window.s = s

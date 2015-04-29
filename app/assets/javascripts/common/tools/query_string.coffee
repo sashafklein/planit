@@ -1,4 +1,4 @@
-angular.module('Common').factory 'QueryString', ($location) ->
+angular.module('Common').factory 'QueryString', ($location, $window) ->
 
   class QueryString
 
@@ -8,7 +8,12 @@ angular.module('Common').factory 'QueryString', ($location) ->
 
     @reset: -> $location.search({})
 
-    @set: (hash) -> if hash && Object.keys(hash)?.length then $location.search( hash ).replace() else QueryString.reset()
+    @set: (hash) -> 
+      if hash && Object.keys(hash)?.length
+        $location.search( hash ).replace()
+        $window.history.pushState(null, 'any', $location.absUrl())
+      else
+        QueryString.reset()
 
     @modify: (object) ->
       [newObj, clone] = [ {}, QueryString._clone( $location.search() ) ]
