@@ -1,4 +1,4 @@
-angular.module('Common').factory 'QueryString', ($location) ->
+angular.module('Common').factory 'QueryString', ($location, $window) ->
 
   class QueryString
 
@@ -11,10 +11,7 @@ angular.module('Common').factory 'QueryString', ($location) ->
     @set: (hash) -> 
       if hash && Object.keys(hash)?.length
         $location.search( hash ).replace()
-        # $scope.$on '$routeUpdate', ->
-        #   $scope.sort = $location.search().sort
-        #   $scope.order = $location.search().order
-        #   $scope.offset = $location.search().offset
+        $window.history.pushState(null, 'any', $location.absUrl())
       else
         QueryString.reset()
 

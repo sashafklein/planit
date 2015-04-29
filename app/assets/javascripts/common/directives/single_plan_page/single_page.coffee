@@ -6,6 +6,11 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
 
     link: (s, e, a) ->
       # Master object passed between sub-directives
+
+      s.m.loadPage = ->
+        hash = QueryString.get()
+        
+
       s.m = {}
       s.m._setValues = (object, list, value = null) -> _.forEach list, (i) -> object[i] = ( if value? then _.clone(value) else null )
       s.m.pusher = new Pusher( RailsEnv.pusher_key )
@@ -171,7 +176,7 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
 
       s.getListItems = ->
         return unless s.m.list?
-        $('.searching-mask').show()
+        $('.loading-mask').show()
         s.m.isLoaded = false
         Item.where({ plan_id: s.m.list.id })
           .success (response) ->
@@ -189,10 +194,10 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
               $timeout(-> s.m.setNearby( s.bestListNearby(s.m.items) ) )
             $timeout(-> s.m.initialSortItems() )
             $timeout(-> s.initializeItemsNotes() )
-            $('.searching-mask').hide()
+            $('.loading-mask').hide()
           .error (response) ->
             s.m.isLoaded = true
-            $('.searching-mask').hide()
+            $('.loading-mask').hide()
             ErrorReporter.defaultFull( response, 'SinglePagePlans getListItems', { plan_id: s.m.list.id })
 
       s.listOptions = ->

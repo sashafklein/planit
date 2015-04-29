@@ -21,12 +21,12 @@ angular.module("Common").directive 'expandingHeaderSearch', (BarExpander, Curren
 
       s.searchClick = -> if s.showTeaser == 'true' then true else false
 
-      $('.searching-mask').click -> s.hideSearch()
+      $('.loading-mask').click -> s.hideSearch()
 
       s.showSearch = -> BarExpander.expandBar()
 
       s.hideSearch = -> 
-        $('.searching-mask').hide()
+        $('.loading-mask').hide()
         $('#planit-header').removeClass("focused")
         $(".logo-container, .side-menu-container, .top-menu-container, .search-teaser").fadeIn("fast")
         element.find(".expanded-top-search-bar").fadeOut('fast')
