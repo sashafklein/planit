@@ -9,7 +9,6 @@ class Api::V1::NotesController < ApiController
   end
 
   def find_all_notes_in_plan
-    return permission_denied_error unless current_user
     return error( status: 500, message: 'Insufficient Information' ) unless params[:plan_id]
 
     item_ids = Item.where( plan_id: params[:plan_id] ).pluck(:id)
@@ -17,7 +16,6 @@ class Api::V1::NotesController < ApiController
   end
 
   def find_by_object
-    return permission_denied_error unless current_user
     note = Note.where( object_type: params[:object_type], object_id: params[:object_id] ).first
     if note
       render json: { body: note.body } 
