@@ -5,7 +5,6 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
     templateUrl: 'single_page.html'
 
     link: (s, e, a) ->
-
       # Master object passed between sub-directives
       s.m = {}
       s.m._setValues = (object, list, value = null) -> _.forEach list, (i) -> object[i] = ( if value? then _.clone(value) else null )
