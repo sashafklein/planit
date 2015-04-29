@@ -28,6 +28,7 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
             _.map( s.m.placeNearbyOptions, (o) -> 
               o.lon = o.lng; o.qualifiers = _.uniq( _.compact( [ o.adminName1 unless o.name == o.adminName1, o.countryName ] ) ).join(", ")
             )
+            s.m.nearbyOptions.concat( s.placeNearbyOptions )
           .error (response) -> 
             s.placeNearbyWorking--
             ErrorReporter.fullSilent(response, 'SinglePagePlaces s.searchPlaceNearby', { query: s.placeName })
