@@ -34,7 +34,7 @@ xdescribe Api::V1::Users::MarksController, :vcr do
       expect( place.locale ).to eq "San Francisco, San Francisco County, California"
       expect( place.href ).to eq "/places/#{place.id}"
       expect( place.categories ).to eq ["Spanish Restaurant", "Tapas Restaurant", "Food"]
-      expect( place.meta_icon ).to eq "icon-local-restaurant"
+      expect( place.meta_icon ).to eq "mdi-maps-local-restaurant"
     end
 
     it "returns the mark (for linking) if it just got place options" do

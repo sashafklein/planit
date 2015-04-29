@@ -35,7 +35,7 @@
                 = simple_form_for(User.new, url: invite_users_path) do |f| #NEEDSFOLLOWUP
                   = f.error_notification
                   .simple-entry-form-section
-                    %i.icomoon.icon-user.simple-form-icon
+                    %i.fa.fa-user.simple-form-icon
                     = f.input :first_name, required: true, placeholder: 'First Name', input_html: { value: params[:first_name]}
                   .simple-entry-form-section
                     %i.simple-form-icon

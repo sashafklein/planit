@@ -10,10 +10,10 @@ module PlaceMod
       return transit_icon if meta_category == 'Transit'
       
       case meta_category
-        when 'Area' then 'icomoon icon-map'
-        when 'Do' then 'icon-directions-walk'
-        when 'Drink' then 'icon-local-bar'
-        when 'Food' then 'icon-local-restaurant'
+        when 'Area' then 'mdi-maps-map'
+        when 'Do' then 'mdi-maps-directions-walk'
+        when 'Drink' then 'mdi-maps-local-bar'
+        when 'Food' then 'mdi-maps-local-restaurant'
         when 'Help' then 'fa fa-life-ring'
         when 'Money' then 'fa fa-money'
         when 'Other' then 'fa fa-question-circle'
