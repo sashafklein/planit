@@ -93,7 +93,7 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
         s.m.kmlPath = "/api/v1/plans/#{ list.id }/kml"
         s.m.printPath = "/plans/#{ list.id }/print"
 
-
+      s.m.settingsBoxToggle = -> s.m.settingsBoxToggled = !s.m.settingsBoxToggled
 
       # QUERYSTRING MANAGE START DATA
 

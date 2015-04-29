@@ -30,7 +30,6 @@ Rails.application.routes.draw do
   resources :plans, only: [:show, :index] do
     get :print, on: :member
     get :edit, on: :member
-    get :copy, on: :member
   end
 
   resources :items, only: [:new]
@@ -118,6 +117,7 @@ Rails.application.routes.draw do
         post :add_items, on: :member
         post :destroy_items, on: :member
         post :add_item_from_place_data, on: :member
+        post :copy, on: :member
         resources :kml, only: [:index], controller: 'plans/kml'
         resources :places, only: [:index], controller: 'plans/places'
 

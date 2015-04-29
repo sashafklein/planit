@@ -48,6 +48,7 @@ gem "carmen"
 gem "httparty"
 gem "timezone"
 gem "geonames_api"
+gem "pusher"
 
 # security
 gem "devise"
@@ -76,8 +77,8 @@ gem "wkhtmltopdf-binary"
 # unsure
 gem "flutie"
 gem "figaro"
-gem 'activeadmin', github: 'activeadmin'
-gem 'angular-rails-templates'
+gem "activeadmin", github: "activeadmin"
+gem "angular-rails-templates"
 
 source "https://rails-assets.org" do
   %w( angular angular-mocks active-support async lodash leaflet angular-leaflet-directive ).each do |lib|
