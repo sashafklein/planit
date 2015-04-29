@@ -72,6 +72,7 @@ Rails.application.routes.draw do
       resources :geonames, only: [] do
         get :search, on: :collection
         get :point, on: :collection
+        get :find, on: :collection
       end
 
       resources :notes, only: [:create] do

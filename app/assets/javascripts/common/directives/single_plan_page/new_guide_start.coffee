@@ -30,7 +30,6 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter) ->
             _.map( s.planNearbyOptions, (o) -> 
               o.lon = o.lng; o.qualifiers = _.uniq( _.compact( [ o.adminName1 unless o.name == o.adminName1, o.countryName ] ) ).join(", ")
             )
-            s.m.nearbyOptions.concat( s.planNearbyOptions )
           .error (response) -> 
             s.planNearbyWorking--
             ErrorReporter.fullSilent(response, 'SinglePagePlans s.searchPlanNearby', { query: s.planName })

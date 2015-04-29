@@ -8,7 +8,7 @@ module PlaceMod
 
     def icon
       return transit_icon if meta_category == 'Transit'
-      
+
       case meta_category
         when 'Area' then 'md-map'
         when 'Do' then 'md-directions-walk'
