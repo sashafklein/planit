@@ -28,11 +28,11 @@ mod.directive 'mapFilterDropdown', (QueryString) ->
         { slug: 'loved', name: 'Only Most Loved', icon: "fa.fa-heart" }
         { slug: 'been', name: 'Hide Already Visited', icon: "fa.fa-check-square" }
         { divider: true }
-        { slug: 'food', name: 'Food/Markets', icon: 'mdi-maps-local-restaurant' }
-        { slug: 'drink', name: 'Drink/Nightlife', icon: 'mdi-maps-local-bar' }
-        { slug: 'seedo', name: 'See/Do', icon: 'mdi-maps-directions-walk' }
-        { slug: 'stay', name: 'Stay', icon: 'mdi-maps-home' }
-        { slug: 'relax', name: 'Relax', icon: 'mdi-maps-drink' }
+        { slug: 'food', name: 'Food/Markets', icon: 'md-local-restaurant' }
+        { slug: 'drink', name: 'Drink/Nightlife', icon: 'md-local-bar' }
+        { slug: 'seedo', name: 'See/Do', icon: 'md-directions-walk' }
+        { slug: 'stay', name: 'Stay', icon: 'md-home' }
+        { slug: 'relax', name: 'Relax', icon: 'md-drink' }
         { divider: true }
         { slug: 'open', name: 'Open Only', icon: 'fa.fa-clock' }
         { slug: 'wifi', name: 'Wifi Only', icon: 'fa.fa-wifi' }
