@@ -33,6 +33,10 @@ module Completers
       steps.all?{ |s| completion_steps.include?(s) }
     end
 
+    def completed_any(*steps)
+      steps.any?{ |s| completion_steps.include?(s) }
+    end
+
     def complete(step)
       completion_steps = ( @completion_steps + Array(step) ).flatten.uniq
     end

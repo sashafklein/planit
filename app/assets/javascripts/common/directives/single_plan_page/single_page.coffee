@@ -1,4 +1,4 @@
-angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place, Note, Foursquare, QueryString, Geonames, CurrentUser, ErrorReporter, Flash, $filter, $timeout, $location, $q) ->
+angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place, Note, Foursquare, QueryString, Geonames, CurrentUser, ErrorReporter, Flash, $filter, $timeout, $location, $q, RailsEnv) ->
   return {
     restrict: 'E'
     replace: true
@@ -8,7 +8,7 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
       # Master object passed between sub-directives
       s.m = {}
       s.m._setValues = (object, list, value = null) -> _.forEach list, (i) -> object[i] = ( if value? then _.clone(value) else null )
-
+      s.m.pusher = new Pusher( RailsEnv.pusher_key )
       s.m.currentUser = CurrentUser
       s.m.currentUserId = s.m.currentUser.id
       s.m.currentUserName = s.m.currentUser.name
