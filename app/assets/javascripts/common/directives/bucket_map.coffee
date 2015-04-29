@@ -210,11 +210,11 @@ angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leaf
 
       s.filterList = [
         { header: "Type of Place" }
-        { slug: 'food', def: true, name: 'Food/Markets', icon: 'icon-local-restaurant' }
-        { slug: 'drink', def: true, name: 'Drink/Nightlife', icon: 'icon-local-bar' }
-        { slug: 'seedo', def: true, name: 'See/Do', icon: 'icon-directions-walk' }
-        { slug: 'stay', def: true, name: 'Stay', icon: 'icon-home' }
-        { slug: 'relax', def: true, name: 'Relax', icon: 'icon-drink' }
+        { slug: 'food', def: true, name: 'Food/Markets', icon: 'mdi-maps-local-restaurant' }
+        { slug: 'drink', def: true, name: 'Drink/Nightlife', icon: 'mdi-maps-local-bar' }
+        { slug: 'seedo', def: true, name: 'See/Do', icon: 'mdi-maps-directions-walk' }
+        { slug: 'stay', def: true, name: 'Stay', icon: 'mdi-maps-home' }
+        { slug: 'relax', def: true, name: 'Relax', icon: 'mdi-maps-drink' }
         { slug: 'other', def: true, name: 'Other', icon: 'fa fa-question-circle' }
         # { divider: true }
         # { header: "Specifics" }

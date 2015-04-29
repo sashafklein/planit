@@ -12,7 +12,7 @@
           = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
             = f.error_notification
             .simple-entry-form-section
-              %i.icomoon.icon-user.simple-form-icon
+              %i.fa.fa-user.simple-form-icon
               = f.input :first_name, required: true, autofocus: true, placeholder: 'First Name', input_html: { value: current_user.first_name || params["fn"], style: "#{'display: none' if params['fn'].present?}" }
             .simple-entry-form-section{ style: "#{'display: none' if params['ln'].present?}" }
               %span.simple-form-icon

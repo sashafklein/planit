@@ -16,7 +16,6 @@ gem "rack-timeout"
 gem "roadie-rails"
 
 # css and page-interactions
-gem "font-awesome-sass"
 gem "bootstrap-sass"
 gem "jquery-rails"
 
