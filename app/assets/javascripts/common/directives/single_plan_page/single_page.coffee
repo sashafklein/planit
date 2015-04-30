@@ -201,6 +201,8 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
       # NEARBY
 
       s.m.setNearby = (nearby) -> 
+        s.m.placeNearby = null
+        s.m.planNearby = null
         s.m.nearbyOptions.push( nearby )
         QueryString.modify({ near: nearby.geonameId })
 
@@ -338,6 +340,8 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
           s.m.showMap = if s.m.mode == 'map' then true else s.m.showMap = false
           s._nearbyFromQuery( hash.near )
           s._planFromQuery( hash.plan )
+        else
+          s._resetList()
         unless hash.plan
           s.m.isLoaded = true 
 

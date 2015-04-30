@@ -35,7 +35,6 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
       s.placeNearbyOptionSelectable = (option) -> option?.name?.toLowerCase() == s.placeNearby?.split(',')[0]?.toLowerCase()
 
       s.noPlaceNearbyResults = -> s.placeNearby?.length>1 && s.placeNearbyWorking<1 && s.m.placeNearbyOptions?.length<1
-      s.cleanPlaceNearbyOptions = -> s.m.placeNearbyOptions = []
 
       s.setNearBestOption = ->
         return unless s.m.placeNearbyOptions?.length
@@ -52,11 +51,12 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
         s.placeName = null
 
         s._setAddItemSuccess()
-
+        s.m.addingItem = true
         s.m.list.addItemFromPlaceData(option)
           .success (response) ->
             Flash.success("Adding '#{ response.name }' to your list. It should appear shortly")
           .error (response) ->
+            s.m.addingItem = false
             ErrorReporter.defaultFull( response, 'SinglePagePlans addItem', { option: JSON.stringify(option), plan_id: s.m.list.id } )
 
       s._setAddItemSuccess = ->

@@ -5,7 +5,7 @@
 
   .addbox-on-plan-page{ ng_show: "m.addBoxToggled" }
     .input-and-results{ ng_show: '!m.nearby && m.list' }
-      %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Explore what city or region?', ng_model: 'placeNearby', ng_change: 'searchPlaceNearby()', ng_on_enter_key: 'setNearBestOption()', ng_on_esc_key: 'cleanPlaceNearbyOptions()', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }   
+      %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Explore what city or region?', ng_model: 'placeNearby', ng_change: 'searchPlaceNearby()', ng_on_enter_key: 'setNearBestOption()', ng_on_esc_key: 'placeNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }   
       %ul.suggested-results.blue{ ng_show: '!m.typing && placeNearby && placeNearby.length > 1 && ( placeNearbyWorking || m.placeNearbyOptions.length>0 )' }
         %li.search-results-list{ ng_class: "{'highlighted': placeNearbyOptionSelectable(option)}", ng_repeat: 'option in m.placeNearbyOptions', ng_click: 'm.setNearby(option)' }
           %b {{ option.name }}
@@ -18,7 +18,7 @@
         %span.large-screen.inline Location
         
     .input-and-results{ ng_show: 'm.nearby && m.list' }
-      %input#place-name{ name: "place-name", type: 'text', placeholder: 'What do you want to add in {{ m.nearby.name }}?', ng_model: 'placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_on_esc_key: "m.placeNameOptions = []", ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
+      %input#place-name{ name: "place-name", type: 'text', placeholder: 'What do you want to add in {{ m.nearby.name }}?', ng_model: 'placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_on_esc_key: "placeName=null", ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
 
       %ul.suggested-results.neon{ ng_show: '!m.typing && placeName && placeName.length>1' }
         %li.search-results-list{ ng_repeat: 'option in m.placeNameOptions', ng_click: 'addItem(option)' }

@@ -1,6 +1,6 @@
 .nav-bar
   .nav-item-link
-    .nav-item.nav-item-inbox 
+    .nav-item.nav-item-inbox.disabled
       / # { class: "#{'selected' if page_type == 'inbox'} #{'disabled' unless current_user.message_count > 0 }"}
       %i.nav-item-icon.fa.fa-inbox
         / - if current_user.message_count > 0 && page_type != 'inbox'

@@ -2,7 +2,7 @@
   .start-where.setplanbox-on-plan-page{ ng_class: "{'shortened': m.mainMenuToggled && m.mobile}" }
     .start-a-new-plan Start a new plan:
     .input-and-results{ ng_hide: "m.mainMenuToggled && m.mobile" }
-      %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: 'Where are you going?', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'startListNearBestOption()', ng_on_esc_key: 'cleanPlanNearbyOptions()', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
+      %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: 'Where are you going?', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'startListNearBestOption()', ng_on_esc_key: 'planNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
       %ul.suggested-results.blue{ ng_show: '!m.typing && planNearby && planNearby.length>1' }
         %li.search-results-list{ ng_class: "{'highlighted': planNearbyOptionSelectable(option)}", ng_repeat: 'option in planNearbyOptions', ng_click: 'startListNear(option)' }
           %b {{ option.name }}

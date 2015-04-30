@@ -2,7 +2,7 @@
   #header-spacing.except-landscape
   .print-title {{ list.name }}
   .pad-top-addbox{ ng_show: 'm.list || m.hasLists()' }
-  .band.spaced-xxx{ plan: 'm.list',  list_items: 'm.items' } 
+  .band.spaced-extra{ plan: 'm.list',  list_items: 'm.items' } 
     .container
       %h1.title.sixteen.columns{ ng_show: 'm.mode == "trip"' } Drag and Drop to Order Your Trip
 
@@ -53,21 +53,32 @@
               .item-actions{ ng_show: 'm.userOwnsLoadedList' }
                 .item-action-button.remove-item
                   %i.action.fa.fa-trash{ ng_click: 'deleteItem(item)' }
+                  .hint Remove from List
                 .item-action-button.love-item
                   %i.action.fa.fa-heart{ ng_show: '!currentUserLoves(item)', love_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserLove(item)' }
+                  .hint{ ng_show: '!currentUserLoves(item)' } Love
                   %i.action.fa.fa-heart.neon{ ng_show: 'currentUserLoves(item)', unlove_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnlove(item)' }
+                  .hint{ ng_show: 'currentUserLoves(item)' } Unlove
                 .item-action-button.been-item
                   %i.action.fa.fa-check-square{ ng_show: '!currentUserVisited(item)', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserBeen(item)' }
-                  %i.action.fa.fa-check-square.neon{ ng_show: 'currentUserVisited(item)', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnbeen(item)' }
+                  .hint{ ng_show: '!currentUserVisited(item)' } Mark as Been
+                  %i.action.fa.fa-check-square.enabled{ ng_show: 'currentUserVisited(item)', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnbeen(item)' }
+                  .hint{ ng_show: 'currentUserVisited(item)' } Mark as Not Been
               .item-actions{ ng_show: '!m.userOwnsLoadedList' }
                 .item-action-button.remove-item
-                  %i.action.fa.fa-bookmark{ ng_show: '!currentUserSaved(item)', save_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserSave(item)' }
-                  %i.action.fa.fa-trash{ ng_show: 'currentUserSaved(item)', unsave_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnsave(item)' }
+                  / %i.action.fa.fa-bookmark{ ng_show: '!currentUserSaved(item)', save_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserSave(item)' }
+                  / .hint{ ng_show: '!currentUserSaved(item)' } Recommend AGAINST
+                  / %i.action.fa.fa-trash{ ng_show: 'currentUserSaved(item)', unsave_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnsave(item)' }
+                  / .hint{ ng_show: '!currentUserSaved(item)' } Recommend AGAINST
                 .item-action-button.love-item
                   %i.action.fa.fa-heart{ ng_show: '!currentUserLoves(item)', love_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserLove(item)' }
+                  .hint{ ng_show: '!currentUserLoves(item)' } Love
                   %i.action.fa.fa-heart.neon{ ng_show: 'currentUserLoves(item)', unlove_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnlove(item)' }
+                  .hint{ ng_show: 'currentUserLoves(item)' } Unlove
                 .item-action-button.been-item
                   %i.action.fa.fa-check-square{ ng_show: '!currentUserVisited(item)', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserBeen(item)' }
-                  %i.action.fa.fa-check-square.neon{ ng_show: 'currentUserVisited(item)', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnbeen(item)' }
+                  .hint{ ng_show: '!currentUserVisited(item)' } Mark as Been
+                  %i.action.fa.fa-check-square.enabled{ ng_show: 'currentUserVisited(item)', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'currentUserUnbeen(item)' }
+                  .hint{ ng_show: 'currentUserVisited(item)' } Mark as Not Been
 
               .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }

@@ -17,8 +17,6 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter) ->
 
       s.noPlanNearbyResults = -> s.planNearby?.length>1 && s.planNearbyWorking<1 && s.planNearbyOptions?.length<1
 
-      s.cleanPlanNearbyOptions = -> s.planNearbyOptions = []
-
       s.planNearbyWorking = 0
       s._searchPlanNearby = ->
         return unless s.planNearby?.length > 1
@@ -46,6 +44,7 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter) ->
       s.startListNear = (option) ->
         return unless option?.name && option?.lat && option?.lon
         s.m.newList( option.name + " Guide" )
+        s.planNearby = null
         s.m.setNearby( option )
 
   }
