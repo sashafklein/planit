@@ -9,11 +9,9 @@ class UsersController < ApplicationController
       redirect_and_flash new_user_session_path(email: user_params[:email]), error: "#{existing_user.first_name} is already a Planit member!"
     elsif accepted_email = AcceptedEmail.find_by(email: user_params[:email])
       redirect_and_flash new_user_registration_path(user_params), success: "You're on the accepted emails list! Create an account to sign in"
-    elsif email = MailListEmail.waitlist!(user_params)
+    else 
+      MailListEmail.waitlist!(user_params)
       redirect_and_flash root_path, success: "Great! We'll be in touch shortly"
-    else
-      Rollbar.error("Waitlisting failed", user_params)
-      redirect_and_flash root_path, error: "Woops! Something went wrong. Please let us know"
     end
   end
 
