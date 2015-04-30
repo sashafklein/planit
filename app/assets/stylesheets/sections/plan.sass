@@ -4,12 +4,13 @@
   .initial-tutorial
     .blur
       opacity: 0
-  .tutorial-image img
-    max-width: 100%
+  .soft-tutorial
     transition: 0.5s ease all
-    opacity: 0.8
+    opacity: 0.3
     &:hover
       opacity: 1
+    img
+      max-width: 100%
 
   .owner-opinions
     user-select: none
@@ -431,7 +432,16 @@
     &:hover, &.hovered
       background: gray(90)
       .item-actions
-        color: gray(50)
+        i
+          color: gray(75)
+        i.enabled
+          color: gray(50) !important
+          &:hover
+            color: #f06 !important
+        i.disabled
+          color: gray(90)
+        i.neon
+          color: #f06
 
     .main-item-card
       cursor: pointer
@@ -458,6 +468,7 @@
       vertical-align: middle
       min-width: 22px
       .item-action-button
+        position: relative
         vertical-align: middle
         height: 18px
         line-height: 18px
@@ -470,6 +481,29 @@
           transition: 0.2s ease all
           &:hover
             color: #f06
+        i.enabled
+          color: gray(85)
+          &:hover
+            color: #f06
+        .hint
+          display: none
+          visibility: hidden
+          margin: auto 5px
+          width: auto
+          white-space: nowrap
+          font-size: 14px
+          font-weight: bold
+          top: 0
+          bottom: 0
+          right: 100%
+          position: absolute
+          background: #f06
+          color: #fff
+          padding: 0 5px
+          border-radius: 3px
+        &:hover .hint
+          display: inline-block
+          visibility: visible
 
     .list-item-notes
       position: absolute
