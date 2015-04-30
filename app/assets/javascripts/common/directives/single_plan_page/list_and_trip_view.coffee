@@ -58,14 +58,17 @@ angular.module("Common").directive 'listAndTripView', (ErrorReporter, Mark, Flas
 
       s.saveNote = (item) ->
         return unless item?.note && item?.note.length > 0
+        return unless item?.noteChanged == true
         item.notesSearched = false
         Note.create({ note: { object_id: item.id, object_type: item.class, body: item.note } })
           .success (response) ->
             item.note = response.body
+            item.noteChanged = false
             item.notesSearched = true
           .error (response) ->
             ErrorReporter.defaultFull( response, "singlePagePlans - saveNote", { object_id: item.id, object_type: item.class, text: note })
             item.note = null
+            item.noteChanged = false
             item.notesSearched = true
 
       s.nextNote = (item) -> 

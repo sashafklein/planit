@@ -1,4 +1,4 @@
-angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place, Note, Foursquare, QueryString, Geonames, CurrentUser, ErrorReporter, Flash, $filter, $timeout, $location, $q, RailsEnv) ->
+angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place, Note, Foursquare, QueryString, Geonames, CurrentUser, ErrorReporter, Flash, $filter, $timeout, $location, $q, RailsEnv, SPLists) ->
   return {
     restrict: 'E'
     replace: true
@@ -81,17 +81,6 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
         if choice == s.m.categoryIs then s.sortAscending = !s.sortAscending else s.m.categoryIs = choice
         s.m.sortItems()
 
-      s.m.setList = (list) -> 
-        QueryString.modify({ plan: list.id })
-
-      s._installList = (list) ->
-        return unless !s.m.list || s.m.list?.id != list?.id
-        s.m.userOwnsLoadedList = s.m.currentUserId == list.user_id
-        s.m.plan = s.m.list = list
-        s.getListItems()
-        s.m.kmlPath = "/api/v1/plans/#{ list.id }/kml"
-        s.m.printPath = "/plans/#{ list.id }/print"
-
       s.m.settingsBoxToggle = -> s.m.settingsBoxToggled = !s.m.settingsBoxToggled
 
 
@@ -172,7 +161,7 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
             if s.m.items?.length && !s.m.nearby
               $timeout(-> s._setNearby( s.bestListNearby(s.m.items) ) )
             $timeout(-> s.m.initialSortItems() )
-            $timeout(-> s.initializeItemsNotes() )
+            $timeout(-> s.initializeItemsNotesAndAddToLists() )
             $('.loading-mask').hide()
           .error (response) ->
             s.m.isLoaded = true
@@ -221,10 +210,11 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
 
       # NOTES
 
-      s.initializeItemsNotes = -> 
+      s.initializeItemsNotesAndAddToLists = -> 
         Note.findAllNotesInPlan( s.m.list.id )
           .success (response) ->
             _.map( s.m.items, (i) -> i.note = _.find( response, (n) -> n.object_id == i.id )?.body; i.notesSearched = true )
+            _.find( s.m.lists, (l) -> parseInt( l.id ) == parseInt( s.m.list.id ) ).items = s.m.items
           .error (response) ->
             ErrorReporter.defaultFull( response, "singlePagePlans - fetchOriginalNotes", { plan_id: s.m.list.id })
             _.map( s.m.items, (i) -> i.notesSearched = true )
@@ -346,23 +336,38 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
         unless hash.plan
           s.m.isLoaded = true 
 
+
+      # SELECT LIST
+
+      s.m.setList = (list) -> 
+        QueryString.modify({ plan: list.id })
+
+      s._installList = (list) ->
+        return unless !s.m.list || s.m.list?.id != list?.id
+        s.m.userOwnsLoadedList = s.m.currentUserId == list.user_id
+        s.m.plan = s.m.list = list
+        if s.m.list?.items?.length then s.m.items = s.m.list.items else s.getListItems()
+        s.m.kmlPath = "/api/v1/plans/#{ list.id }/kml"
+        s.m.printPath = "/plans/#{ list.id }/print"
+
       s._planFromQuery = ( plan_id ) ->
-        if plan_id?.length
+        if !plan_id?.length
+          s._resetList()
+        else
           if !s.m.list || ( s.m.list && s.m.list.id != plan_id )
-            if user_owned = _.find( s.m.lists, (l) -> l.id == parseInt( plan_id ) )
-              s._installList( user_owned ) if Object.keys( user_owned )?.length
+            if cached = _.find( s.m.lists, (l) -> l.id == parseInt( plan_id ) )
+              s._installList( cached ) if Object.keys( user_owned )?.length
             else
               Plan.find( plan_id )
                 .success (response) -> 
                   public_plan = Plan.generateFromJSON( response )
                   s._installList( public_plan ) if Object.keys( public_plan )?.length
-                .error (response) -> ErrorReporter.defaultFull( response )
-                  
-        else
-          s._resetList()
+                .error (response) -> ErrorReporter.defaultFull( response )     
 
       s._nearbyFromQuery = ( geoid ) -> 
-        if geoid?.length
+        if !geoid?.length
+          s._setNearby( null )
+        else
           found = _.find( s.m.nearbyOptions, (o) -> o.geonameId == parseInt( geoid ) )
           if found && Object.keys( found )?.length
             s._setNearby( found )
@@ -370,8 +375,6 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
             Geonames.find( geoid )
               .success (response) -> if response.geonameId == parseInt( geoid ) then s._setNearby( response )
               .error (response) -> s._setNearby( null )
-        else
-          s._setNearby( null )
 
 
 

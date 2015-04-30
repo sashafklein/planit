@@ -48,7 +48,7 @@
                         {{ item.mark.place.localeDetails() }}
 
               .list-item-notes{ ng_show: 'm.mode == "list"' }
-                %textarea{ ng_model: "item.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'nextNote(item)', ng_on_tab_key: 'nextNote(item)', ng_shift_on_tab_key: 'priorNote(item)', ng_blur: 'saveNote(item)', ng_disabled: '!item.notesSearched || !m.userOwnsLoadedList' }
+                %textarea{ ng_model: "item.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'nextNote(item)', ng_on_tab_key: 'nextNote(item)', ng_shift_on_tab_key: 'priorNote(item)', ng_blur: 'saveNote(item)', ng_disabled: '!item.notesSearched || !m.userOwnsLoadedList', ng_change: 'item.noteChanged=true' }
 
               .item-actions{ ng_show: 'm.userOwnsLoadedList' }
                 .item-action-button.remove-item
