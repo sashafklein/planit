@@ -56,8 +56,9 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
           .success (response) ->
             $('.loading-mask').hide()
             list = Plan.generateFromJSON(response)
-            s.m.lists.unshift(s.m.list) if s.m.lists && !_.find( s.m.lists, (l) -> l.id == s.m.list.id )
-            QueryString.modify({ plan: list.id })
+            debugger
+            s.m.lists.unshift( list ) if s.m.lists && !_.find( s.m.lists, (l) -> l.id == s.m.list.id )
+            $timeout(-> QueryString.modify({ plan: list.id }) )
           .error (response) ->
             $('.loading-mask').hide()
             ErrorReporter.defaultFull( response, 'SinglePagePlans Plan.create', { plan_name: s.listQuery})
