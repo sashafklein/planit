@@ -1,60 +1,46 @@
-/ - title( @plan.name )
-/ - set_page_type('plan')
+- title( @plan.name )
+- set_page_type('plan')
 
-/ #show-plan-page{ ng_controller: "Plans.ShowCtrl", ng_init: "loadPlaces(#{@plan.id})" }
+#show-plan-page
 
-/   / .setplanbox-on-plan-page
-/   /   %span.title Japan Family Trip
-/   /   %i.fa.fa-pencil.title
-/   /   %i.fa.fa-calendar.date
-/   /   / %input{ placeholder: 'Guide Name' }
-/   / .addbox-on-plan-page
-/   /   / %input{ placeholder: 'Where? (City or Region)' }
-/   /   .faux-input-wrap
-/   /     %span.chosen-input
-/   /       %i.fa.fa-times-circle
-/   /       San Francisco, California
-/   /     %input.real-input{ placeholder: 'Add Places to Your Guide' }
+  .setplanbox-on-plan-page
+    %span.title Japan Family Trip
+  .addbox-on-plan-page
 
-/   .plan-map-container{ ng_class: "{'expanded': mapExpanded}" }
-/     / %div#expand-map-button.large-screen{ ng_click: 'contractOrExpandMap()'}
-/     /   %i.fa.fa-expand.fa-flip-horizontal
-/     %no_sidebar_map.plan-map-canvas{ unwrapped_places: 'places', ng_show: 'loaded' }
+  / .plan-items-container.except-landscape{ ng_show: '!mapExpanded' }
+  /   - @plan.legs.each_with_index do |leg, index|
+  /     = leg.decorate.show_leg_name
+  /     - leg.days.each_with_index do |day, index|
+  /       .band.gray.spaced-top
+  /         .container
+  /           .three.columns.day-info-wrap
+  /             .day-number-separator
+  /               %span.day-info.number= "DAY #{index + 1}"
+  /             .day-info-separator
+  /               = day.decorate.show_locales_in_day
+  /               = day.decorate.show_distances_in_day
+  /               - lodging_list = get_lodging_list(day.items)
+  /             .day-wingtip
+  /           .thirteen.columns.day-tab-wrap
+  /             - day.items.with_places.includes(mark: :place).order('items.order ASC').find_each do |item|
+  /               .column= render 'items/item_tab', { item: item }
+  /             - if current_user_owns?(@plan)
+  /               - day.items.without_places.each do |item|
+  /                 .column= render 'items/item_tab', { item: item }
+  /             .column{ ng_controller: 'launchTopSearch', ng_click: "expandBar()" }= render 'items/item_tab', { item: nil }
 
-/   / .plan-items-container.except-landscape{ ng_show: '!mapExpanded' }
-/   /   - @plan.legs.each_with_index do |leg, index|
-/   /     = leg.decorate.show_leg_name
-/   /     - leg.days.each_with_index do |day, index|
-/   /       .band.gray.spaced-top
-/   /         .container
-/   /           .three.columns.day-info-wrap
-/   /             .day-number-separator
-/   /               %span.day-info.number= "DAY #{index + 1}"
-/   /             .day-info-separator
-/   /               = day.decorate.show_locales_in_day
-/   /               = day.decorate.show_distances_in_day
-/   /               - lodging_list = get_lodging_list(day.items)
-/   /             .day-wingtip
-/   /           .thirteen.columns.day-tab-wrap
-/   /             - day.items.with_places.includes(mark: :place).order('items.order ASC').find_each do |item|
-/   /               .column= render 'items/item_tab', { item: item }
-/   /             - if current_user_owns(@plan)
-/   /               - day.items.without_places.each do |item|
-/   /                 .column= render 'items/item_tab', { item: item }
-/   /             .column{ ng_controller: 'launchTopSearch', ng_click: "expandBar()" }= render 'items/item_tab', { item: nil }
-
-/   /   .band.gray.spaced
-/   /     .container
-/   /       .three.columns.day-info-wrap
-/   /         .day-number-separator
-/   /           %span.day-info.number= "BUCKET"
-/   /         .day-info-separator
-/   /           = @plan.decorate.show_locales_in_bucket
-/   /         .day-wingtip
-/   /       .thirteen.columns.day-tab-wrap
-/   /         - @plan.bucket.with_places.includes(mark: :place).find_each do |item|
-/   /           .column= render 'items/item_tab', { item: item }
-/   /         - if current_user_owns(@plan)
-/   /           - @plan.bucket.without_places.each do |item|
-/   /             .column= render 'items/item_tab', { item: item }
-/   /         .column{ ng_controller: 'launchTopSearch', ng_click: "expandBar()" }= render 'items/item_tab', { item: nil }
+  /   .band.gray.spaced
+  /     .container
+  /       .three.columns.day-info-wrap
+  /         .day-number-separator
+  /           %span.day-info.number= "BUCKET"
+  /         .day-info-separator
+  /           = @plan.decorate.show_locales_in_bucket
+  /         .day-wingtip
+  /       .thirteen.columns.day-tab-wrap
+  /         - @plan.bucket.with_places.includes(mark: :place).find_each do |item|
+  /           .column= render 'items/item_tab', { item: item }
+  /         - if current_user_owns?(@plan)
+  /           - @plan.bucket.without_places.each do |item|
+  /             .column= render 'items/item_tab', { item: item }
+  /         .column{ ng_controller: 'launchTopSearch', ng_click: "expandBar()" }= render 'items/item_tab', { item: nil }

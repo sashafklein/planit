@@ -184,6 +184,9 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
         return [] unless s.m.lists?.length
         filter(s.m.lists, s.listQuery)
 
+      s.m.popupPermaLink = ( list ) ->
+        list.id
+
       s.m.deleteList = ( list ) ->
         if confirm("Are you sure you want to delete '#{list.name}'?")
           $('.loading-mask').show()

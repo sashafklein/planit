@@ -1,4 +1,4 @@
-angular.module("Common").directive 'guideMatrix', () ->
+angular.module("Common").directive 'guideMatrix', ($timeout) ->
   return {
     restrict: 'E'
     replace: true
@@ -9,4 +9,5 @@ angular.module("Common").directive 'guideMatrix', () ->
       s.planImage = ( plan ) -> if plan && plan.best_image then plan.best_image.url else ''
       s.userOwns = (obj) -> s.m.currentUserId == obj.user_id
       s.plansNoItems = -> s.m.lists?.length && !_.uniq( _.flatten( _.map( s.m.lists, (l) -> l.place_ids ) ) ).length
+      # s.permalink = ( id ) -> s.permaOpen = id; $timeout( (-> s.permaOpen = null ), 4000 )
   }

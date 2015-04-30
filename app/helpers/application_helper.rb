@@ -82,7 +82,7 @@ module ApplicationHelper
     end
   end
 
-  def current_user_owns(record=nil)
+  def current_user_owns?(record=nil)
     current_user_is_active && ( current_user.owns?(record) || current_user.is?(record) )
   end
 
