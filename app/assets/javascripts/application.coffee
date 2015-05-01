@@ -7,4 +7,5 @@
 #= require angular
 #= require angular-leaflet-directive
 #= require bootstrap-sprockets
+#= require dragula
 #= require ng_app

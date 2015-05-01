@@ -7,31 +7,37 @@
       %h1.title.sixteen.columns Drag and Drop to Order Your Trip
 
       .items-in-manifest.six.columns{ ng_class: '{empty: !manifestItems.length}' }
-        %ul.plan-list-items
-          .repeater{ ng_repeat: 'item in manifestItems' }
-            .spacer{ ng_class: '{hovered: hoveringOver($index)}', ng_mouseenter: 'setHover($index)', ng_mouseleave: 'setHover(null)', ng_click: 'insert($index)' }
-              %p Click here to add or relocate item
-            %li.plan-list-item
-              .bucket-list-tab
-                %h6 {{ item.mark.place.names[0] }} - {{ $index }}
-              .list-item-select{ ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
-          .spacer{ ng_class: '{hovered: hoveringOver(manifestItems.length)}', ng_mouseenter: 'setHover(manifestItems.length)', ng_mouseleave: 'setHover(null)', ng_click: 'insert()' }
-            %p Click here to add or relocate item
+        %ul.plan-list-items.manifest
+          %li.plan-list-item{ ng_repeat: "item in manifestItems" }
+            .bucket-list-tab.main-item-card
+              .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
+              .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
+              .bucket-list-wrap
+                .bucket-list-profile
+                  %a{ target: '_self' }
+                    .bucket-list-title
+                      {{ item.mark.place.names[0] }}
+                    .bucket-list-more-info
+                      %i{ class: "{{ item.mark.place.meta_icon }}"}
+                      {{ item.mark.place.categories.join(', ') }}
+                    .bucket-list-more-info.locale-only
+                      {{ item.mark.place.localeDetails() }}
 
-      .items-in-plan.ten.columns
-        %li.plan-list-item{ ng_repeat: "item in m.items | orderBy : 'mark.place.name'" }
-          .bucket-list-tab.main-item-card
-            .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
-            .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
-            .bucket-list-wrap
-              .bucket-list-profile
-                %a{ target: '_self' }
-                  .bucket-list-title
-                    {{ item.mark.place.names[0] }}
-                  .bucket-list-more-info
-                    %i{ class: "{{ item.mark.place.meta_icon }}"}
-                    {{ item.mark.place.categories.join(', ') }}
-                  .bucket-list-more-info.locale-only
-                    {{ item.mark.place.localeDetails() }}
+      .items-in-list.ten.columns
+        %ul.plan-list-items.list
+          %li.plan-list-item{ ng_repeat: "item in m.items | orderBy : 'mark.place.name'" }
+            .bucket-list-tab.main-item-card
+              .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
+              .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
+              .bucket-list-wrap
+                .bucket-list-profile
+                  %a{ target: '_self' }
+                    .bucket-list-title
+                      {{ item.mark.place.names[0] }}
+                    .bucket-list-more-info
+                      %i{ class: "{{ item.mark.place.meta_icon }}"}
+                      {{ item.mark.place.categories.join(', ') }}
+                    .bucket-list-more-info.locale-only
+                      {{ item.mark.place.localeDetails() }}
 
           .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
