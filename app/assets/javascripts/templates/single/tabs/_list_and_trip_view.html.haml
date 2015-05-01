@@ -4,20 +4,6 @@
   .pad-top-addbox{ ng_show: 'm.list || m.hasLists()' }
   .band.spaced-extra{ plan: 'm.list',  list_items: 'm.items' } 
     .container
-      %h1.title.sixteen.columns{ ng_show: 'm.mode == "trip"' } Drag and Drop to Order Your Trip
-
-      / .items-in-manifest.six.columns{ ng_show: 'mode == "trip"', ng_class: '{empty: !manifestItems.length}' }
-      /   %ul.plan-list-items
-      /     .repeater{ ng_repeat: 'item in manifestItems' }
-      /       .spacer{ ng_class: '{hovered: hoveringOver($index)}', ng_mouseenter: 'setHover($index)', ng_mouseleave: 'setHover(null)', ng_click: 'insert($index)' }
-      /         %p Click here to add or relocate item
-      /       %li.plan-list-item
-      /         .bucket-list-tab
-      /           %h6 {{ item.mark.place.names[0] }} - {{ $index }}
-      /         .list-item-select{ ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
-      /     .spacer{ ng_class: '{hovered: hoveringOver(manifestItems.length)}', ng_mouseenter: 'setHover(manifestItems.length)', ng_mouseleave: 'setHover(null)', ng_click: 'insert()' }
-      /       %p Click here to add or relocate item
-
       .items-in-plan{ ng_class: 'listClass(m.mode)' }
         .items-in-plan-category{ ng_repeat: 'category in m.categories' }
           %ul.plan-list-items
