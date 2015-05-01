@@ -6,6 +6,7 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
     scope:
       m: '='
     link: (s, e, a) ->
+      
       s.m.addBoxManuallyToggled = false
       s.addBoxToggle = -> 
         s.m.addBoxToggled = !s.m.addBoxToggled
