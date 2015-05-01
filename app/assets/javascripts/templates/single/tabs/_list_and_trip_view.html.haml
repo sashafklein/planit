@@ -1,4 +1,4 @@
-.list-or-trip-mode{ ng_show: "!( m.browsing && !m.placeName.length>1 ) && m.plan() && (m.plan().items.length>0 || m.addingItem) && (m.mode == 'list' || m.mode == 'trip')" }
+.list-or-trip-mode{ ng_show: "hasPlansNotBrowsingAndInListMode()" }
   #header-spacing
   .print-title {{ m.plan().name }}
   .print-by by {{ m.plan().user.name }}
@@ -20,10 +20,9 @@
               /     %i.fa.fa-heart
               /   .item-opinion.been-item{ ng_show: 'm.plan().ownerVisited(item)' }
               /     %i.fa.fa-check-square
-              .bucket-list-tab.main-item-card{ ng_click: "item.fsOpen(m.mode != 'trip')" }
-                .bucket-list-no-img{ ng_show: "!item.mark.place.image_url" }
-                .bucket-list-img{ ng_show: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}')" }
-                  %img{ ng_src: "{{ item.mark.place.image_url }}" }
+              .bucket-list-tab.main-item-card{ ng_click: "item.fsOpen(true)" }
+                .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
+                .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
                 .bucket-list-wrap
                   .bucket-list-profile
                     %a{ target: '_self' }
@@ -43,5 +42,3 @@
                 %textarea{ ng_model: "item.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_blur: 'item.saveNote()', ng_disabled: '!item.notesSearched || !m.userOwnsPlan()', ng_change: 'noteChange(item)' }
 
               %item_actions_bar{ m: 'm', item: 'item' }
-
-              .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
