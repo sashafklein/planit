@@ -1,10 +1,10 @@
-.addbox-wrapper{ ng_show: "m.userOwnsLoadedList && m.list && !m.rename && m.mode != 'trip' && !m.settingsBoxToggled && !(m.mainMenuToggled && m.mobile)" }
+.addbox-wrapper{ ng_show: "m.userOwnsPlan() && m.plan() && m.mode != 'trip' && !m.settingsBoxToggled && !(m.mainMenuToggled && m.mobile) && !m.rename" }
 
   / .minimize-maximize-addbox{ ng_show: 'items.length', ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
   /   %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
 
   .addbox-on-plan-page{ ng_show: "m.addBoxToggled" }
-    .input-and-results{ ng_show: '!m.nearby && m.list' }
+    .input-and-results{ ng_show: '!m.nearby && m.plan()' }
       %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Explore what city or region?', ng_model: 'placeNearby', ng_change: 'searchPlaceNearby()', ng_on_enter_key: 'setNearBestOption()', ng_on_esc_key: 'placeNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }   
       %ul.suggested-results.blue{ ng_show: '!m.typing && placeNearby && placeNearby.length > 1 && ( placeNearbyWorking || m.placeNearbyOptions.length>0 )' }
         %li.search-results-list{ ng_class: "{'highlighted': placeNearbyOptionSelectable(option)}", ng_repeat: 'option in m.placeNearbyOptions', ng_click: 'm.setNearby(option)' }
@@ -17,7 +17,7 @@
         %span.largest-screen.inline Set
         %span.large-screen.inline Location
         
-    .input-and-results{ ng_show: 'm.nearby && m.list' }
+    .input-and-results{ ng_show: 'm.nearby && m.plan()' }
       %input#place-name{ name: "place-name", type: 'text', placeholder: 'What do you want to add in {{ m.nearby.name }}?', ng_model: 'placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_on_esc_key: "placeName=null", ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
 
       %ul.suggested-results.neon{ ng_show: '!m.typing && placeName && placeName.length>1' }

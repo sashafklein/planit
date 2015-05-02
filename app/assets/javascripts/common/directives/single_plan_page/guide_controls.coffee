@@ -7,21 +7,14 @@ angular.module("Common").directive 'guideControls', ($timeout, Plan, ErrorReport
       m: '='
     link: (s, e, a) ->
 
-      s.saveRenameList = -> 
-        s.m.list.update({ plan: { name: s.m.rename } })
-          .success (response) ->
-            s.m.list = Plan.generateFromJSON( response )
-            s.cancelRenameList()
-          .error (response) ->
-            s.cancelRenameList()
-            ErrorReporter.defaultFull({ context: 'Failed to rename plan', list_id: s.m.list.id})
+      s.saveRenamePlan = -> s.m.plans[s.m.currentPlanId].rename( s.m.rename, s.cancelRenamePlan() )
 
-      s.renameList = ->
-        if s.m.userOwnsLoadedList
-          s.m.rename = s.m.list.name || ' '
+      s.renamePlan = ->
+        if s.m.plans[s.m.currentPlanId].userOwns()
+          s.m.rename = s.m.plans[s.m.currentPlanId]?.name || ' '
           $timeout(-> $('#rename').focus() if $('#rename') )
           return
           
-      s.cancelRenameList = -> s.m.rename = null
+      s.cancelRenamePlan = -> s.m.rename = null
 
   }

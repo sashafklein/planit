@@ -1,12 +1,12 @@
-.initial-tutorial{ ng_show: '!m.hasItems() && m.isLoaded && ( !m.hasLists() || m.list )' }
+.initial-tutorial{ ng_show: '!m.planManager.itemCount()>0 && m.isLoaded && ( !m.hasPlans() || m.plan() )' }
   #header-spacing.except-landscape
   .band.spaced
-    .place-name-tutorial{ ng_show: 'm.list && !m.nearby', ng_class: "{'blur': hasPlaceNearbyOptions()}" }
+    .place-name-tutorial{ ng_show: 'm.plan() && !m.nearby', ng_class: "{'blur': hasPlaceNearbyOptions()}" }
       .container.centered
         .column
-          = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': m.list}" }
+          = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': m.plan()}" }
       .container.centered
-        .column{ ng_show: 'm.list && !m.nearby' }
+        .column{ ng_show: 'm.plan() && !m.nearby' }
           %strong.neon.large Awesome!  Starting Where?
           %p Set a Location so You can Find Your Places
           .soft-tutorial
@@ -15,12 +15,12 @@
               .tutorial-line Where does your trip or list start?
               .tutorial-line You can change your location at any time;
               .tutorial-line we'll use it to find the places you search for
-    .place-name-tutorial{ ng_show: 'm.list && m.nearby && !m.addingItem', ng_class: "{'blur': m.hasPlaceNameOptions()}" }
+    .place-name-tutorial{ ng_show: 'm.plan() && m.nearby && !m.addingItem', ng_class: "{'blur': hasPlaceNameOptions()}" }
       .container.centered
         .column
-          = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': m.list}" }
+          = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': m.plan()}" }
       .container.centered
-        .column{ ng_show: 'm.list && m.nearby', ng_class: "{'blur': m.hasPlaceNameOptions()}" }
+        .column{ ng_show: 'm.plan() && m.nearby', ng_class: "{'blur': hasPlaceNameOptions()}" }
           %strong.neon.large 
             Cool! Now Add Places
             %span.large-screen.inline to your List

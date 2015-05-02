@@ -6,6 +6,7 @@ angular.module('Common').directive 'sortCommands', (QueryString) ->
     scope:
       m: '='
     link: (s, e, a) ->
-      s.setMode = (mode) -> QueryString.modify({mode: mode})
+
+      s.setMode = ( mode ) -> QueryString.modify({ mode: mode })
   
   }

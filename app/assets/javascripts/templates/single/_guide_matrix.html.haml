@@ -1,23 +1,24 @@
-.guides-matrix{ ng_show: '!m.list &&  m.hasLists() && m.isLoaded' }
+.guides-matrix{ ng_show: '!m.plan() && m.hasPlans()' }
   #header-spacing.except-landscape
 
     .band.spaced-xxx
       .container.centered
-        .column{ ng_repeat: 'plan in m.lists' }
+        .column{ ng_repeat: 'plan in m.plans' }
           .any-tab-wrapper
             .guide-item-count.numbered-box {{ plan.place_ids.length }}
             .content-tab
-              .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'm.setList(plan)', ng_hover: 'imageChangeable = true' }
+              .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'm.planManager.fetchPlan( plan.id )', ng_hover: 'imageChangeable = true' }
                 %img{ ng_src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
                 %i.add-photo-camera.fa.fa-camera-retro.white{ ng_show: 'plan.place_ids.length && (imageChangeable || ( !plan.best_image || !plan.best_image.url) )', ng_click: 'changeImage()' }
                 %i.add-photo-camera.fa.fa-plus-circle.white{ ng_show: '!plan.place_ids.length', ng_click: 'changeImage()' }
-              .content-tab-title{ ng_click: 'm.setList(plan)' } {{ plan.name }}
+              .content-tab-title{ ng_click: 'm.planManager.fetchPlan( plan.id )' } {{ plan.name }}
             .guide-actions.tab-operations{ ng_show: 'userOwns(plan)' }
               %i.fa.fa-group.tab-operations-button.disabled
               %i.fa.fa-paper-plane.tab-operations-button.disabled
-              %i.fa.fa-trash.tab-operations-button{ ng_click: 'm.deleteList(plan)' }
+              %i.fa.fa-trash.tab-operations-button{ ng_click: 'm.planManager.removePlan( plan.id )' }
 
-      .container.centered{ ng_show: 'plansNoItems()' }
+      .container.centered{ ng_show: 'm.planManager.itemCount()<1' }
         %strong.large.neon
           .tutorial-line You haven't added any places to your plan yet!
           .tutorial-line Click back in to get started...    
+  / .explore-other-guides{ ng_show: "!m.plan() && !m.hasPlans()" }

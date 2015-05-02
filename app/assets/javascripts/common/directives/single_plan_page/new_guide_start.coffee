@@ -32,19 +32,19 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter) ->
             s.planNearbyWorking--
             ErrorReporter.fullSilent(response, 'SinglePagePlans s.searchPlanNearby', { query: s.planName })
 
-      s.startListNearBestOption = ->
+      s.startPlanNearBestOption = ->
         return unless s.planNearbyOptions?.length
         keepGoing = true
         _.forEach( s.planNearbyOptions, (o) ->
           if s.planNearbyOptionSelectable(o) && keepGoing
-            s.startListNear(o)
+            s.startPlanNear(o)
             keepGoing = false
         )
 
-      s.startListNear = (option) ->
+      s.startPlanNear = (option) ->
         return unless option?.name && option?.lat && option?.lon
-        s.m.newList( option.name + " Guide" )
-        s.planNearby = null
+        s.m.planManager.addNewPlan( option.name + " Guide" )
         s.m.setNearby( option )
+        s.planNearby = null
 
   }

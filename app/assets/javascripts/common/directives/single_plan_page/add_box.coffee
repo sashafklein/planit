@@ -6,6 +6,7 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
     scope:
       m: '='
     link: (s, e, a) ->
+      
       s.m.addBoxManuallyToggled = false
       s.addBoxToggle = -> 
         s.m.addBoxToggled = !s.m.addBoxToggled
@@ -44,47 +45,10 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
             s.m.setNearby(o)
             keepGoing = false
 
+      s.addItem = ( option ) -> s.m.plan().addItem( option, s._postAdd( option ), s._postAffix() )
       s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
-
-      s.addItem = (option) ->
-        s.m.placeNameOptions = []
-        s.placeName = null
-
-        s._setAddItemSuccess()
-        s.m.addingItem = true
-        s.m.list.addItemFromPlaceData(option)
-          .success (response) ->
-            Flash.success("Adding '#{ response.name }' to your list. It should appear shortly")
-          .error (response) ->
-            s.m.addingItem = false
-            ErrorReporter.defaultFull( response, 'SinglePagePlans addItem', { option: JSON.stringify(option), plan_id: s.m.list.id } )
-
-      s._setAddItemSuccess = ->
-        channel = s.m.pusher.subscribe( "add-item-from-place-data-to-plan-#{ s.m.list.id }" )
-        channel.bind 'added', (data) ->
-          Item.find( data.item_id )
-            .success (response) -> 
-              s._affixItem(response)
-              s.m.pusher.unsubscribe( "add-item-from-place-data-to-plan-#{ s.m.list.id }" )
-            .error (response) ->
-              ErrorReporter.fullSilent( response, 'addBox _setAddItemSuccess', { item_id: data.item_id, plan_id: s.m.list.id } )
-              s.m.pusher.unsubscribe( "add-item-from-place-data-to-plan-#{ s.m.list.id }" )
-
-      s._affixItem = (response) ->
-        new_item = _.extend( Item.generateFromJSON( response ), { index: s.m.items.length, pane: 'list', notesSearched: true } )
-        
-        if !_.find(s.m.items, (i) -> i.mark?.place?.id == new_item.mark?.place?.id )
-          s.m.items.unshift new_item
-          for list in _.uniq( _.compact([s.m.list, _.find(s.m.lists, (l) -> l.id == s.m.list.id)]) )
-            list.place_ids.unshift( new_item.mark?.place.id ) if new_item?.mark?.place?.id
-        
-        QueryString.modify({m: null})
-        
-        if s.m.items?.length == 1
-          s.m.initialSortItems()
-          _.find(s.m.lists, (l) -> l.id == s.m.list.id).best_image = response.mark.place.images[0] if response?.mark?.place?.images?.length
-        else
-          s.m.sortItems()
+      s._postAdd = ( option ) -> s.placeName = null; s.placeNameOptions = null; Flash.success("Adding #{option.names[0]} to your plan"); s.m.addingItem=true
+      s._postAffix = -> s.m.addingItem=false
 
       s.placeNameSearch = -> 
         s.options = [] if s.placeName?.length
