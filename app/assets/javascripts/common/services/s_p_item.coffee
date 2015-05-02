@@ -36,18 +36,18 @@ angular.module("Common").service "SPItem", (CurrentUser, Item, Mark, Note, Query
 
     saveNote: ->
       self = @
-      return unless @?.note && @?.note.length > 0
+      return unless @?.note?.length > 0
       return unless @?.noteChanged == true
-      @.notesSearched = false
-      Note.create({ note: { object_id: @.id, object_type: @.class, body: @.note } })
+      @.noteSearched = false
+      Note.create({ note: { object_id: self.id, object_type: self.class, body: self.note } })
         .success (response) ->
           self.note = response.body
           self.noteChanged = false
-          self.notesSearched = true
+          self.noteSearched = true
         .error (response) ->
-          ErrorReporter.fullSilent( response, "SPItem save note", { object_id: self.id, object_type: self.class, text: note })
+          ErrorReporter.fullSilent( response, "SPItem save note", { object_id: self.id, object_type: self.class, body: self.note })
           self.note = null
           self.noteChanged = false
-          self.notesSearched = true
+          self.noteSearched = true
 
   return SPItem
