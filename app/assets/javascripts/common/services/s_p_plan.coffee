@@ -73,7 +73,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, Plan, Item, Note, SPIte
         Item.where({ plan_id: @.id })
           .success (response) ->
             _.forEach response , ( item, index ) ->
-              i = _.extend( new SPItem( Item.generateFromJSON( item ) ), { index: index, pane: 'list' } )
+              i = _.extend( new SPItem( Item.generateFromJSON( item ) ), { index: index, pane: 'list', class: 'Item' } )
               self.items.push i
             QueryString.modify({ plan: self.id })
             $timeout(-> self._fetchNotes() )
