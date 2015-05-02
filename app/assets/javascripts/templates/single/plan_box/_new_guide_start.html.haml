@@ -1,13 +1,12 @@
-.start-a-new-guide{ ng_show: '!m.list && m.isLoaded' }
+.start-a-new-guide{ ng_show: '!m.plan() && m.isLoaded' }
   .start-where.setplanbox-on-plan-page{ ng_class: "{'shortened': m.mainMenuToggled && m.mobile}" }
     .start-a-new-plan Start a new plan:
     .input-and-results{ ng_hide: "m.mainMenuToggled && m.mobile" }
-      %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: 'Where are you going?', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'startListNearBestOption()', ng_on_esc_key: 'planNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
+      %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: 'Where are you going?', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'startPlanNearBestOption()', ng_on_esc_key: 'planNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
       %ul.suggested-results.blue{ ng_show: '!m.typing && planNearby && planNearby.length>1' }
-        %li.search-results-list{ ng_class: "{'highlighted': planNearbyOptionSelectable(option)}", ng_repeat: 'option in planNearbyOptions', ng_click: 'startListNear(option)' }
+        %li.search-results-list{ ng_class: "{'highlighted': planNearbyOptionSelectable(option)}", ng_repeat: 'option in planNearbyOptions', ng_click: 'startPlanNear(option)' }
           %b {{ option.name }}
           {{ option.qualifiers }}
         %li.search-results-working{ ng_show: 'planNearbyWorking > 0' } Working on it...
         %li.search-results-working{ ng_show: 'noPlanNearbyResults()' } Can't find that...
     %ng_include{ src: "'application/_rainbow_divider.html'" }
-  / .explore-other-guides{ ng_show: "!m.list && !m.hasLists()" }

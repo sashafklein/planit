@@ -7,8 +7,6 @@ angular.module("Common").directive 'listAndTripView', (ErrorReporter, Mark, Flas
       m: '='
     link: (s, e, a) ->
       
-      s.listClass = (mode) -> if mode == 'list' then 'sixteen columns' else 'ten columns'
-
       s.metaClass = ( meta_category ) -> 
         switch meta_category
           when 'Area' then 'rainbow-print yellow'
@@ -25,20 +23,13 @@ angular.module("Common").directive 'listAndTripView', (ErrorReporter, Mark, Flas
           when 'Money' then 'rainbow-print gray'
           else 'no-type'
       
-      s.typeIcon = (meta_category) -> 
-        itemsWithIcon = _.filter( s.m.items, (i) -> i.mark.place.meta_categories[0] == meta_category )
+      s.typeIcon = (items, meta_category) -> 
+        itemsWithIcon = _.filter( items, (i) -> i.mark.place.meta_categories[0] == meta_category )
         if itemsWithIcon[0] then itemsWithIcon[0].mark.place.meta_icon else ''
-
-      s.matchingItems = ( category ) ->
-        switch s.m.categoryIs
-          when 'type' then _.filter( s.m.items, (i) -> i.mark.place.meta_categories?[0] == category )
-          when 'alphabetical' then _.filter( s.m.items, (i) -> i.mark.place.names?[0]?[0] == category )
-          when 'recent' then _.filter( s.m.items, (i) -> x=i.updated_at.match(/(\d{4})-(\d{2})-(\d{2})/); "#{x[2]}/#{x[3]}/#{x[1]}" == category )
-          when 'locale' then _.filter( s.m.items, (i) -> i.mark.place.locality == category )
-          else []
 
       s.nextNote = (item) -> 
         return unless item
+        item.saveNote()
         if this_textarea = e.find("textarea#item_" + item.id)
           next_li = this_textarea.parents('li.plan-list-item').next('li.plan-list-item').find('textarea')
           next_ul = this_textarea.parents('.items-in-plan-category').next('.items-in-plan-category').find('textarea').first()
@@ -49,6 +40,7 @@ angular.module("Common").directive 'listAndTripView', (ErrorReporter, Mark, Flas
 
       s.priorNote = (item) -> 
         return unless item
+        item.saveNote()
         if this_textarea = e.find("textarea#item_" + item.id)
           prior_li = this_textarea.parents('li.plan-list-item').prev('li.plan-list-item').find('textarea')
           prior_ul = this_textarea.parents('.items-in-plan-category').prev('.items-in-plan-category').find('textarea').last()

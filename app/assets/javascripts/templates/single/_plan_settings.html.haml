@@ -1,25 +1,25 @@
 %ul.faux-planit-dropdown
 
-  %li.planit-dropdown-menu.disabled{ ng_show: "m.userOwnsLoadedList" }
+  %li.planit-dropdown-menu.disabled{ ng_show: "m.userOwnsPlan()" }
     %i.planit-dropdown-menu-icon.fa.fa-group
     Add Collaborators
-  %li.planit-dropdown-menu.disabled{ ng_show: "!m.userOwnsLoadedList" }
+  %li.planit-dropdown-menu.disabled{ ng_show: "!m.userOwnsPlan()" }
     %i.planit-dropdown-menu-icon.fa.fa-group
     Request to be a Collaborator
-  %li.planit-dropdown-menu.disabled{ ng_show: "m.userOwnsLoadedList" }
+  %li.planit-dropdown-menu.disabled{ ng_show: "m.userOwnsPlan()" }
     %i.planit-dropdown-menu-icon.fa.fa-upload
     Import
-  %li.planit-dropdown-menu.disabled{ ng_show: "m.userOwnsLoadedList" }
+  %li.planit-dropdown-menu.disabled{ ng_show: "m.userOwnsPlan()" }
     %i.planit-dropdown-menu-icon.fa.fa-calendar
     Set Dates
   %li.divider
-  %li.planit-dropdown-menu{ ng_click: 'copyList(m.list)'}
+  %li.planit-dropdown-menu{ ng_click: 'm.plan().copy()'}
     %i.planit-dropdown-menu-icon.fa.fa-clipboard
     Copy this Guide
   %li.planit-dropdown-menu.disabled
     %i.planit-dropdown-menu-icon.fa.fa-compress
     Merge this Guide with Another
-  %li.planit-dropdown-menu.disabled{ ng_show: "m.userOwnsLoadedList" }
+  %li.planit-dropdown-menu.disabled{ ng_show: "m.userOwnsPlan()" }
     %i.planit-dropdown-menu-icon.fa.fa-expand
     Split this Guide
   %li.divider
@@ -27,18 +27,18 @@
     %li.planit-dropdown-menu
       %i.planit-dropdown-menu-icon.fa.fa-paper-plane
       Share this Guide
-  %a{ ng_href: "{{m.kmlPath}}", target: '_self' }
+  %a{ ng_href: "{{kmlPath()}}", target: '_self' }
     %li.planit-dropdown-menu
       %i.planit-dropdown-menu-icon.fa.fa-download
       Export as KML
   %li.planit-dropdown-menu.disabled
     %i.planit-dropdown-menu-icon.fa.fa-table
     Export as CSV
-  %a{ ng_href: "{{m.printPath}}", target: '_self' }
+  %a{ ng_href: "{{printPath()}}", target: '_self' }
     %li.planit-dropdown-menu
       %i.planit-dropdown-menu-icon.fa.fa-print
       Print this Guide
-  %li.divider{ ng_show: "m.userOwnsLoadedList" }
-  %li.planit-dropdown-menu{ ng_show: "m.userOwnsLoadedList", ng_click: 'm.deleteList( m.list )', target: '_self' }
+  %li.divider{ ng_show: "m.userOwnsPlan()" }
+  %li.planit-dropdown-menu{ ng_show: "m.userOwnsPlan()", ng_click: 'm.planManager.removePlan( m.plan().id )', target: '_self' }
     %i.planit-dropdown-menu-icon.fa.fa-trash
     Delete Plan

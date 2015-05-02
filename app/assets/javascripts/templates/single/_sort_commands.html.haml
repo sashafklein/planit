@@ -1,12 +1,12 @@
-.sort-and-view-modes{ ng_show: "m.list" }
+.sort-and-view-modes{ ng_show: "m.plan()" }
 
-  .sort-items-by.large-screen{ ng_show: "m.mode == 'list' || m.mode == 'trip'" }
-    %span.selectable.sort-by-button{ ng_click: "m.resetList()" } 
+  .sort-items-by.large-screen{ ng_show: "m.mode != 'map'" }
+    %span.selectable.sort-by-button{ ng_click: "m.goHome()" } 
       %i.fa.fa-arrow-left.pad-right
-      Other Guides
+      My Guides
 
-  .view-and-edit-mode{ ng_show: '!m.mainMenuToggled && m.hasItems()', ng_class: "{'in-map': m.mode == 'map', 'large-screen': m.mode != 'map'}" }
+  .view-and-edit-mode{ ng_show: '!m.mainMenuToggled && m.planManager.itemCount()>0', ng_class: "{'in-map': m.mode == 'map', 'large-screen': m.mode != 'map'}" }
     %span.selectable.view-and-edit-button{ ng_click: "setMode('list')", ng_class: "{'highlighted': m.mode == 'list'}" } List View
     / %span.selectable.view-and-edit-button.disabled Trip Mode
-    / { ng_click: "setMode('trip')", ng_class: "{'highlighted': mode == 'trip'}" }
+    / { ng_click: "setMode('trip')", ng_class: "{'highlighted': m.mode == 'trip'}" }
     %span.selectable.view-and-edit-button{ ng_click: "setMode('map')", ng_class: "{'highlighted': m.mode == 'map'}" } Map

@@ -1,11 +1,11 @@
 .place-control-bar
 
-  .place-control.disabled{ ng_show: "!hasMarkFor()" }
-    %i.fa.fa-book
-  %a.place-control.for-mark{ ng_show: "hasMarkFor() && ( !planId || planId && !userOwnsPlan)", add_places_to_plan_on_click: '[{{place.id}}]', success_function: "" }
-    %span.place-control-hint= "Add to a Guide"
-    %i.fa.fa-book
-  / %a.place-control{ ng_show: "hasMarkFor() && planId && userOwnsPlan", remove_item_on_click: '{{place.id}}', success_function: "removedPlace()" }
+  / .place-control.disabled{ ng_show: "!hasMarkFor()" }
+  /   %i.fa.fa-book
+  / %a.place-control.for-mark{ ng_show: "hasMarkFor() && ( !planId || planId && !userOwnsPlan)", add_places_to_plan_on_click: '[{{place.id}}]', success_function: "" }
+  /   %span.place-control-hint= "Add to a Guides"
+  /   %i.fa.fa-book
+  / %a.place-control{ ng_show: "hasMarkFor() && planId && userOwnsPlan", ng_click: "plan.removeItem( item )" }
   /   %span.place-control-hint= "Remove from Guide"
   /   %i.fa.fa-book.neon
 
@@ -39,8 +39,11 @@
   %a.place-control{ ng_show: "!hasMarkFor()", save_place_on_click: '{{place.id}}', success_function: "savedPlace()" }
     %span.place-control-hint= "Save"
     %i.fa.fa-bookmark
-  .place-control.disabled{ ng_show: "hasMarkFor()" }
-    %i.fa.fa-bookmark
+  .place-control.disabled{ ng_show: "hasMarkFor() && planId && !userOwnsPlan" }
+    %i.fa.fa-trash
+  %a.place-control{ ng_show: "hasMarkFor() && planId && userOwnsPlan", ng_click: "plan.deleteItem( item )" }
+    %span.place-control-hint= "Remove from Guide"
+    %i.fa.fa-trash
   / %a.place-control{ ng_show: "hasMarkFor()", unsave_place_on_click: '{{place.id}}', success_function: "removedPlace()" }
   /   %span.place-control-hint= "Unsave"
   /   %i.fa.fa-trash

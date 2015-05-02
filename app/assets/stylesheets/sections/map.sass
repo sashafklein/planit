@@ -313,7 +313,7 @@
       background: #ff0066
       text-decoration: none
 
-  .bucket-list-controls
+  .bucket-list-controls, .item-actions
     display: block
     position: relative
     height: 23px
@@ -323,7 +323,7 @@
     text-align: right
     vertical-align: top
 
-  .place-control
+  .place-control, .item-action-button
     display: inline-block
     width: 23px
     height: 23px
@@ -339,7 +339,7 @@
     &:hover
       i, a
         color: #f06
-      .place-control-hint
+      .place-control-hint, .hint
         display: inline-block
         visibility: visible
     &.disabled
@@ -348,14 +348,14 @@
       &:hover
         i
           color: #eee
-        .place-control-hint
+        .place-control-hint, .hint
           display: none
           visibility: hidden
     &.enabled
       i, a
         color: rgb(20, 35, 125)
       
-    .place-control-hint
+    .place-control-hint, .hint
       display: none
       visibility: hidden
       position: absolute
@@ -372,6 +372,18 @@
       -webkit-border-radius: 3px
       padding: 1px 4px
       background: #ff0066
+
+  .item-actions
+    i
+      color: #eee
+    i.enabled
+      color: gray(75) !important
+      &:hover
+        color: #f06 !important
+    i.disabled
+      color: #eee
+    i.neon
+      color: #f06
 
   #top-of-list
     height: 0
@@ -431,12 +443,18 @@
   .place-control
     i, a
       color: #f06
+  i.action
+    color: #f06
   .place-control.disabled
     i, a
       color: #fafafa
+  i.action.disabled
+    color: #fafafa
   .place-control.enabled
     i, a
       color: rgb(20, 35, 125)
+  i.action.enabled
+    color: rgb(20, 35, 125)
   .bucket-list-cluster-size
     background: #000
     color: #eee

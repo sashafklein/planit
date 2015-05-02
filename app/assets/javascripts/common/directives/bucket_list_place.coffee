@@ -1,14 +1,14 @@
-angular.module("Common").directive 'bucketListPlaces', (CurrentUser) ->
+angular.module("Common").directive 'bucketListPlace', (CurrentUser) ->
 
   return {
     restrict: 'E'
     transclude: false
     replace: true
-    templateUrl: "bucket_list_places.html"
+    templateUrl: "bucket_list_place.html"
     scope:
+      m: '=?'
+      item: '=?'
       place: '='
-      items: '=?'
-      plan: '=?'
 
     link: (s, element) ->
       s.userId = CurrentUser.id

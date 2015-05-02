@@ -45,7 +45,10 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
             s.m.setNearby(o)
             keepGoing = false
 
+      s.addItem = ( option ) -> s.m.plan().addItem( option, s._postAdd( option ), s._postAffix() )
       s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
+      s._postAdd = ( option ) -> s.placeName = null; s.placeNameOptions = null; Flash.success("Adding #{option.names[0]} to your plan"); s.m.addingItem=true
+      s._postAffix = -> s.m.addingItem=false
 
       s.placeNameSearch = -> 
         s.options = [] if s.placeName?.length

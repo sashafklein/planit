@@ -6,14 +6,11 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
     replace: true
     templateUrl: 'plan_map.html'
     scope:
-      userId: '@'
+      m: '='
       zoomControl: '='
       webPadding: '@'
       mobilePadding: '@'
-      items: '='
-      plan: '=?'
-      showMap: '=?'
-      setNearbyFromCenter: '&'
+      # setNearbyFromCenter: '&'
 
     link: (s, elem) ->
       s.loaded = false
@@ -31,7 +28,6 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
       s.centerPoint = if s.centerAndZoom then { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) } else { lat: 0, lng: 0, zoom: 2 }
       s.placesInView = s.clustersInView = s.firstItems = []
       s.leaf = leafletData
-      s.list = true
 
       s.defaults = 
         minZoom: if s.mobile then 1 else 2
@@ -68,8 +64,8 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
 
       s._getPlaces = ->
         s._setOnScope [ 'firstItems', 'places', 'preFilterPlaces' ], []
-        $timeout(-> s.firstItems = _.extend( [], s.items ) )
-        $timeout(-> s.preFilterPlaces = _.map( s.items, (i) -> s.marker.primaryPin(i.mark.place) ) )
+        $timeout(-> s.firstItems = _.extend( [], s.m?.plan()?.items ) )
+        $timeout(-> s.preFilterPlaces = _.map( s.m?.plan()?.items, (i) -> s.marker.primaryPin(i.mark.place) ) )
         $timeout(-> s._definePlaces() )
 
       # ON MAP MOVEMENT
@@ -107,9 +103,9 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
           callback?()
 
       s._updateQuery = ->
-        if s.loaded && s.currentLLZoom && s.showMap
+        if s.loaded && s.currentLLZoom && s.m?.mode=='map'
           QueryString.modify( m: "#{ s.currentLLZoom.lat.toFixed(4) },#{ s.currentLLZoom.lon.toFixed(4) },#{ s.currentLLZoom.zoom }" )
-          s.setNearbyFromCenter({center:"#{ s.currentLLZoom.lat.toFixed(4) },#{ s.currentLLZoom.lon.toFixed(4) }"})
+          # s.setNearbyFromCenter({center:"#{ s.currentLLZoom.lat.toFixed(4) },#{ s.currentLLZoom.lon.toFixed(4) }"})
 
       # SET MAP DATA
 
@@ -148,6 +144,9 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
       s.placeFromId = (id) ->
         _.filter( s.placesInView , (p) -> 'p' + p.id == id )[0]
 
+      s.itemFromPlace = (id) ->
+        _.find( s.m?.plan()?.items , (i) -> i?.mark?.place?.id == id )
+
       s._clusterObj = (c) ->
         places = _( c.getAllChildMarkers() ).map('options').value()
         { id: "c#{c._leaflet_id}", count: c._childCount, center: c._latlng, bounds: c._bounds, places: places, location: s._bestListLocation(places, c._latlng), clusterObject: c }
@@ -170,7 +169,7 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
 
       s.$on 'leafletDirectiveMap.moveend', -> s.recalculateInView() if s.web
 
-      s.$on '$locationChangeSuccess', (event, next) -> s._filterPlaces( s.recalculateInView ) if s.items?.length
+      s.$on '$locationChangeSuccess', (event, next) -> s._filterPlaces( s.recalculateInView ) if s.m?.plan()?.items?.length
 
       s._adjustInfoBoxSize = ->
         $('#in-view-list').css('max-height', ( parseInt( $('.plan-map-canvas').height() * 0.9 ) - parseInt( $('.filter-dropdown-toggle').height() ) ).toString() + 'px') if s.web
@@ -220,24 +219,24 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
       
       # FILTER INIT
       s._initFilters()
-      s.$watch('filters', (-> QueryString.modify( f: s._filterString() ) if s.showMap ), true ) # On filter change, update the QueryString
+      s.$watch('filters', (-> QueryString.modify( f: s._filterString() ) if s.initialized && s.m?.mode=='map' ), true ) # On filter change, update the QueryString
 
       # MAPWIDE INIT
       s.initialized = false
       s.initialize = ->
-        if !s.initialized && s.showMap && s.items?.length > 0
+        if !s.initialized && s.m?.mode=='map' && s.m?.plan()?.items?.length
           $('.loading-mask.content-only').show()
-          s._getPlaces()
+          $timeout(-> s._getPlaces() )
           s.initialized = true
-        else if s.initialized && s.showMap
-          unless _.isEqual( s.items, s.firstItems )
+        else if s.initialized && s.m?.mode=='map'
+          unless _.isEqual( s.m?.plan()?.items, s.firstItems )
             s.changedItems = true
-            s._getPlaces()
-        else if s.initialized && !s.showMap
-          s.resetMapContent() if !s.items?.length
+            $timeout(-> s._getPlaces() )
+        else if s.initialized && !s.m?.mode=='map'
+          s.resetMapContent()
 
       s.resetMapContent = ->
-        s._setOnScope [ 'items', 'firstItems', 'places', 'preFilterPlaces', 'placesInView', 'clustersInView' ], []
+        s._setOnScope [ 'firstItems', 'places', 'preFilterPlaces', 'placesInView', 'clustersInView' ], []
         s._setOnScope [ 'currentLLZoom', 'currentBounds', 'centerAndZoom' ], null
         s.initialized = false
         s.centerPoint = { lat: 0, lng: 0, zoom: 2 }
@@ -245,8 +244,9 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
         QueryString.modify({f: null, m: null})
 
       # WATCH FOR CHANGES -> The third argument (true) makes watch compare by equality, not reference
-      s.$watch('items', (-> s.initialize() ), true )
-      s.$watch('showMap', (-> s.initialize() ), true )
+      # s.$watch('m.plan()', (-> s.initialize() ), true )
+      # s.$watch('m.mode', (-> s.initialize() ), true )
+      s.$watch('m', (-> s.initialize() ), true )
 
       s._setOnScope = (list, value = null) -> _.forEach list, (i) -> s[i] = ( if value? then _.clone(value) else null )
 

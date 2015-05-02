@@ -21,7 +21,7 @@ angular.module("Common").directive 'placeControlBar', (Mark, Modal, CurrentUser,
       s.savedPlace = -> s.place.savers.push( s.userId )
       s.removedPlace = -> 
         s.place.savers.splice( s.place.savers.indexOf( s.userId ), 1 ) if s.place.savers.indexOf( s.userId ) != -1
-        s.removedItem()
+        # s.removedItem()
 
       s.loves = -> _.include( s.place.lovers, s.userId )
       s.lovedPlace = -> s.place.lovers.push( s.userId )
@@ -32,10 +32,10 @@ angular.module("Common").directive 'placeControlBar', (Mark, Modal, CurrentUser,
       s.notbeenPlace = -> s.place.visitors.splice( s.place.visitors.indexOf( s.userId ), 1 ) if s.place.visitors.indexOf( s.userId ) != -1
 
       s.plannedPlace = (plan_id) -> s.place.guides.push( plan_id )
-      s.removedItem = ->
-        if s.planId && s.userOwnsPlan && s.items
-          s.place.guides.splice( s.place.guides.indexOf( s.planId ), 1 ) if s.place.guides.indexOf( s.planId ) != -1
-          s.plan.place_ids.splice( s.plan.place_ids.indexOf( s.place.id ), 1 ) if s.plan.place_ids.indexOf( s.place.id ) != -1
-          s.items.splice( s.items.indexOf( _.filter( s.items, (i) -> i.mark.place.id == s.place.id )[0] ), 1 )
+      # s.removedItem = ->
+      #   if s.planId && s.userOwnsPlan && s.items
+      #     s.place.guides.splice( s.place.guides.indexOf( s.planId ), 1 ) if s.place.guides.indexOf( s.planId ) != -1
+      #     s.plan.place_ids.splice( s.plan.place_ids.indexOf( s.place.id ), 1 ) if s.plan.place_ids.indexOf( s.place.id ) != -1
+      #     s.items.splice( s.items.indexOf( _.filter( s.items, (i) -> i.mark.place.id == s.place.id )[0] ), 1 )
 
   }
