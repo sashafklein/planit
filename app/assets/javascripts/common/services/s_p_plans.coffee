@@ -7,13 +7,14 @@ angular.module("Common").service "SPPlans", (User, Plan, SPPlan, QueryString, Er
       User.findPlans( user_id )
         .success (responses) -> _.forEach( responses, (r) -> self.plans[r.id] = new SPPlan( r ) )
 
-    addNewPlan: ( name ) ->
+    addNewPlan: ( nearby ) ->
       self = @
-      return unless name?.length
-      Plan.create( plan_name: name )
+      return unless Object.keys( nearby )?.length
+      Plan.create( plan_name: nearby.name )
         .success (response) ->
           plan = new SPPlan( response )
           self.plans[ plan.id ] = plan
+          self.plans[ plan.id ]['nearby'] = nearby
           QueryString.modify({ plan: plan.id })
         .error (response) ->
           ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.create', { plan_name: name } )

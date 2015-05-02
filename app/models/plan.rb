@@ -56,7 +56,7 @@ class Plan < BaseModel
   end
 
   def best_image
-    images.first || Image.where(imageable_type: 'Place', imageable_id: items.with_places.marks.places.pluck(:id)).first
+    image = images.first || Image.where(imageable_type: 'Place', imageable_id: items.with_places.marks.places.pluck(:id)).first
   end
 
   def has_lodging?
