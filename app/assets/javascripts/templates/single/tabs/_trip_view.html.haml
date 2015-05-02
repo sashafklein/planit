@@ -2,13 +2,13 @@
   #header-spacing.except-landscape
   .print-title {{ list.name }}
   .pad-top-addbox
-  .band.spaced-extra{ plan: 'm.list',  list_items: 'm.items' } 
+  .band.spaced-extra
     .container
       %h1.title.sixteen.columns Drag and Drop to Order Your Trip
 
       .items-in-manifest.six.columns
         %ul.plan-list-items.manifest{ ng_class: '{empty: !manifestItems.length}' }
-          %li.plan-list-item.manifest{ ng_repeat: "item in manifestItems", ng_href: '{{ item.index }}' }
+          %li.plan-list-item.manifest{ ng_repeat: "item in m.plan().manifestItems", ng_href: '{{ item.index }}' }
             .bucket-list-tab.main-item-card
               .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
               .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
@@ -25,7 +25,7 @@
 
       .items-in-list.ten.columns
         %ul.plan-list-items.list
-          %li.plan-list-item.list{ ng_repeat: "item in m.items | orderBy : 'mark.place.name'", ng_href: '{{ item.id }}' }
+          %li.plan-list-item.list{ ng_repeat: "item in m.plan().items | orderBy : 'mark.place.name'", ng_href: '{{ item.id }}' }
             .bucket-list-tab.main-item-card
               .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
               .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }

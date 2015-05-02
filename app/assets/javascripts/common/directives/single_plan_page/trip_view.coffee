@@ -7,17 +7,17 @@ angular.module("Common").directive 'tripView', (ErrorReporter, Item) ->
       m: '='
     link: (s, e, a) ->
 
+      s.initialized = false
       s.manifestItems = []
 
       s._getManifestItems = ->
-        return null unless ( item_ids = _.map(s.m.list.manifest, 'id') ).length
-
+        return null unless ( item_ids = _.map(s.m.plan().manifest, 'id') ).length
         Item.where( id: item_ids )
           .success (response) ->
-            _.forEach s.m.list.manifest, (obj, index) ->
+            _.forEach s.m.plan().manifest, (obj, index) ->
               s.manifestItems.push s._manifestWrap( _.find(response, (i) -> i.id == obj.id), index  )
           .error (response) ->
-            ErrorReporter.fullSilent( response, 'tripView getManifestItems', { list_id: s.m.list.id, item_ids: item_ids } )
+            ErrorReporter.fullSilent( response, 'tripView getManifestItems', { list_id: s.m.plan().id, item_ids: item_ids } )
 
       s._manifestWrap = (item, index) ->
         _.extend( Item.generateFromJSON(item) , { index: index, pane: 'manifest' } )
@@ -70,7 +70,7 @@ angular.module("Common").directive 'tripView', (ErrorReporter, Item) ->
             ErrorReporter.defaultFull response, "singlePagePlans #{name}", _.extend({plan_id: s.m.plan.id}, extraReporting) 
 
       s._resetManifestItems = (response) ->
-        s.m.list.manifest = response
+        s.m.plan().manifest = response
         newManifestItems = []
         _.forEach s.m.plan.manifest, (item, index) ->
           if found = s._findItem(item)
@@ -89,7 +89,11 @@ angular.module("Common").directive 'tripView', (ErrorReporter, Item) ->
       s._run = (func) -> setTimeout( func(), 0 )
       s._objectClasses = { Item: Item }
       
+      s._initializeIt = -> 
+        return unless s.m.mode == 'trip' && !s.initialized
+        s._getManifestItems()
+        s._setDragging(true)
+
       # INIT
-      s._getManifestItems()
-      s._setDragging(true)
+      s.$watch 'm.mode', s._initializeIt, true
   }
