@@ -76,8 +76,8 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
             locale = mostRecentItem.mark.place.locality || mostRecentItem.mark.place.sublocality || mostRecentItem.mark.place.subregion || mostRecentItem.mark.place.region || mostRecentItem.mark.place.country
             macro = mostRecentItem.mark.place.region || mostRecentItem.mark.place.country unless locale == mostRecentItem.mark.place.region || locale == mostRecentItem.mark.place.country
             s._setNearby( { name: locale, lat: mostRecentItem.mark.place.lat, lon: mostRecentItem.mark.place.lon, adminName1: macro } )
-          else if Object.keys( s.m.plan().nearby )?.length
-            s._setNearby( s.m.plan().nearby )
+          else if s.m.currentPlanId && s.m.plan()?.nearby && Object.keys( s.m.plan().nearby )?.length
+            s._setNearby( s.m.plan()?.nearby ) if s.m.plan()?.nearby
           else
             s._setNearby( null )
         else
@@ -98,16 +98,17 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
         hash = s._hashCommand()
         if hash && Object.keys( hash )?.length
           s.m.mode = if hash.mode?.length then hash.mode else 'list'
-          s._nearbyFromQuery( hash.near )
           if hash.plan
             s.m.planManager.fetchPlan( hash.plan )
             s.m.currentPlanId = parseInt( hash.plan )
           else
             s.m.currentPlanId = null
+          $timeout(-> s._nearbyFromQuery( hash.near ) )
         else
           s.m.mode = 'list'
           s.m.nearby = null
           s.m.currentPlanId = null
+          s.m.rename = null
         unless hash?.plan
           s.m.isLoaded = true
 
