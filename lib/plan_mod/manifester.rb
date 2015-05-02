@@ -34,11 +34,9 @@ module PlanMod
       manidup = plan.manifest.dup
 
       object = manidup[from]
-      insert_index = ( from < to ? to - 1 : to )
-
+      insert_index = ( manidup.length > 2 ? ( from < to ? to - 1 : to ) : to )
       manidup.delete_at from
-      manidup.insert(insert_index, object)
-
+      manidup.insert( insert_index , object)
       plan.manifest = manidup
     end
 

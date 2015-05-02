@@ -62,22 +62,30 @@ describe PlanMod do
 
     describe "move_in_manifest" do
 
-      before do 
+      it "moves objects in the manifest by index" do
         @plan.add_to_manifest(object: @i_2)
         @plan.add_to_manifest(object: @i_1)
         @plan.add_to_manifest(object: (@i_3 = create(:item)) )
-      end
 
-      it "moves objects in the manifest by index" do
         expect( @plan.manifest.map(&:id) ).to eq [@i_1.id, @i_2.id, @i_1.id, @i_3.id]
         @plan.move_in_manifest(from: 3, to: 0)
-        expect( @plan.manifest.map(&:id) ).to eq [@i_3.id, @i_1.id, @i_2.id, @i_1.id]
+        expect( @plan.reload.manifest.map(&:id) ).to eq [@i_3.id, @i_1.id, @i_2.id, @i_1.id]
         @plan.move_in_manifest(from: 0, to: 4)
-        expect( @plan.manifest.map(&:id) ).to eq [@i_1.id, @i_2.id, @i_1.id, @i_3.id]
+        expect( @plan.reload.manifest.map(&:id) ).to eq [@i_1.id, @i_2.id, @i_1.id, @i_3.id]
         @plan.move_in_manifest(from: 1, to: 2)
-        expect( @plan.manifest.map(&:id) ).to eq [@i_1.id, @i_2.id, @i_1.id, @i_3.id] # doesn't do anything, because we're inserting BEFORE
+        expect( @plan.reload.manifest.map(&:id) ).to eq [@i_1.id, @i_2.id, @i_1.id, @i_3.id] # doesn't do anything, because we're inserting BEFORE
         @plan.move_in_manifest(from: 1, to: 3)
-        expect( @plan.manifest.map(&:id) ).to eq [@i_1.id, @i_1.id, @i_2.id, @i_3.id]
+        expect( @plan.reload.manifest.map(&:id) ).to eq [@i_1.id, @i_1.id, @i_2.id, @i_3.id]
+      end
+
+      it "handles two objects" do
+        @plan.add_to_manifest(object: @i_2)
+
+        expect( @plan.manifest.map(&:id) ).to eq [@i_1.id, @i_2.id]
+        @plan.move_in_manifest(from: 0, to: 1)
+        expect( @plan.reload.manifest.map(&:id) ).to eq [@i_2.id, @i_1.id]
+        @plan.move_in_manifest(from: 1, to: 0)
+        expect( @plan.manifest.map(&:id) ).to eq [@i_1.id, @i_2.id]
       end
     end
   end
