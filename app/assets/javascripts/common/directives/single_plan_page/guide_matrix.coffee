@@ -6,7 +6,7 @@ angular.module("Common").directive 'guideMatrix', () ->
     scope:
       m: '='
     link: (s, e, a) ->
-      s.planImage = ( plan ) -> if plan && plan.best_image then plan.best_image.url else ''
+      s.planImage = ( plan ) -> plan?.best_image?.url?.replace("69x69","210x210")
       s.userOwns = (obj) -> s.m.currentUserId == obj.user_id
       s.plansNoItems = -> s.m.lists?.length && !_.uniq( _.flatten( _.map( s.m.lists, (l) -> l.place_ids ) ) ).length
   }

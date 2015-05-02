@@ -50,11 +50,11 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
 
       # NEARBY SETTING AND LOOKUP
 
-      s.m.nearbyOptions = []
+      s.m.nearbies = []
 
       s.m.setNearby = ( nearby ) -> 
         s.m._setValues( s.m, ['placeNearby', 'planNearby'], null )
-        s.m.nearbyOptions.push( nearby )
+        s.m.nearbies.push( nearby )
         QueryString.modify({ near: nearby.geonameId })
 
       s._setNearby = ( nearby ) ->
@@ -76,10 +76,12 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
             locale = mostRecentItem.mark.place.locality || mostRecentItem.mark.place.sublocality || mostRecentItem.mark.place.subregion || mostRecentItem.mark.place.region || mostRecentItem.mark.place.country
             macro = mostRecentItem.mark.place.region || mostRecentItem.mark.place.country unless locale == mostRecentItem.mark.place.region || locale == mostRecentItem.mark.place.country
             s._setNearby( { name: locale, lat: mostRecentItem.mark.place.lat, lon: mostRecentItem.mark.place.lon, adminName1: macro } )
+          else if Object.keys( s.m.plan().nearby )?.length
+            s._setNearby( s.m.plan().nearby )
           else
             s._setNearby( null )
         else
-          found = _.find( s.m.nearbyOptions, (o) -> o.geonameId == parseInt( geoid ) )
+          found = _.find( s.m.nearbies, (o) -> parseInt( o.geonameId ) == parseInt( geoid ) )
           if found && Object.keys( found )?.length
             s._setNearby( found )
           else
