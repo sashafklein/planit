@@ -36,7 +36,11 @@ RSpec.configure do |config|
   # end
 end
 
-Capybara.javascript_driver = :webkit
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+end
+
+Capybara.javascript_driver = :chrome
 
 if ENV['CIRCLE_ARTIFACTS']
   Capybara.save_and_open_page_path = ENV['CIRCLE_ARTIFACTS']

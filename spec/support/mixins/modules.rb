@@ -16,6 +16,17 @@ module Features
     uri = URI.parse(current_url)
     "#{uri.path}?#{uri.query}"
   end
+
+  def wait_for(selector:, limit: 3, test_regularity: 0.1)
+    if Nokogiri.parse(html).css(selector).present?
+      true
+    elsif limit == 0
+      raise "Couldn't find #{selector}"
+    else
+      sleep test_regularity
+      wait_for(selector: selector, limit: limit - test_regularity, test_regularity: test_regularity)
+    end
+  end
 end
 
 module Controllers
