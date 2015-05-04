@@ -23,12 +23,11 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, Err
             ErrorReporter.report({ context: "Tried looking up plan number #{s.planId}, unsuccessful"})
       
       s.getListItems = ->
-        Item.where({ plan_id: s.planId })
+        Item.where({ plan_id: s.planId }, ['hours'])
           .success (response) ->
             _.forEach response , (item, index) ->
               i = _.extend( Item.generateFromJSON( item ), { index: index, pane: 'list' } )
               s.items.push i
-            # s._getManifestItems()
             $timeout(-> s.allItems = s.items )
             $timeout(-> s.initializeItemsNotes() )
             $timeout(-> s.initializeLocales() )
@@ -46,20 +45,32 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, Err
         #   )
 
       s.initializeLocales = ->
-        s.sublocalityList = s.buildAndCompressLocaleList( 'sublocality' )
-        s.manySublocalities = if s.sublocalityList?.length > 1 then s.localeLevel = 'sublocality'; true else false
-        s.localityList = s.buildAndCompressLocaleList( 'locality' )
-        s.manyLocalities = if s.localityList?.length > 1 then s.localeLevel = 'locality'; true else false
-        s.regionList = s.buildAndCompressLocaleList( 'region' )
-        s.manyRegions = if s.regionList?.length > 1 then s.localeLevel = 'region'; true else false
-        s.countryList = s.buildAndCompressLocaleList( 'country' )
-        s.manyCountries = if s.countryList?.length > 1 then s.localeLevel = 'country'; true else false
+        localeLevels = ['sublocality', 'locality', 'region', 'country']
+        _.forEach localeLevels, (level) ->
+          s[ "#{level}List" ] = s.buildAndCompressLocaleList( level )
+
+          if s[ "#{level}List" ]?.length
+            s.localeLevel = level
+            s[ "many#{ s._pluralize(level) }" ] = true
+
+        s.localeLevel ||= _.find( localeLevels, (l) -> _(s.items).map("mark.place.#{l}").uniq().compact().value().length == 1)
+        
         s.setLocalesByLevel()
+
+      s._pluralize = (level) ->
+        switch level
+          when 'country' then 'countries'
+          when 'region' then 'regions'
+          when 'locality' then 'localities'
+          when 'sublocality' then 'sublocalities'
+          else level + 's'
+
       s.setLocalesByLevel = ->
         if s.localeLevel == 'sublocality' then s.locales = s.sublocalityList
         if s.localeLevel == 'locality' then s.locales = s.localityList
         if s.localeLevel == 'region' then s.locales = s.regionList
         if s.localeLevel == 'country' then s.locales = s.countryList
+
       s.localeItems = ( locale ) ->
         itemsInLocale = []
         if s.localeLevel == 'sublocality' then itemsInLocale = _.filter( s.items, (i) -> i.mark.place.sublocality == locale )

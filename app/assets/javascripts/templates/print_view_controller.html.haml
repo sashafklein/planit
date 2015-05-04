@@ -1,12 +1,13 @@
 .print-view-controller
 
   .print-view-controller-box
-    Geographic Clustering: 
-    %select{ ng_model: 'localeLevel', ng_disabled: '!isLoaded', ng_change: "setLocalesByLevel()" }
-      %option{ value: 'country', ng_show: 'manyCountries' } Country
-      %option{ value: 'region', ng_show: 'manyRegions' } Region
-      %option{ value: 'locality', ng_show: 'manyLocalities' } City / Town
-      %option{ value: 'sublocality', ng_show: 'manySublocalities' } Neighborhood
+    .geographic-dropdown{ ng_show: 'manyCountries || manyRegions || manyLocalities || manySublocalities'}
+      Geographic Clustering: 
+      %select{ ng_model: 'localeLevel', ng_disabled: '!isLoaded', ng_change: "setLocalesByLevel()" }
+        %option{ value: 'country', ng_show: 'manyCountries' } Country
+        %option{ value: 'region', ng_show: 'manyRegions' } Region
+        %option{ value: 'locality', ng_show: 'manyLocalities' } City / Town
+        %option{ value: 'sublocality', ng_show: 'manySublocalities' } Neighborhood
 
     = "&nbsp;".html_safe
     Level of Detail: 
