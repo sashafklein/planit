@@ -40,7 +40,7 @@ angular.module("Common").directive 'printMap', (ErrorReporter) ->
         s.clusterMarkers = new L.MarkerClusterGroup({
           disableClusteringAtZoom: 13,
           spiderfyOnMaxZoom: true,
-          maxClusterRadius: 80,
+          maxClusterRadius: 20,
           iconCreateFunction: (cluster) ->
             L.divIcon( 
               className: "cluster-map-div-container",
