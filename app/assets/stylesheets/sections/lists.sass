@@ -45,6 +45,9 @@
     -o-background-size: cover
     background-size: cover
     text-align: center
+    img
+      width: 69px
+      height: 69px
 
   .bucket-list-no-img
     display: inline-block
@@ -84,19 +87,34 @@
       color: #0047b3 // light blue
       text-decoration: none
 
-  span.mini-foursquare-icon
+  span.mini-foursquare-icon, span.xmini-foursquare-icon
     display: inline-block
-    height: 30px
-    width: 30px
-    margin-right: 3px
-    background-color: #aaa
     float: left
+    margin-right: 3px
     background: no-repeat center center
     -webkit-background-size: cover
     -moz-background-size: cover
     -o-background-size: cover
     background-size: cover
     vertical-align: middle
+    border-radius: 4px
+
+  span.mini-foursquare-icon
+    height: 30px
+    width: 30px
+    img
+      height: 30px
+      width: 30px
+
+  span.xmini-foursquare-icon
+    height: 24px
+    width: 24px
+
+  .main-item-card .foursquare-and-info-wrap .bucket-list-more-info
+    margin-left: 35px
+
+  .bucket-list-more-info.locale-only
+    color: #777
 
   .bucket-list-more-info
     display: block

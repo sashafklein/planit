@@ -6,6 +6,28 @@ mod.factory 'PlanitMarker', ($timeout) ->
     constructor: (scope) ->
       @scope = scope
 
+    pinIcon: (place) ->
+      if place.foursquare_icon
+        """<i class="minimap foursquare-icon" style="background-image: url('#{place.foursquare_icon.replace("bg_64","32")}')"></i>"""
+      else
+        """<i class="#{place.meta_icon || ''}" ></i>"""
+
+    pinColor: (meta_category) ->
+      switch meta_category
+        when 'Area' then 'yellow'
+        when 'See' then 'green'
+        when 'Do' then 'bluegreen'
+        when 'Relax' then 'turqoise'
+        when 'Stay' then 'blue'
+        when 'Drink' then 'purple'
+        when 'Food' then 'magenta'
+        when 'Shop' then 'pink'
+        when 'Help' then 'orange'
+        when 'Other' then 'gray'
+        when 'Transit' then 'gray'
+        when 'Money' then 'gray'
+        else 'no-type'
+
     primaryPin: (place, show_popup = false) ->
       id = "p#{place.id}"
       events = """ onclick="mapMouseEvent('pinClick', '#{id}')" onmouseenter="mapMouseEvent('pinMouseenterScroll', '#{id}')" onmouseleave="mapMouseEvent('pinMouseleave', '#{id}')" """
@@ -13,7 +35,7 @@ mod.factory 'PlanitMarker', ($timeout) ->
         icon:
           type: 'div'
           className: 'default-map-div-icon'
-          html: """ <div class="default-map-icon-tab #{id}" id="#{id}" #{events}><i class="#{place.meta_icon || ''}" ></i><div class="arrow" /></div> """
+          html: """ <div class="default-map-icon-tab #{id} #{@pinColor( place.meta_categories[0] )}" id="#{id}" #{events}>#{@pinIcon( place )}<div class="arrow" /></div> """ 
           iconSize: null
       ).value()
       # return pin unless show_popup

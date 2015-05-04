@@ -1,13 +1,14 @@
 .list-or-trip-mode{ ng_show: "m.plan() && m.planManager.itemCount()>0 && (m.mode == 'list' || m.mode == 'trip')" }
   #header-spacing.except-landscape
-  .print-title {{ list.name }}
+  .print-title {{ m.plan().name }}
+  .print-by {{ planAuthor( m.plan().user_id ) }}
   .pad-top-addbox{ ng_show: 'm.plan() || m.hasPlans()' }
   .band.spaced-extra
     .container
       .items-in-plan
         .items-in-plan-category{ ng_repeat: 'category in m.plan().categories( m.categorizeBy )' }
           %ul.plan-list-items
-            %li.items-organized-by.rainbow-print{ ng_show: "m.categorizeBy != 'alphabetical'", ng_class: "metaClass( category )" }
+            %li.items-organized-by.rainbow{ ng_show: "m.categorizeBy != 'alphabetical'", ng_class: "colorClass( category )" }
               %i.list-category-icon{ ng_show: "m.categorizeBy == 'type'", ng_class: 'typeIcon(m.plan().items, category)' } 
               %span{ ng_show: "m.categorizeBy == 'recent' && category.length"} Updated on {{ category }}
               %span{ ng_show: "m.categorizeBy == 'recent' && !category.length"} Undated
@@ -21,17 +22,22 @@
               /     %i.fa.fa-check-square
               .bucket-list-tab.main-item-card{ ng_click: "item.fsOpen(m.mode != 'trip')" }
                 .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
-                .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
+                .bucket-list-img{ ng_if: "item.mark.place.image_url" }
+                  %img{ src: "{{ item.mark.place.image_url }}" }
                 .bucket-list-wrap
                   .bucket-list-profile
                     %a{ target: '_self' }
                       .bucket-list-title
                         {{ item.mark.place.names[0] }}
-                      .bucket-list-more-info
-                        %i{ class: "{{ item.mark.place.meta_icon }}"}
-                        {{ item.mark.place.categories.join(', ') }}
-                      .bucket-list-more-info.locale-only
-                        {{ item.mark.place.localeDetails() }}
+                      .foursquare-and-info-wrap
+                        %span.mini-foursquare-icon.rainbow{ ng_class: "colorClass( item.mark.place.meta_categories[0] )" }
+                          %img{ ng_show: "item.mark.place.foursquare_icon", src: "{{ item.mark.place.foursquare_icon.replace('_bg','') }}" }
+                        .bucket-list-more-info
+                          {{ item.mark.place.categories.join(', ') }}
+                        .bucket-list-more-info.locale-only{ ng_show: "item.mark.place.street_addresses[0]" }
+                          {{ item.mark.place.street_addresses[0] }}
+                        .bucket-list-more-info.locale-only
+                          {{ item.mark.place.localeDetails() }}
 
               .list-item-notes{ ng_show: 'm.mode == "list"' }
                 %textarea{ ng_model: "item.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_blur: 'item.saveNote()', ng_disabled: '!item.notesSearched || !m.userOwnsPlan()', ng_change: 'noteChange(item)' }
