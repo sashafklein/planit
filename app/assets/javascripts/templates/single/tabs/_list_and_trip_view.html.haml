@@ -7,7 +7,7 @@
       .items-in-plan
         .items-in-plan-category{ ng_repeat: 'category in m.plan().categories( m.categorizeBy )' }
           %ul.plan-list-items
-            %li.items-organized-by{ ng_show: "m.categorizeBy != 'alphabetical'", ng_class: "metaClass( category )" }
+            %li.items-organized-by.rainbow-print{ ng_show: "m.categorizeBy != 'alphabetical'", ng_class: "metaClass( category )" }
               %i.list-category-icon{ ng_show: "m.categorizeBy == 'type'", ng_class: 'typeIcon(m.plan().items, category)' } 
               %span{ ng_show: "m.categorizeBy == 'recent' && category.length"} Updated on {{ category }}
               %span{ ng_show: "m.categorizeBy == 'recent' && !category.length"} Undated
@@ -34,7 +34,7 @@
                         {{ item.mark.place.localeDetails() }}
 
               .list-item-notes{ ng_show: 'm.mode == "list"' }
-                %textarea{ ng_model: "item.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_on_enter_key: 'nextNote(item)', ng_on_tab_key: 'nextNote(item)', ng_shift_on_tab_key: 'priorNote(item)', ng_blur: 'item.saveNote()', ng_disabled: '!item.notesSearched || !m.userOwnsPlan()', ng_change: 'item.noteChanged=true' }
+                %textarea{ ng_model: "item.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_blur: 'item.saveNote()', ng_disabled: '!item.notesSearched || !m.userOwnsPlan()', ng_change: 'noteChange(item)' }
 
               %item_actions_bar{ m: 'm', item: 'item' }
 

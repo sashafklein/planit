@@ -28,12 +28,19 @@ class Api::V1::NotesController < ApiController
 
   def edit_or_create
     return permission_denied_error unless current_user
-    # object = note_params[:object_type].to_s.singularize.camelize.constantize.find( note_params[:object_id] )
-    # return permission_denied_error unless object && current_user.owns?( object )
-    note = current_user.notes.where( note_params.slice(:object_id, :object_type) ).first_or_initialize
-    note.body = note_params[:body]
-    note.save!
-    render json: { body: note.body }
+    note_body = note_params[:body]
+    if note_body.length > 0
+      # object = note_params[:object_type].to_s.singularize.camelize.constantize.find( note_params[:object_id] )
+      # return permission_denied_error unless object && current_user.owns?( object )
+      note = current_user.notes.where( note_params.slice(:object_id, :object_type) ).first_or_initialize
+      note.body = note_body
+      note.save!
+      render json: { body: note.body }
+    else
+      note = current_user.notes.where( note_params.slice(:object_id, :object_type) ).first
+      if note then note.destroy() end
+      return success
+    end
   end
 
   def note_params

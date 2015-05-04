@@ -36,7 +36,6 @@ angular.module("Common").service "SPItem", (CurrentUser, Item, Mark, Note, Query
 
     saveNote: ->
       self = @
-      return unless @?.note?.length > 0
       return unless @?.noteChanged == true
       @.noteSearched = false
       Note.create({ note: { object_id: self.id, object_type: self.class, body: self.note } })

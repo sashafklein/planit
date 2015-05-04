@@ -5,7 +5,7 @@ angular.module("Common").service "SPPlans", (User, Plan, SPPlan, QueryString, Er
       self = @
       self.plans = {}
       User.findPlans( user_id )
-        .success (responses) -> _.forEach( responses, (r) -> self.plans[r.id] = new SPPlan( r ) )
+        .success (responses) -> _.forEach( responses, (r) -> self.plans[r.id] = new SPPlan( r ); self.plans[r.id]['type'] = 'travel' )
 
     addNewPlan: ( nearby ) ->
       self = @
@@ -27,6 +27,7 @@ angular.module("Common").service "SPPlans", (User, Plan, SPPlan, QueryString, Er
         Plan.find( plan_id )
           .success (response) -> 
             self.plans[ response.id ] = new SPPlan( response )
+            self.plans[ response.id ].type = 'followed' if !self.plans[ response.id ].userOwns()
             self.plans[ response.id ].loadItems()
           .error (response) -> 
             ErrorReporter.fullSilent( response, "SPPlans loading plan #{ plan_id }" )

@@ -10,9 +10,9 @@
       .hint{ ng_show: 'item.currentUserLoves()' } Unlove
     .item-action-button.been-item
       %i.action.fa.fa-check-square{ ng_show: '!item.currentUserVisited()', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserBeen()' }
-      .hint{ ng_show: '!item.currentUserVisited()' } Mark as Been
+      .hint{ ng_show: '!item.currentUserVisited()' } I Have Been Here
       %i.action.fa.fa-check-square.enabled{ ng_show: 'item.currentUserVisited()', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserUnbeen()' }
-      .hint{ ng_show: 'item.currentUserVisited()' } Mark as Not Been
+      .hint{ ng_show: 'item.currentUserVisited()' } I Haven't Been Here
   .item-actions{ ng_show: '!m.userOwnsPlan()' }
     .item-action-button.remove-item
       / %i.action.fa.fa-bookmark{ ng_show: '!item.currentUserSaved()', save_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserSave()' }
@@ -26,6 +26,6 @@
       .hint{ ng_show: 'item.currentUserLoves()' } Unlove
     .item-action-button.been-item
       %i.action.fa.fa-check-square{ ng_show: '!item.currentUserVisited()', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserBeen()' }
-      .hint{ ng_show: '!item.currentUserVisited()' } Mark as Been
+      .hint{ ng_show: '!item.currentUserVisited()' } I Have Been Here
       %i.action.fa.fa-check-square.enabled{ ng_show: 'item.currentUserVisited()', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserUnbeen()' }
-      .hint{ ng_show: 'item.currentUserVisited()' } Mark as Not Been
+      .hint{ ng_show: 'item.currentUserVisited()' } I Haven't Been Here
