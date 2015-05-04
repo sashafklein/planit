@@ -5,6 +5,7 @@ class PlaceSerializer < BaseSerializer
               :street_addresses, :sublocality, :locality, :subregion, :region, :country,
               :phones, :website,
               :meta_categories, :categories,
+              :foursquare_icon,
 
               # Details
               :wifi,

@@ -6,6 +6,7 @@
         {{ m.plan().name }}
         %i.fa.fa-pencil.rename{ ng_click: 'renamePlan()', ng_show: 'm.userOwnsPlan()' }
       %i.fa.fa-cog.settings{ ng_show: 'm.plan()', ng_click: 'm.settingsBoxToggle()', ng_class: "{'opened': m.settingsBoxToggled}" }
+      .plan-by{ ng_show: '!m.plan().userOwns()' } by {{ m.plan().userName }}
     .chosen-plan.above-mask{ ng_show: 'm.plan() && m.rename' }
       %input.title#rename{ ng_model: 'm.rename', ng_on_enter_key: 'saveRenamePlan()', ng_on_esc_key: 'cancelRenamePlan()' }
 

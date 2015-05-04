@@ -32,7 +32,7 @@
       background: #f06
       vertical-align: center
 
-  .print-title
+  .print-title, .print-by
     display: none
     visibility: hidden
 
@@ -89,6 +89,10 @@
     z-index: 10004
     -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
+    .plan-by
+      position: absolute
+      color: #aaa
+      bottom: 5px
     span.title
       display: inline-block
       color: #fff
@@ -535,23 +539,28 @@
           &:hover
             color: #777
 
-  li.items-organized-by + li.items-organized-by, li.items-organized-by + li.plan-list-item
+  li.items-organized-by + li.items-organized-by, li.plan-list-item + li.items-organized-by, li.items-organized-by + li.plan-list-item
     border-top: 1px solid #ccc
 
-  li.items-organized-by 
-    background: transparent
+  li.items-organized-by
+    height: 35px
+    line-height: 30px
+    padding-bottom: 5px
+    margin: 20px 0
+    padding-left: 15px
     font-family: avenir, "Myriad W01", "Helvetica Neue", 'trebuchet ms'
-    font-weight: bold
     font-size: 16px
-    line-height: 75px
-    height: 75px
     overflow: hidden
     color: #333
     cursor: default
+    border-top: 1px solid rgba(255,255,255,0.3)
+    border-bottom: 1px solid rgba(0,0,0,0.2)
     i.list-category-icon
       padding-right: 10px
       font-size: 16px
-      color: #f06
+    &.no-type
+      background: #eee !important
+      color: #000 !important
 
   .view-and-edit-mode, .sort-items-by
     user-select: none
@@ -638,7 +647,8 @@
     width: 75px
     height: 75px
 
-
+  .bucket-list-wrap
+    width: 95%
 
 
   // TAB SIZING
@@ -920,29 +930,28 @@
 
   @media print 
 
-    .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page, .minimize-maximize-addbox, .view-and-edit-mode, .sort-items-by, .item-actions
+    .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page, .minimize-maximize-addbox, .view-and-edit-mode, .sort-items-by, .item-actions, li.items-organized-by i.list-category-icon, #header-spacing.except-landscape, .pad-top-addbox
       visibility: hidden !important
       display: none !important
 
-    .band.spaced-xxx
-      padding: 15px 0
+    .band.spaced-xxx, .band.spaced-extra
+      padding: 0
 
-    .print-title
+    .print-title, .print-by
       display: block !important
       visibility: visible !important
       text-align: center
+
+    .print-title
       font-size: 25px
       font-weight: bold
+      color: #000
+
+    .print-by
+      font-size: 16px
+      font-weight: normal
+      color: #777    
 
     .list-item-notes textarea
       border: none !important
       background: #fff !important
-
-    li.items-organized-by
-      height: 35px
-      line-height: 35px
-      margin: 20px 0
-      padding-left: 15px
-      &.no-type
-        background: #eee !important
-        color: #000 !important

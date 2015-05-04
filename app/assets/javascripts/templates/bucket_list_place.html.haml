@@ -5,9 +5,11 @@
     .bucket-list-profile
       %a.bucket-list-title{ ng_href: "{{place.fs_href}}", target: '_blank' }
         {{ place.name }}
-      .bucket-list-more-info
-        %i{ class: '{{place.meta_icon}}'}
-        {{ place.categories.join(', ') }}
+      .foursquare-and-info-wrap
+        %span.xmini-foursquare-icon.rainbow{ ng_class: "colorClass( place.meta_categories[0] )" }
+          %span.xmini-foursquare-icon{ style: "background-image: url('{{ place.foursquare_icon.replace('_bg','') }}');", ng_show: "place.foursquare_icon" }
+        .bucket-list-more-info
+          {{ place.categories.join(', ') }}
 
     .bucket-list-controls
       %item_actions_bar{ m: 'm', item: 'item' }

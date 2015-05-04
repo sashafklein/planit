@@ -22,13 +22,14 @@ angular.module("Common").service "SPPlans", (User, Plan, SPPlan, QueryString, Er
     fetchPlan: ( plan_id ) ->
       self = @
       if @.plans[ plan_id ]?.items?.length then QueryString.modify({ plan: plan_id })
-      else if @.plans[ plan_id ] then @.plans[ plan_id ].loadItems()
+      else if @.plans[ plan_id ] then @.plans[ plan_id ].loadItems(); @.plans[ plan_id ].getOwner()
       else
         Plan.find( plan_id )
           .success (response) -> 
             self.plans[ response.id ] = new SPPlan( response )
             self.plans[ response.id ].type = 'followed' if !self.plans[ response.id ].userOwns()
             self.plans[ response.id ].loadItems()
+            self.plans[ response.id ].getOwner()
           .error (response) -> 
             ErrorReporter.fullSilent( response, "SPPlans loading plan #{ plan_id }" )
 

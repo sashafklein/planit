@@ -1,4 +1,4 @@
-angular.module("Common").directive 'listAndTripView', (ErrorReporter, Mark, Flash, Note, $timeout) ->
+angular.module("Common").directive 'listAndTripView', (User,  ErrorReporter, Mark, Flash, Note, $timeout) ->
   return { 
     restrict: 'E'
     replace: true
@@ -7,7 +7,7 @@ angular.module("Common").directive 'listAndTripView', (ErrorReporter, Mark, Flas
       m: '='
     link: (s, e, a) ->
       
-      s.metaClass = ( meta_category ) -> 
+      s.colorClass = ( meta_category ) -> 
         switch meta_category
           when 'Area' then 'yellow'
           when 'See' then 'green'
@@ -32,6 +32,5 @@ angular.module("Common").directive 'listAndTripView', (ErrorReporter, Mark, Flas
         s._saveNoteOnDelay(item)
 
       s._saveNoteOnDelay = _.debounce( ( (item) -> item.saveNote() unless item.noteChanged == false ), 1500)
-
 
   }
