@@ -47,13 +47,14 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, Err
       s.initializeLocales = ->
         localeLevels = ['sublocality', 'locality', 'region', 'country']
         _.forEach localeLevels, (level) ->
-          [list, many] = ["#{level}List", "many#{ s._pluralize(level) }"]
-          s[list] = s.buildAndCompressLocaleList( level )
+          s[ "#{level}List" ] = s.buildAndCompressLocaleList( level )
 
-          if s[list]?.length
+          if s[ "#{level}List" ]?.length
             s.localeLevel = level
-            s[many] = true
-        s.localeLevel = _.find( localeLevels, (l) -> _(s.items).map("mark.place.#{l}").uniq().compact().value().length == 1)
+            s[ "many#{ s._pluralize(level) }" ] = true
+
+        s.localeLevel ||= _.find( localeLevels, (l) -> _(s.items).map("mark.place.#{l}").uniq().compact().value().length == 1)
+        
         s.setLocalesByLevel()
 
       s._pluralize = (level) ->
