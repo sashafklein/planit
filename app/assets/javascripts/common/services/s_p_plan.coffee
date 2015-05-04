@@ -41,7 +41,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, Plan, Item, Note, SPIte
             self._pusher.unsubscribe( "add-item-from-place-data-to-plan-#{ self.id }" )
 
     _affixItem: (response, callback) ->
-      new_item = _.extend( Item.generateFromJSON( response ), { index: @.items.length, pane: 'list', notesSearched: true } )
+      new_item = _.extend( new SPItem( Item.generateFromJSON( response ) ), { index: @.items.length, pane: 'list', notesSearched: true } )
       if !_.find(@.items, (i) -> i.mark?.place?.id == new_item.mark?.place?.id )
         @.items.unshift new_item
         @.place_ids.unshift( new_item.mark?.place.id ) if new_item?.mark?.place?.id      

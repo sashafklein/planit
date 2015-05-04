@@ -41,7 +41,7 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
       # TYPING
       s.m.handleKeyup = -> s.m._turnOffTyping()
       s.m.handleKeydown = -> s.m.typing = true unless s.m.typing
-      s.m._turnOffTyping = _.debounce( (=> s.$apply(s.m.typing = false)), 300)
+      s.m._turnOffTyping = _.debounce( (=> s.$apply(s.m.typing = false)), 500)
 
 
       # LISTS
