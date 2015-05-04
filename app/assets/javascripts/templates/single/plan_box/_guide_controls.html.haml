@@ -5,12 +5,12 @@
       %span.title{ ng_click: 'renamePlan()' }
         {{ m.plan().name }}
         %i.fa.fa-pencil.rename{ ng_click: 'renamePlan()', ng_show: 'm.userOwnsPlan()' }
-      %i.fa.fa-cog.settings{ ng_show: 'm.plans[currentPlanId].items.length', ng_click: 'm.settingsBoxToggle()', ng_class: "{'opened': m.settingsBoxToggled}" }
+      %i.fa.fa-cog.settings{ ng_show: 'm.plan()', ng_click: 'm.settingsBoxToggle()', ng_class: "{'opened': m.settingsBoxToggled}" }
     .chosen-plan.above-mask{ ng_show: 'm.plan() && m.rename' }
       %input.title#rename{ ng_model: 'm.rename', ng_on_enter_key: 'saveRenamePlan()', ng_on_esc_key: 'cancelRenamePlan()' }
 
   .settingsbox-on-plan-page{ ng_show: "m.plan() && ( m.settingsBoxToggled || m.rename )", ng_class: "{'in-rename': m.rename}" }
-    .plan-settings-dropdown{ ng_show: '!m.rename && m.plans[currentPlanId].items.length' }
+    .plan-settings-dropdown{ ng_show: '!m.rename && m.plan()' }
       %plan_settings{ m: 'm' }
     .rename-confirmation{ ng_show: 'm.rename' }
       .planit-button.gray{ ng_click: 'cancelRenamePlan()' } Cancel          
