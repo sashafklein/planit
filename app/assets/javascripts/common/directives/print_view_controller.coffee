@@ -47,10 +47,10 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, Err
       s.initializeLocales = ->
         localeLevels = ['sublocality', 'locality', 'region', 'country']
         _.forEach localeLevels, (level) ->
-          s[ "#{level}List" ] = s.buildAndCompressLocaleList( level )
+          s[ "#{level}List" ] = _.compact s.buildAndCompressLocaleList( level )
 
           if s[ "#{level}List" ]?.length
-            s.localeLevel = level
+            s.localeLevel ||= level
             s[ "many#{ s._pluralize(level) }" ] = true
 
         s.localeLevel ||= _.find( localeLevels, (l) -> _(s.items).map("mark.place.#{l}").uniq().compact().value().length == 1)
@@ -82,7 +82,10 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, Err
       # BY CATEGORY
 
       s.categories = ( items ) -> _.uniq( _.map( items, (i) -> i.mark.place.meta_categories[0] ) )
-      s.categoryItems = ( meta_category, items ) -> _.filter( items, (i) -> i.mark.place.meta_categories[0] == meta_category )
+      s.categoryItems = ( meta_category, items ) -> 
+        _( items ).filter( 
+          (i) -> i.mark.place.meta_categories[0] == meta_category 
+        ).sortBy( (i) -> String( i.symbol ) ).value()
 
       # GET NOTES
 
@@ -99,23 +102,24 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, Err
       # ITEM FEATURES
 
       s.metaClass = ( meta_category ) -> 
-        colorClass = 'yellow' if meta_category == 'Area'
-        colorClass = 'green' if meta_category == 'See'
-        colorClass = 'bluegreen' if meta_category == 'Do'
-        colorClass = 'turqoise' if meta_category == 'Relax'
-        colorClass = 'blue' if meta_category == 'Stay'
-        colorClass = 'purple' if meta_category == 'Drink'
-        colorClass = 'magenta' if meta_category == 'Food'
-        colorClass = 'pink' if meta_category == 'Shop'
-        colorClass = 'orange' if meta_category == 'Help'
-        colorClass = 'gray' if meta_category == 'Other'
-        colorClass = 'gray' if meta_category == 'Transit'
-        colorClass = 'gray' if meta_category == 'Money'
-        return colorClass
+        switch meta_category
+          when 'Area' then 'yellow'
+          when 'See' then 'green'
+          when 'Do' then 'bluegreen'
+          when 'Relax' then 'turqoise'
+          when 'Stay' then 'blue'
+          when 'Drink' then 'purple'
+          when 'Food' then 'magenta'
+          when 'Shop' then 'pink'
+          when 'Help' then 'orange'
+          when 'Other' then 'gray'
+          when 'Transit' then 'gray'
+          when 'Money' then 'gray'
+          else 'no-type'
 
       s.hasCategories = (item) -> item.mark.place.categories.length
 
-      s.zoom = 15
+      s.zoom = 16
       s.staticMap = (item) -> "http://staticmap.openstreetmap.de/staticmap.php?center=#{ s.coord(item) }&zoom=#{ s.zoom }&size=130x130&maptype=osmarenderer"
       s.directionsLink = (item) -> "https://maps.google.com?daddr=#{ s.coord(item) }"
       s.coord = (item) -> "#{item.mark.place.lat},#{item.mark.place.lon}"

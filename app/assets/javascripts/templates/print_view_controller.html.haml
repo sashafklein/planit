@@ -9,7 +9,7 @@
         %option{ value: 'locality', ng_show: 'manyLocalities' } City / Town
         %option{ value: 'sublocality', ng_show: 'manySublocalities' } Neighborhood
 
-    = "&nbsp;".html_safe
+      = "&nbsp;".html_safe
     Level of Detail: 
     %select{ ng_model: 'detailLevel', ng_disabled: '!isLoaded', ng_change: "changeDetail()" }
       %option{ value: 2 } High
