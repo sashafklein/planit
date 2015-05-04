@@ -1,4 +1,4 @@
-angular.module("Common").service "SPPlan", (CurrentUser, Plan, Item, Note, SPItem, QueryString, RailsEnv, ErrorReporter, Spinner, Flash, $timeout) ->
+angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SPItem, QueryString, RailsEnv, ErrorReporter, Spinner, Flash, $timeout) ->
   class SPPlan
 
     constructor: (plan) -> _.extend( @, plan )
@@ -103,6 +103,17 @@ angular.module("Common").service "SPPlan", (CurrentUser, Plan, Item, Note, SPIte
     userOwns: -> @.user_id == CurrentUser.id
     ownerLoves: ( item ) -> _.includes( item.mark.place.lovers , @.user_id )
     ownerVisited: ( item ) -> _.includes( item.mark.place.visitors , @.user_id )
+
+    getOwner: ->
+      self = @
+      if @.userOwns()
+        @.user = CurrentUser
+      else
+        User.find( @.user_id )
+          .success (response) -> 
+            self.user = User.generateFromJSON( response )
+            self.userName = self.user.name
+          .error (response) -> ErrorReporter.fullSilent("Looking up user #{self.user_id} in SPPlan")
 
     # FUNCTIONS ON PLAN
 

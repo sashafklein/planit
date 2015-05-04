@@ -33,13 +33,4 @@ angular.module("Common").directive 'listAndTripView', (User,  ErrorReporter, Mar
 
       s._saveNoteOnDelay = _.debounce( ( (item) -> item.saveNote() unless item.noteChanged == false ), 1500)
 
-      s.planAuthor = ( user_id ) -> 
-        if user_id == s.m.currentUserId
-          return "by #{s.m.currentUserName}"
-        else
-          User.find( user_id )
-            .success( response ) -> return "by #{ response.name }"
-            .error( response ) -> return ""
-
-
   }

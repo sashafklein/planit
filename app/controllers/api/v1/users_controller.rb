@@ -4,7 +4,7 @@ class Api::V1::UsersController < ApiController
     permission_denied_error unless current_user
     
     @user = User.find(params[:id])
-    render json: @user.marks.places, each_serializer: PlaceSerializer
+    render json: @user, serializer: UserSerializer
   end
 
 end
