@@ -16,7 +16,7 @@ class PlaceSerializer < BaseSerializer
               :fs_href
 
               # Removed
-              # :href, 
+              # :href, hours,
               # :menu, :mobile_menu, 
               # :reservations, :reservations_link, 
 

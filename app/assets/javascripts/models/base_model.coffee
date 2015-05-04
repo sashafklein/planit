@@ -56,11 +56,12 @@ mod.factory "BaseModel", ($http) ->
     @all:  -> $http.get(@basePath)
     @find: (id) -> $http.get( @objectPath(id) )
     @create: (data) -> $http.post(@basePath, data)
-    @where: (conditions) -> 
+    @where: (conditions, alsoSerialize = null) -> 
       $http.get(
         @basePath,
         params:
           conditions: conditions
+          also_serialize: alsoSerialize
       )
 
     update: (data) -> $http.patch( "#{@objectPath()}  ", data )
