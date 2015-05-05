@@ -9,8 +9,10 @@ class Share < BaseModel
     atts.merge!({ sharee: nil }) unless sharee.persisted?
 
     if new_share = create(atts)
-      AcceptedEmail.where(email: sharee.email).first_or_create!
-      UserMailer.share_love(share_id: new_share.id, email: sharee.email).deliver_now
+      if new_share.object.class.to_s == "Plan"
+        AcceptedEmail.where(email: sharee.email).first_or_create!
+        UserMailer.share_plan_love(share_id: new_share.id, email: sharee.email).deliver_later
+      end
       return new_share
     end
   end

@@ -98,6 +98,24 @@ module ApplicationHelper
     "Fmjtd%7Cluu82qu1nd%2Cb5%3Do5-94y2qw"
   end
 
+  def colorClass(meta_category)
+    case meta_category
+      when 'Area' then 'yellow'
+      when 'See' then 'green'
+      when 'Do' then 'bluegreen'
+      when 'Relax' then 'turqoise'
+      when 'Stay' then 'blue'
+      when 'Drink' then 'purple'
+      when 'Food' then 'magenta'
+      when 'Shop' then 'pink'
+      when 'Help' then 'orange'
+      when 'Other' then 'gray'
+      when 'Transit' then 'gray'
+      when 'Money' then 'gray'
+      # else 'no-type'
+    end
+  end
+
   private
 
   # DATE-BASED LISTS

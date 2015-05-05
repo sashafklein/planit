@@ -1,4 +1,10 @@
-#show-plan-page, #new-plan-page, #plan-and-list-page
+$neonPink: #f06
+$darkNeonPink: #c03
+$lightBlue: #33a
+$lightestBlue: #66d
+$darkBlue: #007
+
+#show-plan-page, #new-plan-page, #plan-and-list-page, #share-mailer
   height: auto
 
   .initial-tutorial
@@ -456,6 +462,9 @@
         max-width: 100% !important
         overflow-x: hidden
         text-overflow: ellipsis
+      .bucket-list-img img
+        display: none
+        visibility: hidden
 
     .item-actions
       user-select: none
@@ -937,9 +946,11 @@
     .band.spaced-xxx, .band.spaced-extra
       padding: 0
 
-    .print-title, .print-by
+    .print-title, .print-by, .bucket-list-img img
       display: block !important
       visibility: visible !important
+
+    .print-title, .print-by
       text-align: center
 
     .print-title

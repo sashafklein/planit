@@ -9,14 +9,19 @@
         %span MY INBOX
 
   %a.nav-item-link{ ng_click: 'm.goHome()' }
-    .nav-item.nav-item-home{ ng_class: "{'selected': !m.plan() }" }
+    .nav-item.nav-item-home{ ng_class: "{ 'selected': !m.plan() }" }
       %i.nav-item-icon.fa.fa-home
       .nav-item-hint
         %span HOME
 
-  %a.nav-item-link{ href: "#planit-modal-share", data: {toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
+  .nav-item-link{ ng_show: "!m.plan()" }
+    .nav-item.nav-item-share.disabled
+      %i.nav-item-icon.fa.fa-paper-plane
+      .nav-item-hint
+        %span SHARE THIS
+
+  %a.nav-item-link{ href: "#planit-modal-share", ng_show: "m.plan()", data: {toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
     .nav-item.nav-item-share
-      / { class: "#{'disabled' if !rich_content?(page_type)}" }
       %i.nav-item-icon.fa.fa-paper-plane
       .nav-item-hint
         %span SHARE THIS

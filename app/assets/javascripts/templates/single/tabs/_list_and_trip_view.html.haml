@@ -1,7 +1,7 @@
 .list-or-trip-mode{ ng_show: "m.plan() && m.planManager.itemCount()>0 && (m.mode == 'list' || m.mode == 'trip')" }
   #header-spacing.except-landscape
   .print-title {{ m.plan().name }}
-  .print-by by {{ m.plan().userName }}
+  .print-by by {{ m.plan().user.name }}
   .pad-top-addbox{ ng_show: 'm.plan() || m.hasPlans()' }
   .band.spaced-extra
     .container
@@ -21,8 +21,8 @@
               /   .item-opinion.been-item{ ng_show: 'm.plan().ownerVisited(item)' }
               /     %i.fa.fa-check-square
               .bucket-list-tab.main-item-card{ ng_click: "item.fsOpen(m.mode != 'trip')" }
-                .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
-                .bucket-list-img{ ng_if: "item.mark.place.image_url" }
+                .bucket-list-no-img{ ng_show: "!item.mark.place.image_url" }
+                .bucket-list-img{ ng_show: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}')" }
                   %img{ ng_src: "{{ item.mark.place.image_url }}" }
                 .bucket-list-wrap
                   .bucket-list-profile
