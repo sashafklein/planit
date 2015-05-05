@@ -112,7 +112,6 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
         User.find( @.user_id )
           .success (response) -> 
             self.user = User.generateFromJSON( response )
-            self.userName = self.user.name
           .error (response) -> ErrorReporter.fullSilent("Looking up user #{self.user_id} in SPPlan")
 
     # FUNCTIONS ON PLAN

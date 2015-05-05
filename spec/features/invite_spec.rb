@@ -155,7 +155,7 @@ describe "Invitation/New Sign in Flow" do
 
       text = email_text(subject: "A Planit Guide from #{sharer.name}: #{@plan.name}")
 
-      link = Nokogiri.parse(text).css('a')[2].attributes['href']
+      link = Nokogiri.parse(text).css('a#toplanit')[0].attributes['href']
 
       visit link
 

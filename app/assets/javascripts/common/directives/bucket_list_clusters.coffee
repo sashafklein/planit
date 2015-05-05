@@ -22,12 +22,12 @@ angular.module("Common").directive 'bucketListClusters', (BucketEventManager, Cl
       s.clusterImage = -> 
         return s.clusterImageIs if s.clusterImageIs
         if s._changeReady()
-          s.clusterImageIs = ClusterLocator.imageForLocation( s.cluster.location, s.cluster.places )
+          s.clusterImageIs = ClusterLocator.imageForLocation( s.cluster.location, s.cluster.places ) if s.cluster?.location && s.cluster?.places
 
       s.clusterDetails = -> 
         return s.clusterDetails if s.clusterDetails
         if s._changeReady()
-          s.clusterDetails = ClusterLocator.clusterDetails( s.cluster.places )
+          s.clusterDetails = ClusterLocator.clusterDetails( s.cluster.places ) if s.cluster?.places
       
       s._changeReady = ->
         if s.latestChange != s.changes

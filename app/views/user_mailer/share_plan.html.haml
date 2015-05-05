@@ -1,0 +1,66 @@
+%h2= "#{@sharer.casual_name} wanted to share '#{@plan.name}' with you:"
+- if @sharer.id != @plan.user_id
+  A Planit Guide by
+  - object_owner = User.find_by( id: @plan.user_id )
+  = object_owner.try( :name )
+- if @notes.present?
+  = "'#{@notes}' -"
+  = link_to @sharer.casual_name, user_url(@sharer.id)
+- if @plan.notes.present?
+  = "'#{@plan.notes.first}' -"
+  = link_to @plan.notes.first.source.name, user_url(@plan.notes.first.source.id)
+#share-mailer.indented-content
+  %a{ href: @url, id: "toplanit" }
+    .items-in-plan
+      - @items.includes( mark: :place ).map{ |i| i.mark.place.meta_categories[0] }.uniq.each do |category|
+        .items-in-plan-category
+          %ul.plan-list-items
+            %li.items-organized-by.rainbow{ class: "#{ colorClass( category ) }" }
+              / %i.list-category-icon
+              / { class: "#{ @items.select{ |i| i.meta_categories[0] == category}.first.try( :meta_icon ) }" }
+              = category
+
+            - @items.includes( mark: :place ).select{ |i| i.mark.place.meta_categories[0] == category }.each do |item|
+
+              %li.plan-list-item
+                .bucket-list-tab.main-item-card
+                  .bucket-list-img
+                    - if @images[item.id.to_s][:image].present?
+                      %img{ src: "#{@images[item.id.to_s][:image]}" }
+                  .bucket-list-wrap
+                    .bucket-list-profile
+                      .bucket-list-title
+                        = item.mark.place.names[0]
+                      .foursquare-and-info-wrap
+                        %span.mini-foursquare-icon.rainbow{ class: "#{ colorClass( item.mark.place.meta_categories[0] ) }" }
+                          %img{ src: "#{@images[item.id.to_s][:icon]}" }
+                        .bucket-list-more-info
+                          = item.mark.place.categories.join(', ')
+                        .bucket-list-more-info.locale-only
+                          = item.mark.place.street_addresses[0]
+                        .bucket-list-more-info.locale-only
+                          = [ item.mark.place.sublocality, item.mark.place.locality, item.mark.place.region ].compact.join(', ')
+
+                .item-actions-mailer
+                  = "*" if item.mark.loved
+
+                .list-item-notes-mailer
+                  - if item.notes.first.present?
+                    = item.notes.first.body
+                    %i= "-"
+                    %i= item.notes.first.source.name
+
+- if @sharee.try( :sign_in_count ) == 0
+  %p.regular
+    = "First time seeing <b>Planit</b>?  By sharing this note with you, #{@sharer.casual_name} also extended to you an invitation to <b>Planit</b>'s Private Beta. We're delighted to have you!".html_safe
+  %p.regular
+    = link_to "Register", @url
+    and start commenting, saving and personalizing your 
+    %b Planit
+- else
+  %p.regular
+    = link_to "Log in", @url
+    to start commenting, saving, and personalizing your
+    %b Planit
+
+%p The Planit Team

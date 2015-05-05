@@ -1,32 +1,68 @@
-%h2= "#{@sharer.casual_name} wanted to share this with you:"
-- if @notes.present?
-  = "'#{@notes}' -"
-  = link_to @sharer.casual_name, user_url(@sharer.id)
-.indented-content
-  = link_to @url do
-    %h3= @title
-    - if false # when we're ready to do images, do images
-      - if @images.count > 1
-        .images
-          - @images.each do |image|
-            = image_tag image, class: 'image-grid'
-      - elsif @images.count == 1
-        .images
-          = image_tag image, class: 'image-single'
-      - else # fake image
-        .images
-          = image_tag 'http://www.nikoklein.com/images/blank.gif', class: 'image-single'
-- if @user.sign_in_count == 0
-  %p
-    %b First time seeing Planit?
-    = "By sharing this note with you, #{@sharer.casual_name} also extended to you an invitation to <b>Planit</b>'s Private Beta. We're delighted to have you!".html_safe
-  %p
-    = link_to "Register", @url
-    and start commenting, saving and personalizing your 
-    %b Planit
-- else
-  %p
-    = link_to "Log in", @url
-    to comment, save, and personalize
+/ - if @object.class.to_s == 'Plan'
+/   %h2= "#{@sharer.casual_name} wanted to share '#{@object.name}' with you:"
+/   - if @sharer.id != @object.user_id
+/     A Planit Guide by
+/     - object_owner = User.find( @object.user_id )
+/     = object_owner.try( :name )
+/   - if @notes.present?
+/     = "'#{@notes}' -"
+/     = link_to @sharer.casual_name, user_url(@sharer.id)
+/   - if @object.notes.present?
+/     = "'#{@object.notes.first}' -"
+/     = link_to @object.notes.source.name, user_url(@object.notes.source.id)
+/   #share-mailer.indented-content
+/     = link_to @url do
+/       .items-in-plan
+/         - @object.items.includes( mark: :place ).map{ |i| i.mark.place.meta_categories[0] }.uniq.each do |category|
+/           .items-in-plan-category
+/             %ul.plan-list-items
+/               %li.items-organized-by.rainbow{ class: "#{ colorClass( category ) }" }
+/                 / %i.list-category-icon
+/                 / { class: "#{ @object.items.select{ |i| i.meta_categories[0] == category}.first.try( :meta_icon ) }" }
+/                 = category
 
-%p The Planit Team
+/               - @object.items.includes( mark: :place ).select{ |i| i.mark.place.meta_categories[0] == category }.each do |item|
+
+/                 %li.plan-list-item
+/                   .bucket-list-tab.main-item-card
+/                     - image = item.mark.place.images.first.url.gsub(/\/\d*[x]\d*\//,"/69x69/") if item.mark.place.images.present? && item.mark.place.images.first.url.present?
+/                     .bucket-list-img{ style: "background-image: url('#{image}')" }
+/                       = image_tag "#{image}"
+/                     .bucket-list-wrap
+/                       .bucket-list-profile
+/                         .bucket-list-title
+/                           = item.mark.place.names[0]
+/                         .foursquare-and-info-wrap
+/                           %span.mini-foursquare-icon.rainbow{ class: "#{ colorClass( item.mark.place.meta_categories[0] ) }" }
+/                             - if item.mark.place.foursquare_icon.present? && icon = item.mark.place.foursquare_icon.gsub('_bg','')
+/                               = image_tag "#{icon}"
+/                           .bucket-list-more-info
+/                             = item.mark.place.categories.join(', ')
+/                           .bucket-list-more-info.locale-only
+/                             = item.mark.place.street_addresses[0]
+/                           .bucket-list-more-info.locale-only
+/                             = [ item.mark.place.sublocality, item.mark.place.locality, item.mark.place.region ].compact.join(', ')
+
+/                   .item-actions-mailer
+/                     = "*" if item.mark.loved
+
+/                   .list-item-notes-mailer
+/                     = item.notes.first.body
+/                     %i= "-"
+/                     %i= item.notes.first.source.name
+
+/ - if @sharee.try( :sign_in_count ) == 0
+/   %p.regular
+/     %b First time seeing Planit?
+/     = "By sharing this note with you, #{@sharer.casual_name} also extended to you an invitation to <b>Planit</b>'s Private Beta. We're delighted to have you!".html_safe
+/   %p.regular
+/     = link_to "Register", @url
+/     and start commenting, saving and personalizing your 
+/     %b Planit
+/ - else
+/   %p.regular
+/     = link_to "Log in", @url
+/     to start commenting, saving, and personalizing your
+/     %b Planit
+
+/ %p The Planit Team

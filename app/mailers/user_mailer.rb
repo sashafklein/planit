@@ -1,6 +1,7 @@
 class UserMailer < BaseMailer
   default from: hello
   default bcc: sent
+  add_template_helper(ApplicationHelper)
 
   layout 'layouts/mailer.html.haml'
 
@@ -18,32 +19,49 @@ class UserMailer < BaseMailer
     end
   end
 
-  def share_love(share_id:, email: nil)
-    share = Share.find(share_id)
-    @object = share.object
-    @sharer = share.sharer
-    @user = share.sharee || User.new(email: email)
-    @url = URI.decode( share.url + ( share.url.include?('?') ? '&' : '?' ) + "referred=#{ share.sharee ? 'registered' : 'new' }&email=#{@user.email}&share_id=#{share_id}" )
-    @notes = share.notes
-    @images = get_images(@object)
-    share.email_title
-    include_inline_images(@images)
+  # def share_love(share_id:, email: nil)
+  #   share = Share.find(share_id)
+  #   @object = share.object
+  #   @sharer = share.sharer
+  #   @user = share.sharee # || User.new(email: email)
+  #   # @url = URI.decode( share.url + ( share.url.include?('?') ? '&' : '?' ) + "referred=#{ share.sharee ? 'registered' : 'new' }&email=#{@user.email}&share_id=#{share_id}" )
+  #   @notes = share.notes
+  #   @images = get_images(@object)
+  #   include_inline_images(@images)
 
-    roadie_mail(from: @sharer.email, to: @user.email, subject: share.email_title)
+  #   roadie_mail(from: @sharer.email, to: @user.email, subject: share.email_title)
+  # end
+
+  def share_plan(share_id:, email:)
+    share = Share.find(share_id)
+    @plan = share.object
+    @items = @plan.items.includes( mark: :place )
+    @images = plan_image_hash( @plan )
+    # include_inline_images( @images.map{ |k, v| [ v[:image], v[:icon] ] }.compact.uniq.flatten )
+    include_inline_images( [] )
+    @sharer = share.sharer
+    @sharee = User.where( email: email ).first_or_initialize
+    @url = plan_url( @plan, {referred: ( @sharee.persisted? ? 'registered' : 'new' ), email: email, share_id: share_id} )
+    @notes = share.notes
+    roadie_mail(from: @sharer.email, to: @sharee.email, subject: share.email_title)
   end
 
   private
 
-  def get_images(object)
-    return [] unless object.try(:images)
-    if object.class.to_s == "User"
-      # Places -> maybe include captured image of map of filtered places, bounded, formatted to 600x600?
-      # Guides -> maybe include captured image of cluster of filtered guides, formatted to 600x600?
-      # See -> https://github.com/csquared/IMGKit
-      return []
-    else
-      return object.images.pluck(:url).first(4) || []
-    end    
+  def plan_image_hash( plan )
+    hash = {}
+    plan.items.each do |i| 
+      hash[i.id.to_s] = { image: sm_img( i ), icon: no_bg_icon( i ) }
+    end
+    hash
+  end
+
+  def no_bg_icon( item )
+    item.mark.place.foursquare_icon.gsub( '_bg_64', "_32" )
+  end
+
+  def sm_img( item )
+    item.image.try( :url ).try( :gsub, /\/\d*[x]\d*\//, "/69x69/" )
   end
 
 end

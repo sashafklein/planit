@@ -14,7 +14,7 @@ class Api::V1::ItemsController < ApiController
     return permission_denied_error if where && where[:plan_id] && !current_user.owns?( Plan.find(where[:plan_id]) )
 
     serializer = Array(params[:also_serialize]).flatten.compact.include?("hours") ? ItemSerializerWithHours : ItemSerializer
-    render json: Item.with_places.where( where ), each_serializer: serializer
+    render json: Item.with_places.includes(:mark).where( where ), each_serializer: serializer
   end
 
   def destroy

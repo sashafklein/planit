@@ -3,6 +3,9 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     = stylesheet_link_tag :mailer, media: "all"
+    = stylesheet_link_tag 'sections/plan', media: "all"
+    = stylesheet_link_tag 'sections/lists', media: "all"
+    = stylesheet_link_tag 'base/planit', media: "all"
   %body
     = render "mailer/header"
     #mailer-wrapper= yield

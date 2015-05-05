@@ -7,6 +7,6 @@ Rails.application.config.assets.version = (ENV["ASSETS_VERSION"] || "1.0")
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 teaspoon = %w( teaspoon.css jasmine/1.3.1.js teaspoon-teaspoon.js teaspoon-jasmine.js )
 bookmarklet = %w( api/bookmarklets/view.js sections/bookmarklet.css )
-mailer = %w( mailer.css )
+mailer = %w( mailer.css base/planit.css sections/plan.css sections/lists.css )
 
 Rails.application.config.assets.precompile += [teaspoon, bookmarklet, mailer].flatten
