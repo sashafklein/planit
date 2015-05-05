@@ -16,6 +16,7 @@ angular.module("Common").service "SPItem", (CurrentUser, Item, Mark, Note, Query
     currentUserUnbeen: -> @.mark.place.visitors.splice( @.mark.place.visitors.indexOf( CurrentUser.id ), 1 )
     currentUserVisited: -> _.includes( @.mark.place.visitors , CurrentUser.id )
 
+    liClass: -> 'item-li-' + _.map( @mark.place.name.split(" "), (w) -> w.toLowerCase() ).join('-')
     fsOpen: (doIt) ->
       return unless doIt and @.mark?.place?.fs_href?.length
       window.open( @.mark.place.fs_href, '_blank' )
@@ -38,7 +39,7 @@ angular.module("Common").service "SPItem", (CurrentUser, Item, Mark, Note, Query
       self = @
       return unless @?.noteChanged == true
       @.noteSearched = false
-      Note.create({ note: { object_id: self.id, object_type: self.class, body: self.note } })
+      Note.create({ note: { object_id: self.id, object_type: 'Item', body: self.note } })
         .success (response) ->
           self.note = response.body
           self.noteChanged = false

@@ -10,7 +10,7 @@
             {{ folder.name }}
         .container.centered
           .column{ ng_repeat: 'plan in plansInFolder( folder )' }
-            .any-tab-wrapper
+            .any-tab-wrapper{ ng_class: 'tabClass(plan, $index)' }
               .guide-item-count.numbered-box {{ plan.place_ids.length }}
               .content-tab
                 .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'm.planManager.fetchPlan( plan.id )', ng_hover: 'imageChangeable = true' }

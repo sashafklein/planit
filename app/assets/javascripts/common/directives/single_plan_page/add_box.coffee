@@ -7,6 +7,14 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
       m: '='
     link: (s, e, a) ->
       
+      s.nearbySearchResultClass = (option, index=0) ->
+        highlightClass = if s.placeNearbyOptionSelectable(option) then 'highlighted' else null
+        fullName = (option.name + String(option.qualifiers) ).replace(',', '').split(" ")
+        nameClass = _.compact( [_.map(fullName , (o) -> o.toLowerCase() ).join("-"), index] ).join("-")
+        _.compact([highlightClass, nameClass]).join(" ")
+      
+      s.placeNameOptionClass = (option, index) -> _.map( option.name.split(' '), (o) -> o.toLowerCase() ).concat([String(index)]).join("-")
+
       s.m.addBoxManuallyToggled = false
       s.addBoxToggle = -> 
         s.m.addBoxToggled = !s.m.addBoxToggled

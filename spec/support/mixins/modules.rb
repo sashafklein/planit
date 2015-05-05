@@ -17,15 +17,25 @@ module Features
     "#{uri.path}?#{uri.query}"
   end
 
-  def wait_for(selector:, limit: 3, test_regularity: 0.1)
+  def wait_for(selector:, limit: 10)
     if Nokogiri.parse(html).css(selector).present?
       true
-    elsif limit == 0
-      raise "Couldn't find #{selector}"
+    elsif limit <= 0
+      raise "Couldn't find #{selector} in \n\n#{html}"
     else
-      sleep test_regularity
-      wait_for(selector: selector, limit: limit - test_regularity, test_regularity: test_regularity)
+      sleep 0.2
+      wait_for(selector: selector, limit: limit - 0.2)
     end
+  end
+
+  def ng_hidden(root: nil, selector:)
+    root ||= Nokogiri.parse(html)
+    root.css(selector).select{ |e| e.attributes.find{ |k, v| k == 'class'}.last.value.include?("ng-hide") }
+  end
+
+  def ng_shown(root: nil, selector:)
+    root ||= Nokogiri.parse(html)
+    root.css(selector).select{ |e| !e.attributes.find{ |k, v| k == 'class'}.last.value.include?("ng-hide") }
   end
 end
 

@@ -4,6 +4,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
     constructor: (plan) -> _.extend( @, plan )
     _planObj: -> new Plan( _.pick( @, ['id'] ) )
     _pusher: new Pusher( RailsEnv.pusher_key )
+    type: 'travel'
 
     # EDIT PLAN ITSELF
 
@@ -23,9 +24,11 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
 
     addItem: ( fsOption, callback, callback2 ) ->
       self = @
-      @_setAddItemSuccess( callback2 )
+      @_setAddItemSuccess( callback2 ) unless RailsEnv.test # Don't use Pusher or background-process this task in test env
       callback?()
       @_planObj().addItemFromPlaceData( fsOption )
+        .success (response) -> 
+          self._affixItem(response, callback2) if RailsEnv.test?
         .error (response) -> ErrorReporter.defaultFull( response, 'SPPlan addItem', { option: JSON.stringify(fsOption), plan_id: self.id } )
 
     _setAddItemSuccess: ( callback ) ->

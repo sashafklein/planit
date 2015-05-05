@@ -24,8 +24,7 @@ class Api::V1::PlansController < ApiController
     return permission_denied_error unless current_user
     return error(500, "Can't add a place without any place data!") unless params[:place]
 
-    PlanAddItemFromPlaceDataJob.perform_later(user_id: current_user.id, plan_id: params[:id], data: params[:place].compact)
-    render json: params[:place]
+    add_item(plan_id: params[:id], data: params[:place].compact)
   end
 
   def items
@@ -65,6 +64,17 @@ class Api::V1::PlansController < ApiController
   end
 
   private
+
+  def add_item(plan_id:, data:)
+    if Rails.env.test?
+      plan = current_user.plans.find_by(id: plan_id)
+      item = plan.add_item_from_place_data!(current_user, data)
+      render json: item, serializer: ItemSerializer
+    else
+      PlanAddItemFromPlaceDataJob.perform_later(user_id: current_user.id, plan_id: plan_id, data: data)
+      render json: data
+    end
+  end
 
   def load_plan
     if plan_id = params[:id]

@@ -31,7 +31,6 @@ class Plan < BaseModel
 
   def add_item_from_place_data!(user, data)
     return unless place = Place.find_or_initialize(data)
-
     marks_for_place_on_plan = Mark.unscoped.where(id: items.pluck(:mark_id), place_id: place.id)
     return marks_for_place_on_plan.items.first if marks_for_place_on_plan.try( :items ).present?
 

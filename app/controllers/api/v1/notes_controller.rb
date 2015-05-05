@@ -1,9 +1,9 @@
 class Api::V1::NotesController < ApiController
   def create
     return permission_denied_error unless current_user
-    if params[:object_type] == 'Place' # converts place to marks
-      params[:object_type] = 'Mark'
-      params[:object_id] = Mark.where(place_id: params[:object_id])
+    if note_params[:object_type] == 'Place' # converts place to marks
+      note_params[:object_type] = 'Mark'
+      note_params[:object_id] = Mark.find_by(user_id: current_user, place_id: note_params[:object_id]).id
     end
     edit_or_create
   end

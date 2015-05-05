@@ -15,5 +15,8 @@ angular.module("Common").directive 'guideMatrix', () ->
 
       s.bestDate = ( plan ) -> if plan.starts_at then plan.starts_at else plan.updated_at
 
+      s.tabClass = (plan, index) ->
+        _.compact([_.map( plan.name.split(" "), (w) -> w.toLowerCase() ).join("-"), String(index)] ).join("-")
+        
       window.matrix = s
   }
