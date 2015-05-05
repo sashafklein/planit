@@ -8,7 +8,7 @@ describe Share do
     end
 
     context "with preexisting user" do
-      it "sharing user guides shoots off an email" do
+      xit "sharing user guides shoots off an email" do
         sharee = create(:user, role: :member)
         url = "https://plan.it/users/#{@sharer.slug}/guides?y=in_2015+in_2014"
         object = User.find(@sharer.id)
@@ -27,7 +27,7 @@ describe Share do
 
     context "without a preexising user" do
       it "adds them to the email list and sends them an email that sends them on a good redirection flow" do
-        expect( UserMailer ).to receive(:share_love).at_least(:once).and_call_original
+        expect( UserMailer ).to receive(:share_plan).at_least(:once).and_call_original
 
         plan = create(:plan, user: @sharer)
         url = "https://plan.it/?plan=#{plan.id}"
@@ -41,7 +41,7 @@ describe Share do
 
         text = email_text(subject: "A Planit Guide from #{@sharer.name}: #{plan.name}" )
         expect( text ).to include "Dude this is AMAZING"
-        expect( text ).to include "https://plan.it/?plan=#{plan.id}&amp;referred=new&amp;email=#{sharee.email}&amp;share_id=#{@share.id}"
+        expect( text ).to include "http://www.example.com/plans/#{plan.id}?email=#{ sharee.email.gsub('@','%40') }&amp;referred=new&amp;share_id=#{@share.id}"
       end
     end
 

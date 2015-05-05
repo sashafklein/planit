@@ -11,7 +11,7 @@ class Share < BaseModel
     if new_share = create(atts)
       if new_share.object.class.to_s == "Plan"
         AcceptedEmail.where(email: sharee.email).first_or_create!
-        UserMailer.share_plan_love(share_id: new_share.id, email: sharee.email).deliver_later
+        UserMailer.share_plan(share_id: new_share.id, email: sharee.email).send( Rails.env.test? ? :deliver_now : :deliver_later )
       end
       return new_share
     end

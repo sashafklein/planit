@@ -26,11 +26,11 @@ class UserMailerPreview < ActionMailer::Preview
   #   UserMailer.share_love(share_id: new_share.id)
   # end
 
-  def share_plan_love
+  def share_plan
     url = "https://plan.it/plans/" + Plan.first.id.to_s + "?q=tokyo+tea+time"
     object = Plan.first
     new_share = Share.create( sharer: User.first, sharee: User.last, url: url, object: object, notes: "Hey this is awesome!")
-    UserMailer.share_plan_love( share_id: new_share.id, email: User.last.email )
+    UserMailer.share_plan( share_id: new_share.id, email: User.last.email )
   end
 
 end

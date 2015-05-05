@@ -32,16 +32,17 @@ class UserMailer < BaseMailer
   #   roadie_mail(from: @sharer.email, to: @user.email, subject: share.email_title)
   # end
 
-  def share_plan_love(share_id:, email:)
+  def share_plan(share_id:, email:)
     share = Share.find(share_id)
     @plan = share.object
     @items = @plan.items.includes( mark: :place )
     @images = plan_image_hash( @plan )
+    # include_inline_images( @images.map{ |k, v| [ v[:image], v[:icon] ] }.compact.uniq.flatten )
+    include_inline_images( [] )
     @sharer = share.sharer
     @sharee = User.where( email: email ).first_or_initialize
-    @url = plan_url( @plan, {referred: ( @sharee ? 'registered' : 'new' ), email: email, share_id: share_id} )
+    @url = plan_url( @plan, {referred: ( @sharee.persisted? ? 'registered' : 'new' ), email: email, share_id: share_id} )
     @notes = share.notes
-    include_inline_images( @images.map{ |k, v| [ v[:image], v[:icon] ] }.compact.uniq.flatten )
     roadie_mail(from: @sharer.email, to: @sharee.email, subject: share.email_title)
   end
 
