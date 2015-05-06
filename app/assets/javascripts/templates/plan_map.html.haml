@@ -41,7 +41,7 @@
                   %bucket_list_place{ m: 'm' , item: 'itemFromPlace( place.id )', place: 'place' }
 
           // MOBILE!!!
-          .map-highlight-result#in-view-item{ ng_show: "mobile", ng_show: 'places.length'}
+          .map-highlight-result#in-view-item{ ng_show: "mobile && places.length"}
             .bucket-item-container
               %ul
                 %li{ class: "bucket-list-li", id: "in-view-li", ng_if: "selectedClusterId || selectedPlaceId" }
