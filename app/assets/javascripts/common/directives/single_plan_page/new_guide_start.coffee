@@ -9,9 +9,6 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, Cl
 
       s.planNearbyOptionClass = (option, index) ->
         highlightClass = if s.planNearbyOptionSelectable(option) then 'highlighted' else null
-        window.option = option
-        window.index = index
-        window.cfs = ClassFromString
         highlightClass + ' ' + ClassFromString.toClass( option.name, option.qualifiers, index )
 
       s.searchPlanNearby = -> 
