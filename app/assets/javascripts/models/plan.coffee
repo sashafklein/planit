@@ -28,4 +28,6 @@ mod.factory "Plan", (BaseModel, $http) ->
 
     items: -> $http.get( "#{@objectPath()}/items" )
 
+    @locatedNear: (coordinate) -> $http.get( "#{@basePath}/located_near", { params: { coordinate: coordinate } } )
+
   return Plan

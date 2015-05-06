@@ -50,5 +50,6 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, Cl
         s.m.planManager.addNewPlan( option )
         s.m.setNearby( option )
         s.planNearby = null
+        # s.m.planManager.fetchCoLocatedPlans( option )
 
   }

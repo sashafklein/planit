@@ -5,6 +5,9 @@ class Plan < BaseModel
   has_many :legs
   has_many :days, through: :legs
   has_many :items, dependent: :destroy
+
+  has_many :collaborations
+  has_many :collaborators, through: :collaborations, source: :collaborator
   
   has_many_polymorphic table: :images, name: :imageable
   has_many_polymorphic table: :sources
@@ -68,6 +71,10 @@ class Plan < BaseModel
 
   def last_leg
     legs.last
+  end
+
+  def uniq_abbreviated_coords(round=1)
+    items.with_places.places.map{ |p| [ p.lat.round(1), p.lon.round(1) ] }.uniq
   end
 
   def coordinates

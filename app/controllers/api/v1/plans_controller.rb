@@ -63,6 +63,15 @@ class Api::V1::PlansController < ApiController
     success
   end
 
+  def located_near
+    return permission_denied_error unless current_user_is_active
+    coordinate = params[:coordinate]
+    lat = coordinate.split(",").first.to_f.round(1)
+    lon = coordinate.split(",").last.to_f.round(1)
+    plans = Plan.all.select{ |p| p.uniq_abbreviated_coords.include?([lat,lon]) }
+    render json: plans, each_serializer: PlanSerializer
+  end
+
   private
 
   def add_item(plan_id:, data:)

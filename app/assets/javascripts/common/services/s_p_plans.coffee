@@ -6,6 +6,7 @@ angular.module("Common").service "SPPlans", (User, Plan, SPPlan, QueryString, Er
       self.plans = {}
       User.findPlans( user_id )
         .success (responses) -> _.forEach( responses, (r) -> self.plans[r.id] = new SPPlan( r ); self.plans[r.id]['type'] = 'travel' )
+        .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan constructor', user_id: user_id )
 
     addNewPlan: ( nearby ) ->
       self = @
@@ -16,8 +17,19 @@ angular.module("Common").service "SPPlans", (User, Plan, SPPlan, QueryString, Er
           self.plans[ plan.id ] = plan
           self.plans[ plan.id ]['nearby'] = nearby
           QueryString.modify({ plan: plan.id })
-        .error (response) ->
-          ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.create', { plan_name: name } )
+        .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.create', { plan_name: name } )
+
+    fetchCoLocatedPlans: ( nearby ) ->
+      @.coLocatedPlans = {}
+      self = @
+      return unless Object.keys( nearby )?.length
+      Plan.locatedNear( "#{[nearby.lat,nearby.lon]}" )
+        .success (response) ->
+          _.forEach( response , (r) -> 
+            self.coLocatedPlans[ r.id ] = new SPPlan( r ) 
+            self.coLocatedPlans[ r.id ]['nearby'] = nearby 
+          )
+        .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.fetchCoLocatedPlans', { coordinate: [nearby.lat,nearby.lon] } )
 
     fetchPlan: ( plan_id ) ->
       self = @
@@ -30,8 +42,7 @@ angular.module("Common").service "SPPlans", (User, Plan, SPPlan, QueryString, Er
             self.plans[ response.id ].type = 'followed' if !self.plans[ response.id ].userOwns()
             self.plans[ response.id ].loadItems()
             self.plans[ response.id ].getOwner()
-          .error (response) -> 
-            ErrorReporter.fullSilent( response, "SPPlans loading plan #{ plan_id }" )
+          .error (response) ->  ErrorReporter.fullSilent( response, "SPPlans loading plan #{ plan_id }" )
 
     removePlan: ( plan_id ) ->
       plan = @.plans[ plan_id ]

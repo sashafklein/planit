@@ -8,5 +8,6 @@ angular.module("Common").directive 'planSettings', (Flash, ErrorReporter, Spinne
     link: (s, e, a) ->
       s.kmlPath = -> "/api/v1//#{ s.m.currentPlanId }/kml" unless !s.m.currentPlanId?
       s.printPath = -> "/plans/#{ s.m.currentPlanId }/print" unless !s.m.currentPlanId?
+      s.deleteAndClose = ( plan ) -> s.m.settingsBoxToggled=false; s.m.planManager.removePlan( plan.id )
 
   }

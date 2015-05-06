@@ -11,6 +11,8 @@ class User < BaseModel
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :collaborations, foreign_key: :collaborator_id
+  has_many :collaborating_plans, through: :collaborations, source: :plan
   has_many :plans
   has_many :marks
   has_many :flags, as: :object

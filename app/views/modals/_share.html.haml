@@ -16,6 +16,8 @@
           .form-group
             %label.control-label{:for => "note"} Personal Note:
             = text_area_tag "share[notes]", nil, class: 'form-control share-textarea'
+          = hidden_field_tag "share[object_id]", nil, id: 'share-object-id'
+          = hidden_field_tag "share[object_type]", nil, id: 'share-object-type'
         .modal-footer
           %button.planit-button.gray{"data-dismiss" => "modal", :type => "button"} Cancel
           = f.submit 'Share', class: 'planit-button neon', id: 'planit-modal-submit-share'

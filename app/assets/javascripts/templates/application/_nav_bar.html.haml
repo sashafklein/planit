@@ -20,7 +20,7 @@
       .nav-item-hint
         %span SHARE THIS
 
-  %a.nav-item-link{ href: "#planit-modal-share", ng_show: "m.plan()", data: {toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
+  %a.nav-item-link{ href: "#planit-modal-share", ng_click: "m.sharePlan( m.plan() )", ng_show: "m.plan()", data: {toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
     .nav-item.nav-item-share
       %i.nav-item-icon.fa.fa-paper-plane
       .nav-item-hint

@@ -23,7 +23,7 @@
     %i.planit-dropdown-menu-icon.fa.fa-expand
     Split this Guide
   %li.divider
-  %a{ href: '#planit-modal-share', target: '_self', data: { toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
+  %a{ href: '#planit-modal-share', ng_click: 'm.sharePlan( m.plan() )', target: '_self', data: { toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
     %li.planit-dropdown-menu
       %i.planit-dropdown-menu-icon.fa.fa-paper-plane
       Share this Guide
@@ -39,6 +39,6 @@
       %i.planit-dropdown-menu-icon.fa.fa-print
       Print this Guide
   %li.divider{ ng_show: "m.userOwnsPlan()" }
-  %li.planit-dropdown-menu{ ng_show: "m.userOwnsPlan()", ng_click: 'm.planManager.removePlan( m.plan().id )', target: '_self' }
+  %li.planit-dropdown-menu{ ng_show: "m.userOwnsPlan()", ng_click: 'deleteAndClose( m.plan() )', target: '_self' }
     %i.planit-dropdown-menu-icon.fa.fa-trash
     Delete Plan

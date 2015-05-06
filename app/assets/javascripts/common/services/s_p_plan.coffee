@@ -107,19 +107,27 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
         when 'locale' then _.sortBy( _.filter( @.items, (i) -> i.mark.place.locality == category ) , (i) -> return i.mark.place.names[0] )
         else []
 
+    hasCollaborators: -> @.collaboratorIds()?.length > 0
+    collaboratorIds: -> _.map( @.collaborators, (c) -> c.id )
     userOwns: -> @.user_id == CurrentUser.id
+    userCoOwns: -> _.includes( @.collaboratorIds, CurrentUser.id )
     ownerLoves: ( item ) -> _.includes( item.mark.place.lovers , @.user_id )
     ownerVisited: ( item ) -> _.includes( item.mark.place.visitors , @.user_id )
 
-    getOwner: ->
-      self = @
-      if @.userOwns()
-        @.user = CurrentUser
-      else
-        User.find( @.user_id )
-          .success (response) -> 
-            self.user = User.generateFromJSON( response )
-          .error (response) -> ErrorReporter.fullSilent("Looking up user #{self.user_id} in SPPlan")
+    # getOwner: ->
+    #   self = @
+    #   if @.userOwns()
+    #     @.user = CurrentUser
+    #   else
+    #     User.find( @.user_id )
+    #       .success (response) -> 
+    #         self.user = User.generateFromJSON( response )
+    #       .error (response) -> ErrorReporter.fullSilent("Looking up user #{self.user_id} in SPPlan")
+    #   if @.collaborator_ids?.length > 0
+    #     User.where( id: collaborator_ids )
+    #       .success (response) ->
+    #         self.collaborators = _.map( response, (r) -> User.generateFromJSON( r ) )
+    #       .error (response) -> ErrorReporter.fullSilent("Looking up collaborators #{collaborator_ids} in SPPlan")
 
     # FUNCTIONS ON PLAN
 

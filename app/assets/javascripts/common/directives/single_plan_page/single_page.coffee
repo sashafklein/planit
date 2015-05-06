@@ -20,6 +20,8 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
       s.m.plans = s.m.planManager.plans
       s.m.plan = -> s.m.plans[s.m.currentPlanId]
       s.m.userOwnsPlan = -> s.m.plans[s.m.currentPlanId]?.userOwns()
+      # s.m.userCoOwnsPlan = -> s.m.plans[s.m.currentPlanId]?.userCoOwns()
+      s.m.sharePlan = ( plan ) -> $('#share-object-id').val( plan.id ); $('#share-object-type').val( 'Plan' ); $('#planit-modal-share').toggle(); return
 
       s.m.mobile = e.width() < 768
       s.m.largestScreen = e.width() > 960
