@@ -30,12 +30,22 @@ module Features
 
   def ng_hidden(root: nil, selector:)
     root ||= Nokogiri.parse(html)
-    root.css(selector).select{ |e| e.attributes.find{ |k, v| k == 'class'}.last.value.include?("ng-hide") }
+    root.css(selector).select{ |e| classes_for( e ).include?("ng-hide") }
   end
 
   def ng_shown(root: nil, selector:)
     root ||= Nokogiri.parse(html)
-    root.css(selector).select{ |e| !e.attributes.find{ |k, v| k == 'class'}.last.value.include?("ng-hide") }
+    root.css(selector).select{ |e| !classes_for( e ).include?("ng-hide") }
+  end
+
+  def classes_for(selector)
+    if selector.is_a?(String)
+      classes_for Nokogiri.parse(html).css(selector)
+    elsif selector.is_a? Nokogiri::XML::NodeSet
+      classes_for selector.first
+    else
+      selector.attributes.find{ |k, v| k == 'class' }.last.value
+    end
   end
 end
 

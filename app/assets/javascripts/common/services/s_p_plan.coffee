@@ -3,7 +3,11 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
 
     constructor: (plan) -> _.extend( @, plan )
     _planObj: -> new Plan( _.pick( @, ['id'] ) )
-    _pusher: new Pusher( RailsEnv.pusher_key )
+    _pusher: if RailsEnv.test then @_fakePusher else new Pusher( RailsEnv.pusher_key ) 
+    _fakePusher = 
+      subscribe: -> 
+        bind: -> alert("Pusher disabled in test mode")
+
     type: 'travel'
 
     # EDIT PLAN ITSELF

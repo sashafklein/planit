@@ -101,12 +101,13 @@ describe 'Root SPA' do
 
       expect( contigo.mark.loved ).to eq false
       
-      within 'li.plan-list-item.item-li-contigo' do
+      within contigo_selector do
         first('i.action.fa.fa-heart').click
       end
 
       sleep 0.5
       expect( ng_shown( root: contigo_tab, selector: 'i.action.fa.fa-heart.neon' ).length ).to eq 1
+      sleep 0.2
       expect( ng_shown( root: contigo_tab, selector: 'i.action.fa.fa-heart').length ).to eq 1
 
       sleep 0.5
@@ -114,14 +115,14 @@ describe 'Root SPA' do
       expect( contigo.mark.reload.loved ).to eq true
       expect( contigo.mark.been ).to eq false
 
-      within 'li.plan-list-item.item-li-contigo' do
+      within contigo_selector do
         first('i.action.fa.fa-check-square').click
       end
       
       sleep 0.5
       expect( contigo.mark.reload.been ).to eq true
 
-      within 'li.plan-list-item.item-li-contigo' do
+      within contigo_selector do
         first('i.action.fa.fa-trash').click
       end
 
@@ -144,12 +145,67 @@ describe 'Root SPA' do
 
       expect( full_path ).to include Plan.last.id.to_s
 
+      # CHANGING LOCATION
+
+      within '.reset-location' do
+        first('i.fa-times').click
+      end
+
+      expect( ng_shown( selector: '.set-location-reminder').length ).to eq 1
+      
+      within '.input-and-results' do
+        fill_in 'place-nearby', with: "Oakland, CA"  
+      end
+
+      wait_for(selector: 'ul.suggested-results li.oakland-california-united-states-1')
+
+      first('ul.suggested-results li.oakland-california-united-states-1').click
+      
+      expect( full_path ).to include 'near=5378538'
+
+      fill_in 'place-name', with: 'Camino'
+
+      within 'ul.suggested-results' do
+        wait_for(selector: 'li.camino-0')
+        first('li.camino-0').click
+      end
+
+      wait_for(selector: '.item-li-camino-0')
+
+      within 'li.item-li-camino-0' do
+        expect( page ).to have_content 'Oakland, California'
+      end
+
       # ONTO MAP
-      # TODO class-from-name helper that excludes all weird characters
+      expect( full_path ).not_to include 'mode=map'
+
+      within '.view-and-edit-mode' do
+        first('.map-toggle-button').click
+      end
+      
+      expect( full_path ).to include 'mode=map'
+
+      # Map icon/li tethering
+      within '.plan-map-container' do
+        icon = ".leaflet-map-pane .leaflet-marker-pane .leaflet-marker-icon[title='Camino'] .default-map-icon-tab"
+        expect( classes_for(icon) ).not_to include 'highlighted'
+        find('.bucket-list-li.camino-0').hover
+        expect( classes_for(icon) ).to include 'highlighted'
+      end
+
+      within '.view-and-edit-mode' do
+        first('.list-toggle-button').click
+      end
+      
+      expect( full_path ).to include 'mode=list'
+    end
+
+    def contigo_selector
+      'li.plan-list-item.item-li-contigo-0'
     end
 
     def contigo_tab
-      Nokogiri.parse(html).css('li.plan-list-item.item-li-contigo')
+      Nokogiri.parse(html).css(contigo_selector)
     end
   end
 

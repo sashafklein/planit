@@ -14,7 +14,7 @@
               %span{ ng_show: "m.categorizeBy == 'recent' && !category.length"} Undated
               %span{ ng_show: "m.categorizeBy != 'recent'"} {{ category }}
 
-            %li.plan-list-item{ ng_repeat: 'item in m.plan().matchingItems( category, m.categorizeBy )', ng_class: 'item.liClass()' }
+            %li.plan-list-item{ ng_repeat: 'item in m.plan().matchingItems( category, m.categorizeBy )', ng_class: 'item.liClass($index)' }
               / .owner-opinions{ ng_show: '!m.userOwnsPlan()' }
               /   .item-opinion.love-item{ ng_show: 'm.plan().ownerLoves(item)' }
               /     %i.fa.fa-heart

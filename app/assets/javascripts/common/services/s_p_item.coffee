@@ -1,4 +1,4 @@
-angular.module("Common").service "SPItem", (CurrentUser, Item, Mark, Note, QueryString, Flash, ErrorReporter) ->
+angular.module("Common").service "SPItem", (CurrentUser, Item, Mark, Note, QueryString, Flash, ErrorReporter, ClassFromString) ->
   class SPItem
 
     constructor: (item) -> _.extend( @, item )
@@ -16,7 +16,7 @@ angular.module("Common").service "SPItem", (CurrentUser, Item, Mark, Note, Query
     currentUserUnbeen: -> @.mark.place.visitors.splice( @.mark.place.visitors.indexOf( CurrentUser.id ), 1 )
     currentUserVisited: -> _.includes( @.mark.place.visitors , CurrentUser.id )
 
-    liClass: -> 'item-li-' + _.map( @mark.place.name.split(" "), (w) -> w.toLowerCase() ).join('-')
+    liClass: (index) -> ClassFromString.toClass( 'item li', @mark.place.name, index)
     fsOpen: (doIt) ->
       return unless doIt and @.mark?.place?.fs_href?.length
       window.open( @.mark.place.fs_href, '_blank' )
