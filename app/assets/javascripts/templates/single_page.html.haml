@@ -9,9 +9,9 @@
       %add_box{ m: 'm' }
 
     / CoLocatedPlans stored on plan??  How to manage your own colocations / duplicates???
-    .band.spaced-extra
-      .div{ ng_repeat: 'plan in m.planManager.coLocatedPlans' }
-        %a{ ng_click: 'm.planManager.fetchPlan( plan.id )' } {{ plan.name }} {{ plan.user.name }}
+    / .band.spaced-extra
+    /   .div{ ng_repeat: 'plan in m.planManager.coLocatedPlans' }
+    /     %a{ ng_click: 'm.planManager.fetchPlan( plan.id )' } {{ plan.name }} {{ plan.user.name }}
 
     %sort_commands{ m: 'm' }
     %list_and_trip_view{ m: 'm' }
