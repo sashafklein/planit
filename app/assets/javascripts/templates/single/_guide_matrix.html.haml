@@ -26,7 +26,6 @@
                       .guide-avatar-name
                         %b{ ng_show: '!plan.userOwns()' } {{ plan.user.first_name }}
                         %span{ ng_repeat: 'collaborator in plan.collaborators' }
-                          = "," 
                           %span{ ng_click: 'm.visitUser( collaborator.id )' } {{ collaborator.first_name }}
               .guide-actions.tab-operations{ ng_show: 'userOwns(plan)' }
                 %i.fa.fa-group.tab-operations-button.disabled

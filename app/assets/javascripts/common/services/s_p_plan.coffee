@@ -4,11 +4,11 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
     constructor: (plan) -> _.extend( @, plan )
     _planObj: -> new Plan( _.pick( @, ['id'] ) )
     _pusher: if RailsEnv.test then @_fakePusher else new Pusher( RailsEnv.pusher_key ) 
-    _fakePusher = 
+    _fakePusher:
       subscribe: -> 
         bind: -> alert("Pusher disabled in test mode")
 
-    type: 'travel'
+    typeOf: -> if @userOwns() || @userCoOwns() then 'travel' else 'viewing'
 
     # EDIT PLAN ITSELF
 
@@ -113,21 +113,6 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
     userCoOwns: -> _.includes( @.collaboratorIds, CurrentUser.id )
     ownerLoves: ( item ) -> _.includes( item.mark.place.lovers , @.user_id )
     ownerVisited: ( item ) -> _.includes( item.mark.place.visitors , @.user_id )
-
-    # getOwner: ->
-    #   self = @
-    #   if @.userOwns()
-    #     @.user = CurrentUser
-    #   else
-    #     User.find( @.user_id )
-    #       .success (response) -> 
-    #         self.user = User.generateFromJSON( response )
-    #       .error (response) -> ErrorReporter.fullSilent("Looking up user #{self.user_id} in SPPlan")
-    #   if @.collaborator_ids?.length > 0
-    #     User.where( id: collaborator_ids )
-    #       .success (response) ->
-    #         self.collaborators = _.map( response, (r) -> User.generateFromJSON( r ) )
-    #       .error (response) -> ErrorReporter.fullSilent("Looking up collaborators #{collaborator_ids} in SPPlan")
 
     # FUNCTIONS ON PLAN
 

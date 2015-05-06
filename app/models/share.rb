@@ -4,7 +4,7 @@ class Share < BaseModel
   belongs_to :sharer, class_name: "User"
   belongs_to :sharee, class_name: "User"
 
-  def self.save_and_send(sharer:, sharee:, url:, object:, notes:)
+  def self.save_and_send(sharer:, sharee:, url:, object:nil, notes:)
     atts = {sharer: sharer, sharee: sharee, url: url, object: object || find_object(url), notes: notes}
     atts.merge!({ sharee: nil }) unless sharee.persisted?
 
