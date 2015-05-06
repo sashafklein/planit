@@ -1,4 +1,4 @@
-angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter) ->
+angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, ClassFromString) ->
   {
     restrict: 'E'
     replace: true
@@ -6,6 +6,10 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter) ->
     scope:
       m: '='
     link: (s, e, a) ->
+
+      s.planNearbyOptionClass = (option, index) ->
+        highlightClass = if s.planNearbyOptionSelectable(option) then 'highlighted' else null
+        highlightClass + ' ' + ClassFromString.toClass( option.name, option.qualifiers, index )
 
       s.searchPlanNearby = -> 
         s.planNearbyOptions = [] if s.planNearby?.length

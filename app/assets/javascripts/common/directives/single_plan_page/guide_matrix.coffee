@@ -1,4 +1,4 @@
-angular.module("Common").directive 'guideMatrix', () ->
+angular.module("Common").directive 'guideMatrix', (ClassFromString) ->
   return {
     restrict: 'E'
     replace: true
@@ -15,5 +15,7 @@ angular.module("Common").directive 'guideMatrix', () ->
 
       s.bestDate = ( plan ) -> if plan.starts_at then plan.starts_at else plan.updated_at
 
+      s.tabClass = (plan, index) -> ClassFromString.toClass( plan.name, index )
+        
       window.matrix = s
   }

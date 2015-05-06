@@ -1,4 +1,4 @@
-angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, PlanEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser, ErrorReporter) ->
+angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, PlanEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser, ErrorReporter, ClassFromString) ->
 
   return {
     restrict: 'E'
@@ -250,5 +250,6 @@ angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafle
 
       s._setOnScope = (list, value = null) -> _.forEach list, (i) -> s[i] = ( if value? then _.clone(value) else null )
 
+      s.placeClass = (p, index) -> "p#{p.id} #{ClassFromString.toClass(p.name, index)}"
       window.pm = s
   }

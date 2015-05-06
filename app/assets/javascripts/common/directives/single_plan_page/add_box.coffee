@@ -1,4 +1,4 @@
-angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, QueryString, Foursquare, Place, Item, $timeout, RailsEnv) ->
+angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, QueryString, Foursquare, Place, Item, $timeout, RailsEnv, ClassFromString) ->
   {
     restrict: 'E'
     replace: true
@@ -7,6 +7,12 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
       m: '='
     link: (s, e, a) ->
       
+      s.nearbySearchResultClass = (option, index=0) ->
+        highlightClass = if s.placeNearbyOptionSelectable(option) then 'highlighted' else null
+        highlightClass + ' ' + ClassFromString.toClass( option.name, option.qualifiers, index )
+      
+      s.placeNameOptionClass = (option, index) -> ClassFromString.toClass(option.name, index)
+
       s.m.addBoxManuallyToggled = false
       s.addBoxToggle = -> 
         s.m.addBoxToggled = !s.m.addBoxToggled
@@ -82,8 +88,11 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
       s.nearbyToReset = -> _.compact([ s.m.nearby?.name, s.m.nearby?.adminName1, s.m.nearby?.countryName ]).join(", ")
 
       s.resetNearby = -> 
-        s.m._setValues(s.m, [ 'nearby' ], null )
-        s.m._setValues(s, ['placeName', 'placeNearby', 'placeOptions', 'centerNearby'], null)
+        s.m.nearby = null
+        s.placeName = null
+        s.placeNearby = null
+        s.placeOptions = null
+        s.centerNearby = null
         $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
         QueryString.modify({ near: null })
         return

@@ -16,6 +16,37 @@ module Features
     uri = URI.parse(current_url)
     "#{uri.path}?#{uri.query}"
   end
+
+  def wait_for(selector:, limit: 10)
+    if Nokogiri.parse(html).css(selector).present?
+      true
+    elsif limit <= 0
+      raise "Couldn't find #{selector} in \n\n#{html}"
+    else
+      sleep 0.2
+      wait_for(selector: selector, limit: limit - 0.2)
+    end
+  end
+
+  def ng_hidden(root: nil, selector:)
+    root ||= Nokogiri.parse(html)
+    root.css(selector).select{ |e| classes_for( e ).include?("ng-hide") }
+  end
+
+  def ng_shown(root: nil, selector:)
+    root ||= Nokogiri.parse(html)
+    root.css(selector).select{ |e| !classes_for( e ).include?("ng-hide") }
+  end
+
+  def classes_for(selector)
+    if selector.is_a?(String)
+      classes_for Nokogiri.parse(html).css(selector)
+    elsif selector.is_a? Nokogiri::XML::NodeSet
+      classes_for selector.first
+    else
+      selector.attributes.find{ |k, v| k == 'class' }.last.value
+    end
+  end
 end
 
 module Controllers

@@ -1,4 +1,4 @@
-angular.module("Common").directive 'listAndTripView', (User,  ErrorReporter, Mark, Flash, Note, $timeout) ->
+angular.module("Common").directive 'listAndTripView', (User, ErrorReporter, Mark, Flash, Note, $timeout, MetaCategory) ->
   return { 
     restrict: 'E'
     replace: true
@@ -7,21 +7,7 @@ angular.module("Common").directive 'listAndTripView', (User,  ErrorReporter, Mar
       m: '='
     link: (s, e, a) ->
       
-      s.colorClass = ( meta_category ) -> 
-        switch meta_category
-          when 'Area' then 'yellow'
-          when 'See' then 'green'
-          when 'Do' then 'bluegreen'
-          when 'Relax' then 'turqoise'
-          when 'Stay' then 'blue'
-          when 'Drink' then 'purple'
-          when 'Food' then 'magenta'
-          when 'Shop' then 'pink'
-          when 'Help' then 'orange'
-          when 'Other' then 'gray'
-          when 'Transit' then 'gray'
-          when 'Money' then 'gray'
-          else 'no-type'
+      s.colorClass = ( meta_category ) -> MetaCategory.colorClass( meta_category )
       
       s.typeIcon = (items, meta_category) -> 
         itemsWithIcon = _.filter( items, (i) -> i.mark.place.meta_categories[0] == meta_category )

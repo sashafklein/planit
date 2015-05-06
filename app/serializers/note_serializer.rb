@@ -3,7 +3,7 @@ class NoteSerializer < ActiveModel::Serializer
   # has_one :source, serializer: UserSerializer
 
   def object_id
-    object.object_id
+    object['object_id']
   end
 
 end

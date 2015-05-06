@@ -1,5 +1,5 @@
 mod = angular.module('Models')
-mod.factory 'PlanitMarker', ($timeout) ->
+mod.factory 'PlanitMarker', ($timeout, MetaCategory) ->
 
   class PlanitMarker
 
@@ -12,21 +12,7 @@ mod.factory 'PlanitMarker', ($timeout) ->
       else
         """<i class="#{place.meta_icon || ''}" ></i>"""
 
-    pinColor: (meta_category) ->
-      switch meta_category
-        when 'Area' then 'yellow'
-        when 'See' then 'green'
-        when 'Do' then 'bluegreen'
-        when 'Relax' then 'turqoise'
-        when 'Stay' then 'blue'
-        when 'Drink' then 'purple'
-        when 'Food' then 'magenta'
-        when 'Shop' then 'pink'
-        when 'Help' then 'orange'
-        when 'Other' then 'gray'
-        when 'Transit' then 'gray'
-        when 'Money' then 'gray'
-        else 'no-type'
+    pinColor: (meta_category) -> MetaCategory.colorClass( meta_category )
 
     primaryPin: (place, show_popup = false) ->
       id = "p#{place.id}"

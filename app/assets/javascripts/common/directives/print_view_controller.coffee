@@ -1,4 +1,4 @@
-angular.module("Common").directive 'printViewController', (Plan, Item, Note, ErrorReporter, QueryString, $timeout) ->
+angular.module("Common").directive 'printViewController', (Plan, Item, Note, ErrorReporter, QueryString, $timeout, MetaCategory, Plural) ->
   return {
     restrict: 'E'
     replace: true
@@ -51,33 +51,15 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, Err
 
           if s[ "#{level}List" ]?.length
             s.localeLevel ||= level
-            s[ "many#{ s._pluralize(level) }" ] = true
+            s[ "many#{ Plural.compute(level) }" ] = true
 
         s.localeLevel ||= _.find( localeLevels, (l) -> _(s.items).map("mark.place.#{l}").uniq().compact().value().length == 1)
         
         s.setLocalesByLevel()
 
-      s._pluralize = (level) ->
-        switch level
-          when 'country' then 'countries'
-          when 'region' then 'regions'
-          when 'locality' then 'localities'
-          when 'sublocality' then 'sublocalities'
-          else level + 's'
+      s.setLocalesByLevel = -> s.locales = s[ "#{s.localeLevel}List" ]
 
-      s.setLocalesByLevel = ->
-        if s.localeLevel == 'sublocality' then s.locales = s.sublocalityList
-        if s.localeLevel == 'locality' then s.locales = s.localityList
-        if s.localeLevel == 'region' then s.locales = s.regionList
-        if s.localeLevel == 'country' then s.locales = s.countryList
-
-      s.localeItems = ( locale ) ->
-        itemsInLocale = []
-        if s.localeLevel == 'sublocality' then itemsInLocale = _.filter( s.items, (i) -> i.mark.place.sublocality == locale )
-        if s.localeLevel == 'locality' then itemsInLocale = _.filter( s.items, (i) -> i.mark.place.locality == locale )
-        if s.localeLevel == 'region' then itemsInLocale = _.filter( s.items, (i) -> i.mark.place.region == locale )
-        if s.localeLevel == 'country' then itemsInLocale = _.filter( s.items, (i) -> i.mark.place.country == locale )
-        return itemsInLocale
+      s.localeItems = ( locale ) -> _.filter( s.items, (i) -> i.mark.place[ s.localeLevel ] == locale )
 
       # BY CATEGORY
 
@@ -101,21 +83,7 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, Err
 
       # ITEM FEATURES
 
-      s.metaClass = ( meta_category ) -> 
-        switch meta_category
-          when 'Area' then 'yellow'
-          when 'See' then 'green'
-          when 'Do' then 'bluegreen'
-          when 'Relax' then 'turqoise'
-          when 'Stay' then 'blue'
-          when 'Drink' then 'purple'
-          when 'Food' then 'magenta'
-          when 'Shop' then 'pink'
-          when 'Help' then 'orange'
-          when 'Other' then 'gray'
-          when 'Transit' then 'gray'
-          when 'Money' then 'gray'
-          else 'no-type'
+      s.metaClass = ( meta_category ) -> MetaCategory.colorClass(meta_category)
 
       s.hasCategories = (item) -> item.mark.place.categories.length
 
@@ -127,17 +95,12 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, Err
       s.hasNote = (item) -> item?.note?.length
 
       s.hours = (item, day) -> 
-        if day
-          if day_hours = item.mark.place.hours[ day ]
-            hour_windows = []
-            _.forEach( day_hours, (hour_window) ->
-              hour_windows.push "#{hour_window.first} - #{hour_window.last}"
-              # hour_windows.push "#{Time.strptime(hour_window.first, '%H%M').strftime('%l:%M%p').downcase} - #{Time.strptime(hour_window.last, '%H%M').strftime('%l:%M%p').downcase}"
-            )
-            return "<span class='day-name'>#{ day }</span>: #{ hour_windows.join(', ') }".html_safe
-        else
-          # return Su Mo Tu We Th Fr Sa colored
-          null
+        return null unless day && day_hours = item.mark.place.hours[ day ]
+        hour_windows = _.map day_hours, (hour_window) -> "#{hour_window.first} - #{hour_window.last}"
+        # "#{Time.strptime(hour_window.first, '%H%M').strftime('%l:%M%p').downcase} - #{Time.strptime(hour_window.last, '%H%M').strftime('%l:%M%p').downcase}"
+
+        return "<span class='day-name'>#{ day }</span>: #{ hour_windows.join(', ') }".html_safe
+        # return Su Mo Tu We Th Fr Sa colored
 
       # OTHER
 
