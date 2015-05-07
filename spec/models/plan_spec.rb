@@ -21,6 +21,24 @@ describe Plan do
       }.not_to raise_error
     end
 
+    it "handles lineage correctly" do
+      new_plan = @plan.copy!(new_user: @user)
+      expect( new_plan.first_ancestor ).to eq @plan
+      expect( new_plan.last_ancestor ).to eq @plan
+      expect( new_plan.first_ancestor_copied_at ).to be_within( 0.5.seconds ).of DateTime.now
+      expect( new_plan.last_ancestor_copied_at ).to be_within( 0.5.seconds ).of DateTime.now
+
+      sleep 1
+      new_user = create(:user)
+
+      newest_plan = new_plan.copy!(new_user: new_user)
+      expect( newest_plan.first_ancestor ).to eq @plan
+      expect( newest_plan.first_ancestor_copied_at ).to eq new_plan.first_ancestor_copied_at
+      expect( newest_plan.last_ancestor ).to eq new_plan
+      expect( newest_plan.last_ancestor_copied_at ).not_to eq new_plan.last_ancestor_copied_at
+      expect( newest_plan.last_ancestor_copied_at ).to be_within( 0.5.seconds ).of DateTime.now
+    end
+
     it "creates a new plan (with the new user), new items, and new marks; it ignores the manifest" do
       mark_count = Mark.count
       item_count = Item.count

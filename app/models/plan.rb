@@ -9,6 +9,9 @@ class Plan < BaseModel
   has_many :collaborations
   has_many :collaborators, through: :collaborations, source: :collaborator
   
+  belongs_to :first_ancestor, class_name: 'Plan', foreign_key: 'first_ancestor_id'
+  belongs_to :last_ancestor, class_name: 'Plan', foreign_key: 'last_ancestor_id'
+
   has_many_polymorphic table: :images, name: :imageable
   has_many_polymorphic table: :sources
   has_many_polymorphic table: :shares
@@ -16,13 +19,15 @@ class Plan < BaseModel
 
   boolean_accessor :published
   json_accessor :manifest
+  
   delegate :last_day, :departure, to: :last_leg
   delegate :arrival, to: :first_leg
   delegate :add_to_manifest, :remove_from_manifest, :move_in_manifest, to: :manifester
 
   def copy!(new_user:, copy_manifest: false)
     Plan.transaction do 
-      new_plan = dup_without_relations!( keep: [:place_id], exclude: [(copy_manifest ? nil : :manifest)].compact, override: { user: new_user, name: "Copy of '#{name}'#{ user ? ' by ' + user.name : ''}" } ) 
+      new_plan = dup_without_relations!( keep: [:place_id, :first_ancestor_id], exclude: [(copy_manifest ? nil : :manifest), :last_ancestor_copied_at].compact, override: { user: new_user, name: "Copy of '#{name}'#{ user ? ' by ' + user.name : ''}" } ) 
+      new_plan.update_attributes!( last_ancestor_id: id, last_ancestor_copied_at: Time.now, first_ancestor_id: self.first_ancestor_id || id, first_ancestor_copied_at: self.first_ancestor_copied_at || Time.now )
       items.each { |old_item| old_item.copy!(new_plan: new_plan) }
       new_plan
     end
