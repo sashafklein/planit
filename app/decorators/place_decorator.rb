@@ -4,6 +4,10 @@ class PlaceDecorator < Draper::Decorator
 
   # PLACE_SHOW
 
+  def has_category
+    categories.present?
+  end
+
   def category
     categories.present? ? categories.join(', ').titleize : "Edit Destination Type"
   end
@@ -38,6 +42,7 @@ class PlaceDecorator < Draper::Decorator
 
   def show_phones
     if phones.any?
+      html = ''
       phones.compact.each do |number|
         html += "<div class='address-info-line'>"
         html += "<i class='fa fa-phone place-show-icon'></i>"
