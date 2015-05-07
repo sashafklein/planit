@@ -82,7 +82,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
             _.forEach response , ( item, index ) ->
               i = _.extend( new SPItem( Item.generateFromJSON( item ) ), { index: index, pane: 'list', class: 'Item' } )
               self.items.push i
-            QueryString.modify({ plan: self.id })
+            QueryString.modify({ plan: parseInt( self.id ) })
             $timeout(-> self._fetchNotes() )
           .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list #{self.id}", { plan_id: self.id })
 
@@ -94,7 +94,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
 
     categories: ( categorizeBy ) -> #sorted alphabetically
       switch categorizeBy
-        when 'type' then _.sortBy( _.uniq( _.map( @.items, (i) -> i.mark.place.meta_categories[0] ) ) , (c) -> return c )
+        when 'type' then _.sortBy( _.uniq( _.map( @.items, (i) -> i.meta_category ) ) , (c) -> return c )
         when 'alphabetical' then _.sortBy( _.uniq( _.compact( _.map( @.items, (i) -> i.mark.place.names?[0]?[0] ) ) ) , (c) -> return c )
         when 'recent' then _.sortBy( _.uniq( _.map( @.items, (i) -> x=i.updated_at.match(/(\d{4})-(\d{2})-(\d{2})/); return "#{x[2]}/#{x[3]}/#{x[1]}" ) ) , (c) -> return c )
         when 'locale' then _.sortBy( _.uniq( _.map( @.items, (i) -> i.mark.place.locality ) ) , (c) -> return c )

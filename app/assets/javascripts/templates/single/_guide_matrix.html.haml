@@ -20,8 +20,9 @@
                 .content-tab-title{ ng_click: 'm.planManager.fetchPlan( plan.id )' }
                   {{ plan.name }}
                   .guide-owner-avatar{ ng_show: '!plan.userOwns() || ( plan.userOwns() && plan.hasCollaborators() )', ng_class: "{'collaborators': plan.userOwns() && plan.hasCollaborators() }" }
-                    %i.fa.fa-group{ ng_show: 'plan.userOwns() && plan.hasCollaborators()'}
-                    %i.fa.fa-user{ ng_show: '!plan.userOwns()'}
+                    %i.fa.fa-group{ ng_show: 'plan.userOwns() && plan.hasCollaborators()' }
+                    %i.fa.fa-user{ ng_show: '!plan.userOwns() && !plan.user.avatar' }
+                    %img{ ng_show: '!plan.userOwns() && plan.user.avatar', ng_src: "{{ plan.user.avatar }}" }
                     .guide-avatar-helper
                       .guide-avatar-name
                         %b{ ng_show: '!plan.userOwns()' } {{ plan.user.first_name }}
@@ -31,7 +32,7 @@
                 %i.fa.fa-group.tab-operations-button.disabled
                 %i.fa.fa-paper-plane.tab-operations-button{ href: "#planit-modal-share", ng_click: 'm.sharePlan( plan )', data: {toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
                 %i.fa.fa-trash.tab-operations-button{ ng_click: 'm.planManager.removePlan( plan.id )' }
-      .repeating-folders{ ng_repeat_end: '' }        
+      .repeating-folders{ ng_repeat_end: '' }
 
       .container.centered{ ng_show: 'm.planManager.itemCount()<1' }
         %strong.large.neon

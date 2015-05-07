@@ -86,7 +86,7 @@ module PlanMod
 
     def hash_detail(object)
       case object.class.to_s
-      when 'Item' then object.mark.place.meta_category
+      when 'Item' then object.meta_category
       else ''
       end
     end

@@ -1,6 +1,7 @@
 class Item < BaseModel
 
   after_create :resuscitate_mark!
+  before_create :set_meta_category
 
   belongs_to :mark
   belongs_to :plan
@@ -34,7 +35,7 @@ class Item < BaseModel
 
               :name,
               :street_address,
-              :meta_icon, :meta_category, 
+              :meta_icon,
                 to: :mark
 
   validates_presence_of :mark, :plan
@@ -116,5 +117,9 @@ class Item < BaseModel
 
   def resuscitate_mark!
     mark.update_attributes!(deleted: false) if mark.deleted
+  end
+
+  def set_meta_category
+    self.meta_category = mark.place.meta_category if mark.try( :place ) && !self.meta_category
   end
 end

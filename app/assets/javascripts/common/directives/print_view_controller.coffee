@@ -63,10 +63,10 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, Err
 
       # BY CATEGORY
 
-      s.categories = ( items ) -> _.uniq( _.map( items, (i) -> i.mark.place.meta_categories[0] ) )
+      s.categories = ( items ) -> _.uniq( _.map( items, (i) -> i.meta_category ) )
       s.categoryItems = ( meta_category, items ) -> 
         _( items ).filter( 
-          (i) -> i.mark.place.meta_categories[0] == meta_category 
+          (i) -> i.meta_category == meta_category 
         ).sortBy( (i) -> String( i.symbol ) ).value()
 
       # GET NOTES

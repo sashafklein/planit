@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507203424) do
+ActiveRecord::Schema.define(version: 20150507221231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,17 +107,38 @@ ActiveRecord::Schema.define(version: 20150507203424) do
   create_table "items", force: :cascade do |t|
     t.integer  "mark_id"
     t.integer  "plan_id"
-    t.integer  "day_of_week",             default: 0
-    t.string   "start_time",  limit: 255
+    t.integer  "day_of_week",               default: 0
+    t.string   "start_time",    limit: 255
     t.float    "duration"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published",               default: true
-    t.json     "extra",                   default: {}
+    t.boolean  "published",                 default: true
+    t.json     "extra",                     default: {}
+    t.string   "meta_category", limit: 25
   end
 
   add_index "items", ["mark_id"], name: "index_items_on_mark_id", using: :btree
   add_index "items", ["plan_id"], name: "index_items_on_plan_id", using: :btree
+
+  create_table "location_searches", force: :cascade do |t|
+    t.string   "success_terms", default: [],              array: true
+    t.integer  "location_id",                null: false
+    t.integer  "user_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "ascii_name",   null: false
+    t.string   "admin_name_1"
+    t.string   "country_name"
+    t.string   "fcl_name"
+    t.integer  "geoname_id",   null: false
+    t.float    "lat",          null: false
+    t.float    "lon",          null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "mail_list_emails", force: :cascade do |t|
     t.string   "email"
@@ -288,6 +309,16 @@ ActiveRecord::Schema.define(version: 20150507203424) do
     t.string   "foursquare_icon"
   end
 
+  create_table "plan_locations", force: :cascade do |t|
+    t.integer  "location_id", null: false
+    t.integer  "plan_id",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "plan_locations", ["location_id"], name: "index_plan_locations_on_location_id", using: :btree
+  add_index "plan_locations", ["plan_id"], name: "index_plan_locations_on_plan_id", using: :btree
+
   create_table "plans", force: :cascade do |t|
     t.string   "name",                     limit: 255
     t.integer  "user_id"
@@ -302,6 +333,7 @@ ActiveRecord::Schema.define(version: 20150507203424) do
     t.datetime "updated_at"
     t.boolean  "published",                            default: true
     t.json     "manifest",                             default: []
+    t.integer  "latest_location_id"
     t.integer  "first_ancestor_id"
     t.integer  "last_ancestor_id"
     t.datetime "first_ancestor_copied_at"
@@ -310,6 +342,7 @@ ActiveRecord::Schema.define(version: 20150507203424) do
 
   add_index "plans", ["first_ancestor_id"], name: "index_plans_on_first_ancestor_id", using: :btree
   add_index "plans", ["last_ancestor_id"], name: "index_plans_on_last_ancestor_id", using: :btree
+  add_index "plans", ["latest_location_id"], name: "index_plans_on_latest_location_id", using: :btree
   add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree
 
   create_table "shares", force: :cascade do |t|
@@ -385,6 +418,7 @@ ActiveRecord::Schema.define(version: 20150507203424) do
     t.string   "foursquare_id"
     t.string   "google_access_token"
     t.string   "google_refresh_token"
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

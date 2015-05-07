@@ -10,7 +10,7 @@ angular.module("Common").directive 'listAndTripView', (User, ErrorReporter, Mark
       s.colorClass = ( meta_category ) -> MetaCategory.colorClass( meta_category )
       
       s.typeIcon = (items, meta_category) -> 
-        itemsWithIcon = _.filter( items, (i) -> i.mark.place.meta_categories[0] == meta_category )
+        itemsWithIcon = _.filter( items, (i) -> i.meta_category == meta_category )
         if itemsWithIcon[0] then itemsWithIcon[0].mark.place.meta_icon else ''
 
       s.noteChange = (item) ->

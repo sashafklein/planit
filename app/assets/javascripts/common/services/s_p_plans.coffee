@@ -16,7 +16,7 @@ angular.module("Common").service "SPPlans", (User, Plan, SPPlan, QueryString, Er
           plan = new SPPlan( response )
           self.plans[ plan.id ] = plan
           self.plans[ plan.id ]['nearby'] = nearby
-          QueryString.modify({ plan: plan.id })
+          QueryString.modify({ plan: parseInt( plan.id ) })
         .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.create', { plan_name: name } )
 
     fetchCoLocatedPlans: ( nearby ) ->
