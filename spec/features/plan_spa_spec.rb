@@ -70,13 +70,13 @@ describe 'Root SPA' do
 
       within '.input-and-results' do
         fill_in 'place-name', with: 'Alcatraz'
-        wait_for(selector: 'ul.suggested-results li.alcatraz-island-0')
+        wait_for(selector: 'ul.suggested-results li.alcatraz-island-0', 15)
         within 'ul.suggested-results' do
           first('li.alcatraz-island-0').click
         end
       end
 
-      wait_for(selector: '.items-organized-by.green')
+      wait_for(selector: '.items-organized-by.green', 15)
 
       alcatraz = Item.last
 
@@ -89,7 +89,7 @@ describe 'Root SPA' do
         fill_in "item_#{alcatraz.id}", with: 'Ai Wei Wei and whatever'
         expect( contigo.notes.first.body ).to eq 'My favorite local spot'
         fill_in "item_#{contigo.id}", with: 'My favorite local spot -- in Noe, where I live'
-        sleep 2
+        sleep 2.5
       end
 
       expect( contigo.notes.first.reload.body ).to eq 'My favorite local spot -- in Noe, where I live'

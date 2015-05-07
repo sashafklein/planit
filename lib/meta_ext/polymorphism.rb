@@ -1,7 +1,7 @@
 module MetaExt
   module Polymorphism
     module ClassMethods
-      def has_many_polymorphic(table:, name: :object, options: { dependent: :destroy })
+      def has_many_polymorphic(table:, name: :obj, options: { dependent: :destroy })
         has_many table, options.merge({ as: name })
         
         metaclass.instance_eval do
@@ -14,7 +14,7 @@ module MetaExt
         end
       end
 
-      def is_polymorphic(name: :object, should_validate: true)
+      def is_polymorphic(name: :obj, should_validate: true)
         belongs_to name, polymorphic: true
 
         validates( name, "#{name}_type".to_sym, "#{name}_id".to_sym, presence: true ) if should_validate
@@ -40,7 +40,7 @@ module MetaExt
     def copy_polymorphic!(to:, relation:, other_attrs: {})
       self.class.transaction do 
         send(relation).each do |obj|
-          obj.dup_without_relations!( override: {object: to}.merge(other_attrs) )
+          obj.dup_without_relations!( override: {obj: to}.merge(other_attrs) )
         end
       end
     end

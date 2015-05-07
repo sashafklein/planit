@@ -27,7 +27,7 @@ class Mark < BaseModel
   scope :marked_up,     ->        { with_mark('up') }
   scope :marked_down,   ->        { with_mark('up') }
   scope :starred,       ->        { with_mark('star') }
-  scope :sourced_with,  -> (source_name) { where(id: Source.where(name: source_name, object_type: 'Mark').pluck(:object_id)) }
+  scope :sourced_with,  -> (source_name) { where(id: Source.where(name: source_name, obj_type: 'Mark').pluck(:obj_id)) }
   default_scope { not_deleted }
 
   delegate    :names,
@@ -118,13 +118,13 @@ class Mark < BaseModel
     parser = SourceParser.new(source_url)
     base_sources = Source.where(name: parser.name, base_url: parser.base)
 
-    matching_sources = base_sources.where(object: self, trimmed_url: parser.trimmed)
+    matching_sources = base_sources.where(obj: self, trimmed_url: parser.trimmed)
     
     matching_sources.create!(full_url: parser.full) unless matching_sources.any?
   end
 
   def self.create_for_user_from_source!(user, source, url)
-    mark = source.object
+    mark = source.obj
     return mark if mark.user == user
 
     if mark.place_id

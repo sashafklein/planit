@@ -78,7 +78,7 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, Err
             if note = response.body then s.items[s.items.indexOf(item)].note = note
             $timeout(-> s.isLoaded = true )
           .error (response) ->
-            ErrorReporter.report({ context: "Failed note fetch in list page", object_id: item.id, object_type: item.class })
+            ErrorReporter.report({ context: "Failed note fetch in list page", obj_id: item.id, obj_type: item.class })
             $timeout(-> s.isLoaded = true )
 
       # ITEM FEATURES

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :source do
-    object { create(:mark) }
+    obj { create(:mark) }
     name "Planit"
     full_url "https://plan.it/places?whatever=bam"
     trimmed_url "https://plan.it/places?whatever=bam"

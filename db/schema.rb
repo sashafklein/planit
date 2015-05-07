@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507183528) do
+ActiveRecord::Schema.define(version: 20150507203424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,14 +68,14 @@ ActiveRecord::Schema.define(version: 20150507183528) do
   create_table "flags", force: :cascade do |t|
     t.text     "details"
     t.string   "name"
-    t.integer  "object_id"
-    t.string   "object_type"
+    t.integer  "obj_id"
+    t.string   "obj_type"
     t.json     "info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "flags", ["object_type", "object_id"], name: "index_flags_on_object_type_and_object_id", using: :btree
+  add_index "flags", ["obj_type", "obj_id"], name: "index_flags_on_obj_type_and_obj_id", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",           limit: 255, null: false
@@ -159,8 +159,8 @@ ActiveRecord::Schema.define(version: 20150507183528) do
   add_index "marks", ["user_id"], name: "index_marks_on_user_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
-    t.integer  "object_id"
-    t.string   "object_type"
+    t.integer  "obj_id"
+    t.string   "obj_type"
     t.integer  "source_id"
     t.string   "source_type"
     t.text     "body"
@@ -168,7 +168,7 @@ ActiveRecord::Schema.define(version: 20150507183528) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "notes", ["object_type", "object_id"], name: "index_notes_on_object_type_and_object_id", using: :btree
+  add_index "notes", ["obj_type", "obj_id"], name: "index_notes_on_obj_type_and_obj_id", using: :btree
   add_index "notes", ["source_type", "source_id"], name: "index_notes_on_source_type_and_source_id", using: :btree
 
   create_table "nps_feedbacks", force: :cascade do |t|
@@ -313,25 +313,25 @@ ActiveRecord::Schema.define(version: 20150507183528) do
   add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree
 
   create_table "shares", force: :cascade do |t|
-    t.integer  "object_id"
-    t.string   "object_type"
+    t.integer  "obj_id"
+    t.string   "obj_type"
     t.text     "notes"
     t.integer  "sharer_id"
     t.integer  "sharee_id"
     t.string   "url"
-    t.boolean  "viewed",      default: false
-    t.boolean  "accepted",    default: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.boolean  "viewed",     default: false
+    t.boolean  "accepted",   default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
-  add_index "shares", ["object_type", "object_id"], name: "index_shares_on_object_type_and_object_id", using: :btree
+  add_index "shares", ["obj_type", "obj_id"], name: "index_shares_on_obj_type_and_obj_id", using: :btree
   add_index "shares", ["sharee_id"], name: "index_shares_on_sharee_id", using: :btree
   add_index "shares", ["sharer_id"], name: "index_shares_on_sharer_id", using: :btree
 
   create_table "sources", force: :cascade do |t|
-    t.integer  "object_id"
-    t.string   "object_type"
+    t.integer  "obj_id"
+    t.string   "obj_type"
     t.string   "name"
     t.string   "full_url"
     t.string   "trimmed_url"
@@ -341,7 +341,7 @@ ActiveRecord::Schema.define(version: 20150507183528) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "sources", ["object_type", "object_id"], name: "index_sources_on_object_type_and_object_id", using: :btree
+  add_index "sources", ["obj_type", "obj_id"], name: "index_sources_on_obj_type_and_obj_id", using: :btree
 
   create_table "travels", force: :cascade do |t|
     t.string   "mode",               limit: 255

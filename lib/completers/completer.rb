@@ -88,7 +88,7 @@ module Completers
 
     def create_plan_source(plan, mark_source)
       source = Source.new( mark_source.generic_attrs )
-      source.object = plan
+      source.obj = plan
       source.save!
     end
   end

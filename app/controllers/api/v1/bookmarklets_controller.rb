@@ -25,7 +25,7 @@ class Api::V1::BookmarkletsController < ApiController
   end
 
   def test
-    scraped_sources = Source.for_url_and_type(params[:url], 'Mark').includes(:object)
+    scraped_sources = Source.for_url_and_type(params[:url], 'Mark').includes(:obj)
     if scraped_sources.any?
       source = sort_by_object_place_id(scraped_sources).first
       mark = Mark.create_for_user_from_source! User.friendly.find( params[:user_id] ), source, params[:url]
@@ -58,7 +58,7 @@ class Api::V1::BookmarkletsController < ApiController
   end
 
   def sort_by_object_place_id(sources)
-    sources.sort_by{ |s| s.object.place_id || 0 }.reverse
+    sources.sort_by{ |s| s.obj.place_id || 0 }.reverse
   end
 
   def asset_path(path)

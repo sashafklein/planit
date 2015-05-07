@@ -13,12 +13,12 @@ describe Api::V1::Plans::ManifestController do
     
     it "adds an item to the plan" do
       expect_any_instance_of( Plan ).to receive(:add_to_manifest).with(object: @item, location: 0)
-      post :add, id: @plan.id, object_id: @item.id, object_class: 'Item', location: 0
+      post :add, id: @plan.id, obj_id: @item.id, obj_class: 'Item', location: 0
     end
 
     it "takes the location param into account" do
       expect_any_instance_of( Plan ).to receive(:add_to_manifest).with(object: @item, location: 2)
-      post :add, id: @plan.id, object_id: @item.id, object_class: 'Item', location: 2
+      post :add, id: @plan.id, obj_id: @item.id, obj_class: 'Item', location: 2
     end
   end
 
@@ -26,7 +26,7 @@ describe Api::V1::Plans::ManifestController do
 
     it "calls remove_from_manifest" do
       expect_any_instance_of( Plan ).to receive(:remove_from_manifest).with(object: @item, location: 2)
-      post :remove, id: @plan.id, object_id: @item.id, object_class: 'Item', location: 2
+      post :remove, id: @plan.id, obj_id: @item.id, obj_class: 'Item', location: 2
     end
   end
 

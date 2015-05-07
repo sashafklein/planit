@@ -89,7 +89,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
     _fetchNotes: ->
       self = @
       Note.findAllNotesInPlan( @.id )
-        .success (response) -> _.forEach( self.items, (i) -> i.note = _.find( response, (n) -> parseInt( n.object_id ) == parseInt( i.id ) )?.body; i.notesSearched = true )
+        .success (response) -> _.forEach( self.items, (i) -> i.note = _.find( response, (n) -> parseInt( n.obj_id ) == parseInt( i.id ) )?.body; i.notesSearched = true )
         .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list fetch original notes", { plan_id: @.id })
 
     categories: ( categorizeBy ) -> #sorted alphabetically
