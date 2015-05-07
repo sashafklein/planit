@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507004639) do
+ActiveRecord::Schema.define(version: 20150507183528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,15 +48,6 @@ ActiveRecord::Schema.define(version: 20150507004639) do
 
   add_index "collaborations", ["collaborator_id"], name: "index_collaborations_on_collaborator_id", using: :btree
   add_index "collaborations", ["plan_id"], name: "index_collaborations_on_plan_id", using: :btree
-
-  create_table "days", force: :cascade do |t|
-    t.integer  "leg_id"
-    t.integer  "order"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "days", ["leg_id"], name: "index_days_on_leg_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",               default: 0, null: false
@@ -116,8 +107,6 @@ ActiveRecord::Schema.define(version: 20150507004639) do
   create_table "items", force: :cascade do |t|
     t.integer  "mark_id"
     t.integer  "plan_id"
-    t.integer  "day_id"
-    t.integer  "order"
     t.integer  "day_of_week",             default: 0
     t.string   "start_time",  limit: 255
     t.float    "duration"
@@ -127,20 +116,8 @@ ActiveRecord::Schema.define(version: 20150507004639) do
     t.json     "extra",                   default: {}
   end
 
-  add_index "items", ["day_id"], name: "index_items_on_day_id", using: :btree
   add_index "items", ["mark_id"], name: "index_items_on_mark_id", using: :btree
   add_index "items", ["plan_id"], name: "index_items_on_plan_id", using: :btree
-
-  create_table "legs", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "order"
-    t.boolean  "bucket",                 default: false
-    t.integer  "plan_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "legs", ["plan_id"], name: "index_legs_on_plan_id", using: :btree
 
   create_table "mail_list_emails", force: :cascade do |t|
     t.string   "email"
@@ -365,26 +342,6 @@ ActiveRecord::Schema.define(version: 20150507004639) do
   end
 
   add_index "sources", ["object_type", "object_id"], name: "index_sources_on_object_type_and_object_id", using: :btree
-
-  create_table "taggings", force: :cascade do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       limit: 128
-    t.datetime "created_at"
-  end
-
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
-
-  create_table "tags", force: :cascade do |t|
-    t.string  "name"
-    t.integer "taggings_count", default: 0
-  end
-
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "travels", force: :cascade do |t|
     t.string   "mode",               limit: 255

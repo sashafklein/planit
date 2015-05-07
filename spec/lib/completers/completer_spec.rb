@@ -158,7 +158,7 @@ module Completers
           expect( p.extra['ratings'] ).to be_present
 
           expect( p.sublocality ).to sorta_eq("Brooklyn")
-          expect( p.categories ).to eq ["Attraction", "Beach", "Theme Park"]
+          expect( p.categories ).to array_eq ["Attraction", "Go Kart Track", "Theme Park Ride / Attraction"]
           i = m.items.first
           expect( i.plan.name ).to eq "New York City Guide"
 
@@ -341,8 +341,8 @@ module Completers
             url = "http://www.frommers.com/destinations/rome/restaurants"
             yamlator = HtmlToYaml.new( end_path: 'frommers/restaurantlist', url: url)
             m = Completer.new(yamlator.find(name: 'Da Remo'), @user).complete!
-            expect( m.place.names ).to eq ["Da Remo", "Remo"]
-            expect( m.place.categories ).to eq ["Pizza Place"]
+            expect( m.place.names ).to eq ["Da Remo", "Pizzeria da Remo"]
+            expect( m.place.categories ).to include "Pizza Place"
           end
 
           it 'finds Simply Fresh Laundry in Denpasar' do

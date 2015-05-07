@@ -56,7 +56,6 @@ gem "pundit"
 # search
 gem "fuzzy-string-match"
 gem "friendly_id"
-gem "acts-as-taggable-on" # not using
 
 # terminal
 gem "colorize"

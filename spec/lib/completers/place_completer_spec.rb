@@ -29,7 +29,7 @@ module Completers
           expect( place.region ).to sorta_eq('Tokyo')
           expect( place.subregion ).to sorta_eq(nil)
           expect( place.locality ).to sorta_eq('Shibuya')
-          expect( place.street_addresses ).to eq( ["代々木2-14-3", "2 Chome-１４−3 Yoyogi"] )
+          expect( place.street_addresses ).to eq( ["代々木2-14-3", "2 Chome-14−3 Yoyogi"] )
           expect( place.names ).to eq( ["Fuunji", "風雲児"] )
           expect( place.phones ).to eq(["81364138480"])
           expect( place.category ).to eq("Ramen / Noodle House")

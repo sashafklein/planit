@@ -50,8 +50,6 @@ class Mark < BaseModel
               :meta_icon, :meta_category, 
                 to: :place
 
-  make_taggable
-
   def self.places
     Place.where( id: pluck(:place_id) )
   end
