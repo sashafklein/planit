@@ -1,7 +1,8 @@
 class PlanSerializer < BaseSerializer
-  attributes :id, :name, :created_at, :updated_at, :place_ids, :href, :best_image, :manifest, :user_id, :user, :collaborators
+  attributes :id, :name, :created_at, :updated_at, :place_ids, :href, :best_image, :manifest, :user_id, :user, :collaborators, :latest_location_id
   delegate :best_image, :uniq_abbreviated_coords, to: :object
 
+  has_many :locations, each_serializer: LocationSerializer
   has_many :collaborators, each_serializer: UserSerializer
   has_one :user, serializer: UserSerializer
 

@@ -10,7 +10,6 @@ angular.module('Common').factory 'QueryString', ($location, $window) ->
 
     @set: (hash) -> 
       original = @get()
-      console.log original
       if hash && Object.keys(hash)?.length
         $location.search( hash ).replace()
         $window.history.pushState(null, 'any', $location.absUrl()) unless _.isEqual( @get(), original )
@@ -21,7 +20,7 @@ angular.module('Common').factory 'QueryString', ($location, $window) ->
       [newObj, clone] = [ {}, QueryString._clone( $location.search() ) ]
 
       _.forEach object, (v,k) ->
-        newObj[k] = if (!k? || typeof(k) == 'string') then v.toString() else v.join(",")
+        newObj[k] = if (!k? || typeof(k) == 'string') then v?.toString() else v.join(",")
 
       QueryString.set( QueryString._combine(clone, newObj) )
 

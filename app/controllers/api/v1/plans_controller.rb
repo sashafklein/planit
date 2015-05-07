@@ -58,7 +58,6 @@ class Api::V1::PlansController < ApiController
   def copy
     user_id = params[:user_id] || current_user.try(:id)
     return permission_denied_error unless current_user_is_active
-
     copy_plan(user_id, params[:copy_manifest])
   end
 
@@ -69,6 +68,24 @@ class Api::V1::PlansController < ApiController
     lon = coordinate.split(",").last.to_f.round(1)
     plans = Plan.all.select{ |p| p.uniq_abbreviated_coords.include?([lat,lon]) }
     render json: plans, each_serializer: PlanSerializer
+  end
+
+  def add_nearby
+    return permission_denied_error unless current_user_is_active
+    return permission_denied_error unless @plan && @plan.user_id == current_user.id
+    location = @plan.add_nearby( params[:nearby], current_user )
+    render json: location
+  end
+
+  def remove_nearby
+    return permission_denied_error unless current_user_is_active
+    return permission_denied_error unless @plan && @plan.user_id == current_user.id
+    if location_id = params[:location_id] && plan_locations = PlanLocation.where( plan_id: @plan.id, location_id: location_id )
+      plan_locations.destroy_all
+      render json: location_id
+    else
+      error
+    end
   end
 
   private

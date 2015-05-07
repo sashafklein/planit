@@ -1,5 +1,5 @@
 class ItemSerializer < ActiveModel::Serializer
-  attributes :id, :updated_at, :plan_id, :mark_id, :mark
+  attributes :id, :updated_at, :plan_id, :mark_id, :mark, :meta_category
   # has_one :plan, serializer: PlanSerializer
   # has_one :mark, serializer: MarkSerializer
 

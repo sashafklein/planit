@@ -1,4 +1,4 @@
-angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place, Note, Foursquare, QueryString, Geonames, CurrentUser, ErrorReporter, Flash, $filter, $timeout, $location, $q, RailsEnv, SPPlans) ->
+angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place, Note, Foursquare, QueryString, Geonames, CurrentUser, ErrorReporter, Flash, $filter, $timeout, $location, $q, RailsEnv, SPPlans, Distance) ->
   return {
     restrict: 'E'
     replace: true
@@ -50,52 +50,14 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
       s.m.hasPlans = -> Object.keys( s.m.plans )?.length > 0
 
 
-      # NEARBY SETTING AND LOOKUP
+      # NEARBY SETTING AND SEARCH
 
-      s.m.nearbies = []
-
-      s.m.setNearby = ( nearby ) -> 
-        s.m._setValues( s.m, ['placeNearby', 'planNearby'], null )
-        s.m.nearbies.push( nearby )
-        QueryString.modify({ near: nearby.geonameId })
-
-      s._setNearby = ( nearby ) ->
-        if nearby && Object.keys( nearby )?.length
-          s.m.nearby = nearby
-          s.m.addBoxToggled = true
-          $timeout(-> $('#place-name').focus() if $('#place-name') )
-          s.m._setValues( s, ['planNearby', 'planNearbyOptions', 'placeName', 'placeNameOptions', 'placeNearby', 'placeNearbyOptions'], null)
-          return
-        else
-          s.m._setValues( s, [ 'm.nearby', 'planNearby', 'planNearbyOptions', 'placeName', 'placeNameOptions', 'placeNearby', 'placeNearbyOptions'], null)
-
-      s._nearbyFromQuery = ( geoid ) ->
-        return unless s.m.plan() && Object.keys( s.m.plan() )?.length
-        if !geoid?.length
-          if s.m.plan().items?.length && s.m.plan().items[0]?.mark?.place
-            items = s.m.plan().items
-            mostRecentItem = _.sortBy( items, (i) -> i.updated_at ).reverse()[0]
-            locale = mostRecentItem.mark.place.locality || mostRecentItem.mark.place.sublocality || mostRecentItem.mark.place.subregion || mostRecentItem.mark.place.region || mostRecentItem.mark.place.country
-            macro = mostRecentItem.mark.place.region || mostRecentItem.mark.place.country unless locale == mostRecentItem.mark.place.region || locale == mostRecentItem.mark.place.country
-            s._setNearby( { name: locale, lat: mostRecentItem.mark.place.lat, lon: mostRecentItem.mark.place.lon, adminName1: macro } )
-          else if s.m.currentPlanId && s.m.plan()?.nearby && Object.keys( s.m.plan().nearby )?.length
-            s._setNearby( s.m.plan()?.nearby ) if s.m.plan()?.nearby
-          else
-            s._setNearby( null )
-        else
-          found = _.find( s.m.nearbies, (o) -> parseInt( o.geonameId ) == parseInt( geoid ) )
-          if found && Object.keys( found )?.length
-            s._setNearby( found )
-          else
-            Geonames.find( geoid )
-              .success (response) -> if response.geonameId == parseInt( geoid ) then s._setNearby( response )
-              .error (response) -> s._setNearby( null )
+      s.m.nearbySearchStrings = []
 
 
       # NAVIGATION & PAGE-LOADING
 
       s._hashCommand = -> QueryString.get()
-
       s._loadFromHashCommand = ->
         hash = s._hashCommand()
         if hash && Object.keys( hash )?.length
@@ -105,10 +67,8 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
             s.m.currentPlanId = parseInt( hash.plan )
           else
             s.m.currentPlanId = null
-          $timeout(-> s._nearbyFromQuery( hash.near ) )
         else
           s.m.mode = 'list'
-          s.m.nearby = null
           s.m.currentPlanId = null
           s.m.rename = null
         unless hash?.plan

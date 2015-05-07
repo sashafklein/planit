@@ -1,4 +1,4 @@
-.list-or-trip-mode{ ng_show: "m.plan() && m.planManager.itemCount()>0 && (m.mode == 'list' || m.mode == 'trip')" }
+.list-or-trip-mode{ ng_show: "!m.browseNearby && m.plan() && m.planManager.itemCount()>0 && (m.mode == 'list' || m.mode == 'trip')" }
   #header-spacing.except-landscape
   .print-title {{ m.plan().name }}
   .print-by by {{ m.plan().user.name }}

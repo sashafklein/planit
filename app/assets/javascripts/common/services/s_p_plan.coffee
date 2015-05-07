@@ -10,6 +10,8 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
 
     typeOf: -> if @userOwns() || @userCoOwns() then 'travel' else 'viewing'
 
+    currentLocation: -> self = @; _.find( self.locations, (l) -> l.id == self.latest_location_id )
+
     # EDIT PLAN ITSELF
 
     rename: ( new_name, callback ) ->
@@ -23,6 +25,25 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
       @_planObj().destroy()
         .success (response) -> callback?(); QueryString.modify({ plan: null })
         .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans SPPlan deletePlan', { plan_id: self.id } )
+
+    setNearby: ( nearby, searchStrings ) ->
+      self = @
+      data = { asciiName: nearby.asciiName, adminName1: nearby.adminName1, countryName: nearby.countryName, fclName: nearby.fclName, geonameId: nearby.geonameId, lat: nearby.lat, lon: nearby.lng, searchStrings: searchStrings }
+      @_planObj().addNearby(data)
+        .success (response) -> 
+          self.locations.unshift( response )
+          self.latest_location_id = response.id
+          QueryString.modify({ plan: self.id })
+        .error (response) -> ErrorReporter.fullSilent( response, 'Failed in setting self.id plan nearby' )
+
+    # removeNearby: ( nearby ) ->
+    #   self = @
+    #   @_planObj().removeNearby({ location_id: nearby['id'] })
+    #     .success (response) -> 
+    #       index = self.locations.indexOf( _.find( self.locations, (l) -> l.id == response ) )
+    #       self.locations.splice( index, 1 ) if index != -1
+    #       self.latest_location_id = null
+    #     .error (response) -> ErrorReporter.fullSilent( response, 'Failed in removing nearby from plan' )
 
     # ADD TO PLAN
 
@@ -73,6 +94,18 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
 
     # LOAD UP PLAN
 
+    loadNearbyPlans: ->
+      @.nearbyPlans = {}
+      # self = @
+      # return unless Object.keys( nearby )?.length
+      # Plan.locatedNear( "#{[nearby.lat,nearby.lon]}" )
+      #   .success (response) ->
+      #     _.forEach( response , (r) -> 
+      #       self.nearbyPlans[ r.id ] = new SPPlan( r ) 
+      #       self.nearbyPlans[ r.id ]['nearby'] = nearby 
+      #     )
+      #   .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.loadNearbyPlans', { coordinate: [nearby.lat,nearby.lon] } )
+
     loadItems: ->
       self = @
       unless @.items?.length
@@ -101,7 +134,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
 
     matchingItems: ( category, categorizeBy ) -> #sorted alphabetically
       switch categorizeBy
-        when 'type' then _.sortBy( _.filter( @.items, (i) -> i.mark.place.meta_categories?[0] == category ) , (i) -> return i.mark.place.names[0] )
+        when 'type' then _.sortBy( _.filter( @.items, (i) -> i.meta_category == category ) , (i) -> return i.mark.place.names[0] )
         when 'alphabetical' then _.sortBy( _.filter( @.items, (i) -> i.mark.place.names?[0]?[0] == category ) , (i) -> return i.mark.place.names[0] )
         when 'recent' then _.sortBy( _.filter( @.items, (i) -> x=i.updated_at.match(/(\d{4})-(\d{2})-(\d{2})/); "#{x[2]}/#{x[3]}/#{x[1]}" == category ) , (i) -> return i.mark.place.names[0] )
         when 'locale' then _.sortBy( _.filter( @.items, (i) -> i.mark.place.locality == category ) , (i) -> return i.mark.place.names[0] )
