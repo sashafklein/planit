@@ -82,7 +82,7 @@ describe Plan do
     end
 
     it "copies notes and keeps them pointed at the original user" do
-      note = create(:note, object: @plan.items.first, source: @owner)
+      note = create(:note, obj: @plan.items.first, source: @owner)
       expect{ @plan.copy!(new_user: @user) }.to change{ Note.count }.by 1
 
       new_note = Plan.last.items.find{ |i| i.name == 'first' }.notes.first
@@ -90,12 +90,12 @@ describe Plan do
       expect( new_note ).not_to eq note
       expect( new_note.body ).to eq note.body
       expect( new_note.source ).to eq note.source
-      expect( new_note.object ).not_to eq note.object
-      expect( new_note.object.mark.place ).to eq note.object.mark.place
+      expect( new_note.obj ).not_to eq note.obj
+      expect( new_note.obj.mark.place ).to eq note.obj.mark.place
     end
 
     it "copies sources of marks, and sources the original plan" do
-      source = create(:source, object: @plan.items.first.mark)
+      source = create(:source, obj: @plan.items.first.mark)
 
       expect{ @plan.copy!(new_user: @user) }.to change{ Source.count }.by 1
       new_mark_source = Plan.last.items.find{ |i| i.mark.place.name == 'first' }.mark.sources.first

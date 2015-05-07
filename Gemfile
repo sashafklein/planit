@@ -54,12 +54,8 @@ gem "devise"
 gem "pundit"
 
 # search
-# gem "elasticsearch-rails"
-# gem "elasticsearch-model"
-# gem "bonsai-elasticsearch-rails"
 gem "fuzzy-string-match"
 gem "friendly_id"
-gem "acts-as-taggable-on" # not using
 
 # terminal
 gem "colorize"

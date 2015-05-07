@@ -103,6 +103,7 @@ module PlaceMod
     end
 
     def normalized_hours(hours)
+      hours = hours.to_h
       return hours if Services::TimeConverter.hours_converted?(hours)
       normalized = {}
       (hours || {}).each do |k, v|

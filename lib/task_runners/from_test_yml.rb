@@ -2,7 +2,7 @@ module TaskRunners
   class FromTestYml
 
     def self.destroy_all
-      [Place, Mark, Item, Plan, Leg, Day, Image, Flag].map(&:destroy_all)
+      [Place, Mark, Item, Plan, Image, Flag].map(&:destroy_all)
     end
     
     def seed(folder='', filename=nil, name=nil)

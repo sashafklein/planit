@@ -15,22 +15,22 @@ class UserMailerPreview < ActionMailer::Preview
   # def share_love_user_guides
   #   url = "https://plan.it/users/" + User.first.slug + "/guides?y=in_2015"
   #   object = User.first
-  #   new_share = Share.create(sharer: User.first, sharee: User.last, url: url, object: object, notes: "Hey this is awesome!")
+  #   new_share = Share.create(sharer: User.first, sharee: User.last, url: url, obj: object, notes: "Hey this is awesome!")
   #   UserMailer.share_love(share_id: new_share.id)
   # end
 
   # def share_love_user_places
   #   url = "https://plan.it/users/" + User.first.slug + "/places?f=food+drink"
   #   object = User.first
-  #   new_share = Share.create(sharer: User.first, sharee: User.last, url: url, object: object, notes: "Hey this is awesome!")
+  #   new_share = Share.create(sharer: User.first, sharee: User.last, url: url, obj: object, notes: "Hey this is awesome!")
   #   UserMailer.share_love(share_id: new_share.id)
   # end
 
   def share_plan
     url = "https://plan.it/plans/" + Plan.first.id.to_s + "?q=tokyo+tea+time"
     object = Plan.first
-    new_share = Share.create( sharer: User.first, sharee: User.last, url: url, object: object, notes: "Hey this is awesome!")
-    UserMailer.share_plan( share_id: new_share.id, email: User.last.email )
+    new_share = Share.where(obj_type: 'Plan').first
+    UserMailer.share_plan( share_id: new_share.id, email: new_share.sharee.email || 'fake@email.com' )
   end
 
 end

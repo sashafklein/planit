@@ -3,8 +3,8 @@ angular.module("Common").directive 'addNoteOnClick', (Modal, ErrorReporter, Flas
   return {
     restrict: 'A'
     scope:
-      objectType: '@'
-      objectId: '@'
+      objType: '@'
+      objId: '@'
 
     link: (s, element, attrs) ->
 
@@ -13,8 +13,8 @@ angular.module("Common").directive 'addNoteOnClick', (Modal, ErrorReporter, Flas
         $('.loading-mask').show()
         s.modal = new Modal('addNote')
 
-        if s.objectType?.length && s.objectId?.length
-          s.modal.show({ objectId: s.objectId, objectType: s.objectType })
+        if s.objType?.length && s.objId?.length
+          s.modal.show({ objId: s.objId, objType: s.objType })
           $('.loading-mask').hide()
         else
           Flash.error("You must bookmark a place before adding a note for it.")

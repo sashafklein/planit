@@ -86,7 +86,7 @@ module PlaceMod
     def save_flags!
       flags.each do |flag|
         next if place.flags.find_by(name: flag.name, details: flag.details)
-        flag.update_attributes!(object_type: place.class.to_s, object_id: place.id)
+        flag.update_attributes!(obj_type: place.class.to_s, obj_id: place.id)
       end
     end
 

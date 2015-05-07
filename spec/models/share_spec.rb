@@ -16,7 +16,7 @@ describe Share do
         expect(UserMailer).to receive(:share_love).at_least(:once).and_call_original
 
         expect{
-          @share = Share.save_and_send(sharer: @sharer, sharee: sharee, url: url, object: object, notes: @notes)
+          @share = Share.save_and_send(sharer: @sharer, sharee: sharee, url: url, obj: object, notes: @notes)
         }.to change{ Share.count }.by 1
 
         text = email_text(subject: "#{@sharer.name} shared a page on Planit: 2015 2014 Guides" )

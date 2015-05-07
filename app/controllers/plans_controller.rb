@@ -35,7 +35,7 @@ class PlansController < ApplicationController
   private
 
   def load_plan
-    @plan = Plan.includes(legs: [{ days: [{ items: [{mark: :place}] }] }] )
+    @plan = Plan.includes(items: [{mark: :place}])
                 .find( params[:id] )
   end
 

@@ -100,12 +100,9 @@ module Completers
 
             expect(item.plan.name).to eq sequence_hash[:plan][:name]
             expect(item.plan.source.name).to eq "New York Times"
-            expect(item.order).to eq(1)
             expect(item.start_time).to eq('0300')
             expect(item.duration).to eq(0.5)
             expect(item.weekday).to eq('Friday')
-            expect(item.day.order).to eq(1)
-            expect(item.leg).to be_present # Creates a blank leg inside the plan
             expect( m.source.name ).to eq 'New York Times'
             expect( m.source.trimmed_url ).to eq "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html"
             expect( m.source.full_url ).to eq "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0"
@@ -161,7 +158,7 @@ module Completers
           expect( p.extra['ratings'] ).to be_present
 
           expect( p.sublocality ).to sorta_eq("Brooklyn")
-          expect( p.categories ).to eq ["Attraction", "Beach", "Theme Park"]
+          expect( p.categories ).to array_eq ["Attraction", "Go Kart Track", "Theme Park Ride / Attraction"]
           i = m.items.first
           expect( i.plan.name ).to eq "New York City Guide"
 
@@ -344,8 +341,8 @@ module Completers
             url = "http://www.frommers.com/destinations/rome/restaurants"
             yamlator = HtmlToYaml.new( end_path: 'frommers/restaurantlist', url: url)
             m = Completer.new(yamlator.find(name: 'Da Remo'), @user).complete!
-            expect( m.place.names ).to eq ["Da Remo", "Remo"]
-            expect( m.place.categories ).to eq ["Pizza Place"]
+            expect( m.place.names ).to eq ["Da Remo", "Pizzeria da Remo"]
+            expect( m.place.categories ).to include "Pizza Place"
           end
 
           it 'finds Simply Fresh Laundry in Denpasar' do

@@ -16,11 +16,11 @@ mod.factory "Plan", (BaseModel, $http) ->
 
     addToManifest: (object, location) -> 
       return unless object?
-      $http.post( "#{@objectPath()}/add", { object_class: object.class, object_id: object.id, location: location } )
+      $http.post( "#{@objectPath()}/add", { obj_class: object.class, obj_id: object.id, location: location } )
 
     removeFromManifest: (object, location) -> 
       return unless object?
-      $http.post( "#{@objectPath()}/remove", { object_class: object.class, object_id: object.id, location: location } )
+      $http.post( "#{@objectPath()}/remove", { obj_class: object.class, obj_id: object.id, location: location } )
         
     moveInManifest: (from, to) -> 
       return unless from? && to?

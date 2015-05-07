@@ -40,22 +40,6 @@ module MetaExt
         end
       end
 
-      def make_taggable
-        acts_as_taggable
-
-        class_eval do 
-          define_method("tag!") do |arg|
-            tag_list.add( arg )
-            save!
-          end
-
-          define_method("untag!") do
-            tag_list.remove( arg )
-            save
-          end
-        end
-      end
-
       def correct_data_types(attr_hash)
         new_atts = {}
         attr_hash.each do |k, v|

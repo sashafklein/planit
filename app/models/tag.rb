@@ -1,2 +1,0 @@
-class Tag < BaseModel
-end

@@ -92,7 +92,7 @@ module ActsLikePlace
   end
 
   def sources
-    Source.where(object_type: 'Mark', object_id: Mark.where(place_id: id) )
+    Source.where(obj_type: 'Mark', obj_id: Mark.where(place_id: id) )
   end
 
   def foursquare_rating

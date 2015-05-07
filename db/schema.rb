@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507004639) do
+ActiveRecord::Schema.define(version: 20150507203424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,15 +49,6 @@ ActiveRecord::Schema.define(version: 20150507004639) do
   add_index "collaborations", ["collaborator_id"], name: "index_collaborations_on_collaborator_id", using: :btree
   add_index "collaborations", ["plan_id"], name: "index_collaborations_on_plan_id", using: :btree
 
-  create_table "days", force: :cascade do |t|
-    t.integer  "leg_id"
-    t.integer  "order"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "days", ["leg_id"], name: "index_days_on_leg_id", using: :btree
-
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",               default: 0, null: false
     t.integer  "attempts",               default: 0, null: false
@@ -77,14 +68,14 @@ ActiveRecord::Schema.define(version: 20150507004639) do
   create_table "flags", force: :cascade do |t|
     t.text     "details"
     t.string   "name"
-    t.integer  "object_id"
-    t.string   "object_type"
+    t.integer  "obj_id"
+    t.string   "obj_type"
     t.json     "info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "flags", ["object_type", "object_id"], name: "index_flags_on_object_type_and_object_id", using: :btree
+  add_index "flags", ["obj_type", "obj_id"], name: "index_flags_on_obj_type_and_obj_id", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",           limit: 255, null: false
@@ -116,8 +107,6 @@ ActiveRecord::Schema.define(version: 20150507004639) do
   create_table "items", force: :cascade do |t|
     t.integer  "mark_id"
     t.integer  "plan_id"
-    t.integer  "day_id"
-    t.integer  "order"
     t.integer  "day_of_week",             default: 0
     t.string   "start_time",  limit: 255
     t.float    "duration"
@@ -127,20 +116,8 @@ ActiveRecord::Schema.define(version: 20150507004639) do
     t.json     "extra",                   default: {}
   end
 
-  add_index "items", ["day_id"], name: "index_items_on_day_id", using: :btree
   add_index "items", ["mark_id"], name: "index_items_on_mark_id", using: :btree
   add_index "items", ["plan_id"], name: "index_items_on_plan_id", using: :btree
-
-  create_table "legs", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "order"
-    t.boolean  "bucket",                 default: false
-    t.integer  "plan_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "legs", ["plan_id"], name: "index_legs_on_plan_id", using: :btree
 
   create_table "mail_list_emails", force: :cascade do |t|
     t.string   "email"
@@ -182,8 +159,8 @@ ActiveRecord::Schema.define(version: 20150507004639) do
   add_index "marks", ["user_id"], name: "index_marks_on_user_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
-    t.integer  "object_id"
-    t.string   "object_type"
+    t.integer  "obj_id"
+    t.string   "obj_type"
     t.integer  "source_id"
     t.string   "source_type"
     t.text     "body"
@@ -191,7 +168,7 @@ ActiveRecord::Schema.define(version: 20150507004639) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "notes", ["object_type", "object_id"], name: "index_notes_on_object_type_and_object_id", using: :btree
+  add_index "notes", ["obj_type", "obj_id"], name: "index_notes_on_obj_type_and_obj_id", using: :btree
   add_index "notes", ["source_type", "source_id"], name: "index_notes_on_source_type_and_source_id", using: :btree
 
   create_table "nps_feedbacks", force: :cascade do |t|
@@ -336,25 +313,25 @@ ActiveRecord::Schema.define(version: 20150507004639) do
   add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree
 
   create_table "shares", force: :cascade do |t|
-    t.integer  "object_id"
-    t.string   "object_type"
+    t.integer  "obj_id"
+    t.string   "obj_type"
     t.text     "notes"
     t.integer  "sharer_id"
     t.integer  "sharee_id"
     t.string   "url"
-    t.boolean  "viewed",      default: false
-    t.boolean  "accepted",    default: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.boolean  "viewed",     default: false
+    t.boolean  "accepted",   default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
-  add_index "shares", ["object_type", "object_id"], name: "index_shares_on_object_type_and_object_id", using: :btree
+  add_index "shares", ["obj_type", "obj_id"], name: "index_shares_on_obj_type_and_obj_id", using: :btree
   add_index "shares", ["sharee_id"], name: "index_shares_on_sharee_id", using: :btree
   add_index "shares", ["sharer_id"], name: "index_shares_on_sharer_id", using: :btree
 
   create_table "sources", force: :cascade do |t|
-    t.integer  "object_id"
-    t.string   "object_type"
+    t.integer  "obj_id"
+    t.string   "obj_type"
     t.string   "name"
     t.string   "full_url"
     t.string   "trimmed_url"
@@ -364,27 +341,7 @@ ActiveRecord::Schema.define(version: 20150507004639) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "sources", ["object_type", "object_id"], name: "index_sources_on_object_type_and_object_id", using: :btree
-
-  create_table "taggings", force: :cascade do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       limit: 128
-    t.datetime "created_at"
-  end
-
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
-
-  create_table "tags", force: :cascade do |t|
-    t.string  "name"
-    t.integer "taggings_count", default: 0
-  end
-
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  add_index "sources", ["obj_type", "obj_id"], name: "index_sources_on_obj_type_and_obj_id", using: :btree
 
   create_table "travels", force: :cascade do |t|
     t.string   "mode",               limit: 255
