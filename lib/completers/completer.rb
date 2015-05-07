@@ -43,13 +43,11 @@ module Completers
 
     def merge_and_create_associations!(mark)
       plan = create_plan!(mark)
-      leg = create_leg!(plan)
-      day = create_day!(plan, leg)
-      item = create_item!(plan, day, mark)
+      item = create_item!(plan, mark)
     end
 
     def create_plan!(mark)
-      return unless attrs[:item] || attrs[:plan] || attrs[:day]
+      return unless attrs[:item] || attrs[:plan]
       plan_attrs = decremented_attrs.delete(:plan) || {}
       
       name = plan_attrs[:name] || 'Untitled Trip'
@@ -59,29 +57,12 @@ module Completers
       plan
     end
 
-    def create_leg!(plan)
-      return nil unless plan
-
-      leg_attrs = decremented_attrs.delete(:leg) || {}
-      name = leg_attrs.fetch(:name, '')
-      optional_leg_attributes = leg_attrs.fetch(:order, {})
-      plan.legs.where(name: name).first_or_create!(optional_leg_attributes)
-    end
-
-    def create_day!(plan, leg)
-      return nil unless plan && leg && day_attrs = decremented_attrs.delete(:day)
-      
-      plan.days.where(leg_id: leg.id, order: day_attrs[:order]).first_or_create!
-    end
-
-    def create_item!(plan, day, mark)
+    def create_item!(plan, mark)
       return nil unless plan 
       
       item_attrs = normalize_item_attrs(decremented_attrs.delete(:item) || {})
 
       search_attrs = { mark_id: mark.id, plan_id: plan.id }.merge item_attrs.slice(*Item.attribute_keys)
-      search_attrs = search_attrs.merge(day_id: day.id) if day
-      search_attrs[:day_of_week] = Item.day_of_weeks[search_attrs[:day_of_week].downcase] if search_attrs[:day_of_week]
       search_attrs[:start_time] = Services::TimeConverter.new(search_attrs[:start_time]).absolute if search_attrs[:start_time]
       extra = search_attrs.delete(:extra)
 

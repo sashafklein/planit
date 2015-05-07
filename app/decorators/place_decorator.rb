@@ -2,29 +2,7 @@ class PlaceDecorator < Draper::Decorator
   delegate_all
   include Draper::LazyHelpers
 
-  # DASHBOARD
-
-  def location_description
-    if sublocality.present?
-      ["in #{sublocality}", location_locality_parenthetical].compact.join(" ")
-    elsif locality.present?
-      ["in #{locality}", location_country_of_locality_parenthetical].compact.join(" ")
-    elsif region.present?
-      ["in #{region}", location_country_of_region_parenthetical].compact.join(" ")
-    elsif country.present?
-      country
-    end
-  end
-
-  def created_or_updated?
-    created_at == updated_at ? "Added" : "Updated"
-  end
-
   # PLACE_SHOW
-
-  def has_category
-    categories.present?
-  end
 
   def category
     categories.present? ? categories.join(', ').titleize : "Edit Destination Type"
@@ -42,30 +20,10 @@ class PlaceDecorator < Draper::Decorator
     end
   end
 
-  def show_street_or_full_address
-    if street_address.present?
-      content_tag :div, :class => 'address-info-line' do
-        content_tag :span, street_address, :class => 'to-highlight'
-      end
-    elsif full_address.present?
-      content_tag :div, :class => 'address-info-line' do
-        content_tag :span, full_address, :class => 'to-highlight'
-      end
-    end
-  end
-
   def show_locality_zip_and_region
     if [locality, region, postal_code].reject(&:blank?).present?
       content_tag :div, :class => 'address-info-line' do
         content_tag :span, [locality, region, postal_code].reject(&:blank?).join(', '), :class => 'to-highlight'
-      end
-    end
-  end
-
-  def show_country
-    if country
-      content_tag :div, :class => 'address-info-line' do
-        content_tag :span, country, :class => 'to-highlight'
       end
     end
   end
@@ -80,7 +38,6 @@ class PlaceDecorator < Draper::Decorator
 
   def show_phones
     if phones.any?
-      html = ''
       phones.compact.each do |number|
         html += "<div class='address-info-line'>"
         html += "<i class='fa fa-phone place-show-icon'></i>"
@@ -323,6 +280,26 @@ class PlaceDecorator < Draper::Decorator
       html << open_again_at[:day].titleize if open_again_at[:day] != Date.today.strftime('%a').downcase
       html << "today" if open_again_at[:day] == Date.today.strftime('%a').downcase
       html.join(" ")
+    end
+  end
+
+  def show_street_or_full_address
+    if street_address.present?
+      content_tag :div, :class => 'address-info-line' do
+        content_tag :span, street_address, :class => 'to-highlight'
+      end
+    elsif full_address.present?
+      content_tag :div, :class => 'address-info-line' do
+        content_tag :span, full_address, :class => 'to-highlight'
+      end
+    end
+  end
+
+  def show_country
+    if country
+      content_tag :div, :class => 'address-info-line' do
+        content_tag :span, country, :class => 'to-highlight'
+      end
     end
   end
 

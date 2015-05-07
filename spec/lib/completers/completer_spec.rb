@@ -100,12 +100,9 @@ module Completers
 
             expect(item.plan.name).to eq sequence_hash[:plan][:name]
             expect(item.plan.source.name).to eq "New York Times"
-            expect(item.order).to eq(1)
             expect(item.start_time).to eq('0300')
             expect(item.duration).to eq(0.5)
             expect(item.weekday).to eq('Friday')
-            expect(item.day.order).to eq(1)
-            expect(item.leg).to be_present # Creates a blank leg inside the plan
             expect( m.source.name ).to eq 'New York Times'
             expect( m.source.trimmed_url ).to eq "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html"
             expect( m.source.full_url ).to eq "http://www.nytimes.com/2014/09/14/travel/things-to-do-in-36-hours-in-cartagena-colombia.html?_r=0"

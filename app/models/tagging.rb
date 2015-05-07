@@ -1,3 +1,0 @@
-class Tagging < BaseModel
-
-end

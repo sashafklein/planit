@@ -59,9 +59,7 @@ module Completers
         item = mark.items.first
 
         expect( item.plan ).to eq plans.first
-        expect( item.day.order ).to eq 3
 
-        expect( item.order ).to eq 11
         expect( item.start_time ).to eq '1100'
         expect( item.sunday? ).to eq true
       end
