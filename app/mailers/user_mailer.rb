@@ -43,7 +43,7 @@ class UserMailer < BaseMailer
     @sharee = User.where( email: email ).first_or_initialize
     @url = plan_url( @plan, {referred: ( @sharee.persisted? ? 'registered' : 'new' ), email: email, share_id: share_id} )
     @notes = share.notes
-    roadie_mail(from: @sharer.email, to: @sharee.email, subject: share.email_title)
+    roadie_mail(to: @sharee.email, subject: share.email_title)
   end
 
   private

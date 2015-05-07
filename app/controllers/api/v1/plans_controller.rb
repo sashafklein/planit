@@ -59,8 +59,7 @@ class Api::V1::PlansController < ApiController
     user_id = params[:user_id] || current_user.try(:id)
     return permission_denied_error unless current_user_is_active
 
-    DelayPlanCopyJob.perform_later(plan_id: @plan.id, user_id: user_id, copy_manifest: params[:copy_manifest])
-    success
+    copy_plan(user_id, params[:copy_manifest])
   end
 
   def located_near
@@ -82,6 +81,17 @@ class Api::V1::PlansController < ApiController
     else
       PlanAddItemFromPlaceDataJob.perform_later(user_id: current_user.id, plan_id: plan_id, data: data)
       render json: data
+    end
+  end
+
+  def copy_plan(user_id, copy_manifest)
+    if Rails.env.test?
+      user = User.find(user_id)
+      new_plan = @plan.copy!(new_user: user, copy_manifest: copy_manifest)
+      render json: { id: new_plan.id }
+    else
+      DelayPlanCopyJob.perform_later(plan_id: @plan.id, user_id: user_id, copy_manifest: copy_manifest)
+      success
     end
   end
 

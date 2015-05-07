@@ -118,12 +118,15 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
 
     copy: ->
       self = @
-      channel = @_pusher.subscribe("copy-plan-#{@.id}")
-      channel.bind 'copied', (data) -> window.location.replace("/plans/#{ data.id }")
-      Spinner.show()
-      @_planObj().copy()
-        .success (response) -> Spinner.hide()
-        .error (response) -> ErrorReporter.defaultFull( response, "planSettings SPPlan copyList", { list_id: self.id } )
+      if RailsEnv.test
+        self._planObj().copy().success (response) -> window.location.replace("/plans/#{ response.id }")
+      else
+        channel = @_pusher.subscribe("copy-plan-#{self.id}") 
+        channel.bind 'copied', (data) -> window.location.replace("/plans/#{ data.id }")
+        Spinner.show()
+        self._planObj().copy()
+          .success (response) -> Spinner.hide()
+          .error (response) -> ErrorReporter.defaultFull( response, "planSettings SPPlan copyList", { list_id: self.id } )
 
 
   return SPPlan

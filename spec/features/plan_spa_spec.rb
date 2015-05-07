@@ -29,7 +29,7 @@ describe 'Root SPA' do
       within '.setplanbox-on-plan-page' do
         expect( page ).to have_content "San Francisco"
         first('i.fa-pencil.rename').click
-        fill_in 'rename', with: 'My SF Plan'
+        fill_in 'rename', with: 'My SF Plan!'
       end
 
       within '.rename-confirmation' do
@@ -37,7 +37,7 @@ describe 'Root SPA' do
       end
 
       within '.setplanbox-on-plan-page' do
-        expect( page ).to have_content "My SF Plan"
+        expect( page ).to have_content "My SF Plan!"
       end
 
       within '.input-and-results' do
@@ -189,6 +189,7 @@ describe 'Root SPA' do
       # Map icon/li tethering
       within '.plan-map-container' do
         icon = ".leaflet-map-pane .leaflet-marker-pane .leaflet-marker-icon[title='Camino'] .default-map-icon-tab"
+        wait_for(selector: icon)
         expect( classes_for(icon) ).not_to include 'highlighted'
         find('.bucket-list-li.camino-0').hover
         expect( classes_for(icon) ).to include 'highlighted'
@@ -199,6 +200,68 @@ describe 'Root SPA' do
       end
       
       expect( full_path ).to include 'mode=list'
+      
+      # Sharing Modal
+
+      within '.setplanbox-on-plan-page' do
+        first('.fa-cog.settings').click
+      end
+
+      within '.settingsbox-on-plan-page' do
+        first('.share-plan-settings-link').click
+      end
+
+      within '#planit-modal-share' do
+        fill_in 'share_email', with: 'fake@email.com'
+        fill_in 'share_notes', with: 'This is an awesome plan!'
+        first('#planit-modal-submit-share').click
+      end
+
+      sleep 1
+
+      expect( delivered_emails.count ).to eq 1
+      subject = "A Planit Guide from #{@user.name}: My SF Plan!"
+      text = email_text(subject: subject)
+      expect( text ).to include("This is an awesome plan!")
+      expect( text ).to include("Ai Wei Wei and whatever")
+      expect( email_by_subject(subject).to ).to eq ['fake@email.com']
+
+      # Copying Plan
+
+      within '.setplanbox-on-plan-page' do
+        first('.fa-cog.settings').click
+      end
+
+      name = "Copy of 'My SF Plan!' by #{@user.name}"
+
+      expect( Plan.where(name: name).count ).to eq 0
+      first('.planit-dropdown-menu.copy-plan-link').click
+      
+      sleep 0.5
+      wait_for(selector: '.settingsbox-on-plan-page')
+
+      expect( Plan.where(name: name).count ).to eq 1
+      expect( full_path ).to include( Plan.find_by(name: "Copy of 'My SF Plan!' by #{@user.name}").id.to_s )
+
+      # Delete
+
+      within '.setplanbox-on-plan-page' do
+        first('.fa-cog.settings').click
+      end
+
+      first('.planit-dropdown-menu.delete-plan-link').click
+      page.driver.browser.switch_to.alert.accept
+
+      sleep 0.5
+
+      expect( ['/', '/?'] ).to include full_path
+
+      expect( Nokogiri.parse(html).css('.content-tab-title').count ).to eq 1
+      expect( Plan.count ).to eq 1
+
+      within '.content-tab-title' do
+        expect( page ).to have_content "My SF Plan!"
+      end
     end
 
     def contigo_selector

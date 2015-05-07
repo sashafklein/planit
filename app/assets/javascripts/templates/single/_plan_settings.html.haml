@@ -13,7 +13,7 @@
     %i.planit-dropdown-menu-icon.fa.fa-calendar
     Set Dates
   %li.divider
-  %li.planit-dropdown-menu{ ng_click: 'm.plan().copy()'}
+  %li.planit-dropdown-menu.copy-plan-link{ ng_click: 'm.plan().copy()'}
     %i.planit-dropdown-menu-icon.fa.fa-clipboard
     Copy this Guide
   %li.planit-dropdown-menu.disabled
@@ -23,7 +23,7 @@
     %i.planit-dropdown-menu-icon.fa.fa-expand
     Split this Guide
   %li.divider
-  %a{ href: '#planit-modal-share', ng_click: 'm.sharePlan( m.plan() )', target: '_self', data: { toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
+  %a.share-plan-settings-link{ href: '#planit-modal-share', ng_click: 'm.sharePlan( m.plan() )', target: '_self', data: { toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
     %li.planit-dropdown-menu
       %i.planit-dropdown-menu-icon.fa.fa-paper-plane
       Share this Guide
@@ -39,6 +39,6 @@
       %i.planit-dropdown-menu-icon.fa.fa-print
       Print this Guide
   %li.divider{ ng_show: "m.userOwnsPlan()" }
-  %li.planit-dropdown-menu{ ng_show: "m.userOwnsPlan()", ng_click: 'deleteAndClose( m.plan() )', target: '_self' }
+  %li.planit-dropdown-menu.delete-plan-link{ ng_show: "m.userOwnsPlan()", ng_click: 'deleteAndClose( m.plan() )', target: '_self' }
     %i.planit-dropdown-menu-icon.fa.fa-trash
     Delete Plan
