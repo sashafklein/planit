@@ -70,13 +70,13 @@ describe 'Root SPA' do
 
       within '.input-and-results' do
         fill_in 'place-name', with: 'Alcatraz'
-        wait_for(selector: 'ul.suggested-results li.alcatraz-island-0', 15)
+        wait_for(selector: 'ul.suggested-results li.alcatraz-island-0', limit: 15)
         within 'ul.suggested-results' do
           first('li.alcatraz-island-0').click
         end
       end
 
-      wait_for(selector: '.items-organized-by.green', 15)
+      wait_for(selector: '.items-organized-by.green', limit: 15)
 
       alcatraz = Item.last
 
