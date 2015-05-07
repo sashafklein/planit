@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506212255) do
+ActiveRecord::Schema.define(version: 20150507004639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -312,21 +312,27 @@ ActiveRecord::Schema.define(version: 20150506212255) do
   end
 
   create_table "plans", force: :cascade do |t|
-    t.string   "name",        limit: 255
+    t.string   "name",                     limit: 255
     t.integer  "user_id"
     t.text     "description"
     t.integer  "duration"
     t.text     "notes"
-    t.string   "permission",  limit: 255, default: "public"
+    t.string   "permission",               limit: 255, default: "public"
     t.float    "rating"
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published",               default: true
-    t.json     "manifest",                default: []
+    t.boolean  "published",                            default: true
+    t.json     "manifest",                             default: []
+    t.integer  "first_ancestor_id"
+    t.integer  "last_ancestor_id"
+    t.datetime "first_ancestor_copied_at"
+    t.datetime "last_ancestor_copied_at"
   end
 
+  add_index "plans", ["first_ancestor_id"], name: "index_plans_on_first_ancestor_id", using: :btree
+  add_index "plans", ["last_ancestor_id"], name: "index_plans_on_last_ancestor_id", using: :btree
   add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree
 
   create_table "shares", force: :cascade do |t|

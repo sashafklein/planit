@@ -8,16 +8,16 @@
         %i.planit-dropdown-menu-icon.fa.fa-home.fa-fw
     %li.divider
     %li.planit-dropdown-menu
-      = link_to invite_path do
+      %a{ href: invite_path, target: '_self' }
         Invite a Friend!
         %i.planit-dropdown-menu-icon.fa.fa-group.fa-fw
     %li.divider
     %li.planit-dropdown-menu
-      = link_to edit_user_registration_path do
+      %a{ href: edit_user_registration_path, target: '_self' }
         Update Account
         %i.planit-dropdown-menu-icon.fa.fa-user.fa-fw
     %li.planit-dropdown-menu
-      = link_to legal_support_path do
+      %a{ href: legal_support_path, target: '_self' }
         Legal & Support
         %i.planit-dropdown-menu-icon.fa.fa-question.fa-fw
     %li.divider
@@ -36,10 +36,10 @@
   .no-user-menu{ ng_show: "!m.currentUserId && !m.currentUserIsActive" }
 
     %li.planit-dropdown-menu
-      = link_to new_user_session_path do
+      %a{ href: new_user_session_path, target: '_self' }
         Log In
         %i.planit-dropdown-menu-icon.fa.fa-user.fa-fw
     %li.planit-dropdown-menu
-      = link_to new_user_registration_path do
+      %a{ href: new_user_registration_path, target: '_self' }
         Sign Up
         %i.planit-dropdown-menu-icon.fa.fa-user.fa-fw
