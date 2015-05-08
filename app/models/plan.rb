@@ -6,6 +6,9 @@ class Plan < BaseModel
   has_many :days, through: :legs
   has_many :items, dependent: :destroy
 
+  has_many :plan_locations, dependent: :destroy
+  has_many :locations, through: :plan_locations
+
   has_many :collaborations
   has_many :collaborators, through: :collaborations, source: :collaborator
   
@@ -118,6 +121,14 @@ class Plan < BaseModel
     items.marks.places.destroy_all
     items.marks.destroy_all
     destroy
+  end
+
+  def add_nearby( data, user )
+    location = Location.where( { ascii_name: data['asciiName'], admin_name_1: data['adminName1'], country_name: data['countryName'], fcl_name: data['fclName'], geoname_id: data['geonameId'], lat: data['lat'], lon: data['lon'] } ).first_or_create
+    self.update_attributes!( latest_location_id: location.id ) if user_id == user.id
+    PlanLocation.where( plan_id: id, location_id: location.id ).first_or_create if user_id == user.id
+    LocationSearch.create( location_id: location.id, user_id: user.id, success_terms: data['searchStrings'] ) if data['searchStrings'].present?
+    return location
   end
 
 end

@@ -117,6 +117,8 @@ Rails.application.routes.draw do
       resources :plans, only: [:destroy, :create, :show, :update] do
         get :items, on: :member
         get :located_near, on: :collection
+        post :add_nearby, on: :member
+        post :remove_nearby, on: :member
         post :add_items, on: :member
         post :destroy_items, on: :member
         post :add_item_from_place_data, on: :member

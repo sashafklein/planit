@@ -1,0 +1,42 @@
+.other-guides-matrix{ ng_show: 'm.plan() && m.plan().currentLocation() && !m.plan().items.length && !m.addingItem && m.browsing && !m.placeName && m.plan().itemsLoaded' }
+  #header-spacing.except-landscape
+
+    .band.spaced-xxx
+      .first-ever-in-geography{ ng_show: '!m.plan().nearbyPlans.length' }
+        .container.centered
+          .section-header
+            = "&nbsp;<br>".html_safe
+            .line YOU'RE THE FIRST PLANITEER
+            .line TO EXPLORE {{ m.plan().currentLocation().asciiName.toUpperCase() }} !
+        .container.centered
+          .planit-button.neon{ ng_click: 'exitBrowse()' } Get Started Planning!
+      .nearby-browse-or-scratch{ ng_show: 'm.plan().nearbyPlans.length' }
+        .container.centered
+          .planit-button.neon{ ng_click: 'exitBrowse()' } Start from Scratch
+        .other-nearby-guides{ ng_show: 'm.plan().nearbyPlans' }
+        .container.centered
+          .section-header
+            = "&nbsp;<br>".html_safe
+            %p{ style: "font-size: 50%; opacity: 0.8" } OR
+            = "&nbsp;<br>".html_safe
+            BROWSE PLANIT GUIDES
+        .container.centered
+          .column{ ng_repeat: 'plan in m.plan().nearbyPlans' }
+            .any-tab-wrapper{ ng_class: 'tabClass(plan, $index)' }
+              .guide-item-count.numbered-box {{ plan.place_ids.length }}
+              .content-tab
+                .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'm.planManager.saveFrom( plan.id )', ng_hover: 'imageChangeable = true' }
+                  %img{ ng_src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
+                  %i.add-photo-camera.fa.fa-camera-retro.white{ ng_show: 'plan.place_ids.length && (imageChangeable || ( !plan.best_image || !plan.best_image.url) )', ng_click: 'changeImage()' }
+                  %i.add-photo-camera.fa.fa-plus-circle.white{ ng_show: '!plan.place_ids.length', ng_click: 'changeImage()' }
+                .content-tab-title{ ng_click: 'm.planManager.saveFrom( plan.id )' }
+                  {{ plan.name }}
+                  .guide-owner-avatar{ ng_show: '!plan.userOwns() || ( plan.userOwns() && plan.hasCollaborators() )', ng_class: "{'collaborators': plan.userOwns() && plan.hasCollaborators() }" }
+                    %i.fa.fa-group{ ng_show: 'plan.userOwns() && plan.hasCollaborators()' }
+                    %i.fa.fa-user{ ng_show: '!plan.userOwns() && !plan.user.avatar' }
+                    %img{ ng_show: '!plan.userOwns() && plan.user.avatar', ng_src: "{{ plan.user.avatar }}" }
+                    .guide-avatar-helper
+                      .guide-avatar-name
+                        %b{ ng_show: '!plan.userOwns()' } {{ plan.user.first_name }}
+                        %span{ ng_repeat: 'collaborator in plan.collaborators' }
+                          %span{ ng_click: 'm.visitUser( collaborator.id )' } {{ collaborator.first_name }}

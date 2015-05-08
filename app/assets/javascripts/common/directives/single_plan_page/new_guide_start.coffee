@@ -1,4 +1,4 @@
-angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, ClassFromString) ->
+angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, ClassFromString, $sce) ->
   {
     restrict: 'E'
     replace: true
@@ -7,9 +7,7 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, Cl
       m: '='
     link: (s, e, a) ->
 
-      s.planNearbyOptionClass = (option, index) ->
-        highlightClass = if s.planNearbyOptionSelectable(option) then 'highlighted' else null
-        highlightClass + ' ' + ClassFromString.toClass( option.name, option.qualifiers, index )
+      s.planNearbyOptionClass = (option) -> ClassFromString.toClass( option.name, option.qualifiers )
 
       s.searchPlanNearby = -> 
         s.planNearbyOptions = [] if s.planNearby?.length
@@ -28,28 +26,39 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, Cl
         Geonames.search( s.planNearby )
           .success (response) ->
             s.planNearbyWorking--
-            s.planNearbyOptions = _.sortBy( response.geonames, 'population' ).reverse()
+            s.planNearbyOptions = response.geonames #_.sortBy( response.geonames, 'population' ).reverse()
             _.map( s.planNearbyOptions, (o) -> 
-              o.lon = o.lng; o.qualifiers = _.uniq( _.compact( [ o.adminName1 unless o.name == o.adminName1, o.countryName ] ) ).join(", ")
+              o.lon = o.lng; o.qualifiers = _.uniq( _.compact( [ o.adminName1, o.countryName ] ) ).join(", ")
             )
+            s.m.nearbySearchStrings.unshift s.placeNearby
           .error (response) -> 
             s.planNearbyWorking--
             ErrorReporter.fullSilent(response, 'SinglePagePlans s.searchPlanNearby', { query: s.planName })
 
+      s.underlined = ( location_text ) ->
+        terms = s.planNearby?.split(/[,]?\s+/)
+        _.forEach( terms, (t) ->
+          regEx = new RegExp( "(#{t})" , "ig" )
+          location_text = location_text.replace( regEx, "<u>$1</u>" )
+        )
+        $sce.trustAsHtml( location_text )
+
       s.startPlanNearBestOption = ->
         return unless s.planNearbyOptions?.length
         keepGoing = true
-        _.forEach( s.planNearbyOptions, (o) ->
-          if s.planNearbyOptionSelectable(o) && keepGoing
-            s.startPlanNear(o)
+        _.forEach( s.planNearbyOptions, ( option ) ->
+          if s.planNearbyOptionSelectable( option ) && keepGoing
+            s.startPlanNear( option )
             keepGoing = false
         )
 
-      s.startPlanNear = ( option ) ->
-        return unless option?.name && option?.lat && option?.lon
-        s.m.planManager.addNewPlan( option )
-        s.m.setNearby( option )
+      s.startPlanNear = ( nearby ) ->
+        return unless nearby?.name && nearby?.lat && nearby?.lon
+        searchStrings = _.compact( s.m.nearbySearchStrings )
+        s.m.planManager.addNewPlan( nearby, searchStrings )
+        s.m.nearbySearchStrings = []
+        # scroll to top
         s.planNearby = null
-        # s.m.planManager.fetchCoLocatedPlans( option )
+        s.m.browsing = true
 
   }

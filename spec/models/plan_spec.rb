@@ -2,6 +2,32 @@ require 'rails_helper'
 
 describe Plan do 
 
+  describe 'add nearby' do
+
+    before do
+      @user = create(:user)
+      @plan = create(:plan, {user_id: @user.id})
+      @data = { "asciiName"=>"San Francisco", "adminName1"=>"California", "countryName"=>"United States", "fclName"=>"city, village,...", "geonameId"=>5391959, "lat"=>"37.77493", "lon"=>"-122.41942", "searchStrings"=>"['San Francisco','San Fran']" }
+    end
+
+    it 'owner adds new nearby' do
+      expect( Location.count + PlanLocation.count + LocationSearch.count ).to eq 0
+      expect{ @plan.add_nearby( @data, @user ) }.to change{ (Location.count + PlanLocation.count + LocationSearch.count) }.by 3
+    end
+
+    it 'somone else trys to add new nearby, and is rejected' do
+      expect( Location.count + PlanLocation.count + LocationSearch.count ).to eq 0
+      expect{ @plan.add_nearby( @data, create(:user) ) }.to change{ (Location.count + PlanLocation.count + LocationSearch.count) }.by 2
+    end
+
+    it 'owner adds an existing nearby, and only adds to location search database' do
+      @plan.add_nearby( @data, @user )
+      expect( Location.count + PlanLocation.count + LocationSearch.count ).to eq 3
+      expect{ @plan.add_nearby( @data, @user ) }.to change{ (Location.count + PlanLocation.count + LocationSearch.count) }.by 1
+    end
+
+  end
+
   describe '#copy(new_user)' do
 
     before do

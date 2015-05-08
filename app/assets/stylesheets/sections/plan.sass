@@ -90,15 +90,18 @@ $darkBlue: #007
   .setplanbox-on-plan-page
     top: 0
     height: 68px
-    background: #333
-    border-top: solid #003 3px
+    background: #003
+    border-top: solid #007 3px
     z-index: 10004
     -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, rgba(0, 0, 0, 0.14902) 0px 2px 7px 0px
     .plan-by
       position: absolute
-      color: #aaa
+      color: rgba(255,255,255,0.6)
       bottom: 5px
+      cursor: pointer
+      &.soft, .soft
+        color: rgba(255,255,255,0.3)
     span.title
       display: inline-block
       color: #fff
@@ -119,8 +122,8 @@ $darkBlue: #007
       position: absolute
       padding-left: 10px
       cursor: pointer
-      color: #aaa
-      background: #333
+      color: rgba(255,255,255,0.5)
+      background: #003
       &:hover
         color: #f06
       &.opened
@@ -131,9 +134,9 @@ $darkBlue: #007
       font-size: 14px
       vertical-align: top
       line-height: 28px
-      color: #555
+      color: rgba(255,255,255,0.2)
       &:hover
-        color: #ccc
+        color: rgba(255,255,255,0.5)
     input.title#rename
       color: #fff
       font-weight: normal
@@ -162,10 +165,10 @@ $darkBlue: #007
   .settingsbox-on-plan-page
     z-index: 10015
     background: #fff
-    border-top: #f06 3px solid
+    border-top: #003 3px solid
     border-bottom: #f06 3px solid
     &.in-rename
-      background: #333
+      background: #003
       border-top: 0px
       border-bottom: #f06 3px solid
       padding-top: 3px !important
@@ -175,31 +178,36 @@ $darkBlue: #007
       text-align: right
 
   .addbox-on-plan-page
-    height: 65px
-    background: #333
+    background: #003
     z-index: 10003
     overflow: visible !important
 
-    .input-and-results
-      span.set-location-reminder, span.reset-location
-        position: absolute
-        top: 0
-        bottom: 0
-        right: 6px
-        margin: auto 0
+    .faux-input-wrap
+      padding: 3px 5px
+      background: rgba(255,255,255,0.5)
+      color: #335
+      b
+        color: #335
+
+    span.set-location-reminder, span.reset-location
+      position: absolute
+      top: 0
+      bottom: 0
+      right: 6px
+      margin: auto 0
+      background: #f06
+      border-radius: 3px
+      color: #fff
+      font-size: 14px
+      line-height: 16px
+      height: 16px
+      padding: 0 3px
+    span.reset-location
+      background: rgba(255,255,255,0.2)
+      cursor: pointer
+      transition: 0.2s ease all
+      &:hover
         background: #f06
-        border-radius: 3px
-        color: #fff
-        font-size: 14px
-        line-height: 16px
-        height: 16px
-        padding: 0 3px
-      span.reset-location
-        background: #ccc
-        cursor: pointer
-        transition: 0.2s ease all
-        &:hover
-          background: #f06
 
     .item-search-results
       position: absolute
@@ -213,6 +221,18 @@ $darkBlue: #007
       max-height: 400px
       background: #fff
       z-index: 10002
+
+  .addbox-wrapper .rainbow-divider
+    top: 0
+    left: 0
+    right: 0
+    height: 3px
+    position: fixed
+    margin: 0 auto
+    width: 33%
+    z-index: 100000
+    .turqoise, .purple
+      opacity: 0.75
 
   // PLAN TOP-SECTION
   .single-page-plans
@@ -571,6 +591,15 @@ $darkBlue: #007
       background: #eee !important
       color: #000 !important
 
+  .sort-and-view-modes i
+    font-size: 15px
+    height: 15px
+    width: 15px
+    vertical-align: middle
+    text-align: center
+    margin-top: auto
+    margin-bottom: auto
+
   .view-and-edit-mode, .sort-items-by
     user-select: none
     position: absolute
@@ -714,7 +743,7 @@ $darkBlue: #007
 
 
 
-  // TAB SIZING
+  // VARIABLE SIZING
 
   // *Computer (Regular)
 
@@ -740,6 +769,10 @@ $darkBlue: #007
   .addbox-on-plan-page, .settingsbox-on-plan-page
     padding: 18px
     top: 68px
+  .addbox-on-plan-page
+    height: 100px
+    &.nearby-only
+      height: 65px
 
   .setplanbox-on-plan-page.start-where, .centeredbox-on-plan-page.start-where
     height: 100px
@@ -795,6 +828,10 @@ $darkBlue: #007
     .addbox-on-plan-page, .settingsbox-on-plan-page
       padding: 18px
       top: 68px
+    .addbox-on-plan-page
+      height: 100px
+      &.nearby-only
+        height: 65px
 
     .setplanbox-on-plan-page.start-where, .centeredbox-on-plan-page.start-where
       height: 100px
@@ -859,6 +896,10 @@ $darkBlue: #007
     .addbox-on-plan-page, .settingsbox-on-plan-page
       padding: 5px 9px 13px 9px
       top: 43px
+    .addbox-on-plan-page
+      height: 75px
+      &.nearby-only
+        height: 43px
 
     .centeredbox-on-plan-page.start-where
       height: 77px
@@ -940,6 +981,10 @@ $darkBlue: #007
     .addbox-on-plan-page, .settingsbox-on-plan-page
       padding: 5px 9px 13px 9px
       top: 43px
+    .addbox-on-plan-page
+      height: 75px
+      &.nearby-only
+        height: 43px
 
     .setplanbox-on-plan-page.start-where, .centeredbox-on-plan-page.start-where
       height: 77px
@@ -1015,7 +1060,8 @@ $darkBlue: #007
     .print-by
       font-size: 16px
       font-weight: normal
-      color: #777    
+      color: #777
+      cursor: pointer
 
     .list-item-notes textarea
       border: none !important

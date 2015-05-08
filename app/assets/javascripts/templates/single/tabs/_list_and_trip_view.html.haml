@@ -1,4 +1,4 @@
-.list-or-trip-mode{ ng_show: "m.plan() && m.planManager.itemCount()>0 && (m.mode == 'list' || m.mode == 'trip')" }
+.list-or-trip-mode{ ng_show: "!( m.browsing && !m.placeName.length>1 ) && m.plan() && (m.plan().items.length>0 || m.addingItem) && (m.mode == 'list' || m.mode == 'trip')" }
   #header-spacing.except-landscape
   .print-title {{ m.plan().name }}
   .print-by by {{ m.plan().user.name }}
@@ -30,7 +30,7 @@
                       .bucket-list-title
                         {{ item.mark.place.names[0] }}
                       .foursquare-and-info-wrap
-                        %span.mini-foursquare-icon.rainbow{ ng_class: "colorClass( item.mark.place.meta_categories[0] )" }
+                        %span.mini-foursquare-icon.rainbow{ ng_class: "colorClass( item.meta_category )" }
                           %img{ ng_show: "item.mark.place.foursquare_icon", ng_src: "{{ item.mark.place.foursquare_icon.replace('_bg','') }}" }
                         .bucket-list-more-info
                           {{ item.mark.place.categories.join(', ') }}

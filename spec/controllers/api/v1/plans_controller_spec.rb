@@ -121,6 +121,25 @@ describe Api::V1::PlansController, :vcr do
 
   end
 
+  describe "sets and removes nearby" do
+
+    before do
+      @user = create(:user)
+      @plan = create(:plan, {user_id: @user.id})
+      @data = { "asciiName"=>"San Francisco", "adminName1"=>"California", "countryName"=>"United States", "fclName"=>"city, village,...", "geonameId"=>5391959, "lat"=>"37.77493", "lon"=>"-122.41942", "searchStrings"=>"['San Francisco','San Fran']" }
+    end
+
+    it "sets new nearby" do
+      sign_in @user
+      expect_any_instance_of( Plan ).to receive(:add_nearby)
+      post :add_nearby, id: @plan.id, nearby: @data
+    end
+
+    it "removes nearby" do
+    end
+
+  end
+
   def data
     {
       plan_name: "Whatup Bitches",
