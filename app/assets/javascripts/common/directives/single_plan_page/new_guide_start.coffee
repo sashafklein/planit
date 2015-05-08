@@ -7,7 +7,7 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, Cl
       m: '='
     link: (s, e, a) ->
 
-      s.planNearbyOptionClass = (option) -> ClassFromString.toClass( option.name, option.qualifiers )
+      s.planNearbyOptionClass = (option, index=0) -> ClassFromString.toClass( option.name, option.adminName1, option.countryName, index )
 
       s.searchPlanNearby = -> 
         s.m.nearbyOptions = [] if s.planNearby?.length

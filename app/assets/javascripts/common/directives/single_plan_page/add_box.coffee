@@ -7,7 +7,7 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
       m: '='
     link: (s, e, a) ->
       
-      s.nearbySearchResultClass = (option, index=0) -> ClassFromString.toClass( option.name, option.qualifiers, index )
+      s.nearbySearchResultClass = (option, index=0) -> ClassFromString.toClass( option.name, option.adminName1, option.countryName, index )
       
       s.placeNameOptionClass = (option) -> ClassFromString.toClass(option.name)
 

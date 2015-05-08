@@ -15,10 +15,10 @@ describe 'Root SPA' do
       expect( page ).to have_content "Start a new plan"
       fill_in 'plan-nearby', with: 'San Francisco'
 
-      wait_for(selector: 'ul.suggested-results li.san-francisco-california-united-states')
+      wait_for(selector: 'ul.suggested-results li.san-francisco-california-united-states-0')
 
       within 'ul.suggested-results' do
-        first('li.san-francisco-california-united-states').click
+        first('li.san-francisco-california-united-states-0').click
       end
 
       sleep 0.2
