@@ -13,7 +13,7 @@
 /   #share-mailer.indented-content
 /     = link_to @url do
 /       .items-in-plan
-/         - @object.items.includes( mark: :place ).map{ |i| i.mark.place.meta_categories[0] }.uniq.each do |category|
+/         - @object.items.includes( mark: :place ).map{ |i| i.meta_category }.uniq.each do |category|
 /           .items-in-plan-category
 /             %ul.plan-list-items
 /               %li.items-organized-by.rainbow{ class: "#{ colorClass( category ) }" }
@@ -21,7 +21,7 @@
 /                 / { class: "#{ @object.items.select{ |i| i.meta_categories[0] == category}.first.try( :meta_icon ) }" }
 /                 = category
 
-/               - @object.items.includes( mark: :place ).select{ |i| i.mark.place.meta_categories[0] == category }.each do |item|
+/               - @object.items.includes( mark: :place ).select{ |i| i.meta_category == category }.each do |item|
 
 /                 %li.plan-list-item
 /                   .bucket-list-tab.main-item-card
@@ -33,7 +33,7 @@
 /                         .bucket-list-title
 /                           = item.mark.place.names[0]
 /                         .foursquare-and-info-wrap
-/                           %span.mini-foursquare-icon.rainbow{ class: "#{ colorClass( item.mark.place.meta_categories[0] ) }" }
+/                           %span.mini-foursquare-icon.rainbow{ class: "#{ colorClass( item.meta_category ) }" }
 /                             - if item.mark.place.foursquare_icon.present? && icon = item.mark.place.foursquare_icon.gsub('_bg','')
 /                               = image_tag "#{icon}"
 /                           .bucket-list-more-info

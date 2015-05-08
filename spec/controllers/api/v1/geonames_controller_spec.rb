@@ -7,16 +7,8 @@ describe Api::V1::GeonamesController do
       sign_in create(:user)
       get :search, query: "Hawaii"
       
-      expect( response_body.geonames.first.name ).to eq "Hawaii"
+      expect( response_body.geonames.first.name ).to eq "Honolulu"
       expect( response_body.geonames.first.countryCode ).to eq "US"
-    end
-
-    it "hits Geonames with the string query params FUZZY", :vcr do
-      sign_in create(:user)
-      get :search, query: "Lundin"
-      
-      expect( response_body.geonames.first.name ).to eq "London"
-      expect( response_body.geonames.first.countryCode ).to eq "GB"
     end
 
     it "hits Geonames with the string query params as NEIGHBORHOOD", :vcr do

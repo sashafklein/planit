@@ -15,19 +15,19 @@ angular.module('Common').directive 'addNoteModal', (Note, Modal, ErrorReporter, 
     </div>
     '''
     scope:
-      objectId: '='
-      objectType: '='
+      objId: '='
+      objType: '='
 
     link: (s, e) ->
 
       s.submit = ->
         
         return Flash.error("Please write a note before submitting") unless s.text?.length
-        Note.create({ note: { object_id: s.objectId, object_type: s.objectType, body: s.text } })
+        Note.create({ note: { obj_id: s.objId, obj_type: s.objType, body: s.text } })
           .success (response) ->
             new Modal('').hide()
           .error (response) ->
-            ErrorReporter.report({ context: "Failed note addition in modal", object_id: s.objectId, object_type: s.objectType, text: s.text })
+            ErrorReporter.report({ context: "Failed note addition in modal", obj_id: s.objId, obj_type: s.objType, text: s.text })
             new Modal('').hide()
 
       s.extraButtons = [

@@ -17,12 +17,22 @@
                   %img{ ng_src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
                   %i.add-photo-camera.fa.fa-camera-retro.white{ ng_show: 'plan.place_ids.length && (imageChangeable || ( !plan.best_image || !plan.best_image.url) )', ng_click: 'changeImage()' }
                   %i.add-photo-camera.fa.fa-plus-circle.white{ ng_show: '!plan.place_ids.length', ng_click: 'changeImage()' }
-                .content-tab-title{ ng_click: 'm.planManager.fetchPlan( plan.id )' } {{ plan.name }}
+                .content-tab-title{ ng_click: 'm.planManager.fetchPlan( plan.id )' }
+                  {{ plan.name }}
+                  .guide-owner-avatar{ ng_show: '!plan.userOwns() || ( plan.userOwns() && plan.hasCollaborators() )', ng_class: "{'collaborators': plan.userOwns() && plan.hasCollaborators() }" }
+                    %i.fa.fa-group{ ng_show: 'plan.userOwns() && plan.hasCollaborators()' }
+                    %span{ ng_show: '!plan.userOwns() && !plan.user.avatar', ng_click: 'm.visitUser( plan.user.id )' } {{ plan.user.name[0].toUpperCase() }}
+                    %img{ ng_show: '!plan.userOwns() && plan.user.avatar', ng_src: "{{ plan.user.avatar }}", ng_click: 'm.visitUser( plan.user.id )' }
+                    .guide-avatar-helper
+                      .guide-avatar-name
+                        %b{ ng_show: '!plan.userOwns()', ng_click: 'm.visitUser( plan.user.id )' } {{ plan.user.first_name }}
+                        %span{ ng_repeat: 'collaborator in plan.collaborators' }
+                          %span{ ng_click: 'm.visitUser( collaborator.id )' } {{ collaborator.first_name }}
               .guide-actions.tab-operations{ ng_show: 'userOwns(plan)' }
                 %i.fa.fa-group.tab-operations-button.disabled
-                %i.fa.fa-paper-plane.tab-operations-button.disabled
+                %i.fa.fa-paper-plane.tab-operations-button{ href: "#planit-modal-share", ng_click: 'm.sharePlan( plan )', data: {toggle: 'modal', target: '#planit-modal-share', keyboard: 'false', backdrop: 'static'} }
                 %i.fa.fa-trash.tab-operations-button{ ng_click: 'm.planManager.removePlan( plan.id )' }
-      .repeating-folders{ ng_repeat_end: '' }        
+      .repeating-folders{ ng_repeat_end: '' }
 
       .container.centered{ ng_show: 'm.planManager.itemCount()<1' }
         %strong.large.neon

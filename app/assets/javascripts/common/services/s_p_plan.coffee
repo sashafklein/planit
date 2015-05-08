@@ -4,11 +4,13 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
     constructor: (plan) -> _.extend( @, plan )
     _planObj: -> new Plan( _.pick( @, ['id'] ) )
     _pusher: if RailsEnv.test then @_fakePusher else new Pusher( RailsEnv.pusher_key ) 
-    _fakePusher = 
+    _fakePusher:
       subscribe: -> 
         bind: -> alert("Pusher disabled in test mode")
 
-    type: 'travel'
+    typeOf: -> if @userOwns() || @userCoOwns() then 'travel' else 'viewing'
+
+    currentLocation: -> self = @; _.find( self.locations, (l) -> l.id == self.latest_location_id )
 
     # EDIT PLAN ITSELF
 
@@ -24,6 +26,25 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
         .success (response) -> callback?(); QueryString.modify({ plan: null })
         .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans SPPlan deletePlan', { plan_id: self.id } )
 
+    setNearby: ( nearby, searchStrings ) ->
+      self = @
+      data = { asciiName: nearby.asciiName, adminName1: nearby.adminName1, countryName: nearby.countryName, fclName: nearby.fclName, geonameId: nearby.geonameId, lat: nearby.lat, lon: nearby.lng, searchStrings: searchStrings }
+      @_planObj().addNearby(data)
+        .success (response) -> 
+          self.locations.unshift( response ) unless _.find( self.locations, (l) -> l.id == response.id )
+          self.latest_location_id = response.id
+          QueryString.modify({ plan: self.id })
+        .error (response) -> ErrorReporter.fullSilent( response, 'Failed in setting self.id plan nearby' )
+
+    # removeNearby: ( nearby ) ->
+    #   self = @
+    #   @_planObj().removeNearby({ location_id: nearby['id'] })
+    #     .success (response) -> 
+    #       index = self.locations.indexOf( _.find( self.locations, (l) -> l.id == response ) )
+    #       self.locations.splice( index, 1 ) if index != -1
+    #       self.latest_location_id = null
+    #     .error (response) -> ErrorReporter.fullSilent( response, 'Failed in removing nearby from plan' )
+
     # ADD TO PLAN
 
     addItem: ( fsOption, callback, callback2 ) ->
@@ -31,8 +52,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
       @_setAddItemSuccess( callback2 ) unless RailsEnv.test # Don't use Pusher or background-process this task in test env
       callback?()
       @_planObj().addItemFromPlaceData( fsOption )
-        .success (response) -> 
-          self._affixItem(response, callback2) if RailsEnv.test?
+        .success (response) -> if RailsEnv.test then self._affixItem(response, callback2)
         .error (response) -> ErrorReporter.defaultFull( response, 'SPPlan addItem', { option: JSON.stringify(fsOption), plan_id: self.id } )
 
     _setAddItemSuccess: ( callback ) ->
@@ -73,6 +93,18 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
 
     # LOAD UP PLAN
 
+    loadNearbyPlans: ->
+      @.nearbyPlans = {}
+      # self = @
+      # return unless Object.keys( nearby )?.length
+      # Plan.locatedNear( "#{[nearby.lat,nearby.lon]}" )
+      #   .success (response) ->
+      #     _.forEach( response , (r) -> 
+      #       self.nearbyPlans[ r.id ] = new SPPlan( r ) 
+      #       self.nearbyPlans[ r.id ]['nearby'] = nearby 
+      #     )
+      #   .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.loadNearbyPlans', { coordinate: [nearby.lat,nearby.lon] } )
+
     loadItems: ->
       self = @
       unless @.items?.length
@@ -82,55 +114,52 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
             _.forEach response , ( item, index ) ->
               i = _.extend( new SPItem( Item.generateFromJSON( item ) ), { index: index, pane: 'list', class: 'Item' } )
               self.items.push i
-            QueryString.modify({ plan: self.id })
+            self.itemsLoaded = true
+            QueryString.modify({ plan: parseInt( self.id ) })
             $timeout(-> self._fetchNotes() )
           .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list #{self.id}", { plan_id: self.id })
 
     _fetchNotes: ->
       self = @
       Note.findAllNotesInPlan( @.id )
-        .success (response) -> _.forEach( self.items, (i) -> i.note = _.find( response, (n) -> parseInt( n.object_id ) == parseInt( i.id ) )?.body; i.notesSearched = true )
+        .success (response) -> _.forEach( self.items, (i) -> i.note = _.find( response, (n) -> parseInt( n.obj_id ) == parseInt( i.id ) )?.body; i.notesSearched = true )
         .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list fetch original notes", { plan_id: @.id })
 
     categories: ( categorizeBy ) -> #sorted alphabetically
       switch categorizeBy
-        when 'type' then _.sortBy( _.uniq( _.map( @.items, (i) -> i.mark.place.meta_categories[0] ) ) , (c) -> return c )
+        when 'type' then _.sortBy( _.uniq( _.map( @.items, (i) -> i.meta_category ) ) , (c) -> return c )
         when 'alphabetical' then _.sortBy( _.uniq( _.compact( _.map( @.items, (i) -> i.mark.place.names?[0]?[0] ) ) ) , (c) -> return c )
         when 'recent' then _.sortBy( _.uniq( _.map( @.items, (i) -> x=i.updated_at.match(/(\d{4})-(\d{2})-(\d{2})/); return "#{x[2]}/#{x[3]}/#{x[1]}" ) ) , (c) -> return c )
         when 'locale' then _.sortBy( _.uniq( _.map( @.items, (i) -> i.mark.place.locality ) ) , (c) -> return c )
 
     matchingItems: ( category, categorizeBy ) -> #sorted alphabetically
       switch categorizeBy
-        when 'type' then _.sortBy( _.filter( @.items, (i) -> i.mark.place.meta_categories?[0] == category ) , (i) -> return i.mark.place.names[0] )
+        when 'type' then _.sortBy( _.filter( @.items, (i) -> i.meta_category == category ) , (i) -> return i.mark.place.names[0] )
         when 'alphabetical' then _.sortBy( _.filter( @.items, (i) -> i.mark.place.names?[0]?[0] == category ) , (i) -> return i.mark.place.names[0] )
         when 'recent' then _.sortBy( _.filter( @.items, (i) -> x=i.updated_at.match(/(\d{4})-(\d{2})-(\d{2})/); "#{x[2]}/#{x[3]}/#{x[1]}" == category ) , (i) -> return i.mark.place.names[0] )
         when 'locale' then _.sortBy( _.filter( @.items, (i) -> i.mark.place.locality == category ) , (i) -> return i.mark.place.names[0] )
         else []
 
+    hasCollaborators: -> @.collaboratorIds()?.length > 0
+    collaboratorIds: -> _.map( @.collaborators, (c) -> c.id )
     userOwns: -> @.user_id == CurrentUser.id
+    userCoOwns: -> _.includes( @.collaboratorIds, CurrentUser.id )
     ownerLoves: ( item ) -> _.includes( item.mark.place.lovers , @.user_id )
     ownerVisited: ( item ) -> _.includes( item.mark.place.visitors , @.user_id )
-
-    getOwner: ->
-      self = @
-      if @.userOwns()
-        @.user = CurrentUser
-      else
-        User.find( @.user_id )
-          .success (response) -> 
-            self.user = User.generateFromJSON( response )
-          .error (response) -> ErrorReporter.fullSilent("Looking up user #{self.user_id} in SPPlan")
 
     # FUNCTIONS ON PLAN
 
     copy: ->
       self = @
-      channel = @_pusher.subscribe("copy-plan-#{@.id}")
-      channel.bind 'copied', (data) -> window.location.replace("/plans/#{ data.id }")
-      Spinner.show()
-      @_planObj().copy()
-        .success (response) -> Spinner.hide()
-        .error (response) -> ErrorReporter.defaultFull( response, "planSettings SPPlan copyList", { list_id: self.id } )
+      if RailsEnv.test
+        self._planObj().copy().success (response) -> window.location.replace("/plans/#{ response.id }")
+      else
+        channel = @_pusher.subscribe("copy-plan-#{self.id}") 
+        channel.bind 'copied', (data) -> window.location.replace("/plans/#{ data.id }")
+        Spinner.show()
+        self._planObj().copy()
+          .success (response) -> Spinner.hide()
+          .error (response) -> ErrorReporter.defaultFull( response, "planSettings SPPlan copyList", { list_id: self.id } )
 
 
   return SPPlan

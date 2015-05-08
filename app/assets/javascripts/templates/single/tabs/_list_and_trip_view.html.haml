@@ -1,10 +1,10 @@
-.list-or-trip-mode{ ng_show: "m.plan() && m.planManager.itemCount()>0 && (m.mode == 'list' || m.mode == 'trip')" }
+.list-or-trip-mode{ ng_show: "!( m.browsing && !m.placeName.length>1 ) && m.plan() && (m.plan().items.length>0 || m.addingItem) && (m.mode == 'list' || m.mode == 'trip')" }
   #header-spacing.except-landscape
   .print-title {{ m.plan().name }}
   .print-by by {{ m.plan().user.name }}
   .pad-top-addbox{ ng_show: 'm.plan() || m.hasPlans()' }
   .band.spaced-extra
-    .container
+    .container.max
       .items-in-plan
         .items-in-plan-category{ ng_repeat: 'category in m.plan().categories( m.categorizeBy )', ng_class: 'category.toLowerCase()' }
           %ul.plan-list-items
@@ -30,7 +30,7 @@
                       .bucket-list-title
                         {{ item.mark.place.names[0] }}
                       .foursquare-and-info-wrap
-                        %span.mini-foursquare-icon.rainbow{ ng_class: "colorClass( item.mark.place.meta_categories[0] )" }
+                        %span.mini-foursquare-icon.rainbow{ ng_class: "colorClass( item.meta_category )" }
                           %img{ ng_show: "item.mark.place.foursquare_icon", ng_src: "{{ item.mark.place.foursquare_icon.replace('_bg','') }}" }
                         .bucket-list-more-info
                           {{ item.mark.place.categories.join(', ') }}

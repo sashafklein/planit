@@ -4,7 +4,7 @@
     .print-locale-map
       %print_map.print-locale-map-canvas{ items: 'items', locale_level: 'localeLevel', locale: 'locale' }
     .print-category-wrapper{ ng_repeat_start: 'category in categories( localeItems( locale ) )' }
-      / .print-category-band.rainbow{ ng_show: 'detailLevel == -1', ng_class: 'metaClass( categoryItems( category, localeItems( locale ) )[0].mark.place.meta_categories[0] )' }
+      / .print-category-band.rainbow{ ng_show: 'detailLevel == -1', ng_class: 'metaClass( categoryItems( category, localeItems( locale ) )[0].meta_category )' }
       /   %i{ ng_class: 'categoryItems( category, localeItems( locale ) )[0].mark.place.meta_icon' }
       /   %b {{ category }}
     .print-item-wrapper{ ng_repeat: 'item in categoryItems( category, localeItems( locale ) )' }

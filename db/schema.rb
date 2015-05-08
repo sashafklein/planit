@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422173146) do
+ActiveRecord::Schema.define(version: 20150507221231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,14 +38,16 @@ ActiveRecord::Schema.define(version: 20150422173146) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
-  create_table "days", force: :cascade do |t|
-    t.integer  "leg_id"
-    t.integer  "order"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "collaborations", force: :cascade do |t|
+    t.integer  "collaborator_id",             null: false
+    t.integer  "plan_id",                     null: false
+    t.integer  "permission",      default: 0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
-  add_index "days", ["leg_id"], name: "index_days_on_leg_id", using: :btree
+  add_index "collaborations", ["collaborator_id"], name: "index_collaborations_on_collaborator_id", using: :btree
+  add_index "collaborations", ["plan_id"], name: "index_collaborations_on_plan_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",               default: 0, null: false
@@ -66,14 +68,14 @@ ActiveRecord::Schema.define(version: 20150422173146) do
   create_table "flags", force: :cascade do |t|
     t.text     "details"
     t.string   "name"
-    t.integer  "object_id"
-    t.string   "object_type"
+    t.integer  "obj_id"
+    t.string   "obj_type"
     t.json     "info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "flags", ["object_type", "object_id"], name: "index_flags_on_object_type_and_object_id", using: :btree
+  add_index "flags", ["obj_type", "obj_id"], name: "index_flags_on_obj_type_and_obj_id", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",           limit: 255, null: false
@@ -105,31 +107,38 @@ ActiveRecord::Schema.define(version: 20150422173146) do
   create_table "items", force: :cascade do |t|
     t.integer  "mark_id"
     t.integer  "plan_id"
-    t.integer  "day_id"
-    t.integer  "order"
-    t.integer  "day_of_week",             default: 0
-    t.string   "start_time",  limit: 255
+    t.integer  "day_of_week",               default: 0
+    t.string   "start_time",    limit: 255
     t.float    "duration"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published",               default: true
-    t.json     "extra",                   default: {}
+    t.boolean  "published",                 default: true
+    t.json     "extra",                     default: {}
+    t.string   "meta_category", limit: 25
   end
 
-  add_index "items", ["day_id"], name: "index_items_on_day_id", using: :btree
   add_index "items", ["mark_id"], name: "index_items_on_mark_id", using: :btree
   add_index "items", ["plan_id"], name: "index_items_on_plan_id", using: :btree
 
-  create_table "legs", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "order"
-    t.boolean  "bucket",                 default: false
-    t.integer  "plan_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "location_searches", force: :cascade do |t|
+    t.string   "success_terms", default: [],              array: true
+    t.integer  "location_id",                null: false
+    t.integer  "user_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
-  add_index "legs", ["plan_id"], name: "index_legs_on_plan_id", using: :btree
+  create_table "locations", force: :cascade do |t|
+    t.string   "ascii_name",   null: false
+    t.string   "admin_name_1"
+    t.string   "country_name"
+    t.string   "fcl_name"
+    t.integer  "geoname_id",   null: false
+    t.float    "lat",          null: false
+    t.float    "lon",          null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "mail_list_emails", force: :cascade do |t|
     t.string   "email"
@@ -171,8 +180,8 @@ ActiveRecord::Schema.define(version: 20150422173146) do
   add_index "marks", ["user_id"], name: "index_marks_on_user_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
-    t.integer  "object_id"
-    t.string   "object_type"
+    t.integer  "obj_id"
+    t.string   "obj_type"
     t.integer  "source_id"
     t.string   "source_type"
     t.text     "body"
@@ -180,7 +189,7 @@ ActiveRecord::Schema.define(version: 20150422173146) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "notes", ["object_type", "object_id"], name: "index_notes_on_object_type_and_object_id", using: :btree
+  add_index "notes", ["obj_type", "obj_id"], name: "index_notes_on_obj_type_and_obj_id", using: :btree
   add_index "notes", ["source_type", "source_id"], name: "index_notes_on_source_type_and_source_id", using: :btree
 
   create_table "nps_feedbacks", force: :cascade do |t|
@@ -300,44 +309,62 @@ ActiveRecord::Schema.define(version: 20150422173146) do
     t.string   "foursquare_icon"
   end
 
+  create_table "plan_locations", force: :cascade do |t|
+    t.integer  "location_id", null: false
+    t.integer  "plan_id",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "plan_locations", ["location_id"], name: "index_plan_locations_on_location_id", using: :btree
+  add_index "plan_locations", ["plan_id"], name: "index_plan_locations_on_plan_id", using: :btree
+
   create_table "plans", force: :cascade do |t|
-    t.string   "name",        limit: 255
+    t.string   "name",                     limit: 255
     t.integer  "user_id"
     t.text     "description"
     t.integer  "duration"
     t.text     "notes"
-    t.string   "permission",  limit: 255, default: "public"
+    t.string   "permission",               limit: 255, default: "public"
     t.float    "rating"
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published",               default: true
-    t.json     "manifest",                default: []
+    t.boolean  "published",                            default: true
+    t.json     "manifest",                             default: []
+    t.integer  "latest_location_id"
+    t.integer  "first_ancestor_id"
+    t.integer  "last_ancestor_id"
+    t.datetime "first_ancestor_copied_at"
+    t.datetime "last_ancestor_copied_at"
   end
 
+  add_index "plans", ["first_ancestor_id"], name: "index_plans_on_first_ancestor_id", using: :btree
+  add_index "plans", ["last_ancestor_id"], name: "index_plans_on_last_ancestor_id", using: :btree
+  add_index "plans", ["latest_location_id"], name: "index_plans_on_latest_location_id", using: :btree
   add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree
 
   create_table "shares", force: :cascade do |t|
-    t.integer  "object_id"
-    t.string   "object_type"
+    t.integer  "obj_id"
+    t.string   "obj_type"
     t.text     "notes"
     t.integer  "sharer_id"
     t.integer  "sharee_id"
     t.string   "url"
-    t.boolean  "viewed",      default: false
-    t.boolean  "accepted",    default: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.boolean  "viewed",     default: false
+    t.boolean  "accepted",   default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
-  add_index "shares", ["object_type", "object_id"], name: "index_shares_on_object_type_and_object_id", using: :btree
+  add_index "shares", ["obj_type", "obj_id"], name: "index_shares_on_obj_type_and_obj_id", using: :btree
   add_index "shares", ["sharee_id"], name: "index_shares_on_sharee_id", using: :btree
   add_index "shares", ["sharer_id"], name: "index_shares_on_sharer_id", using: :btree
 
   create_table "sources", force: :cascade do |t|
-    t.integer  "object_id"
-    t.string   "object_type"
+    t.integer  "obj_id"
+    t.string   "obj_type"
     t.string   "name"
     t.string   "full_url"
     t.string   "trimmed_url"
@@ -347,27 +374,7 @@ ActiveRecord::Schema.define(version: 20150422173146) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "sources", ["object_type", "object_id"], name: "index_sources_on_object_type_and_object_id", using: :btree
-
-  create_table "taggings", force: :cascade do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       limit: 128
-    t.datetime "created_at"
-  end
-
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
-
-  create_table "tags", force: :cascade do |t|
-    t.string  "name"
-    t.integer "taggings_count", default: 0
-  end
-
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  add_index "sources", ["obj_type", "obj_id"], name: "index_sources_on_obj_type_and_obj_id", using: :btree
 
   create_table "travels", force: :cascade do |t|
     t.string   "mode",               limit: 255
@@ -411,6 +418,7 @@ ActiveRecord::Schema.define(version: 20150422173146) do
     t.string   "foursquare_id"
     t.string   "google_access_token"
     t.string   "google_refresh_token"
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

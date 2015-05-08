@@ -58,9 +58,34 @@ class Api::V1::PlansController < ApiController
   def copy
     user_id = params[:user_id] || current_user.try(:id)
     return permission_denied_error unless current_user_is_active
+    copy_plan(user_id, params[:copy_manifest])
+  end
 
-    DelayPlanCopyJob.perform_later(plan_id: @plan.id, user_id: user_id, copy_manifest: params[:copy_manifest])
-    success
+  def located_near
+    return permission_denied_error unless current_user_is_active
+    coordinate = params[:coordinate]
+    lat = coordinate.split(",").first.to_f.round(1)
+    lon = coordinate.split(",").last.to_f.round(1)
+    plans = Plan.all.select{ |p| p.uniq_abbreviated_coords.include?([lat,lon]) }
+    render json: plans, each_serializer: PlanSerializer
+  end
+
+  def add_nearby
+    return permission_denied_error unless current_user_is_active
+    return permission_denied_error unless @plan && @plan.user_id == current_user.id
+    location = @plan.add_nearby( params[:nearby], current_user )
+    render json: location
+  end
+
+  def remove_nearby
+    return permission_denied_error unless current_user_is_active
+    return permission_denied_error unless @plan && @plan.user_id == current_user.id
+    if location_id = params[:location_id] && plan_locations = PlanLocation.where( plan_id: @plan.id, location_id: location_id )
+      plan_locations.destroy_all
+      render json: location_id
+    else
+      error
+    end
   end
 
   private
@@ -73,6 +98,17 @@ class Api::V1::PlansController < ApiController
     else
       PlanAddItemFromPlaceDataJob.perform_later(user_id: current_user.id, plan_id: plan_id, data: data)
       render json: data
+    end
+  end
+
+  def copy_plan(user_id, copy_manifest)
+    if Rails.env.test?
+      user = User.find(user_id)
+      new_plan = @plan.copy!(new_user: user, copy_manifest: copy_manifest)
+      render json: { id: new_plan.id }
+    else
+      DelayPlanCopyJob.perform_later(plan_id: @plan.id, user_id: user_id, copy_manifest: copy_manifest)
+      success
     end
   end
 

@@ -12,7 +12,7 @@
 #share-mailer.indented-content
   %a{ href: @url, id: "toplanit" }
     .items-in-plan
-      - @items.includes( mark: :place ).map{ |i| i.mark.place.meta_categories[0] }.uniq.each do |category|
+      - @items.includes( mark: :place ).map{ |i| i.meta_category }.uniq.each do |category|
         .items-in-plan-category
           %ul.plan-list-items
             %li.items-organized-by.rainbow{ class: "#{ colorClass( category ) }" }
@@ -20,7 +20,7 @@
               / { class: "#{ @items.select{ |i| i.meta_categories[0] == category}.first.try( :meta_icon ) }" }
               = category
 
-            - @items.includes( mark: :place ).select{ |i| i.mark.place.meta_categories[0] == category }.each do |item|
+            - @items.includes( mark: :place ).select{ |i| i.meta_category == category }.each do |item|
 
               %li.plan-list-item
                 .bucket-list-tab.main-item-card

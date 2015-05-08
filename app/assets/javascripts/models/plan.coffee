@@ -16,16 +16,21 @@ mod.factory "Plan", (BaseModel, $http) ->
 
     addToManifest: (object, location) -> 
       return unless object?
-      $http.post( "#{@objectPath()}/add", { object_class: object.class, object_id: object.id, location: location } )
+      $http.post( "#{@objectPath()}/add", { obj_class: object.class, obj_id: object.id, location: location } )
 
     removeFromManifest: (object, location) -> 
       return unless object?
-      $http.post( "#{@objectPath()}/remove", { object_class: object.class, object_id: object.id, location: location } )
+      $http.post( "#{@objectPath()}/remove", { obj_class: object.class, obj_id: object.id, location: location } )
         
     moveInManifest: (from, to) -> 
       return unless from? && to?
       $http.post( "#{@objectPath()}/move", { from: from, to: to } )
 
     items: -> $http.get( "#{@objectPath()}/items" )
+
+    addNearby: (data) -> $http.post( "#{@objectPath()}/add_nearby", { nearby: data } )
+    removeNearby: (location_id) -> $http.post( "#{@objectPath()}/remove_nearby", { location_id: location_id } )
+
+    @locatedNear: (coordinate) -> $http.get( "#{@basePath}/located_near", { params: { coordinate: coordinate } } )
 
   return Plan

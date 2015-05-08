@@ -21,7 +21,7 @@ module Features
     if Nokogiri.parse(html).css(selector).present?
       true
     elsif limit <= 0
-      raise "Couldn't find #{selector} in \n\n#{html}"
+      raise "Couldn't find #{selector}" #" in \n\n#{html}"
     else
       sleep 0.2
       wait_for(selector: selector, limit: limit - 0.2)

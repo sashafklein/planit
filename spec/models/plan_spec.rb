@@ -2,6 +2,32 @@ require 'rails_helper'
 
 describe Plan do 
 
+  describe 'add nearby' do
+
+    before do
+      @user = create(:user)
+      @plan = create(:plan, {user_id: @user.id})
+      @data = { "asciiName"=>"San Francisco", "adminName1"=>"California", "countryName"=>"United States", "fclName"=>"city, village,...", "geonameId"=>5391959, "lat"=>"37.77493", "lon"=>"-122.41942", "searchStrings"=>"['San Francisco','San Fran']" }
+    end
+
+    it 'owner adds new nearby' do
+      expect( Location.count + PlanLocation.count + LocationSearch.count ).to eq 0
+      expect{ @plan.add_nearby( @data, @user ) }.to change{ (Location.count + PlanLocation.count + LocationSearch.count) }.by 3
+    end
+
+    it 'somone else trys to add new nearby, and is rejected' do
+      expect( Location.count + PlanLocation.count + LocationSearch.count ).to eq 0
+      expect{ @plan.add_nearby( @data, create(:user) ) }.to change{ (Location.count + PlanLocation.count + LocationSearch.count) }.by 2
+    end
+
+    it 'owner adds an existing nearby, and only adds to location search database' do
+      @plan.add_nearby( @data, @user )
+      expect( Location.count + PlanLocation.count + LocationSearch.count ).to eq 3
+      expect{ @plan.add_nearby( @data, @user ) }.to change{ (Location.count + PlanLocation.count + LocationSearch.count) }.by 1
+    end
+
+  end
+
   describe '#copy(new_user)' do
 
     before do
@@ -19,6 +45,24 @@ describe Plan do
         @plan.copy!(new_user: @user)
         @plan.copy!(new_user: @user)
       }.not_to raise_error
+    end
+
+    it "handles lineage correctly" do
+      new_plan = @plan.copy!(new_user: @user)
+      expect( new_plan.first_ancestor ).to eq @plan
+      expect( new_plan.last_ancestor ).to eq @plan
+      expect( new_plan.first_ancestor_copied_at ).to be_within( 0.5.seconds ).of DateTime.now
+      expect( new_plan.last_ancestor_copied_at ).to be_within( 0.5.seconds ).of DateTime.now
+
+      sleep 1
+      new_user = create(:user)
+
+      newest_plan = new_plan.copy!(new_user: new_user)
+      expect( newest_plan.first_ancestor ).to eq @plan
+      expect( newest_plan.first_ancestor_copied_at ).to eq new_plan.first_ancestor_copied_at
+      expect( newest_plan.last_ancestor ).to eq new_plan
+      expect( newest_plan.last_ancestor_copied_at ).not_to eq new_plan.last_ancestor_copied_at
+      expect( newest_plan.last_ancestor_copied_at ).to be_within( 0.5.seconds ).of DateTime.now
     end
 
     it "creates a new plan (with the new user), new items, and new marks; it ignores the manifest" do
@@ -64,7 +108,7 @@ describe Plan do
     end
 
     it "copies notes and keeps them pointed at the original user" do
-      note = create(:note, object: @plan.items.first, source: @owner)
+      note = create(:note, obj: @plan.items.first, source: @owner)
       expect{ @plan.copy!(new_user: @user) }.to change{ Note.count }.by 1
 
       new_note = Plan.last.items.find{ |i| i.name == 'first' }.notes.first
@@ -72,12 +116,12 @@ describe Plan do
       expect( new_note ).not_to eq note
       expect( new_note.body ).to eq note.body
       expect( new_note.source ).to eq note.source
-      expect( new_note.object ).not_to eq note.object
-      expect( new_note.object.mark.place ).to eq note.object.mark.place
+      expect( new_note.obj ).not_to eq note.obj
+      expect( new_note.obj.mark.place ).to eq note.obj.mark.place
     end
 
     it "copies sources of marks, and sources the original plan" do
-      source = create(:source, object: @plan.items.first.mark)
+      source = create(:source, obj: @plan.items.first.mark)
 
       expect{ @plan.copy!(new_user: @user) }.to change{ Source.count }.by 1
       new_mark_source = Plan.last.items.find{ |i| i.mark.place.name == 'first' }.mark.sources.first

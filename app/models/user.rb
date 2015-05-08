@@ -11,9 +11,11 @@ class User < BaseModel
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :collaborations, foreign_key: :collaborator_id
+  has_many :collaborating_plans, through: :collaborations, source: :plan
   has_many :plans
   has_many :marks
-  has_many :flags, as: :object
+  has_many :flags, as: :obj
   has_many :nps_feedbacks
   has_many :page_feedbacks
   has_many :items, through: :marks
@@ -32,7 +34,7 @@ class User < BaseModel
 
   def owns?(record)
     record['user_id'] == id || 
-      ( record['object_id'] && record['object_id'] == id && record['object_type'] == 'User' ) ||
+      ( record['obj_id'] && record['obj_id'] == id && record['obj_type'] == 'User' ) ||
       ( record['class'] == 'Item' )
   end
 
@@ -59,7 +61,7 @@ class User < BaseModel
   end
 
   def shares_to_review
-    Mark.where( id: Share.where( sharee: self, object_type: 'Mark' ).pluck(:object_id) )
+    Mark.where( id: Share.where( sharee: self, obj_type: 'Mark' ).pluck(:obj_id) )
   end
 
   def message_count

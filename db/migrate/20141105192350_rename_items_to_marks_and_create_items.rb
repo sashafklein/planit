@@ -14,12 +14,12 @@ class RenameItemsToMarksAndCreateItems < ActiveRecord::Migration
     end
 
     Mark.unscoped.find_each do |mark|
-      if mark.day_id 
+      if mark.respond_to?(:day_id) && mark.day_id
         Item.create({
           mark_id: mark.id,
           plan_id: mark.plan.try(:id),
           day_id: mark.day_id,
-          order: mark.order
+          order: mark.respond_to?(:order) ? mark.order : nil
         })
       end
     end
@@ -44,8 +44,12 @@ class RenameItemsToMarksAndCreateItems < ActiveRecord::Migration
 
     Item.find_each do |item|
       mark = Mark.unscoped.find(item.mark_id)
-      mark.day_id = item.day_id
-      mark.order = item.order
+      if item.respond_to?(:day_id) && item.day_id && mark.respond_to?(:day_id)
+        mark.day_id =  item.day_id
+      end
+      if item.respond_to?(:order) && item.order && mark.respond_to?(:order)
+        mark.order = item.order
+      end
       mark.save!
     end
 

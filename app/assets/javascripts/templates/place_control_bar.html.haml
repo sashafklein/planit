@@ -13,8 +13,8 @@
     %i.fa.fa-pencil
   %a.place-control{ ng_show: "hasMarkFor() && (!planId || (planId && !userOwnsPlan))" }
     %span.place-control-hint= "Add Note"
-    %i.fa.fa-pencil{ add_note_on_click: true, object_id: '{{place.id}}', object_type: 'Place' }
-  %a.place-control{ ng_show: "hasMarkFor() && planId && userOwnsPlan", add_note_on_click: true, object_id: '{{place.id}}', object_type: 'Place' }
+    %i.fa.fa-pencil{ add_note_on_click: true, obj_id: '{{place.id}}', obj_type: 'Place' }
+  %a.place-control{ ng_show: "hasMarkFor() && planId && userOwnsPlan", add_note_on_click: true, obj_id: '{{place.id}}', obj_type: 'Place' }
     %span.place-control-hint= "Add Note"
     %i.fa.fa-pencil
 

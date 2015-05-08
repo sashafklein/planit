@@ -1,7 +1,7 @@
 class Distance
 
   RAD_PER_DEG             = 0.017453293
-  RMILES  = 3956
+  RMILES                  = 3956
 
   def self.day(day1, day2, rounding=1)
     return unless day1 && day2
