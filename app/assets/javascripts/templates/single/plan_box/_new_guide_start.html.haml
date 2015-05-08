@@ -4,8 +4,7 @@
     .input-and-results{ ng_hide: "m.mainMenuToggled && m.mobile" }
       %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: 'Where are you going?', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'startPlanNearBestOption()', ng_on_esc_key: 'planNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
       %ul.suggested-results.blue{ ng_show: '!m.typing && planNearby && planNearby.length>1' }
-        %li.search-results-list{ ng_repeat: 'option in planNearbyOptions', ng_click: 'startPlanNear(option)' } 
-          / ng_class: "planNearbyOptionClass(option, $index)", 
+        %li.search-results-list{ ng_repeat: 'option in planNearbyOptions', ng_click: 'startPlanNear(option)', ng_class: "planNearbyOptionClass(option)"}
           %b{ ng_bind_html: "underlined( option.name )" }
           %span{ ng_bind_html: "underlined( option.qualifiers )" } 
         %li.search-results-working{ ng_show: 'planNearbyWorking > 0' } Working on it...

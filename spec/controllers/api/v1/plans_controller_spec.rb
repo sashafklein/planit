@@ -130,6 +130,7 @@ describe Api::V1::PlansController, :vcr do
     end
 
     it "sets new nearby" do
+      sign_in @user
       expect_any_instance_of( Plan ).to receive(:add_nearby)
       post :add_nearby, id: @plan.id, nearby: @data
     end

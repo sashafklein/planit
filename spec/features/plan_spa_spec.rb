@@ -15,15 +15,15 @@ describe 'Root SPA' do
       expect( page ).to have_content "Start a new plan"
       fill_in 'plan-nearby', with: 'San Francisco'
 
-      wait_for(selector: 'ul.suggested-results li.san-francisco-california-united-states-0')
+      wait_for(selector: 'ul.suggested-results li.san-francisco-california-united-states')
 
       within 'ul.suggested-results' do
-        first('li').click
+        first('li.san-francisco-california-united-states').click
       end
 
       sleep 0.2
 
-      expect( page ).to have_content "Cool! Now Add Places to your List"
+      expect( page ).to have_content "YOU'RE THE FIRST PLANITEER"
       
       # Auto-named the plan
       within '.setplanbox-on-plan-page' do
@@ -42,9 +42,9 @@ describe 'Root SPA' do
 
       within '.input-and-results' do
         fill_in 'place-name', with: 'Contigo'
-        wait_for(selector: 'ul.suggested-results li.contigo-0')
+        wait_for(selector: 'ul.suggested-results li.contigo')
         within 'ul.suggested-results' do
-          first('li.contigo-0').click
+          first('li.contigo').click
         end
       end
 

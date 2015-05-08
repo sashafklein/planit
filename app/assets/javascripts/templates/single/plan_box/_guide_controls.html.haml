@@ -6,7 +6,11 @@
         {{ m.plan().name }}
         %i.fa.fa-pencil.rename{ ng_click: 'renamePlan()', ng_show: 'm.userOwnsPlan()' }
       %i.fa.fa-cog.settings{ ng_show: 'm.plan()', ng_click: 'm.settingsBoxToggle()', ng_class: "{'opened': m.settingsBoxToggled}" }
-      .plan-by{ ng_show: '!m.plan().userOwns()' } by {{ m.plan().userName }}
+      .plan-by{ ng_show: "!m.mobile", ng_class: "{'soft': m.plan().userOwns()}" } 
+        by 
+        %span{ ng_show: '!m.userOwnsPlan()', ng_click: 'm.visitUser( m.plan().user.id )' } {{ m.plan().user.name }}
+        %span{ ng_show: 'm.userOwnsPlan()' } {{ m.plan().user.name }}
+        %span{ ng_repeat: 'collaborator in m.plan().collaborators', ng_click: 'm.visitUser( collaborator.id )' } {{ collaborator.first_name }}
     .chosen-plan.above-mask{ ng_show: 'm.plan() && m.rename' }
       %input.title#rename{ ng_model: 'm.rename', ng_on_enter_key: 'saveRenamePlan()', ng_on_esc_key: 'cancelRenamePlan()' }
 

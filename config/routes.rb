@@ -69,10 +69,6 @@ Rails.application.routes.draw do
         get :search, on: :collection
       end
 
-      resources :location, only: [] do
-        get :find, on: :collection
-      end
-
       resources :geonames, only: [] do
         get :search, on: :collection
         get :point, on: :collection

@@ -7,9 +7,7 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, Cl
       m: '='
     link: (s, e, a) ->
 
-      s.planNearbyOptionClass = (option, index) ->
-        highlightClass = if s.planNearbyOptionSelectable(option) then 'highlighted' else null
-        highlightClass + ' ' + ClassFromString.toClass( option.name, option.qualifiers, index )
+      s.planNearbyOptionClass = (option) -> ClassFromString.toClass( option.name, option.qualifiers )
 
       s.searchPlanNearby = -> 
         s.planNearbyOptions = [] if s.planNearby?.length
@@ -59,6 +57,8 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, Cl
         searchStrings = _.compact( s.m.nearbySearchStrings )
         s.m.planManager.addNewPlan( nearby, searchStrings )
         s.m.nearbySearchStrings = []
+        # scroll to top
         s.planNearby = null
+        s.m.browsing = true
 
   }

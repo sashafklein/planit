@@ -23,11 +23,13 @@ angular.module("Common").directive 'singlePage', (User, Plan, Mark, Item, Place,
       # s.m.userCoOwnsPlan = -> s.m.plans[s.m.currentPlanId]?.userCoOwns()
       s.m.sharePlan = ( plan ) -> $('#share-object-id').val( plan.id ); $('#share-object-type').val( 'Plan' ); $('#planit-modal-share').toggle(); return
 
+      s.m.browsing = true
       s.m.mobile = e.width() < 768
       s.m.largestScreen = e.width() > 960
 
       s.m.categorizeBy = 'type' # MANUALLY SET FOR NOW
 
+      s.m.visitUser = ( user_id ) -> window.location.href = "/users/#{ user_id }"
 
       # # META-SERVICES
       s.m._setValues = (object, list, value = null) -> _.forEach list, (i) -> object[i] = ( if value? then _.clone(value) else null )

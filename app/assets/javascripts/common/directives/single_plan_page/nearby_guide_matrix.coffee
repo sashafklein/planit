@@ -7,4 +7,6 @@ angular.module("Common").directive 'nearbyGuideMatrix', (ClassFromString) ->
       m: '='
     link: (s, e, a) ->
 
+      s.exitBrowse = -> s.m.browsing=false
+
   }

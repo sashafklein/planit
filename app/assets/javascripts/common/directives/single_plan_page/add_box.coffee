@@ -11,7 +11,7 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
         highlightClass = if s.placeNearbyOptionSelectable(option) then 'highlighted' else null
         highlightClass + ' ' + ClassFromString.toClass( option.name, option.qualifiers, index )
       
-      s.placeNameOptionClass = (option, index) -> ClassFromString.toClass(option.name, index)
+      s.placeNameOptionClass = (option) -> ClassFromString.toClass(option.name)
 
       s.m.addBoxManuallyToggled = false
       s.addBoxToggle = -> 
@@ -65,6 +65,8 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
         searchStrings = _.compact( s.m.nearbySearchStrings )
         s.m.plan().setNearby( nearby, searchStrings )
         s.m.nearbySearchStrings = []
+      
+      s.setCurrentNearby = ( nearby ) -> s.m.plan().latest_location_id = nearby.id
 
       s.addItem = ( option ) -> s.m.plan().addItem( option, s._postAdd( option ), s._postAffix() )
       s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1

@@ -31,7 +31,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
       data = { asciiName: nearby.asciiName, adminName1: nearby.adminName1, countryName: nearby.countryName, fclName: nearby.fclName, geonameId: nearby.geonameId, lat: nearby.lat, lon: nearby.lng, searchStrings: searchStrings }
       @_planObj().addNearby(data)
         .success (response) -> 
-          self.locations.unshift( response )
+          self.locations.unshift( response ) unless _.find( self.locations, (l) -> l.id == response.id )
           self.latest_location_id = response.id
           QueryString.modify({ plan: self.id })
         .error (response) -> ErrorReporter.fullSilent( response, 'Failed in setting self.id plan nearby' )

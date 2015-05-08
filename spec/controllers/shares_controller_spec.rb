@@ -15,7 +15,7 @@ describe SharesController do
 
       post :create, share: { obj_id: plan.id, obj_type: 'Plan', email: "#{e1},#{e2} #{e3}", notes: 'BaLAM' }
 
-      subj = "A Planit Guide from First Last: Plan name 1"
+      subj = "A Planit Guide from First Last: #{plan.name}"
       expect( delivered_emails.map(&:subject).uniq ).to eq [subj]
       expect( delivered_emails.map(&:to).flatten ).to array_eq [e1, e2, e3]
       expect( email_text(subject: subj) ).to include 'BaLAM'
