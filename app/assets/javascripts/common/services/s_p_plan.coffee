@@ -36,14 +36,14 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
           QueryString.modify({ plan: self.id })
         .error (response) -> ErrorReporter.fullSilent( response, 'Failed in setting self.id plan nearby' )
 
-    # removeNearby: ( nearby ) ->
-    #   self = @
-    #   @_planObj().removeNearby({ location_id: nearby['id'] })
-    #     .success (response) -> 
-    #       index = self.locations.indexOf( _.find( self.locations, (l) -> l.id == response ) )
-    #       self.locations.splice( index, 1 ) if index != -1
-    #       self.latest_location_id = null
-    #     .error (response) -> ErrorReporter.fullSilent( response, 'Failed in removing nearby from plan' )
+    removeNearby: ( nearby ) ->
+      self = @
+      @_planObj().removeNearby({ location_id: nearby['id'] })
+        .success (response) -> 
+          index = self.locations.indexOf( _.find( self.locations, (l) -> l.id == response ) )
+          self.locations.splice( index, 1 ) if index != -1
+          self.latest_location_id = null
+        .error (response) -> ErrorReporter.fullSilent( response, 'Failed in removing nearby from plan' )
 
     # ADD TO PLAN
 
@@ -107,8 +107,9 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
 
     loadItems: ->
       self = @
-      unless @.items?.length
+      unless @.items?.length || @.fetchingItems
         @.items = []
+        @.fetchingItems = true
         Item.where({ plan_id: @.id })
           .success (response) ->
             _.forEach response , ( item, index ) ->

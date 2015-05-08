@@ -80,7 +80,8 @@ class Api::V1::PlansController < ApiController
   def remove_nearby
     return permission_denied_error unless current_user_is_active
     return permission_denied_error unless @plan && @plan.user_id == current_user.id
-    if location_id = params[:location_id] && plan_locations = PlanLocation.where( plan_id: @plan.id, location_id: location_id )
+    location_id = params[:location][:location_id]
+    if location_id && plan_locations = PlanLocation.where( plan_id: @plan.id, location_id: location_id )
       plan_locations.destroy_all
       render json: location_id
     else

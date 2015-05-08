@@ -29,7 +29,7 @@ mod.factory "Plan", (BaseModel, $http) ->
     items: -> $http.get( "#{@objectPath()}/items" )
 
     addNearby: (data) -> $http.post( "#{@objectPath()}/add_nearby", { nearby: data } )
-    removeNearby: (location_id) -> $http.post( "#{@objectPath()}/remove_nearby", { location_id: location_id } )
+    removeNearby: (id) -> $http.post( "#{@objectPath()}/remove_nearby", { location: id } )
 
     @locatedNear: (coordinate) -> $http.get( "#{@basePath}/located_near", { params: { coordinate: coordinate } } )
 
