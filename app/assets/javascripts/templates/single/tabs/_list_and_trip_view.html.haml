@@ -1,5 +1,5 @@
 .list-or-trip-mode{ ng_show: "!( m.browsing && !m.placeName.length>1 ) && m.plan() && (m.plan().items.length>0 || m.addingItem) && (m.mode == 'list' || m.mode == 'trip')" }
-  #header-spacing.except-landscape
+  #header-spacing
   .print-title {{ m.plan().name }}
   .print-by by {{ m.plan().user.name }}
   .pad-top-addbox{ ng_show: 'm.plan() || m.hasPlans()' }
