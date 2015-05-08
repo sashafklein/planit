@@ -10,17 +10,13 @@ angular.module("Common").directive 'tripView', (ErrorReporter, Item) ->
       s.initialized = false
       s.manifestItems = []
 
-      s._getManifestItems = ->
-        return null unless ( item_ids = _.map(s.m.plan().manifest, 'id') ).length
-        Item.where( id: item_ids )
-          .success (response) ->
-            _.forEach s.m.plan().manifest, (obj, index) ->
-              s.manifestItems.push s._manifestWrap( _.find(response, (i) -> i.id == obj.id), index  )
-          .error (response) ->
-            ErrorReporter.fullSilent( response, 'tripView getManifestItems', { list_id: s.m.plan().id, item_ids: item_ids } )
+      s.emptyHeight = -> 
+        return {} if s.manifestItems?.length || !s.m.plan()?.items?.length
+        { height: "#{ s.m.plan().items.length * 75 }px" }
 
-      s._manifestWrap = (item, index) ->
-        _.extend( Item.generateFromJSON(item) , { index: index, pane: 'manifest' } )
+      s._getManifestItems = ->
+        return if !s.m.plan()? || s.manifestItems?.length
+        s.m.plan().getManifestItems( (elements) -> s.manifestItems = elements )
 
       s._setDragging = (setRight=false) ->
         left = e.find('.items-in-manifest ul.plan-list-items')[0]
@@ -37,7 +33,7 @@ angular.module("Common").directive 'tripView', (ErrorReporter, Item) ->
           s.drakeLM.on 'drop', (el, container, source) ->
             if _.contains( container.classList, 'manifest' )
               dropIndex = _.map(container.children, (c) -> _.contains(c.classList, 'gu-transit') ).indexOf(true) || 0
-              item = _.find s.m.items, (i) -> i.id == parseInt( $(el).attr('href') )
+              item = _.find s.m.plan().items, (i) -> i.id == parseInt( $(el).attr('href') )
               s._addToManifest(item, dropIndex)
 
         s.drakeM = dragula( [left], removeOnSpill: true)
@@ -49,36 +45,31 @@ angular.module("Common").directive 'tripView', (ErrorReporter, Item) ->
           index = parseInt( $(el).attr("href") )
           s._removeFromManifest(index)
 
-
       s._addToManifest = (item, insertIndex=0) -> 
-        s._runRequest( ( -> s.m.plan.addToManifest(item, insertIndex) ), 'addToManifest', { item_id: item.id })
+        s.m.plan().addToManifest(item, insertIndex, s._reorderManifest)
 
       s._removeFromManifest = (itemIndex) ->
         item = s.manifestItems[itemIndex]
-        s._runRequest( ( -> s.m.plan.removeFromManifest( item, itemIndex ) ), 'removeFromManifest', {item_id: item.id, remove_index: itemIndex} )
+        s.m.plan().addToManifest(item, itemIndex, s._reorderManifest)
 
       s._moveInManifest = (from, to) ->
-        s._runRequest( ( -> s.m.plan.moveInManifest(from, to) ), 'moveInManifest', { from: from, to: to } )
+        s.m.plan().moveInManifest(from, to, s._reorderManifest)
 
-      s._runRequest = (request, name='', extraReporting={}) ->
-        request()
-          .success (response) ->
-            e.find('ul.manifest').find('li.list').remove()
-            s._resetManifestItems(response)
-            s._setDragging(false)
-          .error (response) ->
-            ErrorReporter.defaultFull response, "singlePagePlans #{name}", _.extend({plan_id: s.m.plan.id}, extraReporting) 
+      s._reorderManifest = (response) ->
+        e.find('ul.manifest').find('li.list').remove()
+        s._resetManifestItems(response)
+        # s._setDragging(false)
 
       s._resetManifestItems = (response) ->
         s.m.plan().manifest = response
         newManifestItems = []
-        _.forEach s.m.plan.manifest, (item, index) ->
+        _.forEach s.m.plan().manifest, (item, index) ->
           if found = s._findItem(item)
             newManifestItems.push _.extend(found, { $$hashKey: "object:#{index}", index: index })
         s.manifestItems = newManifestItems
 
       s._findItem = (manifestItem) -> 
-        item = _.find(s.m.items, (i) -> s._identical(i, manifestItem)) || _.find(s.manifestItems, (i) -> s._identical(i, manifestItem) || {})
+        item = _.find(s.m.plan().items, (i) -> s._identical(i, manifestItem)) || _.find(s.manifestItems, (i) -> s._identical(i, manifestItem) || {})
         return null unless item?.class
         s._dup(item)
 
@@ -90,10 +81,13 @@ angular.module("Common").directive 'tripView', (ErrorReporter, Item) ->
       s._objectClasses = { Item: Item }
       
       s._initializeIt = -> 
-        return unless s.m.mode == 'trip' && !s.initialized
+        return unless s.m.mode == 'trip' && !s.initialized && s.m.plan()?
         s._getManifestItems()
         s._setDragging(true)
+        s.initialized = true
 
       # INIT
-      s.$watch 'm.mode', s._initializeIt, true
+      s.$watchGroup ['m.mode', 'm.plan()'], s._initializeIt, true
+
+      window.trip = s
   }

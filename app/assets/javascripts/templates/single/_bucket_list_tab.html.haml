@@ -1,0 +1,13 @@
+.bucket-list-tab.main-item-card
+  .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
+  .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
+  .bucket-list-wrap
+    .bucket-list-profile
+      %a{ target: '_self' }
+        .bucket-list-title
+          {{ item.mark.place.names[0] }}
+        .bucket-list-more-info
+          %i{ class: "{{ item.mark.place.meta_icon }}"}
+          {{ item.mark.place.categories.join(', ') }}
+        .bucket-list-more-info.locale-only
+          {{ item.mark.place.localeDetails() }}

@@ -7,7 +7,7 @@ angular.module("Common").directive 'listAndTripView', (User, ErrorReporter, Mark
       m: '='
     link: (s, e, a) ->
 
-      s.hasPlansNotBrowsingAndInListView = ->
+      s.hasPlanAndItemsNotBrowsingAndInListView = ->
         !( s.m.browsing && !s.m.placeName.length > 1 ) && s.m.plan() && (s.m.plan().items.length > 0 || s.m.addingItem) && s.m.mode == 'list'      
       s.colorClass = ( meta_category ) -> MetaCategory.colorClass( meta_category )
       

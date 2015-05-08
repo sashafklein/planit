@@ -1,43 +1,16 @@
 .trip-mode{ ng_show: "m.mode == 'trip'" }
   #header-spacing.except-landscape
-  .print-title {{ list.name }}
   .pad-top-addbox
   .band.spaced-extra
     .container
       %h1.title.sixteen.columns Drag and Drop to Order Your Trip
 
       .items-in-manifest.six.columns
-        %ul.plan-list-items.manifest{ ng_class: '{empty: !manifestItems.length}' }
-          %li.plan-list-item.manifest{ ng_repeat: "item in m.plan().manifestItems", ng_href: '{{ item.index }}' }
-            .bucket-list-tab.main-item-card
-              .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
-              .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
-              .bucket-list-wrap
-                .bucket-list-profile
-                  %a{ target: '_self' }
-                    .bucket-list-title
-                      {{ item.mark.place.names[0] }}
-                    .bucket-list-more-info
-                      %i{ class: "{{ item.mark.place.meta_icon }}"}
-                      {{ item.mark.place.categories.join(', ') }}
-                    .bucket-list-more-info.locale-only
-                      {{ item.mark.place.localeDetails() }}
+        %ul.plan-list-items.manifest{ ng_class: '{ empty: !manifestItems.length }', ng_style: 'emptyHeight()' }
+          %li.plan-list-item.manifest{ ng_repeat: "item in manifestItems", ng_href: '{{ item.index }}' }
+            %ng_include{ src: "'single/_bucket_list_tab.html'" }
 
       .items-in-list.ten.columns
         %ul.plan-list-items.list
           %li.plan-list-item.list{ ng_repeat: "item in m.plan().items | orderBy : 'mark.place.name'", ng_href: '{{ item.id }}' }
-            .bucket-list-tab.main-item-card
-              .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
-              .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
-              .bucket-list-wrap
-                .bucket-list-profile
-                  %a{ target: '_self' }
-                    .bucket-list-title
-                      {{ item.mark.place.names[0] }}
-                    .bucket-list-more-info
-                      %i{ class: "{{ item.mark.place.meta_icon }}"}
-                      {{ item.mark.place.categories.join(', ') }}
-                    .bucket-list-more-info.locale-only
-                      {{ item.mark.place.localeDetails() }}
-
-          .list-item-select{ ng_show: "mode == 'trip'", ng_class: "{selected: isSelected(item)}", ng_click: 'toggleSelectedItem(item)' }
+            %ng_include{ src: "'single/_bucket_list_tab.html'" }
