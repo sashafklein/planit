@@ -70,9 +70,9 @@ describe 'Root SPA' do
 
       within '.input-and-results' do
         fill_in 'place-name', with: 'Alcatraz'
-        wait_for(selector: 'ul.suggested-results li.alcatraz-island-0', limit: 15)
+        wait_for(selector: 'ul.suggested-results li.alcatraz-island', limit: 15)
         within 'ul.suggested-results' do
-          first('li.alcatraz-island-0').click
+          first('li.alcatraz-island').click
         end
       end
 
@@ -89,7 +89,7 @@ describe 'Root SPA' do
         fill_in "item_#{alcatraz.id}", with: 'Ai Wei Wei and whatever'
         expect( contigo.notes.first.body ).to eq 'My favorite local spot'
         fill_in "item_#{contigo.id}", with: 'My favorite local spot -- in Noe, where I live'
-        sleep 2.5
+        sleep 2.75
       end
 
       expect( contigo.notes.first.reload.body ).to eq 'My favorite local spot -- in Noe, where I live'
@@ -158,17 +158,15 @@ describe 'Root SPA' do
         fill_in 'place-nearby', with: "Oakland, CA"  
       end
 
-      wait_for(selector: 'ul.suggested-results li.oakland-california-united-states-1')
+      wait_for(selector: 'ul.suggested-results li.oakland-california-united-states-0')
 
-      first('ul.suggested-results li.oakland-california-united-states-1').click
+      first('ul.suggested-results li.oakland-california-united-states-0').click
       
-      expect( full_path ).to include 'near=5378538'
-
       fill_in 'place-name', with: 'Camino'
 
       within 'ul.suggested-results' do
-        wait_for(selector: 'li.camino-0')
-        first('li.camino-0').click
+        wait_for(selector: 'li.camino')
+        first('li.camino').click
       end
 
       wait_for(selector: '.item-li-camino-0')

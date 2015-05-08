@@ -52,8 +52,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
       @_setAddItemSuccess( callback2 ) unless RailsEnv.test # Don't use Pusher or background-process this task in test env
       callback?()
       @_planObj().addItemFromPlaceData( fsOption )
-        .success (response) -> 
-          self._affixItem(response, callback2) if RailsEnv.test?
+        .success (response) -> if RailsEnv.test then self._affixItem(response, callback2)
         .error (response) -> ErrorReporter.defaultFull( response, 'SPPlan addItem', { option: JSON.stringify(fsOption), plan_id: self.id } )
 
     _setAddItemSuccess: ( callback ) ->
@@ -115,6 +114,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
             _.forEach response , ( item, index ) ->
               i = _.extend( new SPItem( Item.generateFromJSON( item ) ), { index: index, pane: 'list', class: 'Item' } )
               self.items.push i
+            self.itemsLoaded = true
             QueryString.modify({ plan: parseInt( self.id ) })
             $timeout(-> self._fetchNotes() )
           .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list #{self.id}", { plan_id: self.id })

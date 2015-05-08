@@ -1,12 +1,12 @@
-.initial-tutorial{ ng_show: '!m.planManager.itemCount()>0 && m.isLoaded && ( !m.hasPlans() || m.plan() )' }
+.initial-tutorial{ ng_show: '!m.planManager.itemCount()>0 && !m.addingItem && m.isLoaded && ( !m.hasPlans() || m.plan() )' }
   #header-spacing.except-landscape
   .band.spaced
-    .place-name-tutorial{ ng_show: 'm.plan() && !m.nearby', ng_class: "{'blur': hasPlaceNearbyOptions()}" }
+    .place-name-tutorial{ ng_show: 'm.plan() && !m.plan().currentLocation()', ng_class: "{'blur': hasPlaceNearbyOptions()}" }
       .container.centered
         .column
           = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': m.plan()}" }
       .container.centered
-        .column{ ng_show: 'm.plan() && !m.nearby' }
+        .column{ ng_show: 'm.plan() && !m.plan().currentLocation()' }
           %strong.neon.large Awesome!  Starting Where?
           %p Set a Location so You can Find Your Places
           .soft-tutorial
@@ -15,21 +15,3 @@
               .tutorial-line Where does your trip or list start?
               .tutorial-line You can change your location at any time;
               .tutorial-line we'll use it to find the places you search for
-    .place-name-tutorial{ ng_show: 'm.plan() && m.nearby && !m.addingItem', ng_class: "{'blur': hasPlaceNameOptions()}" }
-      .container.centered
-        .column
-          = image_tag 'tutorial_arrow.png', { ng_class: "{'pad-top-addbox': m.plan()}" }
-      .container.centered
-        .column{ ng_show: 'm.plan() && m.nearby', ng_class: "{'blur': hasPlaceNameOptions()}" }
-          %strong.neon.large 
-            Cool! Now Add Places
-            %span.large-screen.inline to your List
-          / = "&nbsp;".html_safe
-          / .planit-button.blue
-          /   Need Help?
-          /   %i.fa.fa-facebook-official.fa-lg.pad-left
-          .soft-tutorial
-            .tutorial-image= image_tag "tutorial_place_name.png"
-            %strong.neon.large
-              .tutorial-line Either search for specific places by name
-              .tutorial-line or by category, if you like

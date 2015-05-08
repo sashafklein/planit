@@ -1,4 +1,4 @@
-.other-guides-matrix{ ng_show: 'm.plan() && m.plan().currentLocation() && !(m.plan().items.length || m.addingItem) && !( !m.browsing && m.placeName )' }
+.other-guides-matrix{ ng_show: 'm.plan() && m.plan().currentLocation() && !m.plan().items.length && !m.addingItem && m.browsing && !m.placeName && m.plan().itemsLoaded' }
   #header-spacing.except-landscape
 
     .band.spaced-xxx
@@ -7,7 +7,7 @@
           .section-header
             = "&nbsp;<br>".html_safe
             .line YOU'RE THE FIRST PLANITEER
-            .line TO EXPLORE {{ m.plan().currentLocation().asciiName.toUpperCase() }}!
+            .line TO EXPLORE {{ m.plan().currentLocation().asciiName.toUpperCase() }} !
         .container.centered
           .planit-button.neon{ ng_click: 'exitBrowse()' } Get Started Planning!
       .nearby-browse-or-scratch{ ng_show: 'm.plan().nearbyPlans.length' }

@@ -38,7 +38,7 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
             s.m.nearbySearchStrings.unshift s.placeNearby
           .error (response) -> 
             s.placeNearbyWorking--
-            ErrorReporter.fullSilent(response, 'SinglePagePlaces s.searchPlaceNearby', { query: s.placeName })
+            ErrorReporter.fullSilent(response, 'SinglePagePlaces s.searchPlaceNearby', { query: s.m.placeName })
 
       s.underlined = ( location_text ) ->
         terms = s.placeNearby?.split(/[,]?\s+/)
@@ -70,38 +70,38 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
 
       s.addItem = ( option ) -> s.m.plan().addItem( option, s._postAdd( option ), s._postAffix() )
       s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
-      s._postAdd = ( option ) -> s.placeName = null; s.placeNameOptions = null; Flash.success("Adding #{option.names[0]} to your plan"); s.m.addingItem=true
+      s._postAdd = ( option ) -> s.m.addingItem=true; s.m.placeName = null; s.placeNameOptions = null; Flash.success("Adding #{option.names[0]} to your plan")
       s._postAffix = -> s.m.addingItem=false
 
       s.placeNameSearch = -> 
-        s.options = [] if s.placeName?.length
-        s._placeSearchFunction() if s.placeName?.length > 1 && s.m.plan()?.currentLocation()?.lat && s.m.plan()?.currentLocation()?.lon
+        s.options = [] if s.m.placeName?.length
+        s._placeSearchFunction() if s.m.placeName?.length > 1 && s.m.plan()?.currentLocation()?.lat && s.m.plan()?.currentLocation()?.lon
 
       s._placeSearchFunction = _.debounce( (-> s._makePlaceSearchRequest() ), 500 )
 
-      s.noPlaceNameResults = -> if s.placeName?.length>1 && s.placeNameWorking<1 && s.m.placeNameOptions?.length<1 then return true else return false
+      s.noPlaceNameResults = -> if s.m.placeName?.length>1 && s.placeNameWorking<1 && s.m.placeNameOptions?.length<1 then return true else return false
 
       s.placeNameWorking = 0
       s._makePlaceSearchRequest = ->
-        return unless s.m.plan()?.currentLocation()?.lat && s.m.plan()?.currentLocation()?.lon && s.placeName?.length>0
+        return unless s.m.plan()?.currentLocation()?.lat && s.m.plan()?.currentLocation()?.lon && s.m.placeName?.length>0
         s.placeNameWorking++
-        Foursquare.search( "#{s.m.plan()?.currentLocation().lat},#{s.m.plan()?.currentLocation().lon}" , s.placeName)
+        Foursquare.search( "#{s.m.plan()?.currentLocation().lat},#{s.m.plan()?.currentLocation().lon}" , s.m.placeName)
           .success (response) ->
             s.placeNameWorking--
             s.m.placeNameOptions = Place.generateFromJSON Foursquare.parse(response)
           .error (response) ->
             s.placeNameWorking--
             if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
-              ErrorReporter.fullSilent(response, 'SinglePagePlans s._makePlaceSearchRequest getting geocode rejected', { near: s.m.plan()?.currentLocation(), query: s.placeName }) if response.message != "Insufficient search params"
+              ErrorReporter.fullSilent(response, 'SinglePagePlans s._makePlaceSearchRequest getting geocode rejected', { near: s.m.plan()?.currentLocation(), query: s.m.placeName }) if response.message != "Insufficient search params"
             else
-              ErrorReporter.fullSilent(response, 'SinglePagePlans s._makePlaceSearchRequest', { near: s.m.plan()?.currentLocation(), query: s.placeName }) if response.message != "Insufficient search params"
+              ErrorReporter.fullSilent(response, 'SinglePagePlans s._makePlaceSearchRequest', { near: s.m.plan()?.currentLocation(), query: s.m.placeName }) if response.message != "Insufficient search params"
 
       s.nearbyToReset = -> _.compact([ s.m.plan()?.currentLocation()?.name, s.m.plan()?.currentLocation()?.adminName1, s.m.plan()?.currentLocation()?.countryName ]).join(", ")
 
       s.resetNearby = -> 
         s.m.plan().userResetNear = true
         s.m.plan().latest_location_id = null
-        s.placeName = null
+        s.m.placeName = null
         s.placeNearby = null
         s.placeOptions = null
         s.centerNearby = null
