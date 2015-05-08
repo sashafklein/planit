@@ -7,17 +7,17 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, Cl
       m: '='
     link: (s, e, a) ->
 
-      s.planNearbyOptionClass = (option) -> ClassFromString.toClass( option.name, option.qualifiers )
+      s.planNearbyOptionClass = (option, index=0) -> ClassFromString.toClass( option.name, option.adminName1, option.countryName, index )
 
       s.searchPlanNearby = -> 
-        s.planNearbyOptions = [] if s.planNearby?.length
+        s.m.nearbyOptions = [] if s.planNearby?.length
         s._searchPlanNearbyFunction() if s.planNearby?.length > 1
 
       s._searchPlanNearbyFunction = _.debounce( (-> s._searchPlanNearby() ), 500 )
 
       s.planNearbyOptionSelectable = (option) -> option?.name?.toLowerCase() == s.planNearby?.split(',')[0]?.toLowerCase()
 
-      s.noPlanNearbyResults = -> s.planNearby?.length>1 && s.planNearbyWorking<1 && s.planNearbyOptions?.length<1
+      s.noPlanNearbyResults = -> s.planNearby?.length>1 && s.planNearbyWorking<1 && s.m.nearbyOptions?.length<1
 
       s.planNearbyWorking = 0
       s._searchPlanNearby = ->
@@ -26,10 +26,9 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, Cl
         Geonames.search( s.planNearby )
           .success (response) ->
             s.planNearbyWorking--
-            s.planNearbyOptions = response.geonames #_.sortBy( response.geonames, 'population' ).reverse()
-            _.map( s.planNearbyOptions, (o) -> 
-              o.lon = o.lng; o.qualifiers = _.uniq( _.compact( [ o.adminName1, o.countryName ] ) ).join(", ")
-            )
+            nearbyOptions = response.geonames
+            _.map( nearbyOptions, (o) -> o.lon = o.lng )
+            s.m.nearbyOptions = nearbyOptions #_.sortBy( nearbyOptions, 'bestScore' ).reverse()
             s.m.nearbySearchStrings.unshift s.placeNearby
           .error (response) -> 
             s.planNearbyWorking--
@@ -44,9 +43,9 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, Cl
         $sce.trustAsHtml( location_text )
 
       s.startPlanNearBestOption = ->
-        return unless s.planNearbyOptions?.length
+        return unless s.m.nearbyOptions?.length
         keepGoing = true
-        _.forEach( s.planNearbyOptions, ( option ) ->
+        _.forEach( s.m.nearbyOptions, ( option ) ->
           if s.planNearbyOptionSelectable( option ) && keepGoing
             s.startPlanNear( option )
             keepGoing = false
@@ -59,6 +58,7 @@ angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, Cl
         s.m.nearbySearchStrings = []
         # scroll to top
         s.planNearby = null
+        s.m.nearbyOptions = []
         s.m.browsing = true
 
   }

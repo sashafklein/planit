@@ -7,9 +7,7 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
       m: '='
     link: (s, e, a) ->
       
-      s.nearbySearchResultClass = (option, index=0) ->
-        highlightClass = if s.placeNearbyOptionSelectable(option) then 'highlighted' else null
-        highlightClass + ' ' + ClassFromString.toClass( option.name, option.qualifiers, index )
+      s.nearbySearchResultClass = (option, index=0) -> ClassFromString.toClass( option.name, option.adminName1, option.countryName, index )
       
       s.placeNameOptionClass = (option) -> ClassFromString.toClass(option.name)
 
@@ -19,7 +17,7 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
         s.m.addBoxManuallyToggled = true
 
       s.searchPlaceNearby = -> 
-        s.m.placeNearbyOptions = [] if s.placeNearby?.length
+        s.m.nearbyOptions = [] if s.placeNearby?.length
         s._searchPlaceNearbyFunction() if s.placeNearby?.length > 1
 
       s._searchPlaceNearbyFunction = _.debounce( (-> s._searchPlaceNearby() ), 500 )
@@ -31,10 +29,9 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
         Geonames.search( s.placeNearby )
           .success (response) ->
             s.placeNearbyWorking--
-            s.m.placeNearbyOptions = response.geonames #_.sortBy( response.geonames, 'population' ).reverse()
-            _.map( s.m.placeNearbyOptions, (o) -> 
-              o.lon = o.lng; o.qualifiers = _.uniq( _.compact( [ o.adminName1, o.countryName ] ) ).join(", ")
-            )
+            nearbyOptions = response.geonames
+            _.map( nearbyOptions, (o) -> o.lon = o.lng )
+            s.m.nearbyOptions = nearbyOptions #_.sortBy( nearbyOptions, 'bestScore' ).reverse()
             s.m.nearbySearchStrings.unshift s.placeNearby
           .error (response) -> 
             s.placeNearbyWorking--
@@ -50,12 +47,12 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
 
       s.placeNearbyOptionSelectable = (option) -> option?.name?.toLowerCase() == s.placeNearby?.split(',')[0]?.toLowerCase()
 
-      s.noPlaceNearbyResults = -> s.placeNearby?.length>1 && s.placeNearbyWorking<1 && s.m.placeNearbyOptions?.length<1
+      s.noPlaceNearbyResults = -> s.placeNearby?.length>1 && s.placeNearbyWorking<1 && s.m.nearbyOptions?.length<1
 
       s.setNearBestOption = ->
-        return unless s.m.placeNearbyOptions?.length
+        return unless s.m.nearbyOptions?.length
         keepGoing = true
-        _.forEach s.m.placeNearbyOptions, ( option ) ->
+        _.forEach s.m.nearbyOptions, ( option ) ->
           if s.placeNearbyOptionSelectable( option ) && keepGoing
             s.setNearby( option )
             s.m.placeNearby = null
@@ -64,6 +61,7 @@ angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, Qu
       s.setNearby = ( nearby ) ->
         searchStrings = _.compact( s.m.nearbySearchStrings )
         s.m.plan().setNearby( nearby, searchStrings )
+        s.m.nearbyOptions = []
         s.m.nearbySearchStrings = []
       
       s.setCurrentNearby = ( nearby ) -> s.m.plan().latest_location_id = nearby.id
