@@ -114,6 +114,7 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
       # INITIALIZE
 
       s.$watch( '_hashCommand()', (-> s._loadFromHashCommand(); s._setBrowserTitle() ), true )
+      s.$watch( 'm.plan().latest_location_id', (-> s.m.planManager.loadNearbyPlans( s.m.plan()?.latest_location_id ) ))
 
       window.s = s
   }
