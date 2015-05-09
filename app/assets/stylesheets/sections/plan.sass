@@ -53,16 +53,9 @@ $inkBlue: #003
     height: 3px !important
   .start-where.setplanbox-on-plan-page .rainbow-divider
     top: 0
-    width: 33% !important
     position: fixed
-  .start-where.centeredbox-on-plan-page .rainbow-divider
-    top: 0
-    left: 0
-    right: 0
-    width: 100% !important
-    position: absolute
 
-  .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page, .centeredbox-on-plan-page
+  .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
     position: fixed
     input
       min-width: 50px
@@ -79,14 +72,6 @@ $inkBlue: #003
       border-bottom: 1px solid #a01    
     input.full-width
       width: 98%
-
-  .centeredbox-on-plan-page
-    top: 0
-    bottom: 0
-    right: 0
-    left: 0
-    margin: auto
-    width: 33%
 
   .setplanbox-on-plan-page
     top: 0
@@ -153,7 +138,7 @@ $inkBlue: #003
         outline: none
         outline-width: 0
 
-  .setplanbox-on-plan-page.start-where, .centeredbox-on-plan-page.start-where
+  .setplanbox-on-plan-page.start-where
     background: #f06
     box-shadow: none
     .start-a-new-plan
@@ -747,8 +732,12 @@ $inkBlue: #003
     &.nearby-only
       height: 65px
 
-  .setplanbox-on-plan-page.start-where, .centeredbox-on-plan-page.start-where
+  .setplanbox-on-plan-page.start-where
     height: 100px
+
+  .start-where .rainbow-divider, .addbox-wrapper .rainbow-divider
+    width: 33%
+    min-width: 350px
 
   .pad-top-addbox
     margin-top: 65px
@@ -806,8 +795,12 @@ $inkBlue: #003
       &.nearby-only
         height: 65px
 
-    .setplanbox-on-plan-page.start-where, .centeredbox-on-plan-page.start-where
+    .setplanbox-on-plan-page.start-where
       height: 100px
+
+    .start-where .rainbow-divider, .addbox-wrapper .rainbow-divider
+      width: 33%
+      min-width: 350px
 
     .pad-top-addbox
       margin-top: 65px
@@ -874,13 +867,14 @@ $inkBlue: #003
       &.nearby-only
         height: 43px
 
-    .centeredbox-on-plan-page.start-where
-      height: 77px
     .setplanbox-on-plan-page.start-where
       height: 77px
       &.shortened
         height: 43px
         overflow: hidden
+
+    .start-where .rainbow-divider, .addbox-wrapper .rainbow-divider
+      width: 100%
 
     .pad-top-addbox
       margin-top: 43px
@@ -955,10 +949,15 @@ $inkBlue: #003
       padding: 5px 9px 13px 9px
       top: 43px
     .addbox-on-plan-page
-      height: 43px
+      height: 75px
+      &.nearby-only
+        height: 43px
 
-    .setplanbox-on-plan-page.start-where, .centeredbox-on-plan-page.start-where
+    .setplanbox-on-plan-page.start-where
       height: 77px
+
+    .start-where .rainbow-divider, .addbox-wrapper .rainbow-divider
+      width: 100%
 
     .pad-top-addbox
       margin-top: 75px

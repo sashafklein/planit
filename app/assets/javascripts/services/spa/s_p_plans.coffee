@@ -4,6 +4,7 @@ angular.module("Services").service "SPPlans", (User, Plan, SPPlan, QueryString, 
     constructor: ( user_id ) ->
       self = @
       self.plans = {}
+      self.nearbyPlans = {}
       User.findPlans( user_id )
         .success (responses) -> _.forEach( responses, (r) -> self.plans[r.id] = new SPPlan( r ); self.plans[r.id]['type'] = 'travel' )
         .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan constructor', user_id: user_id )
@@ -16,7 +17,7 @@ angular.module("Services").service "SPPlans", (User, Plan, SPPlan, QueryString, 
           plan = new SPPlan( response )
           self.plans[ plan.id ] = plan
           self.plans[ plan.id ].setNearby( nearby, searchStrings )
-          self.plans[ plan.id ].loadNearbyPlans()
+          self.loadNearbyPlans( response.locations?[0]?.id )
         .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.create', { plan_name: name } )
 
     fetchPlan: ( plan_id ) ->
@@ -36,8 +37,17 @@ angular.module("Services").service "SPPlans", (User, Plan, SPPlan, QueryString, 
             self.plans[ response.id ].userResetNear = false
           .error (response) ->  ErrorReporter.fullSilent( response, "SPPlans loading plan #{ plan_id }" )
 
+    loadNearbyPlans: ( location_id ) ->
+      return unless location_id || @.nearbyPlans?[ location_id ]
+      self = @
+      Plan.locatedNear( location_id )
+        .success (response) ->
+          self.nearbyPlans[ location_id ] = {}
+          _.forEach( response , (r) -> self.nearbyPlans[ location_id ][ r.id ] = new SPPlan( r ) )
+        .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.loadNearbyPlans', { coordinate: [nearby.lat,nearby.lon] } )
+
     loadPlan: ( plan_id ) ->
-      @.plans[ plan_id ].loadNearbyPlans()
+      @.loadNearbyPlans( @.plans[ plan_id ].locations?[0]?.id )
       @.plans[ plan_id ].loadItems()
 
     removePlan: ( plan_id ) ->

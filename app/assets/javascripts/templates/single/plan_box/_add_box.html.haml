@@ -1,7 +1,4 @@
-.addbox-wrapper{ ng_show: "m.userOwnsPlan() && m.plan() && m.mode != 'trip' && !m.settingsBoxToggled && !(m.mainMenuToggled && m.mobile) && !m.rename" }
-
-  / .minimize-maximize-addbox{ ng_show: 'items.length', ng_click: "addBoxToggle()", ng_class: "{'opened': addBoxToggled}" }
-  /   %i.fa{ ng_class: "{'fa-caret-up': addBoxToggled, 'fa-caret-down': !addBoxToggled}" }
+.addbox-wrapper.except-landscape{ ng_show: "m.userOwnsPlan() && m.plan() && m.mode != 'trip' && !m.settingsBoxToggled && !(m.mainMenuToggled && m.mobile) && !m.rename" }
 
   .addbox-on-plan-page{ ng_show: "m.addBoxToggled", ng_class: "{'nearby-only': !m.plan().currentLocation()}" }
 
@@ -31,7 +28,7 @@
         %span.large-screen.inline Location
         
     .input-and-results{ ng_show: 'm.plan().latest_location_id && m.plan().currentLocation()', ng_focus: 'm.engagedInSearch=true', ng_blur: 'm.engagedInSearch=false' }
-      %input#place-name{ name: "place-name", type: 'text', placeholder: 'What do you want to add in {{ m.plan().currentLocation().asciiName }}?', ng_model: 'm.placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_on_esc_key: "placeName=null", ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
+      %input#place-name{ name: "place-name", type: 'text', placeholder: '{{ placeholder() }}', ng_model: 'm.placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_on_esc_key: "placeName=null", ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
 
       %ul.suggested-results.neon{ ng_show: '!m.typing && m.placeName && m.placeName.length>1' }
         %li.search-results-list{ ng_repeat: 'option in m.placeNameOptions', ng_click: 'addItem(option)', ng_class: 'placeNameOptionClass(option, $index)' }
@@ -58,3 +55,7 @@
           ?
 
   %ng_include{ src: "'application/_rainbow_divider.html'" }
+
+  .minimize-maximize-addbox.mobile{ ng_click: "addBoxToggle()" }
+    / , ng_class: "{'opened': m.addBoxToggled}"
+    %i.fa{ ng_class: "{'fa-caret-up': m.addBoxToggled, 'fa-caret-down': !m.addBoxToggled}" }

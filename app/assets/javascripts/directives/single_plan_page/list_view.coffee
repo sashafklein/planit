@@ -8,7 +8,7 @@ angular.module("Directives").directive 'listView', (User, ErrorReporter, Mark, F
     link: (s, e, a) ->
 
       s.hasPlanAndItemsNotBrowsingAndInListView = ->
-        s.m.mode == 'list' && !( s.m.browsing && !s.m.placeName?.length > 1 ) && s.m.plan() && (s.m.plan().items?.length > 0 || s.m.addingItem)
+        !( s.m.browsing && !s.m.placeName?.length > 1 ) && s.m.plan() && (s.m.plan().items?.length > 0 || s.m.addingItem)
       s.colorClass = ( meta_category ) -> MetaCategory.colorClass( meta_category )
       
       s.typeIcon = (items, meta_category) -> 

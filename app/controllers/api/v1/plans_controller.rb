@@ -70,10 +70,9 @@ class Api::V1::PlansController < ApiController
 
   def located_near
     return permission_denied_error unless current_user_is_active
-    coordinate = params[:coordinate]
-    lat = coordinate.split(",").first.to_f.round(1)
-    lon = coordinate.split(",").last.to_f.round(1)
-    plans = Plan.all.select{ |p| p.uniq_abbreviated_coords.include?([lat,lon]) }
+    location_id = params[:location_id]
+    location = Location.find_by( id: location_id )
+    plans = Plan.all.select{ |p| p.uniq_abbreviated_coords.include?([location.lat.round(1),location.lon.round(1)]) }
     render json: plans, each_serializer: PlanSerializer
   end
 

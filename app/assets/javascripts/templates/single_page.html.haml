@@ -3,18 +3,22 @@
   .single-page-content
     %single_page_header{ m: 'm' }
 
-    .planbox-wrapper
-      %new_guide_start{ m: 'm' }
+    .planbox-wrapper{ ng_click: 'm.mainMenuToggled=false' }
+      %new_guide_start.large-screen{ m: 'm' }
+      / %new_tip.mobile{ m: 'm' }
       %guide_controls{ m: 'm' }
       %add_box{ m: 'm' }
 
-    %guide_matrix{ m: 'm' }
-    %nearby_guide_matrix{ m: 'm' }
-    %sort_commands{ m: 'm' }
-    .tabs{ ng_show: 'm.plan() && m.plan().items.length > 0' }
-      %list_view{ m: 'm' }
-      / %trip_view{ m: 'm' }
-      %single_plan_map_view{ m: 'm' }
-    %first_tutorial{ m: 'm' }
+    .page-content{ ng_click: 'm.mainMenuToggled=false;m.settingsBoxToggled=false' }
+      %guide_matrix{ m: 'm' }
+      %nearby_guide_matrix{ m: 'm' }
+      %sort_commands{ m: 'm' }
+
+      .tabs{ ng_show: 'm.plan() && m.plan().items.length > 0' }
+        %list_view{ m: 'm' }
+        / %trip_view{ m: 'm' }
+        %single_plan_map_view{ m: 'm' }
+
+      %first_tutorial{ m: 'm' }
 
   %single_page_footer{ m: 'm' }

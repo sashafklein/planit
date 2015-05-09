@@ -38,9 +38,8 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
       # EXPAND/CONTRACT
       s.m.goHome = -> QueryString.reset()
       s.m.mainMenuToggled = false
-      s.m.addBoxToggled = true
+      s.m.addBoxToggled = if s.m.mobile then false else true
       s.m.settingsBoxToggle = -> s.m.settingsBoxToggled = !s.m.settingsBoxToggled
-
 
       # TYPING
       s.m.handleKeyup = -> s.m._turnOffTyping()
@@ -86,6 +85,7 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
       # INITIALIZE
 
       s.$watch( '_hashCommand()', (-> s._loadFromHashCommand(); s._setBrowserTitle() ), true )
+      s.$watch( 'm.plan().latest_location_id', (-> s.m.planManager.loadNearbyPlans( s.m.plan()?.latest_location_id ) ))
 
       # # $timeout(-> $('#guide').focus() if $('#guide') ) unless s.m.currentListId
 

@@ -11,6 +11,10 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
       
       s.placeNameOptionClass = (option) -> ClassFromString.toClass(option.name)
 
+      s.placeholderVerb = -> if s.m.plan()?.userOwns() then 'add' else 'suggest'
+      s.placeholderPhrase = -> if s.m.mobile then "What" else "What do you want to #{s.placeholderVerb()}"
+      s.placeholder = -> "#{s.placeholderPhrase()} in #{s.m.plan()?.currentLocation()?.asciiName}?"
+
       s.m.addBoxManuallyToggled = false
       s.addBoxToggle = -> 
         s.m.addBoxToggled = !s.m.addBoxToggled

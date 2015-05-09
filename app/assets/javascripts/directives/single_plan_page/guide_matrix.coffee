@@ -6,8 +6,8 @@ angular.module("Directives").directive 'guideMatrix', (ClassFromString) ->
     scope:
       m: '='
     link: (s, e, a) ->
+
       s.planImage = ( plan ) -> plan?.best_image?.url?.replace("69x69","210x210")
-      s.userOwns = (obj) -> s.m.currentUserId == obj.user_id
       s.plansNoItems = -> s.m.lists?.length && !_.uniq( _.flatten( _.map( s.m.lists, (l) -> l.place_ids ) ) ).length
 
       s.folders = [ { type: "viewing", name: "GUIDES I RECENTLY VIEWED" }, { type: "home", name: "MY HOMETOWN GUIDES" }, { type: "travel", name: "MY TRAVEL GUIDES" } , { type: "followed", name: "GUIDES I'M FOLLOWING" } ]
