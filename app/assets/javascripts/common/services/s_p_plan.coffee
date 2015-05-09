@@ -107,7 +107,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
 
     loadItems: ->
       self = @
-      unless @.items?.length || @.fetchingItems
+      unless @.items?.length>0 || @.fetchingItems
         @.items = []
         @.fetchingItems = true
         Item.where({ plan_id: @.id })

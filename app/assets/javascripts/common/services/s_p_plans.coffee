@@ -21,7 +21,7 @@ angular.module("Common").service "SPPlans", (User, Plan, SPPlan, QueryString, Er
 
     fetchPlan: ( plan_id ) ->
       self = @
-      if @.plans[ plan_id ]?.items?.length # cached & loaded 
+      if @.plans[ plan_id ]?.items?.length>0 # cached & loaded 
         QueryString.modify({ plan: plan_id })
         @.plans[ plan_id ].userResetNear = false
       else if @.plans[ plan_id ] # in cache but items not yet loaded
