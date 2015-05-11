@@ -97,7 +97,7 @@ describe 'Root SPA' do
 
       expect( contigo_tab.length ).to eq 1
       expect( ng_shown( root: contigo_tab, selector: 'i.action.fa.fa-heart').length ).to eq 1
-      expect( ng_hidden(root: contigo_tab, selector: 'i.action.fa.fa-heart.neon').length ).to eq 0
+      expect( ng_hidden(root: contigo_tab, selector: 'i.action.fa.fa-heart.neon').length ).to eq 1
 
       expect( contigo.mark.loved ).to eq false
       
@@ -107,7 +107,7 @@ describe 'Root SPA' do
       end
 
       expect( ng_shown( root: contigo_tab, selector: 'i.action.fa.fa-heart.neon' ).length ).to eq 1
-      expect( ng_shown( root: contigo_tab, selector: 'i.action.fa.fa-heart').length ).to eq 2
+      expect( ng_shown( root: contigo_tab, selector: 'i.action.fa.fa-heart').length ).to eq 1
 
       expect( contigo.mark.reload.loved ).to eq true
       expect( contigo.mark.been ).to eq false
