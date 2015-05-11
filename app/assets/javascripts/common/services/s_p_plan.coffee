@@ -156,7 +156,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
       Item.where( id: item_ids )
         .success (response) ->
           if callback?
-            callback _.map( self.manifest, (obj, index) -> self._manifestWrap( _.find(response, (i) -> i.id == obj.id ), index ) )
+            callback _.map( self.manifest, (obj, index) -> self._manifestWrap( _.find(response, (i) -> i.id == obj.id ) || obj, index ) )
         .error (response) ->
           ErrorReporter.fullSilent( response, 'tripView getManifestItems', { list_id: s.m.plan().id, item_ids: item_ids } )
 
@@ -167,7 +167,8 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
     addToManifest: (item, insertIndex, callback) ->
       self = @
       self._planObj().addToManifest(item, insertIndex)
-        .success( (response) -> callback?(response) ).error( (response) -> self._manifestError('addToManifest', response) )
+        .success( (response) -> callback?(response) )
+        .error( (response) -> self._manifestError('addToManifest', response) )
 
     removeFromManifest: (item, index, callback) ->
       self = @
@@ -179,7 +180,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
       self._planObj().moveInManifest(from, to)
         .success( (response) -> callback?(response) ).error( (response) -> self._manifestError('moveInManifest', response) )    
 
-    _manifestError = (method, response) -> ErrorReporter.defaultFull( response, "SPPlan #{method}", { plan_id: self.id } )
+    _manifestError: (method, response) -> ErrorReporter.defaultFull( response, "SPPlan #{method}", { plan_id: self.id } )
 
     # FUNCTIONS ON PLAN
 

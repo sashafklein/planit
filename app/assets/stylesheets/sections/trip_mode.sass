@@ -1,4 +1,5 @@
-$manifestItemHeight: 30px
+$manifestItemHeight: 75px
+$listItemHeight: 30px
 
 .trip-mode
   ul
@@ -12,16 +13,17 @@ $manifestItemHeight: 30px
         width: 80%
         margin-left: 10%
 
-    li, div, img, p, a, i
-      // Make text non-selectable
-      -webkit-touch-callout: none
-      -webkit-user-select: none
-      -khtml-user-select: none
-      -moz-user-select: none
-      -ms-user-select: none
-      user-select: none
+    li.plan-list-item
+      div, img, p, a, i
+        // Make text non-selectable
+        -webkit-touch-callout: none
+        -webkit-user-select: none
+        -khtml-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        user-select: none
 
-      cursor: move !important
+        cursor: move !important
 
   .items-in-manifest
     &.empty
@@ -30,15 +32,34 @@ $manifestItemHeight: 30px
       height: $manifestItemHeight
       .bucket-list-tab
         height: 100%
+        width: 100% !important
 
-  .items-in-manifest .list-item-select
-    height: $manifestItemHeight
-    width: $manifestItemHeight
   .items-in-plan .list-item-select, .items-in-list .list-item-select
     width: 75px
     height: 75px
 
-  .items-in-list
+  .items-in-list, .items-in-manifest
     li.plan-list-item.list
       .bucket-list-tab.main-item-card
-        width: 100%
+        width: 100% !important
+
+  .items-in-manifest
+    .section-addition-divider
+      height: 5px
+      background: $darkBlue
+      text-align: center
+      transition: height 0.25s ease
+      .section-name
+        opacity: 0
+        transition: opacity 0.25s linear
+        -webkit-transition-delay: 0.25s
+        transition-delay: 0.25s
+
+      &:hover
+        height: $manifestItemHeight / 2
+        .section-name
+          vertical-align: center
+          opacity: 1
+          padding-top: 2.5px
+          input
+            line-height: ($manifestItemHeight / 2) - 10px

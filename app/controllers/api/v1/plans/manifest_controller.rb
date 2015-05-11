@@ -4,7 +4,7 @@ class Api::V1::Plans::ManifestController < ApiController
 
   def add
     return permission_denied_error unless current_user && current_user.owns?(@plan)
-    return error(message: "Insufficient params") unless params[:obj_id] && params[:obj_class] && params[:location]
+    return error(message: "Insufficient params") unless params[:obj_class] && params[:location] && (params[:obj_id] || params[:obj_name])
 
     new_manifest = @plan.add_to_manifest(object: object, location: params[:location].to_i)
     render json: new_manifest
@@ -33,6 +33,7 @@ class Api::V1::Plans::ManifestController < ApiController
   end
 
   def object
+    return { class: params[:obj_class], name: params[:obj_name] } unless params[:obj_id]
     params[:obj_class].constantize.find(params[:obj_id])
   end
 

@@ -14,17 +14,11 @@ mod.factory "Plan", (BaseModel, $http) ->
     addItemFromPlaceData: (data) -> $http.post( "#{@objectPath()}/add_item_from_place_data", {place: data} )
     copy: (userId) -> $http.post( "#{ @objectPath() }/copy", { user_id: userId } )
 
-    addToManifest: (object, location) -> 
-      return unless object?
-      $http.post( "#{@objectPath()}/add", { obj_class: object.class, obj_id: object.id, location: location } )
+    addToManifest: (object, location) -> $http.post( "#{@objectPath()}/add", { obj_class: object.class, obj_id: object.id, location: location, obj_name: object.name } )
 
-    removeFromManifest: (object, location) -> 
-      return unless object?
-      $http.post( "#{@objectPath()}/remove", { obj_class: object.class, obj_id: object.id, location: location } )
+    removeFromManifest: (object, location) -> $http.post( "#{@objectPath()}/remove", { obj_class: object.class, obj_id: object.id, location: location, obj_name: object.name } )
         
-    moveInManifest: (from, to) -> 
-      return unless from? && to?
-      $http.post( "#{@objectPath()}/move", { from: from, to: to } )
+    moveInManifest: (from, to) -> $http.post( "#{@objectPath()}/move", { from: from, to: to } )
 
     items: -> $http.get( "#{@objectPath()}/items" )
 
