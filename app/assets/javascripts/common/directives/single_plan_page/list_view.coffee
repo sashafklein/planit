@@ -1,8 +1,8 @@
-angular.module("Common").directive 'listAndTripView', (User, ErrorReporter, Mark, Flash, Note, $timeout, MetaCategory) ->
+angular.module("Common").directive 'listView', (User, ErrorReporter, Mark, Flash, Note, $timeout, MetaCategory) ->
   return { 
     restrict: 'E'
     replace: true
-    templateUrl: 'single/tabs/_list_and_trip_view.html'
+    templateUrl: 'single/tabs/_list_view.html'
     scope:
       m: '='
     link: (s, e, a) ->
