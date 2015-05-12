@@ -1,4 +1,5 @@
 class LocationSerializer < ActiveModel::Serializer
+
   attributes :id, :name, :asciiName, :adminName1, :adminId1, :adminName2, :adminId2, :countryName, :countryId, :geonameId, :fcode, :lat, :lon
 
   def asciiName
