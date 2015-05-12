@@ -1,0 +1,21 @@
+.trip-mode{ ng_show: "m.mode == 'trip'" }
+  #header-spacing.except-landscape
+  .pad-top-addbox
+  .band.spaced-extra
+    .container
+
+      .items-in-manifest.ten.columns
+        %ul.plan-list-items.manifest{ ng_class: '{ empty: !manifestItems.length }', ng_style: 'emptyHeight()' }
+          .worthless-wrapping-div{ ng_repeat: "item in manifestItems", ng_href: '{{ item.index }}' }
+            .section-addition-divider
+              .section-name
+                %input{ type: 'text', ng_model: 'item.precedingSectionName', placeholder: 'Add a Section', ng_class: "forClass(item.index)", ng_click: 'focusOnSectionName(item.index)' }
+                %input{ type: 'submit', ng_click: 'addSection(item.index)' }
+            %li.plan-list-item.manifest
+              %ng_include{ src: "'single/_bucket_list_tab.html'" }
+
+
+      .items-in-list.six.columns
+        %ul.plan-list-items.list
+          %li.plan-list-item.list{ ng_repeat: "item in m.plan().items | orderBy : 'mark.place.name'", ng_href: '{{ item.id }}' }
+            %ng_include{ src: "'single/_bucket_list_tab.html'" }

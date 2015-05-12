@@ -11,8 +11,12 @@
     %guide_matrix{ m: 'm' }
     %nearby_guide_matrix{ m: 'm' }
     %sort_commands{ m: 'm' }
-    %list_and_trip_view{ m: 'm' }
-    %single_plan_map_view{ m: 'm' }
+
+    .tabs{ ng_show: 'm.plan() && m.plan().items.length > 0' }
+      %list_view{ m: 'm' }
+      / %trip_view{ m: 'm' }
+      %single_plan_map_view{ m: 'm' }
+
     %first_tutorial{ m: 'm' }
 
   %single_page_footer{ m: 'm' }

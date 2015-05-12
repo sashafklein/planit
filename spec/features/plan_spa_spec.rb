@@ -50,7 +50,7 @@ describe 'Root SPA' do
 
       expect( page ).to have_content "ADDING CONTIGO TO YOUR PLAN"
 
-      wait_for(selector: '.plan-list-items')
+      wait_for(selector: 'li.plan-list-item')
       contigo = Item.last
 
       within '.plan-list-items' do
@@ -97,21 +97,17 @@ describe 'Root SPA' do
 
       expect( contigo_tab.length ).to eq 1
       expect( ng_shown( root: contigo_tab, selector: 'i.action.fa.fa-heart').length ).to eq 1
-      sleep 0.5
       expect( ng_hidden(root: contigo_tab, selector: 'i.action.fa.fa-heart.neon').length ).to eq 1
 
       expect( contigo.mark.loved ).to eq false
       
       within contigo_selector do
         first('i.action.fa.fa-heart').click
+        sleep 0.3
       end
 
-      sleep 0.5
       expect( ng_shown( root: contigo_tab, selector: 'i.action.fa.fa-heart.neon' ).length ).to eq 1
-      sleep 0.5
       expect( ng_shown( root: contigo_tab, selector: 'i.action.fa.fa-heart').length ).to eq 1
-
-      sleep 0.5
 
       expect( contigo.mark.reload.loved ).to eq true
       expect( contigo.mark.been ).to eq false

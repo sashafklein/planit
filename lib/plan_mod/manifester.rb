@@ -34,12 +34,9 @@ module PlanMod
       manidup = plan.manifest.dup
 
       object = manidup[from]
-      insert_index = ( from < to ? to - 1 : to )
-
       manidup.delete_at from
-      manidup.insert(insert_index, object)
-
-      plan.manifest = manidup
+      manidup.insert( to , object)
+      plan.manifest = manidup.compact
     end
 
     def remove(object, location=nil)
@@ -52,7 +49,7 @@ module PlanMod
         manidup.delete hashify(object)
       end
 
-      plan.manifest = manidup
+      plan.manifest = manidup.compact
     end
 
     def manifest_location(before)
@@ -75,7 +72,7 @@ module PlanMod
       manidup = plan.manifest.dup
       plan.manifest_will_change!
       manidup.insert index, hashify(object) 
-      plan.manifest = manidup
+      plan.manifest = manidup.compact
     end
 
     def indices(object)

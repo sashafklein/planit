@@ -1,12 +1,14 @@
-angular.module("Common").directive 'listAndTripView', (User, ErrorReporter, Mark, Flash, Note, $timeout, MetaCategory) ->
+angular.module("Common").directive 'listView', (User, ErrorReporter, Mark, Flash, Note, $timeout, MetaCategory) ->
   return { 
     restrict: 'E'
     replace: true
-    templateUrl: 'single/tabs/_list_and_trip_view.html'
+    templateUrl: 'single/tabs/_list_view.html'
     scope:
       m: '='
     link: (s, e, a) ->
-      
+
+      s.hasPlanAndItemsNotBrowsingAndInListView = ->
+        s.m.mode == 'list' && !( s.m.browsing && !s.m.placeName?.length > 1 ) && s.m.plan() && (s.m.plan().items?.length > 0 || s.m.addingItem)
       s.colorClass = ( meta_category ) -> MetaCategory.colorClass( meta_category )
       
       s.typeIcon = (items, meta_category) -> 

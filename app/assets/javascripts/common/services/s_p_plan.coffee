@@ -148,6 +148,40 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
     ownerLoves: ( item ) -> _.includes( item.mark.place.lovers , @.user_id )
     ownerVisited: ( item ) -> _.includes( item.mark.place.visitors , @.user_id )
 
+    # MANIFEST FUNCTIONS
+
+    getManifestItems: (callback) ->
+      self = @
+      return null unless ( item_ids = _(self.manifest).select( (o) -> o.class == 'Item' ).map('id').value() ).length
+      Item.where( id: item_ids )
+        .success (response) ->
+          if callback?
+            callback _.map( self.manifest, (obj, index) -> self._manifestWrap( _.find(response, (i) -> i.id == obj.id ) || obj, index ) )
+        .error (response) ->
+          ErrorReporter.fullSilent( response, 'tripView getManifestItems', { list_id: s.m.plan().id, item_ids: item_ids } )
+
+    _manifestWrap: (obj, index) ->
+      return _.extend(obj, { index: index }) unless obj.mark_id? # is an Item
+      _.extend( Item.generateFromJSON(obj) , { index: index } )
+
+    addToManifest: (item, insertIndex, callback) ->
+      self = @
+      self._planObj().addToManifest(item, insertIndex)
+        .success( (response) -> callback?(response) )
+        .error( (response) -> self._manifestError('addToManifest', response) )
+
+    removeFromManifest: (item, index, callback) ->
+      self = @
+      self._planObj().removeFromManifest(item, index)
+        .success( (response) -> callback?(response) ).error( (response) -> self._manifestError('removeFromManifest', response) )
+
+    moveInManifest: (from, to, callback) ->
+      self = @
+      self._planObj().moveInManifest(from, to)
+        .success( (response) -> callback?(response) ).error( (response) -> self._manifestError('moveInManifest', response) )    
+
+    _manifestError: (method, response) -> ErrorReporter.defaultFull( response, "SPPlan #{method}", { plan_id: self.id } )
+
     # FUNCTIONS ON PLAN
 
     copy: ->

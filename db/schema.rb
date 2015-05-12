@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(version: 20150507221231) do
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "location_searches", ["location_id"], name: "index_location_searches_on_location_id", using: :btree
+
   create_table "locations", force: :cascade do |t|
     t.string   "ascii_name",   null: false
     t.string   "admin_name_1"
@@ -139,6 +141,8 @@ ActiveRecord::Schema.define(version: 20150507221231) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
+  add_index "locations", ["geoname_id"], name: "index_locations_on_geoname_id", using: :btree
 
   create_table "mail_list_emails", force: :cascade do |t|
     t.string   "email"
@@ -333,11 +337,11 @@ ActiveRecord::Schema.define(version: 20150507221231) do
     t.datetime "updated_at"
     t.boolean  "published",                            default: true
     t.json     "manifest",                             default: []
-    t.integer  "latest_location_id"
     t.integer  "first_ancestor_id"
     t.integer  "last_ancestor_id"
     t.datetime "first_ancestor_copied_at"
     t.datetime "last_ancestor_copied_at"
+    t.integer  "latest_location_id"
   end
 
   add_index "plans", ["first_ancestor_id"], name: "index_plans_on_first_ancestor_id", using: :btree
