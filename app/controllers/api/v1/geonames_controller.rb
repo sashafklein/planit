@@ -28,6 +28,7 @@ class Api::V1::GeonamesController < ApiController
     lat = params[:lat].to_i
     lon = params[:lon].to_i
 
+    # http://api.geonames.org/findNearbyPlaceNameJSON?lat=35.7111057142935&lng=139.796369075775&username=planit
     res = HTTParty.get "http://api.geonames.org/findNearbyPlaceNameJSON?lat=#{ lat }&lng=#{ lon }&radius=10&username=#{ username }&lang=en&maxRows=10&style=full"
     render json: res.body
   end
