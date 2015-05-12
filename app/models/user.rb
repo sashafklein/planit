@@ -54,6 +54,12 @@ class User < BaseModel
     marks.where.not( place_id: nil).order('updated_at DESC')
   end
 
+  # LOCATIONS
+
+  def locations
+    Location.where( id: MarkLocation.where( object_id: marks_with_places.pluck(:id) ).pluck( :location_id ) )
+  end
+
   # INBOX MESSAGES
 
   def saves_to_review

@@ -123,7 +123,7 @@ class Plan < BaseModel
   end
 
   def add_nearby( data, user )
-    location = Location.where( { ascii_name: data['asciiName'], admin_name_1: data['adminName1'], country_name: data['countryName'], fcl_name: data['fclName'], geoname_id: data['geonameId'], lat: data['lat'], lon: data['lon'] } ).first_or_create
+    location = Location.where( { ascii_name: data['asciiName'], admin_name_1: data['adminName1'], country_name: data['countryName'], fcode: data['fcode'], geoname_id: data['geonameId'], lat: data['lat'], lon: data['lon'] } ).first_or_create
     self.update_attributes!( latest_location_id: location.id ) if user_id == user.id
     PlanLocation.where( plan_id: id, location_id: location.id ).first_or_create if user_id == user.id
     LocationSearch.create( location_id: location.id, user_id: user.id, success_terms: data['searchStrings'] ) if data['searchStrings'].present?

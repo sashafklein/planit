@@ -1,5 +1,5 @@
 class LocationSerializer < ActiveModel::Serializer
-  attributes :id, :asciiName, :adminName1, :countryName, :geonameId, :fclName, :lat, :lon
+  attributes :id, :asciiName, :adminName1, :countryName, :geonameId, :fcode, :lat, :lon
 
   def asciiName
     object.ascii_name
@@ -17,8 +17,8 @@ class LocationSerializer < ActiveModel::Serializer
     object.geoname_id
   end
 
-  def fclName
-    object.fcl_name
+  def fcode
+    object.fcode
   end
 
 end
