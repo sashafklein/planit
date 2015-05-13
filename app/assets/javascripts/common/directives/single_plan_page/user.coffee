@@ -1,14 +1,17 @@
-angular.module("Common").directive 'topLevel', (ClassFromString) ->
+angular.module("Common").directive 'user', (ClassFromString) ->
   return {
     restrict: 'E'
     replace: true
-    templateUrl: 'single/_top_level.html'
+    templateUrl: 'single/_user.html'
     scope:
       m: '='
     link: (s, e, a) ->
 
-      s.countries 
-      s.regions
+      s.userInQuestion
+      s.continents = ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Oceania', 'Antarctica']
+      s.countries = _.map( s.userInQuestion.locations, (l) -> l. )
+      s.currentCountry = ->  
+      s.regions = 
       s.localities
 
       s.planImage = ( plan ) -> plan?.best_image?.url?.replace("69x69","210x210")
