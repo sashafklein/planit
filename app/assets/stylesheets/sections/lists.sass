@@ -3,6 +3,7 @@ $darkNeonPink: #c03
 $lightBlue: #33a
 $lightestBlue: #66d
 $darkBlue: #007
+$inkBlue: #003
 
 // LISTS FOR PLACES / CLUSTERS
 
@@ -221,3 +222,37 @@ $darkBlue: #007
       -webkit-border-radius: 3px
       padding: 1px 4px
       background: #ff0066
+
+.btn.select-item
+  position: absolute
+  right: 10px
+  top: 25%
+  font-size: 16px
+  margin: 0 10px
+
+#filter-and-actions
+  height: 69px
+  width: 100%
+  background-color: $inkBlue
+  color: gray(25)
+  font-size: 16px
+  line-height: 69px
+  i
+    margin: 0 5px
+  span.select-all
+    color: white
+    font-weight: bold
+    margin: 0 5px 0 15px
+  .filter, .actions, .filter-and-actions-x-out, .cancel-out
+    position: absolute
+  .filter, .cancel-out
+    left: 10px
+  .actions
+    right: 10px
+  .filter-and-actions-x-out
+    right: -20px
+  .btn
+    margin: 0 10px
+  .actions-bar, .filter-bar
+    width: 90%
+    display: inline

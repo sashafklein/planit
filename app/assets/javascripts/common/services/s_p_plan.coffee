@@ -82,14 +82,36 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
       return unless confirm("Delete #{item.mark.place.name} from '#{@.name}'?")
       item.destroy( @_removeItemFromPlan( item ) )
 
-    _removeItemFromPlan: ( item ) ->
+    deleteItems: ( items, callback ) ->
+      return unless confirm("Remove #{ items.length } items from '#{@name}'?")
       self = @
-      itemsWithPlace = _.filter( @.items, (i) -> i.mark.place.id == item.mark.place.id )
-      itemsIndices = _.map( itemsWithPlace, (i) -> self.items.indexOf(i) )
+      itemIds = _.map( items, 'id' )
+      places = _.map( items, 'mark.place' )
+
+      @_planObj().destroyItems( null, itemIds ) # Method expects place_ids as first argument
+        .success (response) ->
+          self._removeItemsFromPlan(places)
+          callback?()
+        .error (response) ->
+          ErrorReporter.fullSilent( response, 'SPPlan deleteItems', { item_ids: itemIds, plan_id: self.id })
+
+    _removeItemsFromPlan: (places) ->
+      self = @
+      placeIds = _.map(places, 'id')
+
+      itemsWithPlaces = _.filter( @items, (i) -> _.contains( placeIds, i.mark.place.id ) )
+      itemsIndices = _.map( itemsWithPlaces, (i) -> self.items.indexOf(i) )
+
       _.forEach(itemsIndices, (index) -> self.items.splice(index, 1) unless index == -1 )
-      placeIdIndex = @.place_ids.indexOf( item.mark.place.id )
-      if placeIdIndex != -1 then @.place_ids.splice( placeIdIndex, 1 )
-      @.best_image = null if @.items?.length == 0
+      
+      for place in places 
+        placeIdIndex = @place_ids.indexOf( place.id )
+        @place_ids.splice( placeIdIndex, 1 ) if placeIdIndex != -1
+
+      @best_image = null if @items?.length == 0
+
+    _removeItemFromPlan: ( item ) ->
+      @_removeItemsFromPlan( _.compact([item?.mark?.place]) )
 
     # LOAD UP PLAN
 

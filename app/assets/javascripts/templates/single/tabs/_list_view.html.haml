@@ -5,6 +5,7 @@
   .pad-top-addbox{ ng_show: 'm.plan() || m.hasPlans()' }
   .band.spaced-extra
     .container.max
+      %filter_and_actions{ m: 'm' }
       .items-in-plan
         .items-in-plan-category{ ng_repeat: 'category in m.plan().categories( m.categorizeBy )', ng_class: 'category.toLowerCase()' }
           %ul.plan-list-items
@@ -38,7 +39,10 @@
                         .bucket-list-more-info.locale-only
                           {{ item.mark.place.localeDetails() }}
 
-              .list-item-notes{ ng_show: 'm.mode == "list"' }
+              .list-item-notes{ ng_show: 'm.mode == "list"', ng_show: "m.topBar != 'actions'" }
                 %textarea{ ng_model: "item.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_blur: 'item.saveNote()', ng_disabled: '!item.notesSearched || !m.userOwnsPlan()', ng_change: 'noteChange(item)' }
 
-              %item_actions_bar{ m: 'm', item: 'item' }
+              %item_actions_bar{ m: 'm', item: 'item', ng_show: "m.topBar != 'actions'" }
+
+              %button.btn.faint-blue.select-item{ ng_show: "m.topBar == 'actions'", ng_click: 'item.selected = !item.selected' }
+                %i.fa{ ng_class: "{ 'fa-square-o': !item.selected, 'fa-check-square-o': item.selected }" }
