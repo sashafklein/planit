@@ -9,6 +9,9 @@ class Place < BaseModel
   has_many_polymorphic table: :shares
   has_many_polymorphic table: :notes
 
+  has_many_polymorphic table: :object_locations
+  has_many :locations, through: :object_locations, as: :obj
+  
   array_accessor :completion_step, :street_address, :name, :category, :meta_category, :phone
   json_accessor :hours, :extra
 
@@ -37,6 +40,28 @@ class Place < BaseModel
 
   def guides
     Mark.guides( id )
+  end
+
+  def get_place_geoname
+    response = HTTParty.get( geonames_url )
+    return unless response = response['geonames']
+    return unless response = response.first
+    location = Location.find_by( geoname_id: response['geonameId'] )
+    if location
+      ObjectLocation.where({ obj_id: id, obj_type: 'Place', location_id: location.id }).first_or_create
+    elsif response['name']
+      location = Location.create_from_geonames!( response )
+      ObjectLocation.where({ obj_id: id, obj_type: 'Place', location_id: location.id }).first_or_create
+    else
+      binding.pry
+    end
+    location.build_out_location_hierarchy
+  end
+
+  private
+
+  def geonames_url
+    "http://api.geonames.org/findNearbyPlaceNameJSON?lat=#{ lat }&lng=#{ lon }&featureClass=P&style=full&username=planit"
   end
 
 end

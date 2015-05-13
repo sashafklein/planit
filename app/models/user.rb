@@ -57,7 +57,7 @@ class User < BaseModel
   # LOCATIONS
 
   def locations
-    Location.where( id: MarkLocation.where( object_id: marks_with_places.pluck(:id) ).pluck( :location_id ) )
+    Location.where( id: ObjectLocation.where( obj_id: marks_with_places.places.pluck(:id), obj_type: 'Place' ).pluck( :location_id ) ).uniq
   end
 
   # INBOX MESSAGES

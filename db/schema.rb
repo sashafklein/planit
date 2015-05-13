@@ -148,6 +148,8 @@ ActiveRecord::Schema.define(version: 20150515220628) do
     t.string   "admin_name_2"
     t.string   "time_zone_id"
     t.string   "fcode"
+    t.string   "continent"
+    t.integer  "level"
   end
 
   add_index "locations", ["geoname_id"], name: "index_locations_on_geoname_id", using: :btree

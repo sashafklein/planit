@@ -4,8 +4,8 @@ class Plan < BaseModel
 
   has_many :items, dependent: :destroy
 
-  has_many :plan_locations, dependent: :destroy
-  has_many :locations, through: :plan_locations
+  has_many_polymorphic table: :object_locations
+  has_many :locations, through: :object_locations, as: :obj
 
   has_many :collaborations
   has_many :collaborators, through: :collaborations, source: :collaborator
