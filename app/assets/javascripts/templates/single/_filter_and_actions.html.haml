@@ -1,7 +1,7 @@
 #filter-and-actions
   .cancel-out{ ng_show: 'm.topBar', ng_click: 'cancelOut()' }
     %button.btn.pink
-      Cancel
+      %span.in-button Exit
       %i.fa.fa-times-circle-o
   / .filter{ ng_show: "m.topBar != 'actions'"}
   /   .filter-bar{ ng_show: "m.topBar == 'filter'" }
@@ -12,15 +12,18 @@
   .actions{ ng_show: "m.topBar != 'filter'"}
     .actions-bar{ ng_show: "m.topBar == 'actions'" }
       %button.btn.faint-blue.remove-btn{ ng_disabled: '!selectedItems().length', ng_if: 'm.userOwnsPlan()', ng_click: 'removeSelected()' }
-        {{ removeSelectedText() }}
+        %span.in-button {{ removeSelectedText() }}
         %i.fa.fa-minus-square-o
-      %button.btn.faint-blue.copy-btn{ ng_disabled: '!selectedItems().length'}
-        {{ copySelectedText() }}
-        %i.fa.fa-folder-open-o
+      %span.copy-section
+        %button.btn.faint-blue.copy-btn{ ng_disabled: '!selectedItems().length' }
+          %span.in-button{ ng_click: 'copySelected()' } {{ copySelectedText() }}
+          %span.in-button
+            %select{ ng_options: 'plan.name for plan in planOptions()', ng_show: 'selectedItems().length', ng_model: 'copyDestination' }
+          %i.fa.fa-folder-open-o{ ng_click: 'copySelected()' }
       %span.select-all{ ng_click: 'toggleSelectAll()', ng_show: "m.topBar == 'actions'" }
         {{ selectAllText() }}
         %button.btn.faint-blue
           %i.fa{ ng_class: "{ 'fa-square-o': !allSelected, 'fa-check-square-o': allSelected }" }
     %button.btn.actions-btn.faint-blue{ ng_click: "toggleTopBar('actions')", ng_show: '!m.topBar' }
       %i.fa.fa-wrench
-      %span Bulk Actions
+      %span.in-button Batch Actions

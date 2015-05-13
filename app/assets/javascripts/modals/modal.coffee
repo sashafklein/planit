@@ -1,10 +1,10 @@
-angular.module("Common").directive 'modal', ($rootScope, Modal) ->
+angular.module("Modals").directive 'modal', ($rootScope, Modal) ->
 
   return {
     restrict: 'E'
     transclude: false
     replace: true
-    templateUrl: "modal.html"
+    templateUrl: "modals/modal.html"
 
     link: (s, e) ->
 

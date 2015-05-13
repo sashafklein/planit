@@ -47,6 +47,13 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
 
     # ADD TO PLAN
 
+    addPlaces: (places, callback) ->
+      self = @
+      placeIds = _.map(places, 'id')
+      @_planObj().addPlaces( placeIds )
+        .success (response) -> callback?( response )
+        .error (response) -> ErrorReporter.fullSilent( response, "SPPlan addPlaces", { place_ids: placeIds, plan_id: self.id } )
+
     addItem: ( fsOption, callback, callback2 ) ->
       self = @
       @_setAddItemSuccess( callback2 ) unless RailsEnv.test # Don't use Pusher or background-process this task in test env
@@ -57,7 +64,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
 
     _setAddItemSuccess: ( callback ) ->
       self = @
-      channel = @_pusher.subscribe( "add-item-from-place-data-to-plan-#{ @.id }" )
+      channel = @_pusher.subscribe( "add-item-from-place-data-to-plan-#{ @id }" )
       channel.bind 'added', (data) ->
         Item.find( data.item_id )
           .success (response) -> 
@@ -68,18 +75,18 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
             self._pusher.unsubscribe( "add-item-from-place-data-to-plan-#{ self.id }" )
 
     _affixItem: (response, callback) ->
-      new_item = _.extend( new SPItem( Item.generateFromJSON( response ) ), { index: @.items.length, pane: 'list', notesSearched: true } )
-      if !_.find(@.items, (i) -> i.mark?.place?.id == new_item.mark?.place?.id )
-        @.items.unshift new_item
-        @.place_ids.unshift( new_item.mark?.place.id ) if new_item?.mark?.place?.id      
-        @.best_image = new_item.mark.place.images[0] if new_item?.mark?.place?.images?.length && @.items?.length == 1
+      new_item = _.extend( new SPItem( Item.generateFromJSON( response ) ), { index: @items.length, pane: 'list', notesSearched: true } )
+      if !_.find(@items, (i) -> i.mark?.place?.id == new_item.mark?.place?.id )
+        @items.unshift new_item
+        @place_ids.unshift( new_item.mark?.place.id ) if new_item?.mark?.place?.id      
+        @best_image = new_item.mark.place.images[0] if new_item?.mark?.place?.images?.length && @items?.length == 1
         callback?()
         QueryString.modify({m: null})
 
     # REMOVE FROM PLAN
 
     deleteItem: ( item ) ->
-      return unless confirm("Delete #{item.mark.place.name} from '#{@.name}'?")
+      return unless confirm("Delete #{item.mark.place.name} from '#{@name}'?")
       item.destroy( @_removeItemFromPlan( item ) )
 
     deleteItems: ( items, callback ) ->
@@ -98,12 +105,12 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
     _removeItemsFromPlan: (places) ->
       self = @
       placeIds = _.map(places, 'id')
-
       itemsWithPlaces = _.filter( @items, (i) -> _.contains( placeIds, i.mark.place.id ) )
-      itemsIndices = _.map( itemsWithPlaces, (i) -> self.items.indexOf(i) )
 
-      _.forEach(itemsIndices, (index) -> self.items.splice(index, 1) unless index == -1 )
-      
+      _.forEach itemsWithPlaces, (item) -> 
+        itemIndices = _.map( itemsWithPlaces, (i) -> self.items.indexOf(item) )
+        _.forEach itemIndices, (index) -> self.items.splice(index, 1) unless index == -1 
+
       for place in places 
         placeIdIndex = @place_ids.indexOf( place.id )
         @place_ids.splice( placeIdIndex, 1 ) if placeIdIndex != -1
@@ -116,7 +123,7 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
     # LOAD UP PLAN
 
     loadNearbyPlans: ->
-      @.nearbyPlans = {}
+      @nearbyPlans = {}
       # self = @
       # return unless Object.keys( nearby )?.length
       # Plan.locatedNear( "#{[nearby.lat,nearby.lon]}" )
@@ -127,48 +134,51 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
       #     )
       #   .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.loadNearbyPlans', { coordinate: [nearby.lat,nearby.lon] } )
 
-    loadItems: ->
+    loadItems: (options={}) ->
       self = @
-      unless @.items?.length>0 || @.fetchingItems
-        @.items = []
-        @.fetchingItems = true
-        Item.where({ plan_id: @.id })
+      options.redirectAfterLoad ||= true
+
+      if !@items?.length || !@fetchingItems || options.force
+        @items = []
+        @fetchingItems = true
+        Item.where({ plan_id: @id })
           .success (response) ->
             _.forEach response , ( item, index ) ->
               i = _.extend( new SPItem( Item.generateFromJSON( item ) ), { index: index, pane: 'list', class: 'Item' } )
               self.items.push i
             self.itemsLoaded = true
-            QueryString.modify({ plan: parseInt( self.id ) })
+            QueryString.modify({ plan: parseInt( self.id ) }) if options.redirectAfterLoad
+            options.afterLoad( self.items ) if options.afterLoad?
             $timeout(-> self._fetchNotes() )
           .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list #{self.id}", { plan_id: self.id })
 
     _fetchNotes: ->
       self = @
-      Note.findAllNotesInPlan( @.id )
+      Note.findAllNotesInPlan( @id )
         .success (response) -> _.forEach( self.items, (i) -> i.note = _.find( response, (n) -> parseInt( n.obj_id ) == parseInt( i.id ) )?.body; i.notesSearched = true )
-        .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list fetch original notes", { plan_id: @.id })
+        .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list fetch original notes", { plan_id: @id })
 
     categories: ( categorizeBy ) -> #sorted alphabetically
       switch categorizeBy
-        when 'type' then _.sortBy( _.uniq( _.map( @.items, (i) -> i.meta_category ) ) , (c) -> return c )
-        when 'alphabetical' then _.sortBy( _.uniq( _.compact( _.map( @.items, (i) -> i.mark.place.names?[0]?[0] ) ) ) , (c) -> return c )
-        when 'recent' then _.sortBy( _.uniq( _.map( @.items, (i) -> x=i.updated_at.match(/(\d{4})-(\d{2})-(\d{2})/); return "#{x[2]}/#{x[3]}/#{x[1]}" ) ) , (c) -> return c )
-        when 'locale' then _.sortBy( _.uniq( _.map( @.items, (i) -> i.mark.place.locality ) ) , (c) -> return c )
+        when 'type' then _.sortBy( _.uniq( _.map( @items, (i) -> i.meta_category ) ) , (c) -> return c )
+        when 'alphabetical' then _.sortBy( _.uniq( _.compact( _.map( @items, (i) -> i.mark.place.names?[0]?[0] ) ) ) , (c) -> return c )
+        when 'recent' then _.sortBy( _.uniq( _.map( @items, (i) -> x=i.updated_at.match(/(\d{4})-(\d{2})-(\d{2})/); return "#{x[2]}/#{x[3]}/#{x[1]}" ) ) , (c) -> return c )
+        when 'locale' then _.sortBy( _.uniq( _.map( @items, (i) -> i.mark.place.locality ) ) , (c) -> return c )
 
     matchingItems: ( category, categorizeBy ) -> #sorted alphabetically
       switch categorizeBy
-        when 'type' then _.sortBy( _.filter( @.items, (i) -> i.meta_category == category ) , (i) -> return i.mark.place.names[0] )
-        when 'alphabetical' then _.sortBy( _.filter( @.items, (i) -> i.mark.place.names?[0]?[0] == category ) , (i) -> return i.mark.place.names[0] )
-        when 'recent' then _.sortBy( _.filter( @.items, (i) -> x=i.updated_at.match(/(\d{4})-(\d{2})-(\d{2})/); "#{x[2]}/#{x[3]}/#{x[1]}" == category ) , (i) -> return i.mark.place.names[0] )
-        when 'locale' then _.sortBy( _.filter( @.items, (i) -> i.mark.place.locality == category ) , (i) -> return i.mark.place.names[0] )
+        when 'type' then _.sortBy( _.filter( @items, (i) -> i.meta_category == category ) , (i) -> return i.mark.place.names[0] )
+        when 'alphabetical' then _.sortBy( _.filter( @items, (i) -> i.mark.place.names?[0]?[0] == category ) , (i) -> return i.mark.place.names[0] )
+        when 'recent' then _.sortBy( _.filter( @items, (i) -> x=i.updated_at.match(/(\d{4})-(\d{2})-(\d{2})/); "#{x[2]}/#{x[3]}/#{x[1]}" == category ) , (i) -> return i.mark.place.names[0] )
+        when 'locale' then _.sortBy( _.filter( @items, (i) -> i.mark.place.locality == category ) , (i) -> return i.mark.place.names[0] )
         else []
 
-    hasCollaborators: -> @.collaboratorIds()?.length > 0
-    collaboratorIds: -> _.map( @.collaborators, (c) -> c.id )
-    userOwns: -> @.user_id == CurrentUser.id
-    userCoOwns: -> _.includes( @.collaboratorIds, CurrentUser.id )
-    ownerLoves: ( item ) -> _.includes( item.mark.place.lovers , @.user_id )
-    ownerVisited: ( item ) -> _.includes( item.mark.place.visitors , @.user_id )
+    hasCollaborators: -> @collaboratorIds()?.length > 0
+    collaboratorIds: -> _.map( @collaborators, (c) -> c.id )
+    userOwns: -> @user_id == CurrentUser.id
+    userCoOwns: -> _.includes( @collaboratorIds, CurrentUser.id )
+    ownerLoves: ( item ) -> _.includes( item.mark.place.lovers , @user_id )
+    ownerVisited: ( item ) -> _.includes( item.mark.place.visitors , @user_id )
 
     # MANIFEST FUNCTIONS
 

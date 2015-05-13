@@ -42,6 +42,17 @@ class Api::V1::PlansController < ApiController
     success
   end
 
+  def add_places
+    return permission_denied_error unless @plan && current_user.owns?(@plan)
+
+    Place.where(id: params[:place_ids]).find_each do |place|
+      mark = current_user.marks.where(place_id: place.id).first_or_create!
+      mark.items.where(plan_id: @plan.id).first_or_create!
+    end
+
+    success
+  end
+
   def destroy_items
     return permission_denied_error unless @plan && current_user.owns?(@plan)
     if params[:item_ids].present?

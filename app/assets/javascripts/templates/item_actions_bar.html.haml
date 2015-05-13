@@ -11,5 +11,5 @@
     .item-action-button.been-item
       %i.action.fa.fa-thumb-tack{ ng_show: '!item.currentUserVisited()', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserBeen()' }
       .hint{ ng_show: '!item.currentUserVisited()' } I Have Been Here
-      %i.action.fa.fa-thumb-tack.enabled{ ng_show: 'item.currentUserVisited()', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserUnbeen()' }
+      %i.action.fa.fa-thumb-tack.neon{ ng_show: 'item.currentUserVisited()', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserUnbeen()' }
       .hint{ ng_show: 'item.currentUserVisited()' } I Haven't Been Here

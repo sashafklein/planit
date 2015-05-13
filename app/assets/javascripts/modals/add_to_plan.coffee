@@ -1,9 +1,9 @@
-angular.module('Common').directive 'addToPlan', (Plan, Modal, ErrorReporter) ->
+angular.module('Modals').directive 'addToPlan', (Plan, Modal, ErrorReporter) ->
   return { 
     restrict: 'E'
     transclude: false
     replace: true
-    templateUrl: 'add_to_plan.html'
+    templateUrl: 'modals/add_to_plan.html'
     scope:
       data: '='
       headerTitle: '@'
@@ -27,7 +27,7 @@ angular.module('Common').directive 'addToPlan', (Plan, Modal, ErrorReporter) ->
             .error -> ErrorReporter.report({ context: 'Trying to remove places from a plan in addToPlan modal', api_path: planObj.objectPath() })
 
       s.addPlacesToPlan = ( plan ) ->
-        new Plan({ id: plan.id }).addItems( s.place_ids )
+        new Plan({ id: plan.id }).addPlaces( s.place_ids )
           .success (response) ->
             s.selectedPlans.push plan
             s.guideName = null

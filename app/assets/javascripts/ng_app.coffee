@@ -1,6 +1,7 @@
 #= require_self
 #= require common/common
 #= require_tree ./models
+#= require_tree ./modals
 #= require_tree ./controllers
 #= require angular-rails-templates
 #= require_tree ./templates
@@ -12,6 +13,8 @@ planitModules = [
   'Models'
   'Controllers'
   'Services'
+  'Modals'
+  'SPA'
 ]
 
 otherModules = ['leaflet-directive', 'templates']

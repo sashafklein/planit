@@ -1,4 +1,4 @@
-angular.module('Common').directive 'addNoteModal', (Note, Modal, ErrorReporter, Flash) ->
+angular.module('Modals').directive 'addNoteModal', (Note, Modal, ErrorReporter, Flash) ->
   return { 
     restrict: 'E'
     transclude: false

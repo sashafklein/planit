@@ -21,7 +21,8 @@ class ApiController < ApplicationController
       error: true,
       controller: self.class.to_s,
       line: line,
-      code: status
+      code: status,
+      params: params.except(:controller, :action).to_json
     }
 
     render json: response.to_json, status: status

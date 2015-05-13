@@ -2,8 +2,6 @@ class Plan < BaseModel
 
   belongs_to :user
 
-  has_many :legs
-  has_many :days, through: :legs
   has_many :items, dependent: :destroy
 
   has_many :plan_locations, dependent: :destroy
@@ -23,8 +21,6 @@ class Plan < BaseModel
   boolean_accessor :published
   json_accessor :manifest
   
-  delegate :last_day, :departure, to: :last_leg
-  delegate :arrival, to: :first_leg
   delegate :add_to_manifest, :remove_from_manifest, :move_in_manifest, to: :manifester
 
   def copy!(new_user:, copy_manifest: false)
@@ -73,14 +69,6 @@ class Plan < BaseModel
     items.marks.where(lodging: true).any?
   end
 
-  def first_leg
-    legs.first
-  end
-
-  def last_leg
-    legs.last
-  end
-
   def uniq_abbreviated_coords(round=1)
     items.with_places.places.map{ |p| [ p.lat.round(1), p.lon.round(1) ] }.uniq
   end
@@ -95,10 +83,6 @@ class Plan < BaseModel
 
   def bucket
     Item.where(day_id: nil, plan_id: self.id)
-  end
-
-  def total_days
-    days.count
   end
 
   def places
