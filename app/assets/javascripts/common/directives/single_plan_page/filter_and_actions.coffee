@@ -25,12 +25,9 @@ angular.module("Common").directive 'filterAndActions', (Flash) ->
         return Flash.error("Please select items first") unless (count = s.selectedItems().length)
         return Flash.error("Please choose a plan to copy to") unless s.copyDestination?
         
-        s.copyDestination.addPlaces _.map( s.selectedItems(), 'mark.place' ), ->
-          afterItemLoad = (items) -> s.copyDestination.place_ids = _.map( items, 'mark.place.id' )
-
-          s.copyDestination.loadItems({ force: true, redirectAfterLoad: false, afterLoad: afterItemLoad }) # Force reload, don't update QS, and update plan's place_ids
-          Flash.success("Copying #{count} places to #{s.copyDestination.name}.")
-          s._deselectAll()
+        s.copyDestination.addItems s.selectedItems(), true  
+        Flash.success("Copying #{count} places to #{s.copyDestination.name}.")
+        s._deselectAll()
 
       s.planOptions = -> _( s.m.plans ).map().reject( (p) -> p.id == s.m.plan()?.id ).value()
 

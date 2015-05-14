@@ -47,6 +47,21 @@ class Plan < BaseModel
     add_with_place!(user, place)
   end
 
+  def add_items!(external_items)
+    external_items.includes(:notes, mark: [:place, :notes]).each do |item|
+      mark = user.marks.where(place_id: item.mark.place.id).first_or_create!
+      new_item = mark.items.where(plan_id: id).first_or_create!
+      
+      mark_note = item.mark.notes.first
+      item_note = item.notes.first 
+      
+      mark.notes.create!(body: mark_note.body, source: mark_note.source) if mark_note
+      new_item.notes.create!(body: item_note.body, source: item_note.source) if item_note
+
+      new_item
+    end
+  end
+
   def add_with_place!(user, place)
     mark = Mark.unscoped.where(user: user, place_id: place.id).first_or_initialize
     mark.update_attributes!(deleted: false)

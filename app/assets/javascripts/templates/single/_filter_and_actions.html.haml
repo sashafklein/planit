@@ -15,11 +15,11 @@
         %span.in-button {{ removeSelectedText() }}
         %i.fa.fa-minus-square-o
       %span.copy-section
-        %button.btn.faint-blue.copy-btn{ ng_disabled: '!selectedItems().length' }
+        %button.btn.faint-blue.copy-btn{ ng_disabled: '!selectedItems().length || !copyDestination' }
           %span.in-button{ ng_click: 'copySelected()' } {{ copySelectedText() }}
-          %span.in-button
-            %select{ ng_options: 'plan.name for plan in planOptions()', ng_show: 'selectedItems().length', ng_model: 'copyDestination' }
           %i.fa.fa-folder-open-o{ ng_click: 'copySelected()' }
+        %span
+          %select{ ng_options: 'plan.name for plan in planOptions()', ng_show: 'selectedItems().length', ng_model: 'copyDestination' }
       %span.select-all{ ng_click: 'toggleSelectAll()', ng_show: "m.topBar == 'actions'" }
         {{ selectAllText() }}
         %button.btn.faint-blue

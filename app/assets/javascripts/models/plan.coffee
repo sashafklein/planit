@@ -9,7 +9,7 @@ mod.factory "Plan", (BaseModel, $http) ->
 
     @KML: (id) -> $http.get( "#{@objectPath(id)}/kml" )
 
-    addPlaces: (place_ids) -> $http.post( "#{ @objectPath() }/add_places", { place_ids: place_ids })
+    addItems: (item_ids, options={}) -> $http.post( "#{ @objectPath() }/add_items", _.extend({ item_ids: item_ids }, options) )
 
     destroyItems: (place_ids, item_ids) -> 
       params = if item_ids?.length then { item_ids: item_ids } else { place_ids: place_ids }

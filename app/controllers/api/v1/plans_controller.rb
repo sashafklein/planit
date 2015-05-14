@@ -35,19 +35,11 @@ class Api::V1::PlansController < ApiController
 
   def add_items
     return permission_denied_error unless @plan && current_user.owns?(@plan)
-    marks = Mark.where( user_id: current_user.id, place_id: params[:place_ids] )
-    marks.each do |mark|
-      Item.where( plan_id: @plan.id, mark_id: mark.id ).first_or_create!
-    end
-    success
-  end
-
-  def add_places
-    return permission_denied_error unless @plan && current_user.owns?(@plan)
-
-    Place.where(id: params[:place_ids]).find_each do |place|
-      mark = current_user.marks.where(place_id: place.id).first_or_create!
-      mark.items.where(plan_id: @plan.id).first_or_create!
+    
+    if params[:delay]
+      PlanAddItemsJob.perform_later(plan_id: @plan.id, item_ids: params[:item_ids])
+    else
+      @plan.add_items! Item.where(id: params[:item_ids])
     end
 
     success

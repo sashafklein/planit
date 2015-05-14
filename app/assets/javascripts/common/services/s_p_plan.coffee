@@ -47,12 +47,28 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
 
     # ADD TO PLAN
 
-    addPlaces: (places, callback) ->
+    addItems: (items, delay=true, callback) ->
       self = @
-      placeIds = _.map(places, 'id')
-      @_planObj().addPlaces( placeIds )
-        .success (response) -> callback?( response )
-        .error (response) -> ErrorReporter.fullSilent( response, "SPPlan addPlaces", { place_ids: placeIds, plan_id: self.id } )
+      itemIds = _.map(items, 'id')
+      if delay && !RailsEnv.test
+        @_setAddItemsSuccess( callback )
+        @_planObj().addItems( itemIds, { delay: true } ).error (response) -> ErrorReporter.fullSilent( response, "SPPlan addItems", { item_ids: itemIds, plan_id: self.id } )
+      else
+        @_planObj().addItems( itemIds )
+          .success (response) -> self._afterAddItemsSuccess(); callback?( response )
+          .error (response) -> ErrorReporter.fullSilent( response, "SPPlan addItems", { item_ids: itemIds, plan_id: self.id } )
+
+    _setAddItemsSuccess: (callback) ->
+      self = @
+      channel = @_pusher.subscribe( "add-items-to-plan-#{ @id }" )
+      channel.bind 'added', (data) -> 
+        self._afterAddItemsSuccess()
+        self._pusher.unsubscribe( "add-items-to-plan-#{ self.id }" )
+        callback?(data) 
+
+    _afterAddItemsSuccess: ->
+      afterLoad = (plan) -> plan.place_ids = _.map( plan.items, 'mark.place.id' )
+      @loadItems({ force: true, dontRedirectAfterLoad: true, afterLoad: afterLoad }) # Force reload, don't update QS, and update plan's place_ids
 
     addItem: ( fsOption, callback, callback2 ) ->
       self = @
@@ -134,11 +150,10 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
       #     )
       #   .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.loadNearbyPlans', { coordinate: [nearby.lat,nearby.lon] } )
 
-    loadItems: (options={}) ->
+    loadItems: (opts={}) ->
       self = @
-      options.redirectAfterLoad ||= true
 
-      if !@items?.length || !@fetchingItems || options.force
+      if !@items?.length || !@fetchingItems || opts.force
         @items = []
         @fetchingItems = true
         Item.where({ plan_id: @id })
@@ -147,8 +162,8 @@ angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note,
               i = _.extend( new SPItem( Item.generateFromJSON( item ) ), { index: index, pane: 'list', class: 'Item' } )
               self.items.push i
             self.itemsLoaded = true
-            QueryString.modify({ plan: parseInt( self.id ) }) if options.redirectAfterLoad
-            options.afterLoad( self.items ) if options.afterLoad?
+            QueryString.modify({ plan: parseInt( self.id ) }) unless opts.dontRedirectAfterLoad
+            opts.afterLoad( self ) if opts.afterLoad?
             $timeout(-> self._fetchNotes() )
           .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list #{self.id}", { plan_id: self.id })
 

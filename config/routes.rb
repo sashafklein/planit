@@ -119,7 +119,7 @@ Rails.application.routes.draw do
         get :located_near, on: :collection
         post :add_nearby, on: :member
         post :remove_nearby, on: :member
-        post :add_places, on: :member
+        post :add_items, on: :member
         post :destroy_items, on: :member
         post :add_item_from_place_data, on: :member
         post :copy, on: :member
