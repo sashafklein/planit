@@ -15,6 +15,6 @@ angular.module("Common").directive 'beenPlaceOnClick', (Mark, CurrentUser, Error
             if scope.successFunction? then scope.successFunction() else true
             $('.loading-mask').hide()
           .error (response) ->
-            ErrorReporter.report({ place_id: place_id, user_id: CurrentUser.id, context: "Inside beenPlaceOnClick directive" })
+            ErrorReporter.fullSilent( response, 'beenPlaceOnClick', { place_id: place_id })
             $('.loading-mask').hide()
   }

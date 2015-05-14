@@ -8,14 +8,13 @@ angular.module("Common").directive 'unsavePlaceOnClick', (Mark, Modal, CurrentUs
     link: (scope, element, attrs) ->
       
       element.bind "click", (event) ->
-        if confirm('Are You Sure?')
-          place_id = scope.$eval attrs.unsavePlaceOnClick 
-          $('.loading-mask').show()
-          Mark.remove( place_id )
-            .success (response) ->
-              if scope.successFunction? then scope.successFunction() else true
-              $('.loading-mask').hide()
-            .error (response) ->
-              ErrorReporter.report({ place_id: place_id, user_id: CurrentUser.id, context: "Inside unsavePlaceOnClick directive" })
-              $('.loading-mask').hide()
+        place_id = scope.$eval attrs.unsavePlaceOnClick 
+        $('.loading-mask').show()
+        Mark.remove( place_id )
+          .success (response) ->
+            if scope.successFunction? then scope.successFunction() else true
+            $('.loading-mask').hide()
+          .error (response) ->
+            ErrorReporter.report({ place_id: place_id, user_id: CurrentUser.id, context: "Inside unsavePlaceOnClick directive" })
+            $('.loading-mask').hide()
 }

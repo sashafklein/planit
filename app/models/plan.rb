@@ -49,7 +49,7 @@ class Plan < BaseModel
 
   def add_items!(external_items)
     external_items.includes(:notes, mark: [:place, :notes]).each do |item|
-      mark = user.marks.where(place_id: item.mark.place.id).first_or_create!
+      mark = Mark.unscoped.where( user_id: user.id, place_id: item.mark.place.id).first_or_create!
       new_item = mark.items.where(plan_id: id).first_or_create!
       
       mark_note = item.mark.notes.first

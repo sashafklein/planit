@@ -9,6 +9,10 @@ class ApiController < ApplicationController
     api_rescue(e)
   end
 
+  rescue_from ActiveRecord::RecordInvalid do |e|
+    api_rescue(e)
+  end
+
   def permission_denied_error(meta: {}, line: nil)
     error(status: 403, message: 'Permission Denied!', meta: meta, line: line)
   end
@@ -24,7 +28,7 @@ class ApiController < ApplicationController
       code: status,
       params: params.except(:controller, :action).to_json
     }
-
+    binding.pry
     render json: response.to_json, status: status
   end
 
