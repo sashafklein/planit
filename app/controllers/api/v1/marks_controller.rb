@@ -34,7 +34,7 @@ class Api::V1::MarksController < ApiController
   end
 
   def love
-    return permission_denied_error #unless @mark && @mark.user == current_user
+    return permission_denied_error unless @mark && @mark.user == current_user
     @mark.update_attributes!(loved: true)
     success
   end

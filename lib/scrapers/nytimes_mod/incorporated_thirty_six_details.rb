@@ -63,7 +63,7 @@ module Scrapers
             order: (day_index + 1).to_i,
           },
           item:{
-            day_of_week: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
+            start_date: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
           },
         }
       end

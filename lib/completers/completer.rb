@@ -63,8 +63,7 @@ module Completers
       item_attrs = normalize_item_attrs(decremented_attrs.delete(:item) || {})
 
       search_attrs = { mark_id: mark.id, plan_id: plan.id }.merge item_attrs.slice(*Item.attribute_keys)
-      search_attrs[:day_of_week] = Item.day_of_weeks[search_attrs[:day_of_week].downcase] if search_attrs[:day_of_week]
-      search_attrs[:start_time] = Services::TimeConverter.new(search_attrs[:start_time]).absolute if search_attrs[:start_time]
+      # search_attrs[:start_time] = Services::TimeConverter.new(search_attrs[:start_time]).absolute if search_attrs[:start_time]
       extra = search_attrs.delete(:extra)
 
       Item.where(search_attrs).first_or_create!(extra: extra || {})

@@ -113,11 +113,35 @@ describe 'Root SPA' do
       expect( contigo.mark.been ).to eq false
 
       within contigo_selector do
-        first('i.action.fa.fa-check-square').click
+        first('i.action.fa.fa-thumb-tack').click
       end
       
       sleep 0.5
       expect( contigo.mark.reload.been ).to eq true
+
+      expect( ng_shown( root: contigo_tab, selector: '.fa-clock-o.neon').length ).to eq 0
+
+      within contigo_selector do
+        find(".fa-clock-o").click
+      end
+
+      within '.edit-booking-info' do
+        find('.confirmation').set 'Comf code'
+        find('.start-date').set 'Oct 1'
+        find('.start-time').set '10 am'
+        find('.end-time').set '11 am'
+        click_button "Save Booking Info"
+      end
+
+      sleep 0.5
+
+      expect( ng_shown( root: contigo_tab, selector: '.fa-clock-o.neon').length ).to eq 1
+
+      expect( contigo.reload.confirmation ).to eq 'Comf code'
+      expect( contigo.start_date ).to eq 'Oct 1'
+      expect( contigo.start_time ).to eq '10 am'
+      expect( contigo.end_date ).to eq nil
+      expect( contigo.end_time ).to eq '11 am'
 
       within contigo_selector do
         first('i.action.fa.fa-trash').click
@@ -181,6 +205,7 @@ describe 'Root SPA' do
       expect( full_path ).to include 'mode=map'
 
       # Map icon/li tethering
+
       within '.plan-map-container' do
         icon = ".leaflet-map-pane .leaflet-marker-pane .leaflet-marker-icon[title='Camino'] .default-map-icon-tab"
         wait_for(selector: icon)
@@ -236,6 +261,19 @@ describe 'Root SPA' do
 
       expect( Plan.where(name: name).count ).to eq 1
       expect( full_path ).to include( Plan.find_by(name: "Copy of 'My SF Plan!' by #{@user.name}").id.to_s )
+
+      # Batch Actions
+
+      find('.actions .actions-btn').click
+      find('.item-li-camino-0 .btn.select-item').click
+      find('.item-li-alcatraz-island-0 .btn.select-item').click
+      find('button.remove-btn').click
+
+      page.driver.browser.switch_to.alert.accept
+      sleep 0.5
+
+      expect( page ).not_to have_content '.item-li-camino-0'
+      expect( page ).not_to have_content '.item-li-alcatraz-island-0'
 
       # Delete
 

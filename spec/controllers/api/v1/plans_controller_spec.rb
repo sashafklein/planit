@@ -35,24 +35,27 @@ describe Api::V1::PlansController, :vcr do
 
   end
 
-  describe "adds" do
+  describe "add_items" do
 
     before do
       @user = create(:user)
-      @place1 = create(:place)
-      @place2 = create(:place)
-      @place3 = create(:place)
-      @mark1 = create(:mark, {place_id: @place1.id, user_id: @user.id })
-      @mark2 = create(:mark, {place_id: @place2.id, user_id: @user.id })
-      @item1 = create(:item, {mark_id: @mark1.id })
-      @plan = create(:plan, {user_id: @user.id})
+      @plan = create(:plan, {user_id: create(:user).id})
+      @user_plan = create(:plan, user: @user)
+      3.times do
+        create(:item, plan_id: @plan.id)
+      end
     end
 
-    it "only adds places for which user has marks" do
+    it "only adds places, and marks as necessary" do
       sign_in @user      
-      post :add_items, { id: @plan.id, place_ids: Place.all.pluck(:id) }
+      mark_count = @user.marks.count
 
-      expect(@plan.places.pluck(:id)).to eq([@place1.id,@place2.id])
+      expect{
+        post :add_items, { id: @user_plan.id, item_ids: @plan.items.pluck(:id) }
+      }.to change{ @user_plan.reload.items.count }.by 3
+
+      expect( @user.reload.marks.count ).to eq mark_count + 3
+      expect( @user_plan.places.pluck(:id) ).to array_eq(@plan.places.pluck(:id))
     end
 
   end

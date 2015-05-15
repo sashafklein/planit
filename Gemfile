@@ -59,7 +59,10 @@ gem "friendly_id"
 
 # terminal
 gem "colorize"
-gem "rspec-instafail", require: false
+# gem "rspec-instafail", require: false
+# Add to .rspec on reinclusion:
+# --require rspec/instafail
+# --format RSpec::Instafail
 
 # apis
 gem "yelp"

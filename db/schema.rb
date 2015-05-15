@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515192917) do
+ActiveRecord::Schema.define(version: 20150515220628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,8 +107,6 @@ ActiveRecord::Schema.define(version: 20150515192917) do
   create_table "items", force: :cascade do |t|
     t.integer  "mark_id"
     t.integer  "plan_id"
-    t.integer  "day_of_week",              default: 0
-    t.float    "duration"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "published",                default: true
