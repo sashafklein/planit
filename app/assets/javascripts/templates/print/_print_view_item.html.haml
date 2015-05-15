@@ -11,11 +11,11 @@
     .print-item-address
       .address-line
         {{ item.mark.place.address }}
-        %a{ ng_href: 'directionsLink(item)', ng_show: "detailLevel < 2" }
+        %a{ ng_href: '{{directionsLink(item)}}', ng_show: "detailLevel < 2" }
           = "&nbsp;".html_safe
           %i.fa.fa-external-link
       .address-line{ ng_show: "detailLevel > 1" } {{ item.mark.place.locale }}
-      %a.address-line{ ng_show: "detailLevel > 1", ng_href: 'directionsLink(item)' }
+      %a.address-line{ ng_show: "detailLevel > 1", ng_href: '{{directionsLink(item)}}' }
         %i.fa.fa-external-link
         Get Directions
     .print-item-extra-info{ ng_show: "detailLevel > 1" }
@@ -29,6 +29,17 @@
       .note-line
         %b {{ plan.name }}
         {{ item.note }}
+    .print-item-booking-details{ ng_show: 'currentUserOwnsPlan() && (item.confirmation || item.start_date || item.start_time)' }
+      .note-line{ ng_if: 'item.startString()' }
+        %b When:
+        {{ item.startString() }}
+        %span{ ng_if: 'item.endString()' }
+          = '   -   '
+          {{ item.endString() }}
+      .note-line{ ng_if: 'item.confirmation' }
+        %b Confirmation:
+        {{ item.confirmation }}
+
     
   .print-item-map-wrapper{ ng_show: "detailLevel > 1" }
     .print-item-map

@@ -1,4 +1,4 @@
-angular.module("Common").directive 'printViewController', (Plan, Item, Note, ErrorReporter, QueryString, $timeout, MetaCategory, Plural) ->
+angular.module("Common").directive 'printViewController', (Plan, Item, Note, ErrorReporter, QueryString, $timeout, MetaCategory, Plural, CurrentUser) ->
   return {
     restrict: 'E'
     replace: true
@@ -8,6 +8,7 @@ angular.module("Common").directive 'printViewController', (Plan, Item, Note, Err
 
     link: (s, e, a) ->
 
+      s.currentUserOwnsPlan = -> s.plan.user_id == CurrentUser.id
       s.detailLevel = parseInt( QueryString.get()['d'] ) || 2
       s.items = []
 

@@ -17,6 +17,10 @@ mod.factory "Item", (BaseModel, Mark) ->
 
     place: -> @mark?.place
     placeHref: -> @mark?.place?.fs_href
+
+    startString: -> _.compact([@start_date, @start_time]).join(", ")
+    endString: -> _.compact([@end_date, @end_time]).join(", ")
     
+    _namify: (key) -> _.map(key.split("_"), (w) -> _.capitalize(w) ).join(" ")
   return Item
       

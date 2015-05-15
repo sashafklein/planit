@@ -11,6 +11,4 @@ angular.module('Modals').directive 'editBookingInfo', (Modal) ->
 
       s.saveBookingInfo = -> 
         s.item.update s._data(), ((response) -> new Modal().hide())
-
-      window.bookings = s
   }
