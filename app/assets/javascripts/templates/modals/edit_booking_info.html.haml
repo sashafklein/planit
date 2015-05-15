@@ -1,0 +1,21 @@
+.edit-booking-info.clean-modal
+  %h3 
+  .clean-modal-body
+    
+    .clean-modal-input-group
+      %input{ ng_model: "item.confirmation", placeholder: "Confirmation Code", type: "text" }
+    
+    .clean-modal-separator
+    
+    .clean-modal-input-group
+      %input{ ng_model: "item.start_date", placeholder: "Date", type: "text" }
+      %input{ ng_model: "item.start_time", ng_show: "item.start_date", placeholder: "Time", type: "text" }
+    
+    %h5{ ng_show: "item.start_date" } - through -
+    
+    .clean-modal-input-group{ ng_show: "item.start_date" }
+      %input{ ng_model: "item.end_date", placeholder: "Date", type: "text" }
+      %input{ ng_model: "item.end_time", placeholder: "Time", type: "text" }
+
+  %div.clean-modal-submit
+    %button.btn.faint-blue{ ng_click: "saveBookingInfo()" } Save Booking Info

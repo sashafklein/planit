@@ -76,7 +76,7 @@ gem "activeadmin", github: "activeadmin"
 gem "angular-rails-templates"
 
 source "https://rails-assets.org" do
-  %w( angular angular-mocks active-support async lodash leaflet angular-leaflet-directive dragula.js ).each do |lib|
+  %w( angular angular-mocks active-support async lodash leaflet angular-leaflet-directive dragula.js momentjs ).each do |lib|
     gem "rails-assets-#{lib}"
   end
 end

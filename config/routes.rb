@@ -80,7 +80,7 @@ Rails.application.routes.draw do
         get :find_all_notes_in_plan, on: :collection
       end
 
-      resources :items, only: [:index, :show, :destroy]
+      resources :items, only: [:index, :show, :destroy, :update]
       
       resources :marks, only: [:destroy, :create, :show] do
         post :choose, on: :member

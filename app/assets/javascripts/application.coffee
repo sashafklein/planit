@@ -4,6 +4,7 @@
 #= require leaflet
 #= require markercluster/leaflet.markercluster
 #= require pusher/pusher.min
+#= require momentjs
 #= require angular
 #= require angular-leaflet-directive
 #= require bootstrap-sprockets

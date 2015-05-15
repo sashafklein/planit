@@ -6,6 +6,7 @@ mod.factory "Item", (BaseModel, Mark) ->
     constructor: (_properties) ->
       properties = _.clone(_properties)
       @mark = @extractHasOneRelation(Mark, properties, 'mark')
+
       _.extend(this, properties)
 
     @class: "Item"

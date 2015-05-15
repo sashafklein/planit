@@ -1,11 +1,11 @@
 class Api::V1::ItemsController < ApiController
 
-  before_action :load_item, only: [:destroy]
+  before_action :load_item, only: [:destroy, :update, :show]
   
   def show
     return permission_denied_error unless current_user
 
-    render json: Item.find(params[:id]), serializer: ItemSerializer
+    render json: @item, serializer: ItemSerializer
   end
 
   def index
@@ -28,9 +28,18 @@ class Api::V1::ItemsController < ApiController
     end
   end
 
+  def update
+    @item.update_attributes!( item_params )
+    success
+  end
+
   private
 
   def load_item
     @item = Item.find(params[:id])
+  end
+
+  def item_params
+    params.require(:item).permit(:start_time, :end_time, :start_date, :end_date, :confirmation)
   end
 end

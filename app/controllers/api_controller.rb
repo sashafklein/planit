@@ -28,7 +28,7 @@ class ApiController < ApplicationController
       code: status,
       params: params.except(:controller, :action).to_json
     }
-    binding.pry
+
     render json: response.to_json, status: status
   end
 
@@ -60,5 +60,11 @@ class ApiController < ApplicationController
     relevant_backtrace_line = e.backtrace.find{ |l| l.include?('/api/v1/') }
     line = relevant_backtrace_line ? relevant_backtrace_line.split('.rb:').last : nil
     error(status: 500, line: line, meta: { error_class: e.class.to_s, error_message: e.message })
+  end
+
+  def snake_case(params)
+    h = {}
+    params.each{ |k, v| h[k.underscore] = v }
+    h
   end
 end

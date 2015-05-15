@@ -13,8 +13,8 @@
       .hint Remove from List
     
     .item-action-button.set-booking-info{ ng_show: 'm.userOwnsPlan()' }
-      %i.action.fa.fa-clock-o{ add_booking_info_on_click: 'item' }
-      .hint Add Booking Info
+      %i.action.fa.fa-clock-o{ ng_class: '{neon: item.start_date || item.start_time || item.confirmation }', add_booking_info_on_click: true, item: 'item' }
+      .hint Booking Info
     
     .item-action-button.love-item{ ng_show: 'item.currentUserSaved()' }
       %i.action.fa.fa-heart{ ng_show: '!item.currentUserLoves()', love_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserLove()' }
