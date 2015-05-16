@@ -50,4 +50,13 @@ angular.module("Common").service "SPItem", (CurrentUser, Item, Mark, Note, Query
           self.noteChanged = false
           self.noteSearched = true
 
+    update: (data, callback) ->
+      self = @
+      self._itemObj().update( item: data )
+        .success (response) ->
+          _.forEach data, (k, v) -> self[k] = v
+          callback?()
+        .error (response) -> 
+          ErrorReporter.fullSilent(response, "SPItem update", { id: self.id, data: data })
+
   return SPItem

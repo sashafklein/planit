@@ -16,7 +16,7 @@ class Api::V1::MarksController < ApiController
   def create # ie "save"
     return permission_denied_error unless current_user
     if place = Place.find(params[:place_id])
-      if mark = current_user.marks.unscoped.where( place_id: place.id ).first
+      if mark = Mark.unscoped.where( user: current_user, place_id: place.id ).first
         mark.update_attributes!(deleted: false) if mark.deleted?
       else
         current_user.marks.create!( place: place )

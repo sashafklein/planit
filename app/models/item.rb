@@ -41,11 +41,6 @@ class Item < BaseModel
   validates_presence_of :mark, :plan
 
   scope :with_tabs, -> { all }
-  scope :with_day_of_week, -> (dow) { where("day_of_week <> ?", day_of_weeks[dow.to_s]) }
-
-  enum day_of_week: { monday: 0, tuesday: 1, wednesday: 2, thursday: 3, friday: 4, saturday: 5, sunday: 6 }
-
-  before_save { self.start_time = Services::TimeConverter.new(self.start_time).absolute if start_time_changed? }
 
   # CLASS METHODS
 
@@ -97,10 +92,6 @@ class Item < BaseModel
 
   def last_in_day?
     order == order.length
-  end
-
-  def weekday
-    day_of_week ? day_of_week.capitalize : nil
   end
 
   # INDIVIDUAL ITEM PASS THROUGH LINKAGES

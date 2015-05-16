@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507221231) do
+ActiveRecord::Schema.define(version: 20150515220628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,14 +107,16 @@ ActiveRecord::Schema.define(version: 20150507221231) do
   create_table "items", force: :cascade do |t|
     t.integer  "mark_id"
     t.integer  "plan_id"
-    t.integer  "day_of_week",               default: 0
-    t.string   "start_time",    limit: 255
-    t.float    "duration"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published",                 default: true
-    t.json     "extra",                     default: {}
+    t.boolean  "published",                default: true
+    t.json     "extra",                    default: {}
     t.string   "meta_category", limit: 25
+    t.string   "start_time"
+    t.string   "end_time"
+    t.string   "start_date"
+    t.string   "end_date"
+    t.string   "confirmation"
   end
 
   add_index "items", ["mark_id"], name: "index_items_on_mark_id", using: :btree

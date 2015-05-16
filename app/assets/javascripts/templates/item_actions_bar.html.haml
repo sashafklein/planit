@@ -1,15 +1,31 @@
 .item-actions-wrapper
   .item-actions
+
+    .item-action-button.save-item{ ng_show: '!m.userOwnsPlan()'}
+      %i.action.fa.fa-bookmark{ ng_show: '!item.currentUserSaved()', save_place_on_click: '{{item.mark.place.id}}', success_function: 'item.currentUserSave()' }
+      .hint{ ng_show: '!item.currentUserSaved()' } Bookmark
+
+      %i.action.fa.fa-bookmark.neon{ ng_show: 'item.currentUserSaved()', unsave_place_on_click: '{{item.mark.place.id}}', success_function: 'item.currentUserUnsave()' }
+      .hint{ ng_show: 'item.currentUserSaved()' } Remove Bookmark
+          
     .item-action-button.remove-item{ ng_show: 'm.userOwnsPlan()' }
       %i.action.fa.fa-trash{ ng_click: 'm.plan().deleteItem(item)' }
       .hint Remove from List
-    .item-action-button.love-item
+    
+    .item-action-button.set-booking-info{ ng_show: 'm.userOwnsPlan()' }
+      %i.action.fa.fa-clock-o{ ng_class: '{neon: item.start_date || item.start_time || item.confirmation }', add_booking_info_on_click: true, item: 'item' }
+      .hint Booking Info
+    
+    .item-action-button.love-item{ ng_show: 'item.currentUserSaved()' }
       %i.action.fa.fa-heart{ ng_show: '!item.currentUserLoves()', love_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserLove()' }
       .hint{ ng_show: '!item.currentUserLoves()' } Love
+      
       %i.action.fa.fa-heart.neon{ ng_show: 'item.currentUserLoves()', unlove_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserUnlove()' }
       .hint{ ng_show: 'item.currentUserLoves()' } Unlove
-    .item-action-button.been-item
-      %i.action.fa.fa-check-square{ ng_show: '!item.currentUserVisited()', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserBeen()' }
+    
+    .item-action-button.been-item{ ng_show: 'item.currentUserSaved()' }
+      %i.action.fa.fa-thumb-tack{ ng_show: '!item.currentUserVisited()', been_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserBeen()' }
       .hint{ ng_show: '!item.currentUserVisited()' } I Have Been Here
-      %i.action.fa.fa-check-square.enabled{ ng_show: 'item.currentUserVisited()', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserUnbeen()' }
+      
+      %i.action.fa.fa-thumb-tack.neon{ ng_show: 'item.currentUserVisited()', notbeen_place_on_click: '{{ item.mark.place.id }}', success_function: 'item.currentUserUnbeen()' }
       .hint{ ng_show: 'item.currentUserVisited()' } I Haven't Been Here

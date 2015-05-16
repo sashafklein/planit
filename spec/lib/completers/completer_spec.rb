@@ -565,7 +565,7 @@ module Completers
           start_time: '3:00',
           duration: 0.5,
           order: 1,
-          day_of_week: 'FRIDAY'
+          start_date: 'FRIDAY'
         },
         day: { order: 1 },
         plan: { name: "36 Hours in Cartagena, Colombia - NYTimes.com" },

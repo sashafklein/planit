@@ -1,4 +1,4 @@
-angular.module('Common').directive 'modalHeader', (Modal) ->
+angular.module('Modals').directive 'modalHeader', (Modal) ->
   return { 
     replace: true
     transclude: false

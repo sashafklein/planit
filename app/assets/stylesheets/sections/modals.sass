@@ -1,4 +1,26 @@
 .planit-modal
+
+  $cleanModalMargin: 15px
+
+  .clean-modal
+    text-align: center
+    margin: 3 * $cleanModalMargin
+    .clean-modal-separator
+      border-top: 2px solid gray(95)
+      margin: ($cleanModalMargin * 2) 10%
+      width: 80%
+    .clean-modal-body
+      margin: ( 2 * $cleanModalMargin ) 0
+      padding: $cleanModalMargin
+    .clean-modal-input-group
+      margin: $cleanModalMargin 0
+    input
+      margin: 0 $cleanModalMargin
+      padding: ( $cleanModalMargin / 3 )
+    button
+      padding: $cleanModalMargin
+
+
   z-index: 150000 !important
   button.close:hover
     background: transparent !important

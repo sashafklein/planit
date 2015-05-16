@@ -2,8 +2,6 @@ class Plan < BaseModel
 
   belongs_to :user
 
-  has_many :legs
-  has_many :days, through: :legs
   has_many :items, dependent: :destroy
 
   has_many :plan_locations, dependent: :destroy
@@ -23,8 +21,6 @@ class Plan < BaseModel
   boolean_accessor :published
   json_accessor :manifest
   
-  delegate :last_day, :departure, to: :last_leg
-  delegate :arrival, to: :first_leg
   delegate :add_to_manifest, :remove_from_manifest, :move_in_manifest, to: :manifester
 
   def copy!(new_user:, copy_manifest: false)
@@ -51,6 +47,21 @@ class Plan < BaseModel
     add_with_place!(user, place)
   end
 
+  def add_items!(external_items)
+    external_items.includes(:notes, mark: [:place, :notes]).each do |item|
+      mark = Mark.unscoped.where( user_id: user.id, place_id: item.mark.place.id).first_or_create!
+      new_item = mark.items.where(plan_id: id).first_or_create!
+      
+      mark_note = item.mark.notes.first
+      item_note = item.notes.first 
+      
+      mark.notes.create!(body: mark_note.body, source: mark_note.source) if mark_note
+      new_item.notes.create!(body: item_note.body, source: item_note.source) if item_note
+
+      new_item
+    end
+  end
+
   def add_with_place!(user, place)
     mark = Mark.unscoped.where(user: user, place_id: place.id).first_or_initialize
     mark.update_attributes!(deleted: false)
@@ -73,14 +84,6 @@ class Plan < BaseModel
     items.marks.where(lodging: true).any?
   end
 
-  def first_leg
-    legs.first
-  end
-
-  def last_leg
-    legs.last
-  end
-
   def uniq_abbreviated_coords(round=1)
     items.with_places.places.map{ |p| [ p.lat.round(1), p.lon.round(1) ] }.uniq
   end
@@ -95,10 +98,6 @@ class Plan < BaseModel
 
   def bucket
     Item.where(day_id: nil, plan_id: self.id)
-  end
-
-  def total_days
-    days.count
   end
 
   def places

@@ -9,6 +9,10 @@ class ApiController < ApplicationController
     api_rescue(e)
   end
 
+  rescue_from ActiveRecord::RecordInvalid do |e|
+    api_rescue(e)
+  end
+
   def permission_denied_error(meta: {}, line: nil)
     error(status: 403, message: 'Permission Denied!', meta: meta, line: line)
   end
@@ -21,7 +25,8 @@ class ApiController < ApplicationController
       error: true,
       controller: self.class.to_s,
       line: line,
-      code: status
+      code: status,
+      params: params.except(:controller, :action).to_json
     }
 
     render json: response.to_json, status: status
@@ -55,5 +60,11 @@ class ApiController < ApplicationController
     relevant_backtrace_line = e.backtrace.find{ |l| l.include?('/api/v1/') }
     line = relevant_backtrace_line ? relevant_backtrace_line.split('.rb:').last : nil
     error(status: 500, line: line, meta: { error_class: e.class.to_s, error_message: e.message })
+  end
+
+  def snake_case(params)
+    h = {}
+    params.each{ |k, v| h[k.underscore] = v }
+    h
   end
 end

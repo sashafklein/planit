@@ -59,7 +59,10 @@ gem "friendly_id"
 
 # terminal
 gem "colorize"
-gem "rspec-instafail", require: false
+# gem "rspec-instafail", require: false
+# Add to .rspec on reinclusion:
+# --require rspec/instafail
+# --format RSpec::Instafail
 
 # apis
 gem "yelp"
@@ -76,7 +79,7 @@ gem "activeadmin", github: "activeadmin"
 gem "angular-rails-templates"
 
 source "https://rails-assets.org" do
-  %w( angular angular-mocks active-support async lodash leaflet angular-leaflet-directive dragula.js ).each do |lib|
+  %w( angular angular-mocks active-support async lodash leaflet angular-leaflet-directive dragula.js momentjs ).each do |lib|
     gem "rails-assets-#{lib}"
   end
 end

@@ -1,9 +1,9 @@
-angular.module('Common').directive 'chooseMarkPlace', (Mark, Modal, ErrorReporter, $timeout) ->
+angular.module('Modals').directive 'chooseMarkPlace', (Mark, Modal, ErrorReporter, $timeout) ->
   return { 
     restrict: 'E'
     transclude: false
     replace: true
-    templateUrl: 'choose_mark_place.html'
+    templateUrl: 'modals/choose_mark_place.html'
     scope:
       mark: '='
       headerTitle: '@'

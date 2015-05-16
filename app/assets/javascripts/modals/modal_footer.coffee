@@ -1,4 +1,4 @@
-angular.module("Common").directive "modalFooter", (Modal) ->
+angular.module("Modals").directive "modalFooter", (Modal) ->
   return {
     restrict: 'E'
     replace: true

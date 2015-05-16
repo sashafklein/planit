@@ -3,6 +3,7 @@ $darkNeonPink: #c03
 $lightBlue: #33a
 $lightestBlue: #66d
 $darkBlue: #007
+$faintBlue: #335
 // PAGE STRUCTURE
 
 @function gray($value)
@@ -1153,3 +1154,34 @@ hr.divider
       background: #a21cbf !important
     &.gray
       background: #bdbdbd !important
+
+i
+  &.pink
+    color: $neonPink
+  &.faint-blue
+    color: $faintBlue
+  &.italic
+    font-style: italic
+
+button.btn
+  &.pink
+    background-color: $neonPink
+    color: white
+    font-weight: bold
+    &:hover
+      background-color: darken($neonPink, 10)
+  &.light-blue
+    background-color: $lightBlue
+    &:hover
+      background-color: darken($lightBlue, 10)
+  &.lightest-blue
+    background-color: $lightestBlue
+  &.faint-blue
+    background-color: lighten($faintBlue, 20)
+    color: white
+    font-weight: bold
+    &:hover
+      background-color: lighten($faintBlue, 10)
+  &.dark-blue
+    background-color: $darkBlue
+    color: white
