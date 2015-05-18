@@ -1,4 +1,4 @@
-angular.module("Common").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SPItem, QueryString, RailsEnv, ErrorReporter, Spinner, Flash, $timeout) ->
+angular.module("Services").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SPItem, QueryString, RailsEnv, ErrorReporter, Spinner, Flash, $timeout) ->
   class SPPlan
 
     constructor: (plan) -> _.extend( @, plan )

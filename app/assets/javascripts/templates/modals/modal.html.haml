@@ -2,31 +2,11 @@
   .modal-dialog
 
     .modal-content{ ng_show: '!data.loading && !data.error' }
-      %add_mark_place{ mark: 'data.mark', initiate: 'data.initiate', ng_if: "data.type == 'addMarkPlace' && (data.mark || data.initiate)", header_title: '{{title()}}' }
-      %choose_mark_place{ mark: 'data.mark', ng_if: "data.type == 'chooseMarkPlace'", header_title: '{{title()}}' }
-      %view_mark_place{ mark: 'data.place', ng_if: "data.type == 'viewMarkPlace' && data.place", header_title: '{{title()}}' }
-      %add_note_modal{ ng_if: "data.type == 'addNote'", obj_id: 'data.objId', obj_type: 'data.objType' }
-      %add_to_plan{ data: 'data', ng_if: "data.type == 'addToPlan'", header_title: '{{title()}}' }
-      %create_or_edit_plan{ data: 'data', ng_if: "data.type == 'createOrEditPlan'", header_title: '{{title()}}' }
-      %edit_booking_info{ item: 'data.item', ng_if: "data.type == 'booking'" }
+      %choose_mark_place{ mark: 'data.mark', ng_if: "data.type == 'chooseMarkPlace'" }
+      %edit_booking_info{ item: 'data.item', ng_if: "data.type == 'edit-booking-info'" }
 
-    .modal-content{ ng_show: 'data.loading || data.error || data.remove ' }
-      .loading{ ng_show: 'data.loading' }
-        %modal_header{ header_title: '{{title()}}' }
-        .modal-body
-          .message-box
-            %i.fa.fa-spinner.fa-spin
-            %span {{ loadingText() }}
-        %modal_footer
-
-      .error{ ng_show: 'data.error' }
-        %modal_header{ header_title: '{{title()}}' }
-        .modal-body
-          .message-box
-            %i.fa.fa-exclamation-triangle
-            %span= "Something's gone wrong! We've been notified."
-        %modal_footer
-
-      / .remove{ ng_show: 'data.remove' }
-      /   %modal_header{ header_title: 'Are You Sure?' }
-      /   %modal_footer{ cancel_text: 'No', cancel_method: 'cancel', extra_buttons: 'confirmButton(data.remove)' }
+    .modal-content{ ng_show: 'data.loading || data.error' }
+      .clean-modal{ ng_show: 'data.loading', ng_class: '{loading: data.loading, error: data.error}' }
+        .message-box
+          %i.fa{ ng_class: "{ 'fa-spinner fa-spin': data.loading, 'fa-exclamation-mark': data.error }" }
+          %span {{ text() }}

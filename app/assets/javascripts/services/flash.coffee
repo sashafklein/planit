@@ -6,7 +6,7 @@
 ##    # This will create a flash in a specified class/id
 ##    Flash.error("You failed!", "#specific-flash-id")
 
-angular.module("Common").factory 'Flash',  ($timeout) ->
+angular.module("Services").factory 'Flash',  ($timeout) ->
   alert_selector = '.flash-alert'
 
   _flashContainer = (location) ->

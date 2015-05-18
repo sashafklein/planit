@@ -24,7 +24,7 @@
       - if current_user.saves_to_review.count > 0
         .container.none.inbox-folder
           .bubbled-header-block
-            %span.bubbled.medium.primary= "My In-Progress Saves"
+            %span.bubbled.medium.primary My In-Progress Saves
             = "&nbsp; (<strong> #{current_user.saves_to_review.count} </strong>)".html_safe
             %span.flat.delete-right
               = "Clear All &nbsp;".html_safe # NEEDSFOLLOWUP

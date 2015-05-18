@@ -1,4 +1,4 @@
-angular.module("Common").service "SPItem", (CurrentUser, Item, Mark, Note, QueryString, Flash, ErrorReporter, ClassFromString) ->
+angular.module("Services").service "SPItem", (CurrentUser, Item, Mark, Note, QueryString, Flash, ErrorReporter, ClassFromString) ->
   class SPItem
 
     constructor: (item) -> _.extend( @, item )

@@ -1,4 +1,4 @@
-angular.module("Common").service "MetaCategory", ->
+angular.module("Services").service "MetaCategory", ->
   class MetaCategory
 
     @colorClass: (mc) ->

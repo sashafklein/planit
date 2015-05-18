@@ -13,20 +13,9 @@ angular.module("Modals").directive 'modal', ($rootScope, Modal) ->
         
         s.data = $rootScope.modalData
 
-        s.title = ->  
-          switch s.data.type
-            when 'addPin' then "Add New Pin"
-            else ''
-
-        # s.confirmButton = ( callback ) ->
-        #   [{ class: "planit-button neon", text: 'Yes', clickMethod: 'callback()' }]
-
-        s.loadingText = ->
-          if s.data.loading == 'longer'
-            "Working on it. This may take a while..."
-          else
-            "Working on it..."
-
+        s.text = -> if s.data.error? then s.errorText() else s.loadingText()
+        s.loadingText = -> if s.data?.text? then s.data.text else "Working on it..."
+        s.errorText = -> if s.data?.text? then s.data.text else "Something's gone wrong! We've been notified."
         s.dismiss = -> new Modal(s.data.type).hide()
 
   }

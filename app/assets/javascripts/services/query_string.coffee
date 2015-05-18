@@ -1,4 +1,4 @@
-angular.module('Common').factory 'QueryString', ($location, $window) ->
+angular.module('Services').factory 'QueryString', ($location, $window) ->
 
   class QueryString
 

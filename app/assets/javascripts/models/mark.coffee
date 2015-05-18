@@ -6,6 +6,7 @@ mod.factory "Mark", (BaseModel, $http, Place) ->
     constructor: (_properties) ->
       properties = _.clone(_properties)
       @place = @extractHasOneRelation(Place, properties, 'place')
+      @place_options = @extractHasManyRelation(Place, properties, 'place_options')
       _.extend(this, properties)
 
     @class: "Mark"
@@ -13,6 +14,8 @@ mod.factory "Mark", (BaseModel, $http, Place) ->
 
     @generateFromJSON: (json) -> BaseModel.generateFromJSON(Mark, json)
     @basePath: '/api/v1/marks'
+
+    getPlaceOptions: -> $http.get( "#{ @objectPath() }/place_options" )
     
     choose: (place_option_id) -> $http.post( "#{ @objectPath() }/choose", { place_option_id: place_option_id } )
     

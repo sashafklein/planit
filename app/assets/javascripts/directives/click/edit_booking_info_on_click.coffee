@@ -1,4 +1,4 @@
-angular.module("Common").directive 'addBookingInfoOnClick', (Modal) ->
+angular.module("Common").directive 'editBookingInfoOnClick', (Modal) ->
   
   return {
     restrict: 'A'
@@ -6,7 +6,7 @@ angular.module("Common").directive 'addBookingInfoOnClick', (Modal) ->
       item: '='
     link: (s, e, a) ->
       
-      s.modal = new Modal('booking')
+      s.modal = new Modal('edit-booking-info')
       
       e.bind "click", (event) -> s.modal.show({ item: s.item })  
   }

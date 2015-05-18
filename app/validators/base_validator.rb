@@ -47,7 +47,9 @@ class BaseValidator < ActiveModel::Validator
   def validate_group_uniqueness!(attributes, count_nil=false)
     attribute_hash = attributes.inject({}){ |hash, a| hash[a] = record[a]; hash}
 
-    attribute_hash.compact! unless count_nil
+    if count_nil
+      return nil unless attribute_hash.compact.length == attribute_hash.length
+    end
 
     if found = record.class.find_by(attribute_hash)
       record.errors[:base] << "A #{record.class} with that #{attributes.to_sentence} already exists. ID: #{found.id}" if found.id != record.id

@@ -1,4 +1,4 @@
-angular.module("Common").service 'Spinner', ->
+angular.module("Services").service 'Spinner', ->
 
   class Spinner
     @show: -> 

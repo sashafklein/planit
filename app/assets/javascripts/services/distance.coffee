@@ -1,4 +1,4 @@
-angular.module("Common").service "Distance", () ->
+angular.module("Services").service "Distance", () ->
 
   class Distance
 
