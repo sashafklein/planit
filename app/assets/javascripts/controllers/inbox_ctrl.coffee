@@ -30,7 +30,6 @@ angular.module("Controllers").controller 'InboxCtrl', ($scope, Mark, Modal, Erro
   s.chooseMark = (mark, place_option_id, callback) ->
     mark.choose( place_option_id )
       .success (response) ->
-        s.mark.place = Place.generateFromJSON( response )
         s.mark.place_options = []
         s._removeMark( mark )
         callback?()

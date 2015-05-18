@@ -37,16 +37,16 @@ class PlaceOption < BaseModel
   end
 
   def choose!
-    place = complete
+    place = complete!
     
     unless place && place.is_a?(Place) && place.persisted?
-      Flag.create(name: "Place couldn't be created!", details: "Completion failed during PlaceOption choosing", info: self.attributes)
+      Rollbar.error("Completion failed during PlaceOption choosing", info: self.attributes)
       return false 
     end
     
     mark.update_attributes!(place_id: place.id)
     [images, flags].map{ |a| a.repoint!(place) }
-    place
+    place      
   end
 
   def duplicate(mark_id: nil)
@@ -59,7 +59,7 @@ class PlaceOption < BaseModel
     attributes.except("mark_id", "id", "created_at", "updated_at")
   end
 
-  def complete
+  def complete!
     Completers::PlaceCompleter.new( generic_attrs ).complete!
   end
 end

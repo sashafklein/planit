@@ -6,9 +6,8 @@ class Api::V1::MarksController < ApiController
 
   def choose
     return permission_denied_error unless @mark && @mark.user == current_user && @mark.place_options.any?
-    place_option = @mark.place_options.find(params[:place_option_id])
-    place = place_option.choose!
-    render json: place, serializer: SearchPlaceSerializer
+    PlaceOptionChooseJob.perform_later(place_option_id: params[:place_option_id])
+    success
   end
 
   # REGULAR MARKS
