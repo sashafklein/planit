@@ -9,5 +9,7 @@ mod.factory "User", (BaseModel, $http) ->
 
     @findPlans: (id) -> $http.get( "#{@objectPath(id)}/plans" )
 
+    @locations: (id) -> $http.get( "#{@objectPath(id)}/locations" )
+
   return User
       

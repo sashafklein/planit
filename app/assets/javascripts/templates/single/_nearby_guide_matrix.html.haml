@@ -19,23 +19,3 @@
           = "&nbsp;<br>".html_safe
           %p{ style: "font-size: 50%; opacity: 0.8" } OR
           BROWSE PLANIT GUIDES
-      .container.centered
-        .column{ ng_repeat: 'plan in m.planManager.nearbyPlans[ m.plan().currentLocation().id ]' }
-          .any-tab-wrapper{ ng_class: 'tabClass(plan, $index)' }
-            .guide-item-count.numbered-box {{ plan.place_ids.length }}
-            .content-tab
-              .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'm.planManager.saveFrom( plan.id )', ng_hover: 'imageChangeable = true' }
-                %img{ ng_src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
-                %i.add-photo-camera.fa.fa-camera-retro.white{ ng_show: 'plan.place_ids.length && (imageChangeable || ( !plan.best_image || !plan.best_image.url ) )', ng_click: 'changeImage()' }
-                %i.add-photo-camera.fa.fa-plus-circle.white{ ng_show: '!plan.place_ids.length', ng_click: 'changeImage()' }
-              .content-tab-title{ ng_click: 'm.planManager.saveFrom( plan.id )' }
-                {{ plan.name }}
-                .guide-owner-avatar{ ng_show: '!plan.userOwns() || ( plan.userOwns() && plan.hasCollaborators() )', ng_class: "{'collaborators': plan.userOwns() && plan.hasCollaborators() }" }
-                  %i.fa.fa-group{ ng_show: 'plan.userOwns() && plan.hasCollaborators()' }
-                  %span{ ng_show: '!plan.userOwns() && !plan.user.avatar', ng_click: 'm.visitUser( plan.user.id )' } {{ plan.user.name[0].toUpperCase() }}
-                  %img{ ng_show: '!plan.userOwns() && plan.user.avatar', ng_src: "{{ plan.user.avatar }}" }
-                  .guide-avatar-helper
-                    .guide-avatar-name
-                      %b{ ng_show: '!plan.userOwns()' } {{ plan.user.first_name }}
-                      %span{ ng_repeat: 'collaborator in plan.collaborators' }
-                        %span{ ng_click: 'm.visitUser( collaborator.id )' } {{ collaborator.first_name }}

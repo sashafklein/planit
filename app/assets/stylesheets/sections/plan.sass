@@ -5,6 +5,66 @@ $lightestBlue: #66d
 $darkBlue: #007
 $inkBlue: #003
 
+
+.guide-owner-avatar
+  position: absolute
+  top: -35px
+  left: 8px
+  height: 28px
+  width: 28px
+  line-height: 22px
+  font-size: 16px
+.user-avatar, .guide-owner-avatar
+  border-radius: 50%
+  background: rgba(0,0,0,0.8)
+  border: 3px solid rgba(0,0,0,0.9)
+  text-align: center
+  color: #fff
+  .avatar-letter
+    height: 100%
+    width: 100%
+    margin: auto
+    overflow: hidden
+  &.collaborators
+    transition: 0.3s ease all
+    opacity: 0.4
+    &:hover
+      opacity: 1
+  img
+    height: 100%
+    width: 100%
+    border-radius: 50%
+  .guide-avatar-helper
+    display: none
+    visibility: hidden
+    position: absolute
+    height: 18px
+    left: 28px
+    top: 0
+    bottom: 0
+    margin: auto
+    &:hover
+      display: block
+      visibility: visible
+    .guide-avatar-name
+      height: 18px
+      background: #fff
+      color: #000
+      white-space: nowrap
+      line-height: 16px
+      font-size: 12px
+      font-weight: normal
+      border-radius: 3px
+      padding: 1px 4px
+      max-width: 160px
+      text-overflow: ellipsis
+      overflow-x: hidden
+      margin: auto 0 auto 5px
+  &:hover
+    .guide-avatar-helper
+      display: block
+      visibility: visible
+
 #show-plan-page, #new-plan-page, #plan-and-list-page, #share-mailer
   height: auto
 
@@ -755,7 +815,7 @@ $inkBlue: #003
       height: 65px
 
   .setplanbox-on-plan-page.start-where
-    height: 100px
+    height: 130px
 
   .start-where .rainbow-divider, .addbox-wrapper .rainbow-divider
     width: 33%
@@ -823,7 +883,7 @@ $inkBlue: #003
         height: 65px
 
     .setplanbox-on-plan-page.start-where
-      height: 100px
+      height: 130px
 
     .start-where .rainbow-divider, .addbox-wrapper .rainbow-divider
       width: 33%

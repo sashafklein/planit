@@ -1,12 +1,27 @@
 .start-a-new-guide.except-landscape{ ng_show: '!m.plan() && m.isLoaded' }
   .start-where.setplanbox-on-plan-page{ ng_class: "{'shortened': m.mainMenuToggled && m.mobile}" }
-    .start-a-new-plan Start a new plan:
-    .input-and-results{ ng_hide: "m.mainMenuToggled && m.mobile" }
-      %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: 'Where are you going?', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'startPlanNearBestOption()', ng_on_esc_key: 'planNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
-      %ul.suggested-results.blue{ ng_show: '!m.typing && planNearby && planNearby.length>1' }
-        %li.search-results-list{ ng_repeat: 'option in m.nearbyOptions', ng_click: 'startPlanNear(option)', ng_class: "planNearbyOptionClass(option)"}
-          %b{ ng_bind_html: "underlined( option.name )" }
-          %span{ ng_bind_html: "underlined( option.adminName1 + ', ' + option.countryName  )" } 
-        %li.search-results-working{ ng_show: 'planNearbyWorking > 0' } Working on it...
-        %li.search-results-working{ ng_show: 'noPlanNearbyResults()' } Can't find that...
+    .select-user
+      .user-avatar{ ng_click: 'focusOnUserSelect()' }
+        .avatar-letter{ ng_show: "!m.userInQuestion().avatarImage"} {{ m.userInQuestion().firstLetter }}
+      .select-user-input
+        .input-and-results
+          %input#user-select{ ng_model: 'selectedUserName', ng_focus: 'selectingUser=true', ng_blur: 'selectingUser=false;calculateSelectedUser()', ng_on_esc_key: 'blurOnUserSelect()', ng_on_enter_key: 'chooseFirstUser()' }
+          %i.select-user-dropdown.fa.fa-caret-down{ ng_class: "{'hidden': selectingUser}" }
+          %ul.suggested-results.blue{ ng_show: '!m.typing && selectingUser' }
+            %li.search-results-list{ ng_show: '!userOptions().length', ng_click: 'selectThisUser( m.currentUser )' } 
+              %b {{ m.currentUserName }}
+            %li.search-results-list{ ng_repeat: 'option in userOptions()', ng_click: 'selectThisUser( option )'}
+              %b{ ng_bind_html: "underlined( option.name )" }
+            %li.search-results-working{ ng_show: '!m.typing && !userOptions().length' } 
+              You may need to 
+              %a{ style:"text-decoration: underline" } make friends
+    .where-are-we
+      .input-and-results{ ng_hide: "m.mainMenuToggled && m.mobile" }
+        %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: '{{ wherePrompt() }}', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'startPlanNearBestOption()', ng_on_esc_key: 'planNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
+        %ul.suggested-results.blue{ ng_show: '!m.typing && planNearby && planNearby.length>1' }
+          %li.search-results-list{ ng_repeat: 'option in m.nearbyOptions', ng_click: 'startPlanNear(option)', ng_class: "planNearbyOptionClass(option)"}
+            %b{ ng_bind_html: "underlined( option.name )" }
+            %span{ ng_bind_html: "underlined( option.adminName1 + ', ' + option.countryName  )" } 
+          %li.search-results-working{ ng_show: 'planNearbyWorking > 0' } Working on it...
+          %li.search-results-working{ ng_show: 'noPlanNearbyResults()' } Can't find that...
     %ng_include{ src: "'application/_rainbow_divider.html'" }

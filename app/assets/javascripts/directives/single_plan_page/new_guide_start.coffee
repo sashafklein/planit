@@ -7,7 +7,38 @@ angular.module("Directives").directive 'newGuideStart', (Geonames, ErrorReporter
       m: '='
     link: (s, e, a) ->
 
+      s.selectedUserName = s.m.userInQuestion().name
+      s.calculateSelectedUser = -> s.selectedUserName = s.m.userInQuestion().name
+      s.blurOnUserSelect = -> $('input#user-select').blur(); return
+      s.focusOnUserSelect = -> $('input#user-select').focus(); return
+
+      s.userNameSelectIncludes = ( string ) -> 
+        return null unless string?.length && s.selectedUserName?.length
+        return false if string == s.selectedUserName
+        toMatch = new RegExp( s.selectedUserName.toLowerCase() )
+        if string.toLowerCase().match( toMatch )?.length then return true else return false
+
+      s.chooseFirstUser = ->
+        return unless s.userOptions()?.length > 0
+        s.selectThisUser( s.userOptions()[0] )
+
+      s.selectThisUser = ( user ) -> null # REVISIT
+
+      s.x = []
+      s.m.currentUserUniverse = -> s.x
+      
+      s.userOptions = -> 
+        return s.m.currentUserUniverse() if s.m.currentUserName == s.selectedUserName
+        toMatch = new RegExp( s.selectedUserName.toLowerCase() )
+        _.filter( s.m.currentUserUniverse(), (u) -> u.name.toLowerCase().match( toMatch )?.length )
+
       s.planNearbyOptionClass = (option, index=0) -> ClassFromString.toClass( option.name, option.adminName1, option.countryName, index )
+
+      s.wherePrompt = ->
+        if s.m.userInQuestion().id == s.m.currentUserId
+          "Where are you exploring?"
+        else
+          "Where in #{s.m.userInQuestion.name}'s Planit?"
 
       s.searchPlanNearby = -> 
         s.m.nearbyOptions = [] if s.planNearby?.length
@@ -60,5 +91,7 @@ angular.module("Directives").directive 'newGuideStart', (Geonames, ErrorReporter
         s.planNearby = null
         s.m.nearbyOptions = []
         s.m.browsing = true
+
+      window.start = s
 
   }

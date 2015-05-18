@@ -107,6 +107,7 @@ Rails.application.routes.draw do
 
       resources :users, only: [:show] do
         resources :places, only: [:index], controller: 'users/places'
+        resources :locations, only: [:index], controller: 'users/locations'
         resources :plans, only: [:index], controller: 'users/plans'
         resources :marks, only: [] do
           match '/create' => 'users/marks#create', on: :collection, via: [:options, :post]

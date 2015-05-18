@@ -1,4 +1,161 @@
+.select-user
+  position: relative
+  display: inline-block
+  height: 34px
+  width: 100%
+  .user-avatar
+    height: 34px
+    width: 34px
+    line-height: 28px
+    font-size: 22px
+    position: absolute
+  .select-user-input
+    margin-left: 45px
+    display: block
+    cursor: pointer
+    &:hover
+      input
+        background: rgba(255,255,255,0.05)
+    input
+      width: 100%
+      margin: 5px 0
+      padding: 0 4px
+      font-size: 16px
+      background: transparent
+      font-weight: bold
+      color: #fff
+      border: 0
+      border-bottom: solid 1px rgba(255,255,255,0.5)
+      &:hover, &:focus
+        background: rgba(255,255,255,0.25)
+        border-bottom: solid 1px rgba(255,255,255,0.75)
+        outline: none
+        outline-width: 0
+    i.select-user-dropdown
+      position: absolute
+      top: 0
+      bottom: 0
+      right: 5px
+      width: 15px
+      margin: auto 0
+      height: 15px
+      text-align: center
+      line-height: 15px
+      font-size: 15px
+      color: #fff
+      .hidden
+        display: none
+
+.where-are-we
+  margin-top: 28px
+
 #user-show-page
+  min-height: 100%
+
+  .user-location-search
+    position: absolute
+    left: 0
+    right: 0
+    top: 250px
+    margin: 0 auto 130px auto
+    display: inline-block
+    width: 70%
+    min-width: 668px
+    max-width: 950px
+    background: #fff
+    input
+      width: 300px
+
+    .location-breadcrumb
+      position: relative
+      padding: 8px 16px
+      width: 100%
+      background: #f06
+      margin-bottom: 25px
+      font-size: 18px
+      line-height: 18px
+      color: #fff
+      select
+        font-size: 17px
+        line-height: 17px
+        padding: 0
+        background: transparent
+        border: none
+        margin: 0
+        &:focus
+          outline: none
+          outline-width: 0
+      i.breadcrumb-caret
+        margin: 0 12px
+        color: rgba(255,255,255,0.5)
+      i.exit-breadcrumb
+        position: absolute
+        top: 0
+        bottom: 0
+        margin: auto 0
+        height: 18px
+        right: 16px
+        color: rgba(255,255,255,0.4)
+        cursor: pointer
+        transition: 0.2s ease all
+        &:hover
+          color: #fff
+
+  .user-map-canvas
+    // width: 100%
+    // height: 100%
+    // max-width: 1050px
+    min-width: 768px
+    height: 100%
+    margin: 0 auto
+    .leaflet-wrapper, .leaflet-map-pane
+      height: 100%
+      width: 100%
+    .leaflet-container
+      background: transparent
+    .leaflet-control-attribution
+      display: none
+      visibility: hidden
+
+  .continents
+    margin: 0 auto
+    display: table
+    table-layout: fixed
+    &.large-screen
+      width: 70% 
+      min-width: 768px
+      .continent-column:hover b
+        color: #f06
+        border-bottom: 1px solid #f06
+    &.mobile
+      width: 95%
+      min-width: 300px
+    .continent-column
+      padding: 0 5px
+      display: table-cell
+      box-sizing: border-box
+      b
+        display: block
+        font-size: 130%
+        margin: 10px 0 5px 0
+        color: #333
+        padding-bottom: 3px
+        border-bottom: 1px solid rgba(0,0,0,0.05)
+        cursor: default
+        &.highlighted
+          color: #f06
+          border-bottom: 1px solid #f06
+      a
+        color: #aaa
+        cursor: default
+        &.clickable
+          color: #777
+        &.has-content
+          cursor: pointer
+          font-weight: bold
+          color: #007
+      a.has-content:hover
+        color: #f06
 
   .profile-and-info-wrap
     display: block

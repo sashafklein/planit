@@ -1,0 +1,50 @@
+.user-dashboard{ ng_show: '!m.currentPlanId && !m.selectedCountryLocations()' }
+
+  #header-spacing.except-landscape
+
+  .band#user-show-page
+  
+    %user_map{ ng_if: '!m.mobile', m: 'm', geojson_data: "geojson", location_data: "m.userInQuestionLocations()", ng_mouseleave: "m.selectedContinent=null" }
+
+    .user-location-search.like-container{ ng_show: 'm.selectedCountry' }
+      .location-breadcrumb
+        %b {{ m.selectedCountry.name }}
+        %span{ ng_show: "!m.selectedRegion" }
+          %i.fa.fa-caret-right.breadcrumb-caret
+          %select{ ng_model: 'narrowedRegion' }
+            / , ng_options: 'region in regions( m.selectedCountry )'
+            %option{ value: '' } Narrow by Region
+        %span{ ng_show: "m.selectedRegion && !m.selectedCounty" }
+          %i.fa.fa-caret-right.breadcrumb-caret
+          %select{ ng_model: 'narrowedCounty' }
+            %option{ value: '' } Narrow by Area
+        %i.exit-breadcrumb.fa.fa-times{ ng_click: 'm.resetUserMapView()' }
+      .container.centered
+        .column{ ng_repeat: 'plan in m.planManager.countryPlans( m.selectedCountry )' }
+          .any-tab-wrapper{ ng_class: 'tabClass(plan, $index)' }
+            .guide-item-count.numbered-box {{ plan.place_ids.length }}
+            .content-tab
+              .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'loadPlan( plan.id )', ng_hover: 'imageChangeable = true' }
+                %img{ ng_src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
+                %i.add-photo-camera.fa.fa-camera-retro.white{ ng_show: 'plan.place_ids.length && (imageChangeable || ( !plan.best_image || !plan.best_image.url ) )', ng_click: 'changeImage()' }
+                %i.add-photo-camera.fa.fa-plus-circle.white{ ng_show: '!plan.place_ids.length', ng_click: 'changeImage()' }
+              .content-tab-title{ ng_click: 'loadPlan( plan.id )' }
+                {{ plan.name }}
+                .guide-owner-avatar{ ng_show: '!plan.userOwns() || ( plan.userOwns() && plan.hasCollaborators() )', ng_class: "{'collaborators': plan.userOwns() && plan.hasCollaborators() }" }
+                  %i.fa.fa-group{ ng_show: 'plan.userOwns() && plan.hasCollaborators()' }
+                  %span{ ng_show: '!plan.userOwns() && !plan.user.avatar', ng_click: 'm.visitUser( plan.user.id )' } {{ plan.user.name[0].toUpperCase() }}
+                  %img{ ng_show: '!plan.userOwns() && plan.user.avatar', ng_src: "{{ plan.user.avatar }}" }
+                  .guide-avatar-helper
+                    .guide-avatar-name
+                      %b{ ng_show: '!plan.userOwns()' } {{ plan.user.first_name }}
+                      %span{ ng_repeat: 'collaborator in plan.collaborators' }
+                        %span{ ng_click: 'm.visitUser( collaborator.id )' } {{ collaborator.first_name }}
+
+    / .continents.mobile{ ng_show: "m.mobile" }
+    /   .continent-column
+    /     .continent
+    /       %b {{ m.userInQuestion.name }}'s Countries
+    /       .start-country-repeat{ ng_repeat_start: "country in countries" }
+    /       .country{ ng_show: "userInQuestionHasCountry( country.geonameId )" } 
+    /         %a.has-content{ ng_click: "m.focusOnCountry( country.geonameId )" } {{ country.name }}
+    /       .end-country-repeat{ ng_repeat_end: '' }
