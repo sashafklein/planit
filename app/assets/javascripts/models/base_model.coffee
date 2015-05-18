@@ -56,12 +56,14 @@ mod.factory "BaseModel", ($http) ->
     @all:  -> $http.get(@basePath)
     @find: (id) -> $http.get( @objectPath(id) )
     @create: (data) -> $http.post(@basePath, data)
-    @where: (conditions, alsoSerialize = null) -> 
+    @where: (hash, alsoSerialize = null) -> 
       $http.get(
         @basePath,
         params:
-          conditions: conditions
+          conditions: _.omit(hash, ['scoped', 'serializer']) 
           also_serialize: alsoSerialize
+          serializer: hash.serializer
+          scoped: hash.scoped
       )
 
     update: (data) -> $http.patch( "#{@objectPath()}  ", data )

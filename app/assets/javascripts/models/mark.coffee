@@ -29,4 +29,5 @@ mod.factory "Mark", (BaseModel, $http, Place) ->
 
     @notbeen: ( place_id ) -> $http.post( "#{ @basePath }/notbeen", { place_id: place_id } )
 
+
   return Mark

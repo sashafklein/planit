@@ -28,6 +28,15 @@ class Api::V1::MarksController < ApiController
     end
   end
 
+  def index
+    if params[:scoped]
+      @marks = Mark.where( conditions )
+    else
+      @marks = Mark.unscoped.where( conditions )
+    end
+    render json: @marks, each_serializer: serializer
+  end
+
   def show
     return permission_denied_error unless @mark && @mark.user == current_user
     render json: @mark, serializer: MarkPlaceOptionsSerializer
@@ -76,6 +85,19 @@ class Api::V1::MarksController < ApiController
       @mark = Mark.unscoped.find( mark_id )
     elsif place_id = params[:place_id]
       @mark = Mark.unscoped.where( place_id: place_id, user: current_user ).first
+    end
+  end
+
+  def conditions
+    return {} unless params[:conditions]
+    params[:conditions].is_a?(String) ? JSON.parse(params[:conditions]) : params[:conditions]
+  end
+
+  def serializer
+    if params[:serializer]
+      params[:serializer].try(:constantize)
+    else
+      MarkSerializer
     end
   end
 

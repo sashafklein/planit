@@ -5,10 +5,10 @@ angular.module('Modals').directive 'chooseMarkPlace', (Mark, Modal, ErrorReporte
     replace: true
     templateUrl: 'modals/choose_mark_place.html'
     scope:
-      mark: '='
+      data: '='
 
     link: (s, e) ->
-      s.mark = Mark.generateFromJSON( s.mark ) unless s.mark.class? # Already generated
+      s.mark = if s.data.mark?.class then s.data.mark else Mark.generateFromJSON s.data.mark
 
       s.edit = -> window.location.href = "/marks/#{s.mark.id}"
       
@@ -16,18 +16,12 @@ angular.module('Modals').directive 'chooseMarkPlace', (Mark, Modal, ErrorReporte
 
       s.cancel = -> 
         return unless confirm("Are you sure?")
-        s.mark.destroy()
-          .success -> s.confirm()
-          .error -> ErrorReporter.fullSilent( response, 'chooseMarkPlace modal cancel()', { mark_id: s.mark.id })
+        s.data.destroy( s.mark , s._hide )
 
       s.confirm = ( place_option_id ) -> 
         new Modal('').show({ loading: true, text: 'Saving new bookmark...' })
-        s.mark.choose( place_option_id )
-          .success (response) ->
-            s.mark.place = response
-            new Modal('').hide()
-          .error (response) -> 
-            new Modal('').hide()
-            ErrorReporter.fullSilent( response, 'chooseMarkPlace modal confirm', { mark_id: s.mark.id } )
+        s.data.choose( s.mark, place_option_id, s._hide )
 
+      s._hide = -> new Modal('').hide()
+      window.po = s
   }

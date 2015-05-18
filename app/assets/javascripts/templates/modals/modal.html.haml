@@ -2,7 +2,7 @@
   .modal-dialog
 
     .modal-content{ ng_show: '!data.loading && !data.error' }
-      %choose_mark_place{ mark: 'data.mark', ng_if: "data.type == 'chooseMarkPlace'" }
+      %choose_mark_place{ data: 'data', ng_if: "data.type == 'choose-mark-place'" }
       %edit_booking_info{ item: 'data.item', ng_if: "data.type == 'edit-booking-info'" }
 
     .modal-content{ ng_show: 'data.loading || data.error' }

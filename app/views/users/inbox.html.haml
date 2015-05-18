@@ -1,7 +1,7 @@
 - title( "#{current_user.name}'s Inbox" )
 - set_page_type('inbox')
 
-#user-inbox-page{ ng_controller: 'InboxCtrl' }
+#user-inbox-page{ ng_controller: 'InboxCtrl', ng_init: "init(#{ current_user.saves_to_review.pluck(:id) })" }
 
   .band.spaced
 
@@ -21,7 +21,7 @@
               .container.none.inbox-message-header{ class: "#{'darker' if index.even?}" }
                 .original-reminder= render 'marks/place_option_header', { mark: mark, inbox: true, index: index }
 
-      - if current_user.saves_to_review.count > 0
+      .saves-to-review{ ng_if: 'savesToReview.length' }
         .container.none.inbox-folder
           .bubbled-header-block
             %span.bubbled.medium.primary My In-Progress Saves
@@ -30,6 +30,5 @@
               = "Clear All &nbsp;".html_safe # NEEDSFOLLOWUP
               %i.fa.fa-trash
         .container.none.inbox-folder-contents
-          - current_user.saves_to_review.each_with_index do |mark, index|
-            .container.none.inbox-message-header{ ng_click: "openMark(#{mark.id})", class: "#{'darker' if index.even?}" }
-              .original-reminder= render 'marks/place_option_header', { mark: mark, inbox: true, index: index }
+          .container.none.inbox-message-header{ ng_repeat: 'mark in savesToReview', ng_click: "openMark(mark)", ng_class: "{ darker: $even }" }
+            .original-reminder= render 'marks/place_option_header'
