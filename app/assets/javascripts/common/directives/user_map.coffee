@@ -56,9 +56,9 @@ angular.module("Common").directive 'userMap', (leafletData, $timeout, PlanitMark
         s.m.selectedCountry = featureSelected.properties
         s.selectedCountryId = featureSelected.properties.geonameId
 
-      s.getColor = ( feature ) -> if feature.properties.geonameId == s.selectedCountryId then "#007" else if feature.hasContent == true then "#f06" else "#ccc"
+      s.getColor = ( feature ) -> if feature?.properties?.geonameId == s.selectedCountryId then "#007" else if feature?.properties?.hasContent == true then "#f06" else "#ccc"
 
-      s.style = (feature) ->
+      s.style = ( feature ) ->
         {
           fillColor: s.getColor( feature ),
           dashArray: '3',
@@ -86,22 +86,13 @@ angular.module("Common").directive 'userMap', (leafletData, $timeout, PlanitMark
         s.m.selectedContinent = null
         return
 
-      s.$watch( 'm.userInQuestionLocations()', (-> s.assertOwnership() ), true)
+      s.$watch( 'm.locationContentFor', (-> s.assertOwnership() ), true)
       s.assertOwnership = -> 
-        return unless s.m.userInQuestionLocations()?.length>0
-        countries = _.uniq( _.map( s.m.userInQuestionLocations(), (location) -> parseInt( location.countryId ) ) )
+        return unless s.m.locationContentFor && s.m.userInQuestionLocations()?.length>0
         leafletData.getMap("user").then (m) -> 
-          _.forEach m._layers, (layer) -> 
-            if layer?.feature?.properties
-              if _.include( countries, parseInt( layer.feature.properties.geonameId ) )
-                layer.feature.hasContent = true
-                layer.setStyle
-                  weight: 2
-                  color: 'white'
-                  dashArray: '3'
-                  fillColor: '#f06'
-                  fillOpacity: 0.9
-
+          _.forEach m._layers, (layer) -> layer.setStyle( s.style( layer.feature ) ) if layer?.feature?.properties
+          s.currentLayers = _.filter( m._layers, (l) -> l.feature?.properties )
+              
       s.geojson = ->
         return if s.geoJsonDataToMap || !s.geojsonData
         s.geoJsonDataToMap = 

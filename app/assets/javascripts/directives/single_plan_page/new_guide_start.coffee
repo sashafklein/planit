@@ -73,23 +73,23 @@ angular.module("Directives").directive 'newGuideStart', (Geonames, ErrorReporter
         )
         $sce.trustAsHtml( location_text )
 
-      s.startPlanNearBestOption = ->
+      s.selectNearbyBestOption = ->
         return unless s.m.nearbyOptions?.length
         keepGoing = true
         _.forEach( s.m.nearbyOptions, ( option ) ->
           if s.planNearbyOptionSelectable( option ) && keepGoing
-            s.startPlanNear( option )
+            s.selectNearby( option )
             keepGoing = false
         )
 
       s.getNewRegion = ( geonameId ) ->
         Geonames.find( geonameId )
-          .success (response) -> debugger; return response
+          .success (response) -> s.m.selectedRegion = response
 
-      s.startPlanNear = ( nearby ) ->
+      s.selectNearby = ( nearby ) ->
         return unless Object.keys( nearby )?.length>0
         s.m.selectedCountry = _.find( s.m.countries, (c) -> c.geonameId == nearby.countryId ) if s.m.countries
-        s.m.selectedRegion = if nearby.fcode == 'ADM1' then nearby else null # else s.getNewRegion( nearby.adminId1 )
+        if nearby.fcode == 'ADM1' then s.m.selectedRegion = nearby else s.getNewRegion( nearby.adminId1 )
         s.m.selectedNearby = nearby
         # # scroll to top
         s.planNearby = null
