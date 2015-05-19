@@ -410,7 +410,7 @@ strong, .strong
     font-size: 125%
     line-height: 125%
 
-strong, .in-caps-header, i, b
+strong, .in-caps-header, i, b, span
   &.white
     color: #fff
   &.neon
@@ -421,6 +421,8 @@ strong, .in-caps-header, i, b
     color: #777
   &.green
     #c8e052 // green
+  &.darkblue
+    #007
 
 .planit-button, a.planit-button, a .planit-button, button.planit-button
   display: inline-block
@@ -653,6 +655,16 @@ strong, .in-caps-header, i, b
       &:hover
         background: $darkBlue
         color: #fff
+    li.search-results.bluegray-to-white
+      b
+        color: #007
+      span
+        color: #777
+      &:hover
+        b, span
+          color: #fff
+        .hidden-on-hover
+          display: none
     li.search-results-working
       background: #fff
     li.search-results-attribution

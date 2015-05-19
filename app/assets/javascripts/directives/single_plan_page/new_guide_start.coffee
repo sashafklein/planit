@@ -33,6 +33,18 @@ angular.module("Directives").directive 'newGuideStart', (Geonames, ErrorReporter
         _.filter( s.m.currentUserUniverse(), (u) -> u.name.toLowerCase().match( toMatch )?.length )
 
       s.planNearbyOptionClass = (option, index=0) -> ClassFromString.toClass( option.name, option.adminName1, option.countryName, index )
+      s.searchedPlanClass = (plan, index=0) -> ClassFromString.toClass( plan.name, index )
+
+      s.searchedPlans = -> 
+        return s.m.planManager.plans if !s.planNearby?.length>0
+        toMatch = new RegExp( s.planNearby.toLowerCase() )
+        _.filter s.m.planManager.plans, (p) -> 
+          if p.name?.toLowerCase()?.match( toMatch )?.length
+            true
+          else if _.compact( _.map( p.locations, (l) -> ("#{l.name}  #{l.asciiName?}")?.toLowerCase()?.match( toMatch )?.length ) ).length
+            true
+          else
+            false
 
       s.wherePrompt = ->
         if s.m.userInQuestion().id == s.m.currentUserId

@@ -17,11 +17,15 @@
               %a{ style:"text-decoration: underline" } make friends
     .where-are-we
       .input-and-results{ ng_hide: "m.mainMenuToggled && m.mobile" }
-        %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: '{{ wherePrompt() }}', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'selectNearbyBestOption()', ng_on_esc_key: 'planNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
-        %ul.suggested-results.blue{ ng_show: '!m.typing && planNearby && planNearby.length>1' }
-          %li.search-results-list{ ng_repeat: 'option in m.nearbyOptions', ng_click: 'selectNearby(option)', ng_class: "planNearbyOptionClass(option)"}
+        %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: '{{ wherePrompt() }}', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'selectNearbyBestOption()', ng_on_esc_key: 'planNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()', ng_focus: 'planNearbyFocused=true', ng_blur: 'planNearbyFocused=false' }
+        %ul.suggested-results.blue{ ng_show: 'planNearbyFocused' }
+          %li.search-results-list.bluegray-to-white{ ng_repeat: 'plan in searchedPlans()', ng_click: 'm.planManager.fetchPlan( plan.id )', ng_class: "searchedPlanClass(option)" }
+            %b{ ng_bind_html: "underlined( plan.name )" }
+            %span by {{ plan.user.name }}
+            %span.hidden-on-hover (Plan)
+          %li.search-results-list{ ng_show: '!m.typing', ng_repeat: 'option in m.nearbyOptions', ng_click: 'selectNearby(option)', ng_class: "planNearbyOptionClass(option)"}
             %b{ ng_bind_html: "underlined( option.name )" }
             %span{ ng_bind_html: "underlined( option.adminName1 + ', ' + option.countryName  )" } 
-          %li.search-results-working{ ng_show: 'planNearbyWorking > 0' } Working on it...
-          %li.search-results-working{ ng_show: 'noPlanNearbyResults()' } Can't find that...
+          %li.search-results-working{ ng_show: '!m.typing && planNearbyWorking > 0' } Working on it...
+          %li.search-results-working{ ng_show: '!m.typing && noPlanNearbyResults()' } Can't find that...
     %ng_include{ src: "'application/_rainbow_divider.html'" }
