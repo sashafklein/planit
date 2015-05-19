@@ -52,6 +52,30 @@
 #user-show-page
   min-height: 100%
 
+  .any-tab-wrapper.new-guide
+    .content-tab
+      background: #007
+      border: 1px solid #004
+      border-bottom-color: #002
+      -webkit-box-shadow: #005 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+      -moz-box-shadow: #005 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+      box-shadow: #005 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+      .content-tab-title
+        background: #007
+        color: #eee
+    &:hover
+      .content-tab
+        background-color: #fff
+        -webkit-box-shadow: #eee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+        -moz-box-shadow: #eee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+        box-shadow: #eee 0 -2px 0 inset,rgba(0,0,0,0.04) 0 1px 0
+        border: 1px solid #c4c7ca
+        border-bottom-color: #b7babe
+        .content-tab-title
+          color: #f06
+          background: #fff
+
+
   .user-location-search
     position: absolute
     left: 0
@@ -73,21 +97,61 @@
       background: #f06
       margin-bottom: 25px
       font-size: 18px
-      line-height: 18px
+      line-height: 22px
       color: #fff
-      select
-        font-size: 17px
-        line-height: 17px
+      .input-and-results.narrowed-region
+        display: inline-block
+        max-width: 300px
+        height: 22px
+        margin: auto 0
         padding: 0
-        background: transparent
-        border: none
-        margin: 0
-        &:focus
-          outline: none
-          outline-width: 0
+        input
+          position: relative
+          display: inline-block
+          max-width: 300px
+          font-size: 16px
+          padding: 0
+          margin: 0
+          background: transparent
+          border: none
+          transform: 0.2s ease all
+          &:focus
+            outline: none
+            outline-width: 0
+        i.select-region
+          position: absolute
+          top: 0
+          right: 0
+          bottom: 0
+          margin: auto 0
+          height: 22px
+          color: rgba(255,255,255,0.5)
+          &.selected
+            color: #fff
+        .suggested-results
+          color: #333
+          font-size: 16px
+          top: 27px
       i.breadcrumb-caret
         margin: 0 12px
         color: rgba(255,255,255,0.5)
+        &.breadcrumbed
+          color: rgba(255,255,255,0.75)
+      .exit-breadcrumb-level
+        background: transparent
+        padding: 0
+        margin: 0
+        cursor: pointer
+        i
+          margin: auto 0
+          height: 18px
+          font-size: 14px
+          padding-left: 5px
+          color: rgba(255,255,255,0.5)
+        &:hover
+          color: #007
+          i
+            color: #007
       i.exit-breadcrumb
         position: absolute
         top: 0

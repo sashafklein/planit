@@ -8,19 +8,36 @@
 
     .user-location-search.like-container{ ng_show: 'm.selectedCountry' }
       .location-breadcrumb
-        %b {{ m.selectedCountry.name }}
-        %span{ ng_show: "!m.selectedRegion" }
-          %i.fa.fa-caret-right.breadcrumb-caret
-          %select{ ng_model: 'narrowedRegion' }
-            / , ng_options: 'region in regions( m.selectedCountry )'
-            %option{ value: '' } Narrow by Region
-        %span{ ng_show: "m.selectedRegion && !m.selectedCounty" }
-          %i.fa.fa-caret-right.breadcrumb-caret
-          %select{ ng_model: 'narrowedCounty' }
-            %option{ value: '' } Narrow by Area
-        %i.exit-breadcrumb.fa.fa-times{ ng_click: 'm.resetUserMapView()' }
+        %span.exit-breadcrumb-level{ ng_click: 'clearLocationPopup()' }
+          %b {{ m.selectedCountry.name }}
+          %i.fa.fa-times.exit-breadcrumb-country
+        %span
+          %i.fa.fa-caret-right.breadcrumb-caret{ ng_class: "{'breadcrumbed': m.selectedRegion }" }
+          %span.exit-breadcrumb-level{ ng_show: 'm.selectedRegion', ng_click: 'm.selectedRegion=null; focusOnNarrowRegion()' }
+            %span {{ m.selectedRegion.name }}
+            %i.fa.fa-times
+          .input-and-results.narrowed-region{ ng_show: '!m.selectedRegion' }
+            %input{ id: 'narrowedRegion', ng_model: 'narrowedRegion', placeholder: '{{narrowRegionMessage}}', ng_focus: 'narrowRegionMessage=null', ng_blur: "narrowRegionMessage='Narrow by Region'" }
+            %i.fa.fa-caret-down.select-region{ ng_hide: 'narrowedRegion', ng_click: 'focusOnNarrowRegion()', ng_class: "{'selected': !narrowRegionMessage}" }
+            %ul.suggested-results.blue{ ng_show: '!narrowRegionMessage || narrowRegionResultsFocused', ng_mouseover: 'narrowRegionResultsFocused=true', ng_mouseleave: 'narrowRegionResultsFocused=false' }
+              %li{ ng_repeat: 'region in filteredAdminOnes()', ng_click: "selectRegion( region ); narrowRegionMessage='Narrow by Region'" } {{ region.name }}
+            
+        / %span{ ng_show: "m.selectedRegion && !m.selectedCounty" }
+        /   %i.fa.fa-caret-right.breadcrumb-caret
+        /   %select{ ng_model: 'narrowedCounty' }
+        /     %option{ value: '' } Narrow by Area
+        %i.exit-breadcrumb.fa.fa-times{ ng_click: 'clearLocationPopup()' }
       .container.centered
-        .column{ ng_repeat: 'plan in m.planManager.countryPlans( m.selectedCountry )' }
+        .column
+          .any-tab-wrapper.new-guide
+            .guide-item-count.numbered-box 
+              %i.fa.fa-plus-circle
+            .content-tab
+              .content-tab-img
+              .content-tab-title{ ng_click: 'startPlanNearby()' }
+                %span{ ng_show: 'selectedNearbyNotBest()' } Create a New {{ m.selectedNearby.name }} Guide
+                %span{ ng_show: '!selectedNearbyNotBest()' } Create a New {{ m.bestNearby().name }} Guide
+        .column{ ng_repeat: 'plan in filterByLocation( m.planManager.countryPlans( m.selectedCountry ) )' }
           .any-tab-wrapper{ ng_class: 'tabClass(plan, $index)' }
             .guide-item-count.numbered-box {{ plan.place_ids.length }}
             .content-tab

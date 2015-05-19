@@ -82,12 +82,16 @@ angular.module("Directives").directive 'newGuideStart', (Geonames, ErrorReporter
             keepGoing = false
         )
 
+      s.getNewRegion = ( geonameId ) ->
+        Geonames.find( geonameId )
+          .success (response) -> debugger; return response
+
       s.startPlanNear = ( nearby ) ->
-        return unless nearby?.name && nearby?.lat && nearby?.lon
-        searchStrings = _.compact( s.m.nearbySearchStrings )
-        s.m.planManager.addNewPlan( nearby, searchStrings )
-        s.m.nearbySearchStrings = []
-        # scroll to top
+        return unless Object.keys( nearby )?.length>0
+        s.m.selectedCountry = _.find( s.m.countries, (c) -> c.geonameId == nearby.countryId ) if s.m.countries
+        s.m.selectedRegion = if nearby.fcode == 'ADM1' then nearby else null # else s.getNewRegion( nearby.adminId1 )
+        s.m.selectedNearby = nearby
+        # # scroll to top
         s.planNearby = null
         s.m.nearbyOptions = []
         s.m.browsing = true

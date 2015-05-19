@@ -12,19 +12,21 @@ angular.module("Common").directive 'userMap', (leafletData, $timeout, PlanitMark
 
     link: (s, elem) ->
 
+      s.center = { lat: 35, lng: 0, zoom: 2 }
+      s.userLayers = 
+        baselayers: 
+          xyz:
+            name: 'None'
+            url: ""
+            type: 'xyz'
+            
       geojsonData = {} unless geojsonData
-
-      s.windowHeight = window.innerHeight
-      headerHeight = if s.m.mobile then 43 else 68
-      elem.height( s.windowHeight - headerHeight )
 
       s.$watch( 'geojsonData', (-> s.geojson() ), true)
 
       s.loaded = false
       s.screenWidth = if s.m.mobile then 'mobile' else 'web'
       s.padding = [35, 25, 15, 25]
-
-      s.center = { lat: 35, lng: 0, zoom: 2 }
 
       s.defaults = 
         minZoom: if s.m.mobile then 1 else 2
@@ -34,13 +36,6 @@ angular.module("Common").directive 'userMap', (leafletData, $timeout, PlanitMark
         zoomControl: true
         zoomControlPosition: 'topright'
 
-      s.userLayers = 
-        baselayers: 
-          xyz:
-            name: 'None'
-            url: ""
-            type: 'xyz'
-            
       s.$on 'leafletDirectiveMap.geojsonMouseover', (ev, feature, leafletEvent) -> s.countryMouseover( feature, leafletEvent ); return
       s.$on 'leafletDirectiveMap.geojsonMouseout', (feature, leafletEvent) -> s.countryMouseleave( feature, leafletEvent ); return
       s.$on 'leafletDirectiveMap.geojsonClick', (ev, featureSelected, leafletEvent) -> s.countryClick( featureSelected, leafletEvent ); return
