@@ -21,7 +21,7 @@ describe 'Root SPA' do
         first('li.san-francisco-california-united-states-0').click
       end
 
-      sleep 0.2
+      pause 0.2
 
       expect( page ).to have_content "YOU'RE THE FIRST PLANITEER"
       
@@ -89,7 +89,7 @@ describe 'Root SPA' do
         fill_in "item_#{alcatraz.id}", with: 'Ai Wei Wei and whatever'
         expect( contigo.notes.first.body ).to eq 'My favorite local spot'
         fill_in "item_#{contigo.id}", with: 'My favorite local spot -- in Noe, where I live'
-        sleep 2.75
+        pause 2.75
       end
 
       expect( contigo.notes.first.reload.body ).to eq 'My favorite local spot -- in Noe, where I live'
@@ -103,7 +103,7 @@ describe 'Root SPA' do
       
       within contigo_selector do
         first('i.action.fa.fa-heart').click
-        sleep 0.3
+        pause 0.5
       end
 
       expect( ng_shown( root: contigo_tab, selector: 'i.action.fa.fa-heart.neon' ).length ).to eq 1
@@ -116,7 +116,7 @@ describe 'Root SPA' do
         first('i.action.fa.fa-thumb-tack').click
       end
       
-      sleep 0.5
+      pause 0.75
       expect( contigo.mark.reload.been ).to eq true
 
       expect( ng_shown( root: contigo_tab, selector: '.fa-clock-o.neon').length ).to eq 0
@@ -133,7 +133,7 @@ describe 'Root SPA' do
         click_button "Save Booking Info"
       end
 
-      sleep 0.5
+      pause 0.75
 
       expect( ng_shown( root: contigo_tab, selector: '.fa-clock-o.neon').length ).to eq 1
 
@@ -149,7 +149,7 @@ describe 'Root SPA' do
 
       page.driver.browser.switch_to.alert.accept
 
-      sleep 0.5
+      pause 0.5
       expect( Item.find_by(id: contigo.id) ).to eq nil
 
       # BACK TO HOME
@@ -233,10 +233,11 @@ describe 'Root SPA' do
       within '#planit-modal-share' do
         fill_in 'share_email', with: 'fake@email.com'
         fill_in 'share_notes', with: 'This is an awesome plan!'
+        pause 0.2
         first('#planit-modal-submit-share').click
       end
 
-      sleep 1
+      pause 1
 
       expect( delivered_emails.count ).to eq 1
       subject = "A Planit Guide from #{@user.name}: My SF Plan!"
@@ -256,7 +257,7 @@ describe 'Root SPA' do
       expect( Plan.where(name: name).count ).to eq 0
       first('.planit-dropdown-menu.copy-plan-link').click
       
-      sleep 0.5
+      pause 0.5
       wait_for(selector: '.settingsbox-on-plan-page')
 
       expect( Plan.where(name: name).count ).to eq 1
@@ -270,7 +271,7 @@ describe 'Root SPA' do
       find('button.remove-btn').click
 
       page.driver.browser.switch_to.alert.accept
-      sleep 0.5
+      pause 0.5
 
       expect( page ).not_to have_content '.item-li-camino-0'
       expect( page ).not_to have_content '.item-li-alcatraz-island-0'
@@ -284,7 +285,7 @@ describe 'Root SPA' do
       first('.planit-dropdown-menu.delete-plan-link').click
       page.driver.browser.switch_to.alert.accept
 
-      sleep 0.5
+      pause 0.5
 
       expect( ['/', '/?'] ).to include full_path
 

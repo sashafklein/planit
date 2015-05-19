@@ -37,7 +37,9 @@ RSpec.configure do |config|
 end
 
 Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  client = Selenium::WebDriver::Remote::Http::Default.new
+  client.timeout = (Env.test_timeout || 20).to_i
+  Capybara::Selenium::Driver.new(app, browser: :chrome, http_client: client)
 end
 
 Capybara.javascript_driver = :chrome

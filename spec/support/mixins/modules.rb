@@ -47,6 +47,10 @@ module Features
       selector.attributes.find{ |k, v| k == 'class' }.last.value
     end
   end
+
+  def pause(seconds)
+    sleep seconds * (Env.test_sleep_multiple || 1).to_i
+  end
 end
 
 module Controllers
