@@ -21,7 +21,7 @@
               .container.none.inbox-message-header{ class: "#{'darker' if index.even?}" }
                 .original-reminder= render 'marks/place_option_header', { mark: mark, inbox: true, index: index }
 
-      .saves-to-review{ ng_if: 'savesToReview.length' }
+      .saves-to-review
         .container.none.inbox-folder
           .bubbled-header-block
             %span.bubbled.medium.primary My In-Progress Saves

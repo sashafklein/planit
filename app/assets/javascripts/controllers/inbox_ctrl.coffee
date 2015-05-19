@@ -12,12 +12,12 @@ angular.module("Controllers").controller 'InboxCtrl', ($scope, Mark, Modal, Erro
 
   s.openMark = (mark) ->
     if mark.place_options?.length
-      s.chooseModal.show({ mark: mark, destroy: s.deleteMark })
+      s.chooseModal.show({ mark: mark, destroy: s.deleteMark, choose: s.chooseMark })
     else
       mark.getPlaceOptions()
         .success (response) -> 
           mark.place_options = Place.generateFromJSON( response )
-          s.chooseModal.show({ mark: mark, destroy: s.deleteMark })
+          s.chooseModal.show({ mark: mark, destroy: s.deleteMark, choose: s.chooseMark })
         .error (response) -> ErrorReporter.fullSilent( response, 'InboxCtrl openMark', { mark_id: mark.id })
 
   s._findMark = (mark_id) -> _.find( s.savesToReview, (m) -> m.id == mark_id )
@@ -30,7 +30,7 @@ angular.module("Controllers").controller 'InboxCtrl', ($scope, Mark, Modal, Erro
   s.chooseMark = (mark, place_option_id, callback) ->
     mark.choose( place_option_id )
       .success (response) ->
-        s.mark.place_options = []
+        mark.place_options = []
         s._removeMark( mark )
         callback?()
       .error (response) -> 

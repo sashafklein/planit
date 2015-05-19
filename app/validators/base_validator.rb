@@ -52,7 +52,7 @@ class BaseValidator < ActiveModel::Validator
     end
 
     if found = record.class.find_by(attribute_hash)
-      record.errors[:base] << "A #{record.class} with that #{attributes.to_sentence} already exists. ID: #{found.id}" if found.id != record.id
+      record.errors[:base] << "A #{record.class} with that #{attributes.to_sentence} already exists. #{record.class.underscore}_id: #{found.id}, #{ attributes.map{ |k, v| k.to_s + ': ' + found[k].to_s }.join(', ') }" if found.id != record.id
     end
   end
 
