@@ -12,20 +12,13 @@ module Features
     end
   end
 
+  def wait_for(selector: , limit: 10)
+    recursive_wait_for selector: selector, limit: ( limit * ( Env.test_sleep_multiple || 1 ).to_i )
+  end
+
   def full_path
     uri = URI.parse(current_url)
     "#{uri.path}?#{uri.query}"
-  end
-
-  def wait_for(selector:, limit: 10)
-    if Nokogiri.parse(html).css(selector).present?
-      true
-    elsif limit <= 0
-      raise "Couldn't find #{selector}"
-    else
-      sleep 0.2
-      wait_for(selector: selector, limit: limit - 0.2)
-    end
   end
 
   def ng_hidden(root: nil, selector:)
@@ -50,6 +43,17 @@ module Features
 
   def pause(seconds)
     sleep seconds * (Env.test_sleep_multiple || 1).to_i
+  end
+
+  def recursive_wait_for(selector:, limit: 10)
+    if Nokogiri.parse(html).css(selector).present?
+      true
+    elsif limit <= 0
+      raise "Couldn't find #{selector}"
+    else
+      sleep 0.2
+      wait_for(selector: selector, limit: limit - 0.2)
+    end
   end
 end
 
