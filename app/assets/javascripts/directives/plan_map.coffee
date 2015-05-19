@@ -1,4 +1,4 @@
-angular.module("Common").directive 'planMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, PlanEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser, ErrorReporter, ClassFromString) ->
+angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, PlanEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser, ErrorReporter, ClassFromString) ->
 
   return {
     restrict: 'E'

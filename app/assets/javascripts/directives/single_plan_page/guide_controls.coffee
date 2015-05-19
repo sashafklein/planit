@@ -1,4 +1,4 @@
-angular.module("Common").directive 'guideControls', ($timeout, Plan, ErrorReporter) ->
+angular.module("Directives").directive 'guideControls', ($timeout, Plan, ErrorReporter) ->
   {
     restrict: 'E'
     replace: true

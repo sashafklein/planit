@@ -1,4 +1,4 @@
-angular.module("Common").directive 'notbeenPlaceOnClick', (Mark, CurrentUser, ErrorReporter) ->
+angular.module("Directives").directive 'notbeenPlaceOnClick', (Mark, CurrentUser, ErrorReporter) ->
   
   return {
     restrict: 'A'

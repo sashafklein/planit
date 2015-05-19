@@ -1,4 +1,4 @@
-angular.module("Common").directive 'filterAndActions', (Flash) ->
+angular.module("Directives").directive 'filterAndActions', (Flash) ->
   return {
     restrict: 'E'
     replace: true

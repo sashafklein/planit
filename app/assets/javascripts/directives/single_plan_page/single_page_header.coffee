@@ -1,4 +1,4 @@
-angular.module("Common").directive 'singlePageHeader', (QueryString) ->
+angular.module("Directives").directive 'singlePageHeader', (QueryString) ->
   restrict: 'E'
   replace: true
   templateUrl: 'single/_single_page_header.html'

@@ -1,4 +1,4 @@
-angular.module("Common").directive 'placeMap', (Place, ErrorReporter) ->
+angular.module("Directives").directive 'placeMap', (Place, ErrorReporter) ->
 
   return {
     restrict: 'E'

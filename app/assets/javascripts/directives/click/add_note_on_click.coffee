@@ -1,4 +1,4 @@
-angular.module("Common").directive 'addNoteOnClick', (Modal, ErrorReporter, Flash) ->
+angular.module("Directives").directive 'addNoteOnClick', (Modal, ErrorReporter, Flash) ->
   
   return {
     restrict: 'A'

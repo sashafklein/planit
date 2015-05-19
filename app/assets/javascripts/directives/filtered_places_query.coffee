@@ -1,4 +1,4 @@
-angular.module("Common").directive 'filteredPlacesQuery', (Mark, Place, $timeout, ErrorReporter, CurrentUser, Modal) ->
+angular.module("Directives").directive 'filteredPlacesQuery', (Mark, Place, $timeout, ErrorReporter, CurrentUser, Modal) ->
 
   return {
     restrict: 'E'

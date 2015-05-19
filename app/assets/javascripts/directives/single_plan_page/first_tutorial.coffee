@@ -1,4 +1,4 @@
-angular.module("Common").directive 'firstTutorial', () ->
+angular.module("Directives").directive 'firstTutorial', () ->
   return {
     restrict: 'E'
     replace: true

@@ -1,4 +1,4 @@
-angular.module("Common").directive 'editBookingInfoOnClick', (Modal) ->
+angular.module("Directives").directive 'editBookingInfoOnClick', (Modal) ->
   
   return {
     restrict: 'A'

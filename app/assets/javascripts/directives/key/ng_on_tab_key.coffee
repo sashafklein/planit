@@ -5,7 +5,7 @@ Taken from: http://stackoverflow.com/questions/15417125/submit-form-on-pressing-
 %input{ type: 'text', ng_model: 'inputModel', ng_on_tab_key: 'doSomething()' }
 ###
 
-angular.module('Common').directive 'ngOnTabKey', ($timeout)->
+angular.module("Directives").directive 'ngOnTabKey', ($timeout)->
   return {
     restrict: 'A'
     link: (scope, element, attrs) ->

@@ -1,4 +1,4 @@
-angular.module("Common").directive 'createOrEditPlanOnClick', (Modal, CurrentUser, ErrorReporter) ->
+angular.module("Directives").directive 'createOrEditPlanOnClick', (Modal, CurrentUser, ErrorReporter) ->
   
   return {
     restrict: 'A'

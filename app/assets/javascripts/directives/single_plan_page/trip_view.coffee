@@ -1,4 +1,4 @@
-angular.module("Common").directive 'tripView', (ErrorReporter, Item, Modal, SPItem) ->
+angular.module("Directives").directive 'tripView', (ErrorReporter, Item, Modal, SPItem) ->
   return {
     restrict: 'E'
     replace: true

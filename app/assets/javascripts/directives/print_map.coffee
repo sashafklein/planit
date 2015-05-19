@@ -1,4 +1,4 @@
-angular.module("Common").directive 'printMap', (ErrorReporter) ->
+angular.module("Directives").directive 'printMap', (ErrorReporter) ->
 
   return {
     restrict: 'E'

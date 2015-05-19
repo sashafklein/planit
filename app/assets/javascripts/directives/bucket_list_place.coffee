@@ -1,4 +1,4 @@
-angular.module("Common").directive 'bucketListPlace', (CurrentUser, MetaCategory) ->
+angular.module("Directives").directive 'bucketListPlace', (CurrentUser, MetaCategory) ->
 
   return {
     restrict: 'E'

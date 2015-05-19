@@ -1,4 +1,4 @@
-angular.module("Common").directive 'placeControlBar', (Mark, Modal, CurrentUser, ErrorReporter) ->
+angular.module("Directives").directive 'placeControlBar', (Mark, Modal, CurrentUser, ErrorReporter) ->
 
   return {
     restrict: 'E'

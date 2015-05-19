@@ -1,4 +1,4 @@
-angular.module("Common").directive 'itemActionsBar', (Mark, Modal, CurrentUser, ErrorReporter) ->
+angular.module("Directives").directive 'itemActionsBar', (Mark, Modal, CurrentUser, ErrorReporter) ->
 
   return {
     restrict: 'E'

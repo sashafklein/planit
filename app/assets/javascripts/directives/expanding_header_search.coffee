@@ -1,4 +1,4 @@
-angular.module("Common").directive 'expandingHeaderSearch', (BarExpander, CurrentUser) ->
+angular.module("Directives").directive 'expandingHeaderSearch', (BarExpander, CurrentUser) ->
 
   return {
     restrict: 'E'

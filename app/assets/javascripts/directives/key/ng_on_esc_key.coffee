@@ -5,7 +5,7 @@ Taken from: http://stackoverflow.com/questions/15417125/submit-form-on-pressing-
 %input{ type: 'text', ng_model: 'inputModel', ng_on_esc_key: 'doSomething()' }
 ###
 
-angular.module('Common').directive 'ngOnEscKey', ->
+angular.module("Directives").directive 'ngOnEscKey', ->
   return {
     restrict: 'A'
     link: (scope, element, attrs) ->

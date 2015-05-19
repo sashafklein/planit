@@ -1,4 +1,4 @@
-angular.module('Common').directive 'sortCommands', (QueryString) ->
+angular.module("Directives").directive 'sortCommands', (QueryString) ->
   return { 
     restrict: 'E'
     replace: 'true'

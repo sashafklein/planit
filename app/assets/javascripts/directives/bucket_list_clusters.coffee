@@ -1,4 +1,4 @@
-angular.module("Common").directive 'bucketListClusters', (BucketEventManager, ClusterLocator, leafletData) ->
+angular.module("Directives").directive 'bucketListClusters', (BucketEventManager, ClusterLocator, leafletData) ->
 
   return {
     restrict: 'E'

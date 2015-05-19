@@ -1,4 +1,4 @@
-angular.module("Common").directive 'mobileDashboard', (User, Mark, Place, Modal, $timeout, ErrorReporter, CurrentUser, QueryString, UserLocation, BarExpander) ->
+angular.module("Directives").directive 'mobileDashboard', (User, Mark, Place, Modal, $timeout, ErrorReporter, CurrentUser, QueryString, UserLocation, BarExpander) ->
 
   return {
     restrict: 'E'

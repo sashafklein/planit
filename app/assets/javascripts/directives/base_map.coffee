@@ -1,4 +1,4 @@
-angular.module("Common").directive 'baseMap', (Place, PlanitMarker, leafletData, MapEventManager, $timeout) ->
+angular.module("Directives").directive 'baseMap', (Place, PlanitMarker, leafletData, MapEventManager, $timeout) ->
 
   return {
     restrict: 'E'

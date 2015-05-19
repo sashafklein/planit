@@ -1,4 +1,4 @@
-angular.module("Common").directive 'bucketMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, BucketEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser, ErrorReporter) ->
+angular.module("Directives").directive 'bucketMap', (Place, User, PlanitMarker, leafletData, BasicOperators, ClusterLocator, BucketEventManager, $timeout, QueryString, PlaceFilterer, CurrentUser, ErrorReporter) ->
 
   return {
     restrict: 'E'

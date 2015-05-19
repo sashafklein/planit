@@ -1,4 +1,4 @@
-angular.module("Common").directive 'printOverviewMap', (ErrorReporter, $timeout) ->
+angular.module("Directives").directive 'printOverviewMap', (ErrorReporter, $timeout) ->
 
   return {
     restrict: 'E'

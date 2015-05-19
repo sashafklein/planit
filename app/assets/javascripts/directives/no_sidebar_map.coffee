@@ -1,4 +1,4 @@
-angular.module("Common").directive 'noSidebarMap', (NoSidebarMapEventManager) ->
+angular.module("Directives").directive 'noSidebarMap', (NoSidebarMapEventManager) ->
   return {
     restrict: 'E'
     transclude: true

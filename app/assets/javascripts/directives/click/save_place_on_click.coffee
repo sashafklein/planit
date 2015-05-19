@@ -1,4 +1,4 @@
-angular.module("Common").directive 'savePlaceOnClick', (Mark, CurrentUser, ErrorReporter) ->
+angular.module("Directives").directive 'savePlaceOnClick', (Mark, CurrentUser, ErrorReporter) ->
   
   return {
     restrict: 'A'

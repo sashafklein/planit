@@ -1,4 +1,4 @@
-angular.module("Common").directive 'sidebarMap', () ->
+angular.module("Directives").directive 'sidebarMap', () ->
   return {
     restrict: 'E'
     transclude: true

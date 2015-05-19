@@ -1,4 +1,4 @@
-angular.module("Common").directive 'guideMatrix', (ClassFromString) ->
+angular.module("Directives").directive 'guideMatrix', (ClassFromString) ->
   return {
     restrict: 'E'
     replace: true

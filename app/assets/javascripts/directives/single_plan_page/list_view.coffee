@@ -1,4 +1,4 @@
-angular.module("Common").directive 'listView', (User, ErrorReporter, Mark, Flash, Note, $timeout, MetaCategory) ->
+angular.module("Directives").directive 'listView', (User, ErrorReporter, Mark, Flash, Note, $timeout, MetaCategory) ->
   return { 
     restrict: 'E'
     replace: true

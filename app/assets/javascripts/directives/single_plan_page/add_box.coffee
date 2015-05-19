@@ -1,4 +1,4 @@
-angular.module("Common").directive 'addBox', (Flash, ErrorReporter, Geonames, QueryString, Foursquare, Place, Item, $timeout, RailsEnv, ClassFromString, $sce) ->
+angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames, QueryString, Foursquare, Place, Item, $timeout, RailsEnv, ClassFromString, $sce) ->
   {
     restrict: 'E'
     replace: true

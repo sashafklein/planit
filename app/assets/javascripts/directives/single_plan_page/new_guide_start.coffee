@@ -1,4 +1,4 @@
-angular.module("Common").directive 'newGuideStart', (Geonames, ErrorReporter, ClassFromString, $sce) ->
+angular.module("Directives").directive 'newGuideStart', (Geonames, ErrorReporter, ClassFromString, $sce) ->
   {
     restrict: 'E'
     replace: true

@@ -1,4 +1,4 @@
-angular.module("Common").directive 'placeOptionsMap', (F, Place, User, PlanitMarker, ClusterLocator, BasicOperators, ClickControls, $compile, $timeout) ->
+angular.module("Directives").directive 'placeOptionsMap', (F, Place, User, PlanitMarker, ClusterLocator, BasicOperators, ClickControls, $compile, $timeout) ->
 
   return {
     restrict: 'E'

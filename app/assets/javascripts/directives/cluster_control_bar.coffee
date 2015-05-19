@@ -1,4 +1,4 @@
-angular.module("Common").directive 'clusterControlBar', (Mark, Modal, CurrentUser, ErrorReporter) ->
+angular.module("Directives").directive 'clusterControlBar', (Mark, Modal, CurrentUser, ErrorReporter) ->
 
   return {
     restrict: 'E'

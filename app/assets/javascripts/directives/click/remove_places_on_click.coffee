@@ -1,4 +1,4 @@
-angular.module("Common").directive 'removePlacesOnClick', (Mark, CurrentUser, ErrorReporter) ->
+angular.module("Directives").directive 'removePlacesOnClick', (Mark, CurrentUser, ErrorReporter) ->
   
   return {
     restrict: 'A'

@@ -1,4 +1,4 @@
-angular.module("Common").directive 'singlePlanMapView', () ->
+angular.module("Directives").directive 'singlePlanMapView', () ->
   return {
     restrict: 'E'
     replace: true

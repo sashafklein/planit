@@ -1,4 +1,4 @@
-angular.module("Common").directive 'nearbyGuideMatrix', (ClassFromString) ->
+angular.module("Directives").directive 'nearbyGuideMatrix', (ClassFromString) ->
   return {
     restrict: 'E'
     replace: true

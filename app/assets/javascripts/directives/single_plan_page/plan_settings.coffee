@@ -1,4 +1,4 @@
-angular.module("Common").directive 'planSettings', (Flash, ErrorReporter, Spinner) ->
+angular.module("Directives").directive 'planSettings', (Flash, ErrorReporter, Spinner) ->
   return {
     restrict: 'E'
     replace: true

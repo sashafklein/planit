@@ -1,4 +1,4 @@
-angular.module("Common").directive 'unlovePlaceOnClick', (Mark, CurrentUser, ErrorReporter) ->
+angular.module("Directives").directive 'unlovePlaceOnClick', (Mark, CurrentUser, ErrorReporter) ->
   
   return {
     restrict: 'A'

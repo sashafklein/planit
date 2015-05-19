@@ -5,7 +5,7 @@ Taken from: http://stackoverflow.com/questions/15417125/submit-form-on-pressing-
 %input{ type: 'text', ng_model: 'inputModel', ng_on_enter_key: 'doSomething()' }
 ###
 
-angular.module('Common').directive 'ngOnEnterKey', ($timeout) ->
+angular.module("Directives").directive 'ngOnEnterKey', ($timeout) ->
   return {
     restrict: 'A'
     link: (scope, element, attrs) ->

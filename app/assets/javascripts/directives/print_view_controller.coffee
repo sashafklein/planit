@@ -1,4 +1,4 @@
-angular.module("Common").directive 'printViewController', (Plan, Item, Note, ErrorReporter, QueryString, $timeout, MetaCategory, Plural, CurrentUser) ->
+angular.module("Directives").directive 'printViewController', (Plan, Item, Note, ErrorReporter, QueryString, $timeout, MetaCategory, Plural, CurrentUser) ->
   return {
     restrict: 'E'
     replace: true

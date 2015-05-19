@@ -1,4 +1,4 @@
-angular.module('Common').directive 'deferImage', ->
+angular.module("Directives").directive 'deferImage', ->
   restrict: 'A'
   link: (scope, element) ->
     element.css('opacity', 0)
