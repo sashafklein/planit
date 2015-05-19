@@ -1,4 +1,4 @@
-angular.module("Services").service "SPPlans", (User, Plan, SPPlan, QueryString, ErrorReporter) ->
+angular.module("SPA").service "SPPlans", (User, Plan, SPPlan, QueryString, ErrorReporter) ->
   class SPPlans
 
     constructor: ( user_id ) ->

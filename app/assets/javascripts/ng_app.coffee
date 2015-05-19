@@ -1,6 +1,6 @@
 #= require_self
 #= require angular-rails-templates
-#= require common/common
+#= require_tree ./common
 #= require_tree ./models
 #= require_tree ./modals
 #= require_tree ./controllers
