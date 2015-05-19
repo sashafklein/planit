@@ -130,6 +130,7 @@ describe 'Root SPA' do
         find('.start-date').set 'Oct 1'
         find('.start-time').set '10 am'
         find('.end-time').set '11 am'
+        pause 0.1
         click_button "Save Booking Info"
       end
 
