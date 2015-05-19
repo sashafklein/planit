@@ -1,10 +1,10 @@
-angular.module("Common").directive 'userMap', (leafletData, $timeout, PlanitMarker, QueryString, ErrorReporter, ClassFromString) ->
+angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker, QueryString, ErrorReporter, ClassFromString) ->
 
   return {
     restrict: 'E'
     transclude: false
     replace: true
-    templateUrl: 'user_map.html'
+    templateUrl: 'single/user_map.html'
     scope:
       m: '='
       zoomControl: '='

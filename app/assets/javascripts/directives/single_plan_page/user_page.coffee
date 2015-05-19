@@ -1,4 +1,4 @@
-angular.module("Common").directive 'userPage', ($http, $timeout, User) ->
+angular.module("SPA").directive 'userPage', ($http, $timeout, User) ->
   return {
     restrict: 'E'
     replace: true

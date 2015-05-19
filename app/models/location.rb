@@ -28,10 +28,10 @@ class Location < BaseModel
       fcode: response['fcode'],
       geoname_id: response['geonameId'],
       level: get_level(response['fcode'])
-    }
+    }.slice( *Location.attribute_keys(reject_ids: false) )
   end
 
-  def get_continent( continentCode )
+  def self.get_continent( continentCode )
     case continentCode
       when 'NA' then 'North America'
       when 'SA' then 'South America'
@@ -43,7 +43,7 @@ class Location < BaseModel
     end
   end
 
-  def get_level(fcode)
+  def self.get_level(fcode)
     case fcode
       when 'PCLI' then 0
       when 'ADM1' then 1

@@ -215,6 +215,18 @@ ActiveRecord::Schema.define(version: 20150515220628) do
 
   add_index "nps_feedbacks", ["user_id"], name: "index_nps_feedbacks_on_user_id", using: :btree
 
+  create_table "object_locations", force: :cascade do |t|
+    t.integer  "location_id", null: false
+    t.integer  "obj_id",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "obj_type"
+  end
+
+  add_index "object_locations", ["location_id"], name: "index_object_locations_on_location_id", using: :btree
+  add_index "object_locations", ["obj_id"], name: "index_object_locations_on_obj_id", using: :btree
+  add_index "object_locations", ["obj_type"], name: "index_object_locations_on_obj_type", using: :btree
+
   create_table "one_time_tasks", force: :cascade do |t|
     t.string   "action"
     t.integer  "target_id"
@@ -323,16 +335,6 @@ ActiveRecord::Schema.define(version: 20150515220628) do
     t.string   "foursquare_icon"
   end
 
-  create_table "plan_locations", force: :cascade do |t|
-    t.integer  "location_id", null: false
-    t.integer  "plan_id",     null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "plan_locations", ["location_id"], name: "index_plan_locations_on_location_id", using: :btree
-  add_index "plan_locations", ["plan_id"], name: "index_plan_locations_on_plan_id", using: :btree
-
   create_table "plans", force: :cascade do |t|
     t.string   "name",                     limit: 255
     t.integer  "user_id"
@@ -389,6 +391,18 @@ ActiveRecord::Schema.define(version: 20150515220628) do
   end
 
   add_index "sources", ["obj_type", "obj_id"], name: "index_sources_on_obj_type_and_obj_id", using: :btree
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
 
   create_table "travels", force: :cascade do |t|
     t.string   "mode",               limit: 255

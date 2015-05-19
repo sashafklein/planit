@@ -1,4 +1,4 @@
-angular.module("Common").directive 'userLocationPage', ($http, User) ->
+angular.module("SPA").directive 'userLocationPage', ($http, User) ->
   return {
     restrict: 'E'
     replace: true

@@ -138,18 +138,6 @@ angular.module("Services").service "SPPlan", (CurrentUser, User, Plan, Item, Not
 
     # LOAD UP PLAN
 
-    loadNearbyPlans: ->
-      @nearbyPlans = {}
-      # self = @
-      # return unless Object.keys( nearby )?.length
-      # Plan.locatedNear( "#{[nearby.lat,nearby.lon]}" )
-      #   .success (response) ->
-      #     _.forEach( response , (r) -> 
-      #       self.nearbyPlans[ r.id ] = new SPPlan( r ) 
-      #       self.nearbyPlans[ r.id ]['nearby'] = nearby 
-      #     )
-      #   .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.loadNearbyPlans', { coordinate: [nearby.lat,nearby.lon] } )
-
     loadItems: (opts={}) ->
       self = @
 
@@ -169,7 +157,8 @@ angular.module("Services").service "SPPlan", (CurrentUser, User, Plan, Item, Not
 
     _fetchNotes: ->
       self = @
-      Note.findAllNotesInPlan( @id )
+      return unless self?.items?.length || !self.fetchingItems
+      Note.findAllNotesInPlan( self.id )
         .success (response) -> _.forEach( self.items, (i) -> i.note = _.find( response, (n) -> parseInt( n.obj_id ) == parseInt( i.id ) )?.body; i.notesSearched = true )
         .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list fetch original notes", { plan_id: @id })
 
