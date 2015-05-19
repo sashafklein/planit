@@ -24,7 +24,7 @@ describe Mark do
       mark2 = build(:mark, place_id: mark1.place_id, user_id: mark1.user_id)
       
       expect( mark2.valid? ).to eq false
-      expect( mark2.errors.full_messages.first ).to eq "A Mark with that user_id and place_id already exists. ID: #{mark1.id}"
+      expect( mark2.errors.full_messages.first ).to eq "A Mark with that user_id and place_id already exists. mark_id: #{mark1.id}, user_id: #{mark1.user_id}, place_id: #{mark1.place_id}"
       expect{ mark2.save! }.to raise_error
     end
   end
