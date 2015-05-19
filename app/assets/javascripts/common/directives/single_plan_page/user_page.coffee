@@ -12,15 +12,17 @@ angular.module("Common").directive 'userPage', ($http, User) ->
       s.m.workingNow = true
       $http.get('/assets/lib/countries.json')
         .then( (res) -> 
-          s.countries = {}
-          _.forEach( res.data, (c) -> s.countries[ c['id'] ] = c )
+          s.m.countries = {}
+          _.forEach( res.data, (c) -> s.m.countries[ c['id'] ] = c )
           $http.get('/assets/lib/countries.geojson')
             .then( (res) -> 
               s.geojson = res.data
-              _.forEach( s.geojson.features, (f) -> _.extend( f.properties, s.countries[f.id] ) )
+              _.forEach( s.geojson.features, (f) -> _.extend( f.properties, s.m.countries[f.id] ) )
               s.m.workingNow = false
             )
         )
+
+      s.clearLocationPopup = -> s.m.resetUserMapView(); s.m.selectedCountry=null; s.m.selectedRegion=null; s.narrowedRegion=null; s.narrowedCounty=null; s.m.selectedNearby=null
 
       s.m.focusOnCountry = ( geonameId ) -> s.m.selectedLocationId = geonameId
 
@@ -32,8 +34,24 @@ angular.module("Common").directive 'userPage', ($http, User) ->
         return s.countryLocationsBank[ s.m.selectedLocationId ]
 
       s.countriesOn = ( continent ) -> 
-        return unless s.countries && Object.keys( s.countries ).length > 0
-        _.filter( s.countries, (c) -> c.continent == continent )
+        return unless s.m.countries && Object.keys( s.m.countries ).length > 0
+        _.filter( s.m.countries, (c) -> c.continent == continent )
+
+      s.narrowRegionFocused = 'Narrow by Region'
+      s.focusOnNarrowRegion = -> $('input#narrowedRegion').focus() if $('input#narrowedRegion'); return
+      s.selectRegion = (region) -> s.m.selectedRegion = region if region
+      s.adminOnes = ( country_id ) -> _.filter( s.m.userInQuestionLocations(), (l) -> l.countryId == country_id && l.fcode == 'ADM1' )
+      s.filteredAdminOnes = ->
+        return unless s.m.selectedCountry?.geonameId
+        allAdminOnes = s.adminOnes( s.m.selectedCountry.geonameId )
+        return allAdminOnes if !s.narrowedRegion
+        regex = new RegExp( s.narrowedRegion.toLowerCase() )
+        _.filter( allAdminOnes, (a) -> a.name.toLowerCase().match(regex) )
+      s.filterByLocation = ( plans ) ->
+        if s.m.selectedRegion
+          _.filter( plans, (p) -> _.find( p.locations, (l) -> parseInt( l.adminId1 ) == parseInt( s.m.selectedRegion.geonameId ) ) )
+        else if s.filteredAdminOnes()?.length
+          _.filter( plans, (p) -> _.find( p.locations, (l) -> _.include( _.map( s.filteredAdminOnes(), (a) -> parseInt( a.geonameId ) ) , parseInt( l.adminId1 ) ) ) )
 
       s.userLocationBank = {}
       s.userLocations = (id) ->
@@ -54,6 +72,23 @@ angular.module("Common").directive 'userPage', ($http, User) ->
       s.openCountry = ( geonameId ) -> s.openedCountry = _.find( s.m.userInQuestionLocations(), (l) -> parseInt( l.countryId ) == parseInt( geonameId ) )
 
       s.planImage = ( plan ) -> plan?.best_image?.url?.replace("69x69","210x210")
+
+      s.m.bestNearby = -> 
+        if s.m.selectedNearby?.name
+          s.m.selectedNearby
+        else if s.m.selectedRegion?.name
+          s.m.selectedRegion
+        else if s.m.selectedCountry?.name
+          s.m.selectedCountry
+        else
+          {}
+
+      s.startPlanNearby = ->
+        return unless s.m.selectedNearby && Object.keys( s.m.selectedNearby )?.length>0
+        searchStrings = _.compact( s.m.nearbySearchStrings )
+        s.m.planManager.addNewPlan( s.m.selectedNearby, searchStrings )
+        s.m.nearbySearchStrings = []
+
 
       window.userscope = s
   }
