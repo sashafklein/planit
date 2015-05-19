@@ -82,7 +82,8 @@ Rails.application.routes.draw do
 
       resources :items, only: [:index, :show, :destroy, :update]
       
-      resources :marks, only: [:destroy, :create, :show] do
+      resources :marks, only: [:destroy, :create, :show, :index] do
+        resources :place_options, only: [:index], controller: 'marks/place_options'
         post :choose, on: :member
         post :remove, on: :collection
         post :love, on: :collection

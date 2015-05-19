@@ -1,12 +1,11 @@
-%span.flat.delete-right{ ng_click: "deleteMark(#{mark.id})" }
+%span.flat.delete-right{ ng_click: "deleteMark(mark)" }
   %i.fa.fa-trash
-%span.flat= mark.created_at.strftime("%d/%m/%y")
-- if mark.query.exists?
-  %span.flat= mark.query.names.first
-  %span.large-screen.inline= "near"
-  %span.flat.large-screen.inline
-    = mark.query.nearby
-- if mark.source.present?
-  %span= "on"
-  %span= mark.source.name
+%span.flat {{ mark.created_at }}
+%span{ ng_if: 'mark.query.names' }
+  %span.flat {{ mark.query.names.first }}
+  %span.large-screen.inline near
+  %span.flat.large-screen.inline {{ mark.query.nearby }}
+%span{ ng_if: 'mark.source' }
+  %span on
+  %span {{ mark.source.name }}
   

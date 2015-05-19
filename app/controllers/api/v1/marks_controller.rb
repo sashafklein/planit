@@ -6,9 +6,8 @@ class Api::V1::MarksController < ApiController
 
   def choose
     return permission_denied_error unless @mark && @mark.user == current_user && @mark.place_options.any?
-    place_option = @mark.place_options.find(params[:place_option_id])
-    place = place_option.choose!
-    render json: place, serializer: SearchPlaceSerializer
+    PlaceOptionChooseJob.perform_later(place_option_id: params[:place_option_id])
+    success
   end
 
   # REGULAR MARKS
@@ -26,6 +25,15 @@ class Api::V1::MarksController < ApiController
       # Place Complete first or create
       error
     end
+  end
+
+  def index
+    if params[:scoped]
+      @marks = Mark.where( conditions )
+    else
+      @marks = Mark.unscoped.where( conditions )
+    end
+    render json: @marks, each_serializer: serializer
   end
 
   def show
@@ -76,6 +84,19 @@ class Api::V1::MarksController < ApiController
       @mark = Mark.unscoped.find( mark_id )
     elsif place_id = params[:place_id]
       @mark = Mark.unscoped.where( place_id: place_id, user: current_user ).first
+    end
+  end
+
+  def conditions
+    return {} unless params[:conditions]
+    params[:conditions].is_a?(String) ? JSON.parse(params[:conditions]) : params[:conditions]
+  end
+
+  def serializer
+    if params[:serializer]
+      params[:serializer].try(:constantize)
+    else
+      MarkSerializer
     end
   end
 

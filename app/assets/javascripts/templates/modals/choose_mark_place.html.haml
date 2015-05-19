@@ -1,25 +1,23 @@
-.modal-directive-wrapper
-  .choose
-    %modal_header{ header_title: 'See what you were looking for?' }
-    .modal-body.long-with-scroll
-      %ul
-        %li.like-container{ ng_repeat: 'place in place_options' }
-          .save-this-option
-            .planit-button.neon{ ng_click: 'confirm( place.id )' }
-              %span.this-one This One
-              %i.fa.fa-bookmark.pad-left
-          .bucket-list-tab.like-container
-            .bucket-list-img.centering-box{ style: "background-image: url('{{ place.images[currentImageIndex].url }}')", ng_click: 'nextImage( place )', title: 'Click to Cycle' }
-              .choose-another-img.centered-item{ ng_class: "{'no-img': !place.images.length}" }
-                %i.fa.fa-camera-retro
-            .bucket-list-wrap.like-container
-              .bucket-list-profile
-                .bucket-list-title {{ place.name }}
-                .bucket-list-more-info
-                  %i.icon{ ng_class: 'place.meta_icon' }
-                  %span.categories 
-                    %span {{ categories(place) }}
-                .bucket-list-more-info.bucket-list-address {{ place.address }}
-                .bucket-list-more-info.bucket-list-locale {{ place.locale }}
-                .bucket-list-more-info.bucket-list-country {{ place.country }}
-    %modal_footer{ cancel_text: 'Reject All', cancel_method: 'cancel' }
+.choose-mark-place.clean-modal
+  %h3 See what you're looking for?
+  .clean-modal-body.long-with-scroll
+    %ul
+      %li{ ng_repeat: 'option in mark.place_options' }
+        .bucket-list-tab
+          .bucket-list-img.centering-box{ style: "background-image: url('{{ option.image_url }}')" }
+          .bucket-list-wrap.like-container
+            .bucket-list-profile
+              .bucket-list-title {{ option.name }}
+              .bucket-list-more-info
+                %i.icon{ ng_class: 'option.meta_icon' }
+                %span.categories 
+                  %span {{ categories(option) }}
+              .bucket-list-more-info.bucket-list-address {{ option.localeDetails() }}
+        %button.btn.pink.mini{ ng_click: 'confirm( option.id )' }
+          %span.this-one This One
+          %i.fa.fa-bookmark.pad-left
+        .clean-modal-separator.thin
+  
+  .clean-modal-submit
+    %h4 Nothing Looks Right?
+    %button.btn.faint-blue{ ng_click: "cancel()" } Reject Bookmark
