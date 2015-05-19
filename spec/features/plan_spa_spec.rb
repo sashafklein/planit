@@ -138,11 +138,11 @@ describe 'Root SPA' do
 
       expect( ng_shown( root: contigo_tab, selector: '.fa-clock-o.neon').length ).to eq 1
 
-      expect( contigo.reload.confirmation ).to eq 'Comf code'
-      expect( contigo.start_date ).to eq 'Oct 1'
-      expect( contigo.start_time ).to eq '10 am'
+      expect( "Comf code" ).to sorta_eq contigo.reload.confirmation
+      expect( 'Oct 1' ).to sorta_eq contigo.start_date
+      expect( '10 am' ).to sorta_eq contigo.start_time
       expect( contigo.end_date ).to eq nil
-      expect( contigo.end_time ).to eq '11 am'
+      expect( '11 am' ).to sorta_eq contigo.end_time
 
       within contigo_selector do
         first('i.action.fa.fa-trash').click
