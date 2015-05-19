@@ -42,9 +42,7 @@ module Features
   end
 
   def pause(seconds)
-    period = seconds * (Env.test_sleep_multiple || 1).to_i
-    puts period
-    sleep period
+    sleep seconds * (Env.test_sleep_multiple || 1).to_i
   end
 
   def recursive_wait_for(selector:, limit: 10)
