@@ -18,8 +18,6 @@ class Location < BaseModel
       name: response['name'],
       ascii_name: asciiname,
       continent: get_continent( response['continentCode'] ),
-      ascii_name: asciiname,
-      continent: get_continent( response['continentCode'] ),
       country_name: response['countryName'],
       country_id: response['countryId'],
       admin_name_1: response['adminName1'],
