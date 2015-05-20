@@ -6,10 +6,6 @@ module Completers
       @scraped_hashes, @user, @url = scraped_hashes.map(&:recursive_symbolize_keys!), user, url
     end
 
-    def completers
-      @completers ||= @scraped_hashes.map { |i| Completer.new(i, user, url) }
-    end
-
     def complete!
       completers.map(&:complete!).compact
     end
@@ -20,6 +16,12 @@ module Completers
       else
         completers.map(&:complete!)
       end
+    end
+
+    private
+
+    def completers
+      @completers ||= @scraped_hashes.map{ |item_hash| Completer.new(item_hash, user, url) }
     end
   end
 end

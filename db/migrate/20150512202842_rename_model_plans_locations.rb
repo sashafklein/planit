@@ -9,7 +9,7 @@ class RenameModelPlansLocations < ActiveRecord::Migration
 
     ObjectLocation.update_all({ obj_type: 'Plan' })
     Place.find_each do |place|
-      place.get_place_geoname
+      place.get_place_geoname!
     end
   end
 

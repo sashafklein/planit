@@ -130,4 +130,7 @@ class Plan < BaseModel
     return location
   end
 
+  def place_locations
+    Location.where id: ObjectLocation.where( obj_type: 'Place', obj_id: places.pluck(:id) ).pluck(:location_id)
+  end
 end
