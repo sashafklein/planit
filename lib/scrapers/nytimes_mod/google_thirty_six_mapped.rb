@@ -113,7 +113,7 @@ module Scrapers
               lat: activity[:lat],
               lon: activity[:lon],
               website: activity[:website], 
-              notes: sentences_with( activity[:name] )
+              notes: notes_for( activity[:name] )
             },
           }
         end
@@ -135,7 +135,8 @@ module Scrapers
               phone: activity[:phone], 
               lat: activity[:lat],
               lon: activity[:lon],
-              website: activity[:website]
+              website: activity[:website],
+              notes: notes_for( activity[:name] )
             },
           }
         end
@@ -197,6 +198,15 @@ module Scrapers
 
       def address_in_data_hash(data)
         find_by_attr(data, 'popup')[:body].scan(find_address_after_n).flatten.first ; rescue ; nil
+      end
+
+      def notes_for(name)
+        binding.pry
+        map_popups = page.css(".g-popup-title")
+        named_popup = map_popups.find{ |p| p.text.without_common_symbols.match_distance(name.without_common_symbols) > 0.95 }
+        named_popup.next.children.first.text
+      rescue
+        nil
       end
 
     end

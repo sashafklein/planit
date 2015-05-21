@@ -17,8 +17,8 @@ module Scrapers
       #   NytimesMod::GoogleMapped.new(url, page)
       elsif thirty_six_new?(url)
         NytimesMod::SeparatedThirtySixDetails.new(url, page)
-      elsif restaurant_new?(url)
-        NytimesMod::RestaurantReview.new(url, page)
+      # elsif restaurant_new?(url)
+      #   NytimesMod::RestaurantReview.new(url, page)
       # elsif restaurant_report?(url)
       #   NytimesMod::RestaurantReport.new(url, page)
       # elsif hotel_review?(url)
@@ -101,6 +101,14 @@ module Scrapers
       @scrape_target.each do |try_wrapper|
         return page.css(try_wrapper) if page.css(try_wrapper).first
       end
+    end
+
+    def for_group_array(activities)
+      activities.map do |activity|
+        unless !trim( de_tag( activity ) ) || trim( de_tag( activity ) ).empty?
+          [activity, @currently_in]
+        end
+      end.compact
     end
   end
 end

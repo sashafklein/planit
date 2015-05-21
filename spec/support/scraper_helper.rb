@@ -105,11 +105,11 @@ module ScraperHelper
     File.open("#{full_path}.yml", 'w') { |file| file.write(s.data.to_yaml) }
   end
 
-  def run_test(name, url, also_ignore=[])
-    # return true # Make all the scraper specs pending
+  def run_test(name, url, also_ignore=[], run=false)
+    return true unless run
     @base_name, @url = name, url
     @base_domain = get_domain @url
-
+    binding.pry
     expect_equal data, expectations, also_ignore
   end
 

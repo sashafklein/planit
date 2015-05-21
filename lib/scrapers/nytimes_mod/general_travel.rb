@@ -60,7 +60,7 @@ module Scrapers
             phone: phone(activity),
             nearby: nearby(activity),
             extra: extra_address_or_note(activity),
-            notes: sentences_with( name(activity) )
+            notes: notes_for( name(activity) )
           },
         }
       end
@@ -102,13 +102,6 @@ module Scrapers
 
       private
 
-      def for_group_array(activities)
-        activities.map do |activity|
-          unless !trim( de_tag( activity ) ) || trim( de_tag( activity ) ).empty?
-            [activity, @currently_in]
-          end
-        end.compact
-      end
     end
   end
 end
