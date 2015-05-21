@@ -110,5 +110,14 @@ module Services
       array_of_hashes.inject({}) { |f, h| f.deep_merge(h) }
     end
 
+    def sentences_with(name)
+      @no_parens_or_breaks ||= wrapper.text.gsub(/\n/,'  ').gsub(/  \s+/,'%%%').gsub(/\.\.\./,'***').gsub(/\((?:[^)]*?[.?!][^)]*?)+\)/,'')
+      return nil unless name.length > 3
+
+      raw_results = @no_parens_or_breaks.scan(/(?:(#{name}(?:[^%.?!\\]*?#{name}[^%.?!\\]*?)*?[.?!])|([A-Z](?:[^%.?!\\]*?#{name}[^%.?!\\]*?)+?[!?.]))/).flatten.compact
+      cleaned_results = raw_results.map{ |r| r.gsub(/#{name}\s{3}/,'').gsub(/\s{2}/,' ').strip.gsub('***','...') }
+      cleaned_results.join(" ... ")
+    end
+    
   end
 end

@@ -113,6 +113,7 @@ module Scrapers
               lat: activity[:lat],
               lon: activity[:lon],
               website: activity[:website], 
+              notes: sentences_with( activity[:name] )
             },
           }
         end
@@ -134,7 +135,7 @@ module Scrapers
               phone: activity[:phone], 
               lat: activity[:lat],
               lon: activity[:lon],
-              website: activity[:website], 
+              website: activity[:website]
             },
           }
         end

@@ -94,5 +94,13 @@ module Scrapers
       url.include?('/travel/hotel-review')
     end
 
+    private
+
+    def wrapper
+      return unless @scrape_target
+      @scrape_target.each do |try_wrapper|
+        return page.css(try_wrapper) if page.css(try_wrapper).first
+      end
+    end
   end
 end
