@@ -12,7 +12,7 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
 
     link: (s, elem) ->
 
-      s.center = { lat: 35, lng: 0, zoom: 2 }
+      s.center = { lat: 60, lng: 0, zoom: 2 }
       s.userLayers = 
         baselayers: 
           xyz:
@@ -55,8 +55,21 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
         leafletData.getMap("user").then (m) -> m.setView( leafletEvent.latlng, 4 )
         s.m.selectedCountry = featureSelected.properties
         s.selectedCountryId = featureSelected.properties.geonameId
+        s.m.locationManager.fetchCountryAdmins( s.selectedCountryId )
 
-      s.getColor = ( feature ) -> if feature?.properties?.geonameId == s.selectedCountryId then "#007" else if feature?.properties?.hasContent == true then "#f06" else "#ccc"
+      s.usersLocationsInCountry = ( countryId ) -> _.filter( s.m.locations, (l) -> parseInt( l.countryId ) == parseInt( countryId ) && _.include( l.users, s.m.userInQuestion().id ) )
+
+      s.getColor = ( feature ) -> 
+        if feature?.properties?.geonameId == s.selectedCountryId 
+          return "#007"
+        else if density = s.usersLocationsInCountry( feature?.properties?.geonameId )?.length
+          if density>50 then return "#f06"
+          if density>25 then return "#ff3b89"
+          if density>10 then return "#ff62a1"
+          if density>0 then return "#ff89b8"
+        else
+          # return "#dacdde"
+          return "#ccc"
 
       s.style = ( feature ) ->
         {
@@ -78,21 +91,25 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
           fillColor: '#007'
           fillOpacity: 1
         layer.bringToFront()
-        s.m.selectedContinent = feature.properties.continent
+        s.m.hoveredCountry = feature.properties
         return
 
       s.countryMouseleave = (feature, leafletEvent) ->
         leafletEvent.target.setStyle s.style( leafletEvent.target.feature )
-        s.m.selectedContinent = null
+        s.m.hoveredCountry = null
         return
 
-      s.$watch( 'm.locationContentFor', (-> s.assertOwnership() ), true)
-      s.assertOwnership = -> 
-        return unless s.m.locationContentFor && s.m.userInQuestionLocations()?.length>0
+      s.userCountryCount = -> "#{s.m.currentPlanId}|#{s.m.userInQuestion().id}#|#{s.m.locationManager.usersCountries( s.m.userInQuestion().id )}"
+
+      s.$watch( 'userCountryCount()', (-> s.markCountries() ), true)
+      s.markCountries = ->
+        return unless s.m.locationManager?.usersCountries( s.m.userInQuestion()?.id )?.length
         leafletData.getMap("user").then (m) -> 
-          _.forEach m._layers, (layer) -> layer.setStyle( s.style( layer.feature ) ) if layer?.feature?.properties
-          s.currentLayers = _.filter( m._layers, (l) -> l.feature?.properties )
-              
+          adjusted = 0          
+          _.forEach m._layers, (layer) -> if layer?.feature?.properties then ( layer.setStyle( s.style( layer.feature ) ); adjusted++ ) 
+          return unless adjusted == 0
+          $timeout( (-> _.forEach m._layers, (layer) -> if layer?.feature?.properties then layer.setStyle( s.style( layer.feature ) )), 2000)
+
       s.geojson = ->
         return if s.geoJsonDataToMap || !s.geojsonData
         s.geoJsonDataToMap = 

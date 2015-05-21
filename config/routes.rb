@@ -73,6 +73,7 @@ Rails.application.routes.draw do
         get :search, on: :collection
         get :point, on: :collection
         get :find, on: :collection
+        get :country_admins, on: :collection
       end
 
       resources :notes, only: [:create] do

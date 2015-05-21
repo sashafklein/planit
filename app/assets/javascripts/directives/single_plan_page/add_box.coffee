@@ -13,7 +13,20 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
 
       s.placeholderVerb = -> if s.m.plan()?.userOwns() then 'add' else 'suggest'
       s.placeholderPhrase = -> if s.m.mobile then "What" else "What do you want to #{s.placeholderVerb()}"
-      s.placeholder = -> "#{s.placeholderPhrase()} in #{s.m.plan()?.currentLocation()?.asciiName}?"
+      s.placeholder = -> "#{s.placeholderPhrase()} in #{s.m.plan()?.currentLocation()?.name}?"
+
+      s.countryLocations = ( locations ) -> 
+        return unless locations
+        if !s.countryOnlyContext()
+          locations
+        else
+          _.filter( locations, (l) -> parseInt(l.countryId) == parseInt(s.countryOnlyContext()?.geonameId) && l.fcode != "PCLI" )
+      s.countryOnlyContext = -> latest = s.m.plan()?.latestLocation(); if latest?.fcode == "PCLI" then latest else null
+      s.placeNearbyMessage = -> 
+        if !s.countryOnlyContext()
+          "Explore what city or region?"
+        else
+          "Explore what city or region in #{ s.m.plan()?.latestLocation()?.name }?"
 
       s.m.addBoxManuallyToggled = false
       s.addBoxToggle = -> 
@@ -34,14 +47,15 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
           .success (response) ->
             s.placeNearbyWorking--
             nearbyOptions = response.geonames
-            _.map( nearbyOptions, (o) -> o.lon = o.lng )
-            s.m.nearbyOptions = nearbyOptions #_.sortBy( nearbyOptions, 'bestScore' ).reverse()
+            _.forEach( nearbyOptions, (o) -> o.lon = o.lng; o.isCountry = if parseInt( s.countryOnlyContext()?.geonameId ) == parseInt( o.countryId ) then 0 else 1 )
+            s.m.nearbyOptions = _.sortBy( nearbyOptions, 'isCountry' )
             s.m.nearbySearchStrings.unshift s.placeNearby
           .error (response) -> 
             s.placeNearbyWorking--
             ErrorReporter.fullSilent(response, 'SinglePagePlaces s.searchPlaceNearby', { query: s.m.placeName })
 
-      s.underlined = ( location_text ) ->
+      s.underlined = ( text_array ) ->
+        location_text = _.compact( text_array ).join(", ")
         terms = s.placeNearby?.split(/[,]?\s+/)
         _.forEach( terms, (t) ->
           regEx = new RegExp( "(#{t})" , "ig" )
@@ -111,4 +125,5 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
         QueryString.modify({ near: null })
         return
 
+      window.addbox = s
   }

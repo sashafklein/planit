@@ -52,8 +52,6 @@ class Place < BaseModel
     elsif response['name']
       location = Location.create_from_geonames!( response )
       ObjectLocation.where({ obj_id: id, obj_type: 'Place', location_id: location.id }).first_or_create
-    else
-      binding.pry
     end
     location.build_out_location_hierarchy
   end
