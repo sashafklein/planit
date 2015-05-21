@@ -109,7 +109,7 @@ module ScraperHelper
     return true unless run
     @base_name, @url = name, url
     @base_domain = get_domain @url
-    binding.pry
+
     expect_equal data, expectations, also_ignore
   end
 

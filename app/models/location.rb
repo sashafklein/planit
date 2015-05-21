@@ -23,7 +23,7 @@ class Location < BaseModel
       time_zone_id: timezone['timeZoneId'], 
       level: get_level( response['fcode'] ),
       lon: response['lng']
-    }).compact
+    }).slice( *Location.attribute_keys(reject_ids: false) ).compact
   end
 
     def self.get_continent( continentCode )
@@ -47,9 +47,10 @@ class Location < BaseModel
     end
   end
 
-  def find_or_create!(response:, obj:)
+  def self.find_or_create!(response:, obj:)
     if location = Location.find_by( geoname_id: response['geoname_id'] ) || Location.create_from_geonames!( response )
       ObjectLocation.where({ obj_id: obj.id, obj_type: obj.class.to_s, location_id: location.id }).first_or_create
+      location
     else
       !Rails.env.production? ? binding.pry : Rollbar.error('Bad Geonames Response', response, obj)
     end

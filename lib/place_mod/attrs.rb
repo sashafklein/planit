@@ -1,10 +1,11 @@
 module PlaceMod
   class Attrs
 
-    attr_reader :attrs, :flags
+    attr_reader :attrs, :flags, :notes
     def initialize(attrs)
       @attrs = attrs.symbolize_keys.to_sh
       @flags = []
+      @notes = Array( @attrs.delete(:notes) ).flatten.compact
     end
 
     def normalize
@@ -79,7 +80,7 @@ module PlaceMod
     end
 
     def extra_attrs
-      attrs.except(*Place.attribute_keys + [:nearby, :images, :foursquare_id])
+      attrs.except(*Place.attribute_keys + [:nearby, :images, :foursquare_id, :notes])
     end
 
     def normalize_phones

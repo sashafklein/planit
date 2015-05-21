@@ -12,8 +12,8 @@ module Completers
       return unless response = PlaceCompleter.new( decremented_attrs.delete(:place), url ).complete!
 
       create_mark_and_associations!(
-        place:              ( response.is_a?(Place) ? response : nil),
-        place_option_hash:  ( response.is_a?(Hash) ? response : nil)
+        place_hash:              ( response[:place] ? response : nil),
+        place_option_hash:  ( response[:place_options] ? response : nil)
       )
     end
 
@@ -23,13 +23,11 @@ module Completers
 
     private
 
-    def create_mark_and_associations!(place:, place_option_hash:)
-      raise "Mark needs either Place or PlaceOptions" if (place.present? && place_option_hash.present?) || (!place.present? && !place_option_hash.present?)
+    def create_mark_and_associations!(place_hash:, place_option_hash:)
+      raise "Mark needs either Place or PlaceOptions" if (place_hash.present? && place_option_hash.present?) || (!place_hash.present? && !place_option_hash.present?)
 
-      place.get_place_geoname!
-
-      mark = Mark.unscoped.where(place_id: place.id, user: user).first_or_initialize if place
-      mark ||= Mark.unscoped.where(user: user).with_original_query( place_option_hash[:attrs] )
+      mark = Mark.unscoped.where(place_id: place_hash[:place].id, user: user).first_or_initialize if place_hash
+      mark ||= Mark.unscoped.where(user: user).with_original_query( place_option_hash[:attrs], place_option_hash[:notes] ) if place_option_hash
       mark ||= user.marks.new
 
       mark.save_with_source!(source_url: url)
@@ -39,13 +37,14 @@ module Completers
         mark.flags.create!(name: 'Original Attrs', info: place_option_hash[:attrs])
       end
 
-      merge_and_create_associations!(mark)
+      merge_and_create_associations!(mark, (place_hash || place_option_hash || {})[:notes] || [] )
       mark
     end
 
-    def merge_and_create_associations!(mark)
+    def merge_and_create_associations!(mark, notes=[])
       plan = create_plan!(mark)
       item = create_item!(plan, mark)
+      notes.each{ |n| item.notes.where(body: n, source: mark.source).create! }
     end
 
     def create_plan!(mark)
@@ -68,7 +67,7 @@ module Completers
       # search_attrs[:start_time] = Services::TimeConverter.new(search_attrs[:start_time]).absolute if search_attrs[:start_time]
       extra = search_attrs.delete(:extra)
 
-      Item.where(search_attrs).first_or_create!(extra: extra || {})
+      item = Item.where(search_attrs).first_or_create!(extra: extra || {})
     end
 
     def unacceptable_attributes(hash)

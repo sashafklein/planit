@@ -6,7 +6,7 @@ module Completers
     attr_accessor :attrs, :place, :pip, :url
     def initialize(attrs, url=nil)
       normalizer = PlaceMod::Attrs.new(attrs.merge(scrape_url: url))
-      @attrs, @flags, @url = normalizer.normalize, normalizer.flags, url
+      @attrs, @flags, @notes, @url = normalizer.normalize, normalizer.flags, normalizer.notes,  url
       @pip = PlaceInProgress.new @attrs, @flags, normalizer.set_photos
       add_state("Start of PlaceCompleter")
     end
@@ -94,10 +94,10 @@ module Completers
       add_state("Before final merge")
       @place = pip.place.find_and_merge
 
-      @place.validate_and_save!( pip.photos.uniq{ |p| p.url }, pip.all_flags ) 
+      { place: @place.validate_and_save!( pip.photos.uniq{ |p| p.url }, pip.all_flags ), notes: @notes }
     rescue => e
       if place_options.any?
-        { place_options: place_options, attrs: attrs }
+        { place_options: place_options, attrs: attrs, notes: @notes }
       else
         AdminMailer.report_error( { context: 'Failed Place Completion'}.merge(attrs.except(:created_at, :updated_at)) ).deliver_later
         nil

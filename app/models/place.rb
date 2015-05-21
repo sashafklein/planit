@@ -61,7 +61,7 @@ class Place < BaseModel
   def geonames_response
     return @gr if @gr
     res = HTTParty.get( geonames_url )
-    @gr = res.try([], 'geonames').try([], 0) || {}
+    @gr = res.try(:[], 'geonames').try(:[], 0) || {}
   end
 
 end
