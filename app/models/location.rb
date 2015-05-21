@@ -26,17 +26,17 @@ class Location < BaseModel
     }).slice( *Location.attribute_keys(reject_ids: false) ).compact
   end
 
-    def self.get_continent( continentCode )
-      case continentCode
-        when 'NA' then 'North America'
-        when 'SA' then 'South America'
-        when 'AN' then 'Antarctica'
-        when 'EU' then 'Europe'
-        when 'AF' then 'Africa'
-        when 'AS' then 'Asia'
-        when 'OC' then 'Oceania'
-      end
+  def self.get_continent( continentCode )
+    case continentCode
+      when 'NA' then 'North America'
+      when 'SA' then 'South America'
+      when 'AN' then 'Antarctica'
+      when 'EU' then 'Europe'
+      when 'AF' then 'Africa'
+      when 'AS' then 'Asia'
+      when 'OC' then 'Oceania'
     end
+  end
 
   def self.get_level(fcode)
     case fcode
@@ -48,7 +48,7 @@ class Location < BaseModel
   end
 
   def self.find_or_create!(response:, obj:)
-    if location = Location.find_by( geoname_id: response['geoname_id'] ) || Location.create_from_geonames!( response )
+    if location = Location.find_by( geoname_id: response['geonameId'] ) || Location.create_from_geonames!( response )
       ObjectLocation.where({ obj_id: obj.id, obj_type: obj.class.to_s, location_id: location.id }).first_or_create
       location
     else

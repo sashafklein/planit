@@ -53,6 +53,7 @@ module PlaceMod
       save_images!
       save_flags!
       place.get_place_geoname!
+
       @place
     end
 

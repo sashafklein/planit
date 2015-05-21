@@ -41,6 +41,29 @@ describe Place do
     end
   end
 
+  describe "get_place_geoname!", :vcr do
+    it "grabs the geoname location, and all others up the line, avoiding duplicates" do
+      place = create(:place)
+      expect( Location.count ).to eq 0
+      expect{ place.get_place_geoname! }.to change{ Location.count }.by(4)
+      expect( place.reload.locations.count ).to eq 1
+      expect{ place.get_place_geoname! }.not_to change{ Location.count }
+      expect( place.reload.locations.count ).to eq 1
+
+      expect( place.locations.first.atts( :geoname_id, :ascii_name, :name, :admin_name_1, :admin_name_2, :country_name, :lat, :lon ) ).to hash_eq({
+        geoname_id: 8449912,
+        ascii_name: "Downtown",
+        name: "Downtown",
+        admin_name_1: "California",
+        admin_name_2: "San Francisco County",
+        country_name: "United States",
+        lat: 37.78694,
+        lon: -122.41
+      })
+      expect( Location.find_by(geoname_id: place.locations.first.admin_id_1).name ).to eq 'California'
+    end
+  end
+
   def place(no: nil, other: {})
     Place.new(
       {
