@@ -7,7 +7,58 @@ angular.module("Directives").directive 'newGuideStart', (Geonames, ErrorReporter
       m: '='
     link: (s, e, a) ->
 
+      s.selectedUserName = s.m.userInQuestion().name
+      s.calculateSelectedUser = -> s.selectedUserName = s.m.userInQuestion().name
+      s.blurOnUserSelect = -> $('input#user-select').blur(); return
+      s.focusOnUserSelect = -> $('input#user-select').focus(); return
+
+      s.userNameSelectIncludes = ( string ) -> 
+        return null unless string?.length && s.selectedUserName?.length
+        return false if string == s.selectedUserName
+        toMatch = new RegExp( s.selectedUserName.toLowerCase() )
+        if string.toLowerCase().match( toMatch )?.length then return true else return false
+
+      s.chooseFirstUser = ->
+        return unless s.userOptions()?.length > 0
+        s.selectThisUser( s.userOptions()[0] )
+
+      s.selectThisUser = ( user ) -> null # REVISIT
+
+      s.x = []
+      s.m.currentUserUniverse = -> s.x
+      
+      s.userOptions = -> 
+        return s.m.currentUserUniverse() if s.m.currentUserName == s.selectedUserName
+        toMatch = new RegExp( s.selectedUserName.toLowerCase() )
+        _.filter( s.m.currentUserUniverse(), (u) -> u.name.toLowerCase().match( toMatch )?.length )
+
       s.planNearbyOptionClass = (option, index=0) -> ClassFromString.toClass( option.name, option.adminName1, option.countryName, index )
+      s.searchedPlanClass = (plan, index=0) -> ClassFromString.toClass( plan?.name, index ) unless !plan
+
+      s.searchedPlans = -> 
+        return s.m.planManager.plans if !s.planNearby?.length>0
+        toMatch = new RegExp( s.planNearby.toLowerCase() )
+        _.filter s.m.planManager.plans, (p) -> 
+          if p.name?.toLowerCase()?.match( toMatch )?.length
+            true
+          else if _.compact( _.map( p.locations, (l) -> ("#{l.name}  #{l.asciiName?}")?.toLowerCase()?.match( toMatch )?.length ) ).length
+            true
+          else
+            false
+
+      s.planNearbyBlur = -> $('input#plan-nearby').blur() if $('input#plan-nearby'); s.planNearby=null; s.planNearbyFocused=false; return
+
+      s.wherePrompt = ->
+        if s.m.userInQuestion().id == s.m.currentUserId
+          if s.m.hoveredCountry?.name
+            return "Explore #{s.m.hoveredCountry?.name}"
+          else
+            return "Where are you exploring?"
+        else
+          if s.m.hoveredCountry?.name
+            return "Explore #{s.m.hoveredCountry?.name}"
+          else 
+            return "Where in #{s.m.userInQuestion.name}'s Planit?"
 
       s.searchPlanNearby = -> 
         s.m.nearbyOptions = [] if s.planNearby?.length
@@ -42,23 +93,29 @@ angular.module("Directives").directive 'newGuideStart', (Geonames, ErrorReporter
         )
         $sce.trustAsHtml( location_text )
 
-      s.startPlanNearBestOption = ->
+      s.selectNearbyBestOption = ->
         return unless s.m.nearbyOptions?.length
         keepGoing = true
         _.forEach( s.m.nearbyOptions, ( option ) ->
           if s.planNearbyOptionSelectable( option ) && keepGoing
-            s.startPlanNear( option )
+            s.selectNearby( option )
             keepGoing = false
         )
 
-      s.startPlanNear = ( nearby ) ->
-        return unless nearby?.name && nearby?.lat && nearby?.lon
-        searchStrings = _.compact( s.m.nearbySearchStrings )
-        s.m.planManager.addNewPlan( nearby, searchStrings )
-        s.m.nearbySearchStrings = []
-        # scroll to top
+      s.getNewRegion = ( geonameId ) ->
+        Geonames.find( geonameId )
+          .success (response) -> s.m.selectedRegion = response
+
+      s.selectNearby = ( nearby ) ->
+        return unless Object.keys( nearby )?.length>0
+        s.m.selectedCountry = _.find( s.m.countries, (c) -> c.geonameId == nearby.countryId ) if s.m.countries
+        if nearby.fcode == 'ADM1' then s.m.selectedRegion = nearby else s.getNewRegion( nearby.adminId1 )
+        s.m.selectedNearby = nearby
+        # # scroll to top
         s.planNearby = null
         s.m.nearbyOptions = []
         s.m.browsing = true
+
+      window.start = s
 
   }

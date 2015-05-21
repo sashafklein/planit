@@ -1,0 +1,3 @@
+.user-map-canvas
+  .leaflet-wrapper{ ng_if: 'center && userLayers' }
+    %leaflet{ id: 'user', geojson: 'geoJsonDataToMap', layers: 'userLayers', defaults: 'defaults', height: '100%', width: '100%', center: "center" }

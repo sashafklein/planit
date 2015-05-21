@@ -61,6 +61,24 @@ mod.factory 'PlanitMarker', ($timeout, MetaCategory) ->
           iconSize: new L.Point(34,34),
           iconAnchor: [17,17],
 
+    # userMapPlacePin: (location) -> 
+    #   _( @_locationPin(location) ).extend(
+    #     icon: 
+    #       type: 'div'
+    #       className: 'contextual-map-div-icon'
+    #       html: """ <div>A</div> """
+    #       iconSize: [18,18]
+    #       iconAnchor: [9,9]
+    #   ).value()
+
+    # userMapClusterPin: (location) ->
+    #   L.divIcon
+    #     type: 'div'
+    #     className: 'contextual-map-div-icon'
+    #     html: """ <div>A</div> """
+    #     iconSize: [18,18]
+    #     iconAnchor: [9,9]
+
     _basicPin: (place) ->
       _(place).extend(
         hasImg: place.image?
@@ -70,6 +88,15 @@ mod.factory 'PlanitMarker', ($timeout, MetaCategory) ->
         riseOnHover: true
         layer: 'primary'
         lng: place.lon
+      ).value()
+
+    _locationPin: (location) ->
+      _(location).extend(
+        title: location.name
+        alt: location.name
+        riseOnHover: true
+        layer: 'primary'
+        lng: location.lon
       ).value()
 
   return PlanitMarker

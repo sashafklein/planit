@@ -1,7 +1,7 @@
 .single-page-footer
 
-  #footer-spacing.except-landscape
-  #planit-footer.except-landscape
+  #footer-spacing.except-landscape{ ng_show: "!m.fullscreen()" }
+  #planit-footer.except-landscape{ ng_show: "!m.fullscreen()" }
     
     .footer-container{ ng_show: "m.mobile" }
       %ng_include{ src: "'application/_nav_bar.html'" }

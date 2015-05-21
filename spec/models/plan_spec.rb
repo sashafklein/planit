@@ -11,19 +11,19 @@ describe Plan do
     end
 
     it 'owner adds new nearby' do
-      expect( Location.count + PlanLocation.count + LocationSearch.count ).to eq 0
-      expect{ @plan.add_nearby( @data, @user ) }.to change{ (Location.count + PlanLocation.count + LocationSearch.count) }.by 3
+      expect( Location.count + ObjectLocation.count + LocationSearch.count ).to eq 0
+      expect{ @plan.add_nearby( @data, @user ) }.to change{ (Location.count + ObjectLocation.count + LocationSearch.count) }.by 3
     end
 
     it 'somone else trys to add new nearby, and is rejected' do
-      expect( Location.count + PlanLocation.count + LocationSearch.count ).to eq 0
-      expect{ @plan.add_nearby( @data, create(:user) ) }.to change{ (Location.count + PlanLocation.count + LocationSearch.count) }.by 2
+      expect( Location.count + ObjectLocation.count + LocationSearch.count ).to eq 0
+      expect{ @plan.add_nearby( @data, create(:user) ) }.to change{ (Location.count + ObjectLocation.count + LocationSearch.count) }.by 2
     end
 
     it 'owner adds an existing nearby, and only adds to location search database' do
       @plan.add_nearby( @data, @user )
-      expect( Location.count + PlanLocation.count + LocationSearch.count ).to eq 3
-      expect{ @plan.add_nearby( @data, @user ) }.to change{ (Location.count + PlanLocation.count + LocationSearch.count) }.by 1
+      expect( Location.count + ObjectLocation.count + LocationSearch.count ).to eq 3
+      expect{ @plan.add_nearby( @data, @user ) }.to change{ (Location.count + ObjectLocation.count + LocationSearch.count) }.by 1
     end
 
   end

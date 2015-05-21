@@ -23,8 +23,14 @@ body
   background-size: cover
   background-attachment: fixed
 
-.single-page, .single-page-content, #plan-and-list-page
+.single-page-wrapper, .single-page-content
   min-height: 100%
+  height: auto
+  &.fullscreen
+    height: 100%
+
+.single-page-content
+  background: rgb(223,223,223)
 
 .rainbow-divider
   margin: 30px 0
@@ -62,17 +68,45 @@ body
 .ng-cloak
   display: none
   
-#planit-wrapper
+#planit-wrapper, #planit-wrapper .page-content
   min-height: 100%
   position: relative
 
-.page-mask
+.single-page-mask
   position: fixed
-  display: none
   top: 0
   bottom: 0
   left: 0
   right: 0
+  min-height: 100%
+  min-width: 100%
+  height: 100%
+  width: 100%
+  background: rgba(0,0,0,0.3)
+  z-index: 150000
+  .sitewide-loading-message
+    width: 50px !important
+    height: 50px !important
+    margin: auto
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    border-radius: 8px
+    font-size: 30px
+    line-height: 50px
+    text-align: center
+    color: #fff
+    background: rgba(0,0,0,0.4)
+
+.page-mask
+  position: fixed !important
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  min-height: 100%
+  min-width: 100%
   height: 100%
   width: 100%
   background: rgba(0,0,0,0.3)
@@ -81,13 +115,20 @@ body
   &.searching-mask
     cursor: pointer
     z-index: 20000
-  &.loading-mask
+  &.everything-but-mask, &.searching-mask, &.loading-mask
+    display: none
+  &.loading-mask, &.single-page-mask
     z-index: 150000
     &.content-only
       z-index: 20000
     .sitewide-loading-message
-      width: 50px
-      height: 50px
+      width: 50px !important
+      height: 50px !important
+      margin: auto
+      top: 0
+      bottom: 0
+      left: 0
+      right: 0
       border-radius: 8px
       font-size: 30px
       line-height: 50px
@@ -371,7 +412,7 @@ strong, .strong
     font-size: 125%
     line-height: 125%
 
-strong, .in-caps-header, i, b
+strong, .in-caps-header, i, b, span
   &.white
     color: #fff
   &.neon
@@ -382,6 +423,8 @@ strong, .in-caps-header, i, b
     color: #777
   &.green
     #c8e052 // green
+  &.darkblue
+    #007
 
 .planit-button, a.planit-button, a .planit-button, button.planit-button
   display: inline-block
@@ -600,7 +643,13 @@ strong, .in-caps-header, i, b
     max-height: 400px
     overflow-x: hidden
     overflow-y: scroll
+    white-space: nowrap
+    cursor: pointer
+    &.text-based
+      li 
+      padding: 1px 6px
     li 
+      position: relative
       overflow-x: hidden
     &.neon li.search-results-list, li.search-results-reset
       &.highlighted
@@ -613,8 +662,24 @@ strong, .in-caps-header, i, b
       &:hover
         background: $darkBlue
         color: #fff
+    li.search-results-list.bluegray-to-white
+      b
+        color: #007
+      span
+        color: #777
+      &:hover
+        b, span
+          color: #fff
+        .hidden-on-hover
+          display: none
     li.search-results-working
       background: #fff
+    li.search-results-attribution
+      background: rgba(255,255,255,0.75)
+      color: rgba(0,0,0,0.35)
+      font-weight: bold
+      &:hover
+        color: rgba(0,0,0,0.75)
 
 // ?
 
@@ -913,6 +978,11 @@ hr.divider
 
 // *Computer (Regular)
 
+.single-page-content
+  margin-bottom: 130px
+  &.fullscreen
+    margin-bottom: 0
+
 .extra-pad-top
   margin-top: 80px
 
@@ -951,9 +1021,15 @@ hr.divider
   display: none
   &.inline
     display: none
-  
+
+
 // #Tablet (Portrait)
 @media only screen and (min-width: 768px) and (max-width: 959px)
+
+  .single-page-content
+    margin-bottom: 130px
+    &.fullscreen
+      margin-bottom: 0
 
   .extra-pad-top
     margin-top: 30px
@@ -988,6 +1064,9 @@ hr.divider
 
 // #Mobile (Portrait) <-- smallest
 @media only screen and (max-width: 767px)
+
+  .single-page-content
+    margin-bottom: 0
 
   #mobile-dashboard
     padding: 55px 0
@@ -1064,6 +1143,9 @@ hr.divider
 // #Mobile (Landscape)
 @media only screen and (min-width: 480px) and (max-width: 767px)
 
+  .single-page-content
+    margin-bottom: 0
+
   #mobile-dashboard
     padding: 0
 
@@ -1127,6 +1209,9 @@ hr.divider
       display: none
 
 @media print 
+
+  .single-page-content
+    margin-bottom: 0
 
   .top-menu-container, .side-menu-container, .search-and-filter-wrap
     visibility: hidden !important

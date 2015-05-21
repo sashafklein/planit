@@ -159,13 +159,15 @@
   // *Computer (Regular)
 
   padding: 45px 0
-  position: absolute
+  position: fixed
+  z-index: -1
 
   // #Tablet (Portrait)
   @media only screen and (min-width: 768px) and (max-width: 959px)
 
     padding: 45px 0
-    position: absolute
+    position: fixed
+    z-index: -1
 
   // #Mobile (Portrait) <-- smallest
   @media only screen and (max-width: 767px)
@@ -184,9 +186,9 @@
     height: auto
 
 #footer-spacing
-  padding: 0 0 300px 0
+  padding: 0 0 120px 0
   @media only screen and (min-width: 768px) and (max-width: 959px)
-    padding: 0 0 300px 0
+    padding: 0 0 120px 0
   @media only screen and (max-width: 767px)
     padding: 0 0 45px 0
   @media only screen and (min-width: 480px) and (max-width: 767px)

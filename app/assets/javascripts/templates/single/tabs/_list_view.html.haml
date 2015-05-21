@@ -1,8 +1,8 @@
 .list-mode{ ng_show: "hasPlanAndItemsNotBrowsingAndInListView()" }
-  #header-spacing
+  #header-spacing.except-landscape
   .print-title {{ m.plan().name }}
   .print-by by {{ m.plan().user.name }}
-  .pad-top-addbox{ ng_show: 'm.plan() || m.hasPlans()' }
+  .pad-top-addbox{ ng_show: '( m.plan() || m.hasPlans() ) && m.addBoxToggled' }
   .band.spaced-extra
     .container.max
       %filter_and_actions{ m: 'm' }

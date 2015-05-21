@@ -20,6 +20,10 @@
       %a{ href: legal_support_path, target: '_self' }
         Legal & Support
         %i.planit-dropdown-menu-icon.fa.fa-question.fa-fw
+    %li.planit-dropdown-menu
+      %a{ href: '#planit-modal-feedback', data: { toggle: 'modal', target: '#planit-modal-feedback', backdrop: 'static', keyboard: 'false' } }
+        Share Feedback
+        %i.planit-dropdown-menu-icon.fa.fa-share-square.fa-fw
     %li.divider
     %li.planit-dropdown-menu
       %a{ "data-method" => "delete", :href => destroy_user_session_path, :target => '_self' }
