@@ -33,7 +33,7 @@ angular.module("Directives").directive 'newGuideStart', (Geonames, ErrorReporter
         _.filter( s.m.currentUserUniverse(), (u) -> u.name.toLowerCase().match( toMatch )?.length )
 
       s.planNearbyOptionClass = (option, index=0) -> ClassFromString.toClass( option.name, option.adminName1, option.countryName, index )
-      s.searchedPlanClass = (plan, index=0) -> ClassFromString.toClass( plan.name, index )
+      s.searchedPlanClass = (plan, index=0) -> ClassFromString.toClass( plan?.name, index ) unless !plan
 
       s.searchedPlans = -> 
         return s.m.planManager.plans if !s.planNearby?.length>0
@@ -46,11 +46,19 @@ angular.module("Directives").directive 'newGuideStart', (Geonames, ErrorReporter
           else
             false
 
+      s.planNearbyBlur = -> $('input#plan-nearby').blur() if $('input#plan-nearby'); s.planNearby=null; s.planNearbyFocused=false; return
+
       s.wherePrompt = ->
         if s.m.userInQuestion().id == s.m.currentUserId
-          "Where are you exploring?"
+          if s.m.hoveredCountry?.name
+            return "Explore #{s.m.hoveredCountry?.name}"
+          else
+            return "Where are you exploring?"
         else
-          "Where in #{s.m.userInQuestion.name}'s Planit?"
+          if s.m.hoveredCountry?.name
+            return "Explore #{s.m.hoveredCountry?.name}"
+          else 
+            return "Where in #{s.m.userInQuestion.name}'s Planit?"
 
       s.searchPlanNearby = -> 
         s.m.nearbyOptions = [] if s.planNearby?.length

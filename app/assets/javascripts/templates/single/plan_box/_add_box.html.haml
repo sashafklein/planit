@@ -9,17 +9,17 @@
         %i.fa.fa-times 
         %span.large-screen.inline Location
     .input-and-results{ ng_show: 'm.plan() && !m.plan().currentLocation()' } 
-      %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: 'Explore what city or region?', ng_model: 'placeNearby', ng_change: 'searchPlaceNearby()', ng_on_enter_key: 'setNearBestOption()', ng_on_esc_key: 'placeNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
-      %ul.suggested-results.blue{ ng_show: 'm.plan().locations.length || ( !m.typing && placeNearby && placeNearby.length > 1 && ( placeNearbyWorking || m.nearbyOptions.length>0 ) )' }
-        %li.search-results-list.current-locations{ ng_repeat: 'option in m.plan().locations', ng_click: 'setCurrentNearby(option)', ng_show: '!placeNearby' } 
-          %b{ ng_bind_html: "underlined( option.asciiName )" }
-          %span{ ng_bind_html: "underlined( option.adminName1+','+option.countryName )" } 
+      %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: '{{ placeNearbyMessage() }}', ng_model: 'placeNearby', ng_change: 'searchPlaceNearby()', ng_on_enter_key: 'setNearBestOption()', ng_on_esc_key: 'placeNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
+      %ul.suggested-results.text-based.blue{ ng_show: 'm.plan().locations || ( !m.typing && placeNearby && placeNearby.length > 1 && ( placeNearbyWorking || m.nearbyOptions.length>0 ) )' }
+        %li.search-results-list.current-locations{ ng_repeat: 'option in countryLocations(m.plan().locations)', ng_click: 'setCurrentNearby(option)', ng_show: '!placeNearby' } 
+          %b{ ng_bind_html: "underlined( [option.name] )" }
+          %span{ ng_hsow: "!option.fcode=='PCLI'", ng_bind_html: "underlined( [option.adminName1,option.countryName] )" } 
           %span.reset-location.nearby{ ng_click: 'm.plan().removeNearby( option )' } 
             %i.fa.fa-trash 
             %span.large-screen.inline Delete
         %li.search-results-list{ ng_repeat: 'option in m.nearbyOptions', ng_click: 'setNearby(option)', ng_class: 'nearbySearchResultClass(option)', ng_show: 'placeNearby' } 
-          %b{ ng_bind_html: "underlined( option.name )" }
-          %span{ ng_bind_html: "underlined( option.adminName1 + ', ' + option.countryName  )" } 
+          %b{ ng_bind_html: "underlined( [option.name] )" }
+          %span{ ng_bind_html: "underlined( [option.adminName1,option.countryName] )" } 
         %li.search-results-working{ ng_show: 'placeNearbyWorking>0' } Working on it...
         %li.search-results-working{ ng_show: 'noPlaceNearbyResults() && !m.typing' } Can't find that...
       %span.set-location-reminder{ ng_show: '!placeNearby || !placeNearby.length>1' } 

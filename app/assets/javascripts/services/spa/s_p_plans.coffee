@@ -21,40 +21,29 @@ angular.module("SPA").service "SPPlans", (User, Plan, SPPlan, QueryString, Error
         .success (response) ->
           plan = new SPPlan( response )
           self.plans[ plan.id ] = plan
+          self.plans[ plan.id ].locations = {}
           self.plans[ plan.id ].setNearby( nearby, searchStrings )
           # self.loadNearbyPlans( response.locations?[0]?.id )
         .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.create', { plan_name: name } )
 
-    fetchPlan: ( plan_id ) ->
+    fetchPlan: ( plan_id, callback ) ->
       self = @
       return unless plan_id
       if self.plans[ plan_id ] && !self.plans[ plan_id ]?.items?.length>0 # in cache but items not yet loaded
-        self.loadPlan( plan_id )
+        self.plans[ plan_id ].loadItems( callback )
         self.plans[ plan_id ].userResetNear = false
       else if self.plans[ plan_id ]?.items?.length>0 # cached & loaded 
         QueryString.modify({ plan: plan_id })
         self.plans[ plan_id ].userResetNear = false
+        callback?()
       else # not even in cache
         Plan.find( plan_id )
           .success (response) ->
             self.plans[ response.id ] = new SPPlan( response )
             self.plans[ response.id ].type = 'followed' if !self.plans[ response.id ].userOwns()
-            self.loadPlan( plan_id )
+            self.plans[ response.id ].loadItems( callback )
             self.plans[ response.id ].userResetNear = false
           .error (response) ->  ErrorReporter.fullSilent( response, "SPPlans loading plan #{ plan_id }" )
-
-    # loadNearbyPlans: ( location_id ) ->
-    #   return unless location_id || @.nearbyPlans?[ location_id ]
-    #   self = @
-    #   Plan.locatedNear( location_id )
-    #     .success (response) ->
-    #       self.nearbyPlans[ location_id ] = {}
-    #       _.forEach( response , (r) -> self.nearbyPlans[ location_id ][ r.id ] = new SPPlan( r ) )
-    #     .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.loadNearbyPlans', { coordinate: [nearby.lat,nearby.lon] } )
-
-    loadPlan: ( plan_id ) ->
-      # @.loadNearbyPlans( @.plans[ plan_id ].locations?[0]?.id )
-      @.plans[ plan_id ].loadItems()
 
     removePlan: ( plan_id ) ->
       plan = @.plans[ plan_id ]

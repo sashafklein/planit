@@ -1,4 +1,4 @@
-angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Place, Note, Foursquare, QueryString, Geonames, CurrentUser, ErrorReporter, Flash, $filter, $timeout, $location, $q, RailsEnv, SPPlans, Distance) ->
+angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Place, Note, Foursquare, QueryString, Geonames, CurrentUser, ErrorReporter, Flash, $filter, $timeout, $location, $q, RailsEnv, SPPlans, SPLocations, Distance) ->
   return {
     restrict: 'E'
     replace: true
@@ -17,8 +17,12 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
       s.m.currentUserIsActive = _.contains(['admin', 'member'], s.m.currentUser.role)
       s.userInQuestionBank = {}
 
+      s.m.locationManager = new SPLocations( s.m.currentUserId )
+      s.m.locations = s.m.locationManager.locations
+
       s.m.planManager = new SPPlans( s.m.currentUserId )
       s.m.plans = s.m.planManager.plans
+      
       s.m.plan = -> s.m.plans[s.m.currentPlanId]
       s.m.userOwnsPlan = -> s.m.plans[s.m.currentPlanId]?.userOwns()
       # s.m.userCoOwnsPlan = -> s.m.plans[s.m.currentPlanId]?.userCoOwns()
@@ -82,6 +86,7 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
 
       # NAVIGATION & PAGE-LOADING
 
+      s.unworking = -> s.m.workingNow = false
       s._hashCommand = -> QueryString.get()
       s._loadFromHashCommand = ->
         hash = s._hashCommand()
@@ -92,7 +97,7 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
           else
             s.m.userInQuestionId = s.m.currentUserId
           if hash.plan
-            s.m.planManager.fetchPlan( hash.plan ) if s.m.plan()?.id != parseInt( hash.plan )
+            s.m.planManager.fetchPlan( hash.plan, s.unworking() ) if s.m.plan()?.id != parseInt( hash.plan )
             s.m.currentPlanId = parseInt( hash.plan ) if s.m.currentPlanId != parseInt( hash.plan )
           else
             s.m.currentPlanId = null

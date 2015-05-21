@@ -87,7 +87,7 @@ class Api::V1::PlansController < ApiController
     return permission_denied_error unless current_user_is_active
     return permission_denied_error unless @plan && @plan.user_id == current_user.id
     location_id = params[:location][:location_id]
-    if location_id && plan_locations = PlanLocation.where( plan_id: @plan.id, location_id: location_id )
+    if location_id && plan_locations = ObjectLocation.where( obj: @plan, location_id: location_id )
       plan_locations.destroy_all
       render json: location_id
     else

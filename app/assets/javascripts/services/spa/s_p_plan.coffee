@@ -10,7 +10,8 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
 
     typeOf: -> if @userOwns() || @userCoOwns() then 'travel' else 'viewing'
 
-    currentLocation: -> self = @; _.find( self.locations, (l) -> l.id == self.latest_location_id )
+    latestLocation: -> @locations[ @latest_location_id ]
+    currentLocation: -> current = @latestLocation(); return current unless current?.fcode=="PCLI"
 
     # EDIT PLAN ITSELF
 
@@ -28,10 +29,10 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
 
     setNearby: ( nearby, searchStrings ) ->
       self = @
-      data = { asciiName: nearby.asciiName, adminName1: nearby.adminName1, countryName: nearby.countryName, fclName: nearby.fclName, geonameId: nearby.geonameId, lat: nearby.lat, lon: nearby.lng, searchStrings: searchStrings }
+      data = { name: nearby.name, asciiName: nearby.asciiName, adminId1: nearby.adminId1, adminName1: nearby.adminName1, adminId2: nearby.adminId2, adminName2: nearby.adminName2, countryId: nearby.countryId, countryName: nearby.countryName, fcode: nearby.fcode, geonameId: nearby.geonameId, lat: nearby.lat, lon: nearby.lng, searchStrings: searchStrings }
       @_planObj().addNearby(data)
         .success (response) -> 
-          self.locations.unshift( response ) unless _.find( self.locations, (l) -> l.id == response.id )
+          self.locations[ response.id ] = response unless self.locations[ response.id ]
           self.latest_location_id = response.id
           QueryString.modify({ plan: self.id })
         .error (response) -> ErrorReporter.fullSilent( response, 'Failed in setting self.id plan nearby' )
@@ -40,8 +41,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
       self = @
       @_planObj().removeNearby({ location_id: nearby['id'] })
         .success (response) -> 
-          index = self.locations.indexOf( _.find( self.locations, (l) -> l.id == response ) )
-          self.locations.splice( index, 1 ) if index != -1
+          delete self.locations[ nearby['id'] ]
           self.latest_location_id = null
         .error (response) -> ErrorReporter.fullSilent( response, 'Failed in removing nearby from plan' )
 
@@ -138,7 +138,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
 
     # LOAD UP PLAN
 
-    loadItems: (opts={}) ->
+    loadItems: (opts={}, callback) ->
       self = @
 
       if !@items?.length || !@fetchingItems || opts.force
@@ -152,6 +152,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
             self.itemsLoaded = true
             QueryString.modify({ plan: parseInt( self.id ) }) unless opts.dontRedirectAfterLoad
             opts.afterLoad( self ) if opts.afterLoad?
+            callback?()
             $timeout(-> self._fetchNotes() )
           .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list #{self.id}", { plan_id: self.id })
 
