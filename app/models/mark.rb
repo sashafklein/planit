@@ -80,7 +80,6 @@ class Mark < BaseModel
 
   def self.with_original_query( attrs )
     results = select do |m|
-      m.query.scrape_url == attrs.scrape_url && 
       m.query.names == attrs.names && 
       m.query.nearby == attrs.nearby && 
       m.query.lat == attrs.lat && 
@@ -106,8 +105,10 @@ class Mark < BaseModel
   end
 
   def save_with_source!(source_url:)
-    save!
-    create_source!(source_url: source_url) if source_url.present?
+    to_save = Mark.unscoped.find_by(user_id: user_id, place_id: place_id) || self
+    to_save.save! unless to_save.persisted?
+    to_save.create_source!(source_url: source_url) if source_url.present?
+    to_save
   end
 
   def source

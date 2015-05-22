@@ -27,10 +27,10 @@ module Completers
       raise "Mark needs either Place or PlaceOptions" if (place_hash.present? && place_option_hash.present?) || (!place_hash.present? && !place_option_hash.present?)
 
       mark = Mark.unscoped.where(place_id: place_hash[:place].id, user: user).first_or_initialize if place_hash
-      mark ||= Mark.unscoped.where(user: user).with_original_query( place_option_hash[:attrs], place_option_hash[:notes] ) if place_option_hash
+      mark ||= Mark.unscoped.where(user: user).with_original_query( place_option_hash[:attrs] ) if place_option_hash
       mark ||= user.marks.new
 
-      mark.save_with_source!(source_url: url)
+      mark = mark.save_with_source!(source_url: url)
 
       if place_option_hash
         place_option_hash[:place_options].each{ |po| po.update_attributes!(mark_id: mark.id) }
@@ -87,9 +87,7 @@ module Completers
     end
 
     def create_plan_source(plan, mark_source)
-      source = Source.new( mark_source.generic_attrs )
-      source.obj = plan
-      source.save!
+      plan.sources.where( mark_source.generic_attrs ).first_or_create
     end
   end
 end

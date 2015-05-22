@@ -13,7 +13,7 @@ module Completers
 
     def complete!
       return nil unless @pip.names.any? && some_location_data?
-
+      
       api_complete! unless @pip.completed("FoursquareRefine")
       merge_and_save_with_photos!
     end
