@@ -9,12 +9,11 @@ module Completers
     end
 
     def complete!
-      return unless response = PlaceCompleter.new( decremented_attrs.delete(:place), url ).complete!
-
-      create_mark_and_associations!(
-        place_hash:              ( response[:place] ? response : nil),
-        place_option_hash:  ( response[:place_options] ? response : nil)
-      )
+      if url && !attrs[:item] && !attrs[:plan] && preexisting_source = Source.for_url( url ).find_by(obj_type: 'Mark')
+        complete_from_preexisting!( preexisting_source )
+      else
+        complete_from_scratch!
+      end
     end
 
     def delay_complete!
@@ -22,6 +21,20 @@ module Completers
     end
 
     private
+
+    def complete_from_scratch!
+      return unless response = PlaceCompleter.new( decremented_attrs.delete(:place), url ).complete!
+      create_mark_and_associations!(
+        place_hash:              ( response[:place] ? response : nil),
+        place_option_hash:  ( response[:place_options] ? response : nil)
+      )
+    end
+
+    def complete_from_preexisting!( preexisting_source )
+      return complete_from_scratch! unless preexisting_mark = Mark.unscoped.where.not( place_id: nil ).find_by( id: preexisting_source.obj_id )
+      user.marks.where( place_id: preexisting_mark.place.id ).first_or_initialize
+      mark.save_with_source!(source_url: url)
+    end
 
     def create_mark_and_associations!(place_hash:, place_option_hash:)
       raise "Mark needs either Place or PlaceOptions" if (place_hash.present? && place_option_hash.present?) || (!place_hash.present? && !place_option_hash.present?)

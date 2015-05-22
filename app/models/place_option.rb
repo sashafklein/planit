@@ -61,6 +61,6 @@ class PlaceOption < BaseModel
   end
 
   def complete!
-    Completers::PlaceCompleter.new( generic_attrs ).complete!
+    Completers::PlaceCompleter.new( generic_attrs ).complete![:place]
   end
 end

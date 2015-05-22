@@ -7,7 +7,11 @@ module Completers
     end
 
     def complete!
-      completers.map(&:complete!).compact
+      if preexisting_plan = user.plans.where( id: Source.for_url( url ).where( obj_type: 'Plan' ).pluck(:obj_id) ).first
+        return preexisting_plan.items.marks
+      else
+        completers.map(&:complete!).compact
+      end
     end
 
     def delay_complete!(delay=true)
