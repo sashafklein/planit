@@ -9,11 +9,11 @@ FactoryGirl.define do
     postal_code '94114'
     sequence(:street_addresses) { |n| ["#{n} Some Street"] }
     phones ["1234167890"]
-    country "SomeCountry"
-    region "StateName"
-    locality "CityName"
-    lat '1.5'
-    lon '1.5'
+    country "United States"
+    region "California"
+    locality "San Francisco"
+    lat 37.78301494061
+    lon -122.407567382064
     website "www.whatever.com"
     categories ["Some category"]
     sequence(:foursquare_id) { |n| Digest::MD5.hexdigest(n.to_s) }

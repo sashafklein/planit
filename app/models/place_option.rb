@@ -44,6 +44,7 @@ class PlaceOption < BaseModel
       return false 
     end
     
+    place.get_place_geoname!
     mark.update_attributes!(place_id: place.id)
     [images, flags].map{ |a| a.repoint!(place) }
     place      
@@ -60,6 +61,6 @@ class PlaceOption < BaseModel
   end
 
   def complete!
-    Completers::PlaceCompleter.new( generic_attrs ).complete!
+    Completers::PlaceCompleter.new( generic_attrs ).complete![:place]
   end
 end

@@ -27,10 +27,11 @@ module Scrapers
       def general_data(general, general_index)
         {
           place:{
-            name: trim( de_tag( general.scan(before_parens_regex_find_name).flatten.first ) ),
+            name: name(general),
             street_address: general.scan(after_parens_regex_find_address).flatten.first,
             phone: general.scan(after_separator_regex_find_phone).flatten.first,
             website: general.scan(a_regex_find_href).flatten.first,
+            notes: notes_for( name(general) ),
             # general_title: trim( scrape_content.scan(day_section_start_regex(["the basics", "the details", "if you go"])).flatten.first.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
             # general_number: general_index + 1,
           },
@@ -93,10 +94,11 @@ module Scrapers
       def activity_data(activity, activity_index)
         {
           place:{
-            name: trim( de_tag( activity.scan(before_parens_regex_find_name).flatten.first ) ),
+            name: name(activity),
             street_address: activity.scan(after_parens_regex_find_address).flatten.first,
             phone: activity.scan(after_separator_regex_find_phone).flatten.first,
             website: activity.scan(a_regex_find_href).flatten.first,
+            notes: notes_for( name(activity) ),
           },
         }
       end
@@ -115,6 +117,11 @@ module Scrapers
         true
       end
 
+      def name(activity_or_general)
+        trim( de_tag( activity_or_general.scan(before_parens_regex_find_name).flatten.first ) )
+      end
+
+      memoize :name
     end
   end
 end

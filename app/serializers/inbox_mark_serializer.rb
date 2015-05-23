@@ -7,4 +7,11 @@ class InboxMarkSerializer < ActiveModel::Serializer
   def created_at
     object.created_at.strftime("%d/%m/%y")
   end
+
+  def query
+    {
+      name: object.query.names.first,
+      nearby: object.query.nearby
+    }
+  end
 end

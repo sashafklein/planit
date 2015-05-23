@@ -26,6 +26,10 @@ class Place < BaseModel
 
   include ActsLikePlace
 
+  def self.locations
+    Location.where( id: object_locations.pluck(:location_id) )
+  end
+  
   def savers
     Mark.savers( id )
   end
@@ -42,24 +46,22 @@ class Place < BaseModel
     Mark.guides( id )
   end
 
-  def get_place_geoname
-    response = HTTParty.get( geonames_url )
-    return unless response = response['geonames']
-    return unless response = response.first
-    location = Location.find_by( geoname_id: response['geonameId'] )
-    if location
-      ObjectLocation.where({ obj_id: id, obj_type: 'Place', location_id: location.id }).first_or_create
-    elsif response['name']
-      location = Location.create_from_geonames!( response )
-      ObjectLocation.where({ obj_id: id, obj_type: 'Place', location_id: location.id }).first_or_create
-    end
-    location.build_out_location_hierarchy
+  def get_place_geoname!
+    location = Location.find_or_create!( response: geonames_response, obj: self )
+    location.build_out_location_hierarchy if location
+    location
   end
 
   private
 
   def geonames_url
     "http://api.geonames.org/findNearbyPlaceNameJSON?lat=#{ lat }&lng=#{ lon }&featureClass=P&style=full&username=planit"
+  end
+
+  def geonames_response
+    return @gr if @gr
+    res = HTTParty.get( geonames_url )
+    @gr = res.try(:[], 'geonames').try(:[], 0) || {}
   end
 
 end

@@ -32,3 +32,7 @@
         .container.none.inbox-folder-contents
           .container.none.inbox-message-header{ ng_repeat: 'mark in savesToReview', ng_click: "openMark(mark)", ng_class: "{ darker: $even }" }
             .original-reminder= render 'marks/place_option_header'
+
+  .band.spaced
+    %h3 Get the Planit Bookmarklet
+    = current_user.decorate.bookmarklet_link

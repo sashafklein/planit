@@ -89,9 +89,10 @@ module Scrapers
       def activity_data(activity, activity_index)
         {
           place:{
-            name: trim( de_tag( activity.scan(strong_details_regex_find_name).flatten.first ) ),
+            name: name( activity ),
             street_address: trim( activity.scan(strong_details_regex_find_address_phone).flatten.first ),
             website: activity.scan(a_regex_find_href).flatten.first,
+            notes: notes_for( name( activity ) )
           },
         }
       end
@@ -154,6 +155,11 @@ module Scrapers
         find_by_attr(data, 'popup')[:body].scan(find_address_after_n).flatten.first ; rescue ; nil
       end
 
+      def name(activity)
+        trim( de_tag( activity.scan(strong_details_regex_find_name).flatten.first ) )
+      end
+
+      memoize :name
     end
   end
 end

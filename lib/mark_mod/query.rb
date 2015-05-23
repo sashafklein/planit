@@ -3,9 +3,11 @@ module MarkMod
 
     delegate :names, :locality, :region, :street_address, :country, :subregion, :sublocality, :lat, :lon, 
              to: :info
-    attr_reader :info
+
+    attr_reader :info, :mark
     def initialize(mark)
-      @info = mark.flags.named("Original Attrs").first.try(:info)
+      @mark = mark
+      @info = mark.flags.named("Original Attrs").first.try(:info) || {}.to_sh
     end
 
     def exists?

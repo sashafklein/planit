@@ -23,5 +23,5 @@ angular.module('Modals').directive 'chooseMarkPlace', (Mark, Modal, ErrorReporte
         s.data.choose( s.mark, place_option_id, s._hide )
 
       s._hide = -> new Modal('').hide()
-      window.po = s
+      
   }

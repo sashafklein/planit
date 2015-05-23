@@ -24,6 +24,7 @@ class Api::V1::Users::MarksController < ApiController
     
     # File.open('~log.html', 'w') { |file| file.write(params[:page]) }
     log msg: "URL: #{params[:url]}"
+
     scraper = Services::SiteScraper.build(params[:url], params[:page]) || Scrapers::General.new(params[:url], params[:page])
     scraped = Array scraper.data
 

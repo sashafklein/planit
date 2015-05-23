@@ -1,13 +1,12 @@
 class Item < BaseModel
 
   after_create :resuscitate_mark!
+  after_create :add_admin_2_to_plan!
   before_create :set_meta_category
+  before_destroy :remove_admin_2_from_plan!
 
   belongs_to :mark
   belongs_to :plan
-  belongs_to :day
-
-  delegate :leg, to: :day
   
   json_accessor :extra
   boolean_accessor :published
@@ -18,7 +17,7 @@ class Item < BaseModel
     delegate :places, to: :marks
   end
 
-  delegate    :names,
+  delegate    :place, :names,
               :lat, :lon, 
               :street_addresses, :sublocality, :locality, :subregion, :region, :country, 
               :phone, :phones, :website,
@@ -100,6 +99,12 @@ class Item < BaseModel
     self.place.name unless !self.mark.lodging
   end
 
+  def add_admin_2_to_plan!
+    return unless plan && admin_2
+    locs = plan.object_locations.where( location_id: admin_2.id )
+    locs.first_or_create!
+  end
+  
   private
 
   def siblings
@@ -112,5 +117,20 @@ class Item < BaseModel
 
   def set_meta_category
     self.meta_category = mark.place.meta_category if mark.try( :place ) && !self.meta_category
+  end
+
+  def remove_admin_2_from_plan!
+    return unless plan && admin_2
+
+    locations_with_admin_2 = plan.places.locations.where( admin_id_2: admin_2.geoname_id )
+    not_only_item_with_that_admin_2 = locations_with_admin_2.count > 1 || 
+      plan.places.object_locations.where(location_id: locations_with_admin_2.pluck(:id)).count > 1
+
+    plan.object_locations.where(location_id: admin_2.id).destroy_all unless not_only_item_with_that_admin_2
+  end
+
+  def admin_2
+    return nil unless mark.place
+    Location.find_by( geoname_id: mark.place.locations.pluck(:admin_id_2) )
   end
 end

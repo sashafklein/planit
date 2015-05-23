@@ -38,27 +38,12 @@ module Scrapers
                       @currently_in = guessed_sublocale
                     end
                   end
-                elsif text.scan( capture_strong_phrase_accept_link_followed_by_parens ).length > 0
-                  activities = text.scan( capture_strong_phrase_accept_link_followed_by_parens ).flatten
-                  activities.each do |activity|
-                    unless !trim( de_tag( activity ) ) || trim( de_tag( activity ) ).empty?
-                      group_array << [activity, @currently_in]
-                    end
-                  end
-                elsif text.scan( capture_strong_phrase_accept_link ).length > 0
-                  activities = text.scan( capture_strong_phrase_accept_link ).flatten
-                  activities.each do |activity|
-                    unless !trim( de_tag( activity ) ) || trim( de_tag( activity ) ).empty?
-                      group_array << [activity, @currently_in]
-                    end
-                  end
-                elsif text.scan( capture_phrase_accept_link_followed_by_detail_parens ).length > 0
-                  activities = text.scan( capture_phrase_accept_link_followed_by_detail_parens ).flatten
-                  activities.each do |activity|
-                    unless !trim( de_tag( activity ) ) || trim( de_tag( activity ) ).empty?
-                      group_array << [activity, @currently_in]
-                    end
-                  end
+                elsif ( unflattened_activities = text.scan( capture_strong_phrase_accept_link_followed_by_parens ) ).length > 0
+                  group_array.concat for_group_array( unflattened_activities.flatten )
+                elsif ( unflattened_activities = text.scan( capture_strong_phrase_accept_link ) ).length > 0
+                  group_array.concat for_group_array( unflattened_activities.flatten )
+                elsif ( unflattened_activities = text.scan( capture_phrase_accept_link_followed_by_detail_parens ) ).length > 0
+                  group_array.concat for_group_array( unflattened_activities.flatten )
                 end
               end
             end
@@ -75,6 +60,7 @@ module Scrapers
             phone: phone(activity),
             nearby: nearby(activity),
             extra: extra_address_or_note(activity),
+            notes: notes_for( name(activity) )
           },
         }
       end
@@ -82,7 +68,7 @@ module Scrapers
       # OPERATIONS
 
       def name(activity)
-        name = trim( de_tag( activity.first ).split("(")[0] )
+        trim( de_tag( activity.first ).split("(")[0] )
       end
 
       def website(activity)
@@ -106,21 +92,15 @@ module Scrapers
       end
 
       def extra_address_or_note(activity)
-        extra_address_or_note = trim( de_tag( activity.first).scan(/.*?\((.*?)(?:\)|\<|#{find_phone_number_between_comma_or_semicolon_or_parens}|[a-z]*?\.[a-z])/).flatten.first )
-      end
-
-      def wrapper
-        @scrape_target.each do |try_wrapper|
-          if page.css(try_wrapper).first
-            return page.css(try_wrapper)
-          end
-        end
+        trim( de_tag( activity.first).scan(/.*?\((.*?)(?:\)|\<|#{find_phone_number_between_comma_or_semicolon_or_parens}|[a-z]*?\.[a-z])/).flatten.first )
       end
 
       def guessed_locale
         return @guessed_locale if @guessed_locale.present?
         @guessed_locale = guess_locale([ page.css("title").text, page.css("h1").text, url ])
       end
+
+      private
 
     end
   end
