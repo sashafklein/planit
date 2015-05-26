@@ -61,23 +61,25 @@ mod.factory 'PlanitMarker', ($timeout, MetaCategory) ->
           iconSize: new L.Point(34,34),
           iconAnchor: [17,17],
 
-    # userMapPlacePin: (location) -> 
-    #   _( @_locationPin(location) ).extend(
-    #     icon: 
-    #       type: 'div'
-    #       className: 'contextual-map-div-icon'
-    #       html: """ <div>A</div> """
-    #       iconSize: [18,18]
-    #       iconAnchor: [9,9]
-    #   ).value()
+    userMapLocationPin: (location) -> 
+      test = "https://irs3.4sqi.net/img/general/622x440/186753_bXWfu1hl2seDr5TizbL0X-3EuuNWkKLKoDnmJ_YgvwE.jpg"
+      _( @_locationPin(location) ).extend(
+        icon: 
+          type: 'div'
+          className: 'user-map-single-div-icon'
+          html: """ <div><div class="location-name-wrapper"><div class="location-name"><span>#{location.name}</span></div></div><img src="#{test}"></div> """
+          iconSize: [40,40]
+          iconAnchor: [20,38]
+      ).value()
 
-    # userMapClusterPin: (location) ->
-    #   L.divIcon
-    #     type: 'div'
-    #     className: 'contextual-map-div-icon'
-    #     html: """ <div>A</div> """
-    #     iconSize: [18,18]
-    #     iconAnchor: [9,9]
+    userMapClusterPin: (cluster) ->
+      test = "https://irs3.4sqi.net/img/general/622x440/186753_bXWfu1hl2seDr5TizbL0X-3EuuNWkKLKoDnmJ_YgvwE.jpg"
+      L.divIcon
+        type: 'div'
+        className: 'user-map-cluster-div-icon'
+        html: """ <div><div class="location-name-wrapper"><div class="location-name"><span>#{cluster.getAllChildMarkers().length} locations</span></div></div><img src="#{test}"></div> """
+        iconSize: [40,40]
+        iconAnchor: [20,38]
 
     _basicPin: (place) ->
       _(place).extend(
@@ -95,7 +97,7 @@ mod.factory 'PlanitMarker', ($timeout, MetaCategory) ->
         title: location.name
         alt: location.name
         riseOnHover: true
-        layer: 'primary'
+        layer: 'locations'
         lng: location.lon
       ).value()
 

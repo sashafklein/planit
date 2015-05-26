@@ -13,6 +13,7 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
       # setNearbyFromCenter: '&'
 
     link: (s, elem) ->
+
       s.loaded = false
       s.currentUserId = CurrentUser.id
       s.marker = new PlanitMarker(s)
@@ -25,7 +26,7 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
       s.changes = 0
       s.maxBounds = [[-84,-400], [84,315]]
       s.centerAndZoom = QueryString.get()['m'] || null
-      s.centerPoint = if s.centerAndZoom then { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) } else { lat: 0, lng: 0, zoom: 2 }
+      s.centerPointPlan = if s.centerAndZoom then { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) } else { lat: 0, lng: 0, zoom: 2 }
       s.placesInView = s.clustersInView = s.firstItems = []
       s.leaf = leafletData
 
@@ -81,7 +82,6 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
       s._setCurrentLayers = (callback) ->
         leafletData.getLayers("plan").then (l) ->
           s.currentLayers = l.overlays.primary._featureGroup._layers
-          console.log s.currentLayers
           callback?()
 
       s._setItemsInView = ->

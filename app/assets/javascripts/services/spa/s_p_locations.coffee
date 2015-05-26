@@ -9,6 +9,10 @@ angular.module("SPA").service "SPLocations", (User, Plan, Location, Geonames, Qu
       self.locationsQueried = []
       @fetchUsersLocations( userId )
 
+    fetchGeoname: ( geonameId ) ->
+      self = @
+      return self.locations[geonameId] if self.locations[geonameId]
+
     fetchUsersLocations: ( userId ) ->
       self = @
       return unless userId
@@ -24,7 +28,7 @@ angular.module("SPA").service "SPLocations", (User, Plan, Location, Geonames, Qu
           self.fetchingUserLocations = null
         .error (response) -> 
           self.fetchingUserLocations = null
-          ErrorReporter.fullSilent( response, 'SinglePageLocations Location constructor', user_id: userId )
+          ErrorReporter.fullSilent( response, 'SinglePageLocations fetch Users Locations', user_id: userId )
 
     usersLocations: ( userId ) ->
       self = @ 
@@ -67,7 +71,7 @@ angular.module("SPA").service "SPLocations", (User, Plan, Location, Geonames, Qu
           self.fetchingCountryAdmins = null
         .error (response) -> 
           self.fetchingCountryAdmins = null
-          ErrorReporter.fullSilent( response, 'SinglePageLocations Location constructor', user_id: userId )
+          ErrorReporter.fullSilent( response, 'SinglePageLocations fetching Country Admins', country_id: countryId )
 
     countryAdmins: ( countryId ) ->
       self = @

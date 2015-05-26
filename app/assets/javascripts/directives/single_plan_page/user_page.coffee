@@ -12,7 +12,7 @@ angular.module("SPA").directive 'userPage', ($http, $timeout, User) ->
 
       s.$watch( 'm.currentPlanId', (-> s.loadCountries() ), true)
       s.loadCountries = ->
-        return if s.m.currentPlanId || s.m.countries || s.geojson
+        return if s.m.currentPlanId || s.m.countries || s.geojson || s.m.mobile
         s.m.workingNow = true
         $http.get('/assets/lib/countries.json')
           .then( (res) -> 
@@ -26,7 +26,8 @@ angular.module("SPA").directive 'userPage', ($http, $timeout, User) ->
               )
           )
 
-      s.clearLocationPopup = -> s.m.resetUserMapView(); s.m.selectedCountry=null; s.m.selectedRegion=null; s.narrowedRegion=null; s.narrowedCounty=null; s.m.selectedNearby=null; s.showNarrowing=false
+      s.m.clearLocation = -> s.clearLocationPopup()
+      s.clearLocationPopup = -> s.m.resetUserMapView(); s.m.selectedCountry=null; s.m.selectedRegion=null; s.narrowedRegion=null; s.narrowedCounty=null; s.m.selectedNearby=null; s.showNarrowing=false; s.lastBestNearbyIs=null
       s.clearLocationPopupIfOutCountry = -> s.clearLocationPopup() unless s.inCountry
 
       s.narrowRegionMessage = -> if s.showNarrowing then null else if s.narrowedRegion then s.narrowedRegion else if s.allAdminOnes()?.length then "Narrow by Region" else "Loading Regions"
@@ -51,25 +52,76 @@ angular.module("SPA").directive 'userPage', ($http, $timeout, User) ->
         regex = new RegExp( s.narrowedRegion.toLowerCase() )
         _.filter( s.allAdminOnes(), (a) -> a.name.toLowerCase().match(regex) )
 
-      s.filterByLocation = ( plans ) ->
-        plans = _.sortBy( plans, (p) -> p.updated_at ).reverse()
-        if s.filteredAdminOnes()?.length > 0
-          plansToReturn = _.filter plans, (p) -> 
-            _.find p.locations, (l) -> 
-              _.include( _.map( s.filteredAdminOnes(), (a) -> parseInt( a.geonameId ) ), parseInt( l.adminId1 ) )
-        else
-          plans
+      s.trustCircle = -> s.m.userManager.trustCircle( s.m.userInQuestionId )
+
+      s.trustedUser = ( user ) -> _.include( _.map( s.trustCircle(), (u) -> u.id ), user.id ) if s.trustCircle()
+
+      s.clustersInCountry = ->
+        return unless s.m.selectedCountry || s.m.hoveredCountry
+        selected = parseInt( ( s.m.selectedCountry?.geonameId || "" ) )
+        hovered = parseInt( ( s.m.hoveredCountry?.geonameId || "" ) )
+        geonames = _.compact( [selected, hovered] )
+        return s.admin2s if s.lastClustersCertificate == geonames.join("|") || s.lastClustersCertificate == geonames.reverse().join("|")
+        s.lastClustersCertificate = geonames.join("|")
+        admin2s = {}
+        _.forEach s.trustedContentInCountries( geonames ), (p) ->
+          _.forEach p.locations, (l) ->
+            if l.fcode=="ADM2"
+              admin2s[ l.geonameId ] = l unless admin2s[ l.geonameId ]
+              admin2s[ l.geonameId ].users = [] unless admin2s[ l.geonameId ].users
+              admin2s[ l.geonameId ].users.push p.user
+        return s.admin2s = admin2s
+
+      s.trustedContentInCountries = ( geonames ) ->
+        return unless geonames
+        usersWithPlans = _.map(s.trustCircle(),(u)->"#{u.id}#{s.m.planManager.userPlansLoaded[u.id]}").join('|')
+        trustCertificate = "#{usersWithPlans}:#{geonames.join('|')}"
+        return s.trustedContentInLocationIs if trustCertificate == s.lastTrustCertificate && s.trustedContentInLocationIs
+        s.lastTrustCertificate = trustCertificate
+        s.trustedContentInLocationIs = _.filter s.m.planManager.inCountries( geonames ), (p) -> s.trustedUser( p.user )
+
+      # s.locationMatch = ( locations ) -> 
+      #   nearby = s.m.bestNearby()
+      #   return unless nearby
+      #   _.find( locations, (l) -> ( parseInt(nearby.geonameId) == parseInt(l.geonameId) || parseInt(nearby.geonameId) == parseInt(l.adminId1) || parseInt(nearby.geonameId) == parseInt(l.adminId2) || parseInt(nearby.geonameId) == parseInt(l.countryId) ) )
+
+      # s.trustedContentInLocation = ->
+      #   SN = s.m.bestNearby()?.geonameId
+      #   usersWithPlans = _.map(s.trustCircle(),(u)->"#{u.id}#{s.m.planManager.userPlansLoaded[u.id]}").join('|')
+      #   trustCertificate = "#{usersWithPlans}:#{SN}"
+      #   return s.trustedContentInLocationIs if trustCertificate == s.lastTrustCertificate && s.trustedContentInLocationIs
+      #   s.lastTrustCertificate = trustCertificate
+      #   return unless s.m.selectedCountry && s.m.planManager?.inCountries( s.m.selectedCountry )
+      #   s.trustedContentInLocationIs = _.filter s.m.planManager.inCountries( s.m.selectedCountry ), (p) -> 
+      #     s.trustedUser( p.user ) && s.locationMatch( p.locations )
+
+      # s.trustedUsersWithContentInLocation = -> 
+      #   _.map _.uniq( _.compact( _.map( s.trustedContentInLocation(), (c) -> c.user?.id ) ) ), (id) ->
+      #     s.m.userManager.fetch( id )
+
+      # s.trustedContentInLocationAndSearch = ->
+      #   content = _.sortBy( s.trustedContentInLocation(), (p) -> p.updated_at ).reverse()
+      #   if s.filteredAdminOnes()?.length > 0
+      #     plansToReturn = _.filter content, (p) -> 
+      #       _.find p.locations, (l) -> 
+      #         _.include( _.map( s.filteredAdminOnes(), (a) -> parseInt( a.geonameId ) ), parseInt( l.adminId1 ) )
+      #   else
+      #     content
 
       s.planImage = ( plan ) -> plan?.best_image?.url?.replace("69x69","210x210")
 
       s.m.bestNearby = -> 
+        SN = s.m.selectedNearby?.geonameId; SR = s.m.selectedRegion?.geonameId; SC = s.m.selectedCountry?.geonameId
+        bestNearbyCertificate = "#{SN}|#{SR}|#{SC}"
+        return s.lastBestNearbyIs if s.lastBestNearbyCertificate == bestNearbyCertificate
+        s.lastBestNearbyCertificate = bestNearbyCertificate
         return {} unless s.m.selectedNearby || s.m.selectedRegion || s.m.selectedCountry
         if s.m.selectedNearby?.name
-          s.m.selectedNearby
+          s.lastBestNearbyIs = s.m.selectedNearby
         else if s.m.selectedRegion?.name
-          s.m.selectedRegion
+          s.lastBestNearbyIs = s.m.selectedRegion
         else if s.m.selectedCountry?.name
-          s.m.selectedCountry
+          s.lastBestNearbyIs = s.m.selectedCountry
 
       s.startPlanNearby = ->
         nearby = s.m.selectedNearby ||  s.m.selectedRegion || s.m.selectedCountry 

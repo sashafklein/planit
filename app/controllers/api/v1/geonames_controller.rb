@@ -27,8 +27,9 @@ class Api::V1::GeonamesController < ApiController
 
     id = params[:country_id].to_s
 
-    res = HTTParty.get "http://api.geonames.org/searchJSON?country=#{ countryCodeForId( id ) }&featureCode=ADM1&username=#{ username }&lang=en&type=json&style=full"
-    render json: res.body
+    # res = HTTParty.get "http://api.geonames.org/searchJSON?country=#{ countryCodeForId( id ) }&featureCode=ADM1&username=#{ username }&lang=en&type=json&style=full"
+    # render json: res.body
+    render json: []
   end
 
   def point

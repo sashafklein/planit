@@ -1,4 +1,4 @@
-angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Place, Note, Foursquare, QueryString, Geonames, CurrentUser, ErrorReporter, Flash, $filter, $timeout, $location, $q, RailsEnv, SPPlans, SPLocations, Distance) ->
+angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Place, Note, Foursquare, QueryString, Geonames, CurrentUser, ErrorReporter, Flash, $filter, $timeout, $location, $q, RailsEnv, SPUsers, SPPlans, SPLocations, Distance) ->
   return {
     restrict: 'E'
     replace: true
@@ -15,7 +15,14 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
       s.m.currentUserName = s.m.currentUser.name
       s.m.currentUserFirstName = s.m.currentUser.firstName
       s.m.currentUserIsActive = _.contains(['admin', 'member'], s.m.currentUser.role)
-      s.userInQuestionBank = {}
+
+      s.m.userManager = new SPUsers( s.m.currentUserId )
+      s.m.users = s.m.userManager.users
+      s.m.userInQuestion = -> s.m.userManager.fetch( s.m.userInQuestionId )
+
+      s.trustCircleIds = -> _.map( s.m.userManager.trustCircle( s.m.userInQuestionId ), 'id' )
+      s.$watch('trustCircleIds()', (-> s.fetchTrustCirclePlans() ), true)
+      s.fetchTrustCirclePlans = -> _.forEach( s.trustCircleIds(), (id) -> s.m.planManager.userPlans( id ) )
 
       s.m.locationManager = new SPLocations( s.m.currentUserId )
       s.m.locations = s.m.locationManager.locations
@@ -39,6 +46,7 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
 
       # # META-SERVICES
       s.m._setValues = (object, list, value = null) -> _.forEach list, (i) -> object[i] = ( if value? then _.clone(value) else null )
+      s.m.hasLength = (hash) -> hash && Object.keys( hash )?.length > 0
 
 
       # EXPAND/CONTRACT
@@ -53,30 +61,6 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
       s.m._turnOffTyping = _.debounce( (=> s.$apply(s.m.typing = false)), 500)
 
 
-      # LISTS
-      s.m.hasPlans = -> Object.keys( s.m.plans )?.length > 0
-
-
-      # USERS
-
-      s.m.userInQuestion = ->
-        # NOT FAST ENOUGH UNLESS LOADED CURRENT USER DIRECTLY
-        if s.m.userInQuestionId == s.m.currentUserId || !s.m.userInQuestionId
-          s.m.userInQuestionLoaded = true
-          return s.m.currentUser 
-        else if s.userInQuestionBank && s.userInQuestionBank[s.m.userInQuestionId]
-          s.m.userInQuestionLoaded = true
-          return s.userInQuestionBank[s.m.userInQuestionId]
-        else
-          s.m.userInQuestionLoaded = false        
-          s.userInQuestionBank[s.m.userInQuestionId] = []
-          User.find( s.m.userInQuestionId )
-            .success (response) ->
-              s.m.userInQuestionLoaded = true
-              return s.userInQuestionBank[ s.m.userInQuestionId ] = response
-            .error (response) -> 
-              QueryString.modify({u:null})
-              ErrorReporter.fullSilent( response )
 
 
       # NEARBY SETTING AND SEARCH

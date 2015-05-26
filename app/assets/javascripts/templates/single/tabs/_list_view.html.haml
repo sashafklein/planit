@@ -2,7 +2,7 @@
   #header-spacing.except-landscape
   .print-title {{ m.plan().name }}
   .print-by by {{ m.plan().user.name }}
-  .pad-top-addbox{ ng_show: '( m.plan() || m.hasPlans() ) && m.addBoxToggled' }
+  .pad-top-addbox{ ng_show: '( m.plan() || m.hasLength( m.plans ) ) && m.addBoxToggled' }
   .band.spaced-extra
     .container.max
       %filter_and_actions{ m: 'm' }

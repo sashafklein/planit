@@ -1,4 +1,4 @@
-.initial-tutorial{ ng_show: '!m.planManager.itemCount()>0 && !m.addingItem && m.isLoaded && ( !m.hasPlans() || m.plan() )' }
+.initial-tutorial{ ng_show: '!m.planManager.itemCount()>0 && !m.addingItem && m.isLoaded && ( !m.hasLength( m.plans ) || m.plan() )' }
   #header-spacing.except-landscape
   .band.spaced
     .place-name-tutorial{ ng_show: 'm.plan() && !m.plan().currentLocation()', ng_class: "{'blur': hasPlaceNearbyOptions()}" }

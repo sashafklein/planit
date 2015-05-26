@@ -9,9 +9,11 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
       m: '='
       zoomControl: '='
       geojsonData: '='
+      locationClusters: '='
 
     link: (s, elem) ->
 
+      s.currentZoom = -> 
       s.center = { lat: 60, lng: 0, zoom: 2 }
       s.userLayers = 
         baselayers: 
@@ -19,6 +21,29 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
             name: 'None'
             url: ""
             type: 'xyz'
+        overlays: 
+          locations:
+            name: "Location Clusters"
+            type: "markercluster"
+            visible: true
+            layerOptions:
+              chunkedLoading: true #?look at
+              showCoverageOnHover: false
+              removeOutsideVisibleBounds: true
+              maxClusterRadius: 42
+              # disableClusteringAtZoom: 13
+              # spiderifyDistanceMultiplier: 2
+              iconCreateFunction: (cluster) -> 
+                initial = 0
+                s.marker.userMapClusterPin( cluster, initial )
+
+      s.marker = new PlanitMarker(s)
+      s.buildLocationClusters = ->
+        s.locationClusterMarkers = {}
+        _.forEach s.locationClusters, (l) -> 
+          s.locationClusterMarkers[ l.id ] = s.marker.userMapLocationPin( l )
+
+      s.$watch( 'locationClusters', (-> s.buildLocationClusters() ), true)
             
       geojsonData = {} unless geojsonData
 
@@ -43,7 +68,7 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
         if !s.m.plan()?.items?.length
           leafletData.getMap("user").then (m) -> if m._zoom < 4 then s.m.clearSelectedCountry()
 
-      s.m.resetUserMapView = -> leafletData.getMap("user").then (m) -> m.setView( { lat: 35, lng: 0 }, 2 )
+      s.m.resetUserMapView = -> leafletData.getMap("user").then (m) -> m.setView( { lat: 60, lng: 0 }, 2 )
 
       s.m.clearSelectedCountry = ->
         s.m.selectedCountry = null
@@ -57,7 +82,7 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
         s.selectedCountryId = featureSelected.properties.geonameId
         s.m.locationManager.fetchCountryAdmins( s.selectedCountryId )
 
-      s.usersLocationsInCountry = ( countryId ) -> _.filter( s.m.locations, (l) -> parseInt( l.countryId ) == parseInt( countryId ) && _.include( l.users, s.m.userInQuestion().id ) )
+      s.usersLocationsInCountry = ( countryId ) -> _.filter( s.m.locations, (l) -> parseInt( l.countryId ) == parseInt( countryId ) && _.include( l.users, s.m.userInQuestionId ) )
 
       s.getColor = ( feature ) -> 
         if feature?.properties?.geonameId == s.selectedCountryId 
@@ -99,7 +124,7 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
         s.m.hoveredCountry = null
         return
 
-      s.userCountryCount = -> "#{s.m.currentPlanId}|#{s.m.userInQuestion().id}#|#{s.m.locationManager.usersCountries( s.m.userInQuestion().id )}"
+      s.userCountryCount = -> "#{s.m.currentPlanId}|#{s.m.userInQuestionId}#|#{s.m.locationManager.usersCountries( s.m.userInQuestionId )}"
 
       s.$watch( 'userCountryCount()', (-> s.markCountries() ), true)
       s.markCountries = ->
