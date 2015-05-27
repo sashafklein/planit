@@ -15,19 +15,19 @@
             %span.exit-breadcrumb-level{ ng_click: 'clearLocationPopup()' }
               %b {{ m.selectedCountry.name }}
               %i.fa.fa-times.exit-breadcrumb-country
-            %span
-              %i.fa.fa-caret-right.breadcrumb-caret{ ng_class: "{'ready': allAdminOnes().length}" }
-              %span.exit-breadcrumb-level{ ng_show: 'm.selectedRegion', ng_click: 'm.selectedRegion=null; focusOnNarrowRegion()' }
-                %span {{ m.selectedRegion.name }}
-                %i.fa.fa-times
-              %span.set-breadcrumb-level{ ng_show: '!m.selectedRegion && !showNarrowing', ng_click: 'focusOnNarrowRegion()', ng_class: "{'ready': allAdminOnes().length}" }
-                %span {{ narrowRegionMessage() }}
-                %i.fa.fa-spinner.fa-spin{ ng_show: "!allAdminOnes().length" }
-                / %i.fa.fa-caret-down{ ng_show: "allAdminOnes().length" }
-              .input-and-results.narrowed-region{ ng_show: '!m.selectedRegion && showNarrowing', ng_mouseover: 'narrowRegionResultsFocused=true', ng_mouseleave: 'narrowRegionResultsFocused=false' }
-                %input{ id: 'narrowedRegion', ng_model: 'narrowedRegion', placeholder: 'Type or Select Region', ng_focus: 'showNarrowing=true', ng_blur: "blurNarrowRegion()", ng_on_esc_key: 'blurNarrowRegion(true)', autocomplete: 'off' }
-                %ul.suggested-results.text-based.blue{ ng_show: 'showNarrowing || narrowRegionResultsFocused' }
-                  %li.search-results-list{ ng_repeat: 'region in filteredAdminOnes()', ng_click: "selectRegion( region )" } {{ region.name }}
+            / %span
+            /   %i.fa.fa-caret-right.breadcrumb-caret{ ng_class: "{'ready': allAdminOnes().length}" }
+            /   %span.exit-breadcrumb-level{ ng_show: 'm.selectedRegion', ng_click: 'm.selectedRegion=null; focusOnNarrowRegion()' }
+            /     %span {{ m.selectedRegion.name }}
+            /     %i.fa.fa-times
+            /   %span.set-breadcrumb-level{ ng_show: '!m.selectedRegion && !showNarrowing', ng_click: 'focusOnNarrowRegion()', ng_class: "{'ready': allAdminOnes().length}" }
+            /     %span {{ narrowRegionMessage() }}
+            /     %i.fa.fa-spinner.fa-spin{ ng_show: "!allAdminOnes().length" }
+            /     / %i.fa.fa-caret-down{ ng_show: "allAdminOnes().length" }
+            /   .input-and-results.narrowed-region{ ng_show: '!m.selectedRegion && showNarrowing', ng_mouseover: 'narrowRegionResultsFocused=true', ng_mouseleave: 'narrowRegionResultsFocused=false' }
+            /     %input{ id: 'narrowedRegion', ng_model: 'narrowedRegion', placeholder: 'Type or Select Region', ng_focus: 'showNarrowing=true', ng_blur: "blurNarrowRegion()", ng_on_esc_key: 'blurNarrowRegion(true)', autocomplete: 'off' }
+            /     %ul.suggested-results.text-based.blue{ ng_show: 'showNarrowing || narrowRegionResultsFocused' }
+            /       %li.search-results-list{ ng_repeat: 'region in filteredAdminOnes()', ng_click: "selectRegion( region )" } {{ region.name }}
             %i.exit-breadcrumb.fa.fa-times{ ng_click: 'clearLocationPopup()' }
 
           .container.centered

@@ -4,8 +4,7 @@ class Api::V1::Users::TrustCircleController < ApiController
 
   def index
     permission_denied_error unless current_user
-    everyones_friends = ["sashafklein@gmail.com", "nikoklein@gmail.com", "nytimes@plan.it"]
-    render json: User.where( email: everyones_friends ), each_serializer: JsUserSerializer
+    render json: User.all, each_serializer: JsUserSerializer
   end
 
   private
