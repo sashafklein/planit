@@ -18,6 +18,7 @@ planitModules = [
   'Modals'
   'SPA'
   'Directives'
+  'Lib'
 ]
 
 otherModules = ['leaflet-directive', 'templates']

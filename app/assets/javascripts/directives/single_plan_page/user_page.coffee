@@ -1,4 +1,6 @@
-angular.module("SPA").directive 'userPage', ($http, $timeout, User) ->
+#= require ../../lib/country_json
+
+angular.module("SPA").directive 'userPage', ($http, $timeout, User, CountryJson) ->
   return {
     restrict: 'E'
     replace: true
@@ -14,17 +16,11 @@ angular.module("SPA").directive 'userPage', ($http, $timeout, User) ->
       s.loadCountries = ->
         return if s.m.currentPlanId || s.m.countries || s.geojson || s.m.mobile
         s.m.workingNow = true
-        $http.get("<%= asset_path('lib/countries.json') %>")
-          .then( (res) -> 
-            s.m.countries = {}
-            _.forEach( res.data, (c) -> s.m.countries[ c['id'] ] = c )
-            $http.get("<%= asset_path('lib/countries.geojson') %>")
-              .then( (res) -> 
-                s.geojson = res.data
-                _.forEach( s.geojson.features, (f) -> _.extend( f.properties, s.m.countries[f.id] ) )
-                s.m.workingNow = false
-              )
-          )
+        s.m.countries = {}
+        _.forEach( CountryJson.json, (c) -> s.m.countries[ c['id'] ] = c )
+        s.geojson = CountryJson.geojson
+        _.forEach( s.geojson.features, (f) -> _.extend( f.properties, s.m.countries[f.id] ) )
+        s.m.workingNow = false
 
       s.m.clearLocation = -> s.clearLocationPopup()
       s.clearLocationPopup = -> s.m.resetUserMapView(); s.m.selectedCountry=null; s.m.selectedRegion=null; s.narrowedRegion=null; s.narrowedCounty=null; s.m.selectedNearby=null; s.showNarrowing=false; s.lastBestNearbyIs=null
