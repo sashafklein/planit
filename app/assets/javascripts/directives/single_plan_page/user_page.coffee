@@ -92,7 +92,7 @@ angular.module("SPA").directive 'userPage', ($http, $timeout, User) ->
         return s.trustedContentInLocationIs if trustCertificate == s.lastTrustCertificate && s.trustedContentInLocationIs
         s.lastTrustCertificate = trustCertificate
         if inCountry = s.m.planManager?.inCountries( [s.m.selectedCountry?.geonameId] )
-          s.trustedContentInLocationIs = _.sortBy( _.filter( inCountry, (p) -> s.trustedUser( p.user ) && s.locationMatch( p.locations ) ), "user_id"==s.m.userInQuestionId ).reverse()
+          s.trustedContentInLocationIs = _.sortBy( _.filter( inCountry, (p) -> s.trustedUser( p.user ) && s.locationMatch( p.locations ) ), (p) -> if p.user_id==s.m.userInQuestionId then 0 else 1 )
 
       s.trustedUsersWithContentInLocation = -> 
         _.map _.uniq( _.compact( _.map( s.trustedContentInLocation(), (c) -> c.user?.id ) ) ), (id) ->

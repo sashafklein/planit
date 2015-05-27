@@ -124,16 +124,16 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
         s.m.hoveredCountry = null
         return
 
-      s.userCountryCount = -> "#{s.m.currentPlanId}|#{s.m.userInQuestionId}#|#{s.m.locationManager.usersCountries( s.m.userInQuestionId )}"
+      s.userCountryCount = -> "#{s.m.currentPlanId}|#{s.m.userInQuestionId}|#{_.map(s.m.locationManager.usersCountries( s.m.userInQuestionId ),(c)->c.geonameId).join('|')}"
 
       s.$watch( 'userCountryCount()', (-> s.markCountries() ), true)
       s.markCountries = ->
-        return unless s.m.locationManager?.usersCountries( s.m.userInQuestion()?.id )?.length
+        return unless s.m.locationManager?.usersCountries( s.m.userInQuestionId )?.length
         leafletData.getMap("user").then (m) -> 
           adjusted = 0          
           _.forEach m._layers, (layer) -> if layer?.feature?.properties then ( layer.setStyle( s.style( layer.feature ) ); adjusted++ ) 
           return unless adjusted == 0
-          $timeout( (-> _.forEach m._layers, (layer) -> if layer?.feature?.properties then layer.setStyle( s.style( layer.feature ) )), 2000)
+          $timeout( (-> _.forEach m._layers, (layer) -> if layer?.feature?.properties then layer.setStyle( s.style( layer.feature ) )), 5000)
 
       s.geojson = ->
         return if s.geoJsonDataToMap || !s.geojsonData
