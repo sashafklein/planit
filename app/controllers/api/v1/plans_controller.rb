@@ -70,10 +70,9 @@ class Api::V1::PlansController < ApiController
 
   def located_near
     return permission_denied_error unless current_user_is_active
-    coordinate = params[:coordinate]
-    lat = coordinate.split(",").first.to_f.round(1)
-    lon = coordinate.split(",").last.to_f.round(1)
-    plans = Plan.all.select{ |p| p.uniq_abbreviated_coords.include?([lat,lon]) }
+    location_id = params[:location_id]
+    location = Location.find_by( id: location_id )
+    plans = Plan.all.select{ |p| p.uniq_abbreviated_coords.include?([location.lat.round(1),location.lon.round(1)]) }
     render json: plans, each_serializer: PlanSerializer
   end
 
@@ -88,7 +87,7 @@ class Api::V1::PlansController < ApiController
     return permission_denied_error unless current_user_is_active
     return permission_denied_error unless @plan && @plan.user_id == current_user.id
     location_id = params[:location][:location_id]
-    if location_id && plan_locations = PlanLocation.where( plan_id: @plan.id, location_id: location_id )
+    if location_id && plan_locations = ObjectLocation.where( obj: @plan, location_id: location_id )
       plan_locations.destroy_all
       render json: location_id
     else

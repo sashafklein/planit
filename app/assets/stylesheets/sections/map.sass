@@ -678,6 +678,67 @@ path.leaflet-clickable
     div.arrow
       border-color: #333 transparent transparent transparent
 
+.user-map-single-div-icon, .user-map-cluster-div-icon
+  text-align: center
+  height: 40px
+  width: 40px
+  z-index: 1000 !important
+  position: relative
+  &:hover
+    z-index: 3000 !important
+  div
+    transition: 0.2s ease all
+    width: 25px
+    height: 25px
+    margin: auto
+    text-align: center
+    top: 0
+    right: 0
+    left: 0
+    bottom: 0
+    position: absolute
+    background: #f06 // #bf62a6 purple
+    .location-name-wrapper
+      width: 100%
+      height: 100%
+      opacity: 0
+      transition: 0.3 ease all
+      .location-name
+        position: absolute
+        left: 40px
+        top: 0
+        bottom: 0
+        height: 18px
+        font-size: 14px
+        line-height: 18px
+        padding: 0 4px
+        color: #fff
+        background: transparent
+        font-weight: bold
+        margin: auto 0 auto 5px
+        width: auto
+        white-space: nowrap
+        display: none
+      &:hover
+        opacity: 1
+        .location-name
+          display: inline
+    img
+      padding: 2px
+      width: 100%
+      height: 100%
+    &:hover
+      width: 40px
+      height: 40px
+      img
+        padding: 3px
+      // .location-name
+      //   display: block
+      //   visibility: visible
+    &.user-has-content
+      background: #f06
+
+
 .contextual-map-div-icon
   text-align: center
   height: 18px

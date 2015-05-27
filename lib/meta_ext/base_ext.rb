@@ -7,11 +7,15 @@ module MetaExt
         class << self; self; end
       end
       
-      def attribute_keys
+      def attribute_keys(reject_ids: true)
         column_names.reject do |name|
-          name == 'id' || 
-          ActiveRecord::Base.connection.tables.any?{ |t| name == "#{ t.singularize }_id" } ||
-          %w(updated_at created_at).include?(name)
+          if reject_ids
+            name == 'id' || 
+            ActiveRecord::Base.connection.tables.any?{ |t| name == "#{ t.singularize }_id" } ||
+            %w(updated_at created_at).include?(name)
+          else
+            %w(updated_at created_at).include?(name)
+          end
         end.map(&:to_sym)
       end
 

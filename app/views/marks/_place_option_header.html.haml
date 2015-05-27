@@ -1,8 +1,8 @@
 %span.flat.delete-right{ ng_click: "deleteMark(mark)" }
   %i.fa.fa-trash
 %span.flat {{ mark.created_at }}
-%span{ ng_if: 'mark.query.names' }
-  %span.flat {{ mark.query.names.first }}
+%span{ ng_if: 'mark.query.name' }
+  %span.flat {{ mark.query.name }}
   %span.large-screen.inline near
   %span.flat.large-screen.inline {{ mark.query.nearby }}
 %span{ ng_if: 'mark.source' }

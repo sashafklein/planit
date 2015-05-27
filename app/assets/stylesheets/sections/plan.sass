@@ -5,8 +5,77 @@ $lightestBlue: #66d
 $darkBlue: #007
 $inkBlue: #003
 
-#show-plan-page, #new-plan-page, #plan-and-list-page, #share-mailer
+#plan-and-list-page, #planit-wrapper .user-dashboard, .single-page-wrapper, #user-show-page
+  position: absolute
+  height: 100%
+  top: 0
+  bottom: 0 
+  right: 0
+  left: 0
+
+.guide-owner-avatar
+  position: absolute
+  top: -35px
+  left: 8px
+  height: 28px
+  width: 28px
+  line-height: 22px
+  font-size: 16px
+.user-avatar, .guide-owner-avatar
+  border-radius: 50%
+  background: rgba(0,0,0,0.8)
+  border: 3px solid rgba(0,0,0,0.9)
+  text-align: center
+  color: #fff
+  .avatar-letter
+    height: 100%
+    width: 100%
+    margin: auto
+    overflow: hidden
+  &.collaborators
+    transition: 0.3s ease all
+    opacity: 0.4
+    &:hover
+      opacity: 1
+  img
+    height: 100%
+    width: 100%
+    border-radius: 50%
+  .guide-avatar-helper
+    display: none
+    visibility: hidden
+    position: absolute
+    height: 18px
+    left: 28px
+    top: 0
+    bottom: 0
+    margin: auto
+    &:hover
+      display: block
+      visibility: visible
+    .guide-avatar-name
+      height: 18px
+      background: #fff
+      color: #000
+      white-space: nowrap
+      line-height: 16px
+      font-size: 12px
+      font-weight: normal
+      border-radius: 3px
+      padding: 1px 4px
+      max-width: 160px
+      text-overflow: ellipsis
+      overflow-x: hidden
+      margin: auto 0 auto 5px
+  &:hover
+    .guide-avatar-helper
+      display: block
+      visibility: visible
+
+#new-plan-page, #share-mailer
   height: auto
+
+#new-plan-page, #share-mailer, #plan-and-list-page
 
   .initial-tutorial
     .blur
@@ -53,16 +122,9 @@ $inkBlue: #003
     height: 3px !important
   .start-where.setplanbox-on-plan-page .rainbow-divider
     top: 0
-    width: 33% !important
     position: fixed
-  .start-where.centeredbox-on-plan-page .rainbow-divider
-    top: 0
-    left: 0
-    right: 0
-    width: 100% !important
-    position: absolute
 
-  .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page, .centeredbox-on-plan-page
+  .setplanbox-on-plan-page, .addbox-on-plan-page, .settingsbox-on-plan-page
     position: fixed
     input
       min-width: 50px
@@ -79,14 +141,33 @@ $inkBlue: #003
       border-bottom: 1px solid #a01    
     input.full-width
       width: 98%
-
-  .centeredbox-on-plan-page
-    top: 0
-    bottom: 0
-    right: 0
-    left: 0
-    margin: auto
-    width: 33%
+    .hovered-country, .chosen-location
+      position: absolute
+      top: 3px
+      bottom: 3px
+      left: 3px
+      right: 3px
+      width: auto
+      display: inline-block
+      margin: auto
+      background: #007
+      border: 1px solid #229
+      border-bottom: 1px solid #003
+      color: #fff
+      font-weight: bold
+      padding: 0 6px
+      cursor: pointer
+      &.exit-ready
+        background: #f06
+        border: 1px solid #f06
+        border-bottom: 1px solid #f06
+      i.fa.fa-times
+        position: absolute
+        top: 0
+        right: 6px
+        bottom: 0
+        margin: auto 0
+        height: 14px
 
   .setplanbox-on-plan-page
     top: 0
@@ -153,7 +234,7 @@ $inkBlue: #003
         outline: none
         outline-width: 0
 
-  .setplanbox-on-plan-page.start-where, .centeredbox-on-plan-page.start-where
+  .setplanbox-on-plan-page.start-where
     background: #f06
     box-shadow: none
     .start-a-new-plan
@@ -613,7 +694,6 @@ $inkBlue: #003
     height: 65px
     top: 68px
     line-height: 68px
-    padding: 0 20px
     overflow-y: hidden  
     b
       font-weight: normal
@@ -642,16 +722,29 @@ $inkBlue: #003
           background: #f06
           color: #fff
 
-  .view-and-edit-mode
-    right: 35px
-    b
-      padding-left: 8px      
+  $manifestItemHeight: 30px
 
-  .sort-items-by
-    left: 35px
-    b
-      padding-right: 8px
-
+  .items-in-manifest
+    &.empty
+      height: 800px 
+    .spacer
+      height: 10px
+      margin: 0
+      p
+        display: none
+      &.hovered
+        border: 2px dashed gray(10)
+        height: $manifestItemHeight
+        margin: 5px 0px
+        width: 100%
+        p
+          display: block
+          text-align: center
+          vertical-align: middle
+    .plan-list-item
+      height: $manifestItemHeight
+      .bucket-list-tab
+        height: 100%
 
   .list-item-select
     position: absolute
@@ -664,59 +757,6 @@ $inkBlue: #003
 
   .bucket-list-wrap
     width: 95%
-
-  .guide-owner-avatar
-    position: absolute
-    top: -35px
-    left: 8px
-    height: 28px
-    width: 28px
-    border-radius: 50%
-    background: rgba(0,0,0,0.8)
-    padding: 3px
-    line-height: 22px
-    font-size: 16px
-    text-align: center
-    color: #fff
-    &.collaborators
-      transition: 0.3s ease all
-      opacity: 0.4
-      &:hover
-        opacity: 1
-    img
-      height: 22px
-      width: 22px
-      border-radius: 50%
-    .guide-avatar-helper
-      display: none
-      visibility: hidden
-      position: absolute
-      height: 18px
-      left: 28px
-      top: 0
-      bottom: 0
-      margin: auto
-      &:hover
-        display: block
-        visibility: visible
-      .guide-avatar-name
-        height: 18px
-        background: #fff
-        color: #000
-        white-space: nowrap
-        line-height: 16px
-        font-size: 12px
-        font-weight: normal
-        border-radius: 3px
-        padding: 1px 4px
-        max-width: 160px
-        text-overflow: ellipsis
-        overflow-x: hidden
-        margin: auto 0 auto 5px
-    &:hover
-      .guide-avatar-helper
-        display: block
-        visibility: visible
 
   // *Computer (Regular)
 
@@ -747,8 +787,12 @@ $inkBlue: #003
     &.nearby-only
       height: 65px
 
-  .setplanbox-on-plan-page.start-where, .centeredbox-on-plan-page.start-where
-    height: 100px
+  .setplanbox-on-plan-page.start-where
+    height: 130px
+
+  .start-where .rainbow-divider, .addbox-wrapper .rainbow-divider
+    width: 33%
+    min-width: 350px
 
   .pad-top-addbox
     margin-top: 65px
@@ -778,6 +822,11 @@ $inkBlue: #003
     .on-off-button
       width: 308px
 
+  .view-and-edit-mode
+    right: 35px
+  .sort-items-by
+    left: 35px
+
   // #Tablet (Portrait)
   @media only screen and (min-width: 768px) and (max-width: 959px)
 
@@ -806,8 +855,12 @@ $inkBlue: #003
       &.nearby-only
         height: 65px
 
-    .setplanbox-on-plan-page.start-where, .centeredbox-on-plan-page.start-where
-      height: 100px
+    .setplanbox-on-plan-page.start-where
+      height: 130px
+
+    .start-where .rainbow-divider, .addbox-wrapper .rainbow-divider
+      width: 33%
+      min-width: 350px
 
     .pad-top-addbox
       margin-top: 65px
@@ -836,6 +889,11 @@ $inkBlue: #003
           width: 236px
       .on-off-button
         width: 236px
+
+    .view-and-edit-mode
+      right: 35px
+    .sort-items-by
+      left: 35px
 
   // #Mobile (Portrait) <-- smallest
   @media only screen and (max-width: 767px)
@@ -874,13 +932,14 @@ $inkBlue: #003
       &.nearby-only
         height: 43px
 
-    .centeredbox-on-plan-page.start-where
-      height: 77px
     .setplanbox-on-plan-page.start-where
       height: 77px
       &.shortened
         height: 43px
         overflow: hidden
+
+    .start-where .rainbow-divider, .addbox-wrapper .rainbow-divider
+      width: 100%
 
     .pad-top-addbox
       margin-top: 43px
@@ -929,6 +988,11 @@ $inkBlue: #003
       .on-off-button
         width: 268px
 
+    .view-and-edit-mode
+      right: 0
+    .sort-items-by
+      left: 0
+
   // #Mobile (Landscape)
   @media only screen and (min-width: 480px) and (max-width: 767px)
 
@@ -955,10 +1019,15 @@ $inkBlue: #003
       padding: 5px 9px 13px 9px
       top: 43px
     .addbox-on-plan-page
-      height: 43px
+      height: 75px
+      &.nearby-only
+        height: 43px
 
-    .setplanbox-on-plan-page.start-where, .centeredbox-on-plan-page.start-where
+    .setplanbox-on-plan-page.start-where
       height: 77px
+
+    .start-where .rainbow-divider, .addbox-wrapper .rainbow-divider
+      width: 100%
 
     .pad-top-addbox
       margin-top: 75px
@@ -1008,6 +1077,14 @@ $inkBlue: #003
           width: 388px
       .on-off-button
         width: 388px
+
+    .view-and-edit-mode, .sort-items-by
+      padding: 0 10px
+    .view-and-edit-mode
+      right: 0
+    .sort-items-by
+      left: 0
+
 
   @media print 
 

@@ -9,6 +9,9 @@ class Place < BaseModel
   has_many_polymorphic table: :shares
   has_many_polymorphic table: :notes
 
+  has_many_polymorphic table: :object_locations
+  has_many :locations, through: :object_locations, as: :obj
+  
   array_accessor :completion_step, :street_address, :name, :category, :meta_category, :phone
   json_accessor :hours, :extra
 
@@ -23,6 +26,10 @@ class Place < BaseModel
 
   include ActsLikePlace
 
+  def self.locations
+    Location.where( id: object_locations.pluck(:location_id) )
+  end
+  
   def savers
     Mark.savers( id )
   end
@@ -37,6 +44,24 @@ class Place < BaseModel
 
   def guides
     Mark.guides( id )
+  end
+
+  def get_place_geoname!
+    location = Location.find_or_create!( response: geonames_response, obj: self )
+    location.build_out_location_hierarchy if location
+    location
+  end
+
+  private
+
+  def geonames_url
+    "http://api.geonames.org/findNearbyPlaceNameJSON?lat=#{ lat }&lng=#{ lon }&featureClass=P&style=full&username=planit"
+  end
+
+  def geonames_response
+    return @gr if @gr
+    res = HTTParty.get( geonames_url )
+    @gr = res.try(:[], 'geonames').try(:[], 0) || {}
   end
 
 end

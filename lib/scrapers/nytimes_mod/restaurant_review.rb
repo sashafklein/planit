@@ -38,6 +38,7 @@ module Scrapers
               lat: activity[:lat],
               lon: activity[:lon],
               website: activity[:website], 
+              notes: notes_for( activity[:name] )
             }
           }
         end

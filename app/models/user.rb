@@ -54,6 +54,15 @@ class User < BaseModel
     marks.where.not( place_id: nil).order('updated_at DESC')
   end
 
+  # LOCATIONS
+
+  def locations
+    low_level_location_ids = ObjectLocation.where( obj_id: marks_with_places.places.pluck(:id), obj_type: 'Place' ).pluck( :location_id ).uniq
+    top_level_location_geonameids = Location.where( id: low_level_location_ids ).pluck( :country_id, :admin_id_1, :admin_id_2 ).flatten.uniq.compact
+    location_level_query = Location.where( id: low_level_location_ids ).where( geoname_id: top_level_location_geonameids )
+    Location.where(location_level_query.where_values.map(&:to_sql).join(" OR ")).uniq
+  end
+
   # INBOX MESSAGES
 
   def saves_to_review

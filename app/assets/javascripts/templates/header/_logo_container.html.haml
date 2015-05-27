@@ -2,8 +2,8 @@
   %a{ href: root_path, target: '_self' }
     = image_tag "logo_only_black.png", alt: 'o', class: "logo-image-top", ng_show: "!m.mobile" 
     = image_tag "logo_only_white.png", alt: 'o', class: "logo-image-top", ng_show: "m.mobile" 
-    = image_tag "logo_my_only.png", alt: 'MY', class: "logo-my-top large-screen", ng_show: '!m.plan() || ( m.userOwnsPlan() )'
+    = image_tag "logo_my_only.png", alt: 'MY', class: "logo-my-top large-screen", ng_show: '( !m.plan() || m.userOwnsPlan() ) && m.currentUserId == m.userInQuestion().id'
     = image_tag "logo_name_only_black.png", alt: 'o', class: "logo-name-top", ng_show: "!m.mobile"
-  = image_tag 'logo_guides_only.png', alt: 'GUIDES', class: 'logo-title-top guides largest-screen', ng_show: '!m.plan() && m.hasPlans()'
+  / = image_tag 'logo_guides_only.png', alt: 'GUIDES', class: 'logo-title-top guides largest-screen', ng_show: '!m.plan() && m.hasLength( m.plans )'
   = image_tag 'logo_guide_only.png', alt: 'GUIDE', class: 'logo-title-top guide largest-screen', ng_show: 'm.plan()'
   / = image_tag('logo_inbox_only.png', alt: 'INBOX', class: 'logo-title-top inbox largest-screen')

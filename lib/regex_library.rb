@@ -211,8 +211,8 @@ module RegexLibrary
       '"'
     end
 
-    def breakline_thread
-      "(?:\\<\\/?(?:p|br)(?:\\s[^>]*?)?\\>)"
+    def breakline_thread(div=false)
+      "(?:\\<\\/?(?:p|br#{ div ? '|div' : '' })(?:\\s[^>]*?)?\\>)"
     end
 
     def within_broken_whitespace(string)
@@ -322,10 +322,10 @@ module RegexLibrary
       "(?:(?:\\<(?:b|strong)(\\s[^>]*?)?\\>)?\\s*?#{string}\\s*?(?:\\<\\/(?:b|strong)\\>|#{string}))"
     end
 
-    def optional_strong_or_hnum_within_breakline_optional(string)
+    def optional_strong_or_hnum_within_breakline_optional(string, div=false)
       threads = [
         "(?:",
-        "#{breakline_thread}",
+        "#{breakline_thread(div)}",
         "#{any_spaces}",
         "(?:",
         "#{b_or_strong_open_thread}?",
@@ -1306,16 +1306,16 @@ module RegexLibrary
 
     def day_section_start_regex(list)
       insert = case_desensitize_array(Array(list))
-      %r!#{optional_strong_or_hnum_within_breakline_optional("(?:#{insert})")}.*!
+      %r!#{optional_strong_or_hnum_within_breakline_optional("(?:#{insert})", true)}.*!
     end
 
     def day_section_cut_regex(list)
       insert = case_desensitize_array(Array(list))
-      %r!#{optional_strong_or_hnum_within_breakline_optional("(?:#{insert})")}!
+      %r!#{optional_strong_or_hnum_within_breakline_optional("(?:#{insert})", true)}!
     end
 
     def day_section_cut_regex_find_section
-      %r!#{optional_strong_or_hnum_within_breakline_optional("(?:.*?)")}(.*)!
+      %r!#{optional_strong_or_hnum_within_breakline_optional("(?:.*?)", true)}(.*)!
     end
 
     def nytimes_map_data_regex

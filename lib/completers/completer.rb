@@ -9,12 +9,11 @@ module Completers
     end
 
     def complete!
-      return unless response = PlaceCompleter.new( decremented_attrs.delete(:place), url ).complete!
-
-      create_mark_and_associations!(
-        place:              ( response.is_a?(Place) ? response : nil),
-        place_option_hash:  ( response.is_a?(Hash) ? response : nil)
-      )
+      if url && !attrs[:item] && !attrs[:plan] && preexisting_source = Source.for_url( url ).find_by(obj_type: 'Mark')
+        complete_from_preexisting!( preexisting_source )
+      else
+        complete_from_scratch!
+      end
     end
 
     def delay_complete!
@@ -23,27 +22,42 @@ module Completers
 
     private
 
-    def create_mark_and_associations!(place:, place_option_hash:)
-      raise "Mark needs either Place or PlaceOptions" if (place.present? && place_option_hash.present?) || (!place.present? && !place_option_hash.present?)
+    def complete_from_scratch!
+      return unless response = PlaceCompleter.new( decremented_attrs.delete(:place), url ).complete!
+      create_mark_and_associations!(
+        place_hash:              ( response[:place] ? response : nil),
+        place_option_hash:  ( response[:place_options] ? response : nil)
+      )
+    end
 
-      mark = Mark.unscoped.where(place_id: place.id, user: user).first_or_initialize if place
-      mark ||= Mark.unscoped.where(user: user).with_original_query( place_option_hash[:attrs] )
+    def complete_from_preexisting!( preexisting_source )
+      return complete_from_scratch! unless preexisting_mark = Mark.unscoped.where.not( place_id: nil ).find_by( id: preexisting_source.obj_id )
+      user.marks.where( place_id: preexisting_mark.place.id ).first_or_initialize
+      mark.save_with_source!(source_url: url)
+    end
+
+    def create_mark_and_associations!(place_hash:, place_option_hash:)
+      raise "Mark needs either Place or PlaceOptions" if (place_hash.present? && place_option_hash.present?) || (!place_hash.present? && !place_option_hash.present?)
+
+      mark = Mark.unscoped.where(place_id: place_hash[:place].id, user: user).first_or_initialize if place_hash
+      mark ||= Mark.unscoped.where(user: user).with_original_query( place_option_hash[:attrs] ) if place_option_hash
       mark ||= user.marks.new
 
-      mark.save_with_source!(source_url: url)
+      mark = mark.save_with_source!(source_url: url)
 
       if place_option_hash
         place_option_hash[:place_options].each{ |po| po.update_attributes!(mark_id: mark.id) }
         mark.flags.create!(name: 'Original Attrs', info: place_option_hash[:attrs])
       end
 
-      merge_and_create_associations!(mark)
+      merge_and_create_associations!(mark, (place_hash || place_option_hash || {})[:notes] || [] )
       mark
     end
 
-    def merge_and_create_associations!(mark)
+    def merge_and_create_associations!(mark, notes=[])
       plan = create_plan!(mark)
       item = create_item!(plan, mark)
+      notes.each{ |n| item.notes.where(body: n, source: mark.source).create! }
     end
 
     def create_plan!(mark)
@@ -66,7 +80,7 @@ module Completers
       # search_attrs[:start_time] = Services::TimeConverter.new(search_attrs[:start_time]).absolute if search_attrs[:start_time]
       extra = search_attrs.delete(:extra)
 
-      Item.where(search_attrs).first_or_create!(extra: extra || {})
+      item = Item.where(search_attrs).first_or_create!(extra: extra || {})
     end
 
     def unacceptable_attributes(hash)
@@ -86,9 +100,7 @@ module Completers
     end
 
     def create_plan_source(plan, mark_source)
-      source = Source.new( mark_source.generic_attrs )
-      source.obj = plan
-      source.save!
+      plan.sources.where( mark_source.generic_attrs ).first_or_create
     end
   end
 end

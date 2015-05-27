@@ -8,7 +8,7 @@ module Completers
 
     def complete!(delay: true)
       return delay_complete! if delay
-      PlaceCompleter.new( place.atts_except(:created_at, :updated_at) ).complete!
+      PlaceCompleter.new( place.atts_except(:created_at, :updated_at) ).complete![:place]
     end
 
     private

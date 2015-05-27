@@ -13,6 +13,7 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
       # setNearbyFromCenter: '&'
 
     link: (s, elem) ->
+
       s.loaded = false
       s.currentUserId = CurrentUser.id
       s.marker = new PlanitMarker(s)
@@ -25,7 +26,7 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
       s.changes = 0
       s.maxBounds = [[-84,-400], [84,315]]
       s.centerAndZoom = QueryString.get()['m'] || null
-      s.centerPoint = if s.centerAndZoom then { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) } else { lat: 0, lng: 0, zoom: 2 }
+      s.centerPointPlan = if s.centerAndZoom then { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) } else { lat: 0, lng: 0, zoom: 2 }
       s.placesInView = s.clustersInView = s.firstItems = []
       s.leaf = leafletData
 
@@ -37,7 +38,7 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
         zoomControl: if ( s.zoomControl && s.web ) then true else false
         zoomControlPosition: 'topright'
 
-      s.layers = 
+      s.planLayers = 
         baselayers: 
           xyz:
             name: 'MapQuest'
@@ -79,13 +80,13 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
         ), 400
 
       s._setCurrentLayers = (callback) ->
-        leafletData.getLayers().then (l) ->
+        leafletData.getLayers("plan").then (l) ->
           s.currentLayers = l.overlays.primary._featureGroup._layers
           callback?()
 
       s._setItemsInView = ->
         return unless s.currentLayers
-        leafletData.getMap().then (m) ->
+        leafletData.getMap("plan").then (m) ->
           s.currentBounds = m.getBounds()
           s.clustersInView = _(s.currentLayers)
             .filter( (l) -> l._childCount > 1 && s.currentBounds.contains( l._bounds ) )
@@ -98,7 +99,7 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
             .value()
 
       s._setCurrentMap = (callback) ->
-        leafletData.getMap().then (m) ->
+        leafletData.getMap("plan").then (m) ->
           s.currentLLZoom = { lat: m.getCenter().lat, lon: m.getCenter().lng, zoom: m.getZoom() }
           callback?()
 
@@ -111,7 +112,7 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
 
       s._definePlaces = ->
         s.places = _.extend( [], s.preFilterPlaces ) # unless s.changedItems
-        leafletData.getLayers().then (l) ->
+        leafletData.getLayers("plan").then (l) ->
           s.leafletLayers = l
         s._filterPlaces( s.recalculateInView )
         s._initiateCenterAndBounds()
@@ -119,7 +120,7 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
       s.fitBoundsOnFilteredPlaces = ->
         startLats = _.map( s.places, (p) -> p.lat )
         startLons = _.map( s.places, (p) -> p.lon )
-        leafletData.getMap().then (m) ->
+        leafletData.getMap("plan").then (m) ->
           m.fitBounds( 
             L.latLngBounds( L.latLng(_.min(startLats),_.min(startLons)),L.latLng(_.max(startLats),_.max(startLons)) ),
             { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] }
@@ -163,11 +164,11 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
       window.mapMouseEvent = s.mouse
 
       s.zoomToCluster = (cluster) ->
-        leafletData.getMap().then (m) ->
+        leafletData.getMap("plan").then (m) ->
           m.fitBounds( cluster.bounds , { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
           new PlanEventManager(s).deselectAll()
 
-      s.$on 'leafletDirectiveMap.moveend', -> s.recalculateInView() if s.web
+      s.$on 'leafletDirectiveMap.moveend', -> s.recalculateInView() if s.web && s.m.plan()?.items?.length
 
       s.$on '$locationChangeSuccess', (event, next) -> s._filterPlaces( s.recalculateInView ) if s.m?.plan()?.items?.length
 
@@ -176,7 +177,7 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
 
       s._disableMapManipulationOnInfoBox = ->
         if infoBox = document.getElementById('map-info-box')
-          leafletData.getMap().then (m) ->
+          leafletData.getMap("plan").then (m) ->
             infoBox.addEventListener 'mouseover', -> m.dragging.disable() ; m.doubleClickZoom.disable()
             infoBox.addEventListener 'mouseout', -> m.dragging.enable() ; m.doubleClickZoom.disable()
 
@@ -243,10 +244,10 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
         s.filters = {}
         QueryString.modify({f: null, m: null})
 
-      # WATCH FOR CHANGES -> The third argument (true) makes watch compare by equality, not reference
-      # s.$watch('m.plan()', (-> s.initialize() ), true )
-      # s.$watch('m.mode', (-> s.initialize() ), true )
-      s.$watch('m', (-> s.initialize() ), true )
+      s.plansItems = -> s.m.plan()?.items
+
+      s.$watch('plansItems()', (-> s.initialize() ), true )
+      s.$watch('m.mode', (-> s.initialize() ), true )
 
       s._setOnScope = (list, value = null) -> _.forEach list, (i) -> s[i] = ( if value? then _.clone(value) else null )
 

@@ -1,5 +1,5 @@
 class JsUserSerializer < BaseSerializer
-  attributes :id, :firstName, :lastName, :slug, :name, :role
+  attributes :id, :firstName, :lastName, :firstLetter, :slug, :name, :role
 
   root false
 
@@ -9,6 +9,11 @@ class JsUserSerializer < BaseSerializer
 
   def lastName
     object.last_name
+  end
+
+  def firstLetter
+    object.name.match(/\A./).to_s.upcase()
+  rescue; nil
   end
 
   def name

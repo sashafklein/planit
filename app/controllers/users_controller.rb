@@ -47,9 +47,9 @@ class UsersController < ApplicationController
     if @user != current_user
       flash[:error] = "Not your inbox!"
       redirect_to user_path
-    elsif @user.message_count == 0
-      flash[:error] = "No Messages!"
-      redirect_to user_path
+    # elsif @user.message_count == 0
+    #   flash[:error] = "No Messages!"
+    #   redirect_to user_path
     end
   end
 
