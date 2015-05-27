@@ -52,7 +52,8 @@ class Location < BaseModel
       ObjectLocation.where({ obj_id: obj.id, obj_type: obj.class.to_s, location_id: location.id }).first_or_create
       location
     else
-      !Rails.env.production? ? binding.pry : Rollbar.error('Bad Geonames Response', response, obj)
+      !Rails.env.production? ? binding.pry : Rollbar.error('Bad Geonames Response', response: response, obj: obj.try(:attributes))
+      nil
     end
   end
 
