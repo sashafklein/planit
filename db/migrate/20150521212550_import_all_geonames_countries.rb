@@ -8,7 +8,7 @@ class ImportAllGeonamesCountries < ActiveRecord::Migration
     end
   end
 
-  def down    
+  def down
   end
 
 end
