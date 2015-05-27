@@ -1,18 +1,29 @@
-angular.module("SPA").service "SPPlans", (User, Plan, SPPlan, QueryString, ErrorReporter) ->
+angular.module("SPA").service "SPPlans", (User, Plan, SPPlan, SPUsers, QueryString, ErrorReporter, $timeout) ->
   class SPPlans
 
     constructor: ( user_id ) ->
       self = @
       self.plans = {}
-      self.nearbyPlans = {}
-      User.findPlans( user_id )
-        .success (responses) -> _.forEach( responses, (r) -> self.plans[r.id] = new SPPlan( r ); self.plans[r.id]['type'] = 'travel' )
-        .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan constructor', user_id: user_id )
+      self.userPlansLoaded = {}
+      @userPlans( user_id )
 
-    countryPlans: ( country ) ->
-      return [] unless country
+    userPlans: ( user_id ) ->
       self = @
-      _.filter( self.plans, (p) -> _.find( p.locations, (l) -> l.countryId == country.geonameId ) )
+      return unless user_id
+      userPlansFound = _.filter( self.plans, (p) -> p.user.id == user_id )
+      return userPlansFound if userPlansFound?.length
+      User.findPlans( user_id )
+        .success (responses) -> 
+          _.forEach responses, (r) -> 
+            self.plans[r.id] = new SPPlan( r )
+          $timeout(-> self.userPlansLoaded[ user_id ] = true )
+        .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan constructor', user_id: user_id )
+      return _.filter( self.plans, (p) -> p.user.id == user_id )
+
+    inCountries: ( cntryGeonames ) ->
+      self = @
+      return [] unless cntryGeonames?.length > 0
+      _.filter( self.plans, (p) -> _.find( p.locations, (l) -> _.include( cntryGeonames, parseInt(l.countryId) ) ) )
 
     addNewPlan: ( nearby, searchStrings ) ->
       self = @

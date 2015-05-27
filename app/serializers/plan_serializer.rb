@@ -16,7 +16,11 @@ class PlanSerializer < BaseSerializer
   def locations
     hash = {}
     object.locations.each do |location|
-      hash[location.id] = LocationSerializer.new( location, { root: false } ).as_json
+      hash[ location.geoname_id ] = LocationSerializer.new( location, { root: false } ).as_json if location.geoname_id
+      if location.admin_id_2
+        admin2 = Location.where( geoname_id: location.admin_id_2 ).first
+        hash[ admin2.geoname_id ] = LocationSerializer.new( admin2, { root: false } ).as_json if admin2 && admin2.geoname_id
+      end
     end
     return hash
   end

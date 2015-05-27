@@ -9,7 +9,7 @@
         %i.fa.fa-times 
         %span.large-screen.inline Location
     .input-and-results{ ng_show: 'm.plan() && !m.plan().currentLocation()' } 
-      %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: '{{ placeNearbyMessage() }}', ng_model: 'placeNearby', ng_change: 'searchPlaceNearby()', ng_on_enter_key: 'setNearBestOption()', ng_on_esc_key: 'placeNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
+      %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: '{{ placeNearbyMessage() }}', ng_model: 'placeNearby', ng_change: 'searchPlaceNearby()', ng_on_enter_key: 'setNearBestOption()', ng_on_esc_key: 'placeNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()', autocomplete: 'off' }
       %ul.suggested-results.text-based.blue{ ng_show: 'm.plan().locations || ( !m.typing && placeNearby && placeNearby.length > 1 && ( placeNearbyWorking || m.nearbyOptions.length>0 ) )' }
         %li.search-results-list.current-locations{ ng_repeat: 'option in countryLocations(m.plan().locations)', ng_click: 'setCurrentNearby(option)', ng_show: '!placeNearby' } 
           %b{ ng_bind_html: "underlined( [option.name] )" }
@@ -26,9 +26,9 @@
         %i.fa.fa-arrow-left 
         %span.largest-screen.inline Set
         %span.large-screen.inline Location
-        
+
     .input-and-results{ ng_show: 'm.plan().latest_location_id && m.plan().currentLocation()', ng_focus: 'm.engagedInSearch=true', ng_blur: 'm.engagedInSearch=false' }
-      %input#place-name{ name: "place-name", type: 'text', placeholder: '{{ placeholder() }}', ng_model: 'm.placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_on_esc_key: "placeName=null", ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()' }
+      %input#place-name{ name: "place-name", type: 'text', placeholder: '{{ placeholder() }}', ng_model: 'm.placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_on_esc_key: "placeName=null", ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()', autocomplete: 'off' }
 
       %ul.suggested-results.neon{ ng_show: '!m.typing && m.placeName && m.placeName.length>1' }
         %li.search-results-list{ ng_repeat: 'option in m.placeNameOptions', ng_click: 'addItem(option)', ng_class: 'placeNameOptionClass(option, $index)' }

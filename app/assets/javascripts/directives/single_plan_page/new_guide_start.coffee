@@ -1,4 +1,4 @@
-angular.module("Directives").directive 'newGuideStart', (Geonames, ErrorReporter, ClassFromString, $sce) ->
+angular.module("Directives").directive 'newGuideStart', (QueryString, Geonames, ErrorReporter, ClassFromString, $timeout, $sce) ->
   {
     restrict: 'E'
     replace: true
@@ -7,10 +7,14 @@ angular.module("Directives").directive 'newGuideStart', (Geonames, ErrorReporter
       m: '='
     link: (s, e, a) ->
 
-      s.selectedUserName = s.m.userInQuestion().name
-      s.calculateSelectedUser = -> s.selectedUserName = s.m.userInQuestion().name
-      s.blurOnUserSelect = -> $('input#user-select').blur(); return
-      s.focusOnUserSelect = -> $('input#user-select').focus(); return
+      s.blurUserSelect = -> 
+        $timeout(-> if $('input#user-select') then $('input#user-select').blur() )
+        return
+
+      s.focusOnUserSelect = ->
+        s.selectingUser=true
+        $timeout(-> if $('input#user-select') then $('input#user-select').focus() )
+        return
 
       s.userNameSelectIncludes = ( string ) -> 
         return null unless string?.length && s.selectedUserName?.length
@@ -22,34 +26,46 @@ angular.module("Directives").directive 'newGuideStart', (Geonames, ErrorReporter
         return unless s.userOptions()?.length > 0
         s.selectThisUser( s.userOptions()[0] )
 
-      s.selectThisUser = ( user ) -> null # REVISIT
+      s.selectThisUser = ( user ) -> 
+        QueryString.modify({ u: user.id }) unless user.id == s.m.userInQuestionId
+        s.blurUserSelect()
 
-      s.x = []
-      s.m.currentUserUniverse = -> s.x
-      
       s.userOptions = -> 
-        return s.m.currentUserUniverse() if s.m.currentUserName == s.selectedUserName
+        trustCircle = s.m.userManager.trustCircle( s.m.userInQuestionId )
+        return trustCircle unless s.selectedUserName?.length
         toMatch = new RegExp( s.selectedUserName.toLowerCase() )
-        _.filter( s.m.currentUserUniverse(), (u) -> u.name.toLowerCase().match( toMatch )?.length )
+        _.filter( trustCircle, (u) -> u.name.toLowerCase().match( toMatch )?.length )
 
       s.planNearbyOptionClass = (option, index=0) -> ClassFromString.toClass( option.name, option.adminName1, option.countryName, index )
       s.searchedPlanClass = (plan, index=0) -> ClassFromString.toClass( plan?.name, index ) unless !plan
+      s.nearbyOptions = -> s.m.nearbyOptions unless !s.planNearby?.length
 
       s.searchedPlans = -> 
-        return s.m.planManager.plans if !s.planNearby?.length>0
-        toMatch = new RegExp( s.planNearby.toLowerCase() )
-        _.filter s.m.planManager.plans, (p) -> 
-          if p.name?.toLowerCase()?.match( toMatch )?.length
-            true
-          else if _.compact( _.map( p.locations, (l) -> ("#{l.name}  #{l.asciiName?}")?.toLowerCase()?.match( toMatch )?.length ) ).length
-            true
-          else
-            false
+        if s.m.hoveredCountry?.name 
+          toMatchHover = new RegExp( s.m.hoveredCountry.name.toLowerCase() )
+          return _.filter s.m.planManager.plans, (p) -> 
+            if _.compact( _.map( p.locations, (l) -> ("#{l.name}  #{l.asciiName?}  #{l.countryName}")?.toLowerCase()?.match( toMatchHover )?.length ) ).length then true else false
+        else if s.planNearby?.length>0
+          toMatchQuery = new RegExp( s.planNearby.toLowerCase() )
+          return _.filter s.m.planManager.plans, (p) -> 
+            if p.name?.toLowerCase()?.match( toMatchQuery )?.length
+              true
+            else if toMatchQuery && _.compact( _.map( p.locations, (l) -> ("#{l.name}  #{l.asciiName?}")?.toLowerCase()?.match( toMatchQuery )?.length ) ).length
+              true
+            else
+              false
+        else
+          return s.m.planManager.plans
 
       s.planNearbyBlur = -> $('input#plan-nearby').blur() if $('input#plan-nearby'); s.planNearby=null; s.planNearbyFocused=false; return
+      s.exitNearby = -> 
+        if s.exitNearbyReady
+          s.m.clearLocation(); s.exitNearbyReady=false
+        else
+          s.exitNearbyReady=true
 
       s.wherePrompt = ->
-        if s.m.userInQuestion().id == s.m.currentUserId
+        if s.m.userInQuestionId == s.m.currentUserId
           if s.m.hoveredCountry?.name
             return "Explore #{s.m.hoveredCountry?.name}"
           else

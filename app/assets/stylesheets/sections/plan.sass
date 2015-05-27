@@ -141,7 +141,7 @@ $inkBlue: #003
       border-bottom: 1px solid #a01    
     input.full-width
       width: 98%
-    .hovered-country
+    .hovered-country, .chosen-location
       position: absolute
       top: 3px
       bottom: 3px
@@ -156,6 +156,18 @@ $inkBlue: #003
       color: #fff
       font-weight: bold
       padding: 0 6px
+      cursor: pointer
+      &.exit-ready
+        background: #f06
+        border: 1px solid #f06
+        border-bottom: 1px solid #f06
+      i.fa.fa-times
+        position: absolute
+        top: 0
+        right: 6px
+        bottom: 0
+        margin: auto 0
+        height: 14px
 
   .setplanbox-on-plan-page
     top: 0
