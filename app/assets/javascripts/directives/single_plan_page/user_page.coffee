@@ -56,57 +56,71 @@ angular.module("SPA").directive 'userPage', ($http, $timeout, User) ->
 
       s.trustedUser = ( user ) -> _.include( _.map( s.trustCircle(), (u) -> u.id ), user.id ) if s.trustCircle()
 
-      s.clustersInCountry = ->
-        return unless s.m.selectedCountry || s.m.hoveredCountry
-        selected = parseInt( ( s.m.selectedCountry?.geonameId || "" ) )
-        hovered = parseInt( ( s.m.hoveredCountry?.geonameId || "" ) )
-        geonames = _.compact( [selected, hovered] )
-        return s.admin2s if s.lastClustersCertificate == geonames.join("|") || s.lastClustersCertificate == geonames.reverse().join("|")
-        s.lastClustersCertificate = geonames.join("|")
-        admin2s = {}
-        _.forEach s.trustedContentInCountries( geonames ), (p) ->
-          _.forEach p.locations, (l) ->
-            if l.fcode=="ADM2"
-              admin2s[ l.geonameId ] = l unless admin2s[ l.geonameId ]
-              admin2s[ l.geonameId ].users = [] unless admin2s[ l.geonameId ].users
-              admin2s[ l.geonameId ].users.push p.user
-        return s.admin2s = admin2s
+      # s.clustersInCountry = ->
+      #   return unless s.m.selectedCountry || s.m.hoveredCountry
+      #   selected = parseInt( ( s.m.selectedCountry?.geonameId || "" ) )
+      #   hovered = parseInt( ( s.m.hoveredCountry?.geonameId || "" ) )
+      #   geonames = _.compact( [selected, hovered] )
+      #   return s.admin2s if s.lastClustersCertificate == geonames.join("|") || s.lastClustersCertificate == geonames.reverse().join("|")
+      #   s.lastClustersCertificate = geonames.join("|")
+      #   admin2s = {}
+      #   _.forEach s.trustedContentInCountries( geonames ), (p) ->
+      #     _.forEach p.locations, (l) ->
+      #       if l.fcode=="ADM2"
+      #         admin2s[ l.geonameId ] = l unless admin2s[ l.geonameId ]
+      #         admin2s[ l.geonameId ].users = [] unless admin2s[ l.geonameId ].users
+      #         admin2s[ l.geonameId ].users.push p.user
+      #   return s.admin2s = admin2s
 
-      s.trustedContentInCountries = ( geonames ) ->
-        return unless geonames
-        usersWithPlans = _.map(s.trustCircle(),(u)->"#{u.id}#{s.m.planManager.userPlansLoaded[u.id]}").join('|')
-        trustCertificate = "#{usersWithPlans}:#{geonames.join('|')}"
-        return s.trustedContentInLocationIs if trustCertificate == s.lastTrustCertificate && s.trustedContentInLocationIs
-        s.lastTrustCertificate = trustCertificate
-        s.trustedContentInLocationIs = _.filter s.m.planManager.inCountries( geonames ), (p) -> s.trustedUser( p.user )
-
-      # s.locationMatch = ( locations ) -> 
-      #   nearby = s.m.bestNearby()
-      #   return unless nearby
-      #   _.find( locations, (l) -> ( parseInt(nearby.geonameId) == parseInt(l.geonameId) || parseInt(nearby.geonameId) == parseInt(l.adminId1) || parseInt(nearby.geonameId) == parseInt(l.adminId2) || parseInt(nearby.geonameId) == parseInt(l.countryId) ) )
-
-      # s.trustedContentInLocation = ->
-      #   SN = s.m.bestNearby()?.geonameId
+      # s.trustedContentInCountries = ( geonames ) ->
+      #   return unless geonames
       #   usersWithPlans = _.map(s.trustCircle(),(u)->"#{u.id}#{s.m.planManager.userPlansLoaded[u.id]}").join('|')
-      #   trustCertificate = "#{usersWithPlans}:#{SN}"
+      #   trustCertificate = "#{usersWithPlans}:#{geonames.join('|')}"
       #   return s.trustedContentInLocationIs if trustCertificate == s.lastTrustCertificate && s.trustedContentInLocationIs
       #   s.lastTrustCertificate = trustCertificate
-      #   return unless s.m.selectedCountry && s.m.planManager?.inCountries( s.m.selectedCountry )
-      #   s.trustedContentInLocationIs = _.filter s.m.planManager.inCountries( s.m.selectedCountry ), (p) -> 
-      #     s.trustedUser( p.user ) && s.locationMatch( p.locations )
+      #   s.trustedContentInLocationIs = _.filter s.m.planManager.inCountries( geonames ), (p) -> s.trustedUser( p.user )
 
-      # s.trustedUsersWithContentInLocation = -> 
-      #   _.map _.uniq( _.compact( _.map( s.trustedContentInLocation(), (c) -> c.user?.id ) ) ), (id) ->
-      #     s.m.userManager.fetch( id )
+      s.locationMatch = ( locations ) -> 
+        nearby = s.m.bestNearby()
+        return unless nearby
+        _.find( locations, (l) -> ( parseInt(nearby.geonameId) == parseInt(l.geonameId) || parseInt(nearby.geonameId) == parseInt(l.adminId1) || parseInt(nearby.geonameId) == parseInt(l.adminId2) || parseInt(nearby.geonameId) == parseInt(l.countryId) ) )
 
-      # s.trustedContentInLocationAndSearch = ->
-      #   content = _.sortBy( s.trustedContentInLocation(), (p) -> p.updated_at ).reverse()
-      #   if s.filteredAdminOnes()?.length > 0
-      #     plansToReturn = _.filter content, (p) -> 
-      #       _.find p.locations, (l) -> 
-      #         _.include( _.map( s.filteredAdminOnes(), (a) -> parseInt( a.geonameId ) ), parseInt( l.adminId1 ) )
-      #   else
-      #     content
+      s.trustedContentInLocation = ->
+        SN = s.m.bestNearby()?.geonameId
+        usersWithPlans = _.map(s.trustCircle(),(u)->"#{u.id}#{s.m.planManager.userPlansLoaded[u.id]}").join('|')
+        trustCertificate = "#{usersWithPlans}:#{SN}"
+        return s.trustedContentInLocationIs if trustCertificate == s.lastTrustCertificate && s.trustedContentInLocationIs
+        s.lastTrustCertificate = trustCertificate
+        if inCountry = s.m.planManager?.inCountries( [s.m.selectedCountry?.geonameId] )
+          s.trustedContentInLocationIs = _.filter inCountry, (p) -> s.trustedUser( p.user ) && s.locationMatch( p.locations )
+
+      s.trustedUsersWithContentInLocation = -> 
+        _.map _.uniq( _.compact( _.map( s.trustedContentInLocation(), (c) -> c.user?.id ) ) ), (id) ->
+          s.m.userManager.fetch( id )
+
+      s.trustedContentInLocationAndSearch = ->
+        content = _.sortBy( s.trustedContentInLocation(), (p) -> p.updated_at ).reverse()
+        if s.filteredAdminOnes()?.length > 0
+          plansToReturn = _.filter content, (p) -> 
+            _.find p.locations, (l) -> 
+              _.include( _.map( s.filteredAdminOnes(), (a) -> parseInt( a.geonameId ) ), parseInt( l.adminId1 ) )
+        else
+          content
+
+      s.locationsInCountry = -> s.m.locationManager
+
+      s.countryClusters = ->
+        clusters = {}
+        # _.forEach s.trustedContentInLocationAndSearch(), (plan) -> 
+        #   if clusters = _.filter plan.locations, (location) -> location.fcode == "PLANIT"
+        #     # represent clusters
+        #   else admin2s = 
+        #   _.forEach plan.locations, (location) ->
+        #     clusters[ location.geonameId ] = location if !clusters[ location.geonameId ] && location.fcode == "ADM2"
+        #     # clusters[ location.geonameId ].count = 0 unless clusters[ location.geonameId ].count
+        #     # clusters[ location.geonameId ].count = clusters[ location.geonameId ].count + 1
+        return clusters
+        # return _.sortBy( clusters, "count" ).reverse()
 
       s.planImage = ( plan ) -> plan?.best_image?.url?.replace("69x69","210x210")
 

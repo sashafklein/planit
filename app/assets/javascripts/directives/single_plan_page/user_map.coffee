@@ -21,29 +21,29 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
             name: 'None'
             url: ""
             type: 'xyz'
-        overlays: 
-          locations:
-            name: "Location Clusters"
-            type: "markercluster"
-            visible: true
-            layerOptions:
-              chunkedLoading: true #?look at
-              showCoverageOnHover: false
-              removeOutsideVisibleBounds: true
-              maxClusterRadius: 42
-              # disableClusteringAtZoom: 13
-              # spiderifyDistanceMultiplier: 2
-              iconCreateFunction: (cluster) -> 
-                initial = 0
-                s.marker.userMapClusterPin( cluster, initial )
+      #   overlays: 
+      #     locations:
+      #       name: "Location Clusters"
+      #       type: "markercluster"
+      #       visible: true
+      #       layerOptions:
+      #         chunkedLoading: true #?look at
+      #         showCoverageOnHover: false
+      #         removeOutsideVisibleBounds: true
+      #         maxClusterRadius: 42
+      #         # disableClusteringAtZoom: 13
+      #         # spiderifyDistanceMultiplier: 2
+      #         iconCreateFunction: (cluster) -> 
+      #           initial = 0
+      #           s.marker.userMapClusterPin( cluster, initial )
 
-      s.marker = new PlanitMarker(s)
-      s.buildLocationClusters = ->
-        s.locationClusterMarkers = {}
-        _.forEach s.locationClusters, (l) -> 
-          s.locationClusterMarkers[ l.id ] = s.marker.userMapLocationPin( l )
+      # s.marker = new PlanitMarker(s)
+      # s.buildLocationClusters = ->
+      #   s.locationClusterMarkers = {}
+      #   _.forEach s.locationClusters, (l) -> 
+      #     s.locationClusterMarkers[ l.id ] = s.marker.userMapLocationPin( l )
 
-      s.$watch( 'locationClusters', (-> s.buildLocationClusters() ), true)
+      # s.$watch( 'locationClusters', (-> s.buildLocationClusters() ), true)
             
       geojsonData = {} unless geojsonData
 

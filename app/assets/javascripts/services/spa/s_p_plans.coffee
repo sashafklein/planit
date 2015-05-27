@@ -22,7 +22,7 @@ angular.module("SPA").service "SPPlans", (User, Plan, SPPlan, SPUsers, QueryStri
 
     inCountries: ( cntryGeonames ) ->
       self = @
-      return [] unless cntryGeonames
+      return [] unless cntryGeonames?.length > 0
       _.filter( self.plans, (p) -> _.find( p.locations, (l) -> _.include( cntryGeonames, parseInt(l.countryId) ) ) )
 
     addNewPlan: ( nearby, searchStrings ) ->
