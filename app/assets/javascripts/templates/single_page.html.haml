@@ -18,13 +18,13 @@
 
       %user_page{ m: 'm' }
 
-      .single-plan-view{ ng_if: "m.plan()" }
+      .single-plan-view
         %sort_commands{ m: 'm' }
 
         .tabs{ ng_show: 'm.plan() && m.plan().items.length > 0' }
-          %list_view{ m: 'm' }
+          %list_view{ m: 'm', ng_show: "m.mode=='list'" }
           / .plan-map-container{ ng_if: "m.plan() && m.plan().items",  }
-          %plan_map.plan-map-canvas{ m: "m", web_padding: '45,45,15,400', mobile_padding: '40,15,80,15', zoom_control: 'true', ng_show: "m.mode=='map'" }
+          %plan_map{ m: "m", web_padding: '45,45,15,400', mobile_padding: '40,15,80,15', zoom_control: 'true', ng_show: "m.mode=='map'" }
           
         %first_tutorial{ m: 'm' }
 

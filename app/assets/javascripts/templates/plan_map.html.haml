@@ -1,6 +1,6 @@
-.map-canvas-box.bucket-map
+.map-canvas-box.plan-map-canvas
   .leaflet-wrapper{ ng_if: 'center && defaults && initialized && planLayers' }
-    %leaflet{ id: 'plan', markers: 'places', defaults: 'defaults', height: '100%', width: '100%', center: 'centerPointPlan', layers: 'planLayers' }
+    %leaflet{ id: 'plan', markers: 'places', defaults: 'defaults', height: '100%', width: '100%', center: 'center', layers: 'planLayers' }
       #map-info-box{ ng_show: "loaded" }
 
         // WEB!!!
