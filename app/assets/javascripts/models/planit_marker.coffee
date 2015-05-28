@@ -61,25 +61,25 @@ mod.factory 'PlanitMarker', ($timeout, MetaCategory) ->
           iconSize: new L.Point(34,34),
           iconAnchor: [17,17],
 
-    userMapLocationPin: (location) -> 
-      test = "https://irs3.4sqi.net/img/general/622x440/186753_bXWfu1hl2seDr5TizbL0X-3EuuNWkKLKoDnmJ_YgvwE.jpg"
-      _( @_locationPin(location) ).extend(
-        icon: 
-          type: 'div'
-          className: 'user-map-single-div-icon'
-          html: """ <div><div class="location-name-wrapper"><div class="location-name"><span>#{location.name}</span></div></div><img src="#{test}"></div> """
-          iconSize: [40,40]
-          iconAnchor: [20,38]
-      ).value()
+    # userMapLocationPin: (location) -> 
+    #   test = "https://irs3.4sqi.net/img/general/622x440/186753_bXWfu1hl2seDr5TizbL0X-3EuuNWkKLKoDnmJ_YgvwE.jpg"
+    #   _( @_locationPin(location) ).extend(
+    #     icon: 
+    #       type: 'div'
+    #       className: 'user-map-single-div-icon'
+    #       html: """ <div><div class="location-name-wrapper"><div class="location-name"><span>#{location.name}</span></div></div><img src="#{test}"></div> """
+    #       iconSize: [40,40]
+    #       iconAnchor: [20,38]
+    #   ).value()
 
-    userMapClusterPin: (cluster) ->
-      test = "https://irs3.4sqi.net/img/general/622x440/186753_bXWfu1hl2seDr5TizbL0X-3EuuNWkKLKoDnmJ_YgvwE.jpg"
-      L.divIcon
-        type: 'div'
-        className: 'user-map-cluster-div-icon'
-        html: """ <div><div class="location-name-wrapper"><div class="location-name"><span>#{cluster.getAllChildMarkers().length} locations</span></div></div><img src="#{test}"></div> """
-        iconSize: [40,40]
-        iconAnchor: [20,38]
+    # userMapClusterPin: (cluster) ->
+    #   test = "https://irs3.4sqi.net/img/general/622x440/186753_bXWfu1hl2seDr5TizbL0X-3EuuNWkKLKoDnmJ_YgvwE.jpg"
+    #   L.divIcon
+    #     type: 'div'
+    #     className: 'user-map-cluster-div-icon'
+    #     html: """ <div><div class="location-name-wrapper"><div class="location-name"><span>#{cluster.getAllChildMarkers().length} locations</span></div></div><img src="#{test}"></div> """
+    #     iconSize: [40,40]
+    #     iconAnchor: [20,38]
 
     _basicPin: (place) ->
       _(place).extend(
@@ -92,13 +92,13 @@ mod.factory 'PlanitMarker', ($timeout, MetaCategory) ->
         lng: place.lon
       ).value()
 
-    _locationPin: (location) ->
-      _(location).extend(
-        title: location.name
-        alt: location.name
-        riseOnHover: true
-        layer: 'locations'
-        lng: location.lon
-      ).value()
+    # _locationPin: (location) ->
+    #   _(location).extend(
+    #     title: location.name
+    #     alt: location.name
+    #     riseOnHover: true
+    #     layer: 'locations'
+    #     lng: location.lon
+    #   ).value()
 
   return PlanitMarker

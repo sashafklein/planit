@@ -1,5 +1,5 @@
 .map-canvas-box.bucket-map
-  .leaflet-wrapper{ ng_if: 'planLayers' }
+  .leaflet-wrapper{ ng_if: 'center && defaults && initialized && planLayers' }
     %leaflet{ id: 'plan', markers: 'places', defaults: 'defaults', height: '100%', width: '100%', center: 'centerPointPlan', layers: 'planLayers' }
       #map-info-box{ ng_show: "loaded" }
 
