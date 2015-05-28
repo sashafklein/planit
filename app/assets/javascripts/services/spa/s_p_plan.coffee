@@ -10,7 +10,10 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
 
     typeOf: -> if @userOwns() || @userCoOwns() then 'travel' else 'viewing'
 
-    latestLocation: -> @locations[ @latest_location_id ]
+    latestLocation: -> 
+      self = @
+      _.find( self.locations, (l) -> parseInt(l.id) == parseInt(self.latest_location_id) )
+      
     currentLocation: -> current = @latestLocation(); return current unless current?.fcode=="PCLI"
 
     # EDIT PLAN ITSELF

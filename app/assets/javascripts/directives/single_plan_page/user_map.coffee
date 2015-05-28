@@ -13,7 +13,6 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
 
     link: (s, elem) ->
 
-      s.currentZoom = -> 
       s.center = { lat: 60, lng: 0, zoom: 2 }
       s.userLayers = 
         baselayers: 

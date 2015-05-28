@@ -4,7 +4,7 @@
 
     .faux-input-wrap{ ng_show: 'm.plan() && m.plan().currentLocation()', ng_dblclick: 'resetNearby()' }
       %b Exploring
-      %span {{ m.plan().currentLocation().asciiName }}, {{ m.plan().currentLocation().adminName1 }}, {{ m.plan().currentLocation().countryName }}
+      %span {{ m.plan().currentLocation().name }}, {{ m.plan().currentLocation().adminName1 }}, {{ m.plan().currentLocation().countryName }}
       %span.reset-location{ ng_click: 'resetNearby()' } 
         %i.fa.fa-times 
         %span.large-screen.inline Location

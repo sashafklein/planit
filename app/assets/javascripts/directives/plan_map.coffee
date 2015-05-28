@@ -14,60 +14,63 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
 
     link: (s, elem) ->
 
-      s.loaded = false
-      s.currentUserId = CurrentUser.id
-      s.marker = new PlanitMarker(s)
-      s.mobile = elem.width() < 768
-      s.web = !s.mobile
-      s.screenWidth = if s.mobile then 'mobile' else 'web'
-      s.padding = [35, 25, 15, 25]
-      s.padding = JSON.parse("[" + s.mobilePadding + "]") if s.mobilePadding && s.mobile
-      s.padding = JSON.parse("[" + s.webPadding + "]") if s.webPadding && s.web
-      s.changes = 0
-      s.maxBounds = [[-84,-400], [84,315]]
-      s.centerAndZoom = QueryString.get()['m'] || null
-      s.centerPointPlan = if s.centerAndZoom then { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) } else { lat: 0, lng: 0, zoom: 2 }
-      s.placesInView = s.clustersInView = s.firstItems = []
-      s.leaf = leafletData
+      s.defineMapCriteria = ->
+        s.elem = elem
+        s.loaded = false
+        s.currentUserId = CurrentUser.id
+        s.marker = new PlanitMarker(s)
+        s.mobile = elem.width() < 768
+        s.web = !s.mobile
+        s.screenWidth = if s.mobile then 'mobile' else 'web'
+        s.padding = [35, 25, 15, 25]
+        s.padding = JSON.parse("[" + s.mobilePadding + "]") if s.mobilePadding && s.mobile
+        s.padding = JSON.parse("[" + s.webPadding + "]") if s.webPadding && s.web
+        s.changes = 0
+        s.maxBounds = [[-84,-400], [84,315]]
+        s.centerAndZoom = QueryString.get()['m'] || null
+        s.center = if s.centerAndZoom then { lat: parseFloat( s.centerAndZoom.split(',')[0] ), lng: parseFloat( s.centerAndZoom.split(',')[1] ), zoom: parseFloat( s.centerAndZoom.split(',')[2] ) } else { lat: 0, lng: 0, zoom: 2 }
+        s.placesInView = s.clustersInView = s.firstItems = []
+        s.leaf = leafletData
 
-      s.defaults = 
-        minZoom: if s.mobile then 1 else 2
-        maxZoom: 18
-        scrollWheelZoom: false
-        doubleClickZoom: true
-        zoomControl: if ( s.zoomControl && s.web ) then true else false
-        zoomControlPosition: 'topright'
+        s.defaults = 
+          minZoom: if s.mobile then 1 else 3
+          maxZoom: 18
+          scrollWheelZoom: false
+          doubleClickZoom: true
+          zoomControl: if ( s.zoomControl && s.web ) then true else false
+          zoomControlPosition: 'topright'
 
-      s.planLayers = 
-        baselayers: 
-          xyz:
-            name: 'MapQuest'
-            url: "https://otile#{ Math.floor(Math.random() * (4 - 1 + 1)) + 1 }-s.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg"
-            type: 'xyz'
-        overlays: 
-          primary:
-            name: "Primary Places"
-            type: "markercluster"
-            visible: true
-            layerOptions:
-              chunkedLoading: true #?look at
-              showCoverageOnHover: true
-              removeOutsideVisibleBounds: true
-              polygonOptions: { color: "#ff0066", opacity: 1.0, fillColor: "#ff0066", fillOpacity: 0.4, weight: 3  }
-              maxClusterRadius: 60
-              disableClusteringAtZoom: 13
-              spiderifyDistanceMultiplier: 2
-              requireDoubleClick: s.mobile
-              paddingToFocusArea: s.padding
-              iconCreateFunction: (cluster) -> 
-                initial = 0
-                s.marker.clusterPin(cluster, initial)
+        s.planLayers = 
+          baselayers: 
+            xyz:
+              name: 'MapQuest'
+              url: "https://otile#{ Math.floor(Math.random() * (4 - 1 + 1)) + 1 }-s.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg"
+              type: 'xyz'
+          overlays: 
+            primary:
+              name: "Primary Places"
+              type: "markercluster"
+              visible: true
+              layerOptions:
+                chunkedLoading: true #?look at
+                showCoverageOnHover: true
+                removeOutsideVisibleBounds: true
+                polygonOptions: { color: "#ff0066", opacity: 1.0, fillColor: "#ff0066", fillOpacity: 0.4, weight: 3  }
+                maxClusterRadius: 60
+                disableClusteringAtZoom: 13
+                spiderifyDistanceMultiplier: 2
+                requireDoubleClick: s.mobile
+                paddingToFocusArea: s.padding
+                iconCreateFunction: (cluster) -> 
+                  initial = 0
+                  s.marker.clusterPin(cluster, initial)
 
       s._getPlaces = ->
         s._setOnScope [ 'firstItems', 'places', 'preFilterPlaces' ], []
         $timeout(-> s.firstItems = _.extend( [], s.m?.plan()?.items ) )
         $timeout(-> s.preFilterPlaces = _.map( s.m?.plan()?.items, (i) -> s.marker.primaryPin(i.mark.place) ) )
         $timeout(-> s._definePlaces() )
+        leafletData.getMap("plan").then (map) -> $timeout( (-> map.invalidateSize() ), 200)
 
       # ON MAP MOVEMENT
 
@@ -81,7 +84,7 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
 
       s._setCurrentLayers = (callback) ->
         leafletData.getLayers("plan").then (l) ->
-          s.currentLayers = l.overlays.primary._featureGroup._layers
+          s.currentLayers = l.overlays?.primary?._featureGroup?._layers
           callback?()
 
       s._setItemsInView = ->
@@ -164,6 +167,7 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
       window.mapMouseEvent = s.mouse
 
       s.zoomToCluster = (cluster) ->
+        return unless cluster?.bounds
         leafletData.getMap("plan").then (m) ->
           m.fitBounds( cluster.bounds , { paddingTopLeft: [s.padding[3], s.padding[0]], paddingBottomRight: [s.padding[1], s.padding[2]] } )
           new PlanEventManager(s).deselectAll()
@@ -227,12 +231,14 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
       s.initialize = ->
         if !s.initialized && s.m?.mode=='map' && s.m?.plan()?.items?.length
           $('.loading-mask.content-only').show()
-          $timeout(-> s._getPlaces() )
           s.initialized = true
+          $timeout(-> s.defineMapCriteria() )
+          $timeout(-> s._getPlaces() )
         else if s.initialized && s.m?.mode=='map'
-          unless _.isEqual( s.m?.plan()?.items, s.firstItems )
-            s.changedItems = true
-            $timeout(-> s._getPlaces() )
+          return if _.isEqual( s.m?.plan()?.items, s.firstItems )
+          s.changedItems = true
+          $timeout(-> s.defineMapCriteria() )
+          $timeout(-> s._getPlaces() )
         else if s.initialized && !s.m?.mode=='map'
           s.resetMapContent()
 
@@ -240,7 +246,7 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
         s._setOnScope [ 'firstItems', 'places', 'preFilterPlaces', 'placesInView', 'clustersInView' ], []
         s._setOnScope [ 'currentLLZoom', 'currentBounds', 'centerAndZoom' ], null
         s.initialized = false
-        s.centerPoint = { lat: 0, lng: 0, zoom: 2 }
+        s.center = { lat: 0, lng: 0, zoom: 2 }
         s.filters = {}
         QueryString.modify({f: null, m: null})
 

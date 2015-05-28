@@ -7,8 +7,6 @@ angular.module("Directives").directive 'listView', (User, ErrorReporter, Mark, F
       m: '='
     link: (s, e, a) ->
 
-      s.hasPlanAndItemsNotBrowsingAndInListView = ->
-        !( s.m.browsing && !s.m.placeName?.length > 1 ) && s.m.plan() && (s.m.plan().items?.length > 0 || s.m.addingItem)
       s.colorClass = ( meta_category ) -> MetaCategory.colorClass( meta_category )
       
       s.typeIcon = (items, meta_category) -> 
@@ -20,16 +18,5 @@ angular.module("Directives").directive 'listView', (User, ErrorReporter, Mark, F
         s._saveNoteOnDelay(item)
 
       s._saveNoteOnDelay = _.debounce( ( (item) -> item.saveNote() unless item.noteChanged == false ), 1500)
-
-      s.closestLocation = (item) ->
-        #   mostRecentItem = _.sortBy( s.m.plan().items, (i) -> i.updated_at ).reverse()[0]
-        #   lat = mostRecentItem.mark?.place?.lat
-        #   lon = mostRecentItem.mark?.place?.lon
-        #   distance = 100000000000000
-        #   nearby = null
-        #   _.forEach( s.m.plan().locations, (location) -> 
-        #     thisDistance = Distance.miles( [lat,lon], [location.lat,location.lon] )
-        #     if thisDistance < distance then distance = thisDistance; nearby = location )
-        #   $timeout(-> s.m.plan().setNearby( nearby ) )
 
   }
