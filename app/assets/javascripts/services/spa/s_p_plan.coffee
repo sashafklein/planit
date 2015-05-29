@@ -22,13 +22,13 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
       self = @
       @_planObj().update({ plan: { name: new_name } })
         .success (response) -> self.name = new_name; callback?()
-        .error (response) -> ErrorReporter.defaultFull({ context: 'Failed to rename plan', list_id: self.id, new_name: new_name })
+        .error (response) -> ErrorReporter.loud( response, 'SPPlan rename', { list_id: self.id, new_name: new_name })
 
     destroy: ( callback ) ->
       self = @
       @_planObj().destroy()
         .success (response) -> callback?(); QueryString.modify({ plan: null })
-        .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans SPPlan deletePlan', { plan_id: self.id } )
+        .error (response) -> ErrorReporter.silent( response, 'SinglePagePlans SPPlan deletePlan', { plan_id: self.id } )
 
     setNearby: ( nearby, searchStrings ) ->
       self = @
@@ -38,7 +38,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
           self.locations[ response.id ] = response unless self.locations[ response.id ]
           self.latest_location_id = response.id
           QueryString.modify({ plan: self.id })
-        .error (response) -> ErrorReporter.fullSilent( response, 'Failed in setting self.id plan nearby' )
+        .error (response) -> ErrorReporter.silent( response, 'Failed in setting self.id plan nearby' )
 
     removeNearby: ( nearby ) ->
       self = @
@@ -46,7 +46,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
         .success (response) -> 
           delete self.locations[ nearby['id'] ]
           self.latest_location_id = null
-        .error (response) -> ErrorReporter.fullSilent( response, 'Failed in removing nearby from plan' )
+        .error (response) -> ErrorReporter.silent( response, 'Failed in removing nearby from plan' )
 
     # ADD TO PLAN
 
@@ -55,11 +55,11 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
       itemIds = _.map(items, 'id')
       if delay && !RailsEnv.test
         @_setAddItemsSuccess( callback )
-        @_planObj().addItems( itemIds, { delay: true } ).error (response) -> ErrorReporter.fullSilent( response, "SPPlan addItems", { item_ids: itemIds, plan_id: self.id } )
+        @_planObj().addItems( itemIds, { delay: true } ).error (response) -> ErrorReporter.silent( response, "SPPlan addItems", { item_ids: itemIds, plan_id: self.id } )
       else
         @_planObj().addItems( itemIds )
           .success (response) -> self._afterAddItemsSuccess(); callback?( response )
-          .error (response) -> ErrorReporter.fullSilent( response, "SPPlan addItems", { item_ids: itemIds, plan_id: self.id } )
+          .error (response) -> ErrorReporter.silent( response, "SPPlan addItems", { item_ids: itemIds, plan_id: self.id } )
 
     _setAddItemsSuccess: (callback) ->
       self = @
@@ -79,7 +79,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
       callback?()
       @_planObj().addItemFromPlaceData( fsOption )
         .success (response) -> if RailsEnv.test then self._affixItem(response, callback2)
-        .error (response) -> ErrorReporter.defaultFull( response, 'SPPlan addItem', { option: JSON.stringify(fsOption), plan_id: self.id } )
+        .error (response) -> ErrorReporter.loud( response, 'SPPlan addItem', { option: JSON.stringify(fsOption), plan_id: self.id } )
 
     _setAddItemSuccess: ( callback ) ->
       self = @
@@ -90,7 +90,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
             self._affixItem(response, callback)
             self._pusher.unsubscribe( "add-item-from-place-data-to-plan-#{ self.id }" )
           .error (response) ->
-            ErrorReporter.fullSilent( response, 'addBox _setAddItemSuccess', { item_id: data.item_id, plan_id: self.id } )
+            ErrorReporter.silent( response, 'addBox _setAddItemSuccess', { item_id: data.item_id, plan_id: self.id } )
             self._pusher.unsubscribe( "add-item-from-place-data-to-plan-#{ self.id }" )
 
     _affixItem: (response, callback) ->
@@ -120,7 +120,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
           self._removeItemsFromPlan(places)
           callback?()
         .error (response) ->
-          ErrorReporter.fullSilent( response, 'SPPlan deleteItems', { item_ids: itemIds, plan_id: self.id })
+          ErrorReporter.silent( response, 'SPPlan deleteItems', { item_ids: itemIds, plan_id: self.id })
 
     _removeItemsFromPlan: (places) ->
       self = @
@@ -158,7 +158,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
             QueryString.modify({ plan: parseInt( self.id ) }) unless opts.dontRedirectAfterLoad
             opts.afterLoad( self ) if opts.afterLoad?
             callback?()
-          .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list #{self.id}", { plan_id: self.id })
+          .error (response) -> ErrorReporter.silent( response, "SPPlan load list #{self.id}", { plan_id: self.id })
 
     _fetchNotes: ->
       self = @
@@ -174,7 +174,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
               $timeout( ( -> attachNotesToItemsIfItems(response) ), 200)
           attachNotesToItemsWhenItems( response )
 
-        .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list fetch original notes", { plan_id: @id })
+        .error (response) -> ErrorReporter.silent( response, "SPPlan load list fetch original notes", { plan_id: @id })
 
     categories: ( categorizeBy ) -> #sorted alphabetically
       switch categorizeBy
@@ -208,7 +208,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
           if callback?
             callback _.map( self.manifest, (obj, index) -> self._manifestWrap( _.find(response, (i) -> i.id == obj.id ) || obj, index ) )
         .error (response) ->
-          ErrorReporter.fullSilent( response, 'tripView getManifestItems', { list_id: s.m.plan().id, item_ids: item_ids } )
+          ErrorReporter.silent( response, 'tripView getManifestItems', { list_id: s.m.plan().id, item_ids: item_ids } )
 
     _manifestWrap: (obj, index) ->
       return _.extend(obj, { index: index }) unless obj.mark_id? # is an Item
@@ -230,7 +230,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
       self._planObj().moveInManifest(from, to)
         .success( (response) -> callback?(response) ).error( (response) -> self._manifestError('moveInManifest', response) )    
 
-    _manifestError: (method, response) -> ErrorReporter.defaultFull( response, "SPPlan #{method}", { plan_id: self.id } )
+    _manifestError: (method, response) -> ErrorReporter.loud( response, "SPPlan #{method}", { plan_id: self.id } )
 
     # FUNCTIONS ON PLAN
 
@@ -244,7 +244,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
         Spinner.show()
         self._planObj().copy()
           .success (response) -> Spinner.hide()
-          .error (response) -> ErrorReporter.defaultFull( response, "planSettings SPPlan copyList", { list_id: self.id } )
+          .error (response) -> ErrorReporter.loud( response, "planSettings SPPlan copyList", { list_id: self.id } )
 
 
   return SPPlan

@@ -52,7 +52,7 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
             s.m.nearbySearchStrings.unshift s.placeNearby
           .error (response) -> 
             s.placeNearbyWorking--
-            ErrorReporter.fullSilent(response, 'SinglePagePlaces s.searchPlaceNearby', { query: s.m.placeName })
+            ErrorReporter.silent(response, 'SinglePagePlaces s.searchPlaceNearby', { query: s.m.placeName })
 
       s.underlined = ( text_array ) ->
         location_text = _.compact( text_array ).join(", ")
@@ -108,9 +108,9 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
           .error (response) ->
             s.placeNameWorking--
             if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
-              ErrorReporter.fullSilent(response, 'SinglePagePlans s._makePlaceSearchRequest getting geocode rejected', { near: s.m.plan()?.currentLocation(), query: s.m.placeName }) if response.message != "Insufficient search params"
+              ErrorReporter.silent(response, 'SinglePagePlans s._makePlaceSearchRequest getting geocode rejected', { near: s.m.plan()?.currentLocation(), query: s.m.placeName }) if response.message != "Insufficient search params"
             else
-              ErrorReporter.fullSilent(response, 'SinglePagePlans s._makePlaceSearchRequest', { near: s.m.plan()?.currentLocation(), query: s.m.placeName }) if response.message != "Insufficient search params"
+              ErrorReporter.silent(response, 'SinglePagePlans s._makePlaceSearchRequest', { near: s.m.plan()?.currentLocation(), query: s.m.placeName }) if response.message != "Insufficient search params"
 
       s.nearbyToReset = -> _.compact([ s.m.plan()?.currentLocation()?.name, s.m.plan()?.currentLocation()?.adminName1, s.m.plan()?.currentLocation()?.countryName ]).join(", ")
 

@@ -99,7 +99,7 @@ angular.module("Directives").directive 'newGuideStart', (QueryString, Geonames, 
             s.m.nearbySearchStrings.unshift s.placeNearby
           .error (response) -> 
             s.planNearbyWorking--
-            ErrorReporter.fullSilent(response, 'SinglePagePlans s.searchPlanNearby', { query: s.planName })
+            ErrorReporter.silent(response, 'SinglePagePlans s.searchPlanNearby', { query: s.planName })
 
       s.underlined = ( location_text ) ->
         terms = s.planNearby?.split(/[,]?\s+/)

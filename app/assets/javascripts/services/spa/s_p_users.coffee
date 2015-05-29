@@ -22,7 +22,7 @@ angular.module("SPA").service "SPUsers", (CurrentUser, User, Plan, QueryString, 
         .error (response) -> 
           self.fetchingUser = null
           QueryString.modify({u:null})
-          ErrorReporter.fullSilent( response, 'SinglePageUsers trying to fetch User', user_id: userId )
+          ErrorReporter.silent( response, 'SinglePageUsers trying to fetch User', user_id: userId )
       return self.users[ userId ]
 
     trustCircle: ( userId ) ->
@@ -44,7 +44,7 @@ angular.module("SPA").service "SPUsers", (CurrentUser, User, Plan, QueryString, 
           self.fetchingUserTrustCircle = null
         .error (response) -> 
           self.fetchingUserTrustCircle = null
-          ErrorReporter.fullSilent( response, 'SinglePageUsers fetching Trust Circle', user_id: userId )
+          ErrorReporter.silent( response, 'SinglePageUsers fetching Trust Circle', user_id: userId )
       return [ self.fetch( userId ) ]
 
   return SPUsers

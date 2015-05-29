@@ -15,5 +15,5 @@ angular.module("Directives").directive 'placeMap', (Place, ErrorReporter) ->
           s.centerPoint = { lat: place.lat, lng: place.lon, zoom: 17 }
           s.loaded = true
         .error (response) ->
-          ErrorReporter.report({ note: "Failed to grab information for Place##{s.placeId}" }, "The map failed to load! We've been notified")
+          ErrorReporter.loud("placeMap Place.find", response, { place_id: s.placeId }, "The map failed to load! We've been notified")
   }

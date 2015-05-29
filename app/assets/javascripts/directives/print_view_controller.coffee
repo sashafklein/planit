@@ -21,7 +21,7 @@ angular.module("Directives").directive 'printViewController', (Plan, Item, Note,
             s.plan = Plan.generateFromJSON( response )
             s.getListItems()
           .error (response) ->
-            ErrorReporter.report({ context: "Tried looking up plan number #{s.planId}, unsuccessful"})
+            ErrorReporter.loud("printViewController getList", { plan_id: s.planId})
       
       s.getListItems = ->
         Item.where({ plan_id: s.planId }, ['hours'])
@@ -33,7 +33,7 @@ angular.module("Directives").directive 'printViewController', (Plan, Item, Note,
             $timeout(-> s.initializeItemsNotes() )
             $timeout(-> s.initializeLocales() )
           .error (response) ->
-            ErrorReporter.report({ context: 'Items.NewCtrl getListItems', list_id: s.list.id}, "Something went wrong! We've been notified.")
+            ErrorReporter.loud("printViewController getListItems", { list_id: s.list.id } )
 
       # BY LOCALE
 
@@ -82,7 +82,7 @@ angular.module("Directives").directive 'printViewController', (Plan, Item, Note,
               true
             $timeout(-> s.isLoaded = true )
           .error (response) ->
-            ErrorReporter.defaultSilent( response, "printViewController initializeItemsNotes", { plan_id: s.plan.id })
+            ErrorReporter.silent( response, "printViewController initializeItemsNotes", { plan_id: s.plan.id })
             $timeout(-> s.isLoaded = true )
 
       # ITEM FEATURES

@@ -29,11 +29,10 @@ angular.module("SPA").service "SPItem", (CurrentUser, Item, Mark, Note, QueryStr
           QueryString.modify({ m: null })
           Mark.remove( self.mark.place.id )
             .success (response) -> 
-              Flash.success("'#{self.mark.place.names[0]}' Deleted")
               callback?()
-            .error (response) -> ErrorReporter.report({ place_id: self.mark.place.id, user_id: CurrentUser.id, context: "Inside SPPlan, deleting a mark" })
+            .error (response) -> ErrorReporter.loud("SPItem destroy", { place_id: self.mark.place.id, user_id: CurrentUser.id })
 
-        .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans SPItem deleteItem', { item_id: self.id } )
+        .error (response) -> ErrorReporter.silent( response, 'SinglePagePlans SPItem deleteItem', { item_id: self.id } )
 
     saveNote: ->
       self = @
@@ -45,7 +44,7 @@ angular.module("SPA").service "SPItem", (CurrentUser, Item, Mark, Note, QueryStr
           self.mark.note = response.body
           self.mark.updatingNote = false
         .error (response) ->
-          ErrorReporter.fullSilent( response, "SPItem save note", { item_id: self.id, obj_id: self.mark_id, obj_type: self.mark.class, body: self.note })     
+          ErrorReporter.silent( response, "SPItem save note", { item_id: self.id, obj_id: self.mark_id, obj_type: self.mark.class, body: self.note })     
           self.mark.note = null
           self.mark.updatingNote = false
 
@@ -56,6 +55,6 @@ angular.module("SPA").service "SPItem", (CurrentUser, Item, Mark, Note, QueryStr
           _.forEach data, (k, v) -> self[k] = v
           callback?()
         .error (response) -> 
-          ErrorReporter.fullSilent(response, "SPItem update", { id: self.id, data: data })
+          ErrorReporter.silent(response, "SPItem update", { id: self.id, data: data })
 
   return SPItem

@@ -1,3 +1,4 @@
+# DELETE?
 angular.module("Directives").directive 'mobileDashboard', (User, Mark, Place, Modal, $timeout, ErrorReporter, CurrentUser, QueryString, UserLocation, BarExpander) ->
 
   return {
@@ -66,8 +67,8 @@ angular.module("Directives").directive 'mobileDashboard', (User, Mark, Place, Mo
               else if s.loading == false
                 markObj = new Mark({ id: response.id })
                 markObj.destroy()
-                  .error (response) -> ErrorReporter.report({ mark_id: response.id, context: 'Trying to delete a mark in mobileDashboard', api_path: markObj.objectPath() })
-            .error (response) -> ErrorReporter.report({ user_id: s.userId, context: 'Trying to create a place & mark in mobileDashboard' })
+                  .error (response) -> ErrorReporter.silent( 'mobileDashboard mark.destroy() in submitAdd', { mark_id: response.id })
+            .error (response) -> ErrorReporter.silent( 'mobileDashboard submitAdd', { user_id: s.userId })
 
       # SEARCH
 
@@ -80,7 +81,7 @@ angular.module("Directives").directive 'mobileDashboard', (User, Mark, Place, Mo
       #   Place.find( place_id )
       #     .success (response) -> 
       #       s.markModal.show({ place: response })
-      #     .error (response) -> ErrorReporter.report({ place_id: place_id, context: 'Trying to find and then open a place in Mobile Dashboard'})
+      #     .error (response) -> ErrorReporter.loud({ place_id: place_id, context: 'Trying to find and then open a place in Mobile Dashboard'})
 
       # LOCATION / NEARBY
 

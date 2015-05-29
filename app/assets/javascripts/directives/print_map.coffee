@@ -87,7 +87,7 @@ angular.module("Directives").directive 'printMap', (ErrorReporter) ->
               s.markersOrClusterForLayer( layer, letterCount )
             )
           else
-            ErrorReporter.report({ userId: CurrentUser.id, planId: s.planId, body: "Error sifting through clusters for cluster marker" })
+            ErrorReporter.silent({ userId: CurrentUser.id, planId: s.planId, context: "Error sifting through clusters for cluster marker" })
 
         s.assignClusteredMarkers = ( layer, letterCount ) ->
           _.forEach( layer._markers, (marker) ->
