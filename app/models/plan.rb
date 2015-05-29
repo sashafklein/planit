@@ -101,7 +101,11 @@ class Plan < BaseModel
   end
 
   def places
-    items.marks.with_places.places
+    marks.places
+  end
+
+  def marks
+    items.marks.with_places
   end
 
   def self.create_new!(user, plan_name, place_ids)

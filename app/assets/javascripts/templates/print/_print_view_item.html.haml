@@ -25,10 +25,10 @@
       .hours-info-line{{ ng_show: "detailLevel == 1" }} {{ hours( item ) }}
       .hours-info-line{{ ng_show: "detailLevel > 1", ng_repeat: "day in ['sun','mon','tue','wed','thu','fri','sat']" }} 
         {{ hours( item, day ) }}
-    .print-item-notes{ ng_show: 'hasNote(item)' }                  
+    .print-item-notes{ ng_show: 'item.mark.note.length' }                  
       .note-line
-        %b {{ plan.name }}
-        {{ item.note }}
+        %b{ ng_if: 'item.mark.noteSource' } {{ item.mark.noteSource }} - 
+        {{ item.mark.note }}
     .print-item-booking-details{ ng_show: 'currentUserOwnsPlan() && (item.confirmation || item.start_date || item.start_time)' }
       .note-line{ ng_if: 'item.startString()' }
         %b When:

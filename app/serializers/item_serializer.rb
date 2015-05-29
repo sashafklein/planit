@@ -5,7 +5,9 @@ class ItemSerializer < BaseSerializer
   # has_one :mark, serializer: MarkSerializer
 
   def mark
-    PlaceSerializer.new( Place.find_by( id: object.mark.place_id ) ).as_json
+    { id: object.mark_id }.merge(
+      PlaceSerializer.new( Place.find_by( id: object.mark.place_id ) ).as_json
+    )
   end
 
 end

@@ -72,14 +72,17 @@ angular.module("Directives").directive 'printViewController', (Plan, Item, Note,
 
       # GET NOTES
 
-      s.initializeItemsNotes = -> _.map( s.items, (item) -> s.fetchOriginalNote(item) )
-      s.fetchOriginalNote = (item) ->
-        Note.findByObject( item )
+      s.initializeItemsNotes = -> 
+        Note.findAllNotesInPlan( s.plan.id )
           .success (response) ->
-            if note = response.body then s.items[s.items.indexOf(item)].note = note
+            _.forEach response, (n) ->
+              item = _.find( s.items, (i) -> parseInt( i.mark_id ) == parseInt( n.obj_id ) && n.obj_type == 'Mark')
+              item.mark.note = n.body
+              item.mark.noteSource = n.source_name
+              true
             $timeout(-> s.isLoaded = true )
           .error (response) ->
-            ErrorReporter.report({ context: "Failed note fetch in list page", obj_id: item.id, obj_type: item.class })
+            ErrorReporter.defaultSilent( response, "printViewController initializeItemsNotes", { plan_id: s.plan.id })
             $timeout(-> s.isLoaded = true )
 
       # ITEM FEATURES
@@ -93,7 +96,7 @@ angular.module("Directives").directive 'printViewController', (Plan, Item, Note,
       s.directionsLink = (item) -> "https://maps.google.com?daddr=#{ s.coord(item) }"
       s.coord = (item) -> "#{item.mark.place.lat},#{item.mark.place.lon}"
 
-      s.hasNote = (item) -> item?.note?.length
+      s.hasNote = (item) -> item?mark?.note?.length
 
       s.hours = (item, day) -> 
         return null unless day && day_hours = item.mark.place.hours[ day ]
