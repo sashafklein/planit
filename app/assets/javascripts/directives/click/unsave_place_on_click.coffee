@@ -15,6 +15,6 @@ angular.module("Directives").directive 'unsavePlaceOnClick', (Mark, Modal, Curre
             if scope.successFunction? then scope.successFunction() else true
             $('.loading-mask').hide()
           .error (response) ->
-            ErrorReporter.report({ place_id: place_id, user_id: CurrentUser.id, context: "Inside unsavePlaceOnClick directive" })
+            ErrorReporter.loud( "unsavePlaceOnClick Mark.remove", response, { place_id: place_id, user_id: CurrentUser.id })
             $('.loading-mask').hide()
 }

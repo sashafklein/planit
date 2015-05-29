@@ -13,5 +13,5 @@ angular.module("Directives").directive 'savePlacesOnClick', (Mark, CurrentUser, 
         #   .success (response) ->
         #     if scope.successFunction? then scope.successFunction() else true
         #   .error (response) ->
-        #     ErrorReporter.report({ place_id: place_id, user_id: CurrentUser.id, context: "Inside savePlacesOnClick directive"})
+        #     ErrorReporter.loud("savePlacesOnClick Mark.create", response, { place_id: place_id, user_id: CurrentUser.id })
   }

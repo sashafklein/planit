@@ -17,7 +17,7 @@ angular.module("SPA").service "SPPlans", (User, Plan, SPPlan, SPUsers, QueryStri
           _.forEach responses, (r) -> 
             self.plans[r.id] = new SPPlan( r )
           $timeout(-> self.userPlansLoaded[ user_id ] = true )
-        .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan constructor', user_id: user_id )
+        .error (response) -> ErrorReporter.silent( response, 'SinglePagePlans Plan constructor', user_id: user_id )
       return _.filter( self.plans, (p) -> p.user.id == user_id )
 
     inCountries: ( cntryGeonames ) ->
@@ -35,7 +35,7 @@ angular.module("SPA").service "SPPlans", (User, Plan, SPPlan, SPUsers, QueryStri
           self.plans[ plan.id ].locations = {}
           self.plans[ plan.id ].setNearby( nearby, searchStrings )
           # self.loadNearbyPlans( response.locations?[0]?.id )
-        .error (response) -> ErrorReporter.fullSilent( response, 'SinglePagePlans Plan.create', { plan_name: name } )
+        .error (response) -> ErrorReporter.silent( response, 'SinglePagePlans Plan.create', { plan_name: name } )
 
     fetchPlan: ( plan_id, callback ) ->
       self = @
@@ -54,7 +54,7 @@ angular.module("SPA").service "SPPlans", (User, Plan, SPPlan, SPUsers, QueryStri
             self.plans[ response.id ].type = 'followed' if !self.plans[ response.id ].userOwns()
             self.plans[ response.id ].loadItems( callback )
             self.plans[ response.id ].userResetNear = false
-          .error (response) ->  ErrorReporter.fullSilent( response, "SPPlans loading plan #{ plan_id }" )
+          .error (response) ->  ErrorReporter.silent( response, "SPPlans loading plan #{ plan_id }" )
 
     removePlan: ( plan_id ) ->
       plan = @.plans[ plan_id ]

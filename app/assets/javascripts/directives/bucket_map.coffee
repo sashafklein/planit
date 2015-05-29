@@ -140,7 +140,7 @@ angular.module("Directives").directive 'bucketMap', (Place, User, PlanitMarker, 
             places = Place.generateFromJSON(places.user_pins)
             s.primaryPlaces = _(places).map( (p) -> s.marker.primaryPin(p) ).value()
           .error (response) ->
-            ErrorReporter.report({ userId: userId })
+            ErrorReporter.silent('bucketMap _getPrimaryPlaces', _.extend( response, { userId: userId } ) )
 
       s._getContextPlaces = (currentUserId) ->
         User.findPlaces( currentUserId )
@@ -148,7 +148,7 @@ angular.module("Directives").directive 'bucketMap', (Place, User, PlanitMarker, 
             places = Place.generateFromJSON( places.current_user_pins )
             s.contextPlaces = _(places).map( (p) -> s.marker.contextPin(p) ).value()
           .error (response) ->
-            ErrorReporter.report({ userId: userId })
+            ErrorReporter.silent('bucketMap _getContextPlaces', _.extend( response, { userId: userId } ) )
 
       s.clusterFromId = (id) ->
         _.filter( s.clustersInView , (c) -> c.id == id )[0]

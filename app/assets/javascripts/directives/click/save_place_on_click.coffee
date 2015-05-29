@@ -15,6 +15,6 @@ angular.module("Directives").directive 'savePlaceOnClick', (Mark, CurrentUser, E
             if scope.successFunction? then scope.successFunction() else true
             $('.loading-mask').hide()
           .error (response) ->
-            ErrorReporter.report({ place_id: place_id, user_id: CurrentUser.id, context: "Inside savePlaceOnClick directive"})
+            ErrorReporter.loud("savePlaceOnClick Mark.create", response, { place_id: place_id, user_id: CurrentUser.id })
             $('.loading-mask').hide()
   }

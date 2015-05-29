@@ -28,7 +28,7 @@ angular.module("SPA").service "SPLocations", (User, Plan, Location, Geonames, Qu
           self.fetchingUserLocations = null
         .error (response) -> 
           self.fetchingUserLocations = null
-          ErrorReporter.fullSilent( response, 'SinglePageLocations fetch Users Locations', user_id: userId )
+          ErrorReporter.silent( response, 'SinglePageLocations fetch Users Locations', user_id: userId )
 
     usersLocations: ( userId ) ->
       self = @ 
@@ -71,7 +71,7 @@ angular.module("SPA").service "SPLocations", (User, Plan, Location, Geonames, Qu
           self.fetchingCountryAdmins = null
         .error (response) -> 
           self.fetchingCountryAdmins = null
-          ErrorReporter.fullSilent( response, 'SinglePageLocations fetching Country Admins', country_id: countryId )
+          ErrorReporter.silent( response, 'SinglePageLocations fetching Country Admins', country_id: countryId )
 
     countryAdmins: ( countryId ) ->
       self = @

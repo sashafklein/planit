@@ -15,6 +15,6 @@ angular.module("Directives").directive 'lovePlaceOnClick', (Mark, CurrentUser, E
             if scope.successFunction? then scope.successFunction() else true
             $('.loading-mask').hide()
           .error (response) ->
-            ErrorReporter.report({ place_id: place_id, user_id: CurrentUser.id, context: "Inside lovePlaceOnClick directive" })
+            ErrorReporter.loud("lovePlaceOnClick Mark.love", response, { place_id: place_id, user_id: CurrentUser.id })
             $('.loading-mask').hide()
   }

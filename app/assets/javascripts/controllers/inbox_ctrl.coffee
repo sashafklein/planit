@@ -8,7 +8,7 @@ angular.module("Controllers").controller 'InboxCtrl', ($scope, Mark, Modal, Erro
       .success (response) ->
         s.savesToReview = Mark.generateFromJSON(response)
       .error (response) ->
-        ErrorReporter.fullSilent(response, 'InboxCtrl init', { mark_ids: savesToReviewIds })
+        ErrorReporter.silent(response, 'InboxCtrl init', { mark_ids: savesToReviewIds })
 
   s.openMark = (mark) ->
     if mark.place_options?.length
@@ -18,14 +18,14 @@ angular.module("Controllers").controller 'InboxCtrl', ($scope, Mark, Modal, Erro
         .success (response) -> 
           mark.place_options = Place.generateFromJSON( response )
           s.chooseModal.show({ mark: mark, destroy: s.deleteMark, choose: s.chooseMark })
-        .error (response) -> ErrorReporter.fullSilent( response, 'InboxCtrl openMark', { mark_id: mark.id })
+        .error (response) -> ErrorReporter.silent( response, 'InboxCtrl openMark', { mark_id: mark.id })
 
   s._findMark = (mark_id) -> _.find( s.savesToReview, (m) -> m.id == mark_id )
   
   s.deleteMark = (mark, callback) -> 
     mark.destroy()
       .success -> s._removeMark(mark); callback?()
-      .error -> ErrorReporter.report({ mark_id: mark_id, context: 'Trying to delete a mark in choose-mark-place modal'})
+      .error (response) -> ErrorReporter.silent( response, 'inboxCtrl deleteMark', { mark_id: mark_id })
 
   s.chooseMark = (mark, place_option_id, callback) ->
     mark.choose( place_option_id )
@@ -35,7 +35,7 @@ angular.module("Controllers").controller 'InboxCtrl', ($scope, Mark, Modal, Erro
         callback?()
       .error (response) -> 
         callback?()
-        ErrorReporter.fullSilent( response, 'chooseMarkPlace modal confirm', { mark_id: s.mark.id } )
+        ErrorReporter.silent( response, 'chooseMarkPlace modal confirm', { mark_id: s.mark.id } )
 
   s._removeMark = (mark) -> 
     location = s.savesToReview.indexOf _.find( s.savesToReview, (m) -> m.id == mark.id )
