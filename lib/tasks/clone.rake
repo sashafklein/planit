@@ -1,19 +1,13 @@
 namespace :clone do
   task prod: :environment do
     puts "Working..."
-
-    puts "Looking at previous backups"
-    output = `heroku pgbackups --app planit-app`.split("\nb")
-    oldest_backup_number = "b" + output[1].split("  ")[0]
-    
-    puts "Deleting oldest backup to make room"
-    `heroku pgbackups:destroy #{oldest_backup_number} --app planit-app`
+    puts "New PGBackupsss"
 
     puts "Capturing new backup"
-    `heroku pgbackups:capture --app planit-app`
+    `heroku pg:backups capture --app planit-app`
     puts "Captured the production database"
 
-    url = `heroku pgbackups:url --app planit-app `.strip
+    url = `heroku pg:backups public-url --app planit-app`.split(" ").last.strip
     `curl -o latest.dump "#{url}"`
     
     puts "Stored a local copy"
