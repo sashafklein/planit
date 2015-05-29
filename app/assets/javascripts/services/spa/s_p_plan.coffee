@@ -94,7 +94,8 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
             self._pusher.unsubscribe( "add-item-from-place-data-to-plan-#{ self.id }" )
 
     _affixItem: (response, callback) ->
-      new_item = _.extend( new SPItem( Item.generateFromJSON( response ) ), { index: @items.length, pane: 'list', notesSearched: true } )
+      new_item = _.extend( new SPItem( Item.generateFromJSON( response ) ), { index: @items.length, pane: 'list' } )
+      new_item.mark.notesSearched = true if new_item.mark
       if !_.find(@items, (i) -> i.mark?.place?.id == new_item.mark?.place?.id )
         @items.unshift new_item
         @place_ids.unshift( new_item.mark?.place.id ) if new_item?.mark?.place?.id      
@@ -145,10 +146,11 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
       self = @
 
       if !@items?.length || !@fetchingItems || opts.force
-        @items = []
+        $timeout(-> self._fetchNotes() )
         @fetchingItems = true
         Item.where({ plan_id: @id })
           .success (response) ->
+            self.items = []
             _.forEach response , ( item, index ) ->
               i = _.extend( new SPItem( Item.generateFromJSON( item ) ), { index: index, pane: 'list', class: 'Item' } )
               self.items.push i
@@ -156,14 +158,22 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
             QueryString.modify({ plan: parseInt( self.id ) }) unless opts.dontRedirectAfterLoad
             opts.afterLoad( self ) if opts.afterLoad?
             callback?()
-            $timeout(-> self._fetchNotes() )
           .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list #{self.id}", { plan_id: self.id })
 
     _fetchNotes: ->
       self = @
-      return unless self?.items?.length || !self.fetchingItems
       Note.findAllNotesInPlan( self.id )
-        .success (response) -> _.forEach( self.items, (i) -> i.note = _.find( response, (n) -> parseInt( n.obj_id ) == parseInt( i.id ) )?.body; i.notesSearched = true )
+        .success (response) -> 
+          attachNotesToItemsWhenItems = (response) ->
+            if self.items?
+              _.forEach self.items, (i) -> 
+                return unless i.mark?
+                i.mark.note = _.find( response, (n) -> parseInt( n.obj_id ) == parseInt( i.mark_id ) )?.body
+                i.mark.notesSearched = true
+            else
+              $timeout( ( -> attachNotesToItemsIfItems(response) ), 200)
+          attachNotesToItemsWhenItems( response )
+
         .error (response) -> ErrorReporter.fullSilent( response, "SPPlan load list fetch original notes", { plan_id: @id })
 
     categories: ( categorizeBy ) -> #sorted alphabetically

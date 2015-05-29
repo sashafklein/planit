@@ -40,7 +40,7 @@
                           {{ item.mark.place.localeDetails() }}
 
               .list-item-notes{ ng_show: "m.topBar != 'actions'" }
-                %textarea{ ng_model: "item.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_blur: 'item.saveNote()', ng_disabled: '!item.notesSearched || !m.userOwnsPlan()', ng_change: 'noteChange(item)' }
+                %textarea{ ng_model: "item.mark.note", id: "item_{{item.id}}", placeholder: "Add a Note", ng_blur: 'item.saveNote()', ng_disabled: '!item.mark.notesSearched || !m.userOwnsPlan()', ng_change: 'noteChange(item)' }
 
               %item_actions_bar{ m: 'm', item: 'item', ng_show: "m.topBar != 'actions'" }
 

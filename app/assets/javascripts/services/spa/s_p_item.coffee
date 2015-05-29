@@ -37,18 +37,17 @@ angular.module("SPA").service "SPItem", (CurrentUser, Item, Mark, Note, QueryStr
 
     saveNote: ->
       self = @
-      return unless @?.noteChanged == true
-      @.noteSearched = false
-      Note.create({ note: { obj_id: self.id, obj_type: 'Item', body: self.note } })
-        .success (response) ->
-          self.note = response.body
-          self.noteChanged = false
-          self.noteSearched = true
+      return unless @mark? && @mark?.noteChanged == true && !@mark.updatingNote
+      @mark.updatingNote = true
+      
+      Note.create({ note: { obj_id: self.mark_id, obj_type: 'Mark', body: self.mark.note } })
+        .success (response) ->   
+          self.mark.note = response.body
+          self.mark.updatingNote = false
         .error (response) ->
-          ErrorReporter.fullSilent( response, "SPItem save note", { obj_id: self.id, obj_type: self.class, body: self.note })
-          self.note = null
-          self.noteChanged = false
-          self.noteSearched = true
+          ErrorReporter.fullSilent( response, "SPItem save note", { item_id: self.id, obj_id: self.mark_id, obj_type: self.mark.class, body: self.note })     
+          self.mark.note = null
+          self.mark.updatingNote = false
 
     update: (data, callback) ->
       self = @

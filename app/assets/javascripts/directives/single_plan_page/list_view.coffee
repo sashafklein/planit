@@ -14,9 +14,13 @@ angular.module("Directives").directive 'listView', (User, ErrorReporter, Mark, F
         if itemsWithIcon[0] then itemsWithIcon[0].mark.place.meta_icon else ''
 
       s.noteChange = (item) ->
-        item.noteChanged=true
+        return unless item.mark? 
         s._saveNoteOnDelay(item)
 
-      s._saveNoteOnDelay = _.debounce( ( (item) -> item.saveNote() unless item.noteChanged == false ), 1500)
+      s._saveNoteOnDelay = _.debounce( ( (item) -> 
+        item.mark.noteChanged = !item.mark.noteChanged
+        item.saveNote() if item.mark.noteChanged # Not just updated post API exchange
+      ), 1500)
 
+      window.lv = s
   }
