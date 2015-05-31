@@ -57,7 +57,7 @@ module Completers
     def merge_and_create_associations!(mark, notes=[])
       plan = create_plan!(mark)
       item = create_item!(plan, mark)
-      notes.each{ |n| item.notes.where(body: n, source: mark.source).create! }
+      notes.each{ |n| mark.notes.where(body: n, source: mark.source).create! }
     end
 
     def create_plan!(mark)

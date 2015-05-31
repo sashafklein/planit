@@ -22,7 +22,6 @@ describe Api::V1::FoursquareController do
       sign_in create(:user)
       expect_any_instance_of( Apis::Foursquare ).to receive(:explore).and_call_original
       get :search, near: 'Tokyo, Japan', query: 'Jiro'
-
       expect( response_body.response.groups.first.items.first.venue.categories.first.name ).to sorta_eq 'Sushi'
     end
 

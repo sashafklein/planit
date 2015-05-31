@@ -37,7 +37,7 @@ module Apis
         client_id: Env.foursquare_client_id,
         client_secret: Env.foursquare_client_secret,
         v: Env.foursquare_version_number
-      }.inject([]){ |a, pair| a << "#{pair.first}=#{pair.last}"; a }.join("&")
+      }
     end
 
     def get(request)

@@ -71,7 +71,7 @@ module Scrapers
 
       def section_group(day)
         day_to_split = day.split(day_section_cut_regex_find_section)[1]
-        sections = regex_split_without_loss(day_to_split, strong_index_title_and_time_then_linebreak_regex)
+        sections = regex_split_without_loss(day_to_split, strong_index_title_and_time_then_linebreak_regex) || []
       end
 
       def section_data(section, section_index)
