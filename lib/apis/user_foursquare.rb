@@ -8,12 +8,12 @@ module Apis
       @values = defaults.merge({ oauth_token: user.foursquare_access_token }).to_sh
     end
 
-    def lists
-      get "#{base_path}/users/#{foursquare_user_id}/lists?#{ querystring(:v, :oauth_token) }"
+    def lists(user_id = foursquare_user_id, options={})
+      get "#{ base_path }/users/#{ user_id }/lists?#{ [querystring(:v, :oauth_token), stringify(options)].compact.join("&") }"
     end
 
     def list(list_id)
-      list_id = list_id.include?(foursquare_user_id) ? list_id : "#{foursquare_user_id}/#{list_id}"
+      # list_id = list_id.include?(foursquare_user_id) ? list_id : "#{foursquare_user_id}/#{list_id}"
       get "#{base_path}/lists/#{list_id}?#{querystring(:v, :oauth_token)}"
     end
 
@@ -36,6 +36,7 @@ module Apis
     end
 
     def get(request)
+      puts request
       HTTParty.get(request).to_sh
     end
 
@@ -48,7 +49,12 @@ module Apis
     end
 
     def querystring(*take)
-      values.only(*take).map{ |k, v| "#{k}=#{v}" }.join("&")
+      stringify values.only(*take)
+    end
+
+    def stringify(hash)
+      return nil unless hash.present?
+      hash.map{ |k, v| "#{k}=#{v}" }.join("&")
     end
   end
 end
