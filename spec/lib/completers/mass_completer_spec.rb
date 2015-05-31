@@ -50,8 +50,8 @@ module Completers
 
         expect( item.start_time ).to eq '11 a.m.'
 
-        expect( item.notes.first.body ).to eq "The dining rooms at the Florida House Inn (22 South Third Street, 904-261-3300) are covered with chickens -- paintings, signs, weather vanes -- and they are the main event on the menu, too."
-        expect( item.notes.first.source.full_url ).to eq url
+        expect( item.mark.notes.first.body ).to eq "The dining rooms at the Florida House Inn (22 South Third Street, 904-261-3300) are covered with chickens -- paintings, signs, weather vanes -- and they are the main event on the menu, too."
+        expect( item.mark.notes.first.source.full_url ).to eq url
 
         expect( plan.locations.pluck(:ascii_name) ).to include "Nassau County"
 
