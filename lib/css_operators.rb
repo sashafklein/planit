@@ -147,7 +147,8 @@ module CssOperators
     add_back = string_or_array.scan(split_term).flatten
     add_to = string_or_array.split(split_term).reject(&:blank?)
     if add_back && add_to && add_back.length > 0 && add_to.length > 0
-      0.upto(add_to.length - 1).each do |i|
+      add_to.each_with_index do |e, i|
+        next unless add_back[i]
         add_to[i] = add_back[i] + add_to[i]
       end
       return add_to

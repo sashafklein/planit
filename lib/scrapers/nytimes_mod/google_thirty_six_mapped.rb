@@ -177,7 +177,7 @@ module Scrapers
       end
 
       def website_in_data_hash(data)
-        find_by_attr(data, 'popup')[:body].scan(find_website_after_n).flatten.first ; rescue ; nil
+        find_by_attr(data, 'popup')[:body].strip.scan(find_website_after_n).flatten.first ; rescue ; nil
       end
 
       def lat_in_data_hash(data)
@@ -189,7 +189,7 @@ module Scrapers
       end
 
       def phone_in_data_hash(data)
-        find_by_attr(data, 'popup')[:body].scan(find_phone_after_n).flatten.first ; rescue ; nil
+        find_by_attr(data, 'popup')[:body].strip.scan(find_phone_after_n).flatten.first ; rescue ; nil
       end
 
       def order_in_data_hash(data)
@@ -197,7 +197,7 @@ module Scrapers
       end
 
       def address_in_data_hash(data)
-        find_by_attr(data, 'popup')[:body].scan(find_address_after_n).flatten.first ; rescue ; nil
+        find_by_attr(data, 'popup')[:body].strip.scan(find_address_after_n).flatten.first ; rescue ; nil
       end
 
       def notes_for(name)
