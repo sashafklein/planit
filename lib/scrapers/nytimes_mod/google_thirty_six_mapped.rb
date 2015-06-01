@@ -46,16 +46,18 @@ module Scrapers
       end        
 
       def day_group(leg)
-        if scrape_content
-          return [scrape_content] unless has_days?
-          days = [ scrape_content.scan(day_section_start_regex("friday")).flatten.first.split(day_section_cut_regex("saturday"))[0] ]
-          days << scrape_content.scan(day_section_start_regex("saturday")).flatten.first.split(day_section_cut_regex("sunday"))[0]
-          if has_legend?
-            days << scrape_content.scan(day_section_start_regex("sunday")).flatten.first.split(day_section_cut_regex(["the basics", "the details", "if you go", "lodging"]))[0]
-          else
-            days << scrape_content.scan(day_section_start_regex("sunday")).flatten.first
-          end
+        return unless scrape_content
+        return [scrape_content] unless has_days?
+
+        splitters = %w( friday saturday sunday ).map do |day|
+          tag_with_contents( tags: %w( h4 h3 h6 h5 strong ), contents: iterate_casing(day) )
+        end.compact
+        
+        days = splitters.compact.each_with_index.map do |tag, index|
+          ( collect_between(tag, splitters[index + 1] || wrapper.last) ).compact.map(&:to_html).join
         end
+
+        days.compact
       end
 
       def day_data(day, day_index)
@@ -206,6 +208,28 @@ module Scrapers
         named_popup.next.children.first.text
       rescue
         nil
+      end
+
+      def iterate_casing(string)
+        [string.downcase, string.upcase, string.capitalize]
+      end
+
+      def tag_with_contents(tags:, contents:, section: wrapper)
+        found = nil
+        contents = Array(contents).flatten
+        tags = Array(tags).flatten
+
+        tags.each do |t| 
+          return found if found
+          found = section.css(t).find{ |e| contents.include?(e.inner_html) }
+        end
+        found
+      end
+
+      def collect_between(first, last)
+        first == last ? [first] : [first, *collect_between(first.next, last)]
+      rescue
+        [first]
       end
 
     end
