@@ -211,8 +211,21 @@ module RegexLibrary
       '"'
     end
 
+    # open/close p or br or div with unlimited qualifiers
     def breakline_thread(div=false)
-      "(?:\\<\\/?(?:p|br#{ div ? '|div' : '' })(?:\\s[^>]*?)?\\>)"
+      "(?:#{ open_starting_or_ending_html_tag }(?:p|br#{ div ? '|div' : '' })#{ unlimited_html_attrs }#{ close_html_tag })"
+    end
+
+    def close_html_tag
+      "(?:\\>)"
+    end
+
+    def open_starting_or_ending_html_tag
+      "(?:\\<\\/?)"
+    end
+
+    def unlimited_html_attrs
+      "(?:\\s[^>]*?)?"
     end
 
     def within_broken_whitespace(string)
@@ -325,30 +338,41 @@ module RegexLibrary
     def optional_strong_or_hnum_within_breakline_optional(string, div=false)
       threads = [
         "(?:",
-        "#{breakline_thread(div)}",
-        "#{any_spaces}",
-        "(?:",
-        "#{b_or_strong_open_thread}?",
-        "|",
-        "#{hnum_open_thread}?",
-        ")",
-        "#{any_spaces}",
-        "#{string}",
-        "#{any_spaces}",
-        "(?:",
-        "#{b_or_strong_close_thread}?",
-        "|",
-        "#{hnum_close_thread}?",
-        ")",
-        "#{any_spaces}",
-        "#{breakline_thread}",
+          "#{ breakline_thread(div) }",
+          "#{ any_spaces }",
+          "(?:",
+            "#{ b_or_strong_open_thread }?",
+            "|",
+            "#{ hnum_open_thread }?",
+          ")",
+          "#{ any_spaces }",
+          "#{ string }",
+          "#{ any_spaces }",
+          "(?:",
+            "#{ b_or_strong_close_thread }?",
+            "|",
+            "#{ hnum_close_thread }?",
+          ")",
+          "#{ any_spaces }",
+          "#{ breakline_thread(div) }",
         ")",
       ]
       threads.join
     end
 
-    def optional_strong_within_breakline(string)
-      "(?:#{breakline_thread}#{b_or_strong_open_in_space_thread}?\\s*?#{string}\\s*?#{b_or_strong_close_in_space_thread}?#{breakline_thread})"
+    def optional_strong_within_breakline(string, div=false)
+      threads = [
+        "(?:",
+          "#{ breakline_thread(div) }",
+          "#{ b_or_strong_open_in_space_thread }?",
+          "\\s*?",
+          "#{ string }",
+          "\\s*?",
+          "#{ b_or_strong_close_in_space_thread }?",
+          "#{ breakline_thread(div) }",
+        ")",
+      ]
+      threads.join      
     end
 
     def hnum_open_thread
