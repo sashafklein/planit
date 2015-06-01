@@ -110,5 +110,23 @@ module Scrapers
         end
       end.compact
     end
+
+    def iterate_casing(string)
+      [string.downcase, string.upcase, string.capitalize]
+    end
+
+    def tag_with_contents(tags:, contents:, section: wrapper)
+      tags.each do |t| 
+        found = section.css(t).find{ |e| contents.include?(e.inner_html) }
+        return found if found
+      end
+      nil
+    end
+
+    def collect_between(first, last)
+      first == last ? [first] : [first, *collect_between(first.next, last)]
+    rescue
+      [first]
+    end
   end
 end

@@ -210,28 +210,6 @@ module Scrapers
         nil
       end
 
-      def iterate_casing(string)
-        [string.downcase, string.upcase, string.capitalize]
-      end
-
-      def tag_with_contents(tags:, contents:, section: wrapper)
-        found = nil
-        contents = Array(contents).flatten
-        tags = Array(tags).flatten
-
-        tags.each do |t| 
-          return found if found
-          found = section.css(t).find{ |e| contents.include?(e.inner_html) }
-        end
-        found
-      end
-
-      def collect_between(first, last)
-        first == last ? [first] : [first, *collect_between(first.next, last)]
-      rescue
-        [first]
-      end
-
     end
   end
 end
