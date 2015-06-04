@@ -11,6 +11,15 @@ module Scrapers
         @section_area = ""
       end
 
+      def data
+        global = global_data.dup
+
+        activity_group.map{ |e| activity_data(e).merge( global ) }
+          .reject{ |e| e[:place][:name].blank? }.uniq{ |e| e[:place][:name] }
+      end
+
+      private
+
       def global_data
         { 
           plan:{
@@ -22,7 +31,7 @@ module Scrapers
 
       # PAGE 
 
-      def general_group
+      def activity_group
         group_array = []
         @currently_in = ""
 
@@ -62,7 +71,7 @@ module Scrapers
         return group_array
       end
 
-      def general_data(activity, activity_index)
+      def activity_data(activity)
         {
           place:{
             name: name(activity),

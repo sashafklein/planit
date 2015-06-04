@@ -35,7 +35,7 @@ module Services
 
     def data
       return @data if @data.length > 0
-      
+
       itinerary_group.each_with_index do |itinerary, itinerary_index|
         leg_group(itinerary).each_with_index do |leg, leg_index|
           day_group(leg).each_with_index do |day, day_index|

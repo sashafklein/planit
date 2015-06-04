@@ -32,37 +32,41 @@ module ScraperHelper
   end
 
   def expect_equal(array1, array2, also_ignore=[])
+    array1, array2 = [array1, array2].map{ |ar| ar.sort_by{ |h| h[:place][:name].to_s } }
+
     array1.each_with_index do |hash, index|
-      hash1, hash2 = *[array1[index], array2[index]].map(&:dup).map(&:to_sh)
-      float_attrs = [:lat, :lon]
-      sorta_eq_attrs = [:sublocality, :locality, :region, :subregion, :country]
-      dont_care_attrs = [:images, :extra, :ratings, :hours, :phones, :price_note, :hours_note, :phones].concat(also_ignore).uniq
+      begin
+        hash1, hash2 = *[array1[index], array2[index]].map(&:dup).map(&:to_sh)
+        float_attrs = [:lat, :lon]
+        sorta_eq_attrs = [:sublocality, :locality, :region, :subregion, :country]
+        dont_care_attrs = [:images, :extra, :ratings, :hours, :phones, :price_note, :hours_note, :phones].concat(also_ignore).uniq
 
-      p1, p2 = hash1.delete(:place), hash2.delete(:place)
+        p1, p2 = hash1.delete(:place), hash2.delete(:place)
 
-      dont_care_attrs.each do |a| 
-        p1.delete(a); p2.delete(a)
+        dont_care_attrs.each do |a| 
+          p1.delete(a); p2.delete(a)
+        end
+
+        sorta_eq_attrs.each do |a| 
+          next unless p1[a] && p2[a]
+          as = [p1[a], p2[a]].map(&:to_s)
+          
+          expect( as.first ).to sorta_eq as.last
+          p1.delete(a); p2.delete(a)
+        end
+
+        float_attrs.each do |a| 
+          next unless p1[a] && p2[a]
+          expect( p1[a].to_f ).to float_eq p2[a].to_f
+          p1.delete(a); p2.delete(a)
+        end
+
+        p1.reject{ |k, v| v.blank? }.each_pair do |k, v|
+          expect( p1[k].is_a?(String) ? p1[k].without_common_symbols : p1[k] ).to eq p2[k].is_a?(String) ? p2[k].without_common_symbols : p2[k]
+        end
+
+        expect( hash1 ).to hash_eq( hash2, { ignore_nils: true, ignore_keys: [:user_data] } )
       end
-
-      float_attrs.each do |a| 
-        next unless p1[a] && p2[a]
-        expect( p1[a].to_f ).to float_eq p2[a].to_f
-        p1.delete(a); p2.delete(a)
-      end
-
-      sorta_eq_attrs.each do |a| 
-        next unless p1[a] && p2[a]
-        as = [p1[a], p2[a]].map(&:to_s)
-        
-        expect( as.first ).to sorta_eq as.last
-        p1.delete(a); p2.delete(a)
-      end
-
-      p1.reject{ |k, v| v.blank? }.each_pair do |k, v|
-        expect( p1[k].is_a?(String) ? p1[k].without_common_symbols : p1[k] ).to eq p2[k].is_a?(String) ? p2[k].without_common_symbols : p2[k]
-      end
-
-      expect( hash1 ).to hash_eq( hash2, { ignore_nils: true, ignore_keys: [:user_data] } )
     end
   end
 

@@ -54,7 +54,7 @@ class String
   end
 
   def without_common_symbols
-    cut( %w( & # * , ; . - ' " * ^ % ¡ ! ¿ ? @ | + / \ $ = _ [ ] ′ ″ ‴ ° ` ~ ) + ['(', ')'] )
+    cut( %w( & # * , ; . - ' " * ^ % ¡ ! ¿ ? @ | + / \ $ = _ [ ] ′ ″ ‴ ° ` ~ ‘ ) + ['(', ')'] )
   end
 
   def capitalized?
