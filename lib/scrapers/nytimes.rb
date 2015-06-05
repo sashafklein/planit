@@ -1,6 +1,8 @@
 module Scrapers
   class Nytimes < Services::SiteScraper
 
+    extend Memoist
+    
     attr_accessor :section_array, :days
     def initialize(url, page)
       super(url, page)
@@ -9,33 +11,25 @@ module Scrapers
     private
 
     def self.specific_scraper(url, page)
-      if thirty_six_old?(url)
-        NytimesMod::IncorporatedThirtySixDetails.new(url, page)
-      elsif thirty_six_new?(url) && google_map_enabled?(url, page)
-        NytimesMod::GoogleThirtySixMapped.new(url, page)
+      scraper_class(url, page) ? scraper_class(url, page).new( url, page ) : nil
+    end
+
+    def self.scraper_class(url, page)
+      return nil unless url.include?('/travel/')
+      
+      return NytimesMod::IncorporatedThirtySixDetails if url_include?( url: url, any: ['journeys-36-hours', 'hours.html'] )
+      return NytimesMod::GoogleThirtySixMapped if url_include?( url: url, all: ['to-do-in-36-hours'] ) && google_map_enabled?(url, page)
+      return NytimesMod::SeparatedThirtySixDetails if url_include?( url: url, all: ['to-do-in-36-hours'] )
+      return NytimesMod::FakeMap if only_fake_map?(url, page)
+      return NytimesMod::GeneralTravel
       # elsif google_map_enabled?(url, page)
       #   NytimesMod::GoogleMapped.new(url, page)
-      elsif thirty_six_new?(url)
-        NytimesMod::SeparatedThirtySixDetails.new(url, page)
       # elsif restaurant_new?(url)
       #   NytimesMod::RestaurantReview.new(url, page)
       # elsif restaurant_report?(url)
       #   NytimesMod::RestaurantReport.new(url, page)
       # elsif hotel_review?(url)
       #  NytimesMod::HotelReview.new(url, page)
-      elsif only_fake_map?(url, page)
-        NytimesMod::FakeMap.new(url, page)
-      elsif travel?(url)
-        NytimesMod::GeneralTravel.new(url, page)
-      end
-    end
-
-    def self.thirty_six_old?(url)
-      url.include?('/travel/') && ( url.include?('journeys-36-hours') || url.include?("hours.html") )
-    end
-
-    def self.thirty_six_new?(url)
-      url.include?('to-do-in-36-hours') && url.include?('/travel/')
     end
 
     def self.google_map_enabled?(url, page)
@@ -82,10 +76,6 @@ module Scrapers
       url.include?('/dining/')
     end
 
-    def self.travel?(url)
-      url.include?('/travel/')
-    end
-
     def self.restaurant_report?(url)
       url.include?('/travel/restaurant-report')
     end
@@ -127,6 +117,15 @@ module Scrapers
       first == last ? [first] : [first, *collect_between(first.next, last)]
     rescue
       [first]
+    end
+
+    def self.url_include?(url:, all: [], any: [])
+      all.all?{ |s| url.include?(s) } && ( any.empty? || any.any?{ |s| url.include?(s) } )
+    end
+
+    def clean_note(note)
+      return unless note
+      note.gsub("’", "\'").gsub(/(?:^'|'$|^"|"$)/, '').gsub(/(?:\n+\s+)/, ' ').no_accents
     end
   end
 end

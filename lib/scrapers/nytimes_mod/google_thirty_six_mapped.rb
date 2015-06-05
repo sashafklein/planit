@@ -10,6 +10,17 @@ module Scrapers
         @scrape_target = %w(#story-body #area-main #article article)
       end
 
+      def data
+        activity_group_array.map do |element| 
+          final = global_data.dup
+          final[:place] = final[:place].merge(element).merge({ notes: notes_for( element[:name] )})
+          final[:place][:notes] = notes_for( final[:place][:name] )
+          final
+        end.reject{ |e| e[:place][:name].blank? }
+      end
+
+      private
+
       def global_data
         { 
           plan:{
@@ -18,129 +29,20 @@ module Scrapers
           place:{
             nearby: split_by('h1', [["What to Do in ", 1], ["36 Hours in ", 1], ["36 Hours at the ", 1], ["36 Hours on ", 1], ["36 Hours | ", 1]]),
           },
-          scraper_url: @url, 
+          scraper_url: @url
         }
       end
 
       # PAGE 
 
       def activity_group_array
-        return @activity_group_array if @activity_group_array
-        array_in_activity_group_array = []
-        if has_map_data?
-          map_hash = JSON.parse(@map_data,:symbolize_names => true)
-          map_hash[:symbols].each do |symbol|
-            data = symbol[:data]
-            array_in_activity_group_array << {
-              name: breakline_to_space( name_in_data_hash(data) ),
-              website: website_in_data_hash(data),
-              lat: lat_in_data_hash(data),
-              lon: lon_in_data_hash(data),
-              street_address: address_in_data_hash(data),
-              phone: phone_in_data_hash(data),
-              order: order_in_data_hash(data),
-            }
+        return nil unless has_map_data?
+
+        map_hash[:symbols].map do |symbol|
+          [:name, :website, :lat, :lon, :street_address, :phone].inject({}) do |hash, key|
+            hash[key] = send("#{ key }_in_data_hash", symbol[:data])
+            hash
           end
-          return @activity_group_array = array_in_activity_group_array
-        end        
-      end        
-
-      def day_group(leg)
-        return unless scrape_content
-        return [scrape_content] unless has_days?
-
-        splitters = %w( friday saturday sunday ).map do |day|
-          tag_with_contents( tags: %w( h4 h3 h6 h5 strong ), contents: iterate_casing(day) )
-        end.compact
-        
-        days = splitters.compact.each_with_index.map do |tag, index|
-          ( collect_between(tag, splitters[index + 1] || wrapper.last) ).compact.map(&:to_html).join
-        end
-
-        days.compact
-      end
-
-      def day_data(day, day_index)
-        { 
-          day:{
-            order: day_index + 1,
-          },
-          item:{
-            start_date: trim( day.scan(day_section_cut_regex("(#{no_tags})")).flatten.first ),
-          },
-        }
-      end
-
-      def section_group(day)
-        day_to_split = day.split(day_section_cut_regex_find_section)[1]
-        sections = regex_split_without_loss(day_to_split, strong_index_title_and_time_then_linebreak_regex) || []
-      end
-
-      def section_data(section, section_index)
-        { 
-          item:{
-            order: trim( section.scan(strong_index_title_and_time_then_linebreak_regex_find_index).flatten.first ).to_i,
-            start_time: section.scan(strong_index_title_and_time_then_linebreak_regex_find_time).flatten.first,
-          # content: trim( de_tag ( section.split(strong_index_title_and_time_then_linebreak_regex)[1] ) ),
-          },
-          place:{
-            section_title: trim( section.scan(strong_index_title_and_time_then_linebreak_regex_find_title).flatten.first ),
-          },
-        }
-      end
-      
-      def activity_group(section)
-        section_relevant_index = section.scan(strong_index_title_and_time_then_linebreak_regex_find_index).flatten.first
-        if has_map_data?
-          group_to_sequence = activity_group_array.select{ |h| h[:order]==nil }
-          group_to_sequence.each do |to_sequence|
-            unless !to_sequence[:name]
-              if section.scan(to_sequence[:name]).length > 0
-                activity_group_array.find{ |h| h[:name]==to_sequence[:name] }[:order] = section_relevant_index
-              end
-            end
-          end
-          return activity_group_array.select{ |h| h[:order]==section_relevant_index }
-        end
-        return []
-      end
-
-      def activity_data(activity, activity_index)
-        if has_map_data?
-          {
-            place:{
-              name: trim( activity[:name] ),
-              street_address: activity[:street_address],
-              phone: activity[:phone], 
-              lat: activity[:lat],
-              lon: activity[:lon],
-              website: activity[:website], 
-              notes: notes_for( activity[:name] )
-            },
-          }
-        end
-      end
-
-      def general_group
-        if has_map_data?
-          return activity_group_array.select{ |h| h[:order]==nil }
-        end
-        return []
-      end
-
-      def general_data(activity, activity_index)
-        if has_map_data?
-          {
-            place:{
-              name: trim( activity[:name] ),
-              street_address: activity[:street_address],
-              phone: activity[:phone], 
-              lat: activity[:lat],
-              lon: activity[:lon],
-              website: activity[:website],
-              notes: notes_for( activity[:name] )
-            },
-          }
         end
       end
 
@@ -150,66 +52,66 @@ module Scrapers
         hash.find{ |h| h[att] == name_search }
       end
 
-      # NEEDS TO BE MORE STRINGENT
-      def has_days?
-        downcased = scrape_content.downcase
-        return false unless %w(Friday Saturday Sunday).all?{ |weekend_day| downcased.include?(weekend_day.downcase) }
-        true
-      end
-
-      # NEEDS TO BE MORE STRINGENT
-      def has_legend?
-        downcased = scrape_content.downcase
-        return false unless (["the basics", "the details", "if you go", "lodging"]).any?{ |legend_group| downcased.include?(legend_group) }
-        true
-      end
-
       def has_map_data?
-        for script in find_scripts_inner_html(page)
+        find_scripts_inner_html(page).each do |script|
           if script.flatten.first.scan(nytimes_map_data_regex).length > 0
             @map_data = script.flatten.first.scan(nytimes_map_data_regex).flatten.first
             return true
           end
         end
-        return false
+        false
       end
 
       def name_in_data_hash(data)
-        find_by_attr(data, 'label')[:text] ; rescue ; nil
+        trim( breakline_to_space( find_by_attr(data, 'label')[:text] ) )
       end
 
       def website_in_data_hash(data)
-        find_by_attr(data, 'popup')[:body].strip.scan(find_website_after_n).flatten.first ; rescue ; nil
+        hash = find_by_attr(data, 'popup')
+        hash ? hash[:body].strip.scan(find_website_after_n).flatten.first : nil
       end
 
       def lat_in_data_hash(data)
-        find_by_attr(data, 'root')[:location][:lat] ; rescue ; nil
+        hash = find_by_attr(data, 'root')
+        hash ? hash[:location][:lat]: nil
       end
 
       def lon_in_data_hash(data)
-        find_by_attr(data, 'root')[:location][:lng] ; rescue ; nil
+        hash = find_by_attr(data, 'root')
+        hash ? hash[:location][:lng]: nil
       end
 
       def phone_in_data_hash(data)
-        find_by_attr(data, 'popup')[:body].strip.scan(find_phone_after_n).flatten.first ; rescue ; nil
+        hash = find_by_attr(data, 'popup')
+        hash ? hash[:body].strip.scan(find_phone_after_n).flatten.first : nil
       end
 
       def order_in_data_hash(data)
-        find_by_attr(data, 'bubble_number')[:text] ; rescue ; nil
+        hash = find_by_attr(data, 'bubble_number')
+        hash ? hash[:text]: nil
       end
 
-      def address_in_data_hash(data)
-        find_by_attr(data, 'popup')[:body].strip.scan(find_address_after_n).flatten.first ; rescue ; nil
+      def street_address_in_data_hash(data)
+        hash = find_by_attr(data, 'popup')
+        hash ? hash[:body].strip.scan(find_address_after_n).flatten.first : nil
       end
 
       def notes_for(name)
-        map_popups = page.css(".g-popup-title")
-        named_popup = map_popups.find{ |p| p.text.without_common_symbols.match_distance(name.without_common_symbols) > 0.95 }
-        named_popup.next.children.first.text
+        named_popup = map_popups.find{ |p| p.text.without_common_symbols.to_s.match_distance(name.without_common_symbols) > 0.95 }
+        named_popup ? clean_note( named_popup.next.children.first.text.strip ) : nil
       rescue
         nil
       end
 
+      def map_popups
+        wrapper.css(".g-popup-title")
+      end
+
+      def map_hash
+        @map_hash || JSON.parse(@map_data,:symbolize_names => true)
+      end
+
+      memoize :activity_group_array, :lat_in_data_hash, :lon_in_data_hash, :website_in_data_hash, :street_address_in_data_hash, :phone_in_data_hash, :order_in_data_hash, :name_in_data_hash, :global_data, :data, :map_popups, :notes_for
     end
   end
 end

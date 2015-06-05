@@ -179,6 +179,10 @@ module RegexLibrary
       "(?:[^#{normal_punctuation_thread}A-Z#{upcase_latinate_thread}a-z#{downcase_latinate_thread}0-9 ])"
     end
 
+    def any_case_latinate_thread
+      "(?:[A-Z#{upcase_latinate_thread}a-z#{downcase_latinate_thread}])"
+    end
+
     def upcase_latinate_thread
       upcase_latinate_vowel_thread + upcase_latinate_consonant_thread
     end
@@ -891,34 +895,36 @@ module RegexLibrary
 
     def find_phone_after_n
       regex_string = [
-        "\\n",
+        "\\n", #newline
         "(",
-        "(?:",
-        "(?:",
-        "\\d|\\-|\\(|\\)",
-        "){9}",
-        "(?:",
-        "\\d|\\-|\\(|\\)",
-        ")+",
+          "(?:",
+            "(?:",
+              "\\d|\\-|\\(|\\)", # digit, -, or ()
+            "){9}", # 9 of above
+            "(?:",
+              "\\d|\\-|\\(|\\)", # digit, -, or ()
+            ")*", # unlimited times (in addition to above 9)
+          ")",
         ")",
         "(?:\\n|\\z)", #end of line or string
       ]
       %r!#{regex_string.join}!
     end
 
+    # e.g. [{  \nChamp de Mars, 5 Avenue Anatole France, 7ème\n  }]
     def find_address_after_n
       regex_string = [
-        "\\n",
+        "\\n", #newline
         "(",
-        "(?:",
-        "[a-z]|[A-z]|[0-9]| |[.,'-()#]",
-        ")+",
-        "(?:",
-        "[ ][a-z|A-Z]|[a-z|A-Z][ ]",
-        ")",
-        "(?:",
-        "[a-z]|[A-z]|[0-9]| |[.,'-()#]",
-        ")+?",
+          "(?:",
+            "#{ latinate_or_number_thread }| |[.,'-()#]", #one-to-infinite letter or num or space or punct
+          ")+",
+          "(?:",
+            "[ ]#{ any_case_latinate_thread }|#{ any_case_latinate_thread }[ ]", #optional space-letter or letter-space
+          ")",
+          "(?:",
+            "#{ latinate_or_number_thread }| |[.,'-()#]", #optional and infinite letter or num or space or punct
+          ")+?",
         ")",
         "(?:\\n|\\z)", #end of line or string
       ]
