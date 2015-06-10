@@ -21,7 +21,7 @@
               /     %i.fa.fa-heart
               /   .item-opinion.been-item{ ng_show: 'm.plan().ownerVisited(item)' }
               /     %i.fa.fa-check-square
-              .bucket-list-tab.main-item-card{ ng_click: "item.fsOpen(true)" }
+              .bucket-list-tab.main-item-card{ ng_click: "openPlace(item.mark.place.id)" }
                 .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
                 .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
                 .bucket-list-wrap

@@ -1,48 +1,52 @@
 #place-popup{ ng_click: "closePopup()" }
   .place-popup-wrapper{ ng_mouseenter: "canClose=false", ng_mouseleave: "canClose=true" }
-    .previous-place-button
-    .next-place-button
-    .first-section
-      .corner-button.add-photo-button
-        %i.fa.fa-camera-retro
-      .corner-button.see-map-button
-        %i.md-map
-      .previous-image-button
-      .next-image-button
-      .image-caption
-      .image-gallery
-    .second-section
-      .corner-button.close-popup-button{ ng_click: "closePopup()", ng_mouseover: "canClose=true", ng_mouseleave: "canClose=false" }
-        %i.fa.fa-times
-      .corner-button.leave-note-button
-        %i.md-comment
-      .place-name
-      .place-type
-        .place-type-icon
-        .place-type-text
-      .show-hide-place-details
-      .place-location-details
-        .alt-names
-        .street-address
-        .sub-locality
-        .locality
-        .state-and-country
-      .place-venue-details
-        .open-or-closed
-        .full-hours
-          .day-of-week{ ng_repeat: "day in days" }
-            .day-letter
-            .day-hours
-      .place-venue-ratings
-        .ratings{ ng_repeat: "rater in raters" }
-          .icon-and-name
-          .rating-value
-      .place-venue-comments
-        .friends{ ng_repeat: "friend in friends" }
-          .comment-avatar
-          .comment-status
-          .comment-note
-        .experts{ ng_repeat: "expert in experts" }
-          .comment-avatar
-          .comment-status
-          .comment-note
+    .place-popup-internal-sleeve
+      .previous-place-button
+        %i.fa.fa-caret-up
+      .next-place-button
+        %i.fa.fa-caret-down
+      .first-section
+        .corner-button.add-photo-button
+          %i.fa.fa-camera-retro
+        .corner-button.see-map-button
+          %i.md-map
+        .previous-image-button
+        .next-image-button
+        .image-caption
+        .image-gallery
+      .second-section
+        .corner-button.close-popup-button{ ng_click: "closePopup()", ng_mouseover: "canClose=true", ng_mouseleave: "canClose=false" }
+          %i.fa.fa-times
+        .corner-button.leave-note-button
+          %i.md-comment
+        .place-name
+        .place-type
+          .place-type-icon
+          .place-type-text
+        .show-hide-place-details
+          %i.fa.fa-caret-down
+        .place-location-details
+          .alt-names
+          .street-address
+          .sub-locality
+          .locality
+          .state-and-country
+        .place-venue-details
+          .open-or-closed
+          .full-hours
+            .day-of-week{ ng_repeat: "day in days" }
+              .day-letter
+              .day-hours
+        .place-venue-ratings
+          .ratings{ ng_repeat: "rater in raters" }
+            .icon-and-name
+            .rating-value
+        .place-venue-comments
+          .friends{ ng_repeat: "friend in friends" }
+            .comment-avatar
+            .comment-status
+            .comment-note
+          .experts{ ng_repeat: "expert in experts" }
+            .comment-avatar
+            .comment-status
+            .comment-note

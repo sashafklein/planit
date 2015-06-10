@@ -22,5 +22,8 @@ angular.module("Directives").directive 'listView', (User, ErrorReporter, Mark, F
         item.saveNote() if item.mark.noteChanged # Not just updated post API exchange
       ), 1500)
 
+      s.openPlace = (id) -> s.m.placeId = id
+
       window.lv = s
+
   }
