@@ -12,7 +12,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
 
     latestLocation: -> 
       self = @
-      _.find( self.locations, (l) -> parseInt(l.id) == parseInt(self.latest_location_id) )
+      _.find( self.locations, (l) -> parseInt(l.id) == parseInt(self.latest_location_id) ) if self.latest_location_id
       
     currentLocation: -> current = @latestLocation(); return current unless current?.fcode=="PCLI"
 
@@ -36,7 +36,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
       @_planObj().addNearby(data)
         .success (response) -> 
           self.locations[ response.id ] = response unless self.locations[ response.id ]
-          self.latest_location_id = response.id
+          self.latest_location_id = parseInt( response.id )
           QueryString.modify({ plan: self.id })
         .error (response) -> ErrorReporter.silent( response, 'Failed in setting self.id plan nearby' )
 
@@ -164,17 +164,17 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
       self = @
       Note.findAllNotesInPlan( self.id )
         .success (response) -> 
-          attachNotesToItemsWhenItems = (response) ->
-            if self.items?
-              _.forEach self.items, (i) -> 
-                return unless i.mark?
-                i.mark.note = _.find( response, (n) -> parseInt( n.obj_id ) == parseInt( i.mark_id ) )?.body
-                i.mark.notesSearched = true
-            else
-              $timeout( ( -> attachNotesToItemsIfItems(response) ), 200)
-          attachNotesToItemsWhenItems( response )
-
+          self.attachNotesToItemsWhenItems( response )
         .error (response) -> ErrorReporter.silent( response, "SPPlan load list fetch original notes", { plan_id: @id })
+    attachNotesToItemsWhenItems: (response) ->
+      self = @
+      if self.items?
+        _.forEach self.items, (i) -> 
+          return unless i.mark?
+          i.mark.note = _.find( response, (n) -> parseInt( n.obj_id ) == parseInt( i.mark_id ) )?.body
+          i.mark.notesSearched = true
+      else
+        $timeout( ( -> self.attachNotesToItemsIfItems(response) ), 200)
 
     categories: ( categorizeBy ) -> #sorted alphabetically
       switch categorizeBy

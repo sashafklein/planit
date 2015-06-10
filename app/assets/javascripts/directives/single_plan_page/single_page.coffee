@@ -35,7 +35,6 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
       # s.m.userCoOwnsPlan = -> s.m.plans[s.m.currentPlanId]?.userCoOwns()
       s.m.sharePlan = ( plan ) -> $('#share-object-id').val( plan.id ); $('#share-object-type').val( 'Plan' ); $('#planit-modal-share').toggle(); return
 
-      s.m.placeId = 30
       s.m.place = -> s.m.placeId
 
       s.m.browsing = true

@@ -128,7 +128,7 @@ class Plan < BaseModel
 
   def add_nearby( data, user )
     synthetic_ascii_name = data['asciiName'] || data['name'].try( :no_accents ) || ""
-    location = Location.where( { geoname_id: data['geonameId'] } ).first_or_create( { ascii_name: synthetic_ascii_name, admin_name_1: data['adminName1'], country_name: data['countryName'], fcode: data['fcode'], lat: data['lat'], lon: data['lon'] } )
+    location = Location.where( { geoname_id: data['geonameId'] } ).first_or_create( { name: data['name'], ascii_name: synthetic_ascii_name, admin_name_1: data['adminName1'], admin_name_2: data['adminName1'], admin_id_1: data['adminId1'], admin_id_2: data['adminId1'], country_name: data['countryName'], fcode: data['fcode'], lat: data['lat'], lon: data['lon'] } )
     self.update_attributes!( latest_location_id: location.id ) if user_id == user.id
     ObjectLocation.where( obj: self, location_id: location.id ).first_or_create if user_id == user.id
     LocationSearch.create( location_id: location.id, user_id: user.id, success_terms: data['searchStrings'] ) if data['searchStrings'].present?
