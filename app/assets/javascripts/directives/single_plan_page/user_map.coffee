@@ -13,9 +13,11 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
 
     link: (s, elem) ->
 
-      s.center = { lat: 60, lng: 0, zoom: 2 }
+      leafletData.getMap("user").then (map) -> $timeout(-> map.invalidateSize() )
+      s.elem = elem
+      s.center = { lat: 45, lng: 0, zoom: 2 }
       s.userLayers = 
-        baselayers: 
+        baselayers:
           xyz:
             name: 'None'
             url: ""
@@ -50,7 +52,7 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
 
       s.loaded = false
       s.screenWidth = if s.m.mobile then 'mobile' else 'web'
-      s.padding = [35, 25, 15, 25]
+      s.padding = [0, 0, 0, 0]
 
       s.defaults = 
         minZoom: if s.m.mobile then 1 else 2
@@ -67,7 +69,7 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
         if !s.m.plan()?.items?.length
           leafletData.getMap("user").then (m) -> if m._zoom < 4 then s.m.clearSelectedCountry()
 
-      s.m.resetUserMapView = -> leafletData.getMap("user").then (m) -> m.setView( { lat: 60, lng: 0 }, 2 )
+      s.m.resetUserMapView = -> leafletData.getMap("user").then (m) -> m.setView( { lat: 45, lng: 0 }, 2 )
 
       s.m.clearSelectedCountry = ->
         s.m.selectedCountry = null

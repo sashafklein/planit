@@ -1,14 +1,16 @@
-.select-user
+.navigate-and-select-user
   position: relative
   display: inline-block
-  height: 34px
+  height: 39px
   width: 100%
   .user-avatar
+    margin-top: 2px
     height: 34px
     width: 34px
     line-height: 28px
     font-size: 22px
     position: absolute
+    cursor: pointer
   .select-user-input
     margin-left: 45px
     display: block
@@ -48,9 +50,29 @@
       color: #fff
       .hidden
         display: none
-
-.where-are-we
-  margin-top: 28px
+  .input-and-results.navigation
+    margin-left: 50px
+    margin-top: 5px
+    width: auto
+    display: block
+  .currently-exploring-in
+    white-space: nowrap
+    position: absolute
+    right: 0
+    bottom: -14px
+    color: rgba( 255,255,255,0.5 )
+    font-size: 14px
+    transition: 0.2s ease all
+    cursor: pointer
+    b
+      display: inline
+      text-decoration: underline
+    i
+      width: 14px
+      display: inline
+      padding-left: 5px
+    &:hover
+      color: #fff
 
 #user-show-page
   min-height: 100%

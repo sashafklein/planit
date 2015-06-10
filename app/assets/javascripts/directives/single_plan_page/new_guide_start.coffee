@@ -7,6 +7,9 @@ angular.module("Directives").directive 'newGuideStart', (QueryString, Geonames, 
       m: '='
     link: (s, e, a) ->
 
+      s.locationSearchPrompt = -> 
+        if s.m.selectedCountry?.name then "Search cities & regions in #{s.m.selectedCountry.name}" else "Search cities, regions & countries"
+
       s.blurUserSelect = -> 
         $timeout(-> if $('input#user-select') then $('input#user-select').blur() )
         return
@@ -66,13 +69,17 @@ angular.module("Directives").directive 'newGuideStart', (QueryString, Geonames, 
 
       s.wherePrompt = ->
         if s.m.userInQuestionId == s.m.currentUserId
-          if s.m.hoveredCountry?.name
-            return "Explore #{s.m.hoveredCountry?.name}"
+          if s.m.selectedCountry?.name
+            return "Where are you exploring in #{s.m.selectedCountry.name}?"
+          else if s.m.hoveredCountry?.name
+            return "Explore #{s.m.hoveredCountry.name}"
           else
             return "Where are you exploring?"
         else
-          if s.m.hoveredCountry?.name
-            return "Explore #{s.m.hoveredCountry?.name}"
+          if s.m.selectedCountry?.name
+            return "Where in #{s.m.userInQuestion.name}'s #{s.m.selectedCountry.name}?"
+          else if s.m.hoveredCountry?.name
+            return "Explore #{s.m.userInQuestion.name}'s #{s.m.hoveredCountry.name}"
           else 
             return "Where in #{s.m.userInQuestion.name}'s Planit?"
 
