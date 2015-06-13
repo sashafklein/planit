@@ -13,7 +13,12 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
 
       s.placeholderVerb = -> if s.m.plan()?.userOwns() then 'add' else 'suggest'
       s.placeholderPhrase = -> if s.m.mobile then "What" else "What do you want to #{s.placeholderVerb()}"
-      s.placeholder = -> "#{s.placeholderPhrase()} in #{s.m.plan().currentLocation().name}?" if s.m.plan()?.currentLocation()?.name
+      s.placeholder = -> 
+        in_location = if s.m.currentLocation()?.name then " in #{s.m.currentLocation().name}" else ""
+        if !s.m.mobile 
+          "#{s.placeholderPhrase()}#{in_location}?" if s.m.currentLocation()?.name
+        else
+          "What#{in_location}?"
 
       s.countryLocations = ( locations ) -> 
         return unless locations
@@ -23,8 +28,11 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
           _.filter( locations, (l) -> parseInt(l.countryId) == parseInt(s.countryOnlyContext()?.geonameId) && l.fcode != "PCLI" )
       s.countryOnlyContext = -> latest = s.m.plan()?.latestLocation(); if latest?.fcode == "PCLI" then latest else null
       s.placeNearbyMessage = -> 
-        if !s.countryOnlyContext()
+        in_country = "" # " in #{s.m.selectedCountry.name}" if s.m.selectedCountry?.name
+        if !s.countryOnlyContext() && !s.m.mobile
           "Explore what city or region?"
+        else if s.m.mobile
+          "Where#{in_country}?"
         else
           "Explore what city or region in #{ s.m.plan()?.latestLocation()?.name }?"
 
@@ -34,7 +42,7 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
         s.m.addBoxManuallyToggled = true
 
       s.searchPlaceNearby = -> 
-        s.m.nearbyOptions = [] if s.placeNearby?.length
+        s.m.nearbyOptions = [] if s.placeNearby?.length || s.m.typing
         s._searchPlaceNearbyFunction() if s.placeNearby?.length > 1
 
       s._searchPlaceNearbyFunction = _.debounce( (-> s._searchPlaceNearby() ), 500 )
@@ -78,7 +86,9 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
 
       s.setNearby = ( nearby ) ->
         searchStrings = _.compact( s.m.nearbySearchStrings )
-        s.m.plan().setNearby( nearby, searchStrings )
+        s.m.plan().setNearby( nearby, searchStrings ) if s.m.plan()
+        s.m.currentLocationId = parseInt( nearby['geonameId'] )
+        s.m.locations[ parseInt( nearby['geonameId'] ) ] = nearby unless s.m.locations[ parseInt( nearby['geonameId'] ) ]
         s.m.nearbyOptions = []
         s.m.nearbySearchStrings = []
       
@@ -90,8 +100,8 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
       s._postAffix = -> s.m.addingItem=false
 
       s.placeNameSearch = -> 
-        s.options = [] if s.m.placeName?.length
-        s._placeSearchFunction() if s.m.placeName?.length > 1 && s.m.plan()?.currentLocation()?.lat && s.m.plan()?.currentLocation()?.lon
+        s.m.placeNameOptions = [] if s.m.placeName?.length || s.m.typing
+        s._placeSearchFunction() if s.m.placeName?.length > 1 && s.m.currentLocation()?.lat && s.m.currentLocation()?.lon
 
       s._placeSearchFunction = _.debounce( (-> s._makePlaceSearchRequest() ), 500 )
 
@@ -99,24 +109,25 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
 
       s.placeNameWorking = 0
       s._makePlaceSearchRequest = ->
-        return unless s.m.plan()?.currentLocation()?.lat && s.m.plan()?.currentLocation()?.lon && s.m.placeName?.length>0
+        return unless s.m.currentLocation()?.lat && s.m.currentLocation()?.lon && s.m.placeName?.length>0
         s.placeNameWorking++
-        Foursquare.search( "#{s.m.plan()?.currentLocation().lat},#{s.m.plan()?.currentLocation().lon}" , s.m.placeName)
+        Foursquare.search( "#{s.m.currentLocation().lat},#{s.m.currentLocation().lon}" , s.m.placeName)
           .success (response) ->
             s.placeNameWorking--
-            s.m.placeNameOptions = Place.generateFromJSON Foursquare.parse(response)
+            s.m.placeNameOptions = if !s.m.typing then Place.generateFromJSON Foursquare.parse(response) else []
           .error (response) ->
             s.placeNameWorking--
             if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
-              ErrorReporter.silent(response, 'SinglePagePlans s._makePlaceSearchRequest getting geocode rejected', { near: s.m.plan()?.currentLocation(), query: s.m.placeName }) if response.message != "Insufficient search params"
+              ErrorReporter.silent(response, 'SinglePagePlans s._makePlaceSearchRequest getting geocode rejected', { near: s.m.currentLocation(), query: s.m.placeName }) if response.message != "Insufficient search params"
             else
-              ErrorReporter.silent(response, 'SinglePagePlans s._makePlaceSearchRequest', { near: s.m.plan()?.currentLocation(), query: s.m.placeName }) if response.message != "Insufficient search params"
+              ErrorReporter.silent(response, 'SinglePagePlans s._makePlaceSearchRequest', { near: s.m.currentLocation(), query: s.m.placeName }) if response.message != "Insufficient search params"
 
-      s.nearbyToReset = -> _.compact([ s.m.plan()?.currentLocation()?.name, s.m.plan()?.currentLocation()?.adminName1, s.m.plan()?.currentLocation()?.countryName ]).join(", ")
+      s.nearbyToReset = -> _.compact([ s.m.currentLocation()?.name, s.m.currentLocation()?.adminName1, s.m.currentLocation()?.countryName ]).join(", ")
 
       s.resetNearby = -> 
-        s.m.plan().userResetNear = true
-        s.m.plan().latest_location_id = null
+        s.m.plan().userResetNear = true if s.m.plan()
+        s.m.plan().latest_location_id = null if s.m.plan()
+        s.m.currentLocationId = null
         s.m.placeName = null
         s.placeNearby = null
         s.placeOptions = null

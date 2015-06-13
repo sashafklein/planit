@@ -14,6 +14,15 @@ class Api::V1::PlacesController < ApiController
     render json: @places.includes( :images ), each_serializer: PlaceSerializer
   end
 
+  def in_cluster
+    permission_denied_error unless current_user
+    permission_denied_error unless cluster_id = params[:cluster_id]
+    
+    @cluster = Cluster.find_by( id: cluster_id )
+    @places = Place.where( id: ObjectLocation.where( location_id: @cluster.locations.pluck(:id), obj_type: 'Place' ).pluck( :obj_id ) )
+    render json: @places.includes( :images ), each_serializer: PlaceSerializer
+  end
+
   def search
     permission_denied_error unless current_user
     render json: { } unless params[:q]

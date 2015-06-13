@@ -1,12 +1,12 @@
 .single-page-footer
 
   #footer-spacing.except-landscape{ ng_show: "!m.fullscreen()" }
-  #planit-footer.except-landscape{ ng_show: "!m.fullscreen()" }
+  #planit-footer.except-landscape{ ng_show: "!m.fullscreen() || m.mobile" }
     
-    .footer-container{ ng_show: "m.mobile" }
+    .footer-container{ ng_if: "m.mobile" }
       %ng_include{ src: "'application/_nav_bar.html'" }
 
-    .footer-container.tabled{ ng_show: "!m.mobile" }
+    .footer-container.tabled{ ng_if: "!m.mobile" }
       %div{ class: 'one-third column' }
         .section-header Attribution & Credits
         .static-section-content

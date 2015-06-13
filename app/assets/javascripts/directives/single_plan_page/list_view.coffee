@@ -24,6 +24,8 @@ angular.module("Directives").directive 'listView', (User, ErrorReporter, Mark, F
 
       s.openPlace = (id) -> s.m.placeId = id
 
+      s.breadCrumbedCluster = -> s.m.plan()?.currentLocation()?.name if s.m.currentPlanId
+
       window.lv = s
 
   }

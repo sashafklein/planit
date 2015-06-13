@@ -1,11 +1,12 @@
 .single-page-header
-  #planit-header.except-landscape{ ng_class: "{ 'black': m.mobile, 'white': !m.mobile }" }
+  #planit-header.except-landscape{ ng_class: "{ 'black': m.mobile, 'white': !m.mobile }", ng_style: "opacityStyle" }
     .container.none.pseudo
       .header-wrapper
         %ng_include{ src: "'header/_logo_container.html'" }
+        %span.centered-username{ ng_show: 'm.mobile'} {{ m.userInQuestion().name }}
         .top-menu-container{ ng_show: "m.currentUserIsActive", ng_click: 'toggleMainMenu()' }
           %ng_include{src: "'header/_user_avatar.html'" }
           %ul.dropdown-menu-right.planit-dropdown-menu{ ng_show: 'm.mainMenuToggled' }
             %ng_include{ src: "'header/_main_menu.html'" }
-        .side-menu-container.large-screen.inline
+        .side-menu-container.large-screen.inline{ ng_if: "!m.mobile" }
           %ng_include{ src: "'application/_nav_bar.html'" }

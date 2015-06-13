@@ -2,10 +2,9 @@ class Api::V1::NotesController < ApiController
   def create
     return permission_denied_error unless current_user
     
-    if note_params[:obj_type] == 'Place' # converts place note to mark note
-      note_params[:obj_type] = 'Mark'
-      note_params[:obj_id] = Mark.find_by(user_id: current_user, place_id: note_params[:obj_id]).id
-    end
+    @obj_id = note_params[:obj_id] unless note_params[:obj_type] == 'Place'
+    @obj_id ||= Mark.find_by(user_id: current_user, place_id: note_params[:obj_id]).id
+    @obj_type = if note_params[:obj_type] == 'Place' then 'Mark' else note_params[:obj_type] end
 
     edit_or_create
   end
@@ -32,7 +31,9 @@ class Api::V1::NotesController < ApiController
     return permission_denied_error unless current_user
     
     note_body = note_params[:body]
-    note = current_user.notes.where( note_params.slice(:obj_id, :obj_type) ).first_or_initialize
+    object = @obj_type.to_s.singularize.camelize.constantize
+
+    note = current_user.notes.where( obj: object.find( @obj_id ) ).first_or_initialize
 
     if note_body.length > 0
       note.update_attributes!(body: note_body)

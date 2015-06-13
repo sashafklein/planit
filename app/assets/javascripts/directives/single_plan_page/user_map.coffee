@@ -15,13 +15,6 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
 
       leafletData.getMap("user").then (map) -> $timeout(-> map.invalidateSize() )
       s.elem = elem
-      s.center = { lat: 45, lng: 0, zoom: 2 }
-      s.userLayers = 
-        baselayers:
-          xyz:
-            name: 'None'
-            url: ""
-            type: 'xyz'
       #   overlays: 
       #     locations:
       #       name: "Location Clusters"
@@ -54,7 +47,7 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
       s.screenWidth = if s.m.mobile then 'mobile' else 'web'
       s.padding = [0, 0, 0, 0]
 
-      s.defaults = 
+      s.userDefaults = 
         minZoom: if s.m.mobile then 1 else 2
         maxZoom: 4
         scrollWheelZoom: false

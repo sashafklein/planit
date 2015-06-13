@@ -137,6 +137,11 @@ Rails.application.routes.draw do
       
       resources :places, only: [:show, :index] do
         get :search, on: :collection
+        get :in_cluster, on: :collection
+      end
+
+      resources :locations, only: [] do
+        get :country_clusters, on: :collection
       end
 
     end

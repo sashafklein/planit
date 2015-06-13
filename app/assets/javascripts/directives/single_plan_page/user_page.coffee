@@ -9,8 +9,7 @@ angular.module("SPA").directive 'userPage', ($http, $timeout, User, CountryJson)
       m: '='
     link: (s, e, a) ->
 
-      s.loadPlan = (planId) -> s.m.workingNow = true; s.m.planManager.fetchPlan(planId, s.unworking() )
-      s.unworking = -> s.m.workingNow = false
+      s.loadPlan = (planId) -> s.m.workingNow = true; s.m.planManager.fetchPlan(planId, s.m.unworking() )
 
       s.$watch( 'm.currentPlanId', (-> s.loadCountries() ), true)
       s.loadCountries = ->
@@ -103,20 +102,9 @@ angular.module("SPA").directive 'userPage', ($http, $timeout, User, CountryJson)
         else
           content
 
-      s.locationsInCountry = -> s.m.locationManager
+      s.countryClusters = -> s.m.locationManager.countryClusters( s.m.selectedCountry.geonameId ) if s.m.selectedCountry?.geonameId
 
-      s.countryClusters = ->
-        clusters = {}
-        # _.forEach s.trustedContentInLocationAndSearch(), (plan) -> 
-        #   if clusters = _.filter plan.locations, (location) -> location.fcode == "PLANIT"
-        #     # represent clusters
-        #   else admin2s = 
-        #   _.forEach plan.locations, (location) ->
-        #     clusters[ location.geonameId ] = location if !clusters[ location.geonameId ] && location.fcode == "ADM2"
-        #     # clusters[ location.geonameId ].count = 0 unless clusters[ location.geonameId ].count
-        #     # clusters[ location.geonameId ].count = clusters[ location.geonameId ].count + 1
-        return clusters
-        # return _.sortBy( clusters, "count" ).reverse()
+      s.setCluster = ( cluster ) -> if cluster?.geonameId then s.m.setLocation( cluster.geonameId )
 
       s.planImage = ( plan ) -> plan?.best_image?.url?.replace("69x69","210x210")
 

@@ -1,10 +1,10 @@
-.user-dashboard{ ng_show: '!m.currentPlanId && !m.selectedCountryLocations()' }
+.user-dashboard{ ng_show: '!m.currentLocation()' }
 
   #header-spacing.except-landscape
 
   .band#user-show-page
   
-    %user_map{ ng_if: '!m.mobile', m: 'm', geojson_data: "geojson", location_clusters: "clustersInCountry()", ng_mouseleave: "m.hoveredCountry=null" }
+    %user_map{ m: 'm', geojson_data: "geojson", location_clusters: "clustersInCountry()", ng_mouseleave: "m.hoveredCountry=null" }
 
     .user-page-country-wrapper{ ng_show: 'm.selectedCountry', ng_click: 'clearLocationPopupIfOutCountry()' }
       .user-location-search.like-container{ ng_mouseover: 'inCountry=true', ng_mouseleave: 'inCountry=false' }
@@ -32,45 +32,45 @@
 
           .container.centered
 
-            / .div{ ng_repeat: "cluster in countryClusters()" }
-            /   {{ cluster.name }} {{ cluster.count }}
+            .country-cluster{ ng_repeat: "cluster in countryClusters()", ng_class: "{'top-six': cluster.rank<7}", ng_click: "setCluster( cluster )" }
+              .cluster-name {{ cluster.name }}
 
-          .container.centered.plans-in-location
+          / .container.centered.plans-in-location
 
-            .column.show-new-plan
-              .any-tab-wrapper.new-guide
-                .guide-item-count.numbered-box 
-                  %i.fa.fa-plus-circle
-                .content-tab
-                  .content-tab-img.newplan{ ng_click: 'startPlanNearby()' }
-                    %i.md-map
-                  .content-tab-title{ ng_click: 'startPlanNearby()' }
-                    %span{ ng_show: 'selectedNearbyNotBest()' } Create a New {{ m.selectedNearby.name }} Guide
-                    %span{ ng_show: '!selectedNearbyNotBest()' } Create a New {{ m.bestNearby().name }} Guide
+          /   .column.show-new-plan
+          /     .any-tab-wrapper.new-guide
+          /       .guide-item-count.numbered-box 
+          /         %i.fa.fa-plus-circle
+          /       .content-tab
+          /         .content-tab-img.newplan{ ng_click: 'startPlanNearby()' }
+          /           %i.md-map
+          /         .content-tab-title{ ng_click: 'startPlanNearby()' }
+          /           %span{ ng_show: 'selectedNearbyNotBest()' } Create a New {{ m.selectedNearby.name }} Guide
+          /           %span{ ng_show: '!selectedNearbyNotBest()' } Create a New {{ m.bestNearby().name }} Guide
 
-            .column.show-existing-plans{ ng_repeat: 'plan in trustedContentInLocation()' }
-              .any-tab-wrapper{ ng_class: 'tabClass(plan, $index)' }
-                .guide-item-count.numbered-box {{ plan.place_ids.length }}
-                .content-tab
-                  .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'loadPlan( plan.id )', ng_hover: 'imageChangeable = true' }
-                    %img{ ng_src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
-                    %i.add-photo-camera.fa.fa-camera-retro.white{ ng_show: 'plan.place_ids.length && (imageChangeable || ( !plan.best_image || !plan.best_image.url ) )', ng_click: 'changeImage()' }
-                    %i.add-photo-camera.fa.fa-plus-circle.white{ ng_show: '!plan.place_ids.length', ng_click: 'changeImage()' }
-                  .content-tab-title{ ng_click: 'loadPlan( plan.id )' }
-                    {{ plan.name }}
-                    .guide-owner-avatar{ ng_show: '!plan.userOwns() || ( plan.userOwns() && plan.hasCollaborators() )', ng_class: "{'collaborators': plan.userOwns() && plan.hasCollaborators() }" }
-                      %i.fa.fa-group{ ng_show: 'plan.userOwns() && plan.hasCollaborators()' }
-                      %span{ ng_show: '!plan.userOwns() && !plan.user.avatar', ng_click: 'm.visitUser( plan.user.id )' } {{ plan.user.name[0].toUpperCase() }}
-                      %img{ ng_show: '!plan.userOwns() && plan.user.avatar', ng_src: "{{ plan.user.avatar }}" }
-                      .guide-avatar-helper
-                        .guide-avatar-name
-                          %b{ ng_show: '!plan.userOwns()' } {{ plan.user.first_name }}
-                          %span{ ng_repeat: 'collaborator in plan.collaborators' }
-                            %span{ ng_click: 'm.visitUser( collaborator.id )' } {{ collaborator.first_name }}
+          /   .column.show-existing-plans{ ng_repeat: 'plan in trustedContentInLocation()' }
+          /     .any-tab-wrapper{ ng_class: 'tabClass(plan, $index)' }
+          /       .guide-item-count.numbered-box {{ plan.place_ids.length }}
+          /       .content-tab
+          /         .content-tab-img{ ng_class: "{'add-photo': !plan.best_image }", ng_click: 'loadPlan( plan.id )', ng_hover: 'imageChangeable = true' }
+          /           %img{ ng_src: '{{ planImage( plan ) }}', ng_show: 'plan.best_image && plan.best_image.url' }
+          /           %i.add-photo-camera.fa.fa-camera-retro.white{ ng_show: 'plan.place_ids.length && (imageChangeable || ( !plan.best_image || !plan.best_image.url ) )', ng_click: 'changeImage()' }
+          /           %i.add-photo-camera.fa.fa-plus-circle.white{ ng_show: '!plan.place_ids.length', ng_click: 'changeImage()' }
+          /         .content-tab-title{ ng_click: 'loadPlan( plan.id )' }
+          /           {{ plan.name }}
+          /           .guide-owner-avatar{ ng_show: '!plan.userOwns() || ( plan.userOwns() && plan.hasCollaborators() )', ng_class: "{'collaborators': plan.userOwns() && plan.hasCollaborators() }" }
+          /             %i.fa.fa-group{ ng_show: 'plan.userOwns() && plan.hasCollaborators()' }
+          /             %span{ ng_show: '!plan.userOwns() && !plan.user.avatar', ng_click: 'm.visitUser( plan.user.id )' } {{ plan.user.name[0].toUpperCase() }}
+          /             %img{ ng_show: '!plan.userOwns() && plan.user.avatar', ng_src: "{{ plan.user.avatar }}" }
+          /             .guide-avatar-helper
+          /               .guide-avatar-name
+          /                 %b{ ng_show: '!plan.userOwns()' } {{ plan.user.first_name }}
+          /                 %span{ ng_repeat: 'collaborator in plan.collaborators' }
+          /                   %span{ ng_click: 'm.visitUser( collaborator.id )' } {{ collaborator.first_name }}
 
-          / .users-with-plans-menu{ ng_show: "trustedContentInLocation()" }
-          /   .user-with-plans{ ng_repeat: "user in trustedUsersWithContentInLocation()" }
-          /     {{ user.name }}
+          / / .users-with-plans-menu{ ng_show: "trustedContentInLocation()" }
+          / /   .user-with-plans{ ng_repeat: "user in trustedUsersWithContentInLocation()" }
+          / /     {{ user.name }}
 
     .continents.mobile{ ng_show: "m.mobile" }
       .continent-column

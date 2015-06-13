@@ -174,7 +174,7 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
           i.mark.note = _.find( response, (n) -> parseInt( n.obj_id ) == parseInt( i.mark_id ) )?.body
           i.mark.notesSearched = true
       else
-        $timeout( ( -> self.attachNotesToItemsIfItems(response) ), 200)
+        $timeout( ( -> self.attachNotesToItemsWhenItems(response) ), 200)
 
     categories: ( categorizeBy ) -> #sorted alphabetically
       switch categorizeBy

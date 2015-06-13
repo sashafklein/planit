@@ -4,13 +4,24 @@ angular.module("SPA").service "SPLocations", (User, Plan, Location, Geonames, Qu
     constructor: ( userId ) ->
       self = @
       self.locations = {}
+      self.clusters = {}
       self.usersQueried = []
       self.countriesQueried = []
+      self.countriesClustersFetched = []
       self.locationsQueried = []
       @fetchUsersLocations( userId )
 
-    fetchGeoname: ( geonameId ) ->
+    clusters: ->
       self = @
+      return _.filter( self.locations, (l) -> l.isCluster )
+
+    clustersInCountry: ( countryId ) ->
+      self = @
+      return _.filter( self.clusters, (c) -> parseInt( c.countryId ) == parseInt( countryId ) )
+
+    fetchGeoname: ( geonameId, callback ) ->
+      self = @
+      callback?()
       return self.locations[geonameId] if self.locations[geonameId]
 
     fetchUsersLocations: ( userId ) ->
@@ -57,6 +68,29 @@ angular.module("SPA").service "SPLocations", (User, Plan, Location, Geonames, Qu
         return []
       else
         return []
+
+    clusterName: ( location ) -> if location && cluster = @.clusters[ parseInt(location.clusterId) ] then cluster.name else if location then location.name
+
+    countryClusters: ( geonameId ) ->
+      self = @
+      return [] unless geonameId
+      return [] if self.fetchingCountryClusters == geonameId
+      countryClustersFound = _.filter( self.clusters, (c) -> parseInt( c.countryId ) == parseInt( geonameId ) )
+      return countryClustersFound if _.include( self.countriesClustersFetched, parseInt( geonameId ) )
+      self.fetchingCountryClusters = geonameId
+      Location.countryClusters( geonameId )
+        .success (responses) -> 
+          index = 0
+          _.forEach responses, (r) -> 
+            self.clusters[r.id] = r unless self.clusters[r.id]
+            self.clusters[r.id].rank = index
+            index++
+          self.countriesClustersFetched.push geonameId
+          self.fetchingCountryClusters = null
+        .error (response) -> 
+          self.fetchingCountryClusters = null
+          ErrorReporter.silent( response, 'SinglePageLocations fetching Country Admins', country_id: geonameId )
+      return []
 
     fetchCountryAdmins: ( countryId ) ->
       self = @

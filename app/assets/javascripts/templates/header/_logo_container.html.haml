@@ -1,5 +1,5 @@
 .logo-container
-  %a{ href: root_path, target: '_self' }
+  .logo-link{ ng_click: "m.goHome()" }
     = image_tag "logo_only_black.png", alt: 'o', class: "logo-image-top", ng_show: "!m.mobile" 
     = image_tag "logo_only_white.png", alt: 'o', class: "logo-image-top", ng_show: "m.mobile" 
     = image_tag "logo_my_only.png", alt: 'MY', class: "logo-my-top large-screen", ng_show: '( !m.plan() || m.userOwnsPlan() ) && m.currentUserId == m.userInQuestion().id'

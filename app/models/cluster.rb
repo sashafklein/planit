@@ -7,9 +7,15 @@ class Cluster < BaseModel
       self.all.select{ |c| 
         siblings = c.collapsible_with
         siblings.count>0 && siblings.map{ |sibling| sibling.rank }.all?{ |sibling_rank| sibling_rank < c.rank } ? collapsible = true : collapsible = false
-        puts "#{c.name}: #{c.rank} <= #{ siblings.map{ |s| [s.name, s.rank].join(': ') } }" if collapsible
+        puts "#{c.name}: #{c.rank} (#{c.id})<= #{ siblings.map{ |s| [s.name, s.rank].join(': ') } }" if collapsible
         collapsible
       }.map{ |c| c.id }
+  end
+
+  def rename_and_absorb!( new_name )
+    self.absorb_all_collapsible_clusters!
+    self.update_attributes!( name: new_name ) if new_name
+    return "#{self.name}: #{self.rank} (#{self.country_rank} in #{self.country.try(:name)})"
   end
   
   def location
@@ -18,6 +24,10 @@ class Cluster < BaseModel
 
   def country
     Location.where( geoname_id: country_id )
+  end
+
+  def country_rank
+    Cluster.where( country_id: self.country_id ).order('rank DESC').map{ |c| c.id }.find_index( self.id )
   end
 
   def absorb_all_collapsible_clusters!( threshold: 25 )

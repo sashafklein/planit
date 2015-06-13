@@ -1,13 +1,18 @@
-.sort-and-view-modes{ ng_show: "m.plan()" }
+.sort-and-view-modes{ ng_show: "m.plan().items || m.currentLocation()" }
 
-  .sort-items-by{ ng_show: "m.mode != 'map'" }
-    %span.selectable.sort-by-button{ ng_click: "m.goHome()" } 
-      %i.fa.fa-arrow-left.pad-right.mobile
-      %span.large-screen.inline My Guides
-    %span.selectable.sort-by-button{ ng_click: "m.browsing = true; m.placeName = null" } 
-      %i.fa.fa-search.mobile
-      %span.large-screen.inline Browse Planit
+  / .sort-items-by{ ng_show: "m.mode != 'map'" }
+  /   %span.selectable.sort-by-button{ ng_click: "m.goHome()" } 
+  /     %i.fa.fa-arrow-left.pad-right.mobile
+  /     %span.large-screen.inline My Guides
+  /   %span.selectable.sort-by-button{ ng_click: "m.browsing = true; m.placeName = null" } 
+  /     %i.fa.fa-search.mobile
+  /     %span.large-screen.inline Browse Planit
 
-  .view-and-edit-mode{ ng_show: '!m.mainMenuToggled && m.planManager.itemCount()>0', ng_class: "{'in-map': m.mode == 'map', 'large-screen': m.mode != 'map'}" }
-    %span.selectable.view-and-edit-button{ ng_repeat: "viewMode in ['list', 'map']", ng_click: "setMode(viewMode)", ng_class: "modeButtonClass(viewMode)" } 
-      {{ showViewMode(viewMode) }} 
+  .change-mode-button{ ng_show: "m.mode=='map'", ng_click: "setMode('list')"}
+    %i.fa.fa-list
+  .change-mode-button{ ng_show: "m.mode=='list'", ng_click: "setMode('map')" }
+    %i.md-map
+
+  / .view-and-edit-mode{ ng_show: '!m.mainMenuToggled && m.planManager.itemCount()>0', ng_class: "{'in-map': m.mode == 'map', 'large-screen': m.mode != 'map'}" }
+  /   %span.selectable.view-and-edit-button{ ng_repeat: "viewMode in ['list', 'map']", ng_click: "setMode(viewMode)", ng_class: "modeButtonClass(viewMode)" } 
+  /     {{ showViewMode(viewMode) }} 

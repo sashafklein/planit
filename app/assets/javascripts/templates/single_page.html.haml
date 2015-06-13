@@ -5,25 +5,34 @@
       .centered-item.sitewide-loading-message
         %i.fa.fa-spinner.fa-spin
 
-  .single-page-content.like-container{ ng_class: "{ 'fullscreen': m.fullscreen() }" }
+  .mobile-page-content.like-container{ ng_if: "m.mobile" }
+    %single_page_header{ m: 'm' }
+    .page-content{ ng_click: 'm.mainMenuToggled = false; m.settingsBoxToggled = false' }
+      %mobile_explore{ m: 'm', ng_show: "m.view=='explore' && !m.currentLocationId" }
+      %add_box{ m: 'm', ng_show: "m.view=='add'" }
+      %mobile_plans{ m: 'm', ng_show: "m.view=='plan' && !m.currentPlanId" }
+
+  .single-page-content.like-container{ ng_if: "!m.mobile", ng_class: "{ 'fullscreen': m.fullscreen() }" }
     %single_page_header{ m: 'm' }
 
-    .planbox-wrapper{ ng_click: 'm.mainMenuToggled=false' }
-      %new_guide_start.large-screen{ m: 'm' }
-      / %new_tip.mobile{ m: 'm' }
-      %guide_controls{ m: 'm' }
-      %add_box{ m: 'm' }
+    / .planbox-wrapper{ ng_click: 'm.mainMenuToggled=false' }
+    /   %new_guide_start.large-screen{ m: 'm' }
+    /   %guide_controls.large-screen{ m: 'm' }
+    /   %add_box{ m: 'm' }
 
     .page-content{ ng_click: 'm.mainMenuToggled = false; m.settingsBoxToggled = false' }
 
       %user_page{ m: 'm' }
 
-      .single-plan-view
+      .single-plan-or-cluster-view
         %sort_commands{ m: 'm' }
 
-        .tabs{ ng_show: 'm.plan() && m.plan().items.length > 0' }
+        .tabs.cluster-tabs{ ng_show: '!m.currentPlanId && m.currentLocationId' }
+          %cluster_view{ m: 'm', ng_show: "m.mode=='list' && !m.plan() && m.currentLocation()" }
+          %cluster_map{ m: "m", web_padding: '45,45,15,400', mobile_padding: '40,15,80,15', zoom_control: 'true', ng_show: "m.mode=='map'" }
+
+        .tabs.plan-tabs{ ng_show: 'm.currentPlanId' }
           %list_view{ m: 'm', ng_show: "m.mode=='list'" }
-          / .plan-map-container{ ng_if: "m.plan() && m.plan().items",  }
           %plan_map{ m: "m", web_padding: '45,45,15,400', mobile_padding: '40,15,80,15', zoom_control: 'true', ng_show: "m.mode=='map'" }
           
         %first_tutorial{ m: 'm' }

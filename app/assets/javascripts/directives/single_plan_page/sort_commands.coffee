@@ -6,7 +6,7 @@ angular.module("Directives").directive 'sortCommands', (QueryString) ->
     scope:
       m: '='
     link: (s, e, a) ->
-      s.setMode = ( mode ) -> QueryString.modify({ mode: mode })
+      s.setMode = ( mode ) -> s.m.mode = mode
       s.modeButtonClass = (mode) ->
         highlighted = if s.m.mode == mode then 'highlighted' else null
         _.compact( [highlighted, "#{mode}-toggle-button"] ).join ' '

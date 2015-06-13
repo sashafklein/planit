@@ -1,14 +1,22 @@
-.addbox-wrapper.except-landscape{ ng_show: "m.userOwnsPlan() && m.plan() && m.mode != 'trip' && !m.settingsBoxToggled && !(m.mainMenuToggled && m.mobile) && !m.rename" }
+.addbox-wrapper{ ng_show: "( m.view=='add' && m.mobile ) || ( m.plan() || m.currentLocation() )", ng_class: "{'band spaced-extra': m.mobile}" }
+  / { ng_show: "m.userOwnsPlan() && m.plan() && m.mode != 'trip' && !m.settingsBoxToggled && !(m.mainMenuToggled && m.mobile) && !m.rename" }
 
-  .addbox-on-plan-page{ ng_show: "m.addBoxToggled", ng_class: "{'nearby-only': !m.plan().currentLocation()}" }
+  .addbox-contents{ ng_show: "m.addBoxToggled", ng_class: "{'nearby-only': !m.currentLocation(), 'addbox-on-plan-page': !m.mobile, 'container mobile-add-box': m.mobile }" }
 
-    .faux-input-wrap{ ng_show: 'm.plan() && m.plan().currentLocation()', ng_dblclick: 'resetNearby()' }
-      %b Exploring
-      %span {{ m.plan().currentLocation().name }}, {{ m.plan().currentLocation().adminName1 }}, {{ m.plan().currentLocation().countryName }}
+    #header-spacing.except-landscape{ ng_show: "m.mobile" }
+    .mobile-section-header{ ng_show: "m.mobile" } Add a Tip
+    .faux-input-wrap{ ng_show: '!m.currentLocation() && !placeNearby && m.placeName', ng_click: 'resetNearby()' }
+      %b Oops -- tell us where?
+      %span.reset-location{ ng_click: 'resetNearby()' } 
+        %i.fa.fa-times 
+    .faux-input-wrap{ ng_show: 'm.currentLocation() && placeNearby', ng_dblclick: 'resetNearby()' }
+      %b{ ng_show: "!m.mobile" } Exploring
+      %b{ ng_show: "m.mobile" } In
+      %span {{ m.currentLocation().name }}, {{ m.currentLocation().adminName1 }}, {{ m.currentLocation().countryName }}
       %span.reset-location{ ng_click: 'resetNearby()' } 
         %i.fa.fa-times 
         %span.large-screen.inline Location
-    .input-and-results{ ng_show: 'm.plan() && !m.plan().currentLocation()' } 
+    .input-and-results{ ng_show: '!m.currentLocation() && !m.placeName' } 
       %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: '{{ placeNearbyMessage() }}', ng_model: 'placeNearby', ng_change: 'searchPlaceNearby()', ng_on_enter_key: 'setNearBestOption()', ng_on_esc_key: 'placeNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()', autocomplete: 'off' }
       %ul.suggested-results.text-based.blue{ ng_show: 'm.plan().locations || ( !m.typing && placeNearby && placeNearby.length > 1 && ( placeNearbyWorking || m.nearbyOptions.length>0 ) )' }
         %li.search-results-list.current-locations{ ng_repeat: 'option in countryLocations(m.plan().locations)', ng_click: 'setCurrentNearby(option)', ng_show: '!placeNearby' } 
@@ -22,15 +30,16 @@
           %span{ ng_bind_html: "underlined( [option.adminName1,option.countryName] )" } 
         %li.search-results-working{ ng_show: 'placeNearbyWorking>0' } Working on it...
         %li.search-results-working{ ng_show: 'noPlaceNearbyResults() && !m.typing' } Can't find that...
-      %span.set-location-reminder{ ng_show: '!placeNearby || !placeNearby.length>1' } 
+      %span.set-location-reminder{ ng_show: '!m.mobile && (!placeNearby || !placeNearby.length>1)' } 
         %i.fa.fa-arrow-left 
         %span.largest-screen.inline Set
         %span.large-screen.inline Location
 
-    .input-and-results{ ng_show: 'm.plan().latest_location_id && m.plan().currentLocation()', ng_focus: 'm.engagedInSearch=true', ng_blur: 'm.engagedInSearch=false' }
-      %input#place-name{ name: "place-name", type: 'text', placeholder: '{{ placeholder() }}', ng_model: 'm.placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_on_esc_key: "placeName=null", ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()', autocomplete: 'off' }
+    .input-and-results{ ng_show: 'm.currentLocation() || m.mobile', ng_focus: 'm.engagedInSearch=true', ng_blur: 'm.engagedInSearch=false' } 
+      // m.plan().latest_location_id && 
+      %input#place-name{ name: "place-name", type: 'text', placeholder: '{{ placeholder() }}', ng_model: 'm.placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_on_esc_key: "placeName=null", ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()', autocomplete: 'off', ng_focus: "placeNearbyFocused=true", ng_blur: "placeNearbyFocused=false" }
 
-      %ul.suggested-results.neon{ ng_show: '!m.typing && m.placeName && m.placeName.length>1' }
+      %ul.suggested-results.neon{ ng_show: 'm.currentLocation() && !m.typing && m.placeName && m.placeName.length>1' }
         %li.search-results-list{ ng_repeat: 'option in m.placeNameOptions', ng_click: 'addItem(option)', ng_class: 'placeNameOptionClass(option, $index)' }
           .bucket-list-tab
             %a{ ng_href: '{{option.href}}', target: '_self' }
@@ -56,8 +65,10 @@
         %li.search-results-attribution{ ng_show: 'm.placeNameOptions.length>0 && placeNameWorking<1 && !m.typing' } 
           %a{ href: 'http://www.foursquare.com/', target: "_blank" } Powered by Foursquare
 
-  %ng_include{ src: "'application/_rainbow_divider.html'" }
+    %textarea{ ng_if: 'm.mobile', placeholder: "Add a Note" }
 
-  .minimize-maximize-addbox.mobile{ ng_click: "addBoxToggle()" }
+  %ng_include{ ng_if: "!m.mobile", src: "'application/_rainbow_divider.html'" }
+
+  .minimize-maximize-addbox.mobile{ ng_show: "!m.mobile", ng_click: "addBoxToggle()" }
     / , ng_class: "{'opened': m.addBoxToggled}"
     %i.fa{ ng_class: "{'fa-caret-up': m.addBoxToggled, 'fa-caret-down': !m.addBoxToggled}" }

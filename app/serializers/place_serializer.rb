@@ -10,9 +10,13 @@ class PlaceSerializer < BaseSerializer
               # Details
               :wifi,
 
-              # Pseudo/Non-Database Attributes
-              :name, :altnames, :address, :locale, :meta_icon,
+              # User-info
+              :notes,
               :savers, :lovers, :visitors, :guides,
+
+              # Pseudo/Non-Database Attributes
+              :clusterId,
+              :name, :altnames, :address, :locale, :meta_icon,
               :image_url, :image_source, 
               :fs_href
 
@@ -20,6 +24,10 @@ class PlaceSerializer < BaseSerializer
               # :href, hours,
               # :menu, :mobile_menu, 
               # :reservations, :reservations_link, 
+
+  def clusterId
+    object.locations.first.cluster_id
+  end
 
   def name
     object.names.first
@@ -51,6 +59,14 @@ class PlaceSerializer < BaseSerializer
 
   def guides
     Mark.guides( id )
+  end
+
+  def notes
+    hash = {}
+    Mark.where( place_id: object.id ).find_each do |mark|
+      hash[ mark.user_id ] = mark.notes.try( :first ).try( :body )
+    end
+    return hash
   end
 
   def fs_href
