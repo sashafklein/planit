@@ -15,10 +15,10 @@
   .single-page-content.like-container{ ng_if: "!m.mobile", ng_class: "{ 'fullscreen': m.fullscreen() }" }
     %single_page_header{ m: 'm' }
 
-    / .planbox-wrapper{ ng_click: 'm.mainMenuToggled=false' }
-    /   %new_guide_start.large-screen{ m: 'm' }
-    /   %guide_controls.large-screen{ m: 'm' }
-    /   %add_box{ m: 'm' }
+    .planbox-wrapper{ ng_click: 'm.mainMenuToggled=false' }
+      %location_search.large-screen{ m: 'm' }
+      %guide_controls.large-screen{ m: 'm' }
+      %add_box{ m: 'm' }
 
     .page-content{ ng_click: 'm.mainMenuToggled = false; m.settingsBoxToggled = false' }
 

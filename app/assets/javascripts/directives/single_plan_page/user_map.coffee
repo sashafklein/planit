@@ -57,7 +57,7 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
 
       s.$on 'leafletDirectiveMap.geojsonMouseover', (ev, feature, leafletEvent) -> s.countryMouseover( feature, leafletEvent ); return
       s.$on 'leafletDirectiveMap.geojsonMouseout', (feature, leafletEvent) -> s.countryMouseleave( feature, leafletEvent ); return
-      s.$on 'leafletDirectiveMap.geojsonClick', (ev, featureSelected, leafletEvent) -> s.countryClick( featureSelected, leafletEvent ); return
+      s.$on 'leafletDirectiveMap.geojsonClick', (ev, featureSelected, leafletEvent) -> s.m.countryClick( featureSelected, leafletEvent ); return
       s.$on 'leafletDirectiveMap.zoomend', (event) -> 
         if !s.m.plan()?.items?.length
           leafletData.getMap("user").then (m) -> if m._zoom < 4 then s.m.clearSelectedCountry()
@@ -69,12 +69,20 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
         s.selectedCountryId = null
         leafletData.getMap("user").then (m) -> _.forEach m._layers, (layer) -> if layer?.feature then layer.setStyle( s.style( layer.feature ) )
 
-      s.countryClick = ( featureSelected, leafletEvent ) -> 
+      s.m.countryClick = ( featureSelected, leafletEvent ) -> 
         s.m.clearSelectedCountry()
         leafletData.getMap("user").then (m) -> m.setView( leafletEvent.latlng, 4 )
         s.m.selectedCountry = featureSelected.properties
         s.selectedCountryId = featureSelected.properties.geonameId
         s.m.locationManager.fetchCountryAdmins( s.selectedCountryId )
+
+      s.m.selectCountry = ( country ) ->
+        return unless country && Object.keys( country )?.length>0
+        s.m.clearSelectedCountry()
+        leafletData.getMap("user").then (m) -> m.setView( { lat: country.lat, lng: country.lng }, 4 ) if country.lat && country.lon
+        s.m.selectedCountry = country
+        s.selectedCountryId = country.geonameId
+        s.m.locationManager.fetchCountryAdmins( s.selectedCountryId )        
 
       s.usersLocationsInCountry = ( countryId ) -> _.filter( s.m.locations, (l) -> parseInt( l.countryId ) == parseInt( countryId ) && _.include( l.users, s.m.userInQuestionId ) )
 

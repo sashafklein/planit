@@ -60,7 +60,7 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
 
       # EXPAND/CONTRACT
       s.m.goHome = -> QueryString.reset(); s.variablesReset(); s.m.resetUserMapView?()
-      s.variablesReset = -> s.m.currentLocationId = null; s.m.selectedCountry = null; s.m.selectedRegion = null
+      s.variablesReset = -> s.m.currentLocationId = null; s.m.selectedCountry = null
       s.m.mainMenuToggled = false
       s.m.addBoxToggled = true #if s.m.mobile then false else true
       s.m.settingsBoxToggle = -> s.m.settingsBoxToggled = !s.m.settingsBoxToggled

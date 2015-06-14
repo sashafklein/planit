@@ -65,7 +65,7 @@ angular.module("Directives").directive 'clusterMap', (Place, User, PlanitMarker,
                   s.marker.clusterPin(cluster, initial)
 
       s._getPlaces = ->
-        s._setOnScope [ 'firstPlaces', 'clusterPlaces', 'preFilterPlaces' ], []
+        s._setOnScope [ 'firstPlaces', 'places', 'preFilterPlaces' ], []
         $timeout(-> s.firstPlaces = _.extend( [], s.m?.marksInCluster() ) )
         $timeout(-> s.preFilterPlaces = _.map( s.m?.marksInCluster(), (p) -> s.marker.primaryPin(p) ) )
         $timeout(-> s._definePlaces() )
@@ -74,7 +74,7 @@ angular.module("Directives").directive 'clusterMap', (Place, User, PlanitMarker,
       # ON MAP MOVEMENT
 
       s.recalculateInView = -> 
-        return unless s.clusterPlaces
+        return unless s.places
         s.changes++
         $timeout ( -> 
           s._setCurrentLayers( s._setItemsInView )
@@ -113,7 +113,7 @@ angular.module("Directives").directive 'clusterMap', (Place, User, PlanitMarker,
       # SET MAP DATA
 
       s._definePlaces = ->
-        s.clusterPlaces = _.extend( [], s.preFilterPlaces ) # unless s.changedItems
+        s.places = _.extend( [], s.preFilterPlaces ) # unless s.changedItems
         leafletData.getLayers("cluster").then (l) ->
           s.leafletLayers = l
         s._filterPlaces( s.recalculateInView )
@@ -121,8 +121,9 @@ angular.module("Directives").directive 'clusterMap', (Place, User, PlanitMarker,
         $timeout( (-> s.clusterInitialized = true ), 200)
 
       s.fitBoundsOnFilteredPlaces = ->
-        startLats = _.map( s.clusterPlaces, (p) -> p.lat )
-        startLons = _.map( s.clusterPlaces, (p) -> p.lon )
+        startLats = _.map( s.places, (p) -> p.lat )
+        startLons = _.map( s.places, (p) -> p.lon )
+        return unless startLats?.length>0 && startLons?.length>0
         leafletData.getMap("cluster").then (m) ->
           m.fitBounds( 
             L.latLngBounds( L.latLng(_.min(startLats),_.min(startLons)),L.latLng(_.max(startLats),_.max(startLons)) ),
@@ -139,7 +140,7 @@ angular.module("Directives").directive 'clusterMap', (Place, User, PlanitMarker,
           ), 2000
 
       s._filterPlaces = (callback) -> 
-        # s.clusterPlaces = new PlaceFilterer( QueryString.get() ).returnFiltered( s.preFilterPlaces )
+        # s.places = new PlaceFilterer( QueryString.get() ).returnFiltered( s.preFilterPlaces )
         $timeout(-> callback?() )
 
       s.clusterFromId = (id) ->
@@ -239,7 +240,7 @@ angular.module("Directives").directive 'clusterMap', (Place, User, PlanitMarker,
           s.resetMapContent()
 
       s.resetMapContent = ->
-        s._setOnScope [ 'firstPlaces', 'clusterPlaces', 'preFilterPlaces', 'placesInView', 'clustersInView' ], []
+        s._setOnScope [ 'firstPlaces', 'places', 'preFilterPlaces', 'placesInView', 'clustersInView' ], []
         s._setOnScope [ 'currentLLZoom', 'currentBounds', 'centerAndZoom' ], null
         s.clusterInitialized = false
         s.center = { lat: 0, lng: 0, zoom: 2 }

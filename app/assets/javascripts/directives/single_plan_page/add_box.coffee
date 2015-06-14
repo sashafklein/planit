@@ -11,7 +11,7 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
       
       s.placeNameOptionClass = (option) -> ClassFromString.toClass(option.name)
 
-      s.placeholderVerb = -> if s.m.plan()?.userOwns() then 'add' else 'suggest'
+      s.placeholderVerb = -> if ( s.m.plan()?.userOwns() || !s.m.plan() ) then 'add' else 'suggest'
       s.placeholderPhrase = -> if s.m.mobile then "What" else "What do you want to #{s.placeholderVerb()}"
       s.placeholder = -> 
         in_location = if s.m.currentLocation()?.name then " in #{s.m.currentLocation().name}" else ""
@@ -94,10 +94,13 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
       
       s.setCurrentNearby = ( nearby ) -> s.m.plan().latest_location_id = nearby.id
 
-      s.addItem = ( option ) -> s.m.plan().addItem( option, s._postAdd( option ), s._postAffix() )
-      s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
-      s._postAdd = ( option ) -> s.m.addingItem=true; s.m.placeName = null; s.placeNameOptions = null; Flash.success("Adding #{option.names[0]} to your plan")
-      s._postAffix = -> s.m.addingItem=false
+      s.addMark = ( option ) -> console.log option
+      s.lazyAddMark = -> s.addMark( s.options[0] ) if s.options?.length == 1
+
+      # s.addItem = ( option ) -> s.m.plan().addItem( option, s._postAdd( option ), s._postAffix() )
+      # s.lazyAddItem = -> s.addItem( s.options[0] ) if s.options?.length == 1
+      # s._postAdd = ( option ) -> s.m.addingItem=true; s.m.placeName = null; s.placeNameOptions = null; Flash.success("Adding #{option.names[0]} to your plan")
+      # s._postAffix = -> s.m.addingItem=false
 
       s.placeNameSearch = -> 
         s.m.placeNameOptions = [] if s.m.placeName?.length || s.m.typing

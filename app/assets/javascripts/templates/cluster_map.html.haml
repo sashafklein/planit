@@ -1,6 +1,6 @@
 .map-canvas-box.plan-map-canvas
   .leaflet-wrapper{ ng_if: 'clusterCenter && clusterDefaults && clusterInitialized && clusterLayers' }
-    %leaflet{ id: 'cluster', height: '100%', width: '100%', defaults: 'clusterDefaults', center: 'clusterCenter', layers: 'clusterLayers', markers: 'clusterPlaces' }
+    %leaflet{ id: 'cluster', height: '100%', width: '100%', defaults: 'clusterDefaults', center: 'clusterCenter', layers: 'clusterLayers', markers: 'places' }
       #map-info-box{ ng_show: "loaded" }
 
         // WEB!!!
@@ -12,7 +12,7 @@
                 %i.filter-or-number.fa.fa-sliders.fa-lg
                 Filter Places (coming soon): 
               .filter-numbers
-                #number-filtered{ ng_show: "clusterPlaces.length < preFilterPlaces.length"} {{ clusterPlaces.length }} /
+                #number-filtered{ ng_show: "places.length < preFilterPlaces.length"} {{ places.length }} /
                 #number-places {{ preFilterPlaces.length }}
                 %i.fa{ ng_class: "{'fa-caret-down': !filtering, 'fa-caret-up': filtering}" } 
             %ul{ ng_show: 'filtering' }
@@ -27,21 +27,21 @@
             .bucket-list-container
               %ul
                 #top-of-list
-                %li{ class: "bucket-list-li-first", id: "first-bucket-item", ng_show: '(loaded && !clusterPlaces.length) || ( !placesInView.length && !clustersInView.length ) ' }
+                %li{ class: "bucket-list-li-first", id: "first-bucket-item", ng_show: '(loaded && !places.length) || ( !placesInView.length && !clustersInView.length ) ' }
                   .bucket-list-tab
                     .bucket-list-no-icon
                       %i.fa.fa-spinner.fa-spin{ ng_show: '!preFilterPlaces.length' }
                       %i.fa.fa-exclamation-triangle{ ng_show: 'preFilterPlaces.length' }
                     .bucket-list-wrap#no-items-msg
-                      %span{ ng_show: 'preFilterPlaces.length && !clusterPlaces.length', ng_click: 'filtering=true' }= "You're all Filtered Out..."
-                      %span{ ng_show: 'preFilterPlaces.length>0 && clusterPlaces.length>0 && placesInView.length<1 && clustersInView.length<1', ng_click: "fitBoundsOnFilteredPlaces()" }= "Click to Zoom to Your Places"
+                      %span{ ng_show: 'preFilterPlaces.length && !places.length', ng_click: 'filtering=true' }= "You're all Filtered Out..."
+                      %span{ ng_show: 'preFilterPlaces.length>0 && places.length>0 && placesInView.length<1 && clustersInView.length<1', ng_click: "fitBoundsOnFilteredPlaces()" }= "Click to Zoom to Your Places"
                 %li.bucket-list-li.cluster-li{ ng_repeat: "cluster in clustersInView", ng_class: "{{cluster.id}}", id: "{{cluster.id}}", ng_mouseenter: "mouse('clusterMouseenter', cluster.id)", ng_mouseleave: "mouse('clusterMouseleave', cluster.id)"}
                   %bucket_list_clusters{ cluster: 'cluster', map: 'map', padding: 'padding', zoom_to: 'zoomToCluster(clusterFromId(selectedClusterId))', changes: 'changes' }
                 %li.bucket-list-li.place-li{ ng_repeat: "place in placesInView", ng_class: "placeClass(place, $index)", id: "{{'p' + place.id}}", ng_mouseenter: "mouse('pinMouseenter', 'p' + place.id)", ng_mouseleave: "mouse('pinMouseleave', 'p' + place.id)" }
                   %bucket_list_place{ m: 'm' , place: 'place' }
 
           // MOBILE!!!
-          .map-highlight-result#in-view-item{ ng_show: "mobile && clusterPlaces.length"}
+          .map-highlight-result#in-view-item{ ng_show: "mobile && places.length"}
             .bucket-item-container
               %ul
                 %li{ class: "bucket-list-li", id: "in-view-li", ng_if: "selectedClusterId || selectedPlaceId" }

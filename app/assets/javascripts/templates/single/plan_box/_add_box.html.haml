@@ -37,10 +37,10 @@
 
     .input-and-results{ ng_show: 'm.currentLocation() || m.mobile', ng_focus: 'm.engagedInSearch=true', ng_blur: 'm.engagedInSearch=false' } 
       // m.plan().latest_location_id && 
-      %input#place-name{ name: "place-name", type: 'text', placeholder: '{{ placeholder() }}', ng_model: 'm.placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddItem()", ng_on_esc_key: "placeName=null", ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()', autocomplete: 'off', ng_focus: "placeNearbyFocused=true", ng_blur: "placeNearbyFocused=false" }
+      %input#place-name{ name: "place-name", type: 'text', placeholder: '{{ placeholder() }}', ng_model: 'm.placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddMark()", ng_on_esc_key: "placeName=null", ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()', autocomplete: 'off', ng_focus: "placeNearbyFocused=true", ng_blur: "placeNearbyFocused=false" }
 
       %ul.suggested-results.neon{ ng_show: 'm.currentLocation() && !m.typing && m.placeName && m.placeName.length>1' }
-        %li.search-results-list{ ng_repeat: 'option in m.placeNameOptions', ng_click: 'addItem(option)', ng_class: 'placeNameOptionClass(option, $index)' }
+        %li.search-results-list{ ng_repeat: 'option in m.placeNameOptions', ng_click: 'addMark(option)', ng_class: 'placeNameOptionClass(option, $index)' }
           .bucket-list-tab
             %a{ ng_href: '{{option.href}}', target: '_self' }
               .bucket-list-no-img{ ng_show: "!option.image_url" }

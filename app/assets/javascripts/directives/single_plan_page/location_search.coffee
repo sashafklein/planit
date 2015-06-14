@@ -1,8 +1,8 @@
-angular.module("Directives").directive 'newGuideStart', (QueryString, Geonames, ErrorReporter, ClassFromString, $timeout, $sce) ->
+angular.module("Directives").directive 'locationSearch', (QueryString, Geonames, ErrorReporter, ClassFromString, $timeout, $sce) ->
   {
     restrict: 'E'
     replace: true
-    templateUrl: 'single/plan_box/_new_guide_start.html'
+    templateUrl: 'single/_location_search.html'
     scope:
       m: '='
     link: (s, e, a) ->
@@ -125,14 +125,11 @@ angular.module("Directives").directive 'newGuideStart', (QueryString, Geonames, 
             keepGoing = false
         )
 
-      s.getNewRegion = ( geonameId ) ->
-        Geonames.find( geonameId )
-          .success (response) -> s.m.selectedRegion = response
-
       s.selectNearby = ( nearby ) ->
         return unless Object.keys( nearby )?.length>0
-        s.m.selectedCountry = _.find( s.m.countries, (c) -> c.geonameId == nearby.countryId ) if s.m.countries
-        if nearby.fcode == 'ADM1' then s.m.selectedRegion = nearby else s.getNewRegion( nearby.adminId1 )
+        if s.m.countries && s.country = _.find( s.m.countries, (c) -> parseInt(c.geonameId) == parseInt(nearby.countryId) )
+          s.m.selectCountry( s.country )
+        s.m.setLocation( parseInt(nearby.geonameId) ) unless nearby.fcode == "PCLI"
         s.m.selectedNearby = nearby
         # # scroll to top
         s.planNearby = null
