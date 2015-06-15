@@ -173,6 +173,18 @@ class Mark < BaseModel
     siblings.find_by_order(order - 1)
   end
 
+  # ADD NEW MARK
+
+  def self.add_from_place_data!(user, data)
+    return unless place = Place.find_or_initialize(data)
+    place = place.validate_and_save!( data[:images] || [] ) unless place.persisted?
+    place.background_complete!
+    mark = Mark.unscoped.where(user: user, place_id: place.id).first_or_initialize
+    mark.update_attributes!(deleted: false)
+    mark.save!
+    return mark
+  end
+
   private
 
   def siblings

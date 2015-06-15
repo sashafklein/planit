@@ -1,4 +1,4 @@
-angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames, QueryString, Foursquare, Place, Item, $timeout, RailsEnv, ClassFromString, $sce) ->
+angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames, QueryString, Foursquare, Place, Mark, Item, $timeout, RailsEnv, ClassFromString, $sce) ->
   {
     restrict: 'E'
     replace: true
@@ -94,7 +94,7 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
       
       s.setCurrentNearby = ( nearby ) -> s.m.plan().latest_location_id = nearby.id
 
-      s.addMark = ( option ) -> console.log option
+      s.addMark = ( option ) -> s.m.placeManager.addMark( option )
       s.lazyAddMark = -> s.addMark( s.options[0] ) if s.options?.length == 1
 
       # s.addItem = ( option ) -> s.m.plan().addItem( option, s._postAdd( option ), s._postAffix() )
@@ -118,6 +118,7 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
           .success (response) ->
             s.placeNameWorking--
             s.m.placeNameOptions = if !s.m.typing then Place.generateFromJSON Foursquare.parse(response) else []
+            _.forEach( s.m.placeNameOptions, (option) -> if placeOnPage = _.find( s.m.places, (p) -> p['foursquare_id'] == option['foursquare_id'] ) then option.id = placeOnPage['id'] )
           .error (response) ->
             s.placeNameWorking--
             if response && response.length > 0 && response.match(/failed_geocode: Couldn't geocode param/)?[0]
@@ -133,7 +134,6 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
         s.m.currentLocationId = null
         s.m.placeName = null
         s.placeNearby = null
-        s.placeOptions = null
         s.centerNearby = null
         $timeout(-> $('#place-nearby').focus() if $('#place-nearby') )
         QueryString.modify({ near: null })

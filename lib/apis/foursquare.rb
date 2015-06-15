@@ -41,6 +41,7 @@ module Apis
     end
 
     def get(request)
+      puts request
       HTTParty.get(request).to_sh
     end
   end

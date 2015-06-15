@@ -92,6 +92,7 @@ Rails.application.routes.draw do
         post :been, on: :collection
         post :notbeen, on: :collection
         post :note, on: :collection
+        post :add_from_place_data, on: :collection
       end
       
       resources :errors, only: [:create]

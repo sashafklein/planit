@@ -19,10 +19,10 @@ module LocationMod
     private
 
     def find_or_create_locations_cluster_object
-      if found_cluster_info = extract_cluster_info_from_location
-        Cluster.where( name: found_cluster_info[:name].no_accents, country_id: location.country_id, geoname_id: found_cluster_info[:geoname_id] ).first_or_create( lat: found_cluster_info[:lat], lon: found_cluster_info[:lon] )
-        # puts "location_geoname=#{location.geoname_id}, cluster_geoname=#{found_cluster_info[:geoname_id]}, finalname=#{found_cluster_info[:name].no_accents}, country=#{location.country_name}, #{found_cluster_info[:lat]},#{found_cluster_info[:lon]}"
-      end
+      return unless found_cluster_info = extract_cluster_info_from_location
+      cluster = Cluster.where( name: found_cluster_info[:name].no_accents, country_id: location.country_id, geoname_id: found_cluster_info[:geoname_id] ).first_or_create( lat: found_cluster_info[:lat], lon: found_cluster_info[:lon] )
+      # puts "location_geoname=#{location.geoname_id}, cluster_geoname=#{found_cluster_info[:geoname_id]}, finalname=#{found_cluster_info[:name].no_accents}, country=#{location.country_name}, #{found_cluster_info[:lat]},#{found_cluster_info[:lon]}"
+      return cluster
     end
 
     def extract_cluster_info_from_location

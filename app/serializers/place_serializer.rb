@@ -5,7 +5,7 @@ class PlaceSerializer < BaseSerializer
               :street_addresses, :sublocality, :locality, :subregion, :region, :country,
               :phones, :website,
               :meta_categories, :categories,
-              :foursquare_icon,
+              :foursquare_icon, :foursquare_id,
 
               # Details
               :wifi,
@@ -26,7 +26,8 @@ class PlaceSerializer < BaseSerializer
               # :reservations, :reservations_link, 
 
   def clusterId
-    object.locations.first.cluster_id
+    cluster = object.locations.first.cluster
+    return cluster.try( :id )
   end
 
   def name
