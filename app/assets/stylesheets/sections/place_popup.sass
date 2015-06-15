@@ -17,87 +17,97 @@
     bottom: 0
     right: 0
     left: 0
-    background: #fff
 
-    .place-popup-internal-sleeve
+    .place-popup-external-sleeve
       position: relative
       width: 100%
       height: 100%
-      margin: 0
 
-    .previous-place-button, .next-place-button
-      position: absolute
-      width: 40px
-      height: 40px
-      left: 0
-      right: 0
-      color: #fff
+      .corner-button, .previous-place-button, .next-place-button
+        position: absolute
+        z-index: 52000
+        height: 40px
+        width: 40px
+        color: rgba(255,255,255,0.5)
+        transition: 0.2s ease all
+        text-align: center
+        cursor: pointer
+        i
+          line-height: 40px
+        &:hover
+          color: #fff
 
-    .corner-button
-      position: absolute
-      z-index: 52000
-      height: 30px
-      width: 30px
-      background: rgba(255,255,255,0.5)
-      color: #333
-      transition: 0.2s ease all
-      text-align: center
-      cursor: pointer
-      i
-        width: 30px
-        height: 30px
-        font-size: 20px
-        line-height: 30px
-      &:hover
-        background: #f06
-        color: #fff
+      .corner-button
+        i
+          width: 20px
+          height: 20px
+          font-size: 20px
 
-    .next-place-button
-    .first-section
-      background: #eee
-      .previous-image-button
-      .next-image-button
-      .image-caption
-      .image-gallery
-    .second-section
-      .place-name
-      .place-type
-        .place-type-icon
-        .place-type-text
-      .show-hide-place-details
-      .place-location-details
-        .alt-names
-        .street-address
-        .sub-locality
-        .locality
-        .state-and-country
-      .place-venue-details
-        .open-or-closed
-        .full-hours
-          .day-of-week
-            .day-letter
-            .day-hours
-      .place-venue-ratings
-        .foursquare
-        .yelp
-        .tripadvisor
-        .zagats
-        .michelin
-      .place-venue-comments
-        .friend-comment
-          .comment-avatar
-          .comment-status
-          .comment-note
-        .experts
-          .comment-avatar
-          .comment-status
-          .comment-note
+      .previous-place-button, .next-place-button
+        i
+          width: 30px
+          height: 30px
+          font-size: 30px
+
+
+      .place-popup-internal-sleeve
+        position: absolute
+        margin: auto
+        top: 0
+        bottom: 0
+        right: 0
+        left: 0
+        background: #fff
+
+        .first-section
+          background: #eee
+          .previous-image-button
+          .next-image-button
+          .image-caption
+          .image-gallery
+        .second-section
+          .place-name
+          .place-type
+            .place-type-icon
+            .place-type-text
+          .show-hide-place-details
+          .place-location-details
+            .alt-names
+            .street-address
+            .sub-locality
+            .locality
+            .state-and-country
+          .place-venue-details
+            .open-or-closed
+            .full-hours
+              .day-of-week
+                .day-letter
+                .day-hours
+          .place-venue-ratings
+            .foursquare
+            .yelp
+            .tripadvisor
+            .zagats
+            .michelin
+          .place-venue-comments
+            .friend-comment
+              .comment-avatar
+              .comment-status
+              .comment-note
+            .experts
+              .comment-avatar
+              .comment-status
+              .comment-note
 
   // *Computer (Regular)
 
   .place-popup-wrapper
-    height: 375px
-    width: 750px
+    height: 455px
+    width: 830px
+
+    .place-popup-internal-sleeve
+      height: 375px
+      width: 750px
 
     .first-section, .second-section
       position: absolute
@@ -109,13 +119,6 @@
       left: 0
     .second-section
       right: 0
-
-    .previous-place-button
-      position: fixed
-      top: 0
-      right: 0
-      left: 0
-      margin: 0 auto
 
     .add-photo-button
       top: 0
@@ -130,12 +133,14 @@
       bottom: 0
       right: 0
 
+    .previous-place-button, .next-place-button
+      margin: 0 auto
+      left: 0
+      right: 0
     .previous-place-button
       top: 0
-      margin: -40px auto
     .next-place-button
       bottom: 0
-      margin: 40px auto
 
   // #Tablet (Portrait)
   @media only screen and (min-width: 768px) and (max-width: 959px)
