@@ -3,26 +3,25 @@ Planit
 
 GETTING STARTED FROM GITHUB
 
-Go to Terminal
-Go to planit directory (`code planit`)
-Pull code (`gp` -- "git pull")
-If there's a fast-fowards error, stash your changes and lay them on top:
-  - `ga .`
-  - `gss` ("git stash save") -- saves your staged changes and sets them aside
-  - `gp` ("git pull")
-  - `gsp` ("git stach pop") -- "pops" the top layer of set-aside changes onto your history
+You'll need a `config/application.yml` file to store environment variables. At the very least, you'll want:
 
-PUSHING TO GITHUB
+```yaml
+SECRET_KEY_BASE: generate-your-own
+DEVISE_SECRET_TOKEN: generate-your-own
+ASSET_PATH: localhost:3000
+DB_OWNER: your-username
+PRODUCTION_APP: planit-app
+TIMEOUT_IN_SECONDS: '15'
 
-Go to Terminal
-Go to planit directory (`code planit`)
-Check file changes (`gs` -- "git status")
-Add ("stage") ALL changes (`ga .` -- "git add .") -- the . means the present directory
-  - `ga -u .` as well, if you want to add deleted files
-Commit files (`gc -m "Comment about changes"` -- `git commit`)
+development:
+  RACK_ENV: 'development'
+  ASSET_PATH: 'http://localhost:3000'
 
-OTHER GH COMMANDS
+production:
+  ASSET_PATH: https://d3er4pdqnow1z.cloudfront.net
+  TIMEOUT_IN_SECONDS: '15'
+```
 
-`gl` -- Git Log (previous commits)
-`gd` -- Git diff (see tracked but unstaged changes)
-`gds` -- Git diff --staged (see staged changes)
+We're using [Rails Assets](https://rails-assets.org/) for most of our included JS, so you shouldn't need to Bower/Node install anything. Just bundle and go. 
+
+**However**, install is likely to be messy. We'd really appreciate it if you take note of what steps you take to install successfully, so we can improve this install readme.
