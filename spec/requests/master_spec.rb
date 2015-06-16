@@ -3,7 +3,7 @@ require 'rails_helper'
 class MasterHelper
 
   def route_exceptions
-    %w( mini_scrape oauths allowable bookmarklets search point unmatched_route morph find_all_notes_in_plan find_by_object located_near add_nearby remove_nearby locations /admin/ geonames country_admins trust_circle in_cluster country_clusters add_from_place_data )
+    %w( find_with_geoname_object find_with_geoname_id mini_scrape oauths allowable bookmarklets search point unmatched_route morph find_all_notes_in_plan find_by_object located_near add_nearby remove_nearby locations /admin/ geonames country_admins trust_circle in_cluster country_clusters add_from_place_data )
   end
 
   def self.set_vars_and_params(objs)

@@ -6,6 +6,7 @@ angular.module("SPA").service "SPPlaces", (CurrentUser, User, Mark, Place, Rails
       self.places = {}
       self.clustersFetched = []
       self.addingMark = []
+      self.currentClusterId = null
       # self.usersFetched = []
       # @fetchUsersPlaces( userId )
 
@@ -41,6 +42,7 @@ angular.module("SPA").service "SPPlaces", (CurrentUser, User, Mark, Place, Rails
       place = null
       unless place = self.places[ fsOption.id ]
         place = self.places[ fsOption.foursquare_id ] = fsOption
+        place.clusterId = self.currentClusterId
 
       place.savers = if place.savers? then _.uniq( place.savers.concat( CurrentUser.id ) ) else [ CurrentUser.id ]
       

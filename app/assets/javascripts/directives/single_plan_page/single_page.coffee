@@ -29,8 +29,20 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
 
       s.m.locationManager = new SPLocations( s.m.currentUserId )
       s.m.locations = s.m.locationManager.locations
-      s.m.setLocation = ( geonameId ) -> QueryString.modify({ in: geonameId })
-      s.m.currentLocation = -> if s.m.plan() then s.m.plan().currentLocation() else if s.m.currentLocationId then s.m.locations[ s.m.currentLocationId ] else null
+      s.m.clusters = s.m.locationManager.clusters
+      s.m.currentClusterId = s.m.placeManager.currentClusterId
+      s.m.setLocation = ( geonameObj ) -> s.m.locationManager.setLocation( geonameObj ) unless geonameObj?.geonameId && s.m.currentLocation()?.id == parseInt( geonameObj.geonameId )
+      s.m.setLocationByGeonameId = ( geonameId ) -> s.m.locationManager.setLocationByGeonameId( geonameId ) unless s.m.currentLocation()?.id == parseInt( geonameId )
+      s.m.currentLocation = -> 
+        if s.m.plan() && location = s.m.plan().currentLocation()
+          s.m.currentClusterId = s.m.placeManager.currentClusterId = parseInt(location.clusterId) if location?.clusterId
+          return location
+        else if s.m.currentLocationId && location = s.m.locations[ s.m.currentLocationId ]
+          s.m.currentClusterId = s.m.placeManager.currentClusterId = parseInt(location.clusterId) if location?.clusterId
+          return location
+        else
+          s.m.currentClusterId = s.m.placeManager.currentClusterId = null
+          null
 
       s.m.marksInCluster = -> s.m.placeManager.clustersPlaces( s.m.currentLocation().clusterId ) if s.m.currentLocation()?.clusterId
 
@@ -60,7 +72,7 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
 
       # EXPAND/CONTRACT
       s.m.goHome = -> QueryString.reset(); s.variablesReset(); s.m.resetUserMapView?()
-      s.variablesReset = -> s.m.currentLocationId = null; s.m.selectedCountry = null
+      s.variablesReset = -> s.m.view='explore'; s.m.currentLocationId = null; s.m.selectedCountry = null; s.m.adding=false
       s.m.mainMenuToggled = false
       s.m.addBoxToggled = true #if s.m.mobile then false else true
       s.m.settingsBoxToggle = -> s.m.settingsBoxToggled = !s.m.settingsBoxToggled
@@ -81,7 +93,6 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
       # NAVIGATION & PAGE-LOADING
 
       s.m.unworking = -> s.m.workingNow = false
-      s._getLocation = ( geonameId ) -> s.m.locationManager.fetchGeoname( geonameId, s.m.unworking() ) unless s.m.currentLocation()?.id == parseInt( geonameId )
       s._getPlan = ( planId ) -> s.m.planManager.fetchPlan( planId, s.m.unworking() ) s.m.plan()?.id == parseInt( planId )
       s._hashCommand = -> QueryString.get()
       s._loadFromHashCommand = ->
@@ -89,7 +100,7 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
         if hash && Object.keys( hash )?.length
           if hash.mode then s.m.mode = hash.mode else s.m.mode = 'map'
           if hash.u then s.m.userInQuestionId = parseInt( hash.u ) else s.m.userInQuestionId = s.m.currentUserId
-          if hash.in then s._getLocation( hash.in ); s.m.currentLocationId = parseInt( hash.in ) else s.m.currentLocationId = null
+          if hash.in then ( s.m.setLocationByGeonameId( hash.in ); s.m.currentLocationId = parseInt( hash.in ) ) else s.m.currentLocationId = null
           if hash.plan then s._getPlan( hash.plan ); s.m.currentPlanId = parseInt( hash.plan ) else s.m.currentPlanId = null
         else
           s.m.mode = 'map'

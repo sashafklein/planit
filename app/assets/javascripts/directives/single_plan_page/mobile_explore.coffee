@@ -25,7 +25,7 @@ angular.module("Directives").directive 'mobileExplore', (CountryJson) ->
 
       s.clustersCountry = ( cluster ) -> if cluster.countryName && cluster.clusterName != cluster.countryName then cluster.countryName
 
-      s.setLocationToCluster = ( cluster ) -> s.m.currentLocationId = parseInt( cluster.geonameId ) if cluster?.geonameId
+      s.setLocation = ( cluster ) -> s.m.setLocation( cluster ) # s.m.currentLocationId = parseInt( cluster.geonameId ) if cluster?.geonameId
 
       window.mExplore = s
 

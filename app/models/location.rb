@@ -8,8 +8,14 @@ class Location < BaseModel
 
   belongs_to :cluster
   
-  def self.create_from_geonames!( response )
-    return nil unless response['name']
+  def self.create_from_geoname_id!( geoname_id )
+    return nil unless geoname_id
+    response = HTTParty.get "http://api.geonames.org/getJSON?geonameId=#{ geoname_id }&username=planit&lang=en&type=json&style=full"
+    create! location_data( response )
+  end
+
+  def self.create_from_geoname_response!( response )
+    return nil unless response
     create! location_data( response )
   end
 
@@ -51,7 +57,7 @@ class Location < BaseModel
   end
 
   def self.find_or_create!(response:, obj:)
-    if location = Location.find_by( geoname_id: response['geonameId'] ) || Location.create_from_geonames!( response )
+    if location = Location.find_by( geoname_id: response['geonameId'] ) || Location.create_from_geoname_response!( response )
       ObjectLocation.where({ obj_id: obj.id, obj_type: obj.class.to_s, location_id: location.id }).first_or_create
       location
     else
@@ -60,8 +66,20 @@ class Location < BaseModel
     end
   end
 
-  def self.geonames_url(geoname_id)
+  def self.geonames_url( geoname_id )
     "http://api.geonames.org/getJSON?geonameId=#{ geoname_id }&username=planit&lang=en&type=json&style=full"
+  end
+
+  def self.find_or_create_with_cluster( data )
+    this_location = Location.find_by( geoname_id: data[:geonameId] ) || create_from_geoname_response!( data )
+    LocationMod::Clusterer.new( this_location ).cluster if this_location
+    return this_location
+  end
+
+  def self.find_or_create_with_cluster_via_geoname_id( geoname_id )
+    this_location = Location.find_by( geoname_id: geoname_id ) || create_from_geoname_id!( geoname_id )
+    LocationMod::Clusterer.new( this_location ).cluster if this_location
+    return this_location
   end
 
   def build_out_location_hierarchy
@@ -69,7 +87,7 @@ class Location < BaseModel
       att_value = self[att]
       if att_value && !Location.find_by(geoname_id: att_value)
         response = HTTParty.get Location.geonames_url( att_value )
-        Location.create_from_geonames!(response)
+        Location.create_from_geoname_response!(response)
       end
     end
     return self

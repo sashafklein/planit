@@ -7,6 +7,8 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
       m: '='
     link: (s, e, a) ->
       
+      s.clearAdd = -> s.m.adding = false if !s.placeNearbyFocused
+
       s.nearbySearchResultClass = (option, index=0) -> ClassFromString.toClass( option.name, option.adminName1, option.countryName, index )
       
       s.placeNameOptionClass = (option) -> ClassFromString.toClass(option.name)
@@ -94,7 +96,7 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
       
       s.setCurrentNearby = ( nearby ) -> s.m.plan().latest_location_id = nearby.id
 
-      s.addMark = ( option ) -> s.m.placeManager.addMark( option )
+      s.addMark = ( option ) -> s.m.placeManager.addMark( option ); s.m.adding=false; s.m.placeName = null
       s.lazyAddMark = -> s.addMark( s.options[0] ) if s.options?.length == 1
 
       # s.addItem = ( option ) -> s.m.plan().addItem( option, s._postAdd( option ), s._postAffix() )

@@ -10,19 +10,19 @@ angular.module("Directives").directive 'clusterView', (ErrorReporter, $timeout, 
       s.matchingMarksInCluster = ( category, categorizeBy ) -> #sorted alphabetically
         marks = s.m.marksInCluster()
         switch categorizeBy
-          when 'type' then _.sortBy( _.filter( marks, (p) -> p.meta_categories[0] == category ) , (p) -> return p.names[0] )
+          when 'type' then _.sortBy( _.filter( marks, (p) -> p.meta_categories?[0] == category ) , (p) -> return p.names[0] )
           when 'alphabetical' then _.sortBy( _.filter( marks, (p) -> p.names?[0]?[0] == category ) , (p) -> return p.names[0] )
           when 'locale' then _.sortBy( _.filter( marks, (p) -> p.locality == category ) , (p) -> return p.names[0] )
           else []
 
       s.allCategories = -> 
         # ["See", "Food", "Stay", "Drink", "Shop", "Do", "Area", "Other", "Relax", "Help", "Transit"]
-        _.uniq( _.map( s.m.marksInCluster(), (p) -> p.meta_categories[0] ) )
+        _.compact( _.uniq( _.map( s.m.marksInCluster(), (p) -> p.meta_categories?[0] ) ) )
 
       s.colorClass = ( meta_category ) -> MetaCategory.colorClass( meta_category )
       
       s.typeIcon = ( marks, meta_category ) -> 
-        itemsWithIcon = _.filter( marks, (m) -> m.meta_categories[0] == meta_category )
+        itemsWithIcon = _.filter( marks, (m) -> m.meta_categories?[0] == meta_category )
         if itemsWithIcon[0] then itemsWithIcon[0].meta_icon else ''
 
       s.noteChange = (place) ->

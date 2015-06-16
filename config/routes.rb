@@ -143,6 +143,8 @@ Rails.application.routes.draw do
 
       resources :locations, only: [] do
         get :country_clusters, on: :collection
+        post :find_with_geoname_object, on: :collection
+        get :find_with_geoname_id, on: :collection
       end
 
     end
