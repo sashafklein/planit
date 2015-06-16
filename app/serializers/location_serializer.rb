@@ -2,16 +2,9 @@ class LocationSerializer < ActiveModel::Serializer
 
   attributes :id, :name, :asciiName, :adminName1, :adminId1, :adminName2, :adminId2, :countryName, :countryId, :geonameId, :fcode, :lat, :lon, :isCluster, :clusterName, :clusterRank, :clusterId
 
-  def clusterId
-    object.cluster_id
-  end
-
   def cluster
+    LocationMod::Clusterer.new( object ).cluster
     Cluster.find_by( geoname_id: object.geoname_id )
-  end
-
-  def isCluster
-    clusterName.present?
   end
 
   def clusterName
@@ -20,6 +13,14 @@ class LocationSerializer < ActiveModel::Serializer
 
   def clusterRank
     cluster.try( :rank )
+  end
+
+  def clusterId
+    object.cluster_id
+  end
+
+  def isCluster
+    clusterName.present?
   end
 
   def asciiName

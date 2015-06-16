@@ -27,6 +27,7 @@ class PlaceSerializer < BaseSerializer
               # :reservations, :reservations_link, 
 
   def clusterId
+    LocationMod::Clusterer.new( object.locations.first ).cluster
     cluster = object.locations.first.cluster
     return cluster.try( :id )
   end

@@ -12,7 +12,7 @@ mod.factory 'PlanitMarker', ($timeout, MetaCategory) ->
       else
         """<i class="#{place.meta_icon || ''}" ></i>"""
 
-    pinColor: (meta_category) -> MetaCategory.colorClass( meta_category )
+    pinColor: (meta_category) -> MetaCategory.colorClass( meta_category ) unless !meta_category
 
     primaryPin: (place, show_popup = false) ->
       id = "p#{place.id}"
@@ -21,7 +21,7 @@ mod.factory 'PlanitMarker', ($timeout, MetaCategory) ->
         icon:
           type: 'div'
           className: 'default-map-div-icon'
-          html: """ <div class="default-map-icon-tab #{id} #{@pinColor( place.meta_categories[0] )}" id="#{id}" #{events}>#{@pinIcon( place )}<div class="arrow" /></div> """ 
+          html: """ <div class="default-map-icon-tab #{id} #{@pinColor( place.meta_categories?[0] )}" id="#{id}" #{events}>#{@pinIcon( place )}<div class="arrow" /></div> """ 
           iconSize: null
       ).value()
       # return pin unless show_popup

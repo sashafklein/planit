@@ -8,4 +8,20 @@ class Api::V1::LocationsController < ApiController
     render json: @clusters, each_serializer: ClusterSerializer
   end
 
+  def find_with_geoname_object
+    return permission_denied_error unless current_user
+    return error unless data = params[:data]
+    @location = Location.find_or_create_with_cluster( data )
+    LocationMod::Clusterer.new( @location ).cluster if @location
+    render json: @location, serializer: LocationSerializer
+  end
+
+  def find_with_geoname_id
+    return permission_denied_error unless current_user
+    return error unless geoname_id = params[:geoname_id]
+    @location = Location.find_or_create_with_cluster_via_geoname_id( geoname_id )
+    LocationMod::Clusterer.new( @location ).cluster if @location
+    render json: @location, serializer: LocationSerializer
+  end
+
 end

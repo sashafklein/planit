@@ -1,18 +1,18 @@
 .nav-bar
   .nav-item-link
-    .nav-item{ ng_class: "{ 'in-text-only': !m.mobile, 'selected': m.view=='explore' }", ng_click: "m.goHome(); m.view='explore' " }
+    .nav-item{ ng_class: "{ 'in-text-only': !m.mobile, 'selected': m.view=='explore' && !m.adding }", ng_click: "m.goHome(); m.view='explore' " }
       %span{ ng_show: "!m.mobile" } EXPLORE
       %i.nav-item-icon.fa.fa-globe{ ng_show: "m.mobile" }
       .nav-item-hint{ ng_show: "m.mobile" }
         %span EXPLORE
   .nav-item-link
-    .nav-item{ ng_class: "{ 'in-text-only': !m.mobile, 'selected': m.view=='add' }", ng_click: " m.view='add' " }
+    .nav-item{ ng_class: "{ 'in-text-only': !m.mobile, 'selected': m.adding }", ng_click: " m.adding=true " }
       %span{ ng_show: "!m.mobile" } ADD
       %i.nav-item-icon.fa.fa-plus{ ng_show: "m.mobile" }
       .nav-item-hint{ ng_show: "m.mobile" }
         %span ADD
   .nav-item-link
-    .nav-item{ ng_class: "{ 'in-text-only': !m.mobile, 'selected': m.view=='plan' }", ng_click: "m.goHome(); m.view='plan' " }
+    .nav-item{ ng_class: "{ 'in-text-only': !m.mobile, 'selected': m.view=='plan' && !m.adding }", ng_click: "m.goHome(); m.view='plan' " }
       %span{ ng_show: "!m.mobile" } PLAN
       %i.nav-item-icon.fa.fa-book{ ng_show: "m.mobile" }
       .nav-item-hint{ ng_show: "m.mobile" }

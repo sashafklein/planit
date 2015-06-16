@@ -27,7 +27,7 @@ angular.module("Directives").directive 'clusterMap', (Place, User, PlanitMarker,
         s.padding = JSON.parse("[" + s.webPadding + "]") if s.webPadding && s.web
         s.changes = 0
         s.maxBounds = [[-84,-400], [84,315]]
-        s.clusterCenter = { lat: 0, lng: 0, zoom: 2 }
+        s.clusterCenter = if s.m.currentLocation() && !s.m.marksInCluster() then { lat: s.m.currentLocation().lat, lon: s.m.currentLocation().lon, zoom: 12 } else { lat: 0, lng: 0, zoom: 2 }
         s.placesInView = s.clustersInView = s.firstPlaces = []
         s.leaf = leafletData
 

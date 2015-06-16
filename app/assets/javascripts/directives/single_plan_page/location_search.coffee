@@ -129,7 +129,7 @@ angular.module("Directives").directive 'locationSearch', (QueryString, Geonames,
         return unless Object.keys( nearby )?.length>0
         if s.m.countries && s.country = _.find( s.m.countries, (c) -> parseInt(c.geonameId) == parseInt(nearby.countryId) )
           s.m.selectCountry( s.country )
-        s.m.setLocation( parseInt(nearby.geonameId) ) unless nearby.fcode == "PCLI"
+        s.m.setLocation( nearby ) # unless nearby.fcode == "PCLI" && !nearby.isCluster
         s.m.selectedNearby = nearby
         # # scroll to top
         s.planNearby = null

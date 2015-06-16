@@ -22,6 +22,7 @@ module LocationMod
       return unless found_cluster_info = extract_cluster_info_from_location
       location.reload if reset_country_id!
       cluster = Cluster.where( name: found_cluster_info[:name].no_accents, country_id: location.country_id, geoname_id: found_cluster_info[:geoname_id] ).first_or_create( lat: found_cluster_info[:lat], lon: found_cluster_info[:lon] )
+      location.update_attributes!( cluster_id: cluster.id )
       # puts "location_geoname=#{location.geoname_id}, cluster_geoname=#{found_cluster_info[:geoname_id]}, finalname=#{found_cluster_info[:name].no_accents}, country=#{location.country_name}, #{found_cluster_info[:lat]},#{found_cluster_info[:lon]}"
       return cluster
     end
@@ -77,7 +78,7 @@ module LocationMod
       if location = Location.find_by( geoname_id: geoname_id )
         location
       else
-        Location.create_from_geonames!( geonames_find_id( geoname_id ) )
+        Location.create_from_geoname_id!( geoname_id )
       end
     end
 

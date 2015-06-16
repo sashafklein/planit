@@ -19,6 +19,37 @@ angular.module("SPA").service "SPLocations", (User, Plan, Location, Geonames, Qu
       self = @
       return _.filter( self.clusters, (c) -> parseInt( c.countryId ) == parseInt( countryId ) )
 
+    setLocation: ( geonameObj ) ->
+      self = @
+      return unless geonameObj && geonameId = geonameObj?.geonameId
+      unless self.locations[ geonameId ]?.clusterId || _.include( self.locationsQueried, parseInt(geonameId) )
+        self.locationsQueried.push parseInt(geonameId)
+        Location.findWithGeonameObject( geonameObj )
+          .success (response) ->
+            if response
+              self.locations[ parseInt( response.geonameId ) ] = response
+              self.clusters[ parseInt( response.clusterId ) ] = { name: response.clusterName, lat: response.lat, lon: response.lon, id: response.clsuterId, geonameId: response.geonameId } if response.isCluster
+            else
+              geonameId = null
+              QueryString.modify({ in: geonameId })
+          .error (response) -> ErrorReporter.silent( response, 'SinglePageLocations findWithGeonameObject Location', geoname_obj: JSON.stringify(geonameObj) )
+      QueryString.modify({ in: geonameId })
+
+    setLocationByGeonameId: ( geonameId ) ->
+      self = @
+      unless self.locations[ geonameId ]?.clusterId || _.include( self.locationsQueried, parseInt(geonameId) )
+        self.locationsQueried.push parseInt(geonameId)
+        Location.findWithGeonameId( geonameId )
+          .success (response) ->
+            if response
+              self.locations[ parseInt( response.geonameId ) ] = response
+              self.clusters[ parseInt( response.clusterId ) ] = { name: response.clusterName, lat: response.lat, lon: response.lon, id: response.clsuterId, geonameId: response.geonameId } if response.isCluster
+            else
+              geonameId = null
+              QueryString.modify({ in: geonameId })
+          .error (response) -> ErrorReporter.silent( response, 'SinglePageLocations findWithGeonameId Location', geoname_id: geonameId )
+      QueryString.modify({ in: geonameId })
+
     fetchGeoname: ( geonameId, callback ) ->
       self = @
       callback?()
