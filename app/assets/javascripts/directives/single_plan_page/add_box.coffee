@@ -105,7 +105,7 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
       # s._postAffix = -> s.m.addingItem=false
 
       s.placeNameSearch = -> 
-        s.m.placeNameOptions = [] if s.m.placeName?.length || s.m.typing
+        s.m.placeNameOptions = [] if s.m.placeName?.length<1 || s.m.typing
         s._placeSearchFunction() if s.m.placeName?.length > 1 && s.m.currentLocation()?.lat && s.m.currentLocation()?.lon
 
       s._placeSearchFunction = _.debounce( (-> s._makePlaceSearchRequest() ), 500 )
@@ -114,9 +114,9 @@ angular.module("Directives").directive 'addBox', (Flash, ErrorReporter, Geonames
 
       s.placeNameWorking = 0
       s._makePlaceSearchRequest = ->
-        return unless s.m.currentLocation()?.lat && s.m.currentLocation()?.lon && s.m.placeName?.length>0
+        return unless s.m.currentLocation()?.lat && s.m.currentLocation()?.lon && s.m.placeName?.length>1
         s.placeNameWorking++
-        Foursquare.search( "#{s.m.currentLocation().lat},#{s.m.currentLocation().lon}" , s.m.placeName)
+        Foursquare.search( "#{s.m.currentLocation().lat},#{s.m.currentLocation().lon}" , s.m.placeName )
           .success (response) ->
             s.placeNameWorking--
             s.m.placeNameOptions = if !s.m.typing then Place.generateFromJSON Foursquare.parse(response) else []

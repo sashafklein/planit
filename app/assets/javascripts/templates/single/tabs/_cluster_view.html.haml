@@ -8,6 +8,8 @@
         {{ m.currentLocation().countryName }}
         %i.fa.fa-times
 
+      %p.no-items{ ng_show: "m.marksInCluster().length<1" } No Places Yet
+
       .items-in-plan
         .items-in-plan-category{ ng_repeat: "category in allCategories()", ng_class: 'category.toLowerCase()' }
           %ul.plan-list-items

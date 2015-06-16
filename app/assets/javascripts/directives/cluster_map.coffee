@@ -27,7 +27,7 @@ angular.module("Directives").directive 'clusterMap', (Place, User, PlanitMarker,
         s.padding = JSON.parse("[" + s.webPadding + "]") if s.webPadding && s.web
         s.changes = 0
         s.maxBounds = [[-84,-400], [84,315]]
-        s.clusterCenter = if s.m.currentLocation() && !s.m.marksInCluster() then { lat: s.m.currentLocation().lat, lon: s.m.currentLocation().lon, zoom: 12 } else { lat: 0, lng: 0, zoom: 2 }
+        s.clusterCenter = if ( s.m?.currentLocation()?.lat && !s.m?.marksInCluster()?.length>0 ) then { lat: s.m.currentLocation().lat, lng: s.m.currentLocation().lon, zoom: 12 } else { lat: 0, lng: 0, zoom: 2 }
         s.placesInView = s.clustersInView = s.firstPlaces = []
         s.leaf = leafletData
 
@@ -227,13 +227,15 @@ angular.module("Directives").directive 'clusterMap', (Place, User, PlanitMarker,
       # MAPWIDE INIT
       s.clusterInitialized = false
       s.initialize = ->
-        if !s.clusterInitialized && s.m?.mode=='map' && s.m?.marksInCluster()?.length
+        if !s.clusterInitialized && s.m?.mode=='map' # && s.m?.marksInCluster()?.length
           $('.loading-mask.content-only').show()
+          s.clusterCenter = if ( s.m.currentLocation()?.lat && !s.m.marksInCluster()?.length>0 ) then { lat: s.m.currentLocation().lat, lng: s.m.currentLocation().lon, zoom: 12 } else { lat: 0, lng: 0, zoom: 2 }
           $timeout(-> s.defineMapCriteria() )
           $timeout(-> s._getPlaces() )
         else if s.clusterInitialized && s.m?.mode=='map'
-          return if _.isEqual( s.m?.marksInCluster(), s.firstPlaces )
+          return if _.isEqual( s.m?.marksInCluster(), s.firstPlaces ) && s.m?.marksInCluster().length != 0
           s.changedItems = true
+          s.clusterCenter = if ( s.m.currentLocation()?.lat && !s.m.marksInCluster()?.length>0 ) then { lat: s.m.currentLocation().lat, lng: s.m.currentLocation().lon, zoom: 12 } else { lat: 0, lng: 0, zoom: 2 }
           $timeout(-> s.defineMapCriteria() )
           $timeout(-> s._getPlaces() )
         else if s.clusterInitialized && !s.m?.mode=='map'
