@@ -1,9 +1,12 @@
 class Location < BaseModel
+
   has_many :location_searches
   has_many :users, through: :location_searches
   has_many :object_locations, dependent: :destroy
   has_many :plans, through: :object_locations, source: :obj, source_type: 'Plan'
   has_many :places, through: :object_locations, source: :obj, source_type: 'Place'
+
+  belongs_to :cluster
   
   def self.create_from_geonames!( response )
     return nil unless response['name']

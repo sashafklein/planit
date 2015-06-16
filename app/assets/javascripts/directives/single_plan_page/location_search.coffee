@@ -1,11 +1,14 @@
-angular.module("Directives").directive 'newGuideStart', (QueryString, Geonames, ErrorReporter, ClassFromString, $timeout, $sce) ->
+angular.module("Directives").directive 'locationSearch', (QueryString, Geonames, ErrorReporter, ClassFromString, $timeout, $sce) ->
   {
     restrict: 'E'
     replace: true
-    templateUrl: 'single/plan_box/_new_guide_start.html'
+    templateUrl: 'single/_location_search.html'
     scope:
       m: '='
     link: (s, e, a) ->
+
+      s.locationSearchPrompt = -> 
+        if s.m.selectedCountry?.name then "Search cities & regions in #{s.m.selectedCountry.name}" else "Search cities, regions & countries"
 
       s.blurUserSelect = -> 
         $timeout(-> if $('input#user-select') then $('input#user-select').blur() )
@@ -66,13 +69,17 @@ angular.module("Directives").directive 'newGuideStart', (QueryString, Geonames, 
 
       s.wherePrompt = ->
         if s.m.userInQuestionId == s.m.currentUserId
-          if s.m.hoveredCountry?.name
-            return "Explore #{s.m.hoveredCountry?.name}"
+          if s.m.selectedCountry?.name
+            return "Where are you exploring in #{s.m.selectedCountry.name}?"
+          else if s.m.hoveredCountry?.name
+            return "Explore #{s.m.hoveredCountry.name}"
           else
             return "Where are you exploring?"
         else
-          if s.m.hoveredCountry?.name
-            return "Explore #{s.m.hoveredCountry?.name}"
+          if s.m.selectedCountry?.name
+            return "Where in #{s.m.userInQuestion.name}'s #{s.m.selectedCountry.name}?"
+          else if s.m.hoveredCountry?.name
+            return "Explore #{s.m.userInQuestion.name}'s #{s.m.hoveredCountry.name}"
           else 
             return "Where in #{s.m.userInQuestion.name}'s Planit?"
 
@@ -118,14 +125,11 @@ angular.module("Directives").directive 'newGuideStart', (QueryString, Geonames, 
             keepGoing = false
         )
 
-      s.getNewRegion = ( geonameId ) ->
-        Geonames.find( geonameId )
-          .success (response) -> s.m.selectedRegion = response
-
       s.selectNearby = ( nearby ) ->
         return unless Object.keys( nearby )?.length>0
-        s.m.selectedCountry = _.find( s.m.countries, (c) -> c.geonameId == nearby.countryId ) if s.m.countries
-        if nearby.fcode == 'ADM1' then s.m.selectedRegion = nearby else s.getNewRegion( nearby.adminId1 )
+        if s.m.countries && s.country = _.find( s.m.countries, (c) -> parseInt(c.geonameId) == parseInt(nearby.countryId) )
+          s.m.selectCountry( s.country )
+        s.m.setLocation( parseInt(nearby.geonameId) ) unless nearby.fcode == "PCLI"
         s.m.selectedNearby = nearby
         # # scroll to top
         s.planNearby = null

@@ -36,6 +36,8 @@ mod.factory "Place", (BaseModel, BasicOperators, $http) ->
     hasImage: -> @images.length > 0 && @images[0].url
 
     localeDetails: -> if @locale? then @locale else _([@street_addresses[0], @sublocality, @locality, @region, @country]).compact().uniq().value().slice(0,2).join(", ")
+
+    @inCluster: ( clusterId ) -> $http.get( "#{@basePath}/in_cluster", { params: { cluster_id: clusterId } } )
     
     @_sublocality = (places) -> _(places).map('sublocality').compact().uniq().value()
     @_locality = (places) -> _(places).map('locality').compact().uniq().value()

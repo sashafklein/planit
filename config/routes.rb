@@ -92,6 +92,7 @@ Rails.application.routes.draw do
         post :been, on: :collection
         post :notbeen, on: :collection
         post :note, on: :collection
+        post :add_from_place_data, on: :collection
       end
       
       resources :errors, only: [:create]
@@ -137,6 +138,11 @@ Rails.application.routes.draw do
       
       resources :places, only: [:show, :index] do
         get :search, on: :collection
+        get :in_cluster, on: :collection
+      end
+
+      resources :locations, only: [] do
+        get :country_clusters, on: :collection
       end
 
     end

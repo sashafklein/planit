@@ -2,6 +2,10 @@ require 'rails_helper'
 
 class MasterHelper
 
+  def route_exceptions
+    %w( mini_scrape oauths allowable bookmarklets search point unmatched_route morph find_all_notes_in_plan find_by_object located_near add_nearby remove_nearby locations /admin/ geonames country_admins trust_circle in_cluster country_clusters add_from_place_data )
+  end
+
   def self.set_vars_and_params(objs)
     vars, params = {}.to_sh, {}.to_sh
 
@@ -67,7 +71,7 @@ describe "All views" do
 
     context ||= "as #{role}"
     
-    RouterHelper.get_routes_by_controller( %w(mini_scrape oauths allowable bookmarklets search point unmatched_route morph find_all_notes_in_plan find_by_object located_near add_nearby remove_nearby locations /admin/ geonames country_admins trust_circle ) ).each do |ctrl_group|
+    RouterHelper.get_routes_by_controller( route_exceptions ).each do |ctrl_group|
       ctrl_group.last.each do |rh|
         action = [rh.ctrl, rh.sub_path].join('#')
         vars, params = MasterHelper.set_vars_and_params(rh.required_objects.dup)

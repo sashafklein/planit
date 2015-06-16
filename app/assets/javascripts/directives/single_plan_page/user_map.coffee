@@ -13,13 +13,8 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
 
     link: (s, elem) ->
 
-      s.center = { lat: 60, lng: 0, zoom: 2 }
-      s.userLayers = 
-        baselayers: 
-          xyz:
-            name: 'None'
-            url: ""
-            type: 'xyz'
+      leafletData.getMap("user").then (map) -> $timeout(-> map.invalidateSize() )
+      s.elem = elem
       #   overlays: 
       #     locations:
       #       name: "Location Clusters"
@@ -50,9 +45,9 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
 
       s.loaded = false
       s.screenWidth = if s.m.mobile then 'mobile' else 'web'
-      s.padding = [35, 25, 15, 25]
+      s.padding = [0, 0, 0, 0]
 
-      s.defaults = 
+      s.userDefaults = 
         minZoom: if s.m.mobile then 1 else 2
         maxZoom: 4
         scrollWheelZoom: false
@@ -62,24 +57,32 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
 
       s.$on 'leafletDirectiveMap.geojsonMouseover', (ev, feature, leafletEvent) -> s.countryMouseover( feature, leafletEvent ); return
       s.$on 'leafletDirectiveMap.geojsonMouseout', (feature, leafletEvent) -> s.countryMouseleave( feature, leafletEvent ); return
-      s.$on 'leafletDirectiveMap.geojsonClick', (ev, featureSelected, leafletEvent) -> s.countryClick( featureSelected, leafletEvent ); return
+      s.$on 'leafletDirectiveMap.geojsonClick', (ev, featureSelected, leafletEvent) -> s.m.countryClick( featureSelected, leafletEvent ); return
       s.$on 'leafletDirectiveMap.zoomend', (event) -> 
         if !s.m.plan()?.items?.length
           leafletData.getMap("user").then (m) -> if m._zoom < 4 then s.m.clearSelectedCountry()
 
-      s.m.resetUserMapView = -> leafletData.getMap("user").then (m) -> m.setView( { lat: 60, lng: 0 }, 2 )
+      s.m.resetUserMapView = -> leafletData.getMap("user").then (m) -> m.setView( { lat: 45, lng: 0 }, 2 )
 
       s.m.clearSelectedCountry = ->
         s.m.selectedCountry = null
         s.selectedCountryId = null
         leafletData.getMap("user").then (m) -> _.forEach m._layers, (layer) -> if layer?.feature then layer.setStyle( s.style( layer.feature ) )
 
-      s.countryClick = ( featureSelected, leafletEvent ) -> 
+      s.m.countryClick = ( featureSelected, leafletEvent ) -> 
         s.m.clearSelectedCountry()
         leafletData.getMap("user").then (m) -> m.setView( leafletEvent.latlng, 4 )
         s.m.selectedCountry = featureSelected.properties
         s.selectedCountryId = featureSelected.properties.geonameId
         s.m.locationManager.fetchCountryAdmins( s.selectedCountryId )
+
+      s.m.selectCountry = ( country ) ->
+        return unless country && Object.keys( country )?.length>0
+        s.m.clearSelectedCountry()
+        leafletData.getMap("user").then (m) -> m.setView( { lat: country.lat, lng: country.lng }, 4 ) if country.lat && country.lon
+        s.m.selectedCountry = country
+        s.selectedCountryId = country.geonameId
+        s.m.locationManager.fetchCountryAdmins( s.selectedCountryId )        
 
       s.usersLocationsInCountry = ( countryId ) -> _.filter( s.m.locations, (l) -> parseInt( l.countryId ) == parseInt( countryId ) && _.include( l.users, s.m.userInQuestionId ) )
 

@@ -77,7 +77,23 @@ class Api::V1::MarksController < ApiController
     success
   end
 
+  def add_from_place_data
+    return permission_denied_error unless current_user
+    return error unless data = params[:data]
+    add_later_from_place( data )
+  end
+
   private
+
+  def add_later_from_place( data )
+    if Rails.env.test?
+      AddMarkFromPlaceDataJob.perform_now( user_id: current_user.id, data: data )
+      render json: Place.find_by(foursquare_id: data[:foursquare_id]), serializer: PlaceSerializer
+    else
+      AddMarkFromPlaceDataJob.perform_later( user_id: current_user.id, data: data )
+      render json: data
+    end
+  end
 
   def load_mark
     if mark_id = params[:id]

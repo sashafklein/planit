@@ -11,12 +11,11 @@ class Distance
     item(day1_item, day2_item, rounding)
   end
 
-  def self.item(item1, item2, rounding=1)
-    item1, item2 = item1.place, item2.place unless item1.class == "Place" && item2.class == 'Place'
-    return false unless have_lat_lon(item1, item2)
-
-    item_dist(item1, item2, rounding)
+  def self.between_objects( obj1, obj2, rounding=1 )
+    self.haversine( obj1.lat, obj1.lon, obj2.lat, obj2.lon, rounding )    
   end
+
+  private
 
   def self.haversine( lat1, lon1, lat2, lon2, rounding=1 )
     dlon = lon2 - lon1
@@ -37,8 +36,6 @@ class Distance
    
     (RMILES * c).round(rounding)
   end
-
-  private
 
   def self.have_lat_lon(item1, item2)
     item1.lat && item1.lon && item2.lat && item2.lon

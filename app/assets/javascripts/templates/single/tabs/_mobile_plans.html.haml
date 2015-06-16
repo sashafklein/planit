@@ -1,0 +1,10 @@
+.mobile-plans
+  #header-spacing.except-landscape
+  .band.spaced-extra{ ng_show: "!m.currentPlanId && !m.plan()" }
+    .container
+      .mobile-section-header My Plans
+      .mobile-list-item{ ng_repeat: "plan in plans()" } 
+        .clickable{ ng_click: "loadPlan( plan.id )" } {{ plan.name }}
+      .mobile-list-item{ ng_if: "!plans()" }
+        .clickable{ ng_click: "m.view='explore'" } No Plans? Explore your Planit
+  %list_view{ ng_if: "m.currentPlanId && m.plan()", m: 'm' }

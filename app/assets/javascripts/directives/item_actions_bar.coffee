@@ -8,7 +8,10 @@ angular.module("Directives").directive 'itemActionsBar', (Mark, Modal, CurrentUs
     scope:
       m: '='
       item: '='
+      placeRaw: '='
 
     link: (s, element) ->
+
+      s.place = _.find( s.m.marksInCluster(), (p) -> parseInt(p.id) == parseInt(s.placeRaw.id) ) if s.m?.marksInCluster() && s.placeRaw?.id
 
   }

@@ -22,8 +22,8 @@
         background: #ff0066
         border: 2px solid #ff0066
   &.black
-    background: #050d36
-    border-top: 3px solid #000
+    // background: #050d36
+    // border-top: 3px solid #000
     .main-menu-container
       color: #000
       background: #fff
@@ -41,6 +41,22 @@
 
   *:focus
     outline: 0 !important
+
+  span.centered-username
+    cursor: default
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    width: 100%
+    max-width: 300px
+    text-align: center
+    margin: 0 auto
+    height: 43px
+    line-height: 43px
+    font-size: 18px
+    font-weight: normal
+    color: rgba( 255,255,255,1 )
 
   .header-wrapper
     width: 100%
@@ -172,7 +188,7 @@
 
     .nav-item
       display: table-cell
-      padding: 0px 15px 21px 15px
+      padding: 2px 15px 20px 15px
       box-sizing: border-box
       -moz-box-sizing: border-box
       -webkit-box-sizing: border-box
@@ -185,6 +201,9 @@
       transition: all 0.2s ease
       overflow: hidden
       max-height: 30px
+      &.in-text-only
+        font-size: 14px
+        font-weight: bold
       i 
         position: relative
         display: inline-block

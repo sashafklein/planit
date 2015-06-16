@@ -7,7 +7,7 @@ class Api::V1::GeonamesController < ApiController
     query = params[:query].to_s
 
     # res = HTTParty.get "http://api.geonames.org/search?q=#{ query }&fuzzy=0.8&username=#{ username }&lang=en&type=json&maxRows=10&style=full"
-    res = HTTParty.get "http://api.geonames.org/search?q=#{ query }&featureClass=P&username=#{ username }&lang=en&type=json&maxRows=25&style=full"
+    res = HTTParty.get "http://api.geonames.org/search?q=#{ query }&username=#{ username }&lang=en&type=json&maxRows=25&style=full"
     render json: res.body
   end
 
@@ -39,7 +39,7 @@ class Api::V1::GeonamesController < ApiController
     lat = params[:lat].to_i
     lon = params[:lon].to_i
 
-    # http://api.geonames.org/findNearbyPlaceNameJSON?lat=35.7111057142935&lng=139.796369075775&username=planit
+    # http://api.geonames.org/findNearbyPlaceNameJSON?lat=35.7111057142935&lng=139.796369075775&username=planit&lang=en
     res = HTTParty.get "http://api.geonames.org/findNearbyPlaceNameJSON?lat=#{ lat }&lng=#{ lon }&radius=10&username=#{ username }&lang=en&maxRows=10&style=full"
     render json: res.body
   end

@@ -123,6 +123,7 @@ angular.module("Directives").directive 'planMap', (Place, User, PlanitMarker, le
       s.fitBoundsOnFilteredPlaces = ->
         startLats = _.map( s.places, (p) -> p.lat )
         startLons = _.map( s.places, (p) -> p.lon )
+        return unless startLats?.length>0 && startLons?.length>0
         leafletData.getMap("plan").then (m) ->
           m.fitBounds( 
             L.latLngBounds( L.latLng(_.min(startLats),_.min(startLons)),L.latLng(_.max(startLats),_.max(startLons)) ),

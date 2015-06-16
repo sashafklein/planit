@@ -1,0 +1,20 @@
+.mobile-explore
+  #header-spacing.except-landscape
+  .band.spaced-extra{ ng_show: "!m.selectedCountry && userClusters()" }
+    .container
+      .mobile-section-header My Planit
+      .mobile-list-item{ ng_repeat: "cluster in userClusters()" } 
+        .clickable{ ng_click: "setLocationToCluster(cluster)" }
+          %b {{ cluster.clusterName }}
+          {{ clustersCountry(cluster) }}
+  .band.spaced-extra{ ng_show: "!m.selectedCountry" }
+    .container
+      .mobile-section-header All Countries
+      .mobile-list-item{ ng_repeat: "country in m.countries" } 
+        .clickable{ ng_click: "m.selectedCountry=country" } {{ country.name }}
+  .band.spaced-extra{ ng_show: "m.selectedCountry"}
+    .container
+      .mobile-section-header {{ m.selectedCountry.name }}
+      / .mobile-list-item{ ng_repeat: "cluster in clusters( m.selectedCountry.id )" } {{ cluster.name }}
+
+  #footer-spacing.except-landscape

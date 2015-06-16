@@ -1,0 +1,38 @@
+.location-search.except-landscape{ ng_show: '( !m.plan() && !m.currentLocation() ) && m.isLoaded' }
+  .start-where.setplanbox-on-plan-page{ ng_class: "{'shortened': m.mainMenuToggled && m.mobile}" }
+    %ng_include{ src: "'application/_rainbow_divider.html'" }
+    .navigate-and-select-user
+
+      / .user-avatar
+      /   .avatar-letter{ ng_show: "!m.userInQuestion().avatarImage"} {{ m.userInQuestion().firstLetter }}
+
+      .input-and-results.navigation{ ng_hide: "m.mainMenuToggled && m.mobile" }
+        %input#plan-nearby{ name: "plan-nearby", type: 'text', placeholder: '{{ wherePrompt() }}', ng_model: 'planNearby', ng_change: 'searchPlanNearby()', ng_on_enter_key: 'selectNearbyBestOption()', ng_on_esc_key: 'planNearbyBlur()', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()', ng_focus: 'planNearbyFocused=true', ng_blur: 'planNearbyFocused=false', autocomplete: 'off' }
+        %ul.suggested-results.text-based.blue{ ng_show: 'planNearbyFocused || planNearbyHovering', ng_mouseenter: 'planNearbyHovering=true', ng_mouseleave: 'planNearbyHovering=false' }
+          / %li.search-results-header{ ng_show: "m.hasLength( searchedPlans() )" }
+          /   %span{ ng_show: "m.userInQuestion().id==m.currentUserId" } My
+          /   %span{ ng_show: "m.userInQuestion().id!=m.currentUserId" } {{ m.userInQuestion.firstName }}'s
+          /   Plans & Guides
+          / %li.search-results-list.bluegray-to-white{ ng_repeat: 'plan in searchedPlans()', ng_click: 'm.planManager.fetchPlan( plan.id )', ng_class: "searchedPlanClass(option)" }
+          /   %b{ ng_bind_html: "underlined( plan.name )" }
+          /   %span by {{ plan.user.name }}
+          /   %span.hidden-on-hover (Plan)
+          / %li.search-results-header{ ng_show: "m.hasLength( nearbyOptions() ) || !planNearby" }
+          /   Locations
+          %li.search-results-working{ ng_show: '!m.typing && !planNearby' } {{ locationSearchPrompt() }}
+          %li.search-results-list{ ng_show: '!m.typing', ng_repeat: 'option in nearbyOptions()', ng_click: 'selectNearby(option)', ng_class: "planNearbyOptionClass(option)" }
+            %b{ ng_bind_html: "underlined( option.name )" }
+            %span{ ng_bind_html: "underlined( option.adminName1 + ', ' + option.countryName  )" } 
+          %li.search-results-working{ ng_show: '!m.typing && planNearbyWorking > 0' } Working on it...
+          %li.search-results-working{ ng_show: '!m.typing && noPlanNearbyResults()' } Can't find that...
+        .hovered-country{ ng_show: 'm.hoveredCountry && !m.bestNearby()' } {{ wherePrompt() }}
+        / .chosen-location{ ng_show: 'm.bestNearby()', ng_click: "exitNearby()", ng_class: "{'exit-ready':exitNearbyReady}" }
+        /   Exploring {{ m.bestNearby().name }}
+        /   %i.fa.fa-times{ ng_mouseover: "exitNearbyReady=true", ng_mouseleave: "exitNearbyReady=false", ng_click: "exitNearby()" }
+
+      / .currently-exploring-in{ ng_show: "m.bestNearby()", ng_click: "exitNearby()", ng_mouseover: "exitMsgForNearby=true;exitNearbyReady=true", ng_mouseleave: "exitMsgForNearby=false;exitNearbyReady=false" }
+      /   %span{ ng_show: "exitMsgForNearby" } Exit out of
+      /   %span{ ng_hide: "exitMsgForNearby" } Exploring
+      /   %b {{ m.bestNearby().name }}
+      /   %i.fa.fa-search{ ng_hide: "exitMsgForNearby" }
+      /   %i.fa.fa-times{ ng_show: "exitMsgForNearby" }

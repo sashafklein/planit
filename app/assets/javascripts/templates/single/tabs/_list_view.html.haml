@@ -1,4 +1,4 @@
-.list-mode
+.plan-list.list-mode{ ng_if: "!m.plan() && m.currentLocation()" }
   #header-spacing.except-landscape
   .print-title {{ m.plan().name }}
   .print-by by {{ m.plan().user.name }}
@@ -6,6 +6,7 @@
   .band.spaced-extra
     .container.max
       / %filter_and_actions{ m: 'm' }
+      .breadcrumbed-cluster-location {{ breadCrumbedCluster() }}
       .items-in-plan
         .items-in-plan-category{ ng_repeat: 'category in m.plan().categories( m.categorizeBy )', ng_class: 'category.toLowerCase()' }
           %ul.plan-list-items
@@ -21,7 +22,7 @@
               /     %i.fa.fa-heart
               /   .item-opinion.been-item{ ng_show: 'm.plan().ownerVisited(item)' }
               /     %i.fa.fa-check-square
-              .bucket-list-tab.main-item-card{ ng_click: "item.fsOpen(true)" }
+              .bucket-list-tab.main-item-card{ ng_click: "openPlace(item.mark.place.id)" }
                 .bucket-list-no-img{ ng_if: "!item.mark.place.image_url" }
                 .bucket-list-img{ ng_if: "item.mark.place.image_url", style: "background-image: url('{{ item.mark.place.image_url }}');" }
                 .bucket-list-wrap
@@ -46,3 +47,4 @@
 
               %button.btn.faint-blue.select-item{ ng_show: "m.topBar == 'actions'", ng_click: 'item.selected = !item.selected' }
                 %i.fa{ ng_class: "{ 'fa-square-o': !item.selected, 'fa-check-square-o': item.selected }" }
+  #footer-spacing.except-landscape

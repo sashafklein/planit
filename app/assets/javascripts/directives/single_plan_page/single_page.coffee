@@ -1,4 +1,4 @@
-angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Place, Note, Foursquare, QueryString, Geonames, CurrentUser, ErrorReporter, Flash, $filter, $timeout, $location, $q, RailsEnv, SPUsers, SPPlans, SPLocations, Distance) ->
+angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Place, Note, Foursquare, QueryString, Geonames, CurrentUser, ErrorReporter, Flash, $filter, $timeout, $location, $q, RailsEnv, SPUsers, SPPlans, SPLocations, SPPlaces, Distance) ->
   return {
     restrict: 'E'
     replace: true
@@ -21,24 +21,34 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
       s.m.userInQuestion = -> s.m.userManager.fetch( s.m.userInQuestionId )
 
       s.trustCircleIds = -> _.map( s.m.userManager.trustCircle( s.m.userInQuestionId ), 'id' )
-      s.$watch('trustCircleIds()', (-> s.fetchTrustCirclePlans() ), true)
-      s.fetchTrustCirclePlans = -> _.forEach( s.trustCircleIds(), (id) -> s.m.planManager.userPlans( id ) )
+      # s.$watch('trustCircleIds()', (-> s.fetchTrustCirclePlans() ), true)
+      # s.fetchTrustCirclePlans = -> _.forEach( s.trustCircleIds(), (id) -> s.m.planManager.userPlans( id ) )
+
+      s.m.placeManager = new SPPlaces( s.m.currentUserId )
+      s.m.places = s.m.placeManager.places
 
       s.m.locationManager = new SPLocations( s.m.currentUserId )
       s.m.locations = s.m.locationManager.locations
+      s.m.setLocation = ( geonameId ) -> QueryString.modify({ in: geonameId })
+      s.m.currentLocation = -> if s.m.plan() then s.m.plan().currentLocation() else if s.m.currentLocationId then s.m.locations[ s.m.currentLocationId ] else null
+
+      s.m.marksInCluster = -> s.m.placeManager.clustersPlaces( s.m.currentLocation().clusterId ) if s.m.currentLocation()?.clusterId
 
       s.m.planManager = new SPPlans( s.m.currentUserId )
       s.m.plans = s.m.planManager.plans
       
-      s.m.plan = -> s.m.plans[s.m.currentPlanId]
+      s.m.plan = -> s.m.plans[ s.m.currentPlanId ] if s.m.currentPlanId && s.m.plans && Object.keys( s.m.plans )?.length>0
       s.m.userOwnsPlan = -> s.m.plans[s.m.currentPlanId]?.userOwns()
       # s.m.userCoOwnsPlan = -> s.m.plans[s.m.currentPlanId]?.userCoOwns()
       s.m.sharePlan = ( plan ) -> $('#share-object-id').val( plan.id ); $('#share-object-type').val( 'Plan' ); $('#planit-modal-share').toggle(); return
+
+      s.m.place = -> s.m.placeId
 
       s.m.browsing = true
       s.m.mobile = e.width() < 768
       s.m.largestScreen = e.width() > 960
       s.m.fullscreen = -> !s.m.plan()
+      s.m.view = if s.m.mobile && !s.m.currentPlanId then 'add' else if s.m.currentPlanId then 'plan' else 'explore'
 
       s.m.categorizeBy = 'type' # MANUALLY SET FOR NOW
 
@@ -48,11 +58,11 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
       s.m._setValues = (object, list, value = null) -> _.forEach list, (i) -> object[i] = ( if value? then _.clone(value) else null )
       s.m.hasLength = (hash) -> hash && Object.keys( hash )?.length > 0
 
-
       # EXPAND/CONTRACT
-      s.m.goHome = -> QueryString.reset()
+      s.m.goHome = -> QueryString.reset(); s.variablesReset(); s.m.resetUserMapView?()
+      s.variablesReset = -> s.m.currentLocationId = null; s.m.selectedCountry = null
       s.m.mainMenuToggled = false
-      s.m.addBoxToggled = if s.m.mobile then false else true
+      s.m.addBoxToggled = true #if s.m.mobile then false else true
       s.m.settingsBoxToggle = -> s.m.settingsBoxToggled = !s.m.settingsBoxToggled
 
       # TYPING
@@ -70,28 +80,25 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
 
       # NAVIGATION & PAGE-LOADING
 
-      s.unworking = -> s.m.workingNow = false
+      s.m.unworking = -> s.m.workingNow = false
+      s._getLocation = ( geonameId ) -> s.m.locationManager.fetchGeoname( geonameId, s.m.unworking() ) unless s.m.currentLocation()?.id == parseInt( geonameId )
+      s._getPlan = ( planId ) -> s.m.planManager.fetchPlan( planId, s.m.unworking() ) s.m.plan()?.id == parseInt( planId )
       s._hashCommand = -> QueryString.get()
       s._loadFromHashCommand = ->
         hash = s._hashCommand()
         if hash && Object.keys( hash )?.length
-          s.m.mode = if hash.mode?.length then hash.mode else 'list'
-          if hash.u
-            s.m.userInQuestionId = parseInt( hash.u )
-          else
-            s.m.userInQuestionId = s.m.currentUserId
-          if hash.plan
-            s.m.planManager.fetchPlan( hash.plan, s.unworking() ) if s.m.plan()?.id != parseInt( hash.plan )
-            s.m.currentPlanId = parseInt( hash.plan ) if s.m.currentPlanId != parseInt( hash.plan )
-          else
-            s.m.currentPlanId = null
+          if hash.mode then s.m.mode = hash.mode else s.m.mode = 'map'
+          if hash.u then s.m.userInQuestionId = parseInt( hash.u ) else s.m.userInQuestionId = s.m.currentUserId
+          if hash.in then s._getLocation( hash.in ); s.m.currentLocationId = parseInt( hash.in ) else s.m.currentLocationId = null
+          if hash.plan then s._getPlan( hash.plan ); s.m.currentPlanId = parseInt( hash.plan ) else s.m.currentPlanId = null
         else
-          s.m.mode = 'list'
-          s.m.currentPlanId = null
-          s.m.rename = null
+          s.m.mode = 'map'
           s.m.userInQuestionId = s.m.currentUserId
+          s.m.currentLocationId = null
+          s.m.currentPlanId = null
         unless hash?.plan
           s.m.isLoaded = true
+      s._loadFromHashCommand()
 
       s._setBrowserTitle = -> 
         if s.m.plan() && Object.keys( s.m.plan() )?.length

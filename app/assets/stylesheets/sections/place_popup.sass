@@ -1,0 +1,158 @@
+#place-popup
+  z-index: 50000
+  position: fixed
+  display: block
+  margin: 0
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
+  background: rgba(0,0,0,0.6)
+
+  .place-popup-wrapper
+    position: fixed
+    display: block
+    margin: auto
+    top: 0
+    bottom: 0
+    right: 0
+    left: 0
+
+    .place-popup-external-sleeve
+      position: relative
+      width: 100%
+      height: 100%
+
+      .corner-button, .previous-place-button, .next-place-button
+        position: absolute
+        z-index: 52000
+        height: 40px
+        width: 40px
+        color: #aaa
+        transition: 0.2s ease all
+        text-align: center
+        cursor: pointer
+        i
+          line-height: 40px
+        &:hover
+          color: #fff
+
+      .corner-button
+        i
+          width: 20px
+          height: 20px
+          font-size: 20px
+
+      .previous-place-button, .next-place-button
+        i
+          width: 30px
+          height: 30px
+          font-size: 30px
+
+      .place-popup-internal-sleeve
+        position: absolute
+        margin: auto
+        top: 0
+        bottom: 0
+        right: 0
+        left: 0
+        background: #fff
+
+        .first-section
+          background: #eee
+          .previous-image-button
+          .next-image-button
+          .image-caption
+          .image-gallery
+        .second-section
+          padding: 10px 15px
+          .place-name
+            font-size: 24px
+            font-weight: bold
+            margin-bottom: 10px
+          .place-type
+            .place-type-icon
+            .place-type-text
+          .show-hide-place-details
+          .place-location-details
+            .alt-names
+            .street-address
+            .sub-locality
+            .locality
+            .state-and-country
+          .place-venue-details
+            .open-or-closed
+            .full-hours
+              .day-of-week
+                .day-letter
+                .day-hours
+          .place-venue-ratings
+            .foursquare
+            .yelp
+            .tripadvisor
+            .zagats
+            .michelin
+          .place-venue-comments
+            .friend-comment
+              .comment-avatar
+              .comment-status
+              .comment-note
+            .experts
+              .comment-avatar
+              .comment-status
+              .comment-note
+
+  // *Computer (Regular)
+
+  .place-popup-wrapper
+    height: 455px
+    width: 830px
+
+    .place-popup-internal-sleeve
+      height: 375px
+      width: 750px
+
+    .first-section, .second-section
+      position: absolute
+      height: 100%
+      width: 50%
+      top: 0
+      bottom: 0
+    .first-section
+      left: 0
+    .second-section
+      right: 0
+
+    .add-photo-button
+      top: 0
+      left: 0
+    .see-map-button
+      bottom: 0
+      left: 0
+    .close-popup-button
+      top: 0
+      right: 0
+    .leave-note-button
+      bottom: 0
+      right: 0
+
+    .previous-place-button, .next-place-button
+      margin: 0 auto
+      left: 0
+      right: 0
+    .previous-place-button
+      top: 0
+    .next-place-button
+      bottom: 0
+
+  // #Tablet (Portrait)
+  @media only screen and (min-width: 768px) and (max-width: 959px)
+
+
+  // #Mobile (Portrait) <-- smallest
+  @media only screen and (max-width: 767px)
+
+
+  // #Mobile (Landscape)
+  @media only screen and (min-width: 480px) and (max-width: 767px)
+

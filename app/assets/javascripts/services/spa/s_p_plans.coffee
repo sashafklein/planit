@@ -18,7 +18,8 @@ angular.module("SPA").service "SPPlans", (User, Plan, SPPlan, SPUsers, QueryStri
             self.plans[r.id] = new SPPlan( r )
           $timeout(-> self.userPlansLoaded[ user_id ] = true )
         .error (response) -> ErrorReporter.silent( response, 'SinglePagePlans Plan constructor', user_id: user_id )
-      return _.filter( self.plans, (p) -> p.user.id == user_id )
+      # order by most recently updated?
+      return _.filter( self.plans, (p) -> p.user.id == user_id ) 
 
     inCountries: ( cntryGeonames ) ->
       self = @

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528190045) do
+ActiveRecord::Schema.define(version: 20150604192333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,20 @@ ActiveRecord::Schema.define(version: 20150528190045) do
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+
+  create_table "clusters", force: :cascade do |t|
+    t.string   "name",                   null: false
+    t.integer  "country_id",             null: false
+    t.float    "lat",                    null: false
+    t.float    "lon",                    null: false
+    t.integer  "rank",       default: 0
+    t.string   "image_url"
+    t.integer  "geoname_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "clusters", ["country_id"], name: "index_clusters_on_country_id", using: :btree
 
   create_table "collaborations", force: :cascade do |t|
     t.integer  "collaborator_id",             null: false
@@ -133,14 +147,14 @@ ActiveRecord::Schema.define(version: 20150528190045) do
   add_index "location_searches", ["location_id"], name: "index_location_searches_on_location_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
-    t.string   "ascii_name",   null: false
+    t.string   "ascii_name",               null: false
     t.string   "admin_name_1"
     t.string   "country_name"
-    t.integer  "geoname_id",   null: false
-    t.float    "lat",          null: false
-    t.float    "lon",          null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "geoname_id",               null: false
+    t.float    "lat",                      null: false
+    t.float    "lon",                      null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.string   "name"
     t.string   "country_id"
     t.string   "admin_id_1"
@@ -150,8 +164,10 @@ ActiveRecord::Schema.define(version: 20150528190045) do
     t.string   "fcode"
     t.string   "continent"
     t.integer  "level"
+    t.integer  "cluster_id",   default: 0, null: false
   end
 
+  add_index "locations", ["cluster_id"], name: "index_locations_on_cluster_id", using: :btree
   add_index "locations", ["geoname_id"], name: "index_locations_on_geoname_id", using: :btree
 
   create_table "mail_list_emails", force: :cascade do |t|
