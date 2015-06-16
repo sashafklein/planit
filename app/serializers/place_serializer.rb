@@ -1,5 +1,6 @@
 class PlaceSerializer < BaseSerializer
 
+  root false
   attributes  :id, :names, 
               :lat, :lon, 
               :street_addresses, :sublocality, :locality, :subregion, :region, :country,

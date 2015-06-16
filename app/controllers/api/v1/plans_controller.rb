@@ -36,7 +36,7 @@ class Api::V1::PlansController < ApiController
   def add_items
     return permission_denied_error unless @plan && current_user.owns?(@plan)
     
-    if params[:delay]
+    if Rails.env.test?
       PlanAddItemsJob.perform_later(plan_id: @plan.id, item_ids: params[:item_ids])
     else
       @plan.add_items! Item.where(id: params[:item_ids])
@@ -99,9 +99,8 @@ class Api::V1::PlansController < ApiController
 
   def add_item(plan_id:, data:)
     if Rails.env.test?
-      plan = current_user.plans.find_by(id: plan_id)
-      item = plan.add_item_from_place_data!(current_user, data)
-      render json: item, serializer: ItemSerializer
+      PlanAddItemFromPlaceDataJob.perform_now(user_id: current_user.id, plan_id: plan_id, data: data)
+      render json: Item.where(plan_id: plan_id).last, serializer: ItemSerializer
     else
       PlanAddItemFromPlaceDataJob.perform_later(user_id: current_user.id, plan_id: plan_id, data: data)
       render json: data
@@ -110,9 +109,8 @@ class Api::V1::PlansController < ApiController
 
   def copy_plan(user_id, copy_manifest)
     if Rails.env.test?
-      user = User.find(user_id)
-      new_plan = @plan.copy!(new_user: user, copy_manifest: copy_manifest)
-      render json: { id: new_plan.id }
+      DelayPlanCopyJob.perform_now( plan_id: @plan.id, user_id: user_id, copy_manifest: copy_manifest )
+      render json: { id: Plan.where(user_id: user_id).last.try(:id) }
     else
       DelayPlanCopyJob.perform_later(plan_id: @plan.id, user_id: user_id, copy_manifest: copy_manifest)
       success

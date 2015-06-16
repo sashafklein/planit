@@ -1,12 +1,8 @@
-angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SPItem, QueryString, RailsEnv, ErrorReporter, Spinner, Flash, $timeout) ->
+angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SPItem, QueryString, RailsEnv, ErrorReporter, Spinner, Flash, $timeout, Background) ->
   class SPPlan
 
     constructor: (plan) -> _.extend( @, plan )
     _planObj: -> new Plan( _.pick( @, ['id'] ) )
-    _pusher: if RailsEnv.test then @_fakePusher else new Pusher( RailsEnv.pusher_key ) 
-    _fakePusher:
-      subscribe: -> 
-        bind: -> alert("Pusher disabled in test mode")
 
     typeOf: -> if @userOwns() || @userCoOwns() then 'travel' else 'viewing'
 
@@ -53,45 +49,27 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
     addItems: (items, delay=true, callback) ->
       self = @
       itemIds = _.map(items, 'id')
-      if delay && !RailsEnv.test
-        @_setAddItemsSuccess( callback )
-        @_planObj().addItems( itemIds, { delay: true } ).error (response) -> ErrorReporter.silent( response, "SPPlan addItems", { item_ids: itemIds, plan_id: self.id } )
-      else
-        @_planObj().addItems( itemIds )
-          .success (response) -> self._afterAddItemsSuccess(); callback?( response )
-          .error (response) -> ErrorReporter.silent( response, "SPPlan addItems", { item_ids: itemIds, plan_id: self.id } )
+      new Background(
+        name: "add-items-to-plan-#{self.id}"
+        action: self._planObj().addItems( itemIds )
+        onSuccess: (response) -> 
+          afterLoad = (plan) -> plan.place_ids = _.map( plan.items, 'mark.place.id' )
+          self.loadItems({ force: true, dontRedirectAfterLoad: true, afterLoad: afterLoad }) # Force reload, don't update QS, and update plan's place_ids
+          callback?( response )
+        onActionFailureParams: { item_ids: itemIds, plan_id: self.id }
+      ).run()
 
-    _setAddItemsSuccess: (callback) ->
+    addItem: ( fsOption, delayCallback, mainCallback ) ->
       self = @
-      channel = @_pusher.subscribe( "add-items-to-plan-#{ @id }" )
-      channel.bind 'added', (data) -> 
-        self._afterAddItemsSuccess()
-        self._pusher.unsubscribe( "add-items-to-plan-#{ self.id }" )
-        callback?(data) 
-
-    _afterAddItemsSuccess: ->
-      afterLoad = (plan) -> plan.place_ids = _.map( plan.items, 'mark.place.id' )
-      @loadItems({ force: true, dontRedirectAfterLoad: true, afterLoad: afterLoad }) # Force reload, don't update QS, and update plan's place_ids
-
-    addItem: ( fsOption, callback, callback2 ) ->
-      self = @
-      @_setAddItemSuccess( callback2 ) unless RailsEnv.test # Don't use Pusher or background-process this task in test env
-      callback?()
-      @_planObj().addItemFromPlaceData( fsOption )
-        .success (response) -> if RailsEnv.test then self._affixItem(response, callback2)
-        .error (response) -> ErrorReporter.loud( response, 'SPPlan addItem', { option: JSON.stringify(fsOption), plan_id: self.id } )
-
-    _setAddItemSuccess: ( callback ) ->
-      self = @
-      channel = @_pusher.subscribe( "add-item-from-place-data-to-plan-#{ @id }" )
-      channel.bind 'added', (data) ->
-        Item.find( data.item_id )
-          .success (response) -> 
-            self._affixItem(response, callback)
-            self._pusher.unsubscribe( "add-item-from-place-data-to-plan-#{ self.id }" )
-          .error (response) ->
-            ErrorReporter.silent( response, 'addBox _setAddItemSuccess', { item_id: data.item_id, plan_id: self.id } )
-            self._pusher.unsubscribe( "add-item-from-place-data-to-plan-#{ self.id }" )
+      new Background( 
+        name: "add-item-from-place-data-to-plan-#{ self.id }"
+        eventName: 'added'
+        action: self._planObj().addItemFromPlaceData( fsOption )
+        onSuccess: (response) -> self.affixItem( response, mainCallback )
+        onDelaySuccess: -> delayCallback?()
+        onActionFailureParams: { item_id: data.item_id, plan_id: self.id, option: JSON.stringify(fsOption), externalContext: 'SPPLan AddItem' }
+        actionFailureVolume: 'loud'
+      ).run()
 
     _affixItem: (response, callback) ->
       new_item = _.extend( new SPItem( Item.generateFromJSON( response ) ), { index: @items.length, pane: 'list' } )
@@ -236,15 +214,17 @@ angular.module("SPA").service "SPPlan", (CurrentUser, User, Plan, Item, Note, SP
 
     copy: ->
       self = @
-      if RailsEnv.test
-        self._planObj().copy().success (response) -> window.location.replace("/plans/#{ response.id }")
-      else
-        channel = @_pusher.subscribe("copy-plan-#{self.id}") 
-        channel.bind 'copied', (data) -> window.location.replace("/plans/#{ data.id }")
-        Spinner.show()
-        self._planObj().copy()
-          .success (response) -> Spinner.hide()
-          .error (response) -> ErrorReporter.loud( response, "planSettings SPPlan copyList", { list_id: self.id } )
+      Spinner.show()
+      new Background(
+        name: "copy-plan-#{self.id}"
+        eventName: 'copied'
+        action: self._planObj().copy
+        onSuccess: (response) -> 
+          Spinner.hide()
+          window.location.replace("/plans/#{ response.id }")
+        actionFailureVolume: 'loud'
+        onActionFailureParams: { externalContext: "planSettings SPPlan copyList", list_id: self.id }
+      ).run()
 
 
   return SPPlan

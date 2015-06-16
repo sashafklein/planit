@@ -20,6 +20,7 @@ module LocationMod
 
     def find_or_create_locations_cluster_object
       return unless found_cluster_info = extract_cluster_info_from_location
+      location.reload if reset_country_id!
       cluster = Cluster.where( name: found_cluster_info[:name].no_accents, country_id: location.country_id, geoname_id: found_cluster_info[:geoname_id] ).first_or_create( lat: found_cluster_info[:lat], lon: found_cluster_info[:lon] )
       # puts "location_geoname=#{location.geoname_id}, cluster_geoname=#{found_cluster_info[:geoname_id]}, finalname=#{found_cluster_info[:name].no_accents}, country=#{location.country_name}, #{found_cluster_info[:lat]},#{found_cluster_info[:lon]}"
       return cluster
@@ -99,6 +100,13 @@ module LocationMod
     def small_countries
       yaml = YAML.load_file( File.join( Rails.root, "lib/directories/yml/small_countries.yml") )
       yaml.inject({}){ |h, e| h[e.keys.first] = e.values.first; h }
+    end
+
+    def reset_country_id!
+      return false if location.country_id
+      
+      cid = Location.where( country_name: location.country_name ).where.not( country_id: nil ).first.try(:country_id)
+      location.update_attributes(country_id: cid)
     end
 
     memoize :small_countries, :geonames_find_nearby, :geonames_find_id, :cluster
