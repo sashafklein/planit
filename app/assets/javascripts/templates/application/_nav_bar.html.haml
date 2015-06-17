@@ -12,7 +12,8 @@
       .nav-item-hint{ ng_show: "m.mobile" }
         %span ADD
   .nav-item-link
-    .nav-item{ ng_class: "{ 'in-text-only': !m.mobile, 'selected': m.view=='plan' && !m.adding }", ng_click: "m.goHome(); m.view='plan' " }
+    .nav-item.disabled{ ng_class: "{ 'in-text-only': !m.mobile, 'selected': m.view=='plan' && !m.adding }" }
+      / { ng_class: "{ 'in-text-only': !m.mobile, 'selected': m.view=='plan' && !m.adding }", ng_click: "m.goHome(); m.view='plan' " }
       %span{ ng_show: "!m.mobile" } PLAN
       %i.nav-item-icon.fa.fa-book{ ng_show: "m.mobile" }
       .nav-item-hint{ ng_show: "m.mobile" }

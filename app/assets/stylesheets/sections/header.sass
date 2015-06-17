@@ -42,7 +42,7 @@
   *:focus
     outline: 0 !important
 
-  span.centered-username
+  span.centered-username, span.centered-location-name
     cursor: default
     position: fixed
     top: 0
@@ -52,11 +52,33 @@
     max-width: 300px
     text-align: center
     margin: 0 auto
+    font-weight: normal
+
+  span.centered-username
     height: 43px
     line-height: 43px
     font-size: 18px
-    font-weight: normal
     color: rgba( 255,255,255,1 )
+
+  span.centered-location-name i, span.centered-location-name b
+    transition: 0.2s ease all
+
+  span.centered-location-name
+    padding-top: 3px
+    height: 65px
+    line-height: 65px
+    font-size: 24px
+    cursor: pointer
+    b
+      color: rgba( 0,0,0,0.8 )
+    i
+      font-size: 20px
+      margin-left: 8px
+      color: rgba( 0,0,0,0.5 )
+    &:hover
+      b, i
+        color: #f06
+
 
   .header-wrapper
     width: 100%

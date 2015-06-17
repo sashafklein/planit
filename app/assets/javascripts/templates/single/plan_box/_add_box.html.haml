@@ -1,46 +1,34 @@
-.addbox-mask{ ng_show: "( m.view=='add' && m.mobile ) || ( m.plan() || m.currentLocation() )", ng_class: "{'masked-on-focus': !m.mobile && m.adding }", ng_click: "clearAdd()" }
-  .addbox-wrapper{ ng_class: "{'band spaced-extra': m.mobile}" }
-    / { ng_show: "m.userOwnsPlan() && m.plan() && m.mode != 'trip' && !m.settingsBoxToggled && !(m.mainMenuToggled && m.mobile) && !m.rename" }
+.addbox-mask{ ng_show: "m.adding", ng_class: "{'masked-on-focus': !m.mobile && m.adding }", ng_click: "clearAdd()" }
+  .addbox-wrapper{ ng_class: "{ 'band spaced-extra': m.mobile }", ng_mouseenter: "placeSearchFocused=true", ng_mouseleave: "placeSearchFocused=false" }
 
-    .addbox-contents{ ng_show: "m.addBoxToggled", ng_class: "{'nearby-only': !m.currentLocation(), 'addbox-on-plan-page': !m.mobile, 'container mobile-add-box': m.mobile }" }
+    .addbox-contents{ ng_show: "m.addBoxToggled", ng_class: "{'nearby-only': !m.currentLocation(), 'addbox-on-plan-page': !m.mobile, 'container mobile-add-box': m.mobile, 'with-nearby': !m.currentLocation().id }" }
 
       #header-spacing.except-landscape{ ng_show: "m.mobile" }
       .mobile-section-header{ ng_show: "m.mobile" } Add a Tip
-      .faux-input-wrap{ ng_show: '!m.currentLocation() && !placeNearby && m.placeName', ng_click: 'resetNearby()' }
-        %b Oops -- tell us where?
-        %span.reset-location{ ng_click: 'resetNearby()' } 
-          %i.fa.fa-times 
-      .faux-input-wrap{ ng_show: 'm.currentLocation() && placeNearby', ng_dblclick: 'resetNearby()' }
-        %b{ ng_show: "!m.mobile" } Exploring
-        %b{ ng_show: "m.mobile" } In
-        %span {{ m.currentLocation().name }}, {{ m.currentLocation().adminName1 }}, {{ m.currentLocation().countryName }}
-        %span.reset-location{ ng_click: 'resetNearby()' } 
-          %i.fa.fa-times 
-          %span.large-screen.inline Location
-      .input-and-results{ ng_show: '!m.currentLocation() && !m.placeName' } 
+
+      .input-and-results{ ng_show: '!m.currentLocation() && !currentNearby' }
         %input#place-nearby{ name: "place-nearby", type: 'text', placeholder: '{{ placeNearbyMessage() }}', ng_model: 'placeNearby', ng_change: 'searchPlaceNearby()', ng_on_enter_key: 'setNearBestOption()', ng_on_esc_key: 'placeNearby=null', ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()', autocomplete: 'off' }
-        %ul.suggested-results.text-based.blue{ ng_show: 'm.plan().locations || ( !m.typing && placeNearby && placeNearby.length > 1 && ( placeNearbyWorking || m.nearbyOptions.length>0 ) )' }
-          %li.search-results-list.current-locations{ ng_repeat: 'option in countryLocations(m.plan().locations)', ng_click: 'setCurrentNearby(option)', ng_show: '!placeNearby' } 
+        %ul.suggested-results.text-based.blue{ ng_show: '!m.typing && placeNearby.length>1 && ( placeNearbyWorking || m.nearbyOptions.length>0 )' }
+          %li.search-results-list.current-locations{ ng_repeat: 'option in m.clusters', ng_click: 'setCurrentNearby(option)', ng_show: '!placeNearby' } 
             %b{ ng_bind_html: "underlined( [option.name] )" }
-            %span{ ng_hsow: "!option.fcode=='PCLI'", ng_bind_html: "underlined( [option.adminName1,option.countryName] )" } 
-            %span.reset-location.nearby{ ng_click: 'm.plan().removeNearby( option )' } 
-              %i.fa.fa-trash 
-              %span.large-screen.inline Delete
+            %span{ ng_show: "!option.fcode=='PCLI'", ng_bind_html: "underlined( [option.adminName1,option.countryName] )" } 
           %li.search-results-list{ ng_repeat: 'option in m.nearbyOptions', ng_click: 'setNearby(option)', ng_class: 'nearbySearchResultClass(option)', ng_show: 'placeNearby' } 
             %b{ ng_bind_html: "underlined( [option.name] )" }
             %span{ ng_bind_html: "underlined( [option.adminName1,option.countryName] )" } 
           %li.search-results-working{ ng_show: 'placeNearbyWorking>0' } Working on it...
-          %li.search-results-working{ ng_show: 'noPlaceNearbyResults() && !m.typing' } Can't find that...
-        %span.set-location-reminder{ ng_show: '!m.mobile && (!placeNearby || !placeNearby.length>1)' } 
-          %i.fa.fa-arrow-left 
-          %span.largest-screen.inline Set
+          %li.search-results-working{ ng_show: 'placeNearby.length>1 && placeNearbyWorking<1 && m.nearbyOptions.length<1 && !m.typing' } Can't find that...
+
+      .faux-input-wrap{ ng_show: '!m.currentLocation() && ( currentNearby && placeNearby && (m.adding || m.mobile) )', ng_dblclick: 'resetNearby()' }
+        %b In
+        %span {{ nearbyToReset() }}
+        %span.reset-location{ ng_click: 'resetNearby()' } 
+          %i.fa.fa-times 
           %span.large-screen.inline Location
 
-      .input-and-results{ ng_show: 'm.currentLocation() || m.mobile', ng_focus: 'm.engagedInSearch=true', ng_blur: 'm.engagedInSearch=false' } 
-        // m.plan().latest_location_id && 
-        %input#place-name{ name: "place-name", type: 'text', placeholder: '{{ placeholder() }}', ng_model: 'm.placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddMark()", ng_on_esc_key: "placeName=null", ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()', autocomplete: 'off', ng_focus: "m.adding=true;placeNearbyFocused=true", ng_blur: "placeNearbyFocused=false" }
+      .input-and-results{ ng_class: "{'below-nearby': !m.currentLocation()}" } 
+        %input#place-name{ name: "place-name", type: 'text', placeholder: '{{ nameSearchPlaceholder() }}', ng_model: 'm.placeName', ng_change: 'placeNameSearch()', ng_on_enter_key: "lazyAddMark()", ng_on_esc_key: "placeName=null", ng_keyup: 'm.handleKeyup()', ng_keydown: 'm.handleKeydown()', autocomplete: 'off', ng_focus: "m.adding=true;placeSearchFocused=true" }
 
-        %ul.suggested-results.neon{ ng_show: 'm.currentLocation() && !m.typing && m.placeName && m.placeName.length>1', ng_mouseenter: "placeNearbyFocused=true", ng_mouseleave: "placeNearbyFocused=false" }
+        %ul.suggested-results.neon{ ng_show: '(currentNearby || m.currentLocation()) && !m.typing && m.placeName && m.placeName.length>1' }
           %li.search-results-list{ ng_repeat: 'option in m.placeNameOptions', ng_click: 'addMark(option)', ng_class: 'placeNameOptionClass(option, $index)' }
             .bucket-list-tab
               %a{ ng_href: '{{option.href}}', target: '_self' }
@@ -58,7 +46,7 @@
                       .bucket-list-more-info.locale-only
                         {{ option.localeDetails() }}
           %li.search-results-working{ ng_show: 'placeNameWorking>0' } Working on it...
-          %li.search-results-reset{ ng_show: 'noPlaceNameResults() && !m.typing', ng_click: 'resetNearby()' }
+          %li.search-results-reset{ ng_show: 'm.placeName.length>1 && placeNameWorking<1 && m.placeNameOptions.length<1 && !m.typing', ng_click: 'resetNearby()' }
             %b No results... 
             not looking in 
             %b {{ nearbyToReset() }}
