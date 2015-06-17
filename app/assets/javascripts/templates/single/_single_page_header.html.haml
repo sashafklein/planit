@@ -3,7 +3,10 @@
     .container.none.pseudo
       .header-wrapper
         %ng_include{ src: "'header/_logo_container.html'" }
-        %span.centered-username{ ng_show: 'm.mobile'} {{ m.userInQuestion().name }}
+        %span.centered-username{ ng_show: 'm.mobile' } {{ m.userInQuestion().name }}
+        %span.centered-location-name{ ng_show: 'm.currentLocation() && !m.adding', ng_click: "m.goHome()" } 
+          %b {{ bestLocation() }}
+          %i.fa.fa-times
         .top-menu-container{ ng_show: "m.currentUserIsActive", ng_click: 'toggleMainMenu()' }
           %ng_include{src: "'header/_user_avatar.html'" }
           %ul.dropdown-menu-right.planit-dropdown-menu{ ng_show: 'm.mainMenuToggled' }

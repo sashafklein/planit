@@ -112,11 +112,14 @@ angular.module("Directives").directive 'singlePage', (User, Plan, Mark, Item, Pl
       s._loadFromHashCommand()
 
       s._setBrowserTitle = -> 
-        if s.m.plan() && Object.keys( s.m.plan() )?.length
-          document.title = "#{s.m.plan().name} : #{s.m.currentUserFirstName}'s Planit"; return
-        else
-          document.title = "#{s.m.currentUserName}'s Planit"; return
-
+        $timeout(-> 
+          if s.m.hasLength( s.m.plan() )
+            document.title = "#{s.m.plan().name} : #{s.m.currentUserFirstName}'s Planit"; return
+          else if s.m.hasLength( s.m.currentLocation() )
+            document.title = "#{s.m.currentLocation().name} : #{s.m.currentUserFirstName}'s Planit"; return
+          else
+            document.title = "#{s.m.currentUserName}'s Planit"; return
+        , 1000)
 
       # INITIALIZE
 

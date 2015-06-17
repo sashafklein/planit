@@ -28,7 +28,7 @@ angular.module("SPA").service "SPLocations", (User, Plan, Location, Geonames, Qu
           .success (response) ->
             if response
               self.locations[ parseInt( response.geonameId ) ] = response
-              self.clusters[ parseInt( response.clusterId ) ] = { name: response.clusterName, lat: response.lat, lon: response.lon, id: response.clsuterId, geonameId: response.geonameId } if response.isCluster
+              self.clusters[ parseInt( response.clusterId ) ] = { name: response.clusterName, lat: response.clusterLat, lon: response.clusterLon, id: response.clusterId, geonameId: response.clusterGeonameId, rank: response.clusterRank }
             else
               geonameId = null
               QueryString.modify({ in: geonameId })
@@ -43,7 +43,7 @@ angular.module("SPA").service "SPLocations", (User, Plan, Location, Geonames, Qu
           .success (response) ->
             if response
               self.locations[ parseInt( response.geonameId ) ] = response
-              self.clusters[ parseInt( response.clusterId ) ] = { name: response.clusterName, lat: response.lat, lon: response.lon, id: response.clsuterId, geonameId: response.geonameId } if response.isCluster
+              self.clusters[ parseInt( response.clusterId ) ] = { name: response.clusterName, lat: response.clusterLat, lon: response.clusterLon, id: response.clusterId, geonameId: response.clusterGeonameId, rank: response.clusterRank }
             else
               geonameId = null
               QueryString.modify({ in: geonameId })

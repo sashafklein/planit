@@ -13,7 +13,8 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
 
     link: (s, elem) ->
 
-      leafletData.getMap("user").then (map) -> $timeout(-> map.invalidateSize() )
+      s.invalidateSize = -> leafletData.getMap("user").then (map) -> $timeout(-> map.invalidateSize() )
+      s.invalidateSize()
       s.elem = elem
       #   overlays: 
       #     locations:
@@ -62,7 +63,7 @@ angular.module("SPA").directive 'userMap', (leafletData, $timeout, PlanitMarker,
         if !s.m.plan()?.items?.length
           leafletData.getMap("user").then (m) -> if m._zoom < 4 then s.m.clearSelectedCountry()
 
-      s.m.resetUserMapView = -> leafletData.getMap("user").then (m) -> m.setView( { lat: 45, lng: 0 }, 2 )
+      s.m.resetUserMapView = -> leafletData.getMap("user").then (map) -> map.setView( { lat: 45, lng: 0 }, 2 ); $timeout(-> map.invalidateSize() )
 
       s.m.clearSelectedCountry = ->
         s.m.selectedCountry = null

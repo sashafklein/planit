@@ -8,6 +8,7 @@ angular.module("Directives").directive 'singlePageHeader', () ->
 
     s.toggleMainMenu = -> s.m.mainMenuToggled = !s.m.mainMenuToggled
     
+    s.bestLocation = -> if s.m.currentLocation()?.clusterName?.length>0 then s.m.currentLocation().clusterName else if s.m.currentLocation()?.name?.length>0 then s.m.currentLocation().name
     # s.yOffset = -> s.yOffsetIs = $(window).scrollTop()
     # s.$watch( 'yOffset()', (-> s.setOpacity() ), true)
 

@@ -7,7 +7,7 @@ class Api::V1::GeonamesController < ApiController
     query = params[:query].to_s
 
     # res = HTTParty.get "http://api.geonames.org/search?q=#{ query }&fuzzy=0.8&username=#{ username }&lang=en&type=json&maxRows=10&style=full"
-    res = HTTParty.get "http://api.geonames.org/search?q=#{ query }&username=#{ username }&lang=en&type=json&maxRows=25&style=full"
+    res = HTTParty.get "http://api.geonames.org/search?q=#{ query }&featureClass=A&featureClass=P&username=#{ username }&lang=en&type=json&maxRows=25&style=full"
     render json: res.body
   end
 
