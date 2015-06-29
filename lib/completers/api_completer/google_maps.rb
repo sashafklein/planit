@@ -24,6 +24,8 @@ module Completers
       end.select do |venue|
         venue.marker.present? && venue.marker.id.length == 1
       end
+    rescue => e
+      []
     end
 
     def find

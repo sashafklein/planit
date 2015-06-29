@@ -42,6 +42,14 @@ module Scrapers
       run_test 'berkeley', 'http://www.nytimes.com/2014/10/12/travel/things-to-do-in-36-hours-in-berkeley-calif.html'
     end
 
+    it 'parses koreatown correctly' do
+      run_test 'koreatown', 'http://www.nytimes.com/2015/02/15/travel/what-to-do-in-koreatown-los-angeles.html?rref=collection%2Fcolumn%2F36-hours'
+    end
+
+    it 'parses belfast correctly (even with shitty url)' do
+      run_test 'belfast', 'http://www.nytimes.com/2015/02/01/travel/belfast-northern-ireland.html'
+    end
+
     # OLD 36 HOUR FORMATS
 
     it "parses cartagena correctly" do 
