@@ -18,7 +18,7 @@ module Scrapers
       return nil unless url.include?('/travel/')
       
       return NytimesMod::IncorporatedThirtySixDetails if url_include?( url: url, any: ['journeys-36-hours', 'hours.html'] )
-      return NytimesMod::GoogleThirtySixMapped if url_include?( url: url, all: ['to-do-in-36-hours'] ) && google_map_enabled?(url, page)
+      return NytimesMod::GoogleThirtySixMapped if url_include?( url: url, any: ['to-do-in-36-hours', 'what-to-do-in'] ) && google_map_enabled?(url, page)
       return NytimesMod::SeparatedThirtySixDetails if url_include?( url: url, all: ['to-do-in-36-hours'] )
       return NytimesMod::FakeMap if only_fake_map?(url, page)
       return NytimesMod::GeneralTravel
