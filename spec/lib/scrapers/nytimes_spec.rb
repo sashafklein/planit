@@ -64,5 +64,9 @@ module Scrapers
       run_test 'amelia-island', 'http://www.nytimes.com/2003/12/12/travel/journeys-36-hours-amelia-island-fla.html?pagewanted=all', [], true
     end
 
+    it "parses naples, fla correctly" do
+      run_test 'naples-fla', 'http://www.nytimes.com/2014/10/26/travel/things-to-do-in-36-hours-in-naples-fla.html'
+    end
+
   end
 end 

@@ -58,7 +58,7 @@ module Completers
         ApiVenue::FoursquareExploreVenue.new(item)
       end
     rescue => e
-      if e.is_a? VCR::Errors::UnhandledHTTPRequestError
+      if Rails.env.test? && e.is_a? VCR::Errors::UnhandledHTTPRequestError
         cassette = e.message.scan(/(\/Users\/sasha\S+\.yml)/).first.try(:first) || ''
         puts "Ran into a VCR error -- deleting cassette #{cassette}"
         `rm #{cassette}`

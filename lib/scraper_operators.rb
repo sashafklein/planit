@@ -44,12 +44,13 @@ module ScraperOperators
 
   def scrape_container(list)
     return @scrape_container if @scrape_container
-    selector = list.select{ |sel| css(sel).any? }.first
-    @scrape_container = css(selector) if selector
+    return nil unless selector = list.find{ |sel| css(sel).any? }
+    
+    @scrape_container = ( selector == 'article' ? css(selector) : css(selector).first )
   end
 
   def illegal_content # DOUBLE \\
-    illegal_content_array = [
+    [
       "\\<div [^>]*class\\=\\'[^\\s']*ad\\s[^']*\\'\\>.*?\\<\\/div\\>",
       "\\<\\!\\-\\-.*?\\-\\-\\>",
       "\\<script(?:\\s|\\>).*?\\<\\/script\\>",
@@ -73,15 +74,13 @@ module ScraperOperators
 
   def scrape_content
     return @scrape_content if @scrape_content
-    @scrape_content = CGI.unescape( scrape_container(@scrape_target).first.inner_html )
-    @scrape_content = @scrape_content.gsub(/\s\s+/, "  ") #maximum 2 spaces
-    @scrape_content = @scrape_content.gsub(/\n/, '')
-    @scrape_content = @scrape_content.gsub(/[\u00AD]/, '')
-    @scrape_content = @scrape_content.gsub(/\"/, "'")
-    0.upto(illegal_content.length - 1).each do |i|
-      @scrape_content = @scrape_content.gsub(%r!#{illegal_content[i]}!, '')
-    end
-    return @scrape_content
+    @scrape_content = CGI.unescape( scrape_container(@scrape_target).inner_html )
+                        .gsub(/\s\s+/, "  ") #maximum 2 spaces
+                        .gsub(/\n/, '').gsub(/[\u00AD]/, '').gsub(/\"/, "'")
+
+    illegal_content.each{ |reg| @scrape_content.gsub!(%r!#{ reg }!, '') }
+    
+    @scrape_content
   end
 
   def reject_long(string, max_words=10, max_chars=30)
@@ -132,16 +131,14 @@ module ScraperOperators
   end
 
   def unhex(string)
-    string = string.gsub(/\\x26amp\;/, "&") unless !string
-    string = string.gsub(/\\x26/, "&") unless !string
-    string = string.gsub(/\&\#39\;/, "'") unless !string
+    string.gsub(/\\x26amp\;/, "&")
+          .gsub(/\\x26/, "&")
+          .gsub(/\&\#39\;/, "'")
   end
 
   def cased(string)
-    if string
-      return [string, string.titleize, string.capitalize, string.downcase, string.upcase]
-    end
-    return []
+    return [] unless string
+    [string, string.titleize, string.capitalize, string.downcase, string.upcase]
   end
 
 end
