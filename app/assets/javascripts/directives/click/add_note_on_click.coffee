@@ -7,7 +7,7 @@ angular.module("Directives").directive 'addNoteOnClick', (Modal, ErrorReporter, 
       objId: '@'
 
     link: (s, element, attrs) ->
-
+      
       element.bind "click", (event) ->
 
         $('.loading-mask').show()

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Completers
-  xdescribe ApiCompleter::GoogleMaps, :vcr do
+  describe ApiCompleter::GoogleMaps, :vcr do
 
     describe "searching for data" do
       it "finds Wagas with basic location info" do
