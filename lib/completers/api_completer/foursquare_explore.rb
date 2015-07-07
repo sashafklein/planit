@@ -58,11 +58,7 @@ module Completers
         ApiVenue::FoursquareExploreVenue.new(item)
       end
     rescue => e
-      if Rails.env.test? && e.is_a? VCR::Errors::UnhandledHTTPRequestError
-        cassette = e.message.scan(/(\/Users\/sasha\S+\.yml)/).first.try(:first) || ''
-        puts "Ran into a VCR error -- deleting cassette #{cassette}"
-        `rm #{cassette}`
-      end
+      remove_cassette(e) if Rails.env.test?
       @venues ||= []
       flag_failure(query: full_fs_url, response: @response, error: e)
     end
@@ -108,6 +104,14 @@ module Completers
       url = "#{ FS_URL }/explore?#{ nearby_parameter }&query=#{ query }&#{ self.class.auth }&venuePhotos=1"
       flag_query(url)
       url
+    end
+
+    def remove_cassette(e)
+      if e.is_a?( VCR::Errors::UnhandledHTTPRequestError )
+        cassette = e.message.scan(/(\/Users\/sasha\S+\.yml)/).first.try(:first) || ''
+        puts "Ran into a VCR error -- deleting cassette #{cassette}"
+        `rm #{cassette}`
+      end
     end
   end
 end
